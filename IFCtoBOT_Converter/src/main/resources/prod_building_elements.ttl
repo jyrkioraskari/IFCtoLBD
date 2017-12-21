@@ -1,0 +1,1192 @@
+# Copyright 2017 W3C Linked Building Data Community Group.
+# 
+# This work is licensed under a Creative Commons Attribution License. 
+# This copyright applies to the PRODUCT Vocabulary Specification and
+# accompanying documentation in RDF. Regarding underlying technology,
+# PRODUCT uses W3C's RDF technology, an open Web standard that can be freely 
+# used by anyone.
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:<http://purl.org/dc/terms/> .
+@prefix vann:   <http://purl.org/vocab/vann/> .
+@prefix voaf:   <http://purl.org/vocommons/voaf#> .
+@prefix vs:     <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix dce:    <http://purl.org/dc/elements/1.1/> .
+@prefix dbo:    <http://dbpedia.org/ontology/> .
+@prefix bot:    <https://w3id.org/bot#> .
+@prefix ifc: 	<http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
+
+@prefix p4bldg: <https://w3id.org/product/BuildingElements#> .
+@base <https://w3id.org/product/BuildingElements#> . 
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+#################################
+# METADATA
+#################################
+p4bldg:BuildingElements a owl:Ontology , voaf:Vocabulary ;
+    dce:modified "November 27th 2017"^^xsd:string ;
+    owl:versionInfo "November 27th 2017"^^xsd:string ;
+    dcterms:issued "2017-11-27"^^xsd:date ;
+    owl:versionInfo "v0.1.0" ;
+    #owl:priorVersion <https://w3id.org/product/product-0.1.0> ;
+    dcterms:title "PRODUCT Building Elements"@en ;
+    dcterms:description """The Building Elements ontology extends the PRODUCT ontology with specific building elements."""@en ;
+    dcterms:creator [a foaf:Person ; foaf:name "Mads Holten Rasmussen" ] ;
+    dcterms:creator [a foaf:Person ; foaf:name "Pieter Pauwels" ] ;
+    #dcterms:contributor [a foaf:Person ; foaf:name "" ] ;
+    dcterms:license <https://creativecommons.org/licenses/by/1.0/> ;
+    vann:preferredNamespacePrefix "p4bldg" ;
+    vann:preferredNamespaceUri <https://w3id.org/product/BuildingElements#> ;
+    dce:Language "en" ;
+    dce:title "PRODUCT Building Elements" ;
+    dce:description """The Building Elements ontology extends the PRODUCT ontology with specific building elements."""@en ;
+    owl:imports <https://w3id.org/product#> .
+
+#################################
+# CLASSES
+#################################
+
+
+
+p4bldg:Beam-BEAM a owl:Class ;
+    rdfs:label "Beam"^^xsd:string ;
+    rdfs:comment "Describe products of class BEAM a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:Beam-HOLLOWCORE a owl:Class ;
+    rdfs:label "HollowCore"^^xsd:string ;
+    rdfs:comment "Describe products of class HOLLOWCORE a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:Beam-JOIST a owl:Class ;
+    rdfs:label "Joist"^^xsd:string ;
+    rdfs:comment "Describe products of class JOIST a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:Beam-LINTEL a owl:Class ;
+    rdfs:label "Lintel"^^xsd:string ;
+    rdfs:comment "Describe products of class LINTEL a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:Beam-SPANDREL a owl:Class ;
+    rdfs:label "Spandrel"^^xsd:string ;
+    rdfs:comment "Describe products of class SPANDREL a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:Beam-T_BEAM a owl:Class ;
+    rdfs:label "T_Beam"^^xsd:string ;
+    rdfs:comment "Describe products of class T_BEAM a specialisation of Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeamEnumType ;
+    rdfs:subClassOf p4bldg:Beam .
+
+p4bldg:BuildingElementPart-INSULATION a owl:Class ;
+    rdfs:label "Insulation"^^xsd:string ;
+    rdfs:comment "Describe products of class INSULATION a specialisation of BuildingElementPart"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBuildingElementPartEnumType ;
+    rdfs:subClassOf p4bldg:BuildingElementPart .
+
+p4bldg:BuildingElementPart-PRECASTPANEL a owl:Class ;
+    rdfs:label "PrecastPanel"^^xsd:string ;
+    rdfs:comment "Describe products of class PRECASTPANEL a specialisation of BuildingElementPart"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBuildingElementPartEnumType ;
+    rdfs:subClassOf p4bldg:BuildingElementPart .
+
+p4bldg:Column-COLUMN a owl:Class ;
+    rdfs:label "Column"^^xsd:string ;
+    rdfs:comment "Describe products of class COLUMN a specialisation of Column"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcColumnEnumType ;
+    rdfs:subClassOf p4bldg:Column .
+
+p4bldg:Column-PILASTER a owl:Class ;
+    rdfs:label "Pilaster"^^xsd:string ;
+    rdfs:comment "Describe products of class PILASTER a specialisation of Column"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcColumnEnumType ;
+    rdfs:subClassOf p4bldg:Column .
+
+p4bldg:Covering-CEILING a owl:Class ;
+    rdfs:label "Ceiling"^^xsd:string ;
+    rdfs:comment "Describe products of class CEILING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-CLADDING a owl:Class ;
+    rdfs:label "Cladding"^^xsd:string ;
+    rdfs:comment "Describe products of class CLADDING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-FLOORING a owl:Class ;
+    rdfs:label "Flooring"^^xsd:string ;
+    rdfs:comment "Describe products of class FLOORING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-INSULATION a owl:Class ;
+    rdfs:label "Insulation"^^xsd:string ;
+    rdfs:comment "Describe products of class INSULATION a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-MEMBRANE a owl:Class ;
+    rdfs:label "Membrane"^^xsd:string ;
+    rdfs:comment "Describe products of class MEMBRANE a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-MOLDING a owl:Class ;
+    rdfs:label "Molding"^^xsd:string ;
+    rdfs:comment "Describe products of class MOLDING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-ROOFING a owl:Class ;
+    rdfs:label "Roofing"^^xsd:string ;
+    rdfs:comment "Describe products of class ROOFING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-SKIRTINGBOARD a owl:Class ;
+    rdfs:label "SkirtingBoard"^^xsd:string ;
+    rdfs:comment "Describe products of class SKIRTINGBOARD a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-SLEEVING a owl:Class ;
+    rdfs:label "Sleeving"^^xsd:string ;
+    rdfs:comment "Describe products of class SLEEVING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:Covering-WRAPPING a owl:Class ;
+    rdfs:label "Wrapping"^^xsd:string ;
+    rdfs:comment "Describe products of class WRAPPING a specialisation of Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCoveringEnumType ;
+    rdfs:subClassOf p4bldg:Covering .
+
+p4bldg:DiscreteAccessory-ANCHORPLATE a owl:Class ;
+    rdfs:label "AnchorPlate"^^xsd:string ;
+    rdfs:comment "Describe products of class ANCHORPLATE a specialisation of DiscreteAccessory"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDiscreteAccessoryEnumType ;
+    rdfs:subClassOf p4bldg:DiscreteAccessory .
+
+p4bldg:DiscreteAccessory-BRACKET a owl:Class ;
+    rdfs:label "Bracket"^^xsd:string ;
+    rdfs:comment "Describe products of class BRACKET a specialisation of DiscreteAccessory"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDiscreteAccessoryEnumType ;
+    rdfs:subClassOf p4bldg:DiscreteAccessory .
+
+p4bldg:DiscreteAccessory-SHOE a owl:Class ;
+    rdfs:label "Shoe"^^xsd:string ;
+    rdfs:comment "Describe products of class SHOE a specialisation of DiscreteAccessory"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDiscreteAccessoryEnumType ;
+    rdfs:subClassOf p4bldg:DiscreteAccessory .
+
+p4bldg:Door-DOOR a owl:Class ;
+    rdfs:label "Door"^^xsd:string ;
+    rdfs:comment "Describe products of class DOOR a specialisation of Door"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDoorEnumType ;
+    rdfs:subClassOf p4bldg:Door .
+
+p4bldg:Door-GATE a owl:Class ;
+    rdfs:label "Gate"^^xsd:string ;
+    rdfs:comment "Describe products of class GATE a specialisation of Door"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDoorEnumType ;
+    rdfs:subClassOf p4bldg:Door .
+
+p4bldg:Door-TRAPDOOR a owl:Class ;
+    rdfs:label "TrapDoor"^^xsd:string ;
+    rdfs:comment "Describe products of class TRAPDOOR a specialisation of Door"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDoorEnumType ;
+    rdfs:subClassOf p4bldg:Door .
+
+p4bldg:Fastener-GLUE a owl:Class ;
+    rdfs:label "Glue"^^xsd:string ;
+    rdfs:comment "Describe products of class GLUE a specialisation of Fastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFastenerEnumType ;
+    rdfs:subClassOf p4bldg:Fastener .
+
+p4bldg:Fastener-MORTAR a owl:Class ;
+    rdfs:label "Mortar"^^xsd:string ;
+    rdfs:comment "Describe products of class MORTAR a specialisation of Fastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFastenerEnumType ;
+    rdfs:subClassOf p4bldg:Fastener .
+
+p4bldg:Fastener-WELD a owl:Class ;
+    rdfs:label "Weld"^^xsd:string ;
+    rdfs:comment "Describe products of class WELD a specialisation of Fastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFastenerEnumType ;
+    rdfs:subClassOf p4bldg:Fastener .
+
+p4bldg:Footing-CAISSON_FOUNDATION a owl:Class ;
+    rdfs:label "CaissonFoundation"^^xsd:string ;
+    rdfs:comment "Describe products of class CAISSON_FOUNDATION a specialisation of Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFootingEnumType ;
+    rdfs:subClassOf p4bldg:Footing .
+
+p4bldg:Footing-FOOTING_BEAM a owl:Class ;
+    rdfs:label "FootingBeam"^^xsd:string ;
+    rdfs:comment "Describe products of class FOOTING_BEAM a specialisation of Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFootingEnumType ;
+    rdfs:subClassOf p4bldg:Footing .
+
+p4bldg:Footing-PAD_FOOTING a owl:Class ;
+    rdfs:label "PadFooting"^^xsd:string ;
+    rdfs:comment "Describe products of class PAD_FOOTING a specialisation of Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFootingEnumType ;
+    rdfs:subClassOf p4bldg:Footing .
+
+p4bldg:Footing-PILE_CAP a owl:Class ;
+    rdfs:label "PileCap"^^xsd:string ;
+    rdfs:comment "Describe products of class PILE_CAP a specialisation of Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFootingEnumType ;
+    rdfs:subClassOf p4bldg:Footing .
+
+p4bldg:Footing-STRIP_FOOTING a owl:Class ;
+    rdfs:label "StripFooting"^^xsd:string ;
+    rdfs:comment "Describe products of class STRIP_FOOTING a specialisation of Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFootingEnumType ;
+    rdfs:subClassOf p4bldg:Footing .
+
+p4bldg:MechanicalFastener-ANCHORBOLT a owl:Class ;
+    rdfs:label "AnchorBolt"^^xsd:string ;
+    rdfs:comment "Describe products of class ANCHORBOLT a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-BOLT a owl:Class ;
+    rdfs:label "Bolt"^^xsd:string ;
+    rdfs:comment "Describe products of class BOLT a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-DOWEL a owl:Class ;
+    rdfs:label "Dowel"^^xsd:string ;
+    rdfs:comment "Describe products of class DOWEL a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-NAIL a owl:Class ;
+    rdfs:label "Nail"^^xsd:string ;
+    rdfs:comment "Describe products of class NAIL a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-NAILPLATE a owl:Class ;
+    rdfs:label "NailPlate"^^xsd:string ;
+    rdfs:comment "Describe products of class NAILPLATE a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-RIVET a owl:Class ;
+    rdfs:label "Rivet"^^xsd:string ;
+    rdfs:comment "Describe products of class RIVET a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-SCREW a owl:Class ;
+    rdfs:label "Screw"^^xsd:string ;
+    rdfs:comment "Describe products of class SCREW a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-SHEARCONNECTOR a owl:Class ;
+    rdfs:label "ShearConnector"^^xsd:string ;
+    rdfs:comment "Describe products of class SHEARCONNECTOR a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-STAPLE a owl:Class ;
+    rdfs:label "Staple"^^xsd:string ;
+    rdfs:comment "Describe products of class STAPLE a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:MechanicalFastener-STUDSHEARCONNECTOR a owl:Class ;
+    rdfs:label "StudShearConnector"^^xsd:string ;
+    rdfs:comment "Describe products of class STUDSHEARCONNECTOR a specialisation of MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastenerEnumType ;
+    rdfs:subClassOf p4bldg:MechanicalFastener .
+
+p4bldg:Member-BRACE a owl:Class ;
+    rdfs:label "Brace"^^xsd:string ;
+    rdfs:comment "Describe products of class BRACE a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-CHORD a owl:Class ;
+    rdfs:label "Chord"^^xsd:string ;
+    rdfs:comment "Describe products of class CHORD a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-COLLAR a owl:Class ;
+    rdfs:label "Collar"^^xsd:string ;
+    rdfs:comment "Describe products of class COLLAR a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-MEMBER a owl:Class ;
+    rdfs:label "Member"^^xsd:string ;
+    rdfs:comment "Describe products of class MEMBER a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-MULLION a owl:Class ;
+    rdfs:label "Mullion"^^xsd:string ;
+    rdfs:comment "Describe products of class MULLION a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-PLATE a owl:Class ;
+    rdfs:label "Plate"^^xsd:string ;
+    rdfs:comment "Describe products of class PLATE a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-POST a owl:Class ;
+    rdfs:label "Post"^^xsd:string ;
+    rdfs:comment "Describe products of class POST a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-PURLIN a owl:Class ;
+    rdfs:label "Purlin"^^xsd:string ;
+    rdfs:comment "Describe products of class PURLIN a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-RAFTER a owl:Class ;
+    rdfs:label "Rafter"^^xsd:string ;
+    rdfs:comment "Describe products of class RAFTER a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-STRINGER a owl:Class ;
+    rdfs:label "Stringer"^^xsd:string ;
+    rdfs:comment "Describe products of class STRINGER a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-STRUT a owl:Class ;
+    rdfs:label "Strut"^^xsd:string ;
+    rdfs:comment "Describe products of class STRUT a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Member-STUD a owl:Class ;
+    rdfs:label "Stud"^^xsd:string ;
+    rdfs:comment "Describe products of class STUD a specialisation of Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMemberEnumType ;
+    rdfs:subClassOf p4bldg:Member .
+
+p4bldg:Pile-BORED a owl:Class ;
+    rdfs:label "Bored"^^xsd:string ;
+    rdfs:comment "Describe products of class BORED a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Pile-COHESION a owl:Class ;
+    rdfs:label "Cohesion"^^xsd:string ;
+    rdfs:comment "Describe products of class COHESION a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Pile-DRIVEN a owl:Class ;
+    rdfs:label "Driven"^^xsd:string ;
+    rdfs:comment "Describe products of class DRIVEN a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Pile-FRICTION a owl:Class ;
+    rdfs:label "Friction"^^xsd:string ;
+    rdfs:comment "Describe products of class FRICTION a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Pile-JETGROUTING a owl:Class ;
+    rdfs:label "JetGrouting"^^xsd:string ;
+    rdfs:comment "Describe products of class JETGROUTING a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Pile-SUPPORT a owl:Class ;
+    rdfs:label "Support"^^xsd:string ;
+    rdfs:comment "Describe products of class SUPPORT a specialisation of Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPileEnumType ;
+    rdfs:subClassOf p4bldg:Pile .
+
+p4bldg:Plate-CURTAIN_PANEL a owl:Class ;
+    rdfs:label "Curtain_Panel"^^xsd:string ;
+    rdfs:comment "Describe products of class CURTAIN_PANEL a specialisation of Plate"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPlateEnumType ;
+    rdfs:subClassOf p4bldg:Plate .
+
+p4bldg:Plate-SHEET a owl:Class ;
+    rdfs:label "Sheet"^^xsd:string ;
+    rdfs:comment "Describe products of class SHEET a specialisation of Plate"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPlateEnumType ;
+    rdfs:subClassOf p4bldg:Plate .
+
+p4bldg:Railing-BALUSTRADE a owl:Class ;
+    rdfs:label "Balustrade"^^xsd:string ;
+    rdfs:comment "Describe products of class BALUSTRADE a specialisation of Railing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRailingEnumType ;
+    rdfs:subClassOf p4bldg:Railing .
+
+p4bldg:Railing-GUARDRAIL a owl:Class ;
+    rdfs:label "GuardRail"^^xsd:string ;
+    rdfs:comment "Describe products of class GUARDRAIL a specialisation of Railing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRailingEnumType ;
+    rdfs:subClassOf p4bldg:Railing .
+
+p4bldg:Railing-HANDRAIL a owl:Class ;
+    rdfs:label "HandRail"^^xsd:string ;
+    rdfs:comment "Describe products of class HANDRAIL a specialisation of Railing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRailingEnumType ;
+    rdfs:subClassOf p4bldg:Railing .
+
+p4bldg:Ramp-HALF_TURN_RAMP a owl:Class ;
+    rdfs:label "HalfTurnRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class HALF_TURN_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:Ramp-QUARTER_TURN_RAMP a owl:Class ;
+    rdfs:label "QuarterTurnRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class QUARTER_TURN_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:Ramp-SPIRAL_RAMP a owl:Class ;
+    rdfs:label "SpiralRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class SPIRAL_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:Ramp-STRAIGHT_RUN_RAMP a owl:Class ;
+    rdfs:label "StraightRunRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class STRAIGHT_RUN_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:Ramp-TWO_QUARTER_TURN_RAMP a owl:Class ;
+    rdfs:label "TwoQuarterTurnRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_QUARTER_TURN_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:Ramp-TWO_STRAIGHT_RUN_RAMP a owl:Class ;
+    rdfs:label "TwoStraightRunRamp"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_STRAIGHT_RUN_RAMP a specialisation of Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampEnumType ;
+    rdfs:subClassOf p4bldg:Ramp .
+
+p4bldg:RampFlight-SPIRAL a owl:Class ;
+    rdfs:label "Spiral"^^xsd:string ;
+    rdfs:comment "Describe products of class SPIRAL a specialisation of RampFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampFlightEnumType ;
+    rdfs:subClassOf p4bldg:RampFlight .
+
+p4bldg:RampFlight-STRAIGHT a owl:Class ;
+    rdfs:label "Straight"^^xsd:string ;
+    rdfs:comment "Describe products of class STRAIGHT a specialisation of RampFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampFlightEnumType ;
+    rdfs:subClassOf p4bldg:RampFlight .
+
+p4bldg:ReinforcingBar-ANCHORING a owl:Class ;
+    rdfs:label "Anchoring"^^xsd:string ;
+    rdfs:comment "Describe products of class ANCHORING a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-EDGE a owl:Class ;
+    rdfs:label "Edge"^^xsd:string ;
+    rdfs:comment "Describe products of class EDGE a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-LIGATURE a owl:Class ;
+    rdfs:label "Ligature"^^xsd:string ;
+    rdfs:comment "Describe products of class LIGATURE a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-MAIN a owl:Class ;
+    rdfs:label "Main"^^xsd:string ;
+    rdfs:comment "Describe products of class MAIN a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-PUNCHING a owl:Class ;
+    rdfs:label "Punching"^^xsd:string ;
+    rdfs:comment "Describe products of class PUNCHING a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-RING a owl:Class ;
+    rdfs:label "Ring"^^xsd:string ;
+    rdfs:comment "Describe products of class RING a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-SHEAR a owl:Class ;
+    rdfs:label "Shear"^^xsd:string ;
+    rdfs:comment "Describe products of class SHEAR a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:ReinforcingBar-STUD a owl:Class ;
+    rdfs:label "Stud"^^xsd:string ;
+    rdfs:comment "Describe products of class STUD a specialisation of ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBarEnumType ;
+    rdfs:subClassOf p4bldg:ReinforcingBar .
+
+p4bldg:Roof-BARREL_ROOF a owl:Class ;
+    rdfs:label "BarrelRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class BARREL_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-BUTTERFLY_ROOF a owl:Class ;
+    rdfs:label "ButterFlyRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class BUTTERFLY_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-DOME_ROOF a owl:Class ;
+    rdfs:label "DomeRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class DOME_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-FLAT_ROOF a owl:Class ;
+    rdfs:label "FlatRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class FLAT_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-FREEFORM a owl:Class ;
+    rdfs:label "FreeForm"^^xsd:string ;
+    rdfs:comment "Describe products of class FREEFORM a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-GABLE_ROOF a owl:Class ;
+    rdfs:label "GableFoor"^^xsd:string ;
+    rdfs:comment "Describe products of class GABLE_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-GAMBREL_ROOF a owl:Class ;
+    rdfs:label "GambrelRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class GAMBREL_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-HIPPED_GABLE_ROOF a owl:Class ;
+    rdfs:label "HippedGableRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class HIPPED_GABLE_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-HIP_ROOF a owl:Class ;
+    rdfs:label "HipRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class HIP_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-MANSARD_ROOF a owl:Class ;
+    rdfs:label "MansardRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class MANSARD_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-PAVILION_ROOF a owl:Class ;
+    rdfs:label "PavilionRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class PAVILION_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-RAINBOW_ROOF a owl:Class ;
+    rdfs:label "RainbowRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class RAINBOW_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:Roof-SHED_ROOF a owl:Class ;
+    rdfs:label "ShedRoof"^^xsd:string ;
+    rdfs:comment "Describe products of class SHED_ROOF a specialisation of Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoofEnumType ;
+    rdfs:subClassOf p4bldg:Roof .
+
+p4bldg:ShadingDevice-AWNING a owl:Class ;
+    rdfs:label "Awning"^^xsd:string ;
+    rdfs:comment "Describe products of class AWNING a specialisation of ShadingDevice"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcShadingDeviceEnumType ;
+    rdfs:subClassOf p4bldg:ShadingDevice .
+
+p4bldg:ShadingDevice-JALOUSIE a owl:Class ;
+    rdfs:label "Jalousie"^^xsd:string ;
+    rdfs:comment "Describe products of class JALOUSIE a specialisation of ShadingDevice"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcShadingDeviceEnumType ;
+    rdfs:subClassOf p4bldg:ShadingDevice .
+
+p4bldg:ShadingDevice-SHUTTER a owl:Class ;
+    rdfs:label "Shutter"^^xsd:string ;
+    rdfs:comment "Describe products of class SHUTTER a specialisation of ShadingDevice"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcShadingDeviceEnumType ;
+    rdfs:subClassOf p4bldg:ShadingDevice .
+
+p4bldg:Slab-BASESLAB a owl:Class ;
+    rdfs:label "BaseSlab"^^xsd:string ;
+    rdfs:comment "Describe products of class BASESLAB a specialisation of Slab"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcSlabEnumType ;
+    rdfs:subClassOf p4bldg:Slab .
+
+p4bldg:Slab-FLOOR a owl:Class ;
+    rdfs:label "Floor"^^xsd:string ;
+    rdfs:comment "Describe products of class FLOOR a specialisation of Slab"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcSlabEnumType ;
+    rdfs:subClassOf p4bldg:Slab .
+
+p4bldg:Slab-LANDING a owl:Class ;
+    rdfs:label "Landing"^^xsd:string ;
+    rdfs:comment "Describe products of class LANDING a specialisation of Slab"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcSlabEnumType ;
+    rdfs:subClassOf p4bldg:Slab .
+
+p4bldg:Slab-ROOF a owl:Class ;
+    rdfs:label "Roof"^^xsd:string ;
+    rdfs:comment "Describe products of class ROOF a specialisation of Slab"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcSlabEnumType ;
+    rdfs:subClassOf p4bldg:Slab .
+
+p4bldg:Stair-CURVED_RUN_STAIR a owl:Class ;
+    rdfs:label "CurvedRunStair"^^xsd:string ;
+    rdfs:comment "Describe products of class CURVED_RUN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-DOUBLE_RETURN_STAIR a owl:Class ;
+    rdfs:label "DoubleReturnStair"^^xsd:string ;
+    rdfs:comment "Describe products of class DOUBLE_RETURN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-HALF_TURN_STAIR a owl:Class ;
+    rdfs:label "HalfTurnStair"^^xsd:string ;
+    rdfs:comment "Describe products of class HALF_TURN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-HALF_WINDING_STAIR a owl:Class ;
+    rdfs:label "HalfWindingStair"^^xsd:string ;
+    rdfs:comment "Describe products of class HALF_WINDING_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-QUARTER_TURN_STAIR a owl:Class ;
+    rdfs:label "QuarterTurnStair"^^xsd:string ;
+    rdfs:comment "Describe products of class QUARTER_TURN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-QUARTER_WINDING_STAIR a owl:Class ;
+    rdfs:label "QuarterWindingStair"^^xsd:string ;
+    rdfs:comment "Describe products of class QUARTER_WINDING_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-SPIRAL_STAIR a owl:Class ;
+    rdfs:label "SpiralStair"^^xsd:string ;
+    rdfs:comment "Describe products of class SPIRAL_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-STRAIGHT_RUN_STAIR a owl:Class ;
+    rdfs:label "StraightRunStair"^^xsd:string ;
+    rdfs:comment "Describe products of class STRAIGHT_RUN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-THREE_QUARTER_TURN_STAIR a owl:Class ;
+    rdfs:label "ThreeQuarterTurnStair"^^xsd:string ;
+    rdfs:comment "Describe products of class THREE_QUARTER_TURN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-THREE_QUARTER_WINDING_STAIR a owl:Class ;
+    rdfs:label "ThreeQuarterWindingStair"^^xsd:string ;
+    rdfs:comment "Describe products of class THREE_QUARTER_WINDING_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-TWO_CURVED_RUN_STAIR a owl:Class ;
+    rdfs:label "TwoCurvedRunStair"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_CURVED_RUN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-TWO_QUARTER_TURN_STAIR a owl:Class ;
+    rdfs:label "TwoQuarterTurnStair"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_QUARTER_TURN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-TWO_QUARTER_WINDING_STAIR a owl:Class ;
+    rdfs:label "TwoQuarterWindingStair"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_QUARTER_WINDING_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:Stair-TWO_STRAIGHT_RUN_STAIR a owl:Class ;
+    rdfs:label "TwoStraightRunStair"^^xsd:string ;
+    rdfs:comment "Describe products of class TWO_STRAIGHT_RUN_STAIR a specialisation of Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairEnumType ;
+    rdfs:subClassOf p4bldg:Stair .
+
+p4bldg:StairFlight-CURVED a owl:Class ;
+    rdfs:label "Curved"^^xsd:string ;
+    rdfs:comment "Describe products of class CURVED a specialisation of StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlightEnumType ;
+    rdfs:subClassOf p4bldg:StairFlight .
+
+p4bldg:StairFlight-FREEFORM a owl:Class ;
+    rdfs:label "Freeform"^^xsd:string ;
+    rdfs:comment "Describe products of class FREEFORM a specialisation of StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlightEnumType ;
+    rdfs:subClassOf p4bldg:StairFlight .
+
+p4bldg:StairFlight-SPIRAL a owl:Class ;
+    rdfs:label "Spiral"^^xsd:string ;
+    rdfs:comment "Describe products of class SPIRAL a specialisation of StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlightEnumType ;
+    rdfs:subClassOf p4bldg:StairFlight .
+
+p4bldg:StairFlight-STRAIGHT a owl:Class ;
+    rdfs:label "Straight"^^xsd:string ;
+    rdfs:comment "Describe products of class STRAIGHT a specialisation of StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlightEnumType ;
+    rdfs:subClassOf p4bldg:StairFlight .
+
+p4bldg:StairFlight-WINDER a owl:Class ;
+    rdfs:label "Winder"^^xsd:string ;
+    rdfs:comment "Describe products of class WINDER a specialisation of StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlightEnumType ;
+    rdfs:subClassOf p4bldg:StairFlight .
+
+p4bldg:Tendon-BAR a owl:Class ;
+    rdfs:label "Bar"^^xsd:string ;
+    rdfs:comment "Describe products of class BAR a specialisation of Tendon"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonEnumType ;
+    rdfs:subClassOf p4bldg:Tendon .
+
+p4bldg:Tendon-COATED a owl:Class ;
+    rdfs:label "Coated"^^xsd:string ;
+    rdfs:comment "Describe products of class COATED a specialisation of Tendon"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonEnumType ;
+    rdfs:subClassOf p4bldg:Tendon .
+
+p4bldg:Tendon-STRAND a owl:Class ;
+    rdfs:label "Strand"^^xsd:string ;
+    rdfs:comment "Describe products of class STRAND a specialisation of Tendon"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonEnumType ;
+    rdfs:subClassOf p4bldg:Tendon .
+
+p4bldg:Tendon-WIRE a owl:Class ;
+    rdfs:label "Wire"^^xsd:string ;
+    rdfs:comment "Describe products of class WIRE a specialisation of Tendon"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonEnumType ;
+    rdfs:subClassOf p4bldg:Tendon .
+
+p4bldg:TendonAnchor-COUPLER a owl:Class ;
+    rdfs:label "Coupler"^^xsd:string ;
+    rdfs:comment "Describe products of class COUPLER a specialisation of TendonAnchor"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonAnchorEnumType ;
+    rdfs:subClassOf p4bldg:TendonAnchor .
+
+p4bldg:TendonAnchor-FIXED_END a owl:Class ;
+    rdfs:label "FixedEnd"^^xsd:string ;
+    rdfs:comment "Describe products of class FIXED_END a specialisation of TendonAnchor"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonAnchorEnumType ;
+    rdfs:subClassOf p4bldg:TendonAnchor .
+
+p4bldg:TendonAnchor-TENSIONING_END a owl:Class ;
+    rdfs:label "TensioningEnd"^^xsd:string ;
+    rdfs:comment "Describe products of class TENSIONING_END a specialisation of TendonAnchor"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonAnchorEnumType ;
+    rdfs:subClassOf p4bldg:TendonAnchor .
+
+p4bldg:TransportElement-CRANEWAY a owl:Class ;
+    rdfs:label "Craneway"^^xsd:string ;
+    rdfs:comment "Describe products of class CRANEWAY a specialisation of TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElementEnumType ;
+    rdfs:subClassOf p4bldg:TransportElement .
+
+p4bldg:TransportElement-ELEVATOR a owl:Class ;
+    rdfs:label "Elevator"^^xsd:string ;
+    rdfs:comment "Describe products of class ELEVATOR a specialisation of TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElementEnumType ;
+    rdfs:subClassOf p4bldg:TransportElement .
+
+p4bldg:TransportElement-ESCALATOR a owl:Class ;
+    rdfs:label "Escalator"^^xsd:string ;
+    rdfs:comment "Describe products of class ESCALATOR a specialisation of TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElementEnumType ;
+    rdfs:subClassOf p4bldg:TransportElement .
+
+p4bldg:TransportElement-LIFTINGGEAR a owl:Class ;
+    rdfs:label "LiftingGear"^^xsd:string ;
+    rdfs:comment "Describe products of class LIFTINGGEAR a specialisation of TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElementEnumType ;
+    rdfs:subClassOf p4bldg:TransportElement .
+
+p4bldg:TransportElement-MOVINGWALKWAY a owl:Class ;
+    rdfs:label "MovingWalkway"^^xsd:string ;
+    rdfs:comment "Describe products of class MOVINGWALKWAY a specialisation of TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElementEnumType ;
+    rdfs:subClassOf p4bldg:TransportElement .
+
+p4bldg:VibrationIsolator-COMPRESSION a owl:Class ;
+    rdfs:label "Compression"^^xsd:string ;
+    rdfs:comment "Describe products of class COMPRESSION a specialisation of VibrationIsolator"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcVibrationIsolatorEnumType ;
+    rdfs:subClassOf p4bldg:VibrationIsolator .
+
+p4bldg:VibrationIsolator-SPRING a owl:Class ;
+    rdfs:label "Spring"^^xsd:string ;
+    rdfs:comment "Describe products of class SPRING a specialisation of VibrationIsolator"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcVibrationIsolatorEnumType ;
+    rdfs:subClassOf p4bldg:VibrationIsolator .
+
+p4bldg:Wall-ELEMENTEDWALL a owl:Class ;
+    rdfs:label "ElementedWall"^^xsd:string ;
+    rdfs:comment "Describe products of class ELEMENTEDWALL a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-MOVABLE a owl:Class ;
+    rdfs:label "MovableWall"^^xsd:string ;
+    rdfs:comment "Describe products of class MOVABLE a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-PARAPET a owl:Class ;
+    rdfs:label "ParapetWall"^^xsd:string ;
+    rdfs:comment "Describe products of class PARAPET a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-PARTITIONING a owl:Class ;
+    rdfs:label "PartitioningWall"^^xsd:string ;
+    rdfs:comment "Describe products of class PARTITIONING a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-PLUMBINGWALL a owl:Class ;
+    rdfs:label "PlumbingWall"^^xsd:string ;
+    rdfs:comment "Describe products of class PLUMBINGWALL a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-POLYGONAL a owl:Class ;
+    rdfs:label "PolygonalWall"^^xsd:string ;
+    rdfs:comment "Describe products of class POLYGONAL a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-SHEAR a owl:Class ;
+    rdfs:label "Shear"^^xsd:string ;
+    rdfs:comment "Describe products of class SHEAR a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-SOLIDWALL a owl:Class ;
+    rdfs:label "SolidWall"^^xsd:string ;
+    rdfs:comment "Describe products of class SOLIDWALL a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Wall-STANDARD a owl:Class ;
+    rdfs:label "StandardWall"^^xsd:string ;
+    rdfs:comment "Describe products of class STANDARD a specialisation of Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallEnumType ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:WallElementedCase a owl:Class ;
+    rdfs:label "WallElementedCase"^^xsd:string ;
+    rdfs:comment "Describe products of class WallElementedCase"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWallElementedCase ;
+    rdfs:subClassOf p4bldg:Wall .
+
+p4bldg:Window-LIGHTDOME a owl:Class ;
+    rdfs:label "LightDome"^^xsd:string ;
+    rdfs:comment "Describe products of class LIGHTDOME a specialisation of Window"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWindowEnumType ;
+    rdfs:subClassOf p4bldg:Window .
+
+p4bldg:Window-SKYLIGHT a owl:Class ;
+    rdfs:label "Skylight"^^xsd:string ;
+    rdfs:comment "Describe products of class SKYLIGHT a specialisation of Window"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWindowEnumType ;
+    rdfs:subClassOf p4bldg:Window .
+
+p4bldg:Window-WINDOW a owl:Class ;
+    rdfs:label "Window"^^xsd:string ;
+    rdfs:comment "Describe products of class WINDOW a specialisation of Window"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWindowEnumType ;
+    rdfs:subClassOf p4bldg:Window .
+
+<https://www.researchgate.net/profile/Georg_Schneider3> a owl:NamedIndividual .
+
+p4bldg:Chimney a owl:Class ;	
+    rdfs:label      "Chimney"@en ,
+                    "Schoorsteen"@nl ,
+                    "Skorsten"@da ;
+    rdfs:comment "Describe products of class Chimney"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcChimney ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:CurtainWall a owl:Class ;
+    rdfs:label      "Curtain Wall"@en ,
+                    "Gordijngevel"@nl ,
+                    "Curtain Wall"@da ;
+    rdfs:comment "Describe products of class CurtainWall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCurtainWall ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:ReinforcingMesh a owl:Class ;
+    rdfs:label "ReinforcingMesh"^^xsd:string ;
+    rdfs:comment "Describe products of class ReinforcingMesh"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingMesh ;
+    rdfs:subClassOf p4bldg:ReinforcingElement .
+
+p4bldg:BuildingElementPart a owl:Class ;
+    rdfs:label "BuildingElementPart"^^xsd:string ;
+    rdfs:comment "Describe products of class BuildingElementPart"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBuildingElementPart ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:RampFlight a owl:Class ;
+    rdfs:label "RampFlight"^^xsd:string ;
+    rdfs:comment "Describe products of class RampFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRampFlight ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:ReinforcingElement a owl:Class ;
+    rdfs:label "ReinforcingElement"^^xsd:string ;
+    rdfs:comment "Describe products of class ReinforcingElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingElement ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:VibrationIsolator a owl:Class ;
+    rdfs:label "VibrationIsolator"^^xsd:string ;
+    rdfs:comment "Describe products of class VibrationIsolator"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcVibrationIsolator ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:Column a owl:Class ;	
+    rdfs:label      "Column"@en ,
+                    "Kolom"@nl ,
+                    "Søjle"@da ;
+    rdfs:comment "Describe products of class Column"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcColumn ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:DiscreteAccessory a owl:Class ;
+    rdfs:label "DiscreteAccessory"^^xsd:string ;
+    rdfs:comment "Describe products of class DiscreteAccessory"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDiscreteAccessory ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:Fastener a owl:Class ;
+    rdfs:label "Fastener"^^xsd:string ;
+    rdfs:comment "Describe products of class Fastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFastener ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:Plate a owl:Class ;
+    rdfs:label "Plate"^^xsd:string ;
+    rdfs:comment "Describe products of class Plate"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPlate ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Railing a owl:Class ;
+    rdfs:label      "Railing"@en ,
+                    "Leuning"@nl ,
+                    "Gelænder"@da ;
+    rdfs:comment "Describe products of class Railing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRailing ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:ShadingDevice a owl:Class ;
+    rdfs:label      "Shading Device"@en ,
+                    "Zonnewering"@nl ,
+                    "Afskærmningsanordning"@da ;
+    rdfs:comment "Describe products of class ShadingDevice"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcShadingDevice ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:TendonAnchor a owl:Class ;
+    rdfs:label "TendonAnchor"^^xsd:string ;
+    rdfs:comment "Describe products of class TendonAnchor"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendonAnchor ;
+    rdfs:subClassOf p4bldg:ReinforcingElement .
+
+p4bldg:Door a owl:Class ;
+    rdfs:label      "Door"@en ,
+                    "Deur"@nl ,
+                    "Dør"@da ;
+    rdfs:comment "Describe products of class Door"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcDoor ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:ElementComponent a owl:Class ;
+    rdfs:label "ElementComponent"^^xsd:string ;
+    rdfs:comment "Describe products of class ElementComponent"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcElementComponent ;
+	rdfs:subClassOf <https://w3id.org/product#Product> .
+
+p4bldg:Tendon a owl:Class ;
+    rdfs:label "Tendon"^^xsd:string ;
+    rdfs:comment "Describe products of class Tendon"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTendon ;
+    rdfs:subClassOf p4bldg:ReinforcingElement .
+
+p4bldg:Window a owl:Class ;
+    rdfs:label      "Window"@en ,
+                    "Raam"@nl ,
+                    "Vindue"@da ;
+    rdfs:comment "Describe products of class Window"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWindow ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:BuildingElementProxy a owl:Class ;
+    rdfs:label "BuildingElementProxy"^^xsd:string ;
+    rdfs:comment "Describe products of class BuildingElementProxy"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBuildingElementProxy ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Footing a owl:Class ;
+    rdfs:label "Footing"^^xsd:string ;
+    rdfs:comment "Describe products of class Footing"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFooting ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:StairFlight a owl:Class ;
+    rdfs:label "StairFlight"^^xsd:string ;
+    rdfs:comment "Describe products of class StairFlight"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStairFlight ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:TransportElement a owl:Class ;
+    rdfs:label "TransportElement"^^xsd:string ;
+    rdfs:comment "Describe products of class TransportElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcTransportElement ;
+	rdfs:subClassOf <https://w3id.org/product#Product> .
+
+p4bldg:Pile a owl:Class ;
+    rdfs:label "Pile"^^xsd:string ;
+    rdfs:comment "Describe products of class Pile"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcPile ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Ramp a owl:Class ;
+    rdfs:label      "Ramp"@en ,
+                    "Helling"@nl ,
+                    "Rampe"@da ;
+    rdfs:comment "Describe products of class Ramp"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRamp ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Slab a owl:Class ;
+    rdfs:label      "Slab"@en ,
+                    "Plaat"@nl ,
+                    "Dæk"@da ;
+    rdfs:comment "Describe products of class Slab"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcSlab ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Beam a owl:Class ;	
+    rdfs:label      "Beam"@en ,
+                    "Balk"@nl ,
+                    "Bjælke"@da ;
+    rdfs:comment "Describe products of class Beam"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBeam ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:ReinforcingBar a owl:Class ;
+    rdfs:label "ReinforcingBar"^^xsd:string ;
+    rdfs:comment "Describe products of class ReinforcingBar"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcReinforcingBar ;
+    rdfs:subClassOf p4bldg:ReinforcingElement .
+
+p4bldg:Covering a owl:Class ;
+    rdfs:label "Covering"^^xsd:string ;
+    rdfs:comment "Describe products of class Covering"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcCovering ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:MechanicalFastener a owl:Class ;
+    rdfs:label "MechanicalFastener"^^xsd:string ;
+    rdfs:comment "Describe products of class MechanicalFastener"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMechanicalFastener ;
+    rdfs:subClassOf p4bldg:ElementComponent .
+
+p4bldg:Wall a owl:Class ;	
+    rdfs:label      "Wall"@en ,
+					"Muur"@nl ,
+                    "Væg"@da ;
+    rdfs:comment "Describe products of class Wall"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcWall ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Member a owl:Class ;
+    rdfs:label "Member"^^xsd:string ;
+    rdfs:comment "Describe products of class Member"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcMember ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Roof a owl:Class ;
+    rdfs:label      "Roof"@en ,
+                    "Dak"@nl ,
+                    "Tag"@da ;
+    rdfs:comment "Describe products of class Roof"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcRoof ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:Stair a owl:Class ;
+    rdfs:label      "Stair"@en ,
+                    "Trap"@nl ,
+                    "Trappe"@da ;
+    rdfs:comment "Describe products of class Stair"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcStair ;
+    rdfs:subClassOf p4bldg:BuildingElement .
+
+p4bldg:BuildingElement a owl:Class ;
+    rdfs:label "BuildingElement"^^xsd:string ;
+    rdfs:comment "Describe products of class BuildingElement"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcBuildingElement ;
+	rdfs:subClassOf <https://w3id.org/product#Product> .
