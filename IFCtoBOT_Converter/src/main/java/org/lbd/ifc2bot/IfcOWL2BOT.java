@@ -104,6 +104,12 @@ public class IfcOWL2BOT {
 			addLabel(site, sio);
 			addDescription(site.asResource(), sio);
 			sio.addProperty(RDF.type, BOT.site);
+			
+
+			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+				Resource pset = formatURI(propertyset, output_model, "PropertySet");
+				sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
+			});
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
 				Resource bo = formatURI(building, output_model, "Building");
@@ -111,6 +117,12 @@ public class IfcOWL2BOT {
 				addDescription(building, bo);
 				bo.addProperty(RDF.type, BOT.building);
 				sio.addProperty(BOT.hasBuilding, bo);
+				
+				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+					Resource pset = formatURI(propertyset, output_model, "PropertySet");
+					bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+				});
+
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
 					Resource so = formatURI(storey, output_model, "Storey");
@@ -119,6 +131,11 @@ public class IfcOWL2BOT {
 
 					bo.addProperty(BOT.hasStorey, so);
 					so.addProperty(RDF.type, BOT.storey);
+					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+						Resource pset = formatURI(propertyset, output_model, "PropertySet");
+						so.addProperty(BOT.PropertySet.hasPropertySet, pset);
+					});
+
 
 					listElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
 						Optional<String> predefined_type = getPredefinedData(element);
