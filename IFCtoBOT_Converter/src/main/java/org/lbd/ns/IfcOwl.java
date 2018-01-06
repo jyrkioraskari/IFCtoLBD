@@ -43,6 +43,9 @@ public class IfcOwl extends abstract_NS {
 	
 	public static final Property description = property(IFC2x3, "description_IfcRoot");
 	public static final Property name = property(IFC2x3, "name_IfcRoot");
+	public static final Property longName = property(IFC2x3, "longName_IfcSpatialStructureElement");
+	  
+	
 	public static final Property guid = property(IFC2x3, "globalId_IfcRoot");
 	public static final Property guid_simple = property(IFC2x3, "guid");
 
