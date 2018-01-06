@@ -68,74 +68,84 @@ public class IfcOWL2BOT {
 		readInOntologies();
 		createIfcBOTMapping();
 
+		
 		Model output_model = ModelFactory.createDefaultModel();
 		RDFS.addNameSpace(output_model);
 		BOT.addNameSpaces(output_model);
 		IfcOwl.addNameSpace(output_model);
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase);
 
-		
 		listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-			Resource pset = formatURI(propertyset, output_model, "PropertySet");
+			Resource pset = createformattedURI(propertyset, output_model, "PropertySet");
+			pset.addProperty(RDF.type, BOT.PropertySet.propertyset);
 			addLabel(propertyset, pset);
 
 			RDFStep[] path = { new RDFStep(IfcOwl.hasProperties_IfcPropertySet) };
 			pathQuery(propertyset, path).forEach(propertySingleValue -> {
-				Resource p = formatURI(propertySingleValue.asResource(), output_model, "Property");
-				pset.addProperty(BOT.PropertySet.hasProperty, p);
 
 				RDFStep[] name_path = { new RDFStep(IfcOwl.name_IfcProperty), new RDFStep(IfcOwl.hasString) };
-				pathQuery(propertySingleValue.asResource(), name_path)
-						.forEach(name -> p.addProperty(BOT.PropertySet.hasName, name));
+				final List<RDFNode> property_name = new ArrayList<>();
+				pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 
 				RDFStep[] value_path = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
 						new RDFStep(IfcOwl.hasString) };
-				pathQuery(propertySingleValue.asResource(), value_path)
-						.forEach(name -> p.addProperty(BOT.PropertySet.hasValue, name));
+				final List<RDFNode> property_value = new ArrayList<>();
+				pathQuery(propertySingleValue.asResource(), value_path).forEach(value -> property_value.add(value));
+
+				if (property_name.size() > 0 && property_value.size() > 0) {
+					RDFNode pname = property_name.get(0);
+					RDFNode pvalue = property_value.get(0);
+					if (!pname.toString().equals(pvalue.toString())) {
+						Resource p = createformattedURI(propertySingleValue.asResource(), output_model, "Property");
+						p.addProperty(RDF.type, BOT.PropertySet.property);
+
+						pset.addProperty(BOT.PropertySet.hasProperty, p);
+						
+						p.addProperty(BOT.PropertySet.hasName, pname);
+						p.addProperty(BOT.PropertySet.hasValue, pvalue);
+					}
+				}
 
 			});
 		});
 
-		
-
-		
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
-			Resource sio = formatURI(site, output_model, "Site");
+			Resource sio = createformattedURI(site, output_model, "Site");
 			addLabel(site, sio);
 			addDescription(site.asResource(), sio);
 			sio.addProperty(RDF.type, BOT.site);
-			
 
 			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-				Resource pset = formatURI(propertyset, output_model, "PropertySet");
-				sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
+				Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+				if(output_model.containsResource(pset))
+				  sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
 			});
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
-				Resource bo = formatURI(building, output_model, "Building");
+				Resource bo = createformattedURI(building, output_model, "Building");
 				addLabel(building, bo);
 				addDescription(building, bo);
 				bo.addProperty(RDF.type, BOT.building);
 				sio.addProperty(BOT.hasBuilding, bo);
-				
+
 				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-					Resource pset = formatURI(propertyset, output_model, "PropertySet");
-					bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+					Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+					if(output_model.containsResource(pset))
+					  bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 				});
 
-
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
-					Resource so = formatURI(storey, output_model, "Storey");
+					Resource so = createformattedURI(storey, output_model, "Storey");
 					addLabel(storey, so);
 					addDescription(storey, so);
 
 					bo.addProperty(BOT.hasStorey, so);
 					so.addProperty(RDF.type, BOT.storey);
 					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-						Resource pset = formatURI(propertyset, output_model, "PropertySet");
-						so.addProperty(BOT.PropertySet.hasPropertySet, pset);
+						Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+						if(output_model.containsResource(pset))
+						  so.addProperty(BOT.PropertySet.hasPropertySet, pset);
 					});
-
 
 					listElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
 						Optional<String> predefined_type = getPredefinedData(element);
@@ -146,7 +156,7 @@ public class IfcOWL2BOT {
 						}
 
 						if (bot_type.isPresent()) {
-							Resource eo = formatURI(element, output_model, bot_type.get().getLocalName());
+							Resource eo = createformattedURI(element, output_model, bot_type.get().getLocalName());
 							addLabel(element, eo);
 							addDescription(element, eo);
 							if (predefined_type.isPresent()) {
@@ -159,26 +169,34 @@ public class IfcOWL2BOT {
 							so.addProperty(BOT.containsElement, eo);
 
 							listPropertysets(element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-								Resource pset = formatURI(propertyset, output_model, "PropertySet");
-								eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+								Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+								if(output_model.containsResource(pset))
+								  eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 							});
 						}
 					});
 
 					listSpaces(storey.asResource()).stream().forEach(space -> {
-						Resource spo = formatURI(space.asResource(), output_model, "Space");
-						addLabel(space.asResource(), spo);
+						Resource spo = createformattedURI(space.asResource(), output_model, "Space");
+						addLongName(space.asResource(), spo);
 						addDescription(space.asResource(), spo);
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
+
+						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
+								.forEach(propertyset -> {
+									Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+									if(output_model.containsResource(pset))
+									  spo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+								});
 					});
 				});
 			});
 		});
-        
-		String out_filename=ifc_filename.split("\\.")[0]+"_BOT.ttl";
-		
+
+		String out_filename = ifc_filename.split("\\.")[0] + "_BOT.ttl";
+
 		try {
 			FileOutputStream fo = new FileOutputStream(new File(out_filename));
 			output_model.write(fo, "TTL");
@@ -187,7 +205,7 @@ public class IfcOWL2BOT {
 		}
 		output_model.write(System.out, "TTL");
 
-		System.out.println("Conversion done. File is: "+out_filename);
+		System.out.println("Conversion done. File is: " + out_filename);
 	}
 
 	private Optional<Resource> getType(Resource r) {
@@ -219,7 +237,12 @@ public class IfcOWL2BOT {
 				.listProperties(IfcOwl.hasString).forEachRemaining(y -> bot_r.addProperty(RDFS.label, y.getObject())));
 	}
 
-	private Resource formatURI(Resource r, Model m, String product_type) {
+	private void addLongName(Resource ifc_r, final Resource bot_r) {
+		ifc_r.listProperties(IfcOwl.longName).toList().forEach(x -> x.getObject().asResource()
+				.listProperties(IfcOwl.hasString).forEachRemaining(y -> bot_r.addProperty(RDFS.label, y.getObject())));
+	}
+
+	private Resource createformattedURI(Resource r, Model m, String product_type) {
 		String guid = getGUID(r);
 		if (guid == null) {
 			Resource uri = m.createResource(this.uriBase + product_type + "/" + r.getLocalName());
@@ -233,6 +256,18 @@ public class IfcOWL2BOT {
 		}
 	}
 
+	private Resource getformattedURI(Resource r, Model m, String product_type) {
+		String guid = getGUID(r);
+		if (guid == null) {
+			Resource uri = m.getResource(this.uriBase + product_type + "/" + r.getLocalName());
+			return uri;
+		} else {
+			Resource guid_uri = m
+					.getResource(this.uriBase + product_type + "/" + GuidCompressor.uncompressGuidString(guid));
+			return guid_uri;
+		}
+	}
+	
 	private String getGUID(Resource r) {
 		StmtIterator i = r.listProperties(IfcOwl.guid);
 		if (i.hasNext()) {
@@ -330,24 +365,29 @@ public class IfcOWL2BOT {
 	public void createIfcBOTMapping() {
 		StmtIterator si = ontology_model.listStatements();
 		while (si.hasNext()) {
-			Statement s = si.next();
-			if (s.getPredicate().toString().toLowerCase().contains("seealso")) {
-				if (s.getObject().isLiteral())
+			Statement product_BE_ontology_statement = si.next();
+			if (product_BE_ontology_statement.getPredicate().toString().toLowerCase().contains("seealso")) {
+				if (product_BE_ontology_statement.getObject().isLiteral())
 					continue;
+				if(!product_BE_ontology_statement.getObject().isResource())
+					continue;
+				Resource ifcowl_class=product_BE_ontology_statement.getObject().asResource();
+				// This adds the seeAlso mapping directly
 				List<Resource> resource_list = ifcowl_product_map
-						.getOrDefault(s.getObject().asResource().getLocalName(), new ArrayList<Resource>());
-				ifcowl_product_map.put(s.getObject().asResource().getLocalName(), resource_list);
-				resource_list.add(s.getSubject());
+						.getOrDefault(ifcowl_class.getLocalName(), new ArrayList<Resource>());
+				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
+				resource_list.add(product_BE_ontology_statement.getSubject());
 
-				StmtIterator superi = ontology_model
-						.listStatements(new SimpleSelector(null, RDFS.subClassOf, s.getObject()));
-				while (superi.hasNext()) {
-					Statement su = superi.next();
-
-					List<Resource> r_list = ifcowl_product_map.getOrDefault(su.getSubject().getLocalName(),
+				// This adds the nearest subclasses of the IFC entity class
+				
+				StmtIterator subclass_iterator = ifcowl_class.listProperties(RDFS.subClassOf);
+				while (subclass_iterator.hasNext()) {
+					Statement su = subclass_iterator.next();
+					Resource ifcowl_subclass=su.getObject().asResource();
+					List<Resource> r_list = ifcowl_product_map.getOrDefault(ifcowl_subclass.getLocalName(),
 							new ArrayList<Resource>());
-					ifcowl_product_map.put(su.getSubject().getLocalName(), r_list);
-					r_list.add(s.getSubject());
+					ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);
+					r_list.add(product_BE_ontology_statement.getSubject());
 				}
 
 			}
