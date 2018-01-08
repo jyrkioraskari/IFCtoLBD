@@ -17,6 +17,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.http.impl.io.SocketOutputBuffer;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
@@ -26,6 +27,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.reasoner.rulesys.impl.SafeGraph;
 import org.apache.jena.vocabulary.RDF;
 import org.lbd.ifc2bot.rdfpath.InvRDFStep;
 import org.lbd.ifc2bot.rdfpath.RDFStep;
@@ -68,7 +70,6 @@ public class IfcOWL2BOT {
 		readInOntologies();
 		createIfcBOTMapping();
 
-		
 		Model output_model = ModelFactory.createDefaultModel();
 		RDFS.addNameSpace(output_model);
 		BOT.addNameSpaces(output_model);
@@ -100,7 +101,7 @@ public class IfcOWL2BOT {
 						p.addProperty(RDF.type, BOT.PropertySet.property);
 
 						pset.addProperty(BOT.PropertySet.hasProperty, p);
-						
+
 						p.addProperty(BOT.PropertySet.hasName, pname);
 						p.addProperty(BOT.PropertySet.hasValue, pvalue);
 					}
@@ -113,38 +114,43 @@ public class IfcOWL2BOT {
 			Resource sio = createformattedURI(site, output_model, "Site");
 			addLabel(site, sio);
 			addDescription(site.asResource(), sio);
+			addAttrributes(site.asResource(), sio);
+
 			sio.addProperty(RDF.type, BOT.site);
 
 			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 				Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-				if(output_model.containsResource(pset))
-				  sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
+				if (output_model.containsResource(pset))
+					sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
 			});
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
 				Resource bo = createformattedURI(building, output_model, "Building");
 				addLabel(building, bo);
 				addDescription(building, bo);
+				addAttrributes(building, bo);	
+
 				bo.addProperty(RDF.type, BOT.building);
 				sio.addProperty(BOT.hasBuilding, bo);
 
 				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 					Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-					if(output_model.containsResource(pset))
-					  bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+					if (output_model.containsResource(pset))
+						bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 				});
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
 					Resource so = createformattedURI(storey, output_model, "Storey");
 					addLabel(storey, so);
 					addDescription(storey, so);
+					addAttrributes(storey,so);		
 
 					bo.addProperty(BOT.hasStorey, so);
 					so.addProperty(RDF.type, BOT.storey);
 					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 						Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-						if(output_model.containsResource(pset))
-						  so.addProperty(BOT.PropertySet.hasPropertySet, pset);
+						if (output_model.containsResource(pset))
+							so.addProperty(BOT.PropertySet.hasPropertySet, pset);
 					});
 
 					listElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
@@ -170,9 +176,10 @@ public class IfcOWL2BOT {
 
 							listPropertysets(element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 								Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-								if(output_model.containsResource(pset))
-								  eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+								if (output_model.containsResource(pset))
+									eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 							});
+							addAttrributes(element,eo);							
 						}
 					});
 
@@ -183,12 +190,14 @@ public class IfcOWL2BOT {
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
+						addAttrributes(space.asResource(),spo);							
+
 
 						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
 								.forEach(propertyset -> {
 									Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-									if(output_model.containsResource(pset))
-									  spo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+									if (output_model.containsResource(pset))
+										spo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 								});
 					});
 				});
@@ -203,11 +212,24 @@ public class IfcOWL2BOT {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		output_model.write(System.out, "TTL");
+		// output_model.write(System.out, "TTL");
 
 		System.out.println("Conversion done. File is: " + out_filename);
 	}
 
+	private void addAttrributes(Resource r,Resource bot_r) {
+		r.listProperties().forEachRemaining(s -> {
+			String property_string = s.getPredicate().getLocalName();
+			Resource attr = s.getObject().asResource();
+			Optional<Resource> atype=getType(attr); 
+			if(atype.isPresent())
+			if (atype.get().getURI().toString()
+					.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcLabel")) {
+				attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s->bot_r.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
+			}
+		});
+	}
+	
 	private Optional<Resource> getType(Resource r) {
 		RDFStep[] path = { new RDFStep(RDFS.type) };
 		return pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
@@ -267,7 +289,7 @@ public class IfcOWL2BOT {
 			return guid_uri;
 		}
 	}
-	
+
 	private String getGUID(Resource r) {
 		StmtIterator i = r.listProperties(IfcOwl.guid);
 		if (i.hasNext()) {
@@ -369,21 +391,21 @@ public class IfcOWL2BOT {
 			if (product_BE_ontology_statement.getPredicate().toString().toLowerCase().contains("seealso")) {
 				if (product_BE_ontology_statement.getObject().isLiteral())
 					continue;
-				if(!product_BE_ontology_statement.getObject().isResource())
+				if (!product_BE_ontology_statement.getObject().isResource())
 					continue;
-				Resource ifcowl_class=product_BE_ontology_statement.getObject().asResource();
+				Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
 				// This adds the seeAlso mapping directly
-				List<Resource> resource_list = ifcowl_product_map
-						.getOrDefault(ifcowl_class.getLocalName(), new ArrayList<Resource>());
+				List<Resource> resource_list = ifcowl_product_map.getOrDefault(ifcowl_class.getLocalName(),
+						new ArrayList<Resource>());
 				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
 				resource_list.add(product_BE_ontology_statement.getSubject());
 
 				// This adds the nearest subclasses of the IFC entity class
-				
+
 				StmtIterator subclass_iterator = ifcowl_class.listProperties(RDFS.subClassOf);
 				while (subclass_iterator.hasNext()) {
 					Statement su = subclass_iterator.next();
-					Resource ifcowl_subclass=su.getObject().asResource();
+					Resource ifcowl_subclass = su.getObject().asResource();
 					List<Resource> r_list = ifcowl_product_map.getOrDefault(ifcowl_subclass.getLocalName(),
 							new ArrayList<Resource>());
 					ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);

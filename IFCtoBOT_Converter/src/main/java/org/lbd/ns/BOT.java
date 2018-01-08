@@ -26,6 +26,7 @@ public class BOT extends abstract_NS{
 		model.setNsPrefix("bot", bot_ns);
 		Product.addNameSpace(model);
 		PropertySet.addNameSpace(model);
+		LocalProperty.addNameSpace(model);
 	}
 
 
@@ -43,6 +44,24 @@ public class BOT extends abstract_NS{
 			return resource(product_ns, uri);
 		}
 		
+		public static Property getProperty(String name) {
+			String[] splitted=name.split("_");
+			return property(product_ns,splitted[0]);
+		}
+	}
+
+
+	public static class LocalProperty {
+		public static final String local_ns = "https://w3id.org/property#";
+
+		public static void addNameSpace(Model model)
+		{
+			model.setNsPrefix("property", local_ns);
+		}
+		public static Property getProperty(String name) {
+			String[] splitted=name.split("_");
+			return property(local_ns,splitted[0]);
+		}
 	}
 
 	
