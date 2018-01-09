@@ -17,17 +17,15 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.apache.http.impl.io.SocketOutputBuffer;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.reasoner.rulesys.impl.SafeGraph;
 import org.apache.jena.vocabulary.RDF;
 import org.lbd.ifc2bot.rdfpath.InvRDFStep;
 import org.lbd.ifc2bot.rdfpath.RDFStep;
@@ -112,8 +110,8 @@ public class IfcOWL2BOT {
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, output_model, "Site");
-			addLabel(site, sio);
-			addDescription(site.asResource(), sio);
+			//addLabel(site, sio);
+			//addDescription(site.asResource(), sio);
 			addAttrributes(site.asResource(), sio);
 
 			sio.addProperty(RDF.type, BOT.site);
@@ -126,8 +124,8 @@ public class IfcOWL2BOT {
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
 				Resource bo = createformattedURI(building, output_model, "Building");
-				addLabel(building, bo);
-				addDescription(building, bo);
+				//addLabel(building, bo);
+				//addDescription(building, bo);
 				addAttrributes(building, bo);	
 
 				bo.addProperty(RDF.type, BOT.building);
@@ -141,8 +139,8 @@ public class IfcOWL2BOT {
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
 					Resource so = createformattedURI(storey, output_model, "Storey");
-					addLabel(storey, so);
-					addDescription(storey, so);
+					//addLabel(storey, so);
+					//addDescription(storey, so);
 					addAttrributes(storey,so);		
 
 					bo.addProperty(BOT.hasStorey, so);
@@ -153,45 +151,26 @@ public class IfcOWL2BOT {
 							so.addProperty(BOT.PropertySet.hasPropertySet, pset);
 					});
 
-					listElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
-						Optional<String> predefined_type = getPredefinedData(element);
-						Optional<Resource> ifcowl_type = getType(element);
-						Optional<Resource> bot_type = Optional.empty();
-						if (ifcowl_type.isPresent()) {
-							bot_type = getBOTProductType(ifcowl_type.get().getLocalName());
-						}
-
-						if (bot_type.isPresent()) {
-							Resource eo = createformattedURI(element, output_model, bot_type.get().getLocalName());
-							addLabel(element, eo);
-							addDescription(element, eo);
-							if (predefined_type.isPresent()) {
-								Resource product = output_model
-										.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
-								eo.addProperty(RDF.type, product);
-							} else
-								eo.addProperty(RDF.type, bot_type.get());
-							eo.addProperty(RDF.type, BOT.element);
-							so.addProperty(BOT.containsElement, eo);
-
-							listPropertysets(element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-								Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-								if (output_model.containsResource(pset))
-									eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
-							});
-							addAttrributes(element,eo);							
-						}
+					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
+						connectElement(output_model, so, element);
 					});
 
-					listSpaces(storey.asResource()).stream().forEach(space -> {
+					listStoreySpaces(storey.asResource()).stream().forEach(space -> {
 						Resource spo = createformattedURI(space.asResource(), output_model, "Space");
-						addLongName(space.asResource(), spo);
-						addDescription(space.asResource(), spo);
+						//addLongName(space.asResource(), spo);
+						//addDescription(space.asResource(), spo);
+						addAttrributes(space.asResource(),spo);							
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
-						addAttrributes(space.asResource(),spo);							
-
+						listContained_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource()).forEach(element -> {
+							connectElement(output_model, spo,element);
+						});
+						
+						listAdjacent_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource()).forEach(element -> {
+							connectElement(output_model, spo,BOT.adjacentElement,element);
+						});
+						
 
 						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
 								.forEach(propertyset -> {
@@ -212,9 +191,63 @@ public class IfcOWL2BOT {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		// output_model.write(System.out, "TTL");
 
 		System.out.println("Conversion done. File is: " + out_filename);
+	}
+
+	private void connectElement(Model output_model, Resource bot_resource,Resource ifc_element) {
+		Optional<String> predefined_type = getPredefinedData(ifc_element);
+		Optional<Resource> ifcowl_type = getType(ifc_element);
+		Optional<Resource> bot_type = Optional.empty();
+		if (ifcowl_type.isPresent()) {
+			bot_type = getBOTProductType(ifcowl_type.get().getLocalName());
+		}
+
+		if (bot_type.isPresent()) {
+			Resource eo = createformattedURI(ifc_element, output_model, bot_type.get().getLocalName());
+			//addLabel(ifc_element, eo);
+			//addDescription(ifc_element, eo);
+			if (predefined_type.isPresent()) {
+				Resource product = output_model
+						.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
+				eo.addProperty(RDF.type, product);
+			} else
+				eo.addProperty(RDF.type, bot_type.get());
+			eo.addProperty(RDF.type, BOT.element);
+			bot_resource.addProperty(BOT.containsElement, eo);
+
+			listPropertysets(ifc_element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+				Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
+				if (output_model.containsResource(pset))
+					eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+			});
+			addAttrributes(ifc_element,eo);	
+			
+			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+				connectElement(output_model, eo,BOT.hostsElement,ifc_element2);
+			});
+			
+
+			listAggregated_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+				connectElement(output_model, eo,BOT.aggregates,ifc_element2);
+			});
+		}
+	}
+
+	
+	private void connectElement(Model output_model, Resource bot_resource,Property bot_property,Resource element) {
+		Optional<Resource> ifcowl_type = getType(element);
+		Optional<Resource> bot_type = Optional.empty();
+		if (ifcowl_type.isPresent()) {
+			bot_type = getBOTProductType(ifcowl_type.get().getLocalName());
+		}
+
+		if (bot_type.isPresent()) {
+			Resource bot_object = createformattedURI(element, output_model, bot_type.get().getLocalName());
+			addLabel(element, bot_object);
+			addDescription(element, bot_object);
+			bot_resource.addProperty(bot_property, bot_object);
+		}
 	}
 
 	private void addAttrributes(Resource r,Resource bot_r) {
@@ -331,18 +364,87 @@ public class IfcOWL2BOT {
 		return pathQuery(building, path);
 	}
 
-	private List<RDFNode> listSpaces(Resource storey) {
-		RDFStep[] path = { new InvRDFStep(IfcOwl.relatingObject_IfcRelDecomposes),
-				new RDFStep(IfcOwl.relatedObjects_IfcRelDecomposes) };
-		return pathQuery(storey, path);
+	private List<RDFNode> listStoreySpaces(Resource storey) {
+		List<RDFNode> ret;
+		
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.relatingObject_IfcRelDecomposes),
+				new RDFStep(IfcOwl.relatedObjects_IfcRelDecomposes)  };
+		ret=pathQuery(storey, path1);	
+		RDFStep[] path2 =  {
+				new RDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")),
+				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
+		};
+		ret.addAll(pathQuery(storey, path2));
+		
+		return ret;
 	}
 
-	private List<RDFNode> listElements(Resource storey) {
-		RDFStep[] path = { new InvRDFStep(IfcOwl.relatingStructure_IfcRelContainedInSpatialStructure),
-				new RDFStep(IfcOwl.relatedElements_IfcRelContainedInSpatialStructure) };
-		return pathQuery(storey, path);
+	private List<RDFNode> listContained_StoreyElements(Resource storey) {
+        List<RDFNode> ret;
+		
+		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
+				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure"))};
+		ret=pathQuery(storey, path1);
+		RDFStep[] path2 =  {new RDFStep(IfcOwl.getProperty(" objectPlacement_IfcProduct")),
+				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
+        };
+		ret.addAll(pathQuery(storey, path2));
+		return ret;
 	}
 
+	private List<RDFNode> listContained_SpaceElements(Resource storey) {
+        List<RDFNode> ret;
+		
+		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
+				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure"))
+        };
+		ret=pathQuery(storey, path1);	
+		return ret;
+	}
+
+	private List<RDFNode> listAdjacent_SpaceElements(Resource storey) {
+        List<RDFNode> ret;
+		
+		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingSpace_IfcRelSpaceBoundary")),
+				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelSpaceBoundary"))
+        };
+		ret=pathQuery(storey, path1);	
+		return ret;
+	}
+
+	
+	private List<RDFNode> listHosted_Elements(Resource element) {
+        List<RDFNode> ret;
+		
+		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
+				new RDFStep(IfcOwl.getProperty("relatedOpeningElement_IfcRelVoidsElement")),
+				new InvRDFStep(IfcOwl.getProperty("relatingOpeningElement_IfcRelFillsElement")),
+				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelFillsElement"))
+        };
+		ret=pathQuery(element, path1);	
+		RDFStep[] path2 =  {new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
+				new RDFStep(IfcOwl.getProperty("relatedOpeningElement_IfcRelVoidsElement")),
+				new RDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")),
+				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
+         };
+		ret.addAll(pathQuery(element, path2));
+		
+		return ret;
+	}
+	
+	private List<RDFNode> listAggregated_Elements(Resource element) {
+        List<RDFNode> ret;
+		
+		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatedObjects_IfcRelDecomposes")),
+				new RDFStep(IfcOwl.getProperty("relatingObject_IfcRelDecomposes"))};
+		ret=pathQuery(element, path1);	
+		return ret;
+	}
+	
+	
 	private List<Resource> listElements() {
 		final List<Resource> ret = new ArrayList<>();
 		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDFS.type)).filterKeep(t2 -> {

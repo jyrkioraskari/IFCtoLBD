@@ -13,6 +13,10 @@ public class BOT extends abstract_NS{
 	public static final Property hasStorey =property(bot_ns,"hasStorey");
 	public static final Property adjacentElement =property(bot_ns,"adjacentElement");
 	public static final Property containsElement =property(bot_ns,"containsElement");
+
+	public static final Property hostsElement =property(bot_ns,"hostsElement");
+	public static final Property aggregates =property(bot_ns,"aggregates");
+
 	public static final Property hasSpace =property(bot_ns,"hasSpace");
 	
 	public static final Resource site=resource(bot_ns,"Site");

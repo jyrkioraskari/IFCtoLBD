@@ -60,5 +60,7 @@ public class IfcOwl extends abstract_NS {
 	}
 
 	public static final Property hasString = property(EXPRESS, "hasString");
-
+	public static Property getProperty(String name) {
+		return property(IFC2x3,name);
+	}
 }
