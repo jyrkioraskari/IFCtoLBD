@@ -39,7 +39,7 @@ import guidcompressor.GuidCompressor;
 /*
 * The GNU Affero General Public License
 * 
-* Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+* Copyright (c) 2017, 2018 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
 * 
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Affero General Public License as
@@ -61,8 +61,14 @@ public class IfcOWL2BOT {
 	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
+	private static final String props_base = "https://w3id.org/product/props/";
 
-	public IfcOWL2BOT(String ifc_filename, String uriBase) {
+	// URI-propertyset
+	private Map<String, PropertySet> propertysets = new HashMap<>();
+
+	public IfcOWL2BOT(String ifc_filename, String uriBase, String target_file) {
+		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
+			uriBase += "#";
 		this.uriBase = uriBase;
 		ontology_model = ModelFactory.createDefaultModel();
 		readInOntologies();
@@ -72,13 +78,12 @@ public class IfcOWL2BOT {
 		RDFS.addNameSpace(output_model);
 		BOT.addNameSpaces(output_model);
 		IfcOwl.addNameSpace(output_model);
+		output_model.setNsPrefix("inst", uriBase);
+		output_model.setNsPrefix("props", props_base);
+					 
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase);
 
 		listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-			Resource pset = createformattedURI(propertyset, output_model, "PropertySet");
-			pset.addProperty(RDF.type, BOT.PropertySet.propertyset);
-			addLabel(propertyset, pset);
-
 			RDFStep[] path = { new RDFStep(IfcOwl.hasProperties_IfcPropertySet) };
 			pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
@@ -95,13 +100,13 @@ public class IfcOWL2BOT {
 					RDFNode pname = property_name.get(0);
 					RDFNode pvalue = property_value.get(0);
 					if (!pname.toString().equals(pvalue.toString())) {
-						Resource p = createformattedURI(propertySingleValue.asResource(), output_model, "Property");
-						p.addProperty(RDF.type, BOT.PropertySet.property);
-
-						pset.addProperty(BOT.PropertySet.hasProperty, p);
-
-						p.addProperty(BOT.PropertySet.hasName, pname);
-						p.addProperty(BOT.PropertySet.hasValue, pvalue);
+						PropertySet ps = this.propertysets.get(propertyset.getURI());
+						if (ps == null) {
+							ps = new PropertySet();
+							this.propertysets.put(propertyset.getURI(), ps);
+						}
+						if(pvalue.toString().trim().length()>0)
+						  ps.put(toCamelCase(pname.toString()), pvalue.toString());
 					}
 				}
 
@@ -110,45 +115,62 @@ public class IfcOWL2BOT {
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, output_model, "Site");
-			//addLabel(site, sio);
-			//addDescription(site.asResource(), sio);
 			addAttrributes(site.asResource(), sio);
 
 			sio.addProperty(RDF.type, BOT.site);
 
 			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-				Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-				if (output_model.containsResource(pset))
-					sio.addProperty(BOT.PropertySet.hasPropertySet, pset);
+					PropertySet p_set = this.propertysets.get(propertyset.getURI());
+					if (p_set != null) {
+						for (String k : p_set.getMap().keySet()) {
+							Property property = output_model.createProperty(this.props_base + k);
+							Literal l = output_model.createLiteral(p_set.getMap().get(k));
+							sio.addProperty(property, l);
+						}
+					}
 			});
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
+				if(!getType(building.asResource()).get().getURI().equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcBuilding"))
+					return;
 				Resource bo = createformattedURI(building, output_model, "Building");
-				//addLabel(building, bo);
-				//addDescription(building, bo);
-				addAttrributes(building, bo);	
+				addAttrributes(building, bo);
 
 				bo.addProperty(RDF.type, BOT.building);
 				sio.addProperty(BOT.hasBuilding, bo);
 
 				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-					Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-					if (output_model.containsResource(pset))
-						bo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+						PropertySet p_set = this.propertysets.get(propertyset.getURI());
+						if (p_set != null) {
+							for (String k : p_set.getMap().keySet()) {
+								Property property = output_model.createProperty(this.props_base + k);
+								Literal l = output_model.createLiteral(p_set.getMap().get(k));
+								bo.addProperty(property, l);
+							}
+						}
 				});
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
+					if(!getType(storey.asResource()).get().getURI().equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcBuildingStorey"))
+						return;
+
 					Resource so = createformattedURI(storey, output_model, "Storey");
-					//addLabel(storey, so);
-					//addDescription(storey, so);
-					addAttrributes(storey,so);		
+					addAttrributes(storey, so);
 
 					bo.addProperty(BOT.hasStorey, so);
 					so.addProperty(RDF.type, BOT.storey);
+
 					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-						Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-						if (output_model.containsResource(pset))
-							so.addProperty(BOT.PropertySet.hasPropertySet, pset);
+						PropertySet p_set = this.propertysets.get(propertyset.getURI());
+						if (p_set != null) {
+							for (String k : p_set.getMap().keySet()) {
+								Property property = output_model.createProperty(this.props_base + k);
+								Literal l = output_model.createLiteral(p_set.getMap().get(k));
+								so.addProperty(property, l);
+								System.out.println(so+" : "+property+" --> "+l);
+
+							}
+						}
 					});
 
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
@@ -156,46 +178,70 @@ public class IfcOWL2BOT {
 					});
 
 					listStoreySpaces(storey.asResource()).stream().forEach(space -> {
+						if(!getType(space.asResource()).get().getURI().equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcSpace"))
+								return;
 						Resource spo = createformattedURI(space.asResource(), output_model, "Space");
-						//addLongName(space.asResource(), spo);
-						//addDescription(space.asResource(), spo);
-						addAttrributes(space.asResource(),spo);							
+						addAttrributes(space.asResource(), spo);
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
-						listContained_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource()).forEach(element -> {
-							connectElement(output_model, spo,element);
-						});
-						
-						listAdjacent_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource()).forEach(element -> {
-							connectElement(output_model, spo,BOT.adjacentElement,element);
-						});
-						
+						listContained_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource())
+								.forEach(element -> {
+									connectElement(output_model, spo, element);
+								});
+
+						listAdjacent_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource())
+								.forEach(element -> {
+									connectElement(output_model, spo, BOT.adjacentElement, element);
+								});
 
 						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
 								.forEach(propertyset -> {
-									Resource pset = getformattedURI(propertyset, output_model, "PropertySet");
-									if (output_model.containsResource(pset))
-										spo.addProperty(BOT.PropertySet.hasPropertySet, pset);
+									PropertySet p_set = this.propertysets.get(propertyset.getURI());
+									if (p_set != null) {
+										for (String k : p_set.getMap().keySet()) {
+											Property property = output_model.createProperty(this.props_base + k);
+											Literal l = output_model.createLiteral(p_set.getMap().get(k));
+											spo.addProperty(property, l);
+											System.out.println(spo+" : "+property+" --> "+l);
+										}
+									}
 								});
 					});
 				});
 			});
 		});
 
-		String out_filename = ifc_filename.split("\\.")[0] + "_BOT.ttl";
+		// String out_filename = ifc_filename.split("\\.")[0] + "_BOT.ttl";
 
 		try {
-			FileOutputStream fo = new FileOutputStream(new File(out_filename));
+			FileOutputStream fo = new FileOutputStream(new File(target_file));
 			output_model.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		System.out.println("Conversion done. File is: " + out_filename);
+		System.out.println("Conversion done. File is: " + target_file);
 	}
 
-	private void connectElement(Model output_model, Resource bot_resource,Resource ifc_element) {
+	// https://stackoverflow.com/questions/17078347/convert-a-string-to-modified-camel-case-in-java-or-title-case-as-is-otherwise-ca
+	public static String toCamelCase(final String init) {
+		if (init == null)
+			return null;
+
+		final StringBuilder ret = new StringBuilder(init.length());
+
+		for (final String word : init.split(" ")) {
+			if (!word.isEmpty()) {
+				ret.append(word.substring(0, 1).toUpperCase());
+				ret.append(word.substring(1).toLowerCase());
+			}
+		}
+
+		return ret.toString();
+	}
+
+	private void connectElement(Model output_model, Resource bot_resource, Resource ifc_element) {
 		Optional<String> predefined_type = getPredefinedData(ifc_element);
 		Optional<Resource> ifcowl_type = getType(ifc_element);
 		Optional<Resource> bot_type = Optional.empty();
@@ -205,11 +251,10 @@ public class IfcOWL2BOT {
 
 		if (bot_type.isPresent()) {
 			Resource eo = createformattedURI(ifc_element, output_model, bot_type.get().getLocalName());
-			//addLabel(ifc_element, eo);
-			//addDescription(ifc_element, eo);
+			// addLabel(ifc_element, eo);
+			// addDescription(ifc_element, eo);
 			if (predefined_type.isPresent()) {
-				Resource product = output_model
-						.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
+				Resource product = output_model.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
 				eo.addProperty(RDF.type, product);
 			} else
 				eo.addProperty(RDF.type, bot_type.get());
@@ -221,21 +266,19 @@ public class IfcOWL2BOT {
 				if (output_model.containsResource(pset))
 					eo.addProperty(BOT.PropertySet.hasPropertySet, pset);
 			});
-			addAttrributes(ifc_element,eo);	
-			
+			addAttrributes(ifc_element, eo);
+
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(output_model, eo,BOT.hostsElement,ifc_element2);
+				connectElement(output_model, eo, BOT.hostsElement, ifc_element2);
 			});
-			
 
 			listAggregated_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(output_model, eo,BOT.aggregates,ifc_element2);
+				connectElement(output_model, eo, BOT.aggregates, ifc_element2);
 			});
 		}
 	}
 
-	
-	private void connectElement(Model output_model, Resource bot_resource,Property bot_property,Resource element) {
+	private void connectElement(Model output_model, Resource bot_resource, Property bot_property, Resource element) {
 		Optional<Resource> ifcowl_type = getType(element);
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
@@ -250,19 +293,20 @@ public class IfcOWL2BOT {
 		}
 	}
 
-	private void addAttrributes(Resource r,Resource bot_r) {
+	private void addAttrributes(Resource r, Resource bot_r) {
 		r.listProperties().forEachRemaining(s -> {
 			String property_string = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
-			Optional<Resource> atype=getType(attr); 
-			if(atype.isPresent())
-			if (atype.get().getURI().toString()
-					.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcLabel")) {
-				attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s->bot_r.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
-			}
+			Optional<Resource> atype = getType(attr);
+			if (atype.isPresent())
+				if (atype.get().getURI().toString()
+						.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcLabel")) {
+					attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
+							.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
+				}
 		});
 	}
-	
+
 	private Optional<Resource> getType(Resource r) {
 		RDFStep[] path = { new RDFStep(RDFS.type) };
 		return pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
@@ -300,11 +344,20 @@ public class IfcOWL2BOT {
 	private Resource createformattedURI(Resource r, Model m, String product_type) {
 		String guid = getGUID(r);
 		if (guid == null) {
-			Resource uri = m.createResource(this.uriBase + product_type + "/" + r.getLocalName());
+			String localName = r.getLocalName();
+			if (localName.startsWith("IfcPropertySingleValue")) {
+				if (localName.lastIndexOf('_') > 0)
+					localName = localName.substring(localName.lastIndexOf('_') + 1);
+				Resource uri = m.createResource(this.uriBase + "propertySingleValue_" + localName);
+				return uri;
+			}
+			if (localName.toLowerCase().startsWith("ifc"))
+				localName = localName.substring(3);
+			Resource uri = m.createResource(this.uriBase + product_type.toLowerCase() + "_" + localName);
 			return uri;
 		} else {
-			Resource guid_uri = m
-					.createResource(this.uriBase + product_type + "/" + GuidCompressor.uncompressGuidString(guid));
+			Resource guid_uri = m.createResource(
+					this.uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
 			Literal l = m.createLiteral(guid);
 			guid_uri.addLiteral(IfcOwl.guid_simple, l);
 			return guid_uri;
@@ -366,85 +419,76 @@ public class IfcOWL2BOT {
 
 	private List<RDFNode> listStoreySpaces(Resource storey) {
 		List<RDFNode> ret;
-		
+
 		RDFStep[] path1 = { new InvRDFStep(IfcOwl.relatingObject_IfcRelDecomposes),
-				new RDFStep(IfcOwl.relatedObjects_IfcRelDecomposes)  };
-		ret=pathQuery(storey, path1);	
-		RDFStep[] path2 =  {
-				new RDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")),
+				new RDFStep(IfcOwl.relatedObjects_IfcRelDecomposes) };
+		ret = pathQuery(storey, path1);
+		RDFStep[] path2 = { new RDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")),
 				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
-				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
-		};
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")) };
 		ret.addAll(pathQuery(storey, path2));
-		
+
 		return ret;
 	}
 
 	private List<RDFNode> listContained_StoreyElements(Resource storey) {
-        List<RDFNode> ret;
-		
-		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
-				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure"))};
-		ret=pathQuery(storey, path1);
-		RDFStep[] path2 =  {new RDFStep(IfcOwl.getProperty(" objectPlacement_IfcProduct")),
+		List<RDFNode> ret;
+
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
+				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure")) };
+		ret = pathQuery(storey, path1);
+		RDFStep[] path2 = { new RDFStep(IfcOwl.getProperty(" objectPlacement_IfcProduct")),
 				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
-				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
-        };
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")) };
 		ret.addAll(pathQuery(storey, path2));
 		return ret;
 	}
 
 	private List<RDFNode> listContained_SpaceElements(Resource storey) {
-        List<RDFNode> ret;
-		
-		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
-				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure"))
-        };
-		ret=pathQuery(storey, path1);	
+		List<RDFNode> ret;
+
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
+				new RDFStep(IfcOwl.getProperty("relatedElements_IfcRelContainedInSpatialStructure")) };
+		ret = pathQuery(storey, path1);
 		return ret;
 	}
 
 	private List<RDFNode> listAdjacent_SpaceElements(Resource storey) {
-        List<RDFNode> ret;
-		
-		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingSpace_IfcRelSpaceBoundary")),
-				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelSpaceBoundary"))
-        };
-		ret=pathQuery(storey, path1);	
+		List<RDFNode> ret;
+
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.getProperty("relatingSpace_IfcRelSpaceBoundary")),
+				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelSpaceBoundary")) };
+		ret = pathQuery(storey, path1);
 		return ret;
 	}
 
-	
 	private List<RDFNode> listHosted_Elements(Resource element) {
-        List<RDFNode> ret;
-		
-		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
+		List<RDFNode> ret;
+
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
 				new RDFStep(IfcOwl.getProperty("relatedOpeningElement_IfcRelVoidsElement")),
 				new InvRDFStep(IfcOwl.getProperty("relatingOpeningElement_IfcRelFillsElement")),
-				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelFillsElement"))
-        };
-		ret=pathQuery(element, path1);	
-		RDFStep[] path2 =  {new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
+				new RDFStep(IfcOwl.getProperty("relatedBuildingElement_IfcRelFillsElement")) };
+		ret = pathQuery(element, path1);
+		RDFStep[] path2 = { new InvRDFStep(IfcOwl.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
 				new RDFStep(IfcOwl.getProperty("relatedOpeningElement_IfcRelVoidsElement")),
 				new RDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")),
 				new InvRDFStep(IfcOwl.getProperty("placementRelTo_IfcLocalPlacement")),
-				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct"))
-         };
+				new InvRDFStep(IfcOwl.getProperty("objectPlacement_IfcProduct")) };
 		ret.addAll(pathQuery(element, path2));
-		
+
 		return ret;
 	}
-	
+
 	private List<RDFNode> listAggregated_Elements(Resource element) {
-        List<RDFNode> ret;
-		
-		RDFStep[] path1 = {new InvRDFStep(IfcOwl.getProperty("relatedObjects_IfcRelDecomposes")),
-				new RDFStep(IfcOwl.getProperty("relatingObject_IfcRelDecomposes"))};
-		ret=pathQuery(element, path1);	
+		List<RDFNode> ret;
+
+		RDFStep[] path1 = { new InvRDFStep(IfcOwl.getProperty("relatedObjects_IfcRelDecomposes")),
+				new RDFStep(IfcOwl.getProperty("relatingObject_IfcRelDecomposes")) };
+		ret = pathQuery(element, path1);
 		return ret;
 	}
-	
-	
+
 	private List<Resource> listElements() {
 		final List<Resource> ret = new ArrayList<>();
 		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDFS.type)).filterKeep(t2 -> {
@@ -570,10 +614,10 @@ public class IfcOWL2BOT {
 	}
 
 	public static void main(String[] args) {
-		if (args.length > 0)
-			new IfcOWL2BOT(args[0], args[1]);
-		else
-			System.out.println("Usage: IfcOWL2BOT1 ifc_filename base_uri");
+		if (args.length > 2) {
+			new IfcOWL2BOT(args[0], args[1], args[2]);
+		} else
+			System.out.println("Usage: IfcOWL2BOT1 ifc_filename base_uri targer_file");
 	}
 
 }

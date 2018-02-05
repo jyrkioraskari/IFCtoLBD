@@ -345,24 +345,42 @@ public class IfcSpfReader {
         InputStream in = null;
         try {
             om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-            in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
+            in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
+            //TODO check the eclipse settings
+            if(in==null)
+                in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
             om.read(in, null, "TTL");
 
-            String expressTtl = "/express.ttl";
+            String expressTtl = "/resources/express.ttl";
             InputStream expressTtlStream = IfcSpfReader.class.getResourceAsStream(expressTtl);
+            if(expressTtlStream==null)
+            {
+            	expressTtl = "/express.ttl";
+                expressTtlStream = IfcSpfReader.class.getResourceAsStream(expressTtl);
+            }
+            
             OntModel expressModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
             expressModel.read(expressTtlStream, null, "TTL");
 
-            String rdfList = "/list.ttl";
+            String rdfList = "/resources/list.ttl";
             InputStream rdfListStream = IfcSpfReader.class.getResourceAsStream(rdfList);
+            if(rdfListStream==null)
+            {
+            	rdfList = "/list.ttl";
+            	rdfListStream = IfcSpfReader.class.getResourceAsStream(rdfList);
+            }
+            
             OntModel listModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
             listModel.read(rdfListStream, null, "TTL");
 
             om.add(expressModel);
             om.add(listModel);
 
-            InputStream fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
+            if(fis==null)
+            	fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
+            
             Map<String, EntityVO> ent = null;
             try {
                 ent = (Map<String, EntityVO>) ois.readObject();
@@ -372,7 +390,10 @@ public class IfcSpfReader {
                 ois.close();
             }
 
-            fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
+            if(fis==null)
+            	fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+            
             ois = new ObjectInputStream(fis);
             Map<String, TypeVO> typ = null;
             try {

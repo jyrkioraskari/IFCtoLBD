@@ -56,7 +56,7 @@ public class BOT extends abstract_NS{
 
 
 	public static class LocalProperty {
-		public static final String local_ns = "https://w3id.org/property#";
+		public static final String local_ns = "https://w3id.org/product/props/";
 
 		public static void addNameSpace(Model model)
 		{
