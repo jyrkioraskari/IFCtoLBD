@@ -35,7 +35,7 @@ public class BOT extends abstract_NS{
 
 
 	public static class Product {
-		public static final String product_ns = "https://w3id.org/product#";
+		public static final String product_ns = "https://w3id.org/product/BuildingElements#";
 
 		public static void addNameSpace(Model model)
 		{

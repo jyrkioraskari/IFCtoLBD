@@ -3,16 +3,19 @@ package org.lbd.ifc2bot;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.RDFNode;
+
 public class PropertySet {
-    final Map<String,String> map=new HashMap<>();
+    final Map<String,RDFNode> map=new HashMap<>();
 	public PropertySet() {
 	}
 	
-	public Map<String, String> getMap() {
+	public Map<String, RDFNode> getMap() {
 		return map;
 	}
 	
-	public void put(String key,String value) {
+	public void put(String key,RDFNode value) {
 		map.put(key,value);
 	}
      

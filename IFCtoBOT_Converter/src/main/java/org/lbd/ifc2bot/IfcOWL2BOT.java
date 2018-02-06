@@ -78,6 +78,10 @@ public class IfcOWL2BOT {
 		RDFS.addNameSpace(output_model);
 		BOT.addNameSpaces(output_model);
 		IfcOwl.addNameSpace(output_model);
+		output_model.setNsPrefix("xmlschema", "http://www.w3.org/2001/XMLSchema#");
+		output_model.setNsPrefix("rdfschema", "http://www.w3.org/2000/01/rdf-schema#");
+		
+		
 		output_model.setNsPrefix("inst", uriBase);
 		output_model.setNsPrefix("props", props_base);
 					 
@@ -91,11 +95,25 @@ public class IfcOWL2BOT {
 				final List<RDFNode> property_name = new ArrayList<>();
 				pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 
-				RDFStep[] value_path = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
-						new RDFStep(IfcOwl.hasString) };
-				final List<RDFNode> property_value = new ArrayList<>();
-				pathQuery(propertySingleValue.asResource(), value_path).forEach(value -> property_value.add(value));
 
+				final List<RDFNode> property_value = new ArrayList<>();
+				RDFStep[] value_pathS = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
+						new RDFStep(IfcOwl.hasString) };
+				pathQuery(propertySingleValue.asResource(), value_pathS).forEach(value -> property_value.add(value));
+
+				RDFStep[] value_pathD = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
+						new RDFStep(IfcOwl.hasDouble) };
+				pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> property_value.add(value));
+
+				RDFStep[] value_pathI = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
+						new RDFStep(IfcOwl.hasInteger) };
+				pathQuery(propertySingleValue.asResource(), value_pathI).forEach(value -> property_value.add(value));
+
+				RDFStep[] value_pathB = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
+						new RDFStep(IfcOwl.hasBoolean) };
+				pathQuery(propertySingleValue.asResource(), value_pathB).forEach(value -> property_value.add(value));
+
+				
 				if (property_name.size() > 0 && property_value.size() > 0) {
 					RDFNode pname = property_name.get(0);
 					RDFNode pvalue = property_value.get(0);
@@ -106,7 +124,9 @@ public class IfcOWL2BOT {
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
 						if(pvalue.toString().trim().length()>0)
-						  ps.put(toCamelCase(pname.toString()), pvalue.toString());
+						{
+						  ps.put(toCamelCase(pname.toString()), pvalue);
+						}
 					}
 				}
 
@@ -124,8 +144,7 @@ public class IfcOWL2BOT {
 					if (p_set != null) {
 						for (String k : p_set.getMap().keySet()) {
 							Property property = output_model.createProperty(this.props_base + k);
-							Literal l = output_model.createLiteral(p_set.getMap().get(k));
-							sio.addProperty(property, l);
+							sio.addProperty(property, p_set.getMap().get(k));
 						}
 					}
 			});
@@ -144,8 +163,7 @@ public class IfcOWL2BOT {
 						if (p_set != null) {
 							for (String k : p_set.getMap().keySet()) {
 								Property property = output_model.createProperty(this.props_base + k);
-								Literal l = output_model.createLiteral(p_set.getMap().get(k));
-								bo.addProperty(property, l);
+								bo.addProperty(property, p_set.getMap().get(k));
 							}
 						}
 				});
@@ -165,10 +183,8 @@ public class IfcOWL2BOT {
 						if (p_set != null) {
 							for (String k : p_set.getMap().keySet()) {
 								Property property = output_model.createProperty(this.props_base + k);
-								Literal l = output_model.createLiteral(p_set.getMap().get(k));
-								so.addProperty(property, l);
-								System.out.println(so+" : "+property+" --> "+l);
-
+								so.addProperty(property, p_set.getMap().get(k));
+	
 							}
 						}
 					});
@@ -201,9 +217,7 @@ public class IfcOWL2BOT {
 									if (p_set != null) {
 										for (String k : p_set.getMap().keySet()) {
 											Property property = output_model.createProperty(this.props_base + k);
-											Literal l = output_model.createLiteral(p_set.getMap().get(k));
-											spo.addProperty(property, l);
-											System.out.println(spo+" : "+property+" --> "+l);
+											spo.addProperty(property, p_set.getMap().get(k));
 										}
 									}
 								});
@@ -222,6 +236,7 @@ public class IfcOWL2BOT {
 		}
 
 		System.out.println("Conversion done. File is: " + target_file);
+		
 	}
 
 	// https://stackoverflow.com/questions/17078347/convert-a-string-to-modified-camel-case-in-java-or-title-case-as-is-otherwise-ca
@@ -231,9 +246,16 @@ public class IfcOWL2BOT {
 
 		final StringBuilder ret = new StringBuilder(init.length());
 
+		boolean first=true;
 		for (final String word : init.split(" ")) {
 			if (!word.isEmpty()) {
-				ret.append(word.substring(0, 1).toUpperCase());
+				if(first)
+				{
+					ret.append(word.substring(0, 1).toLowerCase());
+					first=false;
+				}
+				else
+				   ret.append(word.substring(0, 1).toUpperCase());
 				ret.append(word.substring(1).toLowerCase());
 			}
 		}
