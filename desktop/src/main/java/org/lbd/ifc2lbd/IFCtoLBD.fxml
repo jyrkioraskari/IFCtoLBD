@@ -41,10 +41,13 @@
          <children>
             <Rectangle id="handleOntologiesTxt" arcHeight="5.0" arcWidth="5.0" height="420.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="530.0">
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0" startX="0.009523809523809525">
+                  <LinearGradient cycleMethod="REFLECT" endX="0.8857142857142857" endY="1.0" startX="0.009523809523809525">
                      <stops>
                         <Stop color="#93c2ee" />
-                        <Stop color="#93c2ee" offset="0.007662835249042145" />
+                        <Stop color="#93c2ee" offset="0.019157088122605363" />
+                        <Stop color="#263607" offset="0.05747126436781609" />
+                        <Stop color="#c3e1fd" offset="0.2145593869731799" />
+                        <Stop color="#253307" offset="0.22524390725599386" />
                         <Stop color="#263607" offset="1.0" />
                      </stops>
                   </LinearGradient>
