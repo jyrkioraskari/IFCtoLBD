@@ -27,11 +27,11 @@ import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.lbd.ifc2lbd.ns.BOT;
+import org.lbd.ifc2lbd.ns.IfcOwl;
+import org.lbd.ifc2lbd.ns.RDFS;
 import org.lbd.ifc2lbd.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.rdfpath.RDFStep;
-import org.lbd.ns.BOT;
-import org.lbd.ns.IfcOwl;
-import org.lbd.ns.RDFS;
 
 import be.ugent.IfcSpfReader;
 import guidcompressor.GuidCompressor;
@@ -660,7 +660,7 @@ public class IFCtoLBDConverter {
 		if (args.length > 2) {
 			new IFCtoLBDConverter(args[0], args[1], args[2]);
 		} else
-			System.out.println("Usage: IfcOWL2BOT1 ifc_filename base_uri targer_file");
+			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 	}
 
 }

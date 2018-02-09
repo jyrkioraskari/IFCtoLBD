@@ -1,5 +1,5 @@
 
-package org.lbd.ns;
+package org.lbd.ifc2lbd.ns;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;

@@ -35,13 +35,13 @@
 		<dependency>
 			<groupId>com.github.pipauwel</groupId>
 			<artifactId>EXPRESStoOWL</artifactId>
-			<version>0.2</version>
+			<version>0.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/ifcParserLib -->
 		<dependency>
 			<groupId>com.github.pipauwel</groupId>
 			<artifactId>ifcParserLib</artifactId>
-			<version>0.3-SNAPSHOT</version>
+			<version>0.2</version>
 		</dependency>
 
 
