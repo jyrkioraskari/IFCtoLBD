@@ -1,4 +1,4 @@
-package org.lbd.ifcbot;
+package org.lbd.ifc2lbd;
 
 public interface FxInterface {
 

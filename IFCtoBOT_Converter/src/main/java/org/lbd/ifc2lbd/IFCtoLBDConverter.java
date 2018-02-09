@@ -55,7 +55,7 @@ import guidcompressor.GuidCompressor;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-public class IFCtoBOTConverter {
+public class IFCtoLBDConverter {
 
 	private Model ifcowl_model;
 	private Model ontology_model = null;
@@ -66,7 +66,7 @@ public class IFCtoBOTConverter {
 	// URI-propertyset
 	private Map<String, PropertySet> propertysets = new HashMap<>();
 
-	public IFCtoBOTConverter(String ifc_filename, String uriBase, String target_file) {
+	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file) {
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -639,10 +639,10 @@ public class IFCtoBOTConverter {
 
 		InputStream in = null;
 		try {
-			in = IFCtoBOTConverter.class.getResourceAsStream("/" + ontology_file);
+			in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
 			if (in == null) {
 				try {
-					in = IFCtoBOTConverter.class.getResourceAsStream("/resources/" + ontology_file);
+					in = IFCtoLBDConverter.class.getResourceAsStream("/resources/" + ontology_file);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return;
@@ -658,7 +658,7 @@ public class IFCtoBOTConverter {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IFCtoBOTConverter(args[0], args[1], args[2]);
+			new IFCtoLBDConverter(args[0], args[1], args[2]);
 		} else
 			System.out.println("Usage: IfcOWL2BOT1 ifc_filename base_uri targer_file");
 	}

@@ -16,7 +16,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="440.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lbd.ifcbot.IFC2BOTController">
+<VBox prefHeight="440.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lbd.ifc2lbd.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" VBox.vgrow="NEVER">
       <menus>
@@ -32,7 +32,7 @@
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" onAction="#aboutAction" text="About IFC2BOT Desktop" />
+            <MenuItem mnemonicParsing="false" onAction="#aboutAction" text="About IFCtoLBD Desktop" />
           </items>
         </Menu>
       </menus>
@@ -60,7 +60,7 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Text layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to BOT ontology RDF" />
+            <Text layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" />
             <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="208.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="25.0" prefWidth="136.0" text="Select an IFC file" />
             <Label fx:id="labelIFCFile" layoutX="192.0" layoutY="212.0" prefHeight="17.0" prefWidth="308.0" />
             <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="25.0" prefWidth="136.0" text="Select the target file" />

@@ -27,14 +27,14 @@
    http://www.dreamstime.com/royalty-free-stock-image-blue-glass-web-icons-buttons-image8270526
  */
 
-package org.lbd.ifcbot;
+package org.lbd.ifc2lbd;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.lbd.ifc2lbd.IFCtoBOTConverter;
+import org.lbd.ifc2lbd.IFCtoLBDConverter;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -58,7 +58,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 @SuppressWarnings("restriction")
-public class IFC2BOTController implements Initializable, FxInterface {
+public class IFCtoLBDController implements Initializable, FxInterface {
 	private static String ontologyNamespace;
 
 	@FXML
@@ -182,7 +182,7 @@ public class IFC2BOTController implements Initializable, FxInterface {
 		conversionTxt.setText("");
 		try {
 			String uri_base=labelBaseURI.getText().trim();
-			new IFCtoBOTConverter(ifcFileName, uri_base,rdfTargetName);
+			new IFCtoLBDConverter(ifcFileName, uri_base,rdfTargetName);
 		} catch (Exception e) {
 			conversionTxt.insertText(0, e.getMessage());
 		}
@@ -275,7 +275,7 @@ public class IFC2BOTController implements Initializable, FxInterface {
 						conversionTxt.setText("");
 						try {
 							String uri_base=labelBaseURI.getText().trim();
-							new IFCtoBOTConverter(ifcFileName, uri_base,temp.getAbsolutePath());
+							new IFCtoLBDConverter(ifcFileName, uri_base,temp.getAbsolutePath());
 						} catch (Exception e) {
 							conversionTxt.insertText(0, e.getMessage());
 						}
@@ -298,7 +298,7 @@ public class IFC2BOTController implements Initializable, FxInterface {
 				me.consume();
 			}
 		});
-		this.labelBaseURI.setText("https://www.ugent.be/myAwesomeFirstBIMProject/#");
+		this.labelBaseURI.setText("https://www.ugent.be/myAwesomeFirstBIMProject#");
 	}
 
 	public void handle_notification(String txt) {

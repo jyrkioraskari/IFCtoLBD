@@ -26,7 +26,7 @@
  */
 
 
-package org.lbd.ifcbot;
+package org.lbd.ifc2lbd;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -36,11 +36,11 @@ import javafx.stage.Stage;
 
 
 @SuppressWarnings("restriction")
-public class IFC2BOT_Desktop extends Application {
+public class IFCtoLBD_Desktop extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("IFC2BOT.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("IFCtoLBD.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
