@@ -1,4 +1,4 @@
-package org.lbd.ifc2bot;
+package org.lbd.ifc2lbd;
 
 import java.util.HashMap;
 import java.util.Map;

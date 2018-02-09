@@ -1,0 +1,16 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.lbd.ifcbot</groupId>
+	<artifactId>desktop</artifactId>
+	<version>1.0</version>
+	<name>DesktopUI</name>
+	<description>The IFC to BOT converter user interface for a desktop computer</description>
+	<dependencies>
+		<dependency>
+			<groupId>org.lbd</groupId>
+			<artifactId>ifc2lbd</artifactId>
+			<version>1.07</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -1,4 +1,4 @@
-package org.lbd.ifc2bot.rdfpath;
+package org.lbd.ifc2lbd.rdfpath;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.SimpleSelector;
 
 /*
 * The GNU Affero General Public License
@@ -27,21 +26,17 @@ import org.apache.jena.rdf.model.SimpleSelector;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-public class InvRDFStep extends RDFStep {
-	public InvRDFStep(Property property) {
-		super(property);
+public class RDFStep {
+	final protected Property property;
+	public RDFStep(Property property) {
+		super();
+		this.property = property;
 	}
 	
 
-	@Override
     public List<RDFNode> next(Resource r) {
-		if(r.getModel()==null)
-			return new ArrayList<RDFNode>();
 		final List<RDFNode> ret = new ArrayList<>();
-		
-		r.getModel().listStatements(new SimpleSelector(null, this.property, r))
-		.mapWith(t1 -> t1.getSubject()).forEachRemaining(s -> ret.add(s));
+		r.listProperties(this.property).mapWith(t->t.getObject()).forEachRemaining(o -> ret.add(o));
 		return ret;
     }
 }

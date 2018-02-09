@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.input.KeyCodeCombination?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Text?>
+
+<VBox prefHeight="440.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lbd.ifcbot.IFC2BOTController">
+  <children>
+    <MenuBar fx:id="myMenuBar" VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+        <items>
+        
+        <MenuItem mnemonicParsing="false" onAction="#closeApplicationAction" text="Quit">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="Q" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+          </items>
+      
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" onAction="#aboutAction" text="About IFC2BOT Desktop" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="375.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+         <children>
+            <Rectangle id="handleOntologiesTxt" arcHeight="5.0" arcWidth="5.0" height="420.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="530.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0" startX="0.009523809523809525">
+                     <stops>
+                        <Stop color="#93c2ee" />
+                        <Stop color="#93c2ee" offset="0.007662835249042145" />
+                        <Stop color="#263607" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="311.0" layoutX="11.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" width="505.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#93c2ee" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <Text layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to BOT ontology RDF" />
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="208.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="25.0" prefWidth="136.0" text="Select an IFC file" />
+            <Label fx:id="labelIFCFile" layoutX="192.0" layoutY="212.0" prefHeight="17.0" prefWidth="308.0" />
+            <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="25.0" prefWidth="136.0" text="Select the target file" />
+            <Label fx:id="labelTargetFile" layoutX="192.0" layoutY="244.0" prefHeight="17.0" prefWidth="308.0" />
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="33.0" layoutY="359.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="25.0" prefWidth="136.0" text="Convert to RDF" />
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="188.0" layoutY="271.0" opacity="0.45" prefHeight="113.0" prefWidth="315.0" />
+            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="33.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="labelBaseURI" layoutX="33.0" layoutY="170.0" prefHeight="25.0" prefWidth="472.0" />
+            <Label layoutX="33.0" layoutY="146.0" text="Base URL" />
+         </children></AnchorPane>
+        
+    
+  </children>
+</VBox>

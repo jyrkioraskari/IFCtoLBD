@@ -1,4 +1,4 @@
-package org.lbd.ifc2bot;
+package org.lbd.ifc2lbd;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -27,8 +27,8 @@ import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
-import org.lbd.ifc2bot.rdfpath.InvRDFStep;
-import org.lbd.ifc2bot.rdfpath.RDFStep;
+import org.lbd.ifc2lbd.rdfpath.InvRDFStep;
+import org.lbd.ifc2lbd.rdfpath.RDFStep;
 import org.lbd.ns.BOT;
 import org.lbd.ns.IfcOwl;
 import org.lbd.ns.RDFS;
@@ -55,7 +55,7 @@ import guidcompressor.GuidCompressor;
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-public class IfcOWL2BOT {
+public class IFCtoBOTConverter {
 
 	private Model ifcowl_model;
 	private Model ontology_model = null;
@@ -66,7 +66,7 @@ public class IfcOWL2BOT {
 	// URI-propertyset
 	private Map<String, PropertySet> propertysets = new HashMap<>();
 
-	public IfcOWL2BOT(String ifc_filename, String uriBase, String target_file) {
+	public IFCtoBOTConverter(String ifc_filename, String uriBase, String target_file) {
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -639,10 +639,10 @@ public class IfcOWL2BOT {
 
 		InputStream in = null;
 		try {
-			in = IfcOWL2BOT.class.getResourceAsStream("/" + ontology_file);
+			in = IFCtoBOTConverter.class.getResourceAsStream("/" + ontology_file);
 			if (in == null) {
 				try {
-					in = IfcOWL2BOT.class.getResourceAsStream("/resources/" + ontology_file);
+					in = IFCtoBOTConverter.class.getResourceAsStream("/resources/" + ontology_file);
 				} catch (Exception e) {
 					e.printStackTrace();
 					return;
@@ -658,7 +658,7 @@ public class IfcOWL2BOT {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IfcOWL2BOT(args[0], args[1], args[2]);
+			new IFCtoBOTConverter(args[0], args[1], args[2]);
 		} else
 			System.out.println("Usage: IfcOWL2BOT1 ifc_filename base_uri targer_file");
 	}

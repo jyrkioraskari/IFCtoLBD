@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
-	<version>1.05</version>
-	<name>RDFSave</name>
+	<version>1.07</version>
+	<name>IFC to LBD Converter</name>
 
 
 	<properties>
@@ -46,5 +46,5 @@
 
 
 	</dependencies>
-	<artifactId>ifcowl2bot</artifactId>
+	<artifactId>ifc2lbd</artifactId>
 </project>
