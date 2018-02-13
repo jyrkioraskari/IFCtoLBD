@@ -9,7 +9,7 @@ The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this 
 ![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop/src/main/resources/screen.PNG)
 
 
-
+## Compiling the code
 The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from the site here: https://maven.apache.org/download.cgi.
 
 The following steps are needed:
@@ -23,4 +23,7 @@ You can rename the ifc2lbd-1.08-jar-with-dependencies.jar file into name IFCtoRD
 
 An example commaand line usage of the program is:
 java -jar IFCtoRDF.jar Duplex_A.ifc http://uribase  out.ttl
+
+## License
+This project is released under the open source [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.en.html)
 
