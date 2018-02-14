@@ -33,8 +33,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-import org.lbd.ifc2lbd.IFCtoLBDConverter;
+import org.lbd.ifc2lbd.messages.SystemStatusEvent;
+
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -60,6 +65,8 @@ import javafx.stage.Stage;
 @SuppressWarnings("restriction")
 public class IFCtoLBDController implements Initializable, FxInterface {
 	private static String ontologyNamespace;
+	private final EventBus eventBus = EventBusService.getEventBus();
+	private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	@FXML
 	MenuBar myMenuBar;
@@ -87,7 +94,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ImageView owl_fileIcon;
 	@FXML
 	private ImageView rdf_fileIcon;
-	
+
 	@FXML
 	private TextField labelBaseURI;
 
@@ -108,7 +115,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		Stage stage = (Stage) myMenuBar.getScene().getWindow();
 		new About(stage).show();
 	}
-
 
 	final Tooltip openExpressFileButton_tooltip = new Tooltip();
 	final Tooltip saveIfcOWLButton_tooltip = new Tooltip();
@@ -140,6 +146,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		fc.setInitialDirectory(file.getParentFile());
 		labelIFCFile.setText(file.getName());
 		ifcFileName = file.getAbsolutePath();
+		int i = ifcFileName.lastIndexOf(".");
+		if (i > 0) {
+			rdfTargetName = ifcFileName.substring(0, i) + "_LBD.ttl";
+			File f = new File(rdfTargetName);
+			labelTargetFile.setText(f.getName());
+		}
 		if (ifcFileName != null && rdfTargetName != null) {
 			convert2RDFButton.setDefaultButton(true);
 			convert2RDFButton.setDisable(false);
@@ -181,18 +193,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void convertIFCToRDF() {
 		conversionTxt.setText("");
 		try {
-			String uri_base=labelBaseURI.getText().trim();
-			new IFCtoLBDConverter(ifcFileName, uri_base,rdfTargetName);
+			String uri_base = labelBaseURI.getText().trim();
+			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName));
 		} catch (Exception e) {
-			conversionTxt.insertText(0, e.getMessage());
+			conversionTxt.appendText(e.getMessage());
 		}
-		conversionTxt.setText("Done. File is: "+rdfTargetName);
 
 	}
 
 	public void initialize(URL location, ResourceBundle resources) {
 		this.application = this;
-
+		eventBus.register(this);
 		// Accepts dropping
 		EventHandler<DragEvent> ad_ontology = new EventHandler<DragEvent>() {
 			public void handle(DragEvent event) {
@@ -205,8 +216,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 
 		};
-
-
 
 		// Accepts dropping
 		EventHandler<DragEvent> ad_conversion = new EventHandler<DragEvent>() {
@@ -271,15 +280,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					try {
 						File temp = File.createTempFile("rdf", ".ttl");
 
-						
 						conversionTxt.setText("");
 						try {
-							String uri_base=labelBaseURI.getText().trim();
-							new IFCtoLBDConverter(ifcFileName, uri_base,temp.getAbsolutePath());
+							String uri_base = labelBaseURI.getText().trim();
+							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath()));
 						} catch (Exception e) {
-							conversionTxt.insertText(0, e.getMessage());
+							conversionTxt.appendText(e.getMessage());
 						}
-						conversionTxt.setText("Done. File is: "+temp.getAbsolutePath());
 
 						content.putFiles(java.util.Collections.singletonList(temp));
 						db.setContent(content);
@@ -303,5 +310,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	public void handle_notification(String txt) {
 		conversionTxt.insertText(0, txt + "\n");
+	}
+
+	@Subscribe
+	public void handleEvent(SystemStatusEvent event) {
+		System.out.println("message: " + event.getStatus_message());
+		this.conversionTxt.appendText(event.getStatus_message() + "\n");
 	}
 }

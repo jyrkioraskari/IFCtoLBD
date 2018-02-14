@@ -3,14 +3,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
 	<artifactId>desktop</artifactId>
-	<version>1.0</version>
+	<version>1.31</version>
 	<name>DesktopUI</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.08</version>
+			<version>1.32</version>
 		</dependency>
+		
 	</dependencies>
 </project>

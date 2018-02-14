@@ -3,6 +3,7 @@ package org.lbd.ifc2lbd;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -27,14 +28,21 @@ import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
+import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import org.lbd.ifc2lbd.ns.BOT;
 import org.lbd.ifc2lbd.ns.IfcOwl;
-import org.lbd.ifc2lbd.ns.RDFS;
 import org.lbd.ifc2lbd.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.rdfpath.RDFStep;
 
+import com.google.common.eventbus.EventBus;
+
 import be.ugent.IfcSpfReader;
 import guidcompressor.GuidCompressor;
+import nl.tue.ddss.convert.Header;
+import nl.tue.ddss.convert.HeaderParser;
+import nl.tue.ddss.convert.IfcVersion;
+import nl.tue.ddss.convert.IfcVersionException;
 
 /*
 * The GNU Affero General Public License
@@ -56,7 +64,7 @@ import guidcompressor.GuidCompressor;
 */
 
 public class IFCtoLBDConverter {
-
+	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
 	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
@@ -71,20 +79,25 @@ public class IFCtoLBDConverter {
 			uriBase += "#";
 		this.uriBase = uriBase;
 		ontology_model = ModelFactory.createDefaultModel();
-		readInOntologies();
+		eventBus.post(new SystemStatusEvent("IFCtoRDF conversion"));
+		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+		
+		eventBus.post(new SystemStatusEvent("Reading in ontologies"));
+
+		readInOntologies(ifc_filename);
 		createIfcBOTMapping();
 
 		Model output_model = ModelFactory.createDefaultModel();
-		RDFS.addNameSpace(output_model);
 		BOT.addNameSpaces(output_model);
 		IfcOwl.addNameSpace(output_model);
+		output_model.setNsPrefix("rdfs", RDFS.uri);
 		output_model.setNsPrefix("xmlschema", "http://www.w3.org/2001/XMLSchema#");
 		output_model.setNsPrefix("rdfschema", "http://www.w3.org/2000/01/rdf-schema#");
 
 		output_model.setNsPrefix("inst", uriBase);
 		output_model.setNsPrefix("props", props_base);
 
-		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase);
+		eventBus.post(new SystemStatusEvent("IFC->LBD"));
 
 		listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 			RDFStep[] path = { new RDFStep(IfcOwl.hasProperties_IfcPropertySet) };
@@ -233,9 +246,11 @@ public class IFCtoLBDConverter {
 			output_model.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
 		}
-
+	
 		System.out.println("Conversion done. File is: " + target_file);
+		eventBus.post(new SystemStatusEvent("Done. File is: " + target_file));
 
 	}
 
@@ -270,7 +285,6 @@ public class IFCtoLBDConverter {
 		}
 
 		if (bot_type.isPresent()) {
-			System.out.println("bot-type: " + bot_type.get());
 			Resource eo = createformattedURI(ifc_element, output_model, bot_type.get().getLocalName());
 			if (predefined_type.isPresent()) {
 				Resource product = output_model.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
@@ -304,17 +318,17 @@ public class IFCtoLBDConverter {
 			// System.out.println("no bot for: " + ifc_element.getLocalName());
 	}
 
-	private void connectElement(Model output_model, Resource bot_resource, Property bot_property, Resource element) {
-		Optional<Resource> ifcowl_type = getType(element);
+	private void connectElement(Model output_model, Resource bot_resource, Property bot_property, Resource ifc_element) {
+		Optional<Resource> ifcowl_type = getType(ifc_element);
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getBOTProductType(ifcowl_type.get().getLocalName());
 		}
 
 		if (bot_type.isPresent()) {
-			Resource bot_object = createformattedURI(element, output_model, bot_type.get().getLocalName());
-			addLabel(element, bot_object);
-			addDescription(element, bot_object);
+			Resource bot_object = createformattedURI(ifc_element, output_model, bot_type.get().getLocalName());
+			addLabel(ifc_element, bot_object);
+			addDescription(ifc_element, bot_object);
 			bot_resource.addProperty(bot_property, bot_object);
 		}
 	}
@@ -325,16 +339,20 @@ public class IFCtoLBDConverter {
 			Resource attr = s.getObject().asResource();
 			Optional<Resource> atype = getType(attr);
 			if (atype.isPresent())
-				if (atype.get().getURI().toString()
-						.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcLabel")) {
+				if (atype.get().getLocalName().equals("IfcLabel")) {
 					attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
 							.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
 				}
+			if (atype.get().getLocalName()
+					.equals("IfcIdentifier")) {
+				attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
+						.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
+			}
 		});
 	}
 
 	private Optional<Resource> getType(Resource r) {
-		RDFStep[] path = { new RDFStep(RDFS.type) };
+		RDFStep[] path = { new RDFStep(RDF.type) };
 		return pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
 	}
 
@@ -427,7 +445,7 @@ public class IFCtoLBDConverter {
 	}
 
 	private List<RDFNode> listSites() {
-		RDFStep[] path = { new InvRDFStep(RDFS.type) };
+		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return pathQuery(ifcowl_model.getResource(IfcOwl.IfcSite), path);
 	}
 
@@ -514,10 +532,39 @@ public class IFCtoLBDConverter {
 		ret = pathQuery(element, path1);
 		return ret;
 	}
+	
+	
+	private List<Resource> listBuildingElements() {
+		final List<Resource> ret = new ArrayList<>();
+		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDF.type)).filterKeep(t2 -> {
+			if(!t2.getObject().isResource())
+				return false;
+			Resource rsuper=getSuperClass(t2.getObject().asResource());
+			if(rsuper==null)
+				return false;
+			return rsuper.getLocalName().equals("IfcBuildingElement");
+		}).mapWith(t1 -> t1.getSubject()).forEachRemaining(s -> ret.add(s));
+		;
+		return ret;
+	}
+	
+
+	private Resource getSuperClass(Resource r) {
+		System.out.println("type: "+r);
+		StmtIterator subclass_statement_iterator = r.listProperties(RDFS.subClassOf);
+		while (subclass_statement_iterator.hasNext()) {
+			Statement su = subclass_statement_iterator.next();
+			Resource ifcowl_superclass = su.getObject().asResource();
+			if(!ifcowl_superclass.isAnon())
+			   return ifcowl_superclass;
+		}
+		return null;
+	}
+	
 
 	private List<Resource> listElements() {
 		final List<Resource> ret = new ArrayList<>();
-		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDFS.type)).filterKeep(t2 -> {
+		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDF.type)).filterKeep(t2 -> {
 			Optional<Resource> product_type = getBOTProductType(t2.getObject().asResource().getLocalName());
 			return product_type.isPresent();
 		}).mapWith(t1 -> t1.getSubject()).forEachRemaining(s -> ret.add(s));
@@ -532,7 +579,7 @@ public class IFCtoLBDConverter {
 	}
 
 	private List<RDFNode> listPropertysets() {
-		RDFStep[] path = { new InvRDFStep(RDFS.type) };
+		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return pathQuery(ifcowl_model.getResource(IfcOwl.IfcPropertySet), path);
 	}
 
@@ -619,6 +666,7 @@ public class IFCtoLBDConverter {
 			}
 
 		} catch (Exception e) {
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
 			e.printStackTrace();
 
 		}
@@ -626,16 +674,38 @@ public class IFCtoLBDConverter {
 		return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
 
-	private void readInOntologies() {
-		readInOntologyTTL("prod.ttl");
-		readInOntologyTTL("prod_building_elements.ttl");
-		readInOntologyTTL("prod_mep.ttl");
-		readInOntologyTTL("prod_mep.ttl");
-		readInOntologyTTL("IFC4_ADD2.ttl");
+	private void readInOntologies(String ifc_file) {
+		IfcVersion.initDefaultIfcNsMap();
+		IfcVersion version=null;
+		FileInputStream input;
+		try {
+			input = new FileInputStream(new File(ifc_file));
+			Header header = HeaderParser.parseHeader(input);
+			Object ifcVersion;
+			version=IfcVersion.getIfcVersion(header);
+			String ontNS=IfcVersion.IfcNSMap.get(version);
+			//TODO Fix this
+			readInOntologyTTL(ontology_model,version.getLabel()+".ttl");
+			readInOntologyTTL(ifcowl_model,version.getLabel()+".ttl");
+		} catch (FileNotFoundException e) {
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
+			e.printStackTrace();
+		} catch (IOException e) {
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
+			e.printStackTrace();
+		} catch (IfcVersionException e) {
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
+			e.printStackTrace();
+		}
+		
+		readInOntologyTTL(ontology_model,"prod.ttl");
+		readInOntologyTTL(ontology_model,"prod_building_elements.ttl");
+		readInOntologyTTL(ontology_model,"prod_mep.ttl");
+		readInOntologyTTL(ontology_model,"prod_mep.ttl");
 		// ontology_model.write(System.out, "TTL");
 	}
 
-	private void readInOntologyTTL(String ontology_file) {
+	private void readInOntologyTTL(Model model,String ontology_file) {
 
 		InputStream in = null;
 		try {
@@ -644,13 +714,17 @@ public class IFCtoLBDConverter {
 				try {
 					in = IFCtoLBDConverter.class.getResourceAsStream("/resources/" + ontology_file);
 				} catch (Exception e) {
+					eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
 					e.printStackTrace();
 					return;
 				}
 			}
-			ontology_model.read(in, null, "TTL");
+			model.read(in, null, "TTL");
+			in.close();
 
 		} catch (Exception e) {
+			eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
+			System.out.println("missing file: "+ontology_file);
 			e.printStackTrace();
 		}
 

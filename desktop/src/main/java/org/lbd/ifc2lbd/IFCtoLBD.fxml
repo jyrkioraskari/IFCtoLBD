@@ -14,6 +14,7 @@
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <VBox prefHeight="440.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lbd.ifc2lbd.IFCtoLBDController">
@@ -53,26 +54,34 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="311.0" layoutX="11.0" layoutY="87.0" stroke="BLACK" strokeType="INSIDE" width="505.0">
+            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="311.0" layoutX="11.0" layoutY="87.0" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="505.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
-                        <Stop color="#93c2ee" />
+                        <Stop color="#edda93" />
+                        <Stop color="#edda93" offset="0.007662835249042145" />
+                        <Stop color="WHITE" offset="0.5" />
                         <Stop color="WHITE" offset="1.0" />
                      </stops>
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Text layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" />
+            <Text layoutX="33.0" layoutY="118.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format">
+               <font>
+                  <Font size="18.0" />
+               </font></Text>
             <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="208.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="25.0" prefWidth="136.0" text="Select an IFC file" />
             <Label fx:id="labelIFCFile" layoutX="192.0" layoutY="212.0" prefHeight="17.0" prefWidth="308.0" />
             <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="25.0" prefWidth="136.0" text="Select the target file" />
             <Label fx:id="labelTargetFile" layoutX="192.0" layoutY="244.0" prefHeight="17.0" prefWidth="308.0" />
             <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="33.0" layoutY="359.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="25.0" prefWidth="136.0" text="Convert to RDF" />
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="188.0" layoutY="271.0" opacity="0.45" prefHeight="113.0" prefWidth="315.0" />
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="188.0" layoutY="271.0" prefHeight="113.0" prefWidth="315.0" />
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="33.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" />
             <TextField fx:id="labelBaseURI" layoutX="33.0" layoutY="170.0" prefHeight="25.0" prefWidth="472.0" />
-            <Label layoutX="33.0" layoutY="146.0" text="Base URL" />
+            <Label layoutX="33.0" layoutY="146.0" text="Base URL">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children></AnchorPane>
         
     
