@@ -335,14 +335,18 @@ public class IFCtoLBDConverter {
 
 	private void addAttrributes(Resource r, Resource bot_r) {
 		r.listProperties().forEachRemaining(s -> {
-			String property_string = s.getPredicate().getLocalName();
+			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
 			Optional<Resource> atype = getType(attr);
+			if(ps.startsWith("tag_"))
+				ps="batid";
+			String property_string=ps; // Just to make it effectively final
 			if (atype.isPresent())
 				if (atype.get().getLocalName().equals("IfcLabel")) {
 					attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
 							.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
 				}
+			
 			if (atype.get().getLocalName()
 					.equals("IfcIdentifier")) {
 				attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
