@@ -112,7 +112,7 @@ public class IFCtoLBDConverter {
 				RDFStep[] value_pathS = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
 						new RDFStep(IfcOwl.hasString) };
 				pathQuery(propertySingleValue.asResource(), value_pathS).forEach(value -> property_value.add(value));
-
+				
 				RDFStep[] value_pathD = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
 						new RDFStep(IfcOwl.hasDouble) };
 				pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> property_value.add(value));
@@ -125,6 +125,10 @@ public class IFCtoLBDConverter {
 						new RDFStep(IfcOwl.hasBoolean) };
 				pathQuery(propertySingleValue.asResource(), value_pathB).forEach(value -> property_value.add(value));
 
+				RDFStep[] value_pathL = { new RDFStep(IfcOwl.nominalValue_IfcPropertySingleValue),
+						new RDFStep(IfcOwl.hasLogical) };
+				pathQuery(propertySingleValue.asResource(), value_pathL).forEach(value -> property_value.add(value));
+				
 				if (property_name.size() > 0 && property_value.size() > 0) {
 					RDFNode pname = property_name.get(0);
 					RDFNode pvalue = property_value.get(0);
@@ -139,10 +143,20 @@ public class IFCtoLBDConverter {
 						}
 					}
 				}
+				else {
+					RDFNode pname = property_name.get(0);
+					PropertySet ps = this.propertysets.get(propertyset.getURI());
+					if (ps == null) {
+						ps = new PropertySet();
+						this.propertysets.put(propertyset.getURI(), ps);
+					}
+					ps.put(toCamelCase(pname.toString()), propertySingleValue);
+					copyTriples(0,propertySingleValue,output_model);
+				}
 
 			});
 		});
-
+		
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, output_model, "Site");
 			addAttrributes(site.asResource(), sio);
@@ -251,31 +265,59 @@ public class IFCtoLBDConverter {
 	
 		System.out.println("Conversion done. File is: " + target_file);
 		eventBus.post(new SystemStatusEvent("Done. File is: " + target_file));
+		
 
 	}
+	
+	
+	private void copyTriples(int level,RDFNode r,Model output_model)
+	{
+		if(level>4)
+			return;
+		if(!r.isResource())
+			return;	
+	    r.asResource().listProperties().forEachRemaining(s-> {
+	    	// No ontology
+	    	if(!s.getPredicate().asResource().getURI().startsWith("http://www.w3.org/2000/01/rdf-schema#"))
+	    	{
+	    	   output_model.add(s);
+	    	   copyTriples(level+1,s.getObject(), output_model);
+	    	}
+	    });	
+	}
 
-	// https://stackoverflow.com/questions/17078347/convert-a-string-to-modified-camel-case-in-java-or-title-case-as-is-otherwise-ca
-	public static String toCamelCase(final String init) {
+	private String toCamelCase(final String init) {
 		if (init == null)
 			return null;
 
-		final StringBuilder ret = new StringBuilder(init.length());
+		StringBuilder ret = new StringBuilder();
 
 		boolean first = true;
 		for (final String word : init.split(" ")) {
 			if (!word.isEmpty()) {
 				if (first) {
-					ret.append(word.substring(0, 1).toLowerCase());
+					ret.append(filterCharaters(word.substring(0, 1).toLowerCase()));
 					first = false;
 				} else
-					ret.append(word.substring(0, 1).toUpperCase());
-				ret.append(word.substring(1).toLowerCase());
+					ret.append(filterCharaters(word.substring(0, 1).toUpperCase()));
+				ret.append(filterCharaters(word.substring(1).toLowerCase()));
 			}
 		}
 
 		return ret.toString();
 	}
 
+	private String filterCharaters(String txt) {
+		StringBuilder ret = new StringBuilder();
+		for(byte cb:txt.getBytes())
+		{
+			char c=(char)cb;
+			if(Character.isAlphabetic(c))
+				ret.append(c);
+		}
+		return ret.toString();
+	}
+	
 	private void connectElement(Model output_model, Resource bot_resource, Resource ifc_element) {
 		Optional<String> predefined_type = getPredefinedData(ifc_element);
 		Optional<Resource> ifcowl_type = getType(ifc_element);
@@ -343,8 +385,11 @@ public class IFCtoLBDConverter {
 			String property_string=ps; // Just to make it effectively final
 			if (atype.isPresent())
 				if (atype.get().getLocalName().equals("IfcLabel")) {
-					attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> bot_r
-							.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject()));
+					attr.listProperties(IfcOwl.hasString).forEachRemaining(attr_s -> {
+						if(attr_s.getObject().isLiteral()&&attr_s.getObject().asLiteral().getLexicalForm().length()>0)
+						bot_r
+							.addProperty(BOT.LocalProperty.getProperty(property_string), attr_s.getObject());
+					});
 				}
 			
 			if (atype.get().getLocalName()

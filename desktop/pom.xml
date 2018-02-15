@@ -10,7 +10,7 @@
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.33</version>
+			<version>1.34</version>
 		</dependency>
 		
 	</dependencies>

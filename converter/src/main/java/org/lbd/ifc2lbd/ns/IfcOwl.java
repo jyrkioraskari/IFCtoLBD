@@ -63,6 +63,7 @@ public class IfcOwl extends abstract_NS {
 	public static final Property hasDouble = property(EXPRESS, "hasDouble");
 	public static final Property hasInteger = property(EXPRESS, "hasInteger");
 	public static final Property hasBoolean = property(EXPRESS, "hasBoolean");
+	public static final Property hasLogical = property(EXPRESS, "hasLogical");
 
 	
 	public static Property getProperty(String name) {
