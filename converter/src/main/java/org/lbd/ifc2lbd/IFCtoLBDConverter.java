@@ -29,6 +29,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.buildingsmart.tech.ifcowl.IfcSpfReader;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import org.lbd.ifc2lbd.ns.BOT;
 import org.lbd.ifc2lbd.ns.IfcOwl;
@@ -36,9 +37,8 @@ import org.lbd.ifc2lbd.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.rdfpath.RDFStep;
 
 import com.google.common.eventbus.EventBus;
+import com.openifctools.guidcompressor.GuidCompressor;
 
-import be.ugent.IfcSpfReader;
-import guidcompressor.GuidCompressor;
 import nl.tue.ddss.convert.Header;
 import nl.tue.ddss.convert.HeaderParser;
 import nl.tue.ddss.convert.IfcVersion;

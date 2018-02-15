@@ -1,4 +1,4 @@
-package be.ugent;
+package org.buildingsmart.tech.ifcowl;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -31,12 +31,12 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import com.buildingsmart.tech.ifcowl.ExpressReader;
+import org.lbd.ifc2lbd.ns.Namespace;
+
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
 
-import fi.ni.rdf.Namespace;
 
 /*
  * Copyright 2016 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache

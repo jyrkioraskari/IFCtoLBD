@@ -1,4 +1,4 @@
-package com.buildingsmart.tech.ifcowl;
+package org.buildingsmart.tech.ifcowl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -20,6 +20,8 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
+import org.lbd.ifc2lbd.ns.Namespace;
+
 import com.buildingsmart.tech.ifcowl.vo.AttributeVO;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.InverseVO;
@@ -27,8 +29,6 @@ import com.buildingsmart.tech.ifcowl.vo.NamedIndividualVO;
 import com.buildingsmart.tech.ifcowl.vo.PrimaryTypeVO;
 import com.buildingsmart.tech.ifcowl.vo.PropertyVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
-
-import fi.ni.rdf.Namespace;
 
 /*
  * ExpressReader reads EXPRESS file11 specification of the IFC files and creates 

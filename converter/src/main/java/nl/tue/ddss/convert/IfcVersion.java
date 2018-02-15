@@ -23,6 +23,8 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.lbd.ifc2lbd.ns.Namespace;
+
 public class IfcVersion {
 	
 	private String label;

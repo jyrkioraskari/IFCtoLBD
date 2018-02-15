@@ -1,4 +1,4 @@
-package guidcompressor;
+package com.openifctools.guidcompressor;
 
 /**
  * This class is a simple data type used during the conversion between compressed 

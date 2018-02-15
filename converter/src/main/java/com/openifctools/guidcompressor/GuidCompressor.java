@@ -1,4 +1,4 @@
-package guidcompressor;
+package com.openifctools.guidcompressor;
 
 import java.util.UUID;
 

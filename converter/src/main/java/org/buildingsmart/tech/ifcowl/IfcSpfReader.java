@@ -1,4 +1,4 @@
-package be.ugent;
+package org.buildingsmart.tech.ifcowl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
