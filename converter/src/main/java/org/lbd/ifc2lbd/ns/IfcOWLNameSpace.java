@@ -82,7 +82,7 @@ public class IfcOWLNameSpace extends abstract_NS {
 	
 	public Property getProperty(String name)
 	{
-		return property(ifcURI, name);
+		return property(ifcURI, "#"+name);
 	}
 
 	public Property getRelatingObject_IfcRelDecomposes() {
