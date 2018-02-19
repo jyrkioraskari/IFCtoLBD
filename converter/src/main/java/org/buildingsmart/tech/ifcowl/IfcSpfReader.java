@@ -24,9 +24,12 @@ import java.util.Optional;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.lbd.ifc2lbd.EventBusService;
+import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
+import com.google.common.eventbus.EventBus;
 import com.google.gson.Gson;
 
 /*
@@ -46,6 +49,7 @@ import com.google.gson.Gson;
  */
 
 public class IfcSpfReader {
+	private final EventBus eventBus = EventBusService.getEventBus();
 
     private String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
     // private final String DEFAULT_PATH =
@@ -197,7 +201,7 @@ public class IfcSpfReader {
         convert(ifcFile, outputFile, DEFAULT_PATH);
     }
 
-    private static String getExpressSchema(String ifc_file) {
+    private String getExpressSchema(String ifc_file) {
         try {
             FileInputStream fstream = new FileInputStream(ifc_file);
             DataInputStream in = new DataInputStream(fstream);
@@ -221,6 +225,8 @@ public class IfcSpfReader {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            
+            eventBus.post(new SystemStatusEvent("Error: "+e.getMessage()));
         }
         return "";
     }
