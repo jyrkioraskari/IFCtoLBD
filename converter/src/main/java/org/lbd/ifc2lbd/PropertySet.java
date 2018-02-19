@@ -3,26 +3,53 @@ package org.lbd.ifc2lbd;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.jena.rdf.model.Literal;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 
 public class PropertySet {
-	final Map<String, RDFNode> map = new HashMap<>();
-	String name;
+	private final Map<String, RDFNode> map = new HashMap<>();
+	private String name;
+	private final String props_base;
+	private boolean isWritten=false;
+	private final Resource pset;
 
-	public PropertySet(String name) {
-		this.name=name;
+	public PropertySet(String name, String props_base, Resource pset) {
+		this.name=toCamelCase(name);
 		if(name.contains("_"))
 			this.name=name.split("_")[1];
-	}
-
-	public Map<String, RDFNode> getMap() {
-		return map;
+		this.props_base=props_base;
+		this.pset=pset;
 	}
 
 	public void put(String key, RDFNode value) {
-		map.put(toCamelCase(name+" "+key), value);
+		map.put(toCamelCase(key), value);
 	}
+
+	private void write()
+	{
+		isWritten=true;
+		for (String k : this.getMap().keySet()) {
+			Property property = pset.getModel().createProperty(this.props_base + k);
+			pset.addProperty(property, this.getMap().get(k));
+		}
+	}
+	
+	
+    public void connect(Resource r)
+    {
+    	if(!isWritten)
+    		write();
+		Property property = r.getModel().createProperty(this.props_base + name);
+		r.addProperty(property, pset);
+    	
+    	/*for (String k : this.getMap().keySet()) {
+			Property property = r.getModel().createProperty(this.props_base + k);
+			r.addProperty(property, this.getMap().get(k));
+
+		}*/
+    }
 
 	private String toCamelCase(final String init) {
 		if (init == null)
@@ -44,6 +71,7 @@ public class PropertySet {
 
 		return ret.toString();
 	}
+	
 
 	private String filterCharaters(String txt) {
 		StringBuilder ret = new StringBuilder();
@@ -54,5 +82,9 @@ public class PropertySet {
 		}
 		return ret.toString();
 	}
+	private Map<String, RDFNode> getMap() {
+		return map;
+	}
+
 
 }

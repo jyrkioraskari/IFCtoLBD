@@ -73,7 +73,7 @@ public class IFCtoLBDConverter {
 	private Optional<String> ontURI = Optional.empty();
 	private IfcOWLNameSpace ifcOWL;
 
-	// URI-propertyset
+	// URI-property set
 	private Map<String, PropertySet> propertysets = new HashMap<>();
 
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file) {
@@ -141,36 +141,42 @@ public class IFCtoLBDConverter {
 						new RDFStep(ifcOWL.getHaslogical()) };
 				pathQuery(propertySingleValue.asResource(), value_pathL).forEach(value -> property_value.add(value));
 
-				if (property_name.size() > 0 && property_value.size() > 0) {
-					RDFNode pname = property_name.get(0);
-					RDFNode pvalue = property_value.get(0);
-					if (!pname.toString().equals(pvalue.toString())) {
+				String guid = getGUID(propertyset);
+				if (guid != null) {
+					Resource pset = output_model
+							.createResource(this.props_base + GuidCompressor.uncompressGuidString(guid));
+
+					if (property_name.size() > 0 && property_value.size() > 0) {
+						RDFNode pname = property_name.get(0);
+						RDFNode pvalue = property_value.get(0);
+						if (!pname.toString().equals(pvalue.toString())) {
+							PropertySet ps = this.propertysets.get(propertyset.getURI());
+							if (ps == null) {
+								if (!propertyset_name.isEmpty())
+									ps = new PropertySet(propertyset_name.get(0).toString(), this.props_base,
+											pset);
+								else
+									ps = new PropertySet("", this.props_base, pset);
+								this.propertysets.put(propertyset.getURI(), ps);
+							}
+							if (pvalue.toString().trim().length() > 0) {
+								ps.put(pname.toString(), pvalue);
+							}
+						}
+					} else {
+						RDFNode pname = property_name.get(0);
 						PropertySet ps = this.propertysets.get(propertyset.getURI());
 						if (ps == null) {
 							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(propertyset_name.get(0).toString());
+								ps = new PropertySet(propertyset_name.get(0).toString(), this.props_base, pset);
 							else
-								ps = new PropertySet("");
+								ps = new PropertySet("", this.props_base, pset);
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
-						if (pvalue.toString().trim().length() > 0) {
-							ps.put(pname.toString(), pvalue);
-						}
+						ps.put(pname.toString(), propertySingleValue);
+						copyTriples(0, propertySingleValue, output_model);
 					}
-				} else {
-					RDFNode pname = property_name.get(0);
-					PropertySet ps = this.propertysets.get(propertyset.getURI());
-					if (ps == null) {
-						if (!propertyset_name.isEmpty())
-							ps = new PropertySet(propertyset_name.get(0).toString());
-						else
-							ps = new PropertySet("");
-						this.propertysets.put(propertyset.getURI(), ps);
-					}
-					ps.put(pname.toString(), propertySingleValue);
-					copyTriples(0, propertySingleValue, output_model);
 				}
-
 			});
 		});
 
@@ -183,10 +189,7 @@ public class IFCtoLBDConverter {
 			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 				PropertySet p_set = this.propertysets.get(propertyset.getURI());
 				if (p_set != null) {
-					for (String k : p_set.getMap().keySet()) {
-						Property property = output_model.createProperty(this.props_base + k);
-						sio.addProperty(property, p_set.getMap().get(k));
-					}
+					p_set.connect(sio);
 				}
 			});
 
@@ -203,10 +206,7 @@ public class IFCtoLBDConverter {
 				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 					PropertySet p_set = this.propertysets.get(propertyset.getURI());
 					if (p_set != null) {
-						for (String k : p_set.getMap().keySet()) {
-							Property property = output_model.createProperty(this.props_base + k);
-							bo.addProperty(property, p_set.getMap().get(k));
-						}
+						p_set.connect(bo);
 					}
 				});
 
@@ -223,13 +223,8 @@ public class IFCtoLBDConverter {
 
 					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 						PropertySet p_set = this.propertysets.get(propertyset.getURI());
-						if (p_set != null) {
-							for (String k : p_set.getMap().keySet()) {
-								Property property = output_model.createProperty(this.props_base + k);
-								so.addProperty(property, p_set.getMap().get(k));
-
-							}
-						}
+						if (p_set != null)
+							p_set.connect(so);
 					});
 
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
@@ -259,10 +254,7 @@ public class IFCtoLBDConverter {
 								.forEach(propertyset -> {
 									PropertySet p_set = this.propertysets.get(propertyset.getURI());
 									if (p_set != null) {
-										for (String k : p_set.getMap().keySet()) {
-											Property property = output_model.createProperty(this.props_base + k);
-											spo.addProperty(property, p_set.getMap().get(k));
-										}
+										p_set.connect(spo);
 									}
 								});
 					});
@@ -299,7 +291,6 @@ public class IFCtoLBDConverter {
 		});
 	}
 
-
 	private void connectElement(Model output_model, Resource bot_resource, Resource ifc_element) {
 		Optional<String> predefined_type = getPredefinedData(ifc_element);
 		Optional<Resource> ifcowl_type = getType(ifc_element);
@@ -320,14 +311,8 @@ public class IFCtoLBDConverter {
 
 			listPropertysets(ifc_element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 				PropertySet p_set = this.propertysets.get(propertyset.getURI());
-				if (p_set != null) {
-					for (String k : p_set.getMap().keySet()) {
-						Property property = output_model.createProperty(this.props_base + k);
-						eo.addProperty(property, p_set.getMap().get(k));
-
-					}
-				}
-
+				if (p_set != null)
+					p_set.connect(eo);
 			});
 			addAttrributes(ifc_element, eo);
 
@@ -673,7 +658,8 @@ public class IFCtoLBDConverter {
 						List<Resource> r_list = ifcowl_product_map.getOrDefault(ifcowl_subclass.getLocalName(),
 								new ArrayList<Resource>());
 						ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);
-						System.out.println(ifcowl_subclass.getLocalName()+" ->> "+product_BE_ontology_statement.getSubject());
+						System.out.println(
+								ifcowl_subclass.getLocalName() + " ->> " + product_BE_ontology_statement.getSubject());
 						r_list.add(product_BE_ontology_statement.getSubject());
 					}
 				}
