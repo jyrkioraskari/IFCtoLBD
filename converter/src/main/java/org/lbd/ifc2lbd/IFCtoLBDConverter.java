@@ -154,7 +154,7 @@ public class IFCtoLBDConverter {
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
 						if (pvalue.toString().trim().length() > 0) {
-							ps.put(toCamelCase(pname.toString()), pvalue);
+							ps.put(pname.toString(), pvalue);
 						}
 					}
 				} else {
@@ -167,7 +167,7 @@ public class IFCtoLBDConverter {
 							ps = new PropertySet("");
 						this.propertysets.put(propertyset.getURI(), ps);
 					}
-					ps.put(toCamelCase(pname.toString()), propertySingleValue);
+					ps.put(pname.toString(), propertySingleValue);
 					copyTriples(0, propertySingleValue, output_model);
 				}
 
@@ -299,36 +299,6 @@ public class IFCtoLBDConverter {
 		});
 	}
 
-	private String toCamelCase(final String init) {
-		if (init == null)
-			return null;
-
-		StringBuilder ret = new StringBuilder();
-
-		boolean first = true;
-		for (final String word : init.split(" ")) {
-			if (!word.isEmpty()) {
-				if (first) {
-					ret.append(filterCharaters(word.substring(0, 1).toLowerCase()));
-					first = false;
-				} else
-					ret.append(filterCharaters(word.substring(0, 1).toUpperCase()));
-				ret.append(filterCharaters(word.substring(1)));
-			}
-		}
-
-		return ret.toString();
-	}
-
-	private String filterCharaters(String txt) {
-		StringBuilder ret = new StringBuilder();
-		for (byte cb : txt.getBytes()) {
-			char c = (char) cb;
-			if (Character.isAlphabetic(c))
-				ret.append(c);
-		}
-		return ret.toString();
-	}
 
 	private void connectElement(Model output_model, Resource bot_resource, Resource ifc_element) {
 		Optional<String> predefined_type = getPredefinedData(ifc_element);
