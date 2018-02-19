@@ -70,6 +70,7 @@ public class IFCtoLBDConverter {
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
 	private static final String props_base = "https://w3id.org/product/props/";
+	private Optional<String> ontURI =  Optional.empty();
 
 	// URI-propertyset
 	private Map<String, PropertySet> propertysets = new HashMap<>();
@@ -663,25 +664,26 @@ public class IFCtoLBDConverter {
 					continue;
 				Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
 
-				// This adds the seeAlso mapping directly
+				// This adds the seeAlso mapping directly: The base IRI is removed so that the mapping independen of
+				// various IFC versions
 				List<Resource> resource_list = ifcowl_product_map.getOrDefault(ifcowl_class.getLocalName(),
 						new ArrayList<Resource>());
 				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
 				resource_list.add(product_BE_ontology_statement.getSubject());
 			}
 		}
-		si = ontology_model.listStatements();
-		while (si.hasNext()) {
-			Statement product_BE_ontology_statement = si.next();
+		StmtIterator so = ontology_model.listStatements();
+		while (so.hasNext()) {
+			Statement product_BE_ontology_statement = so.next();
 			if (product_BE_ontology_statement.getPredicate().toString().toLowerCase().contains("seealso")) {
 				if (product_BE_ontology_statement.getObject().isLiteral())
 					continue;
 				if (!product_BE_ontology_statement.getObject().isResource())
 					continue;
 				Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
-
+				Resource mapped_ifcowl_class = ontology_model.getResource(this.ontURI.get()+"#"+ifcowl_class.getLocalName());
 				StmtIterator subclass_statement_iterator = ontology_model
-						.listStatements(new SimpleSelector(null, RDFS.subClassOf, ifcowl_class));
+						.listStatements(new SimpleSelector(null, RDFS.subClassOf, mapped_ifcowl_class));
 				while (subclass_statement_iterator.hasNext()) {
 					Statement su = subclass_statement_iterator.next();
 					Resource ifcowl_subclass = su.getSubject();
@@ -691,6 +693,7 @@ public class IFCtoLBDConverter {
 						ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);
 
 						r_list.add(product_BE_ontology_statement.getSubject());
+						System.out.println("add: "+ifcowl_subclass.getLocalName()+" -> "+product_BE_ontology_statement.getSubject());
 					}
 				}
 
@@ -705,7 +708,7 @@ public class IFCtoLBDConverter {
 			try {
 				Model m = ModelFactory.createDefaultModel();
 				ByteArrayOutputStream stringStream = new ByteArrayOutputStream();
-				rj.convert(ifc_file, stringStream, uriBase);
+				this.ontURI=rj.convert(ifc_file, stringStream, uriBase);
 				InputStream stream = new ByteArrayInputStream(
 						stringStream.toString().getBytes(StandardCharsets.UTF_8.name()));
 				m.read(stream, null, "TTL");
@@ -732,8 +735,11 @@ public class IFCtoLBDConverter {
 			Header header = HeaderParser.parseHeader(input);
 			Object ifcVersion;
 			version=IfcVersion.getIfcVersion(header);
-			String ontNS=IfcVersion.IfcNSMap.get(version);
-			//TODO Fix this
+			//Not mapped correctly
+			//String ontNS=IfcVersion.IfcNSMap.get(version);
+			//System.out.println(ontNS);
+			
+			//TODO Fix this: Double reading
 			readInOntologyTTL(ontology_model,version.getLabel()+".ttl");
 			readInOntologyTTL(ifcowl_model,version.getLabel()+".ttl");
 		} catch (FileNotFoundException e) {

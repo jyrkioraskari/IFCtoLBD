@@ -19,13 +19,14 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
+
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
-
 import com.google.gson.Gson;
 
 /*
@@ -323,8 +324,8 @@ public class IfcSpfReader {
     }
     
     @SuppressWarnings("unchecked")
-    public void convert(String ifcFile,OutputStream outStream, String baseURI) throws IOException {
-        // long t0 = System.currentTimeMillis();
+    public Optional<String> convert(String ifcFile,OutputStream outStream, String baseURI) throws IOException {
+    	 Optional<String> ontURI = Optional.empty();
 
         if (!ifcFile.endsWith(".ifc")) {
             ifcFile += ".ifc";
@@ -336,7 +337,7 @@ public class IfcSpfReader {
         if (!exp.equalsIgnoreCase("IFC2X3_Final") && !exp.equalsIgnoreCase("IFC2X3_TC1") && !exp.equalsIgnoreCase("IFC4_ADD2") && !exp.equalsIgnoreCase("IFC4_ADD1") && !exp.equalsIgnoreCase("IFC4")) {
             if (logToFile)
                 bw.write("ERROR: Unrecognised EXPRESS schema: " + exp + ". File should be in IFC4 or IFC2X3 schema. Stopping conversion." + "\r\n");
-            return;
+            return Optional.empty();
         }
 
         // CONVERSION
@@ -404,9 +405,9 @@ public class IfcSpfReader {
                 ois.close();
             }
 
-            String ontURI = "http://www.buildingsmart-tech.org/ifcOWL/" + exp;
+            ontURI = Optional.of("http://www.buildingsmart-tech.org/ifcOWL/" + exp);
 
-            RDFWriter conv = new RDFWriter(om, expressModel, listModel, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
+            RDFWriter conv = new RDFWriter(om, expressModel, listModel, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI.get());
             conv.setRemoveDuplicates(removeDuplicates);
             conv.setIfcReader(this);
             String s = "# baseURI: " + baseURI;
@@ -429,6 +430,7 @@ public class IfcSpfReader {
                 e1.printStackTrace();
             }
         }
+        return ontURI;
     }
     
 }
