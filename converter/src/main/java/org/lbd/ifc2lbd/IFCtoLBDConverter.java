@@ -703,7 +703,7 @@ public class IFCtoLBDConverter {
 						List<Resource> r_list = ifcowl_product_map.getOrDefault(ifcowl_subclass.getLocalName(),
 								new ArrayList<Resource>());
 						ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);
-
+						System.out.println(ifcowl_subclass.getLocalName()+" ->> "+product_BE_ontology_statement.getSubject());
 						r_list.add(product_BE_ontology_statement.getSubject());
 					}
 				}
@@ -763,7 +763,7 @@ public class IFCtoLBDConverter {
 
 		readInOntologyTTL(ontology_model, "prod.ttl");
 		readInOntologyTTL(ontology_model, "prod_building_elements.ttl");
-		readInOntologyTTL(ontology_model, "prod_mep.ttl");
+		readInOntologyTTL(ontology_model, "prod_furnishing.ttl");
 		readInOntologyTTL(ontology_model, "prod_mep.ttl");
 		// ontology_model.write(System.out, "TTL");
 	}
