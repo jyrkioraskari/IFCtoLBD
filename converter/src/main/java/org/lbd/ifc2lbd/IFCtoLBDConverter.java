@@ -33,6 +33,7 @@ import org.buildingsmart.tech.ifcowl.IfcSpfReader;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import org.lbd.ifc2lbd.ns.BOT;
 import org.lbd.ifc2lbd.ns.IfcOWLNameSpace;
+import org.lbd.ifc2lbd.ns.OPM;
 import org.lbd.ifc2lbd.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.rdfpath.RDFStep;
 
@@ -69,7 +70,7 @@ public class IFCtoLBDConverter {
 	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
-	private static final String props_base = "https://w3id.org/product/props#";
+	
 	private Optional<String> ontURI = Optional.empty();
 	private IfcOWLNameSpace ifcOWL;
 
@@ -94,7 +95,10 @@ public class IFCtoLBDConverter {
 		output_model.setNsPrefix("rdfs", RDFS.uri);
 		output_model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 		output_model.setNsPrefix("inst", uriBase);
-		output_model.setNsPrefix("props", props_base);
+		output_model.setNsPrefix("props", OPM.props_ns);
+		output_model.setNsPrefix("opm", OPM.opm_ns);
+		output_model.setNsPrefix("prov", OPM.prov_ns);
+
 		output_model.setNsPrefix("ifc", this.uriBase);
 
 		eventBus.post(new SystemStatusEvent("IFC->LBD"));
@@ -144,7 +148,7 @@ public class IFCtoLBDConverter {
 				String guid = getGUID(propertyset);
 				if (guid != null) {
 					Resource pset = output_model
-							.createResource(this.props_base + GuidCompressor.uncompressGuidString(guid));
+							.createResource(OPM.props_ns + GuidCompressor.uncompressGuidString(guid));
 
 					if (property_name.size() > 0 && property_value.size() > 0) {
 						RDFNode pname = property_name.get(0);
@@ -153,10 +157,9 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(propertyset_name.get(0).toString(), this.props_base,
-											pset);
+									ps = new PropertySet(propertyset_name.get(0).toString(), pset);
 								else
-									ps = new PropertySet("", this.props_base, pset);
+									ps = new PropertySet("", pset);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							if (pvalue.toString().trim().length() > 0) {
@@ -168,9 +171,9 @@ public class IFCtoLBDConverter {
 						PropertySet ps = this.propertysets.get(propertyset.getURI());
 						if (ps == null) {
 							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(propertyset_name.get(0).toString(), this.props_base, pset);
+								ps = new PropertySet(propertyset_name.get(0).toString(), pset);
 							else
-								ps = new PropertySet("", this.props_base, pset);
+								ps = new PropertySet("", pset);
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
 						ps.put(pname.toString(), propertySingleValue);

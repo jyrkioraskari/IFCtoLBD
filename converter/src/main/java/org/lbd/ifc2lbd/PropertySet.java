@@ -1,25 +1,43 @@
 package org.lbd.ifc2lbd;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
+import org.lbd.ifc2lbd.ns.OPM;
 
 public class PropertySet {
 	private final Map<String, RDFNode> map = new HashMap<>();
 	private String name;
-	private final String props_base;
+	
+	
 	private boolean isWritten=false;
 	private final Resource pset;
+	
+	private class PsetProperty {
+		final Property p;
+		final Resource r;
+		public PsetProperty(Property p, Resource r) {
+			super();
+			this.p = p;
+			this.r = r;
+		}
+		
+	}
+	private List<PsetProperty> properties=new ArrayList<>();
 
-	public PropertySet(String name, String props_base, Resource pset) {
-		this.name=toCamelCase(name);
+	public PropertySet(String name,  Resource pset) {
+		this.name=name;
 		if(name.contains("_"))
 			this.name=name.split("_")[1];
-		this.props_base=props_base;
 		this.pset=pset;
 	}
 
@@ -28,11 +46,25 @@ public class PropertySet {
 	}
 
 	private void write()
-	{
+	{		
+		pset.addProperty(RDFS.label, name);
+		pset.addProperty(RDF.type, OPM.pset);
 		isWritten=true;
 		for (String k : this.getMap().keySet()) {
-			Property property = pset.getModel().createProperty(this.props_base + k);
-			pset.addProperty(property, this.getMap().get(k));
+
+			Resource property_resourse=pset.getModel().createResource();
+			property_resourse.addProperty(OPM.pset_property, pset);
+			Resource state_resourse=pset.getModel().createResource();
+			property_resourse.addProperty(OPM.hasState, state_resourse);
+
+			LocalDateTime datetime = LocalDateTime.now();
+			String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+			state_resourse.addProperty(RDF.type, OPM.currentState);
+			state_resourse.addLiteral(OPM.generatedAtTime, time_string);
+			state_resourse.addProperty(OPM.value, this.getMap().get(k));
+			
+			Property p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name+"_"+k));
+			this.properties.add(new PsetProperty(p,property_resourse));
 		}
 	}
 	
@@ -41,14 +73,18 @@ public class PropertySet {
     {
     	if(!isWritten)
     		write();
-		Property property = r.getModel().createProperty(this.props_base + name);
-		r.addProperty(property, pset);
+		//Property property = r.getModel().createProperty(this.props_base + name);
+		//r.addProperty(property, pset);
     	
     	/*for (String k : this.getMap().keySet()) {
 			Property property = r.getModel().createProperty(this.props_base + k);
 			r.addProperty(property, this.getMap().get(k));
 
 		}*/
+    	for (PsetProperty pp : this.properties) {			
+			r.addProperty(pp.p, pp.r);
+
+		}
     }
 
 	private String toCamelCase(final String init) {
