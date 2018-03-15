@@ -139,19 +139,19 @@ public class IfcOWLNameSpace extends abstract_NS {
 	public String getIfcPropertySet() {
 		return IfcPropertySet;
 	}
-	public static Property getHasstring() {
+	public Property getHasstring() {
 		return hasString;
 	}
-	public static Property getHasdouble() {
+	public Property getHasdouble() {
 		return hasDouble;
 	}
-	public static Property getHasinteger() {
+	public Property getHasinteger() {
 		return hasInteger;
 	}
-	public static Property getHasboolean() {
+	public Property getHasboolean() {
 		return hasBoolean;
 	}
-	public static Property getHaslogical() {
+	public Property getHaslogical() {
 		return hasLogical;
 	}
 	public Property getHasProperties_IfcPropertySet() {

@@ -1,14 +1,11 @@
 package org.lbd.ifc2lbd;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -27,6 +24,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.buildingsmart.tech.ifcowl.IfcSpfReader;
@@ -70,7 +68,7 @@ public class IFCtoLBDConverter {
 	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
-	
+
 	private Optional<String> ontURI = Optional.empty();
 	private IfcOWLNameSpace ifcOWL;
 
@@ -182,6 +180,9 @@ public class IFCtoLBDConverter {
 				}
 			});
 		});
+		
+       	eventBus.post(new SystemStatusEvent("LDB properties read"));
+
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, output_model, "Site");
@@ -214,6 +215,8 @@ public class IFCtoLBDConverter {
 				});
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
+			       	eventBus.post(new SystemStatusEvent("Storey: "+storey.getLocalName()));
+
 					if (!getType(storey.asResource()).get().getURI()
 							.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcBuildingStorey"))
 						return;
@@ -266,13 +269,19 @@ public class IFCtoLBDConverter {
 		});
 
 		// String out_filename = ifc_filename.split("\\.")[0] + "_BOT.ttl";
-
+		FileOutputStream fo = null;
 		try {
-			FileOutputStream fo = new FileOutputStream(new File(target_file));
+			fo = new FileOutputStream(new File(target_file));
 			output_model.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+		} finally {
+			if (fo != null)
+				try {
+					fo.close();
+				} catch (IOException e) {
+				}
 		}
 
 		System.out.println("Conversion done. File is: " + target_file);
@@ -675,16 +684,18 @@ public class IFCtoLBDConverter {
 	public Model readAndConvertIFC(String ifc_file, String uriBase) {
 		try {
 			IfcSpfReader rj = new IfcSpfReader();
+			File tempFile = File.createTempFile("ifc", ".ttl");
 			try {
 				Model m = ModelFactory.createDefaultModel();
-				ByteArrayOutputStream stringStream = new ByteArrayOutputStream();
-				this.ontURI = rj.convert(ifc_file, stringStream, uriBase);
-				InputStream stream = new ByteArrayInputStream(
-						stringStream.toString().getBytes(StandardCharsets.UTF_8.name()));
-				m.read(stream, null, "TTL");
+				// File tempFile = File.createTempFile("MyAppName-", ".tmp");
+				this.ontURI = rj.convert(ifc_file, tempFile.getAbsolutePath(), uriBase);
+				// m.read(stream, null, "TTL");
+				RDFDataMgr.read(m, tempFile.getAbsolutePath());
 				return m;
 			} catch (IOException e) {
 				e.printStackTrace();
+			} finally {
+				tempFile.deleteOnExit();
 			}
 
 		} catch (Exception e) {
@@ -695,6 +706,25 @@ public class IFCtoLBDConverter {
 		System.out.println("IFC-RDF conversion not done");
 		return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
+
+	/* @formatter:off */
+	/*
+	 * public Model readAndConvertIFC(String ifc_file, String uriBase) { try {
+	 * IfcSpfReader rj = new IfcSpfReader(); try { Model m =
+	 * ModelFactory.createDefaultModel(); ByteArrayOutputStream stringStream = new
+	 * ByteArrayOutputStream(); this.ontURI = rj.convert(ifc_file, stringStream,
+	 * uriBase); InputStream stream = new ByteArrayInputStream(
+	 * stringStream.toString().getBytes(StandardCharsets.UTF_8.name()));
+	 * m.read(stream, null, "TTL"); return m; } catch (IOException e) {
+	 * e.printStackTrace(); }
+	 * 
+	 * } catch (Exception e) { eventBus.post(new SystemStatusEvent("Error: " +
+	 * e.getMessage())); e.printStackTrace();
+	 * 
+	 * } System.out.println("IFC-RDF conversion not done"); return
+	 * ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM); }
+	 */
+	/* @formatter:on */
 
 	private void readInOntologies(String ifc_file) {
 		IfcVersion.initDefaultIfcNsMap();

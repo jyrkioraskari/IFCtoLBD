@@ -6,7 +6,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 
 public class OPM extends abstract_NS{
-	public static final String opm_ns = "httphttps://w3id.org/opm#";
+	public static final String opm_ns = "https://w3id.org/opm#";
 	public static final String prov_ns = "http://www.w3.org/ns/prov#";
 	public static final String props_ns = "https://w3id.org/product/props#";
 	

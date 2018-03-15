@@ -41,6 +41,7 @@ import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -62,7 +63,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-@SuppressWarnings("restriction")
 public class IFCtoLBDController implements Initializable, FxInterface {
 	private static String ontologyNamespace;
 	private final EventBus eventBus = EventBusService.getEventBus();
@@ -313,8 +313,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@Subscribe
-	public void handleEvent(SystemStatusEvent event) {
+	public void handleEvent(final SystemStatusEvent event) {
 		System.out.println("message: " + event.getStatus_message());
-		this.conversionTxt.appendText(event.getStatus_message() + "\n");
+		Platform.runLater(() -> this.conversionTxt.appendText(event.getStatus_message() + "\n"));
 	}
 }

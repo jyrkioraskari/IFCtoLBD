@@ -2,7 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
-	<version>1.41</version>
+	<artifactId>ifc2lbd</artifactId>
+	<version>1.44</version>
 	<name>IFC to LBD Converter</name>
 
 
@@ -31,20 +32,19 @@
 			<version>${gson.version}</version>
 			<scope>compile</scope>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/ifcParserLib -->
+
 		<dependency>
-			<groupId>com.github.pipauwel</groupId>
-			<artifactId>ifcParserLib</artifactId>
-			<version>0.2</version>
+			<groupId>org.lbd</groupId>
+			<artifactId>ifc2rdf</artifactId>
+			<version>1.0.3</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>23.0</version>
 		</dependency>
-
 	</dependencies>
-	<artifactId>ifc2lbd</artifactId>
 	<build>
 		<plugins>
 			<!-- Maven Assembly Plugin -->

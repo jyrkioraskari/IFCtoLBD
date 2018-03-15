@@ -36,7 +36,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 
-@SuppressWarnings("restriction")
 public class IFCtoLBD_Desktop extends Application {
     
     @Override

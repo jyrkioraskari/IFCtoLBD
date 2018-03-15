@@ -30,7 +30,6 @@ import java.util.Stack;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
 
-
 /**
  * The class to parse IFC header data in IFC SPF file to generate Header object
  * @author Chi

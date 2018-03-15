@@ -3,15 +3,18 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
 	<artifactId>desktop</artifactId>
-	<version>1.41</version>
+	<version>1.44</version>
 	<name>DesktopUI</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.41</version>
+			<version>1.44</version>
 		</dependency>
-		
 	</dependencies>
+	<properties>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+	</properties>
 </project>
