@@ -45,4 +45,4 @@ The most probable situation for this is when a large file is converted. Try to s
 
 2. Why does the program say: "Error: Cannot determine which IFC version the model it is: [IFC2X2_FINAL]"
 
-IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some test files that are generated using this version. Support for this may be added.  Currently the supported IFC versions are: ,  IFC2x3TC1, FC2x3FINAL, IFC4, IFC4 ADD1 and  IFC4 ADD2.  
+IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some test files that are generated using this version. Support for this may be added.  Currently the supported IFC versions are:  IFC2x3TC1, FC2x3FINAL, IFC4, IFC4 ADD1 and  IFC4 ADD2.  
