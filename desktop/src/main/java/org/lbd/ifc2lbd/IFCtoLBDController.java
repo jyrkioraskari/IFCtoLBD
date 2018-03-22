@@ -48,6 +48,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
@@ -59,6 +60,7 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -69,8 +71,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	@FXML
-	MenuBar myMenuBar;
+    private AnchorPane root ;
+    @FXML
+    private Rectangle border ;
 
+	@FXML
+	MenuBar myMenuBar;
+	
+    @FXML
+    private RadioButton level1;
+    @FXML
+    private RadioButton level2;
+    @FXML
+    private RadioButton level3;
+
+	
 	@FXML
 	private TextArea handleOnTxt;
 
@@ -194,7 +209,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		conversionTxt.setText("");
 		try {
 			String uri_base = labelBaseURI.getText().trim();
-			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName));
+			int props_level=2;
+			if(level1.isSelected())
+				props_level=1;
+			if(level3.isSelected())
+				props_level=3;
+			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level));
 		} catch (Exception e) {
 			conversionTxt.appendText(e.getMessage());
 		}
@@ -204,6 +224,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	public void initialize(URL location, ResourceBundle resources) {
 		this.application = this;
 		eventBus.register(this);
+		border.widthProperty().bind(root.widthProperty());
+        border.heightProperty().bind(root.heightProperty());
 		// Accepts dropping
 		EventHandler<DragEvent> ad_ontology = new EventHandler<DragEvent>() {
 			public void handle(DragEvent event) {
@@ -283,7 +305,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						conversionTxt.setText("");
 						try {
 							String uri_base = labelBaseURI.getText().trim();
-							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath()));
+							int props_level=2;
+							if(level1.isSelected())
+								props_level=1;
+							if(level3.isSelected())
+								props_level=3;
+							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}

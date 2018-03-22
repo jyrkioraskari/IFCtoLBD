@@ -12,49 +12,52 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.lbd.ifc2lbd.ns.BOT;
 import org.lbd.ifc2lbd.ns.OPM;
 
 public class PropertySet {
 	private final Map<String, RDFNode> map = new HashMap<>();
 	private String name;
-	
-	
-	private boolean isWritten=false;
+
+	private boolean isWritten = false;
 	private final Resource pset;
-	
+	private final int props_level;
+
 	private class PsetProperty {
 		final Property p;
 		final Resource r;
+
 		public PsetProperty(Property p, Resource r) {
 			super();
 			this.p = p;
 			this.r = r;
 		}
-		
-	}
-	private List<PsetProperty> properties=new ArrayList<>();
 
-	public PropertySet(String name,  Resource pset) {
-		this.name=name;
-		if(name.contains("_"))
-			this.name=name.split("_")[1];
-		this.pset=pset;
+	}
+
+	private List<PsetProperty> properties = new ArrayList<>();
+
+	public PropertySet(String name, Resource pset, int props_level) {
+		this.name = name;
+		if (name.contains("_"))
+			this.name = name.split("_")[1];
+		this.pset = pset;
+		this.props_level = props_level;
 	}
 
 	public void put(String key, RDFNode value) {
 		map.put(toCamelCase(key), value);
 	}
 
-	private void write()
-	{		
+	private void write() {
 		pset.addProperty(RDFS.label, name);
 		pset.addProperty(RDF.type, OPM.pset);
-		isWritten=true;
+		isWritten = true;
 		for (String k : this.getMap().keySet()) {
 
-			Resource property_resourse=pset.getModel().createResource();
+			Resource property_resourse = pset.getModel().createResource();
 			property_resourse.addProperty(OPM.pset_property, pset);
-			Resource state_resourse=pset.getModel().createResource();
+			Resource state_resourse = pset.getModel().createResource();
 			property_resourse.addProperty(OPM.hasState, state_resourse);
 
 			LocalDateTime datetime = LocalDateTime.now();
@@ -62,30 +65,32 @@ public class PropertySet {
 			state_resourse.addProperty(RDF.type, OPM.currentState);
 			state_resourse.addLiteral(OPM.generatedAtTime, time_string);
 			state_resourse.addProperty(OPM.value, this.getMap().get(k));
-			
-			Property p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name+"_"+k));
-			this.properties.add(new PsetProperty(p,property_resourse));
+
+			Property p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name + "_" + k));
+			this.properties.add(new PsetProperty(p, property_resourse));
 		}
 	}
-	
-	
-    public void connect(Resource r)
-    {
-    	if(!isWritten)
-    		write();
-		//Property property = r.getModel().createProperty(this.props_base + name);
-		//r.addProperty(property, pset);
-    	
-    	/*for (String k : this.getMap().keySet()) {
-			Property property = r.getModel().createProperty(this.props_base + k);
-			r.addProperty(property, this.getMap().get(k));
 
-		}*/
-    	for (PsetProperty pp : this.properties) {			
-			r.addProperty(pp.p, pp.r);
+	public void connect(Resource r) {
+		if (this.props_level > 1) {
+			if (!isWritten)
+				write();
+			for (PsetProperty pp : this.properties) {
+				r.addProperty(pp.p, pp.r);
+
+			}
+		} else {
+			//Property property = r.getModel().createProperty(BOT.PropertySet.pset_ns + name);
+			//r.addProperty(property, pset);
+
+			for (String k : this.getMap().keySet()) {
+				Property property = r.getModel().createProperty(BOT.PropertySet.pset_ns + name+"_"+k);
+				r.addProperty(property, this.getMap().get(k));
+
+			}
 
 		}
-    }
+	}
 
 	private String toCamelCase(final String init) {
 		if (init == null)
@@ -107,7 +112,6 @@ public class PropertySet {
 
 		return ret.toString();
 	}
-	
 
 	private String filterCharaters(String txt) {
 		StringBuilder ret = new StringBuilder();
@@ -118,9 +122,9 @@ public class PropertySet {
 		}
 		return ret.toString();
 	}
+
 	private Map<String, RDFNode> getMap() {
 		return map;
 	}
-
 
 }

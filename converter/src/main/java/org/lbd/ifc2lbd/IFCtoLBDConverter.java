@@ -75,7 +75,7 @@ public class IFCtoLBDConverter {
 	// URI-property set
 	private Map<String, PropertySet> propertysets = new HashMap<>();
 
-	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file) {
+	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file,int props_level) {
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -155,9 +155,9 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(propertyset_name.get(0).toString(), pset);
+									ps = new PropertySet(propertyset_name.get(0).toString(), pset,props_level);
 								else
-									ps = new PropertySet("", pset);
+									ps = new PropertySet("", pset,props_level);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							if (pvalue.toString().trim().length() > 0) {
@@ -169,9 +169,9 @@ public class IFCtoLBDConverter {
 						PropertySet ps = this.propertysets.get(propertyset.getURI());
 						if (ps == null) {
 							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(propertyset_name.get(0).toString(), pset);
+								ps = new PropertySet(propertyset_name.get(0).toString(), pset,props_level);
 							else
-								ps = new PropertySet("", pset);
+								ps = new PropertySet("", pset,props_level);
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
 						ps.put(pname.toString(), propertySingleValue);
@@ -784,7 +784,7 @@ public class IFCtoLBDConverter {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2]);
+			new IFCtoLBDConverter(args[0], args[1], args[2],2);
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 	}
