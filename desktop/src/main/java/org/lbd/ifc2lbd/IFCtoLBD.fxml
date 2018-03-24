@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -42,6 +43,16 @@
     </MenuBar>
     <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="375.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
          <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="152.0" layoutX="50.0" layoutY="145.0" opacity="0.05" stroke="BLACK" strokeType="INSIDE" width="632.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#0f0f0f" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
             <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="527.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" width="735.0" AnchorPane.topAnchor="0.0">
                <fill>
                   <LinearGradient cycleMethod="REFLECT" endX="0.8857142857142857" endY="1.0" startX="0.009523809523809525">
@@ -56,9 +67,9 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="478.0" layoutX="25.0" layoutY="25.0" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="685.0" AnchorPane.rightAnchor="25.0">
+            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="462.0" layoutX="25.0" layoutY="41.0" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="685.0" AnchorPane.rightAnchor="25.0">
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
+                  <LinearGradient endX="0.7095238095238096" endY="0.9214285714285715" startX="0.011904761904761904">
                      <stops>
                         <Stop color="#edda93" />
                         <Stop color="#edda93" offset="0.007662835249042145" />
@@ -68,23 +79,23 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Text layoutX="53.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" wrappingWidth="365.3779296875" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="319.0" AnchorPane.topAnchor="30.0">
+            <Text fill="#f2eded" layoutX="29.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" wrappingWidth="365.3779296875">
                <font>
-                  <Font name="System Bold" size="18.0" />
+                  <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="208.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="25.0" prefWidth="136.0" text="Select an IFC file" AnchorPane.bottomAnchor="297.0" AnchorPane.leftAnchor="50.0" />
-            <Label fx:id="labelIFCFile" layoutX="192.0" layoutY="212.0" prefHeight="17.0" prefWidth="377.0" AnchorPane.leftAnchor="200.0" />
-            <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="33.0" layoutY="240.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="25.0" prefWidth="136.0" text="Select the target file" AnchorPane.leftAnchor="50.0" />
-            <Label fx:id="labelTargetFile" layoutX="192.0" layoutY="244.0" prefHeight="17.0" prefWidth="377.0" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="244.0" />
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="33.0" layoutY="359.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="25.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="359.0" />
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="188.0" layoutY="271.0" prefHeight="198.0" prefWidth="377.0" AnchorPane.bottomAnchor="61.0" AnchorPane.leftAnchor="200.0" />
-            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="33.0" layoutY="308.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="308.0" />
-            <TextField fx:id="labelBaseURI" layoutX="33.0" layoutY="170.0" prefHeight="25.0" prefWidth="529.0" AnchorPane.leftAnchor="50.0" />
-            <Label layoutX="33.0" layoutY="146.0" text="Base URL" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="146.0">
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="30.0" prefWidth="136.0" text="Select an IFC file" AnchorPane.bottomAnchor="442.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="55.0" />
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="39.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="55.0" />
+            <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="91.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="30.0" prefWidth="136.0" text="Select the target file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
+            <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="440.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="30.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.bottomAnchor="50.0" />
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="212.0" layoutY="271.0" prefHeight="167.0" prefWidth="410.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
+            <TextField fx:id="labelBaseURI" layoutX="51.0" layoutY="167.0" prefHeight="30.0" prefWidth="632.0" AnchorPane.bottomAnchor="333.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="167.0" />
+            <Label layoutX="60.0" layoutY="145.0" text="Base URL">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="82.0" layoutX="130.0" layoutY="64.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="448.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="82.0" layoutX="270.0" layoutY="207.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="390.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="207.0">
                <fill>
                   <LinearGradient endX="1.0" endY="1.0">
                      <stops>
@@ -94,18 +105,25 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Text layoutX="158.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Property sets" wrappingWidth="237.8779296875" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="325.1220703125" AnchorPane.topAnchor="70.0">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Text>
            
-            <RadioButton fx:id="level1" layoutX="150.0" layoutY="100.0" mnemonicParsing="false" text="Level 1" toggleGroup="$level" >
+            <RadioButton fx:id="level1" layoutX="289.0" layoutY="249.0" mnemonicParsing="false" text="Level 1" toggleGroup="$level">
                <toggleGroup>
                   <ToggleGroup fx:id="level" />
                </toggleGroup></RadioButton>
-            <RadioButton fx:id="level2" layoutX="250.0" layoutY="100.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" />
-            <RadioButton fx:id="level3" disable="true" layoutX="350.0" layoutY="100.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" />
+            <RadioButton fx:id="level2" layoutX="394.0" layoutY="250.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" />
+            <RadioButton fx:id="level3" disable="true" layoutX="508.0" layoutY="250.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" height="82.0" layoutX="60.0" layoutY="207.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="198.0">
+               <fill>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop color="#0f0f0f" />
+                        <Stop color="WHITE" offset="1.0" />
+                     </stops>
+                  </LinearGradient>
+               </fill>
+            </Rectangle>
+            <CheckBox fx:id="building_elements" layoutX="80.0" layoutY="218.0" mnemonicParsing="false" selected="true" text="Building elements" />
+            <CheckBox fx:id="building_props" layoutX="289.0" layoutY="218.0" mnemonicParsing="false" selected="true" text="Building related properties" />
          </children></AnchorPane>
         
     

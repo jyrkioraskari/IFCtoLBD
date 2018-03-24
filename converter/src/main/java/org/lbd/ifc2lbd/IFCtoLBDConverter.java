@@ -74,8 +74,14 @@ public class IFCtoLBDConverter {
 
 	// URI-property set
 	private Map<String, PropertySet> propertysets = new HashMap<>();
+	private final boolean hasBuildingElements;
+	private final boolean hasBuildingProperties;
 
-	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file,int props_level) {
+	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
+			boolean hasBuildingElements, boolean hasBuildingProperties) {
+		this.hasBuildingElements=hasBuildingElements;
+		this.hasBuildingProperties=hasBuildingProperties;
+		
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -108,81 +114,88 @@ public class IFCtoLBDConverter {
 			return;
 		}
 
-		listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+		if (hasBuildingProperties) {
+			listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 
-			RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasstring()) };
-			final List<RDFNode> propertyset_name = new ArrayList<>();
-			pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
+				RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasstring()) };
+				final List<RDFNode> propertyset_name = new ArrayList<>();
+				pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
 
-			RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
-			pathQuery(propertyset, path).forEach(propertySingleValue -> {
+				RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
+				pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
-				RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()), new RDFStep(ifcOWL.getHasstring()) };
-				final List<RDFNode> property_name = new ArrayList<>();
-				pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
+					RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
+							new RDFStep(ifcOWL.getHasstring()) };
+					final List<RDFNode> property_name = new ArrayList<>();
+					pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 
-				final List<RDFNode> property_value = new ArrayList<>();
+					final List<RDFNode> property_value = new ArrayList<>();
 
-				RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-						new RDFStep(ifcOWL.getHasstring()) };
-				pathQuery(propertySingleValue.asResource(), value_pathS).forEach(value -> property_value.add(value));
+					RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasstring()) };
+					pathQuery(propertySingleValue.asResource(), value_pathS)
+							.forEach(value -> property_value.add(value));
 
-				RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-						new RDFStep(ifcOWL.getHasdouble()) };
-				pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> property_value.add(value));
+					RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasdouble()) };
+					pathQuery(propertySingleValue.asResource(), value_pathD)
+							.forEach(value -> property_value.add(value));
 
-				RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-						new RDFStep(ifcOWL.getHasinteger()) };
-				pathQuery(propertySingleValue.asResource(), value_pathI).forEach(value -> property_value.add(value));
+					RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasinteger()) };
+					pathQuery(propertySingleValue.asResource(), value_pathI)
+							.forEach(value -> property_value.add(value));
 
-				RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-						new RDFStep(ifcOWL.getHasboolean()) };
-				pathQuery(propertySingleValue.asResource(), value_pathB).forEach(value -> property_value.add(value));
+					RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasboolean()) };
+					pathQuery(propertySingleValue.asResource(), value_pathB)
+							.forEach(value -> property_value.add(value));
 
-				RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-						new RDFStep(ifcOWL.getHaslogical()) };
-				pathQuery(propertySingleValue.asResource(), value_pathL).forEach(value -> property_value.add(value));
+					RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHaslogical()) };
+					pathQuery(propertySingleValue.asResource(), value_pathL)
+							.forEach(value -> property_value.add(value));
 
-				String guid = getGUID(propertyset);
-				if (guid != null) {
-					Resource pset = output_model
-							.createResource(OPM.props_ns + GuidCompressor.uncompressGuidString(guid));
+					String guid = getGUID(propertyset);
+					if (guid != null) {
+						Resource pset = output_model
+								.createResource(OPM.props_ns + GuidCompressor.uncompressGuidString(guid));
 
-					if (property_name.size() > 0 && property_value.size() > 0) {
-						RDFNode pname = property_name.get(0);
-						RDFNode pvalue = property_value.get(0);
-						if (!pname.toString().equals(pvalue.toString())) {
+						if (property_name.size() > 0 && property_value.size() > 0) {
+							RDFNode pname = property_name.get(0);
+							RDFNode pvalue = property_value.get(0);
+							if (!pname.toString().equals(pvalue.toString())) {
+								PropertySet ps = this.propertysets.get(propertyset.getURI());
+								if (ps == null) {
+									if (!propertyset_name.isEmpty())
+										ps = new PropertySet(propertyset_name.get(0).toString(), pset, props_level);
+									else
+										ps = new PropertySet("", pset, props_level);
+									this.propertysets.put(propertyset.getURI(), ps);
+								}
+								if (pvalue.toString().trim().length() > 0) {
+									ps.put(pname.toString(), pvalue);
+								}
+							}
+						} else {
+							RDFNode pname = property_name.get(0);
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(propertyset_name.get(0).toString(), pset,props_level);
+									ps = new PropertySet(propertyset_name.get(0).toString(), pset, props_level);
 								else
-									ps = new PropertySet("", pset,props_level);
+									ps = new PropertySet("", pset, props_level);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
-							if (pvalue.toString().trim().length() > 0) {
-								ps.put(pname.toString(), pvalue);
-							}
+							ps.put(pname.toString(), propertySingleValue);
+							copyTriples(0, propertySingleValue, output_model);
 						}
-					} else {
-						RDFNode pname = property_name.get(0);
-						PropertySet ps = this.propertysets.get(propertyset.getURI());
-						if (ps == null) {
-							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(propertyset_name.get(0).toString(), pset,props_level);
-							else
-								ps = new PropertySet("", pset,props_level);
-							this.propertysets.put(propertyset.getURI(), ps);
-						}
-						ps.put(pname.toString(), propertySingleValue);
-						copyTriples(0, propertySingleValue, output_model);
 					}
-				}
+				});
 			});
-		});
-		
-       	eventBus.post(new SystemStatusEvent("LDB properties read"));
 
+			eventBus.post(new SystemStatusEvent("LDB properties read"));
+		}
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, output_model, "Site");
@@ -215,7 +228,7 @@ public class IFCtoLBDConverter {
 				});
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
-			       	eventBus.post(new SystemStatusEvent("Storey: "+storey.getLocalName()));
+					eventBus.post(new SystemStatusEvent("Storey: " + storey.getLocalName()));
 
 					if (!getType(storey.asResource()).get().getURI()
 							.equals("http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#IfcBuildingStorey"))
@@ -232,7 +245,8 @@ public class IFCtoLBDConverter {
 						if (p_set != null)
 							p_set.connect(so);
 					});
-
+					
+					if(hasBuildingElements)
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
 						connectElement(output_model, so, element);
 					});
@@ -246,6 +260,7 @@ public class IFCtoLBDConverter {
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
+						if(hasBuildingElements)
 						listContained_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource())
 								.forEach(element -> {
 									connectElement(output_model, spo, element);
@@ -784,7 +799,7 @@ public class IFCtoLBDConverter {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2],2);
+			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, true);
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 	}

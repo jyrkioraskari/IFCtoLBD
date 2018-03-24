@@ -46,6 +46,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
@@ -77,6 +78,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	MenuBar myMenuBar;
+
+    @FXML
+    private CheckBox building_elements;
+
+    @FXML
+    private CheckBox building_props;
+	
 	
     @FXML
     private RadioButton level1;
@@ -214,7 +222,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				props_level=1;
 			if(level3.isSelected())
 				props_level=3;
-			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level));
+			
+			
+			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level,building_elements.isSelected(),building_props.isSelected()));
 		} catch (Exception e) {
 			conversionTxt.appendText(e.getMessage());
 		}
@@ -310,7 +320,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 								props_level=1;
 							if(level3.isSelected())
 								props_level=3;
-							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level));
+							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level,building_elements.isSelected(),building_props.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
