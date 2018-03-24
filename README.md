@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.44
+Version 1.46
 
 This repository presents the results of our ongoing work to 
 create a usable converter to convert  
