@@ -246,7 +246,6 @@ public class IFCtoLBDConverter {
 							p_set.connect(so);
 					});
 					
-					if(hasBuildingElements)
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
 						connectElement(output_model, so, element);
 					});
@@ -260,7 +259,6 @@ public class IFCtoLBDConverter {
 
 						so.addProperty(BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, BOT.space);
-						if(hasBuildingElements)
 						listContained_SpaceElements(space.asResource()).stream().map(rn -> rn.asResource())
 								.forEach(element -> {
 									connectElement(output_model, spo, element);

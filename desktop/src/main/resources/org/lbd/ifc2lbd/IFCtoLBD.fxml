@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -19,6 +19,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.MaskerPane?>
+<?import org.controlsfx.control.ToggleSwitch?>
+<?import org.controlsfx.control.textfield.CustomTextField?>
 
 <VBox prefHeight="552.0" prefWidth="641.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lbd.ifc2lbd.IFCtoLBDController">
   <children>
@@ -41,89 +44,69 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="375.0" prefWidth="640.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="569.0" prefWidth="735.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="152.0" layoutX="50.0" layoutY="145.0" opacity="0.05" stroke="BLACK" strokeType="INSIDE" width="632.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="527.0" stroke="BLACK" strokeType="INSIDE" width="737.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#0f0f0f" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="527.0" layoutY="3.0" stroke="BLACK" strokeType="INSIDE" width="735.0" AnchorPane.topAnchor="0.0">
-               <fill>
-                  <LinearGradient cycleMethod="REFLECT" endX="0.8857142857142857" endY="1.0" startX="0.009523809523809525">
+                  <LinearGradient cycleMethod="REPEAT" endX="1.0" endY="1.0">
                      <stops>
                         <Stop color="#93c2ee" />
-                        <Stop color="#93c2ee" offset="0.019157088122605363" />
-                        <Stop color="#263607" offset="0.05747126436781609" />
-                        <Stop color="#c3e1fd" offset="0.2145593869731799" />
-                        <Stop color="#253307" offset="0.22524390725599386" />
-                        <Stop color="#263607" offset="1.0" />
+                        <Stop color="#93c2ee" offset="0.007662835249042145" />
+                        <Stop color="#757490" offset="0.15517241379310326" />
+                        <Stop color="#93c2ee" offset="0.3256704980842911" />
+                        <Stop color="#263607" offset="0.6053639846743293" />
+                        <Stop color="#313304" offset="0.786546589248331" />
+                        <Stop color="#00000029" offset="1.0" />
                      </stops>
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Rectangle fx:id="conversionArea" arcHeight="5.0" arcWidth="5.0" height="462.0" layoutX="25.0" layoutY="41.0" opacity="0.87" stroke="BLACK" strokeType="INSIDE" width="685.0" AnchorPane.rightAnchor="25.0">
-               <fill>
-                  <LinearGradient endX="0.7095238095238096" endY="0.9214285714285715" startX="0.011904761904761904">
-                     <stops>
-                        <Stop color="#edda93" />
-                        <Stop color="#edda93" offset="0.007662835249042145" />
-                        <Stop color="WHITE" offset="0.5" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <Text fill="#f2eded" layoutX="29.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" wrappingWidth="365.3779296875">
+            <Text fill="#f2eded" layoutX="50.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to LBD  format" wrappingWidth="365.3779296875">
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="30.0" prefWidth="136.0" text="Select an IFC file" AnchorPane.bottomAnchor="442.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="55.0" />
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#selectIFCFile" text="Select an IFC file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="55.0" />
             <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="39.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="55.0" />
-            <Button fx:id="selectTargetButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="91.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="30.0" prefWidth="136.0" text="Select the target file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="100.0" />
             <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="440.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="30.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.bottomAnchor="50.0" />
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="212.0" layoutY="271.0" prefHeight="167.0" prefWidth="410.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="440.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="30.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" />
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="278.0" layoutY="343.0" prefHeight="105.0" prefWidth="410.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" />
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
-            <TextField fx:id="labelBaseURI" layoutX="51.0" layoutY="167.0" prefHeight="30.0" prefWidth="632.0" AnchorPane.bottomAnchor="333.0" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="167.0" />
-            <Label layoutX="60.0" layoutY="145.0" text="Base URL">
+            <Label layoutX="50.0" layoutY="105.0" text="Base URL">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="82.0" layoutX="270.0" layoutY="207.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="390.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="207.0">
-               <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#0f0f0f" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-           
-            <RadioButton fx:id="level1" layoutX="289.0" layoutY="249.0" mnemonicParsing="false" text="Level 1" toggleGroup="$level">
-               <toggleGroup>
-                  <ToggleGroup fx:id="level" />
-               </toggleGroup></RadioButton>
-            <RadioButton fx:id="level2" layoutX="394.0" layoutY="250.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" />
-            <RadioButton fx:id="level3" disable="true" layoutX="508.0" layoutY="250.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" height="82.0" layoutX="60.0" layoutY="207.0" opacity="0.28" stroke="BLACK" strokeType="INSIDE" width="198.0">
-               <fill>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop color="#0f0f0f" />
-                        <Stop color="WHITE" offset="1.0" />
-                     </stops>
-                  </LinearGradient>
-               </fill>
-            </Rectangle>
-            <CheckBox fx:id="building_elements" layoutX="80.0" layoutY="218.0" mnemonicParsing="false" selected="true" text="Building elements" />
-            <CheckBox fx:id="building_props" layoutX="289.0" layoutY="218.0" mnemonicParsing="false" selected="true" text="Building related properties" />
+            <CustomTextField fx:id="labelBaseURI" layoutX="50.0" layoutY="131.0" promptText="Add the base URI here" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="131.0" />
+            <TitledPane layoutX="51.0" layoutY="168.0" prefHeight="186.0" prefWidth="637.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="168.0">
+               <content>
+                  <AnchorPane prefHeight="183.0" prefWidth="620.0">
+                     <children>
+                        <SplitPane dividerPositions="0.5" layoutX="14.0" prefHeight="152.0" prefWidth="601.0">
+                          <items>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="272.0">
+                                 <children>
+                                    <ToggleSwitch fx:id="building_elements" selected="true" text="Building elements" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
+                                 </children>
+                              </AnchorPane>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="209.0">
+                                 <children>
+                                    <ToggleSwitch fx:id="building_props" layoutX="36.0" layoutY="31.0" selected="true" text="Building related properties" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
+                                   
+                                                      <RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="level" />
+                                       </toggleGroup>
+                                    </RadioButton>
+                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.topAnchor="85.0" />
+                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.topAnchor="85.0" />
+                                 </children>
+                              </AnchorPane>
+                          </items>
+                        </SplitPane>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </TitledPane>
+            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" />
          </children></AnchorPane>
         
     

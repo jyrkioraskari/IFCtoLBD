@@ -10,15 +10,21 @@ import java.util.Map;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.lbd.ifc2lbd.ns.BOT;
+import org.lbd.ifc2lbd.ns.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.ns.OPM;
 
 public class PropertySet {
 	private final Map<String, RDFNode> map = new HashMap<>();
+	
 	private String name;
 
+	
+	
 	private boolean isWritten = false;
 	private final Resource pset;
 	private final int props_level;
@@ -34,6 +40,7 @@ public class PropertySet {
 		}
 
 	}
+	
 
 	private List<PsetProperty> properties = new ArrayList<>();
 
@@ -49,13 +56,14 @@ public class PropertySet {
 		map.put(toCamelCase(key), value);
 	}
 
-	private void write() {
+	private void writeOPM_Set() {
 		pset.addProperty(RDFS.label, name);
 		pset.addProperty(RDF.type, OPM.pset);
 		isWritten = true;
 		for (String k : this.getMap().keySet()) {
 
-			Resource property_resourse = pset.getModel().createResource();
+			//Resource property_resourse = pset.getModel().createResource();  // Blank node 
+			Resource property_resourse = pset.getModel().createResource(pset.getURI()+"_"+k); 
 			property_resourse.addProperty(OPM.pset_property, pset);
 			Resource state_resourse = pset.getModel().createResource();
 			property_resourse.addProperty(OPM.hasState, state_resourse);
@@ -74,7 +82,7 @@ public class PropertySet {
 	public void connect(Resource r) {
 		if (this.props_level > 1) {
 			if (!isWritten)
-				write();
+				writeOPM_Set();
 			for (PsetProperty pp : this.properties) {
 				r.addProperty(pp.p, pp.r);
 

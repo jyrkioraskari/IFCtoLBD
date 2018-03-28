@@ -36,6 +36,10 @@ import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import org.controlsfx.control.MaskerPane;
+import org.controlsfx.control.ToggleSwitch;
+import org.controlsfx.control.textfield.CustomTextField;
+import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 
 import com.google.common.eventbus.EventBus;
@@ -46,12 +50,10 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -76,14 +78,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
     @FXML
     private Rectangle border ;
 
+    @FXML
+    private MaskerPane masker_panel;
+
+    
 	@FXML
 	MenuBar myMenuBar;
 
     @FXML
-    private CheckBox building_elements;
+    private ToggleSwitch building_elements;
 
     @FXML
-    private CheckBox building_props;
+    private ToggleSwitch building_props;
 	
 	
     @FXML
@@ -98,18 +104,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private TextArea handleOnTxt;
 
 	@FXML
-	Rectangle conversionArea;
-	@FXML
 	private Button selectIFCFileButton;
-	@FXML
-	private Button selectTargetButton;
 
 	@FXML
 	private Button convert2RDFButton;
 	@FXML
 	private Label labelIFCFile;
-	@FXML
-	private Label labelTargetFile;
 	@FXML
 	private TextArea conversionTxt;
 
@@ -119,7 +119,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ImageView rdf_fileIcon;
 
 	@FXML
-	private TextField labelBaseURI;
+	private CustomTextField labelBaseURI;
 
 	Image fileimage = new Image(getClass().getResourceAsStream("file.png"));
 
@@ -172,8 +172,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		int i = ifcFileName.lastIndexOf(".");
 		if (i > 0) {
 			rdfTargetName = ifcFileName.substring(0, i) + "_LBD.ttl";
-			File f = new File(rdfTargetName);
-			labelTargetFile.setText(f.getName());
 		}
 		if (ifcFileName != null && rdfTargetName != null) {
 			convert2RDFButton.setDefaultButton(true);
@@ -182,34 +180,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		selectIFCFileButton.setDefaultButton(false);
 		rdf_fileIcon.setDisable(false);
 		rdf_fileIcon.setImage(fileimage);
-	}
-
-	@FXML
-	private void selectTargetFile() {
-		Stage stage = (Stage) myMenuBar.getScene().getWindow();
-		File file = null;
-		if (fc == null) {
-			fc = new FileChooser();
-			fc.setInitialDirectory(new File("."));
-		}
-		FileChooser.ExtensionFilter ef1;
-		ef1 = new FileChooser.ExtensionFilter("Turtle and RDF/XML (*.ttl)", "*.ttl", "*.rdf");
-		fc.getExtensionFilters().clear();
-		fc.getExtensionFilters().addAll(ef1);
-
-		if (file == null)
-			file = fc.showSaveDialog(stage);
-		if (file == null)
-			return;
-		fc.setInitialDirectory(file.getParentFile());
-		labelTargetFile.setText(file.getName());
-		rdfTargetName = file.getAbsolutePath();
-		if (ifcFileName != null && rdfTargetName != null) {
-			convert2RDFButton.setDefaultButton(true);
-			convert2RDFButton.setDisable(false);
-		}
-		selectTargetButton.setDefaultButton(false);
-
 	}
 
 	@FXML
@@ -222,11 +192,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				props_level=1;
 			if(level3.isSelected())
 				props_level=3;
-			
-			
+			masker_panel.setVisible(true);
 			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level,building_elements.isSelected(),building_props.isSelected()));
 		} catch (Exception e) {
-			conversionTxt.appendText(e.getMessage());
+			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
 
 	}
@@ -274,7 +243,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						if (ifcFileName != null && rdfTargetName != null) {
 							convert2RDFButton.setDefaultButton(true);
 							selectIFCFileButton.setDefaultButton(false);
-							selectTargetButton.setDefaultButton(false);
 							convert2RDFButton.setDisable(false);
 						}
 						rdf_fileIcon.setDisable(false);
@@ -286,18 +254,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 		};
 
-		conversionArea.setOnDragOver(ad_conversion);
-		conversionArea.setOnDragDropped(dh_conversion);
 		selectIFCFileButton.setOnDragOver(ad_conversion);
 		selectIFCFileButton.setOnDragDropped(dh_conversion);
-		selectTargetButton.setOnDragOver(ad_conversion);
-		selectTargetButton.setOnDragDropped(dh_conversion);
 		convert2RDFButton.setOnDragOver(ad_conversion);
 		convert2RDFButton.setOnDragDropped(dh_conversion);
 		labelIFCFile.setOnDragOver(ad_conversion);
 		labelIFCFile.setOnDragDropped(dh_conversion);
-		labelTargetFile.setOnDragOver(ad_conversion);
-		labelTargetFile.setOnDragDropped(dh_conversion);
 		conversionTxt.setOnDragOver(ad_conversion);
 		conversionTxt.setOnDragDropped(dh_conversion);
 
@@ -320,6 +282,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 								props_level=1;
 							if(level3.isSelected())
 								props_level=3;
+							masker_panel.setVisible(true);
 							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level,building_elements.isSelected(),building_props.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
@@ -353,5 +316,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	public void handleEvent(final SystemStatusEvent event) {
 		System.out.println("message: " + event.getStatus_message());
 		Platform.runLater(() -> this.conversionTxt.appendText(event.getStatus_message() + "\n"));
+	}
+	
+	@Subscribe
+	public void handleEvent(final ProcessReadyEvent event) {
+		this.masker_panel.setVisible(false);
 	}
 }

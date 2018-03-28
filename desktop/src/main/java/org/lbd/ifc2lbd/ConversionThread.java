@@ -3,6 +3,7 @@ package org.lbd.ifc2lbd;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
+import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 
 /* Copyright (C) Fractuscan - All Rights Reserved
@@ -40,11 +41,14 @@ public class ConversionThread implements Callable<Integer> {
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new SystemStatusEvent(e.getMessage()));
+				eventBus.post(new ProcessReadyEvent());
 				return -1;
 			}
+			eventBus.post(new ProcessReadyEvent());
 			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
+			eventBus.post(new ProcessReadyEvent());
 			eventBus.post(new SystemStatusEvent(e.getMessage()));
 		}
 		return -1;
