@@ -157,10 +157,8 @@ public class IFCtoLBDConverter {
 							.forEach(value -> property_value.add(value));
 
 					String guid = getGUID(propertyset);
+					String uncompressed_guid=GuidCompressor.uncompressGuidString(guid);
 					if (guid != null) {
-						Resource pset = output_model
-								.createResource(OPM.props_ns + GuidCompressor.uncompressGuidString(guid));
-
 						if (property_name.size() > 0 && property_value.size() > 0) {
 							RDFNode pname = property_name.get(0);
 							RDFNode pvalue = property_value.get(0);
@@ -168,9 +166,9 @@ public class IFCtoLBDConverter {
 								PropertySet ps = this.propertysets.get(propertyset.getURI());
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(propertyset_name.get(0).toString(), pset, props_level);
+										ps = new PropertySet(output_model,propertyset_name.get(0).toString(), uncompressed_guid, props_level);
 									else
-										ps = new PropertySet("", pset, props_level);
+										ps = new PropertySet(output_model,"", uncompressed_guid, props_level);
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
 								if (pvalue.toString().trim().length() > 0) {
@@ -182,9 +180,9 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(propertyset_name.get(0).toString(), pset, props_level);
+									ps = new PropertySet(output_model,propertyset_name.get(0).toString(), uncompressed_guid, props_level);
 								else
-									ps = new PropertySet("", pset, props_level);
+									ps = new PropertySet(output_model,"", uncompressed_guid, props_level);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							ps.put(pname.toString(), propertySingleValue);
