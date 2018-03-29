@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.prefs.Preferences;
 
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
@@ -69,6 +70,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class IFCtoLBDController implements Initializable, FxInterface {
+	private Preferences prefs = Preferences.userNodeForPackage(IFCtoLBDController.class);
+
 	private static String ontologyNamespace;
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
@@ -153,7 +156,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		if (fc == null) {
 			fc = new FileChooser();
-			fc.setInitialDirectory(new File("."));
+			String work_directory = prefs.get("ifc_work_directory", ".");
+			System.out.println("workdir got:"+work_directory);
+			File fwd = new File(work_directory);
+			if (fwd != null && fwd.exists())
+				fc.setInitialDirectory(fwd.getParentFile());
+			else
+				fc.setInitialDirectory(new File("."));
 		}
 		FileChooser.ExtensionFilter ef1;
 		ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
@@ -176,6 +185,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (ifcFileName != null && rdfTargetName != null) {
 			convert2RDFButton.setDefaultButton(true);
 			convert2RDFButton.setDisable(false);
+			System.out.println("workdir put:"+ifcFileName);
+			prefs.put("ifc_work_directory", ifcFileName);
 		}
 		selectIFCFileButton.setDefaultButton(false);
 		rdf_fileIcon.setDisable(false);
