@@ -103,8 +103,6 @@ public class IFCtoLBDConverter {
 		output_model.setNsPrefix("opm", OPM.opm_ns);
 		output_model.setNsPrefix("prov", OPM.prov_ns);
 
-		output_model.setNsPrefix("ifc", this.uriBase);
-
 		eventBus.post(new SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
 			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
@@ -327,8 +325,8 @@ public class IFCtoLBDConverter {
 			if (predefined_type.isPresent()) {
 				Resource product = output_model.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
 				eo.addProperty(RDF.type, product);
-			} else
-				eo.addProperty(RDF.type, bot_type.get());
+			}//else 
+			eo.addProperty(RDF.type, bot_type.get());
 			eo.addProperty(RDF.type, BOT.element);
 			bot_resource.addProperty(BOT.containsElement, eo);
 
@@ -352,6 +350,7 @@ public class IFCtoLBDConverter {
 
 	private void connectElement(Model output_model, Resource bot_resource, Property bot_property,
 			Resource ifc_element) {
+		Optional<String> predefined_type = getPredefinedData(ifc_element);
 		Optional<Resource> ifcowl_type = getType(ifc_element);
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
@@ -360,10 +359,23 @@ public class IFCtoLBDConverter {
 
 		if (bot_type.isPresent()) {
 			Resource bot_object = createformattedURI(ifc_element, output_model, bot_type.get().getLocalName());
+			if (predefined_type.isPresent()) {
+				Resource product = output_model.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
+				bot_object.addProperty(RDF.type, product);
+			} //else
+			bot_object.addProperty(RDF.type, bot_type.get());
+			
 			addLabel(ifc_element, bot_object);
 			addDescription(ifc_element, bot_object);
+			addAttrributes(ifc_element, bot_object);
 			bot_resource.addProperty(bot_property, bot_object);
 		}
+		else
+		{
+			System.err.println("No type: "+ifc_element);
+		}
+		
+		
 	}
 
 	private void addAttrributes(Resource r, Resource bot_r) {
@@ -570,8 +582,8 @@ public class IFCtoLBDConverter {
 	private List<RDFNode> listAggregated_Elements(Resource element) {
 		List<RDFNode> ret;
 
-		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDecomposes")),
-				new RDFStep(ifcOWL.getProperty("relatingObject_IfcRelDecomposes")) };
+		RDFStep[] path1 = { 
+				new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelDecomposes")) ,new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDecomposes"))};
 		ret = pathQuery(element, path1);
 		return ret;
 	}

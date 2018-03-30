@@ -142,7 +142,7 @@ public class RDFWriter {
             return;
 
         System.out.println("entries mapped, now creating instances");
-   	    eventBus.post(new SystemStatusEvent("IFC line enntries mapped, creating instances."));
+   	    eventBus.post(new SystemStatusEvent("IFC line entries mapped, creating instances."));
 
         createInstances();
 
