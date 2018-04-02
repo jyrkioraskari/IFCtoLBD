@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -65,39 +66,60 @@
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#selectIFCFile" text="Select an IFC file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="55.0" />
-            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="39.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="55.0" />
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="55.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="35.0" prefWidth="150.0" text="Select an IFC file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="55.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="470.0" textFill="WHITE" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="55.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
             <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="440.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="30.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0" />
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="278.0" layoutY="343.0" prefHeight="105.0" prefWidth="410.0" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="50.0" />
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="440.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="35.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="278.0" layoutY="343.0" prefHeight="130.0" prefWidth="410.0" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0" />
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" />
             <Label layoutX="50.0" layoutY="105.0" text="Base URL">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font></Label>
             <CustomTextField fx:id="labelBaseURI" layoutX="50.0" layoutY="131.0" promptText="Add the base URI here" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="131.0" />
-            <TitledPane layoutX="51.0" layoutY="168.0" prefHeight="186.0" prefWidth="637.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="168.0">
+            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="35.0" prefWidth="150.0" text="Select target file name..." AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="226.0">
+               <font>
+                  <Font size="14.0" />
+               </font></Button>
+            <Label fx:id="labelTargetFile" layoutX="217.0" layoutY="226.0" prefHeight="35.0" prefWidth="470.0" textFill="WHITE" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="226.0">
+               <font>
+                  <Font size="18.0" />
+               </font></Label>
+            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" />
+            <TitledPane expanded="false" layoutX="51.0" layoutY="168.0" prefHeight="39.0" prefWidth="637.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="168.0">
                <content>
                   <AnchorPane prefHeight="183.0" prefWidth="620.0">
                      <children>
                         <SplitPane dividerPositions="0.5" layoutX="14.0" prefHeight="152.0" prefWidth="601.0">
                           <items>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="189.0" prefWidth="272.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="113.0" prefWidth="297.0">
                                  <children>
-                                    <ToggleSwitch fx:id="building_elements" selected="true" text="Building elements" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
+                                    <ToggleSwitch fx:id="building_elements" selected="true" text="Building Product Ontology instances" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
+                                    <Hyperlink layoutX="20.0" layoutY="64.0" onAction="#hyperlink_handle" text="https://github.com/w3c-lbd-cg/product" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                                    <ToggleSwitch fx:id="building_elements_separate_file" layoutX="20.0" layoutY="101.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="209.0">
                                  <children>
-                                    <ToggleSwitch fx:id="building_props" layoutX="36.0" layoutY="31.0" selected="true" text="Building related properties" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="35.0" />
+                                    <ToggleSwitch fx:id="building_props" layoutX="36.0" layoutY="31.0" selected="true" text="Building related properties" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
                                    
-                                                      <RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="85.0">
+                                                      <RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="level" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.topAnchor="85.0" />
-                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.topAnchor="85.0" />
+                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="75.0" />
+                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0" />
+                                    <ToggleSwitch fx:id="building_props_separate_file" layoutX="119.0" layoutY="117.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -106,7 +128,6 @@
                   </AnchorPane>
                </content>
             </TitledPane>
-            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" />
          </children></AnchorPane>
         
     

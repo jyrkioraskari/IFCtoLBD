@@ -369,6 +369,13 @@ public class IFCtoLBDConverter {
 			addDescription(ifc_element, bot_object);
 			addAttrributes(ifc_element, bot_object);
 			bot_resource.addProperty(bot_property, bot_object);
+			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+				connectElement(output_model, bot_resource, BOT.hostsElement, ifc_element2);
+			});
+
+			listAggregated_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+				connectElement(output_model, bot_resource, BOT.aggregates, ifc_element2);
+			});
 		}
 		else
 		{

@@ -31,6 +31,8 @@ package org.lbd.ifc2lbd;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
@@ -47,6 +49,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -90,9 +93,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
     @FXML
     private ToggleSwitch building_elements;
-
+    @FXML
+    private ToggleSwitch building_elements_separate_file;
+    
     @FXML
     private ToggleSwitch building_props;
+    @FXML
+    private ToggleSwitch building_props_separate_file;
 	
 	
     @FXML
@@ -108,11 +115,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private Button selectIFCFileButton;
+	
+	@FXML
+	private Label labelIFCFile;
+	
+	@FXML
+	private Button selectTargetFileButton;
+	
+	@FXML
+	private Label labelTargetFile;
 
 	@FXML
 	private Button convert2RDFButton;
-	@FXML
-	private Label labelIFCFile;
+	
 	@FXML
 	private TextArea conversionTxt;
 
@@ -126,7 +141,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	Image fileimage = new Image(getClass().getResourceAsStream("file.png"));
 
-	FileChooser fc;
+	FileChooser fc_ifc;
+	FileChooser fc_target;
 
 	@FXML
 	private void closeApplicationAction() {
@@ -142,6 +158,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		new About(stage).show();
 	}
 
+	@FXML
+	public void hyperlink_handle(ActionEvent event) {
+	        try {
+	   		 URI u = new URI("https://github.com/w3c-lbd-cg/product");
+				java.awt.Desktop.getDesktop().browse(u);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+    }
+	
 	final Tooltip openExpressFileButton_tooltip = new Tooltip();
 	final Tooltip saveIfcOWLButton_tooltip = new Tooltip();
 	private FxInterface application;
@@ -154,45 +182,81 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		Stage stage = (Stage) myMenuBar.getScene().getWindow();
 		File file = null;
 
-		if (fc == null) {
-			fc = new FileChooser();
+		if (fc_ifc == null) {
+			fc_ifc = new FileChooser();
 			String work_directory = prefs.get("ifc_work_directory", ".");
 			System.out.println("workdir got:"+work_directory);
 			File fwd = new File(work_directory);
 			if (fwd != null && fwd.exists())
-				fc.setInitialDirectory(fwd.getParentFile());
+				fc_ifc.setInitialDirectory(fwd.getParentFile());
 			else
-				fc.setInitialDirectory(new File("."));
+				fc_ifc.setInitialDirectory(new File("."));
 		}
 		FileChooser.ExtensionFilter ef1;
 		ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
 		FileChooser.ExtensionFilter ef2;
 		ef2 = new FileChooser.ExtensionFilter("All Files", "*.*");
-		fc.getExtensionFilters().clear();
-		fc.getExtensionFilters().addAll(ef1, ef2);
+		fc_ifc.getExtensionFilters().clear();
+		fc_ifc.getExtensionFilters().addAll(ef1, ef2);
 
 		if (file == null)
-			file = fc.showOpenDialog(stage);
+			file = fc_ifc.showOpenDialog(stage);
 		if (file == null)
 			return;
-		fc.setInitialDirectory(file.getParentFile());
+		fc_ifc.setInitialDirectory(file.getParentFile());
 		labelIFCFile.setText(file.getName());
 		ifcFileName = file.getAbsolutePath();
 		int i = ifcFileName.lastIndexOf(".");
 		if (i > 0) {
 			rdfTargetName = ifcFileName.substring(0, i) + "_LBD.ttl";
+			labelTargetFile.setText(rdfTargetName);
 		}
 		if (ifcFileName != null && rdfTargetName != null) {
+			selectTargetFileButton.setDisable(false);
 			convert2RDFButton.setDefaultButton(true);
 			convert2RDFButton.setDisable(false);
 			System.out.println("workdir put:"+ifcFileName);
 			prefs.put("ifc_work_directory", ifcFileName);
+			
 		}
 		selectIFCFileButton.setDefaultButton(false);
-		rdf_fileIcon.setDisable(false);
-		rdf_fileIcon.setImage(fileimage);
+		//rdf_fileIcon.setDisable(false);
+		//rdf_fileIcon.setImage(fileimage);
 	}
 
+	
+
+	@FXML
+	private void selectTargetFile() {
+		Stage stage = (Stage) myMenuBar.getScene().getWindow();
+		File file = null;
+
+		if (fc_target == null) {
+			fc_target = new FileChooser();
+			File fwd = new File(rdfTargetName);
+			if (fwd != null && fwd.exists())
+			{
+				fc_target.setInitialFileName(rdfTargetName);
+				fc_target.setInitialDirectory(fwd.getParentFile());
+				
+			}
+			else
+				fc_target.setInitialDirectory(new File("."));
+		}
+		FileChooser.ExtensionFilter ef;
+		ef = new FileChooser.ExtensionFilter("All Files", "*.*");
+		fc_ifc.getExtensionFilters().clear();
+		fc_ifc.getExtensionFilters().addAll(ef);
+
+		if (file == null)
+			file = fc_target.showSaveDialog(stage);
+		if (file == null)
+			return;
+		fc_target.setInitialDirectory(file.getParentFile());
+		labelTargetFile.setText(file.getName());
+		rdfTargetName = file.getAbsolutePath();
+	}
+	
 	@FXML
 	private void convertIFCToRDF() {
 		conversionTxt.setText("");
