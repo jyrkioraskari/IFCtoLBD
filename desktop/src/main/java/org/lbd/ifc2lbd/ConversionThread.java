@@ -23,8 +23,11 @@ public class ConversionThread implements Callable<Integer> {
 	final private int props_level;
 	final private boolean hasBuildingElements;
 	final private boolean hasBuildingProperties;
+	
+	final boolean hasSeparateBuildingElementsModel; 
+	final boolean hasSeparatePropertiesModel;
 
-	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements,boolean hasBuildingProperties) {
+	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -32,12 +35,16 @@ public class ConversionThread implements Callable<Integer> {
 		this.props_level=props_level;
 		this.hasBuildingElements=hasBuildingElements;
 		this.hasBuildingProperties=hasBuildingProperties;
+		
+		this.hasSeparateBuildingElementsModel=hasSeparateBuildingElementsModel;
+		this.hasSeparatePropertiesModel=hasSeparatePropertiesModel;
 	}
 
 	public Integer call() throws Exception {
 		try {
 			try {
-				new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasBuildingProperties);
+				new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
+						this.hasBuildingProperties,this.hasSeparatePropertiesModel);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new SystemStatusEvent(e.getMessage()));

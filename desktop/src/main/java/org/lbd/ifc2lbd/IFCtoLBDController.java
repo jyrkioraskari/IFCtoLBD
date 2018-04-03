@@ -159,7 +159,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@FXML
-	public void hyperlink_handle(ActionEvent event) {
+	public void hyperlink_product_handle(ActionEvent event) {
 	        try {
 	   		 URI u = new URI("https://github.com/w3c-lbd-cg/product");
 				java.awt.Desktop.getDesktop().browse(u);
@@ -169,6 +169,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				e.printStackTrace();
 			}
     }
+	@FXML
+	public void hyperlink_opm_handle(ActionEvent event) {
+	        try {
+	   		 URI u = new URI("https://github.com/w3c-lbd-cg/opm");
+				java.awt.Desktop.getDesktop().browse(u);
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+    }
+
 	
 	final Tooltip openExpressFileButton_tooltip = new Tooltip();
 	final Tooltip saveIfcOWLButton_tooltip = new Tooltip();
@@ -268,7 +280,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			if(level3.isSelected())
 				props_level=3;
 			masker_panel.setVisible(true);
-			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level,building_elements.isSelected(),building_props.isSelected()));
+			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level,building_elements.isSelected(), building_elements_separate_file.isSelected(),building_props.isSelected(),building_props_separate_file.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -358,7 +370,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							if(level3.isSelected())
 								props_level=3;
 							masker_panel.setVisible(true);
-							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level,building_elements.isSelected(),building_props.isSelected()));
+							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level,building_elements.isSelected(),building_elements_separate_file.isSelected(),building_props.isSelected(),building_props_separate_file.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}

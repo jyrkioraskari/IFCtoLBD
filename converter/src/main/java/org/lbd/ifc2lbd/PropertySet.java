@@ -13,7 +13,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.lbd.ifc2lbd.ns.BOT;
+import org.lbd.ifc2lbd.ns.LBD_NS;
 import org.lbd.ifc2lbd.ns.OPM;
 
 import com.openifctools.guidcompressor.GuidCompressor;
@@ -61,11 +61,9 @@ public class PropertySet {
 		pset.addProperty(RDF.type, OPM.pset);
 		isWritten = true;
 		for (String k : this.getMap().keySet()) {
-
-			//Resource property_resourse = pset.getModel().createResource();  // Blank node 
 			Resource property_resourse = pset.getModel().createResource(OPM.props_ns+k+"_"+pset_uncompressed_guid); 
 			property_resourse.addProperty(OPM.pset_property, pset);
-			Resource state_resourse = pset.getModel().createResource();
+			Resource state_resourse = pset.getModel().createResource(property_resourse.getURI()+"_CurrentState");
 			property_resourse.addProperty(OPM.hasState, state_resourse);
 
 			LocalDateTime datetime = LocalDateTime.now();
@@ -74,12 +72,18 @@ public class PropertySet {
 			state_resourse.addLiteral(OPM.generatedAtTime, time_string);
 			state_resourse.addProperty(OPM.value, this.getMap().get(k));
 
-			Property p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name + " " + k));
+			
+			Property p;
+			if(name.equals("attributes"))
+			   p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(k));
+			else
+		       p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name + " " + k));
 			this.properties.add(new PsetProperty(p, property_resourse));
 		}
 	}
 
-	public void connect(Resource r) {
+	public void connect(Resource r_org) {
+		Resource r=this.model.createResource(r_org.getURI());
 		if (this.props_level > 1) {
 			if (!isWritten)
 				writeOPM_Set();
@@ -88,11 +92,13 @@ public class PropertySet {
 
 			}
 		} else {
-			//Property property = r.getModel().createProperty(BOT.PropertySet.pset_ns + name);
-			//r.addProperty(property, pset);
 
 			for (String k : this.getMap().keySet()) {
-				Property property = r.getModel().createProperty(BOT.PropertySet.pset_ns + name+"_"+k);
+				Property property;
+				if(name.equals("attributes"))
+				  property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + k);
+				else
+					  property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + name+"_"+k);					
 				r.addProperty(property, this.getMap().get(k));
 
 			}

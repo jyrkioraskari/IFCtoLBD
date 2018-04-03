@@ -94,7 +94,6 @@
                <font>
                   <Font size="18.0" />
                </font></Label>
-            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" />
             <TitledPane expanded="false" layoutX="51.0" layoutY="168.0" prefHeight="39.0" prefWidth="637.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="168.0">
                <content>
                   <AnchorPane prefHeight="183.0" prefWidth="620.0">
@@ -103,23 +102,24 @@
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="113.0" prefWidth="297.0">
                                  <children>
-                                    <ToggleSwitch fx:id="building_elements" selected="true" text="Building Product Ontology instances" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
-                                    <Hyperlink layoutX="20.0" layoutY="64.0" onAction="#hyperlink_handle" text="https://github.com/w3c-lbd-cg/product" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
+                                    <ToggleSwitch fx:id="building_elements" selected="true" text="Building Product Ontology instances" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0" />
+                                    <Hyperlink layoutX="20.0" layoutY="64.0" onAction="#hyperlink_product_handle" text="https://github.com/w3c-lbd-cg/product" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="40.0" />
                                     <ToggleSwitch fx:id="building_elements_separate_file" layoutX="20.0" layoutY="101.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="118.0" prefWidth="209.0">
                                  <children>
-                                    <ToggleSwitch fx:id="building_props" layoutX="36.0" layoutY="31.0" selected="true" text="Building related properties" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="35.0" />
+                                    <ToggleSwitch fx:id="building_props" layoutX="36.0" layoutY="31.0" selected="true" text="Building related properties" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="25.0" />
                                    
-                                                      <RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" text="Level 1" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0">
+                                                      <RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" text="Level 1" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="55.0">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="level" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="75.0" />
-                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="75.0" />
+                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="55.0" />
+                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0" />
                                     <ToggleSwitch fx:id="building_props_separate_file" layoutX="119.0" layoutY="117.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                                    <Hyperlink layoutX="117.0" layoutY="92.0" onAction="#hyperlink_opm_handle" text="OPM" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="70.0" />
                                  </children>
                               </AnchorPane>
                           </items>
@@ -128,6 +128,7 @@
                   </AnchorPane>
                </content>
             </TitledPane>
+            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" />
          </children></AnchorPane>
         
     
