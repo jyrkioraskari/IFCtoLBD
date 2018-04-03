@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
 	<artifactId>desktop</artifactId>
-	<version>1.55</version>
+	<version>1.56</version>
 	<name>DesktopUI</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.55</version>
+			<version>1.56</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<dependency>

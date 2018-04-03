@@ -116,10 +116,10 @@
                                           <ToggleGroup fx:id="level" />
                                        </toggleGroup>
                                     </RadioButton>
-                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" selected="true" text="Level 2" toggleGroup="$level" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="55.0" />
-                                    <RadioButton fx:id="level3" disable="true" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0" />
+                                    <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" text="Level 2" toggleGroup="$level" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="55.0" />
+                                    <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" selected="true" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0" />
                                     <ToggleSwitch fx:id="building_props_separate_file" layoutX="119.0" layoutY="117.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
-                                    <Hyperlink layoutX="117.0" layoutY="92.0" onAction="#hyperlink_opm_handle" text="OPM" AnchorPane.rightAnchor="135.0" AnchorPane.topAnchor="70.0" />
+                                    <Hyperlink layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="OPM" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="75.0" />
                                  </children>
                               </AnchorPane>
                           </items>

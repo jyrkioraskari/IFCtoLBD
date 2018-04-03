@@ -19,7 +19,7 @@ import org.lbd.ifc2lbd.ns.OPM;
 import com.openifctools.guidcompressor.GuidCompressor;
 
 public class PropertySet {
-	
+
 	private class PsetProperty {
 		final Property p;
 		final Resource r;
@@ -31,7 +31,7 @@ public class PropertySet {
 		}
 
 	}
-	
+
 	private final Map<String, RDFNode> map = new HashMap<>();
 	private String name;
 	private boolean isWritten = false;
@@ -40,9 +40,8 @@ public class PropertySet {
 	private final Model model;
 	private final List<PsetProperty> properties = new ArrayList<>();
 
-	
 	public PropertySet(Model model, String name, String pset_uncompressed_guid, int props_level) {
-		this.model=model;
+		this.model = model;
 		this.name = name;
 		if (name.contains("_"))
 			this.name = name.split("_")[1];
@@ -55,35 +54,39 @@ public class PropertySet {
 	}
 
 	private void writeOPM_Set() {
-		Resource pset = model
-				.createResource(OPM.props_ns + pset_uncompressed_guid);
+		Resource pset = model.createResource(OPM.props_ns + pset_uncompressed_guid);
 		pset.addProperty(RDFS.label, name);
 		pset.addProperty(RDF.type, OPM.pset);
 		isWritten = true;
 		for (String k : this.getMap().keySet()) {
-			Resource property_resourse = pset.getModel().createResource(OPM.props_ns+k+"_"+pset_uncompressed_guid); 
+			Resource property_resourse = pset.getModel()
+					.createResource(OPM.props_ns + k + "_" + pset_uncompressed_guid);
 			property_resourse.addProperty(OPM.pset_property, pset);
-			Resource state_resourse = pset.getModel().createResource(property_resourse.getURI()+"_CurrentState");
-			property_resourse.addProperty(OPM.hasState, state_resourse);
+			if (this.props_level == 3) {
+				Resource state_resourse = pset.getModel().createResource(property_resourse.getURI() + "_CurrentState");
+				property_resourse.addProperty(OPM.hasState, state_resourse);
 
-			LocalDateTime datetime = LocalDateTime.now();
-			String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-			state_resourse.addProperty(RDF.type, OPM.currentState);
-			state_resourse.addLiteral(OPM.generatedAtTime, time_string);
-			state_resourse.addProperty(OPM.value, this.getMap().get(k));
-
-			
-			Property p;
-			if(name.equals("attributes"))
-			   p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(k));
+				LocalDateTime datetime = LocalDateTime.now();
+				String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+				state_resourse.addProperty(RDF.type, OPM.currentState);
+				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
+				state_resourse.addProperty(OPM.value, this.getMap().get(k));
+			}
 			else
-		       p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name + " " + k));
+				property_resourse.addProperty(OPM.value, this.getMap().get(k));
+				
+
+			Property p;
+			if (name.equals("attributes"))
+				p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(k) + "_attribute");
+			else
+				p = pset.getModel().createProperty(OPM.props_ns + toCamelCase(name + " " + k));
 			this.properties.add(new PsetProperty(p, property_resourse));
 		}
 	}
 
 	public void connect(Resource r_org) {
-		Resource r=this.model.createResource(r_org.getURI());
+		Resource r = this.model.createResource(r_org.getURI());
 		if (this.props_level > 1) {
 			if (!isWritten)
 				writeOPM_Set();
@@ -95,10 +98,10 @@ public class PropertySet {
 
 			for (String k : this.getMap().keySet()) {
 				Property property;
-				if(name.equals("attributes"))
-				  property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + k);
+				if (name.equals("attributes"))
+					property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + k + "_attribute");
 				else
-					  property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + name+"_"+k);					
+					property = r.getModel().createProperty(LBD_NS.PropertySet.pset_ns + name + "_" + k + "_simple");
 				r.addProperty(property, this.getMap().get(k));
 
 			}
@@ -142,7 +145,7 @@ public class PropertySet {
 	}
 
 	public static void main(String[] args) {
-		PropertySet pset=new PropertySet(null, "", null, 1);
-		System.out.println(	pset.toCamelCase("yksi kaksi"));
+		PropertySet pset = new PropertySet(null, "", null, 1);
+		System.out.println(pset.toCamelCase("yksi kaksi"));
 	}
 }

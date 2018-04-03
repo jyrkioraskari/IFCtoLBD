@@ -80,54 +80,51 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	@FXML
-    private AnchorPane root ;
-    @FXML
-    private Rectangle border ;
+	private AnchorPane root;
+	@FXML
+	private Rectangle border;
 
-    @FXML
-    private MaskerPane masker_panel;
+	@FXML
+	private MaskerPane masker_panel;
 
-    
 	@FXML
 	MenuBar myMenuBar;
 
-    @FXML
-    private ToggleSwitch building_elements;
-    @FXML
-    private ToggleSwitch building_elements_separate_file;
-    
-    @FXML
-    private ToggleSwitch building_props;
-    @FXML
-    private ToggleSwitch building_props_separate_file;
-	
-	
-    @FXML
-    private RadioButton level1;
-    @FXML
-    private RadioButton level2;
-    @FXML
-    private RadioButton level3;
+	@FXML
+	private ToggleSwitch building_elements;
+	@FXML
+	private ToggleSwitch building_elements_separate_file;
 
-	
+	@FXML
+	private ToggleSwitch building_props;
+	@FXML
+	private ToggleSwitch building_props_separate_file;
+
+	@FXML
+	private RadioButton level1;
+	@FXML
+	private RadioButton level2;
+	@FXML
+	private RadioButton level3;
+
 	@FXML
 	private TextArea handleOnTxt;
 
 	@FXML
 	private Button selectIFCFileButton;
-	
+
 	@FXML
 	private Label labelIFCFile;
-	
+
 	@FXML
 	private Button selectTargetFileButton;
-	
+
 	@FXML
 	private Label labelTargetFile;
 
 	@FXML
 	private Button convert2RDFButton;
-	
+
 	@FXML
 	private TextArea conversionTxt;
 
@@ -160,28 +157,28 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	public void hyperlink_product_handle(ActionEvent event) {
-	        try {
-	   		 URI u = new URI("https://github.com/w3c-lbd-cg/product");
-				java.awt.Desktop.getDesktop().browse(u);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-    }
+		try {
+			URI u = new URI("https://github.com/w3c-lbd-cg/product");
+			java.awt.Desktop.getDesktop().browse(u);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+
 	@FXML
 	public void hyperlink_opm_handle(ActionEvent event) {
-	        try {
-	   		 URI u = new URI("https://github.com/w3c-lbd-cg/opm");
-				java.awt.Desktop.getDesktop().browse(u);
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-    }
+		try {
+			URI u = new URI("https://github.com/w3c-lbd-cg/opm");
+			java.awt.Desktop.getDesktop().browse(u);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
 
-	
 	final Tooltip openExpressFileButton_tooltip = new Tooltip();
 	final Tooltip saveIfcOWLButton_tooltip = new Tooltip();
 	private FxInterface application;
@@ -197,7 +194,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (fc_ifc == null) {
 			fc_ifc = new FileChooser();
 			String work_directory = prefs.get("ifc_work_directory", ".");
-			System.out.println("workdir got:"+work_directory);
+			System.out.println("workdir got:" + work_directory);
 			File fwd = new File(work_directory);
 			if (fwd != null && fwd.exists())
 				fc_ifc.setInitialDirectory(fwd.getParentFile());
@@ -218,25 +215,24 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		fc_ifc.setInitialDirectory(file.getParentFile());
 		labelIFCFile.setText(file.getName());
 		ifcFileName = file.getAbsolutePath();
-		int i = ifcFileName.lastIndexOf(".");
+		int i = file.getName().lastIndexOf(".");
 		if (i > 0) {
-			rdfTargetName = ifcFileName.substring(0, i) + "_LBD.ttl";
+			String target_directory = prefs.get("ifc_target_directory", file.getParentFile().getAbsolutePath());
+			rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
 			labelTargetFile.setText(rdfTargetName);
 		}
 		if (ifcFileName != null && rdfTargetName != null) {
 			selectTargetFileButton.setDisable(false);
 			convert2RDFButton.setDefaultButton(true);
 			convert2RDFButton.setDisable(false);
-			System.out.println("workdir put:"+ifcFileName);
+			System.out.println("workdir put:" + ifcFileName);
 			prefs.put("ifc_work_directory", ifcFileName);
-			
+
 		}
 		selectIFCFileButton.setDefaultButton(false);
-		//rdf_fileIcon.setDisable(false);
-		//rdf_fileIcon.setImage(fileimage);
+		// rdf_fileIcon.setDisable(false);
+		// rdf_fileIcon.setImage(fileimage);
 	}
-
-	
 
 	@FXML
 	private void selectTargetFile() {
@@ -246,13 +242,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (fc_target == null) {
 			fc_target = new FileChooser();
 			File fwd = new File(rdfTargetName);
-			if (fwd != null && fwd.exists())
-			{
+			if (fwd != null) {
 				fc_target.setInitialFileName(rdfTargetName);
 				fc_target.setInitialDirectory(fwd.getParentFile());
-				
-			}
-			else
+
+			} else
 				fc_target.setInitialDirectory(new File("."));
 		}
 		FileChooser.ExtensionFilter ef;
@@ -265,22 +259,35 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (file == null)
 			return;
 		fc_target.setInitialDirectory(file.getParentFile());
-		labelTargetFile.setText(file.getName());
+		prefs.put("ifc_target_directory", file.getParentFile().getAbsolutePath());
+		labelTargetFile.setText(file.getAbsolutePath());
+
 		rdfTargetName = file.getAbsolutePath();
 	}
-	
+
 	@FXML
 	private void convertIFCToRDF() {
+		prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
+		prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
+
+		prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
+		prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
+
+		prefs.put("lbd_props_base_url",this.labelBaseURI.getText());
+		
 		conversionTxt.setText("");
 		try {
 			String uri_base = labelBaseURI.getText().trim();
-			int props_level=2;
-			if(level1.isSelected())
-				props_level=1;
-			if(level3.isSelected())
-				props_level=3;
+			int props_level = 2;
+			if (level1.isSelected())
+				props_level = 1;
+			if (level3.isSelected())
+				props_level = 3;
+			prefs.putInt("lbd_props_level", props_level);
 			masker_panel.setVisible(true);
-			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName,props_level,building_elements.isSelected(), building_elements_separate_file.isSelected(),building_props.isSelected(),building_props_separate_file.isSelected()));
+			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level,
+					building_elements.isSelected(), building_elements_separate_file.isSelected(),
+					building_props.isSelected(), building_props_separate_file.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -291,7 +298,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.application = this;
 		eventBus.register(this);
 		border.widthProperty().bind(root.widthProperty());
-        border.heightProperty().bind(root.heightProperty());
+		border.heightProperty().bind(root.heightProperty());
 		// Accepts dropping
 		EventHandler<DragEvent> ad_ontology = new EventHandler<DragEvent>() {
 			public void handle(DragEvent event) {
@@ -364,13 +371,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						conversionTxt.setText("");
 						try {
 							String uri_base = labelBaseURI.getText().trim();
-							int props_level=2;
-							if(level1.isSelected())
-								props_level=1;
-							if(level3.isSelected())
-								props_level=3;
+							int props_level = 2;
+							if (level1.isSelected())
+								props_level = 1;
+							if (level3.isSelected())
+								props_level = 3;
 							masker_panel.setVisible(true);
-							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),props_level,building_elements.isSelected(),building_elements_separate_file.isSelected(),building_props.isSelected(),building_props_separate_file.isSelected()));
+							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),
+									props_level, building_elements.isSelected(),
+									building_elements_separate_file.isSelected(), building_props.isSelected(),
+									building_props_separate_file.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
@@ -392,7 +402,33 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				me.consume();
 			}
 		});
-		this.labelBaseURI.setText("https://www.ugent.be/myAwesomeFirstBIMProject#");
+		this.labelBaseURI.setText(prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
+		this.building_elements.setSelected(prefs.getBoolean("lbd_building_elements", true));
+		this.building_elements_separate_file
+				.setSelected(prefs.getBoolean("lbd_building_elements_separate_file", false));
+		this.building_props.setSelected(prefs.getBoolean("lbd_building_props", true));
+		this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
+
+		int props_level = prefs.getInt("lbd_props_level", 3);
+		switch (props_level) {
+		case 1:
+			level1.setSelected(true);
+			level2.setSelected(false);
+			level3.setSelected(false);
+			break;
+		case 2:
+			level1.setSelected(false);
+			level2.setSelected(true);
+			level3.setSelected(false);
+			break;
+		case 3:
+			level1.setSelected(false);
+			level2.setSelected(false);
+			level3.setSelected(true);
+			break;
+
+		}
+
 	}
 
 	public void handle_notification(String txt) {
@@ -404,7 +440,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		System.out.println("message: " + event.getStatus_message());
 		Platform.runLater(() -> this.conversionTxt.appendText(event.getStatus_message() + "\n"));
 	}
-	
+
 	@Subscribe
 	public void handleEvent(final ProcessReadyEvent event) {
 		this.masker_panel.setVisible(false);

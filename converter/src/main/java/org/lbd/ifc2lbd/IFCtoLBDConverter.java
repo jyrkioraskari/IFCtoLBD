@@ -302,7 +302,7 @@ public class IFCtoLBDConverter {
 
 		if (hasBuildingElements) {
 			if (hasSeparateBuildingElementsModel) {
-				String out_products_filename = target_file.split("\\.")[0] + "_building_elements.ttl";
+				String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))+ "_building_elements.ttl";
 				writeModel(lbd_product_output_model, out_products_filename);
 				eventBus.post(new SystemStatusEvent("Building elements file is: " + out_products_filename));
 			} else
@@ -311,7 +311,7 @@ public class IFCtoLBDConverter {
 
 		if (hasBuildingProperties) {
 			if (hasSeparatePropertiesModel) {
-				String out_properties_filename = target_file.split("\\.")[0] + "_element_properties.ttl";
+				String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))+  "_element_properties.ttl";
 				writeModel(lbd_property_output_model, out_properties_filename);
 				eventBus.post(
 						new SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
