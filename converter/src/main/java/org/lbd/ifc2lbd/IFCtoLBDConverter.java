@@ -79,6 +79,7 @@ public class IFCtoLBDConverter {
 	private final int props_level;
 	private final boolean hasBuildingElements;
 	private final boolean hasBuildingProperties;
+	private final boolean hasPropertiesBlankNodes;
 
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
@@ -86,10 +87,11 @@ public class IFCtoLBDConverter {
 
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
-			boolean hasSeparatePropertiesModel) {
+			boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes) {
 		this.props_level = props_level;
 		this.hasBuildingElements = hasBuildingElements;
 		this.hasBuildingProperties = hasBuildingProperties;
+		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
@@ -188,10 +190,10 @@ public class IFCtoLBDConverter {
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
 										ps = new PropertySet(lbd_property_output_model,
-												propertyset_name.get(0).toString(), uncompressed_guid, props_level);
+												propertyset_name.get(0).toString(), uncompressed_guid, props_level,hasPropertiesBlankNodes);
 									else
 										ps = new PropertySet(lbd_property_output_model, "", uncompressed_guid,
-												props_level);
+												props_level,hasPropertiesBlankNodes);
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
 								if (pvalue.toString().trim().length() > 0) {
@@ -204,9 +206,9 @@ public class IFCtoLBDConverter {
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
 									ps = new PropertySet(lbd_property_output_model, propertyset_name.get(0).toString(),
-											uncompressed_guid, props_level);
+											uncompressed_guid, props_level,hasPropertiesBlankNodes);
 								else
-									ps = new PropertySet(lbd_property_output_model, "", uncompressed_guid, props_level);
+									ps = new PropertySet(lbd_property_output_model, "", uncompressed_guid, props_level,hasPropertiesBlankNodes);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							ps.put(pname.toString(), propertySingleValue);
@@ -302,7 +304,8 @@ public class IFCtoLBDConverter {
 
 		if (hasBuildingElements) {
 			if (hasSeparateBuildingElementsModel) {
-				String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))+ "_building_elements.ttl";
+				String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
+						+ "_building_elements.ttl";
 				writeModel(lbd_product_output_model, out_products_filename);
 				eventBus.post(new SystemStatusEvent("Building elements file is: " + out_products_filename));
 			} else
@@ -311,7 +314,8 @@ public class IFCtoLBDConverter {
 
 		if (hasBuildingProperties) {
 			if (hasSeparatePropertiesModel) {
-				String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))+  "_element_properties.ttl";
+				String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
+						+ "_element_properties.ttl";
 				writeModel(lbd_property_output_model, out_properties_filename);
 				eventBus.post(
 						new SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
@@ -440,7 +444,7 @@ public class IFCtoLBDConverter {
 			return;
 		String guid = getGUID(r);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-		final PropertySet local = new PropertySet(output_model, "attributes", uncompressed_guid, this.props_level);
+		final PropertySet local = new PropertySet(output_model, "attributes", uncompressed_guid, this.props_level,hasPropertiesBlankNodes);
 		Literal l = bot_r.getModel().createLiteral(guid);
 		local.put("guid", l);
 		r.listProperties().forEachRemaining(s -> {
@@ -450,7 +454,7 @@ public class IFCtoLBDConverter {
 			if (ps.startsWith("tag_"))
 				ps = "batid";
 			String property_string = ps; // Just to make it effectively final
-			if (atype.isPresent())
+			if (atype.isPresent()) {
 				if (atype.get().getLocalName().equals("IfcLabel")) {
 					attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> {
 						if (attr_s.getObject().isLiteral()
@@ -460,13 +464,26 @@ public class IFCtoLBDConverter {
 							local.put(property_string, attr_s.getObject());
 					});
 				}
-
-			if (atype.get().getLocalName().equals("IfcIdentifier")) {
-				// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
-				// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-				// attr_s.getObject()));
-				attr.listProperties(ifcOWL.getHasString())
-						.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+				else
+				if (atype.get().getLocalName().equals("IfcIdentifier")) {
+					// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
+					// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
+					// attr_s.getObject()));
+					attr.listProperties(ifcOWL.getHasString())
+							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+				}
+				else
+				{
+					attr.listProperties(ifcOWL.getHasString())
+					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+					attr.listProperties(ifcOWL.getHasInteger())
+					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+					attr.listProperties(ifcOWL.getHasDouble())
+					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+					attr.listProperties(ifcOWL.getHasBoolean())
+					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+				}
+					
 			}
 		});
 		local.connect(bot_r);
@@ -875,7 +892,7 @@ public class IFCtoLBDConverter {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false);
+			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false);
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 	}

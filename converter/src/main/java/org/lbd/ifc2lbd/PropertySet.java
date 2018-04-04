@@ -39,14 +39,16 @@ public class PropertySet {
 	private final int props_level;
 	private final Model model;
 	private final List<PsetProperty> properties = new ArrayList<>();
+	private final boolean blank_nodes;
 
-	public PropertySet(Model model, String name, String pset_uncompressed_guid, int props_level) {
+	public PropertySet(Model model, String name, String pset_uncompressed_guid, int props_level, boolean blank_nodes) {
 		this.model = model;
 		this.name = name;
 		if (name.contains("_"))
 			this.name = name.split("_")[1];
 		this.pset_uncompressed_guid = pset_uncompressed_guid;
 		this.props_level = props_level;
+		this.blank_nodes = blank_nodes;
 	}
 
 	public void put(String key, RDFNode value) {
@@ -59,11 +61,19 @@ public class PropertySet {
 		pset.addProperty(RDF.type, OPM.pset);
 		isWritten = true;
 		for (String k : this.getMap().keySet()) {
-			Resource property_resourse = pset.getModel()
-					.createResource(OPM.props_ns + k + "_" + pset_uncompressed_guid);
+
+			Resource property_resourse;
+			if (blank_nodes)
+				property_resourse = pset.getModel().createResource();
+			else
+				property_resourse = pset.getModel().createResource(OPM.props_ns + k + "_" + pset_uncompressed_guid);
 			property_resourse.addProperty(OPM.pset_property, pset);
 			if (this.props_level == 3) {
-				Resource state_resourse = pset.getModel().createResource(property_resourse.getURI() + "_CurrentState");
+				Resource state_resourse;
+				if (blank_nodes)
+					state_resourse = pset.getModel().createResource();
+				else
+					state_resourse = pset.getModel().createResource(property_resourse.getURI() + "_CurrentState");
 				property_resourse.addProperty(OPM.hasState, state_resourse);
 
 				LocalDateTime datetime = LocalDateTime.now();
@@ -71,10 +81,8 @@ public class PropertySet {
 				state_resourse.addProperty(RDF.type, OPM.currentState);
 				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
 				state_resourse.addProperty(OPM.value, this.getMap().get(k));
-			}
-			else
+			} else
 				property_resourse.addProperty(OPM.value, this.getMap().get(k));
-				
 
 			Property p;
 			if (name.equals("attributes"))
@@ -145,7 +153,7 @@ public class PropertySet {
 	}
 
 	public static void main(String[] args) {
-		PropertySet pset = new PropertySet(null, "", null, 1);
+		PropertySet pset = new PropertySet(null, "", null, 1, false);
 		System.out.println(pset.toCamelCase("yksi kaksi"));
 	}
 }

@@ -98,6 +98,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private ToggleSwitch building_props;
 	@FXML
+	private ToggleSwitch building_props_blank_nodes;
+	@FXML
 	private ToggleSwitch building_props_separate_file;
 
 	@FXML
@@ -271,8 +273,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
 		prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
+		
+		prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
 		prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-
 		prefs.put("lbd_props_base_url",this.labelBaseURI.getText());
 		
 		conversionTxt.setText("");
@@ -287,7 +290,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			masker_panel.setVisible(true);
 			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level,
 					building_elements.isSelected(), building_elements_separate_file.isSelected(),
-					building_props.isSelected(), building_props_separate_file.isSelected()));
+					building_props.isSelected(), building_props_separate_file.isSelected(),building_props_blank_nodes.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -380,7 +383,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),
 									props_level, building_elements.isSelected(),
 									building_elements_separate_file.isSelected(), building_props.isSelected(),
-									building_props_separate_file.isSelected()));
+									building_props_separate_file.isSelected(),building_props_blank_nodes.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
@@ -407,6 +410,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.building_elements_separate_file
 				.setSelected(prefs.getBoolean("lbd_building_elements_separate_file", false));
 		this.building_props.setSelected(prefs.getBoolean("lbd_building_props", true));
+		this.building_props_blank_nodes.setSelected(prefs.getBoolean("lbd_building_props_blank_nodes", false));
 		this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
 
 		int props_level = prefs.getInt("lbd_props_level", 3);

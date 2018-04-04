@@ -120,6 +120,7 @@
                                     <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" selected="true" text="Level 3" toggleGroup="$level" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="55.0" />
                                     <ToggleSwitch fx:id="building_props_separate_file" layoutX="119.0" layoutY="117.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                                     <Hyperlink layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="OPM" AnchorPane.rightAnchor="44.0" AnchorPane.topAnchor="75.0" />
+                                    <ToggleSwitch fx:id="building_props_blank_nodes" layoutX="19.0" layoutY="112.0" text="Blank nodes" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" />
                                  </children>
                               </AnchorPane>
                           </items>
