@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.57</version>
+	<version>1.58</version>
 	<name>IFC to LBD Converter</name>
 
 
@@ -44,6 +44,7 @@
 			<artifactId>guava</artifactId>
 			<version>23.0</version>
 		</dependency>
+	
 	</dependencies>
 	<build>
 		<plugins>

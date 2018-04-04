@@ -388,6 +388,8 @@ public class IFCtoLBDConverter {
 			addAttrributes(this.lbd_property_output_model, ifc_element, eo);
 
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+				if(eo.getLocalName().toLowerCase().contains("space"))
+				  System.out.println("hosts: "+ifc_element+"--"+ifc_element2+" bot:"+eo);
 				connectElement(eo, LBD_NS.BOT.hostsElement, ifc_element2);
 			});
 
@@ -425,11 +427,13 @@ public class IFCtoLBDConverter {
 			addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(bot_resource, LBD_NS.BOT.hostsElement, ifc_element2);
+				if(lbd_object.getLocalName().toLowerCase().contains("space"))
+				  System.out.println("hosts2: "+ifc_element+"-->"+ifc_element2+" bot:"+lbd_object);
+				connectElement(lbd_object, LBD_NS.BOT.hostsElement, ifc_element2);
 			});
 
 			listAggregated_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(bot_resource, LBD_NS.BOT.aggregates, ifc_element2);
+				connectElement(lbd_object, LBD_NS.BOT.aggregates, ifc_element2);
 			});
 		} else {
 			System.err.println("No type: " + ifc_element);
