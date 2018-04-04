@@ -34,13 +34,16 @@ public class LBD_NS extends abstract_NS{
 		
 	}
 
-
 	public static class Product {
 		public static final String product_ns = "https://w3id.org/product/BuildingElements#";
+		public static final String furnisging_ns = "https://w3id.org/product/Furnishing#";
+		public static final String mep_ns = "https://w3id.org/product/MEP#";
 
 		public static void addNameSpace(Model model)
 		{
-			model.setNsPrefix("product", product_ns);
+			model.setNsPrefix("p4bldg", product_ns);
+			model.setNsPrefix("furn", furnisging_ns);
+			model.setNsPrefix("mep", mep_ns);
 		}
 		
 		public static Resource getProductType(Resource ifOwlClass)
@@ -56,21 +59,29 @@ public class LBD_NS extends abstract_NS{
 	}
 
 
-	public static class PropertySet {
-		public static final String pset_ns = "https://w3id.org/propertyset#";
+	public static class PROPS_NS {
+		public static final String props_ns = "https://w3id.org/props#";
 
 		public static void addNameSpace(Model model)
 		{
-			model.setNsPrefix("pset", pset_ns);
+			model.setNsPrefix("pset", props_ns);
 		}
 		
-		public static final Resource propertyset=resource(pset_ns,"PropertySet");
-		public static final Resource property=resource(pset_ns,"Property");
+		public static final Resource props=resource(props_ns,"Pset");
+		public static final Property partofPset=property(props_ns, "partOfPset");
 		
-		public static final Property hasPropertySet =property(pset_ns,"hasPropertySet");
-		public static final Property hasProperty =property(pset_ns,"hasProperty");
-		public static final Property hasValue =property(pset_ns,"hasValue");
-		public static final Property hasName =property(pset_ns,"hasName");
+
+		public static final Resource attribute_group=resource(props_ns,"AttributesGroup");
+		public static final Property partofAG=property(props_ns, "partOfAttributesGroup");
+		
+		public static final Resource propertyset=resource(props_ns,"PropertySet");
+		public static final Resource property=resource(props_ns,"Property");
+		
+		public static final Property hasPropertySet =property(props_ns,"hasPropertySet");
+		
+		public static final Property hasProperty =property(props_ns,"hasProperty");
+		public static final Property hasValue =property(props_ns,"hasValue");
+		public static final Property hasName =property(props_ns,"hasName");
 		
 	}
 

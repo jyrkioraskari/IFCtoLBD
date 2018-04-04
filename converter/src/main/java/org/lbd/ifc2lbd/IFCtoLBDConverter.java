@@ -114,15 +114,16 @@ public class IFCtoLBDConverter {
 			LBD_NS.Product.addNameSpace(lbd_product_output_model);
 		if (hasBuildingProperties) {
 			if (props_level == 1)
-				LBD_NS.PropertySet.addNameSpace(lbd_property_output_model);
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
 			else {
-				lbd_property_output_model.setNsPrefix("props", OPM.props_ns);
-				lbd_property_output_model.setNsPrefix("opm", OPM.opm_ns);
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
+				OPM.addNameSpaces(lbd_property_output_model);
 				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 			}
 		}
 		Model[] ms = { lbd_general_output_model, lbd_product_output_model, lbd_property_output_model };
 		for (Model model : ms) {
+			model.setNsPrefix("rdf", RDF.uri);
 			model.setNsPrefix("rdfs", RDFS.uri);
 			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 			model.setNsPrefix("inst", uriBase);
@@ -189,10 +190,10 @@ public class IFCtoLBDConverter {
 								PropertySet ps = this.propertysets.get(propertyset.getURI());
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(lbd_property_output_model,
+										ps = new PropertySet(this.uriBase,lbd_property_output_model,
 												propertyset_name.get(0).toString(), uncompressed_guid, props_level,hasPropertiesBlankNodes);
 									else
-										ps = new PropertySet(lbd_property_output_model, "", uncompressed_guid,
+										ps = new PropertySet(this.uriBase,lbd_property_output_model, "", uncompressed_guid,
 												props_level,hasPropertiesBlankNodes);
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
@@ -205,10 +206,10 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(lbd_property_output_model, propertyset_name.get(0).toString(),
+									ps = new PropertySet(this.uriBase,lbd_property_output_model, propertyset_name.get(0).toString(),
 											uncompressed_guid, props_level,hasPropertiesBlankNodes);
 								else
-									ps = new PropertySet(lbd_property_output_model, "", uncompressed_guid, props_level,hasPropertiesBlankNodes);
+									ps = new PropertySet(this.uriBase,lbd_property_output_model, "", uncompressed_guid, props_level,hasPropertiesBlankNodes);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							ps.put(pname.toString(), propertySingleValue);
@@ -269,6 +270,8 @@ public class IFCtoLBDConverter {
 					});
 
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
+						if (getType(element.asResource()).get().getURI().endsWith("#IfcSpace"))
+							return;
 						connectElement(so, element);
 					});
 
@@ -448,7 +451,7 @@ public class IFCtoLBDConverter {
 			return;
 		String guid = getGUID(r);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-		final PropertySet local = new PropertySet(output_model, "attributes", uncompressed_guid, this.props_level,hasPropertiesBlankNodes);
+		final PropertySet local = new PropertySet(this.uriBase,output_model, "attributes", uncompressed_guid, this.props_level,hasPropertiesBlankNodes,true);
 		Literal l = bot_r.getModel().createLiteral(guid);
 		local.put("guid", l);
 		r.listProperties().forEachRemaining(s -> {
