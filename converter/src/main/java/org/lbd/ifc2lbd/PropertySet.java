@@ -35,7 +35,6 @@ public class PropertySet {
 	private final Map<String, RDFNode> map = new HashMap<>();
 	private String name;
 	private boolean isWritten = false;
-	private final String pset_uncompressed_guid;
 	private final int props_level;
 	private final Model model;
 	private final List<PsetProperty> properties = new ArrayList<>();
@@ -43,26 +42,24 @@ public class PropertySet {
 	private final String uriBase;
 	private boolean is_attribute = false;
 
-	public PropertySet(String uriBase, Model model, String name, String pset_uncompressed_guid, int props_level,
+	public PropertySet(String uriBase, Model model, String name, int props_level,
 			boolean hasBlank_nodes) {
 		this.uriBase = uriBase;
 		this.model = model;
 		this.name = name;
 		if (name.contains("_"))
 			this.name = name.split("_")[1];
-		this.pset_uncompressed_guid = pset_uncompressed_guid;
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 	}
 
-	public PropertySet(String uriBase, Model model, String name, String pset_uncompressed_guid, int props_level,
+	public PropertySet(String uriBase, Model model, String name, int props_level,
 			boolean hasBlank_nodes, boolean is_attribute) {
 		this.uriBase = uriBase;
 		this.model = model;
 		this.name = name;
 		if (name.contains("_"))
 			this.name = name.split("_")[1];
-		this.pset_uncompressed_guid = pset_uncompressed_guid;
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 		this.is_attribute = is_attribute;
@@ -71,22 +68,32 @@ public class PropertySet {
 	public void put(String key, RDFNode value) {
 		map.put(toCamelCase(key), value);
 	}
-
-	private void writeOPM_Set() {
-		Resource pset = model.createResource(this.uriBase + "pset_" + pset_uncompressed_guid);
+	
+	Resource pset=null;
+	private void write_once()
+	{
+		isWritten = true;
+		this.pset = model.createResource(this.uriBase + "pset_" + name);
 		pset.addProperty(RDFS.label, name);
 		if (is_attribute)
 			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
 		else
 			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.props);
-		isWritten = true;
+	}
+
+	private void writeOPM_Set(String extracted_guid) {
+		properties.clear();
+		if(!isWritten)
+			write_once();
+		if(this.pset==null)
+			return;
 		for (String k : this.getMap().keySet()) {
 
 			Resource property_resourse;
 			if (this.hasBlank_nodes)
 				property_resourse = pset.getModel().createResource();
 			else
-				property_resourse = pset.getModel().createResource(this.uriBase + k + "_" + pset_uncompressed_guid);
+				property_resourse = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
 			if (is_attribute)
 				property_resourse.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
 			else
@@ -97,7 +104,7 @@ public class PropertySet {
 					state_resourse = pset.getModel().createResource();
 				else
 					state_resourse = pset.getModel().createResource(
-							this.uriBase + "state_"+k +"_"+ pset_uncompressed_guid + "_" + System.currentTimeMillis());
+							this.uriBase + "state_"+k +"_"+ extracted_guid + "_" + System.currentTimeMillis());
 				property_resourse.addProperty(OPM.hasState, state_resourse);
 
 				LocalDateTime datetime = LocalDateTime.now();
@@ -112,16 +119,15 @@ public class PropertySet {
 			if (name.equals("attributes"))
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
 			else
-				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(name + " " + k));
+				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
 			this.properties.add(new PsetProperty(p, property_resourse));
 		}
 	}
 
-	public void connect(Resource r_org) {
+	public void connect(Resource r_org,String extracted_guid) {
 		Resource r = this.model.createResource(r_org.getURI());
-		if (this.props_level > 1) {
-			if (!isWritten)
-				writeOPM_Set();
+		if (this.props_level > 1) {			
+			writeOPM_Set(extracted_guid);
 			for (PsetProperty pp : this.properties) {
 				r.addProperty(pp.p, pp.r);
 
@@ -133,7 +139,7 @@ public class PropertySet {
 				if (name.equals("attributes"))
 					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_attribute");
 				else
-					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + name + "_" + k + "_simple");
+					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_simple");
 				r.addProperty(property, this.getMap().get(k));
 
 			}
@@ -177,7 +183,7 @@ public class PropertySet {
 	}
 
 	public static void main(String[] args) {
-		PropertySet pset = new PropertySet(null, null, "", null, 1, false);
+		PropertySet pset = new PropertySet(null, null, null, 1, false);
 		System.out.println(pset.toCamelCase("yksi kaksi"));
 	}
 }
