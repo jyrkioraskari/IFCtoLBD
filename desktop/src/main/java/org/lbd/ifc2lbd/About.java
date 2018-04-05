@@ -50,7 +50,7 @@ public class About extends Stage
       msg1.setX(iv.getX()+width+5);
       msg1.setY(iv.getY()+height/2.0);
       root.getChildren().add(msg1);
-      Text msg2 = new Text("Authors: Jyrki Oraskari");
+      Text msg2 = new Text("Authors: Jyrki Oraskari and Mathias Bonduel");
       msg2.setFill(Color.WHITE);
       msg2.setFont(new Font("Arial", 12.0));
       msg2.setX(msg1.getX());
