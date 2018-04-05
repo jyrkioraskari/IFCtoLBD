@@ -64,7 +64,7 @@ public class LBD_NS extends abstract_NS{
 
 		public static void addNameSpace(Model model)
 		{
-			model.setNsPrefix("pset", props_ns);
+			model.setNsPrefix("props", props_ns);
 		}
 		
 		public static final Resource props=resource(props_ns,"Pset");

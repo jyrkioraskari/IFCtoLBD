@@ -4,8 +4,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
@@ -15,8 +17,6 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.lbd.ifc2lbd.ns.LBD_NS;
 import org.lbd.ifc2lbd.ns.OPM;
-
-import com.openifctools.guidcompressor.GuidCompressor;
 
 public class PropertySet {
 
@@ -34,6 +34,7 @@ public class PropertySet {
 
 	private final Map<String, RDFNode> map = new HashMap<>();
 	private String name;
+	private String label_name;
 	private boolean isWritten = false;
 	private final int props_level;
 	private final Model model;
@@ -53,8 +54,9 @@ public class PropertySet {
 		this.hasBlank_nodes = hasBlank_nodes;
 	}
 
+	String attributegroup_uncompressed_guid;
 	public PropertySet(String uriBase, Model model, String name, int props_level,
-			boolean hasBlank_nodes, boolean is_attribute) {
+			boolean hasBlank_nodes, boolean is_attribute,String uncompressed_guid ) {
 		this.uriBase = uriBase;
 		this.model = model;
 		this.name = name;
@@ -63,6 +65,7 @@ public class PropertySet {
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 		this.is_attribute = is_attribute;
+		this.attributegroup_uncompressed_guid=uncompressed_guid;
 	}
 
 	public void put(String key, RDFNode value) {
@@ -73,8 +76,12 @@ public class PropertySet {
 	private void write_once()
 	{
 		isWritten = true;
-		this.pset = model.createResource(this.uriBase + "pset_" + name);
-		pset.addProperty(RDFS.label, name);
+		if (is_attribute)
+		  this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
+		else
+		  this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
+			
+		pset.addProperty(RDFS.label,  toUnCamelCase(name));
 		if (is_attribute)
 			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
 		else
@@ -117,17 +124,19 @@ public class PropertySet {
 
 			Property p;
 			if (name.equals("attributes"))
-				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
+				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute_simple");
 			else
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
 			this.properties.add(new PsetProperty(p, property_resourse));
 		}
 	}
 
+	Set<String> hashes=new HashSet<>();
 	public void connect(Resource r_org,String extracted_guid) {
 		Resource r = this.model.createResource(r_org.getURI());
-		if (this.props_level > 1) {			
-			writeOPM_Set(extracted_guid);
+		if (this.props_level > 1) {	
+			if(hashes.add(extracted_guid))
+			  writeOPM_Set(extracted_guid);
 			for (PsetProperty pp : this.properties) {
 				r.addProperty(pp.p, pp.r);
 
@@ -168,6 +177,29 @@ public class PropertySet {
 		return ret.toString();
 	}
 
+	public String toUnCamelCase(final String init) {
+		if (init == null)
+			return null;
+
+		StringBuilder ret = new StringBuilder();
+		for(int i=0;i<init.length();i++)
+		{
+			char c=init.charAt(i);
+			if(i>0 && Character.isUpperCase(c))
+			{
+				ret.append(" ");
+				ret.append(Character.toLowerCase(c));
+			}
+			else
+			if(c=='_')
+				ret.append(" ");
+			else
+			  ret.append(c);
+		}
+		return ret.toString();	
+	}
+	
+	
 	private String filterCharaters(String txt) {
 		StringBuilder ret = new StringBuilder();
 		for (byte cb : txt.getBytes()) {

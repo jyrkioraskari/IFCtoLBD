@@ -116,10 +116,13 @@ public class IFCtoLBDConverter {
 			if (props_level == 1)
 				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
 			else {
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
-				OPM.addNameSpaces(lbd_property_output_model);
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);				
 				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 			}
+			if (props_level == 2)
+				OPM.addNameSpacesL2(lbd_property_output_model);
+			if (props_level == 3)
+				OPM.addNameSpacesL3(lbd_property_output_model);
 		}
 		Model[] ms = { lbd_general_output_model, lbd_product_output_model, lbd_property_output_model };
 		for (Model model : ms) {
@@ -461,9 +464,9 @@ public class IFCtoLBDConverter {
 			return;
 		String guid = getGUID(r);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-		final PropertySet local = new PropertySet(this.uriBase,output_model, "attributes",  this.props_level,hasPropertiesBlankNodes,true);
-		Literal l = bot_r.getModel().createLiteral(guid);
-		local.put("guid", l);
+		final PropertySet local = new PropertySet(this.uriBase,output_model, "attributes",  this.props_level,hasPropertiesBlankNodes,true,uncompressed_guid);
+		//Literal l = bot_r.getModel().createLiteral(guid);
+		//local.put("guid", l);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();

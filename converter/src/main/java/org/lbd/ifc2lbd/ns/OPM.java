@@ -23,8 +23,12 @@ public class OPM extends abstract_NS{
 	
 	public static final Property generatedAtTime=property(prov_ns, "generatedAtTime");
 
+	public static void addNameSpacesL2(Model model)
+	{
+		model.setNsPrefix("schema", schema_ns);
+	}
 	
-	public static void addNameSpaces(Model model)
+	public static void addNameSpacesL3(Model model)
 	{
 		model.setNsPrefix("opm", opm_ns);
 		model.setNsPrefix("schema", schema_ns);
