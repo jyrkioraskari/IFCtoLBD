@@ -124,7 +124,7 @@ public class PropertySet {
 
 			Property p;
 			if (name.equals("attributes"))
-				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute_simple");
+				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
 			else
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
 			this.properties.add(new PsetProperty(p, property_resourse));
@@ -146,7 +146,7 @@ public class PropertySet {
 			for (String k : this.getMap().keySet()) {
 				Property property;
 				if (name.equals("attributes"))
-					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_attribute");
+					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_attribute_simple");
 				else
 					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_simple");
 				r.addProperty(property, this.getMap().get(k));

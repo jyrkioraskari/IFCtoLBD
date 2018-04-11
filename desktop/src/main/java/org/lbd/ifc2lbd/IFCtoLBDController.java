@@ -220,6 +220,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		int i = file.getName().lastIndexOf(".");
 		if (i > 0) {
 			String target_directory = prefs.get("ifc_target_directory", file.getParentFile().getAbsolutePath());
+			if (!new File(target_directory).exists())
+				target_directory = file.getParent();
 			rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
 			labelTargetFile.setText(rdfTargetName);
 		}
@@ -241,23 +243,34 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		Stage stage = (Stage) myMenuBar.getScene().getWindow();
 		File file = null;
 
-		if (fc_target == null) {
-			fc_target = new FileChooser();
-			File fwd = new File(rdfTargetName);
-			if (fwd != null) {
-				fc_target.setInitialFileName(rdfTargetName);
+		fc_target = new FileChooser();
+		File fwd = new File(rdfTargetName);
+		if (fwd != null) {
+			fc_target.setInitialFileName(rdfTargetName);
+			if (!fwd.getParentFile().exists()) {
+				fc_target.setInitialDirectory(new File(ifcFileName).getParentFile());
+				fc_target
+						.setInitialFileName(new File(ifcFileName).getParentFile() + File.pathSeparator + fwd.getName());
+				System.out.println("SET");
+			} else
 				fc_target.setInitialDirectory(fwd.getParentFile());
 
-			} else
-				fc_target.setInitialDirectory(new File("."));
-		}
+		} else
+			fc_target.setInitialDirectory(new File("."));
 		FileChooser.ExtensionFilter ef;
 		ef = new FileChooser.ExtensionFilter("All Files", "*.*");
 		fc_ifc.getExtensionFilters().clear();
 		fc_ifc.getExtensionFilters().addAll(ef);
 
-		if (file == null)
+		try {
 			file = fc_target.showSaveDialog(stage);
+		} catch (Exception e) {
+			fwd = new File(rdfTargetName);
+			System.err.println("fwd parent: " + fwd.getParentFile() + " -> " + new File(ifcFileName).getParentFile());
+			System.err.println("path was: " + fc_target.getInitialDirectory().getAbsolutePath());
+
+			e.printStackTrace();
+		}
 		if (file == null)
 			return;
 		fc_target.setInitialDirectory(file.getParentFile());
@@ -273,11 +286,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
 		prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
-		
+
 		prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
 		prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-		prefs.put("lbd_props_base_url",this.labelBaseURI.getText());
-		
+		prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
+
 		conversionTxt.setText("");
 		try {
 			String uri_base = labelBaseURI.getText().trim();
@@ -290,7 +303,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			masker_panel.setVisible(true);
 			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level,
 					building_elements.isSelected(), building_elements_separate_file.isSelected(),
-					building_props.isSelected(), building_props_separate_file.isSelected(),building_props_blank_nodes.isSelected()));
+					building_props.isSelected(), building_props_separate_file.isSelected(),
+					building_props_blank_nodes.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -383,7 +397,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),
 									props_level, building_elements.isSelected(),
 									building_elements_separate_file.isSelected(), building_props.isSelected(),
-									building_props_separate_file.isSelected(),building_props_blank_nodes.isSelected()));
+									building_props_separate_file.isSelected(),
+									building_props_blank_nodes.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
