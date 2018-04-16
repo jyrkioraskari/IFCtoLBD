@@ -1,6 +1,10 @@
 # IFCtoLBD
 Version 1.68
 
+Contributors: Jyrki Oraskari <jyrki.oraskari@aalto.fi> and Mathias Bonduel <mathias.bonduel@kuleuven.be>
+
+
+
 This repository presents the results of our ongoing work to 
 create a usable converter to convert  
 Industry Foundation Classes (IFC) STEP formatted files into 
