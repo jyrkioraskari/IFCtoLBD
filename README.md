@@ -1,7 +1,7 @@
 # IFCtoLBD
 Version 1.68
 
-Contributors: Jyrki Oraskari <jyrki.oraskari@aalto.fi> and Mathias Bonduel <mathias.bonduel@kuleuven.be>
+Contributors: Jyrki Oraskari and Mathias Bonduel 
 
 
 
