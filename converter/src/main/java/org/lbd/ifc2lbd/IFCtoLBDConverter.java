@@ -84,7 +84,7 @@ public class IFCtoLBDConverter {
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
-
+	
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes) {
@@ -912,9 +912,51 @@ public class IFCtoLBDConverter {
 
 	public static void main(String[] args) {
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false);
-		} else
+			new IFCtoLBDConverter(args[0], args[1], args[2], 0, true, false, true, false, false);	
+		} 
+		else if(args.length == 1){
+			//directory upload
+			final List<String> inputFiles;
+            final List<String> outputFiles;
+
+            inputFiles = showFiles(args[0]);
+            outputFiles = null;
+
+            for (int i = 0; i < inputFiles.size(); ++i) {
+                final String inputFile = inputFiles.get(i);
+                final String outputFile;
+                if (inputFile.endsWith(".ifc")) {
+                    if (outputFiles == null) {
+                        outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
+                    } else {
+                        outputFile = outputFiles.get(i);
+                    }                    
+
+//                    new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
+//        					this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes);
+                    new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false, true, false, false);	
+                }
+            }
+		}
+		else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 	}
+	
+
+
+    public static List<String> showFiles(String dir) {
+        List<String> goodFiles = new ArrayList<String>();
+
+        File folder = new File(dir);
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile())
+                goodFiles.add(listOfFiles[i].getAbsolutePath());
+            else if (listOfFiles[i].isDirectory())
+                goodFiles.addAll(showFiles(listOfFiles[i].getAbsolutePath()));
+        }
+        return goodFiles;
+    }
 
 }
