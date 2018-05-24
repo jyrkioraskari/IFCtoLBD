@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -88,6 +90,9 @@ public class IFCtoLBDConverter {
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes) {
+
+        System.out.println("converting: " + ifc_filename);
+		
 		this.props_level = props_level;
 		this.hasBuildingElements = hasBuildingElements;
 		this.hasBuildingProperties = hasBuildingProperties;
@@ -924,17 +929,37 @@ public class IFCtoLBDConverter {
 
             for (int i = 0; i < inputFiles.size(); ++i) {
                 final String inputFile = inputFiles.get(i);
-                final String outputFile;
+                String outputFile;
                 if (inputFile.endsWith(".ifc")) {
                     if (outputFiles == null) {
                         outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
                     } else {
                         outputFile = outputFiles.get(i);
-                    }                    
+                    }                                   
 
-//                    new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
+                    outputFile = outputFile.replaceAll(args[0], args[0] + "\\___out\\");
+                    String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");
+                    
+                    //move file to output directory
+//                    Path p = Paths.get(outputFile);
+//                    String fileNameTTL = p.getFileName().toString();
+//                    outputFile = args[0] + "\\___out\\" + fileNameTTL ;
+
+//                    Path p1 = Paths.get(inputFile);
+//                    String fileNameIFC = p1.getFileName().toString();                    
+//                    String copyFile = args[0] + "\\___done\\" + fileNameIFC ;
+                    
+                    
+                    
+//                  new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
 //        					this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes);
+                    System.out.println("--------- converting: " + inputFile);
                     new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false, true, false, false);	
+                    
+                    //move original file to output directory
+                    File afile =new File(inputFile);            		
+             	   	afile.renameTo(new File(copyFile));
+                    System.out.println("--------- done ");
                 }
             }
 		}
