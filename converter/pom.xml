@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.68</version>
+	<version>1.69</version>
 	<name>IFC to LBD Converter</name>
 
 
