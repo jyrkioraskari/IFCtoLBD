@@ -13,7 +13,6 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 
 
 The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this page at 
-
  [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true).
 
  The special Java 10 versio is available at:
