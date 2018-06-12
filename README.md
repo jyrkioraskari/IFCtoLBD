@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.69
+Version 1.70
 
 Contributors: Jyrki Oraskari and Mathias Bonduel 
 
@@ -13,8 +13,11 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 
 
 The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this page at 
- [IFCtoLBD-Desktop.jar](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop.jar?raw=true).
+ [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true).
 
+ [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_10.jar?raw=true).
+
+ 
 It is a runnable JAR-file. It is recommended to run the JAR using Java JDK version 8 that can be downloaded from http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html .  If the Java installation is fine, the file can be run by clicking it. 
 If converting large files, run.bat is faster since it allow the program to use more memory for the calculation.
 
