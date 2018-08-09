@@ -911,10 +911,11 @@ public class IFCtoLBDConverter {
 	}
 
 	public static void main(String[] args) {
+		
 		if (args.length > 2) {
 			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false);
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
-	}
 
+        }
 }
