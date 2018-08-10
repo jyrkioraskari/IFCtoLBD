@@ -47,8 +47,6 @@ import nl.tue.ddss.convert.IfcVersion;
 import nl.tue.ddss.convert.IfcVersionException;
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.TypeMapper;
-import static org.lbd.ifc2lbd.IFCtoLBD.eventBus;
-import static org.lbd.ifc2lbd.IFCtoLBD.ifcowl_model;
 import org.lbd.ifc2lbd.geo.IFC_Geolocation;
 import org.lbd.ifc2lbd.geo.WktLiteral;
 
