@@ -85,8 +85,8 @@ public class IFCtoLBDConverter {
 	private final boolean hasBuildingElements;
 	private final boolean hasBuildingProperties;
 	private final boolean hasPropertiesBlankNodes;
-        private final boolean hasGeolocation;
-        
+	private final boolean hasGeolocation;
+
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
@@ -98,8 +98,8 @@ public class IFCtoLBDConverter {
 		this.hasBuildingElements = hasBuildingElements;
 		this.hasBuildingProperties = hasBuildingProperties;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
-                this.hasGeolocation = hasGeolocation;
-                
+		this.hasGeolocation = hasGeolocation;
+
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -123,7 +123,7 @@ public class IFCtoLBDConverter {
 			if (props_level == 1)
 				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
 			else {
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);				
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
 				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 			}
 			if (props_level == 2)
@@ -137,7 +137,7 @@ public class IFCtoLBDConverter {
 			model.setNsPrefix("rdfs", RDFS.uri);
 			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 			model.setNsPrefix("inst", uriBase);
-                        model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
+			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
 		}
 
 		eventBus.post(new SystemStatusEvent("IFC->LBD"));
@@ -201,11 +201,12 @@ public class IFCtoLBDConverter {
 								PropertySet ps = this.propertysets.get(propertyset.getURI());
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(this.uriBase,lbd_property_output_model,
-												propertyset_name.get(0).toString(), props_level,hasPropertiesBlankNodes);
+										ps = new PropertySet(this.uriBase, lbd_property_output_model,
+												propertyset_name.get(0).toString(), props_level,
+												hasPropertiesBlankNodes);
 									else
-										ps = new PropertySet(this.uriBase,lbd_property_output_model, "", 
-												props_level,hasPropertiesBlankNodes);
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, "", props_level,
+												hasPropertiesBlankNodes);
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
 								if (pvalue.toString().trim().length() > 0) {
@@ -217,10 +218,11 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(this.uriBase,lbd_property_output_model, propertyset_name.get(0).toString(),
-											props_level,hasPropertiesBlankNodes);
+									ps = new PropertySet(this.uriBase, lbd_property_output_model,
+											propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
 								else
-									ps = new PropertySet(this.uriBase,lbd_property_output_model, "", props_level,hasPropertiesBlankNodes);
+									ps = new PropertySet(this.uriBase, lbd_property_output_model, "", props_level,
+											hasPropertiesBlankNodes);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
 							ps.put(pname.toString(), propertySingleValue);
@@ -244,7 +246,7 @@ public class IFCtoLBDConverter {
 			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 				PropertySet p_set = this.propertysets.get(propertyset.getURI());
 				if (p_set != null) {
-					p_set.connect(sio,uncompressed_guid_site);
+					p_set.connect(sio, uncompressed_guid_site);
 				}
 			});
 
@@ -262,7 +264,7 @@ public class IFCtoLBDConverter {
 				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 					PropertySet p_set = this.propertysets.get(propertyset.getURI());
 					if (p_set != null) {
-						p_set.connect(bo,uncompressed_guid_building);
+						p_set.connect(bo, uncompressed_guid_building);
 					}
 				});
 
@@ -283,7 +285,7 @@ public class IFCtoLBDConverter {
 					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 						PropertySet p_set = this.propertysets.get(propertyset.getURI());
 						if (p_set != null)
-							p_set.connect(so,uncompressed_guid_storey);
+							p_set.connect(so, uncompressed_guid_storey);
 					});
 
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
@@ -316,7 +318,7 @@ public class IFCtoLBDConverter {
 								.forEach(propertyset -> {
 									PropertySet p_set = this.propertysets.get(propertyset.getURI());
 									if (p_set != null) {
-										p_set.connect(spo,uncompressed_guid_space);
+										p_set.connect(spo, uncompressed_guid_space);
 									}
 								});
 					});
@@ -345,9 +347,13 @@ public class IFCtoLBDConverter {
 				lbd_general_output_model.add(lbd_property_output_model);
 		}
 
-                if (hasGeolocation) {
-                    addGeolocation2BOT();
-                }
+		if (hasGeolocation) {
+			try {
+				addGeolocation2BOT();
+			} catch (Exception e) {
+				eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			}
+		}
 		writeModel(lbd_general_output_model, target_file);
 
 		eventBus.post(new SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
@@ -410,13 +416,13 @@ public class IFCtoLBDConverter {
 			listPropertysets(ifc_element).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 				PropertySet p_set = this.propertysets.get(propertyset.getURI());
 				if (p_set != null)
-					p_set.connect(eo,uncompressed_guid);
+					p_set.connect(eo, uncompressed_guid);
 			});
 			addAttrributes(this.lbd_property_output_model, ifc_element, eo);
 
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				if(eo.getLocalName().toLowerCase().contains("space"))
-				  System.out.println("hosts: "+ifc_element+"--"+ifc_element2+" bot:"+eo);
+				if (eo.getLocalName().toLowerCase().contains("space"))
+					System.out.println("hosts: " + ifc_element + "--" + ifc_element2 + " bot:" + eo);
 				connectElement(eo, LBD_NS.BOT.hostsElement, ifc_element2);
 			});
 
@@ -454,8 +460,8 @@ public class IFCtoLBDConverter {
 			addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				if(lbd_object.getLocalName().toLowerCase().contains("space"))
-				  System.out.println("hosts2: "+ifc_element+"-->"+ifc_element2+" bot:"+lbd_object);
+				if (lbd_object.getLocalName().toLowerCase().contains("space"))
+					System.out.println("hosts2: " + ifc_element + "-->" + ifc_element2 + " bot:" + lbd_object);
 				connectElement(lbd_object, LBD_NS.BOT.hostsElement, ifc_element2);
 			});
 
@@ -475,9 +481,10 @@ public class IFCtoLBDConverter {
 			return;
 		String guid = getGUID(r);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-		final PropertySet local = new PropertySet(this.uriBase,output_model, "attributes",  this.props_level,hasPropertiesBlankNodes,true,uncompressed_guid);
-		//Literal l = bot_r.getModel().createLiteral(guid);
-		//local.put("guid", l);
+		final PropertySet local = new PropertySet(this.uriBase, output_model, "attributes", this.props_level,
+				hasPropertiesBlankNodes, true, uncompressed_guid);
+		// Literal l = bot_r.getModel().createLiteral(guid);
+		// local.put("guid", l);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
@@ -494,30 +501,26 @@ public class IFCtoLBDConverter {
 							// attr_s.getObject());
 							local.put(property_string, attr_s.getObject());
 					});
-				}
-				else
-				if (atype.get().getLocalName().equals("IfcIdentifier")) {
+				} else if (atype.get().getLocalName().equals("IfcIdentifier")) {
 					// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
 					// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
 					// attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasString())
 							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
-				}
-				else
-				{
+				} else {
 					attr.listProperties(ifcOWL.getHasString())
-					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasInteger())
-					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasDouble())
-					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasBoolean())
-					.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 				}
-					
+
 			}
 		});
-		local.connect(bot_r,uncompressed_guid);
+		local.connect(bot_r, uncompressed_guid);
 	}
 
 	private Optional<Resource> getType(Resource r) {
@@ -920,51 +923,51 @@ public class IFCtoLBDConverter {
 		}
 
 	}
-               
-  private void addGeolocation2BOT()
-  {
 
-      IFC_Geolocation c = new IFC_Geolocation(); 
-      String wkt_point = c.addGeolocation(ifcowl_model);
+	private void addGeolocation2BOT() {
 
-      listSites().stream().map(rn -> rn.asResource()).forEach(site -> 
-      {
-          //Create a resource and add to bot model (resource, model, string)
-          Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
-                                            
-          //Create a resource geosparql:Feature;
-          Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");
-          //Add geosparl:Feature as a type to site;                                  
-          sio.addProperty(RDF.type, geof); 
-          //Create a resource geosparql:hasGeometry;
-          Property geo_hasGeometry = lbd_general_output_model.createProperty( "http://www.opengis.net/ont/geosparql#hasGeometry" );
-          //For the moment we will use a seperate graph for geometries, to "encourage" people to not link to geometries
-          //This could also be done using blanknodes, although, hard to maintain provenance if required in future versions. 
-          String wktLiteralID = "urn:bot:geom:pt:";
-          String guid_site = getGUID(site);              
-          String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
-          String uncompressed_wktLiteralID = wktLiteralID + uncompressed_guid_site;
+		IFC_Geolocation c = new IFC_Geolocation();
+		String wkt_point = c.addGeolocation(ifcowl_model);
 
-          //Create a resource <urn:bot:geom:pt:guid>
-          Resource rr = lbd_general_output_model.createResource(uncompressed_wktLiteralID);
-          sio.addProperty(geo_hasGeometry, rr);
+		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
+			// Create a resource and add to bot model (resource, model, string)
+			Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
 
-          //Create a property asWKT
-          Property geo_asWKT = lbd_general_output_model.createProperty( "http://www.opengis.net/ont/geosparql#asWKT" );
-          //add a data type 
-          RDFDatatype rtype = WktLiteral.wktLiteralType; 
-          TypeMapper.getInstance().registerDatatype(rtype);     
-          //add a typed wkt literal 
-          Literal l = lbd_general_output_model.createTypedLiteral(wkt_point, rtype);
+			// Create a resource geosparql:Feature;
+			Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");
+			// Add geosparl:Feature as a type to site;
+			sio.addProperty(RDF.type, geof);
+			// Create a resource geosparql:hasGeometry;
+			Property geo_hasGeometry = lbd_general_output_model
+					.createProperty("http://www.opengis.net/ont/geosparql#hasGeometry");
+			// For the moment we will use a seperate graph for geometries, to "encourage"
+			// people to not link to geometries
+			// This could also be done using blanknodes, although, hard to maintain
+			// provenance if required in future versions.
+			String wktLiteralID = "urn:bot:geom:pt:";
+			String guid_site = getGUID(site);
+			String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
+			String uncompressed_wktLiteralID = wktLiteralID + uncompressed_guid_site;
 
-          rr.addProperty(geo_asWKT, l);
+			// Create a resource <urn:bot:geom:pt:guid>
+			Resource rr = lbd_general_output_model.createResource(uncompressed_wktLiteralID);
+			sio.addProperty(geo_hasGeometry, rr);
 
+			// Create a property asWKT
+			Property geo_asWKT = lbd_general_output_model.createProperty("http://www.opengis.net/ont/geosparql#asWKT");
+			// add a data type
+			RDFDatatype rtype = WktLiteral.wktLiteralType;
+			TypeMapper.getInstance().registerDatatype(rtype);
+			// add a typed wkt literal
+			Literal l = lbd_general_output_model.createTypedLiteral(wkt_point, rtype);
 
-      });
+			rr.addProperty(geo_asWKT, l);
 
-      eventBus.post(new SystemStatusEvent("LDB geom read"));
-  }
-    
+		});
+
+		eventBus.post(new SystemStatusEvent("LDB geom read"));
+	}
+
 	public static void main(String[] args) {
 
 		if (args.length > 2) {
@@ -972,5 +975,5 @@ public class IFCtoLBDConverter {
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 
-        }
+	}
 }

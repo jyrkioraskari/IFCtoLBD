@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.72
+Version 1.73
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn 
 
