@@ -929,7 +929,7 @@ public class IFCtoLBDConverter {
       listSites().stream().map(rn -> rn.asResource()).forEach(site -> 
       {
           //Create a resource and add to bot model (resource, model, string)
-          Resource sio = createformattedURI(site, lbd_general_output_model, "Site
+          Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
                                             
           //Create a resource geosparql:Feature;
           Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");
