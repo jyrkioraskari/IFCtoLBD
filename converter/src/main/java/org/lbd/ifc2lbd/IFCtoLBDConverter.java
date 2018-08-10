@@ -85,19 +85,21 @@ public class IFCtoLBDConverter {
 	private final boolean hasBuildingElements;
 	private final boolean hasBuildingProperties;
 	private final boolean hasPropertiesBlankNodes;
-
+        private final boolean hasGeolocation;
+        
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
 
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
-			boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes) {
+			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
 		this.props_level = props_level;
 		this.hasBuildingElements = hasBuildingElements;
 		this.hasBuildingProperties = hasBuildingProperties;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
-
+                this.hasGeolocation = hasGeolocation;
+                
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -343,8 +345,9 @@ public class IFCtoLBDConverter {
 				lbd_general_output_model.add(lbd_property_output_model);
 		}
 
-                
-                addGeolocation2BOT();
+                if (hasGeolocation) {
+                    addGeolocation2BOT();
+                }
 		writeModel(lbd_general_output_model, target_file);
 
 		eventBus.post(new SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
@@ -963,8 +966,9 @@ public class IFCtoLBDConverter {
   }
     
 	public static void main(String[] args) {
+
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false);
+			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false, true);
 		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
 
