@@ -1,7 +1,6 @@
 package org.lbd.ifc2lbd.geo;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -74,7 +73,8 @@ public class IFC_Geolocation {
         return s;
     }
 
-    //Author Kris McGlinn - This function converts the 
+    //Author Kris McGlinn - This function takes the Model and a resources, and adds it to that resourse in the model
+    //For wkt literal, a seperate class WktLiteral java is required, to add the literal datatype to the Model
     private String addWKTGeometryToModel()
     {
     
@@ -167,7 +167,7 @@ public class IFC_Geolocation {
         return stmt;
     }
     
-    //Author Kris McGlinn - This method returns the longitude and latitude by making use of traverseList()
+    //Author Kris McGlinn - This method returns the longitude and latitude from the ifc_owl model by making use of traverseList()
     private Model returnLongLat(Model original){
         
         Model m = ModelFactory.createDefaultModel().add(original);
