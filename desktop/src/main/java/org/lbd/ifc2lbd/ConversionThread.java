@@ -1,6 +1,5 @@
 package org.lbd.ifc2lbd;
 
-import java.io.File;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -28,8 +27,10 @@ public class ConversionThread implements Callable<Integer> {
 	final boolean hasSeparateBuildingElementsModel; 
 	final boolean hasPropertiesBlankNodes;
 	final boolean hasSeparatePropertiesModel;
+	
+	final boolean hasGeolocation;
 
-	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes) {
+	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -41,13 +42,14 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasSeparateBuildingElementsModel=hasSeparateBuildingElementsModel;
 		this.hasSeparatePropertiesModel=hasSeparatePropertiesModel;
 		this.hasPropertiesBlankNodes=hasPropertiesBlankNodes;
+		this.hasGeolocation=hasGeolocation;
 	}
 
 	public Integer call() throws Exception {
 		try {
 			try {
 				new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
-						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes);
+						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes, this.hasGeolocation);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new SystemStatusEvent(e.getMessage()));

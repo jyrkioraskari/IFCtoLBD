@@ -329,7 +329,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level,
 					building_elements.isSelected(), building_elements_separate_file.isSelected(),
 					building_props.isSelected(), building_props_separate_file.isSelected(),
-					building_props_blank_nodes.isSelected()));
+					building_props_blank_nodes.isSelected(),true));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -423,7 +423,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 									props_level, building_elements.isSelected(),
 									building_elements_separate_file.isSelected(), building_props.isSelected(),
 									building_props_separate_file.isSelected(),
-									building_props_blank_nodes.isSelected()));
+									building_props_blank_nodes.isSelected(),true));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
