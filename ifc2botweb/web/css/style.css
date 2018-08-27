@@ -1,0 +1,290 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 16-Aug-2018, 14:37:55
+    Author     : Kris_McGlinn
+*/
+
+body{
+    background-color: lightskyblue;
+}
+
+
+#container{
+    background-color: lightgrey;
+    width: 960px;
+    height: 580px;
+    margin: 50px;
+    padding: 0px;
+    border-style: solid;
+    border-radius: 25px;
+    padding: 20px;
+    
+}
+
+#configuration{
+    width: 920px;
+    height: 260px;
+
+}
+    
+#conf{
+    border-style: solid;
+    border-radius: 25px; 
+    background-color: lightblue;   
+}    
+    
+#product{
+    float: left;
+    width: 300px;
+    height: 250px;
+    padding: 5px;
+    margin-left:5px;
+    border-right: solid;
+}
+#product_text_1{
+    float: left;
+    width: 248px;
+    height: 100px;
+    /*border-style: solid;*/
+}
+#product_switch_1{
+    overflow: hidden;
+    width: 40px;
+    height: 100px;
+    padding: 5px;
+    /*border-style: solid;*/
+}
+#product_text_2{
+    float: left;
+    width: 248px;
+    height: 100px;
+    /*border-style: solid;*/
+}
+#product_switch_2{
+    overflow: hidden;
+    width: 40px;
+    padding: 5px;
+    
+}
+
+
+#properties{
+    float: left;
+    width: 300px;
+    padding: 5px;
+    height: 300px;
+    margin-left:5px;
+/*    border-top: solid;
+    border-bottom: solid;*/
+}
+#properties_text_1{
+    float: left;
+    width: 248px;
+    height: 60px;
+    
+}
+#properties_switch_1{
+    overflow: hidden;
+    width: 40px;
+    height: 60px;
+    padding: 5px;
+}
+#properties_radio_buttons{
+    padding:30px;
+}
+#properties_mid_1{
+    float: left;
+    height: 60px;
+    /*border-style: solid;*/
+}
+#properties_text_2{
+    float: left;
+    width: 90px;
+    height: 60px;
+    /*border-style: solid;*/
+}
+#properties_switch_2{
+    overflow: hidden;
+    width: 40px;
+    height: 60px;
+    padding: 5px;
+    /*border-style: solid;*/
+}
+#properties_mid_2{
+    height: 60px;
+    /*border-style: solid;*/
+}
+#properties_text_3{
+    float: left;
+    width: 90px;
+    height: 100px;
+    /*border-style: solid;*/
+}
+#properties_switch_3{
+    overflow: hidden;
+    width: 40px;
+    height: 100px;
+    padding: 5px;
+    /*border-style: solid;*/
+}
+
+
+
+#geolocation{
+    float: left;
+    width: 260px;
+    height: 250px;
+    padding: 5px;
+    margin-left:5px;
+    border-left: solid;
+}
+#geolocation_text_1{
+    float: left;
+    width: 200px;
+    height: 100px;
+    margin-left:5px;
+}
+#geolocation_switch_1{
+    overflow: hidden;
+    width: 40px;
+    height: 100px;
+    padding: 5px;
+    /*border-style: solid;*/
+}
+#geolocation_text_2{
+    float: left;
+    /*width: 90px;*/
+    height: 100px;
+    margin-left:60px;
+}
+#geolocation_switch_2{
+    float: left;
+   /*// width: 40px;*/
+    height: 100px;
+    padding: 5px;
+    /*border-style: solid;*/
+}
+#geolocation_text_3{
+    float: lefts;
+    /*//width: 90px;*/
+    height: 100px;
+    margin-left:5px;
+}
+
+#base_url{
+    padding: 10px;
+}
+#file_input{
+    padding: 10px;
+}
+#input_panel{
+    padding: 10px;
+    /*border-style: solid;*/
+}
+
+
+#input_url
+{
+    width: 600px;
+    height: 30px;
+    text-indent: 5px;
+}
+
+#convert_button
+{
+    position: absolute;
+    margin-left: 50px;
+    height: 40px;
+    width: 150px;
+}
+
+#accordion{
+    width: 940px;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+#accordion h2{
+    font-size: 12pt;
+    margin: 0px;
+    padding: 10px;
+    background: #ccc;
+    border-bottom: 1px solid #fff;
+}
+#accordion li div.content{
+    display: none;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+}
+#accordion li:hover div.content{
+    display: inherit;
+}
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 27px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(13px);
+  -ms-transform: translateX(13px);
+  transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 30px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+h2 {
+    margin: 0px 0px 10px 0px; 
+    padding: 0px 0px 0px 0px;
+}
