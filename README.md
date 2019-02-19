@@ -11,6 +11,8 @@ Industry Foundation Classes (IFC) STEP formatted files into
 Resource Description Framework (RDF) triples that follow the small ontologies devised in  the  World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG)
 (https://github.com/w3c-lbd-cg/).
 
+It is recommended to use Java 8. It can be downloaded from:
+https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
 The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this page at 
  [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true).
@@ -19,8 +21,8 @@ The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this 
  [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_10.jar?raw=true).
 
  
-It is a runnable JAR-file. It is recommended to run the JAR using Java JDK version 8 that can be downloaded from http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html .  If the Java installation is fine, the file can be run by clicking it. 
-If converting large files, run.bat is faster since it allow the program to use more memory for the calculation.
+It is a runnable JAR-file. If the Java installation is fine, the file can be run by clicking it. 
+If converting large files, run.bat can be used. It is also faster since it allow the program to use more memory for the calculation.
 
 
 If the program does not start, try the following command at the command line: "java -jar IFCtoLBD-Desktop.jar".
