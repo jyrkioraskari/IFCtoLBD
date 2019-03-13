@@ -1,0 +1,199 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ConcreteElementGeneral
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ConcreteElementGeneral#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ConcreteElementGeneral>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4> ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+  owl:versionInfo "Created with BIM-Bots PSD Repository" ;
+.
+:Pset_ConcreteElementGeneral
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass IFC4:IfcBuildingElement ;
+  IFC4-PSD:applicableTypeValue "IfcBuildingElement" ;
+  IFC4-PSD:definition "General properties common to different types of concrete elements, including reinforced concrete elements. The property set can be used by a number of subtypes of IfcBuildingElement, indicated that such element is designed or constructed using a concrete construction method." ;
+  IFC4-PSD:definitionAlias "Generelle Eigenschaften die allen Betonbauteilen, einschließlich Stahlbetonbauteilen, gemeinsam sind. Dieser Eigenschaftssatz kann den verschiedenen Bauelementklassen (Subtypen von IfcBuildingElement) zugeordnet werden."@de ;
+  IFC4-PSD:definitionAlias "コンクリート要素の異なるタイプに対する共通の一般的な属性。 Pset は IfcBuildingElement の多くのサブタイプによって使うことができる。"@ja-JP ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "2x4" ;
+    ] ;
+  IFC4-PSD:name "Pset_ConcreteElementGeneral" ;
+  IFC4-PSD:propertyDef :_036938642cbf49e2a90d346134ac7475 ;
+  IFC4-PSD:propertyDef :_0764b8e36a7c4275859f1534ea3eec09 ;
+  IFC4-PSD:propertyDef :_64af56b30b4540c2b43d74b49a28b9db ;
+  IFC4-PSD:propertyDef :_84899180d1cb11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_96390dc443fd41d88cb6aca86dce4993 ;
+  IFC4-PSD:propertyDef :_9bee0bf72ad34a66bef57b71b7ca175b ;
+  IFC4-PSD:propertyDef :_a1c0e785c9bc41878ddbc67fd0ff3d26 ;
+  IFC4-PSD:propertyDef :_a4b95080d1cb11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_abe05e80d1cb11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_b88ca2252c4b4014bcf289bbbd596398 ;
+  IFC4-PSD:propertyDef :_b8fd4d80d1cb11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_bef32e80d1cb11e1800000215ad4efdf ;
+.
+:_036938642cbf49e2a90d346134ac7475
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The required ratio of the effective area of the reinforcement to the effective area of the concrete At any section of a reinforced concrete structural element." ;
+  IFC4-PSD:definitionAlias "Das geforderte Verhältnis der effektiven flächenbezogenen Masse der Bewehrung im Verhältnis zur effektiven Fläche des Betons für dieses Element."@de-DE ;
+  IFC4-PSD:ifdguid "036938642cbf49e2a90d346134ac7475" ;
+  IFC4-PSD:name "ReinforcementAreaRatio" ;
+  IFC4-PSD:nameAlias "Bewehrungsgrad Fläche"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcAreaDensityMeasure ;
+    ] ;
+.
+:_0764b8e36a7c4275859f1534ea3eec09
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The protective concrete cover at the reinforcing bars according to local building regulations." ;
+  IFC4-PSD:definitionAlias "Abstand zwischen der Betonoberfläche und der Außenkante einer vom Beton umhüllten Bewehrung."@de-DE ;
+  IFC4-PSD:ifdguid "0764b8e36a7c4275859f1534ea3eec09" ;
+  IFC4-PSD:name "ConcreteCover" ;
+  IFC4-PSD:nameAlias "Betonüberdeckung"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcPositiveLengthMeasure ;
+    ] ;
+.
+:_64af56b30b4540c2b43d74b49a28b9db
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Designator for whether the concrete element is constructed on site or prefabricated. Allowed values are: 'In-Situ' vs 'Precast'." ;
+  IFC4-PSD:definitionAlias "Angabe, ob dieses Betonbauteil als Ortbeton (\"In-Situ\") oder als Fertigteil (\"Precast\") ausgeführt werden soll."@de-DE ;
+  IFC4-PSD:ifdguid "64af56b30b4540c2b43d74b49a28b9db" ;
+  IFC4-PSD:name "ConstructionMethod" ;
+  IFC4-PSD:nameAlias "Ausführung"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_84899180d1cb11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The structural class defined for the concrete structure (e.g. '1')." ;
+  IFC4-PSD:definitionAlias "構造クラスはコンクリート構造を定義した。（例えば「１」）"@ja-JP ;
+  IFC4-PSD:definitionAlias "구조 클래스는 콘크리트 구조를 정의했다 (예를 들어 \"1\")"@ko-KR ;
+  IFC4-PSD:ifdguid "84899180d1cb11e1800000215ad4efdf" ;
+  IFC4-PSD:name "StructuralClass" ;
+  IFC4-PSD:nameAlias "構造クラス"@ja-JP ;
+  IFC4-PSD:nameAlias "구조 클래스"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_96390dc443fd41d88cb6aca86dce4993
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Classification of the concrete strength in accordance with the concrete design code which is applied in the project." ;
+  IFC4-PSD:definitionAlias "Klassifikation der Betonfestigkeit gemäß der aktuellen, im Projekt angewandten, Norm."@de-DE ;
+  IFC4-PSD:ifdguid "96390dc443fd41d88cb6aca86dce4993" ;
+  IFC4-PSD:name "StrengthClass" ;
+  IFC4-PSD:nameAlias "Betonfestigkeitsklasse"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_9bee0bf72ad34a66bef57b71b7ca175b
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Classification of exposure to environmental conditions, usually specified in accordance with the concrete design code which is applied in the project." ;
+  IFC4-PSD:definitionAlias "Klassifikation der Widerstandsfähigkeit gegenüber chemischen und physikalischen Einwirkungen gemäß der aktuellen, im Projekt angewandten, Norm."@de-DE ;
+  IFC4-PSD:ifdguid "9bee0bf72ad34a66bef57b71b7ca175b" ;
+  IFC4-PSD:name "ExposureClass" ;
+  IFC4-PSD:nameAlias "Expositionsklasse"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_a1c0e785c9bc41878ddbc67fd0ff3d26
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The required ratio of the effective mass of the reinforcement to the effective volume of the concrete of a reinforced concrete structural element." ;
+  IFC4-PSD:definitionAlias "Das geforderte Verhältnis der effektiven Masse der Bewehrung im Verhältnis zur effektiven Masse des Betons für dieses Element."@de-DE ;
+  IFC4-PSD:ifdguid "a1c0e785c9bc41878ddbc67fd0ff3d26" ;
+  IFC4-PSD:name "ReinforcementVolumeRatio" ;
+  IFC4-PSD:nameAlias "Bewehrungsgrad Volumen"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassDensityMeasure ;
+    ] ;
+.
+:_a4b95080d1cb11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Classification designation of the dimensional accuracy requirement according to local standards." ;
+  IFC4-PSD:definitionAlias "国の基準が求める寸法精度の分類指定。"@ja-JP ;
+  IFC4-PSD:definitionAlias "국가 표준이 요구하는 치수 정밀도의 분류 지정"@ko-KR ;
+  IFC4-PSD:ifdguid "a4b95080d1cb11e1800000215ad4efdf" ;
+  IFC4-PSD:name "DimensionalAccuracyClass" ;
+  IFC4-PSD:nameAlias "寸法精度クラス"@ja-JP ;
+  IFC4-PSD:nameAlias "치수 정밀도 클래스"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_abe05e80d1cb11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Classification designation of the on-site construction tolerances according to local standards." ;
+  IFC4-PSD:definitionAlias "国の基準が求める現場での製造許容の分類指定。"@ja-JP ;
+  IFC4-PSD:definitionAlias "국가 표준이 요구하는 현장에서 제조 허용 범주 지정"@ko-KR ;
+  IFC4-PSD:ifdguid "abe05e80d1cb11e1800000215ad4efdf" ;
+  IFC4-PSD:name "ConstructionToleranceClass" ;
+  IFC4-PSD:nameAlias "製造許容クラス"@ja-JP ;
+  IFC4-PSD:nameAlias "제조 허용 클래스"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_b88ca2252c4b4014bcf289bbbd596398
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Classification of the reinforcement strength in accordance with the concrete design code which is applied in the project. The reinforcing strength class often combines strength and ductility." ;
+  IFC4-PSD:ifdguid "b88ca2252c4b4014bcf289bbbd596398" ;
+  IFC4-PSD:name "ReinforcementStrengthClass" ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:_b8fd4d80d1cb11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The protective concrete cover at the main reinforcing bars according to local building regulations." ;
+  IFC4-PSD:definitionAlias "Abstand zwischen der Betonoberfläche und der Außenkante den vom Beton umhüllten Bewehrungshauptstäben."@de-DE ;
+  IFC4-PSD:definitionAlias "国の建築基準に従い、主鉄筋をコンクリートの被りで保護する。"@ja-JP ;
+  IFC4-PSD:definitionAlias "국가의 건축 기준에 따라 주로 철근을 콘크리트 입고로 보호"@ko-KR ;
+  IFC4-PSD:ifdguid "b8fd4d80d1cb11e1800000215ad4efdf" ;
+  IFC4-PSD:name "ConcreteCoverAtMainBars" ;
+  IFC4-PSD:nameAlias "Betonüberdeckung Hauptstäbe"@de-DE ;
+  IFC4-PSD:nameAlias "主筋のコンクリート被り"@ja-JP ;
+  IFC4-PSD:nameAlias "주근 콘크리트 입고"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcPositiveLengthMeasure ;
+    ] ;
+.
+:_bef32e80d1cb11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The protective concrete cover at the reinforcement links according to local building regulations." ;
+  IFC4-PSD:definitionAlias "Abstand zwischen der Betonoberfläche und der Außenkante der vom Beton umhüllten Bewehrungsverbindungsstäben."@de-DE ;
+  IFC4-PSD:definitionAlias "国の建築基準に従い、補強筋をコンクリートの被りで保護する。"@ja-JP ;
+  IFC4-PSD:definitionAlias "국가의 건축 기준에 따라 보강근 콘크리트의 입고로 보호"@ko-KR ;
+  IFC4-PSD:ifdguid "bef32e80d1cb11e1800000215ad4efdf" ;
+  IFC4-PSD:name "ConcreteCoverAtLinks" ;
+  IFC4-PSD:nameAlias "Betonüberdeckung Verbindungsstäbe"@de-DE ;
+  IFC4-PSD:nameAlias "補強筋のコンクリート被り"@ja-JP ;
+  IFC4-PSD:nameAlias "보강근 콘크리트 입고"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcPositiveLengthMeasure ;
+    ] ;
+.

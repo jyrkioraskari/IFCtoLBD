@@ -1,0 +1,210 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_ColumnCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ColumnCommon#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_ColumnCommon>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4> ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:Pset_ColumnCommon
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass IFC4:IfcColumn ;
+  IFC4-PSD:applicableTypeValue "IfcColumn" ;
+  IFC4-PSD:definition "Properties common to the definition of all occurrence and type objects of column." ;
+  IFC4-PSD:definitionAlias "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcColumn"@fr-FR ;
+  IFC4-PSD:definitionAlias "IfcColumn(柱)オブジェクトに関する共通プロパティセット定義。"@ja-JP ;
+  IFC4-PSD:definitionAlias "所有IfcColumn实例的定义中通用的属性。"@zh-CN ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "2x4" ;
+    ] ;
+  IFC4-PSD:name "Pset_ColumnCommon" ;
+  IFC4-PSD:propertyDef :_522b6480d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_5a839f80d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_6bccac00d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_71c28d00d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_77b86e00d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_7c7d2200d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_8141d600d1ca11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_8737b700d1ca11e1800000215ad4efdf ;
+.
+:_522b6480d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+  IFC4-PSD:definitionAlias "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE ;
+  IFC4-PSD:definitionAlias "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR ;
+  IFC4-PSD:definitionAlias "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+  IFC4-PSD:definitionAlias "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN ;
+  IFC4-PSD:ifdguid "522b6480d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "Reference" ;
+  IFC4-PSD:nameAlias "Bauteiltyp"@de-DE ;
+  IFC4-PSD:nameAlias "Reference"@fr-FR ;
+  IFC4-PSD:nameAlias "参照記号"@ja-JP ;
+  IFC4-PSD:nameAlias "参考号"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcIdentifier ;
+    ] ;
+.
+:_5a839f80d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+  IFC4-PSD:definitionAlias "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE ;
+  IFC4-PSD:definitionAlias "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR ;
+  IFC4-PSD:definitionAlias "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+  IFC4-PSD:ifdguid "5a839f80d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "Status" ;
+  IFC4-PSD:nameAlias "Status"@de-DE ;
+  IFC4-PSD:nameAlias "Statut"@fr-FR ;
+  IFC4-PSD:nameAlias "状態"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertyEnumeratedValue ;
+      IFC4-PSD:enumItem "DEMOLISH" ;
+      IFC4-PSD:enumItem "EXISTING" ;
+      IFC4-PSD:enumItem "NEW" ;
+      IFC4-PSD:enumItem "NOTKNOWN" ;
+      IFC4-PSD:enumItem "OTHER" ;
+      IFC4-PSD:enumItem "TEMPORARY" ;
+      IFC4-PSD:enumItem "UNSET" ;
+    ] ;
+.
+:_6bccac00d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Slope angle - relative to horizontal (0.0 degrees).
+
+The shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence.   For geometry editing applications, like CAD: this value should be write-only.""" ;
+  IFC4-PSD:definitionAlias "Angle d'inclinaison avec l'horizontale (0 degrés). Cette propriété est donnée en complément de la représentation de la forme et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR ;
+  IFC4-PSD:definitionAlias """Neigungswinkel der Stütze relative zur Horizontalen (0 Grad).
+
+Dieser Parameter wird zusätzlich zur geometrischen Repräsentation bereitgestellt. Im Fall der Inkonsistenz zwischen dem Parameter und der Geometrie hat die geometrische Repräsention Priorität. Dieser Parameter ist für CAD Software write-only."""@de-DE ;
+  IFC4-PSD:definitionAlias "傾斜角度。水平を0度とする。"@ja-JP ;
+  IFC4-PSD:definitionAlias """相对于水平（0.0度）方向的坡度角。
+该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。对CAD等几何编辑程序，该属性应为只写类型。"""@zh-CN ;
+  IFC4-PSD:ifdguid "6bccac00d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "Slope" ;
+  IFC4-PSD:nameAlias "Inclinaison"@fr-FR ;
+  IFC4-PSD:nameAlias "Neigungswinkel"@de-DE ;
+  IFC4-PSD:nameAlias "傾斜"@ja-JP ;
+  IFC4-PSD:nameAlias "坡度"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcPlaneAngleMeasure ;
+    ] ;
+.
+:_71c28d00d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Rotation against the longitudinal axis - relative to the global  X direction for all columns that are vertical in regard to the global coordinate system (Profile direction equals global X is Roll = 0.). For all non-vertical columns the following applies:  Roll is relative to the global Z direction f(Profile direction of non-vertical columns that equals global Z is Roll = 0.)
+
+The shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence.  For geometry editing applications, like CAD: this value should be write-only.
+
+Note: new property in IFC4""" ;
+  IFC4-PSD:definitionAlias """Drehwinkel der Stütze relative zur globalen X Ausrichtung (O Grad). Bei nicht-vertikalen Stützen wird die Verdrehung analog zu den Balken (Verkippung gegen die Vertikale) angegeben.
+
+Dieser Parameter wird zusätzlich zur geometrischen Repräsentation bereitgestellt. Im Fall der Inkonsistenz zwischen dem Parameter und der Geometrie hat die geometrische Repräsention Priorität. Dieser Parameter ist für CAD Software write-only."""@de-DE ;
+  IFC4-PSD:definitionAlias """Rotation autour de l'axe longitudinal - relativement à l'axe X pour tous les poteaux qui sont verticaux relativement au repère absolu (la direction du profil est celle de l'axe X si la valeur est 0). Pour tous les poteaux non verticaux, la valeur de la propriété est relative à l'axe Z (la direction du profil des poteaux non verticaux est celle de l'axe Z si la valeur est 0). 
+Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment. Les applications qui déterminent la géométrie comme les logiciels de CAO ne doivent pas autoriser la modification de cette propriété. Note : nouvelle propriété de la version IFC2x4."""@fr-FR ;
+  IFC4-PSD:definitionAlias "柱の長軸に対する回転。"@ja-JP ;
+  IFC4-PSD:definitionAlias """相对于纵轴的旋转角。对全局坐标系中的垂直柱，该属性为相对于X轴的角度。（若轮廓方向在X轴上，则转角为0。）对全局坐标系中的非垂直柱，该属性为相对于Z轴的角度。（若轮廓方向在Z轴上，则转角为0。）
+该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。对CAD等几何编辑程序，该属性应为只写类型。
+注：IFC2x4新添属性"""@zh-CN ;
+  IFC4-PSD:ifdguid "71c28d00d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "Roll" ;
+  IFC4-PSD:nameAlias "Drehwinkel"@de-DE ;
+  IFC4-PSD:nameAlias "RotationAutourAxeLongitudinal"@fr-FR ;
+  IFC4-PSD:nameAlias "回転"@ja-JP ;
+  IFC4-PSD:nameAlias "转角"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcPlaneAngleMeasure ;
+    ] ;
+.
+:_77b86e00d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+  IFC4-PSD:definitionAlias "Angabe, ob dieses Bauteil ein Aussenbauteil ist (JA) oder ein Innenbauteil (NEIN). Als Aussenbauteil grenzt es an den Aussenraum (oder Erdreich, oder Wasser)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR ;
+  IFC4-PSD:definitionAlias "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP ;
+  IFC4-PSD:definitionAlias "表示该图元是否设计为外部构件。若是，则该图元为外部图元，朝向建筑物的外部。"@zh-CN ;
+  IFC4-PSD:ifdguid "77b86e00d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "IsExternal" ;
+  IFC4-PSD:nameAlias "Außenbauteil"@de-DE ;
+  IFC4-PSD:nameAlias "EstExterieur"@fr-FR ;
+  IFC4-PSD:nameAlias "外部区分"@ja-JP ;
+  IFC4-PSD:nameAlias "是否外部构件"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcBoolean ;
+    ] ;
+.
+:_7c7d2200d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Thermal transmittance coefficient (U-Value) of the element. Here the total thermal transmittance coefficient through the column within the direction of the thermal flow (including all materials).
+
+Nore: new property in IFC4""" ;
+  IFC4-PSD:definitionAlias "Coefficient de transmission thermique surfacique (U). C'est le coefficient global de transmission thermique à travers le poteau dans la direction du flux thermique (tous matériaux inclus). Nouvelle propriété de la version 2x4."@fr-FR ;
+  IFC4-PSD:definitionAlias """Wärmedurchgangskoeffizient (U-Wert) der Materialschichten.
+Hier der Gesamtwärmedurchgangskoeffizient des Balkens (in Richtung des Wärmeflusses), angegeben ohne den inneren und äußeren Wärmeübergangswiderstand."""@de-DE ;
+  IFC4-PSD:definitionAlias """材料的导热系数（U值）。
+
+表示该柱在传热方向上的整体导热系数（包括所有材料）。
+
+注：IFC2x4新添属性"""@zh-CN ;
+  IFC4-PSD:definitionAlias "熱貫流率U値。ここでは柱を通した熱移動の方向における全体の熱還流率を示す。"@ja-JP ;
+  IFC4-PSD:ifdguid "7c7d2200d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "ThermalTransmittance" ;
+  IFC4-PSD:nameAlias "TransmissionThermique"@fr-FR ;
+  IFC4-PSD:nameAlias "U-Wert"@de-DE ;
+  IFC4-PSD:nameAlias "导热系数"@zh-CN ;
+  IFC4-PSD:nameAlias "熱貫流率"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcThermalTransmittanceMeasure ;
+    ] ;
+.
+:_8141d600d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indicates whether the object is intended to carry loads (TRUE) or not (FALSE)." ;
+  IFC4-PSD:definitionAlias "Angabe, ob dieses Bauteil tragend ist (JA) oder nichttragend (NEIN)"@de-DE ;
+  IFC4-PSD:definitionAlias "Indique si l'objet est censé porter des charges (VRAI) ou non (FAUX)."@fr-FR ;
+  IFC4-PSD:definitionAlias "荷重に関係している部材かどうかを示すブーリアン値。"@ja-JP ;
+  IFC4-PSD:definitionAlias "表示该对象是否需要承重。"@zh-CN ;
+  IFC4-PSD:ifdguid "8141d600d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "LoadBearing" ;
+  IFC4-PSD:nameAlias "Porteur"@fr-FR ;
+  IFC4-PSD:nameAlias "Tragendes Bauteil"@de-DE ;
+  IFC4-PSD:nameAlias "是否承重"@zh-CN ;
+  IFC4-PSD:nameAlias "耐力部材"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcBoolean ;
+    ] ;
+.
+:_8737b700d1ca11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Fire rating for the element.
+It is given according to the national fire safety classification.""" ;
+  IFC4-PSD:definitionAlias "Classement au feu de l'élément donné selon la classification nationale de sécurité incendie."@fr-FR ;
+  IFC4-PSD:definitionAlias "Feuerwiderstandasklasse gemäß der nationalen oder regionalen Brandschutzverordnung."@de-DE ;
+  IFC4-PSD:definitionAlias "主要な耐火等級。関連する建築基準法、消防法などの国家基準を参照。"@ja-JP ;
+  IFC4-PSD:definitionAlias """该构件的防火等级。
+该属性的依据为国家防火安全分级。"""@zh-CN ;
+  IFC4-PSD:ifdguid "8737b700d1ca11e1800000215ad4efdf" ;
+  IFC4-PSD:name "FireRating" ;
+  IFC4-PSD:nameAlias "Feuerwiderstandsklasse"@de-DE ;
+  IFC4-PSD:nameAlias "ResistanceAuFeu"@fr-FR ;
+  IFC4-PSD:nameAlias "耐火等級"@ja-JP ;
+  IFC4-PSD:nameAlias "防火等级"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.

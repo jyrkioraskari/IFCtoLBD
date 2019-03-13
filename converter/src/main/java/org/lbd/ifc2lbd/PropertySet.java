@@ -76,35 +76,39 @@ public class PropertySet {
 	private void write_once()
 	{
 		isWritten = true;
-		if (is_attribute)
-		  this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
-		else
-		  this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
-			
-		pset.addProperty(RDFS.label,  toUnCamelCase(name));
-		if (is_attribute)
+		if (is_attribute){
+			this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
+			pset.addProperty(RDFS.label,  toUnCamelCase(name));
 			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
-		else
-			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.props);
+		}
+		else{
+			//we don't write psets as part of the RDF file => pset information is in the bsdd
+			//this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
+		}
 	}
 
 	private void writeOPM_Set(String extracted_guid) {
 		properties.clear();
 		if(!isWritten)
 			write_once();
-		if(this.pset==null)
-			return;
+//		if(this.pset==null)
+//			return;
 		for (String k : this.getMap().keySet()) {
 
-			Resource property_resourse;
+			Resource property_resource;
 			if (this.hasBlank_nodes)
-				property_resourse = pset.getModel().createResource();
+				property_resource = pset.getModel().createResource();
 			else
-				property_resourse = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
+				property_resource = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
+			
 			if (is_attribute)
-				property_resourse.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
-			else
-				property_resourse.addProperty(LBD_NS.PROPS_NS.partofPset, pset);
+				property_resource.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
+			else{
+				//TODO: write property URI from bsdd
+				property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, pset); //todo: change to GUID from bSDD
+				//include GUID
+			}
+			
 			if (this.props_level == 3) {
 				Resource state_resourse;
 				if (this.hasBlank_nodes)
@@ -112,7 +116,7 @@ public class PropertySet {
 				else
 					state_resourse = pset.getModel().createResource(
 							this.uriBase + "state_"+k +"_"+ extracted_guid + "_" + System.currentTimeMillis());
-				property_resourse.addProperty(OPM.hasState, state_resourse);
+				property_resource.addProperty(OPM.hasState, state_resourse);
 
 				LocalDateTime datetime = LocalDateTime.now();
 				String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
@@ -120,14 +124,14 @@ public class PropertySet {
 				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
 				state_resourse.addProperty(OPM.value, this.getMap().get(k));
 			} else
-				property_resourse.addProperty(OPM.value, this.getMap().get(k));
+				property_resource.addProperty(OPM.value, this.getMap().get(k));
 
 			Property p;
 			if (name.equals("attributes"))
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
 			else
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
-			this.properties.add(new PsetProperty(p, property_resourse));
+			this.properties.add(new PsetProperty(p, property_resource));
 		}
 	}
 

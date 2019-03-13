@@ -1,0 +1,270 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_EnvironmentalImpactValues
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_EnvironmentalImpactValues#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_EnvironmentalImpactValues>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4> ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:Pset_EnvironmentalImpactValues
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass IFC4:IfcElement ;
+  IFC4-PSD:applicableTypeValue "IfcElement" ;
+  IFC4-PSD:definition """The following properties capture environmental impact values of an element. They correspond to the indicators defined into Pset_EnvironmentalImpactIndicators. 
+Environmental impact values are obtained multiplying indicator value per unit by the relevant quantity of the element.""" ;
+  IFC4-PSD:definitionAlias "Définition de l'IAI : les propriétés suivantes capturent les valeurs des impacts environnementaux d'un élément. Ils correspondent aux indicateurs définis dans Pset_EnvironmentalImpactIndicators."@fr-FR ;
+  IFC4-PSD:definitionAlias """IAIによる定義：次のプロパティは、要素の環境への影響値を捕える。それらは Pset_EnvironmentalImpactIndicators に定義されている指標に対応。
+環境に影響する値は、要素の適切な数量によって、単位あたりに割り増した値を取得。"""@ja-JP ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "2x4" ;
+    ] ;
+  IFC4-PSD:name "Pset_EnvironmentalImpactValues" ;
+  IFC4-PSD:propertyDef :_04225b00d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_097fa580d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_0f758680d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_14d2d100d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_1a301b80d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_1f8d6600d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_25834700d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_2ae09180d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_303ddc00d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_359b2680d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_3b910780d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_40ee5200d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_46e43300d1e211e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_4cda1400d1e211e1800000215ad4efdf ;
+.
+:_04225b00d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of energy used as defined in ISO21930:2007." ;
+  IFC4-PSD:definitionAlias "Consommation d'énergie primaire utilisée, telle que définie dans les normes ISO21930:2007 [NDT : ou NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "ISO21930 : 2007에서 정의된 에너지 사용량"@ko-KR ;
+  IFC4-PSD:definitionAlias "ISO21930:2007.で定義されているエネルギー量。"@ja-JP ;
+  IFC4-PSD:ifdguid "04225b00d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "TotalPrimaryEnergyConsumption" ;
+  IFC4-PSD:nameAlias "ConsommationTotaleEnergiePrimaire"@fr-FR ;
+  IFC4-PSD:nameAlias "主なエネルギー消費の総量"@ja-JP ;
+  IFC4-PSD:nameAlias "모든 차 에너지 소비"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcEnergyMeasure ;
+    ] ;
+.
+:_097fa580d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of water used." ;
+  IFC4-PSD:definitionAlias "Quantité d'eau utilisée [NDT : telle que définie dans la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "水の消費量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "사용 수량의 리터 수"@ko-KR ;
+  IFC4-PSD:ifdguid "097fa580d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "WaterConsumption" ;
+  IFC4-PSD:nameAlias "ConsommationEau"@fr-FR ;
+  IFC4-PSD:nameAlias "水消費量"@ja-JP ;
+  IFC4-PSD:nameAlias "물 사용"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcVolumeMeasure ;
+    ] ;
+.
+:_0f758680d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of hazardous waste generated." ;
+  IFC4-PSD:definitionAlias "Quantité de déchets dangereux générés [NDT : tels que définis dans la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "生成される有害廃棄物の量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "유해 폐기물의 발생량"@ko-KR ;
+  IFC4-PSD:ifdguid "0f758680d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "HazardousWaste" ;
+  IFC4-PSD:nameAlias "DechetsDangereux"@fr-FR ;
+  IFC4-PSD:nameAlias "有害廃棄物"@ja-JP ;
+  IFC4-PSD:nameAlias "유해 폐기물"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_14d2d100d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of non hazardous waste generated." ;
+  IFC4-PSD:definitionAlias "Quantité de déchets non dangereux générés [NDT : tels que définis dans la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "生成される一般廃棄物の量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "비 유해 폐기물의 발생량"@ko-KR ;
+  IFC4-PSD:ifdguid "14d2d100d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "NonHazardousWaste" ;
+  IFC4-PSD:nameAlias "DechetsNonDangereux"@fr-FR ;
+  IFC4-PSD:nameAlias "一般廃棄物"@ja-JP ;
+  IFC4-PSD:nameAlias "비 유해 폐기물"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_1a301b80d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of greenhouse gases emitted calculated in equivalent CO2." ;
+  IFC4-PSD:definitionAlias "CO2 등가 환산되는 온실 가스 발생량"@ko-KR ;
+  IFC4-PSD:definitionAlias "Quantité d'émissions de gaz à effet de serre exprimée en Kg d'équivalent CO2, selon les normes PrEN15804:2008 [NDT : ou NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "算出されたCO2と等しい放出される温室効果ガスの量。"@ja-JP ;
+  IFC4-PSD:ifdguid "1a301b80d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "ClimateChange" ;
+  IFC4-PSD:nameAlias "ChangementClimatique"@fr-FR ;
+  IFC4-PSD:nameAlias "気候変化"@ja-JP ;
+  IFC4-PSD:nameAlias "기후변화"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_1f8d6600d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of gases responsible for the atmospheric acidification calculated in equivalent SO2." ;
+  IFC4-PSD:definitionAlias "Quantité de gaz responsables de l'acidification atmosphérique exprimée en Kg d'équivalent SO2, selon les normes PrEN15804:2008 [NDT : ou NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "SO2에 해당 환산된 대기 산성 화의 원인이되는 가스량"@ko-KR ;
+  IFC4-PSD:definitionAlias "算出されたSO2と等しい大気中の酸性化の責任を負うガスの量。"@ja-JP ;
+  IFC4-PSD:ifdguid "1f8d6600d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "AtmosphericAcidification" ;
+  IFC4-PSD:nameAlias "AcidificationAtmospherique"@fr-FR ;
+  IFC4-PSD:nameAlias "大気の酸性化"@ja-JP ;
+  IFC4-PSD:nameAlias "대기산성화"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_25834700d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of renewable energy used as defined in ISO21930:2007" ;
+  IFC4-PSD:definitionAlias "Consommation d'énergie renouvelable telle que définie dans les normes ISO21930:2007 [NDT : ou NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "ISO21930 : 2007에 정의된 재생 가능 에너지 사용량"@ko-KR ;
+  IFC4-PSD:definitionAlias "ISO21930:2007 で定義されている継続可能なエネルギー消費量。"@ja-JP ;
+  IFC4-PSD:ifdguid "25834700d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "RenewableEnergyConsumption" ;
+  IFC4-PSD:nameAlias "ConsommationEnergieRenouvelable"@fr-FR ;
+  IFC4-PSD:nameAlias "継続可能なエネルギー消費量"@ja-JP ;
+  IFC4-PSD:nameAlias "재생 가능 에너지 소비"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcEnergyMeasure ;
+    ] ;
+.
+:_2ae09180d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of non-renewable energy used as defined in ISO21930:2007" ;
+  IFC4-PSD:definitionAlias "Consommation d'énergie non renouvelable telle que définie dans les normes ISO21930:2007 [NDT : ou NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "ISO21930 : 2007에 정의된 재생 불가 에너지 사용량"@ko-KR ;
+  IFC4-PSD:definitionAlias "ISO21930:2007 で定義されている継続不可能なエネルギー消費量。"@ja-JP ;
+  IFC4-PSD:ifdguid "2ae09180d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "NonRenewableEnergyConsumption" ;
+  IFC4-PSD:nameAlias "ConsommationEnergieNonRenouvelable"@fr-FR ;
+  IFC4-PSD:nameAlias "継続不可能なエネルギー消費量"@ja-JP ;
+  IFC4-PSD:nameAlias "재생 불가 에너지 소비"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcEnergyMeasure ;
+    ] ;
+.
+:_303ddc00d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of resources used calculated in equivalent antimony." ;
+  IFC4-PSD:definitionAlias "Quantité de ressources consommées exprimée en équivalent Antimoine [NDT : selon la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "算出されたアンチモンと同等な資源の量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "안티몬에 해당 환산된 사용 자원 량"@ko-KR ;
+  IFC4-PSD:ifdguid "303ddc00d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "ResourceDepletion" ;
+  IFC4-PSD:nameAlias "EpuisementRessources"@fr-FR ;
+  IFC4-PSD:nameAlias "資源の枯渇"@ja-JP ;
+  IFC4-PSD:nameAlias "자원 소비"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_359b2680d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of inert waste generated ." ;
+  IFC4-PSD:definitionAlias "Quantité de déchets inertes générés  [NDT : selon la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "生成される安定廃棄物の量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "불활성 폐기물 발생량"@ko-KR ;
+  IFC4-PSD:ifdguid "359b2680d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "InertWaste" ;
+  IFC4-PSD:nameAlias "DechetsInertes"@fr-FR ;
+  IFC4-PSD:nameAlias "安定廃棄物"@ja-JP ;
+  IFC4-PSD:nameAlias "불활성 폐기불"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_3b910780d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of radioactive waste generated." ;
+  IFC4-PSD:definitionAlias "Quantité de déchets radioactifs générés [NDT : selon la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "生成される放射性廃棄物の量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "방사성 폐기물 발생량"@ko-KR ;
+  IFC4-PSD:ifdguid "3b910780d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "RadioactiveWaste" ;
+  IFC4-PSD:nameAlias "DechetsRadioactifs"@fr-FR ;
+  IFC4-PSD:nameAlias "放射性廃棄物"@ja-JP ;
+  IFC4-PSD:nameAlias "방사성 폐기물"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_40ee5200d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of gases destroying the stratospheric ozone layer calculated in equivalent CFC-R11." ;
+  IFC4-PSD:definitionAlias "CFC-R11에 해당 환산된 성층권 오존층 파괴 가스량"@ko-KR ;
+  IFC4-PSD:definitionAlias "Quantité de gaz destructeurs de la couche d'ozone exprimée en équivalent CFC-R11  [NDT : selon la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "算出された CFC-R11と等しい大気オゾン層を破壊するガスの量。"@ja-JP ;
+  IFC4-PSD:ifdguid "40ee5200d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "StratosphericOzoneLayerDestruction" ;
+  IFC4-PSD:nameAlias "DestructionCoucheOzoneStartospherique"@fr-FR ;
+  IFC4-PSD:nameAlias "大気オゾン層破壊"@ja-JP ;
+  IFC4-PSD:nameAlias "성층권 오존층 파괴"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_46e43300d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of gases creating the photochemical ozone calculated in equivalent ethylene." ;
+  IFC4-PSD:definitionAlias "Quantité de gaz producteurs d'ozone photochimique exprimée en équivalent ethylène  [NDT : selon la norme NF P01-010]"@fr-FR ;
+  IFC4-PSD:definitionAlias "算出された エチレンと等しい光化学オゾン層を生成するガスの量。"@ja-JP ;
+  IFC4-PSD:definitionAlias "에틸렌에 해당 환산된 광화학 오존 생성 끊 가스량"@ko-KR ;
+  IFC4-PSD:ifdguid "46e43300d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "PhotochemicalOzoneFormation" ;
+  IFC4-PSD:nameAlias "FormationOzonePhotochimique"@fr-FR ;
+  IFC4-PSD:nameAlias "光化学オゾン生成"@ja-JP ;
+  IFC4-PSD:nameAlias "광화학 오존 생성"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
+:_4cda1400d1e211e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Quantity of eutrophicating compounds calculated in equivalent PO4." ;
+  IFC4-PSD:definitionAlias "PO4 (인산)에 상응하는 환산되는 부영 양화 성분 물량"@ko-KR ;
+  IFC4-PSD:definitionAlias "Quantité de composés responsables de l'eutrophisation exprimée en équivalent P04 [NDT : selon la norme PrEN15804:2008]"@fr-FR ;
+  IFC4-PSD:definitionAlias "算出されたPO4と等しい富栄養化を混合する量。"@ja-JP ;
+  IFC4-PSD:ifdguid "4cda1400d1e211e1800000215ad4efdf" ;
+  IFC4-PSD:name "Eutrophication" ;
+  IFC4-PSD:nameAlias "Eutrophisation"@fr-FR ;
+  IFC4-PSD:nameAlias "富栄養化"@ja-JP ;
+  IFC4-PSD:nameAlias "부영 양화"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcMassMeasure ;
+    ] ;
+.
