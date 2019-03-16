@@ -9,10 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.thrift.wire.RDF_Literal;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.lbd.ifc2lbd.ns.LBD_NS;
@@ -33,6 +36,7 @@ public class PropertySet {
 	}
 
 	private final Map<String, RDFNode> map = new HashMap<>();
+	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
 	private String name;
 	private String label_name;
 	private boolean isWritten = false;
@@ -42,16 +46,25 @@ public class PropertySet {
 	private final boolean hasBlank_nodes;
 	private final String uriBase;
 	private boolean is_attribute = false;
+	private boolean is_bSDD_pset = false;
+	private Resource psetDef = null;
+	
 
 	public PropertySet(String uriBase, Model model, String name, int props_level,
 			boolean hasBlank_nodes) {
 		this.uriBase = uriBase;
 		this.model = model;
 		this.name = name;
-		if (name.contains("_"))
-			this.name = name.split("_")[1];
+//		if (name.contains("_"))
+//			this.name = name.split("_")[1];
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
+		StmtIterator iter = IFCtoLBDConverter.ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.name);
+		if(iter.hasNext()) {
+			is_bSDD_pset=true;
+			this.pset=model.createResource();
+			psetDef=iter.next().getSubject();
+		}
 	}
 
 	String attributegroup_uncompressed_guid;
@@ -77,13 +90,15 @@ public class PropertySet {
 	{
 		isWritten = true;
 		if (is_attribute){
-			this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
-			pset.addProperty(RDFS.label,  toUnCamelCase(name));
-			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
+//			this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
+//			pset.addProperty(RDFS.label,  toUnCamelCase(name));
+//			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
 		}
 		else{
-			//we don't write psets as part of the RDF file => pset information is in the bsdd
-			//this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
+			//TODO: extract the according instance from the pset files
+//			System.out.println(this.name);
+			if(!is_bSDD_pset) 
+				this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
 		}
 	}
 
@@ -91,23 +106,22 @@ public class PropertySet {
 		properties.clear();
 		if(!isWritten)
 			write_once();
-//		if(this.pset==null)
-//			return;
+		if(this.pset==null)
+			return;
 		for (String k : this.getMap().keySet()) {
-
 			Resource property_resource;
 			if (this.hasBlank_nodes)
 				property_resource = pset.getModel().createResource();
 			else
 				property_resource = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
 			
-			if (is_attribute)
-				property_resource.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
-			else{
-				//TODO: write property URI from bsdd
-				property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, pset); //todo: change to GUID from bSDD
-				//include GUID
-			}
+			if (!is_attribute)
+//				property_resource.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
+//			else{
+				if(mapBSDD.get(k)!=null) {
+					property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k)); 		
+					System.out.println("connected property: "+k+"\nnumber of triples: "+property_resource.listProperties().toList().size());
+				}
 			
 			if (this.props_level == 3) {
 				Resource state_resourse;
@@ -125,25 +139,49 @@ public class PropertySet {
 				state_resourse.addProperty(OPM.value, this.getMap().get(k));
 			} else
 				property_resource.addProperty(OPM.value, this.getMap().get(k));
+//			System.out.println("number of triples: "+property_resource.listProperties().toList().size());
 
 			Property p;
-			if (name.equals("attributes"))
-				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
-			else
+			if (!is_attribute) {
+//				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
+//			else
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
-			this.properties.add(new PsetProperty(p, property_resource));
+				this.properties.add(new PsetProperty(p, property_resource));
+			}
 		}
 	}
 
+	public void putPropertyRef(RDFNode property) {
+		String pname = property.asLiteral().getString();
+		if(is_bSDD_pset) {
+			StmtIterator iter = psetDef.listProperties(LBD_NS.PROPS_NS.propertyDef);
+			while(iter.hasNext()) {
+				Resource prop = iter.next().getResource();
+				StmtIterator iterProp = prop.listProperties(LBD_NS.PROPS_NS.namePset);
+				while(iterProp.hasNext()) 
+				{
+					Literal psetPropName = iterProp.next().getLiteral();
+//					psetProp.isLiteral();
+					if(psetPropName.getString().equals(pname))
+						mapBSDD.put(toCamelCase(property.toString()), prop);
+				}
+			}
+		}
+	}
+	
 	Set<String> hashes=new HashSet<>();
+	
 	public void connect(Resource r_org,String extracted_guid) {
 		Resource r = this.model.createResource(r_org.getURI());
 		if (this.props_level > 1) {	
 			if(hashes.add(extracted_guid))
 			  writeOPM_Set(extracted_guid);
 			for (PsetProperty pp : this.properties) {
+				if(!r.getModel().listStatements(r, pp.p, pp.r).hasNext()) {
+				System.out.println("adding property "+pp.r+" - number of triples: "+pp.r.listProperties().toList().size());
+				System.out.println("is defined: "+pp.r.listProperties(LBD_NS.PROPS_NS.isBSDDProp).toList().size());
 				r.addProperty(pp.p, pp.r);
-
+				}
 			}
 		} else {
 
@@ -154,9 +192,7 @@ public class PropertySet {
 				else
 					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_simple");
 				r.addProperty(property, this.getMap().get(k));
-
 			}
-
 		}
 	}
 

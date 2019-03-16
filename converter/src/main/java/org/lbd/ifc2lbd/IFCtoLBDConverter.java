@@ -74,7 +74,7 @@ import nl.tue.ddss.convert.IfcVersionException;
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
-	private Model ontology_model = null;
+	public static Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
 
@@ -166,18 +166,16 @@ public class IFCtoLBDConverter {
 //					RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
 					final List<RDFNode> propertyset_name = new ArrayList<>();
 					pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));	
-
-					
+										
 					RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
 					pathQuery(propertyset, path).forEach(propertySingleValue -> {
-
+							
 						RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
 								new RDFStep(ifcOWL.getHasString()) };
 						final List<RDFNode> property_name = new ArrayList<>();
 						pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 						
-						todo
-						//todo String propertyName = pathQuery(propertySingleValue.asResource(), name_path) -----
+						//TODO: String propertyName = pathQuery(propertySingleValue.asResource(), name_path) -----
 
 						final List<RDFNode> property_value = new ArrayList<>();
 
@@ -205,10 +203,10 @@ public class IFCtoLBDConverter {
 								new RDFStep(ifcOWL.getHasLogical()) };
 						pathQuery(propertySingleValue.asResource(), value_pathL)
 								.forEach(value -> property_value.add(value));
-
+						
 						String guid = getGUID(propertyset);
 						String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-						if (guid != null) {
+						if (guid != null) {						
 							if (property_name.size() > 0 && property_value.size() > 0) {
 								RDFNode pname = property_name.get(0);
 								RDFNode pvalue = property_value.get(0);
@@ -225,6 +223,7 @@ public class IFCtoLBDConverter {
 									}
 									if (pvalue.toString().trim().length() > 0) {
 										ps.put(pname.toString(), pvalue);
+										ps.putPropertyRef(pname);											
 									}
 								}
 							} else {
@@ -239,6 +238,7 @@ public class IFCtoLBDConverter {
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
 								ps.put(pname.toString(), propertySingleValue);
+								ps.putPropertyRef(pname);
 								copyTriples(0, propertySingleValue, lbd_property_output_model);
 							}
 						}
@@ -247,24 +247,24 @@ public class IFCtoLBDConverter {
 					
 				}
 			});
-
-			eventBus.post(new SystemStatusEvent("LDB properties read"));
+			eventBus.post(new SystemStatusEvent("LBD properties read"));
 		}
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
 			String guid_site = getGUID(site);
 			String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
-			//TODO: PUT THEM BACK!! addAttrributes(lbd_property_output_model, site.asResource(), sio);
+			//TODO: PUT THEM BACK!! 
+			addAttrributes(lbd_property_output_model, site.asResource(), sio);
 
 			sio.addProperty(RDF.type, LBD_NS.BOT.site);
 
-//			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-//				PropertySet p_set = this.propertysets.get(propertyset.getURI());
-//				if (p_set != null) {
-//					p_set.connect(sio,uncompressed_guid_site);
-//				}
-//			});
+			listPropertysets(site).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+				PropertySet p_set = this.propertysets.get(propertyset.getURI());
+				if (p_set != null) {
+					p_set.connect(sio,uncompressed_guid_site);
+				}
+			});
 
 			listBuildings(site).stream().map(rn -> rn.asResource()).forEach(building -> {
 				if (!getType(building.asResource()).get().getURI().endsWith("#IfcBuilding"))
@@ -272,17 +272,18 @@ public class IFCtoLBDConverter {
 				Resource bo = createformattedURI(building, lbd_general_output_model, "Building");
 				String guid_building = getGUID(building);
 				String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
-				//TODO: PUT THEM BACK!! addAttrributes(lbd_property_output_model, building, bo);
+				//TODO: PUT THEM BACK!! 
+				addAttrributes(lbd_property_output_model, building, bo);
 
 				bo.addProperty(RDF.type, LBD_NS.BOT.building);
 				sio.addProperty(LBD_NS.BOT.hasBuilding, bo);
 
-//				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-//					PropertySet p_set = this.propertysets.get(propertyset.getURI());
-//					if (p_set != null) {
-//						p_set.connect(bo,uncompressed_guid_building);
-//					}
-//				});
+				listPropertysets(building).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+					PropertySet p_set = this.propertysets.get(propertyset.getURI());
+					if (p_set != null) {
+						p_set.connect(bo,uncompressed_guid_building);
+					}
+				});
 
 				listStoreys(building).stream().map(rn -> rn.asResource()).forEach(storey -> {
 					eventBus.post(new SystemStatusEvent("Storey: " + storey.getLocalName()));
@@ -293,16 +294,17 @@ public class IFCtoLBDConverter {
 					Resource so = createformattedURI(storey, lbd_general_output_model, "Storey");
 					String guid_storey = getGUID(storey);
 					String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
-					//TODO: PUT THEM BACK!! addAttrributes(lbd_property_output_model, storey, so);
+					//TODO: PUT THEM BACK!! 
+					addAttrributes(lbd_property_output_model, storey, so);
 
 					bo.addProperty(LBD_NS.BOT.hasStorey, so);
 					so.addProperty(RDF.type, LBD_NS.BOT.storey);
 
-//					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-//						PropertySet p_set = this.propertysets.get(propertyset.getURI());
-//						if (p_set != null)
-//							p_set.connect(so,uncompressed_guid_storey);
-//					});
+					listPropertysets(storey).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+						PropertySet p_set = this.propertysets.get(propertyset.getURI());
+						if (p_set != null)
+							p_set.connect(so,uncompressed_guid_storey);
+					});
 
 					listContained_StoreyElements(storey).stream().map(rn -> rn.asResource()).forEach(element -> {
 						if (getType(element.asResource()).get().getURI().endsWith("#IfcSpace"))
@@ -316,7 +318,8 @@ public class IFCtoLBDConverter {
 						Resource spo = createformattedURI(space.asResource(), lbd_general_output_model, "Space");
 						String guid_space = getGUID(space.asResource());
 						String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
-						//TODO: PUT THEM BACK!! addAttrributes(lbd_property_output_model, space.asResource(), spo);
+						//TODO: PUT THEM BACK!! 
+						addAttrributes(lbd_property_output_model, space.asResource(), spo);
 
 						so.addProperty(LBD_NS.BOT.hasSpace, spo);
 						spo.addProperty(RDF.type, LBD_NS.BOT.space);
@@ -330,13 +333,13 @@ public class IFCtoLBDConverter {
 									connectElement(spo, LBD_NS.BOT.adjacentElement, element);
 								});
 
-//						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
-//								.forEach(propertyset -> {
-//									PropertySet p_set = this.propertysets.get(propertyset.getURI());
-//									if (p_set != null) {
-//										p_set.connect(spo,uncompressed_guid_space);
-//									}
-//								});
+						listPropertysets(space.asResource()).stream().map(rn -> rn.asResource())
+								.forEach(propertyset -> {
+									PropertySet p_set = this.propertysets.get(propertyset.getURI());
+									if (p_set != null) {
+										p_set.connect(spo,uncompressed_guid_space);
+									}
+								});
 					});
 				});
 			});
@@ -427,7 +430,8 @@ public class IFCtoLBDConverter {
 				if (p_set != null)
 					p_set.connect(eo,uncompressed_guid);
 			});
-			//TODO: put them back!!! addAttrributes(this.lbd_property_output_model, ifc_element, eo);
+			//TODO: put them back!!! 
+			addAttrributes(this.lbd_property_output_model, ifc_element, eo);
 
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if(eo.getLocalName().toLowerCase().contains("space"))
@@ -464,9 +468,10 @@ public class IFCtoLBDConverter {
 			lbd_property_object.addProperty(RDF.type, lbd_product_type.get());
 			lbd_object.addProperty(RDF.type, LBD_NS.BOT.element);
 
-			// addLabel(ifc_element, bot_object);
-			// addDescription(ifc_element, bot_object);
-			//TODO: put them back!!! addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
+//			 addLabel(ifc_element, bot_object);
+//			 addDescription(ifc_element, bot_object);
+			//TODO: put them back!!! 
+			 addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if(lbd_object.getLocalName().toLowerCase().contains("space"))
@@ -505,16 +510,16 @@ public class IFCtoLBDConverter {
 					attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> {
 						if (attr_s.getObject().isLiteral()
 								&& attr_s.getObject().asLiteral().getLexicalForm().length() > 0)
-							// bot_r.addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-							// attr_s.getObject());
+//							 bot_r.addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
+//							 attr_s.getObject());
 							local.put(property_string, attr_s.getObject());
 					});
 				}
 				else
 				if (atype.get().getLocalName().equals("IfcIdentifier")) {
-					// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
-					// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-					// attr_s.getObject()));
+//					 attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
+//					 .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
+//					 attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasString())
 							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 				}
