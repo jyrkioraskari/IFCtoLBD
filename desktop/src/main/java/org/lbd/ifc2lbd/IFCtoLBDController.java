@@ -54,6 +54,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
@@ -93,10 +94,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private ToggleSwitch building_elements;
 	@FXML
+	private Hyperlink elements_link;
+	
+	@FXML
 	private ToggleSwitch building_elements_separate_file;
+	
+	@FXML
+	private ToggleSwitch geolocation;
+
 
 	@FXML
 	private ToggleSwitch building_props;
+	
+	@FXML
+	private Hyperlink props_link;
+
 	@FXML
 	private ToggleSwitch building_props_blank_nodes;
 	@FXML
@@ -108,6 +120,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private RadioButton level2;
 	@FXML
 	private RadioButton level3;
+	
+	@FXML
+	private Hyperlink opm_link;
+
 
 	@FXML
 	private TextArea handleOnTxt;
@@ -168,11 +184,24 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			e.printStackTrace();
 		}
 	}
+	
 
 	@FXML
 	public void hyperlink_opm_handle(ActionEvent event) {
 		try {
 			URI u = new URI("https://github.com/w3c-lbd-cg/opm");
+			java.awt.Desktop.getDesktop().browse(u);
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML
+	public void hyperlink_towards_props(ActionEvent event) {
+		try {
+			URI u = new URI("https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf");
 			java.awt.Desktop.getDesktop().browse(u);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -304,7 +333,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level,
 					building_elements.isSelected(), building_elements_separate_file.isSelected(),
 					building_props.isSelected(), building_props_separate_file.isSelected(),
-					building_props_blank_nodes.isSelected()));
+					building_props_blank_nodes.isSelected(),geolocation.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -398,7 +427,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 									props_level, building_elements.isSelected(),
 									building_elements_separate_file.isSelected(), building_props.isSelected(),
 									building_props_separate_file.isSelected(),
-									building_props_blank_nodes.isSelected()));
+									building_props_blank_nodes.isSelected(),geolocation.isSelected()));
 						} catch (Exception e) {
 							conversionTxt.appendText(e.getMessage());
 						}
@@ -447,6 +476,56 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			break;
 
 		}
+		
+		
+		building_elements.setTooltip(
+			    new Tooltip("Building Product Ontology instances. \nThis is described in: https://github.com/w3c-lbd-cg/product")
+				);
+		building_elements_separate_file.setTooltip(
+			    new Tooltip("Create the content in separate files.")
+				);
+		building_props.setTooltip(
+			    new Tooltip("Building related properties\nThis is dedcribed in: https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf")
+				);
+		building_props_separate_file.setTooltip(
+			    new Tooltip("Create the content in separate files.")
+				);
+		
+		elements_link.setTooltip(
+			    new Tooltip("Opens a link that describes the Building Product Ontology.")
+				);
+		
+		props_link.setTooltip(
+			    new Tooltip("Opens a link to the Towards a PROPS ontology presentation.")
+				);
+		opm_link.setTooltip(
+			    new Tooltip("Opens a link that describes the Ontology for Property Management.")
+				);
+		
+		selectIFCFileButton.setTooltip(
+			    new Tooltip("Select an IFC Step formatted file to convert.\nThe supported IFC versions are\n2x3 TC1 & Final, 4 ADD1, 4 ADD2, 4  ")
+				);
+		selectTargetFileButton.setTooltip(
+			    new Tooltip("Select an target file for the conversion.\nIf there will be many files, the separate files are named accorrdingly.")
+				);
+		convert2RDFButton.setTooltip(
+			    new Tooltip("Press this button to start the conversion process.")
+				);
+		conversionTxt.setTooltip(
+			    new Tooltip("This shows the conversion process related messages\nand any error that occurs. ")
+				);
+		
+		labelIFCFile.setTooltip(
+			    new Tooltip("The selected IFC file. ")
+				);
+
+		labelTargetFile.setTooltip(
+			    new Tooltip("The selected target RDF file. ")
+				);
+
+		labelBaseURI.setTooltip(
+			    new Tooltip("The base URL is the consistent part of your links generated in the output. ")
+				);
 
 	}
 
