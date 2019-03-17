@@ -1115,7 +1115,4 @@ public class IFCtoLBDConverter {
 
 		return goodFiles;
 	}
-
-
-	}
 }
