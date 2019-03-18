@@ -36,11 +36,14 @@ The following steps are needed:
 1. Make sure that the JAVA_HOME environment variable point to the JAVA JDK directory. JRE is not enough.
 2. cd ifc2rdf_library
 3. mvn clean
-4  mvn install
+4. mvn install
 5. cd ..
 6. cd converter
 7. mvn clean 
 8. mvn install
+9. cd desktop
+10. mvn clean 
+11. mvn install
 
 The created package will be at the target subdirectory.
 You can rename the ifc2lbd-1.08-jar-with-dependencies.jar file into name IFCtoRDF.jar
