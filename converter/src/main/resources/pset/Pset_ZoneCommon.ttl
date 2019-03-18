@@ -1,0 +1,88 @@
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ZoneCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ZoneCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:_28fecb30be2a40c69fb0703be83c5e9f
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external zone at the outside of the building." ;
+        IFC4-PSD:definitionAlias  ""@en , "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR , "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP ;
+        IFC4-PSD:ifdguid          "28fecb30be2a40c69fb0703be83c5e9f" ;
+        IFC4-PSD:name             "IsExternal" ;
+        IFC4-PSD:nameAlias        "Est extérieur"@fr-FR , "外部区分"@ja-JP , "Is External"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:_4a46e100d21911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indication whether this space (in case of e.g., a toilet) is designed to serve as a publicly accessible space, e.g., for a public toilet (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "Indique si l'espace (par exemple des toilettes) est conçu pour être un espace accessible au public (TRUE) ou non (FALSE)."@fr-FR , "가능성이 공간이 공공 액세스 공간 여부를 나타내는 부울 값입니다. 예 : 공공 화장실의 경우 TRUE/ FALSE"@ko-KR , ""@en , "この空間が公共アクセス空間かどうかを示すブーリアン値。例：公共トイレの場合（TRUE）。そうでなければ（FALSE）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4a46e100d21911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PubliclyAccessible" ;
+        IFC4-PSD:nameAlias        "공공 액세스 가능성"@ko-KR , "Publicly Accessible"@en , "公共アクセス可能性"@ja-JP , "AccessibleAuPublic"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_ZoneCommon  a                   IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcZone ;
+        IFC4-PSD:applicableTypeValue  "IfcZone" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcZone." ;
+        IFC4-PSD:definitionAlias      "IfcZoneに関する共通プロパティセット定義。"@ja-JP , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcZone"@fr-FR , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ZoneCommon" ;
+        IFC4-PSD:propertyDef          :_31d6c680d21911e1800000215ad4efdf , :_c0ec9d3bf8f649b9be1a1a3ea965d058 , :_28fecb30be2a40c69fb0703be83c5e9f , :_4a46e100d21911e1800000215ad4efdf , :_516def00d21911e1800000215ad4efdf , :_e46e79127254467fab1435fce14121bf .
+
+:_516def00d21911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indication whether this space (in case of e.g., a toilet) is designed to serve as an accessible space for handicapped people, e.g., for a public toilet (TRUE) or not (FALSE). This information is often used to declare the need for access for the disabled and for special design requirements of this space." ;
+        IFC4-PSD:definitionAlias  "この空間がハンディキャップ者向けの空間かどうかを示す（TRUE）。例：公共トイレの場合。そうでなければ（FALSE）。この情報は、障害者向け利用の必要性や特別なデザインの必要性を示すために利用される。"@ja-JP , ""@en , "공간이 핸디캡을위한 공간 여부를 나타내는 부울 값입니다. 예 : 공공 화장실의 경우 TRUE. 이 정보는 장애인을위한 이용의 필요성과 특별한 디자인의 필요성을 나타내기 위해 사용된다."@ko-KR , "Indique si l'élément est conçu pour être accessible aux handicapés (VRAI) ou non (FAUX). Cette information est souvent utilisée pour déclarer la nécessité d'un accès pour handicapés ou pour des contraintes spéciales de conception."@fr-FR ;
+        IFC4-PSD:ifdguid          "516def00d21911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HandicapAccessible" ;
+        IFC4-PSD:nameAlias        "핸디캠 액세스 가능성"@ko-KR , "Handicap Accessible"@en , "AccesHandicapes"@fr-FR , "ハンディキャップアクセス可能性"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:_31d6c680d21911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+        IFC4-PSD:definitionAlias  "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). Utilisé pour enregistrer un type sans recourir à une classification."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en , "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "31d6c680d21911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en , "Reference"@fr-FR , "참조 ID"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:_c0ec9d3bf8f649b9be1a1a3ea965d058
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Total planned net area for the zone. Used for programming the zone." ;
+        IFC4-PSD:definitionAlias  "計画されたネット面積。建物計画に際に使用。（通常は、柱型等を抜いた面積となる）"@ja-JP , "Surface programmée nette totale de la pièce. Telle que définie lors de la programmation."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "c0ec9d3bf8f649b9be1a1a3ea965d058" ;
+        IFC4-PSD:name             "NetPlannedArea" ;
+        IFC4-PSD:nameAlias        "計画ネット面積"@ja-JP , "Surface programmée nette"@fr-FR , "Net Planned Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:_e46e79127254467fab1435fce14121bf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Total planned gross area for the zone. Used for programming the zone." ;
+        IFC4-PSD:definitionAlias  "計画されたグロス面積。建物計画に際に使用。"@ja-JP , ""@en , "Surface programmée brute totale de la pièce. Telle que définie lors de la programmation."@fr-FR ;
+        IFC4-PSD:ifdguid          "e46e79127254467fab1435fce14121bf" ;
+        IFC4-PSD:name             "GrossPlannedArea" ;
+        IFC4-PSD:nameAlias        "Gross Planned Area"@en , "Surface programmée brute"@fr-FR , "計画グロス面積"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
