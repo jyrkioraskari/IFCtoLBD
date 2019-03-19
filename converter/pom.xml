@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.75</version>
+	<version>1.73</version>
 	<name>IFC to LBD Converter</name>
 
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<jena.version>3.10.0</jena.version>
+		<jena.version>3.4.0</jena.version>
 		<gson.version>2.8.0</gson.version>
 	</properties>
 	<dependencies>
@@ -36,7 +36,7 @@
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.4</version>
 		</dependency>
 
 		<dependency>
