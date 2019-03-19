@@ -1,0 +1,295 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_BuildingCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingCommon#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_BuildingCommon>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4> ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:Pset_BuildingCommon
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass <http://ifcowl.openbimstandards.org/IFC4#IfcBuilding> ;
+  IFC4-PSD:applicableTypeValue "IfcBuilding" ;
+  IFC4-PSD:definition "Properties common to the definition of all instances of IfcBuilding. Please note that several building attributes are handled directly at the IfcBuilding instance, the building number (or short name) by IfcBuilding.Name, the building name (or long name) by IfcBuilding.LongName, and the description (or comments) by IfcBuilding.Description. Actual building quantities, like building perimeter, building area and building volume are provided by IfcElementQuantity, and the building classification according to national building code by IfcClassificationReference." ;
+  IFC4-PSD:definitionAlias "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcBuilding. Veuillez noter que plusieurs attributs sont portés directement par l'instance IfcBuilding : le numéro du bâtiment ou nom court (IfcBuilding.Name), le nom ou nom long (IfcBuilding.LongName), et la description ou des commentaires (IfcBuilding.Description). Les quantités réelles du site comme le périmètre, la superficie et le volume du bâtiment sont fournis par des instances de IfcElementQuantity, et la référence à une classification nationale par IfcClassificationReference."@fr-FR ;
+  IFC4-PSD:definitionAlias "IfcBuildingオブジェクトに関する共通プロパティセット定義。建物ナンバーはIfcBuilding.Name、建物名称はIfcBuilding.LondName、そして記述またはコメントはIfcBuilding.Descriptionで設定する。実際の建物に関する数量、例えば建物周囲長、建物面積、建物体積等はIfcElementQuantityで設定する。また、建築基準法の建物分類に関しては、IfcClassificationReferenceで設定する。"@ja-JP ;
+  IFC4-PSD:definitionAlias "Property Set Definition in German"@de-DE ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "2x4" ;
+    ] ;
+  IFC4-PSD:name "Pset_BuildingCommon" ;
+  IFC4-PSD:propertyDef :_032f0080d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_075b1e00d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_0c1fd200d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_104bef80d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_1510a380d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_193cc100d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_1d68de80d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_2194fc00d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_2659b000d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_2a85cd80d1c511e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_f0b4c700d1c411e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_f5797b00d1c411e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_fa3e2f00d1c411e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_ff02e300d1c411e1800000215ad4efdf ;
+.
+:_032f0080d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Main fire protection class for the building which is assigned from the fire protection classification table as given by the relevant national building code." ;
+  IFC4-PSD:definitionAlias "Classe principale de protection contre le risque incendie, selon la réglementation nationale."@fr-FR ;
+  IFC4-PSD:definitionAlias "Zugewiesene Gebäudeklasse nach der nationalen Brandschutzverordnung."@de-DE ;
+  IFC4-PSD:definitionAlias "主要な防火等級。関連する建築基準法、消防法などの国家基準を参照。"@ja-JP ;
+  IFC4-PSD:definitionAlias "주요 방화 등급. 관련 건축 기준법, 소방법 등의 국가 표준을 참조하십시오."@ko-KR ;
+  IFC4-PSD:ifdguid "032f0080d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "FireProtectionClass" ;
+  IFC4-PSD:nameAlias "Gebäudeklasse Brandschutz"@de-DE ;
+  IFC4-PSD:nameAlias "RisqueIncendieUsageSecondaire"@fr-FR ;
+  IFC4-PSD:nameAlias "耐火等級"@ja-JP ;
+  IFC4-PSD:nameAlias "방화 등급"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_075b1e00d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indication whether this object is sprinkler protected (TRUE) or not (FALSE)." ;
+  IFC4-PSD:definitionAlias "Angabe, ob das Gebäude durch eine Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indication selon laquelle ce bâtiment bénéficie d'une protection par sprinkler (VRAI) ou non (FAUX)."@fr-FR ;
+  IFC4-PSD:definitionAlias "スプリンクラー設備の有無を示すブーリアン値。"@ja-JP ;
+  IFC4-PSD:definitionAlias "스프링 클러 설비의 유무를 나타내는 값"@ko-KR ;
+  IFC4-PSD:ifdguid "075b1e00d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "SprinklerProtection" ;
+  IFC4-PSD:nameAlias "ProtectionParSprinkler"@fr-FR ;
+  IFC4-PSD:nameAlias "Sprinklerschutz"@de-DE ;
+  IFC4-PSD:nameAlias "スプリンクラー防御"@ja-JP ;
+  IFC4-PSD:nameAlias "스프링 클러 방어"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcBoolean> ;
+    ] ;
+.
+:_0c1fd200d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indication whether this object has an automatic sprinkler protection (TRUE) or not (FALSE)." ;
+  IFC4-PSD:definitionAlias "Angabe, ob das Gebäude durch eine automatische Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indication selon laquelle ce bâtiment bénéficie d'une protection automatique par sprinkler (VRAI) ou non (FAUX)."@fr-FR ;
+  IFC4-PSD:definitionAlias "スプリンクラー設備が自動かどうか示すブーリアン値。"@ja-JP ;
+  IFC4-PSD:definitionAlias "스프링 클러 설비가 자동 여부를 나타내는 값"@ko-KR ;
+  IFC4-PSD:ifdguid "0c1fd200d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "SprinklerProtectionAutomatic" ;
+  IFC4-PSD:nameAlias "ProtectionAutomatiqueParSprinkler"@fr-FR ;
+  IFC4-PSD:nameAlias "Sprinklerschutz automatisch"@de-DE ;
+  IFC4-PSD:nameAlias "スプリンクラー防御自動区分"@ja-JP ;
+  IFC4-PSD:nameAlias "스프링 클러 방어 자동 구분"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcBoolean> ;
+    ] ;
+.
+:_104bef80d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Occupancy type for this object.
+It is defined according to the presiding national building code.""" ;
+  IFC4-PSD:definitionAlias "Hauptnutzungsart des Gebäudes (Schulbau. Kaufhaus, etc.). Wird verwendet, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE ;
+  IFC4-PSD:definitionAlias "Type d'occupation. Est défini selon le Code National en vigueur."@fr-FR ;
+  IFC4-PSD:definitionAlias "占有者のタイプ。建築基準法に準拠。"@ja-JP ;
+  IFC4-PSD:definitionAlias "점령 자의 유형. 건축 기준법을 준수합니다."@ko-KR ;
+  IFC4-PSD:ifdguid "104bef80d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "OccupancyType" ;
+  IFC4-PSD:nameAlias "Nutzungsart"@de-DE ;
+  IFC4-PSD:nameAlias "TypeOccupation"@fr-FR ;
+  IFC4-PSD:nameAlias "占有者タイプ"@ja-JP ;
+  IFC4-PSD:nameAlias "점유자 유형"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_1510a380d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Total planned gross area for the building  Used for programming the building." ;
+  IFC4-PSD:definitionAlias "Geforderte Bruttofläche des Gebäudes laut Raumprogramm."@de-DE ;
+  IFC4-PSD:definitionAlias "Surface programmée brute totale du bâtiment. Telle que définie lors de la programmation."@fr-FR ;
+  IFC4-PSD:definitionAlias "計画されたグロス面積。建物計画に際に使用。"@ja-JP ;
+  IFC4-PSD:definitionAlias "계획된 그로스 면적. 건물 계획시 사용됩니다."@ko-KR ;
+  IFC4-PSD:ifdguid "1510a380d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "GrossPlannedArea" ;
+  IFC4-PSD:nameAlias "Bruttofläche nach Raumprogramm"@de-DE ;
+  IFC4-PSD:nameAlias "Surface programmée brute"@fr-FR ;
+  IFC4-PSD:nameAlias "計画グロス面積"@ja-JP ;
+  IFC4-PSD:nameAlias "계획 그로스 면적"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcAreaMeasure> ;
+    ] ;
+.
+:_193cc100d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Total planned net area for the building  Used for programming the building." ;
+  IFC4-PSD:definitionAlias "Geforderte Nettofläche des Gebäudes laut Raumprogramm."@de-DE ;
+  IFC4-PSD:definitionAlias "Surface programmée nette totale du bâtiment. Telle que définie lors de la programmation."@fr-FR ;
+  IFC4-PSD:definitionAlias "計画されたネット面積。建物計画に際に使用。（通常は、柱型等を抜いた面積となる）"@ja-JP ;
+  IFC4-PSD:ifdguid "193cc100d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "NetPlannedArea" ;
+  IFC4-PSD:nameAlias "Nettofläche nach Raumprogramm"@de-DE ;
+  IFC4-PSD:nameAlias "Surface programmée nette"@fr-FR ;
+  IFC4-PSD:nameAlias "計画ネット面積"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcAreaMeasure> ;
+    ] ;
+.
+:_1d68de80d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """The number of storeys within a building.
+Captured for those cases where the IfcBuildingStorey entity is not used. Note that if IfcBuilingStorey is asserted and the number of storeys in a building can be determined from it, then this approach should be used in preference to setting a property for the number of storeys.""" ;
+  IFC4-PSD:definitionAlias """Anzahl der Vollgeschosse des Gebäudes. 
+
+Dieses Attribute soll nur dann eingefügt werden, wenn keine Geschosse als Objekte, IfcBuildingStorey, beinhaltet sind. Bei Unstimmigkeiten hat die Anzahl der IfcBuildingStorey Objekte Priorität."""@de-DE ;
+  IFC4-PSD:definitionAlias "Le nombre de niveaux dans un bâtiment, à indiquer lorsque la classe IfcBuildingStorey n'est pas  utilisée. Il est préférable de créer des instances d'IfcBuildingStorey et d'en déduire le nombre de niveaux plutôt que de saisir cette propriété."@fr-FR ;
+  IFC4-PSD:definitionAlias "建物階の数。IfcBuildingStoreyの数とは関係なく扱う。"@ja-JP ;
+  IFC4-PSD:definitionAlias "건물 층 수. IfcBuildingStorey 수와 관계없이 취급한다."@ko-KR ;
+  IFC4-PSD:ifdguid "1d68de80d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "NumberOfStoreys" ;
+  IFC4-PSD:nameAlias "Geschossanzahl"@de-DE ;
+  IFC4-PSD:nameAlias "NombreNiveaux"@fr-FR ;
+  IFC4-PSD:nameAlias "階数"@ja-JP ;
+  IFC4-PSD:nameAlias "층 수"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcInteger> ;
+    ] ;
+.
+:_2194fc00d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Year of construction of this building, including expected year of completion." ;
+  IFC4-PSD:definitionAlias "Année de construction de ce bâtiment, incluant l'année de parfait achèvement."@fr-FR ;
+  IFC4-PSD:definitionAlias "Jahr der Errichtung des Gebäudes, einschließliich des Jahres der geplanten Fertigstellung."@de-DE ;
+  IFC4-PSD:definitionAlias "施工の年。竣工の予想年も含む。"@ja-JP ;
+  IFC4-PSD:definitionAlias "시공 년. 준공 예정 년 포함한다."@ko-KR ;
+  IFC4-PSD:ifdguid "2194fc00d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "YearOfConstruction" ;
+  IFC4-PSD:nameAlias "AnneeConstruction"@fr-FR ;
+  IFC4-PSD:nameAlias "Baujahr"@de-DE ;
+  IFC4-PSD:nameAlias "施工年"@ja-JP ;
+  IFC4-PSD:nameAlias "시공 년"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_2659b000d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Year of last major refurbishment, or reconstruction, of the building (applies to reconstruction works)." ;
+  IFC4-PSD:definitionAlias "Année de la dernière rénovation majeure ou de la reconstruction du bâtiment."@fr-FR ;
+  IFC4-PSD:definitionAlias "Jahr der letzten Renovierung des Gebäudes."@de-DE ;
+  IFC4-PSD:ifdguid "2659b000d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "YearOfLastRefurbishment" ;
+  IFC4-PSD:nameAlias "Année de la dernière rénovation"@fr-FR ;
+  IFC4-PSD:nameAlias "letztes Renovierungsjahr"@de-DE ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_2a85cd80d1c511e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "This builing is listed as a historic building (TRUE), or not (FALSE), or unknown." ;
+  IFC4-PSD:definitionAlias "Angabe, ob das Gebäude dem Denkmalschutz unterliegt (WAHR) oder nicht (FALSCH)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indique si le bâtiment est classé aux monuments historiques (VRAI) ou non (FAUX), ou si l'information n'est pas connue."@fr-FR ;
+  IFC4-PSD:definitionAlias "この建物は歴史的な建物かどうかを示すブーリアン値。"@ja-JP ;
+  IFC4-PSD:definitionAlias "이 건물은 역사적인 건물 있는지 여부를 나타내는 값"@ko-KR ;
+  IFC4-PSD:ifdguid "2a85cd80d1c511e1800000215ad4efdf" ;
+  IFC4-PSD:name "IsLandmarked" ;
+  IFC4-PSD:nameAlias "ClasseMonumentHistorique"@fr-FR ;
+  IFC4-PSD:nameAlias "Denkmalschutz"@de-DE ;
+  IFC4-PSD:nameAlias "ランドマーク区分"@ja-JP ;
+  IFC4-PSD:nameAlias "랜드마크 구분"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLogical> ;
+    ] ;
+.
+:_f0b4c700d1c411e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+  IFC4-PSD:definitionAlias "Identifikator der projektinternen Referenz für dieses Gebäude, z.B. nach der Gebäudelassifizierung des Bauherrn. Wird verwendet, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE ;
+  IFC4-PSD:definitionAlias "Référence à l'identifiant d'un type spécifié dans le contexte de ce projet (exemple : \"type A1\"). A fournir s'il n'y a pas de référence à une classification en usage."@fr-FR ;
+  IFC4-PSD:definitionAlias "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+  IFC4-PSD:definitionAlias "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR ;
+  IFC4-PSD:ifdguid "f0b4c700d1c411e1800000215ad4efdf" ;
+  IFC4-PSD:name "Reference" ;
+  IFC4-PSD:nameAlias "Reference"@fr-FR ;
+  IFC4-PSD:nameAlias "Referenz ID"@de-DE ;
+  IFC4-PSD:nameAlias "参照記号"@ja-JP ;
+  IFC4-PSD:nameAlias "참조 ID"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcIdentifier> ;
+    ] ;
+.
+:_f5797b00d1c411e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "A unique identifier assigned to a building. A temporary identifier is initially assigned at the time of making a planning application. This temporary identifier is changed to a permanent identifier when the building is registered into a statutory buildings and properties database." ;
+  IFC4-PSD:definitionAlias "Gebäudekennzeichen dieses Gebäudes. Während der Baueingabe ist es das temporäre Kennzeichnen des Bauantrags."@de-DE ;
+  IFC4-PSD:definitionAlias "Un identifiant unique attribué au bâtiment. Un identifiant temporaire est attribué au moment de la programmation. Il est ensuite remplacé par un identifiant permanent lorsque le bâtiment est enregistré dans une base de données de nature règlementaire."@fr-FR ;
+  IFC4-PSD:definitionAlias "建物に付与されるユニークな識別子。計画要請の際に使用される初期の一時的な識別子。この一時的な識別子は、建物が正式に登録された際に恒久的な識別子へと変更される。"@ja-JP ;
+  IFC4-PSD:definitionAlias "건물에 부여되는 고유 식별자이다. 계획 요청시 사용되는 초기 임시 식별자이다. 이 임시 식별자는 건물이 정식으로 등록된 경우에 영구적인 식별자로 변경된다."@ko-KR ;
+  IFC4-PSD:ifdguid "f5797b00d1c411e1800000215ad4efdf" ;
+  IFC4-PSD:name "BuildingID" ;
+  IFC4-PSD:nameAlias "Gebäudekennzeichen"@de-DE ;
+  IFC4-PSD:nameAlias "IdBatiment"@fr-FR ;
+  IFC4-PSD:nameAlias "建物記号"@ja-JP ;
+  IFC4-PSD:nameAlias "건물 ID"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcIdentifier> ;
+    ] ;
+.
+:_fa3e2f00d1c411e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indicates whether the identity assigned to a building is permanent (= TRUE) or temporary (=FALSE)." ;
+  IFC4-PSD:definitionAlias "Angabe, on das angegebene Gebäudekennzeichen permanent ist (TRUE), oder eine temporäre Antragsnummer (FALSE)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indique si l'identifiant attribuée au bâtiment est permanent (=VRAI) ou temporaire (=FAUX)."@fr-FR ;
+  IFC4-PSD:definitionAlias "建物IDが恒久的なIDかどうかのブーリアン値。"@ja-JP ;
+  IFC4-PSD:definitionAlias "건물 ID가 영구적인 ID 여부값"@ko-KR ;
+  IFC4-PSD:ifdguid "fa3e2f00d1c411e1800000215ad4efdf" ;
+  IFC4-PSD:name "IsPermanentID" ;
+  IFC4-PSD:nameAlias "Gebäudekennzeichen permanent"@de-DE ;
+  IFC4-PSD:nameAlias "IdPermanent"@fr-FR ;
+  IFC4-PSD:nameAlias "永久ID区分"@ja-JP ;
+  IFC4-PSD:nameAlias "영구 ID 구분"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcBoolean> ;
+    ] ;
+.
+:_ff02e300d1c411e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The type of construction action to the building, the project deals with, e.g. new construction, renovation, refurbishment, etc." ;
+  IFC4-PSD:definitionAlias "Le type d'intervention sur le bâtiment : construction neuve, rénovation, réhabilitation, etc."@fr-FR ;
+  IFC4-PSD:definitionAlias "Wesentliche Konstruktionsart des Gebäudes (Stahlbeton, Stahlbau, Holzfachwerk, etc.)"@de-DE ;
+  IFC4-PSD:definitionAlias "工事におけるタイプ。例：新築・リノベーション・改装等。"@ja-JP ;
+  IFC4-PSD:definitionAlias "공사의 유형. 예 : 신축 리노베이션 · 개장 등."@ko-KR ;
+  IFC4-PSD:ifdguid "ff02e300d1c411e1800000215ad4efdf" ;
+  IFC4-PSD:name "ConstructionMethod" ;
+  IFC4-PSD:nameAlias "Konstruktionsart"@de-DE ;
+  IFC4-PSD:nameAlias "RisqueIncendieUsagePrincipal"@fr-FR ;
+  IFC4-PSD:nameAlias "工事種別"@ja-JP ;
+  IFC4-PSD:nameAlias "공사 종류"@ko-KR ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.

@@ -1,0 +1,34 @@
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CivilElementCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CivilElementCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_CivilElementCommon
+        a                     IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:definition   "Properties common to the definition of all occurrence and type objects of civil element." ;
+        IFC4-PSD:ifcVersion   [ a                 IFC4-PSD:IfcVersion ;
+                                IFC4-PSD:version  "IFC4"
+                              ] ;
+        IFC4-PSD:name         "Pset_CivilElementCommon" ;
+        IFC4-PSD:propertyDef  :_0c528b1c7565457c85ee19a5f19a76f1 , :_70725207486940a2a2df14795defd067 .
+
+:_0c528b1c7565457c85ee19a5f19a76f1
+        a                      IFC4-PSD:PropertyDef ;
+        IFC4-PSD:ifdguid       "0c528b1c7565457c85ee19a5f19a76f1" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                               ] .
+
+:_70725207486940a2a2df14795defd067
+        a                      IFC4-PSD:PropertyDef ;
+        IFC4-PSD:ifdguid       "70725207486940a2a2df14795defd067" ;
+        IFC4-PSD:name          "Reference" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .

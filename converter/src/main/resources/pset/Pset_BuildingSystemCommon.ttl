@@ -1,0 +1,37 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingSystemCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingSystemCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingSystemCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:Pset_BuildingSystemCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuildingSystem ;
+        IFC4-PSD:applicableTypeValue  "IfcBuildingSystem" ;
+        IFC4-PSD:definition           "Properties common to the definition of building systems." ;
+        IFC4-PSD:definitionAlias      ""@en , "所有建筑系统的定义中通用的属性。"@zh-CN , "建物システムの共通プロパティ定義"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BuildingSystemCommon" ;
+        IFC4-PSD:propertyDef          :_b13aaa80d1c511e1800000215ad4efdf .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:_b13aaa80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Reference ID for this specified instance of building system in this project (e.g. 'TRA/EL1'), The reference values depend on the local code of practice." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける建物システムの指定されたインスタンスの参照記号"@ja-JP , ""@en , "该项目中该特定建筑系统实例的参考编号（例如，“TRA/EL1”）。该属性值由当地编码规范决定。"@zh-CN , "Kennzeichen für diese bauliche System in dem Projekt (z.B. 'TRA/EL1'). Die Kennzeichensystematik hängt von den jeweiligen nationalen/regionalen Regelungen ab."@de-DE ;
+        IFC4-PSD:ifdguid          "b13aaa80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Kennzeichen"@de-DE , "Reference"@en , "参考号"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
