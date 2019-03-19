@@ -1,0 +1,154 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_RoofCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_RoofCommon#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_RoofCommon>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4> ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:Pset_RoofCommon
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass <http://ifcowl.openbimstandards.org/IFC4#IfcRoof> ;
+  IFC4-PSD:applicableTypeValue "IfcRoof" ;
+  IFC4-PSD:definition "Properties common to the definition of all occurrences of IfcRoof. Note: Properties for ProjectedArea and TotalArea added in IFC 2x3" ;
+  IFC4-PSD:definitionAlias "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcRoof. Nota : les propriétés SurfaceProjection et SurfaceTotale ont été introduites depuis la version 2x3."@fr-FR ;
+  IFC4-PSD:definitionAlias """IfcRoof（屋根）オブジェクトに関する共通プロパティセット定義。
+注：建築面積と延床面積のプロパティは、IFC2x3から追加された。"""@ja-JP ;
+  IFC4-PSD:definitionAlias "所有IfcRoof实例的定义中通用的属性。"@zh-CN ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "2x4" ;
+    ] ;
+  IFC4-PSD:name "Pset_RoofCommon" ;
+  IFC4-PSD:propertyDef :_984fea80d20111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_9e45cb80d20111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_adc51480d20111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_b584b900d20111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_bd445d80d20111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :_c46b6b80d20111e1800000215ad4efdf ;
+.
+:_984fea80d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+  IFC4-PSD:definitionAlias "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE ;
+  IFC4-PSD:definitionAlias "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR ;
+  IFC4-PSD:definitionAlias "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+  IFC4-PSD:definitionAlias "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN ;
+  IFC4-PSD:ifdguid "984fea80d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "Reference" ;
+  IFC4-PSD:nameAlias "Bauteiltyp"@de-DE ;
+  IFC4-PSD:nameAlias "Reference"@fr-FR ;
+  IFC4-PSD:nameAlias "参照記号"@ja-JP ;
+  IFC4-PSD:nameAlias "参考号"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcIdentifier> ;
+    ] ;
+.
+:_9e45cb80d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+  IFC4-PSD:definitionAlias "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE ;
+  IFC4-PSD:definitionAlias "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR ;
+  IFC4-PSD:definitionAlias "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+  IFC4-PSD:ifdguid "9e45cb80d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "Status" ;
+  IFC4-PSD:nameAlias "Status"@de-DE ;
+  IFC4-PSD:nameAlias "Statut"@fr-FR ;
+  IFC4-PSD:nameAlias "状態"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertyEnumeratedValue ;
+      IFC4-PSD:enumItem "DEMOLISH" ;
+      IFC4-PSD:enumItem "EXISTING" ;
+      IFC4-PSD:enumItem "NEW" ;
+      IFC4-PSD:enumItem "NOTKNOWN" ;
+      IFC4-PSD:enumItem "OTHER" ;
+      IFC4-PSD:enumItem "TEMPORARY" ;
+      IFC4-PSD:enumItem "UNSET" ;
+    ] ;
+.
+:_adc51480d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Acoustic rating for this object.
+It is provided according to the national building code. It indicates the sound transmission resistance of this object by an index ratio (instead of providing full sound absorbtion values).""" ;
+  IFC4-PSD:definitionAlias "Classement acoustique de cet objet. Donné selon le Code National du Bâtiment. Il indique la résistance à la transmission du son de cet objet par une valeur de référence (au lieu de fournir les valeurs totales d'absorption du son)."@fr-FR ;
+  IFC4-PSD:definitionAlias "Schallschutzklasse gemäß der nationalen oder regionalen Schallschutzverordnung."@de-DE ;
+  IFC4-PSD:definitionAlias "遮音等級情報。関連する建築基準法を参照。"@ja-JP ;
+  IFC4-PSD:ifdguid "adc51480d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "AcousticRating" ;
+  IFC4-PSD:nameAlias "Isolation acoustique"@fr-FR ;
+  IFC4-PSD:nameAlias "Schallschutzklasse"@de-DE ;
+  IFC4-PSD:nameAlias "遮音等級"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_b584b900d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Fire rating for this object. It is given according to the national fire safety classification." ;
+  IFC4-PSD:definitionAlias "Classement au feu de l'élément donné selon la classification nationale de sécurité incendie."@fr-FR ;
+  IFC4-PSD:definitionAlias "Feuerwiderstandasklasse gemäß der nationalen oder regionalen Brandschutzverordnung."@de-DE ;
+  IFC4-PSD:definitionAlias "主要な耐火等級。関連する建築基準法、消防法などの国家基準によって指定される。"@ja-JP ;
+  IFC4-PSD:definitionAlias """该构件的防火等级。
+该属性的依据为国家防火安全分级。"""@zh-CN ;
+  IFC4-PSD:ifdguid "b584b900d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "FireRating" ;
+  IFC4-PSD:nameAlias "Feuerwiderstandsklasse"@de-DE ;
+  IFC4-PSD:nameAlias "ResistanceAuFeu"@fr-FR ;
+  IFC4-PSD:nameAlias "耐火等級"@ja-JP ;
+  IFC4-PSD:nameAlias "防火等级"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcLabel> ;
+    ] ;
+.
+:_bd445d80d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+  IFC4-PSD:definitionAlias "Angabe, ob dieses Bauteil ein Aussenbauteil ist (JA) oder ein Innenbauteil (NEIN). Als Aussenbauteil grenzt es an den Aussenraum (oder Erdreich, oder Wasser)."@de-DE ;
+  IFC4-PSD:definitionAlias "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR ;
+  IFC4-PSD:definitionAlias "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP ;
+  IFC4-PSD:definitionAlias "表示该构件是否设计为外部构件。若是，则该构件为外部构件，朝向建筑物的外侧。"@zh-CN ;
+  IFC4-PSD:ifdguid "bd445d80d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "IsExternal" ;
+  IFC4-PSD:nameAlias "Außenbauteil"@de-DE ;
+  IFC4-PSD:nameAlias "EstExterieur"@fr-FR ;
+  IFC4-PSD:nameAlias "外部区分"@ja-JP ;
+  IFC4-PSD:nameAlias "是否外部构件"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcBoolean> ;
+    ] ;
+.
+:_c46b6b80d20111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition """Thermal transmittance coefficient (U-Value) of a material.
+Here the total thermal transmittance coefficient through the roof surface (including all materials).""" ;
+  IFC4-PSD:definitionAlias "Coefficient de transmission thermique surfacique (U). C'est le coefficient global de transmission thermique à travers la surface de la couverture (tous matériaux inclus)."@fr-FR ;
+  IFC4-PSD:definitionAlias """Wärmedurchgangskoeffizient (U-Wert) der Materialschichten.
+Hier der Gesamtwärmedurchgangskoeffizient der Dachkonstruktion (für alle Schichten)."""@de-DE ;
+  IFC4-PSD:definitionAlias """材料的导热系数（U值）。
+表示穿过该屋顶表面的整体导热系数（包括所有材料）"""@zh-CN ;
+  IFC4-PSD:definitionAlias """熱貫流率（U値）。
+ここでは（すべての材料を含む）屋根面を通した全体の熱還流率を示す。"""@ja-JP ;
+  IFC4-PSD:ifdguid "c46b6b80d20111e1800000215ad4efdf" ;
+  IFC4-PSD:name "ThermalTransmittance" ;
+  IFC4-PSD:nameAlias "TransmissionThermique"@fr-FR ;
+  IFC4-PSD:nameAlias "U-Wert"@de-DE ;
+  IFC4-PSD:nameAlias "导热系数"@zh-CN ;
+  IFC4-PSD:nameAlias "熱貫流率"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType <http://ifcowl.openbimstandards.org/IFC4#IfcThermalTransmittanceMeasure> ;
+    ] ;
+.

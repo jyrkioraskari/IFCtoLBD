@@ -1,0 +1,78 @@
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_TransportElementCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_TransportElementCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:_000e3180d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Capacity of the transportation element measured in numbers of person." ;
+        IFC4-PSD:definitionAlias  ""@en , "搬送要素の人数に関する容量。"@ja-JP , "Kapazität nach Anzahl der Personen, die maximal befördert werden können."@de-DE , "Capacité de transport de l'élément mesurée en nombre de personnes."@fr-FR ;
+        IFC4-PSD:ifdguid          "000e3180d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapacityPeople" ;
+        IFC4-PSD:nameAlias        "搭乗人数定員"@ja-JP , "Personenkapazität"@de-DE , "Capacity People"@en , "Capacité en nombre de personnes"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:_e967da80d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal construction type." ;
+        IFC4-PSD:definitionAlias  "Bezeichnung zur Zusammenfassung gleichartiger Komponenten zu einem Komponententyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE , ""@en , "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR , "参照するID番号。"@ja-JP , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). Utilisé pour enregistrer un type sans recourir à une classification."@fr-FR ;
+        IFC4-PSD:ifdguid          "e967da80d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Komponententyp"@de-DE , "参照記号"@ja-JP , "Reference"@fr-FR , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:_056b7c00d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Capacity of the transport element measured by weight." ;
+        IFC4-PSD:definitionAlias  "Capacité de transport de l'élément mesurée par le poids."@fr-FR , ""@en , "Kapazität nach Gewicht, das maximal befördert werden kann."@de-DE , "搬送要素の重さに関する容量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "056b7c00d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapacityWeight" ;
+        IFC4-PSD:nameAlias        "Lastkapazität"@de-DE , "Capacity Weight"@en , "Capacité en poids"@fr-FR , "搭載重量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:_eff65200d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "eff65200d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@de-DE , "Status"@en , "状態"@ja-JP , "Statut"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                                  ] .
+
+:Pset_TransportElementCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcTransportElement ;
+        IFC4-PSD:applicableTypeValue  "IfcTransportElement" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcTransportElement or IfcTransportElementType" ;
+        IFC4-PSD:definitionAlias      ""@en , "交通要素共通事項。"@ja-JP , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcTransportElement"@fr-FR , "Property Set Definition in German"@de-DE ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TransportElementCommon" ;
+        IFC4-PSD:propertyDef          :_0c928a00d21211e1800000215ad4efdf , :_056b7c00d21211e1800000215ad4efdf , :_000e3180d21211e1800000215ad4efdf , :_e967da80d21111e1800000215ad4efdf , :_eff65200d21111e1800000215ad4efdf .
+
+:_0c928a00d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indication whether this object is designed to serve as an exit in the case of fire (TRUE) or not (FALSE).\nHere whether the transport element (in case of e.g., a lift) is designed to serve as a fire exit, e.g., for fire escape purposes." ;
+        IFC4-PSD:definitionAlias  "避難出口(TRUE)か、通常の出口(FALSE)かを示すフラグ。"@ja-JP , "Angabe ob dieses Transportelement als Rettungsweg im Brandfall zulässig ist (WAHR) oder nicht (FALSCH)."@de-DE , ""@en , "이 물체가 화재의 경우 출구로 사용되도록 설계되었는지 여부를 나타내는 부울 값입니다. 여기에 공간 (예 복도), 예를 들면 화재 피난 목적을 위해 출구 공간으로 사용하도록 설계되었는지 여부"@ko-KR , "Indication si l'objet est conçu pour servir de sortie en cas d'incendie (VRAI) ou non (FAUX). Cas d'un élément de transport comme un ascenseur conçu pour l'évacuation en cas d'incendie."@fr-FR ;
+        IFC4-PSD:ifdguid          "0c928a00d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireExit" ;
+        IFC4-PSD:nameAlias        "Fire Exit"@en , "화재 출구 (피난 출구)"@ko-KR , "SortieSecours"@fr-FR , "避難出口"@ja-JP , "Rettungsweg"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
