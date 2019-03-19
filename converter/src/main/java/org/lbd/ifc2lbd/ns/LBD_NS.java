@@ -35,15 +35,15 @@ public class LBD_NS extends abstract_NS{
 	}
 
 	public static class Product {
-		public static final String product_ns = "http://pi.pauwel.be/voc/buildingelement#";
-		public static final String furnishing_ns = "http://pi.pauwel.be/voc/furniture#";
-		public static final String mep_ns = "http://pi.pauwel.be/voc/distributionelement#";
+		public static final String product_ns = "https://w3id.org/product/BuildingElements#";
+		public static final String furnisging_ns = "https://w3id.org/product/Furnishing#";
+		public static final String mep_ns = "https://w3id.org/product/MEP#";
 
 		public static void addNameSpace(Model model)
 		{
-			model.setNsPrefix("be", product_ns);
-			model.setNsPrefix("furn", furnishing_ns);
-			model.setNsPrefix("de", mep_ns);
+			model.setNsPrefix("p4bldg", product_ns);
+			model.setNsPrefix("furn", furnisging_ns);
+			model.setNsPrefix("mep", mep_ns);
 		}
 		
 		public static Resource getProductType(Resource ifOwlClass)
@@ -61,22 +61,15 @@ public class LBD_NS extends abstract_NS{
 
 	public static class PROPS_NS {
 		public static final String props_ns = "https://w3id.org/props#";
-		public static final String bsddprops_ns = "https://buildingsmart.org/bsddld#";
-		public static final String psd_ns = "http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#";
 
 		public static void addNameSpace(Model model)
 		{
 			model.setNsPrefix("props", props_ns);
-			model.setNsPrefix("bsddld", bsddprops_ns);
-			model.setNsPrefix("IFC4-PSD", psd_ns);
 		}
 		
-		//public static final Resource props=resource(props_ns,"Pset");
-		//public static final Property partofPset=property(props_ns, "partOfPset");		
-		public static final Property isBSDDProp=property(bsddprops_ns, "isBSDDProperty");	
-		public static final Property namePset=property(psd_ns, "name");
-		public static final Property ifdGuidProperty=property(psd_ns,"ifdguid");
-		public static final Property propertyDef=property(psd_ns,"propertyDef");
+		public static final Resource props=resource(props_ns,"Pset");
+		public static final Property partofPset=property(props_ns, "partOfPset");
+		
 
 		public static final Resource attribute_group=resource(props_ns,"AttributesGroup");
 		public static final Property partofAG=property(props_ns, "partOfAttributesGroup");

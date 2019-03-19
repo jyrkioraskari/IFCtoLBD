@@ -7,22 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.Literal;
@@ -79,7 +72,7 @@ import org.lbd.ifc2lbd.geo.WktLiteral;
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
-	public static Model ontology_model = null;
+	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
 
@@ -97,7 +90,7 @@ public class IFCtoLBDConverter {
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
-	
+
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
@@ -158,90 +151,67 @@ public class IFCtoLBDConverter {
 
 		if (hasBuildingProperties) {
 			listPropertysets().stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-				
+
 				RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
-				
-				if(pathQuery(propertyset, pname_path).get(0).isLiteral() && pathQuery(propertyset, pname_path).get(0).asLiteral().getString().startsWith("Pset")){
-					String psetName = pathQuery(propertyset, pname_path).get(0).asLiteral().getString();
-					System.out.println("included PSET : " + pathQuery(propertyset, pname_path).get(0).asLiteral().getString());
-					
-					final List<RDFNode> propertyset_name = new ArrayList<>();
-					pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));	
-										
-					RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
-					pathQuery(propertyset, path).forEach(propertySingleValue -> {
-							
-						RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
-								new RDFStep(ifcOWL.getHasString()) };
-						final List<RDFNode> property_name = new ArrayList<>();
-						pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
-						
-						//TODO: String propertyName = pathQuery(propertySingleValue.asResource(), name_path) -----
+				final List<RDFNode> propertyset_name = new ArrayList<>();
+				pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
 
-						final List<RDFNode> property_value = new ArrayList<>();
+				RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
+				pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
-						RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasString()) };
-						pathQuery(propertySingleValue.asResource(), value_pathS)
-								.forEach(value -> property_value.add(value));
+					RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
+							new RDFStep(ifcOWL.getHasString()) };
+					final List<RDFNode> property_name = new ArrayList<>();
+					pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 
-						RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasDouble()) };
-						pathQuery(propertySingleValue.asResource(), value_pathD)
-								.forEach(value -> property_value.add(value));
+					final List<RDFNode> property_value = new ArrayList<>();
 
-						RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasInteger()) };
-						pathQuery(propertySingleValue.asResource(), value_pathI)
-								.forEach(value -> property_value.add(value));
+					RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasString()) };
+					pathQuery(propertySingleValue.asResource(), value_pathS)
+							.forEach(value -> property_value.add(value));
 
-						RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasBoolean()) };
-						pathQuery(propertySingleValue.asResource(), value_pathB)
-								.forEach(value -> property_value.add(value));
+					RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasDouble()) };
+					pathQuery(propertySingleValue.asResource(), value_pathD)
+							.forEach(value -> property_value.add(value));
 
-						RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasLogical()) };
-						pathQuery(propertySingleValue.asResource(), value_pathL)
-								.forEach(value -> property_value.add(value));
-						
-						String guid = getGUID(propertyset);
-						String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-						if (guid != null) {						
-							if (property_name.size() > 0 && property_value.size() > 0) {
-								RDFNode pname = property_name.get(0);
-								RDFNode pvalue = property_value.get(0);
-								if (!pname.toString().equals(pvalue.toString())) {
-									PropertySet ps = this.propertysets.get(propertyset.getURI());
-									if (ps == null) {
-										if (!propertyset_name.isEmpty())
-											ps = new PropertySet(this.uriBase,lbd_property_output_model,
-													propertyset_name.get(0).toString(), props_level,hasPropertiesBlankNodes);
-										else
-											ps = new PropertySet(this.uriBase,lbd_property_output_model, "", 
-													props_level,hasPropertiesBlankNodes);
-										this.propertysets.put(propertyset.getURI(), ps);
-									}
-									if (pvalue.toString().trim().length() > 0) {
-										ps.put(pname.toString(), pvalue);
-										ps.putPropertyRef(pname);											
-									}
-								}
-							} else {
-								RDFNode pname = property_name.get(0);
+					RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasInteger()) };
+					pathQuery(propertySingleValue.asResource(), value_pathI)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasBoolean()) };
+					pathQuery(propertySingleValue.asResource(), value_pathB)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasLogical()) };
+					pathQuery(propertySingleValue.asResource(), value_pathL)
+							.forEach(value -> property_value.add(value));
+
+					String guid = getGUID(propertyset);
+					String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
+					if (guid != null) {
+						if (property_name.size() > 0 && property_value.size() > 0) {
+							RDFNode pname = property_name.get(0);
+							RDFNode pvalue = property_value.get(0);
+							if (!pname.toString().equals(pvalue.toString())) {
 								PropertySet ps = this.propertysets.get(propertyset.getURI());
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(this.uriBase,lbd_property_output_model, propertyset_name.get(0).toString(),
-												props_level,hasPropertiesBlankNodes);
+										ps = new PropertySet(this.uriBase, lbd_property_output_model,
+												propertyset_name.get(0).toString(), props_level,
+												hasPropertiesBlankNodes);
 									else
-										ps = new PropertySet(this.uriBase,lbd_property_output_model, "", props_level,hasPropertiesBlankNodes);
-
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, "", props_level,
+												hasPropertiesBlankNodes);
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
-								ps.put(pname.toString(), propertySingleValue);
-								ps.putPropertyRef(pname);
-								copyTriples(0, propertySingleValue, lbd_property_output_model);
+								if (pvalue.toString().trim().length() > 0) {
+									ps.put(pname.toString(), pvalue);
+								}
 							}
 						} else {
 							RDFNode pname = property_name.get(0);
@@ -258,19 +228,17 @@ public class IFCtoLBDConverter {
 							ps.put(pname.toString(), propertySingleValue);
 							copyTriples(0, propertySingleValue, lbd_property_output_model);
 						}
-					}			
-					);
-					
-				}
+					}
+				});
 			});
-			eventBus.post(new SystemStatusEvent("LBD properties read"));
+
+			eventBus.post(new SystemStatusEvent("LDB properties read"));
 		}
 
 		listSites().stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
 			String guid_site = getGUID(site);
 			String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
-			//TODO: PUT THEM BACK!! 
 			addAttrributes(lbd_property_output_model, site.asResource(), sio);
 
 			sio.addProperty(RDF.type, LBD_NS.BOT.site);
@@ -288,7 +256,6 @@ public class IFCtoLBDConverter {
 				Resource bo = createformattedURI(building, lbd_general_output_model, "Building");
 				String guid_building = getGUID(building);
 				String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
-				//TODO: PUT THEM BACK!! 
 				addAttrributes(lbd_property_output_model, building, bo);
 
 				bo.addProperty(RDF.type, LBD_NS.BOT.building);
@@ -310,7 +277,6 @@ public class IFCtoLBDConverter {
 					Resource so = createformattedURI(storey, lbd_general_output_model, "Storey");
 					String guid_storey = getGUID(storey);
 					String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
-					//TODO: PUT THEM BACK!! 
 					addAttrributes(lbd_property_output_model, storey, so);
 
 					bo.addProperty(LBD_NS.BOT.hasStorey, so);
@@ -334,7 +300,6 @@ public class IFCtoLBDConverter {
 						Resource spo = createformattedURI(space.asResource(), lbd_general_output_model, "Space");
 						String guid_space = getGUID(space.asResource());
 						String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
-						//TODO: PUT THEM BACK!! 
 						addAttrributes(lbd_property_output_model, space.asResource(), spo);
 
 						so.addProperty(LBD_NS.BOT.hasSpace, spo);
@@ -386,8 +351,7 @@ public class IFCtoLBDConverter {
 			try {
 				addGeolocation2BOT();
 			} catch (Exception e) {
-				e.printStackTrace();
-				eventBus.post(new SystemStatusEvent("Info : No geolocation"));
+				eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			}
 		}
 		writeModel(lbd_general_output_model, target_file);
@@ -403,7 +367,7 @@ public class IFCtoLBDConverter {
 			m.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 		} finally {
 			if (fo != null)
 				try {
@@ -454,7 +418,6 @@ public class IFCtoLBDConverter {
 				if (p_set != null)
 					p_set.connect(eo, uncompressed_guid);
 			});
-			//TODO: put them back!!! 
 			addAttrributes(this.lbd_property_output_model, ifc_element, eo);
 
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
@@ -492,10 +455,9 @@ public class IFCtoLBDConverter {
 			lbd_property_object.addProperty(RDF.type, lbd_product_type.get());
 			lbd_object.addProperty(RDF.type, LBD_NS.BOT.element);
 
-//			 addLabel(ifc_element, bot_object);
-//			 addDescription(ifc_element, bot_object);
-			//TODO: put them back!!! 
-			 addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
+			// addLabel(ifc_element, bot_object);
+			// addDescription(ifc_element, bot_object);
+			addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
 			listHosted_Elements(ifc_element).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if (lbd_object.getLocalName().toLowerCase().contains("space"))
@@ -535,11 +497,10 @@ public class IFCtoLBDConverter {
 					attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> {
 						if (attr_s.getObject().isLiteral()
 								&& attr_s.getObject().asLiteral().getLexicalForm().length() > 0)
-//							 bot_r.addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-//							 attr_s.getObject());
+							// bot_r.addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
+							// attr_s.getObject());
 							local.put(property_string, attr_s.getObject());
 					});
-
 				} else if (atype.get().getLocalName().equals("IfcIdentifier")) {
 					// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
 					// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
@@ -831,7 +792,6 @@ public class IFCtoLBDConverter {
 						new ArrayList<Resource>());
 				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
 				resource_list.add(product_BE_ontology_statement.getSubject());
-				System.out.println("added to resource_list : " + product_BE_ontology_statement.getSubject());
 			}
 		}
 		StmtIterator so = ontology_model.listStatements();
@@ -883,7 +843,7 @@ public class IFCtoLBDConverter {
 			}
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()+" line:"+e.getStackTrace()[0].getLineNumber()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			e.printStackTrace();
 
 		}
@@ -907,7 +867,6 @@ public class IFCtoLBDConverter {
 	 * } System.out.println("IFC-RDF conversion not done"); return
 	 * ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM); }
 	 */
-	
 
 	private void readInOntologies(String ifc_file) {
 		IfcVersion.initDefaultIfcNsMap();
@@ -923,13 +882,13 @@ public class IFCtoLBDConverter {
 			readInOntologyTTL(ontology_model, version.getLabel() + ".ttl");
 			readInOntologyTTL(ifcowl_model, version.getLabel() + ".ttl");
 		} catch (FileNotFoundException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			e.printStackTrace();
 		} catch (IOException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			e.printStackTrace();
 		} catch (IfcVersionException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			e.printStackTrace();
 		}
 
@@ -937,16 +896,7 @@ public class IFCtoLBDConverter {
 		readInOntologyTTL(ontology_model, "prod_building_elements.ttl");
 		readInOntologyTTL(ontology_model, "prod_furnishing.ttl");
 		readInOntologyTTL(ontology_model, "prod_mep.ttl");
-		// ontology_model.write(System.out, "TTL");		
-
-		readInOntologyTTL(ontology_model, "psetdef.ttl");
-		List<String> files = showFiles("pset", ".ttl");
-		for(String s : files){
-			s = s.substring(s.indexOf("pset"));
-			s = s.replaceAll("\\\\", "/");
-			readInOntologyTTL(ontology_model, s);		
-			System.out.println("read ontology file : " + s);
-		}		
+		// ontology_model.write(System.out, "TTL");
 	}
 
 	private void readInOntologyTTL(Model model, String ontology_file) {
@@ -958,7 +908,7 @@ public class IFCtoLBDConverter {
 				try {
 					in = IFCtoLBDConverter.class.getResourceAsStream("/resources/" + ontology_file);
 				} catch (Exception e) {
-					eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+					eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 					e.printStackTrace();
 					return;
 				}
@@ -967,7 +917,7 @@ public class IFCtoLBDConverter {
 			in.close();
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
 			System.out.println("missing file: " + ontology_file);
 			e.printStackTrace();
 		}
@@ -1016,91 +966,14 @@ public class IFCtoLBDConverter {
 		});
 
 		eventBus.post(new SystemStatusEvent("LDB geom read"));
-
 	}
-
 
 	public static void main(String[] args) {
 
 		if (args.length > 2) {
-			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false, true);	
-		} 
-		else if(args.length == 1){
-			//directory upload
-			final List<String> inputFiles;
-            final List<String> outputFiles;
-
-            inputFiles = showFiles(args[0]);
-            outputFiles = null;
-
-            for (int i = 0; i < inputFiles.size(); ++i) {
-                final String inputFile = inputFiles.get(i);
-                String outputFile;
-                if (inputFile.endsWith(".ifc")) {
-                    if (outputFiles == null) {
-                        outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
-                    } else {
-                        outputFile = outputFiles.get(i);
-                    }                                   
-
-                    outputFile = outputFile.replaceAll(args[0], args[0] + "\\___out\\");
-                    String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");
-                    
-                    //move file to output directory
-
-                    System.out.println("--------- converting: " + inputFile);
-                    new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false, true, false, false, false);	
-                    
-                    //move original file to output directory
-                    File afile =new File(inputFile);            		
-             	   	afile.renameTo(new File(copyFile));
-                    System.out.println("--------- done ");
-                }
-            }
-		}
-		else
+			new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false, true);
+		} else
 			System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
-	}
-	
 
-
-    public static List<String> showFiles(String dir) {
-        List<String> goodFiles = new ArrayList<String>();
-
-        File folder = new File(dir);
-        File[] listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile())
-                goodFiles.add(listOfFiles[i].getAbsolutePath());
-            else if (listOfFiles[i].isDirectory())
-                goodFiles.addAll(showFiles(listOfFiles[i].getAbsolutePath()));
-        }
-        return goodFiles;
-    }
-    
-    public static List<String> showFiles(String dir, String extension) {
-		List<String> goodFiles = new ArrayList<>();
-
-		try {
-			URI uri = IFCtoLBDConverter.class.getResource("/" + dir).toURI();
-			Path myPath;
-			myPath = Paths.get(uri);
-			Stream<Path> walk = Files.walk(myPath).filter(p -> p.toString().endsWith(extension))
-					.filter(p -> p.toString().contains("_")).distinct();
-
-			for (Iterator<Path> it = walk.iterator(); it.hasNext();) {
-				Path p = it.next();
-				if (p.toString().endsWith(extension)) {
-					goodFiles.add(p.toString());
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-
-		return goodFiles;
 	}
 }
