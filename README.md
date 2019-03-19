@@ -73,9 +73,9 @@ java -jar IFCtoLBD-Desktop_Java_8.jar
 - Open a command prompt as admin
 - Run the following commands:
 
-4.1. assoc .jar=jarfile
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assoc .jar=jarfile
 
-4.2. type jarfile="your java installation directory\bin\javaw.exe" -jar "%1" %*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type jarfile="your java installation directory\bin\javaw.exe" -jar "%1" %*
 
 where "your java installation directory" is the base directory where your runtime Java is installed.
 
