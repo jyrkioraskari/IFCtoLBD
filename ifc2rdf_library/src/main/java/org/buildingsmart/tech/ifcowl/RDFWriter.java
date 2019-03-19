@@ -35,6 +35,7 @@ import org.lbd.ifc2lbd.EventBusService;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import org.lbd.ns.Namespace;
 
+import com.buildingsmart.tech.ifcowl.ExpressReader;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
