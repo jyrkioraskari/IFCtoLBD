@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2rdf</artifactId>
-	<version>1.0.5</version>
+	<version>1.0.7</version>
 	<name>IFC to RDF converter library</name>
 
 
@@ -33,12 +33,19 @@
 			<scope>compile</scope>
 		</dependency>
 	
+		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/EXPRESStoOWL -->
+		<dependency>
+			<groupId>com.github.pipauwel</groupId>
+			<artifactId>EXPRESStoOWL</artifactId>
+			<version>0.2</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/ifcParserLib -->
 		<dependency>
 			<groupId>com.github.pipauwel</groupId>
 			<artifactId>ifcParserLib</artifactId>
 			<version>0.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>

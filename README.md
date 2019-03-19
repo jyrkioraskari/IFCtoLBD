@@ -1,7 +1,7 @@
 # IFCtoLBD
 Version 1.74
 
-Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Pieter Pauwels, and Anna Wagner
+Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
 
 This repository presents the results of our ongoing work to 
@@ -16,7 +16,7 @@ https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.
 The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this page at 
  [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true).
 
- The special Java 10 versio is available at:
+ The special Java 10 versio is available at (version 1.73!):
  [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_10.jar?raw=true).
 
  
@@ -68,4 +68,14 @@ IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some
 - Check that Java 8 is installed, open a command prompth
 at the directory where IFCtoLBD-Desktop_Java_8.jar is located. Run the following command:
 java -jar IFCtoLBD-Desktop_Java_8.jar
+
+4. In Windows, I cannot open the program by double clicking the file
+- Open a command prompt as admin
+- Run the following commands:
+
+assoc .jar=jarfile
+
+type jarfile="your java installation directory\bin\javaw.exe" -jar "%1" %*
+
+where "your java installation directory" is the base directory where your runtime Java is installed.
 

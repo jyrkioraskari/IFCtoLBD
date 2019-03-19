@@ -162,11 +162,9 @@ public class IFCtoLBDConverter {
 				RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
 				
 				if(pathQuery(propertyset, pname_path).get(0).isLiteral() && pathQuery(propertyset, pname_path).get(0).asLiteral().getString().startsWith("Pset")){
-					//System.out.println("included PSET : " + propertyset.asResource().getLocalName());	
 					String psetName = pathQuery(propertyset, pname_path).get(0).asLiteral().getString();
 					System.out.println("included PSET : " + pathQuery(propertyset, pname_path).get(0).asLiteral().getString());
 					
-//					RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
 					final List<RDFNode> propertyset_name = new ArrayList<>();
 					pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));	
 										
@@ -388,7 +386,8 @@ public class IFCtoLBDConverter {
 			try {
 				addGeolocation2BOT();
 			} catch (Exception e) {
-				eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+				e.printStackTrace();
+				eventBus.post(new SystemStatusEvent("Info : No geolocation"));
 			}
 		}
 		writeModel(lbd_general_output_model, target_file);
@@ -404,7 +403,7 @@ public class IFCtoLBDConverter {
 			m.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 		} finally {
 			if (fo != null)
 				try {
@@ -884,7 +883,7 @@ public class IFCtoLBDConverter {
 			}
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()+" line:"+e.getStackTrace()[0].getLineNumber()));
 			e.printStackTrace();
 
 		}
@@ -924,13 +923,13 @@ public class IFCtoLBDConverter {
 			readInOntologyTTL(ontology_model, version.getLabel() + ".ttl");
 			readInOntologyTTL(ifcowl_model, version.getLabel() + ".ttl");
 		} catch (FileNotFoundException e) {
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 			e.printStackTrace();
 		} catch (IOException e) {
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 			e.printStackTrace();
 		} catch (IfcVersionException e) {
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 			e.printStackTrace();
 		}
 
@@ -959,7 +958,7 @@ public class IFCtoLBDConverter {
 				try {
 					in = IFCtoLBDConverter.class.getResourceAsStream("/resources/" + ontology_file);
 				} catch (Exception e) {
-					eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+					eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 					e.printStackTrace();
 					return;
 				}
@@ -968,7 +967,7 @@ public class IFCtoLBDConverter {
 			in.close();
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent("Error: " + e.getMessage()));
+			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
 			System.out.println("missing file: " + ontology_file);
 			e.printStackTrace();
 		}
@@ -1048,18 +1047,7 @@ public class IFCtoLBDConverter {
                     String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");
                     
                     //move file to output directory
-//                    Path p = Paths.get(outputFile);
-//                    String fileNameTTL = p.getFileName().toString();
-//                    outputFile = args[0] + "\\___out\\" + fileNameTTL ;
 
-//                    Path p1 = Paths.get(inputFile);
-//                    String fileNameIFC = p1.getFileName().toString();                    
-//                    String copyFile = args[0] + "\\___done\\" + fileNameIFC ;
-                    
-                    
-                    
-//                  new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
-//        					this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes);
                     System.out.println("--------- converting: " + inputFile);
                     new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false, true, false, false, false);	
                     
