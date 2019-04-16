@@ -26,7 +26,7 @@ If converting large files, run.bat can be used. It is also faster since it allow
 
 If the program does not start, try the following command at the command line: "java -jar IFCtoLBD_Desktop_Java8-1.77.jar".
 
-![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop/src/main/resources/screen.PNG)
+![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
 
 ## Compiling the code
