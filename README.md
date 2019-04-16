@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.74
+Version 1.77
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -13,18 +13,18 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 It is recommended to use Java 8. It can be downloaded from:
 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
-The precompiled desktop application, IFCtoLBD-Desktop.jar, is available at this page at 
- [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true).
+The precompiled desktop application, IFCtoLBD_Desktop_Java8-1.77.jar, is available at this page at 
+ [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_Java8-1.77.jar?raw=true).
 
- The special Java 10 versio is available at (version 1.73!):
- [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_10.jar?raw=true).
+ The special Java 11 versio is available at:
+ [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_Java11-1.77.jar?raw=true).
 
  
 It is a runnable JAR-file. If the Java installation is fine, the file can be run by clicking it. 
 If converting large files, run.bat can be used. It is also faster since it allow the program to use more memory for the calculation.
 
 
-If the program does not start, try the following command at the command line: "java -jar IFCtoLBD-Desktop.jar".
+If the program does not start, try the following command at the command line: "java -jar IFCtoLBD_Desktop_Java8-1.77.jar".
 
 ![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop/src/main/resources/screen.PNG)
 
@@ -49,7 +49,7 @@ The created package will be at the target subdirectory.
 You can rename the ifc2lbd-1.08-jar-with-dependencies.jar file into name IFCtoRDF.jar
 
 An example command line usage of the program is:
-java -jar IFCtoRDF.jar Duplex_A.ifc http://uribase  out.ttl
+java -jar IFCtoLBD_Desktop_Java8-1.77.jar Duplex_A.ifc http://uribase  out.ttl
 
 ## License
 This project is released under the open source [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.en.html)

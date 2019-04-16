@@ -1,0 +1,125 @@
+# Copyright 2017 W3C Linked Building Data Community Group.
+# 
+# This work is licensed under a Creative Commons Attribution License. 
+# This copyright applies to the PRODUCT Vocabulary Specification and
+# accompanying documentation in RDF. Regarding underlying technology,
+# PRODUCT uses W3C's RDF technology, an open Web standard that can be freely 
+# used by anyone.
+
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:    <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix dcterms:<http://purl.org/dc/terms/> .
+@prefix vann:   <http://purl.org/vocab/vann/> .
+@prefix voaf:   <http://purl.org/vocommons/voaf#> .
+@prefix vs:     <http://www.w3.org/2003/06/sw-vocab-status/ns#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix dce:    <http://purl.org/dc/elements/1.1/> .
+@prefix dbo:    <http://dbpedia.org/ontology/> .
+@prefix dbr:    <http://dbpedia.org/resource/> .
+@prefix bot:    <https://w3id.org/bot#> .
+@prefix ifc:    <http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
+
+@prefix furn: <https://w3id.org/product/Furnishing#> .
+@base <https://w3id.org/product/Furnishing#> . 
+
+voaf:Vocabulary a owl:Class .
+dcterms:title a owl:AnnotationProperty .
+dcterms:description a owl:AnnotationProperty .
+dcterms:issued a owl:AnnotationProperty .
+dcterms:modified a owl:AnnotationProperty .
+dcterms:creator a owl:AnnotationProperty .
+dcterms:contributor a owl:AnnotationProperty .
+dcterms:license a owl:AnnotationProperty .
+vann:preferredNamespacePrefix a owl:AnnotationProperty .
+vann:preferredNamespaceUri a owl:AnnotationProperty .
+vs:term_status a owl:AnnotationProperty .
+foaf:Person a owl:Class .
+foaf:name a owl:DatatypeProperty .
+
+#################################
+# METADATA
+#################################
+furn:Furnishing a owl:Ontology , voaf:Vocabulary ;
+    dce:modified "November 27th 2017"^^xsd:string ;
+    owl:versionInfo "November 27th 2017"^^xsd:string ;
+    dcterms:issued "2017-11-27"^^xsd:date ;
+    #owl:versionIRI <https://w3id.org/product/product-0.1.0> ;
+    owl:versionInfo "v0.1.0" ;
+    #owl:priorVersion <https://w3id.org/product/product-0.1.0> ;
+    dcterms:title "PRODUCT Furnishing"@en ;
+    dcterms:description """The Furnishing ontology extends the PRODUCT ontology with specific furnishing products."""@en ;
+    dcterms:creator [a foaf:Person ; foaf:name "Mads Holten Rasmussen" ] ;
+    dcterms:creator [a foaf:Person ; foaf:name "Pieter Pauwels" ] ;
+    #dcterms:contributor [a foaf:Person ; foaf:name "" ] ;
+    dcterms:license <https://creativecommons.org/licenses/by/1.0/> ;
+    vann:preferredNamespacePrefix "product" ;
+    vann:preferredNamespaceUri <https://w3id.org/product#> ;
+    dce:Language "en" ;
+    dce:title "PRODUCT Furnishing" ;
+    dce:description """The Furnishing ontology extends the PRODUCT ontology with specific furnishing products."""@en ;
+    owl:imports <https://w3id.org/product#> .
+
+#################################
+# CLASSES
+#################################
+
+furn:Furniture a owl:Class ;
+    rdfs:label "Furniture"^^xsd:string ;
+    rdfs:seeAlso ifc:IfcFurnishingElement ;
+	rdfs:subClassOf <https://w3id.org/product#Product> .
+
+furn:Chair
+        a owl:Class ;
+        owl:equivalentClass dbr:Chair ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType ;
+        rdfs:label      "Chair"@en ,
+                        "Stol"@da .
+
+furn:Table
+        a owl:Class ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType ;
+        rdfs:label      "Table"@en ,
+                        "Bord"@da .
+
+furn:Desk
+        a owl:Class ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType ;
+        rdfs:label      "Desk"@en .
+
+furn:Sofa
+        a owl:Class ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType ;
+        rdfs:label      "Sofa"@en ,
+                        "Sofa"@da .
+						
+furn:Closet
+        a owl:Class ;
+        owl:equivalentClass dbr:Closet ;
+        rdfs:subClassOf furn:Furniture ;
+        rdfs:label      "Closet"@en ,
+                        "Skab"@da .
+
+furn:FileCabinet
+        a owl:Class ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType ;
+        rdfs:label      "FileCabinet"@en .
+						
+furn:Bed 
+		a owl:Class ;
+        owl:equivalentClass dbr:Bed ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:label "Bed"^^xsd:string ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType .
+						
+furn:Shelf 
+		a owl:Class ;
+        rdfs:subClassOf furn:Furniture ;
+		rdfs:label "Shelf"^^xsd:string ;
+		rdfs:seeAlso ifc:IfcFurnitureEnumType .
