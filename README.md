@@ -54,6 +54,21 @@ java -jar IFCtoLBD_Desktop_Java8-1.77.jar Duplex_A.ifc http://uribase  out.ttl
 ## License
 This project is released under the open source [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.en.html)
 
+## Cite this
+```
+@misc{jyrki_oraskari_2019_2645528,
+  author       = {Jyrki Oraskari and
+                  Kris McGlinn and
+                  Pieter Pauwels and
+                  Anna Wagner},
+  title        = {jyrkioraskari/IFCtoLBD 1.77},
+  month        = apr,
+  year         = 2019,
+  doi          = {10.5281/zenodo.2645528},
+  url          = {https://doi.org/10.5281/zenodo.2645528}
+}
+```
+
 ## Frequently asked questions
 
 1.  What does it mean when IFCtoLBD says Java heap space?
