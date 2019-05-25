@@ -58,6 +58,7 @@ This project is released under the open source [GNU Affero General Public Licens
 ```
 @misc{jyrki_oraskari_2019_2645528,
   author       = {Jyrki Oraskari and
+                  Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
                   Anna Wagner},
