@@ -20,7 +20,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 
 public class IfcOWLNameSpace extends abstract_NS {
-	//public static final String IFCOWL_Schema = "https://raw.githubusercontent.com/pipauwel/IFCtoRDF/master/src/main/resources/IFC2X3_TC1.rdf";	
 	public static final String EXPRESS = "https://w3id.org/express#";
 	public static final String SIMPLEBIM = "http://ifcowl.openbimstandards.org/SimpleBIM";
 

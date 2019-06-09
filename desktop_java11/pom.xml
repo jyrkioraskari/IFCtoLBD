@@ -3,20 +3,20 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
-	<artifactId>IFCtoLBD_Desktop_Java11</artifactId>
+	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
 	<version>1.77</version>
-	<name>IFCtoLBD Desktop Java 11</name>
+	<name>IFCtoLBD Desktop Java 12</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<properties>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>12</maven.compiler.source>
+		<maven.compiler.target>12</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.77</version>
+			<version>1.78</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->

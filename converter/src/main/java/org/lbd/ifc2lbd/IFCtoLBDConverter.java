@@ -1,12 +1,15 @@
 
 package org.lbd.ifc2lbd;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.security.CodeSource;
 import java.util.ArrayList;
@@ -49,15 +52,11 @@ import org.lbd.ifc2lbd.rdfpath.RDFStep;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
 
-import nl.tue.ddss.convert.Header;
-import nl.tue.ddss.convert.HeaderParser;
-import nl.tue.ddss.convert.IfcVersion;
-import nl.tue.ddss.convert.IfcVersionException;
 
 /*
 * The GNU Affero General Public License
 * 
-* Copyright (c) 2017, 2018 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+* Copyright (c) 2017, 2018, 2019 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
 * 
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU Affero General Public License as
@@ -72,6 +71,7 @@ import nl.tue.ddss.convert.IfcVersionException;
 * You should have received a copy of the GNU Affero General Public License
 * along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
 
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
@@ -564,6 +564,16 @@ public class IFCtoLBDConverter {
 		local.connect(bot_r, uncompressed_guid);
 	}
 
+	
+	/**
+	 * private Optional<Resource> getType(Resource r)
+	 * 
+	 * Gives the corresponding RDF ontology class type of the RDF node in the Apache Jena RDF model. 
+	 * 
+	 * @param r  An RDF recource in a Apache Jena RDF store.
+	 * @return The ontology class Resource node as an optional, that is, if exists. An empty return is given,
+	 * if the triples does not exists at the graph. 
+	 */
 	private Optional<Resource> getType(Resource r) {
 		RDFStep[] path = { new RDFStep(RDF.type) };
 		return pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
@@ -766,7 +776,6 @@ public class IFCtoLBDConverter {
 	}
 
 	private Resource getSuperClass(Resource r) {
-		System.out.println("type: " + r);
 		StmtIterator subclass_statement_iterator = r.listProperties(RDFS.subClassOf);
 		while (subclass_statement_iterator.hasNext()) {
 			Statement su = subclass_statement_iterator.next();
@@ -870,15 +879,32 @@ public class IFCtoLBDConverter {
 
 	}
 
+	
+	
+	
+	/**
+	 * 
+	 * public Model readAndConvertIFC(String ifc_file, String uriBase)
+	 * 
+	 * The method converts an IFC STEP formatted file and returns an Apache Jena RDF memory storage model 
+	 * that contains the generated RDF triples. 
+	 * 
+	 * Apache Jena:  https://jena.apache.org/index.html
+	 * 
+	 * The generated temporsary file is used to reduce the temporary memory need and make it possible to
+	 * convert larger models.
+	 * 
+	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
+	 * @param uriBase   the URL beginning for the elements in the ifcOWL TTL output
+	 * @return the Jena Model that contains the ifcOWL attribute value (Abox) output. 
+	 */
 	public Model readAndConvertIFC(String ifc_file, String uriBase) {
 		try {
 			IfcSpfReader rj = new IfcSpfReader();
 			File tempFile = File.createTempFile("ifc", ".ttl");
 			try {
 				Model m = ModelFactory.createDefaultModel();
-				// File tempFile = File.createTempFile("MyAppName-", ".tmp");
 				this.ontURI = rj.convert(ifc_file, tempFile.getAbsolutePath(), uriBase);
-				// m.read(stream, null, "TTL");
 				RDFDataMgr.read(m, tempFile.getAbsolutePath());
 				return m;
 			} catch (IOException e) {
@@ -897,46 +923,19 @@ public class IFCtoLBDConverter {
 		return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
 
-	/*
-	 * public Model readAndConvertIFC(String ifc_file, String uriBase) { try {
-	 * IfcSpfReader rj = new IfcSpfReader(); try { Model m =
-	 * ModelFactory.createDefaultModel(); ByteArrayOutputStream stringStream = new
-	 * ByteArrayOutputStream(); this.ontURI = rj.convert(ifc_file, stringStream,
-	 * uriBase); InputStream stream = new ByteArrayInputStream(
-	 * stringStream.toString().getBytes(StandardCharsets.UTF_8.name()));
-	 * m.read(stream, null, "TTL"); return m; } catch (IOException e) {
-	 * e.printStackTrace(); }
+
+
+	/**
+	 * private void readInOntologies(String ifc_file) 
 	 * 
-	 * } catch (Exception e) { eventBus.post(new SystemStatusEvent("Error: " +
-	 * e.getMessage())); e.printStackTrace();
+	 * This internal method reads in all the associated ontologies so that ontology inference can ne used during the
+	 * conversion.
 	 * 
-	 * } System.out.println("IFC-RDF conversion not done"); return
-	 * ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM); }
+	 * @param ifc_file
 	 */
-
 	private void readInOntologies(String ifc_file) {
-		IfcVersion.initDefaultIfcNsMap();
-		IfcVersion version = null;
-		FileInputStream input;
-		try {
-			input = new FileInputStream(new File(ifc_file));
-			Header header = HeaderParser.parseHeader(input);
-			Object ifcVersion;
-			version = IfcVersion.getIfcVersion(header);
-
-			// TODO Fix this: Double reading
-			readInOntologyTTL(ontology_model, version.getLabel() + ".ttl");
-			readInOntologyTTL(ifcowl_model, version.getLabel() + ".ttl");
-		} catch (FileNotFoundException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
-			e.printStackTrace();
-		} catch (IOException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
-			e.printStackTrace();
-		} catch (IfcVersionException e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
-			e.printStackTrace();
-		}
+		readIfcOWLOntology(ifc_file, ontology_model);
+		readIfcOWLOntology(ifc_file, ifcowl_model);
 
 		readInOntologyTTL(ontology_model, "prod.ttl");
 		readInOntologyTTL(ontology_model, "prod_building_elements.ttl");
@@ -953,7 +952,40 @@ public class IFCtoLBDConverter {
 			System.out.println("read ontology file : " + s);
 		}
 	}
+	
+	private void readIfcOWLOntology(String ifc_file, Model model)
+	{
+		String exp = getExpressSchema(ifc_file);
+		InputStream in = null;
+		try {
+			in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
 
+			if (in == null)
+				in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
+			model.read(in, null, "TTL");
+		} finally {
+			try {
+				in.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * private void readInOntologyTTL(Model model, String ontology_file)
+	 * 
+	 * Reads in a Turtle - Terse RDF Triple Language (TTL) formatted ontology file:
+	 * Turtle - Terse RDF Triple Language:  https://www.w3.org/TeamSubmission/turtle/
+	 * 
+	 * The extra lines make sure that the files are found if run under Eclipse IDE or as a
+	 * runnable Java Archive file (JAR). 
+	 * 
+	 * Eclipse: https://www.eclipse.org/
+	 * 
+	 * @param model  An Apache Jena model: RDF store run on memory. 
+	 * @param ontology_file An Apache Jena ontokigy model: RDF store run on memory containing an ontology engine. 
+	 */
 	private void readInOntologyTTL(Model model, String ontology_file) {
 
 		InputStream in = null;
@@ -980,6 +1012,49 @@ public class IFCtoLBDConverter {
 		}
 
 	}
+	
+	
+	
+	/**
+	 * private static String getExpressSchema(String ifcFile) 
+	 * 
+	 * This is a direct copy from the IFCtoRDF
+	 * https://github.com/pipauwel/IFCtoRDF
+	 * 
+	 * The idea is to make sure that we are using exactly the same ontology files that 
+	 * the IFCtoRDF is using for the associated Abox output.
+	 * 
+	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
+	 * @return the IFC Express chema of the IFC file. 
+	 */
+	private String getExpressSchema(String ifc_file) {
+        try {
+            FileInputStream fstream = new FileInputStream(ifc_file);
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            try {
+                String strLine;
+                while ((strLine = br.readLine()) != null) {
+                    if (strLine.length() > 0) {
+                        if (strLine.startsWith("FILE_SCHEMA")) {
+                            if (strLine.indexOf("IFC2X3") != -1)
+                                return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4") != -1)
+                                return "IFC4_ADD1";
+                            else
+                                return "";
+                        }
+                    }
+                }
+            } finally {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
 
 	private void addGeolocation2BOT() {
 
@@ -1068,22 +1143,7 @@ public class IFCtoLBDConverter {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		/*
-		 * try { URL uri = IFCtoLBDConverter.class.getResource("/" + dir).toURI();
-		 * System.out.println("read URI dir " + uri); Path myPath; try { myPath =
-		 * Paths.get(uri); } catch (Exception e) { System.out.println("No directory");
-		 * eventBus.post(new SystemStatusEvent("Error : no directory "+dir+" " +
-		 * e.getMessage())); return goodFiles; }
-		 * 
-		 * Stream<Path> walk = Files.walk(myPath).filter(p ->
-		 * p.toString().endsWith(extension)) .filter(p ->
-		 * p.toString().contains("_")).distinct();
-		 * 
-		 * for (Iterator<Path> it = walk.iterator(); it.hasNext();) { Path p =
-		 * it.next(); if (p.toString().endsWith(extension)) {
-		 * goodFiles.add(p.toString()); } } } catch (IOException e) {
-		 * e.printStackTrace(); } catch (URISyntaxException e) { e.printStackTrace(); }
-		 */
+		
 		return goodFiles;
 	}
 

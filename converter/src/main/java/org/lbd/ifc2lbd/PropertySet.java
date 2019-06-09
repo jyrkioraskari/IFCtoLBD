@@ -21,6 +21,13 @@ import org.apache.jena.vocabulary.RDFS;
 import org.lbd.ifc2lbd.ns.LBD_NS;
 import org.lbd.ifc2lbd.ns.OPM;
 
+/**
+ * @author Jyrki Oraskari
+ * public class PropertySet
+ * 
+ * A class where IFC PropertySet is collected from the IFC file
+ *
+ */
 public class PropertySet {
 
 	private class PsetProperty {
