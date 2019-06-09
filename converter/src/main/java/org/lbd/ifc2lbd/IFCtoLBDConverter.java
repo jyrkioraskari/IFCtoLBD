@@ -76,7 +76,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
-	public static Model ontology_model = null;
+	private  Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	private final String uriBase;
 
@@ -95,6 +95,18 @@ public class IFCtoLBDConverter {
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
 
+	/**
+	 * @param ifc_filename
+	 * @param uriBase
+	 * @param target_file
+	 * @param props_level
+	 * @param hasBuildingElements
+	 * @param hasSeparateBuildingElementsModel
+	 * @param hasBuildingProperties
+	 * @param hasSeparatePropertiesModel
+	 * @param hasPropertiesBlankNodes
+	 * @param hasGeolocation
+	 */
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
@@ -114,7 +126,7 @@ public class IFCtoLBDConverter {
 		eventBus.post(new SystemStatusEvent("Reading in ontologies"));
 
 		readInOntologies(ifc_filename);
-		createIfcBOTMapping();
+		createIfcLBDProductMapping();
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
@@ -215,11 +227,11 @@ public class IFCtoLBDConverter {
 									PropertySet ps = this.propertysets.get(propertyset.getURI());
 									if (ps == null) {
 										if (!propertyset_name.isEmpty())
-											ps = new PropertySet(this.uriBase, lbd_property_output_model,
+											ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
 													propertyset_name.get(0).toString(), props_level,
 													hasPropertiesBlankNodes);
 										else
-											ps = new PropertySet(this.uriBase, lbd_property_output_model, "",
+											ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,  "",
 													props_level, hasPropertiesBlankNodes);
 										this.propertysets.put(propertyset.getURI(), ps);
 									}
@@ -233,11 +245,11 @@ public class IFCtoLBDConverter {
 								PropertySet ps = this.propertysets.get(propertyset.getURI());
 								if (ps == null) {
 									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(this.uriBase, lbd_property_output_model,
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
 												propertyset_name.get(0).toString(), props_level,
 												hasPropertiesBlankNodes);
 									else
-										ps = new PropertySet(this.uriBase, lbd_property_output_model, "", props_level,
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
 												hasPropertiesBlankNodes);
 
 									this.propertysets.put(propertyset.getURI(), ps);
@@ -251,10 +263,10 @@ public class IFCtoLBDConverter {
 							PropertySet ps = this.propertysets.get(propertyset.getURI());
 							if (ps == null) {
 								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(this.uriBase, lbd_property_output_model,
+									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
 											propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
 								else
-									ps = new PropertySet(this.uriBase, lbd_property_output_model, "", props_level,
+									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
 											hasPropertiesBlankNodes);
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
@@ -565,9 +577,8 @@ public class IFCtoLBDConverter {
 	}
 
 	
-	/**
-	 * private Optional<Resource> getType(Resource r)
-	 * 
+	/*
+	 *  
 	 * Gives the corresponding RDF ontology class type of the RDF node in the Apache Jena RDF model. 
 	 * 
 	 * @param r  An RDF recource in a Apache Jena RDF store.
@@ -751,7 +762,17 @@ public class IFCtoLBDConverter {
 
 		return ret;
 	}
-
+	
+	
+	/**
+	 * Returns list of all RDF nodes that match the RDF graoh pattern:
+	 * 
+	 * INVERSE(relatingObject_IfcRelDecomposes)->
+	 *    relatedObjects_IfcRelDecomposes
+	 *  
+	 * @param element  the starting RDF node
+	 * @return		   The list of the matching elements
+	 */
 	private List<RDFNode> listAggregated_Elements(Resource element) {
 		List<RDFNode> ret;
 
@@ -761,6 +782,12 @@ public class IFCtoLBDConverter {
 		return ret;
 	}
 
+	/**
+	 * Returns list of all RDF nodes that are of subclasses of IfcBuildingElement
+	 *  on the RDF graph.
+	 *  
+	 * @return list of the elements
+	 */
 	private List<Resource> listBuildingElements() {
 		final List<Resource> ret = new ArrayList<>();
 		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDF.type)).filterKeep(t2 -> {
@@ -775,6 +802,13 @@ public class IFCtoLBDConverter {
 		return ret;
 	}
 
+	
+	/**
+	 *  Returns a super class of the RDF resource, if any
+	 *  
+	 * @param r  The Apache Jena node resource
+	 * @return   The RDF redource node of the super class, null if none found.
+	 */
 	private Resource getSuperClass(Resource r) {
 		StmtIterator subclass_statement_iterator = r.listProperties(RDFS.subClassOf);
 		while (subclass_statement_iterator.hasNext()) {
@@ -786,6 +820,14 @@ public class IFCtoLBDConverter {
 		return null;
 	}
 
+	
+	/**
+	 * Returns list of all RDF nodes that have an matching element type returned by
+	 * getLBDProductType(String ifcType)  
+	 *  
+	 *  on the RDF graph.
+	 * @return the list of the matching nodes
+	 */
 	private List<Resource> listElements() {
 		final List<Resource> ret = new ArrayList<>();
 		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDF.type)).filterKeep(t2 -> {
@@ -796,17 +838,44 @@ public class IFCtoLBDConverter {
 		return ret;
 	}
 
+	/**
+	 * Returns list of all RDF nodes that match the RDF graoh pattern:
+	 * 
+     *
+	 * INVERSE (RelatedObjects_IfcRelDefines) ->
+	 *   RelatingPropertyDefinition_IfcRelDefinesByProperties
+	 *  
+	 *  on the RDF graph.
+	 *  
+	 * @param resource the starting RDF node 
+	 * @return the list of the matching RDF nodes.
+	 */
 	private List<RDFNode> listPropertysets(Resource resource) {
 		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 				new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
 		return pathQuery(resource, path);
 	}
 
+	
+	
+	/**
+	 * Returns list of all RDF nodes that are of type 
+	 * ifcOWL Ontology base URI + IfcPropertySet on the RDF graph.
+	 * @return the list of the matching RDF nodes.
+	 */
 	private List<RDFNode> listPropertysets() {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return pathQuery(ifcowl_model.getResource(ifcOWL.getIfcPropertySet()), path);
 	}
 
+	
+	/**
+	 * A helper method to find a list of nodes that match a given RDF path pattern
+	 * 
+	 * @param r      the starting point 
+	 * @param path   the path pattern
+	 * @return       the list of found noded at the RDF graoh
+	 */
 	private List<RDFNode> pathQuery(Resource r, RDFStep[] path) {
 		List<RDFStep> path_list = Arrays.asList(path);
 		if (r.getModel() == null)
@@ -827,7 +896,14 @@ public class IFCtoLBDConverter {
 		return new ArrayList<RDFNode>();
 	}
 
-	public void createIfcBOTMapping() {
+	/**
+	 *  Fills in the ifcowl_product_map map using the seealso ontology statemets at the 
+	 *  Apache Jena RDF ontology model on the memory.
+	 *  
+	 *  Uses also RDFS.subClassOf so that subclasses are included.
+	 *  
+	 */
+	public void createIfcLBDProductMapping() {
 		StmtIterator si = ontology_model.listStatements();
 		while (si.hasNext()) {
 			Statement product_BE_ontology_statement = si.next();
@@ -884,8 +960,6 @@ public class IFCtoLBDConverter {
 	
 	/**
 	 * 
-	 * public Model readAndConvertIFC(String ifc_file, String uriBase)
-	 * 
 	 * The method converts an IFC STEP formatted file and returns an Apache Jena RDF memory storage model 
 	 * that contains the generated RDF triples. 
 	 * 
@@ -926,12 +1000,10 @@ public class IFCtoLBDConverter {
 
 
 	/**
-	 * private void readInOntologies(String ifc_file) 
-	 * 
 	 * This internal method reads in all the associated ontologies so that ontology inference can ne used during the
 	 * conversion.
 	 * 
-	 * @param ifc_file
+	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
 	 */
 	private void readInOntologies(String ifc_file) {
 		readIfcOWLOntology(ifc_file, ontology_model);
@@ -941,10 +1013,9 @@ public class IFCtoLBDConverter {
 		readInOntologyTTL(ontology_model, "prod_building_elements.ttl");
 		readInOntologyTTL(ontology_model, "prod_furnishing.ttl");
 		readInOntologyTTL(ontology_model, "prod_mep.ttl");
-		// ontology_model.write(System.out, "TTL");
 
 		readInOntologyTTL(ontology_model, "psetdef.ttl");
-		List<String> files = listFiles("pset", ".ttl");
+		List<String> files = getListofFiles("pset", ".ttl");
 		for (String s : files) {
 			s = s.substring(s.indexOf("pset"));
 			s = s.replaceAll("\\\\", "/");
@@ -973,7 +1044,6 @@ public class IFCtoLBDConverter {
 	}
 
 	/**
-	 * private void readInOntologyTTL(Model model, String ontology_file)
 	 * 
 	 * Reads in a Turtle - Terse RDF Triple Language (TTL) formatted ontology file:
 	 * Turtle - Terse RDF Triple Language:  https://www.w3.org/TeamSubmission/turtle/
@@ -1016,7 +1086,6 @@ public class IFCtoLBDConverter {
 	
 	
 	/**
-	 * private static String getExpressSchema(String ifcFile) 
 	 * 
 	 * This is a direct copy from the IFCtoRDF
 	 * https://github.com/pipauwel/IFCtoRDF
@@ -1056,6 +1125,11 @@ public class IFCtoLBDConverter {
     }
 
 
+	/**
+	 *  
+	 *  Adds Geolocation  triples to the RDF model.
+	 *  Ontology: http://www.opengis.net
+	 */
 	private void addGeolocation2BOT() {
 
 		IFC_Geolocation c = new IFC_Geolocation();
@@ -1101,22 +1175,19 @@ public class IFCtoLBDConverter {
 
 	}
 
-	public static List<String> listFiles(String dir) {
-		List<String> goodFiles = new ArrayList<String>();
+	
 
-		File folder = new File(dir);
-		File[] listOfFiles = folder.listFiles();
-
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile())
-				goodFiles.add(listOfFiles[i].getAbsolutePath());
-			else if (listOfFiles[i].isDirectory())
-				goodFiles.addAll(listFiles(listOfFiles[i].getAbsolutePath()));
-		}
-		return goodFiles;
-	}
-
-	public static List<String> listFiles(String dir, String extension) {
+	/**
+	 * Returns a list of  all matching files at the source code base. The code base can be the application JAR
+	 * file of the converter program. 
+	 * 
+	 * Use: Lists ontology files. 
+	 * 
+	 * @param dir    the selected subdirectory at the code JAR
+	 * @param extension the searched file extension
+	 * @return List of files found
+	 */
+	public static List<String> getListofFiles(String dir, String extension) {
 		List<String> goodFiles = new ArrayList<>();
 		System.out.println("read files /" + dir);
 
@@ -1147,6 +1218,28 @@ public class IFCtoLBDConverter {
 		return goodFiles;
 	}
 
+	
+	/**
+	 * 
+	 * Retuns a list of all files at the directory and in the subdirectories
+	 * 
+	 * @param dir The selected directory
+	 * @@return List of files found
+	 */
+	public static List<String> listFiles(String dir) {
+		List<String> goodFiles = new ArrayList<String>();
+
+		File folder = new File(dir);
+		File[] listOfFiles = folder.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile())
+				goodFiles.add(listOfFiles[i].getAbsolutePath());
+			else if (listOfFiles[i].isDirectory())
+				goodFiles.addAll(listFiles(listOfFiles[i].getAbsolutePath()));
+		}
+		return goodFiles;
+	}
 	public static void main(String[] args) {
 
 		if (args.length > 2) {

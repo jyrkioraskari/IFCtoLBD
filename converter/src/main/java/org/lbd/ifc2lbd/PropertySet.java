@@ -57,7 +57,7 @@ public class PropertySet {
 	private Resource psetDef = null;
 	
 
-	public PropertySet(String uriBase, Model model, String name, int props_level,
+	public PropertySet(String uriBase, Model model, Model ontology_model,String name, int props_level,
 			boolean hasBlank_nodes) {
 		this.uriBase = uriBase;
 		this.model = model;
@@ -66,7 +66,7 @@ public class PropertySet {
 //			this.name = name.split("_")[1];
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
-		StmtIterator iter = IFCtoLBDConverter.ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.name);
+		StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.name);
 		if(iter.hasNext()) {
 			is_bSDD_pset=true;
 			this.pset=model.createResource();
@@ -75,7 +75,7 @@ public class PropertySet {
 	}
 
 	String attributegroup_uncompressed_guid;
-	public PropertySet(String uriBase, Model model, String name, int props_level,
+	public PropertySet(String uriBase, Model model,String name, int props_level,
 			boolean hasBlank_nodes, boolean is_attribute,String uncompressed_guid ) {
 		this.uriBase = uriBase;
 		this.model = model;
@@ -262,7 +262,7 @@ public class PropertySet {
 	}
 
 	public static void main(String[] args) {
-		PropertySet pset = new PropertySet(null, null, null, 1, false);
+		PropertySet pset = new PropertySet(null, null, null, null, 1, false);
 		System.out.println(pset.toCamelCase("yksi kaksi"));
 	}
 }
