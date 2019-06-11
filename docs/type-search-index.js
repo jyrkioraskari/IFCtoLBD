@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.lbd.ifc2lbd","l":"IFCtoLBDConverter"}]
