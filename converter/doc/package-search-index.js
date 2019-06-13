@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.lbd.ifc2lbd"},{"l":"org.lbd.ifc2lbd.utils"},{"l":"org.lbd.ifc2lbd.utils.rdfpath"}]
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"org.lbd.ifc2lbd"}]

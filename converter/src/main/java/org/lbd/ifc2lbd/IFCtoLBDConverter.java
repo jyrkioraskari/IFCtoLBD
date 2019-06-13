@@ -62,6 +62,9 @@ import com.openifctools.guidcompressor.GuidCompressor;
 */
 
 
+/**
+ *  <img src="https://jyrkioraskari.github.io/IFCtoLBD/doc-graphs/Overview.PNG">
+ */
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
