@@ -53,9 +53,9 @@ public class IfcOWLUtils {
 		return null;
 	}
 
-	// by Simon Steyskal 2018
+	// Solution proposed by Simon Steyskal 2018
 	private static RDFStep[] getNextLevelPath(IfcOWLNameSpace ifcOWL){
-		if (ifcOWL.getIfcURI().indexOf("IFC2X3") != -1){
+		if (ifcOWL.getIfcURI().indexOf("IFC2x3") != -1){
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
 			return path;
@@ -295,7 +295,18 @@ public class IfcOWLUtils {
 		return null;
 	}
 
-	
+	// Solution proposed by Simon Steyskal 2018
+	private static RDFStep[] getPropertySetPath(IfcOWLNameSpace ifcOWL){
+		if (ifcOWL.getIfcURI().indexOf("IFC2x3") != -1){
+			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
+					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
+			return path;
+		} else {
+			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
+					new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
+			return path;
+		}	
+	}
 	
 
 	/**
@@ -311,9 +322,7 @@ public class IfcOWLUtils {
 	 * @return the list of the matching RDF nodes.
 	 */
 	public static  List<RDFNode> listPropertysets(Resource resource,IfcOWLNameSpace ifcOWL) {
-		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
-				new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
-		return RDFUtils.pathQuery(resource, path);
+		return RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL));
 	}
 
 	
