@@ -145,6 +145,18 @@ public class IfcOWLUtils {
 		ret.addAll(RDFUtils.pathQuery(storey, path2));
 		return ret;
 	}
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Spaces – elements (bot:containsElement)</b>
+	 * (inst:IfcFurnishingElement_xx)&lt;-[ifcowl:relatedElements_IfcRelContainedInSpatialStructure]-(inst:IfcRelContainedInSpatialStructure_xx)-[ifcowl:relatingStructure_IfcRelContainedInSpatialStructure]-&gt;(inst:IfcSpace_xx)
+	 * 
+	 * </font>
+	 * @param space     Apache Jena Resource RDF node that refers to an  ifcOWL space element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all containded elements under the space
+	 */
 
 	public static  List<RDFNode> listContained_SpaceElements(Resource space,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
@@ -155,6 +167,18 @@ public class IfcOWLUtils {
 		return ret;
 	}
 
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Spaces – elements (bot:adjacentElement)</b>
+	 * (inst:IfcDoor_xx)&lt;-[ifcowl:relatedBuildingElement_IfcRelSpaceBoundary]-(inst:IfcRelSpaceBoundary_xx)-[ifcowl:relatingSpace_IfcRelSpaceBoundary]-&gt;(inst:IfcSpace_xx)
+	 * 
+	 * </font>
+	 * @param space     Apache Jena Resource RDF node that refers to an ifcOWL space 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all containded elements under the space
+	 */
 	public static  List<RDFNode> listAdjacent_SpaceElements(Resource space,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
 
