@@ -1,5 +1,11 @@
 package org.lbd.ifc2lbd.utils;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,6 +17,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.buildingsmart.tech.ifcowl.IfcSpfReader;
 import org.lbd.ifc2lbd.ns.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.utils.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
@@ -46,6 +53,19 @@ public class IfcOWLUtils {
 		return null;
 	}
 
+	// by Simon Steyskal 2018
+	private static RDFStep[] getNextLevelPath(IfcOWLNameSpace ifcOWL){
+		if (ifcOWL.getIfcURI().indexOf("IFC2X3") != -1){
+			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
+					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
+			return path;
+		} else {
+			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
+					new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
+			return path;
+		}
+	}
+	
 	public static List<RDFNode> listSites(IfcOWLNameSpace ifcOWL,Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSite()), path);
@@ -63,9 +83,7 @@ public class IfcOWLUtils {
 	 * @return The list of all #IfcBuilding ifcOWL elements under the site element
 	 */
 	public static  List<RDFNode> listBuildings(Resource site, IfcOWLNameSpace ifcOWL) {
-		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
-				new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
-		return RDFUtils.pathQuery(site, path);
+		return RDFUtils.pathQuery(site, getNextLevelPath(ifcOWL));
 	}
 	
 	/**
@@ -80,9 +98,7 @@ public class IfcOWLUtils {
 	 */
 
 	public static  List<RDFNode> listStoreys(Resource building, IfcOWLNameSpace ifcOWL) {
-		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
-				new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
-		return RDFUtils.pathQuery(building, path);
+		return RDFUtils.pathQuery(building, getNextLevelPath(ifcOWL));
 	}
 
 	
@@ -104,9 +120,7 @@ public class IfcOWLUtils {
 	public static  List<RDFNode> listStoreySpaces(Resource storey,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
 
-		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
-				new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
-		ret = RDFUtils.pathQuery(storey, path1);
+		ret= RDFUtils.pathQuery(storey, getNextLevelPath(ifcOWL));
 		RDFStep[] path2 = { new RDFStep(ifcOWL.getProperty("objectPlacement_IfcProduct")),
 				new InvRDFStep(ifcOWL.getProperty("placementRelTo_IfcLocalPlacement")),
 				new InvRDFStep(ifcOWL.getProperty("objectPlacement_IfcProduct")) };
@@ -327,6 +341,69 @@ public class IfcOWLUtils {
 			return Optional.empty();
 		return Optional.of(sb.toString());
 	}
+
+	/**
+	 * Reads in a Turtle formatted ontology file into a Jena RDF store
+	 * 
+	 * @param ifc_file The absolute path of the Turtle formatted ontology file
+	 * @param model Am Apache Jene model where the ontology triples are added.
+	 */
+	public static void readIfcOWLOntology(String ifc_file, Model model)
+	{
+		String exp = IfcOWLUtils.getExpressSchema(ifc_file);
+		InputStream in = null;
+		try {
+			in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
+
+			if (in == null)
+				in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
+			model.read(in, null, "TTL");
+		} finally {
+			try {
+				in.close();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+	/**
+	 * 
+	 * This is a direct copy from the IFCtoRDF
+	 * https://github.com/pipauwel/IFCtoRDF
+	 * 
+	 * The idea is to make sure that we are using exactly the same ontology files that 
+	 * the IFCtoRDF is using for the associated Abox output.
+	 * 
+	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
+	 * @return the IFC Express chema of the IFC file. 
+	 */
+	public static String getExpressSchema(String ifc_file) {
+        try {
+            FileInputStream fstream = new FileInputStream(ifc_file);
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            try {
+                String strLine;
+                while ((strLine = br.readLine()) != null) {
+                    if (strLine.length() > 0) {
+                        if (strLine.startsWith("FILE_SCHEMA")) {
+                            if (strLine.indexOf("IFC2X3") != -1)
+                                return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4") != -1)
+                                return "IFC4_ADD1";
+                            else
+                                return "";
+                        }
+                    }
+                }
+            } finally {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
 
 }

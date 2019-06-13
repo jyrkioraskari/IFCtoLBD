@@ -784,6 +784,7 @@ public class IFCtoLBDConverter {
 		return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
 
+	
 
 
 	/**
@@ -793,8 +794,8 @@ public class IFCtoLBDConverter {
 	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
 	 */
 	private void readInOntologies(String ifc_file) {
-		RDFUtils.readIfcOWLOntology(ifc_file, ontology_model);
-		RDFUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
+		IfcOWLUtils.readIfcOWLOntology(ifc_file, ontology_model);
+		IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
 
 		RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl",this.eventBus);
 		RDFUtils.readInOntologyTTL(ontology_model, "prod_building_elements.ttl",this.eventBus);

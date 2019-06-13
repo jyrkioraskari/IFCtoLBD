@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
 	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
-	<version>1.77</version>
+	<version>1.80</version>
 	<name>IFCtoLBD Desktop Java 12</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<properties>

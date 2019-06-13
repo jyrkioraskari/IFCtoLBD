@@ -79,6 +79,14 @@ public class IfcOWLNameSpace extends abstract_NS {
 		IfcPropertySet = ifcURI + "#IfcPropertySet";
 	}
 	
+	
+	
+	public String getIfcURI() {
+		return ifcURI;
+	}
+
+
+
 	public Property getProperty(String name)
 	{
 		return property(ifcURI, "#"+name);

@@ -81,30 +81,7 @@ public class RDFUtils {
 		}
 	}
 	
-	/**
-	 * Reads in a Turtle formatted ontology file into a Jena RDF store
-	 * 
-	 * @param ifc_file The absolute path of the Turtle formatted ontology file
-	 * @param model Am Apache Jene model where the ontology triples are added.
-	 */
-	public static void readIfcOWLOntology(String ifc_file, Model model)
-	{
-		String exp = RDFUtils.getExpressSchema(ifc_file);
-		InputStream in = null;
-		try {
-			in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-
-			if (in == null)
-				in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
-			model.read(in, null, "TTL");
-		} finally {
-			try {
-				in.close();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
+	
 	
 	/**
 	 * 
@@ -148,44 +125,6 @@ public class RDFUtils {
 		}
 
 	}
-	/**
-	 * 
-	 * This is a direct copy from the IFCtoRDF
-	 * https://github.com/pipauwel/IFCtoRDF
-	 * 
-	 * The idea is to make sure that we are using exactly the same ontology files that 
-	 * the IFCtoRDF is using for the associated Abox output.
-	 * 
-	 * @param ifc_file  the absolute path (For example:  c:\ifcfiles\ifc_file.ifc) for the IFC file 
-	 * @return the IFC Express chema of the IFC file. 
-	 */
-	public static String getExpressSchema(String ifc_file) {
-        try {
-            FileInputStream fstream = new FileInputStream(ifc_file);
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
-                String strLine;
-                while ((strLine = br.readLine()) != null) {
-                    if (strLine.length() > 0) {
-                        if (strLine.startsWith("FILE_SCHEMA")) {
-                            if (strLine.indexOf("IFC2X3") != -1)
-                                return "IFC2X3_TC1";
-                            if (strLine.indexOf("IFC4") != -1)
-                                return "IFC4_ADD1";
-                            else
-                                return "";
-                        }
-                    }
-                }
-            } finally {
-                br.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
 
 
 	/**
