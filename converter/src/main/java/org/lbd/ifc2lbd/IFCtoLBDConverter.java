@@ -634,9 +634,8 @@ public class IFCtoLBDConverter {
 	 *  Apache Jena RDF ontology model on the memory.
 	 *  
 	 *  Uses also RDFS.subClassOf so that subclasses are included.
-	 *  
 	 */
-	public void createIfcLBDProductMapping() {
+	private void createIfcLBDProductMapping() {
 		StmtIterator si = ontology_model.listStatements();
 		while (si.hasNext()) {
 			Statement product_BE_ontology_statement = si.next();

@@ -51,11 +51,33 @@ public class IfcOWLUtils {
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSite()), path);
 	}
 
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Site – building (bot:hasBuilding)</b>
+     * (inst:IfcBuilding_xx)<-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObject_IfcRelDecomposes]->(inst:IfcSite_xx)
+	 * </font>
+	 * @param site     Apache Jena Resource RDF node that refers to an #IfcSite ifcOWL element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all #IfcBuilding ifcOWL elements under the site element
+	 */
 	public static  List<RDFNode> listBuildings(Resource site, IfcOWLNameSpace ifcOWL) {
 		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 				new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
 		return RDFUtils.pathQuery(site, path);
 	}
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Building – storeys (bot:hasStorey)</b>
+	 * (inst:IfcBuildingStorey_xx)<-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObjects_IfcRelDecomposes]->(inst:IfcBuilding_xx)
+	 * </font>
+	 * @param building     Apache Jena Resource RDF node that refers to an #IfcBuilding ifcOWL element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all #IfcBuildingStorey ifcOWL elements under the building element
+	 */
 
 	public static  List<RDFNode> listStoreys(Resource building, IfcOWLNameSpace ifcOWL) {
 		RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
@@ -63,6 +85,22 @@ public class IfcOWLUtils {
 		return RDFUtils.pathQuery(building, path);
 	}
 
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Storeys – spaces (bot:hasSpace)</b>
+	 * (inst:IfcSpace_xx)<-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObjects_IfcRelDecomposes]->(inst:IfcBuildingStorey_xx)
+	 * <P>
+	 * <b>OR</b>
+	 * <P>
+	 * (inst:IfcSpace_xx)-[ifcowl:objectPlacement_IfcProduct]->(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]->(inst:IfcLocalPlacement_yy)<-[ifcowl: objectPlacement_IfcProduct]-(inst:IfcBuildingStorey_xx)
+	 * 
+	 * </font>
+	 * @param storey     Apache Jena Resource RDF node that refers to an #IfcBuildingStorey ifcOWL element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all corresponding space ifcOWL elements under the storey element
+	 */
 	public static  List<RDFNode> listStoreySpaces(Resource storey,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
 
@@ -76,6 +114,21 @@ public class IfcOWLUtils {
 
 		return ret;
 	}
+	
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Storeys – elements (bot:containsElement)</b>
+	 * (inst:IfcDoor_xx)<-[ifcowl:relatedElements_IfcRelContainedInSpatialStructure]-(inst:IfcRelContainedInSpatialStructure_xx)-[ifcowl:relatingStructure_IfcRelContainedInSpatialStructure]->(inst:IfcBuildingStorey_xx)
+	 * <P>
+	 * <b>OR</b>
+	 * <P>
+	 * (inst:IfcDoor_xx)-[ifcowl:objectPlacement_IfcProduct]->(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]->(inst:IfcLocalPlacement_yy)<-[ifcowl: objectPlacement_IfcProduct]-(inst:IfcBuildingStorey_xx)
+	 * </font>
+	 * @param storey     Apache Jena Resource RDF node that refers to an #IfcBuildingStorey ifcOWL element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all containded elements under the storey element
+	 */
 
 	public static  List<RDFNode> listContained_StoreyElements(Resource storey,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
@@ -108,6 +161,20 @@ public class IfcOWLUtils {
 		return ret;
 	}
 
+	/**
+	 * 
+	 * <font color="green">
+	 * <b>Element – element (bot:hostsElement)</b>
+	 * (inst:IfcDoor_xx)<-[ifcowl:relatedBuildingElement_IfcRelFillsElement]-(inst:IfcRelFillsElement_xx)-[ifcowl:relatingOpeningElement_IfcRelFillsElement]->(inst:IfcOpeningElement_xx)<-[ifcowl:relatedOpeningElement_IfcRelVoidsElement]-(inst:IfcRelVoidsElement_xx)-[ifcowl:relatingBuildingElement_IfcRelVoidsElement]->(inst:IfcWallStandardCase_xx)
+	 * <P>
+	 * <b>OR</b>
+	 * <P>
+	 * (inst:IfcDoor_xx)-[ifcowl:objectPlacement_IfcProduct]->(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]->(inst:IfcLocalPlacement_yy)<-[ifcowl:objectPlacement_IfcProduct]-(inst:IfcOpeningElement_xx)<-[ifcowl:relatedOpeningElement_IfcRelVoidsElement]-(inst:IfcRelVoidsElement_xx)-[ifcowl:relatingBuildingElement_IfcRelVoidsElement]->(inst:IfcWallStandardCase_xx)
+	 * </font>
+	 * @param element     Apache Jena Resource RDF node that refers to an ifcOWL element 
+	 * @param ifcOWL   The ifcOWL namespace element. 
+	 * @return The list of all hosted elements under the element
+	 */
 	public static  List<RDFNode> listHosted_Elements(Resource element,IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
 
