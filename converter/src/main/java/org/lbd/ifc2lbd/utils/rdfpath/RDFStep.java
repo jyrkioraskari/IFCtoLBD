@@ -27,7 +27,6 @@ import org.apache.jena.rdf.model.Resource;
 */
 
 /**
- * @author Jyrki Oraskari 
  * An RDF step in a conceptual RDF path:
  * https://www.w3.org/wiki/RdfPath
  *

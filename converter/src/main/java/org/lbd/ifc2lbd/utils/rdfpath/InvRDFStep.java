@@ -28,9 +28,11 @@ import org.apache.jena.rdf.model.SimpleSelector;
 */
 
 /**
- * @author Jyrki Oraskari 
+ * 
  * An inverse relation RDF step in a conceptual RDF path:
  * https://www.w3.org/wiki/RdfPath
+ * 
+ * 
  *
  */
 
