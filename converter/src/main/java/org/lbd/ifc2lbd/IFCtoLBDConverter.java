@@ -20,6 +20,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
@@ -381,6 +382,12 @@ public class IFCtoLBDConverter {
 									this.propertysets.put(propertyset.getURI(), ps);
 								}
 								if (pvalue.toString().trim().length() > 0) {
+									if(pvalue.isLiteral())
+									{
+										String val=pvalue.asLiteral().getLexicalForm();
+										if(val.equals("-1.#IND"))
+											pvalue=ResourceFactory.createTypedLiteral(Double.NaN);
+									}
 									ps.put(pname.toString(), pvalue);
 									ps.putPropertyRef(pname);
 								}
@@ -495,8 +502,7 @@ public class IFCtoLBDConverter {
 			IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				connectElement(eo, LBD_NS.BOT.aggregates, ifc_element2);
 			});
-		} // else
-			// System.out.println("no bot for: " + ifc_element.getLocalName());
+		} 
 	}
 
 	private void connectElement(Resource bot_resource, Property bot_property, Resource ifc_element) {

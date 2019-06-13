@@ -1,4 +1,4 @@
-java -Xms16G -Xmx16G -jar IFCtoLBD-Desktop_Java_8.jar
+java -Xms16G -Xmx16G -jar IFCtoLBD_Desktop_Java8-1.80.jar
 pause
 
 

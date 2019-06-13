@@ -17,7 +17,7 @@ It is recommended to use Java 8. It can be downloaded from:
 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
 
 The precompiled desktop application, IFCtoLBD_Desktop_Java8-1.77.jar, is available at this page at 
- [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_Java8-1.77.jar?raw=true).
+ [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_Java8-1.80.jar?raw=true).
 
  The special Java 11 versio is available at:
  [IFCtoLBD-Desktop Java 10](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_Java11-1.77.jar?raw=true).
