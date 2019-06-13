@@ -11,7 +11,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 (https://github.com/w3c-lbd-cg/).
 
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
-[The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf)
+[The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
 It is recommended to use Java 8. It can be downloaded from:
 https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
