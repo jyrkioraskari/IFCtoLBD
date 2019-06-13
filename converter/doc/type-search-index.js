@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.lbd.ifc2lbd","l":"IFCtoLBDConverter"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"org.lbd.ifc2lbd.utils","l":"FileUtils"},{"p":"org.lbd.ifc2lbd.utils","l":"IfcOWLUtils"},{"p":"org.lbd.ifc2lbd","l":"IFCtoLBDConverter"},{"p":"org.lbd.ifc2lbd.utils.rdfpath","l":"InvRDFStep"},{"p":"org.lbd.ifc2lbd","l":"PropertySet"},{"p":"org.lbd.ifc2lbd","l":"PropertySet.PsetProperty"},{"p":"org.lbd.ifc2lbd.utils.rdfpath","l":"RDFStep"},{"p":"org.lbd.ifc2lbd.utils","l":"RDFUtils"}]
