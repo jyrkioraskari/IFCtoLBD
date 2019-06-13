@@ -28,6 +28,10 @@ If the program does not start, try the following command at the command line: "j
 
 ![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
+##Source code documentation: 
+
+[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/)
+
 
 ## Compiling the code
 The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from the site here: https://maven.apache.org/download.cgi.
