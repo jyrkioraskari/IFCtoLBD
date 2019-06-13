@@ -64,7 +64,33 @@ import com.openifctools.guidcompressor.GuidCompressor;
 
 /**
  *  <img src="https://jyrkioraskari.github.io/IFCtoLBD/doc-graphs/Overview.PNG">
+ *  <P>
+ *  <img src="https://jyrkioraskari.github.io/IFCtoLBD/doc-graphs/IFCtoLBDConverter_class_diagram.png">
  */
+
+
+
+/* 
+ *  @startuml  doc-graphs/IFCtoLBDConverter_class_diagram.png
+ *  class IFCtoLBDConverter {
+ *    Model ifcowl_model
+ *    String uriBase
+ *    IfcOWLNameSpace ifcOWL;
+ *    Map<String, List<Resource>> ifcowl_product_map
+ *    
+ *    Model readAndConvertIFC(String ifc_file, String uriBase) 
+ *    void readInOntologies(String ifc_file)
+ *    void createIfcLBDProductMapping()
+ *    void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements,
+			boolean hasBuildingProperties) 
+	  void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) 
+	  void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
+			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation)
+ *  }
+     @enduml
+ */
+
+
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
 	private Model ifcowl_model;
@@ -124,29 +150,7 @@ public class IFCtoLBDConverter {
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
 		this.lbd_property_output_model = ModelFactory.createDefaultModel();
 
-		LBD_NS.BOT.addNameSpace(lbd_general_output_model);
-		if (hasBuildingElements)
-			LBD_NS.Product.addNameSpace(lbd_product_output_model);
-		if (hasBuildingProperties) {
-			if (props_level == 1)
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
-			else {
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
-				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
-			}
-			if (props_level == 2)
-				OPM.addNameSpacesL2(lbd_property_output_model);
-			if (props_level == 3)
-				OPM.addNameSpacesL3(lbd_property_output_model);
-		}
-		Model[] ms = { lbd_general_output_model, lbd_product_output_model, lbd_property_output_model };
-		for (Model model : ms) {
-			model.setNsPrefix("rdf", RDF.uri);
-			model.setNsPrefix("rdfs", RDFS.uri);
-			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
-			model.setNsPrefix("inst", uriBase);
-			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
-		}
+		addNamespaces(uriBase, props_level, hasBuildingElements, hasBuildingProperties);
 
 		eventBus.post(new SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
@@ -158,120 +162,20 @@ public class IFCtoLBDConverter {
 		}
 
 		if (hasBuildingProperties) {
-			IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-
-				RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
-
-				if (RDFUtils.pathQuery(propertyset, pname_path).get(0).isLiteral()
-						&& RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString().startsWith("Pset")) {
-					String psetName = RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString();
-					System.out.println(
-							"included PSET : " + RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString());
-
-					final List<RDFNode> propertyset_name = new ArrayList<>();
-					RDFUtils.pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
-
-					RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
-					RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
-
-						RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
-								new RDFStep(ifcOWL.getHasString()) };
-						final List<RDFNode> property_name = new ArrayList<>();
-						RDFUtils.pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
-
-						// TODO: String propertyName = RDFUtils.pathQuery(propertySingleValue.asResource(),
-						// name_path) -----
-
-						final List<RDFNode> property_value = new ArrayList<>();
-
-						RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasString()) };
-						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathS)
-								.forEach(value -> property_value.add(value));
-
-						RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasDouble()) };
-						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD)
-								.forEach(value -> property_value.add(value));
-
-						RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasInteger()) };
-						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathI)
-								.forEach(value -> property_value.add(value));
-
-						RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasBoolean()) };
-						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathB)
-								.forEach(value -> property_value.add(value));
-
-						RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
-								new RDFStep(ifcOWL.getHasLogical()) };
-						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathL)
-								.forEach(value -> property_value.add(value));
-
-						String guid = IfcOWLUtils.getGUID(propertyset,this.ifcOWL);
-						String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-						if (guid != null) {
-							if (property_name.size() > 0 && property_value.size() > 0) {
-								RDFNode pname = property_name.get(0);
-								RDFNode pvalue = property_value.get(0);
-								if (!pname.toString().equals(pvalue.toString())) {
-									PropertySet ps = this.propertysets.get(propertyset.getURI());
-									if (ps == null) {
-										if (!propertyset_name.isEmpty())
-											ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-													propertyset_name.get(0).toString(), props_level,
-													hasPropertiesBlankNodes);
-										else
-											ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,  "",
-													props_level, hasPropertiesBlankNodes);
-										this.propertysets.put(propertyset.getURI(), ps);
-									}
-									if (pvalue.toString().trim().length() > 0) {
-										ps.put(pname.toString(), pvalue);
-										ps.putPropertyRef(pname);
-									}
-								}
-							} else {
-								RDFNode pname = property_name.get(0);
-								PropertySet ps = this.propertysets.get(propertyset.getURI());
-								if (ps == null) {
-									if (!propertyset_name.isEmpty())
-										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-												propertyset_name.get(0).toString(), props_level,
-												hasPropertiesBlankNodes);
-									else
-										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
-												hasPropertiesBlankNodes);
-
-									this.propertysets.put(propertyset.getURI(), ps);
-								}
-								ps.put(pname.toString(), propertySingleValue);
-								ps.putPropertyRef(pname);
-								RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
-							}
-						} else {
-							RDFNode pname = property_name.get(0);
-							PropertySet ps = this.propertysets.get(propertyset.getURI());
-							if (ps == null) {
-								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-											propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
-								else
-									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
-											hasPropertiesBlankNodes);
-								this.propertysets.put(propertyset.getURI(), ps);
-							}
-							ps.put(pname.toString(), propertySingleValue);
-							RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
-						}
-					});
-
-				}
-			});
-			eventBus.post(new SystemStatusEvent("LBD properties read"));
+			handlePropertySetData(props_level, hasPropertiesBlankNodes);
 		}
 
+		conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+				hasSeparatePropertiesModel, hasGeolocation);
+
+		eventBus.post(new SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
+
+	}
+
+
+
+	private void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
+			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation) {
 		IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
 			Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
 			String guid_site = IfcOWLUtils.getGUID(site,this.ifcOWL);
@@ -397,9 +301,152 @@ public class IFCtoLBDConverter {
 			}
 		}
 		RDFUtils.writeModel(lbd_general_output_model, target_file,this.eventBus);
+	}
 
-		eventBus.post(new SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
 
+
+	private void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
+		IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+
+			RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(ifcOWL.getHasString()) };
+
+			if (RDFUtils.pathQuery(propertyset, pname_path).get(0).isLiteral()
+					&& RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString().startsWith("Pset")) {
+				String psetName = RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString();
+				System.out.println(
+						"included PSET : " + RDFUtils.pathQuery(propertyset, pname_path).get(0).asLiteral().getString());
+
+				final List<RDFNode> propertyset_name = new ArrayList<>();
+				RDFUtils.pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
+
+				RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
+				RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
+
+					RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
+							new RDFStep(ifcOWL.getHasString()) };
+					final List<RDFNode> property_name = new ArrayList<>();
+					RDFUtils.pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
+
+					// TODO: String propertyName = RDFUtils.pathQuery(propertySingleValue.asResource(),
+					// name_path) -----
+
+					final List<RDFNode> property_value = new ArrayList<>();
+
+					RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasString()) };
+					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathS)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasDouble()) };
+					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasInteger()) };
+					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathI)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasBoolean()) };
+					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathB)
+							.forEach(value -> property_value.add(value));
+
+					RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
+							new RDFStep(ifcOWL.getHasLogical()) };
+					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathL)
+							.forEach(value -> property_value.add(value));
+
+					String guid = IfcOWLUtils.getGUID(propertyset,this.ifcOWL);
+					String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
+					if (guid != null) {
+						if (property_name.size() > 0 && property_value.size() > 0) {
+							RDFNode pname = property_name.get(0);
+							RDFNode pvalue = property_value.get(0);
+							if (!pname.toString().equals(pvalue.toString())) {
+								PropertySet ps = this.propertysets.get(propertyset.getURI());
+								if (ps == null) {
+									if (!propertyset_name.isEmpty())
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
+												propertyset_name.get(0).toString(), props_level,
+												hasPropertiesBlankNodes);
+									else
+										ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,  "",
+												props_level, hasPropertiesBlankNodes);
+									this.propertysets.put(propertyset.getURI(), ps);
+								}
+								if (pvalue.toString().trim().length() > 0) {
+									ps.put(pname.toString(), pvalue);
+									ps.putPropertyRef(pname);
+								}
+							}
+						} else {
+							RDFNode pname = property_name.get(0);
+							PropertySet ps = this.propertysets.get(propertyset.getURI());
+							if (ps == null) {
+								if (!propertyset_name.isEmpty())
+									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
+											propertyset_name.get(0).toString(), props_level,
+											hasPropertiesBlankNodes);
+								else
+									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
+											hasPropertiesBlankNodes);
+
+								this.propertysets.put(propertyset.getURI(), ps);
+							}
+							ps.put(pname.toString(), propertySingleValue);
+							ps.putPropertyRef(pname);
+							RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
+						}
+					} else {
+						RDFNode pname = property_name.get(0);
+						PropertySet ps = this.propertysets.get(propertyset.getURI());
+						if (ps == null) {
+							if (!propertyset_name.isEmpty())
+								ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
+										propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
+							else
+								ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level,
+										hasPropertiesBlankNodes);
+							this.propertysets.put(propertyset.getURI(), ps);
+						}
+						ps.put(pname.toString(), propertySingleValue);
+						RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
+					}
+				});
+
+			}
+		});
+		eventBus.post(new SystemStatusEvent("LBD properties read"));
+	}
+
+
+
+	private void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements,
+			boolean hasBuildingProperties) {
+		LBD_NS.BOT.addNameSpace(lbd_general_output_model);
+		if (hasBuildingElements)
+			LBD_NS.Product.addNameSpace(lbd_product_output_model);
+		if (hasBuildingProperties) {
+			if (props_level == 1)
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
+			else {
+				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
+				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
+			}
+			if (props_level == 2)
+				OPM.addNameSpacesL2(lbd_property_output_model);
+			if (props_level == 3)
+				OPM.addNameSpacesL3(lbd_property_output_model);
+		}
+		Model[] ms = { lbd_general_output_model, lbd_product_output_model, lbd_property_output_model };
+		for (Model model : ms) {
+			model.setNsPrefix("rdf", RDF.uri);
+			model.setNsPrefix("rdfs", RDFS.uri);
+			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+			model.setNsPrefix("inst", uriBase);
+			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
+		}
 	}
 
 
