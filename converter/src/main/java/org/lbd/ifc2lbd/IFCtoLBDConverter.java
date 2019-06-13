@@ -69,13 +69,13 @@ import com.openifctools.guidcompressor.GuidCompressor;
  */
 
 
-
+// The Class diagram source code:
 /* 
  *  @startuml  doc-graphs/IFCtoLBDConverter_class_diagram.png
  *  class IFCtoLBDConverter {
  *    Model ifcowl_model
  *    String uriBase
- *    IfcOWLNameSpace ifcOWL;
+ *    IfcOWLNameSpace ifcOWL
  *    Map<String, List<Resource>> ifcowl_product_map
  *    
  *    Model readAndConvertIFC(String ifc_file, String uriBase) 
@@ -87,9 +87,14 @@ import com.openifctools.guidcompressor.GuidCompressor;
 	  void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation)
  *  }
+IFCtoLBDConverter - IfcOWLUtils: use > 
+IFCtoLBDConverter - RDFUtils: use > 
+IFCtoLBDConverter - FileUtils: use > 
+IFCtoLBDConverter o-- PropertySet
+IfcOWLUtils .. RDFStep
+IfcOWLUtils .. InvRDFStep
      @enduml
  */
-
 
 public class IFCtoLBDConverter {
 	private final EventBus eventBus = EventBusService.getEventBus();
