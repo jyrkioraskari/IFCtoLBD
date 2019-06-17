@@ -110,35 +110,31 @@ public class IFCtoLBDConverter {
 	// URI-property set
 	private Map<String, PropertySet> propertysets = new HashMap<>();
 	private final int props_level;
-	private final boolean hasBuildingElements;
-	private final boolean hasBuildingProperties;
 	private final boolean hasPropertiesBlankNodes;
-	private final boolean hasGeolocation;
 
 	private final Model lbd_general_output_model;
 	private final Model lbd_product_output_model;
 	private final Model lbd_property_output_model;
 
 	/**
-	 * @param ifc_filename
-	 * @param uriBase
-	 * @param target_file
-	 * @param props_level
-	 * @param hasBuildingElements
-	 * @param hasSeparateBuildingElementsModel
-	 * @param hasBuildingProperties
-	 * @param hasSeparatePropertiesModel
-	 * @param hasPropertiesBlankNodes
-	 * @param hasGeolocation
+	 * The construction method for the converter process. This dows the whole process.
+	 * 
+	 * @param ifc_filename The absolute path for the IFC file that will be converted
+	 * @param uriBase      The URI base for all the elemenents that will be created
+	 * @param target_file  The main file name for the output. If there are many, they will be sharing the same beginning
+	 * @param props_level  The levels described in https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
+	 * @param hasBuildingElements The Building Elements will be created in the output
+	 * @param hasSeparateBuildingElementsModel The Building elements will have a separate file
+	 * @param hasBuildingProperties The properties will ne added into the output
+	 * @param hasSeparatePropertiesModel The properties will be written in a separate file
+	 * @param hasPropertiesBlankNodes Blank nodes are used
+	 * @param hasGeolocation Geolocation, i.e., the latitude and longitude are added.
 	 */
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
 		this.props_level = props_level;
-		this.hasBuildingElements = hasBuildingElements;
-		this.hasBuildingProperties = hasBuildingProperties;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
-		this.hasGeolocation = hasGeolocation;
 
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
@@ -311,6 +307,13 @@ public class IFCtoLBDConverter {
 
 
 
+	/**
+	 * Collects the PropertySet data from the ifcOWL model and creates a separate Apache Jena Model that contains the converted 
+	 * representation of the property set content.
+	 * 
+	 * @param props_level  The levels described in https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
+	 * @param hasPropertiesBlankNodes If the nameless nodes are used.
+	 */
 	private void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
 		IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 
@@ -434,6 +437,13 @@ public class IFCtoLBDConverter {
 
 
 
+	/**
+	 * Adds the used RDF namespaces for the Jena Models
+	 * @param uriBase
+	 * @param props_level
+	 * @param hasBuildingElements
+	 * @param hasBuildingProperties
+	 */
 	private void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements,
 			boolean hasBuildingProperties) {
 		LBD_NS.BOT.addNameSpace(lbd_general_output_model);
@@ -505,16 +515,24 @@ public class IFCtoLBDConverter {
 		} 
 	}
 
-	private void connectElement(Resource bot_resource, Property bot_property, Resource ifc_element) {
-		Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifc_element);
-		Optional<Resource> ifcowl_type = RDFUtils.getType(ifc_element);
+	/**
+	 * For a RDF LBD resource, creates the targetted object for the given property and adds a triple that connects them with the property.
+	 * The literals of the elements and and the hosted elements are added as well.
+	 *   
+	 * @param bot_resource  The Jena Resource in the LBD output model in the Apacje model
+	 * @param bot_property  The LBD ontology property
+	 * @param ifcowl_element   The corresponding ifcOWL elemeny
+	 */
+	private void connectElement(Resource bot_resource, Property bot_property, Resource ifcowl_element) {
+		Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcowl_element);
+		Optional<Resource> ifcowl_type = RDFUtils.getType(ifcowl_element);
 		Optional<Resource> lbd_product_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			lbd_product_type = getLBDProductType(ifcowl_type.get().getLocalName());
 		}
 
 		if (lbd_product_type.isPresent()) {
-			Resource lbd_object = createformattedURI(ifc_element, this.lbd_general_output_model,
+			Resource lbd_object = createformattedURI(ifcowl_element, this.lbd_general_output_model,
 					lbd_product_type.get().getLocalName());
 			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_object.getURI());
 
@@ -530,41 +548,46 @@ public class IFCtoLBDConverter {
 //			 addLabel(ifc_element, bot_object);
 //			 addDescription(ifc_element, bot_object);
 			// TODO: put them back!!!
-			addAttrributes(this.lbd_property_output_model, ifc_element, lbd_object);
+			addAttrributes(this.lbd_property_output_model, ifcowl_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
-			IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+			IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if (lbd_object.getLocalName().toLowerCase().contains("space"))
-					System.out.println("hosts2: " + ifc_element + "-->" + ifc_element2 + " bot:" + lbd_object);
+					System.out.println("hosts2: " + ifcowl_element + "-->" + ifc_element2 + " bot:" + lbd_object);
 				connectElement(lbd_object, LBD_NS.BOT.hostsElement, ifc_element2);
 			});
 
-			IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+			IfcOWLUtils.listAggregated_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				connectElement(lbd_object, LBD_NS.BOT.aggregates, ifc_element2);
 			});
 		} else {
-			System.err.println("No type: " + ifc_element);
+			System.err.println("No type: " + ifcowl_element);
 		}
 
 	}
 
 	Set<Resource> handledSttributes4resource = new HashSet<>();
 
+	/**
+	 * Creates and adds the literal triples from the original ifcOWL resource under the new LBD resource.
+	 * 
+	 * @param output_model The Apache Jena model where the conversion output is written
+	 * @param r            The oroginal ifcOWL resource
+	 * @param bot_r		   The correspoinding resource in the output model. The LBD resource.
+	 */
 	private void addAttrributes(Model output_model, Resource r, Resource bot_r) {
-		if (!handledSttributes4resource.add(r))
+		if (!handledSttributes4resource.add(r)) // Tests if the attributes are added already
 			return;
 		String guid = IfcOWLUtils.getGUID(r,this.ifcOWL);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 		final PropertySet local = new PropertySet(this.uriBase, output_model, "attributes", this.props_level,
 				hasPropertiesBlankNodes, true, uncompressed_guid);
-		// Literal l = bot_r.getModel().createLiteral(guid);
-		// local.put("guid", l);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
 			Optional<Resource> atype = RDFUtils.getType(attr);
 			if (ps.startsWith("tag_"))
 				ps = "batid";
-			String property_string = ps; // Just to make it effectively final
+			final String property_string = ps; // Just to make variable final (needed in the following stream)
 			if (atype.isPresent()) {
 				if (atype.get().getLocalName().equals("IfcLabel")) {
 					attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> {
@@ -597,26 +620,18 @@ public class IFCtoLBDConverter {
 		local.connect(bot_r, uncompressed_guid);
 	}
 
-	
-	
 
-	/*
-	 * private void addDescription(Resource ifc_r, final Resource bot_r) {
-	 * ifc_r.listProperties(ifcOWL.getDescription()).toList() .forEach(x ->
-	 * x.getObject().asResource().listProperties(ifcOWL.getHasString())
-	 * .forEachRemaining(y -> bot_r.addProperty(RDFS.comment, y.getObject()))); }
+	/**
+	 * Creates URIs for the elements in the output graph. The IfcRoot elements (that have a GUID)
+	 * are given URI that contais the guid in the standard uncompressed format. 
 	 * 
-	 * private void addLabel(Resource ifc_r, final Resource bot_r) {
-	 * ifc_r.listProperties(ifcOWL.getName()).toList() .forEach(x ->
-	 * x.getObject().asResource().listProperties(ifcOWL.getHasString())
-	 * .forEachRemaining(y -> bot_r.addProperty(RDFS.label, y.getObject()))); }
+	 * The uncompressed GUID form is created using the implementation by Tulke & Co. (The OPEN IFC JAVA TOOLBOX)
 	 * 
-	 * private void addLongName(Resource ifc_r, final Resource bot_r) {
-	 * ifc_r.listProperties(ifcOWL.getLongName()).toList() .forEach(x ->
-	 * x.getObject().asResource().listProperties(ifcOWL.getHasString())
-	 * .forEachRemaining(y -> bot_r.addProperty(RDFS.label, y.getObject()))); }
+	 * @param r  A ifcOWL RDF node in a Apache Jena RDF store. 
+	 * @param m  The Apache Jena RDF Store for the output. 
+	 * @param product_type The LBD product type to be shown on the URI
+	 * @return
 	 */
-
 	private Resource createformattedURI(Resource r, Model m, String product_type) {
 		String guid = IfcOWLUtils.getGUID(r,this.ifcOWL);
 		if (guid == null) {
@@ -652,10 +667,6 @@ public class IFCtoLBDConverter {
 		}
 	}
 
-	private final Map<String, Resource> rootmap = new HashMap<>();
-	private final Set<String> roots = new HashSet<>();
-
-	
 	/**
 	 * Returns list of all RDF nodes that have an matching element type returned by
 	 * getLBDProductType(String ifcType)  
@@ -672,6 +683,14 @@ public class IFCtoLBDConverter {
 		
 		return ret;
 	}
+	
+	
+	/**
+	 * This used the ifcowl_product_map map and returns one mapped class in a Linked Building Data ontology, if specified.
+	 * 
+	 * @param ifcType  The IFC entity class 
+	 * @return The corresponding class Resource in a LBD ontology
+	 */
 	public Optional<Resource> getLBDProductType(String ifcType) {
 		List<Resource> ret = ifcowl_product_map.get(ifcType);
 		if (ret == null) {
