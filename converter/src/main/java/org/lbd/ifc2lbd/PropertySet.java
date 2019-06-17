@@ -60,8 +60,6 @@ public class PropertySet {
 		this.uriBase = uriBase;
 		this.model = model;
 		this.name = name;
-//		if (name.contains("_"))
-//			this.name = name.split("_")[1];
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 		StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.name);
@@ -94,14 +92,7 @@ public class PropertySet {
 	private void write_once()
 	{
 		isWritten = true;
-		if (is_attribute){
-//			this.pset = model.createResource(this.uriBase + "attributesGroup_"+this.attributegroup_uncompressed_guid);
-//			pset.addProperty(RDFS.label,  toUnCamelCase(name));
-//			pset.addProperty(RDF.type, LBD_NS.PROPS_NS.attribute_group);
-		}
-		else{
-			//TODO: extract the according instance from the pset files
-//			System.out.println(this.name);
+		if (!is_attribute){
 			if(!is_bSDD_pset) 
 				this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
 		}
@@ -121,8 +112,6 @@ public class PropertySet {
 				property_resource = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
 			
 			if (!is_attribute)
-//				property_resource.addProperty(LBD_NS.PROPS_NS.partofAG, pset);
-//			else{
 				if(mapBSDD.get(k)!=null) {
 					property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k)); 		
 					System.out.println("connected property: "+k+"\nnumber of triples: "+property_resource.listProperties().toList().size());
@@ -144,12 +133,9 @@ public class PropertySet {
 				state_resourse.addProperty(OPM.value, this.getMap().get(k));
 			} else
 				property_resource.addProperty(OPM.value, this.getMap().get(k));
-//			System.out.println("number of triples: "+property_resource.listProperties().toList().size());
 
 			Property p;
 			if (!is_attribute) {
-//				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k) + "_attribute");
-//			else
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
 				this.properties.add(new PsetProperty(p, property_resource));
 			}
@@ -166,7 +152,6 @@ public class PropertySet {
 				while(iterProp.hasNext()) 
 				{
 					Literal psetPropName = iterProp.next().getLiteral();
-//					psetProp.isLiteral();
 					if(psetPropName.getString().equals(pname))
 						mapBSDD.put(toCamelCase(property.toString()), prop);
 				}
@@ -176,6 +161,11 @@ public class PropertySet {
 	
 	Set<String> hashes=new HashSet<>();
 	
+	/**
+	 * Adds property value property for an resource.
+	 * @param r_org          The Jena Resource in the model 
+	 * @param extracted_guid The GUID of the elemet
+	 */
 	public void connect(Resource r_org,String extracted_guid) {
 		Resource r = this.model.createResource(r_org.getURI());
 		if (this.props_level > 1) {	
@@ -201,14 +191,21 @@ public class PropertySet {
 		}
 	}
 
-	public String toCamelCase(final String init) {
-		if (init == null)
+	/**
+	 * Converts a string into the CamelCase notation described in:
+	 * https://en.wikipedia.org/wiki/Camel_case
+	 *  
+	 * @param txt
+	 * @return
+	 */
+	public String toCamelCase(final String txt) {
+		if (txt == null)
 			return null;
 
 		StringBuilder ret = new StringBuilder();
 
 		boolean first = true;
-		for (final String word : init.split(" ")) {
+		for (final String word : txt.split(" ")) {
 			if (!word.isEmpty()) {
 				if (first) {
 					ret.append(filterCharaters(word.substring(0, 1).toLowerCase()));
@@ -222,14 +219,21 @@ public class PropertySet {
 		return ret.toString();
 	}
 
-	public String toUnCamelCase(final String init) {
-		if (init == null)
+	/**
+	 * Converts a CamelCase string into space separate words.
+	 * https://en.wikipedia.org/wiki/Camel_case
+	 *  
+	 * @param txt
+	 * @return
+	 */
+	public String toUnCamelCase(final String txt) {
+		if (txt == null)
 			return null;
 
 		StringBuilder ret = new StringBuilder();
-		for(int i=0;i<init.length();i++)
+		for(int i=0;i<txt.length();i++)
 		{
-			char c=init.charAt(i);
+			char c=txt.charAt(i);
 			if(i>0 && Character.isUpperCase(c))
 			{
 				ret.append(" ");
@@ -245,6 +249,12 @@ public class PropertySet {
 	}
 	
 	
+	/**
+	 * Removes all characters other than letters from a string
+	 * 
+	 * @param txt A text string
+	 * @return
+	 */
 	private String filterCharaters(String txt) {
 		StringBuilder ret = new StringBuilder();
 		for (byte cb : txt.getBytes()) {
@@ -259,8 +269,5 @@ public class PropertySet {
 		return map;
 	}
 
-	public static void main(String[] args) {
-		PropertySet pset = new PropertySet(null, null, null, null, 1, false);
-		System.out.println(pset.toCamelCase("yksi kaksi"));
-	}
+	
 }

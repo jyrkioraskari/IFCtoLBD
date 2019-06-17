@@ -246,7 +246,6 @@ public class IFCtoLBDConverter {
 						Resource spo = createformattedURI(space.asResource(), lbd_general_output_model, "Space");
 						String guid_space = IfcOWLUtils.getGUID(space.asResource(),this.ifcOWL);
 						String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
-						// TODO: PUT THEM BACK!!
 						addAttrributes(lbd_property_output_model, space.asResource(), spo);
 
 						so.addProperty(LBD_NS.BOT.hasSpace, spo);
@@ -490,7 +489,7 @@ public class IFCtoLBDConverter {
 				Resource product = this.lbd_product_output_model
 						.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
-			} // else
+			} 
 			lbd_property_object.addProperty(RDF.type, bot_type.get());
 			eo.addProperty(RDF.type, LBD_NS.BOT.element);
 			bot_resource.addProperty(LBD_NS.BOT.containsElement, eo);
@@ -540,14 +539,11 @@ public class IFCtoLBDConverter {
 				Resource product = this.lbd_product_output_model
 						.createResource(lbd_product_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
-			} // else
+			} 
 
 			lbd_property_object.addProperty(RDF.type, lbd_product_type.get());
 			lbd_object.addProperty(RDF.type, LBD_NS.BOT.element);
 
-//			 addLabel(ifc_element, bot_object);
-//			 addDescription(ifc_element, bot_object);
-			// TODO: put them back!!!
 			addAttrributes(this.lbd_property_output_model, ifcowl_element, lbd_object);
 			bot_resource.addProperty(bot_property, lbd_object);
 			IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
@@ -593,15 +589,12 @@ public class IFCtoLBDConverter {
 					attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> {
 						if (attr_s.getObject().isLiteral()
 								&& attr_s.getObject().asLiteral().getLexicalForm().length() > 0)
-//							 bot_r.addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-//							 attr_s.getObject());
+						{
 							local.put(property_string, attr_s.getObject());
+						}
 					});
 
 				} else if (atype.get().getLocalName().equals("IfcIdentifier")) {
-					// attr.listProperties(ifcOWL.getHasString()).forEachRemaining(attr_s -> bot_r
-					// .addProperty(BOT.LocalProperty.getProperty(bot_r.getNameSpace(),property_string),
-					// attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasString())
 							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
 				} else {
@@ -649,8 +642,6 @@ public class IFCtoLBDConverter {
 		} else {
 			Resource guid_uri = m.createResource(
 					this.uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
-			// Literal l = m.createLiteral(guid);
-			// guid_uri.addLiteral(BOT.LocalProperty.getProperty(this.uriBase,"guid"), l);
 			return guid_uri;
 		}
 	}
@@ -724,8 +715,7 @@ public class IFCtoLBDConverter {
 				Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
 
 				// This adds the seeAlso mapping directly: The base IRI is removed so that the
-				// mapping independen of
-				// various IFC versions
+				// mapping is independent of various IFC versions
 				List<Resource> resource_list = ifcowl_product_map.getOrDefault(ifcowl_class.getLocalName(),
 						new ArrayList<Resource>());
 				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
@@ -859,10 +849,12 @@ public class IFCtoLBDConverter {
 			// Create a resource geosparql:hasGeometry;
 			Property geo_hasGeometry = lbd_general_output_model
 					.createProperty("http://www.opengis.net/ont/geosparql#hasGeometry");
+			
 			// For the moment we will use a seperate graph for geometries, to "encourage"
 			// people to not link to geometries
 			// This could also be done using blanknodes, although, hard to maintain
 			// provenance if required in future versions.
+			
 			String wktLiteralID = "urn:bot:geom:pt:";
 			String guid_site = IfcOWLUtils.getGUID(site,this.ifcOWL);
 			String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
