@@ -117,7 +117,7 @@ public class IFCtoLBDConverter {
 	private final Model lbd_property_output_model;
 
 	/**
-	 * The construction method for the converter process. This dows the whole process.
+	 * The construction method for the converter process. This does the whole process.
 	 * 
 	 * @param ifc_filename The absolute path for the IFC file that will be converted
 	 * @param uriBase      The URI base for all the elemenents that will be created
