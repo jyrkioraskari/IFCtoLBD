@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.80</version>
+	<version>1.81</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -41,7 +41,7 @@
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.8</version>
 		</dependency>
 
 		<dependency>

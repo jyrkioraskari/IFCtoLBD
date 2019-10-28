@@ -92,7 +92,8 @@ public class PropertySet {
 	private void write_once()
 	{
 		isWritten = true;
-		if (!is_attribute){
+		//if (!is_attribute)
+		{
 			if(!is_bSDD_pset) 
 				this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
 		}
@@ -102,6 +103,7 @@ public class PropertySet {
 		properties.clear();
 		if(!isWritten)
 			write_once();
+		System.out.println("this.pset==null:"+(this.pset==null));
 		if(this.pset==null)
 			return;
 		for (String k : this.getMap().keySet()) {
@@ -111,7 +113,7 @@ public class PropertySet {
 			else
 				property_resource = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
 			
-			if (!is_attribute)
+			//if (!is_attribute)
 				if(mapBSDD.get(k)!=null) {
 					property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k)); 		
 					System.out.println("connected property: "+k+"\nnumber of triples: "+property_resource.listProperties().toList().size());
@@ -135,7 +137,8 @@ public class PropertySet {
 				property_resource.addProperty(OPM.value, this.getMap().get(k));
 
 			Property p;
-			if (!is_attribute) {
+			//if (!is_attribute) 
+			{
 				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
 				this.properties.add(new PsetProperty(p, property_resource));
 			}
@@ -169,8 +172,13 @@ public class PropertySet {
 	public void connect(Resource r_org,String extracted_guid) {
 		Resource r = this.model.createResource(r_org.getURI());
 		if (this.props_level > 1) {	
+			System.out.println("props level 2-3!!");
 			if(hashes.add(extracted_guid))
+			{
+			  System.out.println("hashes add");
 			  writeOPM_Set(extracted_guid);
+			}
+			System.out.println("this.properties: "+this.properties.size());
 			for (PsetProperty pp : this.properties) {
 				if(!r.getModel().listStatements(r, pp.p, pp.r).hasNext()) {
 				System.out.println("adding property "+pp.r+" - number of triples: "+pp.r.listProperties().toList().size());

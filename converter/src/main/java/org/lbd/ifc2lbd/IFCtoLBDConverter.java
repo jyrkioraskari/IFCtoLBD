@@ -192,7 +192,10 @@ public class IFCtoLBDConverter {
 
 			IfcOWLUtils.listBuildings(site, ifcOWL).stream().map(rn -> rn.asResource()).forEach(building -> {
 				if (!RDFUtils.getType(building.asResource()).get().getURI().endsWith("#IfcBuilding"))
+				{
+					System.err.println("Not an #IfcBuilding");
 					return;
+				}
 				Resource bo = createformattedURI(building, lbd_general_output_model, "Building");
 				String guid_building = IfcOWLUtils.getGUID(building,this.ifcOWL);
 				String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
@@ -213,7 +216,10 @@ public class IFCtoLBDConverter {
 					eventBus.post(new SystemStatusEvent("Storey: " + storey.getLocalName()));
 
 					if (!RDFUtils.getType(storey.asResource()).get().getURI().endsWith("#IfcBuildingStorey"))
+					{
+						System.err.println("No an #IfcBuildingStorey");
 						return;
+					}
 
 					Resource so = createformattedURI(storey, lbd_general_output_model, "Storey");
 					String guid_storey = IfcOWLUtils.getGUID(storey,this.ifcOWL);

@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.80</version>
+			<version>1.81</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
