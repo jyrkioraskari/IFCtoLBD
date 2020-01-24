@@ -815,9 +815,11 @@ public class IFCtoLBDConverter {
 		IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
 
 		RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl",this.eventBus);
-		RDFUtils.readInOntologyTTL(ontology_model, "prod_building_elements.ttl",this.eventBus);
+		//RDFUtils.readInOntologyTTL(ontology_model, "prod_building_elements.ttl",this.eventBus);
+		RDFUtils.readInOntologyTTL(ontology_model, "beo_ontology.ttl",this.eventBus);
 		RDFUtils.readInOntologyTTL(ontology_model, "prod_furnishing.ttl",this.eventBus);
-		RDFUtils.readInOntologyTTL(ontology_model, "prod_mep.ttl",this.eventBus);
+		//RDFUtils.readInOntologyTTL(ontology_model, "prod_mep.ttl",this.eventBus);
+		RDFUtils.readInOntologyTTL(ontology_model, "mep_ontology.ttl",this.eventBus);
 
 		RDFUtils.readInOntologyTTL(ontology_model, "psetdef.ttl",this.eventBus);
 		List<String> files = FileUtils.getListofFiles("pset", ".ttl");

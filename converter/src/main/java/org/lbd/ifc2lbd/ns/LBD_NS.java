@@ -35,26 +35,26 @@ public class LBD_NS extends abstract_NS{
 	}
 
 	public static class Product {
-		public static final String product_ns = "http://pi.pauwel.be/voc/buildingelement#";
+		public static final String beo_ns = "http://pi.pauwel.be/voc/buildingelement#"; 
 		public static final String furnishing_ns = "http://pi.pauwel.be/voc/furniture#";
 		public static final String mep_ns = "http://pi.pauwel.be/voc/distributionelement#";
 
 		public static void addNameSpace(Model model)
 		{
-			model.setNsPrefix("be", product_ns);
+			model.setNsPrefix("beo", beo_ns);
 			model.setNsPrefix("furn", furnishing_ns);
-			model.setNsPrefix("de", mep_ns);
+			model.setNsPrefix("mep", mep_ns);
 		}
 		
 		public static Resource getProductType(Resource ifOwlClass)
 		{
 			String uri=ifOwlClass.getLocalName().substring(3);
-			return resource(product_ns, uri);
+			return resource(beo_ns, uri);
 		}
 		
 		public static Property getProperty(String name) {
 			String[] splitted=name.split("_");
-			return property(product_ns,splitted[0]);
+			return property(beo_ns,splitted[0]);
 		}
 	}
 
