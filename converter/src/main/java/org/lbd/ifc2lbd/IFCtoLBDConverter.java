@@ -392,8 +392,8 @@ public class IFCtoLBDConverter {
 										if(val.equals("-1.#IND"))
 											pvalue=ResourceFactory.createTypedLiteral(Double.NaN);
 									}
-									ps.put(pname.toString(), pvalue);
-									ps.putPropertyRef(pname);
+									ps.putPnameValue(pname.toString(), pvalue);
+									ps.putPsetPropertyRef(pname);
 								}
 							}
 						} else {
@@ -410,8 +410,8 @@ public class IFCtoLBDConverter {
 
 								this.propertysets.put(propertyset.getURI(), ps);
 							}
-							ps.put(pname.toString(), propertySingleValue);
-							ps.putPropertyRef(pname);
+							ps.putPnameValue(pname.toString(), propertySingleValue);
+							ps.putPsetPropertyRef(pname);
 							RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
 						}
 					} else {
@@ -426,7 +426,7 @@ public class IFCtoLBDConverter {
 										hasPropertiesBlankNodes);
 							this.propertysets.put(propertyset.getURI(), ps);
 						}
-						ps.put(pname.toString(), propertySingleValue);
+						ps.putPnameValue(pname.toString(), propertySingleValue);
 						RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
 					}
 				});
@@ -451,12 +451,11 @@ public class IFCtoLBDConverter {
 		if (hasBuildingElements)
 			LBD_NS.Product.addNameSpace(lbd_product_output_model);
 		if (hasBuildingProperties) {
-			if (props_level == 1)
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
-			else {
-				LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
+			LBD_NS.PROPS_NS.addNameSpace(lbd_property_output_model);
+			LBD_NS.PROPS_NS.addNameSpace(lbd_general_output_model);
+			if (props_level != 1)
 				lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
-			}
+			
 			if (props_level == 2)
 				OPM.addNameSpacesL2(lbd_property_output_model);
 			if (props_level == 3)
@@ -577,8 +576,7 @@ public class IFCtoLBDConverter {
 			return;
 		String guid = IfcOWLUtils.getGUID(r,this.ifcOWL);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-		final PropertySet local = new PropertySet(this.uriBase, output_model, "attributes", this.props_level,
-				hasPropertiesBlankNodes, true, uncompressed_guid);
+		final AttributeSet connected_attributes = new AttributeSet(this.uriBase, output_model, this.props_level,hasPropertiesBlankNodes);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
@@ -592,27 +590,27 @@ public class IFCtoLBDConverter {
 						if (attr_s.getObject().isLiteral()
 								&& attr_s.getObject().asLiteral().getLexicalForm().length() > 0)
 						{
-							local.put(property_string, attr_s.getObject());
+							connected_attributes.putAnameValue(property_string, attr_s.getObject());
 						}
 					});
 
 				} else if (atype.get().getLocalName().equals("IfcIdentifier")) {
 					attr.listProperties(ifcOWL.getHasString())
-							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
 				} else {
 					attr.listProperties(ifcOWL.getHasString())
-							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasInteger())
-							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasDouble())
-							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
 					attr.listProperties(ifcOWL.getHasBoolean())
-							.forEachRemaining(attr_s -> local.put(property_string, attr_s.getObject()));
+							.forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
 				}
 
 			}
 		});
-		local.connect(bot_r, uncompressed_guid);
+		connected_attributes.connect(bot_r, uncompressed_guid);
 	}
 
 

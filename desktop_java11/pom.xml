@@ -18,7 +18,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd.ifcbot</groupId>
 	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
-	<version>1.83</version>
+	<version>1.84</version>
 	<name>IFCtoLBD Desktop Java 12</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
@@ -43,7 +43,7 @@
 		<dependency>
 			<groupId>org.lbd</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.83</version>
+			<version>1.84</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->

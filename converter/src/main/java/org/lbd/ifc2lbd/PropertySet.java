@@ -15,11 +15,26 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.riot.thrift.wire.RDF_Literal;
 import org.apache.jena.vocabulary.RDF;
-import org.apache.jena.vocabulary.RDFS;
 import org.lbd.ifc2lbd.ns.LBD_NS;
 import org.lbd.ifc2lbd.ns.OPM;
+import org.lbd.ifc2lbd.utils.StringOperations;
+
+/*
+ *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 /**
  * A class where IFC PropertySet is collected from the IFC file
@@ -27,255 +42,131 @@ import org.lbd.ifc2lbd.ns.OPM;
  *
  */
 public class PropertySet {
-
 	private class PsetProperty {
-		final Property p;
-		final Resource r;
+		final Property p; // Jena RDF property
+		final Resource r; // Jena RDF resource object
 
 		public PsetProperty(Property p, Resource r) {
 			super();
 			this.p = p;
 			this.r = r;
 		}
-
 	}
 
-	private final Map<String, RDFNode> map = new HashMap<>();
-	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
-	private String name;
-	private String label_name;
-	private boolean isWritten = false;
-	private final int props_level;
-	private final Model model;
-	private final List<PsetProperty> properties = new ArrayList<>();
-	private final boolean hasBlank_nodes;
 	private final String uriBase;
-	private boolean is_attribute = false;
+	private final Model lbd_model;
+	private String propertyset_name;
+
+	private final int props_level;
+	private final boolean hasBlank_nodes;
+
+	private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
+	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
+
 	private boolean is_bSDD_pset = false;
 	private Resource psetDef = null;
-	
 
-	public PropertySet(String uriBase, Model model, Model ontology_model,String name, int props_level,
+	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
 			boolean hasBlank_nodes) {
 		this.uriBase = uriBase;
-		this.model = model;
-		this.name = name;
+		this.lbd_model = lbd_model;
+		this.propertyset_name = propertyset_name;
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
-		StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.name);
-		if(iter.hasNext()) {
-			is_bSDD_pset=true;
-			this.pset=model.createResource();
-			psetDef=iter.next().getSubject();
+		StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.propertyset_name);
+		if (iter.hasNext()) {
+			is_bSDD_pset = true;
+			psetDef = iter.next().getSubject();
 		}
 	}
 
-	String attributegroup_uncompressed_guid;
-	public PropertySet(String uriBase, Model model,String name, int props_level,
-			boolean hasBlank_nodes, boolean is_attribute,String uncompressed_guid ) {
-		this.uriBase = uriBase;
-		this.model = model;
-		this.name = name;
-		if (name.contains("_"))
-			this.name = name.split("_")[1];
-		this.props_level = props_level;
-		this.hasBlank_nodes = hasBlank_nodes;
-		this.is_attribute = is_attribute;
-		this.attributegroup_uncompressed_guid=uncompressed_guid;
+	public void putPnameValue(String property_name, RDFNode value) {
+		mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
 	}
 
-	public void put(String key, RDFNode value) {
-		map.put(toCamelCase(key), value);
-	}
-	
-	Resource pset=null;
-	private void write_once()
-	{
-		isWritten = true;
-		//if (!is_attribute)
-		{
-			if(!is_bSDD_pset) 
-				this.pset = model.createResource(this.uriBase + "psetGroup_" + toCamelCase(name));
+	public void putPsetPropertyRef(RDFNode property) {
+		String pname = property.asLiteral().getString();
+		if (is_bSDD_pset) {
+			StmtIterator iter = psetDef.listProperties(LBD_NS.PROPS_NS.propertyDef);
+			while (iter.hasNext()) {
+				Resource prop = iter.next().getResource();
+				StmtIterator iterProp = prop.listProperties(LBD_NS.PROPS_NS.namePset);
+				while (iterProp.hasNext()) {
+					Literal psetPropName = iterProp.next().getLiteral();
+					if (psetPropName.getString().equals(pname))
+						mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
+				}
+			}
 		}
 	}
 
-	private void writeOPM_Set(String extracted_guid) {
-		properties.clear();
-		if(!isWritten)
-			write_once();
-		System.out.println("this.pset==null:"+(this.pset==null));
-		if(this.pset==null)
-			return;
-		for (String k : this.getMap().keySet()) {
+	/**
+	 * Adds property value property for an resource.
+	 * 
+	 * @param lbd_resource   The Jena Resource in the model
+	 * @param extracted_guid The GUID of the elemet in the long form
+	 */
+	Set<String> hashes = new HashSet<>();
+
+	public void connect(Resource lbd_resource, String long_guid) {
+		switch (this.props_level) {
+		case 1:
+		default:
+			for (String pname : this.mapPnameValue.keySet()) {
+				Property property = lbd_resource.getModel()
+						.createProperty(LBD_NS.PROPS_NS.props_ns + pname + "_simple");
+				lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
+			}
+			break;
+		case 2:
+		case 3:
+			if (hashes.add(long_guid)) {
+				List<PsetProperty> properties = writeOPM_Set(long_guid);
+				for (PsetProperty pp : properties) {
+					if (!this.lbd_model.listStatements(lbd_resource, pp.p, pp.r).hasNext()) {
+						lbd_resource.addProperty(pp.p, pp.r);
+					}
+				}
+			}
+			break;
+		}
+	}
+
+
+	private List<PsetProperty> writeOPM_Set(String long_guid) {
+		List<PsetProperty> properties = new ArrayList<>();
+		for (String k : this.mapPnameValue.keySet()) {
 			Resource property_resource;
 			if (this.hasBlank_nodes)
-				property_resource = pset.getModel().createResource();
+				property_resource = this.lbd_model.createResource();
 			else
-				property_resource = pset.getModel().createResource(this.uriBase + k + "_" + extracted_guid);
-			
-			//if (!is_attribute)
-				if(mapBSDD.get(k)!=null) {
-					property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k)); 		
-					System.out.println("connected property: "+k+"\nnumber of triples: "+property_resource.listProperties().toList().size());
-				}
-			
+				property_resource = this.lbd_model.createResource(this.uriBase + k + "_" + long_guid);
+
+			if (mapBSDD.get(k) != null)
+				property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k));
+
 			if (this.props_level == 3) {
 				Resource state_resourse;
 				if (this.hasBlank_nodes)
-					state_resourse = pset.getModel().createResource();
+					state_resourse = this.lbd_model.createResource();
 				else
-					state_resourse = pset.getModel().createResource(
-							this.uriBase + "state_"+k +"_"+ extracted_guid + "_" + System.currentTimeMillis());
+					state_resourse = this.lbd_model.createResource(
+							this.uriBase + "state_" + k + "_" + long_guid + "_" + System.currentTimeMillis());
 				property_resource.addProperty(OPM.hasState, state_resourse);
 
 				LocalDateTime datetime = LocalDateTime.now();
 				String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 				state_resourse.addProperty(RDF.type, OPM.currentState);
 				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
-				state_resourse.addProperty(OPM.value, this.getMap().get(k));
+				state_resourse.addProperty(OPM.value, this.mapPnameValue.get(k));
 			} else
-				property_resource.addProperty(OPM.value, this.getMap().get(k));
+				property_resource.addProperty(OPM.value, this.mapPnameValue.get(k));
 
 			Property p;
-			//if (!is_attribute) 
-			{
-				p = pset.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + toCamelCase(k));
-				this.properties.add(new PsetProperty(p, property_resource));
-			}
+			p = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + StringOperations.toCamelCase(k));
+			properties.add(new PsetProperty(p, property_resource));
 		}
+		return properties;
 	}
 
-	public void putPropertyRef(RDFNode property) {
-		String pname = property.asLiteral().getString();
-		if(is_bSDD_pset) {
-			StmtIterator iter = psetDef.listProperties(LBD_NS.PROPS_NS.propertyDef);
-			while(iter.hasNext()) {
-				Resource prop = iter.next().getResource();
-				StmtIterator iterProp = prop.listProperties(LBD_NS.PROPS_NS.namePset);
-				while(iterProp.hasNext()) 
-				{
-					Literal psetPropName = iterProp.next().getLiteral();
-					if(psetPropName.getString().equals(pname))
-						mapBSDD.put(toCamelCase(property.toString()), prop);
-				}
-			}
-		}
-	}
-	
-	Set<String> hashes=new HashSet<>();
-	
-	/**
-	 * Adds property value property for an resource.
-	 * @param r_org          The Jena Resource in the model 
-	 * @param extracted_guid The GUID of the elemet
-	 */
-	public void connect(Resource r_org,String extracted_guid) {
-		Resource r = this.model.createResource(r_org.getURI());
-		if (this.props_level > 1) {	
-			System.out.println("props level 2-3!!");
-			if(hashes.add(extracted_guid))
-			{
-			  System.out.println("hashes add");
-			  writeOPM_Set(extracted_guid);
-			}
-			System.out.println("this.properties: "+this.properties.size());
-			for (PsetProperty pp : this.properties) {
-				if(!r.getModel().listStatements(r, pp.p, pp.r).hasNext()) {
-				System.out.println("adding property "+pp.r+" - number of triples: "+pp.r.listProperties().toList().size());
-				System.out.println("is defined: "+pp.r.listProperties(LBD_NS.PROPS_NS.isBSDDProp).toList().size());
-				r.addProperty(pp.p, pp.r);
-				}
-			}
-		} else {
-
-			for (String k : this.getMap().keySet()) {
-				Property property;
-				if (name.equals("attributes"))
-					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_attribute_simple");
-				else
-					property = r.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + k + "_simple");
-				r.addProperty(property, this.getMap().get(k));
-			}
-		}
-	}
-
-	/**
-	 * Converts a string into the CamelCase notation described in:
-	 * https://en.wikipedia.org/wiki/Camel_case
-	 *  
-	 * @param txt
-	 * @return
-	 */
-	public String toCamelCase(final String txt) {
-		if (txt == null)
-			return null;
-
-		StringBuilder ret = new StringBuilder();
-
-		boolean first = true;
-		for (final String word : txt.split(" ")) {
-			if (!word.isEmpty()) {
-				if (first) {
-					ret.append(filterCharaters(word.substring(0, 1).toLowerCase()));
-					first = false;
-				} else
-					ret.append(filterCharaters(word.substring(0, 1).toUpperCase()));
-				ret.append(filterCharaters(word.substring(1)));
-			}
-		}
-
-		return ret.toString();
-	}
-
-	/**
-	 * Converts a CamelCase string into space separate words.
-	 * https://en.wikipedia.org/wiki/Camel_case
-	 *  
-	 * @param txt
-	 * @return
-	 */
-	public String toUnCamelCase(final String txt) {
-		if (txt == null)
-			return null;
-
-		StringBuilder ret = new StringBuilder();
-		for(int i=0;i<txt.length();i++)
-		{
-			char c=txt.charAt(i);
-			if(i>0 && Character.isUpperCase(c))
-			{
-				ret.append(" ");
-				ret.append(Character.toLowerCase(c));
-			}
-			else
-			if(c=='_')
-				ret.append(" ");
-			else
-			  ret.append(c);
-		}
-		return ret.toString();	
-	}
-	
-	
-	/**
-	 * Removes all characters other than letters from a string
-	 * 
-	 * @param txt A text string
-	 * @return
-	 */
-	private String filterCharaters(String txt) {
-		StringBuilder ret = new StringBuilder();
-		for (byte cb : txt.getBytes()) {
-			char c = (char) cb;
-			if (Character.isAlphabetic(c))
-				ret.append(c);
-		}
-		return ret.toString();
-	}
-
-	private Map<String, RDFNode> getMap() {
-		return map;
-	}
-
-	
 }
