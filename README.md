@@ -56,7 +56,7 @@ The created package will be at the target subdirectory.
 You can rename the ifc2lbd-1.08-jar-with-dependencies.jar file into name IFCtoRDF.jar
 
 An example command line usage of the program is:
-java -jar IFCtoLBD_Desktop_Java8-1.77.jar Duplex_A.ifc http://uribase  out.ttl
+java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 
 ## License
 This project is released under the open source [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.en.html)
