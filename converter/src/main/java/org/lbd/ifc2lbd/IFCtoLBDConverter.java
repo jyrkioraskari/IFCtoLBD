@@ -44,7 +44,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
 
 
 /*
- *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -507,11 +507,11 @@ public class IFCtoLBDConverter {
 			IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if (eo.getLocalName().toLowerCase().contains("space"))
 					System.out.println("hosts: " + ifc_element + "--" + ifc_element2 + " bot:" + eo);
-				connectElement(eo, LBD_NS.BOT.hostsElement, ifc_element2);
+				connectElement(eo, LBD_NS.BOT.hasSubElement, ifc_element2);
 			});
 
 			IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(eo, LBD_NS.BOT.aggregates, ifc_element2);
+				connectElement(eo, LBD_NS.BOT.hasSubElement, ifc_element2);
 			});
 		} 
 	}
@@ -551,11 +551,11 @@ public class IFCtoLBDConverter {
 			IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
 				if (lbd_object.getLocalName().toLowerCase().contains("space"))
 					System.out.println("hosts2: " + ifcowl_element + "-->" + ifc_element2 + " bot:" + lbd_object);
-				connectElement(lbd_object, LBD_NS.BOT.hostsElement, ifc_element2);
+				connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
 			});
 
 			IfcOWLUtils.listAggregated_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-				connectElement(lbd_object, LBD_NS.BOT.aggregates, ifc_element2);
+				connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
 			});
 		} else {
 			System.err.println("No type: " + ifcowl_element);
