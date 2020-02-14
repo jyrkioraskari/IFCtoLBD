@@ -37,7 +37,7 @@ public class LBD_NS extends abstract_NS{
 	public static class Product {
 		public static final String beo_ns = "http://pi.pauwel.be/voc/buildingelement#"; 
 		public static final String furnishing_ns = "http://pi.pauwel.be/voc/furniture#";
-		public static final String mep_ns = "http://pi.pauwel.be/voc/distributionelement#";
+		public static final String mep_ns = "http://pi.pauwel.be/voc/distributionelement#";  
 
 		public static void addNameSpace(Model model)
 		{
