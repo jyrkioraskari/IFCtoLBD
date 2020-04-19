@@ -62,7 +62,7 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
 ## License
-This project is released under the open source [GNU Affero General Public License v3](http://www.gnu.org/licenses/agpl-3.0.en.html)
+This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Cite this
 ```
