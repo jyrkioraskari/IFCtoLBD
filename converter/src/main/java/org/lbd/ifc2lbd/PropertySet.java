@@ -95,6 +95,11 @@ public class PropertySet {
 					Literal psetPropName = iterProp.next().getLiteral();
 					if (psetPropName.getString().equals(pname))
 						mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
+					else {
+						String camel_name = StringOperations.toCamelCase(property.toString());
+						if (psetPropName.getString().toUpperCase().equals(camel_name.toUpperCase()))
+							mapBSDD.put(camel_name, prop);
+					}
 				}
 			}
 		}
@@ -131,7 +136,6 @@ public class PropertySet {
 			break;
 		}
 	}
-
 
 	private List<PsetProperty> writeOPM_Set(String long_guid) {
 		List<PsetProperty> properties = new ArrayList<>();

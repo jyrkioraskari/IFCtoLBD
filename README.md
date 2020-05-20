@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.84
+Version 1.85
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -25,7 +25,7 @@ Precompiled applications are included in this repository.
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
 
-If the program does not start, try the following command at the command line: `java -jar IFCtoLBD_Desktop_Java8-1.77.jar`.
+If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
 
 ![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
