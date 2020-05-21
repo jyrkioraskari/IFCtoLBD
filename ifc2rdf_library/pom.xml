@@ -13,7 +13,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.lbd</groupId>
 	<artifactId>ifc2rdf</artifactId>
-	<version>1.89</version>
+	<version>1.86</version>
 	<name>IFC to RDF converter library</name>
 	<licenses>
 		<license>

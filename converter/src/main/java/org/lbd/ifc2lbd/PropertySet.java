@@ -81,6 +81,7 @@ public class PropertySet {
 	}
 
 	public void putPnameValue(String property_name, RDFNode value) {
+		System.out.println("value: "+value);
 		mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
 	}
 
@@ -114,6 +115,7 @@ public class PropertySet {
 	Set<String> hashes = new HashSet<>();
 
 	public void connect(Resource lbd_resource, String long_guid) {
+		System.out.println("pset connect");
 		switch (this.props_level) {
 		case 1:
 		default:

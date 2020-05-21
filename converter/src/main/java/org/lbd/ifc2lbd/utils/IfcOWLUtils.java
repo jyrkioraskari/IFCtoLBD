@@ -52,7 +52,7 @@ public class IfcOWLUtils {
 
 	// Solution proposed by Simon Steyskal 2018
 	private static RDFStep[] getNextLevelPath(IfcOWLNameSpace ifcOWL) {
-		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {
+		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
 			return path;
@@ -301,7 +301,7 @@ public class IfcOWLUtils {
 
 	// Solution proposed by Simon Steyskal 2018
 	private static RDFStep[] getPropertySetPath(IfcOWLNameSpace ifcOWL) {
-		if (ifcOWL.getIfcURI().indexOf("IFC2x3") != -1) {
+		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
 			return path;

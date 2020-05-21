@@ -63,6 +63,7 @@ public class ConversionThread implements Callable<Integer> {
 	public Integer call() throws Exception {
 		try {
 			try {
+				System.out.println("conversion thread");
 				new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
 						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes, this.hasGeolocation);
 			} catch (OutOfMemoryError e) {
