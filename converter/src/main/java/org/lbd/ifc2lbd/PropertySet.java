@@ -139,15 +139,15 @@ public class PropertySet {
 
 	private List<PsetProperty> writeOPM_Set(String long_guid) {
 		List<PsetProperty> properties = new ArrayList<>();
-		for (String k : this.mapPnameValue.keySet()) {
+		for (String key : this.mapPnameValue.keySet()) {
 			Resource property_resource;
 			if (this.hasBlank_nodes)
 				property_resource = this.lbd_model.createResource();
 			else
-				property_resource = this.lbd_model.createResource(this.uriBase + k + "_" + long_guid);
+				property_resource = this.lbd_model.createResource(this.uriBase + key + "_" + long_guid);
 
-			if (mapBSDD.get(k) != null)
-				property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(k));
+			if (mapBSDD.get(key) != null)
+				property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(key));
 
 			if (this.props_level == 3) {
 				Resource state_resourse;
@@ -155,19 +155,19 @@ public class PropertySet {
 					state_resourse = this.lbd_model.createResource();
 				else
 					state_resourse = this.lbd_model.createResource(
-							this.uriBase + "state_" + k + "_" + long_guid + "_" + System.currentTimeMillis());
+							this.uriBase + "state_" + key + "_" + long_guid + "_" + System.currentTimeMillis());
 				property_resource.addProperty(OPM.hasState, state_resourse);
 
 				LocalDateTime datetime = LocalDateTime.now();
 				String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
 				state_resourse.addProperty(RDF.type, OPM.currentState);
 				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
-				state_resourse.addProperty(OPM.value, this.mapPnameValue.get(k));
+				state_resourse.addProperty(OPM.value, this.mapPnameValue.get(key));
 			} else
-				property_resource.addProperty(OPM.value, this.mapPnameValue.get(k));
+				property_resource.addProperty(OPM.value, this.mapPnameValue.get(key));
 
 			Property p;
-			p = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + StringOperations.toCamelCase(k));
+			p = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + StringOperations.toCamelCase(key));
 			properties.add(new PsetProperty(p, property_resource));
 		}
 		return properties;

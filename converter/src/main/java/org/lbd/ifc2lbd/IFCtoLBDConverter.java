@@ -370,20 +370,22 @@ public class IFCtoLBDConverter {
 					RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathL)
 							.forEach(value -> property_value.add(value));
 
-					if (property_value.size() > 0) {
-						RDFNode pname = property_name.get(0);
+					RDFNode pname = property_name.get(0);
+					
+					PropertySet ps = this.propertysets.get(propertyset.getURI());
+					if (ps == null) {
+						if (!propertyset_name.isEmpty())
+							ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
+									propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
+						else
+							ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
+									"", props_level, hasPropertiesBlankNodes);
+						this.propertysets.put(propertyset.getURI(), ps);
+					}
+
+					if (property_value.size() > 0){ 
 						RDFNode pvalue = property_value.get(0);
 						if (!pname.toString().equals(pvalue.toString())) {
-							PropertySet ps = this.propertysets.get(propertyset.getURI());
-							if (ps == null) {
-								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-											propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
-								else
-									ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-											"", props_level, hasPropertiesBlankNodes);
-								this.propertysets.put(propertyset.getURI(), ps);
-							}
 							if (pvalue.toString().trim().length() > 0) {
 								if (pvalue.isLiteral()) {
 									String val = pvalue.asLiteral().getLexicalForm();
@@ -396,18 +398,6 @@ public class IFCtoLBDConverter {
 						}
 						// else: do nothing
 					} else {
-						RDFNode pname = property_name.get(0);
-						PropertySet ps = this.propertysets.get(propertyset.getURI());
-						if (ps == null) {
-							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model,
-										propertyset_name.get(0).toString(), props_level, hasPropertiesBlankNodes);
-							else
-								ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "",
-										props_level, hasPropertiesBlankNodes);
-
-							this.propertysets.put(propertyset.getURI(), ps);
-						}
 						ps.putPnameValue(pname.toString(), propertySingleValue);
 						ps.putPsetPropertyRef(pname);
 						RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
