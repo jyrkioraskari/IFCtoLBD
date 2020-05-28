@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.87</version>
+	<version>1.88-SNAPSHOT</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -62,7 +62,7 @@
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
 		<developerConnection>scm:git:git@github.com/jyrkioraskari/IFCtoLBD.git</developerConnection>
 		<url>https://https://github.com/jyrkioraskari/IFCtoLBD</url>
-		<tag>ifc2lbd-1.87</tag>
+		<tag>HEAD</tag>
 	</scm>
 	<distributionManagement>
 		<snapshotRepository>
