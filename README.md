@@ -66,7 +66,6 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 [jyrkioraskari/IFCtoLBD_BIMBot-Plugin](https://github.com/jyrkioraskari/IFCtoLBD_BIMBot-Plugin)
 
 ## License
-## License
 This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## Cite this
