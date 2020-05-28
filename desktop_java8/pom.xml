@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2lbd</artifactId>
-			<version>1.87</version>
+			<version>1.88-SNAPSHOT</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<dependency>
