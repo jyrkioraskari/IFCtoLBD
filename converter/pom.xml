@@ -2,9 +2,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>org.lbd</groupId>
+	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc2lbd</artifactId>
-	<version>1.86</version>
+	<version>1.87</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -17,12 +17,6 @@
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.lbd</groupId>
-			<artifactId>ifc2rdf</artifactId>
-			<version>1.86</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
@@ -40,6 +34,32 @@
 			<artifactId>jena-shaded-guava</artifactId>
 			<version>3.10.0</version>
 		</dependency>
+		
+				<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>3.10.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/EXPRESStoOWL -->
+		<dependency>
+			<groupId>com.github.pipauwel</groupId>
+			<artifactId>EXPRESStoOWL</artifactId>
+			<version>0.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+		<dependency>
+			<groupId>com.thoughtworks.xstream</groupId>
+			<artifactId>xstream</artifactId>
+			<version>1.4.12</version>
+		</dependency>
+				<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
+
 
 	</dependencies>
 	<build>
