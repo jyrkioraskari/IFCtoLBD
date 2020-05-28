@@ -1,33 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
-  Licensed under the Apache License, Version 2.0 (the "License"); 
-  you may not use this file except in compliance with the License. 
-  You may obtain  a copy of the License at 
-  
-  http://www.apache.org/licenses/LICENSE-2.0 Unless 
-  
-  required by applicable law or agreed to in writing, software 
-  distributed under the License is distributed on an "AS IS" 
-  BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either 
-  express or implied. See the License for the specific language 
-  governing permissions and limitations under the License. 
--->
+<!-- Licensed under the Apache License, Version 2.0 (the "License"); you 
+	may not use this file except in compliance with the License. You may obtain 
+	a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless 
+	required by applicable law or agreed to in writing, software distributed 
+	under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES 
+	OR CONDITIONS OF ANY KIND, either express or implied. See the License for 
+	the specific language governing permissions and limitations under the License. -->
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
-	<version>1.87</version>
+	<version>1.88</version>
 	<name>IFCtoLBD Desktop Java 12</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
-    <developer>
-      <id>jyrkio</id>
-      <name>Jyrki Oraskari</name>
-      <email>jyrki [dot] oraskari [at] aalto [dot] fi</email>
-    </developer>
-  </developers>
+		<developer>
+			<id>jyrkio</id>
+			<name>Jyrki Oraskari</name>
+			<email>jyrki [dot] oraskari [at] aalto [dot] fi</email>
+		</developer>
+	</developers>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -42,17 +36,15 @@
 	<dependencies>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
-			<artifactId>ifc2lbd</artifactId>
-			<version>1.88-SNAPSHOT</version>
+			<artifactId>IFCtoLBD</artifactId>
+			<version>1.88</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<dependency>
 			<groupId>org.controlsfx</groupId>
 			<artifactId>controlsfx</artifactId>
 			<version>9.0.0</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
@@ -105,7 +97,7 @@
 					</execution>
 				</executions>
 			</plugin>
-						<plugin>
+			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>1.5</version>
@@ -141,9 +133,9 @@
 				</executions>
 
 			</plugin>
-			
+
 		</plugins>
-				<pluginManagement>
+		<pluginManagement>
 			<plugins>
 				<!--This plugin's configuration is used to store Eclipse m2e settings 
 					only. It has no influence on the Maven build itself. -->

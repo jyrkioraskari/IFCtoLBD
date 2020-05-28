@@ -17,10 +17,11 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.buildingsmart.tech.ifcowl.IfcSpfReader;
 import org.lbd.ifc2lbd.ns.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.utils.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
+
+import com.buildingsmart.tech.ifcowl.IfcSpfReader;
 
 /*
  *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -70,10 +71,6 @@ public class IfcOWLUtils {
 
 	/**
 	 * 
-	 * <font color="green"> <b>Site – building (bot:hasBuilding)</b>
-	 * (inst:IfcBuilding_xx)&lt;-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObject_IfcRelDecomposes]-&gt;(inst:IfcSite_xx)
-	 * </font>
-	 * 
 	 * @param site   Apache Jena Resource RDF node that refers to an #IfcSite ifcOWL
 	 *               element
 	 * @param ifcOWL The ifcOWL namespace element.
@@ -89,10 +86,6 @@ public class IfcOWLUtils {
 
 	/**
 	 * 
-	 * <font color="green"> <b>Building – storeys (bot:hasStorey)</b>
-	 * (inst:IfcBuildingStorey_xx)&lt;-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObjects_IfcRelDecomposes]-&gt;(inst:IfcBuilding_xx)
-	 * </font>
-	 * 
 	 * @param building Apache Jena Resource RDF node that refers to an #IfcBuilding
 	 *                 ifcOWL element
 	 * @param ifcOWL   The ifcOWL namespace element.
@@ -105,17 +98,6 @@ public class IfcOWLUtils {
 	}
 
 	/**
-	 * 
-	 * <font color="green"> <b>Storeys – spaces (bot:hasSpace)</b>
-	 * (inst:IfcSpace_xx)&lt;-[ifcowl:relatedObjects_IfcRelDecomposes]-(inst:IfcRelAggregates_xx)-[ifcowl:relatingObjects_IfcRelDecomposes]-&gt;(inst:IfcBuildingStorey_xx)
-	 * <P>
-	 * <b>OR</b>
-	 * <P>
-	 * (inst:IfcSpace_xx)-[ifcowl:objectPlacement_IfcProduct]-&gt;(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]-&gt;(inst:IfcLocalPlacement_yy)&lt;-[ifcowl:
-	 * objectPlacement_IfcProduct]-(inst:IfcBuildingStorey_xx)
-	 * 
-	 * </font>
-	 * 
 	 * @param storey Apache Jena Resource RDF node that refers to an
 	 *               #IfcBuildingStorey ifcOWL element
 	 * @param ifcOWL The ifcOWL namespace element.
@@ -135,18 +117,6 @@ public class IfcOWLUtils {
 	}
 
 	/**
-	 * 
-	 * <font color="green"> <b>Storeys – elements (bot:containsElement)</b>
-	 * (inst:IfcDoor_xx)&lt;-[ifcowl:relatedElements_IfcRelContainedInSpatialStructure]-(inst:IfcRelContainedInSpatialStructure_xx)-[ifcowl:relatingStructure_IfcRelContainedInSpatialStructure]-&gt;(inst:IfcBuildingStorey_xx)
-	 *
-	 * <P>
-	 * <b>OR</b>
-	 * <P>
-	 * 
-	 * (inst:IfcDoor_xx)-[ifcowl:objectPlacement_IfcProduct]-&gt;(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]-&gt;(inst:IfcLocalPlacement_yy)&lt;-[ifcowl:
-	 * objectPlacement_IfcProduct]-(inst:IfcBuildingStorey_xx)
-	 * 
-	 * </font>
 	 * 
 	 * @param storey Apache Jena Resource RDF node that refers to an
 	 *               #IfcBuildingStorey ifcOWL element
@@ -169,10 +139,6 @@ public class IfcOWLUtils {
 
 	/**
 	 * 
-	 * <font color="green"> <b>Spaces – elements (bot:containsElement)</b>
-	 * (inst:IfcFurnishingElement_xx)&lt;-[ifcowl:relatedElements_IfcRelContainedInSpatialStructure]-(inst:IfcRelContainedInSpatialStructure_xx)-[ifcowl:relatingStructure_IfcRelContainedInSpatialStructure]-&gt;(inst:IfcSpace_xx)
-	 * 
-	 * </font>
 	 * 
 	 * @param space  Apache Jena Resource RDF node that refers to an ifcOWL space
 	 *               element
@@ -191,10 +157,6 @@ public class IfcOWLUtils {
 
 	/**
 	 * 
-	 * <font color="green"> <b>Spaces – elements (bot:adjacentElement)</b>
-	 * (inst:IfcDoor_xx)&lt;-[ifcowl:relatedBuildingElement_IfcRelSpaceBoundary]-(inst:IfcRelSpaceBoundary_xx)-[ifcowl:relatingSpace_IfcRelSpaceBoundary]-&gt;(inst:IfcSpace_xx)
-	 * 
-	 * </font>
 	 * 
 	 * @param space  Apache Jena Resource RDF node that refers to an ifcOWL space
 	 * @param ifcOWL The ifcOWL namespace element.
@@ -210,18 +172,6 @@ public class IfcOWLUtils {
 	}
 
 	/**
-	 * 
-	 * <font color="green"> <b>Element – element (bot:hostsElement)</b>
-	 * (inst:IfcDoor_xx)&lt;-[ifcowl:relatedBuildingElement_IfcRelFillsElement]-(inst:IfcRelFillsElement_xx)-[ifcowl:relatingOpeningElement_IfcRelFillsElement]-&gt;(inst:IfcOpeningElement_xx)&lt;-[ifcowl:relatedOpeningElement_IfcRelVoidsElement]-(inst:IfcRelVoidsElement_xx)-[ifcowl:relatingBuildingElement_IfcRelVoidsElement]-&gt;(inst:IfcWallStandardCase_xx)
-	 * 
-	 * <P>
-	 * <b>OR</b>
-	 * <P>
-	 * 
-	 * (inst:IfcDoor_xx)-[ifcowl:objectPlacement_IfcProduct]-&gt;(inst:IfcLocalPlacement_xx)-[ifcowl:placementRelTo_IfcLocalPlacement]-&gt;(inst:IfcLocalPlacement_yy)&lt;-[ifcowl:objectPlacement_IfcProduct]-(inst:IfcOpeningElement_xx)&lt;-[ifcowl:relatedOpeningElement_IfcRelVoidsElement]-(inst:IfcRelVoidsElement_xx)-[ifcowl:relatingBuildingElement_IfcRelVoidsElement]-&gt;(inst:IfcWallStandardCase_xx)
-	 * 
-	 * </font>
-	 * 
 	 * @param element Apache Jena Resource RDF node that refers to an ifcOWL element
 	 * @param ifcOWL  The ifcOWL namespace element.
 	 * @return The list of all hosted elements under the element
@@ -248,11 +198,13 @@ public class IfcOWLUtils {
 	/**
 	 * Returns list of all RDF nodes that match the RDF graoh pattern:
 	 * 
-	 * INVERSE(relatingObject_IfcRelDecomposes)-> relatedObjects_IfcRelDecomposes
+	 * INVERSE(relatingObject_IfcRelDecomposes) -  relatedObjects_IfcRelDecomposes
 	 * 
 	 * @param element the starting RDF node
+	 * @param ifcOWL  namespace
 	 * @return The list of the matching elements
 	 */
+	
 	public static List<RDFNode> listAggregated_Elements(Resource element, IfcOWLNameSpace ifcOWL) {
 		List<RDFNode> ret;
 
@@ -266,8 +218,10 @@ public class IfcOWLUtils {
 	 * Returns list of all RDF nodes that are of subclasses of IfcBuildingElement on
 	 * the RDF graph.
 	 * 
+	 * @param ifcowl_model  jena model
 	 * @return list of the elements
 	 */
+	
 	public static List<Resource> listBuildingElements(Model ifcowl_model) {
 		final List<Resource> ret = new ArrayList<>();
 		ifcowl_model.listStatements().filterKeep(t1 -> t1.getPredicate().equals(RDF.type)).filterKeep(t2 -> {
@@ -316,12 +270,11 @@ public class IfcOWLUtils {
 	 * Returns list of all RDF nodes that match the RDF graoh pattern:
 	 * 
 	 *
-	 * INVERSE (RelatedObjects_IfcRelDefines) ->
+	 * INVERSE (RelatedObjects_IfcRelDefines) -
 	 * RelatingPropertyDefinition_IfcRelDefinesByProperties
 	 * 
-	 * on the RDF graph.
-	 * 
 	 * @param resource the starting RDF node
+	 * @param ifcOWL   namespace
 	 * @return the list of the matching RDF nodes.
 	 */
 	public static List<RDFNode> listPropertysets(Resource resource, IfcOWLNameSpace ifcOWL) {
@@ -332,7 +285,9 @@ public class IfcOWLUtils {
 	 * Returns list of all RDF nodes that are of type ifcOWL Ontology base URI +
 	 * IfcPropertySet on the RDF graph.
 	 * 
-	 * @return the list of the matching RDF nodes.
+	 * @param ifcOWL    name space
+	 * @param ifcowl_model jena model
+	 * @return  the list of the matching RDF nodes.
 	 */
 	public static List<RDFNode> listPropertysets(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };

@@ -1,4 +1,4 @@
-package org.buildingsmart.tech.ifcowl;
+package com.buildingsmart.tech.ifcowl;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;

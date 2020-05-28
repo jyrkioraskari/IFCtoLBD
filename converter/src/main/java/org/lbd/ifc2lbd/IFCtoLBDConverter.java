@@ -27,7 +27,6 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.buildingsmart.tech.ifcowl.IfcSpfReader;
 import org.lbd.ifc2lbd.geo.IFC_Geolocation;
 import org.lbd.ifc2lbd.geo.WktLiteral;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
@@ -39,6 +38,7 @@ import org.lbd.ifc2lbd.utils.IfcOWLUtils;
 import org.lbd.ifc2lbd.utils.RDFUtils;
 import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
 
+import com.buildingsmart.tech.ifcowl.IfcSpfReader;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
 
@@ -58,12 +58,6 @@ import com.openifctools.guidcompressor.GuidCompressor;
  * limitations under the License.
  */
 
-/**
- * <img src="https://jyrkioraskari.github.io/IFCtoLBD/doc-graphs/Overview.PNG">
- * <P>
- * <img src=
- * "https://jyrkioraskari.github.io/IFCtoLBD/doc-graphs/IFCtoLBDConverter_class_diagram.png">
- */
 
 // The Class diagram source code:
 /*

@@ -1,4 +1,4 @@
-package org.buildingsmart.tech.ifcowl;
+package com.buildingsmart.tech.ifcowl;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -73,6 +73,7 @@ public class IfcSpfReader {
     /**
      * @param args
      *            inputFilePath outputFilePath
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         String[] options = new String[] { "--log", "--dir", "--json", "--json-string", "--keep-duplicates" };

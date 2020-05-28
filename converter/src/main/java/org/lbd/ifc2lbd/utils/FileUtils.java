@@ -78,7 +78,7 @@ public class FileUtils {
 	 * Retuns a list of all files at the directory and in the subdirectories
 	 * 
 	 * @param dir The selected directory
-	 * @@return List of files found
+	 * @return List of files found
 	 */
 	public static List<String> listFiles(String dir) {
 		List<String> goodFiles = new ArrayList<String>();
