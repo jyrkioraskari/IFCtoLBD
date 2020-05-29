@@ -73,11 +73,6 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
-```
-public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
-			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
-			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation)
-```
 
 ### How to use the code:
 ```
