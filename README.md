@@ -71,15 +71,15 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
   <classifier>jar-with-dependencies</classifier>
 </dependency>
 ```
+[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
 ```
 public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation)
 ```
-[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
-How to use the code:
+### How to use the code:
 ```
 new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
 ```
