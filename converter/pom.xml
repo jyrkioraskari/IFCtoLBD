@@ -12,6 +12,35 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
+	<url>https://github.com/jyrkioraskari/IFCtoLBD</url>
+	<description>Converter to convert Industry Foundation Classes (IFC) STEP formatted files into Resource Description Framework (RDF) triples that follow the small ontologies devised in the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG) (https://github.com/w3c-lbd-cg/).</description>
+	<developers>
+    <developer>
+      <id>jyrkio</id>
+      <name>Jyrki Oraskari</name>
+      <email>jyrki [dot] oraskari [at] aalto [dot] fi</email>
+    </developer>
+    <developer>
+      <id>mathib</id>
+      <name>Mathias Bonduel</name>
+      <email>mathias [dot] bonduel[at] kuleuven [dot] be</email>
+    </developer>
+    <developer>
+      <id>kmcglinn</id>
+      <name>Kris McGlinn</name>
+      <email>kmcglinn [at] gmail [dot] com</email>
+    </developer>
+    <developer>
+      <id>pipauwel</id>
+      <name>Pieter Pauwels</name>
+      <email>pipauwel [dot] pauwels [at] ugent [dot] be</email>
+    </developer>
+      <developer>
+      <id>AnnaWagner</id>
+      <name>Anna Wagner</name>
+      <email>wagner [at] iib  [dot] tu-darmstadt  [dot] de</email>
+    </developer>
+  </developers>
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -103,6 +132,30 @@
 			<build>
 				<plugins>
 					<plugin>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<version>2.8.2</version>
+						<executions>
+							<execution>
+								<id>default-deploy</id>
+								<phase>deploy</phase>
+								<goals>
+									<goal>deploy</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<version>1.6.7</version>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<autoReleaseAfterClose>true</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
 						<version>3.0.1</version>
@@ -110,7 +163,7 @@
 							<execution>
 								<id>attach-sources</id>
 								<goals>
-									<goal>jar</goal>
+									<goal>jar-no-fork</goal>
 								</goals>
 							</execution>
 						</executions>

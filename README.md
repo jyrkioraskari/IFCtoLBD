@@ -61,6 +61,30 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
+## Maven
+
+```
+<dependency>
+  <groupId>io.github.jyrkioraskari</groupId>
+  <artifactId>IFCtoLBD</artifactId>
+  <version>1.88</version>
+  <classifier>jar-with-dependencies</classifier>
+</dependency>
+```
+
+```
+public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
+			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
+			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation)
+```
+[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
+
+How to use the code:
+```
+new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
+```
+
+
 ## IFCtoLBD BimBot service plugin for BIMserver
 
 [jyrkioraskari/IFCtoLBD_BIMBot-Plugin](https://github.com/jyrkioraskari/IFCtoLBD_BIMBot-Plugin)
