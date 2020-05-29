@@ -62,7 +62,6 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
 ## Maven
-
 ```
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
