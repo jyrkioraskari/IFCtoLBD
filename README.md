@@ -62,7 +62,7 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
 ## Maven
-The Maven library was published on 29th of May, 2020. It is expected to be visible today. 
+The Maven library was published on 29th of May, 2020.  
 
 ```
 <dependency>
@@ -72,6 +72,8 @@ The Maven library was published on 29th of May, 2020. It is expected to be visib
   <classifier>jar-with-dependencies</classifier>
 </dependency>
 ```
+https://mvnrepository.com/artifact/io.github.jyrkioraskari/IFCtoLBD/1.88
+
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
 
