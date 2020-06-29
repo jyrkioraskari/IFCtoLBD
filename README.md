@@ -92,17 +92,20 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## Cite this
 ```
-@misc{jyrki_oraskari_2019_2645528,
+@software{jyrki_oraskari_2020_3923103,
   author       = {Jyrki Oraskari and
-                  Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
-                  Anna Wagner},
-  title        = {jyrkioraskari/IFCtoLBD 1.77},
-  month        = apr,
-  year         = 2019,
-  doi          = {10.5281/zenodo.2645528},
-  url          = {https://doi.org/10.5281/zenodo.2645528}
+                  Freddy Priyatna and
+                  Anna Wagner and
+                  Joel Lehtonen OH64K},
+  title        = {jyrkioraskari/IFCtoLBD: 1.90},
+  month        = jun,
+  year         = 2020,
+  publisher    = {Zenodo},
+  version      = {1.90},
+  doi          = {10.5281/zenodo.3923103},
+  url          = {https://doi.org/10.5281/zenodo.3923103}
 }
 ```
 
