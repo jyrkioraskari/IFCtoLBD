@@ -44,7 +44,7 @@ public class IfcOWLUtils {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
 		if (i.hasNext()) {
 			Statement s = i.next();
-			String guid = s.getObject().asResource().getProperty(ifcOWL.getHasString()).getObject().asLiteral()
+			String guid = s.getObject().asResource().getProperty(IfcOWLNameSpace.getHasString()).getObject().asLiteral()
 					.getLexicalForm();
 			return guid;
 		}

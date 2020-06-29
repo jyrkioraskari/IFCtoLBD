@@ -27,6 +27,7 @@ import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDF;
 import org.apache.jena.riot.system.StreamRDFWriter;
+import org.apache.jena.sparql.util.Context;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
@@ -35,7 +36,6 @@ import org.lbd.ifc2lbd.EventBusService;
 import org.lbd.ifc2lbd.messages.SystemStatusEvent;
 import org.lbd.ns.Namespace;
 
-import com.buildingsmart.tech.ifcowl.ExpressReader;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
@@ -110,7 +110,7 @@ public class RDFWriter {
     }
 
     public void parseModel2Stream(OutputStream out) throws IOException {
-        ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS);
+        ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_FLAT, Context.emptyContext);
         ttlWriter.base(baseURI);
         ttlWriter.prefix("ifcowl", ontNS);
         ttlWriter.prefix("inst", baseURI);
@@ -119,7 +119,7 @@ public class RDFWriter {
         ttlWriter.prefix("rdf", Namespace.RDF);
         ttlWriter.prefix("xsd", Namespace.XSD);
         ttlWriter.prefix("owl", Namespace.OWL);
-        ttlWriter.start();
+        ttlWriter.start();  
 
         ttlWriter.triple(new Triple(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
         ttlWriter.triple(new Triple(NodeFactory.createURI(baseURI), OWL.imports.asNode(), NodeFactory.createURI(ontNS)));
@@ -127,7 +127,6 @@ public class RDFWriter {
         // Read the whole file into a linemap Map object
         readModel();
 
-        System.out.println("model parsed");
    	    eventBus.post(new SystemStatusEvent("IFC model parsed"));
 
 
@@ -142,7 +141,6 @@ public class RDFWriter {
         if (!parsedSuccessfully)
             return;
 
-        System.out.println("entries mapped, now creating instances");
    	    eventBus.post(new SystemStatusEvent("IFC line entries mapped, creating instances."));
 
         createInstances();
@@ -416,9 +414,7 @@ public class RDFWriter {
                 typeName = ent.get(ifcLineEntry.getName()).getName();
             else if (typ.containsKey(ifcLineEntry.getName()))
                 typeName = typ.get(ifcLineEntry.getName()).getName();
-
             OntClass cl = ontModel.getOntClass(ontNS + typeName);
-
             Resource r = getResource(baseURI + typeName + "_" + ifcLineEntry.getLineNum(), cl);
             if (r == null) {
                 // *ERROR 2 already hit: we can safely stop
@@ -707,16 +703,6 @@ public class RDFWriter {
                                 }
                             }
 
-                            // exception. when a list points to a number of
-                            // linked lists, it could be that there are multiple
-                            // different entities are referenced
-                            // example: #308=
-                            // IFCINDEXEDPOLYCURVE(#309,(IFCLINEINDEX((1,2)),IFCARCINDEX((2,3,4)),IFCLINEINDEX((4,5)),IFCARCINDEX((5,6,7))),.F.);
-                            // in this case, it is better to immediately print
-                            // all relevant entities and properties for each
-                            // case (e.g. IFCLINEINDEX((1,2))),
-                            // and reset typeremembrance for the next case (e.g.
-                            // IFCARCINDEX((4,5))).
 
                             if ((evo != null) && (evo.getDerivedAttributeList() != null) && (evo.getDerivedAttributeList().size() > attributePointer)) {
 
@@ -727,12 +713,6 @@ public class RDFWriter {
 
                                 // finding listrange
                                 String[] primTypeArr = typeRemembrance.getPrimarytype().split(" ");
-                                // String primType =
-                                // primTypeArr[primTypeArr.length-1].replace(";",
-                                // "") + "_" +
-                                // primTypeArr[0].substring(0,1).toUpperCase() +
-                                // primTypeArr[0].substring(1).toLowerCase();
-                                // String typeURI = ontNS + primType;
                                 String primType = ontNS + primTypeArr[primTypeArr.length - 1].replace(";", "");
                                 OntResource listrange = ontModel.getOntResource(primType);
 
@@ -740,8 +720,6 @@ public class RDFWriter {
                                 literalObjects.addAll(literals);
                                 addDirectRegularListProperty(r1, range, listrange, literalObjects, 0);
 
-                                // put relevant top list items in a list, which
-                                // can then be parsed at the end of this method
                                 listRemembranceResources.add(r1);
                             }
 
@@ -877,15 +855,6 @@ public class RDFWriter {
             } else if (String.class.isInstance(o1)) {
                 if (typ.get(ExpressReader.formatClassName((String) o1)) != null && typeRemembrance == null) {
                     typeRemembrance = typ.get(ExpressReader.formatClassName((String) o1));
-                    // if(typeRemembrance == null){
-                    // if (myIfcReaderStream.logToFile)
-                    // myIfcReaderStream.bw.write("*ERROR 12*: The following TYPE is not found: "
-                    // + ExpressReader.formatClassName((String) o1) +
-                    // "\r\nQuitting the application without output!\r\n ");
-                    // System.err.println("*ERROR 12*: The following TYPE is not found: "
-                    // + ExpressReader.formatClassName((String) o1) +
-                    // "\r\nQuitting the application without output!");
-                    // }
                 } else
                     literals.add(filterExtras((String) o1));
             } else if (IFCVO.class.isInstance(o1)) {
@@ -895,47 +864,6 @@ public class RDFWriter {
                                         .write("*WARNING 16*: found TYPE that is equivalent to a list if IFC entities - below is the code used when this happens for ENTITIES with a list of ENTITIES"
                                                         + "\r\n");
 
-                    // String propURI =
-                    // tvo.evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-                    // OntProperty p = ontModel.getOntProperty(ontNS + propURI);
-                    // OntResource typerange = p.getRange();
-                    //
-                    // if(typerange.asClass().hasSuperClass(listModel.getOntClass(listNS
-                    // + "OWLList"))){
-                    // //EXPRESS LISTs
-                    // String listvaluepropURI = ontNS +
-                    // typerange.getLocalName().substring(0,
-                    // typerange.getLocalName().length()-5);
-                    // OntResource listrange =
-                    // ontModel.getOntResource(listvaluepropURI);
-                    //
-                    // if(listrange.asClass().hasSuperClass(listModel.getOntClass(listNS
-                    // + "OWLList"))){
-                    // if(myIfcReaderStream.logToFile)
-                    // myIfcReaderStream.bw.write("6 - WARNING: Found unhandled ListOfList"
-                    // + "\r\n");
-                    // }
-                    // else{
-                    // fillClassInstanceList(tmpList, typerange, p, r);
-                    // j = tmpList.size()-1;
-                    // }
-                    // }
-                    // else{
-                    // //EXPRESS SETs
-                    // EntityVO evorange =
-                    // ent.get(ExpressReader.formatClassName(((IFCVO)o1).getName()));
-                    // OntResource rclass = ontModel.getOntResource(ontNS +
-                    // evorange.getName());
-                    //
-                    // Resource r1 = getResource(baseURI + evorange.getName() +
-                    // "_" + ((IFCVO) o1).getLineNum(),rclass);
-                    // ttlWriter.triple(new Triple(r.asNode(), p.asNode(),
-                    // r1.asNode()));
-                    // if(myIfcReaderStream.logToFile)
-                    // myIfcReaderStream.bw.write("added property: " +
-                    // r.getLocalName() + " - " + p.getLocalName() + " - " +
-                    // r1.getLocalName() + "\r\n");
-                    // }
                 } else {
                     if (myIfcReaderStream.logToFile)
                         myIfcReaderStream.bw.write("*WARNING 19*: Nothing happened. Not sure if this is good or bad, possible or not." + "\r\n");
@@ -962,9 +890,6 @@ public class RDFWriter {
         if (literals.size() > 0) {
             if (typeRemembrance != null) {
                 if ((tvo != null)) {
-                    // && (tvo.getDerivedAttributeList() != null)
-                    // && (tvo.getDerivedAttributeList().size() >
-                    // attributePointer)) {
                     if (myIfcReaderStream.logToFile)
                         myIfcReaderStream.bw.write("*WARNING 20*: this part of the code has not been checked - it can't be correct" + "\r\n");
 
@@ -977,11 +902,6 @@ public class RDFWriter {
                     literalObjects.addAll(literals);
                     addDirectRegularListProperty(r, range, listrange, literalObjects, 0);
 
-                    // String propURI = ontNS +
-                    // tvo.getName();//.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-                    // OntProperty p = ontModel.getOntProperty(propURI);
-                    // addSinglePropertyFromTypeRemembrance(r, p,
-                    // literals.getFirst(), typeremembrance);
                 } else {
                     if (myIfcReaderStream.logToFile)
                         myIfcReaderStream.bw.write("*WARNING 21*: Nothing happened. Not sure if this is good or bad, possible or not." + "\r\n");
@@ -1446,6 +1366,7 @@ public class RDFWriter {
             try {
                 ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
             } catch (Exception e) {
+            	e.printStackTrace();
                 if (myIfcReaderStream.logToFile)
                     try {
                         myIfcReaderStream.bw.write("*ERROR 2*: getResource failed for " + uri + "\r\n");

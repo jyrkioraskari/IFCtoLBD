@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 1.88
+Version 1.90
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 

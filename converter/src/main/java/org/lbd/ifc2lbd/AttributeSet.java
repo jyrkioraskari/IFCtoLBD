@@ -9,12 +9,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.lbd.ifc2lbd.ns.LBD_NS;
 import org.lbd.ifc2lbd.ns.OPM;

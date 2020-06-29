@@ -31,6 +31,7 @@ import com.google.common.eventbus.EventBus;
  */
 
 public class ConversionThread implements Callable<Integer> {
+	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(ConversionThread.class.getName());
 	private final EventBus eventBus = EventBusService.getEventBus();
 	final private String ifc_filename;

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>1.88</version>
+	<version>1.91</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -70,45 +70,38 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.4</version>
+			<version>3.10</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+<dependency>
+    <groupId>commons-codec</groupId>
+    <artifactId>commons-codec</artifactId>
+    <version>1.14</version>
+</dependency>
+		
 
+		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-core</artifactId>
-			<version>3.10.0</version>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>3.15.0</version>
+			<type>pom</type>
 		</dependency>
 
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-shaded-guava</artifactId>
-			<version>3.10.0</version>
-		</dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena-arq -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena-arq</artifactId>
-			<version>3.10.0</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/com.github.pipauwel/EXPRESStoOWL -->
-		<dependency>
-			<groupId>com.github.pipauwel</groupId>
-			<artifactId>EXPRESStoOWL</artifactId>
-			<version>0.2</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>1.4.12</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>[24.1.1,)</version>
+			<version>29.0-jre</version>
 		</dependency>
+
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>

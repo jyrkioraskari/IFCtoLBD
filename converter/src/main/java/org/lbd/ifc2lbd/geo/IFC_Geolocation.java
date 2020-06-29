@@ -10,7 +10,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
@@ -40,9 +39,8 @@ public class IFC_Geolocation {
 
 
     private static Property ifcSiteProperty;
-    private static Resource ifcSiteResource;
-    private static List latitude = new ArrayList();
-    private static List longitude = new ArrayList();
+    private static List<String> latitude = new ArrayList<String>();
+    private static List<String> longitude = new ArrayList<String>();
     
     private final String ns1;
     private final String ns3;
@@ -92,7 +90,7 @@ public class IFC_Geolocation {
     
     
     //Author Kris McGlinn - This method changes the sign of the longitude or latitude values in a List
-    private List longLatNegativeConvert(List l)
+    private List<String> longLatNegativeConvert(List<String> l)
     {
         String s = (String)l.get(l.size()-1);
         int x = Integer.parseInt(s);
@@ -181,7 +179,7 @@ public class IFC_Geolocation {
         while ( iter.hasNext() ) {
             Statement stmt = iter.nextStatement();
             StmtIterator iter2 = m.listStatements( stmt.getSubject(), refLatitude_IfcSite, (RDFNode) null );
-            ifcSiteResource = stmt.getSubject();
+            stmt.getSubject();
             while ( iter2.hasNext() ) 
             {
                 

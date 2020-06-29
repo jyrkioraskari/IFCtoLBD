@@ -11,8 +11,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import org.lbd.ifc2lbd.ns.Namespace;
 
 import com.buildingsmart.tech.ifcowl.vo.AttributeVO;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
@@ -20,8 +22,6 @@ import com.buildingsmart.tech.ifcowl.vo.NamedIndividualVO;
 import com.buildingsmart.tech.ifcowl.vo.PrimaryTypeVO;
 import com.buildingsmart.tech.ifcowl.vo.PropertyVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
-
-import fi.ni.rdf.Namespace;
 
 /*
  * OWLWriter writes .ttl files representing OWL ontologies, thereby relying on the in-memory EXPRESS model that is parsed by the ExpressReader class.
@@ -269,10 +269,6 @@ public class OWLWriter {
                 if (property.getInverseProperty() != null)
                     out.write("\towl:inverseOf ifc:" + property.getInverseProperty().getLowerCaseName() + " ;\r\n");
                 if (property.isSet() && property.getMaxCardinality() != 1) {
-                    // System.out.println("Set Prop found : " +
-                    // property.getName()
-                    // + " - " + property.getMinCardinality() + " - "
-                    // + property.getMaxCardinality());
                     out.write("\trdf:type owl:ObjectProperty .\r\n\r\n");
                 } else
                     out.write("\trdf:type owl:FunctionalProperty, owl:ObjectProperty .\r\n\r\n");
@@ -512,12 +508,6 @@ public class OWLWriter {
             writeCardinalityRestrictionsForListOfList(attr.getMinCard(), attr.getMaxCard(), attr.getRangeNS() + ":" + attr.getType().getName(), attr.getLowerCaseName(), out, true);
         else if (attr.isList() && !attr.isSet())
             writeCardinalityRestrictionsForList(attr.getMinCard(), attr.getMaxCard(), attr.getRangeNS() + ":" + attr.getType().getName(), attr.getLowerCaseName(), out, true);
-        // else
-        // System.out.println("not a set, not a list, not a list of list: " +
-        // attr.getLowerCaseName());
-
-        // cardinality restriction for property (depends on optional /
-        // set / list etc.)
         if (attr.isSet() && attr.getMaxCard() == -1 && attr.getMinCard() == 0) {
             // no cardinality restrictions needed
         } else {
@@ -596,16 +586,8 @@ public class OWLWriter {
         out.write("\t\t]");
 
         if (prop.getMinCardinality() == -1 && prop.getMaxCardinality() == -1) {
-            System.out.println("This should be impossible");
-            // [?:?]
-            // no cardinality restrictions explicitly stated (but default is (0,
-            // -1))
-            // however, as there is no OPTIONAL statement listed for any INVERSE
-            // property, this property is considered to be required
-            // qualifiedCadinality = 1
+            System.err.println("This should be impossible");
         } else if (prop.getMinCardinality() == -1 && prop.getMaxCardinality() != -1) {
-            // [?:2]
-            // This is not supposed to happen
             System.out.println("WARNING - IMPOSSIBLE: found 'unlimited' mincardinality restriction combined with a bounded maxcardinality restriction for :" + prop.getLowerCaseName());
         } else if (prop.getMinCardinality() != -1 && prop.getMaxCardinality() == -1) {
             int start = prop.getMinCardinality();

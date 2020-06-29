@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
-	<version>1.88</version>
+	<version>1.91</version>
 	<name>IFCtoLBD Desktop Java 12</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
@@ -34,11 +34,6 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>io.github.jyrkioraskari</groupId>
-			<artifactId>IFCtoLBD</artifactId>
-			<version>1.88</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.controlsfx/controlsfx -->
 		<dependency>
 			<groupId>org.controlsfx</groupId>
@@ -61,6 +56,12 @@
 			<artifactId>javafx-base</artifactId>
 			<version>11.0.2</version>
 		</dependency>
+		<dependency>
+			<groupId>io.github.jyrkioraskari</groupId>
+			<artifactId>IFCtoLBD</artifactId>
+			<version>1.91</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
