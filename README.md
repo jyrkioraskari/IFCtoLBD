@@ -114,7 +114,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 1. What does it mean when IFCtoLBD says Java heap space?
 
-   - The most probable situation for this is when a large file is converted. Try to start the program using `run - Java8.bat`. 
+   - The most probable situation for this is when a large file is converted. Try to start the program using `run.bat`. 
 
 2. Why does the program say: *"Error: Cannot determine which IFC version the model it is: [IFC2X2_FINAL]"*
 
