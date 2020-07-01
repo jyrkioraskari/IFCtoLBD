@@ -82,6 +82,10 @@ How to use the code:
 new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
 ```
 
+## IFCtoLBD OpenAPI Implementation
+
+[jyrkioraskari/IFCtoLBD_OpenAPI](https://github.com/jyrkioraskari/IFCtoLBD_OpenAPI)
+
 
 ## IFCtoLBD BimBot service plugin for BIMserver
 
