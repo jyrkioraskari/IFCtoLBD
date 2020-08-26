@@ -31,7 +31,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
 
-package org.lbd.ifc2lbd.ns;
+package org.lbd.ifc2lbd.namespace;
 
 public class Namespace {
     public static final String RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";

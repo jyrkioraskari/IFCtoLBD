@@ -16,7 +16,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.lbd.ifc2lbd.IFCtoLBDConverter;
-import org.lbd.ifc2lbd.messages.SystemStatusEvent;
+import org.lbd.ifc2lbd.events.SystemStatusEvent;
 import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
 
 import com.google.common.eventbus.EventBus;

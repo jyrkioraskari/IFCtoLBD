@@ -1,10 +1,11 @@
-package org.lbd.ifc2lbd;
+package org.lbd.ifc2lbd.tests;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
 import org.apache.commons.io.FileUtils;
+import org.lbd.ifc2lbd.IFCtoLBDConverter;
 
 import com.openifctools.guidcompressor.GuidCompressor;
 

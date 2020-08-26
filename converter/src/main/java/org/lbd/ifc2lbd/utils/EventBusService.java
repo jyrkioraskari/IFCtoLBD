@@ -1,9 +1,11 @@
-package org.lbd.ifc2lbd.messages;
+package org.lbd.ifc2lbd.utils;
+
+import com.google.common.eventbus.EventBus;
 
 /*
  * The GNU Affero General Public License
  * 
- * Copyright (c) 2018 Jyrki Oraskari (Jyrki.Oraskari@aalto.fi / jyrki.oraskari@aalto.fi)
+ * Copyright (c) 2018 Jyrki Oraskari (Jyrki.Oraskari@aalto.fi / rkiorri@gmail.com)
  * 
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
@@ -19,14 +21,11 @@ package org.lbd.ifc2lbd.messages;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class SystemStatusEvent {
 
-	private final String status_message;
-	public SystemStatusEvent(String txt) {
-		this.status_message=txt;
-	}
-	public String getStatus_message() {
-		return status_message;
-	}
+public class EventBusService {
+	private static final EventBus eventBus = new EventBus();
 
+	public static EventBus getEventBus() {
+		return eventBus;
+	}
 }

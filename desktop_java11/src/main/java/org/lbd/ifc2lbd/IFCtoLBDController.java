@@ -40,8 +40,9 @@ import java.util.prefs.Preferences;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
+import org.lbd.ifc2lbd.events.SystemStatusEvent;
 import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
-import org.lbd.ifc2lbd.messages.SystemStatusEvent;
+import org.lbd.ifc2lbd.utils.EventBusService;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;

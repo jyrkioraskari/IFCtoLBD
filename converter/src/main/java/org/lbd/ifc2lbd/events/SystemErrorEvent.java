@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.messages;
+package org.lbd.ifc2lbd.events;
 
 /*
  * The GNU Affero General Public License

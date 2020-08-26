@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.lbd.ifc2lbd.ns;
+package org.lbd.ifc2lbd.namespace;
 
 import org.apache.jena.rdf.model.Property;
 

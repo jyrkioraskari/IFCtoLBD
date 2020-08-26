@@ -23,8 +23,8 @@ import java.util.Optional;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.lbd.ifc2lbd.EventBusService;
-import org.lbd.ifc2lbd.messages.SystemStatusEvent;
+import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.utils.EventBusService;
 
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;

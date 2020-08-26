@@ -17,7 +17,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.lbd.ifc2lbd.ns.IfcOWLNameSpace;
+import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.utils.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
 

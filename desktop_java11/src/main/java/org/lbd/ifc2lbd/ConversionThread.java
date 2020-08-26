@@ -3,8 +3,9 @@ package org.lbd.ifc2lbd;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
+import org.lbd.ifc2lbd.events.SystemStatusEvent;
 import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
-import org.lbd.ifc2lbd.messages.SystemStatusEvent;
+import org.lbd.ifc2lbd.utils.EventBusService;
 
 /* Copyright (C) Fractuscan - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited

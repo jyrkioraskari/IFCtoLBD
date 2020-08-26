@@ -32,9 +32,9 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.lbd.ifc2lbd.EventBusService;
-import org.lbd.ifc2lbd.messages.SystemStatusEvent;
-import org.lbd.ns.Namespace;
+import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.namespace.Namespace;
+import org.lbd.ifc2lbd.utils.EventBusService;
 
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
