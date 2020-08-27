@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.utils.rdfpath;
+package org.lbd.ifc2lbd.core.utils.rdfpath;
 
 import java.util.ArrayList;
 
