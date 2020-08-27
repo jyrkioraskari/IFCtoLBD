@@ -214,7 +214,7 @@
 
 	<build>
 		<defaultGoal>install</defaultGoal>
-		<plugins>	
+		<plugins>
 			<!-- Maven Assembly Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
