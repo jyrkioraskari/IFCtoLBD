@@ -23,7 +23,7 @@ public class ConverterUnitTest {
 		}
 	}
 
-	@DisplayName("Test basic concersion")
+	@DisplayName("Test basic conversion")
 	@Test
 	public void testBasicConversion() {
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
