@@ -185,7 +185,7 @@ public abstract class IFCtoLBDConverterCore {
 			try {
 				addGeolocation2BOT();
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
 			}
 		}
@@ -688,7 +688,14 @@ public abstract class IFCtoLBDConverterCore {
 	protected void addGeolocation2BOT() {
 
 		IFC_Geolocation c = new IFC_Geolocation();
-		String wkt_point = c.addGeolocation(ifcowl_model);
+		String wkt_point;
+		try
+		{
+			wkt_point= c.addGeolocation(ifcowl_model);
+		}
+		catch (Exception e) {
+			return;  // no geolocation
+		}
 
 		IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
 			// Create a resource and add to bot model (resource, model, string)
