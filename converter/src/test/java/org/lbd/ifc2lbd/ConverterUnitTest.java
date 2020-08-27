@@ -7,6 +7,7 @@ import java.net.URL;
 
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
@@ -83,8 +84,9 @@ public class ConverterUnitTest {
 	@DisplayName("Test conversion test case Level 1")
 	@Test
 	public void testConversionLevel1() {
+		System.out.println("Start");
 		URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
-		URL rule_file_url = ClassLoader.getSystemResource("SHACL_ruleset1.ttl");
+		URL rule_file_url = ClassLoader.getSystemResource("SHACL_rulesetLevel1.ttl");
 		try {
 			File ifc_file = new File(ifc_file_url.toURI());
 			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 1);
@@ -99,7 +101,7 @@ public class ConverterUnitTest {
 			if(!report.conforms())
 			{
 			  System.out.println("false");
-			  fail("Conversion output does not conform rule1");					
+			  fail("Conversion output does not conform SHACL_rulesetLevel1");					
 			  ShLib.printReport(report);
 			  report.getModel().write(System.out);
 			}
@@ -108,7 +110,41 @@ public class ConverterUnitTest {
 		} catch (Exception e) {
 			System.out.println("ERROR");
 			e.printStackTrace();
-			fail("Conversion set 1 had an error: " + e.getMessage());
+			fail("Conversion using set SHACL_rulesetLevel1 had an error: " + e.getMessage());
+		}
+	}
+
+	@DisplayName("Test conversion test case Level 2")
+	@Test
+	public void testConversionLevel3() {
+		System.out.println("Start");
+		URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		URL rule_file_url = ClassLoader.getSystemResource("SHACL_rulesetLevel3.ttl");
+		try {
+			File ifc_file = new File(ifc_file_url.toURI());
+			
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 3);
+			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+			Graph graph_m1nb = m1nb.getGraph();
+
+			File rule1_file = new File(rule_file_url.toURI());
+			Graph shapesGraph = RDFDataMgr.loadGraph(rule1_file.getAbsolutePath());
+			Shapes shapes = Shapes.parse(shapesGraph);
+
+			ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
+			if(!report.conforms())
+			{
+			  System.out.println("false");
+			  fail("Conversion output does not conform SHACL_rulesetLevel3");					
+			  ShLib.printReport(report);
+			  RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+			}
+			else
+				System.out.println("Actually ok");
+		} catch (Exception e) {
+			System.out.println("ERROR");
+			e.printStackTrace();
+			fail("Conversion using set SHACL_rulesetLevel3 had an error: " + e.getMessage());
 		}
 	}
 

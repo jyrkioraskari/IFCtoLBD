@@ -5,14 +5,17 @@
 @prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
 @prefix bot:   <https://w3id.org/bot#> .
 @prefix props: <https://w3id.org/props#> .
-
+@prefix seas:  <https://w3id.org/seas/> .
+@prefix opm:   <https://w3id.org/opm#> .
 
 inst:RuleLevel1Shape1
     a sh:NodeShape ;
     sh:targetClass bot:Site ;
     sh:property [
 	sh:path bot:hasBuilding ;
-	sh:minCount 1 
+	sh:minCount 1 ;
+        sh:class bot:Building ;
+	sh:nodeKind sh:IRI 
     ] .
 
 inst:RuleLevel1Shape2
@@ -20,7 +23,9 @@ inst:RuleLevel1Shape2
     sh:targetClass bot:Building  ;
     sh:property [
 	sh:path bot:hasStorey ;
-	sh:minCount 2 
+	sh:minCount 2 ; 
+        sh:class bot:Storey ;
+	sh:nodeKind sh:IRI 
     ] .
 
 inst:RuleLevel1Shape3
@@ -31,3 +36,11 @@ inst:RuleLevel1Shape3
 	sh:minCount 2 
     ] .
 
+inst:RuleLevel1Shape4
+    a sh:NodeShape ;
+    sh:targetNode inst:storey_7b7032cc-b822-417b-9aea-6429f95f6ab3 ;
+    sh:property [
+	sh:path (props:elevation seas:evaluation) ;
+	sh:class opm:CurrentState  ;
+        sh:minCount 1 
+    ] .
