@@ -32,9 +32,9 @@ import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.lbd.ifc2lbd.namespace.Namespace;
-import org.lbd.ifc2lbd.utils.EventBusService;
 
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
@@ -59,7 +59,7 @@ import com.google.common.eventbus.EventBus;
  */
 
 public class RDFWriter {
-	private final EventBus eventBus = EventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
     // input variables
     private final String baseURI;
     private final String ontNS;
@@ -127,7 +127,7 @@ public class RDFWriter {
         // Read the whole file into a linemap Map object
         readModel();
 
-   	    eventBus.post(new SystemStatusEvent("IFC model parsed"));
+   	    eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC model parsed"));
 
 
         if (removeDuplicates) {
@@ -141,7 +141,7 @@ public class RDFWriter {
         if (!parsedSuccessfully)
             return;
 
-   	    eventBus.post(new SystemStatusEvent("IFC line entries mapped, creating instances."));
+   	    eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC line entries mapped, creating instances."));
 
         createInstances();
 
@@ -162,7 +162,7 @@ public class RDFWriter {
                 while ((strLine = br.readLine()) != null) {
                 	i++;
                 	if(i%100000==0)
-                   	 eventBus.post(new SystemStatusEvent("Read IFC line: "+i));
+                   	 eventBus.post(new IFCtoLBD_SystemStatusEvent("Read IFC line: "+i));
                     if (strLine.length() > 0) {
                         if (strLine.charAt(0) == '#') {
                             StringBuffer sb = new StringBuffer();
@@ -407,7 +407,7 @@ public class RDFWriter {
         for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
         	i++;
         	if(i%100000==0)
-           	   eventBus.post(new SystemStatusEvent("instance "+i));
+           	   eventBus.post(new IFCtoLBD_SystemStatusEvent("instance "+i));
             IFCVO ifcLineEntry = entry.getValue();
             String typeName = "";
             if (ent.containsKey(ifcLineEntry.getName()))

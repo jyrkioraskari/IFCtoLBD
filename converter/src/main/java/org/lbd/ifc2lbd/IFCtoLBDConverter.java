@@ -6,10 +6,10 @@ import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.lbd.ifc2lbd.core.IFCtoLBDConverterCore;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.core.utils.FileUtils;
 import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
-import org.lbd.ifc2lbd.utils.FileUtils;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -84,10 +84,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		this.uriBase = uriBase;
 
 		ontology_model = ModelFactory.createDefaultModel();
-		eventBus.post(new SystemStatusEvent("IFCtoRDF conversion"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
 
-		eventBus.post(new SystemStatusEvent("Reading in ontologies"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
@@ -98,12 +98,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		addNamespaces(uriBase, props_level, hasBuildingElements, hasBuildingProperties);
 
-		eventBus.post(new SystemStatusEvent("IFC->LBD"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
 			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
-			eventBus.post(new SystemStatusEvent("No ifcOWL ontology available."));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
 			return;
 		}
 
@@ -141,7 +141,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		this.uriBase = uriBase;
 		System.out.println("Conversion starts");
 		ontology_model = ModelFactory.createDefaultModel();
-		eventBus.post(new SystemStatusEvent("IFCtoRDF conversion"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
@@ -212,18 +212,18 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 			boolean hasGeolocation) {
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
 
-		eventBus.post(new SystemStatusEvent("Reading in ontologies"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
 
 		addNamespaces(uriBase, props_level, hasBuildingElements, hasBuildingProperties);
 
-		eventBus.post(new SystemStatusEvent("IFC->LBD"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
 			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
-			eventBus.post(new SystemStatusEvent("No ifcOWL ontology available."));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
 			return lbd_general_output_model;
 		}
 

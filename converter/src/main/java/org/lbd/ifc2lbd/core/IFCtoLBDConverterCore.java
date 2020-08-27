@@ -27,19 +27,19 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
+import org.lbd.ifc2lbd.core.utils.FileUtils;
+import org.lbd.ifc2lbd.core.utils.IfcOWLUtils;
+import org.lbd.ifc2lbd.core.utils.RDFUtils;
+import org.lbd.ifc2lbd.core.utils.rdfpath.RDFStep;
+import org.lbd.ifc2lbd.core.valuesets.AttributeSet;
+import org.lbd.ifc2lbd.core.valuesets.PropertySet;
 import org.lbd.ifc2lbd.geo.IFC_Geolocation;
 import org.lbd.ifc2lbd.geo.WktLiteral;
 import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.namespace.LBD_NS;
 import org.lbd.ifc2lbd.namespace.OPM;
-import org.lbd.ifc2lbd.utils.EventBusService;
-import org.lbd.ifc2lbd.utils.FileUtils;
-import org.lbd.ifc2lbd.utils.IfcOWLUtils;
-import org.lbd.ifc2lbd.utils.RDFUtils;
-import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
-import org.lbd.ifc2lbd.valueset.AttributeSet;
-import org.lbd.ifc2lbd.valueset.PropertySet;
 
 import com.buildingsmart.tech.ifcowl.IfcSpfReader;
 import com.google.common.eventbus.EventBus;
@@ -62,7 +62,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
  */
 
 public abstract class IFCtoLBDConverterCore {
-	protected final EventBus eventBus = EventBusService.getEventBus();
+	protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 	protected Model ifcowl_model;
 	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
@@ -120,7 +120,7 @@ public abstract class IFCtoLBDConverterCore {
 						});
 
 				IfcOWLUtils.listStoreys(building, ifcOWL).stream().map(rn -> rn.asResource()).forEach(storey -> {
-					eventBus.post(new SystemStatusEvent("Storey: " + storey.getLocalName()));
+					eventBus.post(new IFCtoLBD_SystemStatusEvent("Storey: " + storey.getLocalName()));
 
 					if (!RDFUtils.getType(storey.asResource()).get().getURI().endsWith("#IfcBuildingStorey")) {
 						System.err.println("No an #IfcBuildingStorey");
@@ -186,7 +186,7 @@ public abstract class IFCtoLBDConverterCore {
 				addGeolocation2BOT();
 			} catch (Exception e) {
 				e.printStackTrace();
-				eventBus.post(new SystemStatusEvent("Info : No geolocation"));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
 			}
 		}
 
@@ -196,7 +196,7 @@ public abstract class IFCtoLBDConverterCore {
 					String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.ttl";
 					RDFUtils.writeModel(lbd_product_output_model, out_products_filename, this.eventBus);
-					eventBus.post(new SystemStatusEvent("Building elements file is: " + out_products_filename));
+					eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
 				} else
 					lbd_general_output_model.add(lbd_product_output_model);
 			}
@@ -207,12 +207,12 @@ public abstract class IFCtoLBDConverterCore {
 							+ "_element_properties.ttl";
 					RDFUtils.writeModel(lbd_property_output_model, out_properties_filename, this.eventBus);
 					eventBus.post(
-							new SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
+							new IFCtoLBD_SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
 				} else
 					lbd_general_output_model.add(lbd_property_output_model);
 			}
 			RDFUtils.writeModel(lbd_general_output_model, target_file, this.eventBus);
-			eventBus.post(new SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
 		}
 	}
 
@@ -308,7 +308,7 @@ public abstract class IFCtoLBDConverterCore {
 			});
 
 		});
-		eventBus.post(new SystemStatusEvent("LBD properties read"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("LBD properties read"));
 	}
 
 	/**
@@ -643,7 +643,7 @@ public abstract class IFCtoLBDConverterCore {
 			}
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent(
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(
 					"Error : " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 			e.printStackTrace();
 
@@ -728,7 +728,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		});
 
-		eventBus.post(new SystemStatusEvent("LDB geom read"));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("LDB geom read"));
 
 	}
 }

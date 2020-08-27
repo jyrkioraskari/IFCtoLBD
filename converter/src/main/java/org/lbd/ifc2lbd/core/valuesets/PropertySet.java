@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.valueset;
+package org.lbd.ifc2lbd.core.valuesets;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,9 +16,9 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
+import org.lbd.ifc2lbd.core.utils.StringOperations;
 import org.lbd.ifc2lbd.namespace.LBD_NS;
 import org.lbd.ifc2lbd.namespace.OPM;
-import org.lbd.ifc2lbd.utils.StringOperations;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)

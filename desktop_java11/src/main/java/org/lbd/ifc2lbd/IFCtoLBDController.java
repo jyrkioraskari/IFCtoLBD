@@ -40,9 +40,9 @@ import java.util.prefs.Preferences;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
-import org.lbd.ifc2lbd.utils.EventBusService;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -75,7 +75,7 @@ import javafx.stage.Stage;
 public class IFCtoLBDController implements Initializable, FxInterface {
 	private Preferences prefs = Preferences.userNodeForPackage(IFCtoLBDController.class);
 
-	private final EventBus eventBus = EventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	@FXML
@@ -501,7 +501,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@Subscribe
-	public void handleEvent(final SystemStatusEvent event) {
+	public void handleEvent(final IFCtoLBD_SystemStatusEvent event) {
 		System.out.println("message: " + event.getStatus_message());
 		Platform.runLater(() -> this.conversionTxt.appendText(event.getStatus_message() + "\n"));
 	}

@@ -3,9 +3,9 @@ package org.lbd.ifc2lbd;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
+import org.lbd.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.lbd.ifc2lbd.messages.ProcessReadyEvent;
-import org.lbd.ifc2lbd.utils.EventBusService;
 
 /* Copyright (C) Fractuscan - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
@@ -34,7 +34,7 @@ import com.google.common.eventbus.EventBus;
 public class ConversionThread implements Callable<Integer> {
 	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(ConversionThread.class.getName());
-	private final EventBus eventBus = EventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 	final private String ifc_filename;
 	final private String uriBase;
 	final private String target_file;
@@ -70,7 +70,7 @@ public class ConversionThread implements Callable<Integer> {
 						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes, this.hasGeolocation);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
-				eventBus.post(new SystemStatusEvent(e.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 				eventBus.post(new ProcessReadyEvent());
 				return -1;
 			}
@@ -79,7 +79,7 @@ public class ConversionThread implements Callable<Integer> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			eventBus.post(new ProcessReadyEvent());
-			eventBus.post(new SystemStatusEvent(e.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return -1;
 	}

@@ -23,8 +23,8 @@ import java.util.Optional;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
-import org.lbd.ifc2lbd.utils.EventBusService;
+import org.lbd.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
@@ -47,7 +47,7 @@ import com.google.common.eventbus.EventBus;
  */
 
 public class IfcSpfReader {
-	private final EventBus eventBus = EventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
 	private String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
 
@@ -143,7 +143,7 @@ public class IfcSpfReader {
 			if (logToFile)
 				bw.write("ERROR: Unrecognised EXPRESS schema: " + exp
 						+ ". File should be in IFC4 or IFC2X3 schema. Stopping conversion." + "\r\n");
-			eventBus.post(new SystemStatusEvent("nrecognised EXPRESS schema: " + exp));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("nrecognised EXPRESS schema: " + exp));
 			return Optional.empty();
 		}
 
@@ -193,7 +193,7 @@ public class IfcSpfReader {
 			try {
 				ent = (Map<String, EntityVO>) ois.readObject();
 			} catch (ClassNotFoundException e) {
-				eventBus.post(new SystemStatusEvent(e.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 				e.printStackTrace();
 			} finally {
 				ois.close();
@@ -208,7 +208,7 @@ public class IfcSpfReader {
 			try {
 				typ = (Map<String, TypeVO>) ois.readObject();
 			} catch (ClassNotFoundException e) {
-				eventBus.post(new SystemStatusEvent(e.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 				e.printStackTrace();
 			} finally {
 				ois.close();
@@ -224,24 +224,24 @@ public class IfcSpfReader {
 			s += "\r\n# imports: " + ontURI + "\r\n\r\n";
 			out.write(s.getBytes());
 			out.flush();
-			eventBus.post(new SystemStatusEvent("IFCtoRDF start parsing IFC-RDF stream"));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF start parsing IFC-RDF stream"));
 			System.out.println("started parsing stream");
 			conv.parseModel2Stream(out);
-			eventBus.post(new SystemStatusEvent("IFCtoRDF finished "));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF finished "));
 			System.out.println("finished!!");
 		} catch (FileNotFoundException e1) {
-			eventBus.post(new SystemStatusEvent(e1.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(e1.getMessage()));
 			e1.printStackTrace();
 		} finally {
 			try {
 				in.close();
 			} catch (Exception e1) {
-				eventBus.post(new SystemStatusEvent(e1.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e1.getMessage()));
 				e1.printStackTrace();
 			}
 			try {
 			} catch (Exception e1) {
-				eventBus.post(new SystemStatusEvent(e1.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e1.getMessage()));
 				e1.printStackTrace();
 			}
 		}

@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.utils;
+package org.lbd.ifc2lbd.core.utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +16,8 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.lbd.ifc2lbd.IFCtoLBDConverter;
-import org.lbd.ifc2lbd.events.SystemStatusEvent;
-import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
+import org.lbd.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
+import org.lbd.ifc2lbd.core.utils.rdfpath.RDFStep;
 
 import com.google.common.eventbus.EventBus;
 
@@ -61,7 +61,7 @@ public class RDFUtils {
 			m.write(fo, "TTL");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
 		} finally {
 			if (fo != null)
 				try {
@@ -100,7 +100,7 @@ public class RDFUtils {
 					if (in == null)
 						in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
 				} catch (Exception e) {
-					eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+					eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
 					e.printStackTrace();
 					return;
 				}
@@ -109,7 +109,7 @@ public class RDFUtils {
 			in.close();
 
 		} catch (Exception e) {
-			eventBus.post(new SystemStatusEvent("Error : " + e.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
 			System.out.println("missing file: " + ontology_file);
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.utils;
+package org.lbd.ifc2lbd.core.utils;
 
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -17,9 +17,9 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.lbd.ifc2lbd.core.utils.rdfpath.InvRDFStep;
+import org.lbd.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
-import org.lbd.ifc2lbd.utils.rdfpath.InvRDFStep;
-import org.lbd.ifc2lbd.utils.rdfpath.RDFStep;
 
 import com.buildingsmart.tech.ifcowl.IfcSpfReader;
 

@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd.utils;
+package org.lbd.ifc2lbd.core.utils;
 
 import java.io.File;
 import java.io.IOException;
