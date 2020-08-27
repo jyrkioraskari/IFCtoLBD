@@ -5,10 +5,10 @@
 @prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
 @prefix bot:   <https://w3id.org/bot#> .
 @prefix props: <https://w3id.org/props#> .
-@prefix seas:  <https://w3id.org/seas/> .
-@prefix opm:   <https://w3id.org/opm#> .
+@prefix opm:   <https://w3id.org/opm> .
+@prefix schema: <http://schema.org/> .
 
-inst:RuleLevel1Shape1
+inst:RuleLevel3Shape1
     a sh:NodeShape ;
     sh:targetClass bot:Site ;
     sh:property [
@@ -18,7 +18,7 @@ inst:RuleLevel1Shape1
 	sh:nodeKind sh:IRI 
     ] .
 
-inst:RuleLevel1Shape2
+inst:RuleLevel3Shape2
     a sh:NodeShape ;
     sh:targetClass bot:Building  ;
     sh:property [
@@ -28,7 +28,7 @@ inst:RuleLevel1Shape2
 	sh:nodeKind sh:IRI 
     ] .
 
-inst:RuleLevel1Shape3
+inst:RuleLevel3Shape3
     a sh:NodeShape ;
     sh:targetClass bot:Storey ;
     sh:property [
@@ -36,11 +36,19 @@ inst:RuleLevel1Shape3
 	sh:minCount 2 
     ] .
 
-inst:RuleLevel1Shape4
+inst:RuleLevel3Shape4
     a sh:NodeShape ;
     sh:targetNode inst:storey_7b7032cc-b822-417b-9aea-6429f95f6ab3 ;
     sh:property [
-	sh:path (props:elevation seas:evaluation) ;
-	sh:class opm:CurrentState  ;
-        sh:minCount 1 
+	sh:path props:elevation ;	
+        sh:minCount 1 ;
+        sh:hasValue inst:elevation_7b7032cc-b822-417b-9aea-6429f95f6ab3
+    ] .
+
+inst:RuleLevel3Shape5
+    a sh:NodeShape ;
+    sh:targetClass opm:CurrentState ;
+    sh:property [
+	sh:path schema:value ;	
+        sh:minCount 1 ;
     ] .
