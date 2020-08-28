@@ -41,9 +41,10 @@ import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
 import org.lbd.ifc2lbd.namespace.LBD_NS;
 import org.lbd.ifc2lbd.namespace.OPM;
 
-import com.buildingsmart.tech.ifcowl.IfcSpfReader;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
+
+import be.ugent.IfcSpfReader;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)

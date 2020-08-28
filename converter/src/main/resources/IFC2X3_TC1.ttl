@@ -1,13 +1,13 @@
 @prefix cc:    <http://creativecommons.org/ns#> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#> .
+@prefix :      <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix dce:   <http://purl.org/dc/elements/1.1/> .
-@prefix ifc:   <http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#> .
+@prefix ifc:   <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix expr:  <https://w3id.org/express#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix list:  <https://w3id.org/list#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann:  <http://purl.org/vocab/vann/> .
 
 ifc:MODIFIED  a     ifc:IfcChangeActionEnum , owl:NamedIndividual ;
@@ -28472,7 +28472,7 @@ ifc:IfcPointOnCurve  a    owl:Class ;
                           ] ;
         owl:disjointWith  ifc:IfcCartesianPoint , ifc:IfcPointOnSurface .
 
-<http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1>
+<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL>
         a                              owl:Ontology ;
         rdfs:comment                   "Ontology automatically generated from the EXPRESS schema 'IFC2X3_TC1' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
         cc:license                     <http://creativecommons.org/licenses/by/3.0/> ;
@@ -28484,7 +28484,7 @@ ifc:IfcPointOnCurve  a    owl:Class ;
         dce:language                   "en" ;
         dce:title                      "IFC2X3_TC1" ;
         vann:preferredNamespacePrefix  "ifc" ;
-        vann:preferredNamespaceUri     "http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1" ;
+        vann:preferredNamespaceUri     "http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL" ;
         owl:imports                    <https://w3id.org/express> .
 
 ifc:WATERFILTER  a  ifc:IfcFilterTypeEnum , owl:NamedIndividual ;
