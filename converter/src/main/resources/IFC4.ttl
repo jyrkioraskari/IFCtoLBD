@@ -1,13 +1,13 @@
 @prefix cc:    <http://creativecommons.org/ns#> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix :      <http://standards.buildingsmart.org/IFC/DEV/IFC4/FINAL/OWL#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix dce:   <http://purl.org/dc/elements/1.1/> .
-@prefix ifc:   <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix ifc:   <http://standards.buildingsmart.org/IFC/DEV/IFC4/FINAL/OWL#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix list:  <https://w3id.org/list#> .
 @prefix expr:  <https://w3id.org/express#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix list:  <https://w3id.org/list#> .
 @prefix vann:  <http://purl.org/vocab/vann/> .
 
 ifc:IfcReference  a      owl:Class ;
@@ -3068,7 +3068,7 @@ ifc:predefinedType_IfcAirToAirHeatRecovery
         rdfs:label   "PredefinedType" ;
         rdfs:range   ifc:IfcAirToAirHeatRecoveryTypeEnum .
 
-<http://www.buildingsmart-tech.org/ifcOWL/IFC4>
+<http://standards.buildingsmart.org/IFC/DEV/IFC4/FINAL/OWL>
         a                              owl:Ontology ;
         rdfs:comment                   "Ontology automatically generated from the EXPRESS schema 'IFC4' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
         cc:license                     <http://creativecommons.org/licenses/by/3.0/> ;
@@ -3080,7 +3080,7 @@ ifc:predefinedType_IfcAirToAirHeatRecovery
         dce:language                   "en" ;
         dce:title                      "IFC4" ;
         vann:preferredNamespacePrefix  "ifc" ;
-        vann:preferredNamespaceUri     "http://www.buildingsmart-tech.org/ifcOWL/IFC4" ;
+        vann:preferredNamespaceUri     "http://standards.buildingsmart.org/IFC/DEV/IFC4/FINAL/OWL" ;
         owl:imports                    <https://w3id.org/express> .
 
 ifc:start_IfcWorkTime

@@ -21,8 +21,6 @@ import org.lbd.ifc2lbd.core.utils.rdfpath.InvRDFStep;
 import org.lbd.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.lbd.ifc2lbd.namespace.IfcOWLNameSpace;
 
-import com.buildingsmart.tech.ifcowl.IfcSpfReader;
-
 /*
  *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
@@ -317,10 +315,10 @@ public class IfcOWLUtils {
 		String exp = IfcOWLUtils.getExpressSchema(ifc_file);
 		InputStream in = null;
 		try {
-			in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
+			in = IfcOWLUtils.class.getResourceAsStream("/" + exp + ".ttl");
 
 			if (in == null)
-				in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
+				in = IfcOWLUtils.class.getResourceAsStream("/resources/" + exp + ".ttl");
 			model.read(in, null, "TTL");
 		} finally {
 			try {
