@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>1.91</version>
+	<version>2.0</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -63,7 +63,7 @@
 		<javac.target.version>1.8</javac.target.version>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>false</skipTests>
+		<skipTests>true</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
@@ -73,18 +73,18 @@
 			<version>3.10</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
-<dependency>
-    <groupId>commons-codec</groupId>
-    <artifactId>commons-codec</artifactId>
-    <version>1.14</version>
-</dependency>
-		
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.14</version>
+		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
-			<version>3.15.0</version>
+			<version>3.16.0</version>
 			<type>pom</type>
 		</dependency>
 
@@ -101,7 +101,18 @@
 			<artifactId>guava</artifactId>
 			<version>29.0-jre</version>
 		</dependency>
-
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.2</version>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>

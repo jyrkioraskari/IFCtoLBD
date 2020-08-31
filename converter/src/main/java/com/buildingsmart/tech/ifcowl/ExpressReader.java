@@ -20,7 +20,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 import java.util.StringTokenizer;
 
-import org.lbd.ifc2lbd.ns.Namespace;
+import org.lbd.ifc2lbd.namespace.Namespace;
 
 import com.buildingsmart.tech.ifcowl.vo.AttributeVO;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
@@ -146,7 +146,7 @@ public class ExpressReader {
 		// else is accepted here
 		if (args.length != 2)
 			System.out
-			.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 C:/outputfile.owl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4x1' and 'IFC4' are accepted options");
+			.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', and 'IFC4x3_RC1' are accepted options");
 		else {
 			String in = args[0];
 			if (in.equalsIgnoreCase("IFC2X3_Final")
@@ -155,7 +155,8 @@ public class ExpressReader {
 					|| in.equalsIgnoreCase("IFC4_ADD2")
 					|| in.equalsIgnoreCase("IFC4_ADD2_TC1")
 					|| in.equalsIgnoreCase("IFC4x1")
-					|| in.equalsIgnoreCase("IFC4")) {
+					|| in.equalsIgnoreCase("IFC4")
+					|| in.equalsIgnoreCase("IFC4x3_RC1")) {
 				try {
 					InputStream instr = ExpressReader.class
 							.getResourceAsStream("/" + in + ".exp");
@@ -176,6 +177,8 @@ public class ExpressReader {
 						inAlt = "IFC4_1/";
 					if (in.equalsIgnoreCase("IFC4"))
 						inAlt = "IFC4/FINAL/";
+					if (in.equalsIgnoreCase("IFC4x3_RC1"))
+						inAlt = "IFC4_3/RC1/";
 					
 					Namespace.IFC = "http://standards.buildingsmart.org/IFC/DEV/"
 							+ inAlt + "OWL";
@@ -187,7 +190,10 @@ public class ExpressReader {
 					OWLWriter ow = new OWLWriter(in, er.entities, er.types,
 							er.getSiblings(), er.getEnumIndividuals(),
 							er.getProperties());
-					ow.outputOWL(args[1]);
+					if(!args[1].endsWith(".ttl"))
+						ow.outputOWL(args[1]+".ttl");
+					else
+						ow.outputOWL(args[1]);
 					System.out
 					.println("Ended converting the EXPRESS schema into corresponding OWL file");
 				} catch (Exception e) {
@@ -195,7 +201,7 @@ public class ExpressReader {
 				}
 			} else
 				System.out
-				.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 C:/outputfile.owl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4x1' and 'IFC4' are accepted options");
+				.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', and 'IFC4x3_RC1' are accepted options");
 		}
 	}
 
@@ -431,18 +437,20 @@ public class ExpressReader {
 	}
 
 	private void outputEntitiesAndTypes(String filePathNoExt, String schemaName) {
-		String filePath = filePathNoExt.substring(0, filePathNoExt.lastIndexOf("\\"));
+		String filePath = "";
+		if(filePathNoExt.lastIndexOf(File.separatorChar) != -1)
+			filePath = filePathNoExt.substring(0, filePathNoExt.lastIndexOf(File.separatorChar))+File.separatorChar;
 		System.out.println("writing output to : " + filePath+"ent"+schemaName+".ser and " + filePath+"typ"+schemaName+".ser");
 
 		FileOutputStream fos;
 		try {
-			fos = new FileOutputStream(filePath+"\\"+"ent"+schemaName+".ser");
+			fos = new FileOutputStream(filePath+"ent"+schemaName+".ser");
 
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
 			oos.writeObject(entities);
 			oos.close();
 
-			fos = new FileOutputStream(filePath+"\\"+"typ"+schemaName+".ser");
+			fos = new FileOutputStream(filePath+"typ"+schemaName+".ser");
 
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(types);
@@ -453,10 +461,12 @@ public class ExpressReader {
 	}	
 
 	private void outputEntityPropertyList(String filePathNoExt, String schemaName){
-		String filePath = filePathNoExt.substring(0, filePathNoExt.lastIndexOf("\\"));
+		String filePath = "";
+		if(filePathNoExt.lastIndexOf(File.separatorChar) != -1)
+			filePath = filePathNoExt.substring(0, filePathNoExt.lastIndexOf(File.separatorChar))+File.separatorChar;
 		System.out.println("writing output to : " + filePath+"proplist"+schemaName+".csv and " + filePath+"proplist"+schemaName+".csv");
 		try {
-			File file = new File(filePath+"\\"+"proplist"+schemaName+".csv");
+			File file = new File(filePath+"proplist"+schemaName+".csv");
 			FileWriter fw = new FileWriter(file);
 			BufferedWriter bw = new BufferedWriter(fw);	
 

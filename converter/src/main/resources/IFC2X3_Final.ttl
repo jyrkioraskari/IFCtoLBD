@@ -1,13 +1,13 @@
 @prefix cc:    <http://creativecommons.org/ns#> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_Final#> .
+@prefix :      <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/FINAL/OWL#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix dce:   <http://purl.org/dc/elements/1.1/> .
-@prefix ifc:   <http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_Final#> .
+@prefix ifc:   <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/FINAL/OWL#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix expr:  <https://w3id.org/express#> .
-@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix list:  <https://w3id.org/list#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix vann:  <http://purl.org/vocab/vann/> .
 
 ifc:IfcFailureConnectionCondition
@@ -11169,7 +11169,7 @@ ifc:RING  a         ifc:IfcReinforcingBarRoleEnum , owl:NamedIndividual ;
 ifc:RELIEFDAMPER  a  ifc:IfcDamperTypeEnum , owl:NamedIndividual ;
         rdfs:label  "RELIEFDAMPER" .
 
-<http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_Final>
+<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/FINAL/OWL>
         a                              owl:Ontology ;
         rdfs:comment                   "Ontology automatically generated from the EXPRESS schema 'IFC2X3_Final' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
         cc:license                     <http://creativecommons.org/licenses/by/3.0/> ;
@@ -11181,7 +11181,7 @@ ifc:RELIEFDAMPER  a  ifc:IfcDamperTypeEnum , owl:NamedIndividual ;
         dce:language                   "en" ;
         dce:title                      "IFC2X3_Final" ;
         vann:preferredNamespacePrefix  "ifc" ;
-        vann:preferredNamespaceUri     "http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_Final" ;
+        vann:preferredNamespaceUri     "http://standards.buildingsmart.org/IFC/DEV/IFC2x3/FINAL/OWL" ;
         owl:imports                    <https://w3id.org/express> .
 
 ifc:partOfComplex_IfcPhysicalQuantity

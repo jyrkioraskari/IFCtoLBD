@@ -1,13 +1,13 @@
 @prefix cc:    <http://creativecommons.org/ns#> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
+@prefix :      <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2/OWL#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix dce:   <http://purl.org/dc/elements/1.1/> .
-@prefix ifc:   <http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
+@prefix ifc:   <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2/OWL#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix list:  <https://w3id.org/list#> .
 @prefix expr:  <https://w3id.org/express#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix list:  <https://w3id.org/list#> .
 @prefix vann:  <http://purl.org/vocab/vann/> .
 
 ifc:costQuantities_IfcCostItem
@@ -23648,7 +23648,7 @@ ifc:IfcUnitaryEquipment
                           ] ;
         owl:disjointWith  ifc:IfcCooledBeam , ifc:IfcBoiler , ifc:IfcElectricGenerator , ifc:IfcTransformer , ifc:IfcBurner , ifc:IfcEvaporator , ifc:IfcElectricMotor , ifc:IfcAirToAirHeatRecovery , ifc:IfcCondenser , ifc:IfcMotorConnection , ifc:IfcEvaporativeCooler , ifc:IfcCoil , ifc:IfcTubeBundle , ifc:IfcHeatExchanger , ifc:IfcEngine , ifc:IfcHumidifier , ifc:IfcCoolingTower , ifc:IfcSolarDevice , ifc:IfcChiller .
 
-<http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2>
+<http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2/OWL>
         a                              owl:Ontology ;
         rdfs:comment                   "Ontology automatically generated from the EXPRESS schema 'IFC4_ADD2' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
         cc:license                     <http://creativecommons.org/licenses/by/3.0/> ;
@@ -23660,7 +23660,7 @@ ifc:IfcUnitaryEquipment
         dce:language                   "en" ;
         dce:title                      "IFC4_ADD2" ;
         vann:preferredNamespacePrefix  "ifc" ;
-        vann:preferredNamespaceUri     "http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2" ;
+        vann:preferredNamespaceUri     "http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD2/OWL" ;
         owl:imports                    <https://w3id.org/express> .
 
 ifc:VESSEL  a       ifc:IfcTankTypeEnum , owl:NamedIndividual ;
