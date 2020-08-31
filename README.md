@@ -1,6 +1,5 @@
 # IFCtoLBD
 Version 0.1 - branched from version 1.74 of https://github.com/jyrkioraskari/IFCtoLBD
-
 Author: Pieter Pauwels
 
 This repository is a considerably adapted and self-moderated branch from the IFCtoLBD repository by Jyrki Oraskari at https://github.com/jyrkioraskari/IFCtoLBD/. It does not have a user interface, nor does it have a mapping step to the OWL version of IFC, nor does it provide the diversity of options provided by the mother repository. This repository is instead a simple one-to-one command line based conversion tool that takes in .ifc files and generates .ttl files in its simplest version, with the use of a number of ontologies:
@@ -10,6 +9,8 @@ This repository is a considerably adapted and self-moderated branch from the IFC
 - Distribution Element Ontology (MEP): https://pi.pauwel.be/voc/distributionelement
 
 There is no ontology associated to the PROPS prefix / namespace. This might be a future potential extension.
+
+__NOTE: This code is under active development and can still change significantly. Also, conversion is not exhaustive and/or complete. Should you want particular items to change, please file an issue request.__
 
 ## How to run this code?
 If you simply want to run your computer on your device, you are advised to download
