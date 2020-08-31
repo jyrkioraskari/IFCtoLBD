@@ -54,26 +54,32 @@ public class ConverterUnitTest {
 			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
 			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 1);
 			c1nb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 
 			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 1);
 			c1wb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m1wb = c1wb.convert(ifc_file.getAbsolutePath());
 
 			IFCtoLBDConverter c2nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 2);
 			c2nb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m2nb = c2nb.convert(ifc_file.getAbsolutePath());
 
 			IFCtoLBDConverter c2wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 2);
 			c2wb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m2wb = c2wb.convert(ifc_file.getAbsolutePath());
 
 			IFCtoLBDConverter c3nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 3);
 			c3nb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m3nb = c3nb.convert(ifc_file.getAbsolutePath());
 
 			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
 			c3wb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
+			@SuppressWarnings("unused")
 			Model m3wb = c3wb.convert(ifc_file.getAbsolutePath());
 
 		} catch (Exception e) {

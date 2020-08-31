@@ -77,8 +77,11 @@ public class IfcSpfReader {
     public static String DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
     private boolean removeDuplicates = false;
+	@SuppressWarnings("unused")
 	private static final int FLAG_BASEURI = 0;
+	@SuppressWarnings("unused")
     private static final int FLAG_DIR = 1;
+	@SuppressWarnings("unused")
     private static final int FLAG_KEEP_DUPLICATES = 2;
 
     //used in conversion

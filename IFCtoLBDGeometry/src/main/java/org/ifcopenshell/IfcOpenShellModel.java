@@ -48,15 +48,9 @@ package org.ifcopenshell;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.HashMap;
 
-import org.bimserver.plugins.renderengine.EntityNotFoundException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
-import org.bimserver.plugins.renderengine.RenderEngineFilter;
-import org.bimserver.plugins.renderengine.RenderEngineInstance;
-import org.bimserver.plugins.renderengine.RenderEngineModel;
-import org.bimserver.plugins.renderengine.RenderEngineSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
