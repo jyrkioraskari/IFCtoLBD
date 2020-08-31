@@ -104,7 +104,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
-                  Joel Lehtonen OH64K},
+                  Joel Lehtonen},
   title        = {jyrkioraskari/IFCtoLBD: 2.0},
   month        = aug,
   year         = 2020,
