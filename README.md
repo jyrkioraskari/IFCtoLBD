@@ -93,6 +93,20 @@ http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/
 
 http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
 
+### Docker for the Open API interface
+
+Command-line commands needed to start the server at your computer;
+```
+docker pull jyrkioraskari/ifc2lbdopenapi:latest
+
+docker container run -it --publish 8081:8080 jyrkioraskari/ifc2lbdopenapi
+
+
+```
+Then the software can be accessed from the local web address:
+http://localhost:8081/IFCtoLBD_OpenAPI
+
+
 ## IFCtoLBD BimBot service plugin for BIMserver
 
 [jyrkioraskari/IFCtoLBD_BIMBot-Plugin](https://github.com/jyrkioraskari/IFCtoLBD_BIMBot-Plugin)
