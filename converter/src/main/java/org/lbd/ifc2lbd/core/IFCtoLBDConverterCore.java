@@ -1,7 +1,11 @@
 
 package org.lbd.ifc2lbd.core;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -67,20 +71,19 @@ public abstract class IFCtoLBDConverterCore {
 	protected Model ifcowl_model;
 	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
-	protected  String uriBase;
+	protected String uriBase;
 
 	protected Optional<String> ontURI = Optional.empty();
 	protected IfcOWLNameSpace ifcOWL;
 
 	// URI-property set
 	protected Map<String, PropertySet> propertysets = new HashMap<>();
-	protected  int props_level;
-	protected  boolean hasPropertiesBlankNodes;
+	protected int props_level;
+	protected boolean hasPropertiesBlankNodes;
 
-	protected  Model lbd_general_output_model;
-	protected  Model lbd_product_output_model;
-	protected  Model lbd_property_output_model;
-
+	protected Model lbd_general_output_model;
+	protected Model lbd_product_output_model;
+	protected Model lbd_property_output_model;
 
 	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation) {
@@ -186,7 +189,7 @@ public abstract class IFCtoLBDConverterCore {
 			try {
 				addGeolocation2BOT();
 			} catch (Exception e) {
-				//e.printStackTrace();
+				// e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
 			}
 		}
@@ -197,7 +200,8 @@ public abstract class IFCtoLBDConverterCore {
 					String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.ttl";
 					RDFUtils.writeModel(lbd_product_output_model, out_products_filename, this.eventBus);
-					eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
+					eventBus.post(
+							new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
 				} else
 					lbd_general_output_model.add(lbd_product_output_model);
 			}
@@ -207,8 +211,8 @@ public abstract class IFCtoLBDConverterCore {
 					String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_element_properties.ttl";
 					RDFUtils.writeModel(lbd_property_output_model, out_properties_filename, this.eventBus);
-					eventBus.post(
-							new IFCtoLBD_SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
+					eventBus.post(new IFCtoLBD_SystemStatusEvent(
+							"Building elements properties file is: " + out_properties_filename));
 				} else
 					lbd_general_output_model.add(lbd_property_output_model);
 			}
@@ -230,7 +234,8 @@ public abstract class IFCtoLBDConverterCore {
 		IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
 			if ("https://www.ugent.be/myAwesomeFirstBIMProject#IfcPropertySet_17765".equals(propertyset.getURI()))
 				System.out.println("HERE!!");
-			RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(IfcOWLNameSpace.getHasString()) };
+			RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()),
+					new RDFStep(IfcOWLNameSpace.getHasString()) };
 
 			final List<RDFNode> propertyset_name = new ArrayList<>();
 			RDFUtils.pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
@@ -238,7 +243,8 @@ public abstract class IFCtoLBDConverterCore {
 			RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
 			RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
-				RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()), new RDFStep(IfcOWLNameSpace.getHasString()) };
+				RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()),
+						new RDFStep(IfcOWLNameSpace.getHasString()) };
 				final List<RDFNode> property_name = new ArrayList<>();
 				RDFUtils.pathQuery(propertySingleValue.asResource(), name_path)
 						.forEach(name -> property_name.add(name));
@@ -378,8 +384,9 @@ public abstract class IFCtoLBDConverterCore {
 
 			IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource())
 					.forEach(ifc_element2 -> {
-						//if (eo.getLocalName().toLowerCase().contains("space"))
-						//	System.out.println("hosts: " + ifc_element + "--" + ifc_element2 + " bot:" + eo);
+						// if (eo.getLocalName().toLowerCase().contains("space"))
+						// System.out.println("hosts: " + ifc_element + "--" + ifc_element2 + " bot:" +
+						// eo);
 						connectElement(eo, LBD_NS.BOT.hasSubElement, ifc_element2);
 					});
 
@@ -426,9 +433,10 @@ public abstract class IFCtoLBDConverterCore {
 			bot_resource.addProperty(bot_property, lbd_object);
 			IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource())
 					.forEach(ifc_element2 -> {
-						//if (lbd_object.getLocalName().toLowerCase().contains("space"))
-						//	System.out
-						//			.println("hosts2: " + ifcowl_element + "-->" + ifc_element2 + " bot:" + lbd_object);
+						// if (lbd_object.getLocalName().toLowerCase().contains("space"))
+						// System.out
+						// .println("hosts2: " + ifcowl_element + "-->" + ifc_element2 + " bot:" +
+						// lbd_object);
 						connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
 					});
 
@@ -530,7 +538,6 @@ public abstract class IFCtoLBDConverterCore {
 		}
 	}
 
-
 	/**
 	 * This used the ifcowl_product_map map and returns one mapped class in a Linked
 	 * Building Data ontology, if specified.
@@ -543,7 +550,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (ret == null) {
 			return Optional.empty();
 		} else if (ret.size() > 1) {
-			//System.out.println("many " + ifcType);
+			// System.out.println("many " + ifcType);
 			return Optional.empty();
 		} else if (ret.size() > 0)
 			return Optional.of(ret.get(0));
@@ -574,7 +581,8 @@ public abstract class IFCtoLBDConverterCore {
 						new ArrayList<Resource>());
 				ifcowl_product_map.put(ifcowl_class.getLocalName(), resource_list);
 				resource_list.add(product_BE_ontology_statement.getSubject());
-				//System.out.println("added to resource_list : " + product_BE_ontology_statement.getSubject());
+				// System.out.println("added to resource_list : " +
+				// product_BE_ontology_statement.getSubject());
 			}
 		}
 		StmtIterator so = ontology_model.listStatements();
@@ -597,8 +605,9 @@ public abstract class IFCtoLBDConverterCore {
 						List<Resource> r_list = ifcowl_product_map.getOrDefault(ifcowl_subclass.getLocalName(),
 								new ArrayList<Resource>());
 						ifcowl_product_map.put(ifcowl_subclass.getLocalName(), r_list);
-						//System.out.println(
-						//		ifcowl_subclass.getLocalName() + " ->> " + product_BE_ontology_statement.getSubject());
+						// System.out.println(
+						// ifcowl_subclass.getLocalName() + " ->> " +
+						// product_BE_ontology_statement.getSubject());
 						r_list.add(product_BE_ontology_statement.getSubject());
 					}
 				}
@@ -635,7 +644,8 @@ public abstract class IFCtoLBDConverterCore {
 			try {
 				Model m = ModelFactory.createDefaultModel();
 				this.ontURI = rj.convert(ifc_file, tempFile.getAbsolutePath(), uriBase);
-				RDFDataMgr.read(m, tempFile.getAbsolutePath());
+				File t2 = filterContent(tempFile);
+				RDFDataMgr.read(m, t2.getAbsolutePath());
 				return m;
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -651,6 +661,51 @@ public abstract class IFCtoLBDConverterCore {
 		}
 		System.err.println("IFC-RDF conversion not done");
 		return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+	}
+
+	private File filterContent(File whole_content_file) {
+		File tempFile = null;
+		try {
+			tempFile = File.createTempFile("ifc", ".ttl");
+			try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+				try (BufferedReader br = new BufferedReader(new FileReader(whole_content_file))) {
+					String line;
+					while ((line = br.readLine()) != null) {
+						if (line.contains("inst:IfcFace"))
+							continue;
+						if (line.contains("inst:IfcPolyLoop"))
+							continue;
+						if (line.contains("inst:IfcCartesianPoint"))
+							continue;
+						if (line.contains("inst:IfcOwnerHistory"))
+							continue;
+						if (line.contains("inst:IfcRelAssociatesMaterial"))
+							continue;
+
+						if (line.contains("inst:IfcExtrudedAreaSolid"))
+							continue;
+						if (line.contains("inst:IfcCompositeCurve"))
+							continue;
+						if (line.contains("inst:IfcSurfaceStyleRendering"))
+							continue;
+						if (line.contains("inst:IfcStyledItem"))
+							continue;
+						if (line.contains("inst:IfcShapeRepresentation"))
+							continue;
+						writer.write(line.trim());
+						writer.newLine();
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		} catch (IOException e2) {
+			e2.printStackTrace();
+		}
+		return tempFile;
 	}
 
 	/**
@@ -690,12 +745,10 @@ public abstract class IFCtoLBDConverterCore {
 
 		IFC_Geolocation c = new IFC_Geolocation();
 		String wkt_point;
-		try
-		{
-			wkt_point= c.addGeolocation(ifcowl_model);
-		}
-		catch (Exception e) {
-			return;  // no geolocation
+		try {
+			wkt_point = c.addGeolocation(ifcowl_model);
+		} catch (Exception e) {
+			return; // no geolocation
 		}
 
 		IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {

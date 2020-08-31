@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.0
+Version 2.2
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -84,7 +84,27 @@ new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.
 
 ## IFCtoLBD OpenAPI Implementation
 
-[jyrkioraskari/IFCtoLBD_OpenAPI](https://github.com/jyrkioraskari/IFCtoLBD_OpenAPI)
+An Restful OpenAPI implementation for IFCtoLBD converter.  
+
+A test installation:
+http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/
+
+### Swagger.json description for the services
+
+http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
+
+### Docker for the Open API interface
+
+Command-line commands needed to start the server at your computer;
+```
+docker pull jyrkioraskari/ifc2lbdopenapi:latest
+
+docker container run -it --publish 8081:8080 jyrkioraskari/ifc2lbdopenapi
+
+
+```
+Then the software can be accessed from the local web address:
+http://localhost:8081/IFCtoLBD_OpenAPI
 
 
 ## IFCtoLBD BimBot service plugin for BIMserver
@@ -98,21 +118,21 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## Cite this
 ```
-@software{jyrki_oraskari_2020_3923103,
-  author       = {Jyrki Oraskari and 
-                  Mathias Bonduel and
+@software{jyrki_oraskari_2020_4009498,
+  author       = {Jyrki Oraskari and
+				  Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
                   Joel Lehtonen OH64K},
-  title        = {jyrkioraskari/IFCtoLBD: 1.90},
-  month        = jun,
+  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.2},
+  month        = aug,
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {1.90},
-  doi          = {10.5281/zenodo.3923103},
-  url          = {https://doi.org/10.5281/zenodo.3923103}
+  version      = {2.2},
+  doi          = {10.5281/zenodo.4009498},
+  url          = {https://doi.org/10.5281/zenodo.4009498}
 }
 ```
 
