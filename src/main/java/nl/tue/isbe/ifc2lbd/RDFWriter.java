@@ -1,10 +1,27 @@
 package nl.tue.isbe.ifc2lbd;
 
+/*
+ *
+ * Copyright 2019 Pieter Pauwels, Eindhoven University of Technology
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import be.ugent.IfcSpfReader;
 import com.buildingsmart.tech.ifcowl.vo.EntityVO;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import com.buildingsmart.tech.ifcowl.vo.TypeVO;
-import nl.tue.ddss.convert.Namespace;
+import nl.tue.isbe.Namespace;
 import nl.tue.isbe.BOT.*;
 import nl.tue.isbe.IFC.*;
 import nl.tue.isbe.ifcspftools.GuidHandler;
@@ -81,6 +98,7 @@ public class RDFWriter {
         //First run to collect everything in memory
         for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
             IFCVO ifcLineEntry = entry.getValue();
+            String n = ifcLineEntry.getName();
             //System.out.println("line number : " + ifcLineEntry.getLineNum());
             if(Element.containedInBEO(ifcLineEntry.getName().substring(3)) || Element.containedInMEP(ifcLineEntry.getName().substring(3)) ||
             Element.containedInIFC4_ADD2_TC1(ifcLineEntry.getName()) || Element.containedInIFC2x3_TC1(ifcLineEntry.getName())){
@@ -88,9 +106,19 @@ public class RDFWriter {
                 //LOG.info("Element: "+ el.toString());
                 continue;
             }
+            if(n.endsWith("TYPE")) {
+                String sub1 = n.substring(3, n.length() - 4);
+                String sub2 = n.substring(0, n.length() - 4);
+                if (Element.containedInBEO(sub1) || Element.containedInMEP(sub1) ||
+                        Element.containedInIFC4_ADD2_TC1(sub2) || Element.containedInIFC2x3_TC1(sub2)) {
+                    IfcElementType elt = new IfcElementType(ifcLineEntry);
+                    //LOG.info("Element: "+ el.toString());
+                    continue;
+                }
+            }
             if(ifcLineEntry.getName().equalsIgnoreCase("IFCRELVOIDSELEMENT")){
                 IfcRelVoidsElement irve = new IfcRelVoidsElement(ifcLineEntry);
-                LOG.info("RelVoids: "+ irve.toString());
+                //LOG.info("RelVoids: "+ irve.toString());
                 continue;
             }
             if(ifcLineEntry.getName().equalsIgnoreCase("IFCRELFILLSELEMENT")){
@@ -143,24 +171,51 @@ public class RDFWriter {
                 //LOG.info("IfcRelDefinesByProperties: "+ irdbp.toString());
                 continue;
             }
+            if(ifcLineEntry.getName().equalsIgnoreCase("IFCRELDEFINESBYTYPE")){
+                IfcRelDefinesByType irdbt = new IfcRelDefinesByType(ifcLineEntry);
+                //LOG.info("IfcRelDefinesByProperties: "+ irdbp.toString());
+                continue;
+            }
+            if(ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYAREA") ||
+                    ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYLENGTH") ||
+                    ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYVOLUME") ||
+                    ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYCOUNT") ||
+                    ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYTIME") ||
+                    ifcLineEntry.getName().equalsIgnoreCase("IFCQUANTITYWEIGHT")){
+                //all simple quantities covered
+                //List<Object> proplist = (List<Object>)ifcLineEntry.getObjectList().get(5);
+                Quantity quan = new Quantity(ifcLineEntry);
+            }
             if(ifcLineEntry.getName().equalsIgnoreCase("IFCPROPERTYSINGLEVALUE")){
-                Property prop = new Property(ifcLineEntry);
+                List<Object> proplist = (List<Object>)ifcLineEntry.getObjectList().get(5);
+                String value = proplist.get(0).toString();
+                if(value.startsWith("\'") && value.length()==1)
+                    continue;
+                else if(!value.startsWith("\'") && value.length()==0)
+                    continue;
+                else {
+                    Property prop = new Property(ifcLineEntry);
+                }
+
                 //LOG.info("Property: "+ prop.toString());
                 continue;
             }
         }
 
         //Second run to re-order and link everything(
-        System.out.println("linking everything");
+        LOG.info("linking everything");
         linkSitesToBuildings();
         linkBuildingsToBuildingStoreys();
         linkBuildingStoreysToSpaces();
         linkStoreysToContainedElements();
+        linkSpacesToContainedElements();
         linkElementsWithSubElements();
+        linkElementsWithTypes();
         linkHostedElements();
         linkSpacesWithBoundingObjects();
-        linkPropertiesToElements();
-        System.out.println("done linking everything");
+        linkPropertiesToSpacesAndElements();
+        linkPropertiesToTypesAndElements();
+        LOG.info("done linking everything");
     }
 
     private void linkHostedElements(){
@@ -200,6 +255,25 @@ public class RDFWriter {
                     if (el1.getLineNum() == iod.getLineNum()) {
                         el.addSubElement(el1);
                         el1.setPartOfElement(el);
+                        //break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void linkElementsWithTypes(){
+        for(IfcRelDefinesByType irdbt : IfcRelDefinesByType.relDefinesByTypeList){
+            IFCVO typevo = irdbt.getRelatingType();
+            List<IFCVO> objectsvo = irdbt.getRelatedObjects();
+            IfcElementType iet = IfcElementType.getIfcElementType(typevo.getLineNum());
+            if(iet==null)
+                continue;
+            for(Element el1 : Element.elementList){
+                for(IFCVO obj : objectsvo) {
+                    if (el1.getLineNum() == obj.getLineNum()) {
+                        el1.setIfcElementType(iet);
+                        el1.correctTypeBasedOnIfcType();
                         break;
                     }
                 }
@@ -211,6 +285,8 @@ public class RDFWriter {
         for(IfcRelSpaceBoundary rsb : IfcRelSpaceBoundary.relSpaceBoundaryList){
             IfcObjectDefinition relatingSpace = rsb.getRelatingSpace();
             IfcObjectDefinition relatedBuildingElement = rsb.getRelatedBuildingElement();
+            if(relatingSpace == null || relatedBuildingElement==null)
+                continue;
             for(Space s : Space.spaceList){
                 if(s.getLineNum() == relatingSpace.getLineNum()){
                     for(Element el : Element.elementList){
@@ -295,16 +371,123 @@ public class RDFWriter {
         }
     }
 
-    private void linkPropertiesToElements(){
+    private void linkSpacesToContainedElements(){
+        for(Space sp : Space.spaceList){
+            List<IfcObjectDefinition> iods = IfcRelContainedInSpatialStructure.getRelatedElementsForRelatingStructure(sp.getLineNum());
+            if(iods==null)
+                continue;
+            for(Element el : Element.elementList){
+                for(IfcObjectDefinition iod : iods) {
+                    if (el.getLineNum() == iod.getLineNum()) {
+                        sp.addContainedElement(el);
+                        el.setContainingSpace(sp);
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private void linkPropertiesToSpacesAndElements(){
         for(IfcRelDefinesByProperties irdbp : IfcRelDefinesByProperties.relDefinesByPropertiesList){
             IFCVO propertySet = irdbp.getRelatingObject();
             if(propertySet.getName().equalsIgnoreCase("IFCELEMENTQUANTITY")){
-                //skip for now
-            }
-            else{
+                //LOG.info("found quantityset:");
                 for(IFCVO obj : irdbp.getRelatedObjects()) {
                     if(obj.getName().equalsIgnoreCase("IFCSPACE")){
-                        //skip for now
+                        for (Space sp : Space.spaceList) {
+                            if (sp.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedQuantities();
+                                for (IFCVO prop : props) {
+                                    for (Quantity q : Quantity.quantityList) {
+                                        if (prop.getLineNum() == q.getLineNum()) {
+                                            sp.addQuantity(q);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                for(IFCVO obj : irdbp.getRelatedObjects()) {
+                    if(obj.getName().equalsIgnoreCase("IFCBUILDINGSTOREY")){
+                        for (Storey st : Storey.storeyList) {
+                            if (st.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedQuantities();
+                                for (IFCVO prop : props) {
+                                    for (Quantity q : Quantity.quantityList) {
+                                        if (prop.getLineNum() == q.getLineNum()) {
+                                            st.addQuantity(q);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else{
+                //LOG.info("found propertyset:");
+                for(IFCVO obj : irdbp.getRelatedObjects()) {
+                    if(obj.getName().equalsIgnoreCase("IFCSPACE")){
+                        for (Space sp : Space.spaceList) {
+                            if (sp.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedProperties();
+                                for (IFCVO prop : props) {
+                                    for (Property p : Property.propertyList) {
+                                        if (prop.getLineNum() == p.getLineNum()) {
+                                            if(!p.isEmpty())
+                                                sp.addProperty(p);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if(obj.getName().equalsIgnoreCase("IFCBUILDINGSTOREY")){
+                        for (Storey st : Storey.storeyList) {
+                            if (st.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedProperties();
+                                for (IFCVO prop : props) {
+                                    for (Property p : Property.propertyList) {
+                                        if (prop.getLineNum() == p.getLineNum()) {
+                                            if(!p.isEmpty())
+                                                st.addProperty(p);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if(obj.getName().equalsIgnoreCase("IFCBUILDING")){
+                        for (Building b : Building.buildingList) {
+                            if (b.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedProperties();
+                                for (IFCVO prop : props) {
+                                    for (Property p : Property.propertyList) {
+                                        if (prop.getLineNum() == p.getLineNum()) {
+                                            if(!p.isEmpty())
+                                                b.addProperty(p);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else if(obj.getName().equalsIgnoreCase("IFCSITE")){
+                        for (Site s : Site.siteList) {
+                            if (s.getLineNum() == obj.getLineNum()) {
+                                List<IFCVO> props = irdbp.getRelatedProperties();
+                                for (IFCVO prop : props) {
+                                    for (Property p : Property.propertyList) {
+                                        if (prop.getLineNum() == p.getLineNum()) {
+                                            if(!p.isEmpty())
+                                                s.addProperty(p);
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                     else {
                         for (Element el : Element.elementList) {
@@ -313,12 +496,35 @@ public class RDFWriter {
                                 for (IFCVO prop : props) {
                                     for (Property p : Property.propertyList) {
                                         if (prop.getLineNum() == p.getLineNum()) {
-                                            el.addProperty(p);
+                                            if(!p.isEmpty())
+                                                el.addProperty(p);
                                         }
                                     }
                                 }
                             }
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    private void linkPropertiesToTypesAndElements(){
+        for(IfcElementType type : IfcElementType.elementTypeList){
+            List<IFCVO> props = type.getOriginalProperties();
+            for (IFCVO prop : props) {
+                for (Property p : Property.propertyList) {
+                    if (prop.getLineNum() == p.getLineNum()) {
+                        type.addProperty(p);
+                        //also assign the properties directly to the element!!
+                        for (Element el : Element.elementList) {
+                            if (el.getIfcElementType() == type) {
+                                //TODO: check whether property does not exist yet, and whether the property is not empty
+                                el.addProperty(p);
+                                //no break; because this need to be done for all relevant elements - more than 1
+                            }
+                        }
+                        break;
                     }
                 }
             }
@@ -340,10 +546,23 @@ public class RDFWriter {
                     output += ";\r\n";
                     output += "\tbot:hasBuilding inst:"+ b.getName() + " ";
                 }
+                if(props){
+                    for(Property p : s.getProperties()){
+                        output += ";\r\n";
+                        if(p.getValue().equalsIgnoreCase(".T."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" true ";
+                        else if(p.getValue().equalsIgnoreCase(".F."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" false ";
+                        else if(p.getValue().startsWith("\'"))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue().substring(1) +"\"^^xsd:string ";
+                        else
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue() +"\"^^xsd:double ";
+                    }
+                }
                 output += ". \r\n\r\n";
             }
 
-            System.out.println("written sites");
+            LOG.debug("written sites");
             out.write(output.getBytes());
             out.flush();
             output = "";
@@ -358,10 +577,23 @@ public class RDFWriter {
                     output += ";\r\n";
                     output += "\tbot:hasStorey inst:"+ bs.getName() + " ";
                 }
+                if(props){
+                    for(Property p : b.getProperties()){
+                        output += ";\r\n";
+                        if(p.getValue().equalsIgnoreCase(".T."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" true ";
+                        else if(p.getValue().equalsIgnoreCase(".F."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" false ";
+                        else if(p.getValue().startsWith("\'"))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue().substring(1) +"\"^^xsd:string ";
+                        else
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue() +"\"^^xsd:double ";
+                    }
+                }
                 output += ". \r\n\r\n";
             }
 
-            System.out.println("written buildings");
+            LOG.debug("written buildings");
             out.write(output.getBytes());
             out.flush();
             output = "";
@@ -394,10 +626,27 @@ public class RDFWriter {
                         output += ", inst:"+ el.getName() + " ";
                     }
                 }
+                if(props){
+                    for(Property p : bs.getProperties()){
+                        output += ";\r\n";
+                        if(p.getValue().equalsIgnoreCase(".T."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" true ";
+                        else if(p.getValue().equalsIgnoreCase(".F."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" false ";
+                        else if(p.getValue().startsWith("\'"))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue().substring(1) +"\"^^xsd:string ";
+                        else
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue() +"\"^^xsd:double ";
+                    }
+                    for(Quantity q : bs.getQuantities()){
+                        output += ";\r\n";
+                        output += "\tprops:"+q.getQuantityNameNoSpace() +" \""+ q.getValue() +"\"^^xsd:double ";
+                    }
+                }
                 output += ". \r\n\r\n";
             }
 
-            System.out.println("written storeys");
+            LOG.debug("written storeys");
             out.write(output.getBytes());
             out.flush();
             output = "";
@@ -410,20 +659,48 @@ public class RDFWriter {
                     output += ";\r\n";
                     output += "\tbot:adjacentElement inst:"+ el.getName() + " ";
                 }
+                counter=0;
+                for(Element el : sp.getContainedElements()){
+                    if(counter==0) {
+                        output += ";\r\n";
+                        output += "\tbot:containsElement inst:"+ el.getName() + " ";
+                        counter++;
+                    }
+                    else{
+                        output += ", inst:"+ el.getName() + " ";
+                    }
+                }
+                if(props){
+                    for(Property p : sp.getProperties()){
+                        output += ";\r\n";
+                        if(p.getValue().equalsIgnoreCase(".T."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" true ";
+                        else if(p.getValue().equalsIgnoreCase(".F."))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" false ";
+                        else if(p.getValue().startsWith("\'"))
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue().substring(1) +"\"^^xsd:string ";
+                        else
+                            output += "\tprops:"+p.getPropertyNameNoSpace()+" \""+ p.getValue() +"\"^^xsd:double ";
+                    }
+                    for(Quantity q : sp.getQuantities()){
+                        output += ";\r\n";
+                        output += "\tprops:"+q.getQuantityNameNoSpace() +" \""+ q.getValue() +"\"^^xsd:double ";
+                    }
+                }
                 output += ". \r\n\r\n";
             }
 
-            System.out.println("written spaces");
+            LOG.debug("written spaces");
             out.write(output.getBytes());
             out.flush();
             output = "";
 
             for(Element el : Element.elementList){
-                System.out.println("Element : " + el.getName());
+                //LOG.debug("Element : " + el.getName());
                 output += "inst:"+el.getName() + "\r\n";
                 output += "\ta bot:Element ;" + "\r\n";
-                if(prod && el.getClassName()!=null){
-                    output += "\ta beo:" + el.getClassName() + " ;" + "\r\n";
+                if(prod && el.getClassName()!=null && el.getNamespace() != null){
+                    output += "\ta " + el.getNamespace() + ":" + el.getClassName() + " ;" + "\r\n";
                 }
                 output += "\trdfs:label \""+el.getLabel()+"\"^^xsd:string ;" + "\r\n";
                 output += "\trdfs:comment \""+el.getDescription()+"\"^^xsd:string ;" + "\r\n";
@@ -457,7 +734,7 @@ public class RDFWriter {
                 output = "";
             }
 
-            System.out.println("written properties");
+            LOG.debug("written properties");
             out.write(output.getBytes());
             out.flush();
             output = "";
@@ -465,12 +742,16 @@ public class RDFWriter {
             for(Interface iface : Interface.interfaceList){
                 output += "inst:"+iface.getName() + "\r\n";
                 output += "\ta bot:Interface ;" + "\r\n";
-                output += "\tbot:hasGuid \""+ GuidHandler.getUncompressedStringFromGuid(iface.getGuid()) +"\"^^xsd:string ;" + "\r\n";
-                output += "\tbot:interfaceOf inst:"+ iface.getRelatingSpace().getName() +", inst:" + iface.getRelatedElement().getName() + " ";
-                output += ". \r\n\r\n";
+                if(iface.getRelatingSpace() != null && iface.getRelatedElement() != null)
+                    output += "\tbot:interfaceOf inst:"+ iface.getRelatingSpace().getName() +", inst:" + iface.getRelatedElement().getName() + " ;" + "\r\n";
+                else if(iface.getRelatingSpace() != null && iface.getRelatedElement() == null)
+                    output += "\tbot:interfaceOf inst:"+ iface.getRelatingSpace().getName() + " ;" + "\r\n";
+                else if(iface.getRelatingSpace() == null && iface.getRelatedElement() != null)
+                    output += "\tbot:interfaceOf inst:" + iface.getRelatedElement().getName() + " ;" + "\r\n";
+                output += "\tbot:hasGuid \""+ GuidHandler.getUncompressedStringFromGuid(iface.getGuid()) +"\"^^xsd:string . \r\n\r\n";
             }
 
-            System.out.println("written interfaces");
+            LOG.debug("written interfaces");
             out.write(output.getBytes());
             out.flush();
         } catch (IOException e) {

@@ -22,36 +22,36 @@ import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IfcRelAggregates {
+public class IfcRelDefinesByType {
 
     private IFCVO lineEntry;
-    public static List<IfcRelAggregates> RelAggregatesList  = new ArrayList<IfcRelAggregates>();
+    public static List<IfcRelDefinesByType> relDefinesByTypeList  = new ArrayList<IfcRelDefinesByType>();
 
-    private IfcObjectDefinition relatingObject;
-    private List<IfcObjectDefinition> relatedObjects = new ArrayList<IfcObjectDefinition>();
+    private IFCVO relatingType;
+    private List<IFCVO> relatedObjects = new ArrayList<IFCVO>(); // list of objects to which this is attached
 
-    public IfcRelAggregates(IFCVO lineEntry){
+    public IfcRelDefinesByType(IFCVO lineEntry){
         this.lineEntry = lineEntry;
-        RelAggregatesList.add(this);
+        relDefinesByTypeList.add(this);
         this.parse();
     }
 
     private void parse(){
-        //relatingObject
-        relatingObject = new IfcObjectDefinition((IFCVO)lineEntry.getObjectList().get(8));
-        //relatedObjects
-        List<Object> lvo = (List<Object>)lineEntry.getObjectList().get(10);
-        for(IFCVO j : removeClutterFromList(lvo)) {
-            relatedObjects.add(new IfcObjectDefinition(j));
+        //property side
+        relatingType = (IFCVO)lineEntry.getObjectList().get(10);
+        //if(relatingObject){
+        /*if(relatingType.getName().equalsIgnoreCase("IFCELEMENTQUANTITY")){
+            relatedQuantities = (List<IFCVO>)relatingType.getObjectList().get(10);
         }
-    }
+        else {
+            relatedProperties = (List<IFCVO>)removeClutterFromList((List<Object>)relatingObject.getObjectList().get(8));
+        }*/
 
-    public static List<IfcObjectDefinition> getRelatedObjectsForRelatingObject(long lineNum){
-        for(IfcRelAggregates ira : RelAggregatesList){
-            if(ira.getRelatingObject().getLineNum() == lineNum)
-                return ira.getRelatedObjects();
+        //element side
+        List<Object> lvo = (List<Object>)lineEntry.getObjectList().get(8);
+        for(IFCVO j : removeClutterFromList(lvo)) {
+            relatedObjects.add(j);
         }
-        return null;
     }
 
     private List<IFCVO> removeClutterFromList(List<Object> lvo){
@@ -71,11 +71,12 @@ public class IfcRelAggregates {
         return lineEntry;
     }
 
-    public IfcObjectDefinition getRelatingObject() {
-        return relatingObject;
+    public IFCVO getRelatingType() {
+        return relatingType;
     }
 
-    public List<IfcObjectDefinition> getRelatedObjects() {
+    public List<IFCVO> getRelatedObjects() {
         return relatedObjects;
     }
+
 }

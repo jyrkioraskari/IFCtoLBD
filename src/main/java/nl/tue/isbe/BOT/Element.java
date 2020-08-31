@@ -1,6 +1,24 @@
 package nl.tue.isbe.BOT;
 
+/*
+ *
+ * Copyright 2019 Pieter Pauwels, Eindhoven University of Technology
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
+import nl.tue.isbe.IFC.IfcElementType;
 import nl.tue.isbe.ifcspftools.Guid;
 import nl.tue.isbe.ifcspftools.GuidHandler;
 
@@ -18,9 +36,13 @@ public class Element {
     private String label = "";
     private String description = "";
     private String tag = "";
+    private String namespace;
+
+    private IfcElementType ifcElementType;
 
     private Space boundingSpace;
     private Storey containingStorey;
+    private Space containingSpace;
 
     private Element partOfElement;
     private Element hostingElement;
@@ -52,6 +74,7 @@ public class Element {
         StairFlight, StairFlight__CURVED, StairFlight__FREEFORM, StairFlight__SPIRAL, StairFlight__STRAIGHT, StairFlight__WINDER,
         Wall, Wall__ELEMENTEDWALL, Wall__MOVABLE, Wall__PARAPET, Wall__PARTITIONING, Wall__PLUMBINGWALL, Wall__POLYGONAL, Wall__SHEAR,
         Wall__SOLIDWALL, Wall__STANDARD, WallElementedCase, Window, Window__LIGHTDOME, Window__SKYLIGHT, Window__WINDOW};
+
     public enum ifc4_add2_tc1_BEO_classes {IfcPile, IfcCovering, IfcStairFlight, IfcDoor, IfcWindow, IfcBeam, IfcBuildingElementProxy,
         IfcChimney, IfcColumn, IfcCurtainWall, IfcFooting, IfcMember, IfcPlate, IfcRailing, IfcRamp, IfcRampFlight, IfcRoof,
         IfcShadingDevice, IfcSlab, IfcStair, IfcWall, IfcBeamStandardCase, IfcColumnStandardCase, IfcDoorStandardCase, IfcMemberStandardCase,
@@ -217,13 +240,26 @@ public class Element {
         return tag;
     }
 
-    /*This should only be run once, from the constructor. It creates the correct name, based on the IFC input, which is not stored*/
-    public IFCVO getLineEntry(IFCVO lineEntry) {
+    public String getNamespace(){ return namespace; }
+
+    public IFCVO getLineEntry() {
         return lineEntry;
+    }
+
+    public IfcElementType getIfcElementType() {
+        return ifcElementType;
+    }
+
+    public void setIfcElementType(IfcElementType iet){
+        this.ifcElementType = iet;
     }
 
     public void setContainingStorey(Storey s){
         containingStorey = s;
+    }
+
+    public void setContainingSpace(Space s){
+        containingSpace = s;
     }
 
     public void setBoundingSpace(Space boundingSpace) {
@@ -238,6 +274,7 @@ public class Element {
         for (ifc4_add2_tc1_BEO_classes c : ifc4_add2_tc1_BEO_classes.values()) {
             if (c.name().equalsIgnoreCase(lineEntry.getName())) {
                 ifcName = c.name();
+                namespace = "beo";
                 break;
             }
         }
@@ -245,6 +282,7 @@ public class Element {
             for (ifc4_add2_tc1_MEP_classes c : ifc4_add2_tc1_MEP_classes.values()) {
                 if (c.name().equalsIgnoreCase(lineEntry.getName())) {
                     ifcName = c.name();
+                    namespace = "mep";
                     break;
                 }
             }
@@ -287,6 +325,35 @@ public class Element {
         }
 
         System.out.println("ERROR. Element with no name : " + lineEntry.getName());
+    }
+
+    public void correctTypeBasedOnIfcType(){
+        if(ifcElementType == null)
+            return;
+        String s = ifcElementType.getPredefinedType();
+
+        if(s==null || s == "")
+            return;
+        else{
+            if(namespace == "beo"){
+                for(BEO_classes c : BEO_classes.values()){
+                    if(c.name().equalsIgnoreCase(className + "__" + s)) {
+                        className = c.name();
+                        return;
+                    }
+                }
+            }
+            else if (namespace == "mep") {
+                for(MEP_classes c : MEP_classes.values()){
+                    if(c.name().equalsIgnoreCase(className + "__" + s)) {
+                        className = c.name();
+                        return;
+                    }
+                }
+            }
+            //Sensor__CONDUCTANCESENSOR
+        }
+
     }
 
     public List<Property> getProperties() {

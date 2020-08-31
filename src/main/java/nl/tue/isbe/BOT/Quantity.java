@@ -22,34 +22,33 @@ import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Property {
+public class Quantity {
 
     private long lineNum;
 
     private Element relatedElement;
-    private String propertyType;
+    //private String quantityType;
     private String value;
-    private String propertyName;
-    private String propertyNameNoSpace;
+    private String quantityName;
+    private String quantityNameNoSpace;
 
     private IFCVO lineEntry;
-    public static List<Property> propertyList = new ArrayList<Property>();
+    public static List<Quantity> quantityList = new ArrayList<Quantity>();
 
-    public Property(IFCVO lineEntry){
+    public Quantity(IFCVO lineEntry){
         this.lineEntry = lineEntry;
         lineNum = lineEntry.getLineNum();
-        propertyList.add(this);
+        quantityList.add(this);
         this.parse();
     }
 
     private void parse(){
-        propertyName = ((String) lineEntry.getObjectList().get(0)).substring(1);
-        propertyName = propertyName.substring(0, 1).toLowerCase() + propertyName.substring(1);
-        propertyName = propertyName.replaceAll("[-+.^():/,]","");
-        propertyNameNoSpace = propertyName.replaceAll("\\s+","");
-        propertyType = (String) lineEntry.getObjectList().get(4);
-        List<Object> prop = (List<Object>)lineEntry.getObjectList().get(5);
-        value = prop.get(0).toString();
+        quantityName = ((String) lineEntry.getObjectList().get(0)).substring(1);
+        quantityName = quantityName.substring(0, 1).toLowerCase() + quantityName.substring(1);
+        quantityName = quantityName.replaceAll("[-+.^():/,]","");
+        quantityNameNoSpace = quantityName.replaceAll("\\s+","");
+        //quantityType = (String) lineEntry.getObjectList().get(4);
+        value = (String)lineEntry.getObjectList().get(6);
     }
 
     //------------
@@ -68,22 +67,11 @@ public class Property {
         return value;
     }
 
-    public String getPropertyName() {
-        return propertyName;
+    public String getQuantityName() {
+        return quantityName;
     }
 
-    public String getPropertyNameNoSpace() {
-        return propertyNameNoSpace;
-    }
-
-    public boolean isEmpty(){
-        if(this.getValue().startsWith("\'") && this.getValue().length()==1) {
-            return true;
-        }
-        else if(!this.getValue().startsWith("\'") && this.getValue().length()==0) {
-            return true;
-        }
-        else
-            return false;
+    public String getQuantityNameNoSpace() {
+        return quantityNameNoSpace;
     }
 }
