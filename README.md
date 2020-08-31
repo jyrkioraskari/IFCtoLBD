@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.0
+Version 2.1
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -84,7 +84,6 @@ new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.
 
 ## IFCtoLBD OpenAPI Implementation
 
-[jyrkioraskari/IFCtoLBD_OpenAPI](https://github.com/jyrkioraskari/IFCtoLBD_OpenAPI)
 
 
 ## IFCtoLBD BimBot service plugin for BIMserver

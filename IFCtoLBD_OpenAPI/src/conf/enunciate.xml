@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<enunciate
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="http://enunciate.webcohesion.com/schemas/enunciate-2.12.0.xsd">
+	
+	
+	<modules>
+		<swagger  basePath="/IFCtoLBD_OpenAPI/api/">	   
+		</swagger>
+	</modules>
+	<api-classes>
+	   <include pattern="de.rwth_aachen.dc.ifc2lbd.rest.*"/>
+	</api-classes>
+</enunciate>

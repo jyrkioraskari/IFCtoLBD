@@ -1,0 +1,142 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
+	<artifactId>IFCtoLBD_OpenAPI</artifactId>
+	<version>2.0</version>
+	<packaging>war</packaging>
+	<name>IFCtoLBD OpenAPI Interface</name>
+
+	<developers>
+		<developer>
+			<id>jyrkio</id>
+			<name>Jyrki Oraskari</name>
+			<email>Jyrki [dot] Oraskari [at] dc [dot] rwth-aachen [dot] de</email>
+		</developer>
+	</developers>
+
+	<prerequisites>
+		<maven>3</maven>
+	</prerequisites>
+
+	<build>
+		<finalName>IFCtoLBD_OpenAPI</finalName>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.0</version>
+					<configuration>
+						<source>1.8</source>
+						<target>1.8</target>
+						<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>com.webcohesion.enunciate</groupId>
+					<artifactId>enunciate-maven-plugin</artifactId>
+					<version>2.12.0</version>
+					<configuration>
+						<docsDir>${project.build.directory}/IFCtoLBD_OpenAPI</docsDir>
+						<configFile>src/conf/enunciate.xml</configFile>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	<repositories>
+		<repository>
+			<id>maven2-repository.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
+	<properties>
+		<jersey2.version>2.30</jersey2.version>
+		<jaxrs.version>2.1.1</jaxrs.version>
+		<tomcat.version>7.0.69</tomcat.version>
+		<enunciate.version>2.8.0</enunciate.version>
+		<log4j.version>1.2.17</log4j.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+		<!-- JAX-RS -->
+		<dependency>
+			<groupId>javax.ws.rs</groupId>
+			<artifactId>javax.ws.rs-api</artifactId>
+			<version>${jaxrs.version}</version>
+		</dependency>
+		<!-- Jersey Client -->
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-client</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<!-- Jersey Server -->
+		<dependency>
+			<groupId>org.glassfish.jersey.containers</groupId>
+			<artifactId>jersey-container-servlet</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.core</groupId>
+			<artifactId>jersey-server</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-moxy</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<!-- Jersey Validation -->
+		<dependency>
+			<groupId>org.glassfish.jersey.ext</groupId>
+			<artifactId>jersey-bean-validation</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<!-- JSON library -->
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-json-jackson</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.inject</groupId>
+			<artifactId>jersey-hk2</artifactId>
+			<version>${jersey2.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish.jersey.media</groupId>
+			<artifactId>jersey-media-multipart</artifactId>
+			<version>${jersey2.version}</version> <!-- Make sure the Jersey version matches the one you are currently using -->
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-servlet-api</artifactId>
+			<version>${tomcat.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>io.github.jyrkioraskari</groupId>
+			<artifactId>IFCtoLBD</artifactId>
+			<version>2.0</version>
+		</dependency>
+		
+				<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>3.15.0</version>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+</project>
