@@ -36,7 +36,7 @@ developed independently.
 	<modelVersion>4.0.0</modelVersion>
     <groupId>com.github.pipauwel</groupId>
     <artifactId>IFCtoLBD</artifactId>
-    <version>0.1</version>
+    <version>0.1-SNAPSHOT</version>
     <name>IFC to LBD</name>
 	<packaging>jar</packaging>
 
