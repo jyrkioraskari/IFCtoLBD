@@ -120,7 +120,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 @software{jyrki_oraskari_2020_4009498,
   author       = {Jyrki Oraskari and
-				  Mathias Bonduel and
+                  Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
                   Freddy Priyatna and
