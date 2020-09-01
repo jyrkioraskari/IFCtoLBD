@@ -1,0 +1,15 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test9.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcOrganization_2
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ERROR [main] (RDFWriter.java:481) - *ERROR 4*: Entity in IFC files has more attributes than it is allowed have: IfcOrganization_2
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

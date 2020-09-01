@@ -1,0 +1,150 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcBSplineSurfaceWithKnots_272
+        rdf:type  ifc:IfcBSplineSurfaceWithKnots .
+
+inst:IfcCartesianPoint_List_9
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_10
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_11
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_12
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_13
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_14
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_15
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_273
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_9
+        list:hasContents  inst:IfcCartesianPoint_273 ;
+        list:hasNext      inst:IfcCartesianPoint_List_10 .
+
+inst:IfcCartesianPoint_274
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_10
+        list:hasContents  inst:IfcCartesianPoint_274 ;
+        list:hasNext      inst:IfcCartesianPoint_List_11 .
+
+inst:IfcCartesianPoint_275
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_11
+        list:hasContents  inst:IfcCartesianPoint_275 ;
+        list:hasNext      inst:IfcCartesianPoint_List_12 .
+
+inst:IfcCartesianPoint_276
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_12
+        list:hasContents  inst:IfcCartesianPoint_276 ;
+        list:hasNext      inst:IfcCartesianPoint_List_13 .
+
+inst:IfcCartesianPoint_List_13
+        list:hasContents  inst:IfcCartesianPoint_273 ;
+        list:hasNext      inst:IfcCartesianPoint_List_14 .
+
+inst:IfcCartesianPoint_List_14
+        list:hasContents  inst:IfcCartesianPoint_274 ;
+        list:hasNext      inst:IfcCartesianPoint_List_15 .
+
+inst:IfcCartesianPoint_List_15
+        list:hasContents  inst:IfcCartesianPoint_275 .
+
+inst:IfcCartesianPoint_List_23
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_24
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_25
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_26
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_27
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_28
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_List_29
+        rdf:type  ifc:IfcCartesianPoint_List .
+
+inst:IfcCartesianPoint_277
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_23
+        list:hasContents  inst:IfcCartesianPoint_277 ;
+        list:hasNext      inst:IfcCartesianPoint_List_24 .
+
+inst:IfcCartesianPoint_278
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_24
+        list:hasContents  inst:IfcCartesianPoint_278 ;
+        list:hasNext      inst:IfcCartesianPoint_List_25 .
+
+inst:IfcCartesianPoint_279
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_25
+        list:hasContents  inst:IfcCartesianPoint_279 ;
+        list:hasNext      inst:IfcCartesianPoint_List_26 .
+
+inst:IfcCartesianPoint_280
+        rdf:type  ifc:IfcCartesianPoint .
+
+inst:IfcCartesianPoint_List_26
+        list:hasContents  inst:IfcCartesianPoint_280 ;
+        list:hasNext      inst:IfcCartesianPoint_List_27 .
+
+inst:IfcCartesianPoint_List_27
+        list:hasContents  inst:IfcCartesianPoint_277 ;
+        list:hasNext      inst:IfcCartesianPoint_List_28 .
+
+inst:IfcCartesianPoint_List_28
+        list:hasContents  inst:IfcCartesianPoint_278 ;
+        list:hasNext      inst:IfcCartesianPoint_List_29 .
+
+inst:IfcCartesianPoint_List_29
+        list:hasContents  inst:IfcCartesianPoint_279 .
+
+inst:IfcCartesianPoint_List_List_37
+        rdf:type  ifc:IfcCartesianPoint_List_List .
+
+inst:IfcBSplineSurfaceWithKnots_272
+        ifc:controlPointsList_IfcBSplineSurface  inst:IfcCartesianPoint_List_List_37 .
+
+inst:IfcCartesianPoint_List_List_37
+        list:hasContents  inst:IfcCartesianPoint_List_9 ;
+        list:hasNext      inst:IfcCartesianPoint_List_List_38 .
+
+inst:IfcCartesianPoint_List_List_38
+        rdf:type          ifc:IfcCartesianPoint_List_List ;
+        list:hasContents  inst:IfcCartesianPoint_List_23 .

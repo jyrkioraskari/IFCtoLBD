@@ -639,11 +639,12 @@ public abstract class IFCtoLBDConverterCore {
 	 */
 	protected Model readAndConvertIFC(String ifc_file, String uriBase) {
 		try {
-			IfcSpfReader rj = new IfcSpfReader();
+			IFCtoRDF rj = new IFCtoRDF();
 			File tempFile = File.createTempFile("ifc", ".ttl");
 			try {
 				Model m = ModelFactory.createDefaultModel();
-				this.ontURI = rj.convert(ifc_file, tempFile.getAbsolutePath(), uriBase);
+				this.ontURI = rj.convert_into_rdf(ifc_file, tempFile.getAbsolutePath(), uriBase);
+				// Thread.sleep(15000);
 				File t2 = filterContent(tempFile);
 				RDFDataMgr.read(m, t2.getAbsolutePath());
 				return m;
@@ -665,12 +666,64 @@ public abstract class IFCtoLBDConverterCore {
 
 	private File filterContent(File whole_content_file) {
 		File tempFile = null;
+		int state = 0;
 		try {
 			tempFile = File.createTempFile("ifc", ".ttl");
 			try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
 				try (BufferedReader br = new BufferedReader(new FileReader(whole_content_file))) {
 					String line;
+					String[] triple = new String[3];
+					for (int i = 0; i < 3; i++)
+						triple[i] = "";
 					while ((line = br.readLine()) != null) {
+						String trimmed = line.trim();
+						if (!line.contains("@prefix") && !trimmed.startsWith("#")) {
+							int len = trimmed.length();
+							if (len > 0) {
+								List<String> t;
+                                if(trimmed.endsWith(".")||trimmed.endsWith(";"))										
+										t=split(trimmed.substring(0, trimmed.length() - 1));
+                                else
+									t=split(trimmed.substring(0, trimmed.length()));
+								if (state == 0) {
+									for (int i = 0; i < t.size(); i++)
+										triple[i] = t.get(i);
+									
+									if (trimmed.endsWith("."))
+										state = 0;
+									else
+									  state = 1;
+									if (t.size() == 3)
+									{
+										StringBuffer sb=new StringBuffer();
+										sb.append(t.get(0));
+										sb.append(" ");
+										sb.append(t.get(1));
+										sb.append(" ");
+										sb.append(t.get(2));
+										sb.append(" .");
+										line =  sb.toString();
+									}
+									else
+										continue;
+								} else {
+									for (int i = 0; i < t.size(); i++)
+										triple[2 - i] = t.get(t.size() - 1 - i);
+									
+									StringBuffer sb=new StringBuffer();
+									sb.append(triple[0]);
+									sb.append(" ");
+									sb.append(triple[1]);
+									sb.append(" ");
+									sb.append(triple[2]);
+									sb.append(" .");
+									line =  sb.toString();
+									
+									if (trimmed.endsWith("."))
+										state = 0;
+								}
+							}
+						}
 						if (line.contains("inst:IfcFace"))
 							continue;
 						if (line.contains("inst:IfcPolyLoop"))
@@ -692,9 +745,11 @@ public abstract class IFCtoLBDConverterCore {
 							continue;
 						if (line.contains("inst:IfcShapeRepresentation"))
 							continue;
+
 						writer.write(line.trim());
 						writer.newLine();
 					}
+					writer.flush();
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -706,6 +761,47 @@ public abstract class IFCtoLBDConverterCore {
 			e2.printStackTrace();
 		}
 		return tempFile;
+	}
+
+	private List<String> split(String s) {
+		List<String> ret = new ArrayList<>();
+		int state = 0;
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			switch (state) {
+			case 2:
+				if (c == '\"' || c == '\'')
+					state = 0;
+				sb.append(c);
+				break;
+			case 1:
+				if (c == '\"' || c == '\'') {
+					ret.add(sb.toString());
+					sb = new StringBuffer();
+					sb.append(c);
+					state = 2;
+				} else if (!Character.isSpace(c)) {
+					ret.add(sb.toString());
+					sb = new StringBuffer();
+					sb.append(c);
+					state = 0;
+				}
+				break;
+			case 0:
+				if (c == '\"' || c == '\'') {
+					sb.append(c);
+					state = 2;
+				} else if (Character.isSpace(c))
+					state = 1;
+				else
+					sb.append(c);
+				break;
+			}
+		}
+		if (sb.length() > 0)
+			ret.add(sb.toString());
+		return ret;
 	}
 
 	/**

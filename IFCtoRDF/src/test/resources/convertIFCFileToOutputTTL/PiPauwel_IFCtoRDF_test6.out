@@ -1,0 +1,5 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test6.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ERROR [main] (RDFWriter.java:310) - *ERROR 6*: Reference to non-existing line number in line: #1= IFCAPPLICATION(#3,$,$,$);
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

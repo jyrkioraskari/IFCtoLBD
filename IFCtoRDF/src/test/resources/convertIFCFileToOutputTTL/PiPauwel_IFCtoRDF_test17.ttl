@@ -1,0 +1,97 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcSite_1  rdf:type  ifc:IfcSite .
+
+inst:IfcCompoundPlaneAngleMeasure_1
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcSite_1  ifc:refLatitude_IfcSite  inst:IfcCompoundPlaneAngleMeasure_1 .
+
+inst:IfcCompoundPlaneAngleMeasure_2
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcCompoundPlaneAngleMeasure_3
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcCompoundPlaneAngleMeasure_4
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:INTEGER_5  rdf:type    express:INTEGER ;
+        express:hasInteger  49 .
+
+inst:IfcCompoundPlaneAngleMeasure_1
+        list:hasContents  inst:INTEGER_5 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_2 .
+
+inst:INTEGER_6  rdf:type    express:INTEGER ;
+        express:hasInteger  5 .
+
+inst:IfcCompoundPlaneAngleMeasure_2
+        list:hasContents  inst:INTEGER_6 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_3 .
+
+inst:INTEGER_7  rdf:type    express:INTEGER ;
+        express:hasInteger  44 .
+
+inst:IfcCompoundPlaneAngleMeasure_3
+        list:hasContents  inst:INTEGER_7 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_4 .
+
+inst:INTEGER_8  rdf:type    express:INTEGER ;
+        express:hasInteger  124 .
+
+inst:IfcCompoundPlaneAngleMeasure_4
+        list:hasContents  inst:INTEGER_8 .
+
+inst:IfcCompoundPlaneAngleMeasure_9
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcSite_1  ifc:refLongitude_IfcSite  inst:IfcCompoundPlaneAngleMeasure_9 .
+
+inst:IfcCompoundPlaneAngleMeasure_10
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcCompoundPlaneAngleMeasure_11
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:IfcCompoundPlaneAngleMeasure_12
+        rdf:type  ifc:IfcCompoundPlaneAngleMeasure .
+
+inst:INTEGER_13  rdf:type   express:INTEGER ;
+        express:hasInteger  8 .
+
+inst:IfcCompoundPlaneAngleMeasure_9
+        list:hasContents  inst:INTEGER_13 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_10 .
+
+inst:INTEGER_14  rdf:type   express:INTEGER ;
+        express:hasInteger  26 .
+
+inst:IfcCompoundPlaneAngleMeasure_10
+        list:hasContents  inst:INTEGER_14 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_11 .
+
+inst:INTEGER_15  rdf:type   express:INTEGER ;
+        express:hasInteger  1 .
+
+inst:IfcCompoundPlaneAngleMeasure_11
+        list:hasContents  inst:INTEGER_15 ;
+        list:hasNext      inst:IfcCompoundPlaneAngleMeasure_12 .
+
+inst:INTEGER_16  rdf:type   express:INTEGER ;
+        express:hasInteger  320000 .
+
+inst:IfcCompoundPlaneAngleMeasure_12
+        list:hasContents  inst:INTEGER_16 .

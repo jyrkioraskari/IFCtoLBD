@@ -1,0 +1,15 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test3.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcMeasureWithUnit_29
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:856) - *OK 24*: found subClass of SELECT Class, now doing nothing with it: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#valueComponent_IfcMeasureWithUnit - IfcLengthMeasure - 0.0254
+ INFO [main] (RDFWriter.java:1008) - *OK 17*: created resource: IfcLengthMeasure_1
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_1 - https://w3id.org/express#hasDouble - 0.0254
+ INFO [main] (RDFWriter.java:1014) - *OK 3*: added property: IfcMeasureWithUnit_29 - valueComponent_IfcMeasureWithUnit - IfcLengthMeasure_1
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

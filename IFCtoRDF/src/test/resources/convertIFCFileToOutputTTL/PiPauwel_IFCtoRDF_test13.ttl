@@ -1,0 +1,90 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcCartesianPointList3D_200
+        rdf:type  ifc:IfcCartesianPointList3D .
+
+inst:IfcLengthMeasure_List_1
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_List_2
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_List_3
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_4
+        rdf:type           ifc:IfcLengthMeasure ;
+        express:hasDouble  "-300.0"^^xsd:double .
+
+inst:IfcLengthMeasure_List_1
+        list:hasContents  inst:IfcLengthMeasure_4 ;
+        list:hasNext      inst:IfcLengthMeasure_List_2 .
+
+inst:IfcLengthMeasure_5
+        rdf:type           ifc:IfcLengthMeasure ;
+        express:hasDouble  "150.0"^^xsd:double .
+
+inst:IfcLengthMeasure_List_2
+        list:hasContents  inst:IfcLengthMeasure_5 ;
+        list:hasNext      inst:IfcLengthMeasure_List_3 .
+
+inst:IfcLengthMeasure_6
+        rdf:type           ifc:IfcLengthMeasure ;
+        express:hasDouble  "0.0"^^xsd:double .
+
+inst:IfcLengthMeasure_List_3
+        list:hasContents  inst:IfcLengthMeasure_6 .
+
+inst:IfcLengthMeasure_List_7
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_List_8
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_List_9
+        rdf:type  ifc:IfcLengthMeasure_List .
+
+inst:IfcLengthMeasure_10
+        rdf:type           ifc:IfcLengthMeasure ;
+        express:hasDouble  "-260.012578"^^xsd:double .
+
+inst:IfcLengthMeasure_List_7
+        list:hasContents  inst:IfcLengthMeasure_10 ;
+        list:hasNext      inst:IfcLengthMeasure_List_8 .
+
+inst:IfcLengthMeasure_11
+        rdf:type           ifc:IfcLengthMeasure ;
+        express:hasDouble  "202.771984"^^xsd:double .
+
+inst:IfcLengthMeasure_List_8
+        list:hasContents  inst:IfcLengthMeasure_11 ;
+        list:hasNext      inst:IfcLengthMeasure_List_9 .
+
+inst:IfcLengthMeasure_List_9
+        list:hasContents  inst:IfcLengthMeasure_6 .
+
+inst:IfcLengthMeasure_List_List_12
+        rdf:type  ifc:IfcLengthMeasure_List_List .
+
+inst:IfcCartesianPointList3D_200
+        ifc:coordList_IfcCartesianPointList3D  inst:IfcLengthMeasure_List_List_12 .
+
+inst:IfcLengthMeasure_List_List_12
+        list:hasContents  inst:IfcLengthMeasure_List_1 ;
+        list:hasNext      inst:IfcLengthMeasure_List_List_13 .
+
+inst:IfcLengthMeasure_List_List_13
+        rdf:type          ifc:IfcLengthMeasure_List_List ;
+        list:hasContents  inst:IfcLengthMeasure_List_7 .

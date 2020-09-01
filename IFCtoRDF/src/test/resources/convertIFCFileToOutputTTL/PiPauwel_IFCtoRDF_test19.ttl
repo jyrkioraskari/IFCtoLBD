@@ -1,0 +1,69 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcIndexedPolyCurve_205
+        rdf:type  ifc:IfcIndexedPolyCurve .
+
+inst:IfcLineIndex_1  rdf:type  ifc:IfcLineIndex .
+
+inst:IfcLineIndex_2  rdf:type  ifc:IfcLineIndex .
+
+inst:IfcPositiveInteger_3
+        rdf:type            ifc:IfcPositiveInteger ;
+        express:hasInteger  1 .
+
+inst:IfcLineIndex_1  list:hasContents  inst:IfcPositiveInteger_3 ;
+        list:hasNext      inst:IfcLineIndex_2 .
+
+inst:IfcPositiveInteger_4
+        rdf:type            ifc:IfcPositiveInteger ;
+        express:hasInteger  2 .
+
+inst:IfcLineIndex_2  list:hasContents  inst:IfcPositiveInteger_4 .
+
+inst:IfcArcIndex_5  rdf:type  ifc:IfcArcIndex .
+
+inst:IfcArcIndex_6  rdf:type  ifc:IfcArcIndex .
+
+inst:IfcArcIndex_7  rdf:type  ifc:IfcArcIndex .
+
+inst:IfcArcIndex_5  list:hasContents  inst:IfcPositiveInteger_4 ;
+        list:hasNext      inst:IfcArcIndex_6 .
+
+inst:IfcPositiveInteger_8
+        rdf:type            ifc:IfcPositiveInteger ;
+        express:hasInteger  3 .
+
+inst:IfcArcIndex_6  list:hasContents  inst:IfcPositiveInteger_8 ;
+        list:hasNext      inst:IfcArcIndex_7 .
+
+inst:IfcPositiveInteger_9
+        rdf:type            ifc:IfcPositiveInteger ;
+        express:hasInteger  4 .
+
+inst:IfcArcIndex_7  list:hasContents  inst:IfcPositiveInteger_9 .
+
+inst:IfcSegmentIndexSelect_List_10
+        rdf:type  ifc:IfcSegmentIndexSelect_List .
+
+inst:IfcIndexedPolyCurve_205
+        ifc:segments_IfcIndexedPolyCurve  inst:IfcSegmentIndexSelect_List_10 .
+
+inst:IfcSegmentIndexSelect_List_10
+        list:hasContents  inst:IfcLineIndex_1 ;
+        list:hasNext      inst:IfcSegmentIndexSelect_List_11 .
+
+inst:IfcSegmentIndexSelect_List_11
+        rdf:type          ifc:IfcSegmentIndexSelect_List ;
+        list:hasContents  inst:IfcArcIndex_5 .

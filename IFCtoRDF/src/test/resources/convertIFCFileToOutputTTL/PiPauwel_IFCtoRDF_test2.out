@@ -1,0 +1,14 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test2.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcSIUnit_28
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:874) - *OK 2*: added ENUM statement IfcSIUnit_28 - unitType_IfcNamedUnit - LENGTHUNIT
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:874) - *OK 2*: added ENUM statement IfcSIUnit_28 - name_IfcSIUnit - METRE
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

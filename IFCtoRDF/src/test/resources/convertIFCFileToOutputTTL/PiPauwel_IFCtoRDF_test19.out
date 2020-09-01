@@ -1,0 +1,33 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test19.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcIndexedPolyCurve_205
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcPositiveInteger_3
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcPositiveInteger_3 - https://w3id.org/express#hasInteger - 1
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLineIndex_1 - -hasContents- - IfcPositiveInteger_3
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcLineIndex_1 - -hasNext- - IfcLineIndex_2
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcPositiveInteger_4
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcPositiveInteger_4 - https://w3id.org/express#hasInteger - 2
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLineIndex_2 - -hasContents- - IfcPositiveInteger_4
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcArcIndex_5 - -hasContents- - IfcPositiveInteger_4
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcArcIndex_5 - -hasNext- - IfcArcIndex_6
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcPositiveInteger_8
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcPositiveInteger_8 - https://w3id.org/express#hasInteger - 3
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcArcIndex_6 - -hasContents- - IfcPositiveInteger_8
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcArcIndex_6 - -hasNext- - IfcArcIndex_7
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcPositiveInteger_9
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcPositiveInteger_9 - https://w3id.org/express#hasInteger - 4
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcArcIndex_7 - -hasContents- - IfcPositiveInteger_9
+ INFO [main] (RDFWriter.java:1035) - *OK 14*: added property: IfcSegmentIndexSelect_List_10 - rdf:type - IfcSegmentIndexSelect_List
+ INFO [main] (RDFWriter.java:1041) - *OK 15*: added property: IfcIndexedPolyCurve_205 - segments_IfcIndexedPolyCurve - IfcSegmentIndexSelect_List_10
+ INFO [main] (RDFWriter.java:1044) - *OK 16*: added property: IfcSegmentIndexSelect_List_10 - -hasContents- - IfcLineIndex_1
+ INFO [main] (RDFWriter.java:1048) - *OK 17*: added property: IfcSegmentIndexSelect_List_10 - -hasNext- - IfcSegmentIndexSelect_List_11
+ INFO [main] (RDFWriter.java:1035) - *OK 14*: added property: IfcSegmentIndexSelect_List_11 - rdf:type - IfcSegmentIndexSelect_List
+ INFO [main] (RDFWriter.java:1044) - *OK 16*: added property: IfcSegmentIndexSelect_List_11 - -hasContents- - IfcArcIndex_5
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

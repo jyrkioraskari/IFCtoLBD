@@ -1,0 +1,36 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test13.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcCartesianPointList3D_200
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLengthMeasure_4
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_4 - https://w3id.org/express#hasDouble - -300.0
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_1 - -hasContents- - IfcLengthMeasure_4
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcLengthMeasure_List_1 - -hasNext- - IfcLengthMeasure_List_2
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLengthMeasure_5
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_5 - https://w3id.org/express#hasDouble - 150.0
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_2 - -hasContents- - IfcLengthMeasure_5
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcLengthMeasure_List_2 - -hasNext- - IfcLengthMeasure_List_3
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLengthMeasure_6
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_6 - https://w3id.org/express#hasDouble - 0.0
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_3 - -hasContents- - IfcLengthMeasure_6
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLengthMeasure_10
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_10 - https://w3id.org/express#hasDouble - -260.012578
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_7 - -hasContents- - IfcLengthMeasure_10
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcLengthMeasure_List_7 - -hasNext- - IfcLengthMeasure_List_8
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLengthMeasure_11
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLengthMeasure_11 - https://w3id.org/express#hasDouble - 202.771984
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_8 - -hasContents- - IfcLengthMeasure_11
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcLengthMeasure_List_8 - -hasNext- - IfcLengthMeasure_List_9
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcLengthMeasure_List_9 - -hasContents- - IfcLengthMeasure_6
+ INFO [main] (RDFWriter.java:1027) - *OK 20*: Handling list of list
+ INFO [main] (RDFWriter.java:1035) - *OK 14*: added property: IfcLengthMeasure_List_List_12 - rdf:type - IfcLengthMeasure_List_List
+ INFO [main] (RDFWriter.java:1041) - *OK 15*: added property: IfcCartesianPointList3D_200 - coordList_IfcCartesianPointList3D - IfcLengthMeasure_List_List_12
+ INFO [main] (RDFWriter.java:1044) - *OK 16*: added property: IfcLengthMeasure_List_List_12 - -hasContents- - IfcLengthMeasure_List_1
+ INFO [main] (RDFWriter.java:1048) - *OK 17*: added property: IfcLengthMeasure_List_List_12 - -hasNext- - IfcLengthMeasure_List_List_13
+ INFO [main] (RDFWriter.java:1035) - *OK 14*: added property: IfcLengthMeasure_List_List_13 - rdf:type - IfcLengthMeasure_List_List
+ INFO [main] (RDFWriter.java:1044) - *OK 16*: added property: IfcLengthMeasure_List_List_13 - -hasContents- - IfcLengthMeasure_List_7
+ INFO [main] (IfcSpfReader.java:256) - Finished!!
