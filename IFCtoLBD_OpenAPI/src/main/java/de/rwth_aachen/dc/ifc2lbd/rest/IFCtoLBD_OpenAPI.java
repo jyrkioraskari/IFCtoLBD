@@ -21,7 +21,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.glassfish.jersey.media.multipart.FormDataParam;
-import org.lbd.ifc2lbd.IFCtoLBDConverter;
+import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 /*
  * Jyrki Oraskari, 2020

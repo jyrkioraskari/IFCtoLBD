@@ -15,6 +15,7 @@ import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.lib.ShLib;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 public class ConverterUnitTest {
 

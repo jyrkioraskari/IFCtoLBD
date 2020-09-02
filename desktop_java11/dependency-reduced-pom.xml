@@ -4,7 +4,7 @@
   <groupId>io.github.jyrkioraskari</groupId>
   <artifactId>IFCtoLBD_Desktop_Java12</artifactId>
   <name>IFCtoLBD Desktop Java 12</name>
-  <version>2.3</version>
+  <version>2.4</version>
   <description>The IFC to BOT converter user interface for a desktop computer</description>
   <developers>
     <developer>
