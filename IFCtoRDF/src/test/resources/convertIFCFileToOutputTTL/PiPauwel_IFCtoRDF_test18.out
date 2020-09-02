@@ -1,0 +1,39 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test18.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcPropertyEnumeration_226
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:984) - *OK 7*: added property: IfcPropertyEnumeration_226 - enumerationValues_IfcPropertyEnumeration - IfcValue_List_1
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_8
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_8 - https://w3id.org/express#hasString - NEW
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_1 - -hasContents- - IfcLabel_8
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_1 - -hasNext- - IfcValue_List_2
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_9
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_9 - https://w3id.org/express#hasString - EXISTING
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_2 - -hasContents- - IfcLabel_9
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_2 - -hasNext- - IfcValue_List_3
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_10
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_10 - https://w3id.org/express#hasString - DEMOLISH
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_3 - -hasContents- - IfcLabel_10
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_3 - -hasNext- - IfcValue_List_4
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_11
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_11 - https://w3id.org/express#hasString - TEMPORARY
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_4 - -hasContents- - IfcLabel_11
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_4 - -hasNext- - IfcValue_List_5
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_12
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_12 - https://w3id.org/express#hasString - OTHER
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_5 - -hasContents- - IfcLabel_12
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_5 - -hasNext- - IfcValue_List_6
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_13
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_13 - https://w3id.org/express#hasString - NOTKNOWN
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_6 - -hasContents- - IfcLabel_13
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcValue_List_6 - -hasNext- - IfcValue_List_7
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: IfcLabel_14
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_14 - https://w3id.org/express#hasString - UNSET
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcValue_List_7 - -hasContents- - IfcLabel_14
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

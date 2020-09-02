@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.2</version>
+	<version>2.4</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -79,16 +79,6 @@
 			<version>1.14</version>
 		</dependency>
 
-
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>apache-jena-libs</artifactId>
-			<version>3.16.0</version>
-			<type>pom</type>
-		</dependency>
-
-
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -113,6 +103,30 @@
 			<version>5.4.2</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.pipauwel</groupId>
+			<artifactId>IFCtoRDF</artifactId>
+			<version>0.5J-SNAPSHOT</version>
+		</dependency>
+		<!-- overrided IFCtoRDF -->	
+		 <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-core</artifactId>
+            <version>3.16.0</version>
+        </dependency>
+		 <dependency>
+            <groupId>org.apache.jena</groupId>
+            <artifactId>jena-arq</artifactId>
+            <version>3.16.0</version>
+        </dependency>
+		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>3.16.0</version>
+			<type>pom</type>		
+		</dependency>
+		
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>

@@ -3,7 +3,10 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module archiveName="IFCtoLBD-2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
+        <dependent-module archiveName="IFCtoLBD-2.4.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IFCtoRDF-0.5J-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/mvdXMLCheckerOpenAPI/build/classes"/>

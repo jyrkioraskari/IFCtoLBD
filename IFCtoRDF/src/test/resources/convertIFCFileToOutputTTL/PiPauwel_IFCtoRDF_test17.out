@@ -1,0 +1,54 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test17.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcSite_1
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:984) - *OK 7*: added property: IfcSite_1 - refLatitude_IfcSite - IfcCompoundPlaneAngleMeasure_1
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_5
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_5 - https://w3id.org/express#hasInteger - 49
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_1 - -hasContents- - INTEGER_5
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_1 - -hasNext- - IfcCompoundPlaneAngleMeasure_2
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_6
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_6 - https://w3id.org/express#hasInteger - 5
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_2 - -hasContents- - INTEGER_6
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_2 - -hasNext- - IfcCompoundPlaneAngleMeasure_3
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_7
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_7 - https://w3id.org/express#hasInteger - 44
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_3 - -hasContents- - INTEGER_7
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_3 - -hasNext- - IfcCompoundPlaneAngleMeasure_4
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_8
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_8 - https://w3id.org/express#hasInteger - 124
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_4 - -hasContents- - INTEGER_8
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:984) - *OK 7*: added property: IfcSite_1 - refLongitude_IfcSite - IfcCompoundPlaneAngleMeasure_9
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_13
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_13 - https://w3id.org/express#hasInteger - 8
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_9 - -hasContents- - INTEGER_13
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_9 - -hasNext- - IfcCompoundPlaneAngleMeasure_10
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_14
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_14 - https://w3id.org/express#hasInteger - 26
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_10 - -hasContents- - INTEGER_14
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_10 - -hasNext- - IfcCompoundPlaneAngleMeasure_11
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_15
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_15 - https://w3id.org/express#hasInteger - 1
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_11 - -hasContents- - INTEGER_15
+ INFO [main] (RDFWriter.java:1133) - *OK 12*: added property: IfcCompoundPlaneAngleMeasure_11 - -hasNext- - IfcCompoundPlaneAngleMeasure_12
+ INFO [main] (RDFWriter.java:1123) - *OK 19*: created resource: INTEGER_16
+ INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: INTEGER_16 - https://w3id.org/express#hasInteger - 320000
+ INFO [main] (RDFWriter.java:1129) - *OK 11*: added property: IfcCompoundPlaneAngleMeasure_12 - -hasContents- - INTEGER_16
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

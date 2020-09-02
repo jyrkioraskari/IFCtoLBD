@@ -1,0 +1,74 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcPropertyEnumeration_226
+        rdf:type  ifc:IfcPropertyEnumeration .
+
+inst:IfcValue_List_1  rdf:type  ifc:IfcValue_List .
+
+inst:IfcPropertyEnumeration_226
+        ifc:enumerationValues_IfcPropertyEnumeration  inst:IfcValue_List_1 .
+
+inst:IfcValue_List_2  rdf:type  ifc:IfcValue_List .
+
+inst:IfcValue_List_3  rdf:type  ifc:IfcValue_List .
+
+inst:IfcValue_List_4  rdf:type  ifc:IfcValue_List .
+
+inst:IfcValue_List_5  rdf:type  ifc:IfcValue_List .
+
+inst:IfcValue_List_6  rdf:type  ifc:IfcValue_List .
+
+inst:IfcValue_List_7  rdf:type  ifc:IfcValue_List .
+
+inst:IfcLabel_8  rdf:type  ifc:IfcLabel ;
+        express:hasString  "NEW" .
+
+inst:IfcValue_List_1  list:hasContents  inst:IfcLabel_8 ;
+        list:hasNext      inst:IfcValue_List_2 .
+
+inst:IfcLabel_9  rdf:type  ifc:IfcLabel ;
+        express:hasString  "EXISTING" .
+
+inst:IfcValue_List_2  list:hasContents  inst:IfcLabel_9 ;
+        list:hasNext      inst:IfcValue_List_3 .
+
+inst:IfcLabel_10  rdf:type  ifc:IfcLabel ;
+        express:hasString  "DEMOLISH" .
+
+inst:IfcValue_List_3  list:hasContents  inst:IfcLabel_10 ;
+        list:hasNext      inst:IfcValue_List_4 .
+
+inst:IfcLabel_11  rdf:type  ifc:IfcLabel ;
+        express:hasString  "TEMPORARY" .
+
+inst:IfcValue_List_4  list:hasContents  inst:IfcLabel_11 ;
+        list:hasNext      inst:IfcValue_List_5 .
+
+inst:IfcLabel_12  rdf:type  ifc:IfcLabel ;
+        express:hasString  "OTHER" .
+
+inst:IfcValue_List_5  list:hasContents  inst:IfcLabel_12 ;
+        list:hasNext      inst:IfcValue_List_6 .
+
+inst:IfcLabel_13  rdf:type  ifc:IfcLabel ;
+        express:hasString  "NOTKNOWN" .
+
+inst:IfcValue_List_6  list:hasContents  inst:IfcLabel_13 ;
+        list:hasNext      inst:IfcValue_List_7 .
+
+inst:IfcLabel_14  rdf:type  ifc:IfcLabel ;
+        express:hasString  "UNSET" .
+
+inst:IfcValue_List_7  list:hasContents  inst:IfcLabel_14 .

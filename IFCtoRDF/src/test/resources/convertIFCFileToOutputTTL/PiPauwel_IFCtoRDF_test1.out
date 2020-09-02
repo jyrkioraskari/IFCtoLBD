@@ -1,0 +1,21 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test1.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:404) - -------------------------------
+ INFO [main] (RDFWriter.java:405) - IfcApplication_1
+ INFO [main] (RDFWriter.java:406) - -------------------------------
+ INFO [main] (RDFWriter.java:468) - fillProperties 5 - fillPropertiesHandleIfcObject(evo)
+ INFO [main] (RDFWriter.java:539) - *OK 1*: added property: IfcApplication_1 - applicationDeveloper_IfcApplication - IfcOrganization_2
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:404) - -------------------------------
+ INFO [main] (RDFWriter.java:405) - IfcOrganization_2
+ INFO [main] (RDFWriter.java:406) - -------------------------------
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:465) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

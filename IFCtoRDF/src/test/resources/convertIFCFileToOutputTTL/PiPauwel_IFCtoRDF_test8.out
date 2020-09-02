@@ -1,0 +1,6 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test8.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ERROR [main] (RDFWriter.java:1267) - *ERROR 2*: getResource failed for http://linkedbuildingdata.net/ifc/resources20190323_115001/_1
+ INFO [main] (IfcSpfReader.java:256) - Finished!!

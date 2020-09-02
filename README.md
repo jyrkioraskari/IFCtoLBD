@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.2
+Version 2.4
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -82,6 +82,40 @@ How to use the code:
 new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
 ```
 
+## IFCtoLBD Python Implementation
+
+The example implementation can be found in the IFCtoLBD_Python  subfolder
+
+Installation:
+
+pip install JPype1
+
+```
+# !/usr/bin/env python3
+
+import jpype
+
+# Enable Java imports
+import jpype.imports
+
+# Pull in types
+from jpype.types import *
+
+jpype.startJVM(classpath = ['jars/*'])
+
+from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
+
+jpype.java.lang.System.out.println("This was printed via System.out.println.")
+
+lbdconverter = IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset",  3)
+
+model=lbdconverter.convert("Duplex_A_20110505.ifc");
+
+model.write(jpype.java.lang.System.out)
+jpype.shutdownJVM()
+```
+
+
 ## IFCtoLBD OpenAPI Implementation
 
 An Restful OpenAPI implementation for IFCtoLBD converter.  
@@ -120,7 +154,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 @software{jyrki_oraskari_2020_4009498,
   author       = {Jyrki Oraskari and
-				  Mathias Bonduel and
+                  Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
                   Freddy Priyatna and

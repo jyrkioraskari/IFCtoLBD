@@ -1,0 +1,51 @@
+# baseURI: http://linkedbuildingdata.net/ifc/resources/
+# imports: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL
+
+@prefix ifc:  <http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#> .
+@prefix inst:  <http://linkedbuildingdata.net/ifc/resources/> .
+@prefix list:  <https://w3id.org/list#> .
+@prefix express:  <https://w3id.org/express#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+
+inst:   rdf:type     owl:Ontology ;
+        owl:imports  ifc: .
+
+inst:IfcRecurrencePattern_788
+        rdf:type  ifc:IfcRecurrencePattern .
+
+inst:IfcDayInWeekNumber_1
+        rdf:type            ifc:IfcDayInWeekNumber ;
+        express:hasInteger  1 .
+
+inst:IfcRecurrencePattern_788
+        ifc:weekdayComponent_IfcRecurrencePattern  inst:IfcDayInWeekNumber_1 .
+
+inst:IfcDayInWeekNumber_2
+        rdf:type            ifc:IfcDayInWeekNumber ;
+        express:hasInteger  2 .
+
+inst:IfcRecurrencePattern_788
+        ifc:weekdayComponent_IfcRecurrencePattern  inst:IfcDayInWeekNumber_2 .
+
+inst:IfcDayInWeekNumber_3
+        rdf:type            ifc:IfcDayInWeekNumber ;
+        express:hasInteger  3 .
+
+inst:IfcRecurrencePattern_788
+        ifc:weekdayComponent_IfcRecurrencePattern  inst:IfcDayInWeekNumber_3 .
+
+inst:IfcDayInWeekNumber_4
+        rdf:type            ifc:IfcDayInWeekNumber ;
+        express:hasInteger  4 .
+
+inst:IfcRecurrencePattern_788
+        ifc:weekdayComponent_IfcRecurrencePattern  inst:IfcDayInWeekNumber_4 .
+
+inst:IfcDayInWeekNumber_5
+        rdf:type            ifc:IfcDayInWeekNumber ;
+        express:hasInteger  5 .
+
+inst:IfcRecurrencePattern_788
+        ifc:weekdayComponent_IfcRecurrencePattern  inst:IfcDayInWeekNumber_5 .

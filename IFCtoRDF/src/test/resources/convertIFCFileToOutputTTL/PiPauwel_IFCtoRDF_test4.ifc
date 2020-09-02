@@ -1,0 +1,14 @@
+ISO-10303-21;
+HEADER;
+FILE_DESCRIPTION($,'2;1');
+FILE_NAME('PiPauwel_IFCtoRDF_test4.ifc','2016-12-28T12:20:00',(''),(''),'Pieter Pauwels','pipauwel.pauwels@ugent.be','');
+FILE_SCHEMA(('IFC4'));
+ENDSEC;
+
+DATA;
+
+#31= IFCCONVERSIONBASEDUNIT($,$,$,$);
+#207= IFCUNITASSIGNMENT((#31));
+ENDSEC;
+
+END-ISO-10303-21;

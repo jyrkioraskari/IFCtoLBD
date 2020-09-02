@@ -1,0 +1,46 @@
+ INFO [main] (IfcSpfReader.java:114) - Converting file: C:\Users\pipauwel\Desktop\testfiles\ifcspff\PiPauwel_IFCtoRDF_test12.ifc
+ INFO [main] (IfcSpfReader.java:254) - Started parsing stream
+ INFO [main] (RDFWriter.java:126) - Model parsed
+ INFO [main] (RDFWriter.java:139) - Entries mapped, now creating instances
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcBSplineCurveWithKnots_210
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
+ INFO [main] (RDFWriter.java:1068) - *OK 13*: added property: IfcBSplineCurveWithKnots_210 - controlPointsList_IfcBSplineCurve - IfcCartesianPoint_List_5
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_5 - hasContents - IfcCartesianPoint_211
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_5 - hasNext - IfcCartesianPoint_List_6
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_6 - hasContents - IfcCartesianPoint_212
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_6 - hasNext - IfcCartesianPoint_List_7
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_7 - hasContents - IfcCartesianPoint_213
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_7 - hasNext - IfcCartesianPoint_List_8
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_8 - hasContents - IfcCartesianPoint_214
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_8 - hasNext - IfcCartesianPoint_List_9
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_9 - hasContents - IfcCartesianPoint_211
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_9 - hasNext - IfcCartesianPoint_List_10
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_10 - hasContents - IfcCartesianPoint_212
+ INFO [main] (RDFWriter.java:1100) - *OK 10*: created property: IfcCartesianPoint_List_10 - hasNext - IfcCartesianPoint_List_11
+ INFO [main] (RDFWriter.java:1095) - *OK 9*: created property: IfcCartesianPoint_List_11 - hasContents - IfcCartesianPoint_213
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcCartesianPoint_211
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcCartesianPoint_212
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcCartesianPoint_213
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (RDFWriter.java:399) - -------------------------------
+ INFO [main] (RDFWriter.java:400) - IfcCartesianPoint_214
+ INFO [main] (RDFWriter.java:401) - -------------------------------
+ INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
+ INFO [main] (IfcSpfReader.java:256) - Finished!!
