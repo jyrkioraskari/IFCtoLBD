@@ -1,11 +1,21 @@
 package be.ugent;
 
-import com.buildingsmart.tech.ifcowl.vo.IFCVO;
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Stack;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
-import java.util.*;
+import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
 public class IfcSpfParser {
 
@@ -16,7 +26,7 @@ public class IfcSpfParser {
 
     private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
-    public IfcSpfParser(InputStream inputStream){
+    public IfcSpfParser(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
@@ -65,73 +75,73 @@ public class IfcSpfParser {
             char ch = line.charAt(i);
             switch (state) {
                 case 0:
-                    if (ch == '=') {
-                        ifcvo.setLineNum(toLong(sb.toString()));
-                        sb.setLength(0);
-                        state++;
-                        continue;
-                    } else if (Character.isDigit(ch))
-                        sb.append(ch);
+                if (ch == '=') {
+                    ifcvo.setLineNum(toLong(sb.toString()));
+                    sb.setLength(0);
+                    state++;
+                    continue;
+                } else if (Character.isDigit(ch))
+                    sb.append(ch);
                     break;
                 case 1: // (
-                    if (ch == '(') {
-                        ifcvo.setName(sb.toString());
-                        sb.setLength(0);
-                        state++;
-                        continue;
-                    } else if (ch == ';') {
-                        ifcvo.setName(sb.toString());
-                        sb.setLength(0);
-                        state = Integer.MAX_VALUE;
-                    } else if (!Character.isWhitespace(ch))
-                        sb.append(ch);
+                if (ch == '(') {
+                    ifcvo.setName(sb.toString());
+                    sb.setLength(0);
+                    state++;
+                    continue;
+                } else if (ch == ';') {
+                    ifcvo.setName(sb.toString());
+                    sb.setLength(0);
+                    state = Integer.MAX_VALUE;
+                } else if (!Character.isWhitespace(ch))
+                    sb.append(ch);
                     break;
                 case 2: // (... line started and doing (...
-                    if (ch == '\'') {
-                        state++;
-                    }
-                    if (ch == '(') {
-                        listStack.push(current);
-                        LinkedList<Object> tmp = new LinkedList<>();
+                if (ch == '\'') {
+                    state++;
+                }
+                if (ch == '(') {
+                    listStack.push(current);
+                    LinkedList<Object> tmp = new LinkedList<>();
+                    if (sb.toString().trim().length() > 0)
+                        current.add(sb.toString().trim());
+                    sb.setLength(0);
+                    current.add(tmp);
+                    current = tmp;
+                    clCount++;
+                } else if (ch == ')') {
+                    if (clCount == 0) {
                         if (sb.toString().trim().length() > 0)
                             current.add(sb.toString().trim());
                         sb.setLength(0);
-                        current.add(tmp);
-                        current = tmp;
-                        clCount++;
-                    } else if (ch == ')') {
-                        if (clCount == 0) {
-                            if (sb.toString().trim().length() > 0)
-                                current.add(sb.toString().trim());
-                            sb.setLength(0);
-                            state = Integer.MAX_VALUE; // line is done
-                            continue;
-                        } else {
-                            if (sb.toString().trim().length() > 0)
-                                current.add(sb.toString().trim());
-                            sb.setLength(0);
-                            clCount--;
-                            current = listStack.pop();
-                        }
-                    } else if (ch == ',') {
-                        if (sb.toString().trim().length() > 0)
-                            current.add(sb.toString().trim());
-                        current.add(Character.valueOf(ch));
-
-                        sb.setLength(0);
+                        state = Integer.MAX_VALUE; // line is done
+                        continue;
                     } else {
-                        sb.append(ch);
+                        if (sb.toString().trim().length() > 0)
+                            current.add(sb.toString().trim());
+                        sb.setLength(0);
+                        clCount--;
+                        current = listStack.pop();
                     }
+                } else if (ch == ',') {
+                    if (sb.toString().trim().length() > 0)
+                        current.add(sb.toString().trim());
+                    current.add(Character.valueOf(ch));
+
+                    sb.setLength(0);
+                } else {
+                    sb.append(ch);
+                }
                     break;
                 case 3: // (...
-                    if (ch == '\'') {
-                        state--;
-                    } else {
-                        sb.append(ch);
-                    }
+                if (ch == '\'') {
+                    state--;
+                } else {
+                    sb.append(ch);
+                }
                     break;
                 default:
-                    // Do nothing
+                // Do nothing
             }
         }
         linemap.put(ifcvo.getLineNum(), ifcvo);
@@ -181,8 +191,7 @@ public class IfcSpfParser {
                             or = linemap.get(toLong(s.substring(1)));
 
                         if (or == null) {
-                            LOG.error("*ERROR 6*: Reference to non-existing line number in line: #"
-                                    + vo.getLineNum() + "=" + vo.getFullLineAfterNum());
+                            LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + vo.getLineNum() + "=" + vo.getFullLineAfterNum());
                             return false;
                         }
                         vo.getObjectList().set(i, or);
@@ -195,8 +204,7 @@ public class IfcSpfParser {
                         Object o1 = tmpList.get(j);
                         if (Character.class.isInstance(o)) {
                             if ((Character) o != ',') {
-                                LOG.error("*ERROR 16*: We found a character that is not a comma. "
-                                        + "That should not be possible!");
+                                LOG.error("*ERROR 16*: We found a character that is not a comma. " + "That should not be possible!");
                             }
                         } else if (String.class.isInstance(o1)) {
                             String s = (String) o1;
@@ -209,8 +217,7 @@ public class IfcSpfParser {
                                 else
                                     or = linemap.get(toLong(s.substring(1)));
                                 if (or == null) {
-                                    LOG.error("*ERROR 7*: Reference to non-existing line number in line: #"
-                                            + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
+                                    LOG.error("*ERROR 7*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
                                     tmpList.set(j, "-");
                                     return false;
                                 } else
