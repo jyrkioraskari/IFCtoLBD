@@ -187,14 +187,20 @@ public class RDFWriter {
                 Quantity quan = new Quantity(ifcLineEntry);
             }
             if(ifcLineEntry.getName().equalsIgnoreCase("IFCPROPERTYSINGLEVALUE")){
-                List<Object> proplist = (List<Object>)ifcLineEntry.getObjectList().get(5);
-                String value = proplist.get(0).toString();
-                if(value.startsWith("\'") && value.length()==1)
+                if(ifcLineEntry.getObjectList().get(5) instanceof Character){
+                    LOG.warn("Found a character where we expected a linked list. This is likely an empty property, which we then skip of course.");
                     continue;
-                else if(!value.startsWith("\'") && value.length()==0)
-                    continue;
-                else {
-                    Property prop = new Property(ifcLineEntry);
+                }
+                else if(ifcLineEntry.getObjectList().get(5) instanceof List){
+                    List<Object> proplist = (List<Object>)ifcLineEntry.getObjectList().get(5);
+                    String value = proplist.get(0).toString();
+                    if(value.startsWith("\'") && value.length()==1)
+                        continue;
+                    else if(!value.startsWith("\'") && value.length()==0)
+                        continue;
+                    else {
+                        Property prop = new Property(ifcLineEntry);
+                    }
                 }
 
                 //LOG.info("Property: "+ prop.toString());

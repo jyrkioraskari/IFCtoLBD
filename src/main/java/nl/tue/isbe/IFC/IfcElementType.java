@@ -57,7 +57,11 @@ public class IfcElementType {
         label = ((String) lineEntry.getObjectList().get(4)).substring(1);
         description = ((String) lineEntry.getObjectList().get(6)).substring(1);
         tag = ((String) lineEntry.getObjectList().get(14)).substring(1);
-        getPropertiesFromInput((LinkedList)lineEntry.getObjectList().get(10));
+        if(lineEntry.getObjectList().get(10) instanceof String && ((String) lineEntry.getObjectList().get(10)).equalsIgnoreCase("$")){
+            //no properties - do not parse properties
+        }
+        else if(lineEntry.getObjectList().get(10) instanceof LinkedList)
+            getPropertiesFromInput((LinkedList)lineEntry.getObjectList().get(10));
         predefinedType = ((String) lineEntry.getObjectList().get(18)).replaceAll("\\.", "");
     }
 
