@@ -127,6 +127,8 @@ http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
 
 ### Docker for the Open API interface
 
+Install Docker Desktop:  https://www.docker.com/get-started
+
 Command-line commands needed to start the server at your computer;
 ```
 docker pull jyrkioraskari/ifc2lbdopenapi:latest
@@ -148,7 +150,7 @@ http://localhost:8081/IFCtoLBD_OpenAPI
 ## License
 This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-## Cite this
+## How to cite
 ```
 @software{jyrki_oraskari_2020_4009498,
   author       = {Jyrki Oraskari and

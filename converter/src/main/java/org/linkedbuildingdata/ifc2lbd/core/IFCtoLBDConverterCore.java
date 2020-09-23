@@ -48,8 +48,6 @@ import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
 
-import be.ugent.IfcSpfReader;
-
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
