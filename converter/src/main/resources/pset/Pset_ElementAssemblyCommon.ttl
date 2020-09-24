@@ -1,0 +1,45 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ElementAssemblyCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ElementAssemblyCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ElementAssemblyCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ElementAssemblyCommon
+        a                     IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:definition   "Properties common to the definition of all occurrence and type objects of element assembly." ;
+        IFC4-PSD:ifcVersion   [ a                 IFC4-PSD:IfcVersion ;
+                                IFC4-PSD:version  "IFC4"
+                              ] ;
+        IFC4-PSD:name         "Pset_ElementAssemblyCommon" ;
+        IFC4-PSD:propertyDef  :p20e74f79d075407a92f93d6788281332 , :p943159a93c8d4316a7a01b4382c6ea80 .
+
+:p943159a93c8d4316a7a01b4382c6ea80
+        a                      IFC4-PSD:PropertyDef ;
+        IFC4-PSD:ifdguid       "943159a93c8d4316a7a01b4382c6ea80" ;
+        IFC4-PSD:name          "Reference" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p943159a93c8d4316a7a01b4382c6ea80 ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p20e74f79d075407a92f93d6788281332
+        a                      IFC4-PSD:PropertyDef ;
+        IFC4-PSD:ifdguid       "20e74f79d075407a92f93d6788281332" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                               ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p20e74f79d075407a92f93d6788281332 ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .

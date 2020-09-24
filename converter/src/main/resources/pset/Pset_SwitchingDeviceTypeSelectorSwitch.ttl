@@ -1,0 +1,71 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:SelectorType  a            rdf:Property ;
+        rdfs:seeAlso        :p63966000d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SelectorType .
+
+:p701ab880d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "A list of the available usages for selector switches from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、切替えスイッチの使用法の一覧リスト。"@ja-JP , "전환스위치 사용 목록"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "701ab880d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SwitchUsage" ;
+        IFC4-PSD:nameAlias        "스위치 사용"@ko-KR , "スイッチの使用法"@ja-JP , "Switch Usage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "STOP" , "START" , "LIMIT" , "GUARD" , "EMERGENCY"
+                                  ] .
+
+:SwitchActivation  a        rdf:Property ;
+        rdfs:seeAlso        :p80cb2e80d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SwitchActivation .
+
+:p80cb2e80d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "A list of the available activations for selector switches from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en , "스위치 부팅방식의 목록"@ko-KR , "選択が必要となる、切替えスイッチの起動方式の一覧リスト。"@ja-JP ;
+        IFC4-PSD:ifdguid          "80cb2e80d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SwitchActivation" ;
+        IFC4-PSD:nameAlias        "起動方式"@ja-JP , "Switch Activation"@en , "기동 방식"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FOOT" , "ACTUATOR" , "WIRE" , "PROXIMITY" , "NOTKNOWN" , "HAND" , "OTHER" , "TWOHAND" , "SOUND" , "UNSET"
+                                  ] .
+
+:SwitchUsage  a             rdf:Property ;
+        rdfs:seeAlso        :p701ab880d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SwitchUsage .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SwitchingDeviceTypeSelectorSwitch
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSwitchingDevice/SELECTORSWITCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/SELECTORSWITCH" ;
+        IFC4-PSD:definition           "A selector switch is a switch that adjusts electrical power through a multi-position action.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "切替えスイッチは複数のポジションに合わせることで電力を調整するスイッチである。\n履歴： IFC4に追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeSelectorSwitch" ;
+        IFC4-PSD:propertyDef          :p80cb2e80d20e11e1800000215ad4efdf , :p701ab880d20e11e1800000215ad4efdf , :p63966000d20e11e1800000215ad4efdf .
+
+:p63966000d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "A list of the available types of selector switch from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、切替えスイッチの一覧リスト。"@ja-JP , ""@en , "전환스위치 목록"@ko-KR ;
+        IFC4-PSD:ifdguid          "63966000d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SelectorType" ;
+        IFC4-PSD:nameAlias        "Selector Type"@en , "セレクター（スイッチ）タイプ"@ja-JP , "스위치 타입"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TWIST" , "SELECTOR" , "ROCKER"
+                                  ] .

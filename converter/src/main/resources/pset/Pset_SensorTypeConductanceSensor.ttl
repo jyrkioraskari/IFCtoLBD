@@ -1,0 +1,41 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeConductanceSensor
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeConductanceSensor> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeConductanceSensor#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SetPointConductance  a     rdf:Property ;
+        rdfs:seeAlso        :p0649e100d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConductance .
+
+:p0649e100d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The fill level value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 전기 전도율. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , "感知される電気伝導率。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0649e100d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointConductance" ;
+        IFC4-PSD:nameAlias        "전기 전도율 설정"@ko-KR , "Set Point Conductance"@en , "電気伝導率設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricConductanceMeasure
+                                  ] .
+
+:Pset_SensorTypeConductanceSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSensor/CONDUCTANCESENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/CONDUCTANCESENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects electrical conductance.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "電気伝導性を感知または検出するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeConductanceSensor" ;
+        IFC4-PSD:propertyDef          :p0649e100d20511e1800000215ad4efdf .

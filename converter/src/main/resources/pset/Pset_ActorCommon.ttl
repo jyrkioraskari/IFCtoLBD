@@ -1,0 +1,95 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_ActorCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ActorCommon#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_ActorCommon>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:Category
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :p06be8980d1bd11e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:Category ;
+.
+:NumberOfActors
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :p00c8a880d1bd11e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:NumberOfActors ;
+.
+:Pset_ActorCommon
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass IFC4:IfcActor ;
+  IFC4-PSD:applicableTypeValue "IfcActor" ;
+  IFC4-PSD:definition "A property set that enables further classification of actors, including the ability to give a number of actors to be designated as a population, the number being specified as a property to be dealt with as a single value rather than having to aggregate a number of instances of IfcActor." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "アクター（関係者）、ある指定された母集団に関与者数を与える能力、IfcActorのインスタンスの数の集合としてよりも一つの価値として扱うことの出来る特性として指定される数、などの分類を可能にするプロパティセット定義。"@ja-JP ;
+  IFC4-PSD:definitionAlias "该属性集的作用为对参与者进一步分类，包括将一定数量的参与者归为一组的能力。本属性集的数量属性为一个单值，而不是作为多个IfcActor实例的集合。"@zh-CN ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "IFC4" ;
+    ] ;
+  IFC4-PSD:name "Pset_ActorCommon" ;
+  IFC4-PSD:propertyDef :p00c8a880d1bd11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :p06be8980d1bd11e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :p0c1bd400d1bd11e1800000215ad4efdf ;
+.
+:SkillLevel
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :p0c1bd400d1bd11e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:SkillLevel ;
+.
+:p00c8a880d1bd11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "The number of actors that are to be dealt with together in the population." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "母集団において取り扱われる関与者の数。"@ja-JP ;
+  IFC4-PSD:definitionAlias "该组参与者的总数。"@zh-CN ;
+  IFC4-PSD:ifdguid "00c8a880d1bd11e1800000215ad4efdf" ;
+  IFC4-PSD:name "NumberOfActors" ;
+  IFC4-PSD:nameAlias "Number Of Actors"@en ;
+  IFC4-PSD:nameAlias "参与者数"@zh-CN ;
+  IFC4-PSD:nameAlias "関与者数"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcCountMeasure ;
+    ] ;
+.
+:p06be8980d1bd11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Designation of the category into which the actors in the population belong." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "母集団の中の関与者のカテゴリー（部門・分野）の指定。"@ja-JP ;
+  IFC4-PSD:definitionAlias "该组参与者所属的类别。"@zh-CN ;
+  IFC4-PSD:ifdguid "06be8980d1bd11e1800000215ad4efdf" ;
+  IFC4-PSD:name "Category" ;
+  IFC4-PSD:nameAlias "Category"@en ;
+  IFC4-PSD:nameAlias "类别"@zh-CN ;
+  IFC4-PSD:nameAlias "部門"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.
+:p0c1bd400d1bd11e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Skill level exhibited by the actor and which indicates an extent of their capability to perform actions on the artefacts upon which they can act." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "参与者具备的技能的等级，即他们在专业领域内所能展示的能力。"@zh-CN ;
+  IFC4-PSD:definitionAlias "関与者が示すスキルレベル（技能・技量段階）、および実行されるアクションへの能力を示すもの。"@ja-JP ;
+  IFC4-PSD:ifdguid "0c1bd400d1bd11e1800000215ad4efdf" ;
+  IFC4-PSD:name "SkillLevel" ;
+  IFC4-PSD:nameAlias "Skill Level"@en ;
+  IFC4-PSD:nameAlias "技能段階"@ja-JP ;
+  IFC4-PSD:nameAlias "技能等级"@zh-CN ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertySingleValue ;
+      IFC4-PSD:dataType IFC4:IfcLabel ;
+    ] ;
+.

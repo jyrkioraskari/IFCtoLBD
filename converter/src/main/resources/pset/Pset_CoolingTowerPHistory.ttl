@@ -1,0 +1,102 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CoolingTowerPHistory
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CoolingTowerPHistory> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CoolingTowerPHistory#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:HeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4db57a80d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatTransferCoefficient .
+
+:p4db57a80d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Heat transfer coefficient-area product." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4db57a80d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "Heat Transfer Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p50b06b00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Electrical heat power of sump heater." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "50b06b00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SumpHeaterPower" ;
+        IFC4-PSD:nameAlias        "Sump Heater Power"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:UACurve  a                 rdf:Property ;
+        rdfs:seeAlso        :p5443f200d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UACurve .
+
+:Pset_CoolingTowerPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcCoolingTower ;
+        IFC4-PSD:applicableTypeValue  "IfcCoolingTower" ;
+        IFC4-PSD:definition           "Cooling tower performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoolingTowerPHistory" ;
+        IFC4-PSD:propertyDef          :p5443f200d1cf11e1800000215ad4efdf , :p50b06b00d1cf11e1800000215ad4efdf , :p57d77900d1cf11e1800000215ad4efdf , :p4db57a80d1cf11e1800000215ad4efdf , :p4aba8a00d1cf11e1800000215ad4efdf .
+
+:Performance  a             rdf:Property ;
+        rdfs:seeAlso        :p57d77900d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Performance .
+
+:p4aba8a00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Cooling tower capacity in terms of heat transfer rate of the cooling tower between air stream and water stream." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4aba8a00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Capacity" ;
+        IFC4-PSD:nameAlias        "Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p5443f200d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "UA value as a  function of fan speed at certain water flow rate, UA = f ( fan speed)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5443f200d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UACurve" ;
+        IFC4-PSD:nameAlias        "UACurve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p57d77900d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Water temperature change as a function of wet-bulb temperature, water entering temperature, water flow rate, air flow rate, Tdiff = f ( Twet-bulb, Twater,in, mwater, mair)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "57d77900d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Performance" ;
+        IFC4-PSD:nameAlias        "Performance"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Capacity  a                rdf:Property ;
+        rdfs:seeAlso        :p4aba8a00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Capacity .
+
+:SumpHeaterPower  a         rdf:Property ;
+        rdfs:seeAlso        :p50b06b00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SumpHeaterPower .

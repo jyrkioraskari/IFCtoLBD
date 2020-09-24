@@ -1,0 +1,193 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DuctSegmentTypeCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DuctSegmentTypeCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DuctSegmentTypeCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:p9163b080d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        IFC4-PSD:definitionAlias  "許容最大・最小動作圧力（周辺圧力との相対値）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9163b080d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRange" ;
+        IFC4-PSD:nameAlias        "圧力範囲"@ja-JP , "Pressure Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pa8a29e00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The nominal diameter or width of the duct segment." ;
+        IFC4-PSD:definitionAlias  "ダクト直管の呼び径またはダクト巾"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a8a29e00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDiameterOrWidth" ;
+        IFC4-PSD:nameAlias        "呼び径・巾"@ja-JP , "Nominal Diameter Or Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p66795c80d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "66795c80d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p6bd6a700d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6bd6a700d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                                  ] .
+
+:pb6f0ba00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The type of reinforcement, if any, used for the duct segment." ;
+        IFC4-PSD:definitionAlias  "ダクト直管に何か使用されている場合の補強種類"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b6f0ba00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reinforcement" ;
+        IFC4-PSD:nameAlias        "補強"@ja-JP , "Reinforcement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p9c1e4580d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:PressureRange  a           rdf:Property ;
+        rdfs:seeAlso        :p9163b080d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRange .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :pb0624280d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:p8c066600d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Pressure classification as defined by the authority having jurisdiction (e.g., SMACNA, etc.)." ;
+        IFC4-PSD:definitionAlias  "管轄権を持つ当局（SMACNAなど）によって定義された圧力分類"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8c066600d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkingPressure" ;
+        IFC4-PSD:nameAlias        "圧力クラス"@ja-JP , "Working Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pb0624280d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The nominal height of the duct segment." ;
+        IFC4-PSD:definitionAlias  "ダクト直管の高さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b0624280d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "呼び高さ"@ja-JP , "Nominal Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Reinforcement  a           rdf:Property ;
+        rdfs:seeAlso        :pb6f0ba00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reinforcement .
+
+:pbce69b00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The spacing between reinforcing elements." ;
+        IFC4-PSD:definitionAlias  "補強要素間の距離"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bce69b00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReinforcementSpacing" ;
+        IFC4-PSD:nameAlias        "補強間隔"@ja-JP , "Reinforcement Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LongitudinalSeam  a        rdf:Property ;
+        rdfs:seeAlso        :pa3455380d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongitudinalSeam .
+
+:p7d1fb380d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Cross sectional shape. Note that this shape is uniform throughout the length of the segment. For nonuniform shapes, a transition fitting should be used instead." ;
+        IFC4-PSD:definitionAlias  "断面形状：\nこの形状は直管を通じて一定である。変形する形状のためには、かわりに変形継手が使用される。（フラットオーバル、角型、丸型　他）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7d1fb380d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Shape" ;
+        IFC4-PSD:nameAlias        "形状"@ja-JP , "Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "ROUND" , "RECTANGULAR" , "FLATOVAL"
+                                  ] .
+
+:ReinforcementSpacing
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbce69b00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReinforcementSpacing .
+
+:Pset_DuctSegmentTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctSegment" ;
+        IFC4-PSD:definition           "Duct segment type common attributes." ;
+        IFC4-PSD:definitionAlias      "ダクト直管タイプ共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctSegmentTypeCommon" ;
+        IFC4-PSD:propertyDef          :pbce69b00d1de11e1800000215ad4efdf , :pa8a29e00d1de11e1800000215ad4efdf , :p7d1fb380d1de11e1800000215ad4efdf , :p8c066600d1de11e1800000215ad4efdf , :p9163b080d1de11e1800000215ad4efdf , :p66795c80d1de11e1800000215ad4efdf , :pb6f0ba00d1de11e1800000215ad4efdf , :pb0624280d1de11e1800000215ad4efdf , :p6bd6a700d1de11e1800000215ad4efdf , :p9c1e4580d1de11e1800000215ad4efdf , :pa3455380d1de11e1800000215ad4efdf .
+
+:Shape  a                   rdf:Property ;
+        rdfs:seeAlso        :p7d1fb380d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Shape .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p6bd6a700d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WorkingPressure  a         rdf:Property ;
+        rdfs:seeAlso        :p8c066600d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkingPressure .
+
+:p9c1e4580d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Allowable maximum and minimum temperature." ;
+        IFC4-PSD:definitionAlias  "許容最高・最低温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9c1e4580d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "温度範囲"@ja-JP , "Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p66795c80d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:NominalDiameterOrWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa8a29e00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDiameterOrWidth .
+
+:pa3455380d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The type of seam to be used along the longitudinal axis of the duct segment." ;
+        IFC4-PSD:definitionAlias  "ハゼの種類は、ダクト直管の縦方向に使用するハゼの種類"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a3455380d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongitudinalSeam" ;
+        IFC4-PSD:nameAlias        "ハゼ"@ja-JP , "Longitudinal Seam"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .

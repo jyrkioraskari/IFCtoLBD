@@ -1,0 +1,56 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:Pset_ProjectOrderPurchaseOrder
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcProjectOrder/PURCHASEORDER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProjectOrder/PURCHASEORDER" ;
+        IFC4-PSD:definition           "Defines the requirements for purchase orders in a project." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProjectOrderPurchaseOrder" ;
+        IFC4-PSD:propertyDef          :pebbd3b00d1f711e1800000215ad4efdf , :pe3650000d1f711e1800000215ad4efdf .
+
+:IsFOB  a                   rdf:Property ;
+        rdfs:seeAlso        :pe3650000d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsFOB .
+
+:pebbd3b00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Method of shipping that will be used for goods or services." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ebbd3b00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShipMethod" ;
+        IFC4-PSD:nameAlias        "Ship Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:pe3650000d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indication of whether contents of the purchase order are delivered 'Free on Board' (= True) or not (= False). FOB is a shipping term which indicates that the supplier pays the shipping costs (and usually also the insurance costs) from the point of manufacture to a specified destination, at which point the buyer takes responsibility." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e3650000d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsFOB" ;
+        IFC4-PSD:nameAlias        "Is FOB"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ShipMethod  a              rdf:Property ;
+        rdfs:seeAlso        :pebbd3b00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShipMethod .

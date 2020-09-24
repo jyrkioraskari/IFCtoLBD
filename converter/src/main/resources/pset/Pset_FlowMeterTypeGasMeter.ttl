@@ -1,0 +1,86 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeGasMeter
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeGasMeter> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeGasMeter#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:p5c5c5b80d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Defines the size of inlet and outlet pipe connections to the meter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5c5c5b80d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :p5c5c5b80d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:p68e0b400d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Pressure loss expected across the meter under conditions of maximum flow." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "68e0b400d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPressureLoss" ;
+        IFC4-PSD:nameAlias        "Maximum Pressure Loss"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p4cdd1280d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Defines the types of gas that may be specified." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4cdd1280d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GasType" ;
+        IFC4-PSD:nameAlias        "Gas Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "NATURALGAS" , "LIQUEFIEDPETROLEUMGAS" , "COMMERCIALPROPANE" , "COMMERCIALBUTANE"
+                                  ] .
+
+:MaximumPressureLoss  a     rdf:Property ;
+        rdfs:seeAlso        :p68e0b400d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPressureLoss .
+
+:MaximumFlowRate  a         rdf:Property ;
+        rdfs:seeAlso        :p641c0000d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumFlowRate .
+
+:GasType  a                 rdf:Property ;
+        rdfs:seeAlso        :p4cdd1280d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GasType .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p641c0000d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Maximum rate of flow which the meter is expected to pass." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "641c0000d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumFlowRate" ;
+        IFC4-PSD:nameAlias        "Maximum Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:Pset_FlowMeterTypeGasMeter
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcFlowMeter/GASMETER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter/GASMETER" ;
+        IFC4-PSD:definition           "Device that measures, indicates and sometimes records, the volume of gas that passes through it without interrupting the flow." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterTypeGasMeter" ;
+        IFC4-PSD:propertyDef          :p5c5c5b80d1e811e1800000215ad4efdf , :p68e0b400d1e811e1800000215ad4efdf , :p4cdd1280d1e811e1800000215ad4efdf , :p641c0000d1e811e1800000215ad4efdf .

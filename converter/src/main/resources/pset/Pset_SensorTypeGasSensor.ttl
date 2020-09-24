@@ -1,0 +1,72 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:p5163f400d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The gas concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知されるガス濃度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5163f400d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointConcentration" ;
+        IFC4-PSD:nameAlias        "ガス濃度設定値"@ja-JP , "Set Point Concentration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_SensorTypeGasSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSensor/GASSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/GASSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects gas. HISTORY: Changed in IFC4. Gas detected made into enumeration, set point concentration and coverage area added. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      "ガスを感知または検出するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeGasSensor" ;
+        IFC4-PSD:propertyDef          :p490bb900d20511e1800000215ad4efdf , :p6a6ca500d20511e1800000215ad4efdf , :p5163f400d20511e1800000215ad4efdf .
+
+:p490bb900d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Identification of the gas that is being detected, according to chemical formula.  For example, carbon monoxide is 'CO', carbon dioxide is 'CO2', oxygen is 'O2'." ;
+        IFC4-PSD:definitionAlias  "検出されているガスの識別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "490bb900d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GasDetected" ;
+        IFC4-PSD:nameAlias        "対象ガス"@ja-JP , "Gas Detected"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:CoverageArea  a            rdf:Property ;
+        rdfs:seeAlso        :p6a6ca500d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverageArea .
+
+:SetPointConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5163f400d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
+
+:GasDetected  a             rdf:Property ;
+        rdfs:seeAlso        :p490bb900d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GasDetected .
+
+:p6a6ca500d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The floor area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        IFC4-PSD:definitionAlias  "センサでカバーされている床面積。(通常、センターがセンサの位置にある円として測定される)"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6a6ca500d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverageArea" ;
+        IFC4-PSD:nameAlias        "測定範囲"@ja-JP , "Coverage Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,373 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProfileArbitraryHollowCore
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProfileArbitraryHollowCore> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProfileArbitraryHollowCore#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:CoreBaseHeight  a          rdf:Property ;
+        rdfs:seeAlso        :p0b536400d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreBaseHeight .
+
+:p2de57d00d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core spacing of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2de57d00d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreSpacing" ;
+        IFC4-PSD:nameAlias        "Center Core Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pf2e34980d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Key height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f2e34980d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "KeyHeight" ;
+        IFC4-PSD:nameAlias        "Key Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:pfc6cb180d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Bottom cover of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fc6cb180d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BottomCover" ;
+        IFC4-PSD:nameAlias        "Bottom Cover"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoreTopHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p1908e980d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreTopHeight .
+
+:CenterCoreBaseWidth  a     rdf:Property ;
+        rdfs:seeAlso        :p4bb2e200d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreBaseWidth .
+
+:CenterCoreSpacing  a       rdf:Property ;
+        rdfs:seeAlso        :p2de57d00d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreSpacing .
+
+:p363db800d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core base height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "363db800d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreBaseHeight" ;
+        IFC4-PSD:nameAlias        "Center Core Base Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:EdgeDraft  a               rdf:Property ;
+        rdfs:seeAlso        :pda732f00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EdgeDraft .
+
+:pda732f00d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Edge draft of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "da732f00d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EdgeDraft" ;
+        IFC4-PSD:nameAlias        "Edge Draft"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:KeyOffset  a               rdf:Property ;
+        rdfs:seeAlso        :pf7a7fd80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:KeyOffset .
+
+:p4bb2e200d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core base width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4bb2e200d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreBaseWidth" ;
+        IFC4-PSD:nameAlias        "Center Core Base Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_ProfileArbitraryHollowCore
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcArbitraryProfileDefWithVoids ;
+        IFC4-PSD:applicableTypeValue  "IfcArbitraryProfileDefWithVoids" ;
+        IFC4-PSD:definition           "This is a collection of geometric properties of hollow core section profiles of precast concrete elements, to be used in conjunction with IfcArbitraryProfileDefWithVoids when profile designation alone does not fulfill the information requirements.  \n\nIn all cases, the cores are symmetrically distributed on either side of the plank center line, irrespective of whether the number of cores is odd or even. For planks with a center core with different geometry to that of the other cores, provide the property CenterCoreSpacing. When the number of cores is even, no Center Core properties shall be asserted.\n\nKey chamfers and draft chamfer are all 45 degree chamfers.\n\nThe CoreTopRadius and CoreBaseRadius parameters can be derived and are therefore not listed in the property set. They are shown to define that the curves are arcs. The parameters for the center core are the same as above, but with the prefix \"Center\"." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProfileArbitraryHollowCore" ;
+        IFC4-PSD:propertyDef          :p11e1db80d1f611e1800000215ad4efdf , :p3d64c600d1f611e1800000215ad4efdf , :p202ff780d1f611e1800000215ad4efdf , :pe959e180d1f511e1800000215ad4efdf , :p5a999480d1f611e1800000215ad4efdf , :pf7a7fd80d1f511e1800000215ad4efdf , :p2de57d00d1f611e1800000215ad4efdf , :pda732f00d1f511e1800000215ad4efdf , :p363db800d1f611e1800000215ad4efdf , :p042c5600d1f611e1800000215ad4efdf , :pccbda980d1f511e1800000215ad4efdf , :p448bd400d1f611e1800000215ad4efdf , :p53728680d1f611e1800000215ad4efdf , :pf2e34980d1f511e1800000215ad4efdf , :pee1e9580d1f511e1800000215ad4efdf , :pfc6cb180d1f511e1800000215ad4efdf , :p4bb2e200d1f611e1800000215ad4efdf , :p0b536400d1f611e1800000215ad4efdf , :p26be6f00d1f611e1800000215ad4efdf , :pdf37e300d1f511e1800000215ad4efdf , :pe3fc9700d1f511e1800000215ad4efdf , :pd34c2100d1f511e1800000215ad4efdf , :p1908e980d1f611e1800000215ad4efdf .
+
+:CoreBaseWidth  a           rdf:Property ;
+        rdfs:seeAlso        :p202ff780d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreBaseWidth .
+
+:pdf37e300d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Draft base offset of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "df37e300d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DraftBaseOffset" ;
+        IFC4-PSD:nameAlias        "Draft Base Offset"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:BaseChamfer  a             rdf:Property ;
+        rdfs:seeAlso        :pe959e180d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BaseChamfer .
+
+:NumberOfCores  a           rdf:Property ;
+        rdfs:seeAlso        :p5a999480d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfCores .
+
+:DraftSideOffset  a         rdf:Property ;
+        rdfs:seeAlso        :pe3fc9700d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DraftSideOffset .
+
+:DraftBaseOffset  a         rdf:Property ;
+        rdfs:seeAlso        :pdf37e300d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DraftBaseOffset .
+
+:CoreTopWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p26be6f00d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreTopWidth .
+
+:pe3fc9700d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Draft side offset of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e3fc9700d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DraftSideOffset" ;
+        IFC4-PSD:nameAlias        "Draft Side Offset"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:p3d64c600d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core middle height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3d64c600d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreMiddleHeight" ;
+        IFC4-PSD:nameAlias        "Center Core Middle Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoreMiddleHeight  a        rdf:Property ;
+        rdfs:seeAlso        :p11e1db80d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreMiddleHeight .
+
+:CoreSpacing  a             rdf:Property ;
+        rdfs:seeAlso        :p042c5600d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreSpacing .
+
+:p5a999480d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Number of cores." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5a999480d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfCores" ;
+        IFC4-PSD:nameAlias        "Number Of Cores"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:p1908e980d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core top height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1908e980d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreTopHeight" ;
+        IFC4-PSD:nameAlias        "Core Top Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p042c5600d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core spacing of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "042c5600d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreSpacing" ;
+        IFC4-PSD:nameAlias        "Core Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:KeyHeight  a               rdf:Property ;
+        rdfs:seeAlso        :pf2e34980d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:KeyHeight .
+
+:pee1e9580d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Key depth of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ee1e9580d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "KeyDepth" ;
+        IFC4-PSD:nameAlias        "Key Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:pccbda980d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Overall width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ccbda980d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallWidth" ;
+        IFC4-PSD:nameAlias        "Overall Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0b536400d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core base height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0b536400d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreBaseHeight" ;
+        IFC4-PSD:nameAlias        "Core Base Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:BottomCover  a             rdf:Property ;
+        rdfs:seeAlso        :pfc6cb180d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BottomCover .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CenterCoreBaseHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p363db800d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreBaseHeight .
+
+:p53728680d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core top width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "53728680d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreTopWidth" ;
+        IFC4-PSD:nameAlias        "Center Core Top Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CenterCoreTopHeight  a     rdf:Property ;
+        rdfs:seeAlso        :p448bd400d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreTopHeight .
+
+:p11e1db80d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core middle height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "11e1db80d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreMiddleHeight" ;
+        IFC4-PSD:nameAlias        "Core Middle Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p26be6f00d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core top width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "26be6f00d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreTopWidth" ;
+        IFC4-PSD:nameAlias        "Core Top Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pd34c2100d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Overall depth of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d34c2100d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallDepth" ;
+        IFC4-PSD:nameAlias        "Overall Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OverallWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pccbda980d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallWidth .
+
+:OverallDepth  a            rdf:Property ;
+        rdfs:seeAlso        :pd34c2100d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallDepth .
+
+:p202ff780d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Core base width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "202ff780d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreBaseWidth" ;
+        IFC4-PSD:nameAlias        "Core Base Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pe959e180d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Base chamfer of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e959e180d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BaseChamfer" ;
+        IFC4-PSD:nameAlias        "Base Chamfer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:CenterCoreTopWidth  a      rdf:Property ;
+        rdfs:seeAlso        :p53728680d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreTopWidth .
+
+:CenterCoreMiddleHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3d64c600d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterCoreMiddleHeight .
+
+:p448bd400d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Center core top height of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "448bd400d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterCoreTopHeight" ;
+        IFC4-PSD:nameAlias        "Center Core Top Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:KeyDepth  a                rdf:Property ;
+        rdfs:seeAlso        :pee1e9580d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:KeyDepth .
+
+:pf7a7fd80d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Key offset of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f7a7fd80d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "KeyOffset" ;
+        IFC4-PSD:nameAlias        "Key Offset"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .

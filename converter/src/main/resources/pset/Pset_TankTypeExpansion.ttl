@@ -1,0 +1,72 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:ReliefValveSetting  a      rdf:Property ;
+        rdfs:seeAlso        :p5f6b4200d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReliefValveSetting .
+
+:PressureRegulatorSetting
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5a0df780d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRegulatorSetting .
+
+:p5a0df780d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Pressure that is automatically maintained in the tank." ;
+        IFC4-PSD:definitionAlias  "タンク内で自動的に維持される圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5a0df780d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRegulatorSetting" ;
+        IFC4-PSD:nameAlias        "圧力調整設定"@ja-JP , "Pressure Regulator Setting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p5f6b4200d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Pressure at which the relief valve activates." ;
+        IFC4-PSD:definitionAlias  "安全弁が作動する圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5f6b4200d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReliefValveSetting" ;
+        IFC4-PSD:nameAlias        "安全弁設定"@ja-JP , "Relief Valve Setting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ChargePressure  a          rdf:Property ;
+        rdfs:seeAlso        :p48c4eb00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ChargePressure .
+
+:p48c4eb00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Nominal or design operating pressure of the tank." ;
+        IFC4-PSD:definitionAlias  "タンクの公称又は設計運転圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "48c4eb00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ChargePressure" ;
+        IFC4-PSD:nameAlias        "加圧力"@ja-JP , "Charge Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:Pset_TankTypeExpansion
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcTank/EXPANSION> ;
+        IFC4-PSD:applicableTypeValue  "IfcTank/EXPANSION" ;
+        IFC4-PSD:definition           "Common attributes of an expansion type tank." ;
+        IFC4-PSD:definitionAlias      ""@en , "膨張タンクの共通属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankTypeExpansion" ;
+        IFC4-PSD:propertyDef          :p48c4eb00d21011e1800000215ad4efdf , :p5f6b4200d21011e1800000215ad4efdf , :p5a0df780d21011e1800000215ad4efdf .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,89 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DiscreteAccessoryFixingSocket
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DiscreteAccessoryFixingSocket> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DiscreteAccessoryFixingSocket#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:FixingSocketThreadLength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb6522680d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FixingSocketThreadLength .
+
+:FixingSocketThreadDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb0f4dc00d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FixingSocketThreadDiameter .
+
+:FixingSocketTypeReference
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa9353780d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FixingSocketTypeReference .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pb0f4dc00d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The nominal diameter of the thread." ;
+        IFC4-PSD:definitionAlias  ""@en , "고정 소켓의 전체 길이"@ko-KR , "線の公称直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b0f4dc00d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FixingSocketThreadDiameter" ;
+        IFC4-PSD:nameAlias        "공칭 지름"@ko-KR , "Fixing Socket Thread Diameter"@en , "公称径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pb6522680d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The length of the threaded part of the fixing socket." ;
+        IFC4-PSD:definitionAlias  "固定ソケットの全体長さねじ部の長さ。"@ja-JP , ""@en , "고정 소켓의 전체 길이 나사부의 길이"@ko-KR ;
+        IFC4-PSD:ifdguid          "b6522680d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FixingSocketThreadLength" ;
+        IFC4-PSD:nameAlias        "나사부 길이"@ko-KR , "Fixing Socket Thread Length"@en , "ねじ部長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DiscreteAccessoryFixingSocket
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcDiscreteAccessory/Fixing%20socket> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Fixing socket" ;
+        IFC4-PSD:definition           "Properties common to fixing sockets." ;
+        IFC4-PSD:definitionAlias      "固定ソケットの共通特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryFixingSocket" ;
+        IFC4-PSD:propertyDef          :pb0f4dc00d1d211e1800000215ad4efdf , :pa9353780d1d211e1800000215ad4efdf , :pb6522680d1d211e1800000215ad4efdf , :pab979180d1d211e1800000215ad4efdf .
+
+:pab979180d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The overall height of the fixing socket." ;
+        IFC4-PSD:definitionAlias  "固定ソケットの全体長さ。"@ja-JP , "고정 소켓의 전체 길이"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "ab979180d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FixingSocketHeight" ;
+        IFC4-PSD:nameAlias        "Fixing Socket Height"@en , "전체 길이"@ko-KR , "全体長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:FixingSocketHeight  a      rdf:Property ;
+        rdfs:seeAlso        :pab979180d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FixingSocketHeight .
+
+:pa9353780d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Type reference for the fixing socket according to local standards." ;
+        IFC4-PSD:definitionAlias  "고정 소켓이 참조하는 로컬 표준"@ko-KR , "固定ソケットが参照するローカル標準。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a9353780d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FixingSocketTypeReference" ;
+        IFC4-PSD:nameAlias        "Fixing Socket Type Reference"@en , "参照基準"@ja-JP , "참조 기준"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcExternalReference
+                                  ] .

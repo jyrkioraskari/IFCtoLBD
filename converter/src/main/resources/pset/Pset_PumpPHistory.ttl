@@ -1,0 +1,116 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PumpPHistory
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PumpPHistory> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PumpPHistory#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:pad774a00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The developed pressure." ;
+        IFC4-PSD:definitionAlias  "上がった圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ad774a00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRise" ;
+        IFC4-PSD:nameAlias        "昇圧"@ja-JP , "Pressure Rise"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_PumpPHistory  a                 IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcPump ;
+        IFC4-PSD:applicableTypeValue  "IfcPump" ;
+        IFC4-PSD:definition           "Pump performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PumpPHistory" ;
+        IFC4-PSD:propertyDef          :pa6503c00d1fe11e1800000215ad4efdf , :pb0723a80d1fe11e1800000215ad4efdf , :pb6681b80d1fe11e1800000215ad4efdf , :pb36d2b00d1fe11e1800000215ad4efdf , :pa9e3c300d1fe11e1800000215ad4efdf , :pad774a00d1fe11e1800000215ad4efdf .
+
+:pa6503c00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The pumps operational mechanical efficiency." ;
+        IFC4-PSD:definitionAlias  "ポンプの稼動時の機械効率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a6503c00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MechanicalEfficiency" ;
+        IFC4-PSD:nameAlias        "機械効率"@ja-JP , "Mechanical Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:PressureRise  a            rdf:Property ;
+        rdfs:seeAlso        :pad774a00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRise .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:OverallEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :pa9e3c300d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallEfficiency .
+
+:MechanicalEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa6503c00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MechanicalEfficiency .
+
+:pa9e3c300d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The pump and motor overall operational efficiency." ;
+        IFC4-PSD:definitionAlias  "ポンプとモーターの運用全効率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a9e3c300d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallEfficiency" ;
+        IFC4-PSD:nameAlias        "全効率"@ja-JP , "Overall Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pb0723a80d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Pump rotational speed." ;
+        IFC4-PSD:definitionAlias  "ポンプ回転速度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b0723a80d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RotationSpeed" ;
+        IFC4-PSD:nameAlias        "回転速度"@ja-JP , "Rotation Speed"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pb36d2b00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The actual operational fluid flowrate." ;
+        IFC4-PSD:definitionAlias  "実際の運用流量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b36d2b00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Flowrate" ;
+        IFC4-PSD:nameAlias        "流量"@ja-JP , "Flowrate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pb6681b80d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The actual power consumption of the pump." ;
+        IFC4-PSD:definitionAlias  "ポンプの実動力消費"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b6681b80d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Power" ;
+        IFC4-PSD:nameAlias        "動力"@ja-JP , "Power"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Power  a                   rdf:Property ;
+        rdfs:seeAlso        :pb6681b80d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Power .
+
+:Flowrate  a                rdf:Property ;
+        rdfs:seeAlso        :pb36d2b00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Flowrate .
+
+:RotationSpeed  a           rdf:Property ;
+        rdfs:seeAlso        :pb0723a80d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RotationSpeed .

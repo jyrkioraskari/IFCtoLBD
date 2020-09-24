@@ -1,0 +1,391 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeCommon
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeCommon> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeCommon#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:p252e8000d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Blade shape. Flat means triple V-groove." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "252e8000d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BladeShape" ;
+        IFC4-PSD:nameAlias        "Blade Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "EXTRUDEDAIRFOIL" , "FABRICATEDAIRFOIL" , "FLAT"
+                                  ] .
+
+:p4c854d00d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Temperature range." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4c854d00d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p7d658200d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Regenerated sound versus air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7d658200d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RegeneratedSoundCurve" ;
+        IFC4-PSD:nameAlias        "Regenerated Sound Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcSoundPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p47c09900d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Maximum allowable air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "47c09900d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumAirFlowRate" ;
+        IFC4-PSD:nameAlias        "Maximum Air Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p8b1b0780d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The length (or depth) of the damper frame." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8b1b0780d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrameDepth" ;
+        IFC4-PSD:nameAlias        "Frame Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p632ba400d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Total pressure drop across damper." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "632ba400d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OpenPressureDrop" ;
+        IFC4-PSD:nameAlias        "Open Pressure Drop"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pfca68600d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The intended orientation for the damper as specified by the manufacturer." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fca68600d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Orientation" ;
+        IFC4-PSD:nameAlias        "Orientation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "VERTICALORHORIZONTAL" , "HORIZONTAL" , "VERTICAL"
+                                  ] .
+
+:BladeThickness  a          rdf:Property ;
+        rdfs:seeAlso        :p0def9280d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BladeThickness .
+
+:MaximumWorkingPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p53ac5b00d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumWorkingPressure .
+
+:LeakageCurve  a            rdf:Property ;
+        rdfs:seeAlso        :p750d4700d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeakageCurve .
+
+:LossCoefficentCurve  a     rdf:Property ;
+        rdfs:seeAlso        :p6cb50c00d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LossCoefficentCurve .
+
+:BladeEdge  a               rdf:Property ;
+        rdfs:seeAlso        :p31b2d880d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BladeEdge .
+
+:p93734280d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The thickness of the damper frame material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "93734280d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrameThickness" ;
+        IFC4-PSD:nameAlias        "Frame Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p67f05800d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Leakage when fully closed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "67f05800d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeakageFullyClosed" ;
+        IFC4-PSD:nameAlias        "Leakage Fully Closed"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p4c854d00d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:p0def9280d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The thickness of the damper blade." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0def9280d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BladeThickness" ;
+        IFC4-PSD:nameAlias        "Blade Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:FaceArea  a                rdf:Property ;
+        rdfs:seeAlso        :p42634e80d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaceArea .
+
+:Pset_DamperTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcDamper ;
+        IFC4-PSD:applicableTypeValue  "IfcDamper" ;
+        IFC4-PSD:definition           "Damper type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "ダンパー型の共通プロパティ属性設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DamperTypeCommon" ;
+        IFC4-PSD:propertyDef          :p0def9280d1d111e1800000215ad4efdf , :p3d060400d1d111e1800000215ad4efdf , :p98d08d00d1d111e1800000215ad4efdf , :pfca68600d1d011e1800000215ad4efdf , :p750d4700d1d111e1800000215ad4efdf , :p67f05800d1d111e1800000215ad4efdf , :p7d658200d1d111e1800000215ad4efdf , :p16e06400d1d111e1800000215ad4efdf , :p47c09900d1d111e1800000215ad4efdf , :p252e8000d1d111e1800000215ad4efdf , :p8b1b0780d1d111e1800000215ad4efdf , :p53ac5b00d1d111e1800000215ad4efdf , :p93734280d1d111e1800000215ad4efdf , :p85252680d1d111e1800000215ad4efdf , :p42634e80d1d111e1800000215ad4efdf , :p5e66f000d1d111e1800000215ad4efdf , :p4c854d00d1d111e1800000215ad4efdf , :pdc76c700d1d011e1800000215ad4efdf , :pe1d41180d1d011e1800000215ad4efdf , :p31b2d880d1d111e1800000215ad4efdf , :p6cb50c00d1d111e1800000215ad4efdf , :p632ba400d1d111e1800000215ad4efdf , :p5909a580d1d111e1800000215ad4efdf , :pf0222d80d1d011e1800000215ad4efdf .
+
+:MaximumAirFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :p47c09900d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumAirFlowRate .
+
+:NumberofBlades  a          rdf:Property ;
+        rdfs:seeAlso        :p3d060400d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberofBlades .
+
+:pe1d41180d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e1d41180d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                                  ] .
+
+:p42634e80d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Face area open to the airstream." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "42634e80d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaceArea" ;
+        IFC4-PSD:nameAlias        "Face Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p3d060400d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Number of blades." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3d060400d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberofBlades" ;
+        IFC4-PSD:nameAlias        "Numberof Blades"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:BladeAction  a             rdf:Property ;
+        rdfs:seeAlso        :p16e06400d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BladeAction .
+
+:p16e06400d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Blade action." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "16e06400d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BladeAction" ;
+        IFC4-PSD:nameAlias        "Blade Action"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "SINGLE" , "OPPOSED" , "PARALLEL" , "FOLDINGCURTAIN"
+                                  ] .
+
+:p6cb50c00d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Loss coefficient – blade position angle curve; ratio of pressure drop to velocity pressure versus blade angle; C = f (blade angle position)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6cb50c00d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LossCoefficentCurve" ;
+        IFC4-PSD:nameAlias        "Loss Coefficent Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcPositivePlaneAngleMeasure
+                                  ] .
+
+:RegeneratedSoundCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7d658200d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RegeneratedSoundCurve .
+
+:TemperatureRating  a       rdf:Property ;
+        rdfs:seeAlso        :p5909a580d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRating .
+
+:p31b2d880d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Blade edge." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "31b2d880d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BladeEdge" ;
+        IFC4-PSD:nameAlias        "Blade Edge"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "UNCRIMPED" , "CRIMPED"
+                                  ] .
+
+:FrameType  a               rdf:Property ;
+        rdfs:seeAlso        :p85252680d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrameType .
+
+:p85252680d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The type of frame used by the damper (e.g., Standard, Single Flange, Single Reversed Flange, Double Flange, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "85252680d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrameType" ;
+        IFC4-PSD:nameAlias        "Frame Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:NominalAirFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :p5e66f000d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalAirFlowRate .
+
+:LeakageFullyClosed  a      rdf:Property ;
+        rdfs:seeAlso        :p67f05800d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeakageFullyClosed .
+
+:p5909a580d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Temperature rating." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5909a580d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRating" ;
+        IFC4-PSD:nameAlias        "Temperature Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:FrameThickness  a          rdf:Property ;
+        rdfs:seeAlso        :p93734280d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrameThickness .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:BladeShape  a              rdf:Property ;
+        rdfs:seeAlso        :p252e8000d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BladeShape .
+
+:pf0222d80d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The operational mechanism for the damper operation." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f0222d80d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Operation" ;
+        IFC4-PSD:nameAlias        "Operation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "MANUAL" , "AUTOMATIC"
+                                  ] .
+
+:p98d08d00d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Close off rating." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "98d08d00d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CloseOffRating" ;
+        IFC4-PSD:nameAlias        "Close Off Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p750d4700d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Leakage versus pressure drop; Leakage = f (pressure)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "750d4700d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeakageCurve" ;
+        IFC4-PSD:nameAlias        "Leakage Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:OpenPressureDrop  a        rdf:Property ;
+        rdfs:seeAlso        :p632ba400d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OpenPressureDrop .
+
+:pdc76c700d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "dc76c700d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:FrameDepth  a              rdf:Property ;
+        rdfs:seeAlso        :p8b1b0780d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrameDepth .
+
+:Orientation  a             rdf:Property ;
+        rdfs:seeAlso        :pfca68600d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Orientation .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pe1d41180d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pdc76c700d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:CloseOffRating  a          rdf:Property ;
+        rdfs:seeAlso        :p98d08d00d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CloseOffRating .
+
+:Operation  a               rdf:Property ;
+        rdfs:seeAlso        :pf0222d80d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Operation .
+
+:p5e66f000d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Nominal air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5e66f000d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalAirFlowRate" ;
+        IFC4-PSD:nameAlias        "Nominal Air Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p53ac5b00d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Maximum working pressure." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "53ac5b00d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumWorkingPressure" ;
+        IFC4-PSD:nameAlias        "Maximum Working Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .

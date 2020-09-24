@@ -1,0 +1,71 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:Pset_SanitaryTerminalTypeBidet
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSanitaryTerminal/BIDET> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/BIDET" ;
+        IFC4-PSD:definition           "Waste water appliance for washing the excretory organs while sitting astride the bowl (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). BidetMounting changed to Mounting." ;
+        IFC4-PSD:definitionAlias      ""@en , "ボウル（BS6100）にまたがって座って排泄器官を洗浄するための排水器具を設定します。履歴：IFC4では、材料のプロパティが削除されます。 \n使用材料の機能は IfcMaterialsResourceスキーマを使用。\n色のデータ型は、IfcLabel（まだ文字列値）に変更。BidetMountingをMountingに変更。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeBidet" ;
+        IFC4-PSD:propertyDef          :p23c97b80d20211e1800000215ad4efdf , :p5bd0be80d20211e1800000215ad4efdf , :p53788380d20211e1800000215ad4efdf .
+
+:SpilloverLevel  a          rdf:Property ;
+        rdfs:seeAlso        :p53788380d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpilloverLevel .
+
+:p5bd0be80d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "排水口の接続のサイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5bd0be80d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "ドレインサイズ"@ja-JP , "Drain Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p23c97b80d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The property enumeration Pset_SanitaryMountingEnum defines the forms of mounting or fixing of the sanitary terminal that may be specified within property sets used to define sanitary terminals (WC’s, basins, sinks, etc.) where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections\n.\nPedestal: \tA floor mounted sanitary terminal that has an integral base\n.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor.\n\nNote that BackToWall, Pedestal and WallHung are allowable values for a bidet." ;
+        IFC4-PSD:definitionAlias  "列挙するプロパティはPset_SanitaryMountingEnumでは（トイレの、洗面台、シンクなど）、衛生配管への装着法で定義される：\n\n床置き壁排水：台座は、カバーの背面の壁にあるフラッシュバルブに接続される。\n\n床置き：床の衛生配管に装着される。\n\nカウンター：水平面に設置された衛生配管に接続します。注：手洗器があると、通常は'化粧'が使用される。手洗器を参照。\n\n壁掛け：衛生配管は壁から出され床には何もなくなる。。\n\n床置き壁排水、床置き、壁掛けは、ビデの許容値であることに注意。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "23c97b80d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mounting" ;
+        IFC4-PSD:nameAlias        "装着"@ja-JP , "Mounting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "WALLHUNG" , "COUNTERTOP" , "PEDESTAL" , "BACKTOWALL"
+                                  ] .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :p5bd0be80d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:p53788380d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The level at which water spills out of the object." ;
+        IFC4-PSD:definitionAlias  "水がこぼれるレベル。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "53788380d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpilloverLevel" ;
+        IFC4-PSD:nameAlias        "流出レベル"@ja-JP , "Spillover Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Mounting  a                rdf:Property ;
+        rdfs:seeAlso        :p23c97b80d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mounting .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

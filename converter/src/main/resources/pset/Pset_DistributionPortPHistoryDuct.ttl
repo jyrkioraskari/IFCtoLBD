@@ -1,0 +1,131 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:VolumetricFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :p7e8e87f0549843c0a39e88ac3f175c6e ;
+        rdfs:subPropertyOf  IFC4-PSD:VolumetricFlowRate .
+
+:Pressure  a                rdf:Property ;
+        rdfs:seeAlso        :p8148600227f74025863b0dda2b5a372e ;
+        rdfs:subPropertyOf  IFC4-PSD:Pressure .
+
+:pbe32824c472c44e8ab71cf06b1d088c9
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The mass flow rate of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "be32824c472c44e8ab71cf06b1d088c9" ;
+        IFC4-PSD:name             "MassFlowRate" ;
+        IFC4-PSD:nameAlias        "Mass Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Velocity  a                rdf:Property ;
+        rdfs:seeAlso        :p80b98e43359d4dc2bc6f1e3c586498e1 ;
+        rdfs:subPropertyOf  IFC4-PSD:Velocity .
+
+:Pset_DistributionPortPHistoryDuct
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/DUCT" ;
+        IFC4-PSD:definition           "Fluid flow performance history attached to an instance of IfcPerformanceHistory assigned to IfcDistributionPort.  This replaces the deprecated IfcFluidFlowProperties for performance values." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortPHistoryDuct" ;
+        IFC4-PSD:propertyDef          :pcbe855427fd14da0a29dd807677eb4a9 , :p39ebdb53ec0a4cfb9c16d3b93e4b79d3 , :p7e8e87f0549843c0a39e88ac3f175c6e , :p8148600227f74025863b0dda2b5a372e , :pbe32824c472c44e8ab71cf06b1d088c9 , :pc04ff2c7bd4148da8d8e037447267a2f , :p80b98e43359d4dc2bc6f1e3c586498e1 .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:MassFlowRate  a            rdf:Property ;
+        rdfs:seeAlso        :pbe32824c472c44e8ab71cf06b1d088c9 ;
+        rdfs:subPropertyOf  IFC4-PSD:MassFlowRate .
+
+:p7e8e87f0549843c0a39e88ac3f175c6e
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The volumetric flow rate of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7e8e87f0549843c0a39e88ac3f175c6e" ;
+        IFC4-PSD:name             "VolumetricFlowRate" ;
+        IFC4-PSD:nameAlias        "Volumetric Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p8148600227f74025863b0dda2b5a372e
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The pressure of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8148600227f74025863b0dda2b5a372e" ;
+        IFC4-PSD:name             "Pressure" ;
+        IFC4-PSD:nameAlias        "Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p80b98e43359d4dc2bc6f1e3c586498e1
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "The velocity of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "80b98e43359d4dc2bc6f1e3c586498e1" ;
+        IFC4-PSD:name             "Velocity" ;
+        IFC4-PSD:nameAlias        "Velocity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:WetBulbTemperature  a      rdf:Property ;
+        rdfs:seeAlso        :pc04ff2c7bd4148da8d8e037447267a2f ;
+        rdfs:subPropertyOf  IFC4-PSD:WetBulbTemperature .
+
+:Temperature  a             rdf:Property ;
+        rdfs:seeAlso        :pcbe855427fd14da0a29dd807677eb4a9 ;
+        rdfs:subPropertyOf  IFC4-PSD:Temperature .
+
+:p39ebdb53ec0a4cfb9c16d3b93e4b79d3
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Defines the flow condition as a percentage of the cross-sectional area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "39ebdb53ec0a4cfb9c16d3b93e4b79d3" ;
+        IFC4-PSD:name             "FlowCondition" ;
+        IFC4-PSD:nameAlias        "Flow Condition"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pc04ff2c7bd4148da8d8e037447267a2f
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Wet bulb temperature of the fluid; only applicable if the fluid is air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c04ff2c7bd4148da8d8e037447267a2f" ;
+        IFC4-PSD:name             "WetBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Wet Bulb Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:FlowCondition  a           rdf:Property ;
+        rdfs:seeAlso        :p39ebdb53ec0a4cfb9c16d3b93e4b79d3 ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowCondition .
+
+:pcbe855427fd14da0a29dd807677eb4a9
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Temperature of the fluid. For air this value represents the dry bulb temperature." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cbe855427fd14da0a29dd807677eb4a9" ;
+        IFC4-PSD:name             "Temperature" ;
+        IFC4-PSD:nameAlias        "Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

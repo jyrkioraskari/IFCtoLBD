@@ -1,0 +1,85 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceParking
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceParking> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceParking#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:pffbe6800d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indicates the number of transporation units of the type specified by the property ParkingUse that may be accommodated within the space. Generally, this value should default to 1 unit. However, where the parking space is for motorcycles or bicycles, provision may be made for more than one unit in the space." ;
+        IFC4-PSD:definitionAlias  "車両種別ごとの駐車台数のユニットごとの指定台数。一般に、この値は1台/1ユニットになるべきです。しかしながら、オートバイまたは自転車向けである場合、数台/1ユニット以上なるかもしれません。"@ja-JP , "Nombre d'unités du type de véhicule spécifié dans la propriété TypeVehicule que peut contenir l'espace alloué au parking. Généralement, la valeur par défaut est 1. Elle peut être supérieure pour les deux roues."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "ffbe6800d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ParkingUnits" ;
+        IFC4-PSD:nameAlias        "TypeVehicule"@fr-FR , "一区画当たりの駐車台数"@ja-JP , "Parking Units"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:IsOneWay  a                rdf:Property ;
+        rdfs:seeAlso        :p0c42c080d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsOneWay .
+
+:IsAisle  a                 rdf:Property ;
+        rdfs:seeAlso        :p051bb280d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsAisle .
+
+:p051bb280d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indicates that this parking zone is for accessing the parking units, i.e. an aisle (TRUE) and not a parking unit itself (FALSE)" ;
+        IFC4-PSD:definitionAlias  "Indique si cette zone du parking, comme une allée, est réservée à l'accès (VRAI) ou non (FAUX)."@fr-FR , ""@en , "駐車場の通路部分(TRUE)か駐車部部分(FALSE)かを示すフラグ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "051bb280d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsAisle" ;
+        IFC4-PSD:nameAlias        "通路か駐車スペースの判別"@ja-JP , "Is Aisle"@en , "NombreUnites"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_SpaceParking  a                 IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSpace/PARKING> ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace/PARKING" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcSpace which have an attribute value for ObjectType = 'Parking'. NOTE: Modified in IFC 2x3, properties ParkingUse and ParkingUnits added." ;
+        IFC4-PSD:definitionAlias      ""@en , "Définition de l'IAI : propriétés communes à la définition des instances de la classe IfcSpace lorsque la valeur de l'attribut ObjetType est \"Parking\". Nota : les propriétés TypeVehicule et NombreUnites ont été introduites depuis la révision 2x3."@fr-FR , "IfcObjectのObjectType属性の値が\"Parking\"の場合に設定される共通プロパティ情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceParking" ;
+        IFC4-PSD:propertyDef          :p0c42c080d20b11e1800000215ad4efdf , :pf7662d00d20a11e1800000215ad4efdf , :pffbe6800d20a11e1800000215ad4efdf , :p051bb280d20b11e1800000215ad4efdf .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ParkingUse  a              rdf:Property ;
+        rdfs:seeAlso        :pf7662d00d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ParkingUse .
+
+:p0c42c080d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Indicates whether the parking aisle is designed for oneway traffic (TRUE) or twoway traffic (FALSE). Should only be provided if the property IsAisle is set to TRUE." ;
+        IFC4-PSD:definitionAlias  ""@en , "駐車場通路が一方通行(TRUE)か双方向(FALSE)かを示すフラグ。"@ja-JP , "Indique si cette allée du parking est prévue pour être à sens unique (VRAI) ou à double sens (FAUX). A fournir seulement si la propriété \"Est un accès\" est égale à VRAI."@fr-FR ;
+        IFC4-PSD:ifdguid          "0c42c080d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsOneWay" ;
+        IFC4-PSD:nameAlias        "Sens unique"@fr-FR , "一方通行"@ja-JP , "Is One Way"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pf7662d00d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Identifies the type of transporation for which the parking space is designed. Values are not predefined but might include car, compact car, motorcycle, bicycle, truck, bus etc." ;
+        IFC4-PSD:definitionAlias  "どの車両種別の駐車場なのかを識別します。値はあらかじめ定められないが、自動車、小型車、オートバイ、自転車、トラック、バスなどを含んでいるかもしれません。"@ja-JP , "Identifie le type de véhicule pour lequel le parking a été conçu. Les valeurs possibles (voiture, bus, motos, vélos,…)  ne sont pas prédéfinies."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "f7662d00d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ParkingUse" ;
+        IFC4-PSD:nameAlias        "AccessibleHandicape"@fr-FR , "Parking Use"@en , "駐車場の用途"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ParkingUnits  a            rdf:Property ;
+        rdfs:seeAlso        :pffbe6800d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ParkingUnits .

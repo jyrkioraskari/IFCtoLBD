@@ -1,0 +1,56 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PipeSegmentPHistory
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PipeSegmentPHistory> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PipeSegmentPHistory#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+:LeakageCurve  a            rdf:Property ;
+        rdfs:seeAlso        :p849d8780d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeakageCurve .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FluidFlowLeakage  a        rdf:Property ;
+        rdfs:seeAlso        :p87987800d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FluidFlowLeakage .
+
+:p87987800d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Volumetric leakage flow rate." ;
+        IFC4-PSD:definitionAlias  "漏洩量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "87987800d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FluidFlowLeakage" ;
+        IFC4-PSD:nameAlias        "流体漏洩量"@ja-JP , "Fluid Flow Leakage"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p849d8780d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Leakage per unit length curve versus working pressure." ;
+        IFC4-PSD:definitionAlias  "配管圧力に対する単位あたり流出量曲線"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "849d8780d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeakageCurve" ;
+        IFC4-PSD:nameAlias        "漏洩曲線"@ja-JP , "Leakage Curve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_PipeSegmentPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcPipeSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeSegment" ;
+        IFC4-PSD:definition           "Pipe segment performance history common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeSegmentPHistory" ;
+        IFC4-PSD:propertyDef          :p87987800d1f311e1800000215ad4efdf , :p849d8780d1f311e1800000215ad4efdf .

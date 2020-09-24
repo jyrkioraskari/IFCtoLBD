@@ -67,7 +67,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
 public abstract class IFCtoLBDConverterCore {
 	protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 	protected Model ifcowl_model;
-	protected Model ontology_model = null;
+    protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected String uriBase;
 

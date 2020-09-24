@@ -1,0 +1,41 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterOccurrence
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
+
+@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterOccurrence> .
+@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FlowMeterOccurrence#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+
+<>      a                owl:Ontology ;
+        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_FlowMeterOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        IFC4-PSD:applicableClass      IFC4:IfcFlowMeter ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter" ;
+        IFC4-PSD:definition           "Flow meter occurrence common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterOccurrence" ;
+        IFC4-PSD:propertyDef          :pf374e380d1e711e1800000215ad4efdf .
+
+:pf374e380d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        IFC4-PSD:definition       "Enumeration defining the purpose of the flow meter occurrence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f374e380d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Purpose" ;
+        IFC4-PSD:nameAlias        "Purpose"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "SUBMETER" , "SUBMASTER" , "MASTER"
+                                  ] .
+
+:Purpose  a                 rdf:Property ;
+        rdfs:seeAlso        :pf374e380d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Purpose .

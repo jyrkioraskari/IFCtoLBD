@@ -1,0 +1,100 @@
+# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_Asset
+# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
+
+@prefix : <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_Asset#> .
+@prefix IFC4: <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://www.buildingsmart-tech.org/ifcOWL/IFC-PSD/Pset_Asset>
+  rdf:type owl:Ontology ;
+  owl:imports <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+.
+:AssetAccountingType
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :p8a7a7500d1c111e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:AssetAccountingType ;
+.
+:AssetInsuranceType
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :pa847da00d1c111e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:AssetInsuranceType ;
+.
+:AssetTaxType
+  rdf:type rdf:Property ;
+  rdfs:seeAlso :p99f9be00d1c111e1800000215ad4efdf ;
+  rdfs:subPropertyOf IFC4-PSD:AssetTaxType ;
+.
+:Pset_Asset
+  rdf:type IFC4-PSD:PropertySetDef ;
+  IFC4-PSD:applicableClass IFC4:IfcAsset ;
+  IFC4-PSD:applicableTypeValue "IfcAsset" ;
+  IFC4-PSD:definition "An asset is a uniquely identifiable element which has a financial value and against which maintenance actions are recorded." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "資産とは、維持管理活動が記録されている会計上の価値を持つ、単独に識別できる要素。"@ja-JP ;
+  IFC4-PSD:ifcVersion [
+      rdf:type IFC4-PSD:IfcVersion ;
+      IFC4-PSD:version "IFC4" ;
+    ] ;
+  IFC4-PSD:name "Pset_Asset" ;
+  IFC4-PSD:propertyDef :p8a7a7500d1c111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :p99f9be00d1c111e1800000215ad4efdf ;
+  IFC4-PSD:propertyDef :pa847da00d1c111e1800000215ad4efdf ;
+.
+:p8a7a7500d1c111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Identifies the predefined types of risk from which the type required may be set." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "会計の定義済み種別。"@ja-JP ;
+  IFC4-PSD:ifdguid "8a7a7500d1c111e1800000215ad4efdf" ;
+  IFC4-PSD:name "AssetAccountingType" ;
+  IFC4-PSD:nameAlias "Asset Accounting Type"@en ;
+  IFC4-PSD:nameAlias "資産会計種別"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertyEnumeratedValue ;
+      IFC4-PSD:enumItem "FIXED" ;
+      IFC4-PSD:enumItem "NONFIXED" ;
+      IFC4-PSD:enumItem "NOTKNOWN" ;
+      IFC4-PSD:enumItem "OTHER" ;
+      IFC4-PSD:enumItem "UNSET" ;
+    ] ;
+.
+:p99f9be00d1c111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Identifies the predefined types of taxation group from which the type required may be set." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "税の定義済み種別。"@ja-JP ;
+  IFC4-PSD:ifdguid "99f9be00d1c111e1800000215ad4efdf" ;
+  IFC4-PSD:name "AssetTaxType" ;
+  IFC4-PSD:nameAlias "Asset Tax Type"@en ;
+  IFC4-PSD:nameAlias "資産税種別"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertyEnumeratedValue ;
+      IFC4-PSD:enumItem "CAPITALISED" ;
+      IFC4-PSD:enumItem "EXPENSED" ;
+      IFC4-PSD:enumItem "NOTKNOWN" ;
+      IFC4-PSD:enumItem "OTHER" ;
+      IFC4-PSD:enumItem "UNSET" ;
+    ] ;
+.
+:pa847da00d1c111e1800000215ad4efdf
+  rdf:type IFC4-PSD:PropertyDef ;
+  IFC4-PSD:definition "Identifies the predefined types of insurance rating from which the type required may be set." ;
+  IFC4-PSD:definitionAlias ""@en ;
+  IFC4-PSD:definitionAlias "保険の定義済み種別。"@ja-JP ;
+  IFC4-PSD:ifdguid "a847da00d1c111e1800000215ad4efdf" ;
+  IFC4-PSD:name "AssetInsuranceType" ;
+  IFC4-PSD:nameAlias "Asset Insurance Type"@en ;
+  IFC4-PSD:nameAlias "資産保険種別"@ja-JP ;
+  IFC4-PSD:propertyType [
+      rdf:type IFC4-PSD:TypePropertyEnumeratedValue ;
+      IFC4-PSD:enumItem "NOTKNOWN" ;
+      IFC4-PSD:enumItem "OTHER" ;
+      IFC4-PSD:enumItem "PERSONAL" ;
+      IFC4-PSD:enumItem "REAL" ;
+      IFC4-PSD:enumItem "UNSET" ;
+    ] ;
+.
