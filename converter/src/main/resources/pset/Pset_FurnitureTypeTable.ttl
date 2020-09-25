@@ -1,25 +1,27 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeTable
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeTable> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeTable#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FurnitureTypeTable#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-:Pset_FurnitureTypeTable
-        a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcFurniture/TABLE> ;
-        IFC4-PSD:applicableTypeValue  "IfcFurniture/TABLE" ;
-        IFC4-PSD:definition           "HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Table" ;
-        IFC4-PSD:definitionAlias      ""@en ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_FurnitureTypeTable" ;
-        IFC4-PSD:propertyDef          :p4bf8b080d1e911e1800000215ad4efdf , :p469b6600d1e911e1800000215ad4efdf .
+:p4bf8b080d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum number of chairs that can fit with the table for normal use." ;
+        rdfs:label                "NumberOfChairs" ;
+        IFC4-PSD:definition       "Maximum number of chairs that can fit with the table for normal use." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4bf8b080d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfChairs" ;
+        IFC4-PSD:nameAlias        "Number Of Chairs"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FurnitureTypeTable>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :NumberOfChairs  a          rdf:Property ;
         rdfs:seeAlso        :p4bf8b080d1e911e1800000215ad4efdf ;
@@ -31,6 +33,8 @@
 
 :p469b6600d1e911e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The value of the work surface area of the desk.." ;
+        rdfs:label                "WorksurfaceArea" ;
         IFC4-PSD:definition       "The value of the work surface area of the desk.." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "469b6600d1e911e1800000215ad4efdf" ;
@@ -40,17 +44,16 @@
                                     IFC4-PSD:dataType  IFC4:IfcAreaMeasure
                                   ] .
 
-:p4bf8b080d1e911e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Maximum number of chairs that can fit with the table for normal use." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "4bf8b080d1e911e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NumberOfChairs" ;
-        IFC4-PSD:nameAlias        "Number Of Chairs"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcInteger
-                                  ] .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+:Pset_FurnitureTypeTable
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Table" ;
+        rdfs:label                    "Pset_FurnitureTypeTable" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFurniture/TABLE> ;
+        IFC4-PSD:applicableTypeValue  "IfcFurniture/TABLE" ;
+        IFC4-PSD:definition           "HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Table" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FurnitureTypeTable" ;
+        IFC4-PSD:propertyDef          :p469b6600d1e911e1800000215ad4efdf , :p4bf8b080d1e911e1800000215ad4efdf .

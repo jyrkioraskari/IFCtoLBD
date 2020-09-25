@@ -1,20 +1,14 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
-
-:ControlType  a             rdf:Property ;
-        rdfs:seeAlso        :p172d2f00d1d211e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :p172d2f00d1d211e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of control used to operate the damper (e.g., Open/Closed Indicator, Resetable Temperature Sensor, Temperature Override, etc.) ." ;
+        rdfs:label                "ControlType" ;
         IFC4-PSD:definition       "The type of control used to operate the damper (e.g., Open/Closed Indicator, Resetable Temperature Sensor, Temperature Override, etc.) ." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "172d2f00d1d211e1800000215ad4efdf" ;
@@ -26,7 +20,9 @@
 
 :Pset_DamperTypeSmokeDamper
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcDamper/SMOKEDAMPER> ;
+        rdfs:comment                  "Smoke damper type attributes.\nPset renamed from Pset_DamperTypeSmoke to Pset_DamperTypeSmokeDamper in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_DamperTypeSmokeDamper" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDamper/SMOKEDAMPER> ;
         IFC4-PSD:applicableTypeValue  "IfcDamper/SMOKEDAMPER" ;
         IFC4-PSD:definition           "Smoke damper type attributes.\nPset renamed from Pset_DamperTypeSmoke to Pset_DamperTypeSmokeDamper in IFC2x2 Pset Addendum." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -36,6 +32,11 @@
         IFC4-PSD:name                 "Pset_DamperTypeSmokeDamper" ;
         IFC4-PSD:propertyDef          :p172d2f00d1d211e1800000215ad4efdf .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :p172d2f00d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

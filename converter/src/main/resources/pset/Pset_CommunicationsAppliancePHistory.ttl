@@ -1,16 +1,14 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CommunicationsAppliancePHistory
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CommunicationsAppliancePHistory> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CommunicationsAppliancePHistory#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CommunicationsAppliancePHistory#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :Pset_CommunicationsAppliancePHistory
         a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Captures realtime information for communications devices, such as for server farm energy usage.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_CommunicationsAppliancePHistory" ;
         IFC4-PSD:applicableClass      IFC4:IfcCommunicationsAppliance ;
         IFC4-PSD:applicableTypeValue  "IfcCommunicationsAppliance" ;
         IFC4-PSD:definition           "Captures realtime information for communications devices, such as for server farm energy usage.  HISTORY: Added in IFC4." ;
@@ -23,6 +21,8 @@
 
 :p90c11f00d1ca11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the power state of the device where True is on and False is off." ;
+        rdfs:label                "PowerState" ;
         IFC4-PSD:definition       "Indicates the power state of the device where True is on and False is off." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "90c11f00d1ca11e1800000215ad4efdf" ;
@@ -32,8 +32,9 @@
                                     IFC4-PSD:reftype  IFC4:IfcTimeSeries
                                   ] .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CommunicationsAppliancePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :PowerState  a              rdf:Property ;

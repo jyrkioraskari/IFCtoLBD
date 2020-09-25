@@ -1,16 +1,23 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWoodBasedPanel
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWoodBasedPanel> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWoodBasedPanel#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialWoodBasedPanel#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialWoodBasedPanel>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:InPlane  a                 rdf:Property ;
+        rdfs:seeAlso        :p7b122080d1ef11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InPlane .
 
 :p7b122080d1ef11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mechanical properties with respect to in-plane load, i.e. for function as a membrane." ;
+        rdfs:label                "InPlane" ;
         IFC4-PSD:definition       "Mechanical properties with respect to in-plane load, i.e. for function as a membrane." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "7b122080d1ef11e1800000215ad4efdf" ;
@@ -18,17 +25,10 @@
         IFC4-PSD:nameAlias        "In Plane"@en ;
         IFC4-PSD:propertyType     [ a  IFC4-PSD:TypeComplexProperty ] .
 
-:OutOfPlane  a              rdf:Property ;
-        rdfs:seeAlso        :pe52ac580d1ef11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:OutOfPlane .
-
-:ApplicableStructuralDesignMethod
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p75b4d600d1ef11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ApplicableStructuralDesignMethod .
-
 :pe52ac580d1ef11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mechanical properties with respect to out-of-plane load, i.e. for function as a plate; tension zone of unbalanced layups is stressed in tension." ;
+        rdfs:label                "OutOfPlane" ;
         IFC4-PSD:definition       "Mechanical properties with respect to out-of-plane load, i.e. for function as a plate; tension zone of unbalanced layups is stressed in tension." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "e52ac580d1ef11e1800000215ad4efdf" ;
@@ -38,6 +38,8 @@
 
 :p75b4d600d1ef11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Determines whether mechanical material properties are applicable to 'ASD' = allowable stress design (working stress design), 'LSD' = limit state design, or 'LRFD' = load and resistance factor design." ;
+        rdfs:label                "ApplicableStructuralDesignMethod" ;
         IFC4-PSD:definition       "Determines whether mechanical material properties are applicable to 'ASD' = allowable stress design (working stress design), 'LSD' = limit state design, or 'LRFD' = load and resistance factor design." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "75b4d600d1ef11e1800000215ad4efdf" ;
@@ -53,6 +55,8 @@
 
 :p510d2e00d1f011e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mechanical properties with respect to out-of-plane load i.e. for function as a plate; compression zone of unbalanced layups is stressed in tension." ;
+        rdfs:label                "OutOfPlaneNegative" ;
         IFC4-PSD:definition       "Mechanical properties with respect to out-of-plane load i.e. for function as a plate; compression zone of unbalanced layups is stressed in tension." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "510d2e00d1f011e1800000215ad4efdf" ;
@@ -60,13 +64,11 @@
         IFC4-PSD:nameAlias        "Out Of Plane Negative"@en ;
         IFC4-PSD:propertyType     [ a  IFC4-PSD:TypeComplexProperty ] .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
-
 :Pset_MaterialWoodBasedPanel
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcMaterial/Wood> ;
+        rdfs:comment                  "This is a collection of mechanical properties related to wood-based materials for panel-like products like plywood or OSB. The propositions given above for wood-based beam materials with respect to anisotropy, strength graduation according to element sizes (especially panel thickness) apply accordingly." ;
+        rdfs:label                    "Pset_MaterialWoodBasedPanel" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcMaterial/Wood> ;
         IFC4-PSD:applicableTypeValue  "IfcMaterial/Wood" ;
         IFC4-PSD:definition           "This is a collection of mechanical properties related to wood-based materials for panel-like products like plywood or OSB. The propositions given above for wood-based beam materials with respect to anisotropy, strength graduation according to element sizes (especially panel thickness) apply accordingly." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -74,8 +76,13 @@
                                         IFC4-PSD:version  "IFC4"
                                       ] ;
         IFC4-PSD:name                 "Pset_MaterialWoodBasedPanel" ;
-        IFC4-PSD:propertyDef          :p75b4d600d1ef11e1800000215ad4efdf , :p7b122080d1ef11e1800000215ad4efdf , :pe52ac580d1ef11e1800000215ad4efdf , :p510d2e00d1f011e1800000215ad4efdf .
+        IFC4-PSD:propertyDef          :p75b4d600d1ef11e1800000215ad4efdf , :p510d2e00d1f011e1800000215ad4efdf , :p7b122080d1ef11e1800000215ad4efdf , :pe52ac580d1ef11e1800000215ad4efdf .
 
-:InPlane  a                 rdf:Property ;
-        rdfs:seeAlso        :p7b122080d1ef11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:InPlane .
+:ApplicableStructuralDesignMethod
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p75b4d600d1ef11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ApplicableStructuralDesignMethod .
+
+:OutOfPlane  a              rdf:Property ;
+        rdfs:seeAlso        :pe52ac580d1ef11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutOfPlane .

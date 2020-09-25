@@ -1,77 +1,16 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingStoreyCommon
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingStoreyCommon> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_BuildingStoreyCommon#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BuildingStoreyCommon#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
-
-:NetPlannedArea  a          rdf:Property ;
-        rdfs:seeAlso        :pa5e77f00d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NetPlannedArea .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
-
-:p95cf9f80d1c511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indication whether this object has an automatic sprinkler protection (TRUE) or not (FALSE).\nIt should only be given, if the property \"SprinklerProtection\" is set to TRUE." ;
-        IFC4-PSD:definitionAlias  "Angabe, ob das Geschoss durch eine automatische Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE , "スプリンクラー設備が自動かどうか示すブーリアン値。"@ja-JP , ""@en , "Indication selon laquelle ce bâtiment bénéficie d'une protection automatique par sprinkler (VRAI) ou non (FAUX). Indication à ne fournir que si la propriété \"SprinklerProtection\" est cochée \"VRAI\"."@fr-FR , "스프링 클러 설비가 자동 여부를 나타내는 값"@ko-KR ;
-        IFC4-PSD:ifdguid          "95cf9f80d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SprinklerProtectionAutomatic" ;
-        IFC4-PSD:nameAlias        "スプリンクラー防御自動区分"@ja-JP , "스프링 클러 방어 자동 구분"@ko-KR , "Sprinklerschutz automatisch"@de-DE , "ProtectionAutomatiqueParSprinkler"@fr-FR , "Sprinkler Protection Automatic"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcBoolean
-                                  ] .
-
-:Pset_BuildingStoreyCommon
-        a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      IFC4:IfcBuildingStorey ;
-        IFC4-PSD:applicableTypeValue  "IfcBuildingStorey" ;
-        IFC4-PSD:definition           "Properties common to the definition of all instances of IfcBuildingStorey. Please note that several building attributes are handled directly at the IfcBuildingStorey instance, the building storey number (or short name) by IfcBuildingStorey.Name, the building storey name (or long name) by IfcBuildingStorey.LongName, and the description (or comments) by IfcBuildingStorey.Description. Actual building storey quantities, like building storey perimeter, building storey area and building storey volume are provided by IfcElementQuantity, and the building storey classification according to national building code by IfcClassificationReference." ;
-        IFC4-PSD:definitionAlias      "IfcBuildinStorey(建物階)に関するプロパティセット定義。建物階ナンバーはIfcBuildingStorey.Name、建物階名称はIfcBuildingStorey.LongName、建物階に関する記述はIfcBuildingStorey.Descriptionで設定する。実際の建物階に関する数量、例えば建物階周囲長、建物階面積、建物階体積等はIfcElementQuantitiesで設定する。また、建築基準法の建物階分類に関しては、IfcClassificationReferenceで設定する。"@ja-JP , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de IfcBuildingStorey. Veuillez noter que plusieurs attributs sont portés par l'instance IfcBuildingStorey : le numéro de l'étage ou nom court (IfcBuildingStorey.Name), le nom ou nom long (IfcBuildingStorey.LongName), et la description ou des commentaires (IfcBuildingStorey.Description). Les quantités réelles de l'étage comme le périmètre, la superficie et le volume sont fournis par des instances de IfcElementQuantity et la référence à une classification nationale par IfcClassificationReference."@fr-FR , ""@en , "Property Set Definition in German"@de-DE ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_BuildingStoreyCommon" ;
-        IFC4-PSD:propertyDef          :p9b2cea00d1c511e1800000215ad4efdf , :p82bccf80d1c511e1800000215ad4efdf , :p7d5f8500d1c511e1800000215ad4efdf , :p90725500d1c511e1800000215ad4efdf , :pa5e77f00d1c511e1800000215ad4efdf , :pa08a3480d1c511e1800000215ad4efdf , :p95cf9f80d1c511e1800000215ad4efdf , :p89e3dd80d1c511e1800000215ad4efdf .
-
-:LoadBearingCapacity  a     rdf:Property ;
-        rdfs:seeAlso        :p9b2cea00d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:LoadBearingCapacity .
-
-:p89e3dd80d1c511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indication whether this building storey is fully above ground (TRUE), or below ground (FALSE), or partially above and below ground (UNKNOWN) - as in sloped terrain." ;
-        IFC4-PSD:definitionAlias  "Indication si l'étage est complètement au dessus du niveau du sol (VRAI), au dessous du niveau du sol (FAUX) ou partiellement enterré (INCONNU) comme dans le cas d'un terrain en pente."@fr-FR , "Angabe, ob dieses Geschoss vollständig überhalb oberirdisch ist (WAHR), vollständig unterirdisch (FALSCH), oder teilweise unter- und überirdisch (UNKNOWN)."@de-DE , "이 건물 층이 지상 (TRUE), 지하 (FALSE), 일부 지하 부분 (UNKOWN) 여부를 나타내는 논리 값."@ko-KR , "この建物階が地上(TRUE)、地下(FALSE)、一部が地下部分(UNKOWN)かどうかを示すロジカル値。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "89e3dd80d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "AboveGround" ;
-        IFC4-PSD:nameAlias        "지상 여부"@ko-KR , "Oberirdisches Geschoss"@de-DE , "AuDessusSol"@fr-FR , "地上判別"@ja-JP , "Above Ground"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcLogical
-                                  ] .
-
-:GrossPlannedArea  a        rdf:Property ;
-        rdfs:seeAlso        :pa08a3480d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:GrossPlannedArea .
-
-:SprinklerProtection  a     rdf:Property ;
-        rdfs:seeAlso        :p90725500d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SprinklerProtection .
-
-:AboveGround  a             rdf:Property ;
-        rdfs:seeAlso        :p89e3dd80d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:AboveGround .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :pa08a3480d1c511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total planned area for the building storey. Used for programming the building storey." ;
+        rdfs:label                "GrossPlannedArea" ;
         IFC4-PSD:definition       "Total planned area for the building storey. Used for programming the building storey." ;
-        IFC4-PSD:definitionAlias  ""@en , "Surface programmée brute totale de l'étage. Telle que définie lors de la programmation."@fr-FR , "計画された建物階のグロス面積。建物計画に際に使用。"@ja-JP , "계획된 건물 층 그로스 면적. 건물 계획시 사용됩니다."@ko-KR , "Geforderte Bruttofläche des Geschosses laut Raumprogramm."@de-DE ;
+        IFC4-PSD:definitionAlias  "計画された建物階のグロス面積。建物計画に際に使用。"@ja-JP , "Surface programmée brute totale de l'étage. Telle que définie lors de la programmation."@fr-FR , "Geforderte Bruttofläche des Geschosses laut Raumprogramm."@de-DE , "계획된 건물 층 그로스 면적. 건물 계획시 사용됩니다."@ko-KR , ""@en ;
         IFC4-PSD:ifdguid          "a08a3480d1c511e1800000215ad4efdf" ;
         IFC4-PSD:name             "GrossPlannedArea" ;
         IFC4-PSD:nameAlias        "Bruttofläche nach Raumprogramm"@de-DE , "計画グロス面積"@ja-JP , "Gross Planned Area"@en , "계획 그로스 면적"@ko-KR , "Surface programmée brute"@fr-FR ;
@@ -79,26 +18,89 @@
                                     IFC4-PSD:dataType  IFC4:IfcAreaMeasure
                                   ] .
 
+:SprinklerProtection  a     rdf:Property ;
+        rdfs:seeAlso        :p90725500d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SprinklerProtection .
+
+:p82bccf80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this building storey is an entrance level to the building (TRUE), or (FALSE) if otherwise." ;
+        rdfs:label                "EntranceLevel" ;
+        IFC4-PSD:definition       "Indication whether this building storey is an entrance level to the building (TRUE), or (FALSE) if otherwise." ;
+        IFC4-PSD:definitionAlias  "입구 레벨 여부를 나타내는 값"@ko-KR , "Indication si l'étage est au niveau d'une entrée (VRAI) ou non (FAUX)"@fr-FR , "エントランスレベルかどうかを示すブーリアン値。"@ja-JP , "Angabe, ob der Gebäudeeingang sich in diesem Geschoss befinded (WAHR), oder nicht (FALSCH)."@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "82bccf80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EntranceLevel" ;
+        IFC4-PSD:nameAlias        "입구 레벨"@ko-KR , "エントランスレベル"@ja-JP , "NiveauEntrée"@fr-FR , "Entrance Level"@en , "Eingangsebene"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
 :pa5e77f00d1c511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total planned net area for the building storey. Used for programming the building storey." ;
+        rdfs:label                "NetPlannedArea" ;
         IFC4-PSD:definition       "Total planned net area for the building storey. Used for programming the building storey." ;
-        IFC4-PSD:definitionAlias  "Surface programmée nette totale de l'étage. Telle que définie lors de la programmation."@fr-FR , "계획된 건물 층 인터넷 공간이 있습니다. 건물 계획시 사용됩니다."@ko-KR , "Geforderte Nettofläche des Geschosses laut Raumprogramm."@de-DE , "計画された建物階のネット面積。建物計画の際に使用。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias  "Surface programmée nette totale de l'étage. Telle que définie lors de la programmation."@fr-FR , "계획된 건물 층 인터넷 공간이 있습니다. 건물 계획시 사용됩니다."@ko-KR , ""@en , "Geforderte Nettofläche des Geschosses laut Raumprogramm."@de-DE , "計画された建物階のネット面積。建物計画の際に使用。"@ja-JP ;
         IFC4-PSD:ifdguid          "a5e77f00d1c511e1800000215ad4efdf" ;
         IFC4-PSD:name             "NetPlannedArea" ;
-        IFC4-PSD:nameAlias        "Nettofläche nach Raumprogramm"@de-DE , "計画ネット面積"@ja-JP , "Net Planned Area"@en , "Surface programmée nette"@fr-FR , "계획 인터넷 면적"@ko-KR ;
+        IFC4-PSD:nameAlias        "Nettofläche nach Raumprogramm"@de-DE , "Surface programmée nette"@fr-FR , "Net Planned Area"@en , "計画ネット面積"@ja-JP , "계획 인터넷 면적"@ko-KR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcAreaMeasure
                                   ] .
 
-:p82bccf80d1c511e1800000215ad4efdf
+:NetPlannedArea  a          rdf:Property ;
+        rdfs:seeAlso        :pa5e77f00d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NetPlannedArea .
+
+:EntranceLevel  a           rdf:Property ;
+        rdfs:seeAlso        :p82bccf80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EntranceLevel .
+
+:p9b2cea00d1c511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indication whether this building storey is an entrance level to the building (TRUE), or (FALSE) if otherwise." ;
-        IFC4-PSD:definitionAlias  "Angabe, ob der Gebäudeeingang sich in diesem Geschoss befinded (WAHR), oder nicht (FALSCH)."@de-DE , ""@en , "Indication si l'étage est au niveau d'une entrée (VRAI) ou non (FAUX)"@fr-FR , "エントランスレベルかどうかを示すブーリアン値。"@ja-JP , "입구 레벨 여부를 나타내는 값"@ko-KR ;
-        IFC4-PSD:ifdguid          "82bccf80d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "EntranceLevel" ;
-        IFC4-PSD:nameAlias        "NiveauEntrée"@fr-FR , "입구 레벨"@ko-KR , "エントランスレベル"@ja-JP , "Eingangsebene"@de-DE , "Entrance Level"@en ;
+        rdfs:comment              "Maximum load bearing capacity of the floor structure throughtout the storey as designed." ;
+        rdfs:label                "LoadBearingCapacity" ;
+        IFC4-PSD:definition       "Maximum load bearing capacity of the floor structure throughtout the storey as designed." ;
+        IFC4-PSD:definitionAlias  ""@en , "Capacité porteuse maximale de la structure du plancher tel que conçu pour cet étage."@fr-FR , "Maximale Deckentragfähigkeit in diesem Geschoss."@de-DE ;
+        IFC4-PSD:ifdguid          "9b2cea00d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LoadBearingCapacity" ;
+        IFC4-PSD:nameAlias        "Deckentragfähigkeit"@de-DE , "Load Bearing Capacity"@en , "Capacité porteuse"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlanarForceMeasure
+                                  ] .
+
+:GrossPlannedArea  a        rdf:Property ;
+        rdfs:seeAlso        :pa08a3480d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GrossPlannedArea .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p7d5f8500d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p90725500d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this object is sprinkler protected (TRUE) or not (FALSE)." ;
+        rdfs:label                "SprinklerProtection" ;
+        IFC4-PSD:definition       "Indication whether this object is sprinkler protected (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "Indication selon laquelle ce bâtimentbénéficie d'une protection par sprinkler (VRAI) ou non (FAUX)"@fr-FR , ""@en , "スプリンクラー設備の有無を示すブーリアン値。"@ja-JP , "Angabe, ob des Geschoss durch eine Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE , "스프링 클러 설비의 유무를 나타내는 값"@ko-KR ;
+        IFC4-PSD:ifdguid          "90725500d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprinklerProtection" ;
+        IFC4-PSD:nameAlias        "스프링 클러 방어"@ko-KR , "Sprinklerschutz"@de-DE , "スプリンクラー防御"@ja-JP , "Sprinkler Protection"@en , "ProtectionParSprinkler"@fr-FR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p7d5f8500d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+        IFC4-PSD:definitionAlias  "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR , ""@en , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). Utilisé pour enregistrer un type sans recourir à une classification."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "Identifikator der projektinternen Referenz für dieses Geschoss, z.B. nach der Geschossklassifizierung des Bauherrn. Wird verwendet, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE ;
+        IFC4-PSD:ifdguid          "7d5f8500d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Reference"@en , "Reference"@fr-FR , "参照記号"@ja-JP , "Referenz ID"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
                                   ] .
 
 :SprinklerProtectionAutomatic
@@ -106,43 +108,55 @@
         rdfs:seeAlso        :p95cf9f80d1c511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SprinklerProtectionAutomatic .
 
-:EntranceLevel  a           rdf:Property ;
-        rdfs:seeAlso        :p82bccf80d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:EntranceLevel .
+:Pset_BuildingStoreyCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all instances of IfcBuildingStorey. Please note that several building attributes are handled directly at the IfcBuildingStorey instance, the building storey number (or short name) by IfcBuildingStorey.Name, the building storey name (or long name) by IfcBuildingStorey.LongName, and the description (or comments) by IfcBuildingStorey.Description. Actual building storey quantities, like building storey perimeter, building storey area and building storey volume are provided by IfcElementQuantity, and the building storey classification according to national building code by IfcClassificationReference." ;
+        rdfs:label                    "Pset_BuildingStoreyCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuildingStorey ;
+        IFC4-PSD:applicableTypeValue  "IfcBuildingStorey" ;
+        IFC4-PSD:definition           "Properties common to the definition of all instances of IfcBuildingStorey. Please note that several building attributes are handled directly at the IfcBuildingStorey instance, the building storey number (or short name) by IfcBuildingStorey.Name, the building storey name (or long name) by IfcBuildingStorey.LongName, and the description (or comments) by IfcBuildingStorey.Description. Actual building storey quantities, like building storey perimeter, building storey area and building storey volume are provided by IfcElementQuantity, and the building storey classification according to national building code by IfcClassificationReference." ;
+        IFC4-PSD:definitionAlias      "Property Set Definition in German"@de-DE , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de IfcBuildingStorey. Veuillez noter que plusieurs attributs sont portés par l'instance IfcBuildingStorey : le numéro de l'étage ou nom court (IfcBuildingStorey.Name), le nom ou nom long (IfcBuildingStorey.LongName), et la description ou des commentaires (IfcBuildingStorey.Description). Les quantités réelles de l'étage comme le périmètre, la superficie et le volume sont fournis par des instances de IfcElementQuantity et la référence à une classification nationale par IfcClassificationReference."@fr-FR , "IfcBuildinStorey(建物階)に関するプロパティセット定義。建物階ナンバーはIfcBuildingStorey.Name、建物階名称はIfcBuildingStorey.LongName、建物階に関する記述はIfcBuildingStorey.Descriptionで設定する。実際の建物階に関する数量、例えば建物階周囲長、建物階面積、建物階体積等はIfcElementQuantitiesで設定する。また、建築基準法の建物階分類に関しては、IfcClassificationReferenceで設定する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BuildingStoreyCommon" ;
+        IFC4-PSD:propertyDef          :p89e3dd80d1c511e1800000215ad4efdf , :p9b2cea00d1c511e1800000215ad4efdf , :pa5e77f00d1c511e1800000215ad4efdf , :pa08a3480d1c511e1800000215ad4efdf , :p95cf9f80d1c511e1800000215ad4efdf , :p90725500d1c511e1800000215ad4efdf , :p7d5f8500d1c511e1800000215ad4efdf , :p82bccf80d1c511e1800000215ad4efdf .
 
-:p90725500d1c511e1800000215ad4efdf
+:p89e3dd80d1c511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indication whether this object is sprinkler protected (TRUE) or not (FALSE)." ;
-        IFC4-PSD:definitionAlias  "スプリンクラー設備の有無を示すブーリアン値。"@ja-JP , "스프링 클러 설비의 유무를 나타내는 값"@ko-KR , ""@en , "Indication selon laquelle ce bâtimentbénéficie d'une protection par sprinkler (VRAI) ou non (FAUX)"@fr-FR , "Angabe, ob des Geschoss durch eine Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE ;
-        IFC4-PSD:ifdguid          "90725500d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SprinklerProtection" ;
-        IFC4-PSD:nameAlias        "Sprinkler Protection"@en , "스프링 클러 방어"@ko-KR , "ProtectionParSprinkler"@fr-FR , "スプリンクラー防御"@ja-JP , "Sprinklerschutz"@de-DE ;
+        rdfs:comment              "Indication whether this building storey is fully above ground (TRUE), or below ground (FALSE), or partially above and below ground (UNKNOWN) - as in sloped terrain." ;
+        rdfs:label                "AboveGround" ;
+        IFC4-PSD:definition       "Indication whether this building storey is fully above ground (TRUE), or below ground (FALSE), or partially above and below ground (UNKNOWN) - as in sloped terrain." ;
+        IFC4-PSD:definitionAlias  "この建物階が地上(TRUE)、地下(FALSE)、一部が地下部分(UNKOWN)かどうかを示すロジカル値。"@ja-JP , "Angabe, ob dieses Geschoss vollständig überhalb oberirdisch ist (WAHR), vollständig unterirdisch (FALSCH), oder teilweise unter- und überirdisch (UNKNOWN)."@de-DE , "이 건물 층이 지상 (TRUE), 지하 (FALSE), 일부 지하 부분 (UNKOWN) 여부를 나타내는 논리 값."@ko-KR , ""@en , "Indication si l'étage est complètement au dessus du niveau du sol (VRAI), au dessous du niveau du sol (FAUX) ou partiellement enterré (INCONNU) comme dans le cas d'un terrain en pente."@fr-FR ;
+        IFC4-PSD:ifdguid          "89e3dd80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AboveGround" ;
+        IFC4-PSD:nameAlias        "지상 여부"@ko-KR , "Oberirdisches Geschoss"@de-DE , "AuDessusSol"@fr-FR , "地上判別"@ja-JP , "Above Ground"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLogical
+                                  ] .
+
+:p95cf9f80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this object has an automatic sprinkler protection (TRUE) or not (FALSE).\nIt should only be given, if the property \"SprinklerProtection\" is set to TRUE." ;
+        rdfs:label                "SprinklerProtectionAutomatic" ;
+        IFC4-PSD:definition       "Indication whether this object has an automatic sprinkler protection (TRUE) or not (FALSE).\nIt should only be given, if the property \"SprinklerProtection\" is set to TRUE." ;
+        IFC4-PSD:definitionAlias  "Indication selon laquelle ce bâtiment bénéficie d'une protection automatique par sprinkler (VRAI) ou non (FAUX). Indication à ne fournir que si la propriété \"SprinklerProtection\" est cochée \"VRAI\"."@fr-FR , "Angabe, ob das Geschoss durch eine automatische Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE , "スプリンクラー設備が自動かどうか示すブーリアン値。"@ja-JP , ""@en , "스프링 클러 설비가 자동 여부를 나타내는 값"@ko-KR ;
+        IFC4-PSD:ifdguid          "95cf9f80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprinklerProtectionAutomatic" ;
+        IFC4-PSD:nameAlias        "스프링 클러 방어 자동 구분"@ko-KR , "Sprinklerschutz automatisch"@de-DE , "スプリンクラー防御自動区分"@ja-JP , "Sprinkler Protection Automatic"@en , "ProtectionAutomatiqueParSprinkler"@fr-FR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
-:p7d5f8500d1c511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
-        IFC4-PSD:definitionAlias  ""@en , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). Utilisé pour enregistrer un type sans recourir à une classification."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR , "Identifikator der projektinternen Referenz für dieses Geschoss, z.B. nach der Geschossklassifizierung des Bauherrn. Wird verwendet, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE ;
-        IFC4-PSD:ifdguid          "7d5f8500d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "Reference" ;
-        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Reference"@fr-FR , "Reference"@en , "Referenz ID"@de-DE , "参照記号"@ja-JP ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
-                                  ] .
+:LoadBearingCapacity  a     rdf:Property ;
+        rdfs:seeAlso        :p9b2cea00d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LoadBearingCapacity .
 
-:Reference  a               rdf:Property ;
-        rdfs:seeAlso        :p7d5f8500d1c511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Reference .
+:AboveGround  a             rdf:Property ;
+        rdfs:seeAlso        :p89e3dd80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AboveGround .
 
-:p9b2cea00d1c511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Maximum load bearing capacity of the floor structure throughtout the storey as designed." ;
-        IFC4-PSD:definitionAlias  ""@en , "Maximale Deckentragfähigkeit in diesem Geschoss."@de-DE , "Capacité porteuse maximale de la structure du plancher tel que conçu pour cet étage."@fr-FR ;
-        IFC4-PSD:ifdguid          "9b2cea00d1c511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "LoadBearingCapacity" ;
-        IFC4-PSD:nameAlias        "Load Bearing Capacity"@en , "Deckentragfähigkeit"@de-DE , "Capacité porteuse"@fr-FR ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPlanarForceMeasure
-                                  ] .
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BuildingStoreyCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

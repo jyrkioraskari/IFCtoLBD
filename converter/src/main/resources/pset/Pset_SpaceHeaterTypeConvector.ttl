@@ -1,27 +1,13 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceHeaterTypeConvector
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceHeaterTypeConvector> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SpaceHeaterTypeConvector#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceHeaterTypeConvector#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-:p7e66d580d20a11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indicates the type of convector, whether forced air (mechanically driven) or natural (gravity)." ;
-        IFC4-PSD:definitionAlias  "強制空気(機械的に運転される)か自然な(重力)であることにかかわらず対流式暖房器のタイプを示します。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "7e66d580d20a11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ConvectorType" ;
-        IFC4-PSD:nameAlias        "対流タイプ"@ja-JP , "Convector Type"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
-                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "NATURAL" , "FORCED"
-                                  ] .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceHeaterTypeConvector>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :ConvectorType  a           rdf:Property ;
@@ -30,7 +16,9 @@
 
 :Pset_SpaceHeaterTypeConvector
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSpaceHeater/CONVECTOR> ;
+        rdfs:comment                  "Space heater type convector attributes." ;
+        rdfs:label                    "Pset_SpaceHeaterTypeConvector" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSpaceHeater/CONVECTOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSpaceHeater/CONVECTOR" ;
         IFC4-PSD:definition           "Space heater type convector attributes." ;
         IFC4-PSD:definitionAlias      "暖房用ヒーター対流式属性"@ja-JP , ""@en ;
@@ -39,3 +27,16 @@
                                       ] ;
         IFC4-PSD:name                 "Pset_SpaceHeaterTypeConvector" ;
         IFC4-PSD:propertyDef          :p7e66d580d20a11e1800000215ad4efdf .
+
+:p7e66d580d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of convector, whether forced air (mechanically driven) or natural (gravity)." ;
+        rdfs:label                "ConvectorType" ;
+        IFC4-PSD:definition       "Indicates the type of convector, whether forced air (mechanically driven) or natural (gravity)." ;
+        IFC4-PSD:definitionAlias  "強制空気(機械的に運転される)か自然な(重力)であることにかかわらず対流式暖房器のタイプを示します。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7e66d580d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConvectorType" ;
+        IFC4-PSD:nameAlias        "対流タイプ"@ja-JP , "Convector Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FORCED" , "NATURAL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

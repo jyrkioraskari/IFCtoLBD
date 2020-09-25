@@ -1,17 +1,25 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeCO2Sensor
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeCO2Sensor> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeCO2Sensor#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeCO2Sensor#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeCO2Sensor>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SetPointConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe4ab0c98841748269c10ddef20bb5aa9 ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
 
 :Pset_SensorTypeCO2Sensor
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSensor/CO2SENSOR> ;
+        rdfs:comment                  "A device that senses or detects carbon dioxide." ;
+        rdfs:label                    "Pset_SensorTypeCO2Sensor" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSensor/CO2SENSOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSensor/CO2SENSOR" ;
         IFC4-PSD:definition           "A device that senses or detects carbon dioxide." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -23,6 +31,8 @@
 
 :pe4ab0c98841748269c10ddef20bb5aa9
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The carbon dioxide concentration to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointConcentration" ;
         IFC4-PSD:definition       "The carbon dioxide concentration to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "e4ab0c98841748269c10ddef20bb5aa9" ;
@@ -31,12 +41,3 @@
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
                                     IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
                                   ] .
-
-:SetPointConcentration
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pe4ab0c98841748269c10ddef20bb5aa9 ;
-        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

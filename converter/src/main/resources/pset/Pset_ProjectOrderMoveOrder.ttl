@@ -1,41 +1,42 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderMoveOrder
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderMoveOrder> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_ProjectOrderMoveOrder#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderMoveOrder#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
-
-:pcfb99980d1f711e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Special instructions that affect the move." ;
-        IFC4-PSD:definitionAlias  "移動・引っ越しに影響する特別な指示。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "cfb99980d1f711e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SpecialInstructions" ;
-        IFC4-PSD:nameAlias        "特別指示"@ja-JP , "Special Instructions"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcText
-                                  ] .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :Pset_ProjectOrderMoveOrder
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcProjectOrder/MOVEORDER> ;
+        rdfs:comment                  "Defines the requirements for move orders. Note that the move order status is defined in the same way as a work order status since a move order implies a work requirement." ;
+        rdfs:label                    "Pset_ProjectOrderMoveOrder" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProjectOrder/MOVEORDER> ;
         IFC4-PSD:applicableTypeValue  "IfcProjectOrder/MOVEORDER" ;
         IFC4-PSD:definition           "Defines the requirements for move orders. Note that the move order status is defined in the same way as a work order status since a move order implies a work requirement." ;
-        IFC4-PSD:definitionAlias      "移動・引っ越しへの必要条件を定義する。注：移動指示は、作業の必要条件を含むので、移動命令状態は、作業指示状態と同様な手段で定義される。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias      ""@en , "移動・引っ越しへの必要条件を定義する。注：移動指示は、作業の必要条件を含むので、移動命令状態は、作業指示状態と同様な手段で定義される。"@ja-JP ;
         IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
                                         IFC4-PSD:version  "IFC4"
                                       ] ;
         IFC4-PSD:name                 "Pset_ProjectOrderMoveOrder" ;
         IFC4-PSD:propertyDef          :pcfb99980d1f711e1800000215ad4efdf .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderMoveOrder>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :SpecialInstructions  a     rdf:Property ;
         rdfs:seeAlso        :pcfb99980d1f711e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SpecialInstructions .
+
+:pcfb99980d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Special instructions that affect the move." ;
+        rdfs:label                "SpecialInstructions" ;
+        IFC4-PSD:definition       "Special instructions that affect the move." ;
+        IFC4-PSD:definitionAlias  "移動・引っ越しに影響する特別な指示。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cfb99980d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpecialInstructions" ;
+        IFC4-PSD:nameAlias        "Special Instructions"@en , "特別指示"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .

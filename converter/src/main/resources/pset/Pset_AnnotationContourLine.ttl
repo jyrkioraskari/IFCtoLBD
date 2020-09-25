@@ -1,41 +1,42 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_AnnotationContourLine
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_AnnotationContourLine> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_AnnotationContourLine#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AnnotationContourLine#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+
+:p340d3680d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Value of the elevation of the contour above or below a reference plane." ;
+        rdfs:label                "ContourValue" ;
+        IFC4-PSD:definition       "Value of the elevation of the contour above or below a reference plane." ;
+        IFC4-PSD:definitionAlias  "参照平面に対する等高線の高さ値。"@ja-JP , "참조 평면에 대한 등고선의 높이 값."@ko-KR , "Valeur de l'élévation du contour au dessus ou au dessous d'un plan de référence."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "340d3680d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ContourValue" ;
+        IFC4-PSD:nameAlias        "等高線値"@ja-JP , "Contour Value"@en , "등고선 값"@ko-KR , "ValeurContour"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AnnotationContourLine>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_AnnotationContourLine
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcAnnotation/ContourLine> ;
+        rdfs:comment                  "Specifies parameters of a standard curve that has a single, consistent measure value." ;
+        rdfs:label                    "Pset_AnnotationContourLine" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAnnotation/ContourLine> ;
         IFC4-PSD:applicableTypeValue  "IfcAnnotation/ContourLine" ;
         IFC4-PSD:definition           "Specifies parameters of a standard curve that has a single, consistent measure value." ;
-        IFC4-PSD:definitionAlias      ""@en , "IfcAnnotation（注記）オブジェクトに関する標準の曲線に対する単一、同一の情報を設定するプロパティセット定義。GIS関連情報を扱う。"@ja-JP , "Définition de l'IAI : paramètres spécifiques à une courbe standard qui a une valeur simple et cohérente."@fr-FR ;
+        IFC4-PSD:definitionAlias      "Définition de l'IAI : paramètres spécifiques à une courbe standard qui a une valeur simple et cohérente."@fr-FR , "IfcAnnotation（注記）オブジェクトに関する標準の曲線に対する単一、同一の情報を設定するプロパティセット定義。GIS関連情報を扱う。"@ja-JP , ""@en ;
         IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
                                         IFC4-PSD:version  "IFC4"
                                       ] ;
         IFC4-PSD:name                 "Pset_AnnotationContourLine" ;
         IFC4-PSD:propertyDef          :p340d3680d1c111e1800000215ad4efdf .
 
-:p340d3680d1c111e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Value of the elevation of the contour above or below a reference plane." ;
-        IFC4-PSD:definitionAlias  "Valeur de l'élévation du contour au dessus ou au dessous d'un plan de référence."@fr-FR , "参照平面に対する等高線の高さ値。"@ja-JP , "참조 평면에 대한 등고선의 높이 값."@ko-KR , ""@en ;
-        IFC4-PSD:ifdguid          "340d3680d1c111e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ContourValue" ;
-        IFC4-PSD:nameAlias        "等高線値"@ja-JP , "ValeurContour"@fr-FR , "등고선 값"@ko-KR , "Contour Value"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
-                                  ] .
-
 :ContourValue  a            rdf:Property ;
         rdfs:seeAlso        :p340d3680d1c111e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ContourValue .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,20 +1,31 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypePHistory
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypePHistory> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypePHistory#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypePHistory#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+:p5b3e2500d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the switch position over time according to Pset_SwitchingDeviceTypeCommon.SetPoint." ;
+        rdfs:label                "SetPoint" ;
+        IFC4-PSD:definition       "Indicates the switch position over time according to Pset_SwitchingDeviceTypeCommon.SetPoint." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5b3e2500d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPoint" ;
+        IFC4-PSD:nameAlias        "Set Point"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SetPoint  a                rdf:Property ;
+        rdfs:seeAlso        :p5b3e2500d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPoint .
 
 :Pset_SwitchingDeviceTypePHistory
         a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Indicates switch positions or levels over time, such as for energy management or surveillance." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypePHistory" ;
         IFC4-PSD:applicableClass      IFC4:IfcSwitchingDevice ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice" ;
         IFC4-PSD:definition           "Indicates switch positions or levels over time, such as for energy management or surveillance." ;
@@ -25,17 +36,7 @@
         IFC4-PSD:name                 "Pset_SwitchingDeviceTypePHistory" ;
         IFC4-PSD:propertyDef          :p5b3e2500d20e11e1800000215ad4efdf .
 
-:SetPoint  a                rdf:Property ;
-        rdfs:seeAlso        :p5b3e2500d20e11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SetPoint .
-
-:p5b3e2500d20e11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indicates the switch position over time according to Pset_SwitchingDeviceTypeCommon.SetPoint." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "5b3e2500d20e11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SetPoint" ;
-        IFC4-PSD:nameAlias        "Set Point"@en ;
-        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
-                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
-                                  ] .
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,16 +1,14 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SoundGeneration
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SoundGeneration> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SoundGeneration#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SoundGeneration#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :Pset_SoundGeneration
         a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common definition to capture the properties of sound typically used within the context of building services and flow distribution systems.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
+        rdfs:label                    "Pset_SoundGeneration" ;
         IFC4-PSD:applicableClass      IFC4:IfcDistributionFlowElement ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionFlowElement" ;
         IFC4-PSD:definition           "Common definition to capture the properties of sound typically used within the context of building services and flow distribution systems.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
@@ -21,17 +19,20 @@
         IFC4-PSD:name                 "Pset_SoundGeneration" ;
         IFC4-PSD:propertyDef          :p8faee280d20811e1800000215ad4efdf .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SoundGeneration>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p8faee280d20811e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table of sound frequencies and sound power measured in decibels at a reference power of 1 picowatt(10^(-12) watt) for the referenced octave band frequency." ;
+        rdfs:label                "SoundCurve" ;
         IFC4-PSD:definition       "Table of sound frequencies and sound power measured in decibels at a reference power of 1 picowatt(10^(-12) watt) for the referenced octave band frequency." ;
-        IFC4-PSD:definitionAlias  "オクターブバンド1pW（10^(-12)の音の強さを基準とする音の周波数とデシベル単位で計測した音のエネルギーの一覧表。"@ja-JP , "옥타브 밴드 1pW (10 ^ (-12) 소리의 강도를 기준으로하는 소리의 주파수와 데시벨 단위로 측정하는 소리 에너지의 목록."@ko-KR , ""@en ;
+        IFC4-PSD:definitionAlias  ""@en , "옥타브 밴드 1pW (10 ^ (-12) 소리의 강도를 기준으로하는 소리의 주파수와 데시벨 단위로 측정하는 소리 에너지의 목록."@ko-KR , "オクターブバンド1pW（10^(-12)の音の強さを基準とする音の周波数とデシベル単位で計測した音のエネルギーの一覧表。"@ja-JP ;
         IFC4-PSD:ifdguid          "8faee280d20811e1800000215ad4efdf" ;
         IFC4-PSD:name             "SoundCurve" ;
-        IFC4-PSD:nameAlias        "Sound Curve"@en , "음향곡성"@ko-KR , "音響（騒音？）曲線"@ja-JP ;
+        IFC4-PSD:nameAlias        "Sound Curve"@en , "音響（騒音？）曲線"@ja-JP , "음향곡성"@ko-KR ;
         IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
                                     IFC4-PSD:definedValue   IFC4:IfcSoundPowerMeasure ;
                                     IFC4-PSD:definingValue  IFC4:IfcFrequencyMeasure

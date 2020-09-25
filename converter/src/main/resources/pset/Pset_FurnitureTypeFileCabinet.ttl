@@ -1,24 +1,14 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeFileCabinet
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeFileCabinet> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_FurnitureTypeFileCabinet#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FurnitureTypeFileCabinet#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
-
-:WithLock  a                rdf:Property ;
-        rdfs:seeAlso        :p38e5e080d1e911e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:WithLock .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :p38e5e080d1e911e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the file cabinet is lockable (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "WithLock" ;
         IFC4-PSD:definition       "Indicates whether the file cabinet is lockable (= TRUE) or not (= FALSE)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "38e5e080d1e911e1800000215ad4efdf" ;
@@ -28,9 +18,16 @@
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FurnitureTypeFileCabinet>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
 :Pset_FurnitureTypeFileCabinet
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcFurniture/FILECABINET> ;
+        rdfs:comment                  "A set of specific properties for furniture type file cabinet HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FileCabinet" ;
+        rdfs:label                    "Pset_FurnitureTypeFileCabinet" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFurniture/FILECABINET> ;
         IFC4-PSD:applicableTypeValue  "IfcFurniture/FILECABINET" ;
         IFC4-PSD:definition           "A set of specific properties for furniture type file cabinet HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FileCabinet" ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -39,3 +36,7 @@
                                       ] ;
         IFC4-PSD:name                 "Pset_FurnitureTypeFileCabinet" ;
         IFC4-PSD:propertyDef          :p38e5e080d1e911e1800000215ad4efdf .
+
+:WithLock  a                rdf:Property ;
+        rdfs:seeAlso        :p38e5e080d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WithLock .

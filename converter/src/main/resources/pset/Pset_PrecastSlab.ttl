@@ -1,14 +1,66 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastSlab
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastSlab> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastSlab#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PrecastSlab#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+
+:p5456e880d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal overall thickness of the slab." ;
+        rdfs:label                "NominalThickness" ;
+        IFC4-PSD:definition       "The nominal overall thickness of the slab." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5456e880d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalThickness" ;
+        IFC4-PSD:nameAlias        "Nominal Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:EdgeDistanceToFirstAxis
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3c7f6480d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EdgeDistanceToFirstAxis .
+
+:Pset_PrecastSlab  a                  IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Layout and component information defining how prestressed slab components are laid out in a precast slab assembly. The values are global defaults for the slab as a whole, but can be overridden by local placements of the individual com" ;
+        rdfs:label                    "Pset_PrecastSlab" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSlab ;
+        IFC4-PSD:applicableTypeValue  "IfcSlab" ;
+        IFC4-PSD:definition           "Layout and component information defining how prestressed slab components are laid out in a precast slab assembly. The values are global defaults for the slab as a whole, but can be overridden by local placements of the individual com" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PrecastSlab" ;
+        IFC4-PSD:propertyDef          :p2ffb0c00d1f511e1800000215ad4efdf , :p3c7f6480d1f511e1800000215ad4efdf , :p5b7df680d1f511e1800000215ad4efdf , :p5456e880d1f511e1800000215ad4efdf , :p4a34ea00d1f511e1800000215ad4efdf , :p36898380d1f511e1800000215ad4efdf , :p430ddc00d1f511e1800000215ad4efdf , :p4ef99e00d1f511e1800000215ad4efdf .
+
+:p4a34ea00d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle of rotation of the axis of the first component relative to the ‘West’ edge of the slab." ;
+        rdfs:label                "AngleToFirstAxis" ;
+        IFC4-PSD:definition       "The angle of rotation of the axis of the first component relative to the ‘West’ edge of the slab." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4a34ea00d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AngleToFirstAxis" ;
+        IFC4-PSD:nameAlias        "Angle To First Axis"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:NominalThickness  a        rdf:Property ;
+        rdfs:seeAlso        :p5456e880d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalThickness .
+
+:AngleToFirstAxis  a        rdf:Property ;
+        rdfs:seeAlso        :p4a34ea00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AngleToFirstAxis .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PrecastSlab>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :DistanceBetweenComponentAxes
         a                   rdf:Property ;
@@ -17,6 +69,8 @@
 
 :p36898380d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines if a topping is applied and what kind. Values are “Full topping”, “Perimeter Wash”, “None”" ;
+        rdfs:label                "ToppingType" ;
         IFC4-PSD:definition       "Defines if a topping is applied and what kind. Values are “Full topping”, “Perimeter Wash”, “None”" ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "36898380d1f511e1800000215ad4efdf" ;
@@ -28,6 +82,8 @@
 
 :p430ddc00d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The distance between the axes of the components, measured along the ‘South’ edge of the slab." ;
+        rdfs:label                "DistanceBetweenComponentAxes" ;
         IFC4-PSD:definition       "The distance between the axes of the components, measured along the ‘South’ edge of the slab." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "430ddc00d1f511e1800000215ad4efdf" ;
@@ -37,14 +93,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-:AngleToFirstAxis  a        rdf:Property ;
-        rdfs:seeAlso        :p4a34ea00d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:AngleToFirstAxis .
-
-:AngleBetweenComponentAxes
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p4ef99e00d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:AngleBetweenComponentAxes .
+:TypeDesignator  a          rdf:Property ;
+        rdfs:seeAlso        :p2ffb0c00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TypeDesignator .
 
 :ToppingType  a             rdf:Property ;
         rdfs:seeAlso        :p36898380d1f511e1800000215ad4efdf ;
@@ -52,6 +103,8 @@
 
 :p4ef99e00d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle between the axes of each pair of components." ;
+        rdfs:label                "AngleBetweenComponentAxes" ;
         IFC4-PSD:definition       "The angle between the axes of each pair of components." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "4ef99e00d1f511e1800000215ad4efdf" ;
@@ -61,80 +114,20 @@
                                     IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
                                   ] .
 
-:p5b7df680d1f511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The nominal thickness of the topping." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "5b7df680d1f511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalToppingThickness" ;
-        IFC4-PSD:nameAlias        "Nominal Topping Thickness"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
-:p5456e880d1f511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The nominal overall thickness of the slab." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "5456e880d1f511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalThickness" ;
-        IFC4-PSD:nameAlias        "Nominal Thickness"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
-:Pset_PrecastSlab  a                  IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      IFC4:IfcSlab ;
-        IFC4-PSD:applicableTypeValue  "IfcSlab" ;
-        IFC4-PSD:definition           "Layout and component information defining how prestressed slab components are laid out in a precast slab assembly. The values are global defaults for the slab as a whole, but can be overridden by local placements of the individual com" ;
-        IFC4-PSD:definitionAlias      ""@en ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_PrecastSlab" ;
-        IFC4-PSD:propertyDef          :p2ffb0c00d1f511e1800000215ad4efdf , :p5b7df680d1f511e1800000215ad4efdf , :p5456e880d1f511e1800000215ad4efdf , :p3c7f6480d1f511e1800000215ad4efdf , :p4a34ea00d1f511e1800000215ad4efdf , :p4ef99e00d1f511e1800000215ad4efdf , :p430ddc00d1f511e1800000215ad4efdf , :p36898380d1f511e1800000215ad4efdf .
-
 :NominalToppingThickness
         a                   rdf:Property ;
         rdfs:seeAlso        :p5b7df680d1f511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:NominalToppingThickness .
 
-:NominalThickness  a        rdf:Property ;
-        rdfs:seeAlso        :p5456e880d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalThickness .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
-
-:TypeDesignator  a          rdf:Property ;
-        rdfs:seeAlso        :p2ffb0c00d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:TypeDesignator .
-
-:p4a34ea00d1f511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The angle of rotation of the axis of the first component relative to the ‘West’ edge of the slab." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "4a34ea00d1f511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "AngleToFirstAxis" ;
-        IFC4-PSD:nameAlias        "Angle To First Axis"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
-                                  ] .
-
-:p3c7f6480d1f511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The distance from the left (‘West’) edge of the slab (in the direction of span of the components) to the axis of the first component." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "3c7f6480d1f511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "EdgeDistanceToFirstAxis" ;
-        IFC4-PSD:nameAlias        "Edge Distance To First Axis"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
+:AngleBetweenComponentAxes
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4ef99e00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AngleBetweenComponentAxes .
 
 :p2ffb0c00d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type designator for the precast concrete slab, expressing mainly the component type. Possible values are “Hollow-core”, “Double-tee”, “Flat plank”, etc." ;
+        rdfs:label                "TypeDesignator" ;
         IFC4-PSD:definition       "Type designator for the precast concrete slab, expressing mainly the component type. Possible values are “Hollow-core”, “Double-tee”, “Flat plank”, etc." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "2ffb0c00d1f511e1800000215ad4efdf" ;
@@ -144,7 +137,28 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-:EdgeDistanceToFirstAxis
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p3c7f6480d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:EdgeDistanceToFirstAxis .
+:p3c7f6480d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The distance from the left (‘West’) edge of the slab (in the direction of span of the components) to the axis of the first component." ;
+        rdfs:label                "EdgeDistanceToFirstAxis" ;
+        IFC4-PSD:definition       "The distance from the left (‘West’) edge of the slab (in the direction of span of the components) to the axis of the first component." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3c7f6480d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EdgeDistanceToFirstAxis" ;
+        IFC4-PSD:nameAlias        "Edge Distance To First Axis"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p5b7df680d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal thickness of the topping." ;
+        rdfs:label                "NominalToppingThickness" ;
+        IFC4-PSD:definition       "The nominal thickness of the topping." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5b7df680d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalToppingThickness" ;
+        IFC4-PSD:nameAlias        "Nominal Topping Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

@@ -1,173 +1,14 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CooledBeamTypeCommon
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CooledBeamTypeCommon> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_CooledBeamTypeCommon#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CooledBeamTypeCommon#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
-
-:p3a0a1400d1cf11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Length of coil." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "3a0a1400d1cf11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "CoilLength" ;
-        IFC4-PSD:nameAlias        "Coil Length"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
-:NominalCoolingCapacity
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pdbdd3100d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalCoolingCapacity .
-
-:p34acc980d1cf11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Finish color for cooled beam." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "34acc980d1cf11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "FinishColor" ;
-        IFC4-PSD:nameAlias        "Finish Color"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcLabel
-                                  ] .
-
-:p1050ed00d1cf11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal water flow (refers to nominal heating capacity)." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "1050ed00d1cf11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalWaterFlowHeating" ;
-        IFC4-PSD:nameAlias        "Nominal Water Flow Heating"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
-                                  ] .
-
-:IsFreeHanging  a           rdf:Property ;
-        rdfs:seeAlso        :pbfd98f80d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:IsFreeHanging .
-
-:pf0b9c480d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal return water temperature (refers to nominal cooling capacity)." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "f0b9c480d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalReturnWaterTemperatureCooling" ;
-        IFC4-PSD:nameAlias        "Nominal Return Water Temperature Cooling"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
-                                  ] .
-
-:pc536da00d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Factory fitted waterflow control system." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "c536da00d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "WaterFlowControlSystemType" ;
-        IFC4-PSD:nameAlias        "Water Flow Control System Type"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
-                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "3WAYVALVE" , "2WAYVALVE" , "ONOFFVALVE" , "NONE"
-                                  ] .
-
-:NominalSupplyWaterTemperatureCooling
-        a                   rdf:Property ;
-        rdfs:seeAlso        :peb5c7a00d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyWaterTemperatureCooling .
-
-:p0af3a280d1cf11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal return water temperature (refers to nominal heating capacity)." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "0af3a280d1cf11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalReturnWaterTemperatureHeating" ;
-        IFC4-PSD:nameAlias        "Nominal Return Water Temperature Heating"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
-                                  ] .
-
-:PipeConnection  a          rdf:Property ;
-        rdfs:seeAlso        :p25c61700d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:PipeConnection .
-
-:Reference  a               rdf:Property ;
-        rdfs:seeAlso        :paafcfc00d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Reference .
-
-:p25c61700d1cf11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The manner in which the pipe connection is made to the cooled beam." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "25c61700d1cf11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "PipeConnection" ;
-        IFC4-PSD:nameAlias        "Pipe Connection Enum"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
-                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TOP" , "LEFT" , "RIGHT" , "STRAIGHT"
-                                  ] .
-
-:WaterFlowControlSystemType
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pc536da00d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:WaterFlowControlSystemType .
-
-:paafcfc00d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
-        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "aafcfc00d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "Reference" ;
-        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
-                                  ] .
-
-:NominalWaterFlowCooling
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pf6170f00d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalWaterFlowCooling .
-
-:NominalHeatingCapacity
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pfc0cf000d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalHeatingCapacity .
-
-:pdbdd3100d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal cooling capacity." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "dbdd3100d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalCoolingCapacity" ;
-        IFC4-PSD:nameAlias        "Nominal Cooling Capacity"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
-                                  ] .
-
-:pe1d31200d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal surrounding temperature (refers to nominal cooling capacity)." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "e1d31200d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalSurroundingTemperatureCooling" ;
-        IFC4-PSD:nameAlias        "Nominal Surrounding Temperature Cooling"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
-                                  ] .
-
-:NominalSurroundingHumidityCooling
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pe697c600d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalSurroundingHumidityCooling .
-
-:NominalSupplyWaterTemperatureHeating
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p062eee80d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyWaterTemperatureHeating .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
 :pd54eb980d1ce11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable water circuit working pressure range." ;
+        rdfs:label                "WaterPressureRange" ;
         IFC4-PSD:definition       "Allowable water circuit working pressure range." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "d54eb980d1ce11e1800000215ad4efdf" ;
@@ -179,6 +20,8 @@
 
 :pf6170f00d1ce11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal water flow (refers to nominal cooling capacity)." ;
+        rdfs:label                "NominalWaterFlowCooling" ;
         IFC4-PSD:definition       "Nominal water flow (refers to nominal cooling capacity)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "f6170f00d1ce11e1800000215ad4efdf" ;
@@ -190,6 +33,8 @@
 
 :pfc0cf000d1ce11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal heating capacity." ;
+        rdfs:label                "NominalHeatingCapacity" ;
         IFC4-PSD:definition       "Nominal heating capacity." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "fc0cf000d1ce11e1800000215ad4efdf" ;
@@ -199,56 +44,62 @@
                                     IFC4-PSD:dataType  IFC4:IfcPowerMeasure
                                   ] .
 
-:NominalWaterFlowHeating
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p1050ed00d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalWaterFlowHeating .
-
-:pe697c600d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Nominal surrounding humidity (refers to nominal cooling capacity)." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "e697c600d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "NominalSurroundingHumidityCooling" ;
-        IFC4-PSD:nameAlias        "Nominal Surrounding Humidity Cooling"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
-                                  ] .
-
-:NominalSurroundingTemperatureCooling
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pe1d31200d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:NominalSurroundingTemperatureCooling .
+:Pset_CooledBeamTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Cooled beam common attributes.\nSoundLevel and SoundAttenuation attributes deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_CooledBeamTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCooledBeam ;
+        IFC4-PSD:applicableTypeValue  "IfcCooledBeam" ;
+        IFC4-PSD:definition           "Cooled beam common attributes.\nSoundLevel and SoundAttenuation attributes deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CooledBeamTypeCommon" ;
+        IFC4-PSD:propertyDef          :peb5c7a00d1ce11e1800000215ad4efdf , :pe697c600d1ce11e1800000215ad4efdf , :p016a3a80d1cf11e1800000215ad4efdf , :p0af3a280d1cf11e1800000215ad4efdf , :paafcfc00d1ce11e1800000215ad4efdf , :p062eee80d1cf11e1800000215ad4efdf , :pdbdd3100d1ce11e1800000215ad4efdf , :pf6170f00d1ce11e1800000215ad4efdf , :pf0b9c480d1ce11e1800000215ad4efdf , :pb05a4680d1ce11e1800000215ad4efdf , :pfc0cf000d1ce11e1800000215ad4efdf , :pbfd98f80d1ce11e1800000215ad4efdf , :p3a0a1400d1cf11e1800000215ad4efdf , :p34acc980d1cf11e1800000215ad4efdf , :p15ae3780d1cf11e1800000215ad4efdf , :p1050ed00d1cf11e1800000215ad4efdf , :pd54eb980d1ce11e1800000215ad4efdf , :pe1d31200d1ce11e1800000215ad4efdf , :p3ecec800d1cf11e1800000215ad4efdf , :pc536da00d1ce11e1800000215ad4efdf , :p25c61700d1cf11e1800000215ad4efdf .
 
 :p15ae3780d1cf11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Integrated lighting in cooled beam." ;
+        rdfs:label                "IntegratedLightingType" ;
         IFC4-PSD:definition       "Integrated lighting in cooled beam." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "15ae3780d1cf11e1800000215ad4efdf" ;
         IFC4-PSD:name             "IntegratedLightingType" ;
         IFC4-PSD:nameAlias        "Integrated Lighting Type"@en ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
-                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "DIRECTANDINDIRECT" , "INDIRECT" , "DIRECT" , "NONE"
+                                    IFC4-PSD:enumItem  "NONE" , "DIRECT" , "INDIRECT" , "DIRECTANDINDIRECT" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
 :pb05a4680d1ce11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
         IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
-        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
         IFC4-PSD:ifdguid          "b05a4680d1ce11e1800000215ad4efdf" ;
         IFC4-PSD:name             "Status" ;
-        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
-                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "OTHER" , "TEMPORARY" , "DEMOLISH" , "EXISTING" , "NEW"
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
-:CoilLength  a              rdf:Property ;
-        rdfs:seeAlso        :p3a0a1400d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:CoilLength .
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :paafcfc00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
 
-:CoilWidth  a               rdf:Property ;
-        rdfs:seeAlso        :p3ecec800d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:CoilWidth .
+:pbfd98f80d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Is it free hanging type (not mounted in a false ceiling)?" ;
+        rdfs:label                "IsFreeHanging" ;
+        IFC4-PSD:definition       "Is it free hanging type (not mounted in a false ceiling)?" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bfd98f80d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsFreeHanging" ;
+        IFC4-PSD:nameAlias        "Is Free Hanging"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
 
 :NominalReturnWaterTemperatureCooling
         a                   rdf:Property ;
@@ -257,6 +108,8 @@
 
 :p016a3a80d1cf11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal surrounding temperature (refers to nominal heating capacity)." ;
+        rdfs:label                "NominalSurroundingTemperatureHeating" ;
         IFC4-PSD:definition       "Nominal surrounding temperature (refers to nominal heating capacity)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "016a3a80d1cf11e1800000215ad4efdf" ;
@@ -265,10 +118,6 @@
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
                                   ] .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :NominalSurroundingTemperatureHeating
         a                   rdf:Property ;
@@ -279,12 +128,14 @@
         rdfs:seeAlso        :pb05a4680d1ce11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Status .
 
-:FinishColor  a             rdf:Property ;
-        rdfs:seeAlso        :p34acc980d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:FinishColor .
+:PipeConnection  a          rdf:Property ;
+        rdfs:seeAlso        :p25c61700d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PipeConnection .
 
 :p3ecec800d1cf11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Width of coil." ;
+        rdfs:label                "CoilWidth" ;
         IFC4-PSD:definition       "Width of coil." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "3ecec800d1cf11e1800000215ad4efdf" ;
@@ -294,28 +145,20 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-:WaterPressureRange  a      rdf:Property ;
-        rdfs:seeAlso        :pd54eb980d1ce11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:WaterPressureRange .
+:IntegratedLightingType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p15ae3780d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IntegratedLightingType .
 
 :NominalReturnWaterTemperatureHeating
         a                   rdf:Property ;
         rdfs:seeAlso        :p0af3a280d1cf11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:NominalReturnWaterTemperatureHeating .
 
-:pbfd98f80d1ce11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Is it free hanging type (not mounted in a false ceiling)?" ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "bfd98f80d1ce11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "IsFreeHanging" ;
-        IFC4-PSD:nameAlias        "Is Free Hanging"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcBoolean
-                                  ] .
-
 :peb5c7a00d1ce11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal supply water temperature (refers to nominal cooling capacity)." ;
+        rdfs:label                "NominalSupplyWaterTemperatureCooling" ;
         IFC4-PSD:definition       "Nominal supply water temperature (refers to nominal cooling capacity)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "eb5c7a00d1ce11e1800000215ad4efdf" ;
@@ -325,13 +168,42 @@
                                     IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
                                   ] .
 
-:IntegratedLightingType
+:NominalWaterFlowCooling
         a                   rdf:Property ;
-        rdfs:seeAlso        :p15ae3780d1cf11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:IntegratedLightingType .
+        rdfs:seeAlso        :pf6170f00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWaterFlowCooling .
+
+:pf0b9c480d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal return water temperature (refers to nominal cooling capacity)." ;
+        rdfs:label                "NominalReturnWaterTemperatureCooling" ;
+        IFC4-PSD:definition       "Nominal return water temperature (refers to nominal cooling capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f0b9c480d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalReturnWaterTemperatureCooling" ;
+        IFC4-PSD:nameAlias        "Nominal Return Water Temperature Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:CoilWidth  a               rdf:Property ;
+        rdfs:seeAlso        :p3ecec800d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilWidth .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CooledBeamTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WaterFlowControlSystemType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc536da00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterFlowControlSystemType .
 
 :p062eee80d1cf11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal supply water temperature (refers to nominal heating capacity)." ;
+        rdfs:label                "NominalSupplyWaterTemperatureHeating" ;
         IFC4-PSD:definition       "Nominal supply water temperature (refers to nominal heating capacity)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "062eee80d1cf11e1800000215ad4efdf" ;
@@ -341,14 +213,183 @@
                                     IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
                                   ] .
 
-:Pset_CooledBeamTypeCommon
-        a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      IFC4:IfcCooledBeam ;
-        IFC4-PSD:applicableTypeValue  "IfcCooledBeam" ;
-        IFC4-PSD:definition           "Cooled beam common attributes.\nSoundLevel and SoundAttenuation attributes deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
-        IFC4-PSD:definitionAlias      ""@en ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_CooledBeamTypeCommon" ;
-        IFC4-PSD:propertyDef          :pdbdd3100d1ce11e1800000215ad4efdf , :pf6170f00d1ce11e1800000215ad4efdf , :p062eee80d1cf11e1800000215ad4efdf , :p15ae3780d1cf11e1800000215ad4efdf , :pc536da00d1ce11e1800000215ad4efdf , :pbfd98f80d1ce11e1800000215ad4efdf , :p34acc980d1cf11e1800000215ad4efdf , :pfc0cf000d1ce11e1800000215ad4efdf , :p016a3a80d1cf11e1800000215ad4efdf , :pe697c600d1ce11e1800000215ad4efdf , :p3a0a1400d1cf11e1800000215ad4efdf , :pe1d31200d1ce11e1800000215ad4efdf , :pf0b9c480d1ce11e1800000215ad4efdf , :peb5c7a00d1ce11e1800000215ad4efdf , :p25c61700d1cf11e1800000215ad4efdf , :paafcfc00d1ce11e1800000215ad4efdf , :p0af3a280d1cf11e1800000215ad4efdf , :pd54eb980d1ce11e1800000215ad4efdf , :p3ecec800d1cf11e1800000215ad4efdf , :p1050ed00d1cf11e1800000215ad4efdf , :pb05a4680d1ce11e1800000215ad4efdf .
+:CoilLength  a              rdf:Property ;
+        rdfs:seeAlso        :p3a0a1400d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilLength .
+
+:p3a0a1400d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of coil." ;
+        rdfs:label                "CoilLength" ;
+        IFC4-PSD:definition       "Length of coil." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3a0a1400d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilLength" ;
+        IFC4-PSD:nameAlias        "Coil Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p34acc980d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Finish color for cooled beam." ;
+        rdfs:label                "FinishColor" ;
+        IFC4-PSD:definition       "Finish color for cooled beam." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "34acc980d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FinishColor" ;
+        IFC4-PSD:nameAlias        "Finish Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:paafcfc00d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "aafcfc00d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p1050ed00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal water flow (refers to nominal heating capacity)." ;
+        rdfs:label                "NominalWaterFlowHeating" ;
+        IFC4-PSD:definition       "Nominal water flow (refers to nominal heating capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1050ed00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWaterFlowHeating" ;
+        IFC4-PSD:nameAlias        "Nominal Water Flow Heating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:NominalWaterFlowHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1050ed00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWaterFlowHeating .
+
+:FinishColor  a             rdf:Property ;
+        rdfs:seeAlso        :p34acc980d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FinishColor .
+
+:NominalCoolingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdbdd3100d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCoolingCapacity .
+
+:NominalSurroundingHumidityCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe697c600d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSurroundingHumidityCooling .
+
+:NominalHeatingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfc0cf000d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeatingCapacity .
+
+:NominalSupplyWaterTemperatureCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peb5c7a00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyWaterTemperatureCooling .
+
+:pc536da00d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Factory fitted waterflow control system." ;
+        rdfs:label                "WaterFlowControlSystemType" ;
+        IFC4-PSD:definition       "Factory fitted waterflow control system." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c536da00d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterFlowControlSystemType" ;
+        IFC4-PSD:nameAlias        "Water Flow Control System Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "ONOFFVALVE" , "2WAYVALVE" , "3WAYVALVE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p0af3a280d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal return water temperature (refers to nominal heating capacity)." ;
+        rdfs:label                "NominalReturnWaterTemperatureHeating" ;
+        IFC4-PSD:definition       "Nominal return water temperature (refers to nominal heating capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0af3a280d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalReturnWaterTemperatureHeating" ;
+        IFC4-PSD:nameAlias        "Nominal Return Water Temperature Heating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:NominalSurroundingTemperatureCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe1d31200d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSurroundingTemperatureCooling .
+
+:pe697c600d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal surrounding humidity (refers to nominal cooling capacity)." ;
+        rdfs:label                "NominalSurroundingHumidityCooling" ;
+        IFC4-PSD:definition       "Nominal surrounding humidity (refers to nominal cooling capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e697c600d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSurroundingHumidityCooling" ;
+        IFC4-PSD:nameAlias        "Nominal Surrounding Humidity Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p25c61700d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The manner in which the pipe connection is made to the cooled beam." ;
+        rdfs:label                "PipeConnection" ;
+        IFC4-PSD:definition       "The manner in which the pipe connection is made to the cooled beam." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "25c61700d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PipeConnection" ;
+        IFC4-PSD:nameAlias        "Pipe Connection Enum"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "STRAIGHT" , "RIGHT" , "LEFT" , "TOP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:IsFreeHanging  a           rdf:Property ;
+        rdfs:seeAlso        :pbfd98f80d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsFreeHanging .
+
+:WaterPressureRange  a      rdf:Property ;
+        rdfs:seeAlso        :pd54eb980d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterPressureRange .
+
+:pdbdd3100d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal cooling capacity." ;
+        rdfs:label                "NominalCoolingCapacity" ;
+        IFC4-PSD:definition       "Nominal cooling capacity." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "dbdd3100d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCoolingCapacity" ;
+        IFC4-PSD:nameAlias        "Nominal Cooling Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:NominalSupplyWaterTemperatureHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p062eee80d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyWaterTemperatureHeating .
+
+:pe1d31200d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal surrounding temperature (refers to nominal cooling capacity)." ;
+        rdfs:label                "NominalSurroundingTemperatureCooling" ;
+        IFC4-PSD:definition       "Nominal surrounding temperature (refers to nominal cooling capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e1d31200d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSurroundingTemperatureCooling" ;
+        IFC4-PSD:nameAlias        "Nominal Surrounding Temperature Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .

@@ -1,28 +1,52 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWood
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWood> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialWood#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialWood#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+:MoistureContent  a         rdf:Property ;
+        rdfs:seeAlso        :p67b28580d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MoistureContent .
 
-:Layers  a                  rdf:Property ;
-        rdfs:seeAlso        :p5f5a4a80d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Layers .
+:Pset_MaterialWood  a                 IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "This is a collection of properties applicable to wood-based materials that specify kind and grade of material as well as moisture related parameters." ;
+        rdfs:label                    "Pset_MaterialWood" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcMaterial/Wood> ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial/Wood" ;
+        IFC4-PSD:definition           "This is a collection of properties applicable to wood-based materials that specify kind and grade of material as well as moisture related parameters." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialWood" ;
+        IFC4-PSD:propertyDef          :p494c8a00d1ee11e1800000215ad4efdf , :p6bdea300d1ee11e1800000215ad4efdf , :p70a35700d1ee11e1800000215ad4efdf , :p63866800d1ee11e1800000215ad4efdf , :p54071f00d1ee11e1800000215ad4efdf , :p5f5a4a80d1ee11e1800000215ad4efdf , :p4ea9d480d1ee11e1800000215ad4efdf , :p59646980d1ee11e1800000215ad4efdf , :p67b28580d1ee11e1800000215ad4efdf .
 
-:Species  a                 rdf:Property ;
-        rdfs:seeAlso        :p494c8a00d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Species .
+:StrengthGrade  a           rdf:Property ;
+        rdfs:seeAlso        :p4ea9d480d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StrengthGrade .
+
+:AppearanceGrade  a         rdf:Property ;
+        rdfs:seeAlso        :p54071f00d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AppearanceGrade .
+
+:Layup  a                   rdf:Property ;
+        rdfs:seeAlso        :p59646980d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Layup .
+
+:DimensionalChangeCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6bdea300d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DimensionalChangeCoefficient .
+
+:ThicknessSwelling  a       rdf:Property ;
+        rdfs:seeAlso        :p70a35700d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThicknessSwelling .
 
 :p4ea9d480d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Grade with respect to mechanical strength and stiffness." ;
+        rdfs:label                "StrengthGrade" ;
         IFC4-PSD:definition       "Grade with respect to mechanical strength and stiffness." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "4ea9d480d1ee11e1800000215ad4efdf" ;
@@ -34,6 +58,8 @@
 
 :p59646980d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Configuration of the lamination." ;
+        rdfs:label                "Layup" ;
         IFC4-PSD:definition       "Configuration of the lamination." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "59646980d1ee11e1800000215ad4efdf" ;
@@ -45,6 +71,8 @@
 
 :p5f5a4a80d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of layers." ;
+        rdfs:label                "Layers" ;
         IFC4-PSD:definition       "Number of layers." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "5f5a4a80d1ee11e1800000215ad4efdf" ;
@@ -56,6 +84,8 @@
 
 :p494c8a00d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Wood species of a solid wood or laminated wood product." ;
+        rdfs:label                "Species" ;
         IFC4-PSD:definition       "Wood species of a solid wood or laminated wood product." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "494c8a00d1ee11e1800000215ad4efdf" ;
@@ -65,8 +95,15 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialWood>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
 :p70a35700d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Swelling ratio relative to board depth." ;
+        rdfs:label                "ThicknessSwelling" ;
         IFC4-PSD:definition       "Swelling ratio relative to board depth." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "70a35700d1ee11e1800000215ad4efdf" ;
@@ -80,12 +117,10 @@
         rdfs:seeAlso        :p63866800d1ee11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Plies .
 
-:StrengthGrade  a           rdf:Property ;
-        rdfs:seeAlso        :p4ea9d480d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:StrengthGrade .
-
 :p67b28580d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total weight of moisture relative to oven-dried weight of the wood." ;
+        rdfs:label                "MoistureContent" ;
         IFC4-PSD:definition       "Total weight of moisture relative to oven-dried weight of the wood." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "67b28580d1ee11e1800000215ad4efdf" ;
@@ -97,6 +132,8 @@
 
 :p6bdea300d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Weighted dimensional change coefficient, relative to 1% change in moisture content." ;
+        rdfs:label                "DimensionalChangeCoefficient" ;
         IFC4-PSD:definition       "Weighted dimensional change coefficient, relative to 1% change in moisture content." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "6bdea300d1ee11e1800000215ad4efdf" ;
@@ -108,6 +145,8 @@
 
 :p63866800d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of plies." ;
+        rdfs:label                "Plies" ;
         IFC4-PSD:definition       "Number of plies." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "63866800d1ee11e1800000215ad4efdf" ;
@@ -117,23 +156,10 @@
                                     IFC4-PSD:dataType  IFC4:IfcInteger
                                   ] .
 
-:AppearanceGrade  a         rdf:Property ;
-        rdfs:seeAlso        :p54071f00d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:AppearanceGrade .
-
-:Pset_MaterialWood  a                 IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcMaterial/Wood> ;
-        IFC4-PSD:applicableTypeValue  "IfcMaterial/Wood" ;
-        IFC4-PSD:definition           "This is a collection of properties applicable to wood-based materials that specify kind and grade of material as well as moisture related parameters." ;
-        IFC4-PSD:definitionAlias      ""@en ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_MaterialWood" ;
-        IFC4-PSD:propertyDef          :p4ea9d480d1ee11e1800000215ad4efdf , :p5f5a4a80d1ee11e1800000215ad4efdf , :p494c8a00d1ee11e1800000215ad4efdf , :p6bdea300d1ee11e1800000215ad4efdf , :p54071f00d1ee11e1800000215ad4efdf , :p63866800d1ee11e1800000215ad4efdf , :p67b28580d1ee11e1800000215ad4efdf , :p70a35700d1ee11e1800000215ad4efdf , :p59646980d1ee11e1800000215ad4efdf .
-
 :p54071f00d1ee11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Grade with respect to visual quality." ;
+        rdfs:label                "AppearanceGrade" ;
         IFC4-PSD:definition       "Grade with respect to visual quality." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "54071f00d1ee11e1800000215ad4efdf" ;
@@ -143,19 +169,10 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-:DimensionalChangeCoefficient
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p6bdea300d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:DimensionalChangeCoefficient .
+:Layers  a                  rdf:Property ;
+        rdfs:seeAlso        :p5f5a4a80d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Layers .
 
-:ThicknessSwelling  a       rdf:Property ;
-        rdfs:seeAlso        :p70a35700d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ThicknessSwelling .
-
-:MoistureContent  a         rdf:Property ;
-        rdfs:seeAlso        :p67b28580d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:MoistureContent .
-
-:Layup  a                   rdf:Property ;
-        rdfs:seeAlso        :p59646980d1ee11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Layup .
+:Species  a                 rdf:Property ;
+        rdfs:seeAlso        :p494c8a00d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Species .

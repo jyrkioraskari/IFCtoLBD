@@ -1,25 +1,25 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-:TimeConstant  a            rdf:Property ;
-        rdfs:seeAlso        :p2c6f8100d20511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:TimeConstant .
+:AccuracyOfFireSensor
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2679a000d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccuracyOfFireSensor .
 
-:FireSensorSetPoint  a      rdf:Property ;
-        rdfs:seeAlso        :p2083bf00d20511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:FireSensorSetPoint .
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SensorTypeFireSensor
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#IfcSensor/FIRESENSOR> ;
+        rdfs:comment                  "A device that senses or detects the presence of fire." ;
+        rdfs:label                    "Pset_SensorTypeFireSensor" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSensor/FIRESENSOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSensor/FIRESENSOR" ;
         IFC4-PSD:definition           "A device that senses or detects the presence of fire." ;
         IFC4-PSD:definitionAlias      "炎の存在を感知または検出するデバイス"@ja-JP , ""@en ;
@@ -27,17 +27,44 @@
                                         IFC4-PSD:version  "IFC4"
                                       ] ;
         IFC4-PSD:name                 "Pset_SensorTypeFireSensor" ;
-        IFC4-PSD:propertyDef          :p2c6f8100d20511e1800000215ad4efdf , :p2083bf00d20511e1800000215ad4efdf , :p2679a000d20511e1800000215ad4efdf .
+        IFC4-PSD:propertyDef          :p2083bf00d20511e1800000215ad4efdf , :p2c6f8100d20511e1800000215ad4efdf , :p2679a000d20511e1800000215ad4efdf .
 
-:AccuracyOfFireSensor
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p2679a000d20511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:AccuracyOfFireSensor .
+:p2679a000d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The accuracy of the sensor." ;
+        rdfs:label                "AccuracyOfFireSensor" ;
+        IFC4-PSD:definition       "The accuracy of the sensor." ;
+        IFC4-PSD:definitionAlias  "센서의 정밀도."@ko-KR , ""@en , "センサの精度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2679a000d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccuracyOfFireSensor" ;
+        IFC4-PSD:nameAlias        "정확도"@ko-KR , "Accuracy Of Fire Sensor"@en , "精度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p2c6f8100d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The time constant of the sensor." ;
+        rdfs:label                "TimeConstant" ;
+        IFC4-PSD:definition       "The time constant of the sensor." ;
+        IFC4-PSD:definitionAlias  "センサの時定数。"@ja-JP , ""@en , "센서의 시정."@ko-KR ;
+        IFC4-PSD:ifdguid          "2c6f8100d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TimeConstant" ;
+        IFC4-PSD:nameAlias        "時定数"@ja-JP , "시정"@ko-KR , "Time Constant"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:FireSensorSetPoint  a      rdf:Property ;
+        rdfs:seeAlso        :p2083bf00d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireSensorSetPoint .
 
 :p2083bf00d20511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature value to be sensed to indicate the presence of fire." ;
+        rdfs:label                "FireSensorSetPoint" ;
         IFC4-PSD:definition       "The temperature value to be sensed to indicate the presence of fire." ;
-        IFC4-PSD:definitionAlias  ""@en , "炎の存在を示すために感知される温度値。"@ja-JP , "불꽃의 존재를 보여주기 위하여 감지되는 온도 값."@ko-KR ;
+        IFC4-PSD:definitionAlias  "炎の存在を示すために感知される温度値。"@ja-JP , ""@en , "불꽃의 존재를 보여주기 위하여 감지되는 온도 값."@ko-KR ;
         IFC4-PSD:ifdguid          "2083bf00d20511e1800000215ad4efdf" ;
         IFC4-PSD:name             "FireSensorSetPoint" ;
         IFC4-PSD:nameAlias        "感知温度"@ja-JP , "감지 온도"@ko-KR , "Fire Sensor Set Point"@en ;
@@ -45,28 +72,6 @@
                                     IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
                                   ] .
 
-:p2679a000d20511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The accuracy of the sensor." ;
-        IFC4-PSD:definitionAlias  "センサの精度。"@ja-JP , "센서의 정밀도."@ko-KR , ""@en ;
-        IFC4-PSD:ifdguid          "2679a000d20511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "AccuracyOfFireSensor" ;
-        IFC4-PSD:nameAlias        "Accuracy Of Fire Sensor"@en , "정확도"@ko-KR , "精度"@ja-JP ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
-                                  ] .
-
-:p2c6f8100d20511e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The time constant of the sensor." ;
-        IFC4-PSD:definitionAlias  "センサの時定数。"@ja-JP , "센서의 시정."@ko-KR , ""@en ;
-        IFC4-PSD:ifdguid          "2c6f8100d20511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "TimeConstant" ;
-        IFC4-PSD:nameAlias        "시정"@ko-KR , "Time Constant"@en , "時定数"@ja-JP ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
-                                  ] .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+:TimeConstant  a            rdf:Property ;
+        rdfs:seeAlso        :p2c6f8100d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TimeConstant .

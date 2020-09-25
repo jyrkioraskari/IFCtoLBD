@@ -1,94 +1,38 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastConcreteElementGeneral
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastConcreteElementGeneral> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_PrecastConcreteElementGeneral#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PrecastConcreteElementGeneral#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-:PieceMark  a               rdf:Property ;
-        rdfs:seeAlso        :p122da700d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:PieceMark .
-
-:paba88900d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The chamfer in the corners of the precast element. The chamfer is presumed to be equal in both directions." ;
-        IFC4-PSD:definitionAlias  "プレキャストコンクリート要素の面取り。面取りは両方向で等しいものとする。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "aba88900d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "CornerChamfer" ;
-        IFC4-PSD:nameAlias        "面取り"@ja-JP , "Corner Chamfer"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
-:pb4995a80d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Classification designation of the manufacturing tolerances according to local standards." ;
-        IFC4-PSD:definitionAlias  "ローカルな標準によるメーカーの認可分類。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "b4995a80d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ManufacturingToleranceClass" ;
-        IFC4-PSD:nameAlias        "メーカーの認可分類"@ja-JP , "Manufacturing Tolerance Class"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcLabel
-                                  ] .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
-
-:pc975ee00d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The minimum required compressive strength of the concrete when the tendon stress is released. This property applies to prestressed concrete elements only." ;
-        IFC4-PSD:definitionAlias  "緊張力が解放される時のコンクリートの最小必要圧縮強度。この属性はプレストレストコンクリート要素のみに適用される。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "c975ee00d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ReleaseStrength" ;
-        IFC4-PSD:nameAlias        "リリース強度"@ja-JP , "Release Strength"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
-                                  ] .
-
-:pbb27d200d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The minimum required compressive strength of the concrete at form stripping time." ;
-        IFC4-PSD:definitionAlias  "脱型時におけるコンクリートの最小必要圧縮強度。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "bb27d200d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "FormStrippingStrength" ;
-        IFC4-PSD:nameAlias        "脱型強度"@ja-JP , "Form Stripping Strength"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
-                                  ] .
-
-:pfb875000d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The angle, in radians, by which the formwork at the starting face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "fb875000d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "BatterAtStart" ;
-        IFC4-PSD:nameAlias        "Batter At Start"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
-                                  ] .
+:BatterAtEnd  a             rdf:Property ;
+        rdfs:seeAlso        :p00e49a80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BatterAtEnd .
 
 :SupportDuringTransportDocReference
         a                   rdf:Property ;
         rdfs:seeAlso        :ped393400d1f411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SupportDuringTransportDocReference .
 
-:CamberAtMidspan  a         rdf:Property ;
-        rdfs:seeAlso        :pf6c29c00d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:CamberAtMidspan .
+:ManufacturingToleranceClass
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb4995a80d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ManufacturingToleranceClass .
 
-:CornerChamfer  a           rdf:Property ;
-        rdfs:seeAlso        :paba88900d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:CornerChamfer .
+:PieceMark  a               rdf:Property ;
+        rdfs:seeAlso        :p122da700d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PieceMark .
+
+:SupportDuringTransportDescription
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe7435300d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupportDuringTransportDescription .
 
 :Pset_PrecastConcreteElementGeneral
         a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      IFC4:IfcStairFlight , IFC4:IfcWall , IFC4:IfcColumn , IFC4:IfcRampFlight , IFC4:IfcStair , IFC4:IfcPile , IFC4:IfcRoof , IFC4:IfcBeam , IFC4:IfcRamp , IFC4:IfcCivilElement , IFC4:IfcBuildingElementProxy , IFC4:IfcChimney , IFC4:IfcSlab , IFC4:IfcPlate , IFC4:IfcFooting , IFC4:IfcMember ;
+        rdfs:comment                  "Production and manufacturing related properties common to different types of precast concrete elements. The Pset can be used by a number of subtypes of IfcBuildingElement. If the precast concrete element is a sandwich wall panel each structural layer or shell represented by an IfcBuildingElementPart may be attached to a separate Pset of this type, if needed. Some of the properties apply only for specific types of precast concrete elements." ;
+        rdfs:label                    "Pset_PrecastConcreteElementGeneral" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPlate , IFC4:IfcRampFlight , IFC4:IfcSlab , IFC4:IfcFooting , IFC4:IfcBeam , IFC4:IfcStair , IFC4:IfcMember , IFC4:IfcPile , IFC4:IfcCivilElement , IFC4:IfcBuildingElementProxy , IFC4:IfcWall , IFC4:IfcStairFlight , IFC4:IfcRoof , IFC4:IfcChimney , IFC4:IfcRamp , IFC4:IfcColumn ;
         IFC4-PSD:applicableTypeValue  "IfcBeam,IfcBuildingElementProxy,IfcChimney,IfcColumn,IfcFooting,IfcMember,IfcPile,IfcPlate,IfcRamp,IfcRampFlight,IfcRoof,IfcSlab,IfcStair,IfcStairFlight,IfcWall,IfcCivilElement" ;
         IFC4-PSD:definition           "Production and manufacturing related properties common to different types of precast concrete elements. The Pset can be used by a number of subtypes of IfcBuildingElement. If the precast concrete element is a sandwich wall panel each structural layer or shell represented by an IfcBuildingElementPart may be attached to a separate Pset of this type, if needed. Some of the properties apply only for specific types of precast concrete elements." ;
         IFC4-PSD:definitionAlias      ""@en , "生産（設計）と製造（メーカー）でタイプの異なるプレキャストコンクリート要素（部材）に、共通の属性（プロパティ）を関連付けた。Psetは多くのIfcBuildingElementのサブタイプとして使用できる。もしプレキャストコンクリート要素が壁板であるとしたら、IfcBuildingElementPartで表される各々の構造的な層かシェルは、このタイプの別々のPsetで結び付くかもしれない。幾つかの属性が、特定なタイプのプレキャストコンクリート要素のためだけに適用される。"@ja-JP ;
@@ -96,25 +40,16 @@
                                         IFC4-PSD:version  "IFC4"
                                       ] ;
         IFC4-PSD:name                 "Pset_PrecastConcreteElementGeneral" ;
-        IFC4-PSD:propertyDef          :pc1b64980d1f411e1800000215ad4efdf , :pcf6bcf00d1f411e1800000215ad4efdf , :pbb27d200d1f411e1800000215ad4efdf , :pb4995a80d1f411e1800000215ad4efdf , :pe14d7200d1f411e1800000215ad4efdf , :p18238800d1f511e1800000215ad4efdf , :pe7435300d1f411e1800000215ad4efdf , :pd5fa4680d1f411e1800000215ad4efdf , :p122da700d1f511e1800000215ad4efdf , :paba88900d1f411e1800000215ad4efdf , :pf0342480d1f411e1800000215ad4efdf , :p94699b80d1f411e1800000215ad4efdf , :ped393400d1f411e1800000215ad4efdf , :pdbf02780d1f411e1800000215ad4efdf , :pf6c29c00d1f411e1800000215ad4efdf , :p00e49a80d1f511e1800000215ad4efdf , :p06da7b80d1f511e1800000215ad4efdf , :pfb875000d1f411e1800000215ad4efdf , :pc975ee00d1f411e1800000215ad4efdf , :p0c37c600d1f511e1800000215ad4efdf .
+        IFC4-PSD:propertyDef          :pf0342480d1f411e1800000215ad4efdf , :pf6c29c00d1f411e1800000215ad4efdf , :p122da700d1f511e1800000215ad4efdf , :ped393400d1f411e1800000215ad4efdf , :p94699b80d1f411e1800000215ad4efdf , :pc1b64980d1f411e1800000215ad4efdf , :pcf6bcf00d1f411e1800000215ad4efdf , :p18238800d1f511e1800000215ad4efdf , :p06da7b80d1f511e1800000215ad4efdf , :pbb27d200d1f411e1800000215ad4efdf , :pb4995a80d1f411e1800000215ad4efdf , :pe7435300d1f411e1800000215ad4efdf , :p00e49a80d1f511e1800000215ad4efdf , :pc975ee00d1f411e1800000215ad4efdf , :paba88900d1f411e1800000215ad4efdf , :pe14d7200d1f411e1800000215ad4efdf , :p0c37c600d1f511e1800000215ad4efdf , :pfb875000d1f411e1800000215ad4efdf , :pdbf02780d1f411e1800000215ad4efdf , :pd5fa4680d1f411e1800000215ad4efdf .
 
-:pc1b64980d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The minimum required compressive strength of the concrete when the concrete element is lifted." ;
-        IFC4-PSD:definitionAlias  "コンクリート要素が吊り上げられる時のコンクリートの最小必要圧縮強度。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "c1b64980d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "LiftingStrength" ;
-        IFC4-PSD:nameAlias        "吊り上げ強度"@ja-JP , "Lifting Strength"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
-                                  ] .
-
-:BatterAtEnd  a             rdf:Property ;
-        rdfs:seeAlso        :p00e49a80d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:BatterAtEnd .
+:TypeDesignator  a          rdf:Property ;
+        rdfs:seeAlso        :p94699b80d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TypeDesignator .
 
 :pf0342480d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for how the hollow core ends are treated: they may be left open, closed with a plug, or sealed with cast concrete. Values would be, for example: 'Unplugged', 'Plugged', 'SealedWithConcrete'. This property applies to  hollow core slabs only." ;
+        rdfs:label                "HollowCorePlugging" ;
         IFC4-PSD:definition       "A descriptive label for how the hollow core ends are treated: they may be left open, closed with a plug, or sealed with cast concrete. Values would be, for example: 'Unplugged', 'Plugged', 'SealedWithConcrete'. This property applies to  hollow core slabs only." ;
         IFC4-PSD:definitionAlias  "（定着部の？）くぼみをどのように扱うのかについて書かれたラベル：開けたままにするか、プラグで塞ぐ、または後詰めコンクリートで塞ぐ。例えば、「塞がない」、「塞ぐ」、「コンクリートで塞ぐ」と書かれるだろう。この属性はスラブに開けられたくぼみにも適用される。"@ja-JP , ""@en ;
         IFC4-PSD:ifdguid          "f0342480d1f411e1800000215ad4efdf" ;
@@ -124,32 +59,47 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-:p00e49a80d1f511e1800000215ad4efdf
+:FormStrippingStrength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbb27d200d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FormStrippingStrength .
+
+:pcf6bcf00d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The angle, in radians, by which the formwork at the ending face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "00e49a80d1f511e1800000215ad4efdf" ;
-        IFC4-PSD:name             "BatterAtEnd" ;
-        IFC4-PSD:nameAlias        "Batter At End"@en ;
+        rdfs:comment              "The minimum allowable support length." ;
+        rdfs:label                "MinimumAllowableSupportLength" ;
+        IFC4-PSD:definition       "The minimum allowable support length." ;
+        IFC4-PSD:definitionAlias  ""@en , "最小許容支持長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cf6bcf00d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumAllowableSupportLength" ;
+        IFC4-PSD:nameAlias        "Minimum Allowable Support Length"@en , "最小許容支持長さ"@ja-JP ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
+
+:Twisting  a                rdf:Property ;
+        rdfs:seeAlso        :p06da7b80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Twisting .
+
+:HollowCorePlugging  a      rdf:Property ;
+        rdfs:seeAlso        :pf0342480d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HollowCorePlugging .
 
 :ped393400d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference to an external document defining how the concrete element is supported during transportation." ;
+        rdfs:label                "SupportDuringTransportDocReference" ;
         IFC4-PSD:definition       "Reference to an external document defining how the concrete element is supported during transportation." ;
-        IFC4-PSD:definitionAlias  "プレキャストコンクリート要素が輸送中における支持方法について書かれた外部ドキュメントの参照。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias  ""@en , "プレキャストコンクリート要素が輸送中における支持方法について書かれた外部ドキュメントの参照。"@ja-JP ;
         IFC4-PSD:ifdguid          "ed393400d1f411e1800000215ad4efdf" ;
         IFC4-PSD:name             "SupportDuringTransportDocReference" ;
         IFC4-PSD:nameAlias        "輸送中の支持に関する参考文献"@ja-JP , "Support During Transport Doc Reference"@en ;
         IFC4-PSD:propertyType     [ a  IFC4-PSD:TypePropertyReferenceValue ] .
 
-:TendonRelaxation  a        rdf:Property ;
-        rdfs:seeAlso        :pdbf02780d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:TendonRelaxation .
-
 :p18238800d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines a unique location within a structure, the ‘slot’ for which the piece was designed." ;
+        rdfs:label                "DesignLocationNumber" ;
         IFC4-PSD:definition       "Defines a unique location within a structure, the ‘slot’ for which the piece was designed." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "18238800d1f511e1800000215ad4efdf" ;
@@ -161,6 +111,8 @@
 
 :pd5fa4680d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The initial stress of the tendon. This property applies to prestressed concrete elements only." ;
+        rdfs:label                "InitialTension" ;
         IFC4-PSD:definition       "The initial stress of the tendon. This property applies to prestressed concrete elements only." ;
         IFC4-PSD:definitionAlias  "緊張材の初期応力。この属性はプレストレストコンクリート要素のみに適用される。"@ja-JP , ""@en ;
         IFC4-PSD:ifdguid          "d5fa4680d1f411e1800000215ad4efdf" ;
@@ -170,31 +122,15 @@
                                     IFC4-PSD:dataType  IFC4:IfcPressureMeasure
                                   ] .
 
-:SupportDuringTransportDescription
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pe7435300d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SupportDuringTransportDescription .
-
-:ManufacturingToleranceClass
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pb4995a80d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ManufacturingToleranceClass .
-
-:BatterAtStart  a           rdf:Property ;
-        rdfs:seeAlso        :pfb875000d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:BatterAtStart .
-
 :DesignLocationNumber
         a                   rdf:Property ;
         rdfs:seeAlso        :p18238800d1f511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:DesignLocationNumber .
 
-:HollowCorePlugging  a      rdf:Property ;
-        rdfs:seeAlso        :pf0342480d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:HollowCorePlugging .
-
 :p0c37c600d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio of the distance by which a precast piece is shortened after release from its form (due to compression induced by prestressing) to its original (nominal) length." ;
+        rdfs:label                "Shortening" ;
         IFC4-PSD:definition       "The ratio of the distance by which a precast piece is shortened after release from its form (due to compression induced by prestressing) to its original (nominal) length." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "0c37c600d1f511e1800000215ad4efdf" ;
@@ -204,77 +140,25 @@
                                     IFC4-PSD:dataType  IFC4:IfcRatioMeasure
                                   ] .
 
-:FormStrippingStrength
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pbb27d200d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:FormStrippingStrength .
-
-:pcf6bcf00d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The minimum allowable support length." ;
-        IFC4-PSD:definitionAlias  "最小許容支持長さ。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "cf6bcf00d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "MinimumAllowableSupportLength" ;
-        IFC4-PSD:nameAlias        "最小許容支持長さ"@ja-JP , "Minimum Allowable Support Length"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
 :pdbf02780d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum allowable relaxation of the tendon (usually expressed as %/1000 h).This property applies to prestressed concrete elements only." ;
+        rdfs:label                "TendonRelaxation" ;
         IFC4-PSD:definition       "The maximum allowable relaxation of the tendon (usually expressed as %/1000 h).This property applies to prestressed concrete elements only." ;
-        IFC4-PSD:definitionAlias  "緊張材の最大許容リラクセーション（応力弛緩、－係数）。通常、1000時間あたりの割合（%)。この属性はプレストレストコンクリート要素のみに適用される。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias  ""@en , "緊張材の最大許容リラクセーション（応力弛緩、－係数）。通常、1000時間あたりの割合（%)。この属性はプレストレストコンクリート要素のみに適用される。"@ja-JP ;
         IFC4-PSD:ifdguid          "dbf02780d1f411e1800000215ad4efdf" ;
         IFC4-PSD:name             "TendonRelaxation" ;
-        IFC4-PSD:nameAlias        "緊張材のリラクセーション"@ja-JP , "Tendon Relaxation"@en ;
+        IFC4-PSD:nameAlias        "Tendon Relaxation"@en , "緊張材のリラクセーション"@ja-JP ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
                                   ] .
 
-:pe14d7200d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The minimum required compressive strength of the concrete required for transportation." ;
-        IFC4-PSD:definitionAlias  "輸送に必要なコンクリートの最小必要圧縮強度。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "e14d7200d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "TransportationStrength" ;
-        IFC4-PSD:nameAlias        "輸送強度"@ja-JP , "Transportation Strength"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
-                                  ] .
-
-:LiftingStrength  a         rdf:Property ;
-        rdfs:seeAlso        :pc1b64980d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:LiftingStrength .
-
-:ReleaseStrength  a         rdf:Property ;
-        rdfs:seeAlso        :pc975ee00d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ReleaseStrength .
-
-:pe7435300d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Textual description of how the concrete element is supported during transportation." ;
-        IFC4-PSD:definitionAlias  "プレキャストコンクリート要素が輸送中における支持方法について書かれたテキスト文書。"@ja-JP , ""@en ;
-        IFC4-PSD:ifdguid          "e7435300d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SupportDuringTransportDescription" ;
-        IFC4-PSD:nameAlias        "輸送中の支持に関する記述"@ja-JP , "Support During Transport Description"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcText
-                                  ] .
-
-:MinimumAllowableSupportLength
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pcf6bcf00d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:MinimumAllowableSupportLength .
-
-:TransportationStrength
-        a                   rdf:Property ;
-        rdfs:seeAlso        :pe14d7200d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:TransportationStrength .
-
 :p94699b80d1f411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type designator for the precast concrete element. The content depends on local standards. For instance in Finland it usually a one-letter acronym, e.g. P=Column, K=reinforced concrete beam,etc." ;
+        rdfs:label                "TypeDesignator" ;
         IFC4-PSD:definition       "Type designator for the precast concrete element. The content depends on local standards. For instance in Finland it usually a one-letter acronym, e.g. P=Column, K=reinforced concrete beam,etc." ;
-        IFC4-PSD:definitionAlias  "プレキャストコンクリート要素の特定子（部位）を記述する。内容はローカルな（各国の）標準（規格）に依存する。例えばフィンランドでは、柱はP、梁はKのように通常、頭文字1文字で表す。"@ja-JP , ""@en ;
+        IFC4-PSD:definitionAlias  ""@en , "プレキャストコンクリート要素の特定子（部位）を記述する。内容はローカルな（各国の）標準（規格）に依存する。例えばフィンランドでは、柱はP、梁はKのように通常、頭文字1文字で表す。"@ja-JP ;
         IFC4-PSD:ifdguid          "94699b80d1f411e1800000215ad4efdf" ;
         IFC4-PSD:name             "TypeDesignator" ;
         IFC4-PSD:nameAlias        "特定子の記述"@ja-JP , "Type Designator"@en ;
@@ -282,31 +166,43 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-:Twisting  a                rdf:Property ;
-        rdfs:seeAlso        :p06da7b80d1f511e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:Twisting .
+:TendonRelaxation  a        rdf:Property ;
+        rdfs:seeAlso        :pdbf02780d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TendonRelaxation .
+
+:LiftingStrength  a         rdf:Property ;
+        rdfs:seeAlso        :pc1b64980d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LiftingStrength .
+
+:pe14d7200d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum required compressive strength of the concrete required for transportation." ;
+        rdfs:label                "TransportationStrength" ;
+        IFC4-PSD:definition       "The minimum required compressive strength of the concrete required for transportation." ;
+        IFC4-PSD:definitionAlias  "輸送に必要なコンクリートの最小必要圧縮強度。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e14d7200d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TransportationStrength" ;
+        IFC4-PSD:nameAlias        "Transportation Strength"@en , "輸送強度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ReleaseStrength  a         rdf:Property ;
+        rdfs:seeAlso        :pc975ee00d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReleaseStrength .
 
 :Shortening  a              rdf:Property ;
         rdfs:seeAlso        :p0c37c600d1f511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Shortening .
 
-:InitialTension  a          rdf:Property ;
-        rdfs:seeAlso        :pd5fa4680d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:InitialTension .
-
-:pf6c29c00d1f411e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "The camber deflection, measured from the midpoint of a cambered face of a piece to the midpoint of the chord joining the ends of the same face, as shown in the figure below, divided by the original (nominal) straight length of the face of the piece." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "f6c29c00d1f411e1800000215ad4efdf" ;
-        IFC4-PSD:name             "CamberAtMidspan" ;
-        IFC4-PSD:nameAlias        "Camber At Midspan"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
-                                  ] .
+:CornerChamfer  a           rdf:Property ;
+        rdfs:seeAlso        :paba88900d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CornerChamfer .
 
 :p06da7b80d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle, in radians, through which the end face of a precast piece is rotated with respect to its starting face, along its longitudinal axis, as a result of non-aligned supports. This measure is also termed the ‘warping’ angle." ;
+        rdfs:label                "Twisting" ;
         IFC4-PSD:definition       "The angle, in radians, through which the end face of a precast piece is rotated with respect to its starting face, along its longitudinal axis, as a result of non-aligned supports. This measure is also termed the ‘warping’ angle." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "06da7b80d1f511e1800000215ad4efdf" ;
@@ -316,8 +212,93 @@
                                     IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
                                   ] .
 
+:paba88900d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The chamfer in the corners of the precast element. The chamfer is presumed to be equal in both directions." ;
+        rdfs:label                "CornerChamfer" ;
+        IFC4-PSD:definition       "The chamfer in the corners of the precast element. The chamfer is presumed to be equal in both directions." ;
+        IFC4-PSD:definitionAlias  ""@en , "プレキャストコンクリート要素の面取り。面取りは両方向で等しいものとする。"@ja-JP ;
+        IFC4-PSD:ifdguid          "aba88900d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CornerChamfer" ;
+        IFC4-PSD:nameAlias        "面取り"@ja-JP , "Corner Chamfer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pc975ee00d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum required compressive strength of the concrete when the tendon stress is released. This property applies to prestressed concrete elements only." ;
+        rdfs:label                "ReleaseStrength" ;
+        IFC4-PSD:definition       "The minimum required compressive strength of the concrete when the tendon stress is released. This property applies to prestressed concrete elements only." ;
+        IFC4-PSD:definitionAlias  "緊張力が解放される時のコンクリートの最小必要圧縮強度。この属性はプレストレストコンクリート要素のみに適用される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c975ee00d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReleaseStrength" ;
+        IFC4-PSD:nameAlias        "Release Strength"@en , "リリース強度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:TransportationStrength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe14d7200d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TransportationStrength .
+
+:pe7435300d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Textual description of how the concrete element is supported during transportation." ;
+        rdfs:label                "SupportDuringTransportDescription" ;
+        IFC4-PSD:definition       "Textual description of how the concrete element is supported during transportation." ;
+        IFC4-PSD:definitionAlias  ""@en , "プレキャストコンクリート要素が輸送中における支持方法について書かれたテキスト文書。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e7435300d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupportDuringTransportDescription" ;
+        IFC4-PSD:nameAlias        "Support During Transport Description"@en , "輸送中の支持に関する記述"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:pc1b64980d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum required compressive strength of the concrete when the concrete element is lifted." ;
+        rdfs:label                "LiftingStrength" ;
+        IFC4-PSD:definition       "The minimum required compressive strength of the concrete when the concrete element is lifted." ;
+        IFC4-PSD:definitionAlias  ""@en , "コンクリート要素が吊り上げられる時のコンクリートの最小必要圧縮強度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c1b64980d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LiftingStrength" ;
+        IFC4-PSD:nameAlias        "Lifting Strength"@en , "吊り上げ強度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:CamberAtMidspan  a         rdf:Property ;
+        rdfs:seeAlso        :pf6c29c00d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CamberAtMidspan .
+
+:pf6c29c00d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The camber deflection, measured from the midpoint of a cambered face of a piece to the midpoint of the chord joining the ends of the same face, as shown in the figure below, divided by the original (nominal) straight length of the face of the piece." ;
+        rdfs:label                "CamberAtMidspan" ;
+        IFC4-PSD:definition       "The camber deflection, measured from the midpoint of a cambered face of a piece to the midpoint of the chord joining the ends of the same face, as shown in the figure below, divided by the original (nominal) straight length of the face of the piece." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f6c29c00d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CamberAtMidspan" ;
+        IFC4-PSD:nameAlias        "Camber At Midspan"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:InitialTension  a          rdf:Property ;
+        rdfs:seeAlso        :pd5fa4680d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InitialTension .
+
+:MinimumAllowableSupportLength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pcf6bcf00d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumAllowableSupportLength .
+
 :p122da700d1f511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines a unique piece for production purposes. All pieces with the same piece mark value are identical and interchangeable. The piece mark may be composed of sub-parts that have specific locally defined meaning (e.g. B-1A may denote a beam, of generic type ‘1’ and specific shape ‘A’)." ;
+        rdfs:label                "PieceMark" ;
         IFC4-PSD:definition       "Defines a unique piece for production purposes. All pieces with the same piece mark value are identical and interchangeable. The piece mark may be composed of sub-parts that have specific locally defined meaning (e.g. B-1A may denote a beam, of generic type ‘1’ and specific shape ‘A’)." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "122da700d1f511e1800000215ad4efdf" ;
@@ -327,6 +308,63 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-:TypeDesignator  a          rdf:Property ;
-        rdfs:seeAlso        :p94699b80d1f411e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:TypeDesignator .
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PrecastConcreteElementGeneral>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pb4995a80d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Classification designation of the manufacturing tolerances according to local standards." ;
+        rdfs:label                "ManufacturingToleranceClass" ;
+        IFC4-PSD:definition       "Classification designation of the manufacturing tolerances according to local standards." ;
+        IFC4-PSD:definitionAlias  "ローカルな標準によるメーカーの認可分類。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b4995a80d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ManufacturingToleranceClass" ;
+        IFC4-PSD:nameAlias        "Manufacturing Tolerance Class"@en , "メーカーの認可分類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pbb27d200d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum required compressive strength of the concrete at form stripping time." ;
+        rdfs:label                "FormStrippingStrength" ;
+        IFC4-PSD:definition       "The minimum required compressive strength of the concrete at form stripping time." ;
+        IFC4-PSD:definitionAlias  ""@en , "脱型時におけるコンクリートの最小必要圧縮強度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "bb27d200d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FormStrippingStrength" ;
+        IFC4-PSD:nameAlias        "Form Stripping Strength"@en , "脱型強度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:BatterAtStart  a           rdf:Property ;
+        rdfs:seeAlso        :pfb875000d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BatterAtStart .
+
+:pfb875000d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle, in radians, by which the formwork at the starting face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
+        rdfs:label                "BatterAtStart" ;
+        IFC4-PSD:definition       "The angle, in radians, by which the formwork at the starting face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fb875000d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BatterAtStart" ;
+        IFC4-PSD:nameAlias        "Batter At Start"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:p00e49a80d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle, in radians, by which the formwork at the ending face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
+        rdfs:label                "BatterAtEnd" ;
+        IFC4-PSD:definition       "The angle, in radians, by which the formwork at the ending face of a piece is to be rotated from the vertical in order to compensate for the rotation of the face that will occur once the piece is stripped from its form, inducing camber due to eccentric prestressing." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "00e49a80d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BatterAtEnd" ;
+        IFC4-PSD:nameAlias        "Batter At End"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .

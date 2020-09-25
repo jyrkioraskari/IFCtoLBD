@@ -1,202 +1,66 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-:p8ceac800d1dd11e1800000215ad4efdf
+:p32516c00d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "(Tsol): The ratio of incident solar radiation that directly passes through a glazing system (also named τe). Note the following equation Asol + Rsol + Tsol = 1" ;
-        IFC4-PSD:definitionAlias  "German-description-15"@de-DE , "（Tsol）透过玻璃系统的太阳入射辐射的比率（也可用τe表示）。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN , ""@en , "（Tsol）ガラスを透過する日射の比率（τeとも表わされる）。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP , "(Tsol). Ratio du rayonnement solaire incident qui est transmis directement par le vitrage. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR ;
-        IFC4-PSD:ifdguid          "8ceac800d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SolarTransmittance" ;
-        IFC4-PSD:nameAlias        "Solar Transmittance"@en , "Strahlungstransmissionsgrad"@de-DE , "TransmissionRayonnementSolaire"@fr-FR , "日射透過率"@ja-JP , "太阳能透射率"@zh-CN ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
-                                  ] .
-
-:VisibleLightTransmittance
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p80666f80d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:VisibleLightTransmittance .
-
-:p95db9980d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "(SC): The measure of the ability of a glazing to transmit solar heat, relative to that ability for 3 mm (1/8-inch) clear, double-strength, single glass. Shading coefficient is being phased out in favor of the solar heat gain coefficient (SHGC), and is approximately equal to the SHGC multiplied by 1.15. The shading coefficient is expressed as a number without units between 0 and 1." ;
-        IFC4-PSD:definitionAlias  "（SC）玻璃传递太阳热量能力的度量，以3mm（1/8英寸）透明双倍强度单层玻璃为基准。遮阳系数有被太阳能得热系数（SHGC）取代的趋势，其值约为SHGC的1.15倍。遮阳系数以大于0小于1的无单位数表示。"@zh-CN , ""@en , "Das Verhältnis aus g-Wert der jeweiligen Verglasung und dem g-Wert eines Zweischeiben-Normalglasfensters.\nDer g-Wert dieses Zweischeiben-Normalglasfensters wird als Konstante mit 80 % angesetzt. Bei Einfachglas beträgt die Konstante 87 %, Auch \"Shading coefficient\" genannt."@de-DE , "(SC): ガラスの太陽熱伝導の基準、3mm（1/8インチ）透明の一枚ガラスの性能との比。遮蔽係数は太陽熱利得係数(SHGC)に移行し、段階的に廃止、SHGC×1.15とほとんど等しい。遮蔽係数は０から１までの単位無しの値。"@ja-JP , "(SC): Mesure de la capacité d'un vitrage à transmettre l'énergie solaire comparativement à un simple vitrage clair, de 3 mm (double renfort). Le coefficient d'atténuation est supprimé progressivement en faveur du coefficient d'apport solaire (SHGC) et est approximativement égal au SHGC multiplié par 1,15. Le coefficient d'atténuation est exprimé comme nombre sans unités entre 0 et 1."@fr-FR ;
-        IFC4-PSD:ifdguid          "95db9980d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ShadingCoefficient" ;
-        IFC4-PSD:nameAlias        "mittlere Durchlassfaktor b"@de-DE , "遮蔽係数"@ja-JP , "遮阳系数"@zh-CN , "CoefficientOmbrage"@fr-FR , "Shading Coefficient"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
-                                  ] .
-
-:p1a79e800d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Thickness of the first (inner) glass layer." ;
-        IFC4-PSD:definitionAlias  "German-description-2"@de-DE , "第一层（内侧）玻璃的厚度。"@zh-CN , ""@en , "最初の（室内側）ガラスの厚み。"@ja-JP , "Epaisseur de la première couche de verre (côté intérieur)"@fr-FR ;
-        IFC4-PSD:ifdguid          "1a79e800d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "GlassThickness1" ;
-        IFC4-PSD:nameAlias        "玻璃厚度1"@zh-CN , "German-name-2"@de-DE , "Glass Thickness1"@en , "ガラス厚1"@ja-JP , "EpaisseurVitrage1"@fr-FR ;
+        rdfs:comment              "Thickness of the third (outer) glass layer." ;
+        rdfs:label                "GlassThickness3" ;
+        IFC4-PSD:definition       "Thickness of the third (outer) glass layer." ;
+        IFC4-PSD:definitionAlias  ""@en , "3番目（外側）のガラスの厚み。"@ja-JP , "Epaisseur de la troisième couche de verre (côté extérieur)"@fr-FR , "German-description-4"@de-DE , "第三层（外侧）玻璃的厚度。"@zh-CN ;
+        IFC4-PSD:ifdguid          "32516c00d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GlassThickness3" ;
+        IFC4-PSD:nameAlias        "玻璃厚度3"@zh-CN , "ガラス厚3"@ja-JP , "Glass Thickness3"@en , "EpaisseurVitrage3"@fr-FR , "German-name-4"@de-DE ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
-
-:FillGas  a                 rdf:Property ;
-        rdfs:seeAlso        :p3da49780d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:FillGas .
 
 :GlassThickness2  a         rdf:Property ;
         rdfs:seeAlso        :p2796d700d1dd11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:GlassThickness2 .
 
-:IsLaminated  a             rdf:Property ;
-        rdfs:seeAlso        :p5dd45680d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:IsLaminated .
-
-:p48f7c300d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Color (tint) selection for this glazing. It is given for information purposes only." ;
-        IFC4-PSD:definitionAlias  ""@en , "玻璃（贴膜）的颜色。仅供参考。"@zh-CN , "Choix de la couleur (teinte) du vitrage. Donné à titre informatif seulement."@fr-FR , "ガラスの色合い。これは情報目的専用に提供される。"@ja-JP , "German-description-6"@de-DE ;
-        IFC4-PSD:ifdguid          "48f7c300d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "GlassColor" ;
-        IFC4-PSD:nameAlias        "玻璃颜色"@zh-CN , "CouleurVitrage"@fr-FR , "German-name-6"@de-DE , "ガラス色"@ja-JP , "Glass Color"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcLabel
-                                  ] .
-
-:VisibleLightReflectance
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p7a708e80d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:VisibleLightReflectance .
-
-:ShadingCoefficient  a      rdf:Property ;
-        rdfs:seeAlso        :p95db9980d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ShadingCoefficient .
-
-:p80666f80d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Fraction of the visible light that passes the glazing at normal incidence. It is a value without unit." ;
-        IFC4-PSD:definitionAlias  "正射时穿透玻璃的可见光比例。无单位。"@zh-CN , ""@en , "Fraction du rayonnement visible qui est transmise par le vitrage sous incidence normale. Valeur sans unité."@fr-FR , "German-description-11"@de-DE , "ガラスへ法線入射した可視光の透過率。単位の無い値。"@ja-JP ;
-        IFC4-PSD:ifdguid          "80666f80d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "VisibleLightTransmittance" ;
-        IFC4-PSD:nameAlias        "可见光透射率"@zh-CN , "Transmissionsgrad für sichtbares Licht"@de-DE , "TransmittanceVisible"@fr-FR , "可視光透過率"@ja-JP , "Visible Light Transmittance"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
-                                  ] .
-
-:ThermalTransmittanceSummer
-        a                   rdf:Property ;
-        rdfs:seeAlso        :p9a07b700d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ThermalTransmittanceSummer .
-
-:p9a07b700d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Thermal transmittance coefficient (U-Value) of a material.\nSummer thermal transmittance coefficient of the glazing only, often referred to as (U-value)." ;
-        IFC4-PSD:definitionAlias  "素材の熱透過係数（U値）。夏期のガラスの熱透過係数だけ、U値として参照される"@ja-JP , "German-description-17"@de-DE , "材料的导热系数（U值）。\n仅玻璃的夏季导热系数，常以U值表示。"@zh-CN , "Coefficient de transmission thermique (U) d'un matériau. Coefficient de transmission thermique en été du vitrage seul, souvent désigné comme étant Uw."@fr-FR , ""@en ;
-        IFC4-PSD:ifdguid          "9a07b700d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ThermalTransmittanceSummer" ;
-        IFC4-PSD:nameAlias        "TransmittanceThermiqueEte"@fr-FR , "夏季导热系数"@zh-CN , "Thermal Transmittance Summer"@en , "夏期の熱透過係数"@ja-JP , "German-name-15"@de-DE ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcThermalTransmittanceMeasure
-                                  ] .
-
-:SolarTransmittance  a      rdf:Property ;
-        rdfs:seeAlso        :p8ceac800d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SolarTransmittance .
-
-:p72185380d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Indication whether the glass includes a contained wire mesh to prevent break-in (TRUE) or not (FALSE)" ;
-        IFC4-PSD:definitionAlias  ""@en , "不法侵入防止の網入りガラスか（TRUE)否か（FALSE）示す。"@ja-JP , "Indique si le verre est un verre armé à maille anti-effraction (VRAI) ou non (FAUX)"@fr-FR , "German-description-10"@de-DE , "表示玻璃是否具有防断裂的纤维网格。"@zh-CN ;
-        IFC4-PSD:ifdguid          "72185380d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "IsWired" ;
-        IFC4-PSD:nameAlias        "是否夹丝"@zh-CN , "網入りガラス"@ja-JP , "Is Wired"@en , "VitrageArme"@fr-FR , "German-name-10"@de-DE ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcBoolean
-                                  ] .
-
-:GlassThickness1  a         rdf:Property ;
-        rdfs:seeAlso        :p1a79e800d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:GlassThickness1 .
-
-:p84928d00d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "(Asol) The ratio of incident solar radiation that is absorbed by a glazing system. It is the sum of the absorption distributed to the exterior (a) and to the interior (qi). Note the following equation Asol + Rsol + Tsol = 1" ;
-        IFC4-PSD:definitionAlias  "(Asol). Ratio du rayonnement solaire incident qui est absorbé par le vitrage. Somme de l'absorption distribuée à l'extérieur (a) et à l'intérieur (qi). Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , "（Asol）被玻璃系统吸收的太阳入射辐射的比率，为传递到室外和室内的吸收的总量。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN , "German-description-13"@de-DE , ""@en , "（Asol)ガラスで吸収される日射の比率。吸収の合計は外部（a）と、室内（qi）に分配される。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP ;
-        IFC4-PSD:ifdguid          "84928d00d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "SolarAbsorption" ;
-        IFC4-PSD:nameAlias        "日射吸収率"@ja-JP , "Solar Absorption"@en , "太阳能吸收率"@zh-CN , "Strahlungsabsorbtionsgrad"@de-DE , "AbsorptionRayonnementSolaire"@fr-FR ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
-                                  ] .
-
-:IsTempered  a              rdf:Property ;
-        rdfs:seeAlso        :p51e89480d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:IsTempered .
-
-:IsCoated  a                rdf:Property ;
-        rdfs:seeAlso        :p69278200d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:IsCoated .
-
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
-        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
-
-:p32516c00d1dd11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "Thickness of the third (outer) glass layer." ;
-        IFC4-PSD:definitionAlias  "Epaisseur de la troisième couche de verre (côté extérieur)"@fr-FR , ""@en , "3番目（外側）のガラスの厚み。"@ja-JP , "German-description-4"@de-DE , "第三层（外侧）玻璃的厚度。"@zh-CN ;
-        IFC4-PSD:ifdguid          "32516c00d1dd11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "GlassThickness3" ;
-        IFC4-PSD:nameAlias        "玻璃厚度3"@zh-CN , "EpaisseurVitrage3"@fr-FR , "German-name-4"@de-DE , "Glass Thickness3"@en , "ガラス厚3"@ja-JP ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
-                                  ] .
-
-:SolarAbsorption  a         rdf:Property ;
-        rdfs:seeAlso        :p84928d00d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SolarAbsorption .
-
-:GlassColor  a              rdf:Property ;
-        rdfs:seeAlso        :p48f7c300d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:GlassColor .
+:SolarReflectance  a        rdf:Property ;
+        rdfs:seeAlso        :p88beaa80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarReflectance .
 
 :p5dd45680d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the glass is layered with other materials (TRUE) or not (FALSE)." ;
+        rdfs:label                "IsLaminated" ;
         IFC4-PSD:definition       "Indication whether the glass is layered with other materials (TRUE) or not (FALSE)." ;
-        IFC4-PSD:definitionAlias  "表示玻璃是否具有含其他材料的夹层。"@zh-CN , "Indique si le verre est feuilleté (VRAI) ou non (FAUX)."@fr-FR , "ガラス以外の素材が重ねられているか（TRUE）否か（FALSE)示す。"@ja-JP , "German-description-8"@de-DE , ""@en ;
+        IFC4-PSD:definitionAlias  "表示玻璃是否具有含其他材料的夹层。"@zh-CN , "German-description-8"@de-DE , ""@en , "ガラス以外の素材が重ねられているか（TRUE）否か（FALSE)示す。"@ja-JP , "Indique si le verre est feuilleté (VRAI) ou non (FAUX)."@fr-FR ;
         IFC4-PSD:ifdguid          "5dd45680d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "IsLaminated" ;
-        IFC4-PSD:nameAlias        "VitrageFeuillete"@fr-FR , "Is Laminated"@en , "German-name-8"@de-DE , "是否夹层"@zh-CN , "皮膜を被せたガラス"@ja-JP ;
+        IFC4-PSD:nameAlias        "皮膜を被せたガラス"@ja-JP , "Is Laminated"@en , "VitrageFeuillete"@fr-FR , "German-name-8"@de-DE , "是否夹层"@zh-CN ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
 :p9e33d480d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal transmittance coefficient (U-Value) of a material.\nWinter thermal transmittance coefficient of the glazing only, often referred to as (U-value)." ;
+        rdfs:label                "ThermalTransmittanceWinter" ;
         IFC4-PSD:definition       "Thermal transmittance coefficient (U-Value) of a material.\nWinter thermal transmittance coefficient of the glazing only, often referred to as (U-value)." ;
-        IFC4-PSD:definitionAlias  "材料的导热系数（U值）。\n仅玻璃的冬季导热系数，常以U值表示。"@zh-CN , "Coefficient de transmission thermique (U) d'un matériau. Coefficient de transmission thermique en hiver du vitrage seul, souvent désigné comme étant Uw."@fr-FR , "素材の熱透過係数（U値）。夏期のガラスの熱透過係数だけ、U値として参照される。"@ja-JP , ""@en , "German-description-18"@de-DE ;
+        IFC4-PSD:definitionAlias  "German-description-18"@de-DE , "材料的导热系数（U值）。\n仅玻璃的冬季导热系数，常以U值表示。"@zh-CN , "Coefficient de transmission thermique (U) d'un matériau. Coefficient de transmission thermique en hiver du vitrage seul, souvent désigné comme étant Uw."@fr-FR , ""@en , "素材の熱透過係数（U値）。夏期のガラスの熱透過係数だけ、U値として参照される。"@ja-JP ;
         IFC4-PSD:ifdguid          "9e33d480d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "ThermalTransmittanceWinter" ;
-        IFC4-PSD:nameAlias        "German-name-16"@de-DE , "Thermal Transmittance Winter"@en , "冬季导热系数"@zh-CN , "TransmittanceThermiqueHiver"@fr-FR , "冬季の熱透過係数"@ja-JP ;
+        IFC4-PSD:nameAlias        "冬季の熱透過係数"@ja-JP , "冬季导热系数"@zh-CN , "Thermal Transmittance Winter"@en , "German-name-16"@de-DE , "TransmittanceThermiqueHiver"@fr-FR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcThermalTransmittanceMeasure
                                   ] .
 
 :p91af7c00d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(SHGC): The ratio of incident solar radiation that contributes to the heat gain of the interior, it is the solar radiation that directly passes (Tsol or τe) plus the part of the absorbed radiation that is distributed to the interior (qi). The SHGC is refered to also as g-value (g = τe + qi)." ;
+        rdfs:label                "SolarHeatGainTransmittance" ;
         IFC4-PSD:definition       "(SHGC): The ratio of incident solar radiation that contributes to the heat gain of the interior, it is the solar radiation that directly passes (Tsol or τe) plus the part of the absorbed radiation that is distributed to the interior (qi). The SHGC is refered to also as g-value (g = τe + qi)." ;
-        IFC4-PSD:definitionAlias  "German-description-16"@de-DE , "(SHGC):室内の熱利得の原因となる日射の比率。ガラスの透過分(Tsol or τe)と吸収分の内、室内側(qi)への分配分の和。SHGCは、g値（g = τe + qi）としても参照される。"@ja-JP , "（SHGC）导致室内取得热量的入射太阳辐射比率，该值为透射太阳辐射（Tsol或τe）与分配到室内的吸收太阳辐射（qi）的和。SHGC也被称为g值（g = τe + qi）。"@zh-CN , ""@en , "(SHGC): Ratio du rayonnement solaire incident qui contribue aux apports solaires récupérés. Rayonnemment transmis directement (Tsol ou Te), plus la part de rayonnement absorbé restitué à l'intérieur (qi). Le SHGC est également appelé valeur-g (g = Te + qi)."@fr-FR ;
+        IFC4-PSD:definitionAlias  "（SHGC）导致室内取得热量的入射太阳辐射比率，该值为透射太阳辐射（Tsol或τe）与分配到室内的吸收太阳辐射（qi）的和。SHGC也被称为g值（g = τe + qi）。"@zh-CN , ""@en , "German-description-16"@de-DE , "(SHGC): Ratio du rayonnement solaire incident qui contribue aux apports solaires récupérés. Rayonnemment transmis directement (Tsol ou Te), plus la part de rayonnement absorbé restitué à l'intérieur (qi). Le SHGC est également appelé valeur-g (g = Te + qi)."@fr-FR , "(SHGC):室内の熱利得の原因となる日射の比率。ガラスの透過分(Tsol or τe)と吸収分の内、室内側(qi)への分配分の和。SHGCは、g値（g = τe + qi）としても参照される。"@ja-JP ;
         IFC4-PSD:ifdguid          "91af7c00d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "SolarHeatGainTransmittance" ;
-        IFC4-PSD:nameAlias        "透過太陽熱利得係数"@ja-JP , "太阳能得热系数"@zh-CN , "Gesamtenergiedurchlassgrad"@de-DE , "Solar Heat Gain Transmittance"@en , "ApportsSolaires"@fr-FR ;
+        IFC4-PSD:nameAlias        "Solar Heat Gain Transmittance"@en , "太阳能得热系数"@zh-CN , "ApportsSolaires"@fr-FR , "透過太陽熱利得係数"@ja-JP , "Gesamtenergiedurchlassgrad"@de-DE ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
                                   ] .
@@ -205,113 +69,285 @@
         rdfs:seeAlso        :p72185380d1dd11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:IsWired .
 
-:Pset_DoorWindowGlazingType
-        a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      <http://www.buildingsmart-tech.org/ifcOWL/IFC4#%20IfcWindow> , IFC4:IfcDoor ;
-        IFC4-PSD:applicableTypeValue  "IfcDoor, IfcWindow" ;
-        IFC4-PSD:definition           "Properties common to the definition of the glazing component of occurrences of IfcDoor and IfcWindow, used for thermal and lighting calculations." ;
-        IFC4-PSD:definitionAlias      "IfcDoorとIfcWindowにあるガラス部品に関する共通プロパティセット定義。熱と明るさの計算に用いる。"@ja-JP , ""@en , "IfcDoor和IfcWindow实例的玻璃构件定义中通用的属性，用于热工和采光计算。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition du composant vitrage des instances des classes IfcDoor et IfcWindow, utilisées pour des calculs thermiques et d'éclairage."@fr-FR ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_DoorWindowGlazingType" ;
-        IFC4-PSD:propertyDef          :p8ceac800d1dd11e1800000215ad4efdf , :p95db9980d1dd11e1800000215ad4efdf , :p69278200d1dd11e1800000215ad4efdf , :p9a07b700d1dd11e1800000215ad4efdf , :p48f7c300d1dd11e1800000215ad4efdf , :p1a79e800d1dd11e1800000215ad4efdf , :p9e33d480d1dd11e1800000215ad4efdf , :p32516c00d1dd11e1800000215ad4efdf , :p91af7c00d1dd11e1800000215ad4efdf , :p0df58f80d1dd11e1800000215ad4efdf , :p7a708e80d1dd11e1800000215ad4efdf , :p3da49780d1dd11e1800000215ad4efdf , :p80666f80d1dd11e1800000215ad4efdf , :p72185380d1dd11e1800000215ad4efdf , :p84928d00d1dd11e1800000215ad4efdf , :p51e89480d1dd11e1800000215ad4efdf , :p88beaa80d1dd11e1800000215ad4efdf , :p2796d700d1dd11e1800000215ad4efdf , :p5dd45680d1dd11e1800000215ad4efdf .
+:GlassThickness1  a         rdf:Property ;
+        rdfs:seeAlso        :p1a79e800d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GlassThickness1 .
+
+:IsCoated  a                rdf:Property ;
+        rdfs:seeAlso        :p69278200d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsCoated .
 
 :p3da49780d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Name of the gas by which the gap between two glass layers is filled. It is given for information purposes only." ;
+        rdfs:label                "FillGas" ;
         IFC4-PSD:definition       "Name of the gas by which the gap between two glass layers is filled. It is given for information purposes only." ;
-        IFC4-PSD:definitionAlias  ""@en , "2枚のガラス間の隙間に充填されたガスの名称。これは情報目的専用に提供される。"@ja-JP , "German-description-5"@de-DE , "两层玻璃之间填充气体的名称。仅供参考。"@zh-CN , "Nom du gaz remplissant l'espace entre deux couches de verre. Donné à titre informatif seulement."@fr-FR ;
+        IFC4-PSD:definitionAlias  "Nom du gaz remplissant l'espace entre deux couches de verre. Donné à titre informatif seulement."@fr-FR , "2枚のガラス間の隙間に充填されたガスの名称。これは情報目的専用に提供される。"@ja-JP , "两层玻璃之间填充气体的名称。仅供参考。"@zh-CN , "German-description-5"@de-DE , ""@en ;
         IFC4-PSD:ifdguid          "3da49780d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "FillGas" ;
-        IFC4-PSD:nameAlias        "填充气体"@zh-CN , "充填ガス種"@ja-JP , "GazEntreVitrages"@fr-FR , "Fill Gas"@en , "German-name-5"@de-DE ;
+        IFC4-PSD:nameAlias        "充填ガス種"@ja-JP , "Fill Gas"@en , "填充气体"@zh-CN , "GazEntreVitrages"@fr-FR , "German-name-5"@de-DE ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
+:VisibleLightTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p80666f80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleLightTransmittance .
+
+:Pset_DoorWindowGlazingType
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of the glazing component of occurrences of IfcDoor and IfcWindow, used for thermal and lighting calculations." ;
+        rdfs:label                    "Pset_DoorWindowGlazingType" ;
+        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcWindow> , IFC4:IfcDoor ;
+        IFC4-PSD:applicableTypeValue  "IfcDoor, IfcWindow" ;
+        IFC4-PSD:definition           "Properties common to the definition of the glazing component of occurrences of IfcDoor and IfcWindow, used for thermal and lighting calculations." ;
+        IFC4-PSD:definitionAlias      "IfcDoor和IfcWindow实例的玻璃构件定义中通用的属性，用于热工和采光计算。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition du composant vitrage des instances des classes IfcDoor et IfcWindow, utilisées pour des calculs thermiques et d'éclairage."@fr-FR , "IfcDoorとIfcWindowにあるガラス部品に関する共通プロパティセット定義。熱と明るさの計算に用いる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DoorWindowGlazingType" ;
+        IFC4-PSD:propertyDef          :p7a708e80d1dd11e1800000215ad4efdf , :p9e33d480d1dd11e1800000215ad4efdf , :p80666f80d1dd11e1800000215ad4efdf , :p88beaa80d1dd11e1800000215ad4efdf , :p51e89480d1dd11e1800000215ad4efdf , :p5dd45680d1dd11e1800000215ad4efdf , :p3da49780d1dd11e1800000215ad4efdf , :p9a07b700d1dd11e1800000215ad4efdf , :p91af7c00d1dd11e1800000215ad4efdf , :p2796d700d1dd11e1800000215ad4efdf , :p72185380d1dd11e1800000215ad4efdf , :p69278200d1dd11e1800000215ad4efdf , :p32516c00d1dd11e1800000215ad4efdf , :p48f7c300d1dd11e1800000215ad4efdf , :p84928d00d1dd11e1800000215ad4efdf , :p1a79e800d1dd11e1800000215ad4efdf , :p95db9980d1dd11e1800000215ad4efdf , :p8ceac800d1dd11e1800000215ad4efdf , :p0df58f80d1dd11e1800000215ad4efdf .
+
 :p7a708e80d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the visible light that is reflected by the glazing at normal incidence. It is a value without unit." ;
+        rdfs:label                "VisibleLightReflectance" ;
         IFC4-PSD:definition       "Fraction of the visible light that is reflected by the glazing at normal incidence. It is a value without unit." ;
-        IFC4-PSD:definitionAlias  ""@en , "ガラスへ法線入射した可視光の反射率。単位の無い値。"@ja-JP , "German-description-12"@de-DE , "Fraction du rayonnement visible qui est réfléchi par le vitrage sous incidence normale. Valeur sans unité."@fr-FR , "正射时被玻璃反射的可见光比例。无单位。"@zh-CN ;
+        IFC4-PSD:definitionAlias  "ガラスへ法線入射した可視光の反射率。単位の無い値。"@ja-JP , "Fraction du rayonnement visible qui est réfléchi par le vitrage sous incidence normale. Valeur sans unité."@fr-FR , "正射时被玻璃反射的可见光比例。无单位。"@zh-CN , "German-description-12"@de-DE , ""@en ;
         IFC4-PSD:ifdguid          "7a708e80d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "VisibleLightReflectance" ;
-        IFC4-PSD:nameAlias        "Reflektionsgrad für sichtbares Licht"@de-DE , "ReflexionVisible"@fr-FR , "可視光反射率"@ja-JP , "可见光反射率"@zh-CN , "Visible Light Reflectance"@en ;
+        IFC4-PSD:nameAlias        "可視光反射率"@ja-JP , "Visible Light Reflectance"@en , "Reflektionsgrad für sichtbares Licht"@de-DE , "ReflexionVisible"@fr-FR , "可见光反射率"@zh-CN ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
                                   ] .
 
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
 :p0df58f80d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of glass layers within the frame. E.g. \"2\" for double glazing." ;
+        rdfs:label                "GlassLayers" ;
         IFC4-PSD:definition       "Number of glass layers within the frame. E.g. \"2\" for double glazing." ;
-        IFC4-PSD:definitionAlias  "Nombre de couches de verre dans le cadre. Exemple : 2 pour le double vitrage."@fr-FR , "German-description-1"@de-DE , "ガラスの枚数。例：\"2\"はペアガラス。"@ja-JP , "框内玻璃的层数。例如：”2”表示双层玻璃。"@zh-CN , ""@en ;
+        IFC4-PSD:definitionAlias  "German-description-1"@de-DE , "框内玻璃的层数。例如：”2”表示双层玻璃。"@zh-CN , ""@en , "ガラスの枚数。例：\"2\"はペアガラス。"@ja-JP , "Nombre de couches de verre dans le cadre. Exemple : 2 pour le double vitrage."@fr-FR ;
         IFC4-PSD:ifdguid          "0df58f80d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "GlassLayers" ;
-        IFC4-PSD:nameAlias        "Glass Layers"@en , "ガラス枚数"@ja-JP , "German-name-1"@de-DE , "NombreVitrages"@fr-FR , "玻璃层数"@zh-CN ;
+        IFC4-PSD:nameAlias        "Glass Layers"@en , "玻璃层数"@zh-CN , "German-name-1"@de-DE , "ガラス枚数"@ja-JP , "NombreVitrages"@fr-FR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcCountMeasure
                                   ] .
 
 :p2796d700d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the second (intermediate or outer) glass layer." ;
+        rdfs:label                "GlassThickness2" ;
         IFC4-PSD:definition       "Thickness of the second (intermediate or outer) glass layer." ;
-        IFC4-PSD:definitionAlias  ""@en , "第二层（中间或外侧）玻璃的厚度。"@zh-CN , "German-description-3"@de-DE , "2番目（中間、あるいは外側）のガラスの厚み。"@ja-JP , "Epaisseur de la deuxième couche de verre (intermédiaire ou côté extérieur)"@fr-FR ;
+        IFC4-PSD:definitionAlias  "Epaisseur de la deuxième couche de verre (intermédiaire ou côté extérieur)"@fr-FR , ""@en , "2番目（中間、あるいは外側）のガラスの厚み。"@ja-JP , "第二层（中间或外侧）玻璃的厚度。"@zh-CN , "German-description-3"@de-DE ;
         IFC4-PSD:ifdguid          "2796d700d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "GlassThickness2" ;
-        IFC4-PSD:nameAlias        "Glass Thickness2"@en , "ガラス厚2"@ja-JP , "EpaisseurVitrage2"@fr-FR , "German-name-3"@de-DE , "玻璃厚度2"@zh-CN ;
+        IFC4-PSD:nameAlias        "EpaisseurVitrage2"@fr-FR , "German-name-3"@de-DE , "ガラス厚2"@ja-JP , "Glass Thickness2"@en , "玻璃厚度2"@zh-CN ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
+:SolarHeatGainTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p91af7c00d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarHeatGainTransmittance .
+
+:IsLaminated  a             rdf:Property ;
+        rdfs:seeAlso        :p5dd45680d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsLaminated .
+
 :p69278200d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the glass is coated with a material (TRUE) or not (FALSE)." ;
+        rdfs:label                "IsCoated" ;
         IFC4-PSD:definition       "Indication whether the glass is coated with a material (TRUE) or not (FALSE)." ;
-        IFC4-PSD:definitionAlias  "表示玻璃是否具有某种材料的镀膜。"@zh-CN , ""@en , "ガラスがコーティングされいるか（TRUE）否か（FALSE）示す。"@ja-JP , "German-description-9"@de-DE , "Indique si le verre a subi un traitement de surface (VRAI) ou non (FAUX)."@fr-FR ;
+        IFC4-PSD:definitionAlias  "表示玻璃是否具有某种材料的镀膜。"@zh-CN , ""@en , "Indique si le verre a subi un traitement de surface (VRAI) ou non (FAUX)."@fr-FR , "ガラスがコーティングされいるか（TRUE）否か（FALSE）示す。"@ja-JP , "German-description-9"@de-DE ;
         IFC4-PSD:ifdguid          "69278200d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "IsCoated" ;
-        IFC4-PSD:nameAlias        "Is Coated"@en , "German-name-9"@de-DE , "是否镀膜"@zh-CN , "VitrageTraite"@fr-FR , "コーティング"@ja-JP ;
+        IFC4-PSD:nameAlias        "Is Coated"@en , "コーティング"@ja-JP , "VitrageTraite"@fr-FR , "German-name-9"@de-DE , "是否镀膜"@zh-CN ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
 :p88beaa80d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(Rsol): The ratio of incident solar radiation that is reflected by a glazing system (also named ρe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        rdfs:label                "SolarReflectance" ;
         IFC4-PSD:definition       "(Rsol): The ratio of incident solar radiation that is reflected by a glazing system (also named ρe). Note the following equation Asol + Rsol + Tsol = 1" ;
-        IFC4-PSD:definitionAlias  "（Rsol）被玻璃系统反射的太阳入射辐射的比率（也可用ρe表示）。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN , "(Rsol). Ratio du rayonnement solaire incident qui est réfléchi par le vitrage. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , "（Rsol）ガラスで反射する日射の比率（ρeとも表わされる）。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP , "German-description-14"@de-DE , ""@en ;
+        IFC4-PSD:definitionAlias  "(Rsol). Ratio du rayonnement solaire incident qui est réfléchi par le vitrage. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , "German-description-14"@de-DE , "（Rsol）ガラスで反射する日射の比率（ρeとも表わされる）。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP , ""@en , "（Rsol）被玻璃系统反射的太阳入射辐射的比率（也可用ρe表示）。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN ;
         IFC4-PSD:ifdguid          "88beaa80d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "SolarReflectance" ;
-        IFC4-PSD:nameAlias        "日射反射率"@ja-JP , "太阳能反射率"@zh-CN , "ReflexionRayonnementSolaire"@fr-FR , "Strahlungsreflectionsgrad"@de-DE , "Solar Reflectance"@en ;
+        IFC4-PSD:nameAlias        "太阳能反射率"@zh-CN , "Solar Reflectance"@en , "Strahlungsreflectionsgrad"@de-DE , "日射反射率"@ja-JP , "ReflexionRayonnementSolaire"@fr-FR ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
                                   ] .
 
-:GlassLayers  a             rdf:Property ;
-        rdfs:seeAlso        :p0df58f80d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:GlassLayers .
-
 :p51e89480d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the glass is tempered (TRUE) or not (FALSE) ." ;
+        rdfs:label                "IsTempered" ;
         IFC4-PSD:definition       "Indication whether the glass is tempered (TRUE) or not (FALSE) ." ;
-        IFC4-PSD:definitionAlias  "強化ガラスか（TRUE）否か(FALSE)を示す。"@ja-JP , "表示玻璃是否经过强化处理。"@zh-CN , "Indique si le verre est trempé (VRAI) ou non (FAUX)."@fr-FR , ""@en , "German-description-7"@de-DE ;
+        IFC4-PSD:definitionAlias  ""@en , "Indique si le verre est trempé (VRAI) ou non (FAUX)."@fr-FR , "表示玻璃是否经过强化处理。"@zh-CN , "強化ガラスか（TRUE）否か(FALSE)を示す。"@ja-JP , "German-description-7"@de-DE ;
         IFC4-PSD:ifdguid          "51e89480d1dd11e1800000215ad4efdf" ;
         IFC4-PSD:name             "IsTempered" ;
-        IFC4-PSD:nameAlias        "VitrageTrempe"@fr-FR , "Is Tempered"@en , "強化ガラス"@ja-JP , "是否钢化"@zh-CN , "German-name-7"@de-DE ;
+        IFC4-PSD:nameAlias        "是否钢化"@zh-CN , "強化ガラス"@ja-JP , "VitrageTrempe"@fr-FR , "Is Tempered"@en , "German-name-7"@de-DE ;
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
-:SolarReflectance  a        rdf:Property ;
-        rdfs:seeAlso        :p88beaa80d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SolarReflectance .
+:IsTempered  a              rdf:Property ;
+        rdfs:seeAlso        :p51e89480d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsTempered .
 
-:GlassThickness3  a         rdf:Property ;
-        rdfs:seeAlso        :p32516c00d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:GlassThickness3 .
+:p8ceac800d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(Tsol): The ratio of incident solar radiation that directly passes through a glazing system (also named τe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        rdfs:label                "SolarTransmittance" ;
+        IFC4-PSD:definition       "(Tsol): The ratio of incident solar radiation that directly passes through a glazing system (also named τe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        IFC4-PSD:definitionAlias  "German-description-15"@de-DE , "（Tsol）ガラスを透過する日射の比率（τeとも表わされる）。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP , "（Tsol）透过玻璃系统的太阳入射辐射的比率（也可用τe表示）。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN , "(Tsol). Ratio du rayonnement solaire incident qui est transmis directement par le vitrage. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "8ceac800d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarTransmittance" ;
+        IFC4-PSD:nameAlias        "太阳能透射率"@zh-CN , "TransmissionRayonnementSolaire"@fr-FR , "Strahlungstransmissionsgrad"@de-DE , "Solar Transmittance"@en , "日射透過率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
 
 :ThermalTransmittanceWinter
         a                   rdf:Property ;
         rdfs:seeAlso        :p9e33d480d1dd11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ThermalTransmittanceWinter .
 
-:SolarHeatGainTransmittance
+:SolarAbsorption  a         rdf:Property ;
+        rdfs:seeAlso        :p84928d00d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarAbsorption .
+
+:p95db9980d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(SC): The measure of the ability of a glazing to transmit solar heat, relative to that ability for 3 mm (1/8-inch) clear, double-strength, single glass. Shading coefficient is being phased out in favor of the solar heat gain coefficient (SHGC), and is approximately equal to the SHGC multiplied by 1.15. The shading coefficient is expressed as a number without units between 0 and 1." ;
+        rdfs:label                "ShadingCoefficient" ;
+        IFC4-PSD:definition       "(SC): The measure of the ability of a glazing to transmit solar heat, relative to that ability for 3 mm (1/8-inch) clear, double-strength, single glass. Shading coefficient is being phased out in favor of the solar heat gain coefficient (SHGC), and is approximately equal to the SHGC multiplied by 1.15. The shading coefficient is expressed as a number without units between 0 and 1." ;
+        IFC4-PSD:definitionAlias  "Das Verhältnis aus g-Wert der jeweiligen Verglasung und dem g-Wert eines Zweischeiben-Normalglasfensters.\nDer g-Wert dieses Zweischeiben-Normalglasfensters wird als Konstante mit 80 % angesetzt. Bei Einfachglas beträgt die Konstante 87 %, Auch \"Shading coefficient\" genannt."@de-DE , ""@en , "(SC): Mesure de la capacité d'un vitrage à transmettre l'énergie solaire comparativement à un simple vitrage clair, de 3 mm (double renfort). Le coefficient d'atténuation est supprimé progressivement en faveur du coefficient d'apport solaire (SHGC) et est approximativement égal au SHGC multiplié par 1,15. Le coefficient d'atténuation est exprimé comme nombre sans unités entre 0 et 1."@fr-FR , "（SC）玻璃传递太阳热量能力的度量，以3mm（1/8英寸）透明双倍强度单层玻璃为基准。遮阳系数有被太阳能得热系数（SHGC）取代的趋势，其值约为SHGC的1.15倍。遮阳系数以大于0小于1的无单位数表示。"@zh-CN , "(SC): ガラスの太陽熱伝導の基準、3mm（1/8インチ）透明の一枚ガラスの性能との比。遮蔽係数は太陽熱利得係数(SHGC)に移行し、段階的に廃止、SHGC×1.15とほとんど等しい。遮蔽係数は０から１までの単位無しの値。"@ja-JP ;
+        IFC4-PSD:ifdguid          "95db9980d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShadingCoefficient" ;
+        IFC4-PSD:nameAlias        "遮阳系数"@zh-CN , "CoefficientOmbrage"@fr-FR , "遮蔽係数"@ja-JP , "Shading Coefficient"@en , "mittlere Durchlassfaktor b"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p1a79e800d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the first (inner) glass layer." ;
+        rdfs:label                "GlassThickness1" ;
+        IFC4-PSD:definition       "Thickness of the first (inner) glass layer." ;
+        IFC4-PSD:definitionAlias  "第一层（内侧）玻璃的厚度。"@zh-CN , "Epaisseur de la première couche de verre (côté intérieur)"@fr-FR , ""@en , "German-description-2"@de-DE , "最初の（室内側）ガラスの厚み。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1a79e800d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GlassThickness1" ;
+        IFC4-PSD:nameAlias        "Glass Thickness1"@en , "EpaisseurVitrage1"@fr-FR , "ガラス厚1"@ja-JP , "玻璃厚度1"@zh-CN , "German-name-2"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p48f7c300d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Color (tint) selection for this glazing. It is given for information purposes only." ;
+        rdfs:label                "GlassColor" ;
+        IFC4-PSD:definition       "Color (tint) selection for this glazing. It is given for information purposes only." ;
+        IFC4-PSD:definitionAlias  ""@en , "ガラスの色合い。これは情報目的専用に提供される。"@ja-JP , "玻璃（贴膜）的颜色。仅供参考。"@zh-CN , "German-description-6"@de-DE , "Choix de la couleur (teinte) du vitrage. Donné à titre informatif seulement."@fr-FR ;
+        IFC4-PSD:ifdguid          "48f7c300d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GlassColor" ;
+        IFC4-PSD:nameAlias        "CouleurVitrage"@fr-FR , "玻璃颜色"@zh-CN , "ガラス色"@ja-JP , "German-name-6"@de-DE , "Glass Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:GlassColor  a              rdf:Property ;
+        rdfs:seeAlso        :p48f7c300d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GlassColor .
+
+:p80666f80d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the visible light that passes the glazing at normal incidence. It is a value without unit." ;
+        rdfs:label                "VisibleLightTransmittance" ;
+        IFC4-PSD:definition       "Fraction of the visible light that passes the glazing at normal incidence. It is a value without unit." ;
+        IFC4-PSD:definitionAlias  ""@en , "正射时穿透玻璃的可见光比例。无单位。"@zh-CN , "ガラスへ法線入射した可視光の透過率。単位の無い値。"@ja-JP , "German-description-11"@de-DE , "Fraction du rayonnement visible qui est transmise par le vitrage sous incidence normale. Valeur sans unité."@fr-FR ;
+        IFC4-PSD:ifdguid          "80666f80d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleLightTransmittance" ;
+        IFC4-PSD:nameAlias        "Visible Light Transmittance"@en , "Transmissionsgrad für sichtbares Licht"@de-DE , "TransmittanceVisible"@fr-FR , "可視光透過率"@ja-JP , "可见光透射率"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:ShadingCoefficient  a      rdf:Property ;
+        rdfs:seeAlso        :p95db9980d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShadingCoefficient .
+
+:p9a07b700d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal transmittance coefficient (U-Value) of a material.\nSummer thermal transmittance coefficient of the glazing only, often referred to as (U-value)." ;
+        rdfs:label                "ThermalTransmittanceSummer" ;
+        IFC4-PSD:definition       "Thermal transmittance coefficient (U-Value) of a material.\nSummer thermal transmittance coefficient of the glazing only, often referred to as (U-value)." ;
+        IFC4-PSD:definitionAlias  "Coefficient de transmission thermique (U) d'un matériau. Coefficient de transmission thermique en été du vitrage seul, souvent désigné comme étant Uw."@fr-FR , "材料的导热系数（U值）。\n仅玻璃的夏季导热系数，常以U值表示。"@zh-CN , "German-description-17"@de-DE , ""@en , "素材の熱透過係数（U値）。夏期のガラスの熱透過係数だけ、U値として参照される"@ja-JP ;
+        IFC4-PSD:ifdguid          "9a07b700d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalTransmittanceSummer" ;
+        IFC4-PSD:nameAlias        "夏期の熱透過係数"@ja-JP , "TransmittanceThermiqueEte"@fr-FR , "German-name-15"@de-DE , "Thermal Transmittance Summer"@en , "夏季导热系数"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalTransmittanceMeasure
+                                  ] .
+
+:SolarTransmittance  a      rdf:Property ;
+        rdfs:seeAlso        :p8ceac800d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarTransmittance .
+
+:GlassLayers  a             rdf:Property ;
+        rdfs:seeAlso        :p0df58f80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GlassLayers .
+
+:ThermalTransmittanceSummer
         a                   rdf:Property ;
-        rdfs:seeAlso        :p91af7c00d1dd11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:SolarHeatGainTransmittance .
+        rdfs:seeAlso        :p9a07b700d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalTransmittanceSummer .
+
+:p72185380d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the glass includes a contained wire mesh to prevent break-in (TRUE) or not (FALSE)" ;
+        rdfs:label                "IsWired" ;
+        IFC4-PSD:definition       "Indication whether the glass includes a contained wire mesh to prevent break-in (TRUE) or not (FALSE)" ;
+        IFC4-PSD:definitionAlias  "Indique si le verre est un verre armé à maille anti-effraction (VRAI) ou non (FAUX)"@fr-FR , "不法侵入防止の網入りガラスか（TRUE)否か（FALSE）示す。"@ja-JP , "German-description-10"@de-DE , ""@en , "表示玻璃是否具有防断裂的纤维网格。"@zh-CN ;
+        IFC4-PSD:ifdguid          "72185380d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsWired" ;
+        IFC4-PSD:nameAlias        "網入りガラス"@ja-JP , "Is Wired"@en , "VitrageArme"@fr-FR , "German-name-10"@de-DE , "是否夹丝"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:GlassThickness3  a         rdf:Property ;
+        rdfs:seeAlso        :p32516c00d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GlassThickness3 .
+
+:VisibleLightReflectance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7a708e80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleLightReflectance .
+
+:FillGas  a                 rdf:Property ;
+        rdfs:seeAlso        :p3da49780d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FillGas .
+
+:p84928d00d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(Asol) The ratio of incident solar radiation that is absorbed by a glazing system. It is the sum of the absorption distributed to the exterior (a) and to the interior (qi). Note the following equation Asol + Rsol + Tsol = 1" ;
+        rdfs:label                "SolarAbsorption" ;
+        IFC4-PSD:definition       "(Asol) The ratio of incident solar radiation that is absorbed by a glazing system. It is the sum of the absorption distributed to the exterior (a) and to the interior (qi). Note the following equation Asol + Rsol + Tsol = 1" ;
+        IFC4-PSD:definitionAlias  "German-description-13"@de-DE , "（Asol)ガラスで吸収される日射の比率。吸収の合計は外部（a）と、室内（qi）に分配される。以下の方程式に注意。Asol + Rsol + Tsol = 1"@ja-JP , ""@en , "(Asol). Ratio du rayonnement solaire incident qui est absorbé par le vitrage. Somme de l'absorption distribuée à l'extérieur (a) et à l'intérieur (qi). Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , "（Asol）被玻璃系统吸收的太阳入射辐射的比率，为传递到室外和室内的吸收的总量。注：以下等式成立Asol + Rsol + Tsol = 1"@zh-CN ;
+        IFC4-PSD:ifdguid          "84928d00d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarAbsorption" ;
+        IFC4-PSD:nameAlias        "Solar Absorption"@en , "AbsorptionRayonnementSolaire"@fr-FR , "日射吸収率"@ja-JP , "太阳能吸收率"@zh-CN , "Strahlungsabsorbtionsgrad"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .

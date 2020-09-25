@@ -49,7 +49,7 @@ public class IFC_Geolocation {
 
     public IFC_Geolocation() {	
         
-        ns1 = "http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#";
+        ns1 = "https://w3id.org/ifc/IFC4_ADD1#";//"http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#";
 
         ns3 = "https://w3id.org/list#";
 

@@ -1,16 +1,17 @@
-# baseURI: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialMechanical
-# imports: http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD 
-
-@base          <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialMechanical> .
-@prefix :      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD/Pset_MaterialMechanical#> .
-@prefix IFC4-PSD: <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialMechanical#> .
+@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
 
-<>      a                owl:Ontology ;
-        owl:imports      <http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD> ;
+:ShearModulus  a            rdf:Property ;
+        rdfs:seeAlso        :p806e6b80d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearModulus .
+
+<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MaterialMechanical>
+        a                owl:Ontology ;
+        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :ThermalExpansionCoefficient
@@ -18,8 +19,45 @@
         rdfs:seeAlso        :p8b290080d1ed11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ThermalExpansionCoefficient .
 
+:p806e6b80d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the shear modulus of elasticity of the material." ;
+        rdfs:label                "ShearModulus" ;
+        IFC4-PSD:definition       "A measure of the shear modulus of elasticity of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "806e6b80d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearModulus" ;
+        IFC4-PSD:nameAlias        "Shear Modulus"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcModulusOfElasticityMeasure
+                                  ] .
+
+:Pset_MaterialMechanical
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of mechanical material properties normally used for structural analysis purpose. It contains all properties which are independent of the actual material type." ;
+        rdfs:label                    "Pset_MaterialMechanical" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of mechanical material properties normally used for structural analysis purpose. It contains all properties which are independent of the actual material type." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialMechanical" ;
+        IFC4-PSD:propertyDef          :p7b112100d1ed11e1800000215ad4efdf , :p806e6b80d1ed11e1800000215ad4efdf , :p8b290080d1ed11e1800000215ad4efdf , :p764c6d00d1ed11e1800000215ad4efdf , :p85331f80d1ed11e1800000215ad4efdf .
+
+:PoissonRatio  a            rdf:Property ;
+        rdfs:seeAlso        :p85331f80d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PoissonRatio .
+
+:DynamicViscosity  a        rdf:Property ;
+        rdfs:seeAlso        :p764c6d00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DynamicViscosity .
+
 :p8b290080d1ed11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the expansion coefficient for warming up the material about one Kelvin." ;
+        rdfs:label                "ThermalExpansionCoefficient" ;
         IFC4-PSD:definition       "A measure of the expansion coefficient for warming up the material about one Kelvin." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "8b290080d1ed11e1800000215ad4efdf" ;
@@ -33,12 +71,10 @@
         rdfs:seeAlso        :p7b112100d1ed11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:YoungModulus .
 
-:DynamicViscosity  a        rdf:Property ;
-        rdfs:seeAlso        :p764c6d00d1ed11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:DynamicViscosity .
-
 :p7b112100d1ed11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the Young's modulus of elasticity of the material." ;
+        rdfs:label                "YoungModulus" ;
         IFC4-PSD:definition       "A measure of the Young's modulus of elasticity of the material." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "7b112100d1ed11e1800000215ad4efdf" ;
@@ -48,16 +84,10 @@
                                     IFC4-PSD:dataType  IFC4:IfcModulusOfElasticityMeasure
                                   ] .
 
-:ShearModulus  a            rdf:Property ;
-        rdfs:seeAlso        :p806e6b80d1ed11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:ShearModulus .
-
-:PoissonRatio  a            rdf:Property ;
-        rdfs:seeAlso        :p85331f80d1ed11e1800000215ad4efdf ;
-        rdfs:subPropertyOf  IFC4-PSD:PoissonRatio .
-
 :p764c6d00d1ed11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the viscous resistance of the material." ;
+        rdfs:label                "DynamicViscosity" ;
         IFC4-PSD:definition       "A measure of the viscous resistance of the material." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "764c6d00d1ed11e1800000215ad4efdf" ;
@@ -69,6 +99,8 @@
 
 :p85331f80d1ed11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the lateral deformations in the elastic range." ;
+        rdfs:label                "PoissonRatio" ;
         IFC4-PSD:definition       "A measure of the lateral deformations in the elastic range." ;
         IFC4-PSD:definitionAlias  ""@en ;
         IFC4-PSD:ifdguid          "85331f80d1ed11e1800000215ad4efdf" ;
@@ -77,26 +109,3 @@
         IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
                                     IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
                                   ] .
-
-:p806e6b80d1ed11e1800000215ad4efdf
-        a                         IFC4-PSD:PropertyDef ;
-        IFC4-PSD:definition       "A measure of the shear modulus of elasticity of the material." ;
-        IFC4-PSD:definitionAlias  ""@en ;
-        IFC4-PSD:ifdguid          "806e6b80d1ed11e1800000215ad4efdf" ;
-        IFC4-PSD:name             "ShearModulus" ;
-        IFC4-PSD:nameAlias        "Shear Modulus"@en ;
-        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
-                                    IFC4-PSD:dataType  IFC4:IfcModulusOfElasticityMeasure
-                                  ] .
-
-:Pset_MaterialMechanical
-        a                             IFC4-PSD:PropertySetDef ;
-        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
-        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
-        IFC4-PSD:definition           "A set of mechanical material properties normally used for structural analysis purpose. It contains all properties which are independent of the actual material type." ;
-        IFC4-PSD:definitionAlias      ""@en ;
-        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
-                                        IFC4-PSD:version  "IFC4"
-                                      ] ;
-        IFC4-PSD:name                 "Pset_MaterialMechanical" ;
-        IFC4-PSD:propertyDef          :p806e6b80d1ed11e1800000215ad4efdf , :p764c6d00d1ed11e1800000215ad4efdf , :p85331f80d1ed11e1800000215ad4efdf , :p7b112100d1ed11e1800000215ad4efdf , :p8b290080d1ed11e1800000215ad4efdf .
