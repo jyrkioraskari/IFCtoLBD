@@ -2,14 +2,19 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.bimserver.plugins.deserializers.DeserializeException;
+import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+
+import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -79,6 +84,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		this.props_level = props_level;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 
+		try {
+            System.out.println("Set the bounding box generator");
+            this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
+        } catch (RenderEngineException | DeserializeException | IOException e) {
+            e.printStackTrace();
+        }
+
+		
 		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
 			uriBase += "#";
 		this.uriBase = uriBase;
@@ -183,6 +196,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		boolean hasBuildingProperties = true;
 		boolean hasSeparatePropertiesModel = false;
 		boolean hasGeolocation = true;
+
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation);
 		return lbd_general_output_model;
@@ -201,6 +215,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		boolean hasBuildingProperties = true;
 		boolean hasSeparatePropertiesModel = false;
 		boolean hasGeolocation = true;
+
 		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation);
 		return lbd_general_output_model;
@@ -229,6 +244,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 	public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements,
 			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
 			boolean hasGeolocation) {
+	    try {
+            System.out.println("Set the bounding box generator");
+            this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
+        } catch (RenderEngineException | DeserializeException | IOException e) {
+            e.printStackTrace();
+        }
+
+	    
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));

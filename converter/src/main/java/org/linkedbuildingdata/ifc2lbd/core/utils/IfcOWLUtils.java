@@ -264,6 +264,12 @@ public class IfcOWLUtils {
 		}
 	}
 
+	   public static List<RDFNode> getProjectSIUnits(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	        RDFStep[] path = { new InvRDFStep(RDF.type) };
+	        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
+	    }
+
+	
 	/**
 	 * Returns list of all RDF nodes that match the RDF graoh pattern:
 	 * 
