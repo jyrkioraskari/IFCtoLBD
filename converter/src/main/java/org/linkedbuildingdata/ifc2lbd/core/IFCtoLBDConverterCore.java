@@ -383,6 +383,7 @@ public abstract class IFCtoLBDConverterCore {
         for (Model model : ms) {
             model.setNsPrefix("rdf", RDF.uri);
             model.setNsPrefix("rdfs", RDFS.uri);
+            model.setNsPrefix("owl", OWL.getURI());
             model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
             model.setNsPrefix("inst", uriBase);
             model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");

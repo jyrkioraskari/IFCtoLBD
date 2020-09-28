@@ -103,6 +103,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
 		readInOntologies(ifc_filename);
+		
+	    eventBus.post(new IFCtoLBD_SystemStatusEvent("Create ifc to LBD mapping"));
+
 		createIfcLBDProductMapping();
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();

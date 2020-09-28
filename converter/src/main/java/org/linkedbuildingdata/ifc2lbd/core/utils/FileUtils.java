@@ -56,7 +56,7 @@ public class FileUtils {
                 if (e == null)
                     break;
                 String name = e.getName();
-                if (name.startsWith("/" + dir)) {
+                if (name.contains("/" + dir)) {
                     if (name.contains("_") && name.endsWith(extension))
                         goodFiles.add(name);
                 }
@@ -82,6 +82,8 @@ public class FileUtils {
 
         File folder = new File(dir);
         File[] listOfFiles = folder.listFiles();
+        if(listOfFiles==null)
+            return goodFiles;
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile())
                 goodFiles.add(listOfFiles[i].getAbsolutePath());
