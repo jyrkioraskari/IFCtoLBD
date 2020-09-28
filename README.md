@@ -17,10 +17,12 @@ It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.
 
 ## Precompiled binaries
 
-Precompiled applications are included in this repository.
+Precompiled applications are available in the published release.
 
-* Desktop application: [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true)
-* The special Java 12 version: [IFCtoLBD-Desktop Java 12](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_12.jar?raw=true)
+* Desktop application: IFCtoLBD-Desktop Java 8
+* The special Java 12 version: IFCtoLBD-Desktop Java 12
+
+Also Windows 10 installations are availabe. 
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
