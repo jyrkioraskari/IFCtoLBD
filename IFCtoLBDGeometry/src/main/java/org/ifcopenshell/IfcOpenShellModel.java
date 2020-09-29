@@ -48,9 +48,15 @@ package org.ifcopenshell;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Collection;
 import java.util.HashMap;
 
+import org.bimserver.plugins.renderengine.EntityNotFoundException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineFilter;
+import org.bimserver.plugins.renderengine.RenderEngineInstance;
+import org.bimserver.plugins.renderengine.RenderEngineModel;
+import org.bimserver.plugins.renderengine.RenderEngineSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,8 +66,8 @@ public class IfcOpenShellModel  {
 	private InputStream ifcInputStream;
 
 	private HashMap<Integer,IfcOpenShellEntityInstance> instancesById;
-	private HashMap<String,IfcOpenShellEntityInstance> instancesByGuid;
-
+	private HashMap<String,IfcOpenShellEntityInstance> instancesByGUID;
+	
 	private IfcGeomServerClient client;
 	
 	public IfcOpenShellModel(IfcGeomServerClient client, InputStream ifcInputStream) throws RenderEngineException, IOException {
@@ -92,17 +98,19 @@ public class IfcOpenShellModel  {
 	public void generateGeneralGeometry() throws RenderEngineException {
 		// We keep track of instances ourselves
 		instancesById = new HashMap<Integer,IfcOpenShellEntityInstance>();
-		instancesByGuid = new HashMap<String,IfcOpenShellEntityInstance>();
+		instancesByGUID = new HashMap<String,IfcOpenShellEntityInstance>();
 
 		final double t0 = (double) System.nanoTime();
 
 		while (client.hasNext()) {
 			IfcGeomServerClientEntity next = client.getNext();
-			// Store the instance in our dictionary
+			if(next==null) // JO 2020
+				break;
 			IfcOpenShellEntityInstance instance = new IfcOpenShellEntityInstance(next);
+			System.out.println("GEN GEOM:  "+next.getGuid());
+			// Store the instance in our dictionary
 			instancesById.put(next.getId(), instance);
-			instancesByGuid.put(next.getGuid(), instance);
-			System.out.println(next.getGuid());
+			instancesByGUID.put(next.getGuid(), instance);
 		}
 		
 		final double t1 = (double) System.nanoTime();
@@ -110,7 +118,7 @@ public class IfcOpenShellModel  {
 		LOGGER.debug(String.format("Took %.2f seconds to obtain representations for %d entities", (t1-t0) / 1.E9, instancesById.size()));
 	}
 
-	public IfcOpenShellEntityInstance getInstanceFromExpressId(int oid) throws RenderEngineException {
+	public IfcOpenShellEntityInstance getInstanceFromExpressId(int oid) {
 		if ( instancesById.containsKey(oid) ) {
 			return instancesById.get(oid);
 		} else {
@@ -121,9 +129,11 @@ public class IfcOpenShellModel  {
 		    return null;
 		}
 	}
-
-	public HashMap<String, IfcOpenShellEntityInstance> getInstancesByGuid() {
-		return instancesByGuid;
+	public IfcOpenShellEntityInstance getInstanceFromGUID(String guid) {
+		if ( instancesByGUID.containsKey(guid) ) {
+			return instancesByGUID.get(guid);
+		} else {
+		    return null;
+		}
 	}
-	
 }

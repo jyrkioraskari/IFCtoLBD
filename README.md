@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.4
+Version 2.6
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
 
@@ -17,10 +17,12 @@ It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.
 
 ## Precompiled binaries
 
-Precompiled applications are included in this repository.
+Precompiled applications are available in the published release.
 
-* Desktop application: [IFCtoLBD-Desktop Java 8](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_8.jar?raw=true)
-* The special Java 12 version: [IFCtoLBD-Desktop Java 12](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD-Desktop_Java_12.jar?raw=true)
+* Desktop application: IFCtoLBD-Desktop Java 8
+* The special Java 12 version: IFCtoLBD-Desktop Java 12
+
+Also Windows 10 installations are availabe. 
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
@@ -127,6 +129,8 @@ http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
 
 ### Docker for the Open API interface
 
+Install Docker Desktop:  https://www.docker.com/get-started
+
 Command-line commands needed to start the server at your computer;
 ```
 docker pull jyrkioraskari/ifc2lbdopenapi:latest
@@ -148,23 +152,23 @@ http://localhost:8081/IFCtoLBD_OpenAPI
 ## License
 This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
-## Cite this
+## How to cite
 ```
-@software{jyrki_oraskari_2020_4009498,
+@software{jyrki_oraskari_2020_4056940,
   author       = {Jyrki Oraskari and
                   Mathias Bonduel and
                   Kris McGlinn and
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
-                  Joel Lehtonen OH64K},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.2},
-  month        = aug,
+                  Joel Lehtonen},
+  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD  2.5},
+  month        = sep,
   year         = 2020,
   publisher    = {Zenodo},
-  version      = {2.2},
-  doi          = {10.5281/zenodo.4009498},
-  url          = {https://doi.org/10.5281/zenodo.4009498}
+  version      = {2.5},
+  doi          = {10.5281/zenodo.4056940},
+  url          = {https://doi.org/10.5281/zenodo.4056940}
 }
 ```
 

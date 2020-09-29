@@ -70,90 +70,87 @@ public class IfcSpfReader {
      * without any input parameters for descriptions of runtime parameters.
      */
     public static void main(String[] args) throws IOException {
-		String[] options = new String[] {"--baseURI", "--dir", "--keep-duplicates"};
-		Boolean[] optionValues = new Boolean[] { false, false, false};
+        String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
+        Boolean[] optionValues = new Boolean[] { false, false, false };
 
-		String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
-		DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
+        String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
-		List<String> argsList = new ArrayList<>(Arrays.asList(args));
-		for (int i = 0; i < options.length; ++i) {
-			optionValues[i] = argsList.contains(options[i]);
-		}
+        List<String> argsList = new ArrayList<>(Arrays.asList(args));
+        for (int i = 0; i < options.length; ++i) {
+            optionValues[i] = argsList.contains(options[i]);
+        }
 
-		// State of flags has been stored in optionValues. Remove them from our
-		// option
-		// strings in order to make testing the required amount of positional
-		// arguments easier.
-		for (String flag : options) {
-			argsList.remove(flag);
-		}
+        // State of flags has been stored in optionValues. Remove them from our
+        // option
+        // strings in order to make testing the required amount of positional
+        // arguments easier.
+        for (String flag : options) {
+            argsList.remove(flag);
+        }
 
-		int numRequiredOptions = 0;
-		if(optionValues[FLAG_DIR])
-			numRequiredOptions++;
-		else
-			numRequiredOptions = 2;
-		if(optionValues[FLAG_BASEURI])
-			numRequiredOptions++;
+        int numRequiredOptions = 0;
+        if (optionValues[FLAG_DIR])
+            numRequiredOptions++;
+        else
+            numRequiredOptions = 2;
+        if (optionValues[FLAG_BASEURI])
+            numRequiredOptions++;
 
-		if (argsList.size() != numRequiredOptions) {
-			LOG.info("Usage:\n"
-					+ "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] <input_file> <output_file>\n"
-					+ "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] --dir <directory>\n");
-			return;
-		}
+        if (argsList.size() != numRequiredOptions) {
+            LOG.info("Usage:\n" + "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] <input_file> <output_file>\n"
+                            + "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] --dir <directory>\n");
+            return;
+        }
 
-		final List<String> inputFiles;
-		final List<String> outputFiles;
-		String baseURI = "";
+        final List<String> inputFiles;
+        final List<String> outputFiles;
+        String baseURI = "";
 
-		if (optionValues[FLAG_DIR]) {
-			if(optionValues[FLAG_BASEURI]){
-				baseURI = argsList.get(0);
-				inputFiles = showFiles(argsList.get(1));
-				outputFiles = null;
-			}
-			else{
-				baseURI = DEFAULT_PATH;
-				inputFiles = showFiles(argsList.get(0));
-				outputFiles = null;
-			}
-		} else {
-			if(optionValues[FLAG_BASEURI]){
-				baseURI = argsList.get(0);
-				inputFiles = Arrays.asList(new String[] { argsList.get(1) });
-				outputFiles = Arrays.asList(new String[] { argsList.get(2) });
-			}
-			else{
-				baseURI = DEFAULT_PATH;
-				inputFiles = Arrays.asList(new String[] { argsList.get(0) });
-				outputFiles = Arrays.asList(new String[] { argsList.get(1) });
-			}
-		}
+        if (optionValues[FLAG_DIR]) {
+            if (optionValues[FLAG_BASEURI]) {
+                baseURI = argsList.get(0);
+                inputFiles = showFiles(argsList.get(1));
+                outputFiles = null;
+            } else {
+                baseURI = DEFAULT_PATH;
+                inputFiles = showFiles(argsList.get(0));
+                outputFiles = null;
+            }
+        } else {
+            if (optionValues[FLAG_BASEURI]) {
+                baseURI = argsList.get(0);
+                inputFiles = Arrays.asList(new String[] { argsList.get(1) });
+                outputFiles = Arrays.asList(new String[] { argsList.get(2) });
+            } else {
+                baseURI = DEFAULT_PATH;
+                inputFiles = Arrays.asList(new String[] { argsList.get(0) });
+                outputFiles = Arrays.asList(new String[] { argsList.get(1) });
+            }
+        }
 
-		for (int i = 0; i < inputFiles.size(); ++i) {
-			final String inputFile = inputFiles.get(i);
-			final String outputFile;
-			if (inputFile.endsWith(".ifc")) {
-				if (outputFiles == null) {
-					outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
-				} else {
-					outputFile = outputFiles.get(i);
-				}
+        for (int i = 0; i < inputFiles.size(); ++i) {
+            final String inputFile = inputFiles.get(i);
+            final String outputFile;
+            if (inputFile.endsWith(".ifc")) {
+                if (outputFiles == null) {
+                    outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
+                } else {
+                    outputFile = outputFiles.get(i);
+                }
 
-				IfcSpfReader r = new IfcSpfReader();
+                IfcSpfReader r = new IfcSpfReader();
 
-				r.removeDuplicates = !optionValues[FLAG_KEEP_DUPLICATES];
+                r.removeDuplicates = !optionValues[FLAG_KEEP_DUPLICATES];
 
-				LOG.info("Converting file: " + inputFile + "\r\n");
+                LOG.info("Converting file: " + inputFile + "\r\n");
 
-				r.setup(inputFile);
-				r.convert(inputFile, outputFile, baseURI);
-			}
-		}
+                r.setup(inputFile);
+                r.convert(inputFile, outputFile, baseURI);
+            }
+        }
 
-	}
+    }
 
     /**
      * List all files in a particular directory.
@@ -163,58 +160,58 @@ public class IfcSpfReader {
      * @return a {@link java.util.List} of Strings denoting files.
      */
     public static List<String> showFiles(String dir) {
-		List<String> goodFiles = new ArrayList<>();
+        List<String> goodFiles = new ArrayList<>();
 
-		File folder = new File(dir);
-		File[] listOfFiles = folder.listFiles();
+        File folder = new File(dir);
+        File[] listOfFiles = folder.listFiles();
 
-		for (int i = 0; i < listOfFiles.length; i++) {
-			if (listOfFiles[i].isFile())
-				goodFiles.add(listOfFiles[i].getAbsolutePath());
-			else if (listOfFiles[i].isDirectory())
-				goodFiles.addAll(showFiles(listOfFiles[i].getAbsolutePath()));
-		}
-		return goodFiles;
-	}
+        for (int i = 0; i < listOfFiles.length; i++) {
+            if (listOfFiles[i].isFile())
+                goodFiles.add(listOfFiles[i].getAbsolutePath());
+            else if (listOfFiles[i].isDirectory())
+                goodFiles.addAll(showFiles(listOfFiles[i].getAbsolutePath()));
+        }
+        return goodFiles;
+    }
 
     private static String getExpressSchema(String ifcFile) {
-		try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			try {
-				String strLine;
-				while ((strLine = br.readLine()) != null) {
-					if (strLine.length() > 0) {
-						if (strLine.startsWith("FILE_SCHEMA")) {
-							if (strLine.indexOf("IFC2X3") != -1)
-								return "IFC2X3_TC1";
-							if (strLine.indexOf("IFC4x3") != -1)
-								return "IFC4x3_RC1";
-							if (strLine.indexOf("IFC4X3") != -1)
-								return "IFC4x3_RC1";
-							if (strLine.indexOf("IFC4x3_RC1") != -1)
-								return "IFC4x3_RC1";
-							if (strLine.indexOf("IFC4X3_RC1") != -1)
-								return "IFC4x3_RC1";
-							if (strLine.indexOf("IFC4X1") != -1)
-								return "IFC4x1";
-							if (strLine.indexOf("IFC4x1") != -1)
-								return "IFC4x1";
-							if (strLine.indexOf("IFC4") != -1)
-								return "IFC4_ADD1";
-							else
-								return "";
-						}
-					}
-				}
-			} finally {
-				br.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+        try (FileInputStream fstream = new FileInputStream(ifcFile)) {
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            try {
+                String strLine;
+                while ((strLine = br.readLine()) != null) {
+                    if (strLine.length() > 0) {
+                        if (strLine.startsWith("FILE_SCHEMA")) {
+                            if (strLine.indexOf("IFC2X3") != -1)
+                                return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4x3") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X3") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4x3_RC1") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X3_RC1") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X1") != -1)
+                                return "IFC4x1";
+                            if (strLine.indexOf("IFC4x1") != -1)
+                                return "IFC4x1";
+                            if (strLine.indexOf("IFC4") != -1)
+                                return "IFC4_ADD1";
+                            else
+                                return "";
+                        }
+                    }
+                }
+            } finally {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
 
     public static String slurp(InputStream in) throws IOException {
         StringBuilder out = new StringBuilder();
@@ -241,10 +238,8 @@ public class IfcSpfReader {
 
         try {
             InputStream fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
-			if (fis == null)
-				fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");  // Eclipse FIX
-			ObjectInputStream ois = new ObjectInputStream(fis);
-			
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
             ent = null;
             try {
                 ent = (Map<String, EntityVO>) ois.readObject();
@@ -255,11 +250,7 @@ public class IfcSpfReader {
             }
 
             fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
-            
-			if (fis == null)
-				fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser"); // Eclipse FIX
 
-			
             ois = new ObjectInputStream(fis);
             typ = null;
             try {
@@ -301,41 +292,39 @@ public class IfcSpfReader {
     }
 
     @SuppressWarnings("unchecked")
-	public void convert(String ifcFile, String outputFile, String baseURI) throws IOException {
-		// CONVERSION
-		OntModel om = null;
+    public void convert(String ifcFile, String outputFile, String baseURI) throws IOException {
+        // CONVERSION
+        OntModel om = null;
 
-		in = null;
-		HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
-		om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-		in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-		if (in == null)
-			in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");  // Eclipse FIX
-		
-		om.read(in, null, "TTL");
+        in = null;
+        HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
+        om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
+        in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
 
-		try {
-			RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
-			conv.setRemoveDuplicates(removeDuplicates);
-			conv.setIfcReader(this);
-			try (FileOutputStream out = new FileOutputStream(outputFile)) {
-				String s = "# baseURI: " + baseURI;
-				s += "\r\n# imports: " + ontURI + "\r\n\r\n";
-				out.write(s.getBytes());
-				LOG.info("Started parsing stream");
-				conv.parseModel2Stream(out);
-				LOG.info("Finished!!");
-			}
-		} catch (FileNotFoundException e1) {
-			e1.printStackTrace();
-		} finally {
-			try {
-				in.close();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		}
-	}
+        om.read(in, null, "TTL");
+
+        try {
+            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
+            conv.setRemoveDuplicates(removeDuplicates);
+            conv.setIfcReader(this);
+            try (FileOutputStream out = new FileOutputStream(outputFile)) {
+                String s = "# baseURI: " + baseURI;
+                s += "\r\n# imports: " + ontURI + "\r\n\r\n";
+                out.write(s.getBytes());
+                LOG.info("Started parsing stream");
+                conv.parseModel2Stream(out);
+                LOG.info("Finished!!");
+            }
+        } catch (FileNotFoundException e1) {
+            e1.printStackTrace();
+        } finally {
+            try {
+                in.close();
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+        }
+    }
 
     public void setRemoveDuplicates(boolean val) {
         removeDuplicates = val;

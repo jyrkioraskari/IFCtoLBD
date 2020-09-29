@@ -6,8 +6,39 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 
 public class LBD_NS extends abstract_NS{
+    // http://linkedbuildingdata.net/ldac2019/files/LDAC2019_Joseph_ODonovan.pdf
+	public static class GEO {
+		public static final String GEO_ns = "http://www.opengis.net/ont/geosparql#";
+		public static final Property hasGeometry =property(GEO_ns,"hasGeometry");
+		public static final Property asWKT =property(GEO_ns,"asWKT");
+		public static void addNameSpace(Model model)
+		{
+			model.setNsPrefix("geo", GEO_ns);
+		}
+	}
+
+	public static class SMLS {
+		public static final String SMLS_ns = "https://w3id.org/def/smls-owl#";
+		public static final Property unit =property(SMLS_ns,"unit");
+		public static final Property accuracy =property(SMLS_ns,"accuracy");
+		public static void addNameSpace(Model model)
+		{
+			model.setNsPrefix("smls", SMLS_ns);
+		}
+	}
 	
-	
+	public static class UNIT {
+		public static final String UNIT_ns = "http://qudt.org/vocab/unit/";
+		public static final Resource METER =resource(UNIT_ns,"M");
+		public static final Resource SQUARE_METRE =resource(UNIT_ns,"M2");
+		public static final Resource CUBIC_METRE =resource(UNIT_ns,"M3");
+		public static final Resource RADIAN =resource(UNIT_ns,"RAD");
+		public static void addNameSpace(Model model)
+		{
+			model.setNsPrefix("unit", UNIT_ns);
+		}
+		
+	}
 	public static class BOT {
 		public static final String bot_ns = "https://w3id.org/bot#";
 		
@@ -58,11 +89,12 @@ public class LBD_NS extends abstract_NS{
 		}
 	}
 
-
+	
 	public static class PROPS_NS {
 		public static final String props_ns = "https://w3id.org/props#";
 		public static final String bsddprops_ns = "https://buildingsmart.org/bsddld#";
-		public static final String psd_ns = "http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#";
+		public static final String psd_ns = "http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#";
+        //public static final String psd_ns = "http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#";
 
 		public static void addNameSpace(Model model)
 		{
@@ -72,7 +104,8 @@ public class LBD_NS extends abstract_NS{
 		}
 		
 		//public static final Resource props=resource(props_ns,"Pset");
-		//public static final Property partofPset=property(props_ns, "partOfPset");		
+		//public static final Property partofPset=property(props_ns, "partOfPset");	
+		
 		public static final Property isBSDDProp=property(bsddprops_ns, "isBSDDProperty");	
 		public static final Property namePset=property(psd_ns, "name");
 		public static final Property ifdGuidProperty=property(psd_ns,"ifdguid");

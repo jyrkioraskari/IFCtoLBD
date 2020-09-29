@@ -751,7 +751,14 @@ public class IfcGeomServerClient implements AutoCloseable {
 			askForMore();
 
 			return e.getEntity();
-		} catch (IOException e) {
+		} 
+		// JO 2020
+		catch (java.io.EOFException e) {
+			// Do nothing.The file is read!
+			return null;
+		}
+		catch (IOException e) {
+			e.printStackTrace();
 			terminate();
 			return null;
 		}
