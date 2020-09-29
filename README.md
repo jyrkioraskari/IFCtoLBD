@@ -161,7 +161,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
-                  Joel Lehtonen OH64K},
+                  Joel Lehtonen},
   title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD  2.5},
   month        = sep,
   year         = 2020,
