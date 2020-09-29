@@ -1,25 +1,25 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :AccuracyOfFireSensor
         a                   rdf:Property ;
         rdfs:seeAlso        :p2679a000d20511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:AccuracyOfFireSensor .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeFireSensor>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SensorTypeFireSensor
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A device that senses or detects the presence of fire." ;
         rdfs:label                    "Pset_SensorTypeFireSensor" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSensor/FIRESENSOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/FIRESENSOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSensor/FIRESENSOR" ;
         IFC4-PSD:definition           "A device that senses or detects the presence of fire." ;
         IFC4-PSD:definitionAlias      "炎の存在を感知または検出するデバイス"@ja-JP , ""@en ;

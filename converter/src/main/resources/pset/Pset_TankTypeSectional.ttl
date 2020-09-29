@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypeSectional#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypeSectional#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SectionLength  a           rdf:Property ;
         rdfs:seeAlso        :pc4269c80d21011e1800000215ad4efdf ;
@@ -26,9 +26,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypeSectional>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypeSectional>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pbd982500d21011e1800000215ad4efdf
@@ -48,7 +48,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Fixed vessel constructed from sectional parts with one or more compartments for storing a liquid.\n\nNote (1): All sectional construction tanks are considered to be rectangular by default.\nNote (2): Generally, it is not expected that sectional construction tanks will be used for the purposes of gas storage.\n\nPset renamed from Pset_TankTypeSectionalTank to Pset_TankTypeSectional in IFC2x2 Pset Addendum." ;
         rdfs:label                    "Pset_TankTypeSectional" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcTank/SECTIONAL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/SECTIONAL> ;
         IFC4-PSD:applicableTypeValue  "IfcTank/SECTIONAL" ;
         IFC4-PSD:definition           "Fixed vessel constructed from sectional parts with one or more compartments for storing a liquid.\n\nNote (1): All sectional construction tanks are considered to be rectangular by default.\nNote (2): Generally, it is not expected that sectional construction tanks will be used for the purposes of gas storage.\n\nPset renamed from Pset_TankTypeSectionalTank to Pset_TankTypeSectional in IFC2x2 Pset Addendum." ;
         IFC4-PSD:definitionAlias      ""@en , "液体を貯蔵するために一つ以上の区画を持ち組立部品から造られている固定された容器　　注(1)：全ての組立式タンクは矩形をデフォルトと考えられている。注(2)：一般的に、組立式タンクは気体を貯蔵する目的のために使用されることは考えていない。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　PsetはIFC2x2 Pset AddendumでPset_TankTypeSectionalTankからPsetまで_をTankTypeSectionalに改名しました。"@ja-JP ;

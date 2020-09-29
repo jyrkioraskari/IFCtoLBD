@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p7e8e87f0549843c0a39e88ac3f175c6e
         a                         IFC4-PSD:PropertyDef ;
@@ -124,7 +124,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Fluid flow performance history attached to an instance of IfcPerformanceHistory assigned to IfcDistributionPort.  This replaces the deprecated IfcFluidFlowProperties for performance values." ;
         rdfs:label                    "Pset_DistributionPortPHistoryDuct" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionPort/DUCT" ;
         IFC4-PSD:definition           "Fluid flow performance history attached to an instance of IfcPerformanceHistory assigned to IfcDistributionPort.  This replaces the deprecated IfcFluidFlowProperties for performance values." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -134,9 +134,9 @@
         IFC4-PSD:name                 "Pset_DistributionPortPHistoryDuct" ;
         IFC4-PSD:propertyDef          :p80b98e43359d4dc2bc6f1e3c586498e1 , :pc04ff2c7bd4148da8d8e037447267a2f , :pbe32824c472c44e8ab71cf06b1d088c9 , :p8148600227f74025863b0dda2b5a372e , :p39ebdb53ec0a4cfb9c16d3b93e4b79d3 , :p7e8e87f0549843c0a39e88ac3f175c6e , :pcbe855427fd14da0a29dd807677eb4a9 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryDuct>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Velocity  a                rdf:Property ;

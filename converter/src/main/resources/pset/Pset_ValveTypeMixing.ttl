@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeMixing#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeMixing#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p2c777d00d21511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,16 +22,16 @@
         rdfs:seeAlso        :p2c777d00d21511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:MixerControl .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeMixing>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeMixing>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_ValveTypeMixing
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A valve where typically the temperature of the outlet is determined by mixing hot and cold water inlet flows." ;
         rdfs:label                    "Pset_ValveTypeMixing" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/MIXING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/MIXING> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/MIXING" ;
         IFC4-PSD:definition           "A valve where typically the temperature of the outlet is determined by mixing hot and cold water inlet flows." ;
         IFC4-PSD:definitionAlias      "混合弁"@ja-JP , ""@en ;

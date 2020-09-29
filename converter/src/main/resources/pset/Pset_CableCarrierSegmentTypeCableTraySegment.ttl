@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :NominalHeight  a           rdf:Property ;
         rdfs:seeAlso        :p94eb3d80d1c611e1800000215ad4efdf ;
@@ -56,7 +56,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An (typically) open carrier segment onto which cables are laid. \nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
         rdfs:label                    "Pset_CableCarrierSegmentTypeCableTraySegment" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRAYSEGMENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRAYSEGMENT> ;
         IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLETRAYSEGMENT" ;
         IFC4-PSD:definition           "An (typically) open carrier segment onto which cables are laid. \nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
         IFC4-PSD:definitionAlias      "典型的な開放型ケーブルキャリアに関するプロパティセット定義。"@ja-JP , ""@en ;
@@ -66,9 +66,9 @@
         IFC4-PSD:name                 "Pset_CableCarrierSegmentTypeCableTraySegment" ;
         IFC4-PSD:propertyDef          :p8f8df300d1c611e1800000215ad4efdf , :p99aff180d1c611e1800000215ad4efdf , :p94eb3d80d1c611e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :NominalWidth  a            rdf:Property ;

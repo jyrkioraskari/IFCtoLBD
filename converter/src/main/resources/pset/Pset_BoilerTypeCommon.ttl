@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BoilerTypeCommon#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_BoilerTypeCommon#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :OutletTemperatureRange
         a                   rdf:Property ;
@@ -156,9 +156,9 @@
         IFC4-PSD:name                 "Pset_BoilerTypeCommon" ;
         IFC4-PSD:propertyDef          :p64a29f80d1c411e1800000215ad4efdf , :p9451a780d1c411e1800000215ad4efdf , :p75ebac00d1c411e1800000215ad4efdf , :p9ca9e280d1c411e1800000215ad4efdf , :p84d25e80d1c411e1800000215ad4efdf , :p7a17c980d1c411e1800000215ad4efdf , :pa3d0f080d1c411e1800000215ad4efdf , :padf2ef00d1c411e1800000215ad4efdf , :p68cebd00d1c411e1800000215ad4efdf , :pa9c6d180d1c411e1800000215ad4efdf , :p987dc500d1c411e1800000215ad4efdf , :p8ef45d00d1c411e1800000215ad4efdf , :p89971280d1c411e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BoilerTypeCommon>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_BoilerTypeCommon>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :IsWaterStorageHeater

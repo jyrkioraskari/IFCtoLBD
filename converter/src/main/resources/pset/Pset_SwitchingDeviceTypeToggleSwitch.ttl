@@ -1,13 +1,13 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :SwitchUsage  a             rdf:Property ;
@@ -35,7 +35,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A toggle switch is a switch that enables or isolates electrical power through a two position on/off action.  HISTORY: SetPoint added in IFC4." ;
         rdfs:label                    "Pset_SwitchingDeviceTypeToggleSwitch" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSwitchingDevice/TOGGLESWITCH> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/TOGGLESWITCH> ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/TOGGLESWITCH" ;
         IFC4-PSD:definition           "A toggle switch is a switch that enables or isolates electrical power through a two position on/off action.  HISTORY: SetPoint added in IFC4." ;
         IFC4-PSD:definitionAlias      "トグルスイッチとはON、OFFの２つのポジションの動作で、電力を接続したり遮断したりするスイッチである。 \n履歴： IFC4 に SetPoint を追加。"@ja-JP , ""@en ;

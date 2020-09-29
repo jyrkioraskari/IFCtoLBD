@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingCurve#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingCurve#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p245e1400d1fa11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -46,9 +46,9 @@
                                     IFC4-PSD:definingValue  IFC4:IfcElectricCurrentMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingCurve>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingCurve>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :TrippingCurveType  a       rdf:Property ;

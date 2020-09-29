@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ReliefValveSetting  a      rdf:Property ;
         rdfs:seeAlso        :p5f6b4200d21011e1800000215ad4efdf ;
@@ -26,7 +26,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Common attributes of an expansion type tank." ;
         rdfs:label                    "Pset_TankTypeExpansion" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcTank/EXPANSION> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/EXPANSION> ;
         IFC4-PSD:applicableTypeValue  "IfcTank/EXPANSION" ;
         IFC4-PSD:definition           "Common attributes of an expansion type tank." ;
         IFC4-PSD:definitionAlias      "膨張タンクの共通属性"@ja-JP , ""@en ;
@@ -49,9 +49,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPressureMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypeExpansion>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p48c4eb00d21011e1800000215ad4efdf

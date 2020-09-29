@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypePreformed#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypePreformed#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :FirstCurvatureRadius
         a                   rdf:Property ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Fixed vessel manufactured as a single unit with one or more compartments for storing a liquid.\n\nPset renamed from Pset_TankTypePreformedTank to Pset_TankTypePreformed in IFC2x2 Pset Addendum." ;
         rdfs:label                    "Pset_TankTypePreformed" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcTank/PREFORMED> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/PREFORMED> ;
         IFC4-PSD:applicableTypeValue  "IfcTank/PREFORMED" ;
         IFC4-PSD:definition           "Fixed vessel manufactured as a single unit with one or more compartments for storing a liquid.\n\nPset renamed from Pset_TankTypePreformedTank to Pset_TankTypePreformed in IFC2x2 Pset Addendum." ;
         IFC4-PSD:definitionAlias      "液体を貯蔵するために一つ以上の区画を持ち単体として製造された固定された容器　　　　　　　　　　　　　　　　　　　　　　　　　　　PsetはIFC2x2 Pset AddendumでPset_TankTypePreformedTankからPsetまで_をTankTypePreformedに改名しました。"@ja-JP , ""@en ;
@@ -89,7 +89,7 @@
         rdfs:seeAlso        :p92add100d21011e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SecondCurvatureRadius .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TankTypePreformed>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TankTypePreformed>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

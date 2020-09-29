@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeVentilation#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeVentilation#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p02a16480d1db11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "This property set is used to define the general characteristics of the duct design parameters within a system.\nHISTORY: New property set in IFC Release 2.0.  Renamed from Pset_DuctDesignCriteria in IFC4." ;
         rdfs:label                    "Pset_DistributionSystemTypeVentilation" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionSystem/VENTILATION> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionSystem/VENTILATION> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionSystem/VENTILATION" ;
         IFC4-PSD:definition           "This property set is used to define the general characteristics of the duct design parameters within a system.\nHISTORY: New property set in IFC Release 2.0.  Renamed from Pset_DuctDesignCriteria in IFC4." ;
         IFC4-PSD:definitionAlias      ""@en , "ダクトシステムの一般的な特徴、パラメーターの属性。"@ja-JP ;
@@ -117,9 +117,9 @@
         rdfs:seeAlso        :pe271a580d1da11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:DuctSealant .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeVentilation>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeVentilation>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pd38af300d1da11e1800000215ad4efdf

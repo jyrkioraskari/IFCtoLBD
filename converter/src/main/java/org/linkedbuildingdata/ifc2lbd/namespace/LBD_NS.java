@@ -73,8 +73,8 @@ public class LBD_NS extends abstract_NS{
 		public static void addNameSpace(Model model)
 		{
 			model.setNsPrefix("beo", beo_ns);
-			//model.setNsPrefix("furn", furnishing_ns);
-			//model.setNsPrefix("mep", mep_ns);
+			model.setNsPrefix("furn", furnishing_ns);
+			model.setNsPrefix("mep", mep_ns);
 		}
 		
 		public static Resource getProductType(Resource ifOwlClass)
@@ -89,17 +89,18 @@ public class LBD_NS extends abstract_NS{
 		}
 	}
 
-
+	
 	public static class PROPS_NS {
 		public static final String props_ns = "https://w3id.org/props#";
 		public static final String bsddprops_ns = "https://buildingsmart.org/bsddld#";
-		public static final String psd_ns = "http://www.buildingsmart-tech.org/ifcOWL/IFC4-PSD#";
+		public static final String psd_ns = "http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#";
+        //public static final String psd_ns = "http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#";
 
 		public static void addNameSpace(Model model)
 		{
 			model.setNsPrefix("props", props_ns);
-			//model.setNsPrefix("bsddld", bsddprops_ns);
-			//model.setNsPrefix("IFC4-PSD", psd_ns);
+			model.setNsPrefix("bsddld", bsddprops_ns);
+			model.setNsPrefix("IFC4-PSD", psd_ns);
 		}
 		
 		//public static final Resource props=resource(props_ns,"Pset");

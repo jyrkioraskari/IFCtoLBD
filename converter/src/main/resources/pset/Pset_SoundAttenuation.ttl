@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SoundAttenuation#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SoundAttenuation#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SoundPressure  a           rdf:Property ;
         rdfs:seeAlso        :p858ce400d20811e1800000215ad4efdf ;
@@ -26,9 +26,9 @@
         rdfs:seeAlso        :p7443d780d20811e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SoundScale .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SoundAttenuation>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SoundAttenuation>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p80c83000d20811e1800000215ad4efdf
@@ -48,7 +48,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Common definition to capture sound pressure at a point on behalf of a device typically used within the context of building services and flow distribution systems.   To indicate sound values from an instance of IfcDistributionFlowElement at a particular location, IfcAnnotation instance(s) should be assigned to the IfcDistributionFlowElement through the IfcRelAssignsToProduct relationship. The IfcAnnotation should specify ObjectType of 'Sound' and geometric representation of 'Annotation Point' consisting of a single IfcPoint subtype as described at IfcAnnotation.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
         rdfs:label                    "Pset_SoundAttenuation" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAnnotation/SOUND> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAnnotation/SOUND> ;
         IFC4-PSD:applicableTypeValue  "IfcAnnotation/SOUND" ;
         IFC4-PSD:definition           "Common definition to capture sound pressure at a point on behalf of a device typically used within the context of building services and flow distribution systems.   To indicate sound values from an instance of IfcDistributionFlowElement at a particular location, IfcAnnotation instance(s) should be assigned to the IfcDistributionFlowElement through the IfcRelAssignsToProduct relationship. The IfcAnnotation should specify ObjectType of 'Sound' and geometric representation of 'Annotation Point' consisting of a single IfcPoint subtype as described at IfcAnnotation.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
         IFC4-PSD:definitionAlias      "建物管理・空気の搬送システムに関連する設備の音圧の性能指標。特定位置からあるIfcDistributionFlowElement設備の音性能値を表すために、IfcRelAssignsToProduct を通してIfcDistributionFlowElementに IfcAnnotation注釈属性値を付ける。 IfcAnnotation属性値は音の種別（ObjectType） と幾何的な代表位置注釈ポイントで構成され、注釈ポイントは IfcAnnotation注釈を入れたIfcPoint一点とする。このPsetは周波数バンド（帯域幅）１HZにおけるある音の強さの倍数で表示する。履歴：IFC２ｘ４に新たに定義された。"@ja-JP , ""@en ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeIsolating#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeIsolating#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p12d63580d21511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,9 +22,9 @@
         rdfs:seeAlso        :p12d63580d21511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:IsNormallyOpen .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeIsolating>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeIsolating>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :IsolatingPurpose  a        rdf:Property ;
@@ -48,7 +48,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Valve that is used to isolate system components.\nNote that an isolating valve is constrained to have a 2 port  pattern." ;
         rdfs:label                    "Pset_ValveTypeIsolating" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/ISOLATING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/ISOLATING> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/ISOLATING" ;
         IFC4-PSD:definition           "Valve that is used to isolate system components.\nNote that an isolating valve is constrained to have a 2 port  pattern." ;
         IFC4-PSD:definitionAlias      ""@en , "弁タイプ遮断弁"@ja-JP ;

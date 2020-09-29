@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypePressureRelief#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypePressureRelief#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_ValveTypePressureRelief
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Spring or weight loaded valve that automatically discharges to a safe place fluid that has built up to excessive pressure in pipes or fittings.\nNote that a pressure relief valve is constrained to have a single port pattern." ;
         rdfs:label                    "Pset_ValveTypePressureRelief" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/PRESSURERELIEF> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/PRESSURERELIEF> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/PRESSURERELIEF" ;
         IFC4-PSD:definition           "Spring or weight loaded valve that automatically discharges to a safe place fluid that has built up to excessive pressure in pipes or fittings.\nNote that a pressure relief valve is constrained to have a single port pattern." ;
         IFC4-PSD:definitionAlias      "リリーフ弁(逃がし弁)"@ja-JP , ""@en ;
@@ -36,7 +36,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcPressureMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypePressureRelief>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypePressureRelief>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

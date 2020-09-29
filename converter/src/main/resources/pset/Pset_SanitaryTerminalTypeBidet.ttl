@@ -1,24 +1,24 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Mounting  a                rdf:Property ;
         rdfs:seeAlso        :p23c97b80d20211e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Mounting .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBidet>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SanitaryTerminalTypeBidet
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Waste water appliance for washing the excretory organs while sitting astride the bowl (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). BidetMounting changed to Mounting." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeBidet" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/BIDET> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/BIDET> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/BIDET" ;
         IFC4-PSD:definition           "Waste water appliance for washing the excretory organs while sitting astride the bowl (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). BidetMounting changed to Mounting." ;
         IFC4-PSD:definitionAlias      "ボウル（BS6100）にまたがって座って排泄器官を洗浄するための排水器具を設定します。履歴：IFC4では、材料のプロパティが削除されます。 \n使用材料の機能は IfcMaterialsResourceスキーマを使用。\n色のデータ型は、IfcLabel（まだ文字列値）に変更。BidetMountingをMountingに変更。"@ja-JP , ""@en ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionChamber#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionChamber#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pc61e3a80d1d311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -18,9 +18,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionChamber>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionChamber>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pd46c5680d1d311e1800000215ad4efdf
@@ -118,7 +118,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Chamber constructed on a drain, sewer or pipeline and with a removable cover, that permits visible inspection." ;
         rdfs:label                    "Pset_DistributionChamberElementTypeInspectionChamber" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionChamberElement/INSPECTIONCHAMBER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/INSPECTIONCHAMBER> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/INSPECTIONCHAMBER" ;
         IFC4-PSD:definition           "Chamber constructed on a drain, sewer or pipeline and with a removable cover, that permits visible inspection." ;
         IFC4-PSD:definitionAlias      "排水、下水管の上にある・点検用可移動カバー付けパイプスペース。"@ja-JP , ""@en ;

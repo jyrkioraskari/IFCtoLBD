@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_ProjectOrderPurchaseOrder
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Defines the requirements for purchase orders in a project." ;
         rdfs:label                    "Pset_ProjectOrderPurchaseOrder" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProjectOrder/PURCHASEORDER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/PURCHASEORDER> ;
         IFC4-PSD:applicableTypeValue  "IfcProjectOrder/PURCHASEORDER" ;
         IFC4-PSD:definition           "Defines the requirements for purchase orders in a project." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -36,9 +36,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcText
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderPurchaseOrder>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pe3650000d1f711e1800000215ad4efdf

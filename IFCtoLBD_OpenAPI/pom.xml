@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
 	<artifactId>IFCtoLBD_OpenAPI</artifactId>
-	<version>2.5</version>
+	<version>2.6</version>
 	<packaging>war</packaging>
 	<name>IFCtoLBD OpenAPI Interface</name>
 
@@ -128,7 +128,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.5</version>
+			<version>2.6</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->

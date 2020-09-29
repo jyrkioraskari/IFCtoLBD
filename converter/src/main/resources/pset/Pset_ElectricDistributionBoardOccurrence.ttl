@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pc8b9fc58cd024eeda3208ff916082beb
         a                         IFC4-PSD:PropertyDef ;
@@ -49,9 +49,9 @@
         rdfs:seeAlso        :p421bd7510cf947d8982953510c16a01a ;
         rdfs:subPropertyOf  IFC4-PSD:IsSkilledOperator .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :IsMain  a                  rdf:Property ;

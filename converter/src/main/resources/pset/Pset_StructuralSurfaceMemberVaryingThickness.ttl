@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Location1Local  a          rdf:Property ;
         rdfs:seeAlso        :pbd40a90463654cfb9cd64f425f027504 ;
@@ -59,9 +59,9 @@
         rdfs:seeAlso        :pb96886be793e4099b0a28924bfd23b83 ;
         rdfs:subPropertyOf  IFC4-PSD:Thickness1 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pbd40a90463654cfb9cd64f425f027504

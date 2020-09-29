@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeResidualCurrent#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeResidualCurrent#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pcb43af80d1fc11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -18,9 +18,9 @@
                                     IFC4-PSD:enumItem  "300" , "NOTKNOWN" , "10" , "OTHER" , "1000" , "100" , "UNSET" , "500" , "30"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeResidualCurrent>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeResidualCurrent>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :TrippingUnitReleaseCurrent
@@ -32,7 +32,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Information on tripping units that are activated by residual current." ;
         rdfs:label                    "Pset_ProtectiveDeviceTrippingUnitTypeResidualCurrent" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDeviceTrippingUnit/RESIDUALCURRENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDeviceTrippingUnit/RESIDUALCURRENT> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDeviceTrippingUnit/RESIDUALCURRENT" ;
         IFC4-PSD:definition           "Information on tripping units that are activated by residual current." ;
         IFC4-PSD:definitionAlias      ""@en , "漏電電流で遮断するトリップ装置の情報。"@ja-JP ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :LadderConfiguration  a     rdf:Property ;
         rdfs:seeAlso        :p83099a80d1c611e1800000215ad4efdf ;
@@ -39,9 +39,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p78e79c00d1c611e1800000215ad4efdf
@@ -65,7 +65,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An open carrier segment on which cables are carried on a ladder structure.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
         rdfs:label                    "Pset_CableCarrierSegmentTypeCableLadderSegment" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCableCarrierSegment/CABLELADDERSEGMENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLELADDERSEGMENT> ;
         IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLELADDERSEGMENT" ;
         IFC4-PSD:definition           "An open carrier segment on which cables are carried on a ladder structure.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
         IFC4-PSD:definitionAlias      ""@en , "はしご構造の上にケーブルを乗せる開放型ケーブルキャリアに関するプロパティセット定義。"@ja-JP ;

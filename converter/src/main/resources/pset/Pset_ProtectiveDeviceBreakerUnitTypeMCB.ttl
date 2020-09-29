@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pd2b58980d1f911e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -60,7 +60,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A coherent set of attributes representing the breaking capacities of an MCB. Note - A protective device may be associated with different instances of this property set providing information related to different  basic characteristics." ;
         rdfs:label                    "Pset_ProtectiveDeviceBreakerUnitTypeMCB" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDevice/CIRCUITBREAKER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/CIRCUITBREAKER> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/CIRCUITBREAKER" ;
         IFC4-PSD:definition           "A coherent set of attributes representing the breaking capacities of an MCB. Note - A protective device may be associated with different instances of this property set providing information related to different  basic characteristics." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -99,9 +99,9 @@
         rdfs:seeAlso        :pb6b1e800d1f911e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ICU60947 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pc0d3e680d1f911e1800000215ad4efdf

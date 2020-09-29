@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderWorkOrder#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderWorkOrder#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p18715280d1f811e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -26,7 +26,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Defines the requirements for purchase orders in a project." ;
         rdfs:label                    "Pset_ProjectOrderWorkOrder" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProjectOrder/WORKORDER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/WORKORDER> ;
         IFC4-PSD:applicableTypeValue  "IfcProjectOrder/WORKORDER" ;
         IFC4-PSD:definition           "Defines the requirements for purchase orders in a project." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -74,9 +74,9 @@
         rdfs:seeAlso        :pfe377480d1f711e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ProductDescription .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderWorkOrder>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderWorkOrder>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p0f808100d1f811e1800000215ad4efdf

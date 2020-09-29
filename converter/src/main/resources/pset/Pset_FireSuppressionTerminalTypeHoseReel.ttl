@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ClassOfService  a          rdf:Property ;
         rdfs:seeAlso        :p0935d900d1e711e1800000215ad4efdf ;
@@ -48,7 +48,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A supporting framework on which a hose may be wound (BS6100 155 8201).\n\nNote that the service provided by the hose (water/foam) is determined by the context of the system onto which the hose reel is connected." ;
         rdfs:label                    "Pset_FireSuppressionTerminalTypeHoseReel" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFireSuppressionTerminal/HOSEREEL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/HOSEREEL> ;
         IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/HOSEREEL" ;
         IFC4-PSD:definition           "A supporting framework on which a hose may be wound (BS6100 155 8201).\n\nNote that the service provided by the hose (water/foam) is determined by the context of the system onto which the hose reel is connected." ;
         IFC4-PSD:definitionAlias      "ホースが損傷したときのサポートの仕組み。（BS61001558201）\n\nホースに供給されるサービスが水か泡かは、そのホースリールが接続されているシステムによる。"@ja-JP , ""@en ;
@@ -97,9 +97,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HoseNozzleType  a          rdf:Property ;

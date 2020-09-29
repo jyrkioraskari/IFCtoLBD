@@ -1,17 +1,17 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionPit#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionPit#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Length  a                  rdf:Property ;
         rdfs:seeAlso        :pe0581880d1d311e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Length .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionPit>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeInspectionPit>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Depth  a                   rdf:Property ;
@@ -52,7 +52,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Recess or chamber formed to permit access for inspection of substructure and services (definition modified from BS6100 221 4128)." ;
         rdfs:label                    "Pset_DistributionChamberElementTypeInspectionPit" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionChamberElement/INSPECTIONPIT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/INSPECTIONPIT> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/INSPECTIONPIT" ;
         IFC4-PSD:definition           "Recess or chamber formed to permit access for inspection of substructure and services (definition modified from BS6100 221 4128)." ;
         IFC4-PSD:definitionAlias      ""@en , "基礎の点検とサービスのためにアクセスできるピット（凹所）あるいはチャンバ（空間）。"@ja-JP ;

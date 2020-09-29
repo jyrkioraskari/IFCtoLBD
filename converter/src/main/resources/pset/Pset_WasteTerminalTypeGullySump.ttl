@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeGullySump#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeGullySump#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :NominalSumpDepth  a        rdf:Property ;
         rdfs:seeAlso        :p38643e80d21711e1800000215ad4efdf ;
@@ -22,9 +22,9 @@
                                     IFC4-PSD:enumItem  "NONE" , "P_TRAP" , "Q_TRAP" , "S_TRAP" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeGullySump>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeGullySump>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :CoverWidth  a              rdf:Property ;
@@ -169,7 +169,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Pipe fitting or assembly of fittings to receive surface water or waste water, fitted with a grating or sealed cover." ;
         rdfs:label                    "Pset_WasteTerminalTypeGullySump" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcWasteTerminal/GULLYSUMP> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/GULLYSUMP> ;
         IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/GULLYSUMP" ;
         IFC4-PSD:definition           "Pipe fitting or assembly of fittings to receive surface water or waste water, fitted with a grating or sealed cover." ;
         IFC4-PSD:definitionAlias      "地表水や廃水を受けるためのグレーチングシールカバーに取り付けられる、取付器具や配管。"@ja-JP , ""@en ;

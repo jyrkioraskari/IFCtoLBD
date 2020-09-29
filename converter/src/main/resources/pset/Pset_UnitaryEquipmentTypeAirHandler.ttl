@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pc6d6c100d21311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -62,7 +62,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Air handler unitary equipment type attributes.\nNote that these attributes were formerly Pset_AirHandler prior to IFC2x2." ;
         rdfs:label                    "Pset_UnitaryEquipmentTypeAirHandler" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcUnitaryEquipment/AIRHANDLER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryEquipment/AIRHANDLER> ;
         IFC4-PSD:applicableTypeValue  "IfcUnitaryEquipment/AIRHANDLER" ;
         IFC4-PSD:definition           "Air handler unitary equipment type attributes.\nNote that these attributes were formerly Pset_AirHandler prior to IFC2x2." ;
         IFC4-PSD:definitionAlias      "エアハンドリングユニットのプロパティ属性設定。"@ja-JP , ""@en ;
@@ -72,7 +72,7 @@
         IFC4-PSD:name                 "Pset_UnitaryEquipmentTypeAirHandler" ;
         IFC4-PSD:propertyDef          :pbaeaff00d21311e1800000215ad4efdf , :pc6d6c100d21311e1800000215ad4efdf , :padce1000d21311e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

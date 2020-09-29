@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceLightingRequirements#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceLightingRequirements#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_SpaceLightingRequirements
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties related to the lighting requirements that apply to the occurrences of IfcSpace or IfcZone. This includes the required artificial lighting, illuminance, etc." ;
         rdfs:label                    "Pset_SpaceLightingRequirements" ;
-        IFC4-PSD:applicableClass      IFC4:IfcSpace , <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcSpatialZone> , <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcZone> ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> ;
         IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
         IFC4-PSD:definition           "Properties related to the lighting requirements that apply to the occurrences of IfcSpace or IfcZone. This includes the required artificial lighting, illuminance, etc." ;
         IFC4-PSD:definitionAlias      "Property Set Definition in German"@de-DE , ""@en , "IfcSpaceまたはIfcZoneオブジェクトに適用される照明の条件に関するプロパティ。必要とされる人工照明及び照度などを含む。"@ja-JP , "Définition de l'IAI : propriétés relatives aux exigences en matière d'éclairement, applicables à toutes les instances des classes IfcSpace et IfcZone. Comprend l'éclairage artificiel, le niveau d'éclairement,…"@fr-FR ;
@@ -53,7 +53,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceLightingRequirements>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceLightingRequirements>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

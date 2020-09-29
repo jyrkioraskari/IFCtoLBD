@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeWaterMeter#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeWaterMeter#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :MaximumPressureLoss  a     rdf:Property ;
         rdfs:seeAlso        :p9fb6ca00d1e811e1800000215ad4efdf ;
@@ -52,7 +52,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Device that measures, indicates and sometimes records, the volume of water that passes through it without interrupting the flow." ;
         rdfs:label                    "Pset_FlowMeterTypeWaterMeter" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFlowMeter/WATERMETER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowMeter/WATERMETER> ;
         IFC4-PSD:applicableTypeValue  "IfcFlowMeter/WATERMETER" ;
         IFC4-PSD:definition           "Device that measures, indicates and sometimes records, the volume of water that passes through it without interrupting the flow." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -105,7 +105,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeWaterMeter>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FlowMeterTypeWaterMeter>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

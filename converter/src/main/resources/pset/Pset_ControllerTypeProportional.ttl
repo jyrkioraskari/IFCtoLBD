@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ControllerTypeProportional#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ControllerTypeProportional#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pe1864700d1cd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -92,9 +92,9 @@
         rdfs:seeAlso        :pbd2a6a80d1cd11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ControlType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ControllerTypeProportional>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ControllerTypeProportional>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Labels  a                  rdf:Property ;
@@ -130,7 +130,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties for signal handling for an proportional controller taking setpoint and feedback inputs and creating a single valued output. HISTORY: In IFC4, SignalFactor1, SignalFactor2 and SignalFactor3 changed to ProportionalConstant, IntegralConstant and DerivativeConstant.  SignalTime1 and SignalTime2 changed to SignalTimeIncrease and SignalTimeDecrease." ;
         rdfs:label                    "Pset_ControllerTypeProportional" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcController/PROPORTIONAL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/PROPORTIONAL> ;
         IFC4-PSD:applicableTypeValue  "IfcController/PROPORTIONAL" ;
         IFC4-PSD:definition           "Properties for signal handling for an proportional controller taking setpoint and feedback inputs and creating a single valued output. HISTORY: In IFC4, SignalFactor1, SignalFactor2 and SignalFactor3 changed to ProportionalConstant, IntegralConstant and DerivativeConstant.  SignalTime1 and SignalTime2 changed to SignalTimeIncrease and SignalTimeDecrease." ;
         IFC4-PSD:definitionAlias      ""@en ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeStarter#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeStarter#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :StarterType  a             rdf:Property ;
         rdfs:seeAlso        :p99d3df80d20e11e1800000215ad4efdf ;
@@ -22,16 +22,16 @@
                                     IFC4-PSD:enumItem  "UNSET" , "OTHER" , "DIRECTONLINE" , "STARDELTA" , "AUTOTRANSFORMER" , "FREQUENCY" , "NOTKNOWN" , "MANUAL" , "RHEOSTATIC" , "NSTEP"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeStarter>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeStarter>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SwitchingDeviceTypeStarter
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A starter is a switch which in the closed position controls the application of power to an electrical device." ;
         rdfs:label                    "Pset_SwitchingDeviceTypeStarter" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSwitchingDevice/STARTER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/STARTER> ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/STARTER" ;
         IFC4-PSD:definition           "A starter is a switch which in the closed position controls the application of power to an electrical device." ;
         IFC4-PSD:definitionAlias      "スタータースイッチは閉じた状態の位置から、電気装置に対し電力の利用を制御する装置。"@ja-JP , ""@en ;

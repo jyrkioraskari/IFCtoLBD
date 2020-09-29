@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeSump#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeSump#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p6aa07c80d1d411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Recess or small chamber into which liquid is drained to facilitate its removal." ;
         rdfs:label                    "Pset_DistributionChamberElementTypeSump" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionChamberElement/SUMP> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/SUMP> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/SUMP" ;
         IFC4-PSD:definition           "Recess or small chamber into which liquid is drained to facilitate its removal." ;
         IFC4-PSD:definitionAlias      "排水チャンバー（ピット）に関する属性情報。"@ja-JP , ""@en ;
@@ -49,9 +49,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeSump>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeSump>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Width  a                   rdf:Property ;

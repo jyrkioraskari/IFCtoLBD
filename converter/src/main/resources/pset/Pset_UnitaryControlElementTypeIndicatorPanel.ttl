@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_UnitaryControlElementTypeIndicatorPanel
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Unitary control element type indicator panel attributes.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_UnitaryControlElementTypeIndicatorPanel" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcUnitaryControlElement/INDICATORPANEL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryControlElement/INDICATORPANEL> ;
         IFC4-PSD:applicableTypeValue  "IfcUnitaryControlElement/INDICATORPANEL" ;
         IFC4-PSD:definition           "Unitary control element type indicator panel attributes.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -19,9 +19,9 @@
         IFC4-PSD:name                 "Pset_UnitaryControlElementTypeIndicatorPanel" ;
         IFC4-PSD:propertyDef          :pa214298bc8bc4c2d91e02d20124d29f8 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pa214298bc8bc4c2d91e02d20124d29f8

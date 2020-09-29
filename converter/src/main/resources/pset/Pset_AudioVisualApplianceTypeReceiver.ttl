@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p83546680d1c311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -37,9 +37,9 @@
         rdfs:seeAlso        :p7a639500d1c311e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:AudioAmplification .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :AudioMode  a               rdf:Property ;
@@ -63,7 +63,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An audio-visual receiver is a device that switches audio and/or video from multiple sources, including external sources connected from ports and internal aggregated sources.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_AudioVisualApplianceTypeReceiver" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAudioVisualAppliance/RECEIVER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/RECEIVER> ;
         IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/RECEIVER" ;
         IFC4-PSD:definition           "An audio-visual receiver is a device that switches audio and/or video from multiple sources, including external sources connected from ports and internal aggregated sources.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "内部や外部に接続された音源を含む複数の情報から、音響と映像信号を切り替える装置。"@ja-JP , ""@en ;

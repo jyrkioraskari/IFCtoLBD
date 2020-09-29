@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ProjectorType  a           rdf:Property ;
         rdfs:seeAlso        :p28bb0a80d1c311e1800000215ad4efdf ;
@@ -103,7 +103,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An audio-visual projector is a device that projects video to a surface.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_AudioVisualApplianceTypeProjector" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAudioVisualAppliance/PROJECTOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/PROJECTOR> ;
         IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/PROJECTOR" ;
         IFC4-PSD:definition           "An audio-visual projector is a device that projects video to a surface.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      ""@en , "画面にビデオ映像を投影する装置。"@ja-JP ;
@@ -126,7 +126,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcInteger
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

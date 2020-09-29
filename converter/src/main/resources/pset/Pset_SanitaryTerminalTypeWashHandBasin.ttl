@@ -1,17 +1,17 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Mounting  a                rdf:Property ;
         rdfs:seeAlso        :p9176a700d20411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Mounting .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pbff48200d20411e1800000215ad4efdf
@@ -31,7 +31,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Waste water appliance for washing the upper parts of the body. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeWashHandBasin" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/WASHHANDBASIN> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/WASHHANDBASIN> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/WASHHANDBASIN" ;
         IFC4-PSD:definition           "Waste water appliance for washing the upper parts of the body. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
         IFC4-PSD:definitionAlias      ""@en , "体の上部分を洗浄するための廃水機器。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。また、「設置」のプロパティーが加えられました。"@ja-JP ;

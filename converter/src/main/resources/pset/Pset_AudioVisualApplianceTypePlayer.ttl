@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p18a32b00d1c311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -23,7 +23,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An audio-visual player is a device that plays stored media into a stream of audio and/or video, such as camera footage in security systems, background audio in retail areas, or media presentations in conference rooms or theatres.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_AudioVisualApplianceTypePlayer" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAudioVisualAppliance/PLAYER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/PLAYER> ;
         IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/PLAYER" ;
         IFC4-PSD:definition           "An audio-visual player is a device that plays stored media into a stream of audio and/or video, such as camera footage in security systems, background audio in retail areas, or media presentations in conference rooms or theatres.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "セキュリティーシステムのカメラや店舗などのBGMシステム、または劇場や会議室ないのプレゼンテーションシステムのような収容された音響映像信号を表示・放送する装置。"@ja-JP , ""@en ;
@@ -33,9 +33,9 @@
         IFC4-PSD:name                 "Pset_AudioVisualApplianceTypePlayer" ;
         IFC4-PSD:propertyDef          :p18a32b00d1c311e1800000215ad4efdf , :p04f7c480d1c311e1800000215ad4efdf , :p1214b380d1c311e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :PlayerType  a              rdf:Property ;

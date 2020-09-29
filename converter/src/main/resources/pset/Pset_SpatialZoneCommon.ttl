@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpatialZoneCommon#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpatialZoneCommon#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :IsExternal  a              rdf:Property ;
         rdfs:seeAlso        :p3ae302c70c29422889f6f36a68e14a44 ;
@@ -16,9 +16,9 @@
         IFC4-PSD:name          "Reference" ;
         IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpatialZoneCommon>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpatialZoneCommon>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SpatialZoneCommon

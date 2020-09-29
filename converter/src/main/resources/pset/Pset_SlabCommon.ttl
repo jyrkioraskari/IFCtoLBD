@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SlabCommon#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SlabCommon#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p1a431200d20811e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -164,9 +164,9 @@
         rdfs:seeAlso        :p0d262300d20811e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:AcousticRating .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SlabCommon>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SlabCommon>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SlabCommon  a                   IFC4-PSD:PropertySetDef ;

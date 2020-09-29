@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeControlDamper#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeControlDamper#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :TorqueRange  a             rdf:Property ;
         rdfs:seeAlso        :pa38b2200d1d111e1800000215ad4efdf ;
@@ -26,7 +26,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Control damper type attributes.\nPset renamed from Pset_DamperTypeControl to Pset_DamperTypeControlDamper in IFC2x2 Pset Addendum." ;
         rdfs:label                    "Pset_DamperTypeControlDamper" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDamper/CONTROLDAMPER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDamper/CONTROLDAMPER> ;
         IFC4-PSD:applicableTypeValue  "IfcDamper/CONTROLDAMPER" ;
         IFC4-PSD:definition           "Control damper type attributes.\nPset renamed from Pset_DamperTypeControl to Pset_DamperTypeControlDamper in IFC2x2 Pset Addendum." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -36,9 +36,9 @@
         IFC4-PSD:name                 "Pset_DamperTypeControlDamper" ;
         IFC4-PSD:propertyDef          :paa199980d1d111e1800000215ad4efdf , :pa38b2200d1d111e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeControlDamper>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeControlDamper>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pa38b2200d1d111e1800000215ad4efdf

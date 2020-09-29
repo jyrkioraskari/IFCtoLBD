@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SetPointConcentration
         a                   rdf:Property ;
@@ -40,9 +40,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcAreaMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeGasSensor>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :GasDetected  a             rdf:Property ;
@@ -53,7 +53,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A device that senses or detects gas. HISTORY: Changed in IFC4. Gas detected made into enumeration, set point concentration and coverage area added. Range, accuracy and time constant deleted." ;
         rdfs:label                    "Pset_SensorTypeGasSensor" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSensor/GASSENSOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/GASSENSOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSensor/GASSENSOR" ;
         IFC4-PSD:definition           "A device that senses or detects gas. HISTORY: Changed in IFC4. Gas detected made into enumeration, set point concentration and coverage area added. Range, accuracy and time constant deleted." ;
         IFC4-PSD:definitionAlias      ""@en , "ガスを感知または検出するデバイス。"@ja-JP ;

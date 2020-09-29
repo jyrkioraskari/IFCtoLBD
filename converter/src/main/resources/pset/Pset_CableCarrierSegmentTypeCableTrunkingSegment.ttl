@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :paaf8fe00d1c611e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -57,7 +57,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An enclosed carrier segment with one or more compartments into which cables are placed.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
         rdfs:label                    "Pset_CableCarrierSegmentTypeCableTrunkingSegment" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRUNKINGSEGMENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRUNKINGSEGMENT> ;
         IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLETRUNKINGSEGMENT" ;
         IFC4-PSD:definition           "An enclosed carrier segment with one or more compartments into which cables are placed.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
         IFC4-PSD:definitionAlias      "一つ以上の区画にケーブルを収納する密閉型ケーブルキャリアに関するプロパティセット定義。"@ja-JP , ""@en ;
@@ -71,7 +71,7 @@
         rdfs:seeAlso        :pa59bb380d1c611e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

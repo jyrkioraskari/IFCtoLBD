@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeCableSegment#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeCableSegment#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p2b1f6380d1c711e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -139,7 +139,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Electrical cable with a specific purpose to lead electric current within a circuit or any other electric construction. Includes all types of electric cables, mainly several electrical segments wrapped together, e.g. cable, tube, busbar. Note that the number of conductors within a cable is determined by an aggregation mechanism that aggregates the conductors within the cable. A single-core cable is defined in IEV 461-06-02 as being 'a cable having only one core'; a multiconductor cable is defined in IEV 461-06-03 as b eing 'a cable having more than one conductor, some of which may be uninsulated'; a mulicore cable is defined in IEV 461-06-04 as being 'a cable having more than one core'." ;
         rdfs:label                    "Pset_CableSegmentTypeCableSegment" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCableSegment/CABLESEGMENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableSegment/CABLESEGMENT> ;
         IFC4-PSD:applicableTypeValue  "IfcCableSegment/CABLESEGMENT" ;
         IFC4-PSD:definition           "Electrical cable with a specific purpose to lead electric current within a circuit or any other electric construction. Includes all types of electric cables, mainly several electrical segments wrapped together, e.g. cable, tube, busbar. Note that the number of conductors within a cable is determined by an aggregation mechanism that aggregates the conductors within the cable. A single-core cable is defined in IEV 461-06-02 as being 'a cable having only one core'; a multiconductor cable is defined in IEV 461-06-03 as b eing 'a cable having more than one conductor, some of which may be uninsulated'; a mulicore cable is defined in IEV 461-06-04 as being 'a cable having more than one core'." ;
         IFC4-PSD:definitionAlias      ""@en , "IAIにて定義されるもので、電気回路やその他電源回路などで送電する目的を持った電気関係のケーブル。\nすべての種類の電気ケーブルを含み、主にいくつかの電気層にて保護されている。たとえばケーブル、busbar、チューブ。\n注記）導電帯の中のケーブルの数は集計システムで規定される。単芯ケーブルはIEV 461-06-02で規定される。複芯ケーブルはIEV 461-06-03にて規定される。それは一つ以上の導電帯を持ちいくつかは絶縁されていない。マルチコアケーブルはIEV 461-06-04で規定されて、少なくとも一つ以上のコアで形成されている。"@ja-JP ;
@@ -255,9 +255,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcMassMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeCableSegment>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeCableSegment>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :SelfExtinguishing60332_1

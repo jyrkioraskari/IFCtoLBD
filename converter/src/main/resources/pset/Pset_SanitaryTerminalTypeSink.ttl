@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSink#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSink#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p532cb800d20311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -69,9 +69,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSink>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSink>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Color  a                   rdf:Property ;
@@ -86,7 +86,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Waste water appliance for receiving, retaining or disposing of domestic, culinary, laboratory or industrial process liquids. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). SinkMounting changed to Mounting." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeSink" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/SINK> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SINK> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SINK" ;
         IFC4-PSD:definition           "Waste water appliance for receiving, retaining or disposing of domestic, culinary, laboratory or industrial process liquids. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). SinkMounting changed to Mounting." ;
         IFC4-PSD:definitionAlias      "受信側の廃水機器。\n家庭内の処理や保持、台所や便所もしくは工業用途の液体処理を行います。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。「SinkMounting」は「Mounting」に変更されています。"@ja-JP , ""@en ;

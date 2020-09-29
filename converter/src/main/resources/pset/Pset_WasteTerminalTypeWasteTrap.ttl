@@ -1,13 +1,13 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p83cb1c80d21811e1800000215ad4efdf
@@ -49,7 +49,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Pipe fitting, set adjacent to a sanitary terminal, that retains liquid to prevent the passage of foul air." ;
         rdfs:label                    "Pset_WasteTerminalTypeWasteTrap" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcWasteTerminal/WASTETRAP> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/WASTETRAP> ;
         IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/WASTETRAP" ;
         IFC4-PSD:definition           "Pipe fitting, set adjacent to a sanitary terminal, that retains liquid to prevent the passage of foul air." ;
         IFC4-PSD:definitionAlias      ""@en , "液体を溜めて汚れた空気の通過を防ぐよう衛生機器に隣接して設置させた配管。"@ja-JP ;

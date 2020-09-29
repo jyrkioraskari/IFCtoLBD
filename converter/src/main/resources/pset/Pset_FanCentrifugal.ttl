@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FanCentrifugal#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FanCentrifugal#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :DirectionOfRotation  a     rdf:Property ;
         rdfs:seeAlso        :p94ad6b00d1e311e1800000215ad4efdf ;
@@ -13,15 +13,15 @@
         rdfs:seeAlso        :p7cd5e700d1e311e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:DischargePosition .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FanCentrifugal>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FanCentrifugal>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_FanCentrifugal  a               IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Centrifugal fan occurrence attributes attached to an instance of IfcFan." ;
         rdfs:label                    "Pset_FanCentrifugal" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFan/CENTRIFUGAL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFan/CENTRIFUGAL> ;
         IFC4-PSD:applicableTypeValue  "IfcFan/CENTRIFUGAL" ;
         IFC4-PSD:definition           "Centrifugal fan occurrence attributes attached to an instance of IfcFan." ;
         IFC4-PSD:definitionAlias      ""@en , "IfcFanの値に付け加えられた遠心送風機の属性"@ja-JP ;

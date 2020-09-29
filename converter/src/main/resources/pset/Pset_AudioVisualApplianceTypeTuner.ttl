@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :TunerType  a               rdf:Property ;
         rdfs:seeAlso        :pd3cbc400d1c311e1800000215ad4efdf ;
@@ -31,7 +31,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An audio-visual tuner is a device that demodulates a signal into a stream of audio and/or video.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_AudioVisualApplianceTypeTuner" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAudioVisualAppliance/TUNER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/TUNER> ;
         IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/TUNER" ;
         IFC4-PSD:definition           "An audio-visual tuner is a device that demodulates a signal into a stream of audio and/or video.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      ""@en , "音響と映像の信号を変換する装置。"@ja-JP ;
@@ -41,9 +41,9 @@
         IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeTuner" ;
         IFC4-PSD:propertyDef          :pea721b00d1c311e1800000215ad4efdf , :pe219e000d1c311e1800000215ad4efdf , :pf231bf80d1c311e1800000215ad4efdf , :pd3cbc400d1c311e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pf231bf80d1c311e1800000215ad4efdf

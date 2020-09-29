@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :WallThickness  a           rdf:Property ;
         rdfs:seeAlso        :p4c3a8100d1d411e1800000215ad4efdf ;
@@ -13,7 +13,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Chamber that houses a meter(s) (definition modified from BS6100 250 6224)." ;
         rdfs:label                    "Pset_DistributionChamberElementTypeMeterChamber" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionChamberElement/METERCHAMBER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/METERCHAMBER> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/METERCHAMBER" ;
         IFC4-PSD:definition           "Chamber that houses a meter(s) (definition modified from BS6100 250 6224)." ;
         IFC4-PSD:definitionAlias      ""@en , "メーター室に関する属性情報。"@ja-JP ;
@@ -122,9 +122,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p5b213380d1d411e1800000215ad4efdf

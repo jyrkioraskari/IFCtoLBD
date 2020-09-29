@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeManhole#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeManhole#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :WallMaterial  a            rdf:Property ;
         rdfs:seeAlso        :p01206e00d1d411e1800000215ad4efdf ;
@@ -211,9 +211,9 @@
                                     IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeManhole>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionChamberElementTypeManhole>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p23b28700d1d411e1800000215ad4efdf
@@ -237,7 +237,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Chamber constructed on a drain, sewer or pipeline and with a removable cover, that permits the entry of a person." ;
         rdfs:label                    "Pset_DistributionChamberElementTypeManhole" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionChamberElement/MANHOLE> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/MANHOLE> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/MANHOLE" ;
         IFC4-PSD:definition           "Chamber constructed on a drain, sewer or pipeline and with a removable cover, that permits the entry of a person." ;
         IFC4-PSD:definitionAlias      "排水、下水管の上にある・点検用可移動カバー付けパイプスペース。"@ja-JP , ""@en ;

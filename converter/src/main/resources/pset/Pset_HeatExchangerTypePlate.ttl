@@ -1,20 +1,20 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_HeatExchangerTypePlate#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_HeatExchangerTypePlate#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_HeatExchangerTypePlate>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_HeatExchangerTypePlate>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_HeatExchangerTypePlate
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Plate heat exchanger type common attributes." ;
         rdfs:label                    "Pset_HeatExchangerTypePlate" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcHeatExchanger/PLATE> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcHeatExchanger/PLATE> ;
         IFC4-PSD:applicableTypeValue  "IfcHeatExchanger/PLATE" ;
         IFC4-PSD:definition           "Plate heat exchanger type common attributes." ;
         IFC4-PSD:definitionAlias      ""@en ;

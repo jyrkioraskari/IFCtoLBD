@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :InletDiameter  a           rdf:Property ;
         rdfs:seeAlso        :p54032100d1e611e1800000215ad4efdf ;
@@ -56,9 +56,9 @@
         rdfs:seeAlso        :p6a10e180d1e611e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:HasCaps .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :OutletDiameter  a          rdf:Property ;
@@ -73,7 +73,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Symmetrical pipe fitting that unites two or more inlets into a single pipe (BS6100 330 114 adapted)." ;
         rdfs:label                    "Pset_FireSuppressionTerminalTypeBreechingInlet" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFireSuppressionTerminal/BREECHINGINLET> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/BREECHINGINLET> ;
         IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/BREECHINGINLET" ;
         IFC4-PSD:definition           "Symmetrical pipe fitting that unites two or more inlets into a single pipe (BS6100 330 114 adapted)." ;
         IFC4-PSD:definitionAlias      ""@en , "ひとつのパイプ（適合BS6100330114）に2つ以上の入口をもつ対称配管継手。"@ja-JP ;

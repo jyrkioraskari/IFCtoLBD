@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p32516c00d1dd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -99,7 +99,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties common to the definition of the glazing component of occurrences of IfcDoor and IfcWindow, used for thermal and lighting calculations." ;
         rdfs:label                    "Pset_DoorWindowGlazingType" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcWindow> , IFC4:IfcDoor ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcWindow> , IFC4:IfcDoor ;
         IFC4-PSD:applicableTypeValue  "IfcDoor, IfcWindow" ;
         IFC4-PSD:definition           "Properties common to the definition of the glazing component of occurrences of IfcDoor and IfcWindow, used for thermal and lighting calculations." ;
         IFC4-PSD:definitionAlias      "IfcDoor和IfcWindow实例的玻璃构件定义中通用的属性，用于热工和采光计算。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition du composant vitrage des instances des classes IfcDoor et IfcWindow, utilisées pour des calculs thermiques et d'éclairage."@fr-FR , "IfcDoorとIfcWindowにあるガラス部品に関する共通プロパティセット定義。熱と明るさの計算に用いる。"@ja-JP , ""@en ;
@@ -122,9 +122,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DoorWindowGlazingType>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p0df58f80d1dd11e1800000215ad4efdf

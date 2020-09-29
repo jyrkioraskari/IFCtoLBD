@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ElectricApplianceTypeDishwasher#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricApplianceTypeDishwasher#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pb0af0d80d1df11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -18,16 +18,16 @@
                                     IFC4-PSD:enumItem  "POTWASHER" , "TRAYWASHER" , "DISHWASHER" , "BOTTLEWASHER" , "CUTLERYWASHER" , "OTHER" , "UNKNOWN" , "UNSET"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ElectricApplianceTypeDishwasher>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricApplianceTypeDishwasher>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_ElectricApplianceTypeDishwasher
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Common properties for dishwasher appliances.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_ElectricApplianceTypeDishwasher" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcElectricAppliance/DISHWASHER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcElectricAppliance/DISHWASHER> ;
         IFC4-PSD:applicableTypeValue  "IfcElectricAppliance/DISHWASHER" ;
         IFC4-PSD:definition           "Common properties for dishwasher appliances.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      ""@en , "食器洗浄機の共通のプロパティ。\nIFC4にて追加。"@ja-JP ;

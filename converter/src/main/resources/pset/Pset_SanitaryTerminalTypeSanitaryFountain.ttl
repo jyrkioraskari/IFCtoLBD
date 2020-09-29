@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pc7b32700d20211e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Asanitary terminal that provides a low pressure jet of water for a specific purpose (IAI). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeSanitaryFountain" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/SANITARYFOUNTAIN> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SANITARYFOUNTAIN> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SANITARYFOUNTAIN" ;
         IFC4-PSD:definition           "Asanitary terminal that provides a low pressure jet of water for a specific purpose (IAI). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
         IFC4-PSD:definitionAlias      "特定の使用用途の水を低圧で供給する衛生機器\n背景：IFC4で、要素のプロパティーは排除されています。IfcMaterialsResourceのタイプを使ってください。\n色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP , ""@en ;
@@ -36,9 +36,9 @@
         rdfs:seeAlso        :pbb2ece80d20211e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:FountainType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pf8935c00d20211e1800000215ad4efdf

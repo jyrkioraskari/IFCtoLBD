@@ -1,10 +1,10 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_Asset#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_Asset#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :AssetAccountingType  a     rdf:Property ;
         rdfs:seeAlso        :p8a7a7500d1c111e1800000215ad4efdf ;
@@ -23,9 +23,9 @@
                                     IFC4-PSD:enumItem  "UNSET" , "OTHER" , "NOTKNOWN" , "EXPENSED" , "CAPITALISED"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC-PSD/Pset_Asset>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC-PSD/Pset_Asset>
         a            owl:Ontology ;
-        owl:imports  <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> .
+        owl:imports  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> .
 
 :AssetInsuranceType  a      rdf:Property ;
         rdfs:seeAlso        :pa847da00d1c111e1800000215ad4efdf ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeConductorSegment#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeConductorSegment#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p30c97900d1c811e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -51,9 +51,9 @@
                                     IFC4-PSD:enumItem  "ALUMINIUM" , "COPPER" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeConductorSegment>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CableSegmentTypeConductorSegment>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p2a3b0180d1c811e1800000215ad4efdf
@@ -99,7 +99,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An electrical conductor is a single linear element with the specific purpose to lead electric current. The core of one lead is normally single wired or multiwired which are intertwined. According to IEC 60050: IEV 195-01-07, a conductor is a conductive part intended to carry a specified electric current." ;
         rdfs:label                    "Pset_CableSegmentTypeConductorSegment" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCableSegment/CONDUCTORSEGMENT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableSegment/CONDUCTORSEGMENT> ;
         IFC4-PSD:applicableTypeValue  "IfcCableSegment/CONDUCTORSEGMENT" ;
         IFC4-PSD:definition           "An electrical conductor is a single linear element with the specific purpose to lead electric current. The core of one lead is normally single wired or multiwired which are intertwined. According to IEC 60050: IEV 195-01-07, a conductor is a conductive part intended to carry a specified electric current." ;
         IFC4-PSD:definitionAlias      "電気導体は電流を導く目的で使用される線状の導体である。\n1本の導体の中心は、1本のワイヤーまたは、寄り合わせた複数のワイヤーからなる。IEC 60050：IEV 195-01-07によると、導体は指定された電流を運ぶことを目的とする伝導部分である。"@ja-JP , ""@en ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PipeSegmentTypeCulvert#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_PipeSegmentTypeCulvert#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pdba35c80d1f311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -18,16 +18,16 @@
                                     IFC4-PSD:dataType  IFC4:IfcLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_PipeSegmentTypeCulvert>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_PipeSegmentTypeCulvert>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_PipeSegmentTypeCulvert
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Covered channel or large pipe that forms a watercourse below ground level, usually under a road or railway (BS6100)." ;
         rdfs:label                    "Pset_PipeSegmentTypeCulvert" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcPipeSegment/CULVERT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcPipeSegment/CULVERT> ;
         IFC4-PSD:applicableTypeValue  "IfcPipeSegment/CULVERT" ;
         IFC4-PSD:definition           "Covered channel or large pipe that forms a watercourse below ground level, usually under a road or railway (BS6100)." ;
         IFC4-PSD:definitionAlias      ""@en ;

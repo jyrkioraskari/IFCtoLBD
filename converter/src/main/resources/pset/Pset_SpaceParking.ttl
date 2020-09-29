@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceParking#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceParking#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ParkingUnits  a            rdf:Property ;
         rdfs:seeAlso        :pffbe6800d20a11e1800000215ad4efdf ;
@@ -38,7 +38,7 @@
 :Pset_SpaceParking  a                 IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties common to the definition of all occurrences of IfcSpace which have an attribute value for ObjectType = 'Parking'. NOTE: Modified in IFC 2x3, properties ParkingUse and ParkingUnits added." ;
         rdfs:label                    "Pset_SpaceParking" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSpace/PARKING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSpace/PARKING> ;
         IFC4-PSD:applicableTypeValue  "IfcSpace/PARKING" ;
         IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcSpace which have an attribute value for ObjectType = 'Parking'. NOTE: Modified in IFC 2x3, properties ParkingUse and ParkingUnits added." ;
         IFC4-PSD:definitionAlias      "Définition de l'IAI : propriétés communes à la définition des instances de la classe IfcSpace lorsque la valeur de l'attribut ObjetType est \"Parking\". Nota : les propriétés TypeVehicule et NombreUnites ont été introduites depuis la révision 2x3."@fr-FR , ""@en , "IfcObjectのObjectType属性の値が\"Parking\"の場合に設定される共通プロパティ情報。"@ja-JP ;
@@ -61,9 +61,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcCountMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceParking>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceParking>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :IsOneWay  a                rdf:Property ;

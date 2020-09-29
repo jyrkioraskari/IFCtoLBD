@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FastenerWeld#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FastenerWeld#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pcc68e280d1e411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -177,7 +177,7 @@
 :Pset_FastenerWeld  a                 IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties related to welded connections." ;
         rdfs:label                    "Pset_FastenerWeld" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFastener/WELD> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFastener/WELD> ;
         IFC4-PSD:applicableTypeValue  "IfcFastener/WELD" ;
         IFC4-PSD:definition           "Properties related to welded connections." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -230,9 +230,9 @@
         rdfs:seeAlso        :pc541d480d1e411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Type1 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FastenerWeld>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FastenerWeld>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p0e922400d1e511e1800000215ad4efdf

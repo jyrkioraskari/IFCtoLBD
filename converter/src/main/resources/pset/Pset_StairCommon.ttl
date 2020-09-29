@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_StairCommon#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_StairCommon#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :LoadBearing  a             rdf:Property ;
         rdfs:seeAlso        :p8fc535f66e7a4d6899fd3b4218b31836 ;
@@ -120,9 +120,9 @@
         rdfs:seeAlso        :p975f98e25ec84e4dad52a2fb2cad197c ;
         rdfs:subPropertyOf  IFC4-PSD:WalkingLineOffset .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_StairCommon>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_StairCommon>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p8fc535f66e7a4d6899fd3b4218b31836

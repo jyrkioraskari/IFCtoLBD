@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeGasTap#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeGasTap#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p0651dd00d21511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A small diameter valve, used to discharge gas from a system." ;
         rdfs:label                    "Pset_ValveTypeGasTap" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/GASTAP> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/GASTAP> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/GASTAP" ;
         IFC4-PSD:definition           "A small diameter valve, used to discharge gas from a system." ;
         IFC4-PSD:definitionAlias      "弁タイプ排水コック"@ja-JP , ""@en ;
@@ -32,9 +32,9 @@
         IFC4-PSD:name                 "Pset_ValveTypeGasTap" ;
         IFC4-PSD:propertyDef          :p0651dd00d21511e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeGasTap>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeGasTap>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HasHoseUnion  a            rdf:Property ;

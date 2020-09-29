@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryPipe#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryPipe#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p7a3f6bee58104037a997d1c2cbd68a4d
         a                         IFC4-PSD:PropertyDef ;
@@ -18,9 +18,9 @@
                                     IFC4-PSD:reftype  IFC4:IfcTimeSeries
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryPipe>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryPipe>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p36d77e7919364513b229f61c7632a638
@@ -65,7 +65,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Log of substance usage attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type PIPE." ;
         rdfs:label                    "Pset_DistributionPortPHistoryPipe" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionPort/PIPE> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/PIPE> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionPort/PIPE" ;
         IFC4-PSD:definition           "Log of substance usage attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type PIPE." ;
         IFC4-PSD:definitionAlias      "IfcDistributionPortオブジェクトがGAS型の際に関連するIfcPerformanceHistoryに設定される燃料使用のログ。"@ja-JP , ""@en ;

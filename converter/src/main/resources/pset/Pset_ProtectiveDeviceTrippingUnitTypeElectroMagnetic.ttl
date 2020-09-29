@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectroMagnetic#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectroMagnetic#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p799b2500d1fc11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Information on tripping units that are electrically or magnetically tripped." ;
         rdfs:label                    "Pset_ProtectiveDeviceTrippingUnitTypeElectroMagnetic" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDeviceTrippingUnit/ELECTROMAGNETIC> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDeviceTrippingUnit/ELECTROMAGNETIC> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDeviceTrippingUnit/ELECTROMAGNETIC" ;
         IFC4-PSD:definition           "Information on tripping units that are electrically or magnetically tripped." ;
         IFC4-PSD:definitionAlias      ""@en , "電気と磁気により遮断するトリップ装置の情報。"@ja-JP ;
@@ -135,9 +135,9 @@
         rdfs:seeAlso        :p84ee5080d1fc11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:CurveDesignation .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectroMagnetic>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectroMagnetic>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :I1     a                   rdf:Property ;

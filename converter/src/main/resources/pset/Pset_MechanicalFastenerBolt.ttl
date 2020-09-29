@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MechanicalFastenerBolt#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_MechanicalFastenerBolt#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pe7d9ea80d1f011e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -78,9 +78,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcCountMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_MechanicalFastenerBolt>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_MechanicalFastenerBolt>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pee686200d1f011e1800000215ad4efdf
@@ -117,7 +117,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties related to bolt-type fasteners. The properties of a whole set with bolt, washers and nut may be provided. Note, it is usually not necessary to transmit these properties in case of standardized bolts. Instead, the standard is referred to." ;
         rdfs:label                    "Pset_MechanicalFastenerBolt" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcMechanicalFastener/BOLT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcMechanicalFastener/BOLT> ;
         IFC4-PSD:applicableTypeValue  "IfcMechanicalFastener/BOLT" ;
         IFC4-PSD:definition           "Properties related to bolt-type fasteners. The properties of a whole set with bolt, washers and nut may be provided. Note, it is usually not necessary to transmit these properties in case of standardized bolts. Instead, the standard is referred to." ;
         IFC4-PSD:definitionAlias      ""@en ;

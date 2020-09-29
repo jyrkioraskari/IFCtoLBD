@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_SwitchingDeviceTypeSelectorSwitch
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A selector switch is a switch that adjusts electrical power through a multi-position action.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_SwitchingDeviceTypeSelectorSwitch" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSwitchingDevice/SELECTORSWITCH> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/SELECTORSWITCH> ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/SELECTORSWITCH" ;
         IFC4-PSD:definition           "A selector switch is a switch that adjusts electrical power through a multi-position action.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "切替えスイッチは複数のポジションに合わせることで電力を調整するスイッチである。\n履歴： IFC4に追加。"@ja-JP , ""@en ;
@@ -32,9 +32,9 @@
                                     IFC4-PSD:enumItem  "EMERGENCY" , "GUARD" , "LIMIT" , "START" , "STOP" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSelectorSwitch>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :SelectorType  a            rdf:Property ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AnnotationLineOfSight#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AnnotationLineOfSight#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :RoadVisibleDistanceLeft
         a                   rdf:Property ;
@@ -49,9 +49,9 @@
         rdfs:seeAlso        :p41c2bc00d1c111e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SetbackDistance .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AnnotationLineOfSight>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AnnotationLineOfSight>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p47b89d00d1c111e1800000215ad4efdf
@@ -88,7 +88,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Specifies the properties of the line of sight at a point of connection between two elements. Typically used to define the line of sight visibility at the junction between two roads (particularly between an access road and a public road)." ;
         rdfs:label                    "Pset_AnnotationLineOfSight" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAnnotation/LineOfSight> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAnnotation/LineOfSight> ;
         IFC4-PSD:applicableTypeValue  "IfcAnnotation/LineOfSight" ;
         IFC4-PSD:definition           "Specifies the properties of the line of sight at a point of connection between two elements. Typically used to define the line of sight visibility at the junction between two roads (particularly between an access road and a public road)." ;
         IFC4-PSD:definitionAlias      ""@en , "Définition de l'IAI : spécifie les propriétés du point de vue à un point de jonction entre deux éléments. Par exemple, visibilité à la jonction entre deux routes (notamment entre un chemin d'accès et une route principale)."@fr-FR , "二つの要素間の接続点での視線を設定する指定プロパティ。一般的に、2つの道路の間（特に公道と取付け道路（区画道路）との間）の接合部で可視線を定義するために使用される。"@ja-JP ;

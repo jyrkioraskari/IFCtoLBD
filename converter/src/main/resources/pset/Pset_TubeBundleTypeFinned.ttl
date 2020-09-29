@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TubeBundleTypeFinned#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TubeBundleTypeFinned#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Spacing  a                 rdf:Property ;
         rdfs:seeAlso        :pc8ec5000d21211e1800000215ad4efdf ;
@@ -51,7 +51,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Finned tube bundle type attributes.\nContains the attributes related to the fins attached to a tube in a finned tube bundle such as is commonly found in coils." ;
         rdfs:label                    "Pset_TubeBundleTypeFinned" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcTubeBundle/FINNED> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTubeBundle/FINNED> ;
         IFC4-PSD:applicableTypeValue  "IfcTubeBundle/FINNED" ;
         IFC4-PSD:definition           "Finned tube bundle type attributes.\nContains the attributes related to the fins attached to a tube in a finned tube bundle such as is commonly found in coils." ;
         IFC4-PSD:definitionAlias      "フィンタイプチューブ束属性.一般にコイルに見られるように、フィンチューブ束内のチューブに付いているフィンに関する属性を含む"@ja-JP , ""@en ;
@@ -151,9 +151,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_TubeBundleTypeFinned>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_TubeBundleTypeFinned>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :ThermalConductivity  a     rdf:Property ;

@@ -364,6 +364,8 @@ public abstract class IFCtoLBDConverterCore {
         LBD_NS.SMLS.addNameSpace(lbd_general_output_model);
         LBD_NS.UNIT.addNameSpace(lbd_general_output_model);
         LBD_NS.GEO.addNameSpace(lbd_general_output_model);
+        
+        
 
         LBD_NS.BOT.addNameSpace(lbd_general_output_model);
         if (hasBuildingElements)

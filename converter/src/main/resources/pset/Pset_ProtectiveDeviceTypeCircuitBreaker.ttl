@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeCircuitBreaker#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeCircuitBreaker#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p355c5480d1fd11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -31,9 +31,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeCircuitBreaker>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeCircuitBreaker>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p3ab99f00d1fd11e1800000215ad4efdf
@@ -112,7 +112,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A coherent set of attributes representing different capacities of a circuit breaker or of a motor protection device, defined in accordance with IEC 60947. Note - A protective device may be associated with different instances of this property set providing information related to different basic characteristics." ;
         rdfs:label                    "Pset_ProtectiveDeviceTypeCircuitBreaker" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDevice/CIRCUITBREAKER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/CIRCUITBREAKER> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/CIRCUITBREAKER" ;
         IFC4-PSD:definition           "A coherent set of attributes representing different capacities of a circuit breaker or of a motor protection device, defined in accordance with IEC 60947. Note - A protective device may be associated with different instances of this property set providing information related to different basic characteristics." ;
         IFC4-PSD:definitionAlias      ""@en , "IECの60947に基づいて定義されている回路ブレーカ、またはモータ保護装置の異なる容量を表すプロパティセットの定義。\n注記-保護装置は、根本的な特性に関連付けられた提供されたプロパティの情報は、　異なる実態に関連しているかもしれません。　　　　　　　　　　　　　　　　　"@ja-JP ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceThermalLoad#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceThermalLoad#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p9db23280d20b11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -235,9 +235,9 @@
         IFC4-PSD:name                 "Pset_SpaceThermalLoad" ;
         IFC4-PSD:propertyDef          :p9723bb00d20b11e1800000215ad4efdf , :p9db23280d20b11e1800000215ad4efdf , :pbfabb500d20b11e1800000215ad4efdf , :p6e032a80d20b11e1800000215ad4efdf , :p870bdb80d20b11e1800000215ad4efdf , :pce926780d20b11e1800000215ad4efdf , :pc6d2c300d20b11e1800000215ad4efdf , :p807d6400d20b11e1800000215ad4efdf , :p7491a200d20b11e1800000215ad4efdf , :pde11b080d20b11e1800000215ad4efdf , :pd6520c00d20b11e1800000215ad4efdf , :p8f641680d20b11e1800000215ad4efdf , :pa4d94080d20b11e1800000215ad4efdf , :pe8cc4580d20b11e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceThermalLoad>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceThermalLoad>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :AirExchangeRate  a         rdf:Property ;

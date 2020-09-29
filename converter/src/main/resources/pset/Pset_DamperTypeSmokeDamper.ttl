@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p172d2f00d1d211e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,7 +22,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Smoke damper type attributes.\nPset renamed from Pset_DamperTypeSmoke to Pset_DamperTypeSmokeDamper in IFC2x2 Pset Addendum." ;
         rdfs:label                    "Pset_DamperTypeSmokeDamper" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDamper/SMOKEDAMPER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDamper/SMOKEDAMPER> ;
         IFC4-PSD:applicableTypeValue  "IfcDamper/SMOKEDAMPER" ;
         IFC4-PSD:definition           "Smoke damper type attributes.\nPset renamed from Pset_DamperTypeSmoke to Pset_DamperTypeSmokeDamper in IFC2x2 Pset Addendum." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -36,7 +36,7 @@
         rdfs:seeAlso        :p172d2f00d1d211e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ControlType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeSmokeDamper>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

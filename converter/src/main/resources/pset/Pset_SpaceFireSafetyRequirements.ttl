@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceFireSafetyRequirements#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceFireSafetyRequirements#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p8bcf9000d20911e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -91,7 +91,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties related to fire protection of spaces that apply to the occurrences of IfcSpace or IfcZone." ;
         rdfs:label                    "Pset_SpaceFireSafetyRequirements" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcSpatialZone> , IFC4:IfcSpace , <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcZone> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> , IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> ;
         IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
         IFC4-PSD:definition           "Properties related to fire protection of spaces that apply to the occurrences of IfcSpace or IfcZone." ;
         IFC4-PSD:definitionAlias      "Property Set Definition in German"@de-DE , "Définition de l'IAI : propriétés relatives à la protection incendie, qui s'appliquent à toutes les occurrences des classes IfcSpace et IfcZone."@fr-FR , ""@en , "IfcSpaceまたはIfcZoneの存在に適用される、空間の火災防御(防火)に関連したプロパティ。"@ja-JP ;
@@ -122,7 +122,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceFireSafetyRequirements>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceFireSafetyRequirements>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SetPointConcentration
         a                   rdf:Property ;
@@ -31,7 +31,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A device that senses or detects ion concentration such as water hardness. HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_SensorTypeIonConcentrationSensor" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSensor/IONCONCENTRATIONSENSOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/IONCONCENTRATIONSENSOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSensor/IONCONCENTRATIONSENSOR" ;
         IFC4-PSD:definition           "A device that senses or detects ion concentration such as water hardness. HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "水の硬度などのイオン濃度を感知または検出する装置"@ja-JP , ""@en ;
@@ -54,7 +54,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcLabel
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBath#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBath#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p0f857e80d20211e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -30,7 +30,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Sanitary appliance for immersion of the human body or parts of it (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
         rdfs:label                    "Pset_SanitaryTerminalTypeBath" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/BATH> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/BATH> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/BATH" ;
         IFC4-PSD:definition           "Sanitary appliance for immersion of the human body or parts of it (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
         IFC4-PSD:definitionAlias      "人体の全体かその一部を浸す衛生器具（BS6100）。履歴：IFC4では材料および材料厚さ属性削除。使用材料の機能は IfcMaterialsResourceスキーマを使用。色のデータ型は、（まだ文字列値）IfcLabelに変更。"@ja-JP , ""@en ;
@@ -53,9 +53,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcBoolean
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBath>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeBath>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HasGrabHandles  a          rdf:Property ;

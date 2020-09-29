@@ -1,18 +1,18 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CoveringFlooring#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CoveringFlooring#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :HasAntiStaticSurface
         a                   rdf:Property ;
         rdfs:seeAlso        :p683c2380d1d011e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:HasAntiStaticSurface .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CoveringFlooring>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CoveringFlooring>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HasNonSkidSurface  a       rdf:Property ;
@@ -36,7 +36,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to FLOORING." ;
         rdfs:label                    "Pset_CoveringFlooring" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCovering/FLOORING> , IFC4: ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCovering/FLOORING> , IFC4: ;
         IFC4-PSD:applicableTypeValue  "IfcCovering/FLOORING," ;
         IFC4-PSD:definition           "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to FLOORING." ;
         IFC4-PSD:definitionAlias      ""@en , "所有PredefinedType设置为FLOORING的IfcCovering实例的定义中通用的属性。"@zh-CN ;

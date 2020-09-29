@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortTypeDuct#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortTypeDuct#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p26538518abf6475ba1562ce731d7975e
         a                         IFC4-PSD:PropertyDef ;
@@ -43,7 +43,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Duct port occurrence attributes attached to an instance of IfcDistributionPort." ;
         rdfs:label                    "Pset_DistributionPortTypeDuct" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionPort/DUCT" ;
         IFC4-PSD:definition           "Duct port occurrence attributes attached to an instance of IfcDistributionPort." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -155,9 +155,9 @@
         rdfs:seeAlso        :p26538518abf6475ba1562ce731d7975e ;
         rdfs:subPropertyOf  IFC4-PSD:Velocity .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortTypeDuct>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortTypeDuct>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p7583cd7c5ea74d109e2b6ad6d0dafa4b

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :PanMounting  a             rdf:Property ;
         rdfs:seeAlso        :pf7aefa00d20311e1800000215ad4efdf ;
@@ -56,7 +56,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Soil appliance for the disposal of excrement. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value)." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeToiletPan" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/TOILETPAN> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/TOILETPAN> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/TOILETPAN" ;
         IFC4-PSD:definition           "Soil appliance for the disposal of excrement. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value)." ;
         IFC4-PSD:definitionAlias      "排泄物排気用の機器。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色の設定は取り除かれています。色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP , ""@en ;
@@ -87,7 +87,7 @@
         rdfs:seeAlso        :p0f867e00d20411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:SpilloverLevel .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

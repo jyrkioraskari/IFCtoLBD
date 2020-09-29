@@ -1,15 +1,15 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypePressureReducing#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypePressureReducing#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Pset_ValveTypePressureReducing
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Valve that reduces the pressure of a fluid immediately downstream of its position in a pipeline to a preselected value or by a predetermined ratio.\nNote that a pressure reducing valve is constrained to have a 2 port  pattern." ;
         rdfs:label                    "Pset_ValveTypePressureReducing" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/PRESSUREREDUCING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/PRESSUREREDUCING> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/PRESSUREREDUCING" ;
         IFC4-PSD:definition           "Valve that reduces the pressure of a fluid immediately downstream of its position in a pipeline to a preselected value or by a predetermined ratio.\nNote that a pressure reducing valve is constrained to have a 2 port  pattern." ;
         IFC4-PSD:definitionAlias      ""@en , "減圧弁"@ja-JP ;
@@ -40,9 +40,9 @@
         rdfs:seeAlso        :p59c42b00d21511e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:UpstreamPressure .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypePressureReducing>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypePressureReducing>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p5fba0c00d21511e1800000215ad4efdf

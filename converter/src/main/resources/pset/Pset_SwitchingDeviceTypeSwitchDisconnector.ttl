@@ -1,13 +1,13 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSwitchDisconnector#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSwitchDisconnector#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSwitchDisconnector>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeSwitchDisconnector>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pb3752700d20e11e1800000215ad4efdf
@@ -32,7 +32,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A switch disconnector is a switch which in the open position satisfies the isolating requirements specified for a disconnector.\n\nHistory: Property 'HasVisualIndication' changed to 'IsIlluminated' to conform with property name for toggle switch" ;
         rdfs:label                    "Pset_SwitchingDeviceTypeSwitchDisconnector" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSwitchingDevice/SWITCHDISCONNECTOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/SWITCHDISCONNECTOR> ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/SWITCHDISCONNECTOR" ;
         IFC4-PSD:definition           "A switch disconnector is a switch which in the open position satisfies the isolating requirements specified for a disconnector.\n\nHistory: Property 'HasVisualIndication' changed to 'IsIlluminated' to conform with property name for toggle switch" ;
         IFC4-PSD:definitionAlias      "IEC 441-14-12の定義：\n高圧開閉器は開閉器のために孤立した状態である必要条件を満たす、開いた位置にあるスイッチ。\n\n履歴：\n属性 'HasVisualIndication' を トグルスイッチのプロパティ名に対応するよう、'IsIlluminated' へ変更。"@ja-JP , ""@en ;

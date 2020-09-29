@@ -1,17 +1,17 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeFlushing#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeFlushing#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :IsHighPressure  a          rdf:Property ;
         rdfs:seeAlso        :pf89c5780d21411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:IsHighPressure .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ValveTypeFlushing>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ValveTypeFlushing>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HasIntegralShutOffDevice
@@ -23,7 +23,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Valve that flushes a predetermined quantity of water to cleanse a WC, urinal or slop hopper.\nNote that a flushing valve is constrained to have a 2 port  pattern." ;
         rdfs:label                    "Pset_ValveTypeFlushing" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcValve/FLUSHING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/FLUSHING> ;
         IFC4-PSD:applicableTypeValue  "IfcValve/FLUSHING" ;
         IFC4-PSD:definition           "Valve that flushes a predetermined quantity of water to cleanse a WC, urinal or slop hopper.\nNote that a flushing valve is constrained to have a 2 port  pattern." ;
         IFC4-PSD:definitionAlias      "弁タイプフラッシュ"@ja-JP , ""@en ;

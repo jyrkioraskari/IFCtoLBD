@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p52455780d1fe11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,16 +22,16 @@
         rdfs:seeAlso        :p52455780d1fe11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:Sensitivity .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A residual current circuit breaker opens, closes or isolates a circuit and has short circuit and overload protection." ;
         rdfs:label                    "Pset_ProtectiveDeviceTypeResidualCurrentCircuitBreaker" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDevice/RESIDUALCURRENTCIRCUITBREAKER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/RESIDUALCURRENTCIRCUITBREAKER> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/RESIDUALCURRENTCIRCUITBREAKER" ;
         IFC4-PSD:definition           "A residual current circuit breaker opens, closes or isolates a circuit and has short circuit and overload protection." ;
         IFC4-PSD:definitionAlias      ""@en , "残留電流遮断回路が 開いているか、 閉じているか、または　回路から独立しているか、また短絡（ショートサーキット）を保有し、過負荷保護継電方式であるか。"@ja-JP ;

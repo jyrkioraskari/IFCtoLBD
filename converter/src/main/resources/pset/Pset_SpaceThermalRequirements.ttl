@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceThermalRequirements#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceThermalRequirements#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SpaceHumiditySummer  a     rdf:Property ;
         rdfs:seeAlso        :p7c057b00d20c11e1800000215ad4efdf ;
@@ -121,9 +121,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SpaceThermalRequirements>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SpaceThermalRequirements>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p70b24f80d20c11e1800000215ad4efdf
@@ -160,7 +160,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties related to the comfort requirements for thermal and other  thermal related performance properties of spaces that apply to the occurrences of IfcSpace, IfcSpatialZone or IfcZone. It can also be used to capture requirements for IfcSpaceType's. This includes the required design temperature, humidity, ventilation, and air conditioning." ;
         rdfs:label                    "Pset_SpaceThermalRequirements" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcZone> , IFC4:IfcSpace , <http://linkedbuildingdata.net/ifcOWL/IFC4#%20IfcSpatialZone> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> , IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> ;
         IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
         IFC4-PSD:definition           "Properties related to the comfort requirements for thermal and other  thermal related performance properties of spaces that apply to the occurrences of IfcSpace, IfcSpatialZone or IfcZone. It can also be used to capture requirements for IfcSpaceType's. This includes the required design temperature, humidity, ventilation, and air conditioning." ;
         IFC4-PSD:definitionAlias      "室の快適な温熱環境に関連する要求性能。IfcSpace, IfcZoneに適用される。\n温度、湿度、空調についての設計上の設定を含む。"@ja-JP , "Property Set Definition in German"@de-DE , ""@en ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CoveringCeiling#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CoveringCeiling#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :pfebc1500d1cf11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -26,7 +26,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to CEILING." ;
         rdfs:label                    "Pset_CoveringCeiling" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcCovering/CEILING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCovering/CEILING> ;
         IFC4-PSD:applicableTypeValue  "IfcCovering/CEILING" ;
         IFC4-PSD:definition           "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to CEILING." ;
         IFC4-PSD:definitionAlias      ""@en , "所有PredefinedType设置为CEILING的IfcCovering实例的定义中通用的属性。"@zh-CN ;
@@ -70,7 +70,7 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_CoveringCeiling>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_CoveringCeiling>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

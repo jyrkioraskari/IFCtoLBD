@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCistern#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCistern#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :IsAutomaticFlush  a        rdf:Property ;
         rdfs:seeAlso        :p9cc8d300d20211e1800000215ad4efdf ;
@@ -17,16 +17,16 @@
         rdfs:seeAlso        :p7dca4100d20211e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:IsSingleFlush .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCistern>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCistern>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SanitaryTerminalTypeCistern
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A water storage unit attached to a sanitary terminal that is fitted with a device, operated automatically or by the user, that discharges water to cleanse a water closet (toilet) pan, urinal or slop hopper. (BS6100 330 5008)" ;
         rdfs:label                    "Pset_SanitaryTerminalTypeCistern" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/CISTERN> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/CISTERN> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/CISTERN" ;
         IFC4-PSD:definition           "A water storage unit attached to a sanitary terminal that is fitted with a device, operated automatically or by the user, that discharges water to cleanse a water closet (toilet) pan, urinal or slop hopper. (BS6100 330 5008)" ;
         IFC4-PSD:definitionAlias      ""@en , "衛生配管に接続されている貯水装置で、自動または手動により、大便器（トイレ）パン、小便器や汚物ホッパーなどを排水により洗浄する。 （BS61003305008）"@ja-JP ;

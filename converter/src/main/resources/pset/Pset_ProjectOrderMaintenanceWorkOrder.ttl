@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p781b2e00d1f711e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -91,7 +91,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A MaintenanceWorkOrder is a detailed description of maintenance work that is to be performed. Note that the Scheduled Frequency property of the maintenance work order is used when the order is required as an instance of a scheduled work order." ;
         rdfs:label                    "Pset_ProjectOrderMaintenanceWorkOrder" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProjectOrder/MAINTENANCEWORKORDER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/MAINTENANCEWORKORDER> ;
         IFC4-PSD:applicableTypeValue  "IfcProjectOrder/MAINTENANCEWORKORDER" ;
         IFC4-PSD:definition           "A MaintenanceWorkOrder is a detailed description of maintenance work that is to be performed. Note that the Scheduled Frequency property of the maintenance work order is used when the order is required as an instance of a scheduled work order." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -101,9 +101,9 @@
         IFC4-PSD:name                 "Pset_ProjectOrderMaintenanceWorkOrder" ;
         IFC4-PSD:propertyDef          :p53bf5180d1f711e1800000215ad4efdf , :p6e91c600d1f711e1800000215ad4efdf , :p93863900d1f711e1800000215ad4efdf , :pa8fb6300d1f711e1800000215ad4efdf , :p5c178c80d1f711e1800000215ad4efdf , :p781b2e00d1f711e1800000215ad4efdf , :p65085e00d1f711e1800000215ad4efdf , :pbfa1ba00d1f711e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p6e91c600d1f711e1800000215ad4efdf

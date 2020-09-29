@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeShower#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeShower#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p3bedca80d20311e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -26,7 +26,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Installation or waste water appliance that emits a spray of water to wash the human body (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
         rdfs:label                    "Pset_SanitaryTerminalTypeShower" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/SHOWER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SHOWER> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SHOWER" ;
         IFC4-PSD:definition           "Installation or waste water appliance that emits a spray of water to wash the human body (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
         IFC4-PSD:definitionAlias      ""@en , "人体を洗うために水をスプレー状に放射する廃水器具(BS6100)\n背景: IFC4において、要素と要素厚さのプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP ;
@@ -62,9 +62,9 @@
         rdfs:seeAlso        :p3bedca80d20311e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ShowerHeadDescription .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeShower>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeShower>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p06e17800d20311e1800000215ad4efdf

@@ -1,17 +1,17 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :DimmerType  a              rdf:Property ;
         rdfs:seeAlso        :p11edd580d20e11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:DimmerType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p11edd580d20e11e1800000215ad4efdf
@@ -31,7 +31,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A dimmer switch is a switch that adjusts electrical power through a variable position level action.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_SwitchingDeviceTypeDimmerSwitch" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSwitchingDevice/DIMMERSWITCH> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/DIMMERSWITCH> ;
         IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/DIMMERSWITCH" ;
         IFC4-PSD:definition           "A dimmer switch is a switch that adjusts electrical power through a variable position level action.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "各レベルの動作で電力を調整するディマースイッチ。\n履歴：IFC2ｘ４へ追加。"@ja-JP , ""@en ;

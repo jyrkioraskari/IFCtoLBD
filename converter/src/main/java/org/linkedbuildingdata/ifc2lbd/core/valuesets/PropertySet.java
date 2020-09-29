@@ -14,6 +14,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
@@ -76,8 +77,10 @@ public class PropertySet {
         this.propertyset_name = propertyset_name;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
+        System.out.println("pset name: "+this.propertyset_name);
         StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
+            System.out.println("Pset bsdd match!");
             is_bSDD_pset = true;
             psetDef = iter.next().getSubject();
         }
@@ -94,6 +97,7 @@ public class PropertySet {
     public void putPsetPropertyRef(RDFNode property) {
         String pname = property.asLiteral().getString();
         if (is_bSDD_pset) {
+            System.out.println("bsDD");
             StmtIterator iter = psetDef.listProperties(LBD_NS.PROPS_NS.propertyDef);
             while (iter.hasNext()) {
                 Resource prop = iter.next().getResource();
@@ -194,8 +198,6 @@ public class PropertySet {
                 unit = unit.substring(0, unit.length() - "measure".length());
             String si_unit = this.unitmap.get(unit);
             if (si_unit != null) {
-                lbd_resource.addProperty(RDF.value, this.mapPnameValue.get(pname));
-
                 if (si_unit.equals("METRE")) {
                     lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.METER);
                 } else if (si_unit.equals("SQUARE_METRE")) {

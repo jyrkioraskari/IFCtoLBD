@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :CapColor  a                rdf:Property ;
         rdfs:seeAlso        :pc07e2000d1e611e1800000215ad4efdf ;
@@ -74,9 +74,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcInteger
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :HoseConnectionSize  a      rdf:Property ;
@@ -87,7 +87,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Device, fitted to a pipe, through which a temporary supply of water may be provided (BS6100 330 6107)\n\nFor further details on fire hydrants, see www.firehydrant.org" ;
         rdfs:label                    "Pset_FireSuppressionTerminalTypeFireHydrant" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFireSuppressionTerminal/FIREHYDRANT> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/FIREHYDRANT> ;
         IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/FIREHYDRANT" ;
         IFC4-PSD:definition           "Device, fitted to a pipe, through which a temporary supply of water may be provided (BS6100 330 6107)\n\nFor further details on fire hydrants, see www.firehydrant.org" ;
         IFC4-PSD:definitionAlias      ""@en , "（BS61003306107）から供給される一時的な水を通す配管に取り付けられる装置。\n\n消火栓の詳細については、www.firehydrant.orgを参照。"@ja-JP ;

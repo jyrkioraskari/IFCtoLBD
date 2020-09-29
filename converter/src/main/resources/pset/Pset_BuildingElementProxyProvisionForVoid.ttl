@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p5c972f80d1c511e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -69,9 +69,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Depth  a                   rdf:Property ;
@@ -112,7 +112,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties common to the definition of a provision for void as a special type of an instance of IfcBuildingElementProxy. A provision for void is a spatial provision that might be resolved into a void in a building element. The properties carry requested values." ;
         rdfs:label                    "Pset_BuildingElementProxyProvisionForVoid" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcBuildingElementProxy/PROVISIONFORVOID> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcBuildingElementProxy/PROVISIONFORVOID> ;
         IFC4-PSD:applicableTypeValue  "IfcBuildingElementProxy/PROVISIONFORVOID" ;
         IFC4-PSD:definition           "Properties common to the definition of a provision for void as a special type of an instance of IfcBuildingElementProxy. A provision for void is a spatial provision that might be resolved into a void in a building element. The properties carry requested values." ;
         IFC4-PSD:definitionAlias      "所有作为IfcBuildingElementProxy特例的空构件的定义中通用的属性。空构件是一种特殊的构件，可用以挖空其他建筑构件。其属性仅含特定的值。"@zh-CN , ""@en , "IfcBuildingElementProxyオブジェクトを使用して空間の取り合いにおける穴の位置を提案する際に必要な共通プロパティ情報を定義。"@ja-JP ;

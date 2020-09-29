@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ContrastRatio  a           rdf:Property ;
         rdfs:seeAlso        :pb0ece000d1c211e1800000215ad4efdf ;
@@ -133,9 +133,9 @@
                                     IFC4-PSD:definingValue  IFC4:IfcIdentifier
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :AudioMode  a               rdf:Property ;
@@ -180,7 +180,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An audio-visual display is a device that renders video from a screen.  HISTORY: Added in IFC4." ;
         rdfs:label                    "Pset_AudioVisualApplianceTypeDisplay" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcAudioVisualAppliance/DISPLAY> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/DISPLAY> ;
         IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/DISPLAY" ;
         IFC4-PSD:definition           "An audio-visual display is a device that renders video from a screen.  HISTORY: Added in IFC4." ;
         IFC4-PSD:definitionAlias      "画面からビデオ映像を送出する機器。"@ja-JP , ""@en ;

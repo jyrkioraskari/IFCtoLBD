@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :Sensitivity  a             rdf:Property ;
         rdfs:seeAlso        :pe6fb8580d1fd11e1800000215ad4efdf ;
@@ -13,7 +13,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "An earth failure device acts to protect people and equipment from the effects of current leakage." ;
         rdfs:label                    "Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDevice/EARTHLEAKAGECIRCUITBREAKER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/EARTHLEAKAGECIRCUITBREAKER> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/EARTHLEAKAGECIRCUITBREAKER" ;
         IFC4-PSD:definition           "An earth failure device acts to protect people and equipment from the effects of current leakage." ;
         IFC4-PSD:definitionAlias      ""@en , "漏電回路遮断機は、人々と器材を漏電電流の影響から保護する動作を行います。"@ja-JP ;
@@ -36,9 +36,9 @@
                                     IFC4-PSD:enumItem  "STANDARD" , "TIMEDELAYED" , "OTHER" , "NOTKNOWN" , "UNSET"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pe6fb8580d1fd11e1800000215ad4efdf

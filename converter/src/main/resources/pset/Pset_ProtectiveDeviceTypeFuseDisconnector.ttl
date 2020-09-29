@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p45c0ff00d1fe11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -39,9 +39,9 @@
         rdfs:seeAlso        :p3fcb1e00d1fe11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:IC60269 .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pf37fde00d1fd11e1800000215ad4efdf
@@ -79,7 +79,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "A coherent set of attributes representing the breakeing capacity of a fuse, defined in accordance with IEC 60269. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics." ;
         rdfs:label                    "Pset_ProtectiveDeviceTypeFuseDisconnector" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcProtectiveDevice/FUSEDISCONNECTOR> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/FUSEDISCONNECTOR> ;
         IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/FUSEDISCONNECTOR" ;
         IFC4-PSD:definition           "A coherent set of attributes representing the breakeing capacity of a fuse, defined in accordance with IEC 60269. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics." ;
         IFC4-PSD:definitionAlias      "ヒューズのbreakeing容量を表す属性の一貫したセットは、IEC60269に基づいて定義されています。\n 注-保護デバイスが別の基本的な特性に関連する情報を提供し、このプロセッサセットの別のインスタンスに関連付けられている可能性があります。"@ja-JP , ""@en ;

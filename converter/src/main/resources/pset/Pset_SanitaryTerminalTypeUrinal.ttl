@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p596f6400d20411e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -22,16 +22,16 @@
         rdfs:seeAlso        :p35138780d20411e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:UrinalType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Pset_SanitaryTerminalTypeUrinal
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Soil appliance that receives urine and directs it to a waste outlet (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value).  Mounting property added." ;
         rdfs:label                    "Pset_SanitaryTerminalTypeUrinal" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcSanitaryTerminal/URINAL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/URINAL> ;
         IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/URINAL" ;
         IFC4-PSD:definition           "Soil appliance that receives urine and directs it to a waste outlet (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value).  Mounting property added." ;
         IFC4-PSD:definitionAlias      "小便を受けたり直接排水溝に流すための機器(BS6100)。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色の設定は取り除かれています。色のデータ形式は文字列としてIfcLabelに変更されています。また、「設置」のプロパティーが加えられました。"@ja-JP , ""@en ;

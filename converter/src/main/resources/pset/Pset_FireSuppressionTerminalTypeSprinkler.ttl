@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :ResidualFlowingPressure
         a                   rdf:Property ;
@@ -49,7 +49,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Device for sprinkling water from a pipe under pressure over an area (BS6100 100 3432)" ;
         rdfs:label                    "Pset_FireSuppressionTerminalTypeSprinkler" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcFireSuppressionTerminal/SPRINKLER> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/SPRINKLER> ;
         IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/SPRINKLER" ;
         IFC4-PSD:definition           "Device for sprinkling water from a pipe under pressure over an area (BS6100 100 3432)" ;
         IFC4-PSD:definitionAlias      ""@en , "特定エリアに水圧をかけた配管より散水する装置。（BS61001003432）"@ja-JP ;
@@ -59,9 +59,9 @@
         IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeSprinkler" ;
         IFC4-PSD:propertyDef          :p4d28de00d1e711e1800000215ad4efdf , :p78133200d1e711e1800000215ad4efdf , :p531ebf00d1e711e1800000215ad4efdf , :p83665d80d1e711e1800000215ad4efdf , :p47cb9380d1e711e1800000215ad4efdf , :p31bdd300d1e711e1800000215ad4efdf , :p3da99500d1e711e1800000215ad4efdf , :p721d5100d1e711e1800000215ad4efdf , :p59ad3680d1e711e1800000215ad4efdf , :p6cc00680d1e711e1800000215ad4efdf , :p7d707c80d1e711e1800000215ad4efdf , :p1d79d600d1e711e1800000215ad4efdf .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Activation  a              rdf:Property ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AirTerminalOccurrence#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AirTerminalOccurrence#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :AirFlowRate  a             rdf:Property ;
         rdfs:seeAlso        :p89dd48d1b3184f2599c12f06ce904666 ;
@@ -43,9 +43,9 @@
                                     IFC4-PSD:enumItem  "NOTKNOWN" , "CEILINGINTERIOR" , "CEILINGPERIMETER" , "SILL" , "SIDEWALLLOW" , "SIDEWALLHIGH" , "OTHER" , "UNSET" , "FLOOR"
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_AirTerminalOccurrence>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_AirTerminalOccurrence>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :p00311180d1bf11e1800000215ad4efdf

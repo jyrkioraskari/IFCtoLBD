@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryCable#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryCable#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :paf897460248b427685e28b50acfc7106
         a                         IFC4-PSD:PropertyDef ;
@@ -64,9 +64,9 @@
         rdfs:seeAlso        :pfbaec68991c14f8fb0c963eb65250f26 ;
         rdfs:subPropertyOf  IFC4-PSD:RealPower .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryCable>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionPortPHistoryCable>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :Voltage  a                 rdf:Property ;
@@ -77,7 +77,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Log of electrical activity attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type CABLE." ;
         rdfs:label                    "Pset_DistributionPortPHistoryCable" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionPort/CABLE> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/CABLE> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionPort/CABLE" ;
         IFC4-PSD:definition           "Log of electrical activity attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type CABLE." ;
         IFC4-PSD:definitionAlias      "IfcDistributionPortオブジェクトがELECTRICAL型の際に関連するIfcPerformanceHistoryに設定される電力使用のログ。"@ja-JP , ""@en ;

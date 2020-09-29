@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeElectrical#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeElectrical#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :p9f173700d1da11e1800000215ad4efdf
         a                         IFC4-PSD:PropertyDef ;
@@ -18,9 +18,9 @@
                                     IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
                                   ] .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeElectrical>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DistributionSystemTypeElectrical>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :pa9393580d1da11e1800000215ad4efdf
@@ -103,7 +103,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties of electrical circuits." ;
         rdfs:label                    "Pset_DistributionSystemTypeElectrical" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcDistributionSystem/ELECTRICAL> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionSystem/ELECTRICAL> ;
         IFC4-PSD:applicableTypeValue  "IfcDistributionSystem/ELECTRICAL" ;
         IFC4-PSD:definition           "Properties of electrical circuits." ;
         IFC4-PSD:definitionAlias      ""@en , "電気回路の関連属性。"@ja-JP ;

@@ -1,9 +1,9 @@
-@prefix :      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ControllerTypeFloating#> .
-@prefix IFC4-PSD: <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD#> .
+@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ControllerTypeFloating#> .
+@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix IFC4:  <http://linkedbuildingdata.net/ifcOWL/IFC4#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
 
 :SignalFactor  a            rdf:Property ;
         rdfs:seeAlso        :p6de43a00d1cd11e1800000215ad4efdf ;
@@ -103,7 +103,7 @@
         a                             IFC4-PSD:PropertySetDef ;
         rdfs:comment                  "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued output.  HISTORY: IFC4 adapted from Pset_ControllerTypeCommon and applicable predefined type made specific to FLOATING; ACCUMULATOR and PULSECONVERTER types added; additional properties added to replace Pset_AnalogInput and Pset_AnalogOutput." ;
         rdfs:label                    "Pset_ControllerTypeFloating" ;
-        IFC4-PSD:applicableClass      <http://linkedbuildingdata.net/ifcOWL/IFC4#IfcController/FLOATING> ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/FLOATING> ;
         IFC4-PSD:applicableTypeValue  "IfcController/FLOATING" ;
         IFC4-PSD:definition           "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued output.  HISTORY: IFC4 adapted from Pset_ControllerTypeCommon and applicable predefined type made specific to FLOATING; ACCUMULATOR and PULSECONVERTER types added; additional properties added to replace Pset_AnalogInput and Pset_AnalogOutput." ;
         IFC4-PSD:definitionAlias      ""@en ;
@@ -135,9 +135,9 @@
         rdfs:seeAlso        :p2eb5e900d1cd11e1800000215ad4efdf ;
         rdfs:subPropertyOf  IFC4-PSD:ControlType .
 
-<http://linkedbuildingdata.net/ifcOWL/IFC4-PSD/Pset_ControllerTypeFloating>
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ControllerTypeFloating>
         a                owl:Ontology ;
-        owl:imports      <http://linkedbuildingdata.net/ifcOWL/IFC4-PSD> ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
 
 :SignalTime  a              rdf:Property ;
