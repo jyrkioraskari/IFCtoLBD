@@ -1,7 +1,7 @@
 # IFCtoLBD
 Version 2.7
 
-Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, and Pieter Pauwels.
+Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, and Joel Lehtonen.
 
 
 This repository presents the results of our ongoing work to 
