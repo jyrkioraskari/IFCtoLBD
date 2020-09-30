@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -763,6 +764,8 @@ public abstract class IFCtoLBDConverterCore {
                                 }
                             }
                         }
+                        line= new String(line.getBytes(), StandardCharsets.UTF_8);
+                        
                         if (line.contains("inst:IfcFace"))
                             continue;
                         if (line.contains("inst:IfcPolyLoop"))
