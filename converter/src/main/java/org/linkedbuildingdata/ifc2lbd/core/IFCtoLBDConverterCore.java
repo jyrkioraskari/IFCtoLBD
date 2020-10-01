@@ -173,6 +173,14 @@ public abstract class IFCtoLBDConverterCore {
                         spo.addProperty(RDF.type, LBD_NS.BOT.space);
                         
                         
+                        IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+                            PropertySet p_set = this.propertysets.get(propertyset.getURI());
+                            if (p_set != null) {
+                                p_set.connect(spo, uncompressed_guid_space);
+                                // This knows if the element has an isExtrenal -property and the value
+                            }
+                        });
+                        
                         //TODO bot:containsElement between storey and element is incorrectly converted from IFC #1
                         IfcOWLUtils.listContained_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                             connectElement(spo, element);
@@ -183,12 +191,7 @@ public abstract class IFCtoLBDConverterCore {
                             connectElement(spo, LBD_NS.BOT.adjacentElement, element);
                         });
 
-                        IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-                            PropertySet p_set = this.propertysets.get(propertyset.getURI());
-                            if (p_set != null) {
-                                p_set.connect(spo, uncompressed_guid_space);
-                            }
-                        });
+
                     });
                 });
             });
