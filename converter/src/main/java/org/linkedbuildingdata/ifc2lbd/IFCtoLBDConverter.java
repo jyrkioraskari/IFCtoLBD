@@ -12,6 +12,7 @@ import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
+import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
 
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
@@ -86,6 +87,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                 this.props_level = props_level;
                 this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
                 
+                if(IfcOWLUtils.getExpressSchema(ifc_filename)==null) //TODO  this result could be saved
+                {
+                    eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
+                    return;
+                }
+                
                 try {
                     System.out.println("Set the bounding box generator");
                     this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
@@ -136,6 +143,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation, boolean hasGeometry) {
 		this.props_level = props_level;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
+
+        if(IfcOWLUtils.getExpressSchema(ifc_filename)==null) //TODO  this result could be saved
+        {
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
+            return;
+        }
 
 	    if(hasGeometry)
 		try {
@@ -247,6 +260,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		boolean hasGeolocation = true;
 		boolean hasGeometry = true;
 
+
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation,hasGeometry);
 		return lbd_general_output_model;
@@ -296,7 +310,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
 			boolean hasGeolocation, boolean hasGeometry) {
 	    
-	    
+
+        if(IfcOWLUtils.getExpressSchema(ifc_filename)==null) //TODO  this result could be saved
+        {
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
+            return null;
+        }
 	    if(hasGeometry)
 	    try {
 	        eventBus.post(new IFCtoLBD_SystemStatusEvent("Geometry handling"));

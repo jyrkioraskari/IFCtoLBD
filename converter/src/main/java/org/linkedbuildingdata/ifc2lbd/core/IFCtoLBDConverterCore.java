@@ -484,7 +484,9 @@ public abstract class IFCtoLBDConverterCore {
                 connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
             });
         } else {
-            System.err.println("No type: " + ifcowl_element);
+            //IFC Virtual Elements not found #4
+            // There is no need to show that we have non-LBD types in the IFC model
+            //System.err.println("No type: " + ifcowl_element);
         }
 
     }

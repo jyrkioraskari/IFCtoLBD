@@ -77,6 +77,11 @@ public class IFCtoLBD_OpenAPI {
 		IFCtoLBDConverter lbdconverter = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset", false, 3);
 		Model m = lbdconverter.convert(ifcFile.getAbsolutePath());
 
+		if(m==null)
+		{
+		    result_string.append("Not a valid IFC version.");
+		    return;
+		}
 		OutputStream ttl_output = new OutputStream() {
 			private StringBuilder string = new StringBuilder();
 

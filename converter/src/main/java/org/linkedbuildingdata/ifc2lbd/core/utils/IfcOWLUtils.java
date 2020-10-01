@@ -346,32 +346,43 @@ public class IfcOWLUtils {
 	 *                 the IFC file
 	 * @return the IFC Express chema of the IFC file.
 	 */
-	public static String getExpressSchema(String ifc_file) {
-		try {
-			FileInputStream fstream = new FileInputStream(ifc_file);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			try {
-				String strLine;
-				while ((strLine = br.readLine()) != null) {
-					if (strLine.length() > 0) {
-						if (strLine.startsWith("FILE_SCHEMA")) {
-							if (strLine.indexOf("IFC2X3") != -1)
-								return "IFC2X3_TC1";
-							if (strLine.indexOf("IFC4") != -1)
-								return "IFC4_ADD1";
-							else
-								return "";
-						}
-					}
-				}
-			} finally {
-				br.close();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return "";
-	}
+	public static String getExpressSchema(String ifcFile) {
+        try (FileInputStream fstream = new FileInputStream(ifcFile)) {
+            DataInputStream in = new DataInputStream(fstream);
+            BufferedReader br = new BufferedReader(new InputStreamReader(in));
+            try {
+                String strLine;
+                while ((strLine = br.readLine()) != null) {
+                    if (strLine.length() > 0) {
+                        if (strLine.startsWith("FILE_SCHEMA")) {
+                            if (strLine.indexOf("IFC2X3") != -1)
+                                return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4x3") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X3") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4x3_RC1") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X3_RC1") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X1") != -1)
+                                return "IFC4x1";
+                            if (strLine.indexOf("IFC4x1") != -1)
+                                return "IFC4x1";
+                            if (strLine.indexOf("IFC4") != -1)
+                                return "IFC4_ADD1";
+                            else
+                                return null;
+                        }
+                    }
+                }
+            } finally {
+                br.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }
