@@ -171,10 +171,14 @@ public abstract class IFCtoLBDConverterCore {
                         so.addProperty(LBD_NS.BOT.hasSpace, spo);
                         addBoundingBox(spo, guid_space);
                         spo.addProperty(RDF.type, LBD_NS.BOT.space);
+                        
+                        
+                        //TODO bot:containsElement between storey and element is incorrectly converted from IFC #1
                         IfcOWLUtils.listContained_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                             connectElement(spo, element);
                         });
 
+                        //TODO bot:containsElement between storey and element is incorrectly converted from IFC #1
                         IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                             connectElement(spo, LBD_NS.BOT.adjacentElement, element);
                         });
@@ -192,9 +196,8 @@ public abstract class IFCtoLBDConverterCore {
 
         if (hasGeolocation) {
             try {
-                addGeolocation2BOT();
+                addGeolocation2BOT(); //TODO Check that this is getting the needed data
             } catch (Exception e) {
-                // e.printStackTrace();
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
             }
         }
