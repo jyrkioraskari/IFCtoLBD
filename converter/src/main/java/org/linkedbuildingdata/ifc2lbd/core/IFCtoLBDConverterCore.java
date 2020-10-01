@@ -93,7 +93,7 @@ public abstract class IFCtoLBDConverterCore {
     Set<Resource> has_geometry = new HashSet<>();
 
     protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
-                    boolean hasGeolocation) {
+                    boolean hasGeolocation,boolean hasGeometry) {
         IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
             Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
             String guid_site = IfcOWLUtils.getGUID(site, this.ifcOWL);
@@ -322,11 +322,6 @@ public abstract class IFCtoLBDConverterCore {
                         ps = new PropertySet(this.uriBase, lbd_property_output_model, this.ontology_model, "", props_level, hasPropertiesBlankNodes, unitmap);
                     this.propertysets.put(propertyset.getURI(), ps);
                 }
-                if (property_type.size() > 0) {
-                    RDFNode ptype = property_type.get(0);
-                    ps.putPnameType(pname.toString(), ptype);
-                }
-
                 if (property_value.size() > 0) {
                     RDFNode pvalue = property_value.get(0);
                     if (!pname.toString().equals(pvalue.toString())) {
@@ -334,7 +329,7 @@ public abstract class IFCtoLBDConverterCore {
                             if (pvalue.isLiteral()) {
                                 String val = pvalue.asLiteral().getLexicalForm();
                                 if (val.equals("-1.#IND"))
-                                    pvalue = ResourceFactory.createTypedLiteral(Double.NaN);
+                                    return;//pvalue = ResourceFactory.createTypedLiteral(Double.NaN);  // in an extreme case can cause an empty property set in L2 or L3: fixed in PropertySet.connect
                             }
                             ps.putPnameValue(pname.toString(), pvalue);
                             ps.putPsetPropertyRef(pname);
@@ -346,6 +341,11 @@ public abstract class IFCtoLBDConverterCore {
                     ps.putPsetPropertyRef(pname);
                     RDFUtils.copyTriples(0, propertySingleValue, lbd_property_output_model);
                 }
+                if (property_type.size() > 0) {
+                    RDFNode ptype = property_type.get(0);
+                    ps.putPnameType(pname.toString(), ptype);
+                }
+
 
             });
 

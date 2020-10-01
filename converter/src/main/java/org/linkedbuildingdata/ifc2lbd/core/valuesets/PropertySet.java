@@ -127,6 +127,8 @@ public class PropertySet {
     Set<String> hashes = new HashSet<>();
 
     public void connect(Resource lbd_resource, String long_guid) {
+        
+        if(this.mapPnameValue.keySet().size()>0)
         switch (this.props_level) {
             case 1:
             default:

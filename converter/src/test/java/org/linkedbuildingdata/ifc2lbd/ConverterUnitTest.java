@@ -1,4 +1,4 @@
-package org.lbd.ifc2lbd;
+package org.linkedbuildingdata.ifc2lbd;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -154,5 +154,42 @@ public class ConverterUnitTest {
 			fail("Conversion using set SHACL_rulesetLevel3 had an error: " + e.getMessage());
 		}
 	}
+	
+	@DisplayName("Test IfcRelAggregates not converting #16")
+    @Test
+    public void testConversionBugIfcRelAggregatesNotConverting() {
+        System.out.println("Start");
+        URL ifc_file_url = ClassLoader.getSystemResource("SampleHouse.ifc");
+        URL rule_file_url = ClassLoader.getSystemResource("SHACL_rulesetLevel2.ttl");
+        try {
+            File ifc_file = new File(ifc_file_url.toURI());
+            
+            IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 1);
+            Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+            m1nb.write(System.out,"TTL");
+            Graph graph_m1nb = m1nb.getGraph();
+
+            File rule1_file = new File(rule_file_url.toURI());
+            Graph shapesGraph = RDFDataMgr.loadGraph(rule1_file.getAbsolutePath());
+            Shapes shapes = Shapes.parse(shapesGraph);
+
+            ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
+            if(!report.conforms())
+            {
+              System.out.println("false");
+              fail("Conversion output does not conform SHACL_rulesetLevel3");                   
+              ShLib.printReport(report);
+              RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+            }
+            else
+                System.out.println("Actually ok");
+           
+        } catch (Exception e) {
+            System.out.println("ERROR");
+            e.printStackTrace();
+            fail("Conversion using set SHACL_rulesetLevel4 had an error: " + e.getMessage());
+        }
+    }
+
 
 }
