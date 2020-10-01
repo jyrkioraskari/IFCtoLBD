@@ -172,7 +172,7 @@ public abstract class IFCtoLBDConverterCore {
                         addBoundingBox(spo, guid_space);
                         spo.addProperty(RDF.type, LBD_NS.BOT.space);
                         
-                        
+                        Optional<Boolean> isExternal=Optional.empty();
                         IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                             PropertySet p_set = this.propertysets.get(propertyset.getURI());
                             if (p_set != null) {

@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.jena.rdf.model.Literal;
@@ -210,6 +211,24 @@ public class PropertySet {
                     lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.RADIAN);
                 }
             } 
+        }
+    }
+    
+    public Optional<Boolean> isExternal()
+    {
+        
+        RDFNode val=this.mapPnameValue.get("isExternal");
+        
+        if(val==null)
+          return Optional.empty();
+        else
+        {
+            if(!val.isLiteral())
+                return Optional.empty();
+            if(val.asLiteral().getString().toLowerCase().contains("true"))                            
+                 return Optional.of(true);
+            else
+                return Optional.of(false);
         }
     }
 }
