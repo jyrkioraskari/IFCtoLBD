@@ -92,7 +92,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
                     return;
                 }
-                
+                System.out.println("#2");
+
                 try {
                     System.out.println("Set the bounding box generator");
                     this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
@@ -149,6 +150,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
             return;
         }
+        System.out.println("#2");
+
 
 	    if(hasGeometry)
 		try {
@@ -310,7 +313,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
 			boolean hasGeolocation, boolean hasGeometry) {
 	    
-
+	    System.out.println("#1");
         if(IfcOWLUtils.getExpressSchema(ifc_filename)==null) //TODO  this result could be saved
         {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
@@ -329,6 +332,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 	    
 		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
 
+		System.out.println("converted RDF");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();

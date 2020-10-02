@@ -225,7 +225,7 @@ public class PropertySet {
         {
             if(!val.isLiteral())
                 return Optional.empty();
-            if(val.asLiteral().getString().toLowerCase().contains("true"))                            
+            if(val.asLiteral().getValue().equals(true))                            
                  return Optional.of(true);
             else
                 return Optional.of(false);

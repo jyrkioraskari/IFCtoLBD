@@ -35,6 +35,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
+import org.linkedbuildingdata.ifc2lbd.core.utils.ChangeableOptonal;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
@@ -47,6 +48,10 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD_NS;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 
+import com.github.davidmoten.rtreemulti.Entry;
+import com.github.davidmoten.rtreemulti.RTree;
+import com.github.davidmoten.rtreemulti.geometry.Geometry;
+import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
 
@@ -90,12 +95,19 @@ public abstract class IFCtoLBDConverterCore {
 
     protected IFCBoundingBoxes bounding_boxes = null;
 
-    Set<Resource> has_geometry = new HashSet<>();
+    private Set<Resource> has_geometry = new HashSet<>();
+    
+    private  RTree<Resource,Geometry> rtree;
+    private  Map<Geometry,Resource>   rtree_map = new HashMap<>(); 
+
 
     protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
                     boolean hasGeolocation,boolean hasGeometry) {
+        System.out.println("Conversion starts");
+
+        rtree= RTree.dimensions(3).create();
         IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
-            Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
+            Resource sio = createformattedURIRecource(site, lbd_general_output_model, "Site");
             String guid_site = IfcOWLUtils.getGUID(site, this.ifcOWL);
             String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
             addAttrributes(lbd_property_output_model, site.asResource(), sio);
@@ -115,7 +127,7 @@ public abstract class IFCtoLBDConverterCore {
                     System.err.println("Not an #IfcBuilding");
                     return;
                 }
-                Resource bo = createformattedURI(building, lbd_general_output_model, "Building");
+                Resource bo = createformattedURIRecource(building, lbd_general_output_model, "Building");
                 String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
                 String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
                 addAttrributes(lbd_property_output_model, building, bo);
@@ -139,7 +151,7 @@ public abstract class IFCtoLBDConverterCore {
                         return;
                     }
 
-                    Resource so = createformattedURI(storey, lbd_general_output_model, "Storey");
+                    Resource so = createformattedURIRecource(storey, lbd_general_output_model, "Storey");
                     String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
                     String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
                     addAttrributes(lbd_property_output_model, storey, so);
@@ -157,13 +169,13 @@ public abstract class IFCtoLBDConverterCore {
                     IfcOWLUtils.listContained_StoreyElements(storey, ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                         if (RDFUtils.getType(element.asResource()).get().getURI().endsWith("#IfcSpace"))
                             return;
-                        connectElement(so, element);
+                        connectIfcContaidedElement(so, element);
                     });
 
                     IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().forEach(space -> {
                         if (!RDFUtils.getType(space.asResource()).get().getURI().endsWith("#IfcSpace"))
                             return;
-                        Resource spo = createformattedURI(space.asResource(), lbd_general_output_model, "Space");
+                        Resource spo = createformattedURIRecource(space.asResource(), lbd_general_output_model, "Space");
                         String guid_space = IfcOWLUtils.getGUID(space.asResource(), this.ifcOWL);
                         String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
                         addAttrributes(lbd_property_output_model, space.asResource(), spo);
@@ -172,23 +184,36 @@ public abstract class IFCtoLBDConverterCore {
                         addBoundingBox(spo, guid_space);
                         spo.addProperty(RDF.type, LBD_NS.BOT.space);
                         
-                        Optional<Boolean> isExternal=Optional.empty();
+                        final ChangeableOptonal<Boolean> isExternal=new ChangeableOptonal<Boolean>();
                         IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                             PropertySet p_set = this.propertysets.get(propertyset.getURI());
                             if (p_set != null) {
                                 p_set.connect(spo, uncompressed_guid_space);
-                                // This knows if the element has an isExtrenal -property and the value
+                                if(!isExternal.isPresent())
+                                  isExternal.overwriteIfPresent(p_set.isExternal());
                             }
                         });
                         
-                        //TODO bot:containsElement between storey and element is incorrectly converted from IFC #1
                         IfcOWLUtils.listContained_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
-                            connectElement(spo, element);
+                            Resource lbd_element=connectIfcContaidedElement(spo, element);
+                            if(lbd_element!=null)
+                               storey.addProperty(LBD_NS.BOT.containsElement, lbd_element);
                         });
 
-                        //TODO bot:containsElement between storey and element is incorrectly converted from IFC #1
                         IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
-                            connectElement(spo, LBD_NS.BOT.adjacentElement, element);
+                            Resource lbd_element=connectElement(spo, LBD_NS.BOT.adjacentElement, element);
+                            if(isExternal.isPresent()&&isExternal.get()==true)
+                            {
+                                if(lbd_element!=null)
+                                    storey.addProperty(LBD_NS.BOT.adjacentElement, lbd_element);
+                                
+                            }
+                            else
+                            {
+                                if(lbd_element!=null)
+                                    storey.addProperty(LBD_NS.BOT.containsElement, lbd_element);
+                                
+                            }
                         });
 
 
@@ -228,16 +253,32 @@ public abstract class IFCtoLBDConverterCore {
         }
     }
 
-    private void addBoundingBox(Resource sp, String guid) {
+    
+    private void addBoundingBox(Resource lbd_resource, String guid) {
 
         if(this.bounding_boxes==null)
             return;
         try {
+            System.out.println("Bounding box for: "+lbd_resource);
             BoundingBox bb = this.bounding_boxes.getBoundingBox(guid);
-            if (bb != null && has_geometry.add(sp)) {
+            if (bb != null && has_geometry.add(lbd_resource)) {
                 Resource sp_blank = this.lbd_general_output_model.createResource();
-                sp.addProperty(LBD_NS.GEO.hasGeometry, sp_blank);
+                lbd_resource.addProperty(LBD_NS.GEO.hasGeometry, sp_blank);
                 sp_blank.addLiteral(LBD_NS.GEO.asWKT, bb.toString());
+                Rectangle rectangle = Rectangle.create(bb.getMin().x, bb.getMin().y, bb.getMin().z, bb.getMax().x, bb.getMax().y, bb.getMax().z);
+                rtree=rtree.add(lbd_resource,rectangle); // rtree is immutable
+                rtree_map.put(rectangle, lbd_resource);
+                
+                
+                //TODO This is not mature enough
+                /*Iterable<Entry<Resource, Geometry>> results =
+                                rtree.search(rectangle);
+                for(Entry<Resource, Geometry> e: results)
+                {
+                    if(e.value()!=lbd_resource)
+                    e.value().addProperty(LBD_NS.LBD.containsInVolume, lbd_resource);
+                }*/
+                
             }
         } catch (Exception e) { // Just in case IFCOpenShell does not function
                                 // under Tomcat
@@ -260,6 +301,8 @@ public abstract class IFCtoLBDConverterCore {
      *            If the nameless nodes are used.
      */
     protected void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
+        System.out.println("Property sets");
+        eventBus.post(new IFCtoLBD_SystemStatusEvent("Handle Property set data"));
 
         List<RDFNode> units = IfcOWLUtils.getProjectSIUnits(ifcOWL, ifcowl_model);
         for (RDFNode ru : units) {
@@ -373,7 +416,7 @@ public abstract class IFCtoLBDConverterCore {
         LBD_NS.GEO.addNameSpace(lbd_general_output_model);
         
         
-
+        LBD_NS.LBD.addNameSpace(lbd_general_output_model);
         LBD_NS.BOT.addNameSpace(lbd_general_output_model);
         if (hasBuildingElements)
             LBD_NS.Product.addNameSpace(lbd_product_output_model);
@@ -399,7 +442,8 @@ public abstract class IFCtoLBDConverterCore {
         }
     }
 
-    protected void connectElement(Resource bot_resource, Resource ifc_element) {
+    
+    protected Resource connectIfcContaidedElement(Resource bot_resource,Resource ifc_element) {
         Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifc_element);
         Optional<Resource> ifcowl_type = RDFUtils.getType(ifc_element);
         Optional<Resource> bot_type = Optional.empty();
@@ -408,39 +452,43 @@ public abstract class IFCtoLBDConverterCore {
         }
         System.out.println("Connect element: " + ifc_element);
         if (bot_type.isPresent()) {
-            Resource eo = createformattedURI(ifc_element, this.lbd_general_output_model, bot_type.get().getLocalName());
+            Resource lbd_element = createformattedURIRecource(ifc_element, this.lbd_general_output_model, bot_type.get().getLocalName());
             String guid = IfcOWLUtils.getGUID(ifc_element, this.ifcOWL);
             String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-            addBoundingBox(eo, guid);
-            Resource lbd_property_object = this.lbd_product_output_model.createResource(eo.getURI());
+            addBoundingBox(lbd_element, guid);
+            Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
             if (predefined_type.isPresent()) {
                 Resource product = this.lbd_product_output_model.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
                 lbd_property_object.addProperty(RDF.type, product);
             }
             lbd_property_object.addProperty(RDF.type, bot_type.get());
-            eo.addProperty(RDF.type, LBD_NS.BOT.element);
-            bot_resource.addProperty(LBD_NS.BOT.containsElement, eo);
-
+            lbd_element.addProperty(RDF.type, LBD_NS.BOT.element);
+            
+            bot_resource.addProperty(LBD_NS.BOT.containsElement, lbd_element);
+            
             IfcOWLUtils.listPropertysets(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null)
-                    p_set.connect(eo, uncompressed_guid);
+                    p_set.connect(lbd_element, uncompressed_guid);
             });
-            addAttrributes(this.lbd_property_output_model, ifc_element, eo);
+            addAttrributes(this.lbd_property_output_model, ifc_element, lbd_element);
 
             IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 // if (eo.getLocalName().toLowerCase().contains("space"))
                 // System.out.println("hosts: " + ifc_element + "--" +
                 // ifc_element2 + " bot:" +
                 // eo);
-                connectElement(eo, LBD_NS.BOT.hasSubElement, ifc_element2);
+                connectElement(lbd_element, LBD_NS.BOT.hasSubElement, ifc_element2);
             });
 
             IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-                connectElement(eo, LBD_NS.BOT.hasSubElement, ifc_element2);
+                connectElement(lbd_element, LBD_NS.BOT.hasSubElement, ifc_element2);
             });
+            return lbd_element;
         }
+        return null;
     }
+    
 
     /**
      * For a RDF LBD resource, creates the targetted object for the given
@@ -454,7 +502,7 @@ public abstract class IFCtoLBDConverterCore {
      * @param ifcowl_element
      *            The corresponding ifcOWL elemeny
      */
-    protected void connectElement(Resource bot_resource, Property bot_property, Resource ifcowl_element) {
+    protected Resource connectElement(Resource bot_resource, Property bot_property, Resource ifcowl_element) {
         Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcowl_element);
         Optional<Resource> ifcowl_type = RDFUtils.getType(ifcowl_element);
         Optional<Resource> lbd_product_type = Optional.empty();
@@ -463,8 +511,8 @@ public abstract class IFCtoLBDConverterCore {
         }
 
         if (lbd_product_type.isPresent()) {
-            Resource lbd_object = createformattedURI(ifcowl_element, this.lbd_general_output_model, lbd_product_type.get().getLocalName());
-            Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_object.getURI());
+            Resource lbd_element = createformattedURIRecource(ifcowl_element, this.lbd_general_output_model, lbd_product_type.get().getLocalName());
+            Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
 
             if (predefined_type.isPresent()) {
                 Resource product = this.lbd_product_output_model.createResource(lbd_product_type.get().getURI() + "-" + predefined_type.get());
@@ -472,10 +520,10 @@ public abstract class IFCtoLBDConverterCore {
             }
 
             lbd_property_object.addProperty(RDF.type, lbd_product_type.get());
-            lbd_object.addProperty(RDF.type, LBD_NS.BOT.element);
+            lbd_element.addProperty(RDF.type, LBD_NS.BOT.element);
 
-            addAttrributes(this.lbd_property_output_model, ifcowl_element, lbd_object);
-            bot_resource.addProperty(bot_property, lbd_object);
+            addAttrributes(this.lbd_property_output_model, ifcowl_element, lbd_element);
+            bot_resource.addProperty(bot_property, lbd_element);
             IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 // if
                 // (lbd_object.getLocalName().toLowerCase().contains("space"))
@@ -483,21 +531,19 @@ public abstract class IFCtoLBDConverterCore {
                 // .println("hosts2: " + ifcowl_element + "-->" + ifc_element2 +
                 // " bot:" +
                 // lbd_object);
-                connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
+                connectElement(lbd_element, LBD_NS.BOT.hasSubElement, ifc_element2);
             });
 
             IfcOWLUtils.listAggregated_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
-                connectElement(lbd_object, LBD_NS.BOT.hasSubElement, ifc_element2);
+                connectElement(lbd_element, LBD_NS.BOT.hasSubElement, ifc_element2);
             });
-        } else {
-            //IFC Virtual Elements not found #4
-            // There is no need to show that we have non-LBD types in the IFC model
-            //System.err.println("No type: " + ifcowl_element);
-        }
+            return lbd_element;
+        } 
 
+        return null;
     }
 
-    protected Set<Resource> handledSttributes4resource = new HashSet<>();
+    protected Set<Resource> handledAttributes4resource = new HashSet<>();
 
     /**
      * Creates and adds the literal triples from the original ifcOWL resource
@@ -512,7 +558,7 @@ public abstract class IFCtoLBDConverterCore {
      *            resource.
      */
     protected void addAttrributes(Model output_model, Resource r, Resource bot_r) {
-        if (!handledSttributes4resource.add(r)) // Tests if the attributes are
+        if (!handledAttributes4resource.add(r)) // Tests if the attributes are
                                                 // added already
             return;
         String guid = IfcOWLUtils.getGUID(r, this.ifcOWL);
@@ -566,7 +612,7 @@ public abstract class IFCtoLBDConverterCore {
      *            The LBD product type to be shown on the URI
      * @return
      */
-    protected Resource createformattedURI(Resource r, Model m, String product_type) {
+    protected Resource createformattedURIRecource(Resource r, Model m, String product_type) {
         String guid = IfcOWLUtils.getGUID(r, this.ifcOWL);
         if (guid == null) {
             String localName = r.getLocalName();
@@ -902,7 +948,7 @@ public abstract class IFCtoLBDConverterCore {
 
         IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
             // Create a resource and add to bot model (resource, model, string)
-            Resource sio = createformattedURI(site, lbd_general_output_model, "Site");
+            Resource sio = createformattedURIRecource(site, lbd_general_output_model, "Site");
 
             // Create a resource geosparql:Feature;
             Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");
@@ -941,5 +987,24 @@ public abstract class IFCtoLBDConverterCore {
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("LDB geom read"));
 
+    }
+    
+    public static void main(String[] args) {
+        RTree<Resource,Geometry> rtree= RTree.dimensions(3).create();
+        
+        
+        Rectangle rectangle = Rectangle.create(-0.5, -0.5, -0.5, 0.1, 0.1, 0.1);
+        Resource r1=ResourceFactory.createResource("http://example.de/1");
+        rtree=rtree.add(r1,rectangle); // rtree is immutable
+
+        
+        Rectangle rectangle2 = Rectangle.create(0.1, 0.1, 0.1, 1, 1, 1);
+        
+        Iterable<Entry<Resource, Geometry>> results =
+                        rtree.search(rectangle2);
+        for(Entry<Resource, Geometry> e: results)
+        {
+            System.out.println(""+e.value());
+        }
     }
 }

@@ -67,7 +67,7 @@
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
-	<dependency>
+		<dependency>
 			<groupId>de.rwth-aachen.dc.lbd</groupId>
 			<artifactId>IFCtoLBDGeometry</artifactId>
 			<version>2.8</version>
@@ -113,25 +113,31 @@
 			<artifactId>IFCtoRDF</artifactId>
 			<version>0.5J-SNAPSHOT</version>
 		</dependency>
-		<!-- overrided IFCtoRDF -->	
-		 <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-core</artifactId>
-            <version>3.16.0</version>
-        </dependency>
-		 <dependency>
-            <groupId>org.apache.jena</groupId>
-            <artifactId>jena-arq</artifactId>
-            <version>3.16.0</version>
-        </dependency>
+		<!-- overrided IFCtoRDF -->
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-core</artifactId>
+			<version>3.16.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-arq</artifactId>
+			<version>3.16.0</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<version>3.16.0</version>
-			<type>pom</type>		
+			<type>pom</type>
 		</dependency>
-		
+		<!-- https://mvnrepository.com/artifact/com.github.davidmoten/rtree-multi -->
+		<dependency>
+			<groupId>com.github.davidmoten</groupId>
+			<artifactId>rtree-multi</artifactId>
+			<version>0.1-RC1</version>
+		</dependency>
+
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
