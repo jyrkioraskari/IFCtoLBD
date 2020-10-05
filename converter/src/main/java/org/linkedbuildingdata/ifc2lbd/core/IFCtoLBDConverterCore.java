@@ -402,11 +402,12 @@ public abstract class IFCtoLBDConverterCore {
 
     /**
      * Adds the used RDF namespaces for the Jena Models
-     * 
-     * @param uriBase
-     * @param props_level
-     * @param hasBuildingElements
-     * @param hasBuildingProperties
+     * @param uriBase                          The URI base for all the elemenents
+     * @param props_level                      The levels described in
+     *                                         https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
+     * @param hasBuildingElements              The Building Elements will be created
+     *                                         in the output
+     * @param hasBuildingProperties            The properties will ne added into the
      */
     protected void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements, boolean hasBuildingProperties) {
         LBD_NS.SMLS.addNameSpace(lbd_general_output_model);
@@ -499,6 +500,7 @@ public abstract class IFCtoLBDConverterCore {
      *            The LBD ontology property
      * @param ifcowl_element
      *            The corresponding ifcOWL elemeny
+     * @return returns the created LBD resource
      */
     protected Resource connectElement(Resource bot_resource, Property bot_property, Resource ifcowl_element) {
         Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcowl_element);
@@ -599,7 +601,7 @@ public abstract class IFCtoLBDConverterCore {
      * (that have a GUID) are given URI that contais the guid in the standard
      * uncompressed format.
      * 
-     * The uncompressed GUID form is created using the implementation by Tulke &
+     * The uncompressed GUID form is created using the implementation by Tulke and
      * Co. (The OPEN IFC JAVA TOOLBOX)
      * 
      * @param r
@@ -608,7 +610,7 @@ public abstract class IFCtoLBDConverterCore {
      *            The Apache Jena RDF Store for the output.
      * @param product_type
      *            The LBD product type to be shown on the URI
-     * @return
+     * @return    Returns the created LBD Jena resource
      */
     protected Resource createformattedURIRecource(Resource r, Model m, String product_type) {
         String guid = IfcOWLUtils.getGUID(r, this.ifcOWL);

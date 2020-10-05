@@ -123,9 +123,11 @@ An Restful OpenAPI implementation for IFCtoLBD converter.
 A test installation:
 http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/
 
+
 ### Swagger.json description for the services
 
 http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
+
 
 ### Docker for the Open API interface
 

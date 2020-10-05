@@ -342,7 +342,7 @@ public class IfcOWLUtils {
 	 * The idea is to make sure that we are using exactly the same ontology files
 	 * that the IFCtoRDF is using for the associated Abox output.
 	 * 
-	 * @param ifc_file the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
+	 * @param ifcFile the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
 	 *                 the IFC file
 	 * @return the IFC Express chema of the IFC file.
 	 */
