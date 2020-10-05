@@ -65,6 +65,7 @@
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
 		<skipTests>true</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -256,7 +257,6 @@
 							<mainClass>org.lbd.ifc2lbd.IFCtoLBDConverter</mainClass>
 						</manifest>
 					</archive>
-					<encoding>UTF-8</encoding>
 				</configuration>
 				<executions>
 					<execution>
