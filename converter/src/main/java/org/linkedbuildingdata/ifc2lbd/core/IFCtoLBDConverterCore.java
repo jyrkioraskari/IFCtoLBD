@@ -274,7 +274,7 @@ public abstract class IFCtoLBDConverterCore {
                 for(Entry<Resource, Geometry> e: results)
                 {
                     if(e.value()!=lbd_resource)
-                    e.value().addProperty(LBD_NS.LBD.containsBoundingBox, lbd_resource);
+                    e.value().addProperty(LBD_NS.LBD.containsInBoundingBox, lbd_resource);
                 }
                 
             }
@@ -857,6 +857,7 @@ public abstract class IFCtoLBDConverterCore {
         return tempFile;
     }
 
+    @SuppressWarnings("deprecation")
     private List<String> split(String s) {
         List<String> ret = new ArrayList<>();
         int state = 0;

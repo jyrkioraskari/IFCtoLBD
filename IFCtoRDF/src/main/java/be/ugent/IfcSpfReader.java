@@ -222,6 +222,7 @@ public class IfcSpfReader {
         return out.toString();
     }
 
+    @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
         ifcFile = ifcFileIn;
         if (!ifcFile.endsWith(".ifc")) {
@@ -291,7 +292,6 @@ public class IfcSpfReader {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public void convert(String ifcFile, String outputFile, String baseURI) throws IOException {
         // CONVERSION
         OntModel om = null;

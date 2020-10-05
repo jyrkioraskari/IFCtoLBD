@@ -3,7 +3,6 @@ package org.linkedbuildingdata.ifc2lbd;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
-import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;

@@ -17,7 +17,6 @@
 
 package org.linkedbuildingdata.ifc2lbd.namespace;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 
 public class IfcOWLNameSpace extends abstract_NS {

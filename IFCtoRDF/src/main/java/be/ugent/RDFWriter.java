@@ -15,13 +15,14 @@
  */
 package be.ugent;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.graph.NodeFactory;
@@ -74,7 +75,7 @@ public class RDFWriter {
     private InputStream inputStream;
     private final OntModel ontModel;
 
-    private IfcSpfReader myIfcReaderStream;
+   //private IfcSpfReader myIfcReaderStream;
 
     // for removing duplicates in line entries
     private Map<String, Resource> listOfUniqueResources = new HashMap<>();
@@ -97,7 +98,7 @@ public class RDFWriter {
     }
 
     public void setIfcReader(IfcSpfReader r) {
-        this.myIfcReaderStream = r;
+        //this.myIfcReaderStream = r;
     }
 
     public void parseModel2Stream(OutputStream out) throws IOException {
