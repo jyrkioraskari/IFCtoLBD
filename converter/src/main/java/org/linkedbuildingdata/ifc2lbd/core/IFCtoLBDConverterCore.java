@@ -55,8 +55,8 @@ import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
 
+import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
-import nl.tue.ddss.bcf.BoundingBox;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -269,15 +269,13 @@ public abstract class IFCtoLBDConverterCore {
                 rtree=rtree.add(lbd_resource,rectangle); // rtree is immutable
                 rtree_map.put(rectangle, lbd_resource);
                 
-                
-                //TODO This is not mature enough
-                /*Iterable<Entry<Resource, Geometry>> results =
+                Iterable<Entry<Resource, Geometry>> results =
                                 rtree.search(rectangle);
                 for(Entry<Resource, Geometry> e: results)
                 {
                     if(e.value()!=lbd_resource)
-                    e.value().addProperty(LBD_NS.LBD.containsInVolume, lbd_resource);
-                }*/
+                    e.value().addProperty(LBD_NS.LBD.containsBoundingBox, lbd_resource);
+                }
                 
             }
         } catch (Exception e) { // Just in case IFCOpenShell does not function

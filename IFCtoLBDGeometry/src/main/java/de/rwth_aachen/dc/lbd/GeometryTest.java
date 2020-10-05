@@ -6,8 +6,6 @@ import java.io.IOException;
 import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 
-import nl.tue.ddss.bcf.BoundingBox;
-
 public class GeometryTest {
 
 	public static void main(String[] args) {

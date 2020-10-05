@@ -17,7 +17,6 @@ import org.ifcopenshell.IfcOpenShellEntityInstance;
 import org.ifcopenshell.IfcOpenShellModel;
 
 import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
-import nl.tue.ddss.bcf.BoundingBox;
 
 public class IFCBoundingBoxes {
 
@@ -81,7 +80,8 @@ public class IFCBoundingBoxes {
         double[] result = new double[4];
         Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
         
-        Point3d point = new Point3d(result[0], result[2], result[2]);
+        Point3d point = new Point3d(result[0], result[1], result[2]);
+              
         return point;
 
     }
