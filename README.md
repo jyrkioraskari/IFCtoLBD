@@ -1,7 +1,7 @@
 # IFCtoLBD
-Version 2.7
+Version 2.9
 
-Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, and Joel Lehtonen.
+Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
 
 This repository presents the results of our ongoing work to 
@@ -161,6 +161,8 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
+				  Ville Kukkonen and
+				  Simon Steyskaland and
                   Joel Lehtonen},
   title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD  2.5},
   month        = sep,

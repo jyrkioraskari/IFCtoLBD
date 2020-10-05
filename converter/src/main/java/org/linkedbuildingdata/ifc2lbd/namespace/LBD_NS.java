@@ -39,6 +39,22 @@ public class LBD_NS extends abstract_NS{
 		}
 		
 	}
+	
+	
+
+    
+    public static class LBD {
+        public static final String lbd_ns = "https://linkebuildingdata.org/LBD#";
+        
+
+        public static final Property containsInBoundingBox =property(lbd_ns,"containsInBoundingBox"); //contains, containsBoundingBox, containsInVolume
+        public static void addNameSpace(Model model)
+        {
+            model.setNsPrefix("lbd", lbd_ns);
+        }
+        
+    }
+	
 	public static class BOT {
 		public static final String bot_ns = "https://w3id.org/bot#";
 		
@@ -67,8 +83,8 @@ public class LBD_NS extends abstract_NS{
 
 	public static class Product {
 		public static final String beo_ns = "https://pi.pauwel.be/voc/buildingelement#"; 
-		public static final String furnishing_ns = "https://pi.pauwel.be/voc/furniture#";
-		public static final String mep_ns = "https://pi.pauwel.be/voc/distributionelement#";  
+		public static final String furnishing_ns = "http://pi.pauwel.be/voc/furniture#";
+		public static final String mep_ns = "http://pi.pauwel.be/voc/distributionelement#";  
 
 		public static void addNameSpace(Model model)
 		{

@@ -17,7 +17,6 @@ import org.ifcopenshell.IfcOpenShellEntityInstance;
 import org.ifcopenshell.IfcOpenShellModel;
 
 import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
-import nl.tue.ddss.bcf.BoundingBox;
 
 public class IFCBoundingBoxes {
 
@@ -37,22 +36,21 @@ public class IFCBoundingBoxes {
 		if (renderEngineInstance == null) {
 			return null;
 		}
-		IfcGeomServerClientEntity geometry = renderEngineInstance.generateGeometry();
-		if (geometry != null && geometry.getIndices().length > 0) {
-			boundingBox = new BoundingBox();
-			double[] tranformationMatrix = new double[16];
-			if (renderEngineInstance.getTransformationMatrix() != null) {
-				tranformationMatrix = renderEngineInstance.getTransformationMatrix();
-				tranformationMatrix = Matrix.changeOrientation(tranformationMatrix);
-			} else {
-				Matrix.setIdentityM(tranformationMatrix, 0);
-			}
 
-			float[] vertices = geometry.getPositions();
-			for (int i = 0; i < geometry.getPositions().length; i += 3) {
-				processExtends(boundingBox, tranformationMatrix, vertices[i], vertices[i + 1], vertices[i + 2]);
-			}
-		}
+		IfcGeomServerClientEntity geometry = renderEngineInstance.generateGeometry();
+        if (geometry != null && geometry.getIndices().length > 0) {
+            boundingBox = new BoundingBox();
+            double[] tranformationMatrix = new double[16];
+            Matrix.setIdentityM(tranformationMatrix, 0);
+            if (renderEngineInstance.getTransformationMatrix() != null) {
+                tranformationMatrix = renderEngineInstance.getTransformationMatrix();
+            }
+            for (int i = 0; i < geometry.getIndices().length; i++) {
+                Point3d p=processExtends(tranformationMatrix, geometry.getPositions(), geometry.getIndices()[i] * 3);
+                boundingBox.add(p);
+            }
+        }
+
 		return boundingBox;
 	}
 
@@ -74,14 +72,19 @@ public class IFCBoundingBoxes {
 		return model;
 	}
 
-	private void processExtends(BoundingBox boundingBox, double[] transformationMatrix, double x, double y, double z) {
-		double[] result = new double[4];
-		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
-		x = result[0];
-		y = result[1];
-		z = result[2];
-		Point3d point = new Point3d(x / 1000, y / 1000, z / 1000);
-		boundingBox.add(point);
-	}
+    private Point3d processExtends(double[] transformationMatrix, float[] ds, int index) {
+        double x = ds[index];
+        double y = ds[index + 1];
+        double z = ds[index + 2];
+
+        double[] result = new double[4];
+        Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
+        
+        Point3d point = new Point3d(result[0], result[1], result[2]);
+              
+        return point;
+
+    }
+    
 
 }

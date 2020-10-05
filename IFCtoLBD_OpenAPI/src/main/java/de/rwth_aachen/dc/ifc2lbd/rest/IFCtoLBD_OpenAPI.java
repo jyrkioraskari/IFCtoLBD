@@ -16,7 +16,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
@@ -48,7 +47,7 @@ public class IFCtoLBD_OpenAPI {
 			tempIfcFile.deleteOnExit();
 
 			Files.copy(ifcFile, tempIfcFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			IOUtils.closeQuietly(ifcFile);
+			ifcFile.close();
 			if (accept_type.equals("application/ld+json")) {
 				StringBuilder result_string = new StringBuilder();
 				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.JSONLD_COMPACT_PRETTY);
@@ -77,6 +76,11 @@ public class IFCtoLBD_OpenAPI {
 		IFCtoLBDConverter lbdconverter = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset", false, 3);
 		Model m = lbdconverter.convert(ifcFile.getAbsolutePath());
 
+		if(m==null)
+		{
+		    result_string.append("Not a valid IFC version.");
+		    return;
+		}
 		OutputStream ttl_output = new OutputStream() {
 			private StringBuilder string = new StringBuilder();
 

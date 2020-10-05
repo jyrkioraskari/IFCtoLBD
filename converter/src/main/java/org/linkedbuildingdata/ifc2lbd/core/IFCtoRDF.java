@@ -10,6 +10,7 @@ import be.ugent.IfcSpfReader;
 
 public class IFCtoRDF extends IfcSpfReader{
 
+    @SuppressWarnings("unused")
     private static final Logger LOG = LoggerFactory.getLogger(IFCtoRDF.class);
 
 

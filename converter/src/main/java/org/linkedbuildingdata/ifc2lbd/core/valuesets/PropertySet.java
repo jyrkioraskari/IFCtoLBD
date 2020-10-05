@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 import org.apache.jena.rdf.model.Literal;
@@ -14,7 +15,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
@@ -127,6 +127,8 @@ public class PropertySet {
     Set<String> hashes = new HashSet<>();
 
     public void connect(Resource lbd_resource, String long_guid) {
+        
+        if(this.mapPnameValue.keySet().size()>0)
         switch (this.props_level) {
             case 1:
             default:
@@ -208,6 +210,24 @@ public class PropertySet {
                     lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.RADIAN);
                 }
             } 
+        }
+    }
+    
+    public Optional<Boolean> isExternal()
+    {
+        
+        RDFNode val=this.mapPnameValue.get("isExternal");
+        
+        if(val==null)
+          return Optional.empty();
+        else
+        {
+            if(!val.isLiteral())
+                return Optional.empty();
+            if(val.asLiteral().getValue().equals(true))                            
+                 return Optional.of(true);
+            else
+                return Optional.of(false);
         }
     }
 }

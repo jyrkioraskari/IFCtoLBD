@@ -1,0 +1,37 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
+@prefix bot:   <https://w3id.org/bot#> .
+@prefix props: <https://w3id.org/props#> .
+
+
+inst:RuleLevel1Shape1
+    a sh:NodeShape ;
+    sh:targetClass bot:Site ;
+    sh:property [
+	sh:path bot:hasBuilding ;
+	sh:minCount 1 ;
+        sh:class bot:Building ;
+	sh:nodeKind sh:IRI 
+    ] .
+
+inst:RuleLevel1Shape2
+    a sh:NodeShape ;
+    sh:targetClass bot:Building  ;
+    sh:property [
+	sh:path bot:hasStorey ;
+	sh:minCount 2 ; 
+        sh:class bot:Storey ;
+	sh:nodeKind sh:IRI 
+    ] .
+
+inst:RuleLevel1Shape3
+    a sh:NodeShape ;
+    sh:targetClass bot:Storey ;
+    sh:property [
+	sh:path bot:containsElement ;
+	sh:minCount 2 
+    ] .
+
