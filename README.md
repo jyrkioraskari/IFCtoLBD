@@ -18,6 +18,7 @@ It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.
 ## Precompiled binaries
 
 Precompiled applications are available in the published release.
+https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop Java 8
 * The special Java 12 version: IFCtoLBD-Desktop Java 12
