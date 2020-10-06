@@ -29,7 +29,7 @@ When converting large files, `run.bat` can be used. It is also faster since it a
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
 
-![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
 ## Source Code Documentation 
 
@@ -175,6 +175,13 @@ This project is released under the open source [Apache License, Version 2.0](htt
   url          = {https://doi.org/10.5281/zenodo.4056940}
 }
 ```
+
+## Blog
+
+### Testing the software
+
+Testing the correctness of the created bounding boxes.
+![The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding_boxes.PNG)
 
 ## Frequently asked questions
 
