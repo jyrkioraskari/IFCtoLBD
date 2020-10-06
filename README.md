@@ -181,6 +181,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ### Testing the software
 
 Testing the correctness of the created bounding boxes.
+
 ![The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding_boxes.PNG)
 
 ## Frequently asked questions
