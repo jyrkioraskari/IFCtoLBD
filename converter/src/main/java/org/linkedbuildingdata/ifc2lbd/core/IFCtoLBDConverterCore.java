@@ -513,6 +513,9 @@ public abstract class IFCtoLBDConverterCore {
         if (lbd_product_type.isPresent()) {
             Resource lbd_element = createformattedURIRecource(ifcowl_element, this.lbd_general_output_model, lbd_product_type.get().getLocalName());
             Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
+            
+            String guid = IfcOWLUtils.getGUID(ifcowl_element, this.ifcOWL);
+            addBoundingBox(lbd_element, guid);
 
             if (predefined_type.isPresent()) {
                 Resource product = this.lbd_product_output_model.createResource(lbd_product_type.get().getURI() + "-" + predefined_type.get());
