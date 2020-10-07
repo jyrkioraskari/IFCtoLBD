@@ -733,25 +733,35 @@ public abstract class IFCtoLBDConverterCore {
      *            the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
      *            the IFC file
      * @param uriBase
-     *            the URL beginning for the elements in the ifcOWL TTL output
+     *            the URL beginning for the elements in the ifcOWL TTL output                 
+     * @param isTmpFile if the output is written to a temporary file.                  
+     * @param targetFile if not a temporary file, the absolute filename of the conversion result                  
      * @return the Jena Model that contains the ifcOWL attribute value (Abox)
      *         output.
      */
-    protected Model readAndConvertIFC(String ifc_file, String uriBase) {
+    protected Model readAndConvertIFC(String ifc_file, String uriBase, boolean isTmpFile,String targetFile) {
         try {
             IFCtoRDF rj = new IFCtoRDF();
-            File tempFile = File.createTempFile("ifc", ".ttl");
+            File outputFile;
+            if(isTmpFile)
+                outputFile = File.createTempFile("ifc", ".ttl");
+            else
+            {
+                String ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
+                
+                outputFile = new File(ifcowlfilename);
+            }
             try {
                 Model m = ModelFactory.createDefaultModel();
-                this.ontURI = rj.convert_into_rdf(ifc_file, tempFile.getAbsolutePath(), uriBase);
+                this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase);
                 // Thread.sleep(15000);
-                File t2 = filterContent(tempFile);
+                File t2 = filterContent(outputFile);
                 RDFDataMgr.read(m, t2.getAbsolutePath());
                 return m;
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                tempFile.deleteOnExit();
+                outputFile.deleteOnExit();
             }
 
         } catch (Exception e) {

@@ -110,7 +110,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                 initialise_JenaModels();
                 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -194,7 +194,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		initialise_JenaModels();
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -365,7 +365,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
         eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
 	    
-		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
 		System.out.println("converted RDF");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
