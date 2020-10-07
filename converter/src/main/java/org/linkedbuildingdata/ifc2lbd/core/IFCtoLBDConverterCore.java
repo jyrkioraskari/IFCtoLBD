@@ -747,9 +747,15 @@ public abstract class IFCtoLBDConverterCore {
                 outputFile = File.createTempFile("ifc", ".ttl");
             else
             {
-                String ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
+                String ifcowlfilename;
+                if(targetFile!=null)
+                {
+                   ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
+                   outputFile = new File(ifcowlfilename);
+                }
+                else
+                    outputFile = File.createTempFile("ifc", ".ttl");
                 
-                outputFile = new File(ifcowlfilename);
             }
             try {
                 Model m = ModelFactory.createDefaultModel();
