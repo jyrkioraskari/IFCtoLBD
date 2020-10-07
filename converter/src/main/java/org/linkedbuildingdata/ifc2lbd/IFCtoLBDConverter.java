@@ -55,6 +55,7 @@ import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
 
 public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 	/**
+     * IFCtoLBD constructor
 	 * The construction method for the converter process. This does the whole
 	 * process.
 	 * 
@@ -109,7 +110,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                 initialise_JenaModels();
                 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -139,6 +140,31 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
                 
     }
+	/**
+	 * IFCtoLBD constructor
+	 * 
+     * @param ifc_filename                     The absolute path for the IFC file
+     *                                         that will be converted
+     * @param uriBase                          The URI base for all the elemenents
+     *                                         that will be created
+     * @param target_file                      The main file name for the output. If
+     *                                         there are many, they will be sharing
+     *                                         the same beginning
+     * @param props_level                      The levels described in
+     *                                         https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
+     * @param hasBuildingElements              The Building Elements will be created
+     *                                         in the output
+     * @param hasSeparateBuildingElementsModel The Building elements will have a
+     *                                         separate file
+     * @param hasBuildingProperties            The properties will ne added into the
+     *                                         output
+     * @param hasSeparatePropertiesModel       The properties will be written in a
+     *                                         separate file
+     * @param hasPropertiesBlankNodes          Blank nodes are used
+     * @param hasGeolocation                   Geolocation, i.e., the latitude and
+     *                                         longitude are added.
+	 * @param hasGeometry                      If bounding boxes are created for elements.
+	 */
 	public IFCtoLBDConverter(String ifc_filename, String uriBase, String target_file, int props_level,
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation, boolean hasGeometry) {
@@ -168,7 +194,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		initialise_JenaModels();
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -198,6 +224,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 	}
 
+	/**
+     * IFCtoLBD constructor
+     * 
+     * @param uriBase                          The URI base for all the elemenents
+     *                                         that will be created
+     * @param props_level                      The levels described in
+     *                                         https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
+     *                                         
+	 */
 	public IFCtoLBDConverter(String uriBase, Integer... props_level) {
 		if (props_level.length > 0)
 			this.props_level = props_level[0];
@@ -221,8 +256,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
     }
 	
 	/**
-	 * The construction method for the converter process. This does the whole
-	 * process.
+     * IFCtoLBD constructor
 	 * 
 	 * @param uriBase                 The URI base for all the elemenents that will
 	 *                                be created
@@ -307,6 +341,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 	 *                                         separate file
 	 * @param hasGeolocation                   Geolocation, i.e., the latitude and
 	 *                                         longitude are added.
+	 * @param hasGeometry                      If bounding boxes are created for elements.
 	 * @return The model as a Jena-model
 	 */
 	public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements,
@@ -330,7 +365,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
         eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
 	    
-		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase); // Before: readInOntologies(ifc_filename);
+		ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
 		System.out.println("converted RDF");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));

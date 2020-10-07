@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.9
+Version 2.10
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -18,6 +18,7 @@ It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.
 ## Precompiled binaries
 
 Precompiled applications are available in the published release.
+https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop Java 8
 * The special Java 12 version: IFCtoLBD-Desktop Java 12
@@ -29,7 +30,7 @@ When converting large files, `run.bat` can be used. It is also faster since it a
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
 
-![GitHub Logo](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
 ## Source Code Documentation 
 
@@ -123,9 +124,11 @@ An Restful OpenAPI implementation for IFCtoLBD converter.
 A test installation:
 http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/
 
+
 ### Swagger.json description for the services
 
 http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
+
 
 ### Docker for the Open API interface
 
@@ -173,6 +176,14 @@ This project is released under the open source [Apache License, Version 2.0](htt
   url          = {https://doi.org/10.5281/zenodo.4056940}
 }
 ```
+
+## Blog
+
+### Testing the software
+
+October 5, 2020, Testing the correctness of the created bounding boxes.
+
+![The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding_boxes.PNG)
 
 ## Frequently asked questions
 

@@ -5,8 +5,8 @@ public class StringOperations {
 	 * Converts a string into the CamelCase notation described in:
 	 * https://en.wikipedia.org/wiki/Camel_case
 	 *  
-	 * @param txt
-	 * @return
+	 * @param txt   a string to be formatetd
+	 * @return      a Camel Case formatted string
 	 */
 	static public String toCamelCase(final String txt) {
 		if (txt == null)
@@ -33,8 +33,8 @@ public class StringOperations {
 	 * Converts a CamelCase string into space separate words.
 	 * https://en.wikipedia.org/wiki/Camel_case
 	 *  
-	 * @param txt
-	 * @return
+     * @param txt   a string to be formatetd
+     * @return      an un-"CamelCased" formatted string
 	 */
 	static public String toUnCamelCase(final String txt) {
 		if (txt == null)
@@ -63,7 +63,7 @@ public class StringOperations {
 	 * Removes all characters other than letters from a string
 	 * 
 	 * @param txt A text string
-	 * @return
+	 * @return    filtered content
 	 */
 	static private String filterCharaters(String txt) {
 		StringBuilder ret = new StringBuilder();
