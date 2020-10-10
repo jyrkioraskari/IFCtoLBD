@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -230,4 +233,31 @@ public class ConverterUnitTest {
         }
     }
 
+    
+    /*
+     * To be extended
+     */
+    
+    @DisplayName("Test conversion predicates")
+    @Test
+    public void testConversionPredicates() {
+        URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
+        try {
+            File ifc_file = new File(ifc_file_url.toURI());
+
+            IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 3);
+            
+            final Set<Property> properties = new HashSet<>();
+            Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+            m1nb.listStatements().forEachRemaining(s->{
+                properties.add(s.getPredicate());
+            });
+            
+            for(Property p:properties)
+                System.out.println(p);
+            
+        } catch (Exception e) {
+            fail("Conversion using set SHACL_rulesetLevel3 had an error: " + e.getMessage());
+        }
+    }
 }

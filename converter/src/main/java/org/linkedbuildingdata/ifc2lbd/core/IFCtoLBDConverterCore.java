@@ -86,6 +86,7 @@ public abstract class IFCtoLBDConverterCore {
 
     // URI-property set
     protected Map<String, PropertySet> propertysets = new HashMap<>();
+ 
     protected int props_level;
     protected boolean hasPropertiesBlankNodes;
 
@@ -747,9 +748,15 @@ public abstract class IFCtoLBDConverterCore {
                 outputFile = File.createTempFile("ifc", ".ttl");
             else
             {
-                String ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
+                String ifcowlfilename;
+                if(targetFile!=null)
+                {
+                   ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
+                   outputFile = new File(ifcowlfilename);
+                }
+                else
+                    outputFile = File.createTempFile("ifc", ".ttl");
                 
-                outputFile = new File(ifcowlfilename);
             }
             try {
                 Model m = ModelFactory.createDefaultModel();
@@ -927,12 +934,8 @@ public abstract class IFCtoLBDConverterCore {
         IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
 
         RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", this.eventBus);
-        // RDFUtils.readInOntologyTTL(ontology_model,
-        // "prod_building_elements.ttl",this.eventBus);
         RDFUtils.readInOntologyTTL(ontology_model, "beo_ontology.ttl", this.eventBus);
-        RDFUtils.readInOntologyTTL(ontology_model, "prod_furnishing.ttl", this.eventBus);
-        // RDFUtils.readInOntologyTTL(ontology_model,
-        // "prod_mep.ttl",this.eventBus);
+        
         RDFUtils.readInOntologyTTL(ontology_model, "mep_ontology.ttl", this.eventBus);
 
         RDFUtils.readInOntologyTTL(ontology_model, "psetdef.ttl", this.eventBus);
@@ -1021,4 +1024,15 @@ public abstract class IFCtoLBDConverterCore {
             System.out.println(""+e.value());
         }
     }
+    
+    public Map<String, PropertySet> getPropertysets() {
+        return propertysets;
+    }
+    
+    public Model getOntology_model() {
+        return ontology_model;
+    }
+
+
+
 }

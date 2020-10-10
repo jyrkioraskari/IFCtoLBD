@@ -107,7 +107,7 @@ public class PropertySet {
                     if (psetPropName.getString().equals(pname))
                         mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
                     else {
-                        String camel_name = StringOperations.toCamelCase(property.toString());
+                        String camel_name = StringOperations.toCamelCase(pname);
                         if (psetPropName.getString().toUpperCase().equals(camel_name.toUpperCase()))
                             mapBSDD.put(camel_name, prop);
                     }
@@ -158,7 +158,10 @@ public class PropertySet {
             if (this.hasBlank_nodes)
                 property_resource = this.lbd_model.createResource();
             else
+            {
                 property_resource = this.lbd_model.createResource(this.uriBase + pname + "_" + long_guid);
+                property_resource.addProperty(RDF.type, OPM.property);
+            }
 
             if (mapBSDD.get(pname) != null)
                 property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(pname));
@@ -173,7 +176,7 @@ public class PropertySet {
 
                 LocalDateTime datetime = LocalDateTime.now();
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
-                state_resourse.addProperty(RDF.type, OPM.currentState);
+                state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
                 state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(state_resourse, pname);

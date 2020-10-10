@@ -101,7 +101,6 @@ public class IfcOpenShellModel  {
 			if(next==null) // JO 2020
 				break;
 			IfcOpenShellEntityInstance instance = new IfcOpenShellEntityInstance(next);
-			System.out.println("GEN GEOM:  "+next.getGuid());
 			// Store the instance in our dictionary
 			instancesById.put(next.getId(), instance);
 			instancesByGUID.put(next.getGuid(), instance);
