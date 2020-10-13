@@ -23,10 +23,11 @@ https://github.com/jyrkioraskari/IFCtoLBD/releases
 * Desktop application: IFCtoLBD-Desktop Java 8
 * The special version for Java versions above 9: IFCtoLBD-Desktop Java 12
 
-Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
-
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
+
+
+Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
 
