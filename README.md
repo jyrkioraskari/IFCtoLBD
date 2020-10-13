@@ -13,7 +13,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+It is recommended to use OpenJava 15. OpenJava can be downloaded from [https://jdk.java.net/15/] (https://jdk.java.net/15/)
 
 ## Precompiled binaries
 
@@ -21,7 +21,7 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop Java 8
-* The special Java 12 version: IFCtoLBD-Desktop Java 12
+* The special version for Java versions above 9: IFCtoLBD-Desktop Java 12
 
 Also Windows 10 installations are availabe. 
 
@@ -178,10 +178,12 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### October 13, 2020  Testing the software
+The sofware was tested to function with https://jdk.java.net/15/
 
-### Testing the software
+### October 5, 2020  Testing the software
 
-October 5, 2020, Testing the correctness of the created bounding boxes.
+Testing the correctness of the created bounding boxes.
 
 ![The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding_boxes.PNG)
 
