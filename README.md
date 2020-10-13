@@ -4,9 +4,7 @@ Version 2.11
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
 
-This repository presents the results of our ongoing work to 
-create a usable converter to convert
-Industry Foundation Classes (IFC) STEP formatted files into 
+This repository presents the results of our ongoing work to create a usable converter to convert Industry Foundation Classes (IFC) STEP formatted files into 
 Resource Description Framework (RDF) triples that follow the small ontologies devised in  the  World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG)
 (https://github.com/w3c-lbd-cg/).
 
@@ -43,17 +41,24 @@ The converter can be compiled using maven and Java JDK (the above link). Maven c
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
-```sh
-cd ifc2rdf_library
-mvn clean
-mvn install
+```
+cd IFCtoRDF
+call mvn clean install
+cd ..
+cd IFCtoLBDGeometry
+call mvn clean install
 cd ..
 cd converter
-mvn clean 
-mvn install
-cd desktop
-mvn clean 
-mvn install
+call mvn clean install
+cd ..
+cd desktop_java8
+call mvn clean install
+cd ..
+
+cd IFCtoLBD_OpenAPI
+call mvn clean install
+call mvn enunciate:docs install
+cd ..
 ```
 
 The created package will be at the target subdirectory.
