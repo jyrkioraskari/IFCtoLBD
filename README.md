@@ -177,8 +177,8 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
-				  Ville Kukkonen and
-				  Simon Steyskaland and
+                  Ville Kukkonen and
+                  Simon Steyskaland and
                   Joel Lehtonen},
   title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD  2.5},
   month        = sep,
