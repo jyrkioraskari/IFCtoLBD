@@ -27,7 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
  * limitations under the License.
  */
 
-public class FileUtils {
+public abstract class FileUtils {
 
     /**
      * Returns a list of all matching files at the source code base. The code

@@ -110,7 +110,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                 initialise_JenaModels();
                 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
+                this.ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -247,13 +247,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		initialise_JenaModels();
 	}
 	
-    private void initialise_JenaModels() {
-        ontology_model = ModelFactory.createDefaultModel();
-
-		this.lbd_general_output_model = ModelFactory.createDefaultModel();
-		this.lbd_product_output_model = ModelFactory.createDefaultModel();
-		this.lbd_property_output_model = ModelFactory.createDefaultModel();
-    }
 	
 	/**
      * IFCtoLBD constructor

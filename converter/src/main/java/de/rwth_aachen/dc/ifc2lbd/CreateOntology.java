@@ -3,9 +3,7 @@ package de.rwth_aachen.dc.ifc2lbd;
 import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.jena.ontology.ObjectProperty;
 import org.apache.jena.ontology.OntModel;
@@ -16,9 +14,9 @@ import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
-import org.linkedbuildingdata.ifc2lbd.namespace.LBD_NS;
-import org.linkedbuildingdata.ifc2lbd.namespace.LBD_NS.BOT;
+import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
 
 public class CreateOntology {
 
@@ -40,7 +38,7 @@ public class CreateOntology {
             Model converter_ontology = c1nb.getOntology_model();
             
             converter_ontology.listStatements().forEachRemaining(s0 -> {
-                if (s0.getPredicate().equals(LBD_NS.PROPS_NS.namePset))
+                if (s0.getPredicate().equals(PROPS_NS.namePset))
                 {
                     String pname=StringOperations.toCamelCase(s0.getObject().asLiteral().getLexicalForm());
                     mapBSDD.put(pname, s0.getSubject());

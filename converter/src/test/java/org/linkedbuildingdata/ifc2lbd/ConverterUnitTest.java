@@ -10,6 +10,8 @@ import java.util.Set;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -18,6 +20,11 @@ import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.lib.ShLib;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import com.github.davidmoten.rtreemulti.Entry;
+import com.github.davidmoten.rtreemulti.RTree;
+import com.github.davidmoten.rtreemulti.geometry.Geometry;
+import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 
 public class ConverterUnitTest {
 
@@ -59,7 +66,7 @@ public class ConverterUnitTest {
             fail("Conversion had an error: " + e.getMessage());
         }
     }
-    
+
     @DisplayName("Test conversion test case 1")
     @Test
     public void testConversion1() {
@@ -233,31 +240,28 @@ public class ConverterUnitTest {
         }
     }
 
-    
-    /*
-     * To be extended
-     */
-    
-    @DisplayName("Test conversion predicates")
+    @DisplayName("Test RTree")
     @Test
-    public void testConversionPredicates() {
-        URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
+    public void testRTree() {
         try {
-            File ifc_file = new File(ifc_file_url.toURI());
+            RTree<Resource, Geometry> rtree = RTree.dimensions(3).create();
 
-            IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 3);
-            
-            final Set<Property> properties = new HashSet<>();
-            Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
-            m1nb.listStatements().forEachRemaining(s->{
-                properties.add(s.getPredicate());
-            });
-            
-            for(Property p:properties)
-                System.out.println(p);
+            Rectangle rectangle = Rectangle.create(-0.5, -0.5, -0.5, 0.1, 0.1, 0.1);
+            Resource r1 = ResourceFactory.createResource("http://example.de/1");
+            rtree = rtree.add(r1, rectangle); // rtree is immutable
+
+            Rectangle rectangle2 = Rectangle.create(-0.1, -0.1, -0.1, 1, 1, 1);
+
+            Iterable<Entry<Resource, Geometry>> results = rtree.search(rectangle2);
+            boolean correct=false;
+            for (Entry<Resource, Geometry> e : results) {
+                correct=true;
+            }
+            if(!correct)
+                fail("RTree test failed");
             
         } catch (Exception e) {
-            fail("Conversion using set SHACL_rulesetLevel3 had an error: " + e.getMessage());
+            fail("RTree fails: " + e.getMessage());
         }
     }
 }

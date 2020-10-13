@@ -39,7 +39,7 @@ import com.google.common.eventbus.EventBus;
  * limitations under the License.
  */
 
-public class RDFUtils {
+public abstract class RDFUtils {
 
     /**
      * 
@@ -123,8 +123,9 @@ public class RDFUtils {
 
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-            System.out.println("missing file: " + ontology_file);
-            e.printStackTrace();
+            System.out.println("Missing file: " + ontology_file);
+            System.out.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
+            //e.printStackTrace();
         }
 
     }
@@ -201,4 +202,7 @@ public class RDFUtils {
         return RDFUtils.pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
     }
 
+    
+    
+    
 }

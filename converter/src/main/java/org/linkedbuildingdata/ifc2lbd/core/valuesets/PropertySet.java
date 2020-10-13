@@ -18,8 +18,10 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
-import org.linkedbuildingdata.ifc2lbd.namespace.LBD_NS;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
+import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
+import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -78,7 +80,7 @@ public class PropertySet {
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
         System.out.println("pset name: "+this.propertyset_name);
-        StmtIterator iter = ontology_model.listStatements(null, LBD_NS.PROPS_NS.namePset, this.propertyset_name);
+        StmtIterator iter = ontology_model.listStatements(null, PROPS_NS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
             System.out.println("Pset bsdd match!");
             is_bSDD_pset = true;
@@ -98,10 +100,10 @@ public class PropertySet {
         String pname = property.asLiteral().getString();
         if (is_bSDD_pset) {
             System.out.println("bsDD");
-            StmtIterator iter = psetDef.listProperties(LBD_NS.PROPS_NS.propertyDef);
+            StmtIterator iter = psetDef.listProperties(PROPS_NS.propertyDef);
             while (iter.hasNext()) {
                 Resource prop = iter.next().getResource();
-                StmtIterator iterProp = prop.listProperties(LBD_NS.PROPS_NS.namePset);
+                StmtIterator iterProp = prop.listProperties(PROPS_NS.namePset);
                 while (iterProp.hasNext()) {
                     Literal psetPropName = iterProp.next().getLiteral();
                     if (psetPropName.getString().equals(pname))
@@ -133,7 +135,7 @@ public class PropertySet {
             case 1:
             default:
             for (String pname : this.mapPnameValue.keySet()) {
-                Property property = lbd_resource.getModel().createProperty(LBD_NS.PROPS_NS.props_ns + pname + "_simple");
+                Property property = lbd_resource.getModel().createProperty(PROPS_NS.props_ns + pname + "_simple");
                 lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
             }
                 break;
@@ -164,7 +166,7 @@ public class PropertySet {
             }
 
             if (mapBSDD.get(pname) != null)
-                property_resource.addProperty(LBD_NS.PROPS_NS.isBSDDProp, mapBSDD.get(pname));
+                property_resource.addProperty(PROPS_NS.isBSDDProp, mapBSDD.get(pname));
 
             if (this.props_level == 3) {
                 Resource state_resourse;
@@ -185,7 +187,7 @@ public class PropertySet {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
 
             Property p;
-            p = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + StringOperations.toCamelCase(pname));
+            p = this.lbd_model.createProperty(PROPS_NS.props_ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
@@ -204,13 +206,13 @@ public class PropertySet {
             String si_unit = this.unitmap.get(unit);
             if (si_unit != null) {
                 if (si_unit.equals("METRE")) {
-                    lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.METER);
+                    lbd_resource.addProperty(SMLS.unit, UNIT.METER);
                 } else if (si_unit.equals("SQUARE_METRE")) {
-                    lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.SQUARE_METRE);
+                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
                 } else if (si_unit.equals("CUBIC_METRE")) {
-                    lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.CUBIC_METRE);
+                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
                 } else if (si_unit.equals("RADIAN")) {
-                    lbd_resource.addProperty(LBD_NS.SMLS.unit, LBD_NS.UNIT.RADIAN);
+                    lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
                 }
             } 
         }
