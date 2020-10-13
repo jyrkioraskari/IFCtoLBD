@@ -63,9 +63,13 @@ call mvn clean install
 call mvn enunciate:docs install
 cd ..
 ```
-
-The created package will be at the target subdirectory.
-You can rename the `ifc2lbd-1.08-jar-with-dependencies.jar` file to `IFCtoRDF.jar`.
+The best way to create a runnable [Java 15] (https://jdk.java.net/15/) program is to 
+1. Use an Eclipse (https://www.eclipse.org/) installation,
+2. Import the runtime definition:  Eclipse:/Project Explorer/IFCtoLBD_Desktop_Java15/others/Main 15.launch
+3. Run as "Main 15"
+4. Export:Java/Runnabe Jar file/Next
+5. Launch configuration:"Main 15 - IFCtoLND Desktop Java15", Package resource libraries into generated JAR
+6. Select destination file and Finish.
 
 An example command line usage of the program is:
 
