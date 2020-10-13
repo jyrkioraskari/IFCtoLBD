@@ -45,12 +45,15 @@ First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK
 cd IFCtoRDF
 call mvn clean install
 cd ..
+
 cd IFCtoLBDGeometry
 call mvn clean install
 cd ..
+
 cd converter
 call mvn clean install
 cd ..
+
 cd desktop_java8
 call mvn clean install
 cd ..
