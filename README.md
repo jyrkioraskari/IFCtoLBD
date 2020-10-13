@@ -51,7 +51,7 @@ call mvn clean install
 cd ..
 
 cd converter
-call mvn clean instal5
+call mvn clean install
 cd ..
 
 cd desktop_java8
