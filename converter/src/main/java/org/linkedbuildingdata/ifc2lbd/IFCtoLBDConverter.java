@@ -6,14 +6,13 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
 import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
 
@@ -110,7 +109,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
                 initialise_JenaModels();
                 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-                ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
+                this.ifcowl_model = readAndConvertIFC(ifc_filename, uriBase,false,target_file); // Before: readInOntologies(ifc_filename);
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 
@@ -124,7 +123,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
                 if (this.ontURI.isPresent())
-                    ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+                    ifcOWL = new IfcOWL(this.ontURI.get());
                 else {
                     System.out.println("No ifcOWL ontology available.");
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
@@ -208,7 +207,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+			ifcOWL = new IfcOWL(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
@@ -247,13 +246,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 		initialise_JenaModels();
 	}
 	
-    private void initialise_JenaModels() {
-        ontology_model = ModelFactory.createDefaultModel();
-
-		this.lbd_general_output_model = ModelFactory.createDefaultModel();
-		this.lbd_product_output_model = ModelFactory.createDefaultModel();
-		this.lbd_property_output_model = ModelFactory.createDefaultModel();
-    }
 	
 	/**
      * IFCtoLBD constructor
@@ -376,7 +368,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+			ifcOWL = new IfcOWL(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));

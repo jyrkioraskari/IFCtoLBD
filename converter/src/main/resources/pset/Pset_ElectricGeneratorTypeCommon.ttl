@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricGeneratorTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricGeneratorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -23,7 +23,7 @@
         IFC4-PSD:name                 "Pset_ElectricGeneratorTypeCommon" ;
         IFC4-PSD:propertyDef          :pad685180d1e011e1800000215ad4efdf , :pa80b0700d1e011e1800000215ad4efdf , :pc53fd580d1e011e1800000215ad4efdf , :pbb1dd700d1e011e1800000215ad4efdf , :pc07b2180d1e011e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricGeneratorTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricGeneratorTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

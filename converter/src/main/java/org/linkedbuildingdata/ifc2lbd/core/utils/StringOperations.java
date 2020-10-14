@@ -1,6 +1,6 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
-public class StringOperations {
+public abstract class StringOperations {
 	/**
 	 * Converts a string into the CamelCase notation described in:
 	 * https://en.wikipedia.org/wiki/Camel_case

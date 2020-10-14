@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -59,7 +59,7 @@
         IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeSprinkler" ;
         IFC4-PSD:propertyDef          :p4d28de00d1e711e1800000215ad4efdf , :p78133200d1e711e1800000215ad4efdf , :p531ebf00d1e711e1800000215ad4efdf , :p83665d80d1e711e1800000215ad4efdf , :p47cb9380d1e711e1800000215ad4efdf , :p31bdd300d1e711e1800000215ad4efdf , :p3da99500d1e711e1800000215ad4efdf , :p721d5100d1e711e1800000215ad4efdf , :p59ad3680d1e711e1800000215ad4efdf , :p6cc00680d1e711e1800000215ad4efdf , :p7d707c80d1e711e1800000215ad4efdf , :p1d79d600d1e711e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

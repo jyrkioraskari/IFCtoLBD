@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricalDeviceCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricalDeviceCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -187,7 +187,7 @@
         rdfs:seeAlso        :pf69a795455c74842825a54711d3b5abc ;
         rdfs:subPropertyOf  IFC4-PSD:NominalFrequencyRange .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ElectricalDeviceCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricalDeviceCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

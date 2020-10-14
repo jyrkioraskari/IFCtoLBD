@@ -1,19 +1,17 @@
 # IFCtoLBD
-Version 2.11
+Version 2.12
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
 
-This repository presents the results of our ongoing work to 
-create a usable converter to convert
-Industry Foundation Classes (IFC) STEP formatted files into 
+This repository presents the results of our ongoing work to create a usable converter to convert Industry Foundation Classes (IFC) STEP formatted files into 
 Resource Description Framework (RDF) triples that follow the small ontologies devised in  the  World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG)
 (https://github.com/w3c-lbd-cg/).
 
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use Java 8. It can be [downloaded from Oracle](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+It is recommended to use OpenJava 15. OpenJava can be downloaded from [https://jdk.java.net/15/] (https://jdk.java.net/15/)
 
 ## Precompiled binaries
 
@@ -21,12 +19,13 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop Java 8
-* The special Java 12 version: IFCtoLBD-Desktop Java 12
-
-Also Windows 10 installations are availabe. 
+* The special version for Java versions above 9: IFCtoLBD-Desktop Java 12
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
+
+
+Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
 
@@ -42,21 +41,35 @@ The converter can be compiled using maven and Java JDK (the above link). Maven c
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
-```sh
-cd ifc2rdf_library
-mvn clean
-mvn install
-cd ..
-cd converter
-mvn clean 
-mvn install
-cd desktop
-mvn clean 
-mvn install
 ```
+cd IFCtoRDF
+call mvn clean install
+cd ..
 
-The created package will be at the target subdirectory.
-You can rename the `ifc2lbd-1.08-jar-with-dependencies.jar` file to `IFCtoRDF.jar`.
+cd IFCtoLBDGeometry
+call mvn clean install
+cd ..
+
+cd converter
+call mvn clean install
+cd ..
+
+cd desktop_java8
+call mvn clean install
+cd ..
+
+cd IFCtoLBD_OpenAPI
+call mvn clean install
+call mvn enunciate:docs install
+cd ..
+```
+The best way to create a runnable [Java 15] (https://jdk.java.net/15/) program is to 
+1. Use an Eclipse (https://www.eclipse.org/) installation,
+2. Import the runtime definition:  Eclipse:/Project Explorer/IFCtoLBD_Desktop_Java15/others/Main 15.launch
+3. Run as "Main Java 15"
+4. Export:Java/Runnabe Jar file/Next
+5. Launch configuration:"Main 15 - IFCtoLBD Desktop Java15", Package resource libraries into generated JAR
+6. Select destination file and Finish.
 
 An example command line usage of the program is:
 
@@ -164,8 +177,8 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Pieter Pauwels and
                   Freddy Priyatna and
                   Anna Wagner and
-				  Ville Kukkonen and
-				  Simon Steyskaland and
+                  Ville Kukkonen and
+                  Simon Steyskaland and
                   Joel Lehtonen},
   title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD  2.5},
   month        = sep,
@@ -178,10 +191,12 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### October 13, 2020  Testing the software
+The sofware was tested to function with https://jdk.java.net/15/
 
-### Testing the software
+### October 5, 2020  Testing the software
 
-October 5, 2020, Testing the correctness of the created bounding boxes.
+Testing the correctness of the created bounding boxes.
 
 ![The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding_boxes.PNG)
 

@@ -1,4 +1,6 @@
-package org.linkedbuildingdata.ifc2lbd.core.utils;
+package org.linkedbuildingdata.ifc2lbd.core.utils.ontology;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -16,8 +18,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.vocabulary.RDFS;
-
-import static java.nio.file.StandardCopyOption.*;
+import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 
 public class CreatePsetDescriptionOntologies {
 

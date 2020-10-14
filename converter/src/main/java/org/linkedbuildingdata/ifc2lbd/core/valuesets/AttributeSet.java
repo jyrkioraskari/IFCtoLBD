@@ -15,8 +15,8 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
-import org.linkedbuildingdata.ifc2lbd.namespace.LBD_NS;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -85,7 +85,7 @@ public class AttributeSet {
             default:
             for (String pname : this.mapPnameValue.keySet()) {
                 Property property;
-                property = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + pname + "_attribute_simple");
+                property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
                 lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
             }
                 break;
@@ -130,7 +130,7 @@ public class AttributeSet {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(k));
 
             Property p;
-            p = this.lbd_model.createProperty(LBD_NS.PROPS_NS.props_ns + StringOperations.toCamelCase(k));
+            p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(k));
             properties.add(new PsetProperty(p, property_resource));
         }
         return properties;

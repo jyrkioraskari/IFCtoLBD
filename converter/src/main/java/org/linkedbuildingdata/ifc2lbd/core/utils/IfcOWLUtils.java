@@ -1,11 +1,16 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.DataInputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +24,10 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.InvRDFStep;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 /*
- *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,12 +42,12 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
  * limitations under the License.
  */
 
-public class IfcOWLUtils {
-	public static String getGUID(Resource r, IfcOWLNameSpace ifcOWL) {
+public abstract class IfcOWLUtils {
+	public static String getGUID(Resource r, IfcOWL ifcOWL) {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
 		if (i.hasNext()) {
 			Statement s = i.next();
-			String guid = s.getObject().asResource().getProperty(IfcOWLNameSpace.getHasString()).getObject().asLiteral()
+			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
 					.getLexicalForm();
 			return guid;
 		}
@@ -50,7 +55,7 @@ public class IfcOWLUtils {
 	}
 
 	// Solution proposed by Simon Steyskal 2018
-	private static RDFStep[] getNextLevelPath(IfcOWLNameSpace ifcOWL) {
+	private static RDFStep[] getNextLevelPath(IfcOWL ifcOWL) {
 		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
@@ -62,7 +67,7 @@ public class IfcOWLUtils {
 		}
 	}
 
-	public static List<RDFNode> listSites(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	public static List<RDFNode> listSites(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSite()), path);
 	}
@@ -74,7 +79,7 @@ public class IfcOWLUtils {
 	 * @param ifcOWL The ifcOWL namespace element.
 	 * @return The list of all #IfcBuilding ifcOWL elements under the site element
 	 */
-	public static List<RDFNode> listBuildings(Resource site, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listBuildings(Resource site, IfcOWL ifcOWL) {
 		System.out.println("Site: "+site.toString());
 		List<RDFNode> buildings = RDFUtils.pathQuery(site, getNextLevelPath(ifcOWL));
 		if (buildings == null || buildings.size() == 0)
@@ -91,7 +96,7 @@ public class IfcOWLUtils {
 	 *         element
 	 */
 
-	public static List<RDFNode> listStoreys(Resource building, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listStoreys(Resource building, IfcOWL ifcOWL) {
 		return RDFUtils.pathQuery(building, getNextLevelPath(ifcOWL));
 	}
 
@@ -102,7 +107,7 @@ public class IfcOWLUtils {
 	 * @return The list of all corresponding space ifcOWL elements under the storey
 	 *         element
 	 */
-	public static List<RDFNode> listStoreySpaces(Resource storey, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listStoreySpaces(Resource storey, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		ret = RDFUtils.pathQuery(storey, getNextLevelPath(ifcOWL));
@@ -122,7 +127,7 @@ public class IfcOWLUtils {
 	 * @return The list of all containded elements under the storey element
 	 */
 
-	public static List<RDFNode> listContained_StoreyElements(Resource storey, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listContained_StoreyElements(Resource storey, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
@@ -144,7 +149,7 @@ public class IfcOWLUtils {
 	 * @return The list of all containded elements under the space
 	 */
 
-	public static List<RDFNode> listContained_SpaceElements(Resource space, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listContained_SpaceElements(Resource space, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
@@ -160,7 +165,7 @@ public class IfcOWLUtils {
 	 * @param ifcOWL The ifcOWL namespace element.
 	 * @return The list of all containded elements under the space
 	 */
-	public static List<RDFNode> listAdjacent_SpaceElements(Resource space, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listAdjacent_SpaceElements(Resource space, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingSpace_IfcRelSpaceBoundary")),
@@ -174,7 +179,7 @@ public class IfcOWLUtils {
 	 * @param ifcOWL  The ifcOWL namespace element.
 	 * @return The list of all hosted elements under the element
 	 */
-	public static List<RDFNode> listHosted_Elements(Resource element, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listHosted_Elements(Resource element, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
@@ -203,7 +208,7 @@ public class IfcOWLUtils {
 	 * @return The list of the matching elements
 	 */
 	
-	public static List<RDFNode> listAggregated_Elements(Resource element, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listAggregated_Elements(Resource element, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelDecomposes")),
@@ -252,7 +257,7 @@ public class IfcOWLUtils {
 	}
 
 	// Solution proposed by Simon Steyskal 2018
-	private static RDFStep[] getPropertySetPath(IfcOWLNameSpace ifcOWL) {
+	private static RDFStep[] getPropertySetPath(IfcOWL ifcOWL) {
 		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
@@ -264,7 +269,7 @@ public class IfcOWLUtils {
 		}
 	}
 
-	   public static List<RDFNode> getProjectSIUnits(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	   public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
 	        RDFStep[] path = { new InvRDFStep(RDF.type) };
 	        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
 	    }
@@ -281,7 +286,7 @@ public class IfcOWLUtils {
 	 * @param ifcOWL   namespace
 	 * @return the list of the matching RDF nodes.
 	 */
-	public static List<RDFNode> listPropertysets(Resource resource, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listPropertysets(Resource resource, IfcOWL ifcOWL) {
 		return RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL));
 	}
 
@@ -293,7 +298,7 @@ public class IfcOWLUtils {
 	 * @param ifcowl_model jena model
 	 * @return  the list of the matching RDF nodes.
 	 */
-	public static List<RDFNode> listPropertysets(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	public static List<RDFNode> listPropertysets(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcPropertySet()), path);
 	}
@@ -383,6 +388,148 @@ public class IfcOWLUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static File filterContent(File whole_content_file) {
+        File tempFile = null;
+        int state = 0;
+        try {
+            tempFile = File.createTempFile("ifc", ".ttl");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(whole_content_file))) {
+                    String line;
+                    String[] triple = new String[3];
+                    for (int i = 0; i < 3; i++)
+                        triple[i] = "";
+                    while ((line = br.readLine()) != null) {
+                        String trimmed = line.trim();
+                        if (!line.contains("@prefix") && !trimmed.startsWith("#")) {
+                            int len = trimmed.length();
+                            if (len > 0) {
+                                List<String> t;
+                                if (trimmed.endsWith(".") || trimmed.endsWith(";"))
+                                    t = split(trimmed.substring(0, trimmed.length() - 1));
+                                else
+                                    t = split(trimmed.substring(0, trimmed.length()));
+                                if (state == 0) {
+                                    for (int i = 0; i < t.size(); i++)
+                                        triple[i] = t.get(i);
+
+                                    if (trimmed.endsWith("."))
+                                        state = 0;
+                                    else
+                                        state = 1;
+                                    if (t.size() == 3) {
+                                        StringBuffer sb = new StringBuffer();
+                                        sb.append(t.get(0));
+                                        sb.append(" ");
+                                        sb.append(t.get(1));
+                                        sb.append(" ");
+                                        sb.append(t.get(2));
+                                        sb.append(" .");
+                                        line = sb.toString();
+                                    } else
+                                        continue;
+                                } else {
+                                    for (int i = 0; i < t.size(); i++)
+                                        triple[2 - i] = t.get(t.size() - 1 - i);
+
+                                    StringBuffer sb = new StringBuffer();
+                                    sb.append(triple[0]);
+                                    sb.append(" ");
+                                    sb.append(triple[1]);
+                                    sb.append(" ");
+                                    sb.append(triple[2]);
+                                    sb.append(" .");
+                                    line = sb.toString();
+
+                                    if (trimmed.endsWith("."))
+                                        state = 0;
+                                }
+                            }
+                        }
+                        line= new String(line.getBytes(), StandardCharsets.UTF_8);
+                        
+                        if (line.contains("inst:IfcFace"))
+                            continue;
+                        if (line.contains("inst:IfcPolyLoop"))
+                            continue;
+                        if (line.contains("inst:IfcCartesianPoint"))
+                            continue;
+                        if (line.contains("inst:IfcOwnerHistory"))
+                            continue;
+                        if (line.contains("inst:IfcRelAssociatesMaterial"))
+                            continue;
+
+                        if (line.contains("inst:IfcExtrudedAreaSolid"))
+                            continue;
+                        if (line.contains("inst:IfcCompositeCurve"))
+                            continue;
+                        if (line.contains("inst:IfcSurfaceStyleRendering"))
+                            continue;
+                        if (line.contains("inst:IfcStyledItem"))
+                            continue;
+                        if (line.contains("inst:IfcShapeRepresentation"))
+                            continue;
+
+                        writer.write(line.trim());
+                        writer.newLine();
+                    }
+                    writer.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        return tempFile;
+    }
+
+    @SuppressWarnings("deprecation")
+    private static List<String> split(String s) {
+        List<String> ret = new ArrayList<>();
+        int state = 0;
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            switch (state) {
+                case 2:
+                if (c == '\"' || c == '\'')
+                    state = 0;
+                sb.append(c);
+                    break;
+                case 1:
+                if (c == '\"' || c == '\'') {
+                    ret.add(sb.toString());
+                    sb = new StringBuffer();
+                    sb.append(c);
+                    state = 2;
+                } else if (!Character.isSpace(c)) {
+                    ret.add(sb.toString());
+                    sb = new StringBuffer();
+                    sb.append(c);
+                    state = 0;
+                }
+                    break;
+                case 0:
+                if (c == '\"' || c == '\'') {
+                    sb.append(c);
+                    state = 2;
+                } else if (Character.isSpace(c))
+                    state = 1;
+                else
+                    sb.append(c);
+                    break;
+            }
+        }
+        if (sb.length() > 0)
+            ret.add(sb.toString());
+        return ret;
     }
 
 }

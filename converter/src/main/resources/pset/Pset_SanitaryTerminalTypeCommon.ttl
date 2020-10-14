@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -45,7 +45,7 @@
         rdfs:seeAlso        :pbb516e7b73f84dcd85b953f3b61f0f22 ;
         rdfs:subPropertyOf  IFC4-PSD:NominalDepth .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SanitaryTerminalTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

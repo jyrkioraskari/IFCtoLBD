@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_LightFixtureTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -164,7 +164,7 @@
         IFC4-PSD:name                 "Pset_LightFixtureTypeCommon" ;
         IFC4-PSD:propertyDef          :pde01b880d1eb11e1800000215ad4efdf , :pd80bd780d1eb11e1800000215ad4efdf , :pe528c680d1eb11e1800000215ad4efdf , :paf83dd80d1eb11e1800000215ad4efdf , :pea861100d1eb11e1800000215ad4efdf , :p9549ff80d1eb11e1800000215ad4efdf , :p8ebb8800d1eb11e1800000215ad4efdf , :paa269300d1eb11e1800000215ad4efdf , :pc5919e00d1eb11e1800000215ad4efdf , :pa4c94880d1eb11e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_LightFixtureTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

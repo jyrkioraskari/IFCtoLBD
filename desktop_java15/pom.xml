@@ -11,9 +11,9 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
-	<artifactId>IFCtoLBD_Desktop_Java12</artifactId>
-	<version>2.11</version>
-	<name>IFCtoLBD Desktop Java 12</name>
+	<artifactId>IFCtoLBD_Desktop_Java15</artifactId>
+	<version>2.12</version>
+	<name>IFCtoLBD Desktop Java 11 and newer</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
 		<developer>
@@ -43,32 +43,34 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>11.0.2</version>
+			<version>15</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>11.0.2</version>
+			<version>15</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			<version>11.0.2</version>
+			<version>15</version>
 		</dependency>
+
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.11</version>
+			<version>2.12</version>
 		</dependency>
 
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				 <version>3.2.0</version>
+				<version>3.2.0</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -79,7 +81,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>

@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ChillerTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -117,7 +117,7 @@
         IFC4-PSD:name                 "Pset_ChillerTypeCommon" ;
         IFC4-PSD:propertyDef          :p0e842b00d1c911e1800000215ad4efdf , :p19d75680d1c911e1800000215ad4efdf , :p2fe51700d1c911e1800000215ad4efdf , :p278cdc00d1c911e1800000215ad4efdf , :p1e9c0a80d1c911e1800000215ad4efdf , :peac0e500d1c811e1800000215ad4efdf , :p0926e080d1c911e1800000215ad4efdf , :pfe6c4b80d1c811e1800000215ad4efdf , :p147a0c00d1c911e1800000215ad4efdf , :pef859900d1c811e1800000215ad4efdf , :p04622c80d1c911e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ChillerTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .
