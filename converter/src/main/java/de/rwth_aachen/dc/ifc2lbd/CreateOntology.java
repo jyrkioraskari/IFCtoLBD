@@ -29,11 +29,13 @@ public class CreateOntology {
             IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 3);
 
             // final Set<Property> properties = new HashSet<>();
+            @SuppressWarnings("unused")
             Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 
             final Map<String, RDFNode> mapBSDD = new HashMap<>();
             final Map<String, String> mapBSDD_description = new HashMap<>();
             
+            @SuppressWarnings("unused")
             Collection<PropertySet> propertysets = c1nb.getPropertysets().values();
             Model converter_ontology = c1nb.getOntology_model();
             

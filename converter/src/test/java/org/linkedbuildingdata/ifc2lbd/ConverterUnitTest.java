@@ -4,12 +4,9 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.File;
 import java.net.URL;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
@@ -254,7 +251,7 @@ public class ConverterUnitTest {
 
             Iterable<Entry<Resource, Geometry>> results = rtree.search(rectangle2);
             boolean correct=false;
-            for (Entry<Resource, Geometry> e : results) {
+            for (@SuppressWarnings("unused") Entry<Resource, Geometry> e : results) {
                 correct=true;
             }
             if(!correct)
