@@ -66,7 +66,7 @@ cd ..
 The best way to create a runnable [Java 15] (https://jdk.java.net/15/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
 2. Import the runtime definition:  Eclipse:/Project Explorer/IFCtoLBD_Desktop_Java15/others/Main 15.launch
-3. Run as "Main 15"
+3. Run as "Main Java 15"
 4. Export:Java/Runnabe Jar file/Next
 5. Launch configuration:"Main 15 - IFCtoLBD Desktop Java15", Package resource libraries into generated JAR
 6. Select destination file and Finish.
