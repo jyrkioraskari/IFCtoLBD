@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -248,7 +248,7 @@
         IFC4-PSD:name                 "Pset_DamperTypeCommon" ;
         IFC4-PSD:propertyDef          :p93734280d1d111e1800000215ad4efdf , :p53ac5b00d1d111e1800000215ad4efdf , :p98d08d00d1d111e1800000215ad4efdf , :p632ba400d1d111e1800000215ad4efdf , :p5e66f000d1d111e1800000215ad4efdf , :p6cb50c00d1d111e1800000215ad4efdf , :p47c09900d1d111e1800000215ad4efdf , :p5909a580d1d111e1800000215ad4efdf , :p42634e80d1d111e1800000215ad4efdf , :p7d658200d1d111e1800000215ad4efdf , :p31b2d880d1d111e1800000215ad4efdf , :p85252680d1d111e1800000215ad4efdf , :p8b1b0780d1d111e1800000215ad4efdf , :pe1d41180d1d011e1800000215ad4efdf , :pfca68600d1d011e1800000215ad4efdf , :p252e8000d1d111e1800000215ad4efdf , :p4c854d00d1d111e1800000215ad4efdf , :p3d060400d1d111e1800000215ad4efdf , :p16e06400d1d111e1800000215ad4efdf , :pdc76c700d1d011e1800000215ad4efdf , :p0def9280d1d111e1800000215ad4efdf , :p750d4700d1d111e1800000215ad4efdf , :pf0222d80d1d011e1800000215ad4efdf , :p67f05800d1d111e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_DamperTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

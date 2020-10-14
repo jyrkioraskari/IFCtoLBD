@@ -4,7 +4,7 @@
 @prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
 @prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
 @prefix bot:   <https://w3id.org/bot#> .
-@prefix props: <https://w3id.org/props#> .
+@prefix props: <http://lbd.arch.rwth-aachen.de/props#> .
 
 
 inst:RuleLevel1Shape1

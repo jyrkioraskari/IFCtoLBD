@@ -40,7 +40,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
-import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.Product;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
@@ -423,8 +423,8 @@ public abstract class IFCtoLBDConverterCore {
         if (hasBuildingElements)
             Product.addNameSpace(lbd_product_output_model);
         if (hasBuildingProperties) {
-            PROPS_NS.addNameSpace(lbd_property_output_model);
-            PROPS_NS.addNameSpace(lbd_general_output_model);
+            PROPS.addNameSpace(lbd_property_output_model);
+            PROPS.addNameSpace(lbd_general_output_model);
             if (props_level != 1)
                 lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 

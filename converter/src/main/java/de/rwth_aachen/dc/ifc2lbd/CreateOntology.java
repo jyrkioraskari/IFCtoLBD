@@ -16,7 +16,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
-import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 public class CreateOntology {
 
@@ -38,7 +38,7 @@ public class CreateOntology {
             Model converter_ontology = c1nb.getOntology_model();
             
             converter_ontology.listStatements().forEachRemaining(s0 -> {
-                if (s0.getPredicate().equals(PROPS_NS.namePset))
+                if (s0.getPredicate().equals(PROPS.namePset))
                 {
                     String pname=StringOperations.toCamelCase(s0.getObject().asLiteral().getLexicalForm());
                     mapBSDD.put(pname, s0.getSubject());

@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SiteCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SiteCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -22,7 +22,7 @@
         IFC4-PSD:name                 "Pset_SiteCommon" ;
         IFC4-PSD:propertyDef          :pea940a00d20711e1800000215ad4efdf , :pe2d46580d20711e1800000215ad4efdf , :pdd771b00d20711e1800000215ad4efdf , :pd819d080d20711e1800000215ad4efdf , :pd3551c80d20711e1800000215ad4efdf , :pcd5f3b80d20711e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_SiteCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SiteCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

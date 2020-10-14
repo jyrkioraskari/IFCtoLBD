@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ActuatorTypeCommon#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -61,7 +61,7 @@
         IFC4-PSD:name                 "Pset_ActuatorTypeCommon" ;
         IFC4-PSD:propertyDef          :p2a81cf80d1bd11e1800000215ad4efdf , :p42595380d1bd11e1800000215ad4efdf , :p3469a24941934603a1c9c402d5623291 , :p4dac7f00d1bd11e1800000215ad4efdf , :p2f468380d1bd11e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ActuatorTypeCommon>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeCommon>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

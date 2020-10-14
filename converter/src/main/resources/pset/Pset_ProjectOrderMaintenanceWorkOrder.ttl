@@ -1,5 +1,5 @@
-@prefix :      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder#> .
-@prefix IFC4-PSD: <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD#> .
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
@@ -101,7 +101,7 @@
         IFC4-PSD:name                 "Pset_ProjectOrderMaintenanceWorkOrder" ;
         IFC4-PSD:propertyDef          :p53bf5180d1f711e1800000215ad4efdf , :p6e91c600d1f711e1800000215ad4efdf , :p93863900d1f711e1800000215ad4efdf , :pa8fb6300d1f711e1800000215ad4efdf , :p5c178c80d1f711e1800000215ad4efdf , :p781b2e00d1f711e1800000215ad4efdf , :p65085e00d1f711e1800000215ad4efdf , :pbfa1ba00d1f711e1800000215ad4efdf .
 
-<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder>
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder>
         a                owl:Ontology ;
         owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
         owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -16,10 +16,12 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
-import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
@@ -81,7 +83,7 @@ public class PropertySet {
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
         System.out.println("pset name: " + this.propertyset_name);
-        StmtIterator iter = ontology_model.listStatements(null, PROPS_NS.namePset, this.propertyset_name);
+        StmtIterator iter = ontology_model.listStatements(null, PROPS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
             System.out.println("Pset bsdd match!");
             is_bSDD_pset = true;
@@ -105,10 +107,10 @@ public class PropertySet {
         String pname = property.asLiteral().getString();
         if (is_bSDD_pset) {
             System.out.println("bsDD");
-            StmtIterator iter = psetDef.listProperties(PROPS_NS.propertyDef);
+            StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
             while (iter.hasNext()) {
                 Resource prop = iter.next().getResource();
-                StmtIterator iterProp = prop.listProperties(PROPS_NS.namePset);
+                StmtIterator iterProp = prop.listProperties(PROPS.namePset);
                 while (iterProp.hasNext()) {
                     Literal psetPropName = iterProp.next().getLiteral();
                     if (psetPropName.getString().equals(pname))
@@ -140,7 +142,7 @@ public class PropertySet {
                 case 1:
                 default:
                 for (String pname : this.mapPnameValue.keySet()) {
-                    Property property = lbd_resource.getModel().createProperty(PROPS_NS.props_ns + pname + "_simple");
+                    Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
@@ -170,7 +172,7 @@ public class PropertySet {
             }
 
             if (mapBSDD.get(pname) != null)
-                property_resource.addProperty(PROPS_NS.isBSDDProp, mapBSDD.get(pname));
+                property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
 
             if (this.props_level == 3) {
                 Resource state_resourse;
@@ -191,7 +193,7 @@ public class PropertySet {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
 
             Property p;
-            p = this.lbd_model.createProperty(PROPS_NS.props_ns + StringOperations.toCamelCase(pname));
+            p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
