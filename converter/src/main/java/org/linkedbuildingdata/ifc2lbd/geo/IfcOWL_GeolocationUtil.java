@@ -11,7 +11,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationE
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.LBD_RDF_Utils;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import com.google.common.eventbus.EventBus;
 import com.openifctools.guidcompressor.GuidCompressor;
@@ -26,7 +26,7 @@ public class IfcOWL_GeolocationUtil {
      * @param ifcOWL_ns
      * @param lbd_general_output_model
      */
-    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWLNameSpace ifcOWL_ns,Model lbd_general_output_model,String uriBase) {
+    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWL ifcOWL_ns,Model lbd_general_output_model,String uriBase) {
 
         IFC_Geolocation c = new IFC_Geolocation();
         String wkt_point;

@@ -3,7 +3,7 @@ package org.linkedbuildingdata.ifc2lbd.core.utils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.OWL;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import com.openifctools.guidcompressor.GuidCompressor;
 
@@ -26,7 +26,7 @@ public abstract class LBD_RDF_Utils {
     * @param uriBase   the used base URI
     * @return    Returns the created LBD Jena resource
     */
-   public static Resource createformattedURIRecource(Resource r, Model m, String product_type,IfcOWLNameSpace ifcOWL_ns, String uriBase) {
+   public static Resource createformattedURIRecource(Resource r, Model m, String product_type,IfcOWL ifcOWL_ns, String uriBase) {
        
        String guid = IfcOWLUtils.getGUID(r, ifcOWL_ns);
        if (guid == null) {

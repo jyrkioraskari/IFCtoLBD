@@ -80,7 +80,7 @@ public class PropertySet {
         this.propertyset_name = propertyset_name;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
-        System.out.println("pset name: "+this.propertyset_name);
+        System.out.println("pset name: " + this.propertyset_name);
         StmtIterator iter = ontology_model.listStatements(null, PROPS_NS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
             System.out.println("Pset bsdd match!");
@@ -96,11 +96,10 @@ public class PropertySet {
     public void putPnameType(String property_name, RDFNode type) {
         mapPnameType.put(StringOperations.toCamelCase(property_name), type);
     }
-    
+
     public void putPnameUnit(String property_name, RDFNode unit) {
         mapPnameUnit.put(StringOperations.toCamelCase(property_name), unit);
     }
-
 
     public void putPsetPropertyRef(RDFNode property) {
         String pname = property.asLiteral().getString();
@@ -135,28 +134,28 @@ public class PropertySet {
     Set<String> hashes = new HashSet<>();
 
     public void connect(Resource lbd_resource, String long_guid) {
-        
-        if(this.mapPnameValue.keySet().size()>0)
-        switch (this.props_level) {
-            case 1:
-            default:
-            for (String pname : this.mapPnameValue.keySet()) {
-                Property property = lbd_resource.getModel().createProperty(PROPS_NS.props_ns + pname + "_simple");
-                lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
-            }
-                break;
-            case 2:
-            case 3:
-            if (hashes.add(long_guid)) {
-                List<PsetProperty> properties = writeOPM_Set(long_guid);
-                for (PsetProperty pp : properties) {
-                    if (!this.lbd_model.listStatements(lbd_resource, pp.p, pp.r).hasNext()) {
-                        lbd_resource.addProperty(pp.p, pp.r);
+
+        if (this.mapPnameValue.keySet().size() > 0)
+            switch (this.props_level) {
+                case 1:
+                default:
+                for (String pname : this.mapPnameValue.keySet()) {
+                    Property property = lbd_resource.getModel().createProperty(PROPS_NS.props_ns + pname + "_simple");
+                    lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
+                }
+                    break;
+                case 2:
+                case 3:
+                if (hashes.add(long_guid)) {
+                    List<PsetProperty> properties = writeOPM_Set(long_guid);
+                    for (PsetProperty pp : properties) {
+                        if (!this.lbd_model.listStatements(lbd_resource, pp.p, pp.r).hasNext()) {
+                            lbd_resource.addProperty(pp.p, pp.r);
+                        }
                     }
                 }
+                    break;
             }
-                break;
-        }
     }
 
     private List<PsetProperty> writeOPM_Set(String long_guid) {
@@ -165,8 +164,7 @@ public class PropertySet {
             Resource property_resource;
             if (this.hasBlank_nodes)
                 property_resource = this.lbd_model.createResource();
-            else
-            {
+            else {
                 property_resource = this.lbd_model.createResource(this.uriBase + pname + "_" + long_guid);
                 property_resource.addProperty(RDF.type, OPM.property);
             }
@@ -188,7 +186,7 @@ public class PropertySet {
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
                 state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(state_resourse, pname);
-                
+
             } else
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
 
@@ -200,43 +198,57 @@ public class PropertySet {
     }
 
     private void addUnit(Resource lbd_resource, String pname) {
-        RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
-        if (ifc_measurement_type != null) {
-            String unit = ifc_measurement_type.asResource().getLocalName().toLowerCase();
-            if (unit.startsWith("ifc"))
-                unit = unit.substring(3);
-            if (unit.startsWith("positive"))
-                unit = unit.substring("positive".length());
-            if (unit.endsWith("measure"))
-                unit = unit.substring(0, unit.length() - "measure".length());
-            String si_unit = this.unitmap.get(unit);
-            if (si_unit != null) {
-                if (si_unit.equals("METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-                } else if (si_unit.equals("SQUARE_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-                } else if (si_unit.equals("CUBIC_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-                } else if (si_unit.equals("RADIAN")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+        RDFNode ifc_unit = this.mapPnameUnit.get(pname);
+        if (ifc_unit != null) {
+            String si_unit = ifc_unit.asResource().getLocalName();
+            if (si_unit.equals("METRE")) {
+                lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+            } else if (si_unit.equals("SQUARE_METRE")) {
+                lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+               
+            } else if (si_unit.equals("CUBIC_METRE")) {
+                lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+            } else if (si_unit.equals("RADIAN")) {
+                lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+            }
+        } else {
+            RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
+            if (ifc_measurement_type != null) {
+                String unit = ifc_measurement_type.asResource().getLocalName().toLowerCase();
+                if (unit.startsWith("ifc"))
+                    unit = unit.substring(3);
+                if (unit.startsWith("positive"))
+                    unit = unit.substring("positive".length());
+                if (unit.endsWith("measure"))
+                    unit = unit.substring(0, unit.length() - "measure".length());
+                String si_unit = this.unitmap.get(unit);
+                if (si_unit != null) {
+                    if (si_unit.equals("METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+                    } else if (si_unit.equals("SQUARE_METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+                    } else if (si_unit.equals("CUBIC_METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                    } else if (si_unit.equals("RADIAN")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+                    }
                 }
-            } 
+            }
         }
+
     }
-    
-    public Optional<Boolean> isExternal()
-    {
-        
-        RDFNode val=this.mapPnameValue.get("isExternal");
-        
-        if(val==null)
-          return Optional.empty();
-        else
-        {
-            if(!val.isLiteral())
+
+    public Optional<Boolean> isExternal() {
+
+        RDFNode val = this.mapPnameValue.get("isExternal");
+
+        if (val == null)
+            return Optional.empty();
+        else {
+            if (!val.isLiteral())
                 return Optional.empty();
-            if(val.asLiteral().getValue().equals(true))                            
-                 return Optional.of(true);
+            if (val.asLiteral().getValue().equals(true))
+                return Optional.of(true);
             else
                 return Optional.of(false);
         }

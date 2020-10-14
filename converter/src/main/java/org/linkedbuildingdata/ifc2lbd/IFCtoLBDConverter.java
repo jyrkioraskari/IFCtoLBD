@@ -13,7 +13,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_Syst
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
 
@@ -124,7 +124,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
                 if (this.ontURI.isPresent())
-                    ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+                    ifcOWL = new IfcOWL(this.ontURI.get());
                 else {
                     System.out.println("No ifcOWL ontology available.");
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
@@ -208,7 +208,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+			ifcOWL = new IfcOWL(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
@@ -369,7 +369,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore{
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWLNameSpace(this.ontURI.get());
+			ifcOWL = new IfcOWL(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));

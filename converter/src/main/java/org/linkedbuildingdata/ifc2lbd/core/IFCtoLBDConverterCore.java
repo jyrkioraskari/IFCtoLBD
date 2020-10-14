@@ -37,7 +37,7 @@ import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.geo.IfcOWL_GeolocationUtil;
 import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS_NS;
@@ -79,7 +79,7 @@ public abstract class IFCtoLBDConverterCore {
     protected String uriBase;
 
     protected Optional<String> ontURI = Optional.empty();
-    protected IfcOWLNameSpace ifcOWL;
+    protected IfcOWL ifcOWL;
 
     // URI-property set
     private Map<String, PropertySet> propertysets = new HashMap<>();
@@ -105,18 +105,20 @@ public abstract class IFCtoLBDConverterCore {
 
         rtree= RTree.dimensions(3).create();
         IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
-            Resource sio = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site", this.ifcOWL, this.uriBase);
+            Resource lbd_site = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site", this.ifcOWL, this.uriBase);
             String guid_site = IfcOWLUtils.getGUID(site, this.ifcOWL);
             String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
-            addAttrributes(lbd_property_output_model, site.asResource(), sio);
+            addAttrributes(lbd_property_output_model, site.asResource(), lbd_site);
 
-            sio.addProperty(RDF.type, BOT.site);
-            addBoundingBox(sio, guid_site);
+            lbd_site.addProperty(RDF.type, BOT.site);
+            addBoundingBox(lbd_site, guid_site);
 
             IfcOWLUtils.listPropertysets(site, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null) {
-                    p_set.connect(sio, uncompressed_guid_site);
+                    {
+                    p_set.connect(lbd_site, uncompressed_guid_site);
+                    }
                 }
             });
 
@@ -125,19 +127,19 @@ public abstract class IFCtoLBDConverterCore {
                     System.err.println("Not an #IfcBuilding");
                     return;
                 }
-                Resource bo = LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building", this.ifcOWL, this.uriBase);
+                Resource lbd_building = LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building", this.ifcOWL, this.uriBase);
                 String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
                 String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
-                addAttrributes(lbd_property_output_model, building, bo);
+                addAttrributes(lbd_property_output_model, building, lbd_building);
 
-                bo.addProperty(RDF.type, BOT.building);
-                addBoundingBox(bo, guid_building);
-                sio.addProperty(BOT.hasBuilding, bo);
+                lbd_building.addProperty(RDF.type, BOT.building);
+                addBoundingBox(lbd_building, guid_building);
+                lbd_site.addProperty(BOT.hasBuilding, lbd_building);
 
                 IfcOWLUtils.listPropertysets(building, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                     PropertySet p_set = this.propertysets.get(propertyset.getURI());
                     if (p_set != null) {
-                        p_set.connect(bo, uncompressed_guid_building);
+                        p_set.connect(lbd_building, uncompressed_guid_building);
                     }
                 });
 
@@ -149,25 +151,25 @@ public abstract class IFCtoLBDConverterCore {
                         return;
                     }
 
-                    Resource so = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey", this.ifcOWL, this.uriBase);
+                    Resource lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey", this.ifcOWL, this.uriBase);
                     String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
                     String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
-                    addAttrributes(lbd_property_output_model, storey, so);
+                    addAttrributes(lbd_property_output_model, storey, lbd_storey);
 
-                    bo.addProperty(BOT.hasStorey, so);
-                    addBoundingBox(so, guid_storey);
-                    so.addProperty(RDF.type, BOT.storey);
+                    lbd_building.addProperty(BOT.hasStorey, lbd_storey);
+                    addBoundingBox(lbd_storey, guid_storey);
+                    lbd_storey.addProperty(RDF.type, BOT.storey);
 
                     IfcOWLUtils.listPropertysets(storey, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                         PropertySet p_set = this.propertysets.get(propertyset.getURI());
                         if (p_set != null)
-                            p_set.connect(so, uncompressed_guid_storey);
+                            p_set.connect(lbd_storey, uncompressed_guid_storey);
                     });
 
                     IfcOWLUtils.listContained_StoreyElements(storey, ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                         if (RDFUtils.getType(element.asResource()).get().getURI().endsWith("#IfcSpace"))
                             return;
-                        connectIfcContaidedElement(so, element);
+                        connectIfcContaidedElement(lbd_storey, element);
                     });
 
                     IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().forEach(space -> {
@@ -178,7 +180,7 @@ public abstract class IFCtoLBDConverterCore {
                         String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
                         addAttrributes(lbd_property_output_model, space.asResource(), spo);
 
-                        so.addProperty(BOT.hasSpace, spo);
+                        lbd_storey.addProperty(BOT.hasSpace, spo);
                         addBoundingBox(spo, guid_space);
                         spo.addProperty(RDF.type, BOT.space);
                         
@@ -319,7 +321,7 @@ public abstract class IFCtoLBDConverterCore {
         }
 
         IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-            RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(IfcOWLNameSpace.getHasString()) };
+            RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(IfcOWL.Express.getHasString()) };
 
             final List<RDFNode> propertyset_name = new ArrayList<>();
             RDFUtils.pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
@@ -327,36 +329,36 @@ public abstract class IFCtoLBDConverterCore {
             RDFStep[] path = { new RDFStep(ifcOWL.getHasProperties_IfcPropertySet()) };
             RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
-                RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()), new RDFStep(IfcOWLNameSpace.getHasString()) };
+                RDFStep[] name_path = { new RDFStep(ifcOWL.getName_IfcProperty()), new RDFStep(IfcOWL.Express.getHasString()) };
                 final List<RDFNode> property_name = new ArrayList<>();
                 RDFUtils.pathQuery(propertySingleValue.asResource(), name_path).forEach(name -> property_name.add(name));
 
                 if (property_name.size() == 0)
                     return; // = stream continue
 
-                final List<RDFNode> property_type = new ArrayList<>();
                 final List<RDFNode> property_unit = new ArrayList<>();
+                final List<RDFNode> property_type = new ArrayList<>();
                 final List<RDFNode> property_value = new ArrayList<>();
                 
-                RDFStep[] unit_path = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(RDF.type) };
+                RDFStep[] unit_path = { new RDFStep(ifcOWL.getUnit_IfcPropertySingleValue()), new RDFStep(ifcOWL.getName_IfcSIUnit()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path).forEach(unit -> property_unit.add(unit));      // if this optional property exists, it has the priority
 
                 RDFStep[] type_path = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(RDF.type) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), type_path).forEach(type -> property_type.add(type));
 
-                RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWLNameSpace.getHasString()) };
+                RDFStep[] value_pathS = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWL.Express.getHasString()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathS).forEach(value -> property_value.add(value));
 
-                RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(ifcOWL.getHasDouble()) };
+                RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWL.Express.getHasDouble()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> property_value.add(value));
 
-                RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(ifcOWL.getHasInteger()) };
+                RDFStep[] value_pathI = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWL.Express.getHasInteger()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathI).forEach(value -> property_value.add(value));
 
-                RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(ifcOWL.getHasBoolean()) };
+                RDFStep[] value_pathB = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWL.Express.getHasBoolean()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathB).forEach(value -> property_value.add(value));
 
-                RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(ifcOWL.getHasLogical()) };
+                RDFStep[] value_pathL = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(IfcOWL.Express.getHasLogical()) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathL).forEach(value -> property_value.add(value));
 
                 RDFNode pname = property_name.get(0);
@@ -576,19 +578,19 @@ public abstract class IFCtoLBDConverterCore {
                                                // stream)
             if (atype.isPresent()) {
                 if (atype.get().getLocalName().equals("IfcLabel")) {
-                    attr.listProperties(IfcOWLNameSpace.getHasString()).forEachRemaining(attr_s -> {
+                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> {
                         if (attr_s.getObject().isLiteral() && attr_s.getObject().asLiteral().getLexicalForm().length() > 0) {
                             connected_attributes.putAnameValue(property_string, attr_s.getObject());
                         }
                     });
 
                 } else if (atype.get().getLocalName().equals("IfcIdentifier")) {
-                    attr.listProperties(IfcOWLNameSpace.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
                 } else {
-                    attr.listProperties(IfcOWLNameSpace.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(ifcOWL.getHasInteger()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(ifcOWL.getHasDouble()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(ifcOWL.getHasBoolean()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasInteger()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasDouble()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasBoolean()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
                 }
 
             }

@@ -24,7 +24,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.InvRDFStep;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
-import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 /*
  *  Copyright (c) 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
@@ -43,11 +43,11 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWLNameSpace;
  */
 
 public abstract class IfcOWLUtils {
-	public static String getGUID(Resource r, IfcOWLNameSpace ifcOWL) {
+	public static String getGUID(Resource r, IfcOWL ifcOWL) {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
 		if (i.hasNext()) {
 			Statement s = i.next();
-			String guid = s.getObject().asResource().getProperty(IfcOWLNameSpace.getHasString()).getObject().asLiteral()
+			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
 					.getLexicalForm();
 			return guid;
 		}
@@ -55,7 +55,7 @@ public abstract class IfcOWLUtils {
 	}
 
 	// Solution proposed by Simon Steyskal 2018
-	private static RDFStep[] getNextLevelPath(IfcOWLNameSpace ifcOWL) {
+	private static RDFStep[] getNextLevelPath(IfcOWL ifcOWL) {
 		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
@@ -67,7 +67,7 @@ public abstract class IfcOWLUtils {
 		}
 	}
 
-	public static List<RDFNode> listSites(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	public static List<RDFNode> listSites(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSite()), path);
 	}
@@ -79,7 +79,7 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL The ifcOWL namespace element.
 	 * @return The list of all #IfcBuilding ifcOWL elements under the site element
 	 */
-	public static List<RDFNode> listBuildings(Resource site, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listBuildings(Resource site, IfcOWL ifcOWL) {
 		System.out.println("Site: "+site.toString());
 		List<RDFNode> buildings = RDFUtils.pathQuery(site, getNextLevelPath(ifcOWL));
 		if (buildings == null || buildings.size() == 0)
@@ -96,7 +96,7 @@ public abstract class IfcOWLUtils {
 	 *         element
 	 */
 
-	public static List<RDFNode> listStoreys(Resource building, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listStoreys(Resource building, IfcOWL ifcOWL) {
 		return RDFUtils.pathQuery(building, getNextLevelPath(ifcOWL));
 	}
 
@@ -107,7 +107,7 @@ public abstract class IfcOWLUtils {
 	 * @return The list of all corresponding space ifcOWL elements under the storey
 	 *         element
 	 */
-	public static List<RDFNode> listStoreySpaces(Resource storey, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listStoreySpaces(Resource storey, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		ret = RDFUtils.pathQuery(storey, getNextLevelPath(ifcOWL));
@@ -127,7 +127,7 @@ public abstract class IfcOWLUtils {
 	 * @return The list of all containded elements under the storey element
 	 */
 
-	public static List<RDFNode> listContained_StoreyElements(Resource storey, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listContained_StoreyElements(Resource storey, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
@@ -149,7 +149,7 @@ public abstract class IfcOWLUtils {
 	 * @return The list of all containded elements under the space
 	 */
 
-	public static List<RDFNode> listContained_SpaceElements(Resource space, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listContained_SpaceElements(Resource space, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingStructure_IfcRelContainedInSpatialStructure")),
@@ -165,7 +165,7 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL The ifcOWL namespace element.
 	 * @return The list of all containded elements under the space
 	 */
-	public static List<RDFNode> listAdjacent_SpaceElements(Resource space, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listAdjacent_SpaceElements(Resource space, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingSpace_IfcRelSpaceBoundary")),
@@ -179,7 +179,7 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL  The ifcOWL namespace element.
 	 * @return The list of all hosted elements under the element
 	 */
-	public static List<RDFNode> listHosted_Elements(Resource element, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listHosted_Elements(Resource element, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingBuildingElement_IfcRelVoidsElement")),
@@ -208,7 +208,7 @@ public abstract class IfcOWLUtils {
 	 * @return The list of the matching elements
 	 */
 	
-	public static List<RDFNode> listAggregated_Elements(Resource element, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listAggregated_Elements(Resource element, IfcOWL ifcOWL) {
 		List<RDFNode> ret;
 
 		RDFStep[] path1 = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelDecomposes")),
@@ -257,7 +257,7 @@ public abstract class IfcOWLUtils {
 	}
 
 	// Solution proposed by Simon Steyskal 2018
-	private static RDFStep[] getPropertySetPath(IfcOWLNameSpace ifcOWL) {
+	private static RDFStep[] getPropertySetPath(IfcOWL ifcOWL) {
 		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
@@ -269,7 +269,7 @@ public abstract class IfcOWLUtils {
 		}
 	}
 
-	   public static List<RDFNode> getProjectSIUnits(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	   public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
 	        RDFStep[] path = { new InvRDFStep(RDF.type) };
 	        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
 	    }
@@ -286,7 +286,7 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL   namespace
 	 * @return the list of the matching RDF nodes.
 	 */
-	public static List<RDFNode> listPropertysets(Resource resource, IfcOWLNameSpace ifcOWL) {
+	public static List<RDFNode> listPropertysets(Resource resource, IfcOWL ifcOWL) {
 		return RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL));
 	}
 
@@ -298,7 +298,7 @@ public abstract class IfcOWLUtils {
 	 * @param ifcowl_model jena model
 	 * @return  the list of the matching RDF nodes.
 	 */
-	public static List<RDFNode> listPropertysets(IfcOWLNameSpace ifcOWL, Model ifcowl_model) {
+	public static List<RDFNode> listPropertysets(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcPropertySet()), path);
 	}
