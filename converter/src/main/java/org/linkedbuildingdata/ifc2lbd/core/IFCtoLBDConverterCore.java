@@ -116,9 +116,7 @@ public abstract class IFCtoLBDConverterCore {
             IfcOWLUtils.listPropertysets(site, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null) {
-                    {
                     p_set.connect(lbd_site, uncompressed_guid_site);
-                    }
                 }
             });
 
