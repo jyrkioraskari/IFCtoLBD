@@ -67,20 +67,6 @@
 	</dependencies>
 	<build>
 		<plugins>
-			<plugin>
-			    <groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				 <version>3.2.0</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<mainClass>
-								org.linkedbuildingdata.ifc2lbd.Main
-							</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-			</plugin>
 			
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -118,6 +104,8 @@
 				</executions>
 
 			</plugin>
+
+			
 		</plugins>
 		<pluginManagement>
 			<plugins>
