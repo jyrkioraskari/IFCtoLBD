@@ -319,8 +319,6 @@ public abstract class IFCtoLBDConverterCore {
         }
 
         IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
-            if ("https://www.ugent.be/myAwesomeFirstBIMProject#IfcPropertySet_17765".equals(propertyset.getURI()))
-                System.out.println("HERE!!");
             RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(IfcOWLNameSpace.getHasString()) };
 
             final List<RDFNode> propertyset_name = new ArrayList<>();
@@ -337,7 +335,11 @@ public abstract class IFCtoLBDConverterCore {
                     return; // = stream continue
 
                 final List<RDFNode> property_type = new ArrayList<>();
+                final List<RDFNode> property_unit = new ArrayList<>();
                 final List<RDFNode> property_value = new ArrayList<>();
+                
+                RDFStep[] unit_path = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(RDF.type) };
+                RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path).forEach(unit -> property_unit.add(unit));      // if this optional property exists, it has the priority
 
                 RDFStep[] type_path = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()), new RDFStep(RDF.type) };
                 RDFUtils.pathQuery(propertySingleValue.asResource(), type_path).forEach(type -> property_type.add(type));
@@ -390,7 +392,10 @@ public abstract class IFCtoLBDConverterCore {
                     RDFNode ptype = property_type.get(0);
                     ps.putPnameType(pname.toString(), ptype);
                 }
-
+                if (property_unit.size() > 0) {
+                    RDFNode punit = property_unit.get(0);
+                    ps.putPnameUnit(pname.toString(), punit);
+                }
 
             });
 

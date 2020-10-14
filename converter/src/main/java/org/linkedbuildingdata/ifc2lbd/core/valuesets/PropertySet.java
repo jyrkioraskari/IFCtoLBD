@@ -67,6 +67,7 @@ public class PropertySet {
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
+    private final Map<String, RDFNode> mapPnameUnit = new HashMap<>();
     private final Map<String, RDFNode> mapBSDD = new HashMap<>();
 
     private boolean is_bSDD_pset = false;
@@ -95,6 +96,11 @@ public class PropertySet {
     public void putPnameType(String property_name, RDFNode type) {
         mapPnameType.put(StringOperations.toCamelCase(property_name), type);
     }
+    
+    public void putPnameUnit(String property_name, RDFNode unit) {
+        mapPnameUnit.put(StringOperations.toCamelCase(property_name), unit);
+    }
+
 
     public void putPsetPropertyRef(RDFNode property) {
         String pname = property.asLiteral().getString();
@@ -235,4 +241,5 @@ public class PropertySet {
                 return Optional.of(false);
         }
     }
+
 }
