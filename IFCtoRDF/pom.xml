@@ -329,7 +329,7 @@
         <!-- Dependencies -->
         <commons-io.version>2.4</commons-io.version>
         <slf4j-api.version>1.7.7</slf4j-api.version>
-        <junit.version>4.13</junit.version>
+        <junit.version>4.13.1</junit.version>
         <slf4j-log4j12.version>1.7.7</slf4j-log4j12.version>
         <jena.version>3.16.0</jena.version>
         <expresstoowl.version>0.4</expresstoowl.version>
