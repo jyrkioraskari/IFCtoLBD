@@ -8,7 +8,8 @@ public abstract class StringOperations {
 	 * @param txt   a string to be formatetd
 	 * @return      a Camel Case formatted string
 	 */
-	static public String toCamelCase(final String txt) {
+	static public String toCamelCase(String txt) {
+	    txt=org.apache.commons.lang3.StringUtils.stripAccents(txt);
 		if (txt == null)
 			return null;
 
