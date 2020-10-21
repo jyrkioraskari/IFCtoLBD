@@ -19,17 +19,14 @@ package org.linkedbuildingdata.ifc2lbd.application_messaging.events;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-public class IFCtoLBD_SystemErrorEvent {
-    private final String class_name;
-	private final String status_message;
-	public IFCtoLBD_SystemErrorEvent(String class_name, String txt) {
-		this.status_message=txt;
-		this.class_name=class_name;
+public class IFCtoLBD_SystemExit {
+
+	private final String reason_message;
+	public IFCtoLBD_SystemExit(String txt) {
+		this.reason_message=txt;
 	}
-	public String getStatus_message() {
-		return status_message;
+	public String getReason_message() {
+		return reason_message;
 	}
-    public String getClass_name() {
-        return class_name;
-    }
+
 }

@@ -70,7 +70,7 @@ public class ConversionThread implements Callable<Integer> {
 						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes, this.hasGeolocation);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
-				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent("ConversionThread Out of memory: "+e.getMessage()));
 				eventBus.post(new ProcessReadyEvent());
 				return -1;
 			}
@@ -79,7 +79,7 @@ public class ConversionThread implements Callable<Integer> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			eventBus.post(new ProcessReadyEvent());
-			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("ConversionThread: "+ e.getMessage()));
 		}
 		return -1;
 	}

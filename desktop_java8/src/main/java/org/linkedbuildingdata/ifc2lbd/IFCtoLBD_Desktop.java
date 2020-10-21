@@ -26,6 +26,11 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
+import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
+
+import com.google.common.eventbus.EventBus;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -34,6 +39,7 @@ import javafx.stage.Stage;
 
 
 public class IFCtoLBD_Desktop extends Application {
+    private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -43,6 +49,12 @@ public class IFCtoLBD_Desktop extends Application {
         stage.show();
     }
 
+    @Override
+    public void stop() throws Exception {
+        eventBus.post(new IFCtoLBD_SystemExit("Application exit."));
+    }
+
+    
     /**
      * @param args the command line arguments
      */
