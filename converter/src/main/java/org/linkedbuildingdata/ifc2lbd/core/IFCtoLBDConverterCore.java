@@ -25,6 +25,8 @@ import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
+import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.ChangeableOptonal;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
@@ -50,10 +52,12 @@ import com.github.davidmoten.rtreemulti.RTree;
 import com.github.davidmoten.rtreemulti.geometry.Geometry;
 import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.openifctools.guidcompressor.GuidCompressor;
 
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
+import javafx.application.Platform;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -98,10 +102,14 @@ public abstract class IFCtoLBDConverterCore {
     private  RTree<Resource,Geometry> rtree;
     private  Map<Geometry,Resource>   rtree_map = new HashMap<>(); 
 
-
+    public IFCtoLBDConverterCore()
+    {
+        eventBus.register(this);
+    }
+    
     protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
                     boolean hasGeolocation,boolean hasGeometry) {
-        System.out.println("Conversion starts");
+        eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 
         rtree= RTree.dimensions(3).create();
         IfcOWLUtils.listSites(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
@@ -257,9 +265,9 @@ public abstract class IFCtoLBDConverterCore {
         if(this.bounding_boxes==null)
             return;
         try {
-            System.out.println("Bounding box for: "+lbd_resource);
             BoundingBox bb = this.bounding_boxes.getBoundingBox(guid);
             if (bb != null && has_geometry.add(lbd_resource)) {
+                System.out.println("Bounding box for: "+lbd_resource);
                 Resource sp_blank = this.lbd_general_output_model.createResource();
                 lbd_resource.addProperty(GEO.hasGeometry, sp_blank);
                 sp_blank.addLiteral(GEO.asWKT, bb.toString());
@@ -730,7 +738,7 @@ public abstract class IFCtoLBDConverterCore {
             }
 
         } catch (Exception e) {
-            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
+            eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "readAndConvertIFC: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
             e.printStackTrace();
 
         }
@@ -748,21 +756,27 @@ public abstract class IFCtoLBDConverterCore {
      *            the IFC file
      */
     protected void readInOntologies(String ifc_file) {
-        IfcOWLUtils.readIfcOWLOntology(ifc_file, ontology_model);
-        IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
+        try {
+            IfcOWLUtils.readIfcOWLOntology(ifc_file, ontology_model);
+            IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
 
-        RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", this.eventBus);
-        RDFUtils.readInOntologyTTL(ontology_model, "beo_ontology.ttl", this.eventBus);
-        
-        RDFUtils.readInOntologyTTL(ontology_model, "mep_ontology.ttl", this.eventBus);
+            RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", this.eventBus);
+            RDFUtils.readInOntologyTTL(ontology_model, "beo_ontology.ttl", this.eventBus);
+            
+            RDFUtils.readInOntologyTTL(ontology_model, "mep_ontology.ttl", this.eventBus);
 
-        RDFUtils.readInOntologyTTL(ontology_model, "psetdef.ttl", this.eventBus);
-        List<String> files = FileUtils.getListofFiles("pset", ".ttl");
-        for (String file : files) {
-            file = file.substring(file.indexOf("pset"));
-            file = file.replaceAll("\\\\", "/");
-            RDFUtils.readInOntologyTTL(ontology_model, file, this.eventBus);
-            System.out.println("read ontology file : " + file);
+            RDFUtils.readInOntologyTTL(ontology_model, "psetdef.ttl", this.eventBus);
+            List<String> files = FileUtils.getListofFiles("pset", ".ttl");
+            for (String file : files) {
+                file = file.substring(file.indexOf("pset"));
+                file = file.replaceAll("\\\\", "/");
+                RDFUtils.readInOntologyTTL(ontology_model, file, this.eventBus);
+                System.out.println("read ontology file : " + file);
+            }
+            
+        } catch (Exception e) {
+            eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "readInOntologies: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
+
         }
     }
 
@@ -785,5 +799,19 @@ public abstract class IFCtoLBDConverterCore {
         return ontology_model;
     }
 
-
+    
+    @Subscribe
+    public void handleEvent(final IFCtoLBD_SystemExit event) {
+        System.out.println("Exit reason: " + event.getReason_message());
+        eventBus.post(new IFCtoLBD_SystemStatusEvent("Stopping services"));
+        if(this.bounding_boxes!=null)
+            this.bounding_boxes.close();
+        eventBus.post(new IFCtoLBD_SystemStatusEvent("Stopped"));
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            // Just do it
+        }
+        System.exit(0);  // Force IfcOpenShell to exit
+    }
 }

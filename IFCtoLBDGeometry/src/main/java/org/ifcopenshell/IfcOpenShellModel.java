@@ -82,11 +82,17 @@ public class IfcOpenShellModel  {
 		if (instancesById != null) {
 			instancesById.clear();
 		}
+		//JO 2020
+		if (instancesByGUID != null) {
+            instancesByGUID.clear();
+        }
 		try {
 			ifcInputStream.close();
 		} catch (IOException e) {
 			LOGGER.error("", e);
 		}
+		
+		client.close(); //JO 2020
 	}
 
 	public void generateGeneralGeometry() throws RenderEngineException {
