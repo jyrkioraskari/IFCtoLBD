@@ -41,8 +41,8 @@ public class IFCtoRDF extends IfcSpfReader {
             
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
             PrintStream stream = new PrintStream(outputStream);
-            System.setOut(stream);
-            System.setErr(stream);
+            //System.setOut(stream);
+            //System.setErr(stream);
             setup(ifcFile);
             convert(ifcFile, outputFile, baseURI);
             timer.cancel();

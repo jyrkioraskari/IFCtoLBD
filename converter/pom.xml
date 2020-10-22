@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>com.github.pipauwel</groupId>
 			<artifactId>IFCtoRDF</artifactId>
-			<version>0.5J2-SNAPSHOT</version>
+			<version>0.5J3-SNAPSHOT</version>
 		</dependency>
 		<!-- overrided IFCtoRDF -->
 		<dependency>

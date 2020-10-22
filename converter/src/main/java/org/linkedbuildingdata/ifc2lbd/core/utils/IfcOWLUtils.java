@@ -375,7 +375,7 @@ public abstract class IfcOWLUtils {
                             if (strLine.indexOf("IFC4x1") != -1)
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)
-                                return "IFC4_ADD1";
+                                return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return null;
                         }
