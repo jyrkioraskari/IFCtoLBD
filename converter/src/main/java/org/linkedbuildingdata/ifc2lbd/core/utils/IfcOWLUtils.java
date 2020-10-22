@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,6 +88,12 @@ public abstract class IfcOWLUtils {
 		return buildings;
 	}
 
+	public static List<RDFNode>        listBuildings(IfcOWL ifcOWL, Model ifcowl_model) {
+        RDFStep[] path = { new InvRDFStep(RDF.type) };
+        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcBuilding()), path);
+    }
+	
+	
 	/**
 	 * 
 	 * @param building Apache Jena Resource RDF node that refers to an #IfcBuilding
@@ -531,5 +538,6 @@ public abstract class IfcOWLUtils {
             ret.add(sb.toString());
         return ret;
     }
+
 
 }
