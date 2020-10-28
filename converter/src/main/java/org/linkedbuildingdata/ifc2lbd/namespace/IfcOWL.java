@@ -34,7 +34,6 @@ public class IfcOWL extends abstract_NS {
     private final Property hasProperties_IfcPropertySet;
     private final Property nominalValue_IfcPropertySingleValue;
     private final Property unit_IfcPropertySingleValue;
-
     private final Property description;
     private final Property name;
     private final Property longName;
@@ -42,10 +41,15 @@ public class IfcOWL extends abstract_NS {
 
     private final Property units_IfcUnitAssignment;
     private final Property unitType_IfcNamedUnit;
+    private final Property prefix_IfcSIUnit;
     private final Property name_IfcSIUnit;
 
-    private final String IfcBuilding;
+    private final Property unitsInContext_IfcProject;
+    
+    
+    private final String IfcProject;
     private final String IfcSite;
+    private final String IfcBuilding;
     private final String IfcSpace;
     private final String IfcProduct;
     private final String IfcPropertySet;
@@ -55,60 +59,68 @@ public class IfcOWL extends abstract_NS {
     private final String AREAUNIT;
     private final String VOLUMEUNIT;
     private final String PLANEANGLEUNIT;
-
+    
     private final String METRE;
     private final String SQUARE_METRE;
     private final String CUBIC_METRE;
     private final String RADIAN;
-
+    
     private final String ifcURI;
 
-    public IfcOWL(String ifcURI) {
-        // There should be bo vocabulary that does not end in # or /. This fixes
-        // possible errors
-        if (!ifcURI.endsWith("#") && !ifcURI.endsWith("/"))
-            ifcURI = ifcURI + "#";
-        this.ifcURI = ifcURI;
+    public IfcOWL(String ifcURI) {       
+        // There should be no vocabulary that does not end in # or /.  This fixes possible errors
+        if(!ifcURI.endsWith("#")&&!ifcURI.endsWith("/"))
+            ifcURI=ifcURI+"#";
+        this.ifcURI=ifcURI;
         relatingObject_IfcRelDecomposes = property(ifcURI, "relatingObject_IfcRelDecomposes");
         relatedObjects_IfcRelDecomposes = property(ifcURI, "relatedObjects_IfcRelDecomposes");
-        relatingStructure_IfcRelContainedInSpatialStructure = property(ifcURI, "relatingStructure_IfcRelContainedInSpatialStructure");
-        relatedElements_IfcRelContainedInSpatialStructure = property(ifcURI, "relatedElements_IfcRelContainedInSpatialStructure");
-
+        relatingStructure_IfcRelContainedInSpatialStructure = property(ifcURI,
+                "relatingStructure_IfcRelContainedInSpatialStructure");
+        relatedElements_IfcRelContainedInSpatialStructure = property(ifcURI,
+                "relatedElements_IfcRelContainedInSpatialStructure");
+        
         relatedObjects_IfcRelDefines = property(ifcURI, "relatedObjects_IfcRelDefines");
-        relatingPropertyDefinition_IfcRelDefinesByProperties = property(ifcURI, "relatingPropertyDefinition_IfcRelDefinesByProperties");
-
-        name_IfcRoot = property(ifcURI, "name_IfcRoot");
-        name_IfcProperty = property(ifcURI, "name_IfcProperty");
-        hasProperties_IfcPropertySet = property(ifcURI, "hasProperties_IfcPropertySet");
-        nominalValue_IfcPropertySingleValue = property(ifcURI, "nominalValue_IfcPropertySingleValue");
+        relatingPropertyDefinition_IfcRelDefinesByProperties =property(ifcURI, "relatingPropertyDefinition_IfcRelDefinesByProperties");
+        
+        name_IfcRoot  =property(ifcURI, "name_IfcRoot");
+        name_IfcProperty  =property(ifcURI, "name_IfcProperty");
+        hasProperties_IfcPropertySet =property(ifcURI, "hasProperties_IfcPropertySet");
+        nominalValue_IfcPropertySingleValue =property(ifcURI, "nominalValue_IfcPropertySingleValue");
         unit_IfcPropertySingleValue = property(ifcURI, "unit_IfcPropertySingleValue");
-
+        
         description = property(ifcURI, "description_IfcRoot");
         name = property(ifcURI, "name_IfcRoot");
         longName = property(ifcURI, "longName_IfcSpatialStructureElement");
-        units_IfcUnitAssignment = property(ifcURI, "units_IfcUnitAssignment");
-
+        units_IfcUnitAssignment=property(ifcURI, "units_IfcUnitAssignment");
+        
+        unitsInContext_IfcProject = property(ifcURI, "unitsInContext_IfcProject");
+        
+        
         guid = property(ifcURI, "globalId_IfcRoot");
-
-        IfcBuilding = ifcURI + "IfcBuilding";
+        
+        
+        IfcProject = ifcURI + "IfcProject";
         IfcSite = ifcURI + "IfcSite";
+        IfcBuilding = ifcURI + "IfcBuilding";
         IfcSpace = ifcURI + "IfcSpace";
         IfcProduct = ifcURI + "IfcProduct";
         IfcPropertySet = ifcURI + "IfcPropertySet";
         IfcUnitAssignment = ifcURI + "IfcUnitAssignment";
         IfcSIUnit = ifcURI + "IfcSIUnit";
-
+        
         unitType_IfcNamedUnit = property(ifcURI, "unitType_IfcNamedUnit");
+        prefix_IfcSIUnit = property(ifcURI, "prefix_IfcSIUnit");
         name_IfcSIUnit = property(ifcURI, "name_IfcSIUnit");
-        LENGTHUNIT = ifcURI + "LENGTHUNIT";
-        AREAUNIT = ifcURI + "AREAUNIT";
-        VOLUMEUNIT = ifcURI + "VOLUMEUNIT";
-        PLANEANGLEUNIT = ifcURI + "PLANEANGLEUNIT";
+        LENGTHUNIT= ifcURI + "LENGTHUNIT";
+        AREAUNIT= ifcURI + "AREAUNIT";
+        VOLUMEUNIT= ifcURI + "VOLUMEUNIT";
+        PLANEANGLEUNIT= ifcURI + "PLANEANGLEUNIT";
+        
+        METRE= ifcURI + "METRE";
+        SQUARE_METRE= ifcURI + "SQUARE_METRE";
+        CUBIC_METRE= ifcURI + "CUBIC_METRE";
+        RADIAN= ifcURI + "RADIAN";
 
-        METRE = ifcURI + "METRE";
-        SQUARE_METRE = ifcURI + "SQUARE_METRE";
-        CUBIC_METRE = ifcURI + "CUBIC_METRE";
-        RADIAN = ifcURI + "RADIAN";
     }
 
     public String getIfcURI() {
@@ -249,6 +261,21 @@ public class IfcOWL extends abstract_NS {
 
     public Property getHasProperties_IfcPropertySet() {
         return hasProperties_IfcPropertySet;
+    }
+    
+    public Property getPrefix_IfcSIUnit() {
+        return prefix_IfcSIUnit;
+    }
+
+
+
+    public Property getUnitsInContext_IfcProject() {
+        return unitsInContext_IfcProject;
+    }
+
+    
+    public String getIfcProject() {
+        return IfcProject;
     }
 
     public static class Express

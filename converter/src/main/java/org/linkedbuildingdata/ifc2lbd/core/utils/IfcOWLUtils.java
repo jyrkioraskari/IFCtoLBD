@@ -67,6 +67,17 @@ public abstract class IfcOWLUtils {
 			return path;
 		}
 	}
+	
+
+    public static Resource getIfcProject(IfcOWL ifcOWL, Model ifcowl_model) {
+        RDFStep[] path = { new InvRDFStep(RDF.type) };
+        List<RDFNode> list= RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcProject()), path);
+        if(!list.isEmpty())
+            return list.get(0).asResource();
+        else
+            return null;
+    }
+
 
 	public static List<RDFNode> listSites(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };

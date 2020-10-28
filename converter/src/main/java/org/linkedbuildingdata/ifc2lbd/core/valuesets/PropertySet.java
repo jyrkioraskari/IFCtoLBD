@@ -190,7 +190,10 @@ public class PropertySet {
                 addUnit(state_resourse, pname);
 
             } else
+            {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
+                addUnit(property_resource, pname);
+            }
 
             Property p;
             p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
@@ -203,15 +206,22 @@ public class PropertySet {
         RDFNode ifc_unit = this.mapPnameUnit.get(pname);
         if (ifc_unit != null) {
             String si_unit = ifc_unit.asResource().getLocalName();
-            if (si_unit.equals("METRE")) {
-                lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-            } else if (si_unit.equals("SQUARE_METRE")) {
-                lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-               
-            } else if (si_unit.equals("CUBIC_METRE")) {
-                lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-            } else if (si_unit.equals("RADIAN")) {
-                lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+            if (si_unit != null) {
+                if (si_unit.equals("METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+                } else if (si_unit.equals("SQUARE_METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+                } else if (si_unit.equals("CUBIC_METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                } else if (si_unit.equals("MILLI METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
+                } else if (si_unit.equals("MILLI SQUARE_METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
+                } else if (si_unit.equals("MILLI CUBIC_METRE")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
+                } else if (si_unit.equals("RADIAN")) {
+                    lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+                }
             }
         } else {
             RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
@@ -231,9 +241,28 @@ public class PropertySet {
                         lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
                     } else if (si_unit.equals("CUBIC_METRE")) {
                         lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                    } else if (si_unit.equals("MILLI METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
+                    } else if (si_unit.equals("MILLI SQUARE_METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
+                    } else if (si_unit.equals("MILLI CUBIC_METRE")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
                     } else if (si_unit.equals("RADIAN")) {
                         lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
                     }
+                }
+                else {
+                    if (unit.equals("length")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default named in:
+                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
+                    } else if (unit.equals("area")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default named in:
+                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
+                    } else if (unit.equals("volume")) {
+                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default named in:
+                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
+                    } 
+
                 }
             }
         }

@@ -347,23 +347,45 @@ public abstract class IFCtoLBDConverterCore {
     protected void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
         System.out.println("Property sets");
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Handle Property set data"));
+        Resource ifcproject = IfcOWLUtils.getIfcProject(ifcOWL, ifcowl_model);
 
-        List<RDFNode> units = IfcOWLUtils.getProjectSIUnits(ifcOWL, ifcowl_model);
-        for (RDFNode ru : units) {
-            RDFStep[] namedUnit_path = { new RDFStep(ifcOWL.getUnitType_IfcNamedUnit()) };
-            List<RDFNode> r1 = RDFUtils.pathQuery(ru.asResource(), namedUnit_path);
+        RDFStep[] project_units_path = { new RDFStep(ifcOWL.getUnitsInContext_IfcProject()),
+                new RDFStep(ifcOWL.getUnits_IfcUnitAssignment()) };
 
-            String named_unit = null;
-            for (RDFNode l1 : r1)
-                named_unit = l1.asResource().getLocalName().substring(0, l1.asResource().getLocalName().length() - 4);
+        if (ifcproject != null) {
+            List<RDFNode> units = RDFUtils.pathQuery(ifcproject, project_units_path);
+            System.out.println("units size: " + units.size());
+            for (RDFNode ru : units) {
+                System.out.println("ru: " + ru);
+                RDFStep[] namedUnit_path = { new RDFStep(ifcOWL.getUnitType_IfcNamedUnit()) };
+                List<RDFNode> r1 = RDFUtils.pathQuery(ru.asResource(), namedUnit_path);
 
-            RDFStep[] siUnit_path = { new RDFStep(ifcOWL.getName_IfcSIUnit()) };
-            List<RDFNode> r2 = RDFUtils.pathQuery(ru.asResource(), siUnit_path);
-            String si_unit = null;
-            for (RDFNode l2 : r2)
-                si_unit = l2.asResource().getLocalName();
-            if (named_unit != null && si_unit != null)
-                unitmap.put(named_unit.toLowerCase(), si_unit);
+                String named_unit = null;
+                for (RDFNode l1 : r1)
+                    named_unit = l1.asResource().getLocalName().substring(0,
+                            l1.asResource().getLocalName().length() - 4);
+
+                RDFStep[] siUnit_prefix_path = { new RDFStep(ifcOWL.getPrefix_IfcSIUnit()) };
+                List<RDFNode> runit_pref = RDFUtils.pathQuery(ru.asResource(), siUnit_prefix_path);
+
+                String si_prefix = null;
+                for (RDFNode lpref : runit_pref)
+                    si_prefix = lpref.asResource().getLocalName();
+
+                RDFStep[] siUnit_path = { new RDFStep(ifcOWL.getName_IfcSIUnit()) };
+                List<RDFNode> runit_name = RDFUtils.pathQuery(ru.asResource(), siUnit_path);
+                String si_unit = null;
+                for (RDFNode lname : runit_name)
+                    si_unit = lname.asResource().getLocalName();
+
+                if (si_prefix != null)
+                    si_unit = si_prefix + " " + si_unit;
+
+                if (named_unit != null && si_unit != null) {
+                    System.out.println("SI UNIT: " + named_unit + " - " + si_unit);
+                    unitmap.put(named_unit.toLowerCase(), si_unit);
+                }
+            }
         }
 
         IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
@@ -612,7 +634,7 @@ public abstract class IFCtoLBDConverterCore {
         String guid = IfcOWLUtils.getGUID(r, this.ifcOWL);
         addBoundingBox(bot_r, guid);
         String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-        final AttributeSet connected_attributes = new AttributeSet(this.uriBase, output_model, this.props_level, hasPropertiesBlankNodes);
+        final AttributeSet connected_attributes = new AttributeSet(this.uriBase, output_model, this.props_level, hasPropertiesBlankNodes,this.unitmap);
         r.listProperties().forEachRemaining(s -> {
             String ps = s.getPredicate().getLocalName();
             Resource attr = s.getObject().asResource();
@@ -626,17 +648,17 @@ public abstract class IFCtoLBDConverterCore {
                 if (atype.get().getLocalName().equals("IfcLabel")) {
                     attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> {
                         if (attr_s.getObject().isLiteral() && attr_s.getObject().asLiteral().getLexicalForm().length() > 0) {
-                            connected_attributes.putAnameValue(property_string, attr_s.getObject());
+                            connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype);
                         }
                     });
 
                 } else if (atype.get().getLocalName().equals("IfcIdentifier")) {
-                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype));
                 } else {
-                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(IfcOWL.Express.getHasInteger()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(IfcOWL.Express.getHasDouble()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
-                    attr.listProperties(IfcOWL.Express.getHasBoolean()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject()));
+                    attr.listProperties(IfcOWL.Express.getHasString()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype));
+                    attr.listProperties(IfcOWL.Express.getHasInteger()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype));
+                    attr.listProperties(IfcOWL.Express.getHasDouble()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype));
+                    attr.listProperties(IfcOWL.Express.getHasBoolean()).forEachRemaining(attr_s -> connected_attributes.putAnameValue(property_string, attr_s.getObject(),atype));
                 }
 
             }
