@@ -496,8 +496,9 @@ public abstract class IfcOWLUtils {
                     }
                     writer.flush();
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    return null;
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -513,15 +514,18 @@ public abstract class IfcOWLUtils {
         List<String> ret = new ArrayList<>();
         int state = 0;
         StringBuffer sb = new StringBuffer();
+        boolean esc=false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (state) {
                 case 2:
+                if(!esc)
                 if (c == '\"' || c == '\'')
                     state = 0;
                 sb.append(c);
                     break;
                 case 1:
+                if(!esc)
                 if (c == '\"' || c == '\'') {
                     ret.add(sb.toString());
                     sb = new StringBuffer();
@@ -535,6 +539,7 @@ public abstract class IfcOWLUtils {
                 }
                     break;
                 case 0:
+                if(!esc)
                 if (c == '\"' || c == '\'') {
                     sb.append(c);
                     state = 2;
@@ -544,6 +549,10 @@ public abstract class IfcOWLUtils {
                     sb.append(c);
                     break;
             }
+            if(c=='\\')
+                esc=true;
+            else 
+                esc=false;
         }
         if (sb.length() > 0)
             ret.add(sb.toString());

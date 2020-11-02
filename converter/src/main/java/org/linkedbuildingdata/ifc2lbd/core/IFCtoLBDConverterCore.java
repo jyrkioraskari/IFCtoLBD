@@ -791,7 +791,10 @@ public abstract class IFCtoLBDConverterCore {
                 Model m = ModelFactory.createDefaultModel();
                 this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase);
                 File t2 = IfcOWLUtils.filterContent(outputFile);
-                RDFDataMgr.read(m, t2.getAbsolutePath());
+                if(t2!=null)
+                   RDFDataMgr.read(m, t2.getAbsolutePath());
+                else
+                    RDFDataMgr.read(m, outputFile.getAbsolutePath()); 
                 return m;
             } catch (IOException e) {
                 e.printStackTrace();
