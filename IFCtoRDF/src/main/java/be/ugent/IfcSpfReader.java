@@ -230,7 +230,7 @@ public class IfcSpfReader {
         }
 
         exp = getExpressSchema(ifcFile);
-        System.out.println("expres schema: "+exp);
+        System.out.println("express schema: "+exp);
 
         // check if we are able to convert this: only four schemas are supported
         if (!exp.equalsIgnoreCase("IFC2X3_Final") && !exp.equalsIgnoreCase("IFC2X3_TC1") && !exp.equalsIgnoreCase("IFC4_ADD2") && !exp.equalsIgnoreCase("IFC4_ADD1") && !exp.equalsIgnoreCase("IFC4")
