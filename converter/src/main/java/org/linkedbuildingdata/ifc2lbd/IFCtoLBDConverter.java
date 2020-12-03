@@ -211,7 +211,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
                 Timer timer = new Timer();
                 this.ios = 0;
-                final long start = System.currentTimeMillis();
+                //final long start = System.currentTimeMillis();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {
@@ -403,7 +403,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                 System.out.println("Set the bounding box generator");
                 Timer timer = new Timer();
                 this.ios = 0;
-                final long start = System.currentTimeMillis();
+                //final long start = System.currentTimeMillis();
                 timer.schedule(new TimerTask() {
                     @Override
                     public void run() {

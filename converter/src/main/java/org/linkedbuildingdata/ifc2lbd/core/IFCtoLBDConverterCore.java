@@ -57,7 +57,6 @@ import com.openifctools.guidcompressor.GuidCompressor;
 
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
-import javafx.application.Platform;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
