@@ -66,6 +66,17 @@ public abstract class IfcOWLUtils {
 			return path;
 		}
 	}
+	
+
+    public static Resource getIfcProject(IfcOWL ifcOWL, Model ifcowl_model) {
+        RDFStep[] path = { new InvRDFStep(RDF.type) };
+        List<RDFNode> list= RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcProject()), path);
+        if(!list.isEmpty())
+            return list.get(0).asResource();
+        else
+            return null;
+    }
+
 
 	public static List<RDFNode> listSites(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
@@ -87,6 +98,12 @@ public abstract class IfcOWLUtils {
 		return buildings;
 	}
 
+	public static List<RDFNode>        listBuildings(IfcOWL ifcOWL, Model ifcowl_model) {
+        RDFStep[] path = { new InvRDFStep(RDF.type) };
+        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcBuilding()), path);
+    }
+	
+	
 	/**
 	 * 
 	 * @param building Apache Jena Resource RDF node that refers to an #IfcBuilding
@@ -375,7 +392,7 @@ public abstract class IfcOWLUtils {
                             if (strLine.indexOf("IFC4x1") != -1)
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)
-                                return "IFC4_ADD1";
+                                return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return null;
                         }
@@ -478,8 +495,9 @@ public abstract class IfcOWLUtils {
                     }
                     writer.flush();
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
+                    return null;
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();
@@ -495,15 +513,18 @@ public abstract class IfcOWLUtils {
         List<String> ret = new ArrayList<>();
         int state = 0;
         StringBuffer sb = new StringBuffer();
+        boolean esc=false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (state) {
                 case 2:
+                if(!esc)
                 if (c == '\"' || c == '\'')
                     state = 0;
                 sb.append(c);
                     break;
                 case 1:
+                if(!esc)
                 if (c == '\"' || c == '\'') {
                     ret.add(sb.toString());
                     sb = new StringBuffer();
@@ -517,6 +538,7 @@ public abstract class IfcOWLUtils {
                 }
                     break;
                 case 0:
+                if(!esc)
                 if (c == '\"' || c == '\'') {
                     sb.append(c);
                     state = 2;
@@ -526,10 +548,15 @@ public abstract class IfcOWLUtils {
                     sb.append(c);
                     break;
             }
+            if(c=='\\')
+                esc=true;
+            else 
+                esc=false;
         }
         if (sb.length() > 0)
             ret.add(sb.toString());
         return ret;
     }
+
 
 }

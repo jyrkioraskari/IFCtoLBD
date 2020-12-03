@@ -6,7 +6,6 @@ import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.slf4j.Logger;
@@ -38,11 +37,12 @@ public class IFCtoRDF extends IfcSpfReader {
             }, 1000, 1000);
             
             
+            // For future use
+            //ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            //PrintStream stream = new PrintStream(outputStream);
             
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            PrintStream stream = new PrintStream(outputStream);
-            System.setOut(stream);
-            System.setErr(stream);
+            //System.setOut(stream);
+            //System.setErr(stream);
             setup(ifcFile);
             convert(ifcFile, outputFile, baseURI);
             timer.cancel();

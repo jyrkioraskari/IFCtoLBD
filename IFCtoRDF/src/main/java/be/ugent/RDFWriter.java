@@ -160,7 +160,20 @@ public class RDFWriter {
                 typeName = typ.get(ifcLineEntry.getName()).getName();
 
             OntClass cl = ontModel.getOntClass(ontNS + typeName);
-
+            if(cl==null)
+            {
+                System.out.println("cl null typename: \""+typeName+"\"");
+                if(typeName==null|| typeName.trim().length()==0)
+                {
+                    if (ent.containsKey(ifcLineEntry.getName()))
+                        System.out.println("cl null typename ent for: "+ifcLineEntry.getName());
+                    else if (typ.containsKey(ifcLineEntry.getName()))
+                        System.out.println("cl null typename typ for: "+ifcLineEntry.getName());
+                    else
+                        System.out.println("cl null typename not found for: "+ifcLineEntry.getName());
+                }
+                System.out.println("cl null for: "+ontNS + typeName);
+            }
             Resource r = getResource(baseURI + typeName + "_" + ifcLineEntry.getLineNum(), cl);
             if (r == null) {
                 // *ERROR 2 already hit: we can safely stop
@@ -1013,6 +1026,8 @@ public class RDFWriter {
             try {
                 ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
             } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("rclass: "+rclass);
                 LOG.error("*ERROR 2*: getResource failed for " + uri);
                 return null;
             }

@@ -197,8 +197,8 @@ public class IfcSpfReader {
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4x1") != -1)
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1)
-                                return "IFC4_ADD1";
+                            if (strLine.indexOf("IFC4") != -1) 
+                                return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return "";
                         }
@@ -230,6 +230,7 @@ public class IfcSpfReader {
         }
 
         exp = getExpressSchema(ifcFile);
+        System.out.println("express schema: "+exp);
 
         // check if we are able to convert this: only four schemas are supported
         if (!exp.equalsIgnoreCase("IFC2X3_Final") && !exp.equalsIgnoreCase("IFC2X3_TC1") && !exp.equalsIgnoreCase("IFC4_ADD2") && !exp.equalsIgnoreCase("IFC4_ADD1") && !exp.equalsIgnoreCase("IFC4")

@@ -35,7 +35,7 @@ public class IFCtoLBD_OpenAPI {
 	 * https://w3c-lbd-cg.github.io/bot/)
 	 * 
 	 * @param ifcFile an IFC file
-	 * @return Returnd RDF output. Formats are:  JSON-LD,  RDF/XML, and TTL
+	 * @return Returns RDF output. Formats are:  JSON-LD,  RDF/XML, and TTL
 	 */
 	@POST
 	@Path("/convertIFCtoLBD")
