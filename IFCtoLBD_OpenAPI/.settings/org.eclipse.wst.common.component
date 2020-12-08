@@ -3,6 +3,12 @@
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="IFCtoLBD-2.17.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="IFCtoLBDGeometry-2.17.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBDGeometry/IFCtoLBDGeometry">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="IFCtoRDF-0.5J3-SNAPSHOT.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
             <dependency-type>uses</dependency-type>
         </dependent-module>
