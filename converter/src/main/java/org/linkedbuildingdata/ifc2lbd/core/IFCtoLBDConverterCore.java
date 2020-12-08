@@ -165,8 +165,10 @@ public abstract class IFCtoLBDConverterCore {
 
         if (hasGeolocation) {
             try {
-                IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model,this.ifcOWL,lbd_general_output_model,this.uriBase); //TODO Check that this is getting the needed data
+                if(this.ontURI.isPresent())
+                IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model,this.ifcOWL,lbd_general_output_model,this.uriBase,this.ontURI.get()); 
             } catch (Exception e) {
+                e.printStackTrace();
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
             }
         }

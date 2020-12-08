@@ -26,13 +26,14 @@ public class IfcOWL_GeolocationUtil {
      * @param ifcOWL_ns
      * @param lbd_general_output_model
      */
-    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWL ifcOWL_ns,Model lbd_general_output_model,String uriBase) {
+    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWL ifcOWL_ns,Model lbd_general_output_model,String uriBase, String ontoURI) {
 
-        IFC_Geolocation c = new IFC_Geolocation();
+        IFC_Geolocation c = new IFC_Geolocation(ontoURI);
         String wkt_point;
         try {
             wkt_point = c.addGeolocation(ifcowl_model);
         } catch (Exception e) {
+            System.out.println("No wkt_point");
             return; // no geolocation
         }
 
