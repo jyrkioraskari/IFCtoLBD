@@ -163,6 +163,7 @@ public class RDFWriter {
             if(cl==null)
             {
                 System.out.println("cl null typename: \""+typeName+"\"");
+                //ontModel.write(System.err);
                 if(typeName==null|| typeName.trim().length()==0)
                 {
                     if (ent.containsKey(ifcLineEntry.getName()))
@@ -1019,10 +1020,10 @@ public class RDFWriter {
     }
 
     private Resource getResource(String uri, OntResource rclass) {
-        Resource r = resourceMap.get(uri);
+        Resource r = this.resourceMap.get(uri);
         if (r == null) {
             r = ResourceFactory.createResource(uri);
-            resourceMap.put(uri, r);
+            this.resourceMap.put(uri, r);
             try {
                 ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
             } catch (Exception e) {

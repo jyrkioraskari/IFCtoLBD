@@ -110,9 +110,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.pipauwel</groupId>
+			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoRDF</artifactId>
-			<version>0.5J4-SNAPSHOT</version>
+			<version>0.5J6-SNAPSHOT</version>
 		</dependency>
 		<!-- overrided IFCtoRDF -->
 		<dependency>

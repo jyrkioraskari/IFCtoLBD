@@ -29,6 +29,13 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 @Path("/")
 public class IFCtoLBD_OpenAPI {
 
+
+    @Path("/hello")
+    public Response hello() {
+        return Response.ok("OK!", "text").build();
+    }
+
+    
 	/**
      * General IFCtoLBD OPM Level 3  
 	 * Converts an IFC file into into the Linked Building Data  (BOT

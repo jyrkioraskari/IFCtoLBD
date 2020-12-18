@@ -7,7 +7,7 @@
  INFO [main] (RDFWriter.java:401) - -------------------------------
  INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
  INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
- INFO [main] (RDFWriter.java:497) - *OK 25*: found subClass of SELECT Class, now doing nothing with it: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#name_IfcOrganization - IfcLabel - Ghent University
+ INFO [main] (RDFWriter.java:497) - *OK 25*: found subClass of SELECT Class, now doing nothing with it: https://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#name_IfcOrganization - IfcLabel - Ghent University
  INFO [main] (RDFWriter.java:1008) - *OK 17*: created resource: IfcLabel_1
  INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcLabel_1 - https://w3id.org/express#hasString - Ghent University
  INFO [main] (RDFWriter.java:1014) - *OK 3*: added property: IfcOrganization_2 - name_IfcOrganization - IfcLabel_1

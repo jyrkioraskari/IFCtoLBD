@@ -9,7 +9,7 @@
  INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
  INFO [main] (RDFWriter.java:458) - fillProperties 4 - fillPropertiesHandleStringObject(evo)
  INFO [main] (RDFWriter.java:464) - fillProperties 6 - fillPropertiesHandleListObject(evo)
- INFO [main] (RDFWriter.java:856) - *OK 24*: found subClass of SELECT Class, now doing nothing with it: http://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#nominalValue_IfcPropertySingleValue - IfcPositiveLengthMeasure - 12.
+ INFO [main] (RDFWriter.java:856) - *OK 24*: found subClass of SELECT Class, now doing nothing with it: https://standards.buildingsmart.org/IFC/DEV/IFC4/ADD1/OWL#nominalValue_IfcPropertySingleValue - IfcPositiveLengthMeasure - 12.
  INFO [main] (RDFWriter.java:1008) - *OK 17*: created resource: IfcPositiveLengthMeasure_1
  INFO [main] (RDFWriter.java:909) - *OK 4*: added literal: IfcPositiveLengthMeasure_1 - https://w3id.org/express#hasDouble - 12.
  INFO [main] (RDFWriter.java:1014) - *OK 3*: added property: IfcPropertySingleValue_302 - nominalValue_IfcPropertySingleValue - IfcPositiveLengthMeasure_1
