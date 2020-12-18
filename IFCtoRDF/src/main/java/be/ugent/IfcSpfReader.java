@@ -287,7 +287,7 @@ public class IfcSpfReader {
             if (exp.equalsIgnoreCase("IFC4"))
                 inAlt = "IFC4/FINAL/";
 
-            ontURI = "http://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }

@@ -1,6 +1,6 @@
-@base <http://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL> .
-@prefix : <http://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL#> .
-@prefix ifc: <http://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL#> .
+@base <https://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL> .
+@prefix : <https://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL#> .
+@prefix ifc: <https://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix owl: <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
@@ -11,7 +11,7 @@
 @prefix cc: <http://creativecommons.org/ns#> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 
-<http://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL>
+<https://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL>
 	rdf:type owl:Ontology ;
 	rdfs:comment "Ontology automatically generated from the EXPRESS schema 'IFC4x1' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
 	dce:creator "Pieter Pauwels (pipauwel.pauwels@ugent.be)" ;
@@ -25,7 +25,7 @@
 	dce:identifier "IFC4x1" ;
 	dce:language "en" ; 
 	vann:preferredNamespacePrefix "ifc" ; 
-	vann:preferredNamespaceUri "http://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL" ; 
+	vann:preferredNamespaceUri "https://standards.buildingsmart.org/IFC/DEV/IFC4_1/OWL" ; 
 	owl:imports <https://w3id.org/express> ; 
 	cc:license <http://creativecommons.org/licenses/by/3.0/> . 
 

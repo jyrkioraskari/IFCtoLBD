@@ -1,9 +1,9 @@
 @prefix cc:    <http://creativecommons.org/ns#> .
-@prefix :      <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
+@prefix :      <https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix owl:   <http://www.w3.org/2002/07/owl#> .
 @prefix dce:   <http://purl.org/dc/elements/1.1/> .
-@prefix ifc:   <http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
+@prefix ifc:   <https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
 @prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
 @prefix expr:  <https://w3id.org/express#> .
 @prefix list:  <https://w3id.org/list#> .
@@ -28472,7 +28472,7 @@ ifc:IfcPointOnCurve  a    owl:Class ;
                           ] ;
         owl:disjointWith  ifc:IfcCartesianPoint , ifc:IfcPointOnSurface .
 
-<http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL>
+<https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL>
         a                              owl:Ontology ;
         rdfs:comment                   "Ontology automatically generated from the EXPRESS schema 'IFC2X3_TC1' using the 'IFC-to-RDF' converter developed by Pieter Pauwels (pipauwel.pauwels@ugent.be), based on the earlier versions from Jyrki Oraskari (jyrki.oraskari@aalto.fi) and Davy Van Deursen (davy.vandeursen@ugent.be)" ;
         cc:license                     <http://creativecommons.org/licenses/by/3.0/> ;
@@ -28484,7 +28484,7 @@ ifc:IfcPointOnCurve  a    owl:Class ;
         dce:language                   "en" ;
         dce:title                      "IFC2X3_TC1" ;
         vann:preferredNamespacePrefix  "ifc" ;
-        vann:preferredNamespaceUri     "http://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL" ;
+        vann:preferredNamespaceUri     "https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL" ;
         owl:imports                    <https://w3id.org/express> .
 
 ifc:WATERFILTER  a  ifc:IfcFilterTypeEnum , owl:NamedIndividual ;
