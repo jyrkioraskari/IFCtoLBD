@@ -345,7 +345,7 @@ public abstract class IFCtoLBDConverterCore {
      * @param hasPropertiesBlankNodes
      *            If the nameless nodes are used.
      */
-    protected void handlePropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
+    protected void handleUnitsAndPropertySetData(int props_level, boolean hasPropertiesBlankNodes) {
         System.out.println("Property sets");
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Handle Property set data"));
         Resource ifcproject = IfcOWLUtils.getIfcProject(ifcOWL, ifcowl_model);
@@ -793,7 +793,10 @@ public abstract class IFCtoLBDConverterCore {
                 this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase);
                 File t2 = IfcOWLUtils.filterContent(outputFile);
                 if(t2!=null)
+                {
                    RDFDataMgr.read(m, t2.getAbsolutePath());
+                   //RDFUtils.writeModel(m, "c:\\temp\\HVAC_filtered.ttl", this.eventBus);
+                }   
                 else
                     RDFDataMgr.read(m, outputFile.getAbsolutePath()); 
                 return m;

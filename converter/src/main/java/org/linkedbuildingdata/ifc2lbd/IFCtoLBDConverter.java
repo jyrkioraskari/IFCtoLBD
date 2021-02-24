@@ -149,7 +149,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         if (hasBuildingProperties) {
-            handlePropertySetData(props_level, hasPropertiesBlankNodes);
+            handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes);
         }
         
         try {
@@ -255,7 +255,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         if (hasBuildingProperties) {
-            handlePropertySetData(props_level, hasPropertiesBlankNodes);
+            handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes);
         }
 
         
@@ -439,7 +439,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         if (hasBuildingProperties) {
-            handlePropertySetData(props_level, hasPropertiesBlankNodes);
+            handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes);
         }
 
         try {
