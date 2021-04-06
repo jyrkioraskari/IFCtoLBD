@@ -37,6 +37,6 @@ public class BoundingBox {
     // JO 2020
     @Override
     public String toString() {
-        return "MULTIPOINT ((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
+        return "MULTIPOINT Z((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
     }
 }
