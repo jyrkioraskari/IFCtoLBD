@@ -512,6 +512,13 @@ public abstract class IFCtoLBDConverterCore {
             model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
             model.setNsPrefix("inst", uriBase);
             model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
+            if(this.ontURI.isPresent())
+            {
+                String uri=this.ontURI.get();
+                if(!uri.endsWith("/"))
+                    uri+="#";
+                model.setNsPrefix("ifc", uri);
+            }
         }
     }
 

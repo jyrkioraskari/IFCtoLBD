@@ -407,8 +407,7 @@ public abstract class IfcOWLUtils {
         return null;
     }
 
-
-    public static File filterContent(File whole_content_file) {
+    static public File filterContent(File whole_content_file) {
         File tempFile = null;
         int state = 0;
         try {
@@ -466,8 +465,86 @@ public abstract class IfcOWLUtils {
                                 }
                             }
                         }
-                        line= new String(line.getBytes(), StandardCharsets.UTF_8);
-                        
+                        line = new String(line.getBytes(), StandardCharsets.UTF_8);
+                        line = line.replace("\\\\", "\\");
+
+                        // UTF-8 fix for French double encoding
+                        line = line.replace("\\X\\0D", "");
+                        line = line.replace("\\X\\0A", "");
+
+                        line = line.replace("\\X2\\00A0\\X0\\", "");
+                        // LATIN letters
+                        line = line.replace("\\X2\\00C0\\X0\\", "À");
+                        line = line.replace("\\X2\\00C1\\X0\\", "Á");
+                        line = line.replace("\\X2\\00C2\\X0\\", "Â");
+                        line = line.replace("\\X2\\00C3\\X0\\", "Ã");
+                        line = line.replace("\\X2\\00C4\\X0\\", "Ä");
+                        line = line.replace("\\X2\\00C5\\X0\\", "Å");
+                        line = line.replace("\\X2\\00C6\\X0\\", "Æ");
+                        line = line.replace("\\X2\\00C7\\X0\\", "Ç");
+                        line = line.replace("\\X2\\00C8\\X0\\", "È");
+                        line = line.replace("\\X2\\00C9\\X0\\", "É");
+                        line = line.replace("\\X2\\00CA\\X0\\", "Ê");
+                        line = line.replace("\\X2\\00CB\\X0\\", "Ë");
+                        line = line.replace("\\X2\\00CC\\X0\\", "Ì");
+                        line = line.replace("\\X2\\00CD\\X0\\", "Í");
+                        line = line.replace("\\X2\\00CE\\X0\\", "Î");
+                        line = line.replace("\\X2\\00CF\\X0\\", "Ï");
+
+                        line = line.replace("\\X2\\00D0\\X0\\", "Ð");
+                        line = line.replace("\\X2\\00D1\\X0\\", "Ñ");
+                        line = line.replace("\\X2\\00D2\\X0\\", "Ò");
+                        line = line.replace("\\X2\\00D3\\X0\\", "Ó");
+                        line = line.replace("\\X2\\00D4\\X0\\", "Ô");
+                        line = line.replace("\\X2\\00D5\\X0\\", "Õ");
+                        line = line.replace("\\X2\\00D6\\X0\\", "Ö");
+                        line = line.replace("\\X2\\00D7\\X0\\", "×");
+                        line = line.replace("\\X2\\00D8\\X0\\", "Ø");
+                        line = line.replace("\\X2\\00D9\\X0\\", "Ù");
+                        line = line.replace("\\X2\\00DA\\X0\\", "Ú");
+                        line = line.replace("\\X2\\00DB\\X0\\", "Û");
+                        line = line.replace("\\X2\\00DC\\X0\\", "Ü");
+                        line = line.replace("\\X2\\00DD\\X0\\", "Ý");
+                        line = line.replace("\\X2\\00DE\\X0\\", "Þ");
+                        line = line.replace("\\X2\\00DF\\X0\\", "ß");
+
+                        line = line.replace("\\X2\\00E0\\X0\\", "à");
+                        line = line.replace("\\X2\\00E1\\X0\\", "á");
+                        line = line.replace("\\X2\\00E2\\X0\\", "â");
+                        line = line.replace("\\X2\\00E3\\X0\\", "ã");
+                        line = line.replace("\\X2\\00E4\\X0\\", "ä");
+                        line = line.replace("\\X2\\00E5\\X0\\", "å");
+                        line = line.replace("\\X2\\00E6\\X0\\", "æ");
+                        line = line.replace("\\X2\\00E7\\X0\\", "ç");
+                        line = line.replace("\\X2\\00E8\\X0\\", "è");
+                        line = line.replace("\\X2\\00E9\\X0\\", "é");
+                        line = line.replace("\\X2\\00EA\\X0\\", "ê");
+                        line = line.replace("\\X2\\00EB\\X0\\", "ê");
+                        line = line.replace("\\X2\\00EC\\X0\\", "ì");
+                        line = line.replace("\\X2\\00ED\\X0\\", "í");
+                        line = line.replace("\\X2\\00EE\\X0\\", "î");
+                        line = line.replace("\\X2\\00EF\\X0\\", "ï");
+
+                        line = line.replace("\\X2\\00F0\\X0\\", "ð");
+                        line = line.replace("\\X2\\00F1\\X0\\", "ñ");
+                        line = line.replace("\\X2\\00F2\\X0\\", "ò");
+                        line = line.replace("\\X2\\00F3\\X0\\", "ó");
+                        line = line.replace("\\X2\\00F4\\X0\\", "ô");
+                        line = line.replace("\\X2\\00F5\\X0\\", "õ");
+                        line = line.replace("\\X2\\00F6\\X0\\", "ö");
+                        line = line.replace("\\X2\\00F7\\X0\\", "÷");
+                        line = line.replace("\\X2\\00F8\\X0\\", "ø");
+                        line = line.replace("\\X2\\00F9\\X0\\", "ù");
+                        line = line.replace("\\X2\\00FA\\X0\\", "ú");
+                        line = line.replace("\\X2\\00FB\\X0\\", "û");
+                        line = line.replace("\\X2\\00FC\\X0\\", "ü");
+                        line = line.replace("\\X2\\00FD\\X0\\", "ý");
+                        line = line.replace("\\X2\\00FE\\X0\\", "þ");
+                        line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
+
+                        line = line.replace("\\", "\\\\");
+                        line = line.replace("\\\\\"", "\\\"");
+
                         if (line.contains("inst:IfcFace"))
                             continue;
                         if (line.contains("inst:IfcPolyLoop"))
@@ -495,9 +572,8 @@ public abstract class IfcOWLUtils {
                     }
                     writer.flush();
 
-                } catch (Exception e) {
+                } catch (IOException e) {
                     e.printStackTrace();
-                    return null;
                 }
             } catch (IOException e1) {
                 e1.printStackTrace();

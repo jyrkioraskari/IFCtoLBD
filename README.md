@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.19.0
+Version 2.20.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -191,6 +191,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### April 6, 2021  Support for European languages
+The program code was modified so that the default backslash notation for UTF-8 characters is removed. äÄöÖåÅßüÜáÁàÀâÂ should be human-readable.
+
 ### October 13, 2020  Testing the software
 The sofware was tested to function with https://jdk.java.net/15/
 
