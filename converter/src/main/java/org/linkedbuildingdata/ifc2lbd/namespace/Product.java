@@ -24,7 +24,7 @@ public final class Product extends abstract_NS{
     }
     
     public static Property getProperty(String name) {
-        String[] splitted=StringOperations.split(name, '_');
+        String[] splitted=name.split("_");
         return property(beo_ns,splitted[0]);
     }
 }

@@ -306,6 +306,7 @@ public class IfcSpfReader {
 
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
+            conv.setRemoveDuplicates(removeDuplicates);
             conv.setIfcReader(this);
             try (FileOutputStream out = new FileOutputStream(outputFile)) {
                 String s = "# baseURI: " + baseURI;
@@ -326,6 +327,17 @@ public class IfcSpfReader {
         }
     }
 
+    public void setRemoveDuplicates(boolean val) {
+        removeDuplicates = val;
+    }
+
+    public Map<String, EntityVO> getEntityMap() {
+        return ent;
+    }
+
+    public Map<String, TypeVO> getTypeMap() {
+        return typ;
+    }
 
     public String getOntURI() {
         return ontURI;

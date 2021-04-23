@@ -50,8 +50,7 @@ public class IfcSpfParser {
                             }
                             // the whole IFC gets parsed, and everything ends up
                             // as IFCVO objects in the Map<Long, IFCVO> linemap
-                            // variable 
-                            // Lined starting with #
+                            // variable
                             parseIfcLineStatement(sb.toString().substring(1));
                         }
                     }

@@ -16,7 +16,7 @@ public abstract class StringOperations {
 		StringBuilder ret = new StringBuilder();
 
 		boolean first = true;
-		for (final String word : split(txt,' ')) {
+		for (final String word : txt.split(" ")) {
 			if (!word.isEmpty()) {
 				if (first) {
 					ret.append(filterCharaters(word.substring(0, 1).toLowerCase()));
@@ -77,6 +77,7 @@ public abstract class StringOperations {
 	}
 
    // fast split
+   /*
    static public String[] split(String txt, char ch)
    {
        int pcount=1;
@@ -97,6 +98,6 @@ public abstract class StringOperations {
            }
        }
        return parts;
-   }
+   }*/
 
 }

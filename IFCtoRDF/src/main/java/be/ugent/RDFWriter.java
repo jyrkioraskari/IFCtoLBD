@@ -436,7 +436,8 @@ public class RDFWriter {
                             if ((evo != null) && (evo.getDerivedAttributeList() != null) && (evo.getDerivedAttributeList().size() > attributePointer)) {
 
                                 OntClass cl = ontModel.getOntClass(ontNS + typeRemembrance.getName());
-                                Resource r1 = getResource(baseURI + typeRemembrance.getName() + "_" + idCounter++, cl);
+                                Resource r1 = getResource(baseURI + typeRemembrance.getName() + "_" + idCounter, cl);
+                                idCounter++;
                                 OntResource range = ontModel.getOntResource(ontNS + typeRemembrance.getName());
 
                                 // finding listrange
@@ -486,7 +487,8 @@ public class RDFWriter {
                         if (typerange.asClass().hasSuperClass(ontModel.getOntClass(LIST_NS + "OWLList"))) {
                             String listvaluepropURI = typerange.getLocalName().substring(0, typerange.getLocalName().length() - 5);
                             OntResource listrange = ontModel.getOntResource(ontNS + listvaluepropURI);
-                            Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter++, listrange);
+                            Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
+                            idCounter++;
                             List<Object> objects = new ArrayList<>();
                             if (!ifcVOs.isEmpty()) {
                                 objects.addAll(ifcVOs);
@@ -705,8 +707,9 @@ public class RDFWriter {
                     if (i == 0)
                         reslist.add(r);
                     else {
-                        Resource r1 = getResource(baseURI + range.getLocalName() + "_" + idCounter++, range);
+                        Resource r1 = getResource(baseURI + range.getLocalName() + "_" + idCounter, range);
                         reslist.add(r1);
+                        idCounter++;
                     }
                 }
 
@@ -726,7 +729,7 @@ public class RDFWriter {
                         OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
                         Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
                         LOG.info("*OK 21*: created resource: " + r2.getLocalName());
-                        idCounter++; //TODO inc??
+                        idCounter++;
                         ttlWriter.triple(new Triple(r1.asNode(), ontModel.getOntProperty(LIST_NS + "hasContents").asNode(), r2.asNode()));
                         LOG.info("*OK 22*: added property: " + r1.getLocalName() + " - " + "-hasContents-" + " - " + r2.getLocalName());
 
@@ -758,8 +761,9 @@ public class RDFWriter {
                     List<Resource> reslist = new ArrayList<>();
                     // createrequirednumberofresources
                     for (int ii = 0; ii < el.size(); ii++) {
-                        Resource r1 = getResource(baseURI + range.getLocalName() + "_" + idCounter++, range);
+                        Resource r1 = getResource(baseURI + range.getLocalName() + "_" + idCounter, range);
                         reslist.add(r1);
+                        idCounter++;
                         if (ii == 0) {
                             ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
                             LOG.info("*OK 7*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - " + r1.getLocalName());
@@ -784,12 +788,15 @@ public class RDFWriter {
 
             Resource r1 = propertyResourceMap.get(key);
             if (r1 == null) {
-                r1 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter++);
+                r1 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
                 ttlWriter.triple(new Triple(r1.asNode(), RDF.type.asNode(), range.asNode()));
+                LOG.info("*OK 17*: created resource: " + r1.getLocalName());
+                idCounter++;
                 propertyResourceMap.put(key, r1);
                 addLiteralToResource(r1, valueProp, xsdType, literalString);
             }
             ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+            LOG.info("*OK 3*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - " + r1.getLocalName());
         } else {
             LOG.error("*ERROR 1*: XSD type not found for: " + p + " - " + range.getURI() + " - " + literalString);
         }
@@ -802,14 +809,17 @@ public class RDFWriter {
 
             if (listrange != null) {
                 if (listrange.asClass().hasSuperClass(ontModel.getOntClass(LIST_NS + "OWLList"))) {
+                    LOG.info("*OK 20*: Handling list of list");
                     listrange = range;
                 }
                 for (int i = 0; i < el.size(); i++) {
                     Resource r1 = el.get(i);
-                    Resource r2 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter++); // was
+                    Resource r2 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter); // was
                     // listrange
                     ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), range.asNode()));
-                    Resource r3 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter++); //TODO inc?
+                    LOG.info("*OK 14*: added property: " + r2.getLocalName() + " - rdf:type - " + range.getLocalName());
+                    idCounter++;
+                    Resource r3 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
 
                     if (i == 0) {
                         ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r2.asNode()));
@@ -834,8 +844,9 @@ public class RDFWriter {
         // createrequirednumberofresources
         for (int i = 0; i < tmpList.size(); i++) {
             if (IFCVO.class.isInstance(tmpList.get(i))) {
-                Resource r1 = getResource(baseURI + typerange.getLocalName() + "_" + idCounter++, typerange);
+                Resource r1 = getResource(baseURI + typerange.getLocalName() + "_" + idCounter, typerange);
                 reslist.add(r1);
+                idCounter++;
                 entlist.add((IFCVO) tmpList.get(i));
                 if (i == 0) {
                     ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
@@ -892,8 +903,10 @@ public class RDFWriter {
                 String key = valueProp.toString() + ":" + xsdType + ":" + literalString;
                 Resource r2 = propertyResourceMap.get(key);
                 if (r2 == null) {
-                    r2 = ResourceFactory.createResource(baseURI + listrange.getLocalName() + "_" + idCounter++);
+                    r2 = ResourceFactory.createResource(baseURI + listrange.getLocalName() + "_" + idCounter);
                     ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), listrange.asNode()));
+                    LOG.info("*OK 19*: created resource: " + r2.getLocalName());
+                    idCounter++;
                     propertyResourceMap.put(key, r2);
                     addLiteralToResource(r2, valueProp, xsdType, literalString);
                 }
