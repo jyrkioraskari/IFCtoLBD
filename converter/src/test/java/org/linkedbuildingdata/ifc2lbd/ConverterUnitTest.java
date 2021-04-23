@@ -195,6 +195,7 @@ public class ConverterUnitTest {
 
             IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 1);
             Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+            //m1nb.removeAll();
             m1nb.write(System.out, "TTL");
             Graph graph_m1nb = m1nb.getGraph();
 

@@ -389,10 +389,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
                     boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry) {
 
-        System.out.println("#1");
-        if (IfcOWLUtils.getExpressSchema(ifc_filename) == null) // TODO this
-                                                                // result could
-                                                                // be saved
+        if (IfcOWLUtils.getExpressSchema(ifc_filename) == null)
         {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
             return null;
@@ -400,7 +397,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         if (hasGeometry)
             try {
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
-                System.out.println("Set the bounding box generator");
                 Timer timer = new Timer();
                 this.ios = 0;
                 //final long start = System.currentTimeMillis();

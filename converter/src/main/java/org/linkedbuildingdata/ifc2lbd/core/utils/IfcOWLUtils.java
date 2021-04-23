@@ -27,7 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 /*
- *  Copyright (c) 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
+ *  Copyright (c) 2020, 2021 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,6 @@ public abstract class IfcOWLUtils {
 	 * @return The list of all #IfcBuilding ifcOWL elements under the site element
 	 */
 	public static List<RDFNode> listBuildings(Resource site, IfcOWL ifcOWL) {
-		System.out.println("Site: "+site.toString());
 		List<RDFNode> buildings = RDFUtils.pathQuery(site, getNextLevelPath(ifcOWL));
 		if (buildings == null || buildings.size() == 0)
 			System.err.println("No Buildings!");
@@ -339,14 +338,18 @@ public abstract class IfcOWLUtils {
 	 * @param ifc_file The absolute path of the Turtle formatted ontology file
 	 * @param model    Am Apache Jene model where the ontology triples are added.
 	 */
-	public static void readIfcOWLOntology(String ifc_file, Model model) {
+	public static String readIfcOWLOntology(String ifc_file, Model model) {
 		String exp = IfcOWLUtils.getExpressSchema(ifc_file);
+		if(exp==null)
+		    return null;
 		InputStream in = null;
 		try {
 			in = IfcOWLUtils.class.getResourceAsStream("/" + exp + ".ttl");
 
 			if (in == null)
 				in = IfcOWLUtils.class.getResourceAsStream("/resources/" + exp + ".ttl");
+			if(in==null)
+			    return null;
 			model.read(in, null, "TTL");
 		} finally {
 			try {
@@ -355,6 +358,7 @@ public abstract class IfcOWLUtils {
 				e1.printStackTrace();
 			}
 		}
+		return exp;
 	}
 
 	/**

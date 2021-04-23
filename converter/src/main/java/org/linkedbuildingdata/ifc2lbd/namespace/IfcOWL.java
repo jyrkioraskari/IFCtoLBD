@@ -47,6 +47,7 @@ public class IfcOWL extends abstract_NS {
     private final Property unitsInContext_IfcProject;
     
     
+    private final String IfcRoot;
     private final String IfcProject;
     private final String IfcSite;
     private final String IfcBuilding;
@@ -55,6 +56,9 @@ public class IfcOWL extends abstract_NS {
     private final String IfcPropertySet;
     private final String IfcUnitAssignment;
     private final String IfcSIUnit;
+    
+    private final String IfcDistributionSystem;
+    
     private final String LENGTHUNIT;
     private final String AREAUNIT;
     private final String VOLUMEUNIT;
@@ -98,7 +102,7 @@ public class IfcOWL extends abstract_NS {
         
         guid = property(ifcURI, "globalId_IfcRoot");
         
-        
+        IfcRoot = ifcURI + "IfcRoot";
         IfcProject = ifcURI + "IfcProject";
         IfcSite = ifcURI + "IfcSite";
         IfcBuilding = ifcURI + "IfcBuilding";
@@ -107,6 +111,9 @@ public class IfcOWL extends abstract_NS {
         IfcPropertySet = ifcURI + "IfcPropertySet";
         IfcUnitAssignment = ifcURI + "IfcUnitAssignment";
         IfcSIUnit = ifcURI + "IfcSIUnit";
+        
+        IfcDistributionSystem = ifcURI + "IfcDistributionSystem";
+        
         
         unitType_IfcNamedUnit = property(ifcURI, "unitType_IfcNamedUnit");
         prefix_IfcSIUnit = property(ifcURI, "prefix_IfcSIUnit");
@@ -222,6 +229,10 @@ public class IfcOWL extends abstract_NS {
     public String getIfcSIUnit() {
         return IfcSIUnit;
     }
+    
+    public String getIfcDistributionSystem() {
+        return IfcDistributionSystem;
+    }
 
     public String getLENGTHUNIT() {
         return LENGTHUNIT;
@@ -273,6 +284,11 @@ public class IfcOWL extends abstract_NS {
         return unitsInContext_IfcProject;
     }
 
+    
+
+    public String getIfcRoot() {
+        return IfcRoot;
+    }
     
     public String getIfcProject() {
         return IfcProject;

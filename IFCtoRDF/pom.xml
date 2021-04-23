@@ -9,33 +9,22 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>7</version>
-	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
-	<artifactId>IFCtoRDF</artifactId>
-	<name>IFC to RDF</name>
+	<artifactId>IFC2RDF</artifactId>
+	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>0.5J6-SNAPSHOT</version>
+	<version>1.0</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	<url>https://github.com/pipauwel/IFCtoRDF</url>
 	<description>IFCtoRDF is a set of reusable Java components that allows to parse IFC-SPF files and convert them into
         RDF graphs.
-    </description>
-	<scm>
-		<url>https://github.com/pipauwel/IFCtoRDF</url>
-		<connection>scm:git:git@github.com/pipauwel/IFCtoRDF.git</connection>
-		<developerConnection>scm:git:git@github.com:pipauwel/IFCtoRDF.git</developerConnection>
-		<tag>IFCtoRDF-0.4</tag>
-	</scm>
+
+Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 	<distributionManagement>
 		<repository>
 			<id>sonatype-nexus-staging</id>
@@ -43,10 +32,6 @@
 			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 	</distributionManagement>
-	<issueManagement>
-		<system>GitHub Issues</system>
-		<url>https://github.com/pipauwel/IFCtoRDF/issues</url>
-	</issueManagement>
 	<mailingLists>
 		<mailingList>
 			<name>Project Mailing List</name>

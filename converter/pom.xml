@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.21</version>
+	<version>2.22</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -111,8 +111,8 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
-			<artifactId>IFCtoRDF</artifactId>
-			<version>0.5J6-SNAPSHOT</version>
+			<artifactId>IFC2RDF</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<!-- overrided IFCtoRDF -->
 		<dependency>
