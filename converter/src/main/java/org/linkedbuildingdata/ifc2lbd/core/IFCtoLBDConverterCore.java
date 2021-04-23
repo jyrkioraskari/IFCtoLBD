@@ -123,7 +123,7 @@ public abstract class IFCtoLBDConverterCore {
                 lbd_site.addProperty(RDF.type, BOT.site);
                 addBoundingBox(lbd_site, guid_site);
 
-                IfcOWLUtils.listPropertysets(site, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+                IfcOWLUtils.listPropertysets(site, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                     PropertySet p_set = this.propertysets.get(propertyset.getURI());
                     if (p_set != null) {
                         p_set.connect(lbd_site, uncompressed_guid_site);
@@ -151,7 +151,7 @@ public abstract class IFCtoLBDConverterCore {
             lbd_site.addProperty(RDF.type, BOT.site);
             addBoundingBox(lbd_site, guid_site);
 
-            IfcOWLUtils.listPropertysets(site, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+            IfcOWLUtils.listPropertysets(site, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null) {
                     p_set.connect(lbd_site, uncompressed_guid_site);
@@ -215,7 +215,7 @@ public abstract class IFCtoLBDConverterCore {
         if (lbd_site != null)
            lbd_site.addProperty(BOT.hasBuilding, lbd_building);
 
-        IfcOWLUtils.listPropertysets(building, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+        IfcOWLUtils.listPropertysets(building, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
             PropertySet p_set = this.propertysets.get(propertyset.getURI());
             if (p_set != null) {
                 p_set.connect(lbd_building, uncompressed_guid_building);
@@ -239,19 +239,19 @@ public abstract class IFCtoLBDConverterCore {
             addBoundingBox(lbd_storey, guid_storey);
             lbd_storey.addProperty(RDF.type, BOT.storey);
 
-            IfcOWLUtils.listPropertysets(storey, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+            IfcOWLUtils.listPropertysets(storey, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null)
                     p_set.connect(lbd_storey, uncompressed_guid_storey);
             });
 
-            IfcOWLUtils.listContained_StoreyElements(storey, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(element -> {
+            IfcOWLUtils.listContained_StoreyElements(storey, ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                 if (RDFUtils.getType(element.asResource()).get().getURI().endsWith("#IfcSpace"))
                     return;
                 connectIfcContaidedElement(lbd_storey, element);
             });
 
-            IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().parallel().forEach(space -> {
+            IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().forEach(space -> {
                 if (!RDFUtils.getType(space.asResource()).get().getURI().endsWith("#IfcSpace"))
                     return;
                 Resource spo = LBD_RDF_Utils.createformattedURIRecource(space.asResource(), lbd_general_output_model, "Space", this.ifcOWL, this.uriBase);
@@ -264,7 +264,7 @@ public abstract class IFCtoLBDConverterCore {
                 spo.addProperty(RDF.type, BOT.space);
                 
                 final ChangeableOptonal<Boolean> isExternal=new ChangeableOptonal<Boolean>();
-                IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+                IfcOWLUtils.listPropertysets(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                     PropertySet p_set = this.propertysets.get(propertyset.getURI());
                     if (p_set != null) {
                         p_set.connect(spo, uncompressed_guid_space);
@@ -273,13 +273,13 @@ public abstract class IFCtoLBDConverterCore {
                     }
                 });
                 
-                IfcOWLUtils.listContained_SpaceElements(space.asResource(), ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(element -> {
+                IfcOWLUtils.listContained_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                     Resource lbd_element=connectIfcContaidedElement(spo, element);
                     if(lbd_element!=null)
                        storey.addProperty(BOT.containsElement, lbd_element);
                 });
 
-                IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(element -> {
+                IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), ifcOWL).stream().map(rn -> rn.asResource()).forEach(element -> {
                     Resource lbd_element=connectElement(spo, BOT.adjacentElement, element);
                     if(isExternal.isPresent()&&isExternal.get()==true)
                     {
@@ -389,7 +389,7 @@ public abstract class IFCtoLBDConverterCore {
             }
         }
 
-        IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+        IfcOWLUtils.listPropertysets(ifcOWL, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
             RDFStep[] pname_path = { new RDFStep(ifcOWL.getName_IfcRoot()), new RDFStep(IfcOWL.Express.getHasString()) };
 
             final List<RDFNode> propertyset_name = new ArrayList<>();
@@ -548,14 +548,14 @@ public abstract class IFCtoLBDConverterCore {
             
             bot_resource.addProperty(BOT.containsElement, lbd_element);
             
-            IfcOWLUtils.listPropertysets(ifc_element, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(propertyset -> {
+            IfcOWLUtils.listPropertysets(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
                 PropertySet p_set = this.propertysets.get(propertyset.getURI());
                 if (p_set != null)
                     p_set.connect(lbd_element, uncompressed_guid);
             });
             addAttrributes(this.lbd_property_output_model, ifc_element, lbd_element);
 
-            IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+            IfcOWLUtils.listHosted_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 // if (eo.getLocalName().toLowerCase().contains("space"))
                 // System.out.println("hosts: " + ifc_element + "--" +
                 // ifc_element2 + " bot:" +
@@ -563,7 +563,7 @@ public abstract class IFCtoLBDConverterCore {
                 connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
             });
 
-            IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+            IfcOWLUtils.listAggregated_Elements(ifc_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
             });
             return lbd_element;
@@ -610,11 +610,11 @@ public abstract class IFCtoLBDConverterCore {
 
             addAttrributes(this.lbd_property_output_model, ifcowl_element, lbd_element);
             bot_resource.addProperty(bot_property, lbd_element);
-            IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+            IfcOWLUtils.listHosted_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
             });
 
-            IfcOWLUtils.listAggregated_Elements(ifcowl_element, ifcOWL).stream().parallel().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
+            IfcOWLUtils.listAggregated_Elements(ifcowl_element, ifcOWL).stream().map(rn -> rn.asResource()).forEach(ifc_element2 -> {
                 connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
             });
             return lbd_element;
