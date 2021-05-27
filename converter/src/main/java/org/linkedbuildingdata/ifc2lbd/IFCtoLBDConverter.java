@@ -338,7 +338,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         boolean hasBuildingProperties = true;
         boolean hasSeparatePropertiesModel = false;
         boolean hasGeolocation = true;
-        boolean hasGeometry = true;
+        boolean hasGeometry = false;
 
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
         return lbd_general_output_model;
@@ -358,7 +358,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         boolean hasBuildingProperties = true;
         boolean hasSeparatePropertiesModel = false;
         boolean hasGeolocation = true;
-        boolean hasGeometry = true;
+        boolean hasGeometry = false;
 
         convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
         return lbd_general_output_model;

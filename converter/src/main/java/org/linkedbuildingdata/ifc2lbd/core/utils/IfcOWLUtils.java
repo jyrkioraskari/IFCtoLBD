@@ -383,6 +383,10 @@ public abstract class IfcOWLUtils {
                         if (strLine.startsWith("FILE_SCHEMA")) {
                             if (strLine.indexOf("IFC2X3") != -1)
                                 return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4x2") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X2") != -1)
+                                return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4x3") != -1)
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X3") != -1)
@@ -393,9 +397,9 @@ public abstract class IfcOWLUtils {
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X1") != -1)
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4x1") != -1)
+                            if (strLine.indexOf("IFC4x1") != -1)   
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1)
+                            if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return null;

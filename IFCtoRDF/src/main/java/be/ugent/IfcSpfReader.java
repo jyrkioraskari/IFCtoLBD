@@ -185,6 +185,10 @@ public class IfcSpfReader {
                         if (strLine.startsWith("FILE_SCHEMA")) {
                             if (strLine.indexOf("IFC2X3") != -1)
                                 return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4x2") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X2") != -1)
+                                return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4x3") != -1)
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X3") != -1)
@@ -193,11 +197,11 @@ public class IfcSpfReader {
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X3_RC1") != -1)
                                 return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4s1") != -1)
+                                return "IFC4x1";
                             if (strLine.indexOf("IFC4X1") != -1)
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4x1") != -1)
-                                return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1) 
+                            if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return "";
@@ -288,6 +292,7 @@ public class IfcSpfReader {
                 inAlt = "IFC4/FINAL/";
 
             ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            System.out.println("IFCtoRDF ont uri: "+ontURI);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }

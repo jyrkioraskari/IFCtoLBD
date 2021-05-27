@@ -735,6 +735,7 @@ public abstract class IFCtoLBDConverterCore {
                 if (!product_BE_ontology_statement.getObject().isResource())
                     continue;
                 Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
+                System.err.println("ontURL: "+this.ontURI.get());
                 Resource mapped_ifcowl_class = ontology_model.getResource(this.ontURI.get() + "#" + ifcowl_class.getLocalName());
                 StmtIterator subclass_statement_iterator = ontology_model.listStatements(new SimpleSelector(null, RDFS.subClassOf, mapped_ifcowl_class));
                 while (subclass_statement_iterator.hasNext()) {
@@ -812,9 +813,7 @@ public abstract class IFCtoLBDConverterCore {
                 return m;
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                outputFile.deleteOnExit();
-            }
+            } 
 
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "readAndConvertIFC: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
