@@ -786,7 +786,10 @@ public abstract class IFCtoLBDConverterCore {
             IFCtoRDF rj = new IFCtoRDF();
             File outputFile;
             if(isTmpFile || targetFile==null)
+            {
                 outputFile = File.createTempFile("ifc", ".ttl");
+                outputFile.deleteOnExit();
+            }
             else
             {
                 String ifcowlfilename;
@@ -796,7 +799,11 @@ public abstract class IFCtoLBDConverterCore {
                    outputFile = new File(ifcowlfilename);
                 }
                 else
+                {
                     outputFile = File.createTempFile("ifc", ".ttl");
+                    outputFile.deleteOnExit();
+
+                }
                 
             }
             try {
