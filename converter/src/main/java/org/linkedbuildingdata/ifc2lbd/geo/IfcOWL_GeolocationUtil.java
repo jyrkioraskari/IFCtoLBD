@@ -26,13 +26,14 @@ public class IfcOWL_GeolocationUtil {
      * @param ifcOWL_ns
      * @param lbd_general_output_model
      */
-    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWL ifcOWL_ns,Model lbd_general_output_model,String uriBase) {
+    public static void addGeolocation2BOT(Model ifcowl_model,IfcOWL ifcOWL_ns,Model lbd_general_output_model,String uriBase, String ontoURI) {
 
-        IFC_Geolocation c = new IFC_Geolocation();
+        IFC_Geolocation c = new IFC_Geolocation(ontoURI);
         String wkt_point;
         try {
             wkt_point = c.addGeolocation(ifcowl_model);
         } catch (Exception e) {
+            System.out.println("No wkt_point");
             return; // no geolocation
         }
 
@@ -41,7 +42,7 @@ public class IfcOWL_GeolocationUtil {
             
             
             // Create a resource and add to bot model (resource, model, string)
-            Resource sio = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site",ifcOWL_ns, uriBase);
+            Resource sio = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site",ifcOWL_ns, uriBase,false);
 
             // Create a resource geosparql:Feature;
             Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");

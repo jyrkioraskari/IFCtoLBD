@@ -16,12 +16,12 @@ public class OPM extends abstract_NS{
 	
 	
 	public static final Property value =property(schema_ns,"value");
-	public static final Property hasState =property(seas_ns,"evaluation");
+	//public static final Property hasState =property(seas_ns,"evaluation");
 	
 	
 	public static final Resource property=resource(opm_ns,"Property");
 	public static final Resource currentPropertyState=resource(opm_ns,"CurrentPropertyState");
-    public static final Property hasPropertyState =property(seas_ns,"hasPropertyState"); //Sub property of    seas:evaluation
+    public static final Property hasPropertyState =property(opm_ns,"hasPropertyState"); //Sub property of    seas:evaluation
 
 
 	

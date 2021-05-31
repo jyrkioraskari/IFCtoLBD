@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.16</version>
+	<version>2.30.1</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -71,7 +71,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.dc.lbd</groupId>
 			<artifactId>IFCtoLBDGeometry</artifactId>
-			<version>2.16</version>
+			<version>2.30.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -95,7 +95,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>29.0-jre</version>
+			<version>[30.0-jre,)</version>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -110,26 +110,26 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.pipauwel</groupId>
-			<artifactId>IFCtoRDF</artifactId>
-			<version>0.5J3-SNAPSHOT</version>
+			<groupId>io.github.jyrkioraskari</groupId>
+			<artifactId>IFC2RDF</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<!-- overrided IFCtoRDF -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-core</artifactId>
-			<version>3.16.0</version>
+			<version>3.17.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
-			<version>3.16.0</version>
+			<version>3.17.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
-			<version>3.16.0</version>
+			<version>3.17.0</version>
 			<type>pom</type>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.davidmoten/rtree-multi -->

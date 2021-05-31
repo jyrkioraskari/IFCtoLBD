@@ -47,11 +47,10 @@ public class IFC_Geolocation {
 
     
 
-    public IFC_Geolocation() {	
+    public IFC_Geolocation(String ns1) {	
         
-        ns1 = "https://w3id.org/ifc/IFC4_ADD1#";//"http://www.buildingsmart-tech.org/ifcOWL/IFC2X3_TC1#";
-
-        ns3 = "https://w3id.org/list#";
+        this.ns1=ns1;
+        this.ns3 = "https://w3id.org/list#";
 
         
     }
@@ -63,7 +62,6 @@ public class IFC_Geolocation {
 
         System.out.println("Extracting WKT Geolocation from IFC_OWL Model");   
         returnLongLat(model);
-
         s = addWKTGeometryToModel();
         
         System.out.println("WKT Geolocation succesfully extracted: " + s);
@@ -171,8 +169,8 @@ public class IFC_Geolocation {
         Model m = ModelFactory.createDefaultModel().add(original);
         
                 
-        Property refLatitude_IfcSite = m.createProperty( ns1 + "refLatitude_IfcSite" );
-        Property refLongitude_IfcSite = m.createProperty( ns1 + "refLongitude_IfcSite" );
+        Property refLatitude_IfcSite = m.createProperty( ns1 + "#refLatitude_IfcSite" );
+        Property refLongitude_IfcSite = m.createProperty( ns1 + "#refLongitude_IfcSite" );
         
         StmtIterator iter = m.listStatements( null, RDF.type, ifcSiteProperty );
 

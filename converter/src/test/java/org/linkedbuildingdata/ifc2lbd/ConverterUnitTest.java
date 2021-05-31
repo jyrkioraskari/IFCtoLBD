@@ -38,6 +38,21 @@ public class ConverterUnitTest {
         }
     }
 
+    
+    @DisplayName("Two walls geometry conversion")
+    @Test
+    public void testTwoWallsConversion() {
+        URL file_url = ClassLoader.getSystemResource("TWO WALLS.ifc");
+        try {
+            File ifc_file = new File(file_url.toURI());
+            File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
+            new IFCtoLBDConverter(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#", temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
+        } catch (Exception e) {
+            fail("Conversion had an error: " + e.getMessage());
+        }
+    }
+
+    
     @DisplayName("Test basic conversion")
     @Test
     public void testBasicConversion() {
@@ -180,6 +195,7 @@ public class ConverterUnitTest {
 
             IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, 1);
             Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+            //m1nb.removeAll();
             m1nb.write(System.out, "TTL");
             Graph graph_m1nb = m1nb.getGraph();
 

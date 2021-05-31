@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -73,14 +74,16 @@ public class PropertySet {
 
     private boolean is_bSDD_pset = false;
     private Resource psetDef = null;
+    private final boolean hasUnits;
 
-    public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap) {
+    public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap, boolean hasUnits) {
         this.unitmap = unitmap;
         this.uriBase = uriBase;
         this.lbd_model = lbd_model;
         this.propertyset_name = propertyset_name;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
+        this.hasUnits = hasUnits;
         System.out.println("pset name: " + this.propertyset_name);
         StmtIterator iter = ontology_model.listStatements(null, PROPS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
@@ -91,7 +94,7 @@ public class PropertySet {
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
-        
+
         mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
     }
 
@@ -105,7 +108,7 @@ public class PropertySet {
 
     public void putPsetPropertyRef(RDFNode property) {
         String pname = property.asLiteral().getString();
-        pname=StringOperations.toCamelCase(pname);
+        pname = StringOperations.toCamelCase(pname);
         if (is_bSDD_pset) {
             System.out.println("bsDD");
             StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
@@ -141,9 +144,10 @@ public class PropertySet {
             switch (this.props_level) {
                 case 1:
                 default:
-                for (String pname : this.mapPnameValue.keySet()) {
+                for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
+                    String pname = entry.getKey();
                     Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
-                    lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
+                    lbd_resource.addProperty(property, entry.getValue());
                 }
                     break;
                 case 2:
@@ -162,7 +166,8 @@ public class PropertySet {
 
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
-        for (String pname : this.mapPnameValue.keySet()) {
+        for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
+            String pname = entry.getKey();
             Resource property_resource;
             if (this.hasBlank_nodes)
                 property_resource = this.lbd_model.createResource();
@@ -180,19 +185,21 @@ public class PropertySet {
                     state_resourse = this.lbd_model.createResource();
                 else
                     state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_" + System.currentTimeMillis());
-                property_resource.addProperty(OPM.hasState, state_resourse);
+                // https://w3c-lbd-cg.github.io/opm/assets/states.svg
+                property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
                 LocalDateTime datetime = LocalDateTime.now();
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
-                state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
-                addUnit(state_resourse, pname);
+                state_resourse.addProperty(OPM.value, entry.getValue());
+                if (this.hasUnits)
+                    addUnit(state_resourse, pname);
 
-            } else
-            {
-                property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
-                addUnit(property_resource, pname);
+            } else {
+                property_resource.addProperty(OPM.value, entry.getValue());
+                if (this.hasUnits)
+                    addUnit(property_resource, pname);
             }
 
             Property p;
@@ -250,18 +257,23 @@ public class PropertySet {
                     } else if (si_unit.equals("RADIAN")) {
                         lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
                     }
-                }
-                else {
+                } else {
                     if (unit.equals("length")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default named in:
-                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
+                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
+                                                                               // named
+                                                                               // in:
+                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
                     } else if (unit.equals("area")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default named in:
-                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
+                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
+                                                                                // named
+                                                                                // in:
+                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
                     } else if (unit.equals("volume")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default named in:
-                                                                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
-                    } 
+                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
+                                                                               // named
+                                                                               // in:
+                        // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
+                    }
 
                 }
             }

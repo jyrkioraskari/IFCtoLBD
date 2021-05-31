@@ -76,6 +76,28 @@ public abstract class StringOperations {
 		return ret.toString();
 	}
 
-
+   // fast split
+   /*
+   static public String[] split(String txt, char ch)
+   {
+       int pcount=1;
+       int length = txt.length();
+       for (int i = 0; i < length; i++) 
+           if(txt.charAt(i)==ch)
+               pcount++;
+       String[] parts = new String[pcount];
+       int offset = 0;
+       int part = 0;
+       for (int i = 0; i < length; i++) {
+           if (i == length - 1 || 
+                   txt.charAt(i + 1) == ch) {
+               parts[part] = 
+                   txt.substring(offset, i + 1);
+               part++;
+               offset = i + 2;
+           }
+       }
+       return parts;
+   }*/
 
 }

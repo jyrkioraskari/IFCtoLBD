@@ -158,8 +158,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
     FileChooser fc_target;
 
     @FXML
+    private ToggleSwitch boundinbox_elements;
+    @FXML
+    private ToggleSwitch ifcOWL_elements;
+
+    @FXML
+    private ToggleSwitch createUnits;
+    
+    @FXML
     private void closeApplicationAction() {
-        // get a handle to the stage
         eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
         stage.close();
@@ -272,7 +279,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
         fc_target = new FileChooser();
         File fwd = new File(rdfTargetName);
-
         fc_target.setInitialFileName(rdfTargetName);
         if (!fwd.getParentFile().exists()) {
             fc_target.setInitialDirectory(new File(ifcFileName).getParentFile());
@@ -326,7 +332,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
             prefs.putInt("lbd_props_level", props_level);
             masker_panel.setVisible(true);
             executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level, building_elements.isSelected(), building_elements_separate_file.isSelected(),
-                            building_props.isSelected(), building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(), geolocation.isSelected()));
+                            building_props.isSelected(), building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(), geolocation.isSelected(),boundinbox_elements.isSelected(),ifcOWL_elements.isSelected(),ifcOWL_elements.isSelected()));
         } catch (Exception e) {
             Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
         }
@@ -417,7 +423,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
                             masker_panel.setVisible(true);
                             executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(), props_level, building_elements.isSelected(),
                                             building_elements_separate_file.isSelected(), building_props.isSelected(), building_props_separate_file.isSelected(),
-                                            building_props_blank_nodes.isSelected(), geolocation.isSelected()));
+                                            building_props_blank_nodes.isSelected(), geolocation.isSelected(),boundinbox_elements.isSelected(),ifcOWL_elements.isSelected(),ifcOWL_elements.isSelected()));
                         } catch (Exception e) {
                             conversionTxt.appendText(e.getMessage());
                         }

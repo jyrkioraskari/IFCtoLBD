@@ -30,6 +30,7 @@ import com.google.common.eventbus.EventBus;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 public class ConversionThread implements Callable<Integer> {
 	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(ConversionThread.class.getName());
@@ -46,8 +47,12 @@ public class ConversionThread implements Callable<Integer> {
 	final boolean hasSeparatePropertiesModel;
 	
 	final boolean hasGeolocation;
+	
+	final boolean hasGeometry;
+	final boolean exportIfcOWL;
+    final boolean hasUnits;
 
-	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation) {
+	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -60,17 +65,20 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasSeparatePropertiesModel=hasSeparatePropertiesModel;
 		this.hasPropertiesBlankNodes=hasPropertiesBlankNodes;
 		this.hasGeolocation=hasGeolocation;
+		this.hasGeometry=hasGeometry;
+		this.exportIfcOWL=exportIfcOWL;
+		this.hasUnits=hasUnits;
 	}
 
 	public Integer call() throws Exception {
 		try {
 			try {
-				System.out.println("conversion thread");
-				new IFCtoLBDConverter(ifc_filename, uriBase, target_file,this.props_level,this.hasBuildingElements,this.hasSeparateBuildingElementsModel,
-						this.hasBuildingProperties,this.hasSeparatePropertiesModel,this.hasPropertiesBlankNodes, this.hasGeolocation);
+				IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, false, this.props_level);
+				c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits);
+
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
-				eventBus.post(new IFCtoLBD_SystemStatusEvent("ConversionThread Out of memory: "+e.getMessage()));
+				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 				eventBus.post(new ProcessReadyEvent());
 				return -1;
 			}
@@ -79,7 +87,7 @@ public class ConversionThread implements Callable<Integer> {
 		} catch (Exception e) {
 			e.printStackTrace();
 			eventBus.post(new ProcessReadyEvent());
-			eventBus.post(new IFCtoLBD_SystemStatusEvent("ConversionThread: "+ e.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return -1;
 	}

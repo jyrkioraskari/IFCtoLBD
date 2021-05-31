@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.Map.Entry;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
@@ -93,11 +94,13 @@ public class AttributeSet {
         switch (this.props_level) {
             case 1:
             default:
-            for (String pname : this.mapPnameValue.keySet()) {
+            
+            for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
+                String pname=entry.getKey();
                 Property property;
                 property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
                 // No blank node etc is created, so no units expressed here
-                lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
+                lbd_resource.addProperty(property, entry.getValue());
             }
                 break;
             case 2:
@@ -130,7 +133,8 @@ public class AttributeSet {
                     state_resourse = this.lbd_model.createResource();
                 else
                     state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_" + System.currentTimeMillis());
-                property_resource.addProperty(OPM.hasState, state_resourse);
+               // https://w3c-lbd-cg.github.io/opm/assets/states.svg
+                property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
                 LocalDateTime datetime = LocalDateTime.now();
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);

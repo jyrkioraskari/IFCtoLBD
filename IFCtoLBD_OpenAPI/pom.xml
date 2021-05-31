@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
 	<artifactId>IFCtoLBD_OpenAPI</artifactId>
-	<version>2.16</version>
+	<version>2.30.1</version>
 	<packaging>war</packaging>
 	<name>IFCtoLBD OpenAPI Interface</name>
 
@@ -37,7 +37,7 @@
 				<plugin>
 					<groupId>com.webcohesion.enunciate</groupId>
 					<artifactId>enunciate-maven-plugin</artifactId>
-					<version>2.12.0</version>
+					<version>2.13.2</version>
 					<configuration>
 						<docsDir>${project.build.directory}/IFCtoLBD_OpenAPI</docsDir>
 						<configFile>src/conf/enunciate.xml</configFile>
@@ -55,10 +55,9 @@
 		</repository>
 	</repositories>
 	<properties>
-		<jersey2.version>2.30</jersey2.version>
+		<jersey2.version>2.32</jersey2.version>  
 		<jaxrs.version>2.1.1</jaxrs.version>
 		<tomcat.version>7.0.69</tomcat.version>
-		<enunciate.version>2.8.0</enunciate.version>
 		<log4j.version>1.2.17</log4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -123,14 +122,14 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.16</version>
+			<version>2.30.1</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
-			<version>3.16.0</version>
+			<version>3.17.0</version>
 			<type>pom</type>
 		</dependency>
 

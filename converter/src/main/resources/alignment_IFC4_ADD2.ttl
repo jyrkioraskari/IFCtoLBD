@@ -1,4 +1,4 @@
-@prefix ifc:  <http://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
+@prefix ifc:  <https://www.buildingsmart-tech.org/ifcOWL/IFC4_ADD2#> .
 @prefix product: <https://w3id.org/product#> .
 
 product:Wall owl:equivalentClass ifc:IfcWall .

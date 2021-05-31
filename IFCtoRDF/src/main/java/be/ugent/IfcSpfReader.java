@@ -185,6 +185,10 @@ public class IfcSpfReader {
                         if (strLine.startsWith("FILE_SCHEMA")) {
                             if (strLine.indexOf("IFC2X3") != -1)
                                 return "IFC2X3_TC1";
+                            if (strLine.indexOf("IFC4x2") != -1)
+                                return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4X2") != -1)
+                                return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4x3") != -1)
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X3") != -1)
@@ -193,11 +197,11 @@ public class IfcSpfReader {
                                 return "IFC4x3_RC1";
                             if (strLine.indexOf("IFC4X3_RC1") != -1)
                                 return "IFC4x3_RC1";
+                            if (strLine.indexOf("IFC4s1") != -1)
+                                return "IFC4x1";
                             if (strLine.indexOf("IFC4X1") != -1)
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4x1") != -1)
-                                return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1) 
+                            if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
                             else
                                 return "";
@@ -239,10 +243,13 @@ public class IfcSpfReader {
         }
 
         try {
-            InputStream fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+
+            //JO -->>> 
+            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
+            if (fis == null)
+                fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            ent = null;
             try {
                 ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
@@ -251,10 +258,12 @@ public class IfcSpfReader {
                 ois.close();
             }
 
-            fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+            //JO -->>> 
+            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
+            if (fis == null)
+                fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
 
             ois = new ObjectInputStream(fis);
-            typ = null;
             try {
                 typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
@@ -262,6 +271,7 @@ public class IfcSpfReader {
             } finally {
                 ois.close();
             }
+            
 
             String inAlt = exp;
             if (exp.equalsIgnoreCase("IFC2X3_Final"))
@@ -287,7 +297,8 @@ public class IfcSpfReader {
             if (exp.equalsIgnoreCase("IFC4"))
                 inAlt = "IFC4/FINAL/";
 
-            ontURI = "http://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            System.out.println("IFCtoRDF ont uri: "+ontURI);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }
@@ -301,7 +312,8 @@ public class IfcSpfReader {
         HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
         in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-
+        if (in == null)
+            in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
         om.read(in, null, "TTL");
 
         try {
