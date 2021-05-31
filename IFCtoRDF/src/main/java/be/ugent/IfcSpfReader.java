@@ -243,10 +243,13 @@ public class IfcSpfReader {
         }
 
         try {
-            InputStream fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+
+            //JO -->>> 
+            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
+            if (fis == null)
+                fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
             ObjectInputStream ois = new ObjectInputStream(fis);
 
-            ent = null;
             try {
                 ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
@@ -255,10 +258,12 @@ public class IfcSpfReader {
                 ois.close();
             }
 
-            fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+            //JO -->>> 
+            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
+            if (fis == null)
+                fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
 
             ois = new ObjectInputStream(fis);
-            typ = null;
             try {
                 typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
@@ -266,6 +271,7 @@ public class IfcSpfReader {
             } finally {
                 ois.close();
             }
+            
 
             String inAlt = exp;
             if (exp.equalsIgnoreCase("IFC2X3_Final"))
@@ -306,7 +312,8 @@ public class IfcSpfReader {
         HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
         in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-
+        if (in == null)
+            in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
         om.read(in, null, "TTL");
 
         try {

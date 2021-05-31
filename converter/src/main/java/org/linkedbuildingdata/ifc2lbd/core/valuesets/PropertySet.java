@@ -19,7 +19,6 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
-import org.checkerframework.checker.units.qual.K;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;

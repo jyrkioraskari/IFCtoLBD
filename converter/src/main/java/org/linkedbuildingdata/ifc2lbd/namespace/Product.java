@@ -3,7 +3,6 @@ package org.linkedbuildingdata.ifc2lbd.namespace;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
-import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 
 public final class Product extends abstract_NS{
     public static final String beo_ns = "https://pi.pauwel.be/voc/buildingelement#"; 

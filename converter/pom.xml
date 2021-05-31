@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFC2RDF</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 		<!-- overrided IFCtoRDF -->
 		<dependency>

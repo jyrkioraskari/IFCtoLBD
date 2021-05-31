@@ -9,7 +9,7 @@
         <dependent-module archiveName="IFCtoLBDGeometry-2.30.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBDGeometry/IFCtoLBDGeometry">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="IFC2RDF-1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
+        <dependent-module archiveName="IFC2RDF-1.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <property name="java-output-path" value="/mvdXMLCheckerOpenAPI/build/classes"/>
