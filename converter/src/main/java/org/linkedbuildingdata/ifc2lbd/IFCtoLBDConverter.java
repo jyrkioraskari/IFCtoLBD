@@ -97,7 +97,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         initialise_JenaModels();
         
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
-                        hasSeparatePropertiesModel, hasGeolocation, true);        
+                        hasSeparatePropertiesModel, hasGeolocation, true,false,false);        
     }
     
     /**
@@ -140,7 +140,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         initialise_JenaModels();
 
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
-                        hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
+                        hasSeparatePropertiesModel, hasGeolocation, hasGeometry,false,false);
     }
     
     
@@ -217,7 +217,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         boolean hasGeolocation = true;
         boolean hasGeometry = false;
 
-        convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
+        convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,false,false);
         return lbd_general_output_model;
     }
 
@@ -237,7 +237,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         boolean hasGeolocation = true;
         boolean hasGeometry = false;
 
-        convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
+        convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,true,false);
         return lbd_general_output_model;
     }
 
@@ -264,7 +264,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @return The model as a Jena-model
      */
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
-                    boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry) {
+                    boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
 
         if (IfcOWLUtils.getExpressSchema(ifc_filename) == null)
         {
@@ -292,7 +292,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
             }
         eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
-        this.ifcowl_model = readAndConvertIFC(ifc_filename, uriBase, false, target_file); // Before:
+        this.ifcowl_model = readAndConvertIFC(ifc_filename, uriBase, !exportIfcOWL, target_file); // Before:
                                                                                      // readInOntologies(ifc_filename);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
@@ -311,11 +311,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         if (hasBuildingProperties) {
-            handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes);
+            handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes,hasUnits);
         }
 
         try {
-            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry);
+            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL);
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "Conversion: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 

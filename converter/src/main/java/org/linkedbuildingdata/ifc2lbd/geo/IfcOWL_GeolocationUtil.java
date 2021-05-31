@@ -42,7 +42,7 @@ public class IfcOWL_GeolocationUtil {
             
             
             // Create a resource and add to bot model (resource, model, string)
-            Resource sio = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site",ifcOWL_ns, uriBase);
+            Resource sio = LBD_RDF_Utils.createformattedURIRecource(site, lbd_general_output_model, "Site",ifcOWL_ns, uriBase,false);
 
             // Create a resource geosparql:Feature;
             Resource geof = lbd_general_output_model.createResource("http://www.opengis.net/ont/geosparql#Feature");

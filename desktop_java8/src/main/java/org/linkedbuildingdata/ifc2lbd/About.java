@@ -44,13 +44,13 @@ public class About extends Stage
       iv.setX(10.0);
       iv.setY((180.0-height)/2.0);
       root.getChildren().add(iv);
-      Text msg1 = new Text("IFCtoLBD Desktop 2018, 2019, 2020");
+      Text msg1 = new Text("IFCtoLBD Desktop 2018, 2019, 2020, 2021");
       msg1.setFill(Color.WHITE);
       msg1.setFont(new Font("Arial", 16.0));
       msg1.setX(iv.getX()+width+5);
       msg1.setY(iv.getY()+height/2.0);
       root.getChildren().add(msg1);
-      Text msg2 = new Text("Authors: Oraskari, Bonduel, McGlinn, Wagner, and Pauwels");
+      Text msg2 = new Text("Authors: Oraskari, Bonduel, McGlinn, Wagner,\nPauwels, Kukkonen, Steyskaland, and Lehtonen");
       msg2.setFill(Color.WHITE);
       msg2.setFont(new Font("Arial", 12.0));
       msg2.setX(msg1.getX());
@@ -60,7 +60,7 @@ public class About extends Stage
       Reflection r = new Reflection();
       r.setFraction(1.0);
       root.setEffect(r);
-      Scene scene = new Scene(root, 450.0, 250.0, Color.BLACK);
+      Scene scene = new Scene(root, 550.0, 250.0, Color.BLACK);
       EventHandler<MouseEvent> ehme;
       ehme = new EventHandler<MouseEvent>()
       {

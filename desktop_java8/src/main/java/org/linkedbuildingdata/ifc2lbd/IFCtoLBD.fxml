@@ -7,7 +7,6 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
@@ -49,7 +48,7 @@
     </MenuBar>
     <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="572.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="713.0" layoutX="-6.0" stroke="BLACK" strokeType="INSIDE" width="937.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="0.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="713.0" layoutX="-6.0" stroke="BLACK" strokeType="INSIDE" width="937.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <fill>
                   <LinearGradient cycleMethod="REPEAT" endX="0.3142857142857143" endY="1.0">
                      <stops>
@@ -105,11 +104,11 @@
                   <Font name="Arial" size="18.0" />
                </font></Label>
             <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="35.0" prefWidth="136.0" text="Convert to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="490.0">
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="182.0" prefWidth="150.0" text="Convert to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="490.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="278.0" layoutY="490.0" prefHeight="182.0" prefWidth="610.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="490.0">
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="278.0" layoutY="490.0" prefHeight="182.0" prefWidth="670.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="490.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
@@ -148,18 +147,17 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <Hyperlink fx:id="elements_link" layoutX="180.0" layoutY="18.0" onAction="#hyperlink_product_handle" prefHeight="30.0" prefWidth="150.0" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="10.0">
+                                                <Hyperlink fx:id="elements_link" layoutX="180.0" layoutY="18.0" onAction="#hyperlink_product_handle" prefHeight="30.0" prefWidth="150.0" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
-                                                <ToggleSwitch fx:id="building_elements_separate_file" layoutX="201.0" layoutY="143.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
+                                                <ToggleSwitch fx:id="building_elements_separate_file" layoutX="201.0" layoutY="143.0" text="Separate file" textFill="#141414" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <Separator layoutX="39.0" layoutY="104.0" prefWidth="200.0" AnchorPane.bottomAnchor="75.0" />
-                                                <ToggleSwitch fx:id="geolocation" layoutX="17.0" layoutY="143.0" selected="true" text="Geolocation" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                                <ToggleSwitch fx:id="geolocation" layoutX="17.0" layoutY="143.0" selected="true" text="Geolocation" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -175,7 +173,7 @@
                                                 </ToggleSwitch>
 												
 												
-												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" selected="true" text="Level 1" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" selected="true" text="Level 1" textFill="#dd0a0a" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
                                        <toggleGroup>
                                           <ToggleGroup fx:id="level" />
                                        </toggleGroup>
@@ -184,7 +182,7 @@
                                        </font>
                                     </RadioButton>
 												
-                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" text="Level 2" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" text="Level 2" textFill="#dd0a0a" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -192,31 +190,36 @@
                                                       <ToggleGroup fx:id="level" />
                                                    </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" toggleGroup="$level" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" textFill="#dd0a0a" toggleGroup="$level" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </RadioButton>
-                                                <ToggleSwitch fx:id="building_props_separate_file" layoutX="201.0" layoutY="123.0" text="Separate file" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="50.0">
+                                                <ToggleSwitch fx:id="building_props_separate_file" layoutX="201.0" layoutY="123.0" text="Separate file" textFill="#171717" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <Hyperlink fx:id="opm_link" layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+                                                <Hyperlink fx:id="opm_link" layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="Read more" textFill="#dd0a0a" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="48.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
-                                                <ToggleSwitch fx:id="building_props_blank_nodes" layoutX="20.0" layoutY="89.0" text="Blank nodes" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                                <ToggleSwitch fx:id="building_props_blank_nodes" layoutX="20.0" layoutY="89.0" text="Blank nodes" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <Hyperlink fx:id="props_link" layoutX="14.0" layoutY="33.0" onAction="#hyperlink_towards_props" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="10.0">
+                                                <Hyperlink fx:id="props_link" layoutX="14.0" layoutY="33.0" onAction="#hyperlink_towards_props" text="Read more" AnchorPane.leftAnchor="130.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
+                                                <ToggleSwitch fx:id="createUnits" layoutX="226.0" layoutY="15.0" selected="true" text="Create Units" textFill="#171717" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+                                                   <font>
+                                                      <Font name="Arial" size="12.0" />
+                                                   </font>
+                                                </ToggleSwitch>
                                              </children>
                                           </AnchorPane>
                                       </items>
