@@ -157,6 +157,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
     FileChooser fc_ifc;
     FileChooser fc_target;
 
+    
+    @FXML
+    private ToggleSwitch boundinbox_elements;
+    @FXML
+    private ToggleSwitch ifcOWL_elements;
+
     @FXML
     private void closeApplicationAction() {
         // get a handle to the stage

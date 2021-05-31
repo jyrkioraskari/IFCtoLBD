@@ -158,6 +158,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
     FileChooser fc_target;
 
     @FXML
+    private ToggleSwitch boundinbox_elements;
+    @FXML
+    private ToggleSwitch ifcOWL_elements;
+
+    
+    
+    @FXML
     private void closeApplicationAction() {
         eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
