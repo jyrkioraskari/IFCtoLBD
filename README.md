@@ -29,7 +29,7 @@ Also Windows 10 installations are availabe. The zip files contain script files t
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop.jar`.
 
-![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop/src/main/resources/screen.PNG)
 
 ## Source Code Documentation 
 
