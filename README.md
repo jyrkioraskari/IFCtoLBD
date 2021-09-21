@@ -11,7 +11,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 15. OpenJava can be downloaded from [https://jdk.java.net/15/] (https://jdk.java.net/15/)
+It is recommended to use OpenJava 15. OpenJava can be downloaded from  (https://jdk.java.net/15/)
 
 ## Precompiled binaries
 
