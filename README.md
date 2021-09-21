@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.30.1
+Version 2.31.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -18,8 +18,8 @@ It is recommended to use OpenJava 15. OpenJava can be downloaded from [https://j
 Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
-* Desktop application: IFCtoLBD-Desktop Java 8
-* The special version for Java versions above 9: IFCtoLBD-Desktop Java 12
+* Desktop application: IFCtoLBD-Desktop 
+Minimum requirement is JAVA 15.
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
@@ -27,7 +27,7 @@ When converting large files, `run.bat` can be used. It is also faster since it a
 
 Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
 
-If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop_Java_8.jar`.
+If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop.jar`.
 
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/desktop_java8/src/main/resources/screen.PNG)
 
@@ -46,15 +46,15 @@ cd IFCtoRDF
 call mvn clean install
 cd ..
 
-cd IFCtoLBDGeometry
+cd IFCtoLBD_Geometry
 call mvn clean install
 cd ..
 
-cd converter
+cd IFCtoLBD
 call mvn clean install
 cd ..
 
-cd desktop_java8
+cd IFCtoLBD_Desktop
 call mvn clean install
 cd ..
 
@@ -191,6 +191,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### September 6, 2021  Java 15
+Java 8 is more than years old. A separate Java 8 branch was kept in case only Java 8 can be used. 
+
 ### April 6, 2021  Support for European languages
 The program code was modified so that the default backslash notation for UTF-8 characters is removed. äÄöÖåÅßüÜáÁàÀâÂ should be human-readable.
 
