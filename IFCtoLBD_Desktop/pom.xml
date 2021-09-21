@@ -43,19 +43,19 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>15</version>
+			<version>18-ea+2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>15</version>
+			<version>18-ea+2</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			<version>15</version>
+			<version>18-ea+2</version>
 		</dependency>
 
 		<dependency>
