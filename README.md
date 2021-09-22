@@ -192,7 +192,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## Blog
 ### September 6, 2021  Java 15
-Java 8 is more than years old. A separate Java 8 branch was kept in case only Java 8 can be used. 
+Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant any more.  To keep the software secure, it is preferred to deprecated the version of the code in a long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used. 
 
 ### April 6, 2021  Support for European languages
 The program code was modified so that the default backslash notation for UTF-8 characters is removed. äÄöÖåÅßüÜáÁàÀâÂ should be human-readable.
