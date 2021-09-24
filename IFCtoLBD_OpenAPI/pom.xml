@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
 	<artifactId>IFCtoLBD_OpenAPI</artifactId>
-	<version>2.30.1</version>
+	<version>2.31.0</version>
 	<packaging>war</packaging>
 	<name>IFCtoLBD OpenAPI Interface</name>
 
@@ -29,8 +29,8 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.0</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>15</source>
+						<target>15</target>
 						<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
 					</configuration>
 				</plugin>
@@ -55,9 +55,9 @@
 		</repository>
 	</repositories>
 	<properties>
-		<jersey2.version>2.32</jersey2.version>  
+		<jersey2.version>2.35</jersey2.version>  
 		<jaxrs.version>2.1.1</jaxrs.version>
-		<tomcat.version>7.0.69</tomcat.version>
+		<tomcat.version>9.0.53</tomcat.version>
 		<log4j.version>1.2.17</log4j.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -122,21 +122,21 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.30.1</version>
+			<version>2.31.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
-			<version>3.17.0</version>
+			<version>[4.2.0,)</version>
 			<type>pom</type>
 		</dependency>
 
 		<dependency>
 			<groupId>javax.xml.bind</groupId>
 			<artifactId>jaxb-api</artifactId>
-			<version>2.3.0</version>
+			<version>2.3.1</version>
 		</dependency>
 	</dependencies>
 </project>
