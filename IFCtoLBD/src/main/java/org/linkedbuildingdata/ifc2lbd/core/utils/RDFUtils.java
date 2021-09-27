@@ -16,6 +16,8 @@ import java.util.stream.Collectors;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.system.StreamRDFWriter;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -24,7 +26,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import com.google.common.eventbus.EventBus;
 
 /*
- *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017, 2021 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +49,7 @@ public abstract class RDFUtils {
      * the result of of the conversion process.
      * 
      * An utility method to export an Apache Jena RDF storage content into a
-     * Turtle formatted file-
+     * Turtle formatted file- Supports UTF.
      * 
      * @param m
      *            an Apache Jena model
@@ -64,8 +66,7 @@ public abstract class RDFUtils {
     public static void writeModel(Model m, String target_file, EventBus eventBus) {
         OutputStreamWriter fo = null;
         try {
-            fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());
-            
+            fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());            
             m.write(fo, "TTL");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -79,6 +80,23 @@ public abstract class RDFUtils {
         }
     }
 
+    public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
+        FileOutputStream fo = null;
+        try {
+            fo =new FileOutputStream(new File(target_file));
+            StreamRDFWriter.write(fo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
+        } finally {
+            if (fo != null)
+                try {
+                    fo.close();
+                } catch (IOException e) {
+                }
+        }
+    }
+    
     /**
      * 
      * Reads in a Turtle - Terse RDF Triple Language (TTL) formatted ontology

@@ -177,7 +177,7 @@ public abstract class IFCtoLBDConverterCore {
             if (hasBuildingElements) {
                 if (hasSeparateBuildingElementsModel) {
                     String out_products_filename = target_file.substring(0, target_file.lastIndexOf(".")) + "_building_elements.ttl";
-                    RDFUtils.writeModel(lbd_product_output_model, out_products_filename, this.eventBus);
+                    RDFUtils.writeModelRDFStream(ifcowl_model, target_file, eventBus);
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
                 } else
                     lbd_general_output_model.add(lbd_product_output_model);
@@ -186,12 +186,12 @@ public abstract class IFCtoLBDConverterCore {
             if (hasBuildingProperties) {
                 if (hasSeparatePropertiesModel) {
                     String out_properties_filename = target_file.substring(0, target_file.lastIndexOf(".")) + "_element_properties.ttl";
-                    RDFUtils.writeModel(lbd_property_output_model, out_properties_filename, this.eventBus);
+                    RDFUtils.writeModelRDFStream(lbd_property_output_model, out_properties_filename, this.eventBus);
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements properties file is: " + out_properties_filename));
                 } else
                     lbd_general_output_model.add(lbd_property_output_model);
             }
-            RDFUtils.writeModel(lbd_general_output_model, target_file, this.eventBus);
+            RDFUtils.writeModelRDFStream(lbd_general_output_model, target_file, this.eventBus);
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
         }
     }
