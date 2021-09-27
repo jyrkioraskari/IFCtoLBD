@@ -12,6 +12,8 @@ import java.util.Optional;
 import java.util.Set;
 
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -103,17 +105,22 @@ public abstract class IFCtoLBDConverterCore {
 
     private boolean exportIfcOWL = false;
 
+    Dataset lbd_dataset = null;
+
     public IFCtoLBDConverterCore() {
         eventBus.register(this);
+        lbd_dataset = DatasetFactory.create();
+        lbd_dataset.setDefaultModel(lbd_general_output_model);
     }
 
     protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
-                    boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL) {
+                    boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean namedGraphs) {
         eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
         this.exportIfcOWL = exportIfcOWL;
         if (hasGeometry)
             rtree = RTree.dimensions(3).create();
 
+        
         List<RDFNode> sites = IfcOWLUtils.listSites(ifcOWL, ifcowl_model);
         if (!sites.isEmpty()) {
             sites.stream().map(rn -> rn.asResource()).forEach(site -> {
@@ -192,7 +199,19 @@ public abstract class IFCtoLBDConverterCore {
                     lbd_general_output_model.add(lbd_property_output_model);
             }
             RDFUtils.writeModelRDFStream(lbd_general_output_model, target_file, this.eventBus);
-            eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data File is: " + target_file));
+
+            if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
+                String target_trig = target_file.replaceAll(".ttl", ".trig");
+                if (uriBase != null) {
+                    lbd_dataset.getDefaultModel().add(lbd_general_output_model);
+                    lbd_dataset.addNamedModel(uriBase + "product", lbd_product_output_model);
+                    lbd_dataset.addNamedModel(uriBase + "property", lbd_property_output_model);
+                }
+
+                RDFUtils.writeDataset(lbd_dataset, target_trig, this.eventBus);
+                eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data graphs file is: " + target_trig));
+            }
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data file is: " + target_file));
         }
     }
 

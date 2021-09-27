@@ -13,9 +13,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDFWriter;
 import org.apache.jena.vocabulary.RDF;
@@ -97,6 +99,22 @@ public abstract class RDFUtils {
         }
     }
     
+    public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {
+        FileOutputStream fo = null;  // Outputstream for  RDFDataMgr.write is deprecated
+        try {
+            fo = new FileOutputStream(new File(target_file));     
+            RDFDataMgr.write(fo, ds, RDFFormat.TRIG_PRETTY);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
+        } finally {
+            if (fo != null)
+                try {
+                    fo.close();
+                } catch (IOException e) {
+                }
+        }
+    }
     /**
      * 
      * Reads in a Turtle - Terse RDF Triple Language (TTL) formatted ontology

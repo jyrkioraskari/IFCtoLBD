@@ -315,7 +315,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         try {
-            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL);
+            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,false);
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "Conversion: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 
