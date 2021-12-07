@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.31.0
+Version 2.31.1
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -191,6 +191,10 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### December 7, 2021  The degree sign character
+
+The Unicode notation of the degree sign character caused Jena to stop reading the raw ifcOWL output. This is fixed now.
+
 ### September 6, 2021  Java 15
 Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant any more.  To keep the software secure, it is preferred to deprecated the version of the code in a long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used. 
 
