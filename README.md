@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.31.1
+Version 2.33.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -191,6 +191,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### December 9, 2021  Command line converter tool
+
+Example usage: 
+java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\IFC\Duplex_A_20110505.ifc c:\IFC\Duplex_A_20110505.ttl
+
 ### December 7, 2021  The degree sign character
 
 The Unicode notation of the degree sign character caused Jena to stop reading the raw ifcOWL output. This is fixed now.
