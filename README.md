@@ -227,11 +227,19 @@ Testing the correctness of the created bounding boxes.
 
 3. Nothing happens when I start the program.
 
-   - Check that Java 8 is installed, open a command prompt
-     at the directory where IFCtoLBD-Desktop_Java_8.jar is located. Run the following command:
-     `java -jar IFCtoLBD-Desktop_Java_8.jar`
+   - Check that Java 15 is installed, open a command prompt, from the releases list, download the precompiled
+     binaries, then at the directory where IFCtoLBD-Desktop_Java_15.ja is located. Run the following command:
+     `java -jar IFCtoLBD-Desktop_Java_15.jar`
+	 
+	- If any further problem, under the Windows 10 operating system, you can also try to use the 
+	bundled version of the converter: IFCtoLBD_Java15.exe  
+	 
+4. I have a problem running the OpenAPI interface under Apache Tomcat 9:
+    - Check that the JAVA_HOME environmental variable at your computer points to Java version 15 or newer.
+	The older versions of Java are not supported any more (If you must to use it for some reason, an older
+	release of the converter can be used), since the used libraries don't support them any more. 
 
-4. In Windows, I cannot open the program by double clicking the file
+5. In Windows, I cannot open the program by double clicking the file
    - Open a command prompt as admin
    - Run the following commands:
    
