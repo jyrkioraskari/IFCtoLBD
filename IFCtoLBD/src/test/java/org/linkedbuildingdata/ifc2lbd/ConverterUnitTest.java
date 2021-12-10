@@ -48,6 +48,7 @@ public class ConverterUnitTest {
             File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
             new IFCtoLBDConverter(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#", temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Conversion had an error: " + e.getMessage());
         }
     }
@@ -62,6 +63,7 @@ public class ConverterUnitTest {
             File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
             new IFCtoLBDConverter(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#", temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
         } catch (Exception e) {
+            e.printStackTrace();
             fail("Conversion had an error: " + e.getMessage());
         }
     }

@@ -14,7 +14,7 @@
 	<artifactId>IFC2RDF</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.2.1</version>
+	<version>1.2.2</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -217,7 +217,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
-					<source>8</source>
+					<source>15</source>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -338,19 +338,25 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
-		<!-- Compile time dependencies -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-core</artifactId>
 			<version>${jena.version}</version>
-			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
 			<version>${jena.version}</version>
-			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>apache-jena-libs</artifactId>
+			<version>${jena.version}</version>
+			<type>pom</type>
+		</dependency>
+		
 		<!--<dependency> <groupId>com.github.pipauwel</groupId> <artifactId>EXPRESStoOWL</artifactId> 
 			<version>${expresstoowl.version}</version> <scope>compile</scope> </dependency> -->
 		<dependency>

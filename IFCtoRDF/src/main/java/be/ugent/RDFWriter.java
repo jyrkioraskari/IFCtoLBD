@@ -103,6 +103,7 @@ public class RDFWriter {
 
     public void parseModel2Stream(OutputStream out) throws IOException {
         // CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
+        // 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)
         ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext);
         ttlWriter.base(baseURI);
         ttlWriter.prefix("ifc", ontNS);
