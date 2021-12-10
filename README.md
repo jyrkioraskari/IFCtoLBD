@@ -170,7 +170,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## How to cite
 ```
-@software{jyrki_oraskari_2021_4885102,
+@software{jyrki_oraskari_2021_5772656,
   author       = {Jyrki Oraskari and
                   Mathias Bonduel and
                   Kris McGlinn and
@@ -180,14 +180,16 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Ville Kukkonen and
                   Simon Steyskaland and
                   Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.30.1},
-  month        = may,
+  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.33.0},
+  month        = dec,
   year         = 2021,
   publisher    = {Zenodo},
-  version      = {2.30.1},
-  doi          = {10.5281/zenodo.4885102},
-  url          = {https://doi.org/10.5281/zenodo.4885102}
+  version      = {2.33.0},
+  doi          = {10.5281/zenodo.5772656},
+  url          = {https://doi.org/10.5281/zenodo.5772656}
 }
+
+
 ```
 
 ## Blog
