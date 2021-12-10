@@ -1,26 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-        
-    <wb-module deploy-name="IFCtoLBD_OpenAPI">
-                
-        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                
-        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-                
-        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
-        <dependent-module archiveName="IFCtoLBD-2.31.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="IFCtoLBD_Geometry-2.31.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD_Geometry/IFCtoLBD_Geometry">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="IFC2RDF-1.2.1.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-                
-        <property name="java-output-path" value="/mvdXMLCheckerOpenAPI/build/classes"/>
-                
-        <property name="context-root" value="IFCtoLBD_OpenAPI"/>
-            
-    </wb-module>
+                            
     
+    
+    
+    
+    
+    <wb-module deploy-name="IFCtoLBD_OpenAPI">
+                                                        
+        
+        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
+                                                        
+        
+        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+                                                        
+        
+        
+        
+        
+        
+        <wb-resource deploy-path="/" source-path="/src/main/webapp"/>
+        <dependent-module archiveName="IFC2RDF-1.2.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+                                                        
+        
+        
+        
+        
+        
+        <property name="java-output-path" value="/mvdXMLCheckerOpenAPI/build/classes"/>
+                                                        
+        
+        
+        
+        
+        
+        <property name="context-root" value="IFCtoLBD_OpenAPI"/>
+                                                    
+    
+    
+    
+    
+    
+    </wb-module>
+                        
+
+
+
+
+
 </project-modules>

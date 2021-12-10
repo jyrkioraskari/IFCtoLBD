@@ -481,6 +481,7 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X\\0A", "");
 
                         line = line.replace("\\X2\\00A0\\X0\\", "");
+                        line = line.replace("\\X2\\00B0\\X0\\", "°");
                         // LATIN letters
                         line = line.replace("\\X2\\00C0\\X0\\", "À");
                         line = line.replace("\\X2\\00C1\\X0\\", "Á");

@@ -309,7 +309,8 @@ public class IfcSpfReader {
         OntModel om = null;
 
         in = null;
-        HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
+        //JO 2021/12/10 java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
+        //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
         in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
         if (in == null)

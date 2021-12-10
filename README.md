@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.31.0
+Version 2.33.1
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -170,7 +170,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## How to cite
 ```
-@software{jyrki_oraskari_2021_4885102,
+@software{jyrki_oraskari_2021_5772656,
   author       = {Jyrki Oraskari and
                   Mathias Bonduel and
                   Kris McGlinn and
@@ -180,17 +180,28 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Ville Kukkonen and
                   Simon Steyskaland and
                   Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.30.1},
-  month        = may,
+  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD 2.33.0},
+  month        = dec,
   year         = 2021,
   publisher    = {Zenodo},
-  version      = {2.30.1},
-  doi          = {10.5281/zenodo.4885102},
-  url          = {https://doi.org/10.5281/zenodo.4885102}
+  version      = {2.33.0},
+  doi          = {10.5281/zenodo.5772656},
+  url          = {https://doi.org/10.5281/zenodo.5772656}
 }
+
+
 ```
 
 ## Blog
+### December 9, 2021  Command line converter tool
+
+Example usage: 
+java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\IFC\Duplex_A_20110505.ifc c:\IFC\Duplex_A_20110505.ttl
+
+### December 7, 2021  The degree sign character
+
+The Unicode notation of the degree sign character caused Jena to stop reading the raw ifcOWL output. This is fixed now.
+
 ### September 6, 2021  Java 15
 Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant any more.  To keep the software secure, it is preferred to deprecated the version of the code in a long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used. 
 
@@ -218,11 +229,19 @@ Testing the correctness of the created bounding boxes.
 
 3. Nothing happens when I start the program.
 
-   - Check that Java 8 is installed, open a command prompt
-     at the directory where IFCtoLBD-Desktop_Java_8.jar is located. Run the following command:
-     `java -jar IFCtoLBD-Desktop_Java_8.jar`
+   - Check that Java 15 is installed, open a command prompt, from the releases list, download the precompiled
+     binaries, then at the directory where IFCtoLBD-Desktop_Java_15.ja is located. Run the following command:
+     `java -jar IFCtoLBD-Desktop_Java_15.jar`
+	 
+	- If any further problem, under the Windows 10 operating system, you can also try to use the 
+	bundled version of the converter: IFCtoLBD_Java15.exe  
+	 
+4. I have a problem running the OpenAPI interface under Apache Tomcat 9:
+    - Check that the JAVA_HOME environmental variable at your computer points to Java version 15 or newer.
+	The older versions of Java are not supported any more (If you must to use it for some reason, an older
+	release of the converter can be used), since the used libraries don't support them any more. 
 
-4. In Windows, I cannot open the program by double clicking the file
+5. In Windows, I cannot open the program by double clicking the file
    - Open a command prompt as admin
    - Run the following commands:
    
@@ -232,4 +251,9 @@ Testing the correctness of the created bounding boxes.
    ```
 
    where *your java installation directory* is the base directory where your Java runtime is installed.
+
+## Acknowledgements
+The research was funded by the EU through the H2020 project BIM4REN.
+
+https://dc.rwth-aachen.de/de/forschung/bim4ren
 

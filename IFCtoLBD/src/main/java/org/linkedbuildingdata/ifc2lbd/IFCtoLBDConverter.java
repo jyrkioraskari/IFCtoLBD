@@ -7,6 +7,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.sys.JenaSystem;
+import org.apache.log4j.BasicConfigurator;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
@@ -315,7 +317,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         try {
-            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL);
+            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,false);
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "Conversion: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 
@@ -326,9 +328,29 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
     }
 
     public static void main(String[] args) {
-
+        BasicConfigurator.configure();
+        JenaSystem.init();
+        if (args.length > 3) {
+            int level=2;
+            try {
+                level=Integer.parseInt(args[3]);
+            } catch (Exception e) {
+                System.out.println("OPT level was not a number: Example: ");
+                return;
+            }
+            System.out.println("Base URI: "+args[0]);
+            System.out.println("Selected IFC File: "+args[1]);
+            System.out.println("Targer TTL File: "+args[2]);
+            System.out.println("OPM Level: "+level);
+            new IFCtoLBDConverter(args[1], args[0], args[2], level, true, false, true, false, false, true);
+        } 
+        else
         if (args.length > 2) {
-            new IFCtoLBDConverter(args[0], args[1], args[2], 2, true, false, true, false, false, true);
+            System.out.println("Base URI: "+args[0]);
+            System.out.println("Selected IFC File: "+args[1]);
+            System.out.println("Targer TTL File: "+args[2]);
+            System.out.println("OPM Level: "+2);
+            new IFCtoLBDConverter(args[1], args[0], args[2], 2, true, false, true, false, false, true);
         } else if (args.length == 1) {
             // directory upload
             final List<String> inputFiles;
@@ -360,7 +382,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                 }
             }
         } else
-            System.out.println("Usage: IFCtoLBDConverter ifc_filename base_uri targer_file");
+        {
+            System.out.println("Usage:");
+            System.out.println("IFCtoLBDConverter ifc_filename base_uri targer_file ");
+            System.out.println("With an OPM level :");
+            System.out.println("IFCtoLBDConverter ifc_filename base_uri targer_file level");
+            System.out.println("Example: java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\\IFC\\Duplex_A_20110505.ifc c:\\IFC\\Duplex_A_20110505.ttl");
+        }
     }
 
 }
