@@ -252,3 +252,8 @@ Testing the correctness of the created bounding boxes.
 
    where *your java installation directory* is the base directory where your Java runtime is installed.
 
+## Acknowledgements
+The research was funded by the EU through the H2020 project BIM4REN.
+
+https://dc.rwth-aachen.de/de/forschung/bim4ren
+
