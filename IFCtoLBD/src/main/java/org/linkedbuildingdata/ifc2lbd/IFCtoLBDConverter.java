@@ -8,7 +8,6 @@ import java.util.TimerTask;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
-import org.apache.log4j.BasicConfigurator;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
@@ -328,7 +327,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
     }
 
     public static void main(String[] args) {
-        BasicConfigurator.configure();
         JenaSystem.init();
         if (args.length > 3) {
             int level=2;

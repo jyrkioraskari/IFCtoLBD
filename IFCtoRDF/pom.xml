@@ -14,7 +14,7 @@
 	<artifactId>IFC2RDF</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.2.2</version>
+	<version>1.2.3</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -310,9 +310,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 	<properties>
 		<!-- Dependencies -->
 		<commons-io.version>2.4</commons-io.version>
-		<slf4j-api.version>1.7.7</slf4j-api.version>
 		<junit.version>4.13.2</junit.version>
-		<slf4j-log4j12.version>2.0.0-alpha5</slf4j-log4j12.version>
 		<jena.version>4.2.0</jena.version>
 		<expresstoowl.version>0.4</expresstoowl.version>
 		<!-- Maven Plugin Dependencies -->
@@ -364,20 +362,21 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			<artifactId>ifcParserLib</artifactId>
 			<version>0.2</version>
 		</dependency>
-		<!--<dependency> <groupId>org.slf4j</groupId> <artifactId>slf4j-simple</artifactId> 
-			<version>1.7.25</version> <scope>runtime</scope> </dependency> -->
+				<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>2.0.0-alpha5</version>
-			<scope>compile</scope>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+			<version>2.15.0</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api -->
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-log4j12</artifactId>
-			<version>2.0.0-alpha5</version>
-			<scope>compile</scope>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+			<version>2.15.0</version>
 		</dependency>
+		
+		
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
