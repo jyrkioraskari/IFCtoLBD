@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.33.1
+Version 2.33.2
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -128,19 +128,6 @@ model=lbdconverter.convert("Duplex_A_20110505.ifc");
 model.write(jpype.java.lang.System.out)
 jpype.shutdownJVM()
 ```
-
-
-## IFCtoLBD OpenAPI Implementation
-
-An Restful OpenAPI implementation for IFCtoLBD converter.  
-
-A test installation:
-http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/
-
-
-### Swagger.json description for the services
-
-http://lbd.arch.rwth-aachen.de/IFCtoLBD_OpenAPI/apidocs/ui/swagger.json
 
 
 ### Docker for the Open API interface
