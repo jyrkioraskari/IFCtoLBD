@@ -183,7 +183,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ### December 15, 2021  Log4J
 Last Sunday the software was pached to contain Log4J version 2.15 and today version 2.16 was added. 
 The OpenAPI installation was shortly tested under Apache Tomcat 9.0.54 and updated to the current IFCtoLBD 
-release. 
+release. The Docker image is also updated.
 
 ### December 9, 2021  Command line converter tool
 
