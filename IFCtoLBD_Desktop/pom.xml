@@ -12,7 +12,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD_Desktop</artifactId>
-	<version>2.33.2</version>
+	<version>2.33.3</version>
 	<name>IFCtoLBD Desktop Java 15 and newer</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
@@ -79,7 +79,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.33.2</version>
+			<version>2.33.3</version>
 		</dependency>
 
 	</dependencies>
