@@ -117,7 +117,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFC2RDF</artifactId>
-			<version>1.2.4</version>
+			<version>1.2.8</version>
 		</dependency>
 		<!-- IFCtoRDF sets the Apache Jena version -->
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->

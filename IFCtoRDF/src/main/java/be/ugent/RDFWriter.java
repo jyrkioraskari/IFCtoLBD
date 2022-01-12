@@ -1,5 +1,5 @@
 /*
- * Copyright 2016 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
+ * Copyright 2016, 2022 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -150,8 +150,8 @@ public class RDFWriter {
         ttlWriter.finish();
     }
 
+    boolean filter_geometry=true;;
     private void createInstances() throws IOException {
-        LOG.info("size : " + ent.entrySet().size());
         for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
             IFCVO ifcLineEntry = entry.getValue();
             String typeName = "";
@@ -159,6 +159,27 @@ public class RDFWriter {
                 typeName = ent.get(ifcLineEntry.getName()).getName();
             else if (typ.containsKey(ifcLineEntry.getName()))
                 typeName = typ.get(ifcLineEntry.getName()).getName();
+            
+            if(filter_geometry && typeName.equals("IfcFace"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcPolyLoop"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcCartesianPoint"))
+                continue;
+            if(typeName.equals("IfcOwnerHistory"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcRelAssociatesMaterial"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcExtrudedAreaSolid"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcCompositeCurve"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcSurfaceStyleRendering"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcStyledItem"))
+                continue;
+            if(filter_geometry && typeName.equals("IfcShapeRepresentation"))
+                continue;
 
             OntClass cl = ontModel.getOntClass(ontNS + typeName);
             if(cl==null)
@@ -332,7 +353,8 @@ public class RDFWriter {
         LinkedList<IFCVO> ifcVOs = new LinkedList<>();
 
         // process list
-        for (int j = 0; j < tmpList.size(); j++) {
+        int tmpList_size=tmpList.size();
+        for (int j = 0; j < tmpList_size; j++) {
             Object o1 = tmpList.get(j);
             if (Character.class.isInstance(o1)) {
                 Character c = (Character) o1;
@@ -392,7 +414,8 @@ public class RDFWriter {
             } else if (LinkedList.class.isInstance(o1)) {
                 if (typeRemembrance != null) {
                     LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
-                    for (int jj = 0; jj < tmpListInList.size(); jj++) {
+                    int tmpListInList_size=tmpListInList.size();
+                    for (int jj = 0; jj < tmpListInList_size; jj++) {
                         Object o2 = tmpListInList.get(jj);
                         if (Character.class.isInstance(o2)) {
                             if ((Character) o2 != ',') {
@@ -410,7 +433,8 @@ public class RDFWriter {
                             // treated as new instances that are equivalent to
                             // the correct lists
                             LinkedList<Object> tmpListInListInList = (LinkedList<Object>) o2;
-                            for (int jjj = 0; jjj < tmpListInListInList.size(); jjj++) {
+                            int tmpListInListInList_size=tmpListInListInList.size();
+                            for (int jjj = 0; jjj < tmpListInListInList_size; jjj++) {
                                 Object o3 = tmpListInListInList.get(jjj);
                                 if (Character.class.isInstance(o3)) {
                                     if ((Character) o3 != ',') {
@@ -463,7 +487,8 @@ public class RDFWriter {
                     }
                 } else {
                     LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
-                    for (int jj = 0; jj < tmpListInList.size(); jj++) {
+                    int tmpListInList_size=tmpListInList.size();
+                    for (int jj = 0; jj < tmpListInList_size; jj++) {
                         Object o2 = tmpListInList.get(jj);
                         if (Character.class.isInstance(o2)) {
                             if ((Character) o2 != ',') {
@@ -537,8 +562,11 @@ public class RDFWriter {
                 if (typerange.asClass().hasSuperClass(ontModel.getOntClass(LIST_NS + "OWLList")))
                     addRegularListProperty(r, p, literals, null);
                 else
-                    for (int i = 0; i < literals.size(); i++)
+                {
+                    int literals_size=literals.size();
+                    for (int i = 0; i < literals_size; i++)
                         createLiteralProperty(r, p, typerange, literals.get(i));
+                }
             } else {
                 LOG.warn("*WARNING 14*: Nothing happened. Not sure if this is good or bad, possible or not.");
             }
@@ -562,7 +590,8 @@ public class RDFWriter {
         LinkedList<String> literals = new LinkedList<>();
 
         // process list
-        for (int j = 0; j < tmpList.size(); j++) {
+        int tmpList_size=tmpList.size();
+        for (int j = 0; j < tmpList_size; j++) {
             Object o1 = tmpList.get(j);
             if (Character.class.isInstance(o1)) {
                 Character c = (Character) o1;
@@ -582,7 +611,8 @@ public class RDFWriter {
                 }
             } else if (LinkedList.class.isInstance(o1) && typeRemembrance != null) {
                 LinkedList<Object> tmpListInlist = (LinkedList<Object>) o1;
-                for (int jj = 0; jj < tmpListInlist.size(); jj++) {
+                int tmpListInlist_size=tmpListInlist.size();
+                for (int jj = 0; jj < tmpListInlist_size; jj++) {
                     Object o2 = tmpListInlist.get(jj);
                     if (String.class.isInstance(o2)) {
                         literals.add(filterExtras((String) o2));
@@ -704,7 +734,8 @@ public class RDFWriter {
             } else {
                 List<Resource> reslist = new ArrayList<>();
                 // createrequirednumberofresources
-                for (int i = 0; i < el.size(); i++) {
+                int el_size=el.size();
+                for (int i = 0; i < el_size; i++) {
                     if (i == 0)
                         reslist.add(r);
                     else {
@@ -718,12 +749,13 @@ public class RDFWriter {
                     // bind the properties with literal values only if we are
                     // actually dealing with literals
                     List<String> literals = new ArrayList<>();
-                    for (int i = 0; i < el.size(); i++) {
+                    for (int i = 0; i < el_size; i++) {
                         literals.add((String) el.get(i));
                     }
                     addListInstanceProperties(reslist, literals, listrange);
                 } else {
-                    for (int i = 0; i < reslist.size(); i++) {
+                    int reslist_size=reslist.size();
+                    for (int i = 0; i < reslist_size; i++) {
                         Resource r1 = reslist.get(i);
                         IFCVO vo = (IFCVO) el.get(i);
                         EntityVO evorange = ent.get(ExpressReader.formatClassName((vo).getName()));
@@ -761,7 +793,8 @@ public class RDFWriter {
                 } else {
                     List<Resource> reslist = new ArrayList<>();
                     // createrequirednumberofresources
-                    for (int ii = 0; ii < el.size(); ii++) {
+                    int el_size=el.size();
+                    for (int ii = 0; ii < el_size; ii++) {
                         Resource r1 = getResource(baseURI + range.getLocalName() + "_" + idCounter, range);
                         reslist.add(r1);
                         idCounter++;
@@ -813,7 +846,8 @@ public class RDFWriter {
                     LOG.info("*OK 20*: Handling list of list");
                     listrange = range;
                 }
-                for (int i = 0; i < el.size(); i++) {
+                int el_size=el.size();
+                for (int i = 0; i < el_size; i++) {
                     Resource r1 = el.get(i);
                     Resource r2 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter); // was
                     // listrange
@@ -843,7 +877,8 @@ public class RDFWriter {
         List<IFCVO> entlist = new ArrayList<>();
 
         // createrequirednumberofresources
-        for (int i = 0; i < tmpList.size(); i++) {
+        int tmpList_size=tmpList.size();
+        for (int i = 0; i < tmpList_size; i++) {
             if (IFCVO.class.isInstance(tmpList.get(i))) {
                 Resource r1 = getResource(baseURI + typerange.getLocalName() + "_" + idCounter, typerange);
                 reslist.add(r1);
@@ -863,7 +898,8 @@ public class RDFWriter {
         OntProperty listp = ontModel.getOntProperty(LIST_NS + "hasContents");
         OntProperty isfollowed = ontModel.getOntProperty(LIST_NS + "hasNext");
 
-        for (int i = 0; i < reslist.size(); i++) {
+        int reslist_size=reslist.size();
+        for (int i = 0; i < reslist_size; i++) {
             Resource r = reslist.get(i);
 
             OntResource rclass = null;
@@ -898,7 +934,8 @@ public class RDFWriter {
             OntProperty valueProp = ontModel.getOntProperty(EXPRESS_NS + "has" + xsdTypeCAP);
 
             // Adding Content only if found
-            for (int i = 0; i < reslist.size(); i++) {
+            int reslist_size=reslist.size();
+            for (int i = 0; i < reslist_size; i++) {
                 Resource r = reslist.get(i);
                 String literalString = listelements.get(i);
                 String key = valueProp.toString() + ":" + xsdType + ":" + literalString;
