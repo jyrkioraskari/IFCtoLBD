@@ -25,7 +25,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
+<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
@@ -173,24 +173,21 @@
                                                 </ToggleSwitch>
 												
 												
-												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" selected="true" text="Level 1" textFill="#dd0a0a" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
-                                       <toggleGroup>
-                                          <ToggleGroup fx:id="level" />
-                                       </toggleGroup>
+												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel1" selected="true" text="Level 1" textFill="#dd0a0a" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
                                        <font>
                                           <Font name="Arial" size="12.0" />
                                        </font>
+                                                   <toggleGroup>
+                                                      <ToggleGroup fx:id="PL" />
+                                                   </toggleGroup>
                                     </RadioButton>
 												
-                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" text="Level 2" textFill="#dd0a0a" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel2" text="Level 2" textFill="#dd0a0a" toggleGroup="$PL" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
-                                                   <toggleGroup>
-                                                      <ToggleGroup fx:id="level" />
-                                                   </toggleGroup>
                                                 </RadioButton>
-                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" text="Level 3" textFill="#dd0a0a" toggleGroup="$level" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel3" text="Level 3" textFill="#dd0a0a" toggleGroup="$PL" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>

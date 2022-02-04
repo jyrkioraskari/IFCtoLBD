@@ -40,6 +40,7 @@ import java.util.prefs.Preferences;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
+
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
@@ -271,6 +272,33 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         // rdf_fileIcon.setDisable(false);
         // rdf_fileIcon.setImage(fileimage);
     }
+    
+    /*
+     * These forces the user interface to be coherent as the Toggle Grpup does not work
+     */
+    
+    @FXML
+    private void selectPropertyLevel1() {
+        level1.setSelected(true);
+        level2.setSelected(false);
+        level3.setSelected(false);
+    }
+    
+    @FXML
+    private void selectPropertyLevel2() {
+        level1.setSelected(false);
+        level2.setSelected(true);
+        level3.setSelected(false);
+    }
+    
+    @FXML
+    private void selectPropertyLevel3() {
+        level1.setSelected(false);
+        level2.setSelected(false);
+        level3.setSelected(true);
+
+    }
+    
 
     @FXML
     private void selectTargetFile() {
