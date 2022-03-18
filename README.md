@@ -180,6 +180,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### March 18, 2022  "This application requires a Java Runtime Environment"
+The windows executable bundle for the Open JDK was fixed to contain the Java version.
+
 ### December 15, 2021  Log4J
 Last Sunday the software was pached to contain Log4J version 2.15 and today version 2.16 was added. 
 The OpenAPI installation was shortly tested under Apache Tomcat 9.0.54 and updated to the current IFCtoLBD 
