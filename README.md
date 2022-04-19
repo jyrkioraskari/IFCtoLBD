@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.34.0
+Version 2.35.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -11,7 +11,8 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 15. OpenJava can be downloaded from  (https://jdk.java.net/15/)
+It is recommended to use OpenJava 17. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+At a windows system, download the MSI file that matches your processsor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
 
@@ -180,6 +181,13 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### April 19, 2022  
+Added unlinked elements and those that have no LBD type.It allows using the converter when there are not BOT elements connected to the 
+interested in elements.
+
+### March 18, 2022  "This application requires a Java Runtime Environment"
+The windows executable bundle for the Open JDK was fixed to contain the Java version.
+
 ### December 15, 2021  Log4J
 Last Sunday the software was pached to contain Log4J version 2.15 and today version 2.16 was added. 
 The OpenAPI installation was shortly tested under Apache Tomcat 9.0.54 and updated to the current IFCtoLBD 

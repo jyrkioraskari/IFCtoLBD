@@ -1,11 +1,9 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
 	<artifactId>IFCtoLBD_OpenAPI</artifactId>
-	<version>2.34.0</version>
+	<version>2.35.0</version>
 	<packaging>war</packaging>
 	<name>IFCtoLBD OpenAPI Interface</name>
 
@@ -20,24 +18,32 @@
 	<prerequisites>
 		<maven>3</maven>
 	</prerequisites>
-
+	<properties>
+		<maven.compiler.source>11</maven.compiler.source>
+		<maven.compiler.target>11</maven.compiler.target>
+		<jersey2.version>2.35</jersey2.version>
+		<jaxrs.version>2.1.1</jaxrs.version>
+		<tomcat.version>9.0.53</tomcat.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<finalName>IFCtoLBD_OpenAPI</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
-					<version>3.0</version>
-					<configuration>
-						<source>15</source>
-						<target>15</target>
-						<webXml>src\main\webapp\WEB-INF\web.xml</webXml>
-					</configuration>
+					<version>3.8.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<version>3.3.1</version>
 				</plugin>
 				<plugin>
 					<groupId>com.webcohesion.enunciate</groupId>
 					<artifactId>enunciate-maven-plugin</artifactId>
-					<version>2.13.3</version>
+					<version>2.14.0</version>
 					<configuration>
 						<docsDir>${project.build.directory}/IFCtoLBD_OpenAPI</docsDir>
 						<configFile>src/conf/enunciate.xml</configFile>
@@ -54,14 +60,7 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-	<properties>
-		<jersey2.version>2.35</jersey2.version>  
-		<jaxrs.version>2.1.1</jaxrs.version>
-		<tomcat.version>9.0.53</tomcat.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
 	<dependencies>
-		<!-- JAX-RS -->
 		<dependency>
 			<groupId>javax.ws.rs</groupId>
 			<artifactId>javax.ws.rs-api</artifactId>
@@ -121,7 +120,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
-			<version>2.34.0</version>
+			<version>2.35.0</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->

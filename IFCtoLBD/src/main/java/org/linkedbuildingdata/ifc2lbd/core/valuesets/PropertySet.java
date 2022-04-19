@@ -178,6 +178,9 @@ public class PropertySet {
 
             if (mapBSDD.get(pname) != null)
                 property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
+            
+            // Just the complete name
+            property_resource.addProperty(RDFS.label, this.propertyset_name+":"+pname);
 
             if (this.props_level == 3) {
                 Resource state_resourse;
