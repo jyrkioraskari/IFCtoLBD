@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.34.1
+Version 2.35.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -180,6 +180,10 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### April 19, 2022  
+Added unlinked elements and those that have no LBD type.It allows using the converter when there are not BOT elements connected to the 
+interested in elements.
+
 ### March 18, 2022  "This application requires a Java Runtime Environment"
 The windows executable bundle for the Open JDK was fixed to contain the Java version.
 
