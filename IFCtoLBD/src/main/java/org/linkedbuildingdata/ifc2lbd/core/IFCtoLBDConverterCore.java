@@ -199,6 +199,8 @@ public abstract class IFCtoLBDConverterCore {
 					eventBus.post(new IFCtoLBD_SystemStatusEvent(
 							"Building elements properties file is: " + out_properties_filename));
 				}
+				else
+					lbd_general_output_model.add(lbd_property_output_model);
 			} else
 				lbd_general_output_model.add(lbd_property_output_model);
 		}

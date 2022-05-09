@@ -37,41 +37,36 @@
 			<artifactId>controlsfx</artifactId>
 			<version>11.1.1</version>
 		</dependency>
+		
+		<dependency>
+			<groupId>de.gsi.chart</groupId>
+			<artifactId>chartfx-chart</artifactId>
+			<version>11.2.7</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>18-ea+2</version>
+			<version>19-ea+6</version>
 		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>18-ea+2</version>
+			<version>19-ea+6</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
-		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-base -->
+
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			<version>18-ea+2</version>
+			<version>19-ea+6</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			<version>18-ea+2</version>
-			<classifier>win</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>18-ea+2</version>
-			<classifier>linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.openjfx</groupId>
-			<artifactId>javafx-graphics</artifactId>
-			<version>18-ea+2</version>
-			<classifier>mac</classifier>
+			<version>19-ea+6</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
