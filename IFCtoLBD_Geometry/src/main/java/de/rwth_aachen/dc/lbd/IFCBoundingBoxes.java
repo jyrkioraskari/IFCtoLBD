@@ -30,12 +30,12 @@ public class IFCBoundingBoxes {
 	private IfcOpenShellModel renderEngineModel=null;
 
 	public IFCBoundingBoxes(File ifcFile) throws DeserializeException, IOException, RenderEngineException {
-		this.renderEngineModel = getRenderEngineModel(ifcFile);
 
 		 ExecutorService executor = Executors.newCachedThreadPool();
 	        Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
 	           public IfcOpenShellModel call() {
-	              return  getRenderEngineModel(ifcFile);
+	        	  renderEngineModel = getRenderEngineModel(ifcFile); 
+	              return  renderEngineModel;
 	           }
 	        };
 	        Future<IfcOpenShellModel> future = executor.submit(task);
