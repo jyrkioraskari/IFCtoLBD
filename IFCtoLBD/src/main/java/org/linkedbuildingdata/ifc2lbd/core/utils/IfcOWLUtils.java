@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -550,7 +551,8 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X2\\00FD\\X0\\", "ý");
                         line = line.replace("\\X2\\00FE\\X0\\", "þ");
                         line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
-
+                        
+                        line=unIFCUnicode(line);  // multi-character decode
                         line = line.replace("\\", "\\\\");
                         line = line.replace("\\\\\"", "\\\"");
 
@@ -593,6 +595,70 @@ public abstract class IfcOWLUtils {
         return tempFile;
     }
 
+    
+	static private String unIFCUnicode(String txt)
+	{
+		StringBuilder sb = new StringBuilder();
+		StringBuilder su4 = new StringBuilder();
+		int state=0;
+		for(char ch:txt.toCharArray())
+		{
+			switch(state)
+			{
+			case	0:
+				    if(ch=='\\' )
+				    	state=1;
+				    else
+				    	sb.append(ch);
+					break;
+			case	1:
+			    if(ch=='X' || ch=='x')
+			    	state=2;
+			    else 
+			    	state=0;
+				break;
+			case	2:
+			    if(ch=='2' || ch=='4')
+			    	state=3;
+			    else 
+			    	state=0;
+				break;
+			case	3:
+				if(ch=='\\')
+			    	state=4;
+			    else 
+			    	state=0;
+				break;
+				
+			case	4:
+			    if(ch=='\\')
+			    	state=5;
+			    else
+			    {
+			    	su4.append(ch);
+			    	if(su4.length()>3)
+			    	{
+			    		sb.append("\\u");
+			    		sb.append(su4);
+			    		su4.setLength(0);
+			    	}
+			    }
+				break;
+			case	5:
+			    if(ch=='\'')
+			    {
+			    	sb.append("'");
+			    	state=0;
+			    }
+			    if(ch=='/'|| ch=='\\')
+			    	state=0;			    
+				break;
+			}
+		}
+		System.out.println("sb:"+sb.toString());
+		return StringEscapeUtils.unescapeJava(sb.toString());
+	}
+    
     @SuppressWarnings("deprecation")
     private static List<String> split(String s) {
         List<String> ret = new ArrayList<>();
