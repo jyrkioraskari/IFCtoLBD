@@ -1,4 +1,4 @@
-package de.rwth_aachen.dc.mvdXMLOnlineChecker.upload;
+package de.rwth_aachen.dc.excelreport.upload;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,8 +12,8 @@ import com.vaadin.ui.Upload.Receiver;
 import com.vaadin.ui.Upload.SucceededEvent;
 import com.vaadin.ui.Upload.SucceededListener;
 
-import de.rwth_aachen.dc.mvdXMLOnlineChecker.events.EventBusCommunication;
-import de.rwth_aachen.dc.mvdXMLOnlineChecker.events.New_ifcSTEPFile;
+import de.rwth_aachen.dc.excelreport.events.EventBusCommunication;
+import de.rwth_aachen.dc.excelreport.events.New_ifcSTEPFile;
 
 
 public class WebFileHandler implements Receiver, SucceededListener, FailedListener {

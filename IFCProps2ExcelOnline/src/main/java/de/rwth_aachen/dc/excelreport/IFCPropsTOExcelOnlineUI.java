@@ -1,4 +1,4 @@
-package de.rwth_aachen.dc.mvdXMLOnlineChecker;
+package de.rwth_aachen.dc.excelreport;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -53,9 +53,9 @@ import com.vaadin.ui.Upload;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
 
-import de.rwth_aachen.dc.mvdXMLOnlineChecker.events.EventBusCommunication;
-import de.rwth_aachen.dc.mvdXMLOnlineChecker.events.New_ifcSTEPFile;
-import de.rwth_aachen.dc.mvdXMLOnlineChecker.upload.WebFileHandler;
+import de.rwth_aachen.dc.excelreport.events.EventBusCommunication;
+import de.rwth_aachen.dc.excelreport.events.New_ifcSTEPFile;
+import de.rwth_aachen.dc.excelreport.upload.WebFileHandler;
 
 @Theme("rwth")
 @Push

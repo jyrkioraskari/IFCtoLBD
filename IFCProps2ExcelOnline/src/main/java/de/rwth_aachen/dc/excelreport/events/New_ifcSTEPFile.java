@@ -1,4 +1,4 @@
-package de.rwth_aachen.dc.mvdXMLOnlineChecker.events;
+package de.rwth_aachen.dc.excelreport.events;
 
 import java.io.File;
 
