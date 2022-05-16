@@ -655,7 +655,6 @@ public abstract class IfcOWLUtils {
 				break;
 			}
 		}
-		System.out.println("sb:"+sb.toString());
 		return StringEscapeUtils.unescapeJava(sb.toString());
 	}
     
