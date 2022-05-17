@@ -913,7 +913,7 @@ public abstract class IFCtoLBDConverterCore {
 				if (!product_BE_ontology_statement.getObject().isResource())
 					continue;
 				Resource ifcowl_class = product_BE_ontology_statement.getObject().asResource();
-				System.err.println("ontURL: " + this.ontURI.get());
+				//System.err.println("ontURL: " + this.ontURI.get());
 				Resource mapped_ifcowl_class = ontology_model
 						.getResource(this.ontURI.get() + "#" + ifcowl_class.getLocalName());
 				StmtIterator subclass_statement_iterator = ontology_model

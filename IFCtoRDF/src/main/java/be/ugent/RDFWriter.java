@@ -152,6 +152,7 @@ public class RDFWriter {
 
     boolean filter_geometry=true;;
     private void createInstances() throws IOException {
+    	System.out.println("JO linemap size: "+linemap.entrySet().size());
         for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
             IFCVO ifcLineEntry = entry.getValue();
             String typeName = "";
