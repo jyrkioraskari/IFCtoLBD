@@ -20,3 +20,11 @@ hs_err_pid*
 *.db
 *.db
 /.metadata/
+IFCtoLBD_Geometry/.DS_Store
+IFCtoLBD_Geometry/src/.DS_Store
+IFCtoLBD_Geometry/src/main/.DS_Store
+IFCtoLBD_Geometry/src/main/java/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/rwth_aachen/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/rwth_aachen/dc/.DS_Store
+.DS_Store

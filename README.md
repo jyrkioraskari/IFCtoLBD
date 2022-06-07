@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.35.0
+Version 2.38.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -181,6 +181,13 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### June 07, 2022  
+Support for xsd:decimal.
+
+
+### May 16, 2022  
+Support for multi-character Unicode sequences.
+
 ### April 19, 2022  
 Added unlinked elements and those that have no LBD type.It allows using the converter when there are not BOT elements connected to the 
 interested in elements.

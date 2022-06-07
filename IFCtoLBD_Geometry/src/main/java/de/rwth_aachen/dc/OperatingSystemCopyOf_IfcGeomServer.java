@@ -16,6 +16,8 @@ public class OperatingSystemCopyOf_IfcGeomServer {
 	String IfcGeomServerLocation = null;
 	boolean os64bit = false;
 	boolean ixsystem = false;
+	
+	System.out.println("OS is: "+OS);
 
 	if (System.getProperty("sun.arch.data.model").equals("64"))
 	    os64bit = true;
@@ -27,7 +29,10 @@ public class OperatingSystemCopyOf_IfcGeomServer {
 		IfcGeomServerLocation = "/exe/32/win/IfcGeomServer.exe";
 
 	if (OS.contains("mac"))
-	    IfcGeomServerLocation = null;
+	{
+		ixsystem = true;
+	    IfcGeomServerLocation = "/exe/64/osx/IfcGeomServer";;
+	}    
 
 	if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
 	    ixsystem = true;
@@ -61,6 +66,8 @@ public class OperatingSystemCopyOf_IfcGeomServer {
 		} catch (IOException e1) {
 		    e1.printStackTrace();
 		}
+		
+		
 		if (ixsystem) {
 		    try {
 			Files.setPosixFilePermissions(geomserverPath, PosixFilePermissions.fromString("rwxrwxrwx"));

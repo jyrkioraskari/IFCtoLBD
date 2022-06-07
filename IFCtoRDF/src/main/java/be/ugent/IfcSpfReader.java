@@ -316,6 +316,7 @@ public class IfcSpfReader {
         if (in == null)
             in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
         om.read(in, null, "TTL");
+        
 
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);

@@ -157,6 +157,8 @@ public class IfcGeomServerClient implements AutoCloseable {
 		if (source == ExecutableSource.REPOSITORY) {
 			try {
 				this.executableFilename = getExecutablePathFromRepo(getSourcePath());
+				System.out.println("ifcOpenShell: "+this.executableFilename);
+				
 				FileTime fileTime = (FileTime) Files.getAttribute(this.executableFilename, "creationTime");
 				buildDateTime = new GregorianCalendar();
 				buildDateTime.setTimeInMillis(fileTime.toMillis());
@@ -167,10 +169,12 @@ public class IfcGeomServerClient implements AutoCloseable {
 			}
 		} else if (source == ExecutableSource.S3) {
 			boolean initialized = false;
+			System.out.println("ifcOpenShell S3s");
 			
 			String platform = getPlatform();
 			try {
 				String url = "https://s3.amazonaws.com/ifcopenshell-builds/IfcGeomServer-" + IfcOpenShellEnginePlugin.BRANCH + "-" + commitSha + "-" + platform + ".zip";
+				
 				
 				String baseName = new File(new URL(url).getPath()).getName();
 				baseName = baseName.substring(0, baseName.length() - 4);
@@ -233,6 +237,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 	public void initialize() throws RenderEngineException {
 		try {
+			System.out.println("Running path to geom sserver: "+this.executableFilename.toAbsolutePath().toString());
 			process = Runtime.getRuntime().exec(this.executableFilename.toAbsolutePath().toString());
 			dos = new LittleEndianDataOutputStream(process.getOutputStream());
 			dis = new LittleEndianDataInputStream(process.getInputStream());

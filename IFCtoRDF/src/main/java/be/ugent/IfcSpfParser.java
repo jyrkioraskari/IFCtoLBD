@@ -192,7 +192,7 @@ public class IfcSpfParser {
 
                         if (or == null) {
                             LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + vo.getLineNum() + "=" + vo.getFullLineAfterNum());
-                            return false;
+                            return true; // JO 2022-05
                         }
                         vo.getObjectList().set(i, or);
                     }
@@ -217,9 +217,10 @@ public class IfcSpfParser {
                                 else
                                     or = linemap.get(toLong(s.substring(1)));
                                 if (or == null) {
+                                	System.out.println("\"JO P3\" *ERROR 7*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
                                     LOG.error("*ERROR 7*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
                                     tmpList.set(j, "-");
-                                    return false;
+                                    return true; // JO 2022-05
                                 } else
                                     tmpList.set(j, or);
                             } else {
@@ -244,7 +245,7 @@ public class IfcSpfParser {
                                         if (or == null) {
                                             LOG.error("*ERROR 8*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
                                             tmp2List.set(j2, "-");
-                                            return false;
+                                            return true; // JO 2022-05
                                         } else
                                             tmp2List.set(j2, or);
                                     }
