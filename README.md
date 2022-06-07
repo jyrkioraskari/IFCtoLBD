@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.37.2
+Version 2.38.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -181,6 +181,10 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ```
 
 ## Blog
+### June 07, 2022  
+Support for xsd:decimal.
+
+
 ### May 16, 2022  
 Support for multi-character Unicode sequences.
 
