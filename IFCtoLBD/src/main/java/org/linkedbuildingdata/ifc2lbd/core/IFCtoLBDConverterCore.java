@@ -110,9 +110,13 @@ public abstract class IFCtoLBDConverterCore {
 	Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
+		System.out.println("Conversion core init 1");
 		eventBus.register(this);
+		System.out.println("Conversion core init 2");
 		lbd_dataset = DatasetFactory.create();
-		lbd_dataset.setDefaultModel(lbd_general_output_model);
+		System.out.println("Conversion core init 3");
+		
+		System.out.println("Conversion core init 4");
 	}
 
 	Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
@@ -1029,11 +1033,14 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	protected void initialise_JenaModels() {
+		System.out.println("Create Jena models");
 		ontology_model = ModelFactory.createDefaultModel();
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
 		this.lbd_property_output_model = ModelFactory.createDefaultModel();
+		this.lbd_dataset.setDefaultModel(lbd_general_output_model);
+		
 	}
 
 	public Map<String, PropertySet> getPropertysets() {

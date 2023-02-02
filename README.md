@@ -11,7 +11,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 17. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+It is recommended to use OpenJava 19. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
 At a windows system, download the MSI file that matches your processsor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
@@ -20,7 +20,7 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Minimum requirement is JAVA 15.
+Minimum requirement is JAVA 15. Java 19 can be used for the converter and Desctop.  For the OpenAPI interface, use Java 15 (The Enunciate library does not support newer yet).
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
@@ -66,12 +66,12 @@ call mvn clean install
 call mvn enunciate:docs install
 cd ..
 ```
-The best way to create a runnable [Java 15] (https://jdk.java.net/15/) program is to 
+Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
-2. Import the runtime definition:  Eclipse:/Project Explorer/IFCtoLBD_Desktop_Java15/others/Main 15.launch
-3. Run as "Main Java 15"
-4. Export:Java/Runnabe Jar file/Next
-5. Launch configuration:"Main 15 - IFCtoLBD Desktop Java15", Package resource libraries into generated JAR
+2. Open org.linkedbuildingdata.ifc2lbd.Main class on the Eclipse editor
+3. Select from the menu /Run/Run
+4. Select the /File/Export:Java/Runnabe Jar file/Next
+5. Launch configuration: <Select the created Main runtime configuration>, Package resource libraries into generated JAR
 6. Select destination file and Finish.
 
 An example command line usage of the program is:

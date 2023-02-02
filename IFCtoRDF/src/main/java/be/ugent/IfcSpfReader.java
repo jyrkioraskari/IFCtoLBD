@@ -31,11 +31,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
-import org.apache.jena.riot.web.HttpOp;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

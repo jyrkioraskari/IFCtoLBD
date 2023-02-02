@@ -81,7 +81,6 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.15</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -119,10 +118,11 @@
 		</dependency>
 		<!-- IFCtoRDF sets the Apache Jena version -->
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
+		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
-			<artifactId>apache-jena-libs</artifactId>
-			<version>[4.2.0,)</version>
+			<artifactId>jena</artifactId>
+			<version>4.7.0</version>
 			<type>pom</type>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.github.davidmoten/rtree-multi -->
@@ -235,7 +235,6 @@
 			</build>
 		</profile>
 	</profiles>
-
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
@@ -267,7 +266,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
@@ -302,9 +300,7 @@
 						<phase>generate-resources</phase>
 					</execution>
 				</executions>
-
 			</plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -352,10 +348,7 @@
 						</rules>
 					</configuration>
 				</plugin>
-
 			</plugins>
 		</pluginManagement>
 	</build>
-
-
 </project>
