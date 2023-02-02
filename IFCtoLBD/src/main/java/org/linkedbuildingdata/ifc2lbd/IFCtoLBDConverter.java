@@ -94,7 +94,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
         this.uriBase = uriBase;
-        System.out.println("Conversion starts");
         initialise_JenaModels();
         
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -270,14 +269,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      */
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
                     boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
-    	System.out.println("Convert 1");
         if (IfcOWLUtils.getExpressSchema(ifc_filename) == null)
         {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
             return null;
         }
         
-        System.out.println("Convert 2");
         if (hasGeometry)
             try {
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));

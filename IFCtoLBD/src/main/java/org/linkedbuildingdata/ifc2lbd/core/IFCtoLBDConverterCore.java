@@ -110,13 +110,8 @@ public abstract class IFCtoLBDConverterCore {
 	Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
-		System.out.println("Conversion core init 1");
 		eventBus.register(this);
-		System.out.println("Conversion core init 2");
 		lbd_dataset = DatasetFactory.create();
-		System.out.println("Conversion core init 3");
-		
-		System.out.println("Conversion core init 4");
 	}
 
 	Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
@@ -357,7 +352,6 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			BoundingBox bb = this.bounding_boxes.getBoundingBox(guid);
 			if (bb != null && has_geometry.add(lbd_resource)) {
-				System.out.println("Bounding box for: " + lbd_resource);
 				Resource sp_blank = this.lbd_general_output_model.createResource();
 				lbd_resource.addProperty(GEO.hasGeometry, sp_blank);
 				sp_blank.addLiteral(GEO.asWKT, bb.toString());
@@ -617,7 +611,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
 		}
-		System.out.println("Connect element: " + ifcOWL_element);
+		//System.out.println("Connect element: " + ifcOWL_element);
 		if (bot_type.isPresent()) {
 			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
 					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase,
@@ -1033,7 +1027,6 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	protected void initialise_JenaModels() {
-		System.out.println("Create Jena models");
 		ontology_model = ModelFactory.createDefaultModel();
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
