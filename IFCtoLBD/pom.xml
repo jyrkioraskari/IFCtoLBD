@@ -347,7 +347,7 @@
 							<dependencyConvergence />
 						</rules>
 					</configuration>
-				</plugin>
+				</plugin>				
 			</plugins>
 		</pluginManagement>
 	</build>

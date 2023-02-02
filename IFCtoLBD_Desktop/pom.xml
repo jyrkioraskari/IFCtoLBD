@@ -37,7 +37,6 @@
 			<artifactId>controlsfx</artifactId>
 			<version>11.1.1</version>
 		</dependency>
-		
 		<dependency>
 			<groupId>de.gsi.chart</groupId>
 			<artifactId>chartfx-chart</artifactId>
@@ -49,20 +48,17 @@
 			<artifactId>javafx-controls</artifactId>
 			<version>19-ea+6</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
 			<version>19-ea+6</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
 			<version>19-ea+6</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
@@ -73,7 +69,7 @@
 			<artifactId>IFCtoLBD</artifactId>
 			<version>2.39.0</version>
 		</dependency>
-
+		
 	</dependencies>
 	<build>
 		<plugins>
@@ -91,7 +87,6 @@
 					</archive>
 				</configuration>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
@@ -126,9 +121,7 @@
 						<phase>generate-resources</phase>
 					</execution>
 				</executions>
-
 			</plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>

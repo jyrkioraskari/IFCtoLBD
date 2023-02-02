@@ -1,7 +1,7 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
-import java.io.File;
+import java.util.Optional;
 import java.util.concurrent.Callable;
 
 import org.apache.jena.sys.JenaSystem;
@@ -30,73 +30,145 @@ import picocli.CommandLine.Parameters;
  * limitations under the License.
  */
 
-@Command(name = "IFCtoLBD_CLI", mixinStandardHelpOptions = true, version = "IFCtoLBD_CLI")
+@Command(name = "IFCtoLBD_CLI", mixinStandardHelpOptions = true)
 public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 	/*
-   
-    * @param uriBase
-    *            
-    * @param target_file
-    *            
-    * @param props_level
-    *            The levels described in
-    *            https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
-    */
-	
+	 * 
+	 * @param uriBase
+	 * 
+	 * @param target_file
+	 * 
+	 * @param props_level The levels described in
+	 * https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/
+	 * presentation_LBDcall_20180312_final.pdf
+	 */
+
 	@Parameters(index = "0", description = "The absolute path for the IFC file that will be converted.")
 	private String ifc_filename;
 
-	@Parameters(index = "1", description = "The URI base for all the elemenents that will be created.")
-    private String uriBase;
+	@Option(names = { "-t",
+			"--target_file" }, required = false, description = "he main file name for the output. If there are many, they will be sharing the same name beginning.")
+	private Optional<String> target_file;
 
-	@Parameters(index = "2", description = "The main file name for the output. If there are many, they will be sharing the same name beginning.")
-    private String target_file;
-	
-    
-	@Parameters(index = "3", description = "The OPM ontology complexity level")
-    private int props_level;
-	
-    @Option(names = { "-be", "--hasBuildingElements" },
-    description = "The Building Elements will be created in the output.")
-    private boolean[] hasBuildingElements = new boolean[0];
+	@Option(names = { "-u",
+			"--url" }, required = false, description = "The URI base for all the elemenents that will be created.")
+	private Optional<String> uriBase;
 
+	@Option(names = { "-l", "--level" }, required = false, description = "The OPM ontology complexity level")
+	private Optional<Integer> props_level;
 
-    @Option(names = { "-sbe", "--hasSeparateBuildingElementsModel" },
-    description = "The Building elements will have a separate file.")
-    private boolean[] hasSeparateBuildingElementsModel = new boolean[0];
+	@Option(names = { "-be",
+			"--hasBuildingElements" }, description = "The Building Elements will be created in the output.")
+	private Optional<Boolean> hasBuildingElements;
 
-    @Option(names = { "-p", "--hasBuildingElementProperties" },
-    description = "The properties will ne added into the output.")
-    private boolean[] hasBuildingProperties = new boolean[0];
+	@Option(names = {
+			"--hasSeparateBuildingElementsModel" }, description = "The Building elements will have a separate file.")
+	private Optional<Boolean> hasSeparateBuildingElementsModel;
 
-    @Option(names = { "-sp", "--hasSeparatePropertiesModel" },
-    description = "The properties will be written in a separate file.")
-    private boolean[] hasSeparatePropertiesModel = new boolean[0];
+	@Option(names = { "-p",
+			"--hasBuildingElementProperties" }, description = "The properties will ne added into the output.")
+	private Optional<Boolean> hasBuildingProperties;
 
-    @Option(names = { "-b", "--hasBlankNodes" },
-    description = "Blank nodes are used.")
-    private boolean[] hasPropertiesBlankNodes = new boolean[0];
+	@Option(names = {
+			"--hasSeparatePropertiesModel" }, description = "The properties will be written in a separate file.")
+	private Optional<Boolean> hasSeparatePropertiesModel;
 
-    @Option(names = { "-gl", "--hasGeolocation" },
-    description = "Geolocation, i.e., the latitude and longitude are added.")
-    private boolean[] hasGeolocation = new boolean[0];
+	@Option(names = { "-b", "--hasBlankNodes" }, description = "Blank nodes are used.")
+	private Optional<Boolean> hasPropertiesBlankNodes;
 
-	
+	@Option(names = { "--hasGeolocation" }, description = "Geolocation, i.e., the latitude and longitude are added.")
+	private Optional<Boolean> hasGeolocation;
+
+	@Option(names = { "--hasGeometry" }, description = "The bounding boxes are generated for elements.")
+	private Optional<Boolean> hasGeometry;
+
+	@Option(names = { "--ifcOWL" }, description = "Geolocation, i.e., the latitude and longitude are added.")
+	private Optional<Boolean> exportIfcOWL;
+
+	@Option(names = {
+			"--hasTriG" }, description = "TriG is a serialization format for RDF (Resource Description Framework) graphs. It is a plain text format for serializing named graphs")
+	private Optional<Boolean> namedGraphs;
+
+	@Option(names = { "--hasUnits" }, description = "Data units are added.")
+	private Optional<Boolean> hasUnits;
 
 	@Override
 	public Integer call() throws Exception {
-		new IFCtoLBDConverter(ifc_filename, uriBase, target_file, props_level, true, false, true, false, false, true);
+		String ifc_filename = this.ifc_filename;
+
+		String uriBase = "https://lbd.example.com/";
+		if (this.uriBase.isPresent())
+			uriBase = this.uriBase.get();
+
+		String target_file = ifc_filename.split(".ifc")[0] + ".ttl";
+		if (this.target_file.isPresent())
+			target_file = this.target_file.get();
+
+		int props_level = 1;
+		if (this.props_level.isPresent())
+			props_level = this.props_level.get();
+
+		boolean hasBuildingElements = false;
+		if (this.hasBuildingElements.isPresent())
+			hasBuildingElements = this.hasBuildingElements.get();
+
+		boolean hasSeparateBuildingElementsModel = false;
+		if (this.hasSeparateBuildingElementsModel.isPresent())
+			hasSeparateBuildingElementsModel = this.hasSeparateBuildingElementsModel.get();
+
+		boolean hasBuildingProperties = false;
+		if (this.hasBuildingProperties.isPresent())
+			hasBuildingProperties = this.hasBuildingProperties.get();
+
+		boolean hasSeparatePropertiesModel = false;
+		if (this.hasSeparatePropertiesModel.isPresent())
+			hasSeparatePropertiesModel = this.hasSeparatePropertiesModel.get();
+
+		boolean hasPropertiesBlankNodes = false;
+		if (this.hasPropertiesBlankNodes.isPresent())
+			hasPropertiesBlankNodes = this.hasPropertiesBlankNodes.get();
+
+		boolean hasGeolocation = false;
+		if (this.hasGeolocation.isPresent())
+			hasGeolocation = this.hasGeolocation.get();
+
+		System.out.println("Target is: " + target_file);
+
+		boolean hasGeometry = false;
+		if (this.hasGeometry.isPresent())
+			hasGeometry = this.hasGeometry.get();
+
+		boolean exportIfcOWL = false;
+		if (this.exportIfcOWL.isPresent())
+			exportIfcOWL = this.exportIfcOWL.get();
+
+		boolean namedGraphs = false;
+		if (this.namedGraphs.isPresent())
+			namedGraphs = this.namedGraphs.get();
+
+		boolean hasUnits = false;
+		if (this.hasUnits.isPresent())
+			hasUnits = this.hasUnits.get();
+
+		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
+		c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
+				hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
+
 		return null;
 	}
 
+	public static void main(String[] args) {
+		JenaSystem.init();
+		IFCtoLBDConverter_CLI cli = new IFCtoLBDConverter_CLI();
+		CommandLine commandLine = new CommandLine(cli);
+		int exitCode = commandLine.execute(args);
+		if (commandLine.isVersionHelpRequested()) {
 
-    public static void main(String[] args) {
-        JenaSystem.init();
-        int exitCode = new CommandLine(new IFCtoLBDConverter_CLI()).execute(args);
-        
-                System.exit(exitCode);
-    }
+			System.out.println("Program version is 2.39.0.");
 
+		}
+		System.exit(exitCode);
+	}
 
 }

@@ -195,10 +195,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
         this.uriBase = uriBase;
-        System.out.println("Conversion init 1");
 
         initialise_JenaModels();
-        System.out.println("Conversion init 2");
 
     }
 

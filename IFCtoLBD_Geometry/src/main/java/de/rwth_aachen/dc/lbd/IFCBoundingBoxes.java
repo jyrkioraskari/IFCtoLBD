@@ -91,9 +91,7 @@ public class IFCBoundingBoxes {
 	        System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 	        Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
 	        IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, false);
-	        System.out.println("init");
 	        ifcOpenShellEngine.init();
-	        System.out.println("init done");
 	        FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
 	        System.out.println("ifcFile: " + ifcFile);

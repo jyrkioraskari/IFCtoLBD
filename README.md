@@ -182,6 +182,45 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ```
 
+## Command line usage
+```
+Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
+                    [--hasSeparateBuildingElementsModel]
+                    [--hasSeparatePropertiesModel] [--hasTriG] [--hasUnits]
+                    [--ifcOWL] [-l=<props_level>] [-t=<target_file>]
+                    [-u=<uriBase>] <ifc_filename>
+      <ifc_filename>     The absolute path for the IFC file that will be
+                           converted.
+  -b, --hasBlankNodes    Blank nodes are used.
+      -be, --hasBuildingElements
+                         The Building Elements will be created in the output.
+  -h, --help             Show this help message and exit.
+      --hasGeolocation   Geolocation, i.e., the latitude and longitude are
+                           added.
+      --hasGeometry      The bounding boxes are generated for elements.
+      --hasSeparateBuildingElementsModel
+                         The Building elements will have a separate file.
+      --hasSeparatePropertiesModel
+                         The properties will be written in a separate file.
+      --hasTriG          TriG is a serialization format for RDF (Resource
+                           Description Framework) graphs. It is a plain text
+                           format for serializing named graphs
+      --hasUnits         Data units are added.
+      --ifcOWL           Geolocation, i.e., the latitude and longitude are
+                           added.
+  -l, --level=<props_level>
+                         The OPM ontology complexity level
+  -p, --hasBuildingElementProperties
+                         The properties will ne added into the output.
+  -t, --target_file=<target_file>
+                         he main file name for the output. If there are many,
+                           they will be sharing the same name beginning.
+  -u, --url=<uriBase>    The URI base for all the elemenents that will be
+                           created.
+  -V, --version          Print version information and exit.
+
+```
+
 ## Blog
 ### June 07, 2022  
 Support for xsd:decimal.
