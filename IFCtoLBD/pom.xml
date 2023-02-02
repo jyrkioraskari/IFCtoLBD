@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.38.0</version>
+	<version>2.39.0</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -133,7 +131,11 @@
 			<artifactId>rtree-multi</artifactId>
 			<version>0.1-RC1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>info.picocli</groupId>
+			<artifactId>picocli</artifactId>
+			<version>4.7.0</version>
+		</dependency>
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
@@ -203,7 +205,8 @@
 								<goals>
 									<goal>jar</goal>
 								</goals>
-								<configuration> <!-- add this to disable checking -->
+								<configuration>
+									<!-- add this to disable checking -->
 									<additionalparam>-Xdoclint:none</additionalparam>
 								</configuration>
 							</execution>

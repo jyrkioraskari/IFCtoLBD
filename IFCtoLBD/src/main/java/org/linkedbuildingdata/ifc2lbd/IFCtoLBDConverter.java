@@ -18,7 +18,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019, 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

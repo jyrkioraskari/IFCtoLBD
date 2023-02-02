@@ -26,7 +26,7 @@ These are runnable JAR files. If the Java installation is fine, the file can be 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
 
 
-Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
+Also Windows 10/11 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop.jar`.
 
@@ -36,6 +36,8 @@ If the program does not start, try the following command at the command line: `j
 
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/)
 
+The desktop user interface was written using Java FXML. The editor can be get from:
+https://gluonhq.com/products/scene-builder/
 
 ## Compiling the code
 The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from https://maven.apache.org/download.cgi.
