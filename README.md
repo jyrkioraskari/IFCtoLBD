@@ -71,7 +71,7 @@ Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) pro
 2. Open org.linkedbuildingdata.ifc2lbd.Main class on the Eclipse editor
 3. Select from the menu /Run/Run
 4. Select the /File/Export:Java/Runnabe Jar file/Next
-5. Launch configuration: <Select the created Main runtime configuration>, Package resource libraries into generated JAR
+5. Launch configuration: -Select the created Main runtime configuration-, Package resource libraries into generated JAR
 6. Select destination file and Finish.
 
 An example command line usage of the program is:
