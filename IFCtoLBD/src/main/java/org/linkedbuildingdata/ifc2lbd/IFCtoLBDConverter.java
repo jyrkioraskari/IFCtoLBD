@@ -15,7 +15,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
-import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
+import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 /*
  *  Copyright (c) 2017,2018,2019, 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -286,7 +286,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                     }
                 }, 1000, 1000);
 
-                this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
+                this.ifc_geometry = new IFCGeometry(new File(ifc_filename));
                 timer.cancel();
             } catch (Exception e) {
                 eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),"Geometry handling was no done. " + e.getMessage()));
