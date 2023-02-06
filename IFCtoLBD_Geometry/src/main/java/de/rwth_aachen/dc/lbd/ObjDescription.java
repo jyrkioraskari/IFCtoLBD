@@ -48,6 +48,7 @@ public class ObjDescription {
     	for(Point3d v:this.vertices)
     	{
     		sb.append("v "+v.x+" "+v.y+" "+v.z+"\n");
+    		
     	}
 		    
     	

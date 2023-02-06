@@ -110,7 +110,6 @@ public class PropertySet {
         String pname = property.asLiteral().getString();
         pname = StringOperations.toCamelCase(pname);
         if (is_bSDD_pset) {
-            System.out.println("bsDD");
             StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
             while (iter.hasNext()) {
                 Resource prop = iter.next().getResource();
