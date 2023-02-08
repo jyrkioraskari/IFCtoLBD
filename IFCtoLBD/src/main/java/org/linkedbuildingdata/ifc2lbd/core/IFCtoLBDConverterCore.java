@@ -823,7 +823,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * 
 	 * @param output_model The Apache Jena model where the conversion output is
 	 *                     written
-	 * @param r            The orifinal ifcOWL resource
+	 * @param r            The original ifcOWL resource
 	 * @param bot_r        The corresponding resource in the output model. The LBD
 	 *                     resource.
 	 */
