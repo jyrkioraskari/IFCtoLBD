@@ -307,7 +307,7 @@ public class IfcSpfReader {
         OntModel om = null;
 
         in = null;
-        //JO 2021/12/10 java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
+        //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
         //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
         in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
@@ -315,6 +315,17 @@ public class IfcSpfReader {
             in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
         om.read(in, null, "TTL");
         
+        //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntResource.asClass()" because "listrange" is null if no internet 
+        in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
+        if (in == null)
+            in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
+        om.read(in, null, "TTL");
+        
+        //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntProperty.toString()" because "valueProp" is null if no internet
+        in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
+        if (in == null)
+            in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
+        om.read(in, null, "TTL");
 
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
