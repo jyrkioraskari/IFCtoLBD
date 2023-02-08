@@ -3,6 +3,7 @@ package org.linkedbuildingdata.ifc2lbd;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -93,7 +94,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         this.props_level = props_level;
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
         initialise();
         
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -135,7 +136,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         this.props_level = props_level;
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
         System.out.println("Conversion starts");
         initialise();
 
@@ -164,7 +165,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
         System.out.println("Conversion starts");
         initialise();
     }
@@ -194,7 +195,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
 
         initialise();
 
@@ -292,16 +293,16 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                 eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),"Geometry handling was no done. " + e.getMessage()));
                 e.printStackTrace();
             }
-        eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
+        
 
-        this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase, !exportIfcOWL, target_file); // Before:
+        this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file); // Before:
                                                                                      // readInOntologies(ifc_filename);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
         readInOntologies(ifc_filename);
         createIfcLBDProductMapping();
 
-        addNamespaces(uriBase, props_level, hasBuildingElements, hasBuildingProperties);
+        addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
         if (this.ontURI.isPresent())
@@ -317,7 +318,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         }
 
         try {
-            lbd_conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,false);
+            conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,false);
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(), "Conversion: "+e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 

@@ -48,4 +48,13 @@ public class IFCtoRDF extends IfcSpfReader {
         }
         return Optional.of(this.ontURI);
     }
+
+	public Optional<String> getOntologyURI(String ifcFile) {
+		try {
+			setup(ifcFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Optional.of(this.ontURI);
+	}
 }
