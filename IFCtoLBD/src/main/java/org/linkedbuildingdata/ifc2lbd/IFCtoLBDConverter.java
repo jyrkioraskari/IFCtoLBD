@@ -272,6 +272,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 				zipEntry = zis.getNextEntry();
 				zis.close();
+				newFile.deleteOnExit();
 				return newFile.getAbsolutePath();
 			}
 
