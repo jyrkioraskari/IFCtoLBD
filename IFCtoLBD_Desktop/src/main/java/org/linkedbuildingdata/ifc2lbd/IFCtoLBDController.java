@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -349,6 +349,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
         prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
 
+        prefs.putBoolean("lbd_boundinbox_elements", this.boundinbox_elements.isSelected());
+        prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
+        prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+        
         conversionTxt.setText("");
         try {
             String uri_base = labelBaseURI.getText().trim();
@@ -479,6 +483,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         this.building_props.setSelected(prefs.getBoolean("lbd_building_props", true));
         this.building_props_blank_nodes.setSelected(prefs.getBoolean("lbd_building_props_blank_nodes", false));
         this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
+       
+        this.boundinbox_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", false));
+        this.ifcOWL_elements.setSelected(prefs.getBoolean("lbd_ifcOWL_elements", false));
+        this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
 
         int props_level = prefs.getInt("lbd_props_level", 3);
         switch (props_level) {
