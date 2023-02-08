@@ -186,7 +186,7 @@ public abstract class IFCtoLBDConverterCore {
 				if (target_file != null) {
 					String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.ttl";
-					RDFUtils.writeModelRDFStream(ifcowl_model, target_file, eventBus);
+					RDFUtils.writeModelRDFStream(ifcowl_model, out_products_filename, eventBus);
 					eventBus.post(
 							new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
 				}

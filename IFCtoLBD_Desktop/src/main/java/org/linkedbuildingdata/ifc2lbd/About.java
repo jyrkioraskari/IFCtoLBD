@@ -44,7 +44,7 @@ public class About extends Stage
       iv.setX(10.0);
       iv.setY((180.0-height)/2.0);
       root.getChildren().add(iv);
-      Text msg1 = new Text("IFCtoLBD Desktop 2018, 2019, 2020, 2021, 2022");
+      Text msg1 = new Text("IFCtoLBD Desktop 2018, 2019, 2020, 2021, 2022, 2023");
       msg1.setFill(Color.WHITE);
       msg1.setFont(new Font("Arial", 16.0));
       msg1.setX(iv.getX()+width+5);

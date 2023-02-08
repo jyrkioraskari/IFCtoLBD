@@ -512,7 +512,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         building_elements_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
         building_props.setTooltip(
                         new Tooltip("Building related properties\nThis is dedcribed in: https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf"));
-        building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
+        building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files (Only levels 2 or 3)."));
 
         elements_link.setTooltip(new Tooltip("Opens a link that describes the Building Product Ontology."));
 
