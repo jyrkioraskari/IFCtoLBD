@@ -241,9 +241,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         FileChooser.ExtensionFilter ef1;
         ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
         FileChooser.ExtensionFilter ef2;
-        ef2 = new FileChooser.ExtensionFilter("All Files", "*.*");
+        ef2 = new FileChooser.ExtensionFilter("IFC zip documents (*.ifczip)", "*.ifczip");
+        FileChooser.ExtensionFilter ef3;
+        ef3 = new FileChooser.ExtensionFilter("All Files", "*.*");
         fc_ifc.getExtensionFilters().clear();
-        fc_ifc.getExtensionFilters().addAll(ef1, ef2);
+        fc_ifc.getExtensionFilters().addAll(ef1, ef2,ef3);
 
         if (file == null)
             file = fc_ifc.showOpenDialog(stage);
