@@ -582,7 +582,7 @@ public abstract class IFCtoLBDConverterCore {
 	 *                              https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
 	 * @param hasBuildingElements   The Building Elements will be created in the
 	 *                              output
-	 * @param hasBuildingProperties The properties will ne added into the
+	 * @param hasBuildingProperties The properties will be added into the
 	 */
 	protected void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements,
 			boolean hasBuildingProperties) {
