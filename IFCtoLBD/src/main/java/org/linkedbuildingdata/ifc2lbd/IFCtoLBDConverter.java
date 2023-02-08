@@ -256,7 +256,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasGeolocation
