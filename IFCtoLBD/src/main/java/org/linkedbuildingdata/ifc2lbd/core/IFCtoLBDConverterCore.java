@@ -733,7 +733,7 @@ public abstract class IFCtoLBDConverterCore {
 							.createResource(ifcowl_type.get().getURI() + "-" + predefined_type.get());
 					lbd_property_object.addProperty(RDF.type, product);
 				}
-				lbd_property_object.addProperty(RDF.type, "ifcOWL_" + ifcowl_type.get());
+				lbd_property_object.addProperty(RDF.type, ifcowl_type.get());
 				lbd_element.addProperty(RDF.type, BOT.element);
 
 				IfcOWLUtils.listPropertysets(ifcOWL_element, ifcOWL).stream().map(rn -> rn.asResource())
