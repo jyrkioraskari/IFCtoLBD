@@ -1015,7 +1015,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	/**
 	 * This internal method reads in all the associated ontologies so that ontology
-	 * inference can ne used during the conversion.
+	 * inference can be used during the conversion.
 	 * 
 	 * @param ifc_file the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
 	 *                 the IFC file
