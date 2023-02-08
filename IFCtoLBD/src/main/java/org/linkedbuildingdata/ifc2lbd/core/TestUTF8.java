@@ -1,7 +1,5 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
-import java.io.UnsupportedEncodingException;
-
 import org.apache.commons.lang.StringEscapeUtils;
 
 public class TestUTF8 {

@@ -765,7 +765,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * and adds a triple that connects them with the property. The literals of the
 	 * elements and and the hosted elements are added as well.
 	 * 
-	 * @param bot_resource   The Jena Resource in the LBD output model in the Apacje
+	 * @param bot_resource   The Jena Resource in the LBD output model in the Apache
 	 *                       model
 	 * @param bot_property   The LBD ontology property
 	 * @param ifcOWL_element The corresponding ifcOWL element

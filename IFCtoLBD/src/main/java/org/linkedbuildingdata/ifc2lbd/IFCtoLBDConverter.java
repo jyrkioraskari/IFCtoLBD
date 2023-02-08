@@ -64,7 +64,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param ifc_filename
      *            The absolute path for the IFC file that will be converted
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param target_file
      *            The main file name for the output. If there are many, they
      *            will be sharing the same beginning
@@ -76,7 +76,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasPropertiesBlankNodes
@@ -106,7 +106,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param ifc_filename
      *            The absolute path for the IFC file that will be converted
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param target_file
      *            The main file name for the output. If there are many, they
      *            will be sharing the same beginning
@@ -118,7 +118,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasPropertiesBlankNodes
@@ -148,7 +148,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * IFCtoLBD constructor
      * 
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param props_level
      *            The levels described in
      *            https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
@@ -174,7 +174,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * IFCtoLBD constructor
      * 
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param hasPropertiesBlankNodes
      *            Blank nodes are used
      * 
