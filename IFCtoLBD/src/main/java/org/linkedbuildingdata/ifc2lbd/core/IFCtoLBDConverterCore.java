@@ -894,7 +894,7 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	/**
-	 * Fills in the ifcowl_product_map map using the seealso ontology statemets at
+	 * Fills in the ifcowl_product_map map using the see also ontology statemets at
 	 * the Apache Jena RDF ontology model on the memory.
 	 * 
 	 * Uses also RDFS.subClassOf so that subclasses are included.
