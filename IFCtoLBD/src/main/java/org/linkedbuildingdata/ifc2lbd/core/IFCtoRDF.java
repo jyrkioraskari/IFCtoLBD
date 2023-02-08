@@ -28,48 +28,15 @@ public class IFCtoRDF extends IfcSpfReader {
 	private static final Logger LOG = LoggerFactory.getLogger(IFCtoRDF.class);
 	private int i = 0;
 
-	private String unzip(String ifcZipFile) {
-		ZipInputStream zis;
-		try {
-			byte[] buffer = new byte[1024];
-			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
-			ZipEntry zipEntry = zis.getNextEntry();
-			while (zipEntry != null) {
-				System.out.println("entry: " + zipEntry);
-				String name = zipEntry.getName().split("\\.")[0];
-				File newFile = File.createTempFile("ifc", ".ifc"); 
-				// fix for Windows-created archives
-				File parent = newFile.getParentFile();
-				if (!parent.isDirectory() && !parent.mkdirs()) {
-					throw new IOException("Failed to create directory " + parent);
-				}
-
-				// write file content
-				FileOutputStream fos = new FileOutputStream(newFile);
-				int len;
-				while ((len = zis.read(buffer)) > 0) {
-					fos.write(buffer, 0, len);
-				}
-				fos.close();
-
-				zipEntry = zis.getNextEntry();
-				return newFile.getAbsolutePath();
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 
 	public Optional<String> convert_into_rdf(String ifcFile, String outputFile, String baseURI) throws IOException {
 		i = 0;
 		PrintStream orgSystemOut = System.out;
 		PrintStream orgSystemError = System.err;
-		if(ifcFile.endsWith(".ifczip"))
-			ifcFile=unzip(ifcFile);
+		
+		
+		System.out.println("ifcfile is: "+ifcFile);
 		try {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {

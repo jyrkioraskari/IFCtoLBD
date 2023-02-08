@@ -2,10 +2,16 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
@@ -244,6 +250,38 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         return lbd_general_output_model;
     }
 
+    
+    private String unzip(String ifcZipFile) {
+		ZipInputStream zis;
+		try {
+			byte[] buffer = new byte[1024];
+			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
+			ZipEntry zipEntry = zis.getNextEntry();
+			while (zipEntry != null) {
+				System.out.println("entry: " + zipEntry);
+				String name = zipEntry.getName().split("\\.")[0];
+				File newFile = File.createTempFile("ifc", ".ifc"); 
+				
+				// write file content
+				FileOutputStream fos = new FileOutputStream(newFile);
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
+				fos.close();
+
+				zipEntry = zis.getNextEntry();
+				zis.close();
+				return newFile.getAbsolutePath();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
     /**
      * Convert an IFC STEP file into LBD
      * 
@@ -268,6 +306,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      */
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
                     boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
+    	
+    	
+    	if(ifc_filename.endsWith(".ifczip"))
+    		ifc_filename=unzip(ifc_filename);
+    	
         if (IfcOWLUtils.getExpressSchema(ifc_filename) == null)
         {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));

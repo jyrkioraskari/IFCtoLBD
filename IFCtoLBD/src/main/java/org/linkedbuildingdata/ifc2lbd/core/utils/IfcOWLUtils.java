@@ -340,7 +340,7 @@ public abstract class IfcOWLUtils {
 	 * @param model    Am Apache Jene model where the ontology triples are added.
 	 */
 	public static String readIfcOWLOntology(String ifc_file, Model model) {
-		String exp = IfcOWLUtils.getExpressSchema(ifc_file);
+		String exp = IfcOWLUtils.getExpressSchema(ifc_file); //TODO clean
 		if(exp==null)
 		    return null;
 		InputStream in = null;
