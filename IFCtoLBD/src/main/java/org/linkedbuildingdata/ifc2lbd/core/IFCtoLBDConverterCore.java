@@ -120,7 +120,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
 
-	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
+	protected void lbd_conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, boolean namedGraphs) {
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
@@ -577,7 +577,7 @@ public abstract class IFCtoLBDConverterCore {
 	/**
 	 * Adds the used RDF namespaces for the Jena Models
 	 * 
-	 * @param uriBase               The URI base for all the elemenents
+	 * @param uriBase               The URI base for all the elements
 	 * @param props_level           The levels described in
 	 *                              https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
 	 * @param hasBuildingElements   The Building Elements will be created in the
@@ -761,14 +761,14 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	/**
-	 * For a RDF LBD resource, creates the targetted object for the given property
+	 * For a RDF LBD resource, creates the targeted object for the given property
 	 * and adds a triple that connects them with the property. The literals of the
 	 * elements and and the hosted elements are added as well.
 	 * 
 	 * @param bot_resource   The Jena Resource in the LBD output model in the Apacje
 	 *                       model
 	 * @param bot_property   The LBD ontology property
-	 * @param ifcOWL_element The corresponding ifcOWL elemeny
+	 * @param ifcOWL_element The corresponding ifcOWL element
 	 * @return returns the created LBD resource
 	 */
 	private Resource connectElement(Resource bot_resource, Property bot_property, Resource ifcOWL_element) {
@@ -823,8 +823,8 @@ public abstract class IFCtoLBDConverterCore {
 	 * 
 	 * @param output_model The Apache Jena model where the conversion output is
 	 *                     written
-	 * @param r            The oroginal ifcOWL resource
-	 * @param bot_r        The correspoinding resource in the output model. The LBD
+	 * @param r            The orifinal ifcOWL resource
+	 * @param bot_r        The corresponding resource in the output model. The LBD
 	 *                     resource.
 	 */
 	private void addAttrributes(Model output_model, Resource r, Resource bot_r) {
@@ -961,12 +961,12 @@ public abstract class IFCtoLBDConverterCore {
 	 * 
 	 * Apache Jena: https://jena.apache.org/index.html
 	 * 
-	 * The generated temporsary file is used to reduce the temporary memory need and
+	 * The generated temporary file is used to reduce the temporary memory need and
 	 * make it possible to convert larger models.
 	 * 
 	 * Sets the this.ontURI class variable. That is used to create the right ifcOWL
 	 * version based ontology base URI that is used to create the ifcOWL version
-	 * based peroperties and class URIs-
+	 * based properties and class URIs-
 	 * 
 	 * @param ifc_file   the absolute path (For example: c:\ifcfiles\ifc_file.ifc)
 	 *                   for the IFC file
@@ -977,7 +977,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * @return the Jena Model that contains the ifcOWL attribute value (Abox)
 	 *         output.
 	 */
-	protected Model readAndConvertIFC(String ifc_file, String uriBase, boolean isTmpFile, String targetFile) {
+	protected Model readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile) {
 		try {
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
