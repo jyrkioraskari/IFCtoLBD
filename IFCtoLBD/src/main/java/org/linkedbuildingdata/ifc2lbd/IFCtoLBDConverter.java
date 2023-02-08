@@ -94,7 +94,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
         this.uriBase = uriBase;
-        initialise_JenaModels();
+        initialise();
         
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
                         hasSeparatePropertiesModel, hasGeolocation, true,false,false);        
@@ -137,7 +137,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
             uriBase += "#";
         this.uriBase = uriBase;
         System.out.println("Conversion starts");
-        initialise_JenaModels();
+        initialise();
 
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
                         hasSeparatePropertiesModel, hasGeolocation, hasGeometry,false,false);
@@ -166,7 +166,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
             uriBase += "#";
         this.uriBase = uriBase;
         System.out.println("Conversion starts");
-        initialise_JenaModels();
+        initialise();
     }
     
 
@@ -196,7 +196,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
             uriBase += "#";
         this.uriBase = uriBase;
 
-        initialise_JenaModels();
+        initialise();
 
     }
 

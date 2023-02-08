@@ -27,6 +27,21 @@ import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
+/*
+ *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
@@ -49,6 +64,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.Product;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
+import org.slf4j.LoggerFactory;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -58,28 +74,16 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.openifctools.guidcompressor.GuidCompressor;
 
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.ObjDescription;
 
-/*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 public abstract class IFCtoLBDConverterCore {
 	protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+	
+	
 	protected Model ifcowl_model;
 	private Model ontology_model = null;
 	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
@@ -1042,13 +1046,17 @@ public abstract class IFCtoLBDConverterCore {
 		}
 	}
 
-	protected void initialise_JenaModels() {
+	protected void initialise() {
+		Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
+		root.setLevel(Level.ERROR);
 		ontology_model = ModelFactory.createDefaultModel();
 
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
 		this.lbd_property_output_model = ModelFactory.createDefaultModel();
 		this.lbd_dataset.setDefaultModel(lbd_general_output_model);
+		
+		
 		
 	}
 
