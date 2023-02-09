@@ -486,7 +486,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         this.building_props_blank_nodes.setSelected(prefs.getBoolean("lbd_building_props_blank_nodes", false));
         this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
        
-        this.boundinbox_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", false));
+        this.boundinbox_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", true));
         this.ifcOWL_elements.setSelected(prefs.getBoolean("lbd_ifcOWL_elements", false));
         this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
 

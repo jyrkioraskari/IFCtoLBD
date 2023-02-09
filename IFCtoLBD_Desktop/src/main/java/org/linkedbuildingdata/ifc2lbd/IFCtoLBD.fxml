@@ -52,7 +52,7 @@
          <children>
             <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-7.0">
                <fill>
-                  <LinearGradient cycleMethod="REFLECT" endX="0.3270142180094787" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.48815165876777256">
+                  <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.48815165876777256">
                      <stops>
                         <Stop>
                            <color>
@@ -71,7 +71,7 @@
                         </Stop>
                         <Stop offset="0.325670498084291">
                            <color>
-                              <Color red="0.4470588266849518" green="0.4156862795352936" blue="0.30588236451148987" />
+                              <Color red="0.34736841917037964" green="0.3263547718524933" blue="0.2573099434375763" />
                            </color>
                         </Stop>
                         <Stop offset="0.6053639846743293">
@@ -123,7 +123,7 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
-            <Label fx:id="labelTargetFile" layoutX="217.0" layoutY="226.0" prefHeight="35.0" prefWidth="470.0" textFill="WHITE" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="155.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
@@ -150,17 +150,17 @@
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="382.0">
                                              <children>
-                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
-                                                   <font>
-                                                      <Font name="Arial" size="12.0" />
-                                                   </font>
-                                                </ToggleSwitch>
                                                 <Hyperlink fx:id="elements_link" layoutX="180.0" layoutY="18.0" onAction="#hyperlink_product_handle" prefHeight="30.0" prefWidth="150.0" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
                                                 <ToggleSwitch fx:id="building_elements_separate_file" layoutX="201.0" layoutY="143.0" text="Separate file" textFill="#141414" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
+                                                   <font>
+                                                      <Font name="Arial" size="12.0" />
+                                                   </font>
+                                                </ToggleSwitch>
+                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -235,7 +235,7 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
-                                          <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" text="Create and link ifcOWL" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
@@ -244,7 +244,7 @@
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
-                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" text="Create and link ifcOWL" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
@@ -261,9 +261,6 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font>
-               <effect>
-                  <Glow level="0.5" />
-               </effect>
             </TitledPane>
          </children></AnchorPane>
         
