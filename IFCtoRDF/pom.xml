@@ -312,7 +312,8 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<!-- Dependencies -->
 		<commons-io.version>2.4</commons-io.version>
 		<junit.version>4.13.2</junit.version>
-		<jena.version>4.7.0</jena.version>
+		<!-- 4.7.0 Jeva init problem -->
+		<jena.version>4.6.0</jena.version>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -359,11 +360,13 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			<artifactId>ifcParserLib</artifactId>
 			<version>0.2</version>
 		</dependency>
-		<dependency>
-			<groupId>ch.qos.logback</groupId>
-			<artifactId>logback-classic</artifactId>
-			<version>1.4.5</version>
-		</dependency>
+		
+<!--		Cannot be used with the Desktop App and Apache Jena -->
+<!--		<dependency>-->
+<!--			<groupId>ch.qos.logback</groupId>-->
+<!--			<artifactId>logback-classic</artifactId>-->
+<!--			<version>1.4.5</version>-->
+<!--		</dependency>-->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

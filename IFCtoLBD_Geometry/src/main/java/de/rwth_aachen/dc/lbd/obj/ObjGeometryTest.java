@@ -12,13 +12,14 @@ public class ObjGeometryTest {
 
 	public static void main(String[] args) {
 		try {
-			IFCtoObj ib=new IFCtoObj(new File("c:\\ifc\\Duplex_A_20110907.ifc"));
-			ObjDescription b=ib.getOBJ("1hOSvn6df7F8_7GcBWlRGQ");
+			IFCtoObj ib=new IFCtoObj(new File("c:\\ifc\\project1.ifc"));
+			ObjDescription b=ib.getOBJ("2XR7ZJ3vvFfQ0vDTZymDVE");
 			
 		    System.out.println(b);
 		} catch (RenderEngineException | DeserializeException | IOException e) {
 			e.printStackTrace();
 		}
+		System.exit(1);
 
 	}
 

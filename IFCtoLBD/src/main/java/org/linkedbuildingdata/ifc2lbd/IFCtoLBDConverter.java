@@ -202,9 +202,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
         this.uriBase = Optional.of(uriBase);
-
         initialise();
-
     }
 
     /**

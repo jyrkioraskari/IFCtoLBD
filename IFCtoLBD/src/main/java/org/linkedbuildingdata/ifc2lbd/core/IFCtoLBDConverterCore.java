@@ -15,6 +15,7 @@ import java.util.Set;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.DatasetFactory;
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -24,6 +25,7 @@ import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.sys.JenaSystem;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
@@ -65,7 +67,6 @@ import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.Product;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
-import org.slf4j.LoggerFactory;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -75,8 +76,6 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.openifctools.guidcompressor.GuidCompressor;
 
-import ch.qos.logback.classic.Level;
-import ch.qos.logback.classic.Logger;
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.ObjDescription;
@@ -115,8 +114,7 @@ public abstract class IFCtoLBDConverterCore {
 	Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
-		eventBus.register(this);
-		lbd_dataset = DatasetFactory.create();
+		eventBus.register(this);		
 	}
 
 	Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
@@ -213,7 +211,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (target_file != null) {
 			if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
 				String target_trig = target_file.replaceAll(".ttl", ".trig");
-				if (uriBase != null) {
+				if (uriBase != null && lbd_dataset!=null) {
 					lbd_dataset.getDefaultModel().add(lbd_general_output_model);
 					lbd_dataset.addNamedModel(uriBase + "product", lbd_product_output_model);
 					lbd_dataset.addNamedModel(uriBase + "property", lbd_property_output_model);
@@ -384,7 +382,8 @@ public abstract class IFCtoLBDConverterCore {
 			if (obj != null ) {
 				if(this.fogasObj==null)
 					  this.fogasObj = this.lbd_general_output_model.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
-				sp_blank.addLiteral(this.fogasObj, obj.toString());
+				Literal base64=this.lbd_general_output_model.createTypedLiteral(obj.toString(), "https://www.w3.org/TR/xmlschema-2/#base64Binary");
+				sp_blank.addLiteral(this.fogasObj, base64);
 			}
 			}
 			
@@ -1060,19 +1059,17 @@ public abstract class IFCtoLBDConverterCore {
 
 		}
 	}
-
+    int ios=0;
 	protected void initialise() {
-		Logger root = (Logger)LoggerFactory.getLogger(org.slf4j.Logger.ROOT_LOGGER_NAME);
-		root.setLevel(Level.ERROR);
+		System.out.println("init 1.1");
+		JenaSystem.DEBUG_INIT = true;
+		//JenaSystem.init();
 		ontology_model = ModelFactory.createDefaultModel();
-
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
 		this.lbd_product_output_model = ModelFactory.createDefaultModel();
 		this.lbd_property_output_model = ModelFactory.createDefaultModel();
-		this.lbd_dataset.setDefaultModel(lbd_general_output_model);
-		
-		
-		
+        this.lbd_dataset = DatasetFactory.create();
+    	this.lbd_dataset.setDefaultModel(lbd_general_output_model);
 	}
 
 	public Map<String, PropertySet> getPropertysets() {

@@ -1,6 +1,7 @@
 package de.rwth_aachen.dc.lbd;
 
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import javax.vecmath.Point3d;
@@ -42,6 +43,7 @@ public class ObjDescription {
 
     @Override
     public String toString() {
+    	
     	StringBuilder sb = new StringBuilder();
     	
     	
@@ -55,6 +57,8 @@ public class ObjDescription {
 		for(ImmutableTriple<Integer, Integer, Integer> f:this.faces)
     		sb.append("f "+f.left+" "+f.middle+" "+f.right+"\n");
 		
-        return sb.toString();
+		String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
+        return encodedString;
+		//return sb.toString();
     }
 }

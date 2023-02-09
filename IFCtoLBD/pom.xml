@@ -122,16 +122,6 @@
 			<artifactId>IFC2RDF</artifactId>
 			<version>1.2.9</version>
 		</dependency>
-		<!-- IFCtoRDF sets the Apache Jena version -->
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/jena -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>jena</artifactId>
-			<version>4.7.0</version>
-			<type>pom</type>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.davidmoten/rtree-multi -->
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
 			<artifactId>rtree-multi</artifactId>

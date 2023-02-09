@@ -242,7 +242,7 @@
                                           </ToggleSwitch>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="419.0">
                                        <children>
                                           <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                              <font>

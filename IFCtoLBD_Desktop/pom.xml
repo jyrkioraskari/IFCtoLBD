@@ -68,8 +68,8 @@
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
 			<version>2.39.0</version>
+			
 		</dependency>
-		
 	</dependencies>
 	<build>
 		<plugins>
