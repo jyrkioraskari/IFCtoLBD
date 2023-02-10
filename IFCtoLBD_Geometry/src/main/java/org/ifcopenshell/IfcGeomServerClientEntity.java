@@ -18,6 +18,7 @@ package org.ifcopenshell;
  *****************************************************************************/
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 /******************************************************************************
  * Copyright (C) 2009-2018  BIMserver.org
@@ -44,24 +45,23 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class IfcGeomServerClientEntity {
 	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-	private int id;
+	private long id;
 	private String guid;
 	private String name;
 	private String type;
-	private int parentId;
+	private long parentId;
 	private double[] matrix;
 	private int repId;
-	private float[] positions;
-	private float[] normals;
-	private int[] indices;
-	private float[] colors;
-	private int[] materialIndices;
+	private ByteBuffer positions;
+	private ByteBuffer normals;
+	private ByteBuffer indices;
+	private ByteBuffer colors;
+	private ByteBuffer materialIndices;
 	private ObjectNode extendedData;
-	
-	public IfcGeomServerClientEntity(int id, String guid, String name,
-			String type, int parentId, double[] matrix, int repId,
-			float[] positions, float[] normals, int[] indices, float[] colors,
-			int[] materialIndices, String messageRemainder) {
+
+	public IfcGeomServerClientEntity(long id, String guid, String name, String type, long parentId, double[] matrix,
+			int repId, ByteBuffer positions, ByteBuffer normals, ByteBuffer indices, ByteBuffer colors,
+			ByteBuffer materialIndices, String messageRemainder) {
 		super();
 		this.id = id;
 		this.guid = guid;
@@ -75,7 +75,7 @@ public class IfcGeomServerClientEntity {
 		this.indices = indices;
 		this.colors = colors;
 		this.materialIndices = materialIndices;
-		
+
 		if (messageRemainder != null && messageRemainder.length() > 0) {
 			// un-pad string
 			try {
@@ -85,8 +85,8 @@ public class IfcGeomServerClientEntity {
 			}
 		}
 	}
-	
-	public int getId() {
+
+	public long getId() {
 		return id;
 	}
 
@@ -102,7 +102,7 @@ public class IfcGeomServerClientEntity {
 		return type;
 	}
 
-	public int getParentId() {
+	public long getParentId() {
 		return parentId;
 	}
 
@@ -114,34 +114,26 @@ public class IfcGeomServerClientEntity {
 		return repId;
 	}
 
-	public float[] getPositions() {
+	public ByteBuffer getPositions() {
 		return positions;
 	}
 
-	public float[] getNormals() {
+	public ByteBuffer getNormals() {
 		return normals;
 	}
 
-	public int[] getIndices() {
+	public ByteBuffer getIndices() {
 		return indices;
 	}
 
-	public float[] getColors() {
+	public ByteBuffer getColors() {
 		return colors;
 	}
 
-	public int[] getMaterialIndices() {
+	public ByteBuffer getMaterialIndices() {
 		return materialIndices;
 	}
-	
-	public int getNumberOfPrimitives() {
-		return indices.length / 3;
-	}
-	
-	public int getNumberOfColors() {
-		return colors.length / 4;
-	}
-	
+
 	public ObjectNode getAllExtendedData() throws RenderEngineException {
 		return this.extendedData;
 	}

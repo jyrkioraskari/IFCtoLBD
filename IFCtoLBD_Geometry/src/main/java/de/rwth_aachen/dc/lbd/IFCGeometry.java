@@ -3,6 +3,7 @@ package de.rwth_aachen.dc.lbd;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
@@ -19,6 +20,7 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.bimserver.geometry.Matrix;
 import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineGeometry;
 import org.ifcopenshell.IfcGeomServerClientEntity;
 import org.ifcopenshell.IfcOpenShellEngine;
 import org.ifcopenshell.IfcOpenShellEntityInstance;
@@ -84,16 +86,16 @@ public class IFCGeometry {
 		}
 
 		try {
-	        IfcGeomServerClientEntity geometry = renderEngineInstance.generateGeometry();
-	        if (geometry != null && geometry.getIndices().length > 0) {
+			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
+			if (geometry != null && geometry.getIndices().limit() > 0) {
 	            boundingBox = new BoundingBox();
 	            double[] tranformationMatrix = new double[16];
 	            Matrix.setIdentityM(tranformationMatrix, 0);
 	            if (renderEngineInstance.getTransformationMatrix() != null) {
 	                tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 	            }
-	            for (int i = 0; i < geometry.getIndices().length; i++) {
-	                Point3d p=processExtends(tranformationMatrix, geometry.getPositions(), geometry.getIndices()[i] * 3);
+	            for (int i = 0; i < geometry.getNrIndices(); i++) {
+	                Point3d p=processExtends(tranformationMatrix, geometry.getVertices(), geometry.getIndices().getInt(i) * 3);
 	                boundingBox.add(p);
 	            }
 	        }
@@ -106,10 +108,10 @@ public class IFCGeometry {
 
 
 
-    private Point3d processExtends(double[] transformationMatrix, float[] ds, int index) {
-        double x = ds[index];
-        double y = ds[index + 1];
-        double z = ds[index + 2];
+    private Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer, int index) {
+    	int x = byteBuffer.getInt(index);
+		int y = byteBuffer.getInt(index + 1);
+		int z = byteBuffer.getInt(index + 2);
 
         double[] result = new double[4];
         Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
@@ -134,8 +136,8 @@ public class IFCGeometry {
 		}
 
 		try {
-			IfcGeomServerClientEntity geometry = renderEngineInstance.generateGeometry();
-			if (geometry != null && geometry.getIndices().length > 0) {
+			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
+			if (geometry != null && geometry.getIndices().limit() > 0) {
 				obj_desc = new ObjDescription();
 				double[] tranformationMatrix = new double[16];
 				Matrix.setIdentityM(tranformationMatrix, 0);
@@ -143,12 +145,13 @@ public class IFCGeometry {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
 
-				for (int i = 0; i < geometry.getPositions().length / 3; i++) {
-					Point3d p = processVertex(tranformationMatrix, geometry.getPositions(), i * 3);
+
+				for (int i = 0; i < geometry.getNrVertices() / 3; i++) {
+					Point3d p = processVertex(tranformationMatrix, geometry.getVertices(), i * 3);
 					obj_desc.addVertex(p);
 				}
 
-				for (int i = 0; i < geometry.getIndices().length / 3; i++) {
+				for (int i = 0; i < geometry.getNrIndices() / 3; i++) {
 					ImmutableTriple f = processSurface(geometry.getIndices(), i * 3);
 					obj_desc.addFace(f);
 
@@ -161,10 +164,11 @@ public class IFCGeometry {
 		return obj_desc;
 	}
 
-	private Point3d processVertex(double[] transformationMatrix, float[] ds, int index) {
-		double x = ds[index];
-		double y = ds[index + 1];
-		double z = ds[index + 2];
+	
+	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer, int index) {
+		int x = byteBuffer.getInt(index);
+		int y = byteBuffer.getInt(index + 1);
+		int z = byteBuffer.getInt(index + 2);
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
@@ -173,10 +177,11 @@ public class IFCGeometry {
 
 	}
 
-	private ImmutableTriple<Integer, Integer, Integer> processSurface(int[] in, int index) {
-		int xi = in[index];
-		int yi = in[index + 1];
-		int zi = in[index + 2];
+
+	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer, int index) {
+		int xi = byteBuffer.getInt(index);
+		int yi = byteBuffer.getInt(index + 1);
+		int zi = byteBuffer.getInt(index + 2);
 		ImmutableTriple<Integer, Integer, Integer>  point = new ImmutableTriple<Integer, Integer, Integer> (xi + 1, yi + 1, zi + 1);
 		return point;
 

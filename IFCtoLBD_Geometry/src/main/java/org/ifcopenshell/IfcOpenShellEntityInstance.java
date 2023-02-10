@@ -37,25 +37,29 @@ package org.ifcopenshell;
  *****************************************************************************/
 
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineGeometry;
+import org.bimserver.plugins.renderengine.RenderEngineInstance;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class IfcOpenShellEntityInstance  {
+public class IfcOpenShellEntityInstance implements RenderEngineInstance {
 	private IfcGeomServerClientEntity entity;
 
 	public IfcOpenShellEntityInstance(IfcGeomServerClientEntity entity) {
 		this.entity = entity;
 	}
 
+	@Override
 	public double[] getTransformationMatrix() {
 		return entity.getMatrix();
 	}
 
-	public IfcGeomServerClientEntity generateGeometry() {
+	@Override
+	public RenderEngineGeometry generateGeometry() {
 		if (entity == null) {
 			return null;
 		}
-		return entity;
+		return new RenderEngineGeometry(entity.getIndices(), entity.getPositions(), entity.getNormals(), entity.getColors(), entity.getMaterialIndices());
 	}
 
 	public ObjectNode getAdditionalData() throws RenderEngineException {

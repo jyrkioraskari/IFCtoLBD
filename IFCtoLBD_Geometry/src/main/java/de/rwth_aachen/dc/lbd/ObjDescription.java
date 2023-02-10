@@ -57,8 +57,8 @@ public class ObjDescription {
 		for(ImmutableTriple<Integer, Integer, Integer> f:this.faces)
     		sb.append("f "+f.left+" "+f.middle+" "+f.right+"\n");
 		
-		String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
-        return encodedString;
-		//return sb.toString();
+		//String encodedString = Base64.getEncoder().encodeToString(sb.toString().getBytes());
+        //return encodedString;
+		return sb.toString();
     }
 }

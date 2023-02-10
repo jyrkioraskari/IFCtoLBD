@@ -58,13 +58,13 @@ public class OperatingSystemCopyOf_IfcGeomServer {
 	else
 	    tempPath += "IfcGeomServer.exe";
 	Path geomserverPath = Paths.get(tempPath);
-	if (!geomserverPath.toFile().exists())
+	//if (!geomserverPath.toFile().exists())
 	    if (IfcGeomServerLocation != null) {
 		InputStream in = OperatingSystemCopyOf_IfcGeomServer.class.getResourceAsStream(IfcGeomServerLocation);
 		try {
-		    Files.copy(in, geomserverPath);
+			Files.copy(in, geomserverPath,java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 		} catch (IOException e1) {
-		    e1.printStackTrace();
+		    //e1.printStackTrace();
 		}
 		
 		

@@ -47,11 +47,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 
+import org.bimserver.plugins.renderengine.Metrics;
+import org.bimserver.plugins.renderengine.RenderEngine;
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class IfcOpenShellEngine  {
+public class IfcOpenShellEngine implements RenderEngine {
 	private static final Logger LOGGER = LoggerFactory.getLogger(IfcOpenShellEngine.class);
 	private Path executableFilename;
 
@@ -65,6 +68,7 @@ public class IfcOpenShellEngine  {
 		this.setApplyLayerSets(applyLayerSets);
 	}
 
+	@Override
 	public void init() throws RenderEngineException {
 		LOGGER.debug("Initializing IfcOpenShell engine");
 		
@@ -73,6 +77,7 @@ public class IfcOpenShellEngine  {
 		client.setApplyLayersets(isApplyLayerSets());
 	}
 	
+	@Override
 	public void close() throws RenderEngineException {
 		LOGGER.debug("Closing IfcOpenShell engine");
 		if (client.isRunning()) {
@@ -80,6 +85,7 @@ public class IfcOpenShellEngine  {
 		}
 	}
 
+	@Override
 	public IfcOpenShellModel openModel(InputStream inputStream, long size) throws RenderEngineException {
 		if (!client.isRunning()) {
 			client = new IfcGeomServerClient(executableFilename);
@@ -91,6 +97,7 @@ public class IfcOpenShellEngine  {
 		}
 	}
 
+	@Override
 	public IfcOpenShellModel openModel(InputStream inputStream) throws RenderEngineException {
 		if (!client.isRunning()) {
 			client = new IfcGeomServerClient(executableFilename);
@@ -116,5 +123,10 @@ public class IfcOpenShellEngine  {
 
 	public void setApplyLayerSets(boolean applyLayerSets) {
 		this.applyLayerSets = applyLayerSets;
+	}
+
+	@Override
+	public Metrics getMetrics() {
+		return null;
 	}
 }

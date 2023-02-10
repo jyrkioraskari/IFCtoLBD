@@ -3,6 +3,8 @@ package de.rwth_aachen.dc.lbd.obj;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
@@ -19,6 +21,8 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.bimserver.geometry.Matrix;
 import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineGeometry;
+import org.bimserver.plugins.renderengine.RenderEngineModel;
 import org.ifcopenshell.IfcGeomServerClientEntity;
 import org.ifcopenshell.IfcOpenShellEngine;
 import org.ifcopenshell.IfcOpenShellEntityInstance;
@@ -67,24 +71,35 @@ public class IFCtoObj {
 		}
 
 		try {
-			IfcGeomServerClientEntity geometry = renderEngineInstance.generateGeometry();
-			if (geometry != null && geometry.getIndices().length > 0) {
+			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
+			
+			
+			if (geometry != null && geometry.getIndices().limit() > 0) {
 				obj_desc = new ObjDescription();
 				double[] tranformationMatrix = new double[16];
 				Matrix.setIdentityM(tranformationMatrix, 0);
 				if (renderEngineInstance.getTransformationMatrix() != null) {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
-
-				for (int i = 0; i < geometry.getPositions().length / 3; i++) {
-					Point3d p = processVertex(tranformationMatrix, geometry.getPositions(), i * 3);
+				
+				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
+				for (int i = 0; i < geometry.getNrVertices() / 3; i++) {
+					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
 				}
-
-				for (int i = 0; i < geometry.getIndices().length / 3; i++) {
-					ImmutableTriple f = processSurface(geometry.getIndices(), i * 3);
+				
+				/*for (int i = 0; i < geometry.getNrIndices() / 3; i++) {
+					ImmutableTriple<Integer, Integer, Integer> f = processSurface(geometry.getIndices(), i * 3);
 					obj_desc.addFace(f);
 
+				}*/
+				
+				System.out.println("indices: "+geometry.getNrIndices());
+				System.out.println("indices: "+geometry.getIndices().limit());
+				ByteBuffer inx = geometry.getIndices().order(ByteOrder.nativeOrder());
+				for (int i = 0; i < geometry.getNrIndices()/3;  i++) {
+					ImmutableTriple<Integer, Integer, Integer> f = processSurface(inx);
+					obj_desc.addFace(f);
 				}
 			}
 
@@ -94,10 +109,11 @@ public class IFCtoObj {
 		return obj_desc;
 	}
 
-	private Point3d processVertex(double[] transformationMatrix, float[] ds, int index) {
-		double x = ds[index];
-		double y = ds[index + 1];
-		double z = ds[index + 2];
+	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {		
+		double x = byteBuffer.getDouble();
+		double y = byteBuffer.getDouble();
+		double z = byteBuffer.getDouble();
+	
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
@@ -106,27 +122,18 @@ public class IFCtoObj {
 
 	}
 
-	private ImmutableTriple processSurface(int[] in, int index) {
-		int xi = in[index];
-		int yi = in[index + 1];
-		int zi = in[index + 2];
-		ImmutableTriple point = new ImmutableTriple(xi + 1, yi + 1, zi + 1);
+	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
+		
+		
+		int xi = byteBuffer.getInt();
+		int yi = byteBuffer.getInt();
+		int zi = byteBuffer.getInt();
+		
+		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<Integer, Integer, Integer>(xi + 1, yi + 1, zi + 1);
 		return point;
 
 	}
 
-	private Point3d processExtends(double[] transformationMatrix, float[] ds, int index) {
-		double x = ds[index];
-		double y = ds[index + 1];
-		double z = ds[index + 2];
-		double[] result = new double[4];
-		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
-
-		Point3d point = new Point3d(result[0], result[1], result[2]);
-
-		return point;
-
-	}
 
 	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {

@@ -21,12 +21,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.bimserver.plugins.renderengine.RenderEngineGeometry;
 
 public class ClientRunner {
-	
-	public static void main(String [] args)
-	{
-		try (IfcGeomServerClient client = new IfcGeomServerClient(IfcGeomServerClient.ExecutableSource.S3, IfcOpenShellEnginePlugin.DEFAULT_COMMIT_SHA)) {
+
+	public static void main(String[] args) {
+		try (IfcGeomServerClient client = new IfcGeomServerClient(IfcGeomServerClient.ExecutableSource.S3,
+				IfcOpenShellEnginePlugin.DEFAULT_COMMIT_SHA)) {
 			try {
 				client.setCalculateQuantities(true);
 			} catch (RenderEngineException e1) {
@@ -37,14 +38,14 @@ public class ClientRunner {
 			} catch (RenderEngineException e1) {
 				e1.printStackTrace();
 			}
-			
+
 			try {
 				client.loadModel(new FileInputStream(args[0]));
 			} catch (FileNotFoundException | RenderEngineException e) {
 				e.printStackTrace();
 				return;
 			}
-			
+
 			double t0 = java.lang.System.nanoTime();
 
 			while (client.hasNext()) {
@@ -56,14 +57,24 @@ public class ClientRunner {
 					}
 					System.out.println(String.format("%s %s", instance.getType(), instance.getGuid()));
 					System.out.println(instance.getAllExtendedData().toString());
+					RenderEngineGeometry geometry = new RenderEngineGeometry(instance.getIndices(),
+							instance.getPositions(), instance.getNormals(), instance.getColors(),
+							instance.getMaterialIndices());
+					System.out.println(String.format("Vertex buffer size: %d", geometry.getNrVertices()));
+					System.out.println(String.format("Normal buffer size: %d", geometry.getNrNormals()));
+					System.out.println(String.format("Index buffer size: %d", geometry.getNrIndices()));
+					System.out.println(String.format("Material buffer size: %d", geometry.getNrMaterials()));
+					System.out
+							.println(String.format("Material index buffer size: %d", geometry.getNrMaterialIndices()));
 				} catch (RenderEngineException e) {
 					e.printStackTrace();
 					return;
 				}
 			}
-			
-			System.out.println(String.format("Conversion took %.2f seconds", (java.lang.System.nanoTime() - t0) / 1.e9));
-			
+
+			System.out
+					.println(String.format("Conversion took %.2f seconds", (java.lang.System.nanoTime() - t0) / 1.e9));
+
 		} catch (RenderEngineException e) {
 			e.printStackTrace();
 			return;
