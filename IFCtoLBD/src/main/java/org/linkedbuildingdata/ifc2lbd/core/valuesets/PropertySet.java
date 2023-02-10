@@ -84,10 +84,10 @@ public class PropertySet {
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
         this.hasUnits = hasUnits;
-        System.out.println("pset name: " + this.propertyset_name);
+        //System.out.println("pset name: " + this.propertyset_name);
         StmtIterator iter = ontology_model.listStatements(null, PROPS.namePset, this.propertyset_name);
         if (iter.hasNext()) {
-            System.out.println("Pset bsdd match!");
+            //System.out.println("Pset bsdd match!");
             is_bSDD_pset = true;
             psetDef = iter.next().getSubject();
         }
@@ -110,7 +110,6 @@ public class PropertySet {
         String pname = property.asLiteral().getString();
         pname = StringOperations.toCamelCase(pname);
         if (is_bSDD_pset) {
-            System.out.println("bsDD");
             StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
             while (iter.hasNext()) {
                 Resource prop = iter.next().getResource();

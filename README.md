@@ -11,7 +11,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 17. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+It is recommended to use OpenJava 19. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
 At a windows system, download the MSI file that matches your processsor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
@@ -20,13 +20,13 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Minimum requirement is JAVA 15.
+Minimum requirement is JAVA 15. Java 19 can be used for the converter and Desctop.  For the OpenAPI interface, use Java 15 (The Enunciate library does not support newer yet).
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
 
 
-Also Windows 10 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
+Also Windows 10/11 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop.jar`.
 
@@ -36,6 +36,8 @@ If the program does not start, try the following command at the command line: `j
 
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/)
 
+The desktop user interface was written using Java FXML. The editor can be get from:
+https://gluonhq.com/products/scene-builder/ (You need to import the org.openjfx:javafx-graphics, and org.openjfx:javafx-controls with the library manager to get the editor working)
 
 ## Compiling the code
 The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from https://maven.apache.org/download.cgi.
@@ -64,12 +66,12 @@ call mvn clean install
 call mvn enunciate:docs install
 cd ..
 ```
-The best way to create a runnable [Java 15] (https://jdk.java.net/15/) program is to 
+Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
-2. Import the runtime definition:  Eclipse:/Project Explorer/IFCtoLBD_Desktop_Java15/others/Main 15.launch
-3. Run as "Main Java 15"
-4. Export:Java/Runnabe Jar file/Next
-5. Launch configuration:"Main 15 - IFCtoLBD Desktop Java15", Package resource libraries into generated JAR
+2. Open org.linkedbuildingdata.ifc2lbd.Main class on the Eclipse editor
+3. Select from the menu /Run/Run
+4. Select the /File/Export:Java/Runnabe Jar file/Next
+5. Launch configuration: -Select the created Main runtime configuration-, Package resource libraries into generated JAR
 6. Select destination file and Finish.
 
 An example command line usage of the program is:
@@ -177,6 +179,45 @@ This project is released under the open source [Apache License, Version 2.0](htt
   url          = {https://doi.org/10.5281/zenodo.5772656}
 }
 
+
+```
+
+## Command line usage
+```
+Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
+                    [--hasSeparateBuildingElementsModel]
+                    [--hasSeparatePropertiesModel] [--hasTriG] [--hasUnits]
+                    [--ifcOWL] [-l=<props_level>] [-t=<target_file>]
+                    [-u=<uriBase>] <ifc_filename>
+      <ifc_filename>     The absolute path for the IFC file that will be
+                           converted.
+  -b, --hasBlankNodes    Blank nodes are used.
+      -be, --hasBuildingElements
+                         The Building Elements will be created in the output.
+  -h, --help             Show this help message and exit.
+      --hasGeolocation   Geolocation, i.e., the latitude and longitude are
+                           added.
+      --hasGeometry      The bounding boxes are generated for elements.
+      --hasSeparateBuildingElementsModel
+                         The Building elements will have a separate file.
+      --hasSeparatePropertiesModel
+                         The properties will be written in a separate file.
+      --hasTriG          TriG is a serialization format for RDF (Resource
+                           Description Framework) graphs. It is a plain text
+                           format for serializing named graphs
+      --hasUnits         Data units are added.
+      --ifcOWL           Geolocation, i.e., the latitude and longitude are
+                           added.
+  -l, --level=<props_level>
+                         The OPM ontology complexity level
+  -p, --hasBuildingElementProperties
+                         The properties will ne added into the output.
+  -t, --target_file=<target_file>
+                         he main file name for the output. If there are many,
+                           they will be sharing the same name beginning.
+  -u, --url=<uriBase>    The URI base for all the elemenents that will be
+                           created.
+  -V, --version          Print version information and exit.
 
 ```
 

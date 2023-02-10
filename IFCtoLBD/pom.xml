@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.38.0</version>
+	<version>2.39.0</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -70,7 +68,13 @@
 		<dependency>
 			<groupId>de.rwth-aachen.dc.lbd</groupId>
 			<artifactId>IFCtoLBD_Geometry</artifactId>
-			<version>2.38.0</version>
+			<version>2.40.0</version>
+			 <exclusions>
+            <exclusion>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-log4j12</artifactId>
+            </exclusion>
+        </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -83,7 +87,6 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.15</version>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
@@ -119,21 +122,16 @@
 			<artifactId>IFC2RDF</artifactId>
 			<version>1.2.9</version>
 		</dependency>
-		<!-- IFCtoRDF sets the Apache Jena version -->
-		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->
-		<dependency>
-			<groupId>org.apache.jena</groupId>
-			<artifactId>apache-jena-libs</artifactId>
-			<version>[4.2.0,)</version>
-			<type>pom</type>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.github.davidmoten/rtree-multi -->
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
 			<artifactId>rtree-multi</artifactId>
 			<version>0.1-RC1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>info.picocli</groupId>
+			<artifactId>picocli</artifactId>
+			<version>4.7.0</version>
+		</dependency>
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
@@ -203,7 +201,8 @@
 								<goals>
 									<goal>jar</goal>
 								</goals>
-								<configuration> <!-- add this to disable checking -->
+								<configuration>
+									<!-- add this to disable checking -->
 									<additionalparam>-Xdoclint:none</additionalparam>
 								</configuration>
 							</execution>
@@ -232,7 +231,6 @@
 			</build>
 		</profile>
 	</profiles>
-
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
@@ -264,7 +262,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
@@ -299,9 +296,7 @@
 						<phase>generate-resources</phase>
 					</execution>
 				</executions>
-
 			</plugin>
-
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -348,11 +343,8 @@
 							<dependencyConvergence />
 						</rules>
 					</configuration>
-				</plugin>
-
+				</plugin>				
 			</plugins>
 		</pluginManagement>
 	</build>
-
-
 </project>

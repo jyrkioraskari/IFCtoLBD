@@ -10,7 +10,7 @@ public class GeometryTest {
 
 	public static void main(String[] args) {
 		try {
-			IFCBoundingBoxes ib=new IFCBoundingBoxes(new File("c:\\ifc\\Duplex_A_20110505.ifc"));
+			IFCGeometry ib=new IFCGeometry(new File("c:\\ifc\\Duplex_A_20110505.ifc"));
 			BoundingBox b=ib.getBoundingBox("1aj$VJZFn2TxepZUBcKpZw");
 			System.out.println(b.getMax().x);
 			System.out.println(b.getMin().x);

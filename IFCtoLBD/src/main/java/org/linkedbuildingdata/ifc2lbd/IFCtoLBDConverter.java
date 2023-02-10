@@ -2,9 +2,16 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
@@ -15,10 +22,10 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
-import de.rwth_aachen.dc.lbd.IFCBoundingBoxes;
+import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019, 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,7 +71,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param ifc_filename
      *            The absolute path for the IFC file that will be converted
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param target_file
      *            The main file name for the output. If there are many, they
      *            will be sharing the same beginning
@@ -76,7 +83,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasPropertiesBlankNodes
@@ -93,9 +100,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         this.props_level = props_level;
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
-        System.out.println("Conversion starts");
-        initialise_JenaModels();
+        this.uriBase = Optional.of(uriBase);
+        initialise();
         
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
                         hasSeparatePropertiesModel, hasGeolocation, true,false,false);        
@@ -107,7 +113,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param ifc_filename
      *            The absolute path for the IFC file that will be converted
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param target_file
      *            The main file name for the output. If there are many, they
      *            will be sharing the same beginning
@@ -119,7 +125,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasPropertiesBlankNodes
@@ -136,9 +142,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         this.props_level = props_level;
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
         System.out.println("Conversion starts");
-        initialise_JenaModels();
+        initialise();
 
         convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
                         hasSeparatePropertiesModel, hasGeolocation, hasGeometry,false,false);
@@ -149,7 +155,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * IFCtoLBD constructor
      * 
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param props_level
      *            The levels described in
      *            https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf
@@ -165,9 +171,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
+        this.uriBase = Optional.of(uriBase);
         System.out.println("Conversion starts");
-        initialise_JenaModels();
+        initialise();
     }
     
 
@@ -175,7 +181,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * IFCtoLBD constructor
      * 
      * @param uriBase
-     *            The URI base for all the elemenents that will be created
+     *            The URI base for all the elements that will be created
      * @param hasPropertiesBlankNodes
      *            Blank nodes are used
      * 
@@ -195,8 +201,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
         if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
             uriBase += "#";
-        this.uriBase = uriBase;
-        initialise_JenaModels();
+        this.uriBase = Optional.of(uriBase);
+        initialise();
     }
 
     /**
@@ -242,6 +248,39 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
         return lbd_general_output_model;
     }
 
+    
+    private String unzip(String ifcZipFile) {
+		ZipInputStream zis;
+		try {
+			byte[] buffer = new byte[1024];
+			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
+			ZipEntry zipEntry = zis.getNextEntry();
+			while (zipEntry != null) {
+				System.out.println("entry: " + zipEntry);
+				String name = zipEntry.getName().split("\\.")[0];
+				File newFile = File.createTempFile("ifc", ".ifc"); 
+				
+				// write file content
+				FileOutputStream fos = new FileOutputStream(newFile);
+				int len;
+				while ((len = zis.read(buffer)) > 0) {
+					fos.write(buffer, 0, len);
+				}
+				fos.close();
+
+				zipEntry = zis.getNextEntry();
+				zis.close();
+				newFile.deleteOnExit();
+				return newFile.getAbsolutePath();
+			}
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
     /**
      * Convert an IFC STEP file into LBD
      * 
@@ -255,7 +294,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      * @param hasSeparateBuildingElementsModel
      *            The Building elements will have a separate file
      * @param hasBuildingProperties
-     *            The properties will ne added into the output
+     *            The properties will be added into the output
      * @param hasSeparatePropertiesModel
      *            The properties will be written in a separate file
      * @param hasGeolocation
@@ -266,12 +305,17 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      */
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
                     boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
-
+    	
+    	
+    	if(ifc_filename.endsWith(".ifczip"))
+    		ifc_filename=unzip(ifc_filename);
+    	
         if (IfcOWLUtils.getExpressSchema(ifc_filename) == null)
         {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
             return null;
         }
+        
         if (hasGeometry)
             try {
                 eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
@@ -285,22 +329,22 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                     }
                 }, 1000, 1000);
 
-                this.bounding_boxes = new IFCBoundingBoxes(new File(ifc_filename));
+                this.ifc_geometry = new IFCGeometry(new File(ifc_filename));
                 timer.cancel();
             } catch (Exception e) {
                 eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),"Geometry handling was no done. " + e.getMessage()));
                 e.printStackTrace();
             }
-        eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
+        
 
-        this.ifcowl_model = readAndConvertIFC(ifc_filename, uriBase, !exportIfcOWL, target_file); // Before:
+        this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file); // Before:
                                                                                      // readInOntologies(ifc_filename);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
         readInOntologies(ifc_filename);
         createIfcLBDProductMapping();
 
-        addNamespaces(uriBase, props_level, hasBuildingElements, hasBuildingProperties);
+        addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
         if (this.ontURI.isPresent())

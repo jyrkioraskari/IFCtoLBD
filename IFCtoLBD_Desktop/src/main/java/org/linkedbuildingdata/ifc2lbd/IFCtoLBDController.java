@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -241,9 +241,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         FileChooser.ExtensionFilter ef1;
         ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
         FileChooser.ExtensionFilter ef2;
-        ef2 = new FileChooser.ExtensionFilter("All Files", "*.*");
+        ef2 = new FileChooser.ExtensionFilter("IFC zip documents (*.ifczip)", "*.ifczip");
+        FileChooser.ExtensionFilter ef3;
+        ef3 = new FileChooser.ExtensionFilter("All Files", "*.*");
         fc_ifc.getExtensionFilters().clear();
-        fc_ifc.getExtensionFilters().addAll(ef1, ef2);
+        fc_ifc.getExtensionFilters().addAll(ef1, ef2,ef3);
 
         if (file == null)
             file = fc_ifc.showOpenDialog(stage);
@@ -349,6 +351,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
         prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
 
+        prefs.putBoolean("lbd_boundinbox_elements", this.boundinbox_elements.isSelected());
+        prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
+        prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+        
         conversionTxt.setText("");
         try {
             String uri_base = labelBaseURI.getText().trim();
@@ -479,6 +485,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         this.building_props.setSelected(prefs.getBoolean("lbd_building_props", true));
         this.building_props_blank_nodes.setSelected(prefs.getBoolean("lbd_building_props_blank_nodes", false));
         this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
+       
+        this.boundinbox_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", true));
+        this.ifcOWL_elements.setSelected(prefs.getBoolean("lbd_ifcOWL_elements", false));
+        this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
 
         int props_level = prefs.getInt("lbd_props_level", 3);
         switch (props_level) {
@@ -504,7 +514,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         building_elements_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
         building_props.setTooltip(
                         new Tooltip("Building related properties\nThis is dedcribed in: https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf"));
-        building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
+        building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files (Only levels 2 or 3)."));
 
         elements_link.setTooltip(new Tooltip("Opens a link that describes the Building Product Ontology."));
 

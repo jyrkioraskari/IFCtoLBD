@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
@@ -11,6 +12,7 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -25,7 +27,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
+<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
@@ -48,18 +50,18 @@
     </MenuBar>
     <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="572.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="713.0" layoutX="-6.0" stroke="BLACK" strokeType="INSIDE" width="937.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-7.0">
                <fill>
-                  <LinearGradient cycleMethod="REPEAT" endX="0.3142857142857143" endY="1.0">
+                  <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.48815165876777256">
                      <stops>
                         <Stop>
                            <color>
                               <Color red="0.5764706134796143" green="0.7607843279838562" blue="0.9333333373069763" />
                            </color>
                         </Stop>
-                        <Stop offset="0.007662835249042145">
+                        <Stop offset="0.011018539947028722">
                            <color>
-                              <Color red="0.5764706134796143" green="0.7607843279838562" blue="0.9333333373069763" />
+                              <Color red="0.7333333492279053" green="0.14901961386203766" blue="0.2862745225429535" />
                            </color>
                         </Stop>
                         <Stop offset="0.15517241379310326">
@@ -69,12 +71,12 @@
                         </Stop>
                         <Stop offset="0.325670498084291">
                            <color>
-                              <Color red="0.7385440468788147" green="0.5766000151634216" blue="0.9300000071525574" />
+                              <Color red="0.34736841917037964" green="0.3263547718524933" blue="0.2573099434375763" />
                            </color>
                         </Stop>
                         <Stop offset="0.6053639846743293">
                            <color>
-                              <Color red="0.14901961386203766" green="0.21176470816135406" blue="0.027450980618596077" />
+                              <Color red="0.22027289867401123" green="0.31578946113586426" blue="0.02923976629972458" />
                            </color>
                         </Stop>
                         <Stop offset="0.786546589248331">
@@ -84,7 +86,7 @@
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.7236841917037964" green="0.13401558995246887" blue="0.13401558995246887" opacity="0.1599999964237213" />
+                              <Color red="0.7490196228027344" green="0.7921568751335144" blue="0.8392156958580017" />
                            </color>
                         </Stop>
                      </stops>
@@ -104,7 +106,7 @@
                   <Font name="Arial" size="18.0" />
                </font></Label>
             <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0" />
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" onAction="#convertIFCToRDF" prefHeight="182.0" prefWidth="150.0" text="Convert to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="490.0">
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="490.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="182.0" prefWidth="150.0" text="Convert to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="490.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -121,16 +123,22 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
-            <Label fx:id="labelTargetFile" layoutX="217.0" layoutY="226.0" prefHeight="35.0" prefWidth="470.0" textFill="WHITE" AnchorPane.leftAnchor="217.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="155.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="271.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
             <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="527.0" prefWidth="737.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" prefHeight="35.0" prefWidth="150.0" text="Select target file name..." AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="155.0">
+            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file name..." AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="155.0">
                <font>
                   <Font name="Arial" size="14.0" />
-               </font></Button>
-            <TitledPane expanded="false" layoutX="51.0" layoutY="168.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="237.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0">
+               </font>
+               <effect>
+                  <Glow />
+               </effect>
+               <opaqueInsets>
+                  <Insets right="255.0" />
+               </opaqueInsets></Button>
+            <TitledPane expanded="false" layoutX="50.0" layoutY="198.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="239.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="198.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
@@ -142,17 +150,17 @@
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="382.0">
                                              <children>
-                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
-                                                   <font>
-                                                      <Font name="Arial" size="12.0" />
-                                                   </font>
-                                                </ToggleSwitch>
                                                 <Hyperlink fx:id="elements_link" layoutX="180.0" layoutY="18.0" onAction="#hyperlink_product_handle" prefHeight="30.0" prefWidth="150.0" text="Read more" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="12.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
                                                 <ToggleSwitch fx:id="building_elements_separate_file" layoutX="201.0" layoutY="143.0" text="Separate file" textFill="#141414" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
+                                                   <font>
+                                                      <Font name="Arial" size="12.0" />
+                                                   </font>
+                                                </ToggleSwitch>
+                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -227,16 +235,16 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
-                                          <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate Bounding Boxes" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" text="Create and link ifcOWL" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
                                        </children>
                                     </AnchorPane>
-                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
+                                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="419.0">
                                        <children>
-                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" text="Create and link ifcOWL" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
