@@ -1,0 +1,12 @@
+com.openifctools.guidcompressor
+de.rwth_aachen.dc.ifc2lbd
+org.linkedbuildingdata.ifc2lbd
+org.linkedbuildingdata.ifc2lbd.application_messaging
+org.linkedbuildingdata.ifc2lbd.application_messaging.events
+org.linkedbuildingdata.ifc2lbd.core
+org.linkedbuildingdata.ifc2lbd.core.utils
+org.linkedbuildingdata.ifc2lbd.core.utils.ontology
+org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath
+org.linkedbuildingdata.ifc2lbd.core.valuesets
+org.linkedbuildingdata.ifc2lbd.geo
+org.linkedbuildingdata.ifc2lbd.namespace
