@@ -1062,7 +1062,7 @@ public abstract class IFCtoLBDConverterCore {
     int ios=0;
 	protected void initialise() {
 		System.out.println("init 1.1");
-		JenaSystem.DEBUG_INIT = true;
+		//JenaSystem.DEBUG_INIT = true;
 		//JenaSystem.init();
 		ontology_model = ModelFactory.createDefaultModel();
 		this.lbd_general_output_model = ModelFactory.createDefaultModel();
