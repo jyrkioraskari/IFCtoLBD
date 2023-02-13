@@ -66,12 +66,7 @@ public class OperatingSystemCopyOf_IfcGeomServer {
             try {
                 Files.copy(in, geomserverPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
             } catch (Exception e1) {
-                System.out.println("IfcGeomServerLocation null?: " + (IfcGeomServerLocation == null));
-                System.out.println("IfcGeomServerLocation: " + IfcGeomServerLocation);
-                System.out.println("in null?: " + (in == null));
-                System.out.println("geomserverPath null?: " + (geomserverPath == null));
-                System.out.println("geomserverPath: " + geomserverPath);
-                e1.printStackTrace();
+                System.err.println("Geom engine not updated.");
             }
 
             if (ixsystem) {
