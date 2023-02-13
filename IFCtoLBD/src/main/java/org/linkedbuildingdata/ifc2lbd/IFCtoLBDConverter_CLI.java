@@ -101,7 +101,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.uriBase.isPresent())
 			uriBase = this.uriBase.get();
 
-		String target_file = ifc_filename.split(".ifc")[0] + ".ttl";
+		String target_file = ifc_filename.split("\\.ifc")[0] + ".ttl";
 		if (this.target_file.isPresent())
 			target_file = this.target_file.get();
 
