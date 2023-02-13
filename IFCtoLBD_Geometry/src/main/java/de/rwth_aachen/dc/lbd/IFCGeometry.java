@@ -117,7 +117,7 @@ public class IFCGeometry {
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
-		Point3d point = new Point3d(result[0], result[2], result[1]);
+		Point3d point = new Point3d(result[0], result[1], result[2]);
 		return point;
 
 	}
@@ -174,7 +174,7 @@ public class IFCGeometry {
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
-		Point3d point = new Point3d(result[0], result[2], result[1]);
+		Point3d point = new Point3d(result[0], result[1], result[2]);
 		return point;
 
 	}
