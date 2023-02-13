@@ -95,7 +95,7 @@ public class IFCGeometry {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-
+				
 				while (ver.hasRemaining()) {
 					Point3d p = processExtends(tranformationMatrix, ver);
 					boundingBox.add(p);
@@ -146,7 +146,7 @@ public class IFCGeometry {
 				}
 
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-
+				ver=ver.position(0);
 				while (ver.hasRemaining()) {
 					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
