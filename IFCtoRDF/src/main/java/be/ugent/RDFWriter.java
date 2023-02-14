@@ -160,7 +160,7 @@ public class RDFWriter {
             else if (typ.containsKey(ifcLineEntry.getName()))
                 typeName = typ.get(ifcLineEntry.getName()).getName();
             
-            if(filter_geometry && typeName.equals("IfcFace"))
+            /*if(filter_geometry && typeName.equals("IfcFace"))
                 continue;
             if(filter_geometry && typeName.equals("IfcPolyLoop"))
                 continue;
@@ -179,7 +179,7 @@ public class RDFWriter {
             if(filter_geometry && typeName.equals("IfcStyledItem"))
                 continue;
             if(filter_geometry && typeName.equals("IfcShapeRepresentation"))
-                continue;
+                continue;*/
 
             OntClass cl = ontModel.getOntClass(ontNS + typeName);
             if(cl==null)
