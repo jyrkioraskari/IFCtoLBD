@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.39.0</version>
+	<version>2.40.1</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.dc.lbd</groupId>
 			<artifactId>IFCtoLBD_Geometry</artifactId>
-			<version>2.40.1</version>
+			<version>2.40.2</version>
 			 <exclusions>
             <exclusion>
                 <groupId>org.slf4j</groupId>
@@ -120,7 +120,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFC2RDF</artifactId>
-			<version>1.2.9</version>
+			<version>1.2.10</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>

@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.38.0
+Version 2.40.1
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -222,6 +222,10 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
 ```
 
 ## Blog
+
+### February 13, 2023  
+The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented, but needs still some more testing.
+
 ### June 07, 2022  
 Support for xsd:decimal.
 

@@ -14,7 +14,7 @@
 	<artifactId>IFC2RDF</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.2.9</version>
+	<version>1.2.10</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
