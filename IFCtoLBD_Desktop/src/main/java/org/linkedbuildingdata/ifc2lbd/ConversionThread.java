@@ -51,8 +51,11 @@ public class ConversionThread implements Callable<Integer> {
 	final boolean hasGeometry;
 	final boolean exportIfcOWL;
     final boolean hasUnits;
+    
+    final boolean hasPerformanceBoost;
+    final boolean hasBoundingBoxWKT;
 
-	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
+	public ConversionThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -68,13 +71,15 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasGeometry=hasGeometry;
 		this.exportIfcOWL=exportIfcOWL;
 		this.hasUnits=hasUnits;
+		this.hasPerformanceBoost=hasPerformanceBoost;
+		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 	}
 
 	public Integer call() throws Exception {
 		try {
 			try {
 				IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, false, this.props_level);
-				c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits);
+				c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,hasPerformanceBoost,hasBoundingBoxWKT);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

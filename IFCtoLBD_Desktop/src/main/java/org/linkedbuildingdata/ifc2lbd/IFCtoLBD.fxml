@@ -138,7 +138,7 @@
                <opaqueInsets>
                   <Insets right="255.0" />
                </opaqueInsets></Button>
-            <TitledPane expanded="false" layoutX="50.0" layoutY="198.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="239.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="198.0">
+            <TitledPane expanded="false" layoutX="50.0" layoutY="191.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="246.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="191.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
@@ -160,12 +160,12 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                                <ToggleSwitch fx:id="building_elements" accessibleText="Building Product Ontology instances" selected="true" text="PRODUCT " AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="15.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <ToggleSwitch fx:id="geolocation" layoutX="17.0" layoutY="143.0" selected="true" text="Geolocation" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="20.0">
+                                                <ToggleSwitch fx:id="geolocation" layoutX="17.0" layoutY="143.0" selected="true" text="Geolocation" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="10.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -181,7 +181,7 @@
                                                 </ToggleSwitch>
 												
 												
-												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel1" selected="true" text="Level 1" textFill="#dd0a0a" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+												<RadioButton fx:id="level1" layoutX="42.0" layoutY="77.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel1" selected="true" text="Level 1" textFill="#0b95db" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
                                        <font>
                                           <Font name="Arial" size="12.0" />
                                        </font>
@@ -190,22 +190,22 @@
                                                    </toggleGroup>
                                     </RadioButton>
 												
-                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel2" text="Level 2" textFill="#dd0a0a" toggleGroup="$PL" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel2" text="Level 2" textFill="#0b95db" toggleGroup="$PL" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </RadioButton>
-                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel3" text="Level 3" textFill="#dd0a0a" toggleGroup="$PL" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
+                                                <RadioButton fx:id="level3" layoutX="209.0" layoutY="82.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel3" text="Level 3" textFill="#0b95db" toggleGroup="$PL" AnchorPane.leftAnchor="200.0" AnchorPane.topAnchor="50.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </RadioButton>
-                                                <ToggleSwitch fx:id="building_props_separate_file" layoutX="201.0" layoutY="123.0" text="Separate file" textFill="#171717" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="50.0">
+                                                <ToggleSwitch fx:id="building_props_separate_file" layoutX="201.0" layoutY="123.0" text="Separate file" textFill="#171717" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="20.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <Hyperlink fx:id="opm_link" layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="Read more" textFill="#dd0a0a" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="48.0">
+                                                <Hyperlink fx:id="opm_link" layoutX="217.0" layoutY="75.0" onAction="#hyperlink_opm_handle" text="Read more" textFill="#0b95db" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="48.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -220,7 +220,7 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
-                                                <ToggleSwitch fx:id="createUnits" layoutX="226.0" layoutY="15.0" selected="true" text="Create Units" textFill="#171717" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0">
+                                                <ToggleSwitch fx:id="createUnits" layoutX="226.0" layoutY="15.0" selected="true" text="Create Units" textFill="#171717" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="15.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -235,7 +235,12 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
-                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" text="Create and link ifcOWL" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" onMouseReleased="#ifcOWLSelectionChange" text="Create and link ifcOWL" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
@@ -244,7 +249,12 @@
                                     </AnchorPane>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="55.0" prefWidth="419.0">
                                        <children>
-                                          <ToggleSwitch fx:id="boundinbox_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0">
+                                          <ToggleSwitch fx:id="geometry_elements" accessibleText="Building Product Ontology instances" text="Generate geometry" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="hasBoundingBox_WKT" accessibleText="Building Product Ontology instances" layoutX="203.0" layoutY="15.0" text="Bounding Boxes as WKT" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="20.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>

@@ -62,8 +62,7 @@ import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
     private int ios=0;
-
-    
+	
     /**
      * IFCtoLBD constructor The construction method for the converter process.
      * This does the whole process.
@@ -303,10 +302,17 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
      *            If bounding boxes are created for elements.
      * @return The model as a Jena-model
      */
+    
     public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
-                    boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
+            boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits) {
     	
+    	return convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+                hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,(exportIfcOWL)?false:true ,false);
+    }
+    public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
+                    boolean hasSeparatePropertiesModel, boolean hasGeolocation, boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
     	
+    	this.hasBoundingBoxWKT=hasBoundingBoxWKT;
     	if(ifc_filename.endsWith(".ifczip"))
     		ifc_filename=unzip(ifc_filename);
     	
@@ -337,7 +343,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
             }
         
 
-        this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file); // Before:
+        this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file, hasPerformanceBoost); // Before:
                                                                                      // readInOntologies(ifc_filename);
 
         eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
