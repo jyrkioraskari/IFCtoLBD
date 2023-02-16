@@ -62,7 +62,7 @@ public class RDFWriter {
 
 	// data from conversion
 	private int idCounter = 0;
-	private Map<Long, IFCVO> linemap = new HashMap<>();
+	private  Map<Long, IFCVO> linemap = new HashMap<>();
 
 	// EXPRESS basis
 	private final Map<String, EntityVO> ent;

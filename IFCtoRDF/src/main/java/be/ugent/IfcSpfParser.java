@@ -18,13 +18,13 @@ import org.slf4j.LoggerFactory;
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
 public class IfcSpfParser {
+    private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
     private InputStream inputStream;
     private int idCounter = 0;
     private Map<Long, IFCVO> linemap = new HashMap<>();
     private Map<Long, Long> listOfDuplicateLineEntries = new HashMap<>();
 
-    private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
     public IfcSpfParser(InputStream inputStream) {
         this.inputStream = inputStream;
@@ -148,17 +148,18 @@ public class IfcSpfParser {
         idCounter++;
     }
 
-    public void resolveDuplicates() throws IOException {
+    //JO 2023  perfoemance optimization
+    public void resolveDuplicates()  {
         Map<String, IFCVO> listOfUniqueResources = new HashMap<>();
         List<Long> entriesToRemove = new ArrayList<>();
-        for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
-            IFCVO vo = entry.getValue();
+        for (Long key : linemap.keySet()) {
+            IFCVO vo = linemap.get(key);
             String t = vo.getFullLineAfterNum();
             if (!listOfUniqueResources.containsKey(t))
                 listOfUniqueResources.put(t, vo);
             else {
                 // found duplicate
-                entriesToRemove.add(entry.getKey());
+                entriesToRemove.add(key);
                 listOfDuplicateLineEntries.put(vo.getLineNum(), listOfUniqueResources.get(t).getLineNum());
             }
         }
@@ -168,9 +169,10 @@ public class IfcSpfParser {
         }
     }
 
-    public boolean mapEntries() throws IOException {
-        for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
-            IFCVO vo = entry.getValue();
+    public boolean mapEntries()  {
+        //JO 2023  perfoemance optimization
+        for (Long key : linemap.keySet()) {
+            IFCVO vo = linemap.get(key);
 
             // mapping properties to IFCVOs
             for (int i = 0; i < vo.getObjectList().size(); i++) {
