@@ -107,22 +107,22 @@ public class RDFWriter {
 	public void parseModel2Stream(OutputStream out) throws IOException {
 		// CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
 		// 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)
-		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
-		ttlWriter.base(baseURI);
-		ttlWriter.prefix("ifc", ontNS);
-		ttlWriter.prefix("inst", baseURI);
-		ttlWriter.prefix("list", LIST_NS);
-		ttlWriter.prefix("express", EXPRESS_NS);
-		ttlWriter.prefix("rdf", Namespace.RDF);
-		ttlWriter.prefix("xsd", Namespace.XSD);
-		ttlWriter.prefix("owl", Namespace.OWL);
-		ttlWriter.start();
+		this.ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
+		this.ttlWriter.base(baseURI);
+		this.ttlWriter.prefix("ifc", ontNS);
+		this.ttlWriter.prefix("inst", baseURI);
+		this.ttlWriter.prefix("list", LIST_NS);
+		this.ttlWriter.prefix("express", EXPRESS_NS);
+		this.ttlWriter.prefix("rdf", Namespace.RDF);
+		this.ttlWriter.prefix("xsd", Namespace.XSD);
+		this.ttlWriter.prefix("owl", Namespace.OWL);
+		this.ttlWriter.start();
 
-		ttlWriter.triple(new Triple(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
-		ttlWriter
+		this.ttlWriter.triple(new Triple(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
+		this.ttlWriter
 				.triple(new Triple(NodeFactory.createURI(baseURI), OWL.imports.asNode(), NodeFactory.createURI(ontNS)));
 
-		IfcSpfParser parser = new IfcSpfParser(inputStream);
+		IfcSpfParser parser = new IfcSpfParser(this.inputStream);
 
 		// Read the whole file into a linemap Map object
 		parser.readModel();
@@ -141,52 +141,57 @@ public class RDFWriter {
 			return;
 
 		// recover data from parser
-		idCounter = parser.getIdCounter();
-		linemap = parser.getLinemap();
+		this.idCounter = parser.getIdCounter();
+		this.linemap = parser.getLinemap();
 
 		LOG.info("Entries mapped, now creating instances");
 		createInstances();
 
 		// Save memory
-		linemap.clear();
-		linemap = null;
+		this.linemap.clear();
+		this.linemap = null;
 
 		ttlWriter.finish();
 	}
 
-	boolean filter_geometry = true;;
+	private boolean filter4Perfoemance(String typeName) {
+		if (this.hasPerformanceBoost) {
+			if (typeName.equals("IfcFace"))
+				return true;
+			if (typeName.equals("IfcPolyLoop"))
+				return true;
+			if (typeName.equals("IfcCartesianPoint"))
+				return true;
+			if (typeName.equals("IfcOwnerHistory"))
+				return true;
+			if (typeName.equals("IfcRelAssociatesMaterial"))
+				return true;
+			if (typeName.equals("IfcExtrudedAreaSolid"))
+				return true;
+			if (typeName.equals("IfcCompositeCurve"))
+				return true;
+			if (typeName.equals("IfcSurfaceStyleRendering"))
+				return true;
+			if (typeName.equals("IfcStyledItem"))
+				return true;
+			if (typeName.equals("IfcShapeRepresentation"))
+				return true;
+		}
+		return false;
+	}
 
 	private void createInstances() throws IOException {
-		for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
+		for (Map.Entry<Long, IFCVO> entry : this.linemap.entrySet()) {
 			IFCVO ifcLineEntry = entry.getValue();
 			String typeName = "";
-			if (ent.containsKey(ifcLineEntry.getName()))
-				typeName = ent.get(ifcLineEntry.getName()).getName();
-			else if (typ.containsKey(ifcLineEntry.getName()))
-				typeName = typ.get(ifcLineEntry.getName()).getName();
+			if (this.ent.containsKey(ifcLineEntry.getName()))
+				typeName = this.ent.get(ifcLineEntry.getName()).getName();
+			else if (this.typ.containsKey(ifcLineEntry.getName()))
+				typeName = this.typ.get(ifcLineEntry.getName()).getName();
 
-			if (this.hasPerformanceBoost) {
-				if (filter_geometry && typeName.equals("IfcFace"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcPolyLoop"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcCartesianPoint"))
-					continue;
-				if (typeName.equals("IfcOwnerHistory"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcRelAssociatesMaterial"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcExtrudedAreaSolid"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcCompositeCurve"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcSurfaceStyleRendering"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcStyledItem"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcShapeRepresentation"))
-					continue;
-			}
+			// removes only first level triples
+			if (filter4Perfoemance(typeName))
+				continue;
 
 			OntClass cl = ontModel.getOntClass(ontNS + typeName);
 			if (cl == null) {
@@ -217,7 +222,7 @@ public class RDFWriter {
 		}
 		// The map is used only to avoid duplicates.
 		// So, it can be cleared here
-		propertyResourceMap.clear();
+		this.propertyResourceMap.clear();
 	}
 
 	TypeVO typeRemembrance = null;
@@ -237,7 +242,7 @@ public class RDFWriter {
 		if (evo == null && tvo != null) {
 			// working with a TYPE
 
-			typeRemembrance = null;
+			this.typeRemembrance = null;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
 				if (Character.class.isInstance(o)) {
@@ -259,7 +264,7 @@ public class RDFWriter {
 			// working with an ENTITY
 			final String subject = evo.getName() + "_" + ifcLineEntry.getLineNum();
 
-			typeRemembrance = null;
+			this.typeRemembrance = null;
 			int attributePointer = 0;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
@@ -347,7 +352,7 @@ public class RDFWriter {
 			OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
 			Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o).getLineNum(), rclass);
-			ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+			this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
 			LOG.info("*OK 1*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 					+ r1.getLocalName());
 		} else {
@@ -423,7 +428,7 @@ public class RDFWriter {
 
 						Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o1).getLineNum(),
 								rclass);
-						ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+						this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
 						LOG.info("*OK 5*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 								+ r1.getLocalName());
 					}
@@ -726,7 +731,7 @@ public class RDFWriter {
 				.hasNext();) {
 			OntResource rangeInstance = instances.next();
 			if (rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(filterPoints(literalString))) {
-				ttlWriter.triple(new Triple(r.asNode(), p.asNode(), rangeInstance.asNode()));
+				this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), rangeInstance.asNode()));
 				LOG.info("*OK 2*: added ENUM statement " + r.getLocalName() + " - " + p.getLocalName() + " - "
 						+ rangeInstance.getLocalName());
 				return;
@@ -807,13 +812,13 @@ public class RDFWriter {
 						Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
 						LOG.info("*OK 21*: created resource: " + r2.getLocalName());
 						idCounter++;
-						ttlWriter.triple(new Triple(r1.asNode(),
+						this.ttlWriter.triple(new Triple(r1.asNode(),
 								ontModel.getOntProperty(LIST_NS + "hasContents").asNode(), r2.asNode()));
 						LOG.info("*OK 22*: added property: " + r1.getLocalName() + " - " + "-hasContents-" + " - "
 								+ r2.getLocalName());
 
 						if (i < el.size() - 1) {
-							ttlWriter.triple(
+							this.ttlWriter.triple(
 									new Triple(r1.asNode(), ontModel.getOntProperty(LIST_NS + "hasNext").asNode(),
 											reslist.get(i + 1).asNode()));
 							LOG.info("*OK 23*: added property: " + r1.getLocalName() + " - " + "-hasNext-" + " - "
@@ -849,7 +854,7 @@ public class RDFWriter {
 						reslist.add(r1);
 						idCounter++;
 						if (ii == 0) {
-							ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+							this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
 							LOG.info("*OK 7*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 									+ r1.getLocalName());
 						}
@@ -875,13 +880,13 @@ public class RDFWriter {
 			Resource r1 = propertyResourceMap.get(key);
 			if (r1 == null) {
 				r1 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
-				ttlWriter.triple(new Triple(r1.asNode(), RDF.type.asNode(), range.asNode()));
+				this.ttlWriter.triple(new Triple(r1.asNode(), RDF.type.asNode(), range.asNode()));
 				LOG.info("*OK 17*: created resource: " + r1.getLocalName());
 				idCounter++;
 				propertyResourceMap.put(key, r1);
 				addLiteralToResource(r1, valueProp, xsdType, literalString);
 			}
-			ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+			this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
 			LOG.info("*OK 3*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 					+ r1.getLocalName());
 		} else {
@@ -904,24 +909,24 @@ public class RDFWriter {
 					Resource r1 = el.get(i);
 					Resource r2 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter); // was
 					// listrange
-					ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), range.asNode()));
+					this.ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), range.asNode()));
 					LOG.info("*OK 14*: added property: " + r2.getLocalName() + " - rdf:type - " + range.getLocalName());
 					idCounter++;
 					Resource r3 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
 
 					if (i == 0) {
-						ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r2.asNode()));
+						this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r2.asNode()));
 						LOG.info("*OK 15*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 								+ r2.getLocalName());
 					}
-					ttlWriter.triple(new Triple(r2.asNode(), ontModel.getOntProperty(LIST_NS + "hasContents").asNode(),
-							r1.asNode()));
+					this.ttlWriter.triple(new Triple(r2.asNode(),
+							ontModel.getOntProperty(LIST_NS + "hasContents").asNode(), r1.asNode()));
 					LOG.info("*OK 16*: added property: " + r2.getLocalName() + " - " + "-hasContents-" + " - "
 							+ r1.getLocalName());
 
 					if (i < el.size() - 1) {
-						ttlWriter.triple(new Triple(r2.asNode(), ontModel.getOntProperty(LIST_NS + "hasNext").asNode(),
-								r3.asNode()));
+						this.ttlWriter.triple(new Triple(r2.asNode(),
+								ontModel.getOntProperty(LIST_NS + "hasNext").asNode(), r3.asNode()));
 						LOG.info("*OK 17*: added property: " + r2.getLocalName() + " - " + "-hasNext-" + " - "
 								+ r3.getLocalName());
 					}
@@ -944,7 +949,7 @@ public class RDFWriter {
 				idCounter++;
 				entlist.add((IFCVO) tmpList.get(i));
 				if (i == 0) {
-					ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+					this.ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
 					LOG.info("*OK 13*: added property: " + r.getLocalName() + " - " + p.getLocalName() + " - "
 							+ r1.getLocalName());
 				}
@@ -968,19 +973,19 @@ public class RDFWriter {
 				TypeVO typerange = typ.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 				rclass = ontModel.getOntResource(ontNS + typerange.getName());
 				Resource r1 = getResource(baseURI + typerange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
+				this.ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
 				LOG.info("*OK 8*: created property: " + r.getLocalName() + " - " + listp.getLocalName() + " - "
 						+ r1.getLocalName());
 			} else {
 				rclass = ontModel.getOntResource(ontNS + evorange.getName());
 				Resource r1 = getResource(baseURI + evorange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
+				this.ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
 				LOG.info("*OK 9*: created property: " + r.getLocalName() + " - " + listp.getLocalName() + " - "
 						+ r1.getLocalName());
 			}
 
 			if (i < reslist.size() - 1) {
-				ttlWriter.triple(new Triple(r.asNode(), isfollowed.asNode(), reslist.get(i + 1).asNode()));
+				this.ttlWriter.triple(new Triple(r.asNode(), isfollowed.asNode(), reslist.get(i + 1).asNode()));
 				LOG.info("*OK 10*: created property: " + r.getLocalName() + " - " + isfollowed.getLocalName() + " - "
 						+ reslist.get(i + 1).getLocalName());
 			}
@@ -1006,19 +1011,19 @@ public class RDFWriter {
 				Resource r2 = propertyResourceMap.get(key);
 				if (r2 == null) {
 					r2 = ResourceFactory.createResource(baseURI + listrange.getLocalName() + "_" + idCounter);
-					ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), listrange.asNode()));
+					this.ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), listrange.asNode()));
 					LOG.info("*OK 19*: created resource: " + r2.getLocalName());
 					idCounter++;
 					propertyResourceMap.put(key, r2);
 					addLiteralToResource(r2, valueProp, xsdType, literalString);
 				}
-				ttlWriter.triple(
+				this.ttlWriter.triple(
 						new Triple(r.asNode(), ontModel.getOntProperty(LIST_NS + "hasContents").asNode(), r2.asNode()));
 				LOG.info("*OK 11*: added property: " + r.getLocalName() + " - " + "-hasContents-" + " - "
 						+ r2.getLocalName());
 
 				if (i < listelements.size() - 1) {
-					ttlWriter.triple(new Triple(r.asNode(), ontModel.getOntProperty(LIST_NS + "hasNext").asNode(),
+					this.ttlWriter.triple(new Triple(r.asNode(), ontModel.getOntProperty(LIST_NS + "hasNext").asNode(),
 							reslist.get(i + 1).asNode()));
 					LOG.info("*OK 12*: added property: " + r.getLocalName() + " - " + "-hasNext-" + " - "
 							+ reslist.get(i + 1).getLocalName());
@@ -1061,11 +1066,11 @@ public class RDFWriter {
 	}
 
 	private void addLiteral(Resource r, OntProperty valueProp, Literal l) {
-		ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), l.asNode()));
+		this.ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), l.asNode()));
 	}
 
 	private void addProperty(Resource r, OntProperty valueProp, Resource r1) {
-		ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), r1.asNode()));
+		this.ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), r1.asNode()));
 	}
 
 	private OntResource getListContentType(OntClass range) throws IOException {
@@ -1145,7 +1150,7 @@ public class RDFWriter {
 			r = ResourceFactory.createResource(uri);
 			this.resourceMap.put(uri, r);
 			try {
-				ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
+				this.ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("rclass: " + rclass);
