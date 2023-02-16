@@ -106,9 +106,9 @@ public class IfcOWLUtils {
     public static String getXSDTypeFromRangeExpensiveMethod(OntResource range,OntModel ontModel) {
         ExtendedIterator<OntClass> iter = range.asClass().listSuperClasses();
         while (iter.hasNext()) {
-            OntClass superc = iter.next();
-            if (!superc.isAnon()) {
-                String type = getXSDTypeFromRange(superc,ontModel);
+            OntClass super_class = iter.next();
+            if (!super_class.isAnon()) {
+                String type = getXSDTypeFromRange(super_class,ontModel);
                 if (type != null)
                     return type;
             }

@@ -178,16 +178,19 @@ public class RDFWriter {
                         LOG.error("*ERROR 17*: We found a character that is not a comma. That should not be possible!");
                     }
                 } else if (String.class.isInstance(o)) {
-                    LOG.warn("*WARNING 1*: fillProperties 2: unhandled type property found.");
+                    LOG.warn("*WARNING 1*: extractProperties 1: unhandled type property found.");
                 } else if (IFCVO.class.isInstance(o)) {
-                    LOG.warn("*WARNING 2*: fillProperties 2: unhandled type property found.");
+                    LOG.warn("*WARNING 2*: extractProperties 2: unhandled type property found.");
                 } else if (LinkedList.class.isInstance(o)) {
-                    LOG.info("fillProperties 3 - fillPropertiesHandleListObject(tvo)");
+                    LOG.info("extractProperties 3 - fillPropertiesHandleListObject(tvo)");
                     extractPropertiesHandleListObject(ttlWriter, r, tvo, o);
                 }
+                else 
+                    LOG.info("extractProperties 4 - unhandled type property found");
             }
         }
-        if (tvo == null && evo != null) {
+        else
+        if (evo != null) {
             // working with an ENTITY
             final String subject = evo.getName() + "_" + ifcLineEntry.getLineNum();
 
