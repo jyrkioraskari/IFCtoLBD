@@ -1006,7 +1006,7 @@ public abstract class IFCtoLBDConverterCore {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
-				if (outputFile.exists() && outputFile.length()<10000) {
+				if (outputFile.exists()) {
 					eventBus.post(new IFCtoLBD_SystemStatusEvent("Using existing ifcOWL file"));
 					Model model = ModelFactory.createDefaultModel();
 					model.read(new FileInputStream(ifcowlfilename), null, "TTL");

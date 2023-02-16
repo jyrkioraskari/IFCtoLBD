@@ -330,6 +330,7 @@ public class IfcSpfReader {
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI,hasPerformanceBoost);
             conv.setRemoveDuplicates(removeDuplicates);
+            conv.setIfcReader(this);
             try (FileOutputStream out = new FileOutputStream(outputFile)) {
                 String s = "# baseURI: " + baseURI;
                 s += "\r\n# imports: " + ontURI + "\r\n\r\n";

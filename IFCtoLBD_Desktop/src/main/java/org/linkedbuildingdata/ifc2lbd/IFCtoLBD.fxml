@@ -27,7 +27,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
+<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
@@ -50,7 +50,7 @@
     </MenuBar>
     <AnchorPane fx:id="root" maxHeight="-1.0" maxWidth="-1.0" prefHeight="572.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-7.0">
                <fill>
                   <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.48815165876777256">
                      <stops>
