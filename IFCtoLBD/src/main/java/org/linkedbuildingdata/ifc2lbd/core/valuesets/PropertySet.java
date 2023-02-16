@@ -143,10 +143,9 @@ public class PropertySet {
             switch (this.props_level) {
                 case 1:
                 default:
-                for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
-                    String pname = entry.getKey();
+                for (String pname : this.mapPnameValue.keySet()) {
                     Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
-                    lbd_resource.addProperty(property, entry.getValue());
+                    lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
                 case 2:
@@ -165,8 +164,7 @@ public class PropertySet {
 
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
-        for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
-            String pname = entry.getKey();
+        for (String pname : this.mapPnameValue.keySet()) {
             Resource property_resource;
             if (this.hasBlank_nodes)
                 property_resource = this.lbd_model.createResource();
@@ -194,12 +192,12 @@ public class PropertySet {
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
-                state_resourse.addProperty(OPM.value, entry.getValue());
+                state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 if (this.hasUnits)
                     addUnit(state_resourse, pname);
 
             } else {
-                property_resource.addProperty(OPM.value, entry.getValue());
+                property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 if (this.hasUnits)
                     addUnit(property_resource, pname);
             }

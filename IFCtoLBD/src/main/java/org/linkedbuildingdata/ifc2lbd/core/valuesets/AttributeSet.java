@@ -95,12 +95,11 @@ public class AttributeSet {
             case 1:
             default:
             
-            for (Entry<String, RDFNode> entry : this.mapPnameValue.entrySet()) {
-                String pname=entry.getKey();
+            for (String  pname : this.mapPnameValue.keySet()) {
                 Property property;
                 property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
                 // No blank node etc is created, so no units expressed here
-                lbd_resource.addProperty(property, entry.getValue());
+                lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
             }
                 break;
             case 2:

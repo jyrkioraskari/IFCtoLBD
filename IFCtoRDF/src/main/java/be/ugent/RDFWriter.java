@@ -146,8 +146,8 @@ public class RDFWriter {
 	boolean filter_geometry = true;;
 
 	private void createInstances()  {
-		for (Map.Entry<Long, IFCVO> entry : linemap.entrySet()) {
-			IFCVO ifcLineEntry = entry.getValue();
+		for (Long key : linemap.keySet()) {
+			IFCVO ifcLineEntry = linemap.get(key);
 			String typeName = "";
 			if (ent.containsKey(ifcLineEntry.getName()))
 				typeName = ent.get(ifcLineEntry.getName()).getName();
