@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.URL;
+import java.util.Optional;
 
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
@@ -21,6 +22,7 @@ import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.lib.ShLib;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.linkedbuildingdata.ifc2lbd.core.IFCtoRDF;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -42,6 +44,29 @@ public class ConverterUnitTest {
 		}
 	}
 
+	@DisplayName("Test ifcOWL")
+    @Test
+    public void test_ifcOWL_Conversion() {
+        URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+        try {
+            File ifc_file = new File(file_url.toURI());
+            File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
+            IFCtoRDF rj = new IFCtoRDF();
+            Optional<String>  ontURI = rj.convert_into_rdf(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath(), "http://test.de/", false);
+            
+            if(ontURI.isEmpty())
+                fail("Should have an Ontology URI");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("ifcOWL conversion had an error: " + e.getMessage());
+        }
+    }
+
+
+	
+	
+	
 	@DisplayName("Two walls geometry conversion")
 	@Test
 	public void testTwoWallsConversion() {
