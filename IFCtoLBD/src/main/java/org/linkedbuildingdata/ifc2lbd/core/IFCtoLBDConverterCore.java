@@ -363,7 +363,8 @@ public abstract class IFCtoLBDConverterCore {
 				Resource sp_geometry = this.lbd_general_output_model.createResource(lbd_resource.getURI() + "_geometry");
 				if (bb != null && obj != null)
 					lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
-
+				else
+					System.err.println("The elemenet has no geometry: "+lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
 						sp_geometry.addLiteral(GEO.asWKT, bb.toString());

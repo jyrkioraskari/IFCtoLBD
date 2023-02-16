@@ -141,10 +141,11 @@ public class ConverterUnitTest {
 
             ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
             if (!report.conforms()) {
-                System.out.println("false");
-                fail("Conversion output does not conform SHACL_rulesetLevel1");
+                
                 ShLib.printReport(report);
                 report.getModel().write(System.out);
+                
+                fail("Conversion output does not conform SHACL_rulesetLevel1");
             } else
                 System.out.println("Actually ok");
         } catch (Exception e) {
@@ -174,9 +175,10 @@ public class ConverterUnitTest {
             ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
             if (!report.conforms()) {
                 System.out.println("false");
-                fail("Conversion output does not conform SHACL_rulesetLevel3");
+                
                 ShLib.printReport(report);
                 RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+                fail("Conversion output does not conform SHACL_rulesetLevel3");
             } else
                 System.out.println("Actually ok");
         } catch (Exception e) {
@@ -208,9 +210,10 @@ public class ConverterUnitTest {
             ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
             if (!report.conforms()) {
                 System.out.println("false");
-                fail("Conversion output does not conform SHACL_rulesetLevel3");
+                
                 ShLib.printReport(report);
                 RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+                fail("Conversion output does not conform SHACL_rulesetLevel3");
             } else
                 System.out.println("Actually ok");
 
@@ -242,9 +245,10 @@ public class ConverterUnitTest {
             ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
             if (!report.conforms()) {
                 System.out.println("false");
-                fail("Conversion output does not conform SHACL_rulesetLevel3");
+                
                 ShLib.printReport(report);
                 RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+                fail("Conversion output does not conform SHACL_rulesetLevel3");
             } else
                 System.out.println("Actually ok");
 
@@ -276,9 +280,10 @@ public class ConverterUnitTest {
             ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
             if (!report.conforms()) {
                 System.out.println("false");
-                fail("Conversion output does not conform SHACL_rulesetLevel3");
+                
                 ShLib.printReport(report);
                 RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+                fail("Conversion output does not conform SHACL_rulesetLevel3");
             } else
                 System.out.println("Actually ok");
 
@@ -313,4 +318,33 @@ public class ConverterUnitTest {
             fail("RTree fails: " + e.getMessage());
         }
     }
+    
+    
+    
+    @DisplayName("Performance Boost test 1")
+    @Test
+    public void testPerformanceBoost1() {
+        System.out.println("Start");
+        URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");       
+        try {
+            File ifc_file = new File(ifc_file_url.toURI());
+            File tmp_output = File.createTempFile("ifc", ".ttl");
+            IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://test.de/", false, 1);
+    		c1nb.convert(ifc_file.getAbsolutePath(), tmp_output.getAbsolutePath(), true, false,
+    				true, false, true, true, true, false);
+            File ifcOwlFile = new File(tmp_output.getAbsolutePath().split("\\.ttl")[0]+"_ifcOWL.ttl");
+            if (!ifcOwlFile.exists()) {
+                System.out.println("No ifcOWL File created");
+                System.out.println("Filename was: " +ifcOwlFile.getAbsolutePath());
+                fail("No ifcOWL File created");
+            }
+            
+        } catch (Exception e) {
+            System.err.println("ERROR");
+            e.printStackTrace();
+            fail("Performance Boost test 1 had an error: " + e.getMessage());
+        }
+    }
+   
+    
 }

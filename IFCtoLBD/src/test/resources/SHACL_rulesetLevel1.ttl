@@ -40,6 +40,6 @@ inst:RuleLevel1Shape4
     sh:targetNode inst:storey_7b7032cc-b822-417b-9aea-6429f95f6ab3 ;
     sh:property [
 	sh:path props:elevation_simple ;
-	sh:datatype xsd:double ;
+	sh:datatype xsd:decimal ;
         sh:minCount 1 
     ] .

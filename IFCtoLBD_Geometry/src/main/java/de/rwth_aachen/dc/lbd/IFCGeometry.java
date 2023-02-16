@@ -196,7 +196,7 @@ public class IFCGeometry {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-			IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, false);
+			IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
 			ifcOpenShellEngine.init();
 			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
