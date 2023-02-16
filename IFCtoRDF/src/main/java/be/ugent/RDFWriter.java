@@ -72,8 +72,6 @@ public class RDFWriter {
 	private InputStream inputStream;
 	private final OntModel ontModel;
 
-	// for removing duplicates in line entries
-	private Map<String, Resource> listOfUniqueResources = new HashMap<>();
 
 	// Taking care of avoiding duplicate resources
 	private Map<String, Resource> propertyResourceMap = new HashMap<>();
@@ -198,11 +196,7 @@ public class RDFWriter {
 				// *ERROR 2 already hit: we can safely stop
 				return;
 			}
-			listOfUniqueResources.put(ifcLineEntry.getFullLineAfterNum(), r);
 
-			LOG.info("-------------------------------");
-			LOG.info(r.getLocalName());
-			LOG.info("-------------------------------");
 
 			fillProperties(ifcLineEntry, r);
 		}
