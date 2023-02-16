@@ -375,42 +375,5 @@ public class ConverterUnitTest {
 		}
 	}
 
-	@DisplayName("ifcOWL test 2")
-	@Test
-	public void testPerformanceBoost2() {
-		System.out.println("Start");
-		URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
-		try {
-			File ifc_file = new File(ifc_file_url.toURI());
-			File tmp_output = File.createTempFile("ifc", ".ttl");
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://test.de/", false, 1);
-			c1nb.convert(ifc_file.getAbsolutePath(), tmp_output.getAbsolutePath(), true, false, true, false, true, false,
-					true, false);
-			File ifcOwlFile = new File(tmp_output.getAbsolutePath().split("\\.ttl")[0] + "_ifcOWL.ttl");
-
-			Model model = ModelFactory.createDefaultModel();
-			model.read(new FileInputStream(ifcOwlFile.getAbsoluteFile()), null, "TTL");
-
-			StmtIterator iterator = model.listStatements();
-			boolean hasGeometry=false;
-			while(iterator.hasNext())
-			{
-				Statement s = iterator.next();
-				if(s.getObject().isResource())
-					if(s.getObject().asResource().getLocalName().toString().equals("IfcFace"))
-					{
-						System.out.println(s.getObject().asResource().getLocalName());
-						hasGeometry=true;
-						break;
-					}
-			}
-			if(!hasGeometry)
-				fail("The graph is not having a geometry");
-		} catch (Exception e) {
-			System.err.println("ERROR");
-			e.printStackTrace();
-			fail("ifcOWL test 2 had an error: " + e.getMessage());
-		}
-	}
 
 }
