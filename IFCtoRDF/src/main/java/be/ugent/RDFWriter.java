@@ -107,9 +107,9 @@ public class RDFWriter {
 		ttlWriter.prefix("owl", Namespace.OWL);
 		ttlWriter.start();
 
-		ttlWriter.triple(new Triple(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
+		ttlWriter.triple(Triple.create(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
 		ttlWriter
-				.triple(new Triple(NodeFactory.createURI(baseURI), OWL.imports.asNode(), NodeFactory.createURI(ontNS)));
+				.triple(Triple.create(NodeFactory.createURI(baseURI), OWL.imports.asNode(), NodeFactory.createURI(ontNS)));
 
 		IfcSpfParser parser = new IfcSpfParser(inputStream);
 
@@ -318,7 +318,7 @@ public class RDFWriter {
 			OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
 			Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o).getLineNum(), rclass);
-			ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+			ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 		} else {
 			LOG.warn("*WARNING 3*: Nothing happened. Not sure if this is good or bad, possible or not.");
 		}
@@ -392,7 +392,7 @@ public class RDFWriter {
 
 						Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o1).getLineNum(),
 								rclass);
-						ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+						ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 					}
 				} else {
 					LOG.warn("*WARNING 13*: Nothing happened. Not sure if this is good or bad, possible or not.");
@@ -691,7 +691,7 @@ public class RDFWriter {
 				.hasNext();) {
 			OntResource rangeInstance = instances.next();
 			if (rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(filterPoints(literalString))) {
-				ttlWriter.triple(new Triple(r.asNode(), p.asNode(), rangeInstance.asNode()));
+				ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), rangeInstance.asNode()));
 				return;
 			}
 		}
@@ -769,12 +769,12 @@ public class RDFWriter {
 						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 						Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
 						idCounter++;
-						ttlWriter.triple(new Triple(r1.asNode(),
+						ttlWriter.triple(Triple.create(r1.asNode(),
 								ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
 
 						if (i < el.size() - 1) {
 							ttlWriter.triple(
-									new Triple(r1.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+									Triple.create(r1.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
 											reslist.get(i + 1).asNode()));
 						}
 					}
@@ -807,7 +807,7 @@ public class RDFWriter {
 						reslist.add(r1);
 						idCounter++;
 						if (ii == 0) {
-							ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+							ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 						}
 					}
 					// bindtheproperties
@@ -831,12 +831,12 @@ public class RDFWriter {
 			Resource r1 = propertyResourceMap.get(key);
 			if (r1 == null) {
 				r1 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
-				ttlWriter.triple(new Triple(r1.asNode(), RDF.type.asNode(), range.asNode()));
+				ttlWriter.triple(Triple.create(r1.asNode(), RDF.type.asNode(), range.asNode()));
 				idCounter++;
 				propertyResourceMap.put(key, r1);
 				addLiteralToResource(r1, valueProp, xsdType, literalString);
 			}
-			ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+			ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 		} else {
 			LOG.error("*ERROR 1*: XSD type not found for: " + p + " - " + range.getURI() + " - " + literalString);
 		}
@@ -857,18 +857,18 @@ public class RDFWriter {
 					Resource r1 = el.get(i);
 					Resource r2 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter); // was
 					// listrange
-					ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), range.asNode()));
+					ttlWriter.triple(Triple.create(r2.asNode(), RDF.type.asNode(), range.asNode()));
 					idCounter++;
 					Resource r3 = ResourceFactory.createResource(baseURI + range.getLocalName() + "_" + idCounter);
 
 					if (i == 0) {
-						ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r2.asNode()));
+						ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r2.asNode()));
 					}
-					ttlWriter.triple(new Triple(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(),
+					ttlWriter.triple(Triple.create(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(),
 							r1.asNode()));
 
 					if (i < el.size() - 1) {
-						ttlWriter.triple(new Triple(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+						ttlWriter.triple(Triple.create(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
 								r3.asNode()));
 					}
 				}
@@ -890,7 +890,7 @@ public class RDFWriter {
 				idCounter++;
 				entlist.add((IFCVO) tmpList.get(i));
 				if (i == 0) {
-					ttlWriter.triple(new Triple(r.asNode(), p.asNode(), r1.asNode()));
+					ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 				}
 			}
 		}
@@ -899,7 +899,7 @@ public class RDFWriter {
 	}
 
 	private void addClassInstanceListProperties(List<Resource> reslist, List<IFCVO> entlist)  {
-		OntProperty listp = ontModel.getOntProperty(Namespace.LIST + "hasContents");
+		OntProperty list_property = ontModel.getOntProperty(Namespace.LIST + "hasContents");
 		OntProperty isfollowed = ontModel.getOntProperty(Namespace.LIST + "hasNext");
 
 		int reslist_size = reslist.size();
@@ -912,15 +912,15 @@ public class RDFWriter {
 				TypeVO typerange = typ.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 				rclass = ontModel.getOntResource(ontNS + typerange.getName());
 				Resource r1 = getResource(baseURI + typerange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
+				ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
 			} else {
 				rclass = ontModel.getOntResource(ontNS + evorange.getName());
 				Resource r1 = getResource(baseURI + evorange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(new Triple(r.asNode(), listp.asNode(), r1.asNode()));
+				ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
 			}
 
 			if (i < reslist.size() - 1) {
-				ttlWriter.triple(new Triple(r.asNode(), isfollowed.asNode(), reslist.get(i + 1).asNode()));
+				ttlWriter.triple(Triple.create(r.asNode(), isfollowed.asNode(), reslist.get(i + 1).asNode()));
 			}
 		}
 	}
@@ -944,16 +944,16 @@ public class RDFWriter {
 				Resource r2 = propertyResourceMap.get(key);
 				if (r2 == null) {
 					r2 = ResourceFactory.createResource(baseURI + listrange.getLocalName() + "_" + idCounter);
-					ttlWriter.triple(new Triple(r2.asNode(), RDF.type.asNode(), listrange.asNode()));
+					ttlWriter.triple(Triple.create(r2.asNode(), RDF.type.asNode(), listrange.asNode()));
 					idCounter++;
 					propertyResourceMap.put(key, r2);
 					addLiteralToResource(r2, valueProp, xsdType, literalString);
 				}
 				ttlWriter.triple(
-						new Triple(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
+						Triple.create(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
 
 				if (i < listelements.size() - 1) {
-					ttlWriter.triple(new Triple(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+					ttlWriter.triple(Triple.create(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
 							reslist.get(i + 1).asNode()));
 				}
 			}
@@ -994,11 +994,11 @@ public class RDFWriter {
 	}
 
 	private void addLiteral(Resource r, OntProperty valueProp, Literal l) {
-		ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), l.asNode()));
+		ttlWriter.triple(Triple.create(r.asNode(), valueProp.asNode(), l.asNode()));
 	}
 
 	private void addProperty(Resource r, OntProperty valueProp, Resource r1) {
-		ttlWriter.triple(new Triple(r.asNode(), valueProp.asNode(), r1.asNode()));
+		ttlWriter.triple(Triple.create(r.asNode(), valueProp.asNode(), r1.asNode()));
 	}
 
 	private OntResource getListContentType(OntClass range)  {
@@ -1078,7 +1078,7 @@ public class RDFWriter {
 			r = ResourceFactory.createResource(uri);
 			this.resourceMap.put(uri, r);
 			try {
-				ttlWriter.triple(new Triple(r.asNode(), RDF.type.asNode(), rclass.asNode()));
+				ttlWriter.triple(Triple.create(r.asNode(), RDF.type.asNode(), rclass.asNode()));
 			} catch (Exception e) {
 				e.printStackTrace();
 				System.out.println("rclass: " + rclass);
