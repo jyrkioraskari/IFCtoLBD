@@ -63,9 +63,6 @@ public class ConverterUnitTests {
         }
     }
 
-
-	
-	
 	
 	@DisplayName("Two walls geometry conversion")
 	@Test
@@ -352,7 +349,7 @@ public class ConverterUnitTests {
 
 	@DisplayName("ifcOWL test 1")
 	@Test
-	public void testPerformanceBoost1() {
+	public void test_ifcOWL1() {
 		System.out.println("Start");
 		URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
 		try {
