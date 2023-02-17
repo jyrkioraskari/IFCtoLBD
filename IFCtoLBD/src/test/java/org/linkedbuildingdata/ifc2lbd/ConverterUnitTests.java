@@ -25,7 +25,7 @@ import com.github.davidmoten.rtreemulti.RTree;
 import com.github.davidmoten.rtreemulti.geometry.Geometry;
 import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 
-public class ConverterUnitTest {
+public class ConverterUnitTests {
 
 	@DisplayName("Test the existence of the test data Duplex.ifc")
 	@Test
@@ -59,9 +59,6 @@ public class ConverterUnitTest {
         }
     }
 
-
-	
-	
 	
 	@DisplayName("Two walls geometry conversion")
 	@Test
@@ -348,7 +345,7 @@ public class ConverterUnitTest {
 
 	@DisplayName("ifcOWL test 1")
 	@Test
-	public void testPerformanceBoost1() {
+	public void test_ifcOWL1() {
 		System.out.println("Start");
 		URL ifc_file_url = ClassLoader.getSystemResource("Duplex.ifc");
 		try {
