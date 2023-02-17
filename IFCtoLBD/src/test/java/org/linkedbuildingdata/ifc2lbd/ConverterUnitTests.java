@@ -29,7 +29,7 @@ import com.github.davidmoten.rtreemulti.RTree;
 import com.github.davidmoten.rtreemulti.geometry.Geometry;
 import com.github.davidmoten.rtreemulti.geometry.Rectangle;
 
-public class ConverterUnitTest {
+public class ConverterUnitTests {
 
 	@DisplayName("Test the existence of the test data Duplex.ifc")
 	@Test
