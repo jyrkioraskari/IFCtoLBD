@@ -377,6 +377,8 @@ public abstract class IFCtoLBDConverterCore {
 						sp_bb.addLiteral(LBD.xmax, bb.getMax().x);
 						sp_bb.addLiteral(LBD.ymin, bb.getMin().y);
 						sp_bb.addLiteral(LBD.ymax, bb.getMax().y);
+						sp_bb.addLiteral(LBD.zmin, bb.getMin().z);
+						sp_bb.addLiteral(LBD.zmax, bb.getMax().z);
 					}
 					Rectangle rectangle = Rectangle.create(bb.getMin().x, bb.getMin().y, bb.getMin().z, bb.getMax().x,
 							bb.getMax().y, bb.getMax().z);
