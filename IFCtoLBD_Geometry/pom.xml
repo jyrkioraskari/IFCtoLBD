@@ -19,7 +19,7 @@
 	<properties>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-	</properties>
+	</properties>	
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.vecmath/vecmath -->
 		<dependency>
@@ -54,6 +54,11 @@
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>pluginbase</artifactId>
 			<version>1.5.184</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.12.0</version>
 		</dependency>
 	</dependencies>
 	<build>

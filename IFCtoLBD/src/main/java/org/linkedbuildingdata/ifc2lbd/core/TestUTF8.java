@@ -1,6 +1,6 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 public class TestUTF8 {
 

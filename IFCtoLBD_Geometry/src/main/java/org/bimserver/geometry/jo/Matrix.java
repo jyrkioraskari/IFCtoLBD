@@ -1,4 +1,4 @@
-package org.bimserver.geometry;
+package org.bimserver.geometry.jo;
 
 /******************************************************************************
  * Copyright (C) 2009-2019  BIMserver.org
