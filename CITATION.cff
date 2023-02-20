@@ -1,0 +1,42 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: IFCtoLBD
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Jyrki
+    family-names: Oraskari
+    email: Jyrki.Oraskari@rwth-aachen.de
+  - given-names: Mathias
+    family-names: Bonduel
+  - given-names: Kris
+    family-names: McGlinn
+  - given-names: ' Pieter'
+    family-names: Pauwels
+  - given-names: Freddy
+    family-names: 'Priyatna '
+  - given-names: Anna
+    family-names: 'Wagner '
+  - given-names: Ville
+    family-names: Kukkonen
+  - given-names: Simon
+    family-names: Steyskaland
+  - given-names: Joel
+    family-names: Lehtonen
+abstract: >-
+  IFC to Linked Building Data converter. This repository
+  presents the results of our ongoing work to create a
+  usable converter to convert Industry Foundation Classes
+  (IFC) STEP formatted files into Resource Description
+  Framework (RDF) triples that follow the small ontologies
+  devised in the World Wide Web Consortium (W3C) Linked
+  Building Data Community Group (W3C LBD-CG)
+  (https://github.com/w3c-lbd-cg/).
+license: Apache-2.0
+commit: aaa317e
+version: ' 2.41.0'
+date-released: '2023-02-15'
