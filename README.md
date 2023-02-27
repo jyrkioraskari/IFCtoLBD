@@ -44,6 +44,7 @@ The converter can be compiled using maven and Java JDK (the above link). Maven c
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
+- In Eclipse, select first Maveb Update project for all projects. 
 ```
 cd IFCtoRDF
 call mvn clean install
@@ -66,6 +67,8 @@ call mvn clean install
 call mvn enunciate:docs install
 cd ..
 ```
+-  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven referred libraries of older Java versions). 
+
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
 2. Open org.linkedbuildingdata.ifc2lbd.Main class on the Eclipse editor
