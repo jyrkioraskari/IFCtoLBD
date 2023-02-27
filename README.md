@@ -44,7 +44,7 @@ The converter can be compiled using maven and Java JDK (the above link). Maven c
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
-- In Eclipse, select first Maveb Update project for all projects. 
+- In Eclipse, select first Maven Update project for all projects. 
 ```
 cd IFCtoRDF
 call mvn clean install
