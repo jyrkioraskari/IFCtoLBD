@@ -12,7 +12,7 @@ jpype.startJVM(classpath = ['jars/*'])
 
 from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
 
-lbdconverter = IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset",  3)
+lbdconverter = IFCtoLBDConverter("https://sample.base.url/",  3)
 
 model=lbdconverter.convert("Duplex_A_20110505.ifc");
 
