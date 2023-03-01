@@ -225,6 +225,8 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
 ```
 
 ## Blog
+### March 1, 2023  
+Tested and update the Python interface.
 
 ### February 13, 2023  
 The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented, but needs still some more testing.
