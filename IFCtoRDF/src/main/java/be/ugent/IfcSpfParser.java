@@ -170,7 +170,7 @@ public class IfcSpfParser {
     }
 
     public boolean mapEntries()  {
-        //JO 2023  perfoemance optimization
+        //JO 2023  performance optimization
         for (Long key : linemap.keySet()) {
             IFCVO vo = linemap.get(key);
 
