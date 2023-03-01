@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.apache.jena.graph.Graph;
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.riot.Lang;
@@ -18,15 +19,37 @@ import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.lib.ShLib;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoRDF;
+import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
+import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
 import com.github.davidmoten.rtreemulti.geometry.Geometry;
 import com.github.davidmoten.rtreemulti.geometry.Rectangle;
+import com.google.common.eventbus.EventBus;
 
 public class ConverterUnitTests {
 
+	
+
+	@DisplayName("Test the ontolgy read")
+	@Test
+	public void test_getOntology() {
+		
+		try {
+			URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+			Model ontology_model = ModelFactory.createDefaultModel();
+			File file = new File(file_url.toURI());
+			IfcOWLUtils.readIfcOWLOntology(file.getAbsolutePath(), ontology_model);
+			EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+			RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", eventBus);
+		} catch (Exception e) {
+			fail("Test get ontologies failed: " + e.getMessage());
+		}
+	}
+	
 	@DisplayName("Test the existence of the test data Duplex.ifc")
 	@Test
 	public void findTestData() {
