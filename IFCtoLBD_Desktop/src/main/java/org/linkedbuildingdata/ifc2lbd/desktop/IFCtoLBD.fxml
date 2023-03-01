@@ -27,7 +27,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.IFCtoLBDController">
+<VBox prefHeight="728.0" prefWidth="929.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
