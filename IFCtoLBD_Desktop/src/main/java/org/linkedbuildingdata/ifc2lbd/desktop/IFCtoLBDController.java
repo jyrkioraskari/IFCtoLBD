@@ -25,7 +25,7 @@
    http://www.dreamstime.com/royalty-free-stock-image-blue-glass-web-icons-buttons-image8270526
  */
 
-package org.linkedbuildingdata.ifc2lbd;
+package org.linkedbuildingdata.ifc2lbd.desktop;
 
 import java.io.File;
 import java.io.IOException;

@@ -25,7 +25,7 @@
 
 
 
-package org.linkedbuildingdata.ifc2lbd;
+package org.linkedbuildingdata.ifc2lbd.desktop;
 
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;

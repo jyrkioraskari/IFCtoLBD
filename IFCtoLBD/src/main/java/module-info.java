@@ -9,7 +9,10 @@ module io.github.jyrkioraskari.IFCtoLBD {
    requires rtree.multi;
    requires org.apache.commons.lang3;
    requires  org.slf4j;
+   requires com.google.common;
    
    exports org.linkedbuildingdata.ifc2lbd; 
    exports org.linkedbuildingdata.ifc2lbd.core;
+   exports org.linkedbuildingdata.ifc2lbd.application_messaging;
+   exports org.linkedbuildingdata.ifc2lbd.application_messaging.events;
 }

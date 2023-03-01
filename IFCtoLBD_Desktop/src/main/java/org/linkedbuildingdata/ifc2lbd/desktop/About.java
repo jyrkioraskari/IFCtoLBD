@@ -11,7 +11,7 @@
  * 
  */
 
-package org.linkedbuildingdata.ifc2lbd;
+package org.linkedbuildingdata.ifc2lbd.desktop;
 
 
 import javafx.event.EventHandler;

@@ -369,6 +369,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
+			<!-- The new version is 2.06 - needs to be checked -->
 			<version>2.0.4</version>
 		</dependency>
 		<!-- Test dependencies -->
