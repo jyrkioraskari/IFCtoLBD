@@ -349,9 +349,15 @@ public abstract class IfcOWLUtils {
 
 			if (in == null)
 				in = IfcOWLUtils.class.getResourceAsStream("/resources/" + exp + ".ttl");
+			if (in == null)
+				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
+			{
 			    return null;
+			}
 			model.read(in, null, "TTL");
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			try {
 				in.close();
