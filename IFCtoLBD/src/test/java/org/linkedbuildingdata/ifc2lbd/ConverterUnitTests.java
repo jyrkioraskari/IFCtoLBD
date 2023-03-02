@@ -11,6 +11,8 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.rdf.model.Statement;
+import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -392,4 +394,17 @@ public class ConverterUnitTests {
 	}
 
 
+	
+	@DisplayName("Test conversion test case Level 1 SPARQL")
+	@Test
+	public void testConversionLevel1_SPARQL() {
+		
+		try {
+			
+		} catch (Exception e) {
+			System.out.println("ERROR");
+			e.printStackTrace();
+			fail("Conversion result PARQL query had an error: " + e.getMessage());
+		}
+	}
 }

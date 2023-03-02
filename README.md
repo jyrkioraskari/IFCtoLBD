@@ -126,13 +126,31 @@ from jpype.types import *
 jpype.startJVM(classpath = ['jars/*'])
 
 from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
+from org.apache.jena.query import QueryFactory, QueryExecutionFactory
 
-lbdconverter = IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset",  3)
 
-model=lbdconverter.convert("Duplex_A_20110505.ifc");
+# Convert the IFC file into LBD, OPM level 1 model
+lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
 
-model.write(jpype.java.lang.System.out)
+model=lbdconverter.convert("Duplex_A_20110505.ifc")
+queryString = """PREFIX bot: <https://w3id.org/bot#>
+
+SELECT ?building ?predicate ?object
+WHERE {
+   ?building a bot:Building .
+   ?building ?predicate ?object
+}"""
+
+query = QueryFactory.create(queryString)
+qexec = QueryExecutionFactory.create(query, model)
+results = qexec.execSelect()
+while results.hasNext() :
+    soln = results.nextSolution()
+    x = soln.get("building")
+    print(x)
+
 jpype.shutdownJVM()
+
 ```
 
 
