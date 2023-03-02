@@ -108,7 +108,7 @@ public class TestIfcSpfReader {
                 outputFileBase = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
                 outputFileNew = "target" + outputFileBase.split("convertIFCFileToOutputTTL")[1];
                 reader.setup(inputFile);
-                reader.convert(inputFile, outputFileNew, "http://linkedbuildingdata.net/ifc/resources/");
+                reader.convert(inputFile, outputFileNew, "http://linkedbuildingdata.net/ifc/resources/",false);
                 Assert.assertTrue(compareFileContents(outputFileBase, outputFileNew));
             }
         }

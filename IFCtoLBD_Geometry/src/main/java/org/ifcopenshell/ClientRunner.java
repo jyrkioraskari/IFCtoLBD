@@ -55,8 +55,6 @@ public class ClientRunner {
 						System.out.println("Internal error");
 						return;
 					}
-					System.out.println(String.format("%s %s", instance.getType(), instance.getGuid()));
-					System.out.println(instance.getAllExtendedData().toString());
 					RenderEngineGeometry geometry = new RenderEngineGeometry(instance.getIndices(),
 							instance.getPositions(), instance.getNormals(), instance.getColors(),
 							instance.getMaterialIndices());

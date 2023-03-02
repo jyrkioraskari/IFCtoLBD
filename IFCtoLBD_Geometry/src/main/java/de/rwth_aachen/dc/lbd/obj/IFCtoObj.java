@@ -83,7 +83,9 @@ public class IFCtoObj {
 				}
 				
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				for (int i = 0; i < geometry.getNrVertices() / 3; i++) {
+				
+				while (ver.hasRemaining())
+				{
 					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
 				}
@@ -93,11 +95,9 @@ public class IFCtoObj {
 					obj_desc.addFace(f);
 
 				}*/
-				
-				System.out.println("indices: "+geometry.getNrIndices());
-				System.out.println("indices: "+geometry.getIndices().limit());
 				ByteBuffer inx = geometry.getIndices().order(ByteOrder.nativeOrder());
-				for (int i = 0; i < geometry.getNrIndices()/3;  i++) {
+               											
+				while (inx.hasRemaining()) {
 					ImmutableTriple<Integer, Integer, Integer> f = processSurface(inx);
 					obj_desc.addFace(f);
 				}
@@ -117,7 +117,7 @@ public class IFCtoObj {
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
-		Point3d point = new Point3d(result[0], result[2], result[1]);
+		Point3d point = new Point3d(result[0], result[1], result[2]);
 		return point;
 
 	}

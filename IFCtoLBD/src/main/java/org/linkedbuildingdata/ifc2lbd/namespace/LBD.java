@@ -10,7 +10,13 @@ public class LBD extends abstract_NS {
     public static final Property containsInBoundingBox = property(lbd_ns, "containsInBoundingBox"); // contains,
                                                                                                     // containsBoundingBox,
                                                                                                     // containsInVolume
-
+    public static final Property hasBoundingBox = property(lbd_ns, "hasBoundingBox"); 
+    public static final Property xmin = property(lbd_ns, "x-min"); 
+    public static final Property xmax = property(lbd_ns, "x-max"); 
+    public static final Property ymin = property(lbd_ns, "y-min"); 
+    public static final Property ymax = property(lbd_ns, "y-max"); 
+    public static final Property zmin = property(lbd_ns, "z-min"); 
+    public static final Property zmax = property(lbd_ns, "z-max"); 
     public static void addNameSpace(Model model) {
         model.setNsPrefix("lbd", lbd_ns);
     }

@@ -30,7 +30,7 @@ public class IFCtoRDF extends IfcSpfReader {
 
 	
 
-	public Optional<String> convert_into_rdf(String ifcFile, String outputFile, String baseURI) throws IOException {
+	public Optional<String> convert_into_rdf(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
 		i = 0;
 		PrintStream orgSystemOut = System.out;
 		PrintStream orgSystemError = System.err;
@@ -47,7 +47,7 @@ public class IFCtoRDF extends IfcSpfReader {
 			}, 1000, 1000);
 
 			setup(ifcFile);
-			convert(ifcFile, outputFile, baseURI);
+			convert(ifcFile, outputFile, baseURI,hasPerformanceBoost);
 			timer.cancel();
 		} catch (Exception e) {
 			e.printStackTrace();

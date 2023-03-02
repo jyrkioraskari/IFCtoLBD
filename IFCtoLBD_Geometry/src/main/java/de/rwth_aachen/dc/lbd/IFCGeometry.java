@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.Callable;
@@ -28,7 +29,6 @@ import org.ifcopenshell.IfcOpenShellModel;
 
 import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
 
-
 /*
  *   
  *  Copyright (c) 2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -48,83 +48,33 @@ import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
 
 public class IFCGeometry {
 
-	private IfcOpenShellModel renderEngineModel=null;
+	private IfcOpenShellModel renderEngineModel = null;
 
 	public IFCGeometry(File ifcFile) throws DeserializeException, IOException, RenderEngineException {
 
-		 ExecutorService executor = Executors.newCachedThreadPool();
-	        Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
-	           public IfcOpenShellModel call() {
-	        	  renderEngineModel = getRenderEngineModel(ifcFile); 
-	              return  renderEngineModel;
-	           }
-	        };
-	        Future<IfcOpenShellModel> future = executor.submit(task);
-	        try {
-	            // Should be done in 4 minutes
-	            this.renderEngineModel  = future.get(4, TimeUnit.MINUTES); 
-	        } catch (TimeoutException ex) {
-	            System.out.println("Timeout");
-	        } catch (InterruptedException e) {
-	        } catch (ExecutionException e) {
-	        } finally {
-	           future.cancel(true); // may or may not desire this
-	        }
-	        
+		ExecutorService executor = Executors.newCachedThreadPool();
+		Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
+			public IfcOpenShellModel call() {
+				renderEngineModel = getRenderEngineModel(ifcFile);
+				return renderEngineModel;
+			}
+		};
+		Future<IfcOpenShellModel> future = executor.submit(task);
+		try {
+			// Should be done in 4 minutes
+			this.renderEngineModel = future.get(4, TimeUnit.MINUTES);
+		} catch (TimeoutException ex) {
+			System.out.println("Timeout");
+		} catch (InterruptedException e) {
+		} catch (ExecutionException e) {
+		} finally {
+			future.cancel(true); // may or may not desire this
+		}
+
 	}
 
 	public BoundingBox getBoundingBox(String guid) {
 		BoundingBox boundingBox = null;
-
-		if(renderEngineModel==null)
-		    return null; 
-		IfcOpenShellEntityInstance renderEngineInstance;
-		renderEngineInstance = renderEngineModel.getInstanceFromGUID(guid);
-
-		if (renderEngineInstance == null) {
-			return null;
-		}
-
-		try {
-			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
-			if (geometry != null && geometry.getIndices().limit() > 0) {
-	            boundingBox = new BoundingBox();
-	            double[] tranformationMatrix = new double[16];
-	            Matrix.setIdentityM(tranformationMatrix, 0);
-	            if (renderEngineInstance.getTransformationMatrix() != null) {
-	                tranformationMatrix = renderEngineInstance.getTransformationMatrix();
-	            }
-	            for (int i = 0; i < geometry.getNrIndices(); i++) {
-	                Point3d p=processExtends(tranformationMatrix, geometry.getVertices(), geometry.getIndices().getInt(i) * 3);
-	                boundingBox.add(p);
-	            }
-	        }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		return boundingBox;
-	}
-
-
-
-    private Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer, int index) {
-    	int x = byteBuffer.getInt(index);
-		int y = byteBuffer.getInt(index + 1);
-		int z = byteBuffer.getInt(index + 2);
-
-        double[] result = new double[4];
-        Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
-        
-        Point3d point = new Point3d(result[0], result[1], result[2]);
-              
-        return point;
-
-    }
-    
-    
-    public ObjDescription getOBJ(String guid) {
-		ObjDescription obj_desc = null;
 
 		if (renderEngineModel == null)
 			return null;
@@ -138,6 +88,56 @@ public class IFCGeometry {
 		try {
 			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
 			if (geometry != null && geometry.getIndices().limit() > 0) {
+				boundingBox = new BoundingBox();
+				double[] tranformationMatrix = new double[16];
+				Matrix.setIdentityM(tranformationMatrix, 0);
+				if (renderEngineInstance.getTransformationMatrix() != null) {
+					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
+				}
+				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
+				
+				while (ver.hasRemaining()) {
+					Point3d p = processExtends(tranformationMatrix, ver);
+					boundingBox.add(p);
+				}
+
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return boundingBox;
+	}
+
+	private Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer) {
+		double x = byteBuffer.getDouble();
+		double y = byteBuffer.getDouble();
+		double z = byteBuffer.getDouble();
+
+		double[] result = new double[4];
+		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
+
+		Point3d point = new Point3d(result[0], result[1], result[2]);
+		return point;
+
+	}
+
+	public ObjDescription getOBJ(String guid) {
+		ObjDescription obj_desc = null;
+
+		if (renderEngineModel == null)
+			return null;
+		IfcOpenShellEntityInstance renderEngineInstance;
+		renderEngineInstance = renderEngineModel.getInstanceFromGUID(guid);
+
+		if (renderEngineInstance == null) {
+			return null;
+		}
+
+		try {
+			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
+
+			if (geometry != null && geometry.getIndices().limit() > 0) {
 				obj_desc = new ObjDescription();
 				double[] tranformationMatrix = new double[16];
 				Matrix.setIdentityM(tranformationMatrix, 0);
@@ -145,16 +145,18 @@ public class IFCGeometry {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
 
-
-				for (int i = 0; i < geometry.getNrVertices() / 3; i++) {
-					Point3d p = processVertex(tranformationMatrix, geometry.getVertices(), i * 3);
+				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
+				ver=ver.position(0);
+				while (ver.hasRemaining()) {
+					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
 				}
 
-				for (int i = 0; i < geometry.getNrIndices() / 3; i++) {
-					ImmutableTriple f = processSurface(geometry.getIndices(), i * 3);
-					obj_desc.addFace(f);
+				ByteBuffer inx = geometry.getIndices().order(ByteOrder.nativeOrder());
 
+				while (inx.hasRemaining()) {
+					ImmutableTriple<Integer, Integer, Integer> f = processSurface(inx);
+					obj_desc.addFace(f);
 				}
 			}
 
@@ -164,64 +166,62 @@ public class IFCGeometry {
 		return obj_desc;
 	}
 
-	
-	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer, int index) {
-		int x = byteBuffer.getInt(index);
-		int y = byteBuffer.getInt(index + 1);
-		int z = byteBuffer.getInt(index + 2);
+	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
+		double x = byteBuffer.getDouble();
+		double y = byteBuffer.getDouble();
+		double z = byteBuffer.getDouble();
+
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
-		Point3d point = new Point3d(result[0], result[2], result[1]);
+		Point3d point = new Point3d(result[0], result[1], result[2]);
 		return point;
 
 	}
 
+	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
 
-	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer, int index) {
-		int xi = byteBuffer.getInt(index);
-		int yi = byteBuffer.getInt(index + 1);
-		int zi = byteBuffer.getInt(index + 2);
-		ImmutableTriple<Integer, Integer, Integer>  point = new ImmutableTriple<Integer, Integer, Integer> (xi + 1, yi + 1, zi + 1);
+		int xi = byteBuffer.getInt();
+		int yi = byteBuffer.getInt();
+		int zi = byteBuffer.getInt();
+
+		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<Integer, Integer, Integer>(xi + 1,
+				yi + 1, zi + 1);
 		return point;
 
 	}
-	
-	
-	private IfcOpenShellModel getRenderEngineModel(File ifcFile)  {
-	    try {
-	        String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
-	        System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
-	        Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-	        IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, false);
-	        ifcOpenShellEngine.init();
-	        FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
-	        System.out.println("ifcFile: " + ifcFile);
-	        IfcOpenShellModel model = ifcOpenShellEngine.openModel(ifcFileInputStream);
-	        System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
+		try {
+			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
+			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
+			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
+			IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
+			ifcOpenShellEngine.init();
+			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
-	        model.generateGeneralGeometry();
-	        return model;
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-	    
-	   
-	    
-	    return null;
+			System.out.println("ifcFile: " + ifcFile);
+			IfcOpenShellModel model = ifcOpenShellEngine.openModel(ifcFileInputStream);
+			System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+
+			model.generateGeneralGeometry();
+			return model;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
-    public void close()
-    {
-        if(this.renderEngineModel!=null)
-        {
-            try {
-                this.renderEngineModel.close();
-            } catch (RenderEngineException e) {
-                // Just do it
-            }
-        }
-    }
+
+	public void close() {
+		if (this.renderEngineModel != null) {
+			try {
+				this.renderEngineModel.close();
+			} catch (RenderEngineException e) {
+				// Just do it
+			}
+		}
+	}
 
 }

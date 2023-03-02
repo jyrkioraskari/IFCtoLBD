@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -349,9 +349,15 @@ public abstract class IfcOWLUtils {
 
 			if (in == null)
 				in = IfcOWLUtils.class.getResourceAsStream("/resources/" + exp + ".ttl");
+			if (in == null)
+				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
+			{
 			    return null;
+			}
 			model.read(in, null, "TTL");
+		} catch (IOException e) {
+			e.printStackTrace();
 		} finally {
 			try {
 				in.close();

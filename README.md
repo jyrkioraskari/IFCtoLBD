@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.38.0
+Version 2.41.0
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -44,6 +44,7 @@ The converter can be compiled using maven and Java JDK (the above link). Maven c
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
+- In Eclipse, select first Maven Update project for all projects. 
 ```
 cd IFCtoRDF
 call mvn clean install
@@ -66,6 +67,8 @@ call mvn clean install
 call mvn enunciate:docs install
 cd ..
 ```
+-  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven referred libraries of older Java versions). 
+
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
 2. Open org.linkedbuildingdata.ifc2lbd.Main class on the Eclipse editor
@@ -123,13 +126,31 @@ from jpype.types import *
 jpype.startJVM(classpath = ['jars/*'])
 
 from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
+from org.apache.jena.query import QueryFactory, QueryExecutionFactory
 
-lbdconverter = IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset",  3)
 
-model=lbdconverter.convert("Duplex_A_20110505.ifc");
+# Convert the IFC file into LBD, OPM level 1 model
+lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
 
-model.write(jpype.java.lang.System.out)
+model=lbdconverter.convert("Duplex_A_20110505.ifc")
+queryString = """PREFIX bot: <https://w3id.org/bot#>
+
+SELECT ?building ?predicate ?object
+WHERE {
+   ?building a bot:Building .
+   ?building ?predicate ?object
+}"""
+
+query = QueryFactory.create(queryString)
+qexec = QueryExecutionFactory.create(query, model)
+results = qexec.execSelect()
+while results.hasNext() :
+    soln = results.nextSolution()
+    x = soln.get("building")
+    print(x)
+
 jpype.shutdownJVM()
+
 ```
 
 
@@ -222,6 +243,12 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
 ```
 
 ## Blog
+### March 1, 2023  
+Tested and update the Python interface.
+
+### February 13, 2023  
+The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented, but needs still some more testing.
+
 ### June 07, 2022  
 Support for xsd:decimal.
 

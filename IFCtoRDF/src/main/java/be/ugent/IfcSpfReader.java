@@ -144,7 +144,7 @@ public class IfcSpfReader {
                 LOG.info("Converting file: " + inputFile + "\r\n");
 
                 r.setup(inputFile);
-                r.convert(inputFile, outputFile, baseURI);
+                r.convert(inputFile, outputFile, baseURI,false);
             }
         }
 
@@ -302,7 +302,7 @@ public class IfcSpfReader {
         }
     }
 
-    public void convert(String ifcFile, String outputFile, String baseURI) throws IOException {
+    public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
         // CONVERSION
         OntModel om = null;
 
@@ -328,9 +328,8 @@ public class IfcSpfReader {
         om.read(in, null, "TTL");
 
         try {
-            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI);
+            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI,hasPerformanceBoost);
             conv.setRemoveDuplicates(removeDuplicates);
-            conv.setIfcReader(this);
             try (FileOutputStream out = new FileOutputStream(outputFile)) {
                 String s = "# baseURI: " + baseURI;
                 s += "\r\n# imports: " + ontURI + "\r\n\r\n";

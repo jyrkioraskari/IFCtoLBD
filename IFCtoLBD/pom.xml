@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD</artifactId>
-	<version>2.39.0</version>
+	<version>2.40.1</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.dc.lbd</groupId>
 			<artifactId>IFCtoLBD_Geometry</artifactId>
-			<version>2.40.0</version>
+			<version>2.40.2</version>
 			 <exclusions>
             <exclusion>
                 <groupId>org.slf4j</groupId>
@@ -81,6 +81,7 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>3.12.0</version>
 		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -102,35 +103,35 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.8.0</version>
+			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<version>1.4.2</version>
+			<version>1.9.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.8.0</version>
+			<version>5.9.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFC2RDF</artifactId>
-			<version>1.2.9</version>
+			<version>1.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
 			<artifactId>rtree-multi</artifactId>
-			<version>0.1-RC1</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
-			<version>4.7.0</version>
+			<version>4.7.1</version>
 		</dependency>
 	</dependencies>
 	<scm>
