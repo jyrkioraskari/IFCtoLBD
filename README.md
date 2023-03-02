@@ -239,6 +239,13 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
 
 ```
 
+Example of the use:
+```
+java  -Xms16G -Xmx16G -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc
+
+
+```
+
 ## Blog
 ### March 1, 2023  
 Tested and update the Python interface.
