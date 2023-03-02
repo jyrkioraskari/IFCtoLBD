@@ -117,10 +117,7 @@ pip install JPype1
 
 import jpype
 
-# Enable Java imports
 import jpype.imports
-
-# Pull in types
 from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
