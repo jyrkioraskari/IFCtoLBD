@@ -117,10 +117,7 @@ pip install JPype1
 
 import jpype
 
-# Enable Java imports
 import jpype.imports
-
-# Pull in types
 from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
@@ -238,6 +235,13 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
   -u, --url=<uriBase>    The URI base for all the elemenents that will be
                            created.
   -V, --version          Print version information and exit.
+
+```
+
+Example of the use:
+```
+java  -Xms16G -Xmx16G -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc
+
 
 ```
 
