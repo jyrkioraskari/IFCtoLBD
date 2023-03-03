@@ -25,7 +25,6 @@ import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.sys.JenaSystem;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
@@ -351,7 +350,6 @@ public abstract class IFCtoLBDConverterCore {
 	Property fogasObj = null;
 
 	private void addGeometry(Resource lbd_resource, String guid) {
-
 		if (this.ifc_geometry == null)
 			return;
 		try {
@@ -1026,10 +1024,10 @@ public abstract class IFCtoLBDConverterCore {
 				Model m = ModelFactory.createDefaultModel();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 				this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
-				File t2 = IfcOWLUtils.filterContent(outputFile);
-				if (t2 != null) {
-					RDFDataMgr.read(m, t2.getAbsolutePath());
-				} else
+				//File t2 = IfcOWLUtils.filterContent(outputFile);  // Performance!!
+				//if (t2 != null) {
+				//	RDFDataMgr.read(m, t2.getAbsolutePath());
+				//} else
 					RDFDataMgr.read(m, outputFile.getAbsolutePath());
 				return m;
 			} catch (IOException e) {
