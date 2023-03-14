@@ -167,6 +167,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		});
 
+		System.out.println("geo ..");
 		if (hasGeolocation) {
 			try {
 				if (this.ontURI.isPresent())
@@ -178,6 +179,7 @@ public abstract class IFCtoLBDConverterCore {
 			}
 		}
 
+		System.out.println("geo done");
 		if (hasBuildingElements) {
 			if (hasSeparateBuildingElementsModel) {
 				if (target_file != null) {
@@ -999,6 +1001,13 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
+			
+			if (!isTmpFile && targetFile == null)		
+			{
+				 String tmpdir = System.getProperty("java.io.tmpdir");
+				 String name=new File(ifc_file).getName();
+		         targetFile = tmpdir+name;
+			}
 			if (isTmpFile || targetFile == null) {
 				outputFile = File.createTempFile("ifc", ".ttl");
 				outputFile.deleteOnExit();
@@ -1006,11 +1015,15 @@ public abstract class IFCtoLBDConverterCore {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
-				if (outputFile.exists()&&outputFile.length()>10000) {
+				if (outputFile.exists()&&outputFile.length()>1000) {
+					System.out.println("Using existing ifcOWL file");
 					eventBus.post(new IFCtoLBD_SystemStatusEvent("Using existing ifcOWL file"));
 					Model model = ModelFactory.createDefaultModel();
-					model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+					System.out.println("ifcOWL read in");
 
+					//model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+					RDFDataMgr.read(model, ifcowlfilename);
+					System.out.println("ifcOWL read in done");
 					String inst_ns = model.getNsPrefixMap().get("inst");
 					if (inst_ns != null && !this.ontURI.isPresent())
 						this.uriBase = Optional.of(inst_ns);
