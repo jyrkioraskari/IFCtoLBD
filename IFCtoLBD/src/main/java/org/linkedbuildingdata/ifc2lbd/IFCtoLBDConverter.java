@@ -6,7 +6,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -18,12 +20,14 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.sys.JenaSystem;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
+import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import de.rwth_aachen.dc.lbd.IFCGeometry;
@@ -478,6 +482,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			System.out.println(
 					"Example: java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\\IFC\\Duplex_A_20110505.ifc c:\\IFC\\Duplex_A_20110505.ttl");
 		}
+	}
+	
+	public void close()
+	{
+		if(this.lbd_general_output_model!=null)
+		    lbd_general_output_model.close();
+		if(this.lbd_product_output_model!=null)
+			lbd_product_output_model.close();;
+		if(this.lbd_property_output_model!=null)
+			lbd_property_output_model.close();;
+		if(this.ifcowl_model!=null)
+			ifcowl_model.removeAll();
+		this.ifcowl_product_map.clear();
+		this.propertysets.clear();
 	}
 
 }

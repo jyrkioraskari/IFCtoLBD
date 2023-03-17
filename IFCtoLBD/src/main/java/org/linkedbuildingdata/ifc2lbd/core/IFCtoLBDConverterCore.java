@@ -84,14 +84,14 @@ public abstract class IFCtoLBDConverterCore {
 
 	protected Model ifcowl_model;
 	private Model ontology_model = null;
-	private Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
+	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
 
 	protected Optional<String> ontURI = Optional.empty();
 	protected IfcOWL ifcOWL;
 
 	// URI-property set
-	private Map<String, PropertySet> propertysets = new HashMap<>();
+	protected Map<String, PropertySet> propertysets = new HashMap<>();
 
 	protected int props_level;
 	protected boolean hasPropertiesBlankNodes;

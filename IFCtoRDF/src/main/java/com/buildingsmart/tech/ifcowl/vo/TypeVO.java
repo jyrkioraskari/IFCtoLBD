@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
+ Copyright (c) 2014, 2023 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
  Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
  Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -20,8 +20,10 @@ package com.buildingsmart.tech.ifcowl.vo;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class TypeVO implements Serializable {
     private static final long serialVersionUID = -3366648676376786356L;
@@ -31,7 +33,7 @@ public class TypeVO implements Serializable {
     private List<String> enumEntities = new LinkedList<>();
     private List<TypeVO> parentSelect;
     private int[] listCardinalities = new int[2];
-    private static List<TypeVO> listOfTypes = new ArrayList<>();
+    private static Set<TypeVO> listOfTypes = new HashSet<>();
 
     public TypeVO(String name) {
         super();
