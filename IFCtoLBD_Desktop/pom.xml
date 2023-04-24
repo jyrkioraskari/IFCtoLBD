@@ -46,29 +46,28 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			<version>19-ea+6</version>
+			 <version>21-ea+5</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			<version>19-ea+6</version>
+			 <version>21-ea+5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			<version>19-ea+6</version>
+			 <version>21-ea+5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			<version>19-ea+6</version>
+			 <version>21-ea+5</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>IFCtoLBD</artifactId>
 			<version>2.40.1</version>
-			
 		</dependency>
 	</dependencies>
 	<build>
