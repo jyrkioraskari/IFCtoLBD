@@ -2,7 +2,6 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1041,7 +1040,14 @@ public abstract class IFCtoLBDConverterCore {
 				//if (t2 != null) {
 				//	RDFDataMgr.read(m, t2.getAbsolutePath());
 				//} else
+				//	RDFDataMgr.read(m, outputFile.getAbsolutePath());
+				
+				File t2 = IfcOWLUtils.characterCoding(outputFile);  // UTF-8 characters
+				if (t2 != null) {
+					RDFDataMgr.read(m, t2.getAbsolutePath());
+				} else
 					RDFDataMgr.read(m, outputFile.getAbsolutePath());
+
 				return m;
 			} catch (IOException e) {
 				e.printStackTrace();
