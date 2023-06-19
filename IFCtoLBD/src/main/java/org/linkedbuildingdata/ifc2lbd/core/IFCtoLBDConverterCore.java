@@ -1035,7 +1035,16 @@ public abstract class IFCtoLBDConverterCore {
 			try {
 				Model m = ModelFactory.createDefaultModel();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-				this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
+				
+				if(hasPerformanceBoost)
+				{
+					File pruned_file_=IfcOWLUtils.filterIFC(new File(ifc_file));
+					this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
+				}
+				else
+				{
+				    this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
+				}
 				//File t2 = IfcOWLUtils.filterContent(outputFile);  // Performance!!
 				//if (t2 != null) {
 				//	RDFDataMgr.read(m, t2.getAbsolutePath());

@@ -353,13 +353,29 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
 			boolean hasPerformanceBoost, boolean hasBoundingBoxWKT) {
 
-		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
+		
+		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL))			
+		{
+		   return convert_LBD_phase(hasBuildingElements,
+					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
+					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT);	
+		}
+		
+		return null;
+	}
+
+	private String target_file;
+	
+	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,boolean hasPerformanceBoost,boolean exportIfcOWL) {
+
+		this.target_file=target_file;
+
 		if (ifc_filename.endsWith(".ifczip"))
 			ifc_filename = unzip(ifc_filename);
 
 		if (IfcOWLUtils.getExpressSchema(ifc_filename) == null) {
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
-			return null;
+			return false;
 		}
 
 		CompletableFuture<IFCGeometry> future_ifc_geometry = null;
@@ -372,6 +388,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 				hasPerformanceBoost); // Before:
+		if(this.ifcowl_model ==null)
+			return false;
 		// readInOntologies(ifc_filename);
 		System.out.println("Geometry?");
 
@@ -383,13 +401,25 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				e.printStackTrace();
 			}
 		}
+		
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
 		System.out.println("Product mapping");
 
-		createIfcLBDProductMapping();
+		return true;
+	}
 
+
+	public Model convert_LBD_phase(boolean hasBuildingElements,
+			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
+			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
+			boolean hasBoundingBoxWKT) {
+
+		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
+
+
+		createIfcLBDProductMapping();
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
@@ -410,7 +440,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		boolean namedGraphs=false; 
 		try {
-			conversion(target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs);
 		} catch (Exception e) {
 			eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
@@ -422,6 +452,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 	}
 
+	
 	public static void main(String[] args) {
 		JenaSystem.init();
 		if (args.length > 3) {
