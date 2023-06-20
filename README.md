@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.41.0
+Version 2.42.2
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
 
@@ -20,7 +20,7 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Minimum requirement is JAVA 15. Java 19 can be used for the converter and Desctop.  For the OpenAPI interface, use Java 15 (The Enunciate library does not support newer yet).
+Use Java 19 for compiloing the converter and the desktop app.  For the OpenAPI interface, use Java 15 (The Enunciate library does not support newer yet).
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.

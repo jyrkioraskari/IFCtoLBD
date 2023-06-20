@@ -204,4 +204,9 @@ public class AttributeSet {
         }
 
     }
+    
+    private Set<String> getPropertynames() {
+
+    	return mapPnameType.keySet();
+    }
 }

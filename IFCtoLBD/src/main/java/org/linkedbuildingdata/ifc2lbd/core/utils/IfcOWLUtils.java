@@ -725,10 +725,10 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\\\", "\\");
 
                         // UTF-8 fix for French double encoding
-                        line = line.replace("\\X\\0D", "");
+                        line = line.replace("\\X\\0D", " ");
                         line = line.replace("\\X\\0A", "");
 
-                        line = line.replace("\\X2\\00A0\\X0\\", "");
+                        line = line.replace("\\X2\\00A0\\X0\\", " ");
                         line = line.replace("\\X2\\00B0\\X0\\", "°");
                         // LATIN letters
                         line = line.replace("\\X2\\00C0\\X0\\", "À");
@@ -798,6 +798,7 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X2\\00FD\\X0\\", "ý");
                         line = line.replace("\\X2\\00FE\\X0\\", "þ");
                         line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
+                        
                         
                         line=unIFCUnicode(line);  // multi-character decode
                         line = line.replace("\\", "\\\\");

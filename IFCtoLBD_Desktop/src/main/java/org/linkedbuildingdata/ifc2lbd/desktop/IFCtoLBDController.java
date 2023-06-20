@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.prefs.Preferences;
 
 import org.controlsfx.control.MaskerPane;
@@ -365,6 +366,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         rdfTargetName = file.getAbsolutePath();
     }
 
+    Future<Integer> running_task; 
     @FXML
     private void convertIFCToRDF() {
         prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
@@ -390,7 +392,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
                 props_level = 3;
             prefs.putInt("lbd_props_level", props_level);
             masker_panel.setVisible(true);
-            executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level, building_elements.isSelected(), building_elements_separate_file.isSelected(),
+            
+            // If masking is used...  not needed
+            if(running_task!=null)
+            {
+            	if(!running_task.isDone())
+            	{
+            		this.conversionTxt.appendText("Conversion is still running");
+            	}
+            }
+            running_task = executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level, building_elements.isSelected(), building_elements_separate_file.isSelected(),
                             building_props.isSelected(), building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(), geolocation.isSelected(),geometry_elements.isSelected(),ifcOWL_elements.isSelected(),ifcOWL_elements.isSelected(),hasPerformanceBoost.isSelected(),hasBoundingBox_WKT.isSelected()));
         } catch (Exception e) {
             Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));

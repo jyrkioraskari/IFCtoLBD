@@ -390,6 +390,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				hasPerformanceBoost); // Before:
 		if(this.ifcowl_model ==null)
 			return false;
+		
 		// readInOntologies(ifc_filename);
 		System.out.println("Geometry?");
 
@@ -405,7 +406,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
-		System.out.println("Product mapping");
 
 		return true;
 	}
@@ -418,6 +418,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
 
+		System.out.println("Product mapping");
 
 		createIfcLBDProductMapping();
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);

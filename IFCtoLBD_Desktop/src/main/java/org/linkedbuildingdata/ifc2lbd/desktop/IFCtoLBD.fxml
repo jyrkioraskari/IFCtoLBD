@@ -138,7 +138,7 @@
                <opaqueInsets>
                   <Insets right="255.0" />
                </opaqueInsets></Button>
-            <TitledPane layoutX="50.0" layoutY="191.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="246.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="191.0">
+            <TitledPane expanded="false" layoutX="50.0" layoutY="191.0" prefHeight="276.0" prefWidth="837.0" text="Options" AnchorPane.bottomAnchor="246.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="191.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>

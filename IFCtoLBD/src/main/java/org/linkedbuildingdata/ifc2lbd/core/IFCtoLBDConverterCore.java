@@ -3,6 +3,7 @@ package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -168,6 +169,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		System.out.println("geo ..");
 		if (hasGeolocation) {
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 			try {
 				if (this.ontURI.isPresent())
 					IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL, lbd_general_output_model,
@@ -191,6 +193,8 @@ public abstract class IFCtoLBDConverterCore {
 			} else
 				lbd_general_output_model.add(lbd_product_output_model);
 		}
+
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 
 		if (hasBuildingProperties) {
 			if (hasSeparatePropertiesModel) {
@@ -517,9 +521,13 @@ public abstract class IFCtoLBDConverterCore {
 				RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
 						new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
 				RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> {
+					if(property_name.toString().equals("[Width]"))
+					  System.out.println("Property value 1 for "+property_name+" was: "+value);
 					if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI().toString()))
-						value = ifcowl_model.createTypedLiteral(value.asLiteral().getDouble(),
+						value = ifcowl_model.createTypedLiteral(BigDecimal.valueOf(value.asLiteral().getDouble()),
 								XSD.decimal.getURI().toString());
+					if(property_name.toString().equals("[Width]"))
+					  System.out.println("Property value 2 for "+property_name+" was: "+value);
 					property_value.add(value);
 				}
 
@@ -1045,6 +1053,9 @@ public abstract class IFCtoLBDConverterCore {
 				{
 				    this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
 				}
+				
+				eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
+
 				//File t2 = IfcOWLUtils.filterContent(outputFile);  // Performance!!
 				//if (t2 != null) {
 				//	RDFDataMgr.read(m, t2.getAbsolutePath());
