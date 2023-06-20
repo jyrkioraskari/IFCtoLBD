@@ -3,6 +3,7 @@ package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -520,9 +521,13 @@ public abstract class IFCtoLBDConverterCore {
 				RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
 						new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
 				RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> {
+					if(property_name.toString().equals("[Width]"))
+					  System.out.println("Property value 1 for "+property_name+" was: "+value);
 					if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI().toString()))
-						value = ifcowl_model.createTypedLiteral(value.asLiteral().getDouble(),
+						value = ifcowl_model.createTypedLiteral(BigDecimal.valueOf(value.asLiteral().getDouble()),
 								XSD.decimal.getURI().toString());
+					if(property_name.toString().equals("[Width]"))
+					  System.out.println("Property value 2 for "+property_name+" was: "+value);
 					property_value.add(value);
 				}
 
