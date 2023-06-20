@@ -168,6 +168,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		System.out.println("geo ..");
 		if (hasGeolocation) {
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 			try {
 				if (this.ontURI.isPresent())
 					IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL, lbd_general_output_model,
@@ -191,6 +192,8 @@ public abstract class IFCtoLBDConverterCore {
 			} else
 				lbd_general_output_model.add(lbd_product_output_model);
 		}
+
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 
 		if (hasBuildingProperties) {
 			if (hasSeparatePropertiesModel) {
@@ -1045,6 +1048,9 @@ public abstract class IFCtoLBDConverterCore {
 				{
 				    this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
 				}
+				
+				eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
+
 				//File t2 = IfcOWLUtils.filterContent(outputFile);  // Performance!!
 				//if (t2 != null) {
 				//	RDFDataMgr.read(m, t2.getAbsolutePath());
