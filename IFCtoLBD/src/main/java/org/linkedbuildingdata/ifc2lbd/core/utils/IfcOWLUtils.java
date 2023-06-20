@@ -421,7 +421,9 @@ public abstract class IfcOWLUtils {
         }
         return null;
     }
-
+	
+	
+	
     static public File characterCoding(File whole_content_file) {
         File tempFile = null;
         int state = 0;
@@ -560,6 +562,90 @@ public abstract class IfcOWLUtils {
                         
                         line=unIFCUnicode(line);  // multi-character decode
                         
+                        writer.write(line.trim());
+                        writer.newLine();
+                    }
+                    writer.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        return tempFile;
+    }
+
+    static public File filterIFC(File ifc_file) {
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("ifc", ".ifc");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(ifc_file))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        
+                        if (line.contains("= IFCCARTESIANPOINT("))
+                            continue;
+
+                        if (line.contains("= IFCPOLYLINE("))
+                            continue;
+
+                        if (line.contains("= IFCEDGECURVE("))
+                            continue;
+
+                        if (line.contains("= IFCAXIS2PLACEMENT3D("))
+                            continue;
+
+                        if (line.contains("= IFCPLANE("))
+                            continue;
+
+                        if (line.contains("= IFCFACEOUTERBOUND("))
+                            continue;
+
+                        if (line.contains("= IFCFACE("))
+                            continue;
+
+                        if (line.contains("= IFCORIENTEDEDGE("))
+                            continue;
+
+                        if (line.contains("= IFCCONNECTIONSURFACEGEOMETRY("))
+                            continue;
+                        
+                        if (line.contains("= IFCSURFACEOFLINEAREXTRUSION("))
+                            continue;
+                        
+                        if (line.contains("= IFCRELSPACEBOUNDARY("))
+                            continue;
+                        
+                        if (line.contains("= IFCPOLYLOOP("))
+                            continue;
+                        
+                        if (line.contains("= IFCLINE("))
+                            continue;
+                        
+                        if (line.contains("= IFCTRIMMEDCURVE("))
+                            continue;
+                        
+                        if (line.contains("= IFCVERTEXPOINT("))
+                            continue;
+                        
+                        if (line.contains("= IFCEDGELOOP("))
+                            continue;
+                        
+                        if (line.contains("= IFCADVANCEDFACE("))
+                            continue;
+                        
+                        if (line.contains("= IFCSHAPEREPRESENTATION("))
+                            continue;
+                        
+                        if (line.contains("= IFCEXTRUDEDAREASOLID("))
+                            continue;
+                        
+                       
                         writer.write(line.trim());
                         writer.newLine();
                     }
