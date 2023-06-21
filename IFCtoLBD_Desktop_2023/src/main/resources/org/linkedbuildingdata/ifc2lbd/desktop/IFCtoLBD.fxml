@@ -121,7 +121,7 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
-            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="168.0" prefHeight="276.0" prefWidth="365.0" AnchorPane.leftAnchor="10.0" />
+            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="141.0" prefHeight="303.0" prefWidth="312.0" AnchorPane.leftAnchor="10.0" />
             <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
