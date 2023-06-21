@@ -23,11 +23,12 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import org.controlsfx.control.CheckTreeView?>
 <?import org.controlsfx.control.MaskerPane?>
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController">
+<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
@@ -48,11 +49,11 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-1.0" prefHeight="724.0" prefWidth="937.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="root" maxWidth="-1.0" prefHeight="724.0" prefWidth="937.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="700.0" layoutX="-11.0" strokeType="INSIDE" width="957.0" AnchorPane.leftAnchor="-11.0" AnchorPane.rightAnchor="-9.0" AnchorPane.topAnchor="0.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-7.0">
                <fill>
-                  <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.48815165876777256">
+                  <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.5047001221247466">
                      <stops>
                         <Stop>
                            <color>
@@ -61,7 +62,7 @@
                         </Stop>
                         <Stop offset="0.011018539947028722">
                            <color>
-                              <Color red="0.15330000221729279" green="0.1569557785987854" blue="0.7300000190734863" />
+                              <Color red="0.3803921639919281" green="0.12941177189350128" blue="0.3450980484485626" />
                            </color>
                         </Stop>
                         <Stop offset="0.15517241379310326">
@@ -76,7 +77,7 @@
                         </Stop>
                         <Stop offset="0.6053639846743293">
                            <color>
-                              <Color red="0.22027289867401123" green="0.31578946113586426" blue="0.02923976629972458" />
+                              <Color red="0.22595638036727905" green="0.32236841320991516" blue="0.017909357324242592" />
                            </color>
                         </Stop>
                         <Stop offset="0.786546589248331">
@@ -86,40 +87,24 @@
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.6100907921791077" green="0.7763158082962036" blue="0.11141569167375565" />
+                              <Color red="0.34117648005485535" green="0.6705882549285889" blue="0.15294118225574493" />
                            </color>
                         </Stop>
                      </stops>
                   </LinearGradient>
                </fill>
-               <stroke>
-                  <LinearGradient endX="1.0" endY="1.0">
-                     <stops>
-                        <Stop>
-                           <color>
-                              <Color red="0.049744848161935806" green="0.05000000074505806" blue="0.04899999871850014" />
-                           </color>
-                        </Stop>
-                        <Stop offset="1.0">
-                           <color>
-                              <Color red="1.0" green="1.0" blue="1.0" />
-                           </color>
-                        </Stop>
-                     </stops>
-                  </LinearGradient>
-               </stroke>
             </Rectangle>
             <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="430.0" />
-            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="15.0" />
+            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
             <Label layoutX="50.0" layoutY="105.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="470.0">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font></Label>
-            <CustomTextField fx:id="labelBaseURI" layoutX="50.0" layoutY="131.0" prefHeight="23.0" prefWidth="835.0" promptText="Add the base URI here" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="500.0">
+            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="467.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
-            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file (optional)" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="550.0">
+            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file (optional)" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -133,11 +118,12 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="182.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="150.0">
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="120.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
-            <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="168.0" prefHeight="276.0" prefWidth="365.0" />
+            <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
@@ -271,7 +257,7 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </TitledPane>
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="596.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="76.0" prefWidth="212.0" text="Write out to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="596.0">
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="596.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="120.0" prefWidth="212.0" text="Write out to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -283,11 +269,11 @@
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
-            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="550.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="500.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
-            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="1034.0" prefWidth="937.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
         
     
