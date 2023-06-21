@@ -51,7 +51,7 @@
     </MenuBar>
     <AnchorPane fx:id="root" maxWidth="-1.0" prefHeight="724.0" prefWidth="937.0" VBox.vgrow="ALWAYS">
          <children>
-            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="-7.0">
+            <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="-13.0" AnchorPane.rightAnchor="-7.0" AnchorPane.topAnchor="5.0">
                <fill>
                   <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.5047001221247466">
                      <stops>
@@ -94,17 +94,16 @@
                   </LinearGradient>
                </fill>
             </Rectangle>
-            <Label fx:id="labelTargetFile" layoutX="212.0" layoutY="100.0" prefHeight="30.0" prefWidth="470.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="430.0" />
-            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="15.0" />
-            <Label layoutX="50.0" layoutY="105.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="470.0">
+            <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0" />
+            <Label layoutX="50.0" layoutY="105.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="470.0">
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font></Label>
-            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="467.0">
+            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="470.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
-            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file (optional)" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="500.0">
+            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file (optional)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="500.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -114,16 +113,16 @@
                <opaqueInsets>
                   <Insets right="255.0" />
                </opaqueInsets></Button>
-            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="35.0" prefWidth="212.0" text="READ in an IFC file" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="35.0" prefWidth="212.0" text="READ in an IFC file" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="120.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="550.0">
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="120.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
-            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="168.0" prefHeight="276.0" prefWidth="365.0" />
-            <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="100.0">
+            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="168.0" prefHeight="276.0" prefWidth="365.0" AnchorPane.leftAnchor="10.0" />
+            <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
@@ -257,19 +256,19 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </TitledPane>
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="596.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="120.0" prefWidth="212.0" text="Write out to RDF" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="550.0">
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="596.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="120.0" prefWidth="212.0" text="Convert out to RDF" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <Text fill="#f2eded" layoutX="50.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to the LBD  format" wrappingWidth="365.3779296875" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="15.0">
+            <Text fill="#f2eded" layoutX="50.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to the LBD  format" wrappingWidth="365.3779296875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
-            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="500.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="500.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
