@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -68,10 +69,9 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.TreeItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.Clipboard;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -416,6 +416,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void convertIFCToRDF() {
+		
+		
+		
 		prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
 		prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
@@ -444,7 +447,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				return;
 			}
 
-			running_conversion = executor.submit(new ConversionThread(this.running_read_in.get(), ifcFileName, uri_base,
+			
+			
+			Set<String> selected_types=new HashSet<>();
+			for(TreeItem<String> item:element_types_checkbox.getCheckModel().getCheckedItems())
+			{
+				selected_types.add(item.getValue());
+				
+			}
+			
+			running_conversion = executor.submit(new ConversionThread(this.running_read_in.get(), selected_types,ifcFileName, uri_base,
 					rdfTargetName, props_level, building_elements.isSelected(),
 					building_elements_separate_file.isSelected(), building_props.isSelected(),
 					building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(),

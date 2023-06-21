@@ -82,6 +82,8 @@ import de.rwth_aachen.dc.lbd.ObjDescription;
 public abstract class IFCtoLBDConverterCore {
 	protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
+	protected Set<String> selected_types;
+	
 	protected Model ifcowl_model;
 	private Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
@@ -656,6 +658,13 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
+			if(this.selected_types!=null && this.selected_types.size()>0 && bot_type.isPresent())
+			{
+				
+				if(!this.selected_types.contains(bot_type.get().getLocalName()))
+						return null;
+						
+			}
 		}
 		// System.out.println("Connect element: " + ifcOWL_element);
 		if (bot_type.isPresent()) {
@@ -709,7 +718,16 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
+			
+			if(this.selected_types!=null && this.selected_types.size()>0 && bot_type.isPresent())
+			{
+				
+				if(!this.selected_types.contains(bot_type.get().getLocalName()))
+						return null;
+						
+			}
 		}
+				
 		if (bot_type.isPresent()) {
 			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
 					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase.get(),
@@ -803,6 +821,14 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> lbd_product_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			lbd_product_type = getLBDProductType(ifcowl_type.get().getLocalName());
+			
+			if(this.selected_types!=null && this.selected_types.size()>0 && lbd_product_type.isPresent())
+			{
+				
+				if(!this.selected_types.contains(lbd_product_type.get().getLocalName()))
+						return null;
+						
+			}
 		}
 
 		if (lbd_product_type.isPresent()) {
@@ -1158,6 +1184,18 @@ public abstract class IFCtoLBDConverterCore {
 		return types;
 	}
 
+	public void setSelected_types(Set<String> selected_types) {
+		this.selected_types=selected_types;
+		System.out.println("updated selection: "+selected_types);
+	}
+
+	public void resetModels()
+	{
+		lbd_general_output_model.removeAll();
+		lbd_product_output_model.removeAll();
+		lbd_property_output_model.removeAll();	
+	}
+	
 	@Subscribe
 	public void handleEvent(final IFCtoLBD_SystemExit event) {
 		System.out.println("Exit reason: " + event.getReason_message());

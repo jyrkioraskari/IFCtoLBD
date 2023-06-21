@@ -1,5 +1,6 @@
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
+import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
@@ -38,6 +39,7 @@ public class ConversionThread implements Callable<Integer> {
 	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 	
 	final private IFCtoLBDConverter converter;
+	final private Set<String> selected_types;
 	final private String ifc_filename;
 	final private String uriBase;
 	final private String target_file;
@@ -59,9 +61,10 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasBoundingBoxWKT;
     
 
-	public ConversionThread(IFCtoLBDConverter converter,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
 		super();
 		this.converter=converter;
+		this.selected_types=selected_types;
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
 		this.target_file = target_file;
@@ -83,6 +86,7 @@ public class ConversionThread implements Callable<Integer> {
 	public Integer call() throws Exception {
 		try {
 			try {
+				converter.setSelected_types(selected_types);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT);

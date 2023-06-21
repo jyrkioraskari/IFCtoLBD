@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
@@ -420,7 +421,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			boolean hasBoundingBoxWKT) {
 
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
-
+		resetModels();
 		System.out.println("Product mapping");
 
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
@@ -532,5 +533,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		this.ifcowl_product_map.clear();
 		this.propertysets.clear();
 	}
+
 
 }
