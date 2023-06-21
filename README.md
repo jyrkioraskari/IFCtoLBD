@@ -1,7 +1,7 @@
 # IFCtoLBD
 Version 2.42.2
 
-Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, and Joel Lehtonen.
+Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, and Maxime Lefrançois.
 
 
 This repository presents the results of our ongoing work to create a usable converter to convert Industry Foundation Classes (IFC) STEP formatted files into 
@@ -246,6 +246,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### June 21, 2023  
+The new user interface is in the testing phase.
+
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG)
 ### March 1, 2023  
 Tested and update the Python interface.
 

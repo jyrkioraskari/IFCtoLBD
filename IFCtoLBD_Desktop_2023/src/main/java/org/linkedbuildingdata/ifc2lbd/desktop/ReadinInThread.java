@@ -85,14 +85,14 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
-				eventBus.post(new ProcessReadyEvent());
+				eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
 				return null;
 			}
-			eventBus.post(new ProcessReadyEvent());
+			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN));
 			return c1nb;
 		} catch (Exception e) {
 			e.printStackTrace();
-			eventBus.post(new ProcessReadyEvent());
+			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
 			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return null;

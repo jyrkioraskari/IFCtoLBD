@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
@@ -406,6 +407,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
+		createIfcLBDProductMapping();
+
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory."));
 
 		return true;
 	}
@@ -417,10 +421,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			boolean hasBoundingBoxWKT) {
 
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
-
+		resetModels();
 		System.out.println("Product mapping");
 
-		createIfcLBDProductMapping();
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
@@ -449,6 +452,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		}
 		System.out.println("conversion done..");
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Conversion done"));
 		return lbd_general_output_model;
 
 	}
@@ -529,5 +533,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		this.ifcowl_product_map.clear();
 		this.propertysets.clear();
 	}
+
 
 }
