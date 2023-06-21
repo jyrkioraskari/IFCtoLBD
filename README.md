@@ -247,7 +247,7 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 
 ## Blog
 ### June 21, 2023  
-The new user interface is in the testing phase.
+The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG)
 ### March 1, 2023  
