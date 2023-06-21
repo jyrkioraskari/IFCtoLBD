@@ -99,7 +99,7 @@
                <font>
                   <Font name="Arial Bold Italic" size="14.0" />
                </font></Label>
-            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="470.0">
+            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="470.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
@@ -117,11 +117,11 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="120.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="550.0">
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="50.0" layoutY="109.0" prefHeight="120.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
-            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="141.0" prefHeight="303.0" prefWidth="312.0" AnchorPane.leftAnchor="10.0" />
+            <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="159.0" prefHeight="285.0" prefWidth="312.0" AnchorPane.leftAnchor="10.0" />
             <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="250.0" prefWidth="837.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
@@ -264,13 +264,17 @@
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="370.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="50.0">
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
-            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="320.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="500.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="510.0">
                <font>
                   <Font name="Arial" size="18.0" />
+               </font></Label>
+            <Label text="Select element types to include in the output" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
+               <font>
+                  <Font name="Arial Narrow" size="18.0" />
                </font></Label>
             <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>

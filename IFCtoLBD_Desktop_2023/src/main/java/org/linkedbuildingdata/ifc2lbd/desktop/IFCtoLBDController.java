@@ -658,8 +658,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					// add items to the root
 					for(Resource et:element_types)
 					{
-						CheckBoxTreeItem<String> item1 = new CheckBoxTreeItem<>(et.getLocalName());
-						root.getChildren().add(item1);
+						CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(et.getLocalName());
+						item.setSelected(true);
+						root.getChildren().add(item);
 						
 					}
 					root.setExpanded(true);

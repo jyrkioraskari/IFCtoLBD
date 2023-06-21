@@ -408,6 +408,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
 
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory."));
+
 		return true;
 	}
 
@@ -449,6 +451,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		}
 		System.out.println("conversion done..");
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Conversion done"));
 		return lbd_general_output_model;
 
 	}
