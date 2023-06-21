@@ -406,6 +406,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
+		createIfcLBDProductMapping();
 
 		return true;
 	}
@@ -420,7 +421,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		System.out.println("Product mapping");
 
-		createIfcLBDProductMapping();
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));

@@ -363,18 +363,18 @@ public abstract class IFCtoLBDConverterCore {
 				BoundingBox bb = this.ifc_geometry.getBoundingBox(guid);
 				ObjDescription obj = this.ifc_geometry.getOBJ(guid);
 
-				Resource sp_geometry = this.lbd_general_output_model.createResource(lbd_resource.getURI() + "_geometry");
+				Resource sp_geometry = this.lbd_general_output_model
+						.createResource(lbd_resource.getURI() + "_geometry");
 				if (bb != null && obj != null)
 					lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
 				else
-					System.err.println("The elemenet has no geometry: "+lbd_resource.getURI());
+					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
 						sp_geometry.addLiteral(GEO.asWKT, bb.toString());
-					}
-					else
-					{
-						Resource sp_bb = this.lbd_general_output_model.createResource(lbd_resource.getURI() + "_geometry_bb");
+					} else {
+						Resource sp_bb = this.lbd_general_output_model
+								.createResource(lbd_resource.getURI() + "_geometry_bb");
 						sp_geometry.addProperty(LBD.hasBoundingBox, sp_bb);
 						sp_bb.addLiteral(LBD.xmin, bb.getMin().x);
 						sp_bb.addLiteral(LBD.xmax, bb.getMax().x);
@@ -521,13 +521,13 @@ public abstract class IFCtoLBDConverterCore {
 				RDFStep[] value_pathD = { new RDFStep(ifcOWL.getNominalValue_IfcPropertySingleValue()),
 						new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
 				RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> {
-					if(property_name.toString().equals("[Width]"))
-					  System.out.println("Property value 1 for "+property_name+" was: "+value);
+					if (property_name.toString().equals("[Width]"))
+						System.out.println("Property value 1 for " + property_name + " was: " + value);
 					if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI().toString()))
 						value = ifcowl_model.createTypedLiteral(BigDecimal.valueOf(value.asLiteral().getDouble()),
 								XSD.decimal.getURI().toString());
-					if(property_name.toString().equals("[Width]"))
-					  System.out.println("Property value 2 for "+property_name+" was: "+value);
+					if (property_name.toString().equals("[Width]"))
+						System.out.println("Property value 2 for " + property_name + " was: " + value);
 					property_value.add(value);
 				}
 
@@ -1008,12 +1008,11 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
-			
-			if (!isTmpFile && targetFile == null)		
-			{
-				 String tmpdir = System.getProperty("java.io.tmpdir");
-				 String name=new File(ifc_file).getName();
-		         targetFile = tmpdir+name;
+
+			if (!isTmpFile && targetFile == null) {
+				String tmpdir = System.getProperty("java.io.tmpdir");
+				String name = new File(ifc_file).getName();
+				targetFile = tmpdir + name;
 			}
 			if (isTmpFile || targetFile == null) {
 				outputFile = File.createTempFile("ifc", ".ttl");
@@ -1022,13 +1021,13 @@ public abstract class IFCtoLBDConverterCore {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
-				if (outputFile.exists()&&outputFile.length()>1000) {
+				if (outputFile.exists() && outputFile.length() > 1000) {
 					System.out.println("Using existing ifcOWL file");
 					eventBus.post(new IFCtoLBD_SystemStatusEvent("Using existing ifcOWL file"));
 					Model model = ModelFactory.createDefaultModel();
 					System.out.println("ifcOWL read in");
 
-					//model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+					// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
 					RDFDataMgr.read(model, ifcowlfilename);
 					System.out.println("ifcOWL read in done");
 					String inst_ns = model.getNsPrefixMap().get("inst");
@@ -1043,26 +1042,25 @@ public abstract class IFCtoLBDConverterCore {
 			try {
 				Model m = ModelFactory.createDefaultModel();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
-				
-				if(hasPerformanceBoost)
-				{
-					File pruned_file_=IfcOWLUtils.filterIFC(new File(ifc_file));
-					this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
+
+				if (hasPerformanceBoost) {
+					File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
+					this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
+							uriBase, hasPerformanceBoost);
+				} else {
+					this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
+							hasPerformanceBoost);
 				}
-				else
-				{
-				    this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase, hasPerformanceBoost);
-				}
-				
+
 				eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
-				//File t2 = IfcOWLUtils.filterContent(outputFile);  // Performance!!
-				//if (t2 != null) {
-				//	RDFDataMgr.read(m, t2.getAbsolutePath());
-				//} else
-				//	RDFDataMgr.read(m, outputFile.getAbsolutePath());
-				
-				File t2 = IfcOWLUtils.characterCoding(outputFile);  // UTF-8 characters
+				// File t2 = IfcOWLUtils.filterContent(outputFile); // Performance!!
+				// if (t2 != null) {
+				// RDFDataMgr.read(m, t2.getAbsolutePath());
+				// } else
+				// RDFDataMgr.read(m, outputFile.getAbsolutePath());
+
+				File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
 				if (t2 != null) {
 					RDFDataMgr.read(m, t2.getAbsolutePath());
 				} else
@@ -1136,6 +1134,28 @@ public abstract class IFCtoLBDConverterCore {
 
 	public Model getOntology_model() {
 		return ontology_model;
+	}
+
+	public Set<Resource>  getElementTypes() {
+		Set<Resource> types=new HashSet<>();
+		ifcowl_model.listStatements().forEachRemaining(st -> {
+			if (st.getPredicate().getLocalName().toString().toLowerCase().contains("globalid_ifcroot")) {
+				Resource ifcOWL_element = st.getSubject();
+				if (isIfcElement(ifcOWL_element)) {
+					Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcOWL_element);
+					Optional<Resource> ifcowl_type = RDFUtils.getType(ifcOWL_element);
+					Optional<Resource> bot_type = Optional.empty();
+					if (ifcowl_type.isPresent()) {
+						bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
+						if(bot_type.isPresent())
+							types.add(bot_type.get());
+					}
+			
+				}
+			}
+
+		});
+		return types;
 	}
 
 	@Subscribe

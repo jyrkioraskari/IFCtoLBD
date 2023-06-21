@@ -33,11 +33,14 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.prefs.Preferences;
 
+import org.apache.jena.rdf.model.Resource;
 import org.controlsfx.control.CheckTreeView;
 import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
@@ -441,13 +444,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				return;
 			}
 
-			
-			running_conversion = executor.submit(new ConversionThread(this.running_read_in.get(),ifcFileName, uri_base, rdfTargetName, props_level,
-					building_elements.isSelected(), building_elements_separate_file.isSelected(),
-					building_props.isSelected(), building_props_separate_file.isSelected(),
-					building_props_blank_nodes.isSelected(), geolocation.isSelected(), geometry_elements.isSelected(),
-					ifcOWL_elements.isSelected(), ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(),
-					hasBoundingBox_WKT.isSelected()));
+			running_conversion = executor.submit(new ConversionThread(this.running_read_in.get(), ifcFileName, uri_base,
+					rdfTargetName, props_level, building_elements.isSelected(),
+					building_elements_separate_file.isSelected(), building_props.isSelected(),
+					building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(),
+					geolocation.isSelected(), geometry_elements.isSelected(), ifcOWL_elements.isSelected(),
+					ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(), hasBoundingBox_WKT.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -516,54 +518,39 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		conversionTxt.setOnDragOver(ad_conversion);
 		conversionTxt.setOnDragDropped(dh_conversion);
 
-		/*rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent me) {
-
-				if (!rdf_fileIcon.isDisabled()) {
-					Dragboard db = handleOnTxt.startDragAndDrop(TransferMode.ANY);
-
-					ClipboardContent content = new ClipboardContent();
-					Clipboard clipboard = Clipboard.getSystemClipboard();
-					try {
-						File temp = File.createTempFile("rdf", ".ttl");
-
-						conversionTxt.setText("");
-						try {
-							String uri_base = labelBaseURI.getText().trim();
-							int props_level = 2;
-							if (level1.isSelected())
-								props_level = 1;
-							if (level3.isSelected())
-								props_level = 3;
-							masker_panel.setVisible(true);
-							executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(),
-									props_level, building_elements.isSelected(),
-									building_elements_separate_file.isSelected(), building_props.isSelected(),
-									building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(),
-									geolocation.isSelected(), geometry_elements.isSelected(),
-									ifcOWL_elements.isSelected(), ifcOWL_elements.isSelected(),
-									hasPerformanceBoost.isSelected(), hasBoundingBox_WKT.isSelected()));
-						} catch (Exception e) {
-							conversionTxt.appendText(e.getMessage());
-						}
-
-						content.putFiles(java.util.Collections.singletonList(temp));
-						db.setContent(content);
-						clipboard.setContent(content);
-					} catch (IOException e) {
-
-						e.printStackTrace();
-					}
-				}
-				me.consume();
-			}
-		});
-
-		rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() {
-			public void handle(DragEvent me) {
-				me.consume();
-			}
-		});*/
+		/*
+		 * rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() { public void
+		 * handle(MouseEvent me) {
+		 * 
+		 * if (!rdf_fileIcon.isDisabled()) { Dragboard db =
+		 * handleOnTxt.startDragAndDrop(TransferMode.ANY);
+		 * 
+		 * ClipboardContent content = new ClipboardContent(); Clipboard clipboard =
+		 * Clipboard.getSystemClipboard(); try { File temp = File.createTempFile("rdf",
+		 * ".ttl");
+		 * 
+		 * conversionTxt.setText(""); try { String uri_base =
+		 * labelBaseURI.getText().trim(); int props_level = 2; if (level1.isSelected())
+		 * props_level = 1; if (level3.isSelected()) props_level = 3;
+		 * masker_panel.setVisible(true); executor.submit(new
+		 * ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(), props_level,
+		 * building_elements.isSelected(), building_elements_separate_file.isSelected(),
+		 * building_props.isSelected(), building_props_separate_file.isSelected(),
+		 * building_props_blank_nodes.isSelected(), geolocation.isSelected(),
+		 * geometry_elements.isSelected(), ifcOWL_elements.isSelected(),
+		 * ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(),
+		 * hasBoundingBox_WKT.isSelected())); } catch (Exception e) {
+		 * conversionTxt.appendText(e.getMessage()); }
+		 * 
+		 * content.putFiles(java.util.Collections.singletonList(temp));
+		 * db.setContent(content); clipboard.setContent(content); } catch (IOException
+		 * e) {
+		 * 
+		 * e.printStackTrace(); } } me.consume(); } });
+		 * 
+		 * rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() { public void
+		 * handle(DragEvent me) { me.consume(); } });
+		 */
 		this.labelBaseURI.setText(prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
 		this.building_elements.setSelected(prefs.getBoolean("lbd_building_elements", true));
 		this.building_elements_separate_file
@@ -660,23 +647,31 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.masker_panel.setVisible(false);
 
 		if (event.getPhase() == ProcessReadyEvent.READ_IN) {
-			Platform.runLater(
-					() -> 
+			Platform.runLater(() -> {
+				// prepare tree items
+				try {
+					IFCtoLBDConverter converter = this.running_read_in.get();
+					Set<Resource> element_types = converter.getElementTypes();
+					CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("Model");
+
+					root.getChildren().clear();
+					// add items to the root
+					for(Resource et:element_types)
 					{
-			// prepare tree items
-			CheckBoxTreeItem<String> root = new CheckBoxTreeItem<>("Model");
-			CheckBoxTreeItem<String> item1 = new CheckBoxTreeItem<>("1");
-			CheckBoxTreeItem<String> item2 = new CheckBoxTreeItem<>("2");
+						CheckBoxTreeItem<String> item1 = new CheckBoxTreeItem<>(et.getLocalName());
+						root.getChildren().add(item1);
+						
+					}
+					root.setExpanded(true);
 
-			root.getChildren().clear();
-			// add items to the root
-			root.getChildren().add(item1);
-			root.getChildren().add(item2);
-			root.setExpanded(true);
-
-			element_types_checkbox.setRoot(root);
-			element_types_checkbox.setShowRoot(true);
-		});
+					element_types_checkbox.setRoot(root);
+					element_types_checkbox.setShowRoot(true);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
+			});
 		}
 	}
 }
