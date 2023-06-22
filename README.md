@@ -64,6 +64,7 @@ cd ..
 
 cd IFCtoLBD_OpenAPI
 call mvn clean install
+set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
 call mvn enunciate:docs install
 cd ..
 ```
