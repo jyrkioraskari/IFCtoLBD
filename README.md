@@ -12,7 +12,7 @@ Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
 It is recommended to use OpenJava 19. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
-At a windows system, download the MSI file that matches your processsor type (usually x64 aka Intell), and run it to install Java.
+On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
 
@@ -20,13 +20,13 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Use Java 19 for compiloing the converter and the desktop app.  For the OpenAPI interface, use Java 15 (The Enunciate library does not support newer yet).
+Use Java 19 for compiling the converter and the desktop app.  For the OpenAPI interface, it is recommended to use Java 15 (The Enunciate library does not support a newer yet, but it seems to be possible to compile it with JDK 19 using the MAVEN_OPTS environment variable shown below. ).
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
 
 
-Also Windows 10/11 installations are availabe. The zip files contain script files to run the program neatly in the windows operating system. 
+Also, Windows 10/11 installations are available. The zip files contain script files to run the program neatly in the windows operating system. 
 
 If the program does not start, try the following command at the command line: `java -jar IFCtoLBD-Desktop.jar`.
 
@@ -68,7 +68,7 @@ set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --
 call mvn enunciate:docs install
 cd ..
 ```
--  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven referred libraries of older Java versions). 
+-  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven-referred libraries of older Java versions). 
 
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
@@ -85,7 +85,7 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
 ## Maven
-The Maven library was published on 29th of May, 2020.  
+The Maven library was published on the 29th of May, 2020.  
 
 ```
 <dependency>
@@ -229,11 +229,11 @@ Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
   -l, --level=<props_level>
                          The OPM ontology complexity level
   -p, --hasBuildingElementProperties
-                         The properties will ne added into the output.
+                         The properties will be added to the output.
   -t, --target_file=<target_file>
                          he main file name for the output. If there are many,
                            they will be sharing the same name beginning.
-  -u, --url=<uriBase>    The URI base for all the elemenents that will be
+  -u, --url=<uriBase>    The URI base for all the elements that will be
                            created.
   -V, --version          Print version information and exit.
 
@@ -255,7 +255,7 @@ The new user interface is in the testing phase. This is not the final version ye
 Tested and update the Python interface.
 
 ### February 13, 2023  
-The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented, but needs still some more testing.
+The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented but needs still some more testing.
 
 ### June 07, 2022  
 Support for xsd:decimal.
@@ -265,14 +265,14 @@ Support for xsd:decimal.
 Support for multi-character Unicode sequences.
 
 ### April 19, 2022  
-Added unlinked elements and those that have no LBD type.It allows using the converter when there are not BOT elements connected to the 
+Added unlinked elements and those that have no LBD type. It allows using the converter when there are no BOT elements connected to the 
 interested in elements.
 
 ### March 18, 2022  "This application requires a Java Runtime Environment"
-The windows executable bundle for the Open JDK was fixed to contain the Java version.
+The Windows executable bundle for the Open JDK was fixed to contain the Java version.
 
 ### December 15, 2021  Log4J
-Last Sunday the software was pached to contain Log4J version 2.15 and today version 2.16 was added. 
+Last Sunday the software was patched to contain Log4J version 2.15 and today version 2.16 was added. 
 The OpenAPI installation was shortly tested under Apache Tomcat 9.0.54 and updated to the current IFCtoLBD 
 release. The Docker image is also updated.
 
@@ -281,20 +281,20 @@ release. The Docker image is also updated.
 Example usage: 
 java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\IFC\Duplex_A_20110505.ifc c:\IFC\Duplex_A_20110505.ttl
 
-### December 7, 2021  The degree sign character
+### December 7, 2021,  The degree sign character
 
 The Unicode notation of the degree sign character caused Jena to stop reading the raw ifcOWL output. This is fixed now.
 
-### September 6, 2021  Java 15
-Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant any more.  To keep the software secure, it is preferred to deprecated the version of the code in a long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used. 
+### September 6, 2021,  Java 15
+Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant anymore.  To keep the software secure, it is preferred to deprecate the version of the code in the long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used. 
 
 ### April 6, 2021  Support for European languages
 The program code was modified so that the default backslash notation for UTF-8 characters is removed. äÄöÖåÅßüÜáÁàÀâÂ should be human-readable.
 
-### October 13, 2020  Testing the software
-The sofware was tested to function with https://jdk.java.net/15/
+### October 13, 2020,  Testing the software
+The software was tested to function with https://jdk.java.net/15/
 
-### October 5, 2020  Testing the software
+### October 5, 2020,  Testing the software
 
 Testing the correctness of the created bounding boxes.
 
@@ -308,23 +308,23 @@ Testing the correctness of the created bounding boxes.
 
 2. Why does the program say: *"Error: Cannot determine which IFC version the model it is: [IFC2X2_FINAL]"*
 
-   - IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some test files that are generated using this version. Support for this may be added.  Currently the supported IFC versions are:  IFC2x3TC1, FC2x3FINAL, IFC4, IFC4 ADD1 and  IFC4 ADD2.
+   - IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some test files that are generated using this version. Support for this may be added.  Currently, the supported IFC versions are  IFC2x3TC1, FC2x3FINAL, IFC4, IFC4 ADD1, and  IFC4 ADD2.
 
 3. Nothing happens when I start the program.
 
-   - Check that Java 15 is installed, open a command prompt, from the releases list, download the precompiled
+   - Check that Java 15 is installed, open a command prompt, from the releases list, and download the precompiled
      binaries, then at the directory where IFCtoLBD-Desktop_Java_15.ja is located. Run the following command:
      `java -jar IFCtoLBD-Desktop_Java_15.jar`
 	 
-	- If any further problem, under the Windows 10 operating system, you can also try to use the 
-	bundled version of the converter: IFCtoLBD_Java15.exe  
+	- If any further problems, under the Windows 10 operating system, you can also try to use the 
+	the bundled version of the converter: IFCtoLBD_Java15.exe  
 	 
 4. I have a problem running the OpenAPI interface under Apache Tomcat 9:
     - Check that the JAVA_HOME environmental variable at your computer points to Java version 15 or newer.
-	The older versions of Java are not supported any more (If you must to use it for some reason, an older
-	release of the converter can be used), since the used libraries don't support them any more. 
+	The older versions of Java are not supported anymore (If you must use it for some reason, an older
+	release of the converter can be used), since the used libraries don't support them anymore. 
 
-5. In Windows, I cannot open the program by double clicking the file
+5. In Windows, I cannot open the program by double-clicking the file
    - Open a command prompt as admin
    - Run the following commands:
    
