@@ -431,6 +431,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
 		prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
 		prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+        prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
 
 		conversionTxt.setText("");
 		try {
@@ -574,7 +575,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.geometry_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", true));
 		this.ifcOWL_elements.setSelected(prefs.getBoolean("lbd_ifcOWL_elements", false));
 		this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
+        this.geolocation.setSelected(prefs.getBoolean("lbd_geolocation", true));
 
+		
 		this.hasPerformanceBoost.setSelected(prefs.getBoolean("lbd_performance", true));
 		if (this.ifcOWL_elements.isSelected()) {
 			this.hasPerformanceBoost.setSelected(false);
