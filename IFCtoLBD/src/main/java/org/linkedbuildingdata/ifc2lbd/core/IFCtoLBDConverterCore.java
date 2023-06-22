@@ -1118,8 +1118,8 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			IfcOWLUtils.readIfcOWLOntology(ifc_file, ontology_model);
 			IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
-
 			RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", this.eventBus);
+			RDFUtils.readInOntologyTTL(ontology_model, "prod_furnishing.ttl", this.eventBus);
 			RDFUtils.readInOntologyTTL(ontology_model, "beo_ontology.ttl", this.eventBus);
 
 			RDFUtils.readInOntologyTTL(ontology_model, "mep_ontology.ttl", this.eventBus);

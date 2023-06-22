@@ -1,6 +1,5 @@
-// Compiple the whole code  with Java 11. Newer JDK is not supported yet.
+// Compiple the whole code  with Java 11. Newer JDK is not supported yet. (JDK 15 seems to work)
 // https://github.com/stoicflame/enunciate/issues/1087
-// JDK 19 will be supported soon.
 // https://github.com/stoicflame/enunciate/pull/1111
 
 mvn enunciate:docs
