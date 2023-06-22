@@ -381,6 +381,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
         prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
         prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+        prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
+        
         
         conversionTxt.setText("");
         try {
@@ -527,6 +529,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
         
         this.hasPerformanceBoost.setSelected(prefs.getBoolean("lbd_performance", true));
+        
+        this.geolocation.setSelected(prefs.getBoolean("lbd_geolocation", true));
+        
+        
         if(this.ifcOWL_elements.isSelected())
     	{
     		this.hasPerformanceBoost.setSelected(false);

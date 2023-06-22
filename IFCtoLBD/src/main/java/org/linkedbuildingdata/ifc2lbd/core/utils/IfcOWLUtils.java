@@ -286,6 +286,13 @@ public abstract class IfcOWLUtils {
 		}
 	}
 
+		private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
+				RDFStep[] path = { new RDFStep(ifcOWL.getProperty("ifc:relatingType_IfcRelDefinesByType")),
+						new RDFStep(ifcOWL.getProperty("ifc:hasPropertySets_IfcTypeObject")) };
+				return path;
+		}
+
+	
 	   public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
 	        RDFStep[] path = { new InvRDFStep(RDF.type) };
 	        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
@@ -303,8 +310,13 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL   namespace
 	 * @return the list of the matching RDF nodes.
 	 */
+	   
+	//2023 JO added the IFC object type definition
 	public static List<RDFNode> listPropertysets(Resource resource, IfcOWL ifcOWL) {
-		return RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL));
+		List<RDFNode> ret = new ArrayList<>();
+		ret.addAll(RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL)));
+		ret.addAll(RDFUtils.pathQuery(resource, getIfcTypeObjectPropertySetPath(ifcOWL)));
+		return ret;
 	}
 
 	/**
