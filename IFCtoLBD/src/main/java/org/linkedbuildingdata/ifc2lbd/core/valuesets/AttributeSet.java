@@ -16,6 +16,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
@@ -97,7 +98,10 @@ public class AttributeSet {
             
             for (String  pname : this.mapPnameValue.keySet()) {
                 Property property;
-                property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
+                if(pname.equals("nameIfcRoot"))
+                	property = RDFS.label;
+                else
+                    property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
                 // No blank node etc is created, so no units expressed here
                 lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
             }
