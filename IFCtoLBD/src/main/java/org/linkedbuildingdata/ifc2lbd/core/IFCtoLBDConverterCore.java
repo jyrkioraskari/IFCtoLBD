@@ -247,8 +247,14 @@ public abstract class IFCtoLBDConverterCore {
 			System.err.println("Not an #IfcBuilding");
 			return;
 		}
-		Resource lbd_building = LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building",
+		Resource lbd_building; 
+		if(this.hasHierarchicalNaming)
+			lbd_building= LBD_RDF_Utils.createformattedHierarchicalURIRecource(building, lbd_general_output_model, 
+					this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
+		else 
+		    lbd_building= LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building",
 				this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
+			
 		String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
 		String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
 		addAttrributes(lbd_property_output_model, building, lbd_building);
@@ -272,9 +278,13 @@ public abstract class IFCtoLBDConverterCore {
 				System.err.println("No an #IfcBuildingStorey");
 				return;
 			}
-
-			Resource lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey",
-					this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
+			Resource lbd_storey;
+			if(this.hasHierarchicalNaming)
+			  lbd_storey = LBD_RDF_Utils.createformattedHierarchicalURIRecource(storey, lbd_general_output_model, 
+					this.ifcOWL, lbd_building, this.exportIfcOWL);
+			else
+			  lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey",
+						this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
 			String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
 			String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
 			addAttrributes(lbd_property_output_model, storey, lbd_storey);
@@ -299,7 +309,7 @@ public abstract class IFCtoLBDConverterCore {
 			IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().forEach(space -> {
 				if (!RDFUtils.getType(space.asResource()).get().getURI().endsWith("#IfcSpace"))
 					return;
-				Resource spo = LBD_RDF_Utils.createformattedURIRecource(space.asResource(), lbd_general_output_model,
+				Resource spo =LBD_RDF_Utils.createformattedURIRecource(space.asResource(), lbd_general_output_model,
 						"Space", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
 				String guid_space = IfcOWLUtils.getGUID(space.asResource(), this.ifcOWL);
 				String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
@@ -643,9 +653,9 @@ public abstract class IFCtoLBDConverterCore {
 			model.setNsPrefix("rdf", RDF.uri);
 			model.setNsPrefix("rdfs", RDFS.uri);
 			model.setNsPrefix("owl", OWL.getURI());
-			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
+			model.setNsPrefix("xsd", "https://www.w3.org/2001/XMLSchema#");
 			model.setNsPrefix("inst", uriBase);
-			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
+			model.setNsPrefix("geo", "https://www.opengis.net/ont/geosparql#");
 			model.setNsPrefix("props", "http://lbd.arch.rwth-aachen.de/props#");
 			model.setNsPrefix("fog", "https://w3id.org/fog#");
 

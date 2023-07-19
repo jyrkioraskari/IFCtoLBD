@@ -58,7 +58,10 @@ public abstract class IfcOWLUtils {
 	}
 	
 	public static String getURLEncodedName(Resource r, IfcOWL ifcOWL) {
-		return URLEncoder.encode(getName(r,  ifcOWL), StandardCharsets.UTF_8);
+		String name=getName(r,  ifcOWL);
+		if(name==null)
+			return name;
+		return URLEncoder.encode(name, StandardCharsets.UTF_8);
 	}
 	
 	public static String getName(Resource r, IfcOWL ifcOWL) {

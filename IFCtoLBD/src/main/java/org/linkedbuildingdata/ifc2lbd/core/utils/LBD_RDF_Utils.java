@@ -65,8 +65,10 @@ public abstract class LBD_RDF_Utils {
 						.createResource(uriBase +  GuidCompressor.uncompressGuidString(guid));
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
+				System.out.println("name nul & guid ");
 				return guid_uri;
 			}
+			else
 			{
 				String localName = r.getLocalName();
 				if (localName.startsWith("IfcPropertySingleValue")) {
@@ -82,12 +84,14 @@ public abstract class LBD_RDF_Utils {
 				Resource uri = m.createResource(uriBase  + localName);
 				if (exportIfcOWL)
 					uri.addProperty(OWL.sameAs, r);
+				System.out.println("name & guid nul");
 				return uri;
 			}
 		} else {
 			Resource guid_uri = m.createResource(uriBase + element_url_name);
 			if (exportIfcOWL)
 				guid_uri.addProperty(OWL.sameAs, r);
+			System.out.println("name: "+element_url_name);
 			return guid_uri;
 		}
 	}
@@ -105,6 +109,7 @@ public abstract class LBD_RDF_Utils {
 					guid_uri.addProperty(OWL.sameAs, r);
 				return guid_uri;
 			}
+			else
 			{
 				String localName = r.getLocalName();
 				if (localName.startsWith("IfcPropertySingleValue")) {
