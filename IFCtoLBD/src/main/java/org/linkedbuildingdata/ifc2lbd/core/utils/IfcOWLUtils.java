@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,24 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
  */
 
 public abstract class IfcOWLUtils {
+	
 	public static String getGUID(Resource r, IfcOWL ifcOWL) {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
+		if (i.hasNext()) {
+			Statement s = i.next();
+			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
+					.getLexicalForm();
+			return guid;
+		}
+		return null;
+	}
+	
+	public static String getURLEncodedName(Resource r, IfcOWL ifcOWL) {
+		return URLEncoder.encode(getName(r,  ifcOWL), StandardCharsets.UTF_8);
+	}
+	
+	public static String getName(Resource r, IfcOWL ifcOWL) {
+		StmtIterator i = r.listProperties(ifcOWL.getName());
 		if (i.hasNext()) {
 			Statement s = i.next();
 			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()

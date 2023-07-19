@@ -112,6 +112,10 @@ public abstract class IFCtoLBDConverterCore {
 	private boolean exportIfcOWL = false;
 	protected boolean hasBoundingBoxWKT = false;
 
+	
+	protected boolean hasHierarchicalNaming = false;
+	
+	
 	Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
@@ -237,6 +241,8 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private void handle_building(Resource lbd_site, Resource building) {
+		String building_url_name = IfcOWLUtils.getURLEncodedName(building, this.ifcOWL);
+		
 		if (!RDFUtils.getType(building.asResource()).get().getURI().endsWith("#IfcBuilding")) {
 			System.err.println("Not an #IfcBuilding");
 			return;
