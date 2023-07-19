@@ -157,7 +157,7 @@ for stmt in g:
 jpype.shutdownJVM()
 
 ```
-
+https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 
 
 ### Docker for the Open API interface
 
