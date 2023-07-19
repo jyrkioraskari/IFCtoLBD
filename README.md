@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.43.0
+Version 2.43.2
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, and Maxime Lefrançois.
 
@@ -159,7 +159,7 @@ for stmt in g:
 jpype.shutdownJVM()
 
 ```
-
+https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 
 
 ### Docker for the Open API interface
 
