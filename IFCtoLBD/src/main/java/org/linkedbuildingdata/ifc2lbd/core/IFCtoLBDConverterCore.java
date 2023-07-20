@@ -112,7 +112,7 @@ public abstract class IFCtoLBDConverterCore {
 	private boolean exportIfcOWL = false;
 	protected boolean hasBoundingBoxWKT = false;
 
-	protected boolean hasHierarchicalNaming = true;
+	protected boolean hasHierarchicalNaming = false;
 
 	Dataset lbd_dataset = null;
 
@@ -124,9 +124,10 @@ public abstract class IFCtoLBDConverterCore {
 
 	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
-			boolean hasGeometry, boolean exportIfcOWL, boolean namedGraphs) {
+			boolean hasGeometry, boolean exportIfcOWL, boolean namedGraphs,boolean hasHierarchicalNaming) {
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 		this.exportIfcOWL = exportIfcOWL;
+		this.hasHierarchicalNaming=hasHierarchicalNaming;
 		included_elements.clear();
 		if (hasGeometry)
 			rtree = RTree.dimensions(3).create();

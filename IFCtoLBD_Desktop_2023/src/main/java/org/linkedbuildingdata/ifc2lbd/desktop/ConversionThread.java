@@ -59,9 +59,9 @@ public class ConversionThread implements Callable<Integer> {
     
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
-    
+    final boolean hasHierarchicalNaming;
 
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -81,6 +81,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasUnits=hasUnits;
 		this.hasPerformanceBoost=hasPerformanceBoost;
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
+		this.hasHierarchicalNaming=hasHierarchicalNaming;
 	}
 
 	public Integer call() throws Exception {
@@ -89,7 +90,7 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_types(selected_types);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
-						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT);
+						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
