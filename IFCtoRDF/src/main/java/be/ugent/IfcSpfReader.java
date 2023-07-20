@@ -246,6 +246,7 @@ public class IfcSpfReader {
             InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
             if (fis == null)
                 fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+            
             ObjectInputStream ois = new ObjectInputStream(fis);
 
             try {

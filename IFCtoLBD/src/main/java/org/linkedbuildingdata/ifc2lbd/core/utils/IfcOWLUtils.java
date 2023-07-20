@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +45,28 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
  */
 
 public abstract class IfcOWLUtils {
+	
 	public static String getGUID(Resource r, IfcOWL ifcOWL) {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
+		if (i.hasNext()) {
+			Statement s = i.next();
+			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
+					.getLexicalForm();
+			return guid;
+		}
+		return null;
+	}
+	
+	public static String getURLEncodedName(Resource r, IfcOWL ifcOWL) {
+		String name=getName(r,  ifcOWL);
+		if(name==null)
+			return name;
+		name=name.replaceAll(" ", "_"); // Just readability
+		return URLEncoder.encode(name, StandardCharsets.UTF_8);
+	}
+	
+	public static String getName(Resource r, IfcOWL ifcOWL) {
+		StmtIterator i = r.listProperties(ifcOWL.getName());
 		if (i.hasNext()) {
 			Statement s = i.next();
 			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
@@ -286,6 +307,13 @@ public abstract class IfcOWLUtils {
 		}
 	}
 
+		private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
+				RDFStep[] path = { new RDFStep(ifcOWL.getProperty("ifc:relatingType_IfcRelDefinesByType")),
+						new RDFStep(ifcOWL.getProperty("ifc:hasPropertySets_IfcTypeObject")) };
+				return path;
+		}
+
+	
 	   public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
 	        RDFStep[] path = { new InvRDFStep(RDF.type) };
 	        return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
@@ -303,8 +331,13 @@ public abstract class IfcOWLUtils {
 	 * @param ifcOWL   namespace
 	 * @return the list of the matching RDF nodes.
 	 */
+	   
+	//2023 JO added the IFC object type definition
 	public static List<RDFNode> listPropertysets(Resource resource, IfcOWL ifcOWL) {
-		return RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL));
+		List<RDFNode> ret = new ArrayList<>();
+		ret.addAll(RDFUtils.pathQuery(resource, getPropertySetPath(ifcOWL)));
+		ret.addAll(RDFUtils.pathQuery(resource, getIfcTypeObjectPropertySetPath(ifcOWL)));
+		return ret;
 	}
 
 	/**
@@ -421,8 +454,10 @@ public abstract class IfcOWLUtils {
         }
         return null;
     }
-
-    static public File filterContent(File whole_content_file) {
+	
+	
+	
+    static public File characterCoding(File whole_content_file) {
         File tempFile = null;
         int state = 0;
         try {
@@ -557,6 +592,246 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X2\\00FD\\X0\\", "ý");
                         line = line.replace("\\X2\\00FE\\X0\\", "þ");
                         line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
+                        
+                        line=unIFCUnicode(line);  // multi-character decode
+                        
+                        writer.write(line.trim());
+                        writer.newLine();
+                    }
+                    writer.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        return tempFile;
+    }
+
+    static public File filterIFC(File ifc_file) {
+        File tempFile = null;
+        try {
+            tempFile = File.createTempFile("ifc", ".ifc");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(ifc_file))) {
+                    String line;
+                    while ((line = br.readLine()) != null) {
+                        
+                        if (line.contains("= IFCCARTESIANPOINT("))
+                            continue;
+
+                        if (line.contains("= IFCPOLYLINE("))
+                            continue;
+
+                        if (line.contains("= IFCEDGECURVE("))
+                            continue;
+
+                        if (line.contains("= IFCAXIS2PLACEMENT3D("))
+                            continue;
+
+                        if (line.contains("= IFCPLANE("))
+                            continue;
+
+                        if (line.contains("= IFCFACEOUTERBOUND("))
+                            continue;
+
+                        if (line.contains("= IFCFACE("))
+                            continue;
+
+                        if (line.contains("= IFCORIENTEDEDGE("))
+                            continue;
+
+                        if (line.contains("= IFCCONNECTIONSURFACEGEOMETRY("))
+                            continue;
+                        
+                        if (line.contains("= IFCSURFACEOFLINEAREXTRUSION("))
+                            continue;
+                        
+                        if (line.contains("= IFCRELSPACEBOUNDARY("))
+                            continue;
+                        
+                        if (line.contains("= IFCPOLYLOOP("))
+                            continue;
+                        
+                        if (line.contains("= IFCLINE("))
+                            continue;
+                        
+                        if (line.contains("= IFCTRIMMEDCURVE("))
+                            continue;
+                        
+                        if (line.contains("= IFCVERTEXPOINT("))
+                            continue;
+                        
+                        if (line.contains("= IFCEDGELOOP("))
+                            continue;
+                        
+                        if (line.contains("= IFCADVANCEDFACE("))
+                            continue;
+                        
+                        if (line.contains("= IFCSHAPEREPRESENTATION("))
+                            continue;
+                        
+                        if (line.contains("= IFCEXTRUDEDAREASOLID("))
+                            continue;
+                        
+                       
+                        writer.write(line.trim());
+                        writer.newLine();
+                    }
+                    writer.flush();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+        } catch (IOException e2) {
+            e2.printStackTrace();
+        }
+        return tempFile;
+    }
+	
+    static public File filterContent(File whole_content_file) {
+        File tempFile = null;
+        int state = 0;
+        try {
+            tempFile = File.createTempFile("ifc", ".ttl");
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+                try (BufferedReader br = new BufferedReader(new FileReader(whole_content_file))) {
+                    String line;
+                    String[] triple = new String[3];
+                    for (int i = 0; i < 3; i++)
+                        triple[i] = "";
+                    while ((line = br.readLine()) != null) {
+                        String trimmed = line.trim();
+                        if (!line.contains("@prefix") && !trimmed.startsWith("#")) {
+                            int len = trimmed.length();
+                            if (len > 0) {
+                                List<String> t;
+                                if (trimmed.endsWith(".") || trimmed.endsWith(";"))
+                                    t = split(trimmed.substring(0, trimmed.length() - 1));
+                                else
+                                    t = split(trimmed.substring(0, trimmed.length()));
+                                if (state == 0) {
+                                    for (int i = 0; i < t.size(); i++)
+                                        triple[i] = t.get(i);
+
+                                    if (trimmed.endsWith("."))
+                                        state = 0;
+                                    else
+                                        state = 1;
+                                    if (t.size() == 3) {
+                                        StringBuffer sb = new StringBuffer();
+                                        sb.append(t.get(0));
+                                        sb.append(" ");
+                                        sb.append(t.get(1));
+                                        sb.append(" ");
+                                        sb.append(t.get(2));
+                                        sb.append(" .");
+                                        line = sb.toString();
+                                    } else
+                                        continue;
+                                } else {
+                                    for (int i = 0; i < t.size(); i++)
+                                        triple[2 - i] = t.get(t.size() - 1 - i);
+
+                                    StringBuffer sb = new StringBuffer();
+                                    sb.append(triple[0]);
+                                    sb.append(" ");
+                                    sb.append(triple[1]);
+                                    sb.append(" ");
+                                    sb.append(triple[2]);
+                                    sb.append(" .");
+                                    line = sb.toString();
+
+                                    if (trimmed.endsWith("."))
+                                        state = 0;
+                                }
+                            }
+                        }
+                        line = new String(line.getBytes(), StandardCharsets.UTF_8);
+                        line = line.replace("\\\\", "\\");
+
+                        // UTF-8 fix for French double encoding
+                        line = line.replace("\\X\\0D", " ");
+                        line = line.replace("\\X\\0A", "");
+
+                        line = line.replace("\\X2\\00A0\\X0\\", " ");
+                        line = line.replace("\\X2\\00B0\\X0\\", "°");
+                        // LATIN letters
+                        line = line.replace("\\X2\\00C0\\X0\\", "À");
+                        line = line.replace("\\X2\\00C1\\X0\\", "Á");
+                        line = line.replace("\\X2\\00C2\\X0\\", "Â");
+                        line = line.replace("\\X2\\00C3\\X0\\", "Ã");
+                        line = line.replace("\\X2\\00C4\\X0\\", "Ä");
+                        line = line.replace("\\X2\\00C5\\X0\\", "Å");
+                        line = line.replace("\\X2\\00C6\\X0\\", "Æ");
+                        line = line.replace("\\X2\\00C7\\X0\\", "Ç");
+                        line = line.replace("\\X2\\00C8\\X0\\", "È");
+                        line = line.replace("\\X2\\00C9\\X0\\", "É");
+                        line = line.replace("\\X2\\00CA\\X0\\", "Ê");
+                        line = line.replace("\\X2\\00CB\\X0\\", "Ë");
+                        line = line.replace("\\X2\\00CC\\X0\\", "Ì");
+                        line = line.replace("\\X2\\00CD\\X0\\", "Í");
+                        line = line.replace("\\X2\\00CE\\X0\\", "Î");
+                        line = line.replace("\\X2\\00CF\\X0\\", "Ï");
+
+                        line = line.replace("\\X2\\00D0\\X0\\", "Ð");
+                        line = line.replace("\\X2\\00D1\\X0\\", "Ñ");
+                        line = line.replace("\\X2\\00D2\\X0\\", "Ò");
+                        line = line.replace("\\X2\\00D3\\X0\\", "Ó");
+                        line = line.replace("\\X2\\00D4\\X0\\", "Ô");
+                        line = line.replace("\\X2\\00D5\\X0\\", "Õ");
+                        line = line.replace("\\X2\\00D6\\X0\\", "Ö");
+                        line = line.replace("\\X2\\00D7\\X0\\", "×");
+                        line = line.replace("\\X2\\00D8\\X0\\", "Ø");
+                        line = line.replace("\\X2\\00D9\\X0\\", "Ù");
+                        line = line.replace("\\X2\\00DA\\X0\\", "Ú");
+                        line = line.replace("\\X2\\00DB\\X0\\", "Û");
+                        line = line.replace("\\X2\\00DC\\X0\\", "Ü");
+                        line = line.replace("\\X2\\00DD\\X0\\", "Ý");
+                        line = line.replace("\\X2\\00DE\\X0\\", "Þ");
+                        line = line.replace("\\X2\\00DF\\X0\\", "ß");
+
+                        line = line.replace("\\X2\\00E0\\X0\\", "à");
+                        line = line.replace("\\X2\\00E1\\X0\\", "á");
+                        line = line.replace("\\X2\\00E2\\X0\\", "â");
+                        line = line.replace("\\X2\\00E3\\X0\\", "ã");
+                        line = line.replace("\\X2\\00E4\\X0\\", "ä");
+                        line = line.replace("\\X2\\00E5\\X0\\", "å");
+                        line = line.replace("\\X2\\00E6\\X0\\", "æ");
+                        line = line.replace("\\X2\\00E7\\X0\\", "ç");
+                        line = line.replace("\\X2\\00E8\\X0\\", "è");
+                        line = line.replace("\\X2\\00E9\\X0\\", "é");
+                        line = line.replace("\\X2\\00EA\\X0\\", "ê");
+                        line = line.replace("\\X2\\00EB\\X0\\", "ê");
+                        line = line.replace("\\X2\\00EC\\X0\\", "ì");
+                        line = line.replace("\\X2\\00ED\\X0\\", "í");
+                        line = line.replace("\\X2\\00EE\\X0\\", "î");
+                        line = line.replace("\\X2\\00EF\\X0\\", "ï");
+
+                        line = line.replace("\\X2\\00F0\\X0\\", "ð");
+                        line = line.replace("\\X2\\00F1\\X0\\", "ñ");
+                        line = line.replace("\\X2\\00F2\\X0\\", "ò");
+                        line = line.replace("\\X2\\00F3\\X0\\", "ó");
+                        line = line.replace("\\X2\\00F4\\X0\\", "ô");
+                        line = line.replace("\\X2\\00F5\\X0\\", "õ");
+                        line = line.replace("\\X2\\00F6\\X0\\", "ö");
+                        line = line.replace("\\X2\\00F7\\X0\\", "÷");
+                        line = line.replace("\\X2\\00F8\\X0\\", "ø");
+                        line = line.replace("\\X2\\00F9\\X0\\", "ù");
+                        line = line.replace("\\X2\\00FA\\X0\\", "ú");
+                        line = line.replace("\\X2\\00FB\\X0\\", "û");
+                        line = line.replace("\\X2\\00FC\\X0\\", "ü");
+                        line = line.replace("\\X2\\00FD\\X0\\", "ý");
+                        line = line.replace("\\X2\\00FE\\X0\\", "þ");
+                        line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
+                        
                         
                         line=unIFCUnicode(line);  // multi-character decode
                         line = line.replace("\\", "\\\\");

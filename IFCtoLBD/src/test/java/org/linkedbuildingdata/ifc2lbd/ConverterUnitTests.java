@@ -393,18 +393,5 @@ public class ConverterUnitTests {
 		}
 	}
 
-
 	
-	@DisplayName("Test conversion test case Level 1 SPARQL")
-	@Test
-	public void testConversionLevel1_SPARQL() {
-		
-		try {
-			
-		} catch (Exception e) {
-			System.out.println("ERROR");
-			e.printStackTrace();
-			fail("Conversion result PARQL query had an error: " + e.getMessage());
-		}
-	}
 }

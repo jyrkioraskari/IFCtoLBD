@@ -47,7 +47,7 @@ public class IFCtoObj {
 		Future<IfcOpenShellModel> future = executor.submit(task);
 		try {
 			// Should be done in 4 minutes
-			this.renderEngineModel = future.get(4, TimeUnit.MINUTES);
+			this.renderEngineModel = future.get(12, TimeUnit.MINUTES);
 		} catch (TimeoutException ex) {
 			System.out.println("Timeout");
 		} catch (InterruptedException e) {

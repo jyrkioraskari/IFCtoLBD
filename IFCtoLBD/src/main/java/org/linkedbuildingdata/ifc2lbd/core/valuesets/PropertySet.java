@@ -297,4 +297,10 @@ public class PropertySet {
         }
     }
 
+    
+    private Set<String> getPropertynames() {
+
+    	return mapPnameType.keySet();
+    }
+
 }

@@ -84,14 +84,14 @@ public class ConversionThread implements Callable<Integer> {
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
-				eventBus.post(new ProcessReadyEvent());
+				eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
 				return -1;
 			}
-			eventBus.post(new ProcessReadyEvent());
+			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.CONVERT));
 			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
-			eventBus.post(new ProcessReadyEvent());
+			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
 			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return -1;

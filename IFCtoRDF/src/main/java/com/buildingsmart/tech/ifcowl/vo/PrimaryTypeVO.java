@@ -19,12 +19,14 @@ limitations under the License.
 package com.buildingsmart.tech.ifcowl.vo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class PrimaryTypeVO {
 
     private String pTypeName;
-    private static List<PrimaryTypeVO> listOfPrimaryTypes = new ArrayList<>();
+    private static Set<PrimaryTypeVO> listOfPrimaryTypes = new HashSet<>();
     private List<TypeVO> parentSelect;
 
     public PrimaryTypeVO() {
@@ -64,7 +66,7 @@ public class PrimaryTypeVO {
         return pTypeName;
     }
 
-    public static List<PrimaryTypeVO> getListOfPrimaryTypes() {
+    public static Set<PrimaryTypeVO> getListOfPrimaryTypes() {
         return listOfPrimaryTypes;
     }
 

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
+ Copyright (c) 2014,2023 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
  Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
  Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -38,7 +38,7 @@ public class EntityVO implements Serializable {
     private boolean abstractsuperclass = false;
     private List<TypeVO> parentSelect;
     private Set<String> subClassList = new HashSet<>();
-    private static List<EntityVO> listOfEntities = new ArrayList<>();
+    private static Set<EntityVO> listOfEntities = new HashSet<>();
 
     public EntityVO() {
         //default constructor

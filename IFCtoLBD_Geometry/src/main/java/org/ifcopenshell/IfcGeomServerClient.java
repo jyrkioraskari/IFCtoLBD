@@ -1,5 +1,8 @@
 package org.ifcopenshell;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+
 /******************************************************************************
  * Copyright (C) 2009-2019  BIMserver.org
  * 
@@ -748,7 +751,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 	private void askForMore() throws IOException {
 		hasMore = false;
-		if (dis.readInt() != MORE) {
+		if (dis.readInt() != MORE) {  // Takes most of the time
 			LOGGER.error("Invalid command sequence encountered");
 			throw new IOException();
 		}

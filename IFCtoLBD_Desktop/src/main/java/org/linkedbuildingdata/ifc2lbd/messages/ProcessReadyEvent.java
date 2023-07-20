@@ -20,8 +20,22 @@ package org.linkedbuildingdata.ifc2lbd.messages;
  */
 
 public class ProcessReadyEvent {
+	static public int ERROR=-1;
+	static public int READ_IN=0;
+	static public int CONVERT=1;
 
+	int phase=READ_IN;
+	
 	public ProcessReadyEvent() {
 	}
+	
+	public ProcessReadyEvent(int phase) {
+		this.phase=phase;
+	}
+
+	public int getPhase() {
+		return phase;
+	}
+
 
 }
