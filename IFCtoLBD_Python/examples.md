@@ -105,3 +105,4 @@ g.serialize(destination="output.ttl")
 jpype.shutdownJVM()
 
 ```
+https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 

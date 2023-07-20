@@ -111,10 +111,10 @@ new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.
 The example implementation can be found in the IFCtoLBD_Python  subfolder
 
 Installation:
-
+```
 pip install JPype1
-
 pip install rdflib
+```
 
 ```
 # !/usr/bin/env python3
@@ -160,9 +160,8 @@ for stmt in g:
 jpype.shutdownJVM()
 
 ```
-https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 
 
-More Python examples 
+More Python examples and detailed description can be found 
 [here ](/IFCtoLBD_Python/examples.md)
 
 ### Docker for the Open API interface
