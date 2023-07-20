@@ -85,6 +85,9 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
+Java programming examples can be found
+[here ](/IFCtoLBD/examples.md)
+
 ## Maven
 The Maven library was published on the 29th of May, 2020.  
 
