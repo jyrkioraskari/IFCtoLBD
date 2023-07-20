@@ -39,7 +39,7 @@ If the program does not start, try the following command at the command line: `j
 
 
 Java programming examples can be found
-[here ](/IFCtoLBD/examples.md)
+[here ](/IFCtoLBD/examples.md).
 
 The desktop user interface was written using Java FXML. The editor can be get from:
 https://gluonhq.com/products/scene-builder/ (You need to import the org.openjfx:javafx-graphics, and org.openjfx:javafx-controls with the library manager to get the editor working)
@@ -167,7 +167,7 @@ jpype.shutdownJVM()
 ```
 
 More Python examples and detailed description can be found 
-[here ](/IFCtoLBD_Python/examples.md)
+[here ](/IFCtoLBD_Python/examples.md).
 
 ## Docker for the Open API interface
 
