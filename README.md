@@ -162,6 +162,9 @@ jpype.shutdownJVM()
 ```
 https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 
 
+More Python examples 
+[here ](/IFCtoLBD_Python/examples.md)
+
 ### Docker for the Open API interface
 
 Install Docker Desktop:  https://www.docker.com/get-started
