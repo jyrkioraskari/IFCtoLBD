@@ -95,11 +95,11 @@
                </fill>
             </Rectangle>
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0" />
-            <Label layoutX="50.0" layoutY="105.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="470.0">
+            <Label layoutX="15.0" layoutY="470.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="130.0">
                <font>
-                  <Font name="Arial Bold Italic" size="14.0" />
+                  <Font name="Arial Bold Italic" size="18.0" />
                </font></Label>
-            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="470.0">
+            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="159.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
@@ -276,6 +276,12 @@
                <font>
                   <Font name="Arial Narrow" size="18.0" />
                </font></Label>
+            <ToggleSwitch fx:id="hasHierarchicalNaming" layoutX="570.0" layoutY="235.0" AnchorPane.leftAnchor="570.0" AnchorPane.topAnchor="235.0" />
+            <Label layoutX="230.0" layoutY="250.0" text="Hierarchical URI naming" textFill="WHITE" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="230.0">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
             <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
         
