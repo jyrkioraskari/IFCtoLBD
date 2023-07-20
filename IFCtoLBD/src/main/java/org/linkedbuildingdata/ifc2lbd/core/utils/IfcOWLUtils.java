@@ -61,6 +61,7 @@ public abstract class IfcOWLUtils {
 		String name=getName(r,  ifcOWL);
 		if(name==null)
 			return name;
+		name=name.replaceAll(" ", "_"); // Just readability
 		return URLEncoder.encode(name, StandardCharsets.UTF_8);
 	}
 	

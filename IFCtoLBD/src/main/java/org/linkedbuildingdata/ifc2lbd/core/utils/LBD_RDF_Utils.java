@@ -53,7 +53,7 @@ public abstract class LBD_RDF_Utils {
 	}
 
 	
-	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m,
+	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m, String product_type,
 			IfcOWL ifcOWL_ns, String uriBase, boolean exportIfcOWL) {
 
 		String guid = IfcOWLUtils.getGUID(r, ifcOWL_ns);
@@ -61,8 +61,8 @@ public abstract class LBD_RDF_Utils {
 		if (element_url_name == null) {
 			if (guid != null) {
 
-				Resource guid_uri = m
-						.createResource(uriBase +  GuidCompressor.uncompressGuidString(guid));
+				Resource guid_uri = m.createResource(
+						uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
 				System.out.println("name nul & guid ");
@@ -95,7 +95,7 @@ public abstract class LBD_RDF_Utils {
 			return guid_uri;
 		}
 	}
-	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m, 
+	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m, String product_type, 
 			IfcOWL ifcOWL_ns, Resource upper_url, boolean exportIfcOWL) {
 
 		String guid = IfcOWLUtils.getGUID(r, ifcOWL_ns);
@@ -104,7 +104,7 @@ public abstract class LBD_RDF_Utils {
 			if (guid != null) {
 
 				Resource guid_uri = m
-						.createResource(upper_url.toString() + "/" + GuidCompressor.uncompressGuidString(guid));
+						.createResource(upper_url.toString() + "/" + product_type.toLowerCase() + "_" +GuidCompressor.uncompressGuidString(guid));
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
 				return guid_uri;

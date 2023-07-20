@@ -83,7 +83,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
 	protected Set<String> selected_types;
-	
+
 	protected Model ifcowl_model;
 	private Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
@@ -112,10 +112,8 @@ public abstract class IFCtoLBDConverterCore {
 	private boolean exportIfcOWL = false;
 	protected boolean hasBoundingBoxWKT = false;
 
-	
-	protected boolean hasHierarchicalNaming = false;
-	
-	
+	protected boolean hasHierarchicalNaming = true;
+
 	Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
@@ -242,19 +240,19 @@ public abstract class IFCtoLBDConverterCore {
 
 	private void handle_building(Resource lbd_site, Resource building) {
 		String building_url_name = IfcOWLUtils.getURLEncodedName(building, this.ifcOWL);
-		
+
 		if (!RDFUtils.getType(building.asResource()).get().getURI().endsWith("#IfcBuilding")) {
 			System.err.println("Not an #IfcBuilding");
 			return;
 		}
-		Resource lbd_building; 
-		if(this.hasHierarchicalNaming)
-			lbd_building= LBD_RDF_Utils.createformattedHierarchicalURIRecource(building, lbd_general_output_model, 
+		Resource lbd_building;
+		if (this.hasHierarchicalNaming)
+			lbd_building = LBD_RDF_Utils.createformattedHierarchicalURIRecource(building, lbd_general_output_model, "Building",
 					this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
-		else 
-		    lbd_building= LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building",
-				this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
-			
+		else
+			lbd_building = LBD_RDF_Utils.createformattedURIRecource(building, lbd_general_output_model, "Building",
+					this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
+
 		String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
 		String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
 		addAttrributes(lbd_property_output_model, building, lbd_building);
@@ -279,11 +277,11 @@ public abstract class IFCtoLBDConverterCore {
 				return;
 			}
 			Resource lbd_storey;
-			if(this.hasHierarchicalNaming)
-			  lbd_storey = LBD_RDF_Utils.createformattedHierarchicalURIRecource(storey, lbd_general_output_model, 
-					this.ifcOWL, lbd_building, this.exportIfcOWL);
+			if (this.hasHierarchicalNaming)
+				lbd_storey = LBD_RDF_Utils.createformattedHierarchicalURIRecource(storey, lbd_general_output_model, "Storey",
+						this.ifcOWL, lbd_building, this.exportIfcOWL);
 			else
-			  lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey",
+				lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, lbd_general_output_model, "Storey",
 						this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
 			String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
 			String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
@@ -309,8 +307,13 @@ public abstract class IFCtoLBDConverterCore {
 			IfcOWLUtils.listStoreySpaces(storey.asResource(), ifcOWL).stream().forEach(space -> {
 				if (!RDFUtils.getType(space.asResource()).get().getURI().endsWith("#IfcSpace"))
 					return;
-				Resource spo =LBD_RDF_Utils.createformattedURIRecource(space.asResource(), lbd_general_output_model,
-						"Space", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
+				Resource spo;
+				if (this.hasHierarchicalNaming)
+					spo = LBD_RDF_Utils.createformattedHierarchicalURIRecource(space.asResource(), lbd_general_output_model,"Space",
+							this.ifcOWL, lbd_storey, this.exportIfcOWL);
+				else
+					spo = LBD_RDF_Utils.createformattedURIRecource(space.asResource(), lbd_general_output_model,
+							"Space", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL);
 				String guid_space = IfcOWLUtils.getGUID(space.asResource(), this.ifcOWL);
 				String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
 				addAttrributes(lbd_property_output_model, space.asResource(), spo);
@@ -674,12 +677,11 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
-			if(this.selected_types!=null && this.selected_types.size()>0 && bot_type.isPresent())
-			{
-				
-				if(!this.selected_types.contains(bot_type.get().getLocalName()))
-						return null;
-						
+			if (this.selected_types != null && this.selected_types.size() > 0 && bot_type.isPresent()) {
+
+				if (!this.selected_types.contains(bot_type.get().getLocalName()))
+					return null;
+
 			}
 		}
 		// System.out.println("Connect element: " + ifcOWL_element);
@@ -734,16 +736,15 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
-			
-			if(this.selected_types!=null && this.selected_types.size()>0 && bot_type.isPresent())
-			{
-				
-				if(!this.selected_types.contains(bot_type.get().getLocalName()))
-						return null;
-						
+
+			if (this.selected_types != null && this.selected_types.size() > 0 && bot_type.isPresent()) {
+
+				if (!this.selected_types.contains(bot_type.get().getLocalName()))
+					return null;
+
 			}
 		}
-				
+
 		if (bot_type.isPresent()) {
 			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
 					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase.get(),
@@ -837,13 +838,12 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> lbd_product_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			lbd_product_type = getLBDProductType(ifcowl_type.get().getLocalName());
-			
-			if(this.selected_types!=null && this.selected_types.size()>0 && lbd_product_type.isPresent())
-			{
-				
-				if(!this.selected_types.contains(lbd_product_type.get().getLocalName()))
-						return null;
-						
+
+			if (this.selected_types != null && this.selected_types.size() > 0 && lbd_product_type.isPresent()) {
+
+				if (!this.selected_types.contains(lbd_product_type.get().getLocalName()))
+					return null;
+
 			}
 		}
 
@@ -1178,8 +1178,8 @@ public abstract class IFCtoLBDConverterCore {
 		return ontology_model;
 	}
 
-	public Set<Resource>  getElementTypes() {
-		Set<Resource> types=new HashSet<>();
+	public Set<Resource> getElementTypes() {
+		Set<Resource> types = new HashSet<>();
 		ifcowl_model.listStatements().forEachRemaining(st -> {
 			if (st.getPredicate().getLocalName().toString().toLowerCase().contains("globalid_ifcroot")) {
 				Resource ifcOWL_element = st.getSubject();
@@ -1189,10 +1189,10 @@ public abstract class IFCtoLBDConverterCore {
 					Optional<Resource> bot_type = Optional.empty();
 					if (ifcowl_type.isPresent()) {
 						bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
-						if(bot_type.isPresent())
+						if (bot_type.isPresent())
 							types.add(bot_type.get());
 					}
-			
+
 				}
 			}
 
@@ -1201,17 +1201,16 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	public void setSelected_types(Set<String> selected_types) {
-		this.selected_types=selected_types;
-		System.out.println("updated selection: "+selected_types);
+		this.selected_types = selected_types;
+		System.out.println("updated selection: " + selected_types);
 	}
 
-	public void resetModels()
-	{
+	public void resetModels() {
 		lbd_general_output_model.removeAll();
 		lbd_product_output_model.removeAll();
-		lbd_property_output_model.removeAll();	
+		lbd_property_output_model.removeAll();
 	}
-	
+
 	@Subscribe
 	public void handleEvent(final IFCtoLBD_SystemExit event) {
 		System.out.println("Exit reason: " + event.getReason_message());
