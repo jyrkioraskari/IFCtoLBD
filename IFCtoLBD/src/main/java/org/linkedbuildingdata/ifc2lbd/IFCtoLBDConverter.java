@@ -419,7 +419,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			return false;
 		
 		// readInOntologies(ifc_filename);
-		System.out.println("Geometry?");
+		System.out.println("Geometry");
 
 		if (future_ifc_geometry != null) {
 			future_ifc_geometry.join();
