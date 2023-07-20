@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.43.2
+Version 2.43.3
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, and Maxime Lefrançois.
 
