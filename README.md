@@ -37,6 +37,10 @@ If the program does not start, try the following command at the command line: `j
 
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/)
 
+
+Java programming examples can be found
+[here ](/IFCtoLBD/examples.md)
+
 The desktop user interface was written using Java FXML. The editor can be get from:
 https://gluonhq.com/products/scene-builder/ (You need to import the org.openjfx:javafx-graphics, and org.openjfx:javafx-controls with the library manager to get the editor working)
 
@@ -85,8 +89,6 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
-Java programming examples can be found
-[here ](/IFCtoLBD/examples.md)
 
 ## Maven
 The Maven library was published on the 29th of May, 2020.  
