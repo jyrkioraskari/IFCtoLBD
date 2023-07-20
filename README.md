@@ -164,7 +164,7 @@ jpype.shutdownJVM()
 More Python examples and detailed description can be found 
 [here ](/IFCtoLBD_Python/examples.md)
 
-### Docker for the Open API interface
+## Docker for the Open API interface
 
 Install Docker Desktop:  https://www.docker.com/get-started
 
