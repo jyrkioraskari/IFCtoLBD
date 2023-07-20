@@ -182,8 +182,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private CheckTreeView<String> element_types_checkbox;
 	
-	
-	boolean hasHierarchicalNaming=false;
+	@FXML
+	private ToggleSwitch hasHierarchicalNaming;
 
 	@FXML
 	private void closeApplicationAction() {
@@ -459,14 +459,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				selected_types.add(item.getValue());
 				
 			}
-			
-			// TODO hasHierarchicalNaming
 			running_conversion = executor.submit(new ConversionThread(this.running_read_in.get(), selected_types,ifcFileName, uri_base,
 					rdfTargetName, props_level, building_elements.isSelected(),
 					building_elements_separate_file.isSelected(), building_props.isSelected(),
 					building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(),
 					geolocation.isSelected(), geometry_elements.isSelected(), ifcOWL_elements.isSelected(),
-					ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(), hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming));
+					ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(), hasBoundingBox_WKT.isSelected(), hasHierarchicalNaming.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
