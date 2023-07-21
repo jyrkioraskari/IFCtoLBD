@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
-	<artifactId>IFCtoLBD</artifactId>
+	<artifactId>ifc-to-lbd</artifactId>
 	<version>2.43.3</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
@@ -66,8 +66,8 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>de.rwth-aachen.dc.lbd</groupId>
-			<artifactId>IFCtoLBD_Geometry</artifactId>
+			<groupId>de.rwth-aachen.lbd</groupId>
+			<artifactId>idc_to_lbd_geometry</artifactId>
 			<version>2.43.0</version>
 			 <exclusions>
             <exclusion>
@@ -120,7 +120,7 @@
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
-			<artifactId>IFC2RDF</artifactId>
+			<artifactId>ifc2rdf</artifactId>
 			<version>1.3.1</version>
 		</dependency>
 		<dependency>
@@ -140,15 +140,7 @@
 		<url>https://https://github.com/jyrkioraskari/IFCtoLBD</url>
 		<tag>HEAD</tag>
 	</scm>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
+
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -347,4 +339,12 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
+		</repository>
+	</distributionManagement>
 </project>

@@ -89,27 +89,33 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
+[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
 ## Maven
-The Maven library was published on the 29th of May, 2020.  
+The Maven library was published on the 21st of June, 2023.  
 
 ```
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
-  <artifactId>IFCtoLBD</artifactId>
-  <version>1.88</version>
-  <classifier>jar-with-dependencies</classifier>
+  <artifactId>ifc2rdf</artifactId>
+  <version>1.3.1</version>
+</dependency>
+
+<dependency>
+  <groupId>de.rwth-aachen.lbd</groupId>
+  <artifactId>idc_to_lbd_geometry</artifactId>
+  <version>2.43.0</version>
+</dependency>
+
+<dependency>
+  <groupId>io.github.jyrkioraskari</groupId>
+  <artifactId>ifc-to-lbd</artifactId>
+  <version>2.43.3</version>
 </dependency>
 ```
 https://mvnrepository.com/artifact/io.github.jyrkioraskari/IFCtoLBD/1.88
 
-[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
 
-
-How to use the code:
-```
-new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
-```
 
 ## IFCtoLBD Python Implementation
 
