@@ -209,13 +209,12 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Ville Kukkonen and
                   Simon Steyskaland and
                   Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD v 2.40.1},
-  month        = feb,
+  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD v 2.43.3},
+  month        = jul,
   year         = 2023,
-  publisher    = {Zenodo},
-  version      = {2.40.1},
-  doi          = {10.5281/zenodo.7636217},
-  url          = {https://doi.org/10.5281/zenodo.7636217}
+  publisher    = {GitHub},
+  version      = {2.43.3},
+  url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
 ```
