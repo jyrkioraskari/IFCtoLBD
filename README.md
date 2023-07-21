@@ -89,7 +89,7 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
-[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
+
 
 ## Maven
 The Maven library was published on the 21st of June, 2023.  
@@ -113,9 +113,6 @@ The Maven library was published on the 21st of June, 2023.
   <version>2.43.3</version>
 </dependency>
 ```
-https://mvnrepository.com/artifact/io.github.jyrkioraskari/IFCtoLBD/1.88
-
-
 
 ## IFCtoLBD Python Implementation
 
