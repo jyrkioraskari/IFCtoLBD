@@ -184,5 +184,25 @@ public class Example4 {
 }
 ```
 
+## The old Maven implementation
+The Maven library was published on the 29th of May, 2020.  
+
+```
+<dependency>
+  <groupId>io.github.jyrkioraskari</groupId>
+  <artifactId>IFCtoLBD</artifactId>
+  <version>1.88</version>
+  <classifier>jar-with-dependencies</classifier>
+</dependency>
+```
+https://mvnrepository.com/artifact/io.github.jyrkioraskari/IFCtoLBD/1.88
+
+
+
+How to use the code:
+```
+new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
+```
+
 [![Creative Commons License](https://i.creativecommons.org/l/by/4.0/88x31.png)](http://creativecommons.org/licenses/by/4.0/)  
 This work is licensed under a [Creative Commons Attribution 4.0 International License](http://creativecommons.org/licenses/by/4.0/).

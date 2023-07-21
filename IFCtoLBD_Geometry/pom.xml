@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.rwth-aachen.dc.lbd</groupId>
-	<artifactId>IFCtoLBD_Geometry</artifactId>
+	<groupId>de.rwth-aachen.lbd</groupId>
+	<artifactId>idc_to_lbd_geometry</artifactId>
 	<name>IFCtoLBD_Geometry</name>
 	<developers>
 		<developer>
@@ -19,7 +19,7 @@
 	<properties>
 		<maven.compiler.source>15</maven.compiler.source>
 		<maven.compiler.target>15</maven.compiler.target>
-	</properties>	
+	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/javax.vecmath/vecmath -->
 		<dependency>
@@ -76,4 +76,11 @@
 		</plugins>
 	</build>
 	<version>2.43.0</version>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
+		</repository>
+	</distributionManagement>
 </project>
