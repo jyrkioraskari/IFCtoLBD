@@ -208,8 +208,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Anna Wagner and
                   Ville Kukkonen and
                   Simon Steyskaland and
-                  Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD v 2.43.3},
+                  Joel Lehtonen and
+                  Maxime Lefrançois },
+  title        = {IFCtoLBD: IFCtoLBD v 2.43.3},
   month        = jul,
   year         = 2023,
   publisher    = {GitHub},
