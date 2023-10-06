@@ -345,13 +345,6 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			<version>${jena.version}</version>
 			<type>pom</type>
 		</dependency>
-		<!--<dependency> <groupId>com.github.pipauwel</groupId> <artifactId>EXPRESStoOWL</artifactId> 
-			<version>${expresstoowl.version}</version> <scope>compile</scope> </dependency> -->
-		<dependency>
-			<groupId>com.github.pipauwel</groupId>
-			<artifactId>ifcParserLib</artifactId>
-			<version>0.2</version>
-		</dependency>
 		
 <!--		Cannot be used with the Desktop App and Apache Jena -->
 <!--		<dependency>-->
