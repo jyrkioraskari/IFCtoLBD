@@ -61,6 +61,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
+import org.linkedbuildingdata.ifc2lbd.namespace.OMG;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.Product;
@@ -388,7 +389,8 @@ public abstract class IFCtoLBDConverterCore {
 				Resource sp_geometry = this.lbd_general_output_model
 						.createResource(lbd_resource.getURI() + "_geometry");
 				if (bb != null && obj != null)
-					lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
+					lbd_resource.addProperty(OMG.hasGeometry, sp_geometry);
+					//lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
 				else
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
@@ -636,6 +638,7 @@ public abstract class IFCtoLBDConverterCore {
 		SMLS.addNameSpace(lbd_general_output_model);
 		UNIT.addNameSpace(lbd_general_output_model);
 		GEO.addNameSpace(lbd_general_output_model);
+		OMG.addNameSpace(lbd_general_output_model);
 
 		LBD.addNameSpace(lbd_general_output_model);
 		BOT.addNameSpace(lbd_general_output_model);
