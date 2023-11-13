@@ -19,8 +19,8 @@
 		<maven>3</maven>
 	</prerequisites>
 	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<jersey2.version>2.35</jersey2.version>
 		<jaxrs.version>2.1.1</jaxrs.version>
 		<tomcat.version>9.0.53</tomcat.version>
@@ -43,7 +43,7 @@
 				<plugin>
 					<groupId>com.webcohesion.enunciate</groupId>
 					<artifactId>enunciate-maven-plugin</artifactId>
-					<version>2.14.0</version>
+					<version>2.17.1</version>
 					<configuration>
 						<docsDir>${project.build.directory}/IFCtoLBD_OpenAPI</docsDir>
 						<configFile>src/conf/enunciate.xml</configFile>
