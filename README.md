@@ -69,11 +69,19 @@ cd ..
 
 cd IFCtoLBD_OpenAPI
 call mvn clean install
-set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
 call mvn enunciate:docs install
 cd ..
 ```
 -  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven-referred libraries of older Java versions). 
+
+OLD instruction was:
+```
+cd IFCtoLBD_OpenAPI
+call mvn clean install
+set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+call mvn enunciate:docs install
+cd ..
+```
 
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
@@ -267,6 +275,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### November 13, 2023  
+The new user Java 17 (and above) compatible OpenAPI is now in the source code. Earlier Java versions are not supported as the current Enuciate package
+has that limitation. 
+
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
