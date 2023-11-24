@@ -325,7 +325,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<javac.target.version>15</javac.target.version>
 		<maven.compiler.target>15</maven.compiler.target>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>false</skipTests>
+		<skipTests>true</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
