@@ -43,7 +43,7 @@
 				<plugin>
 					<groupId>com.webcohesion.enunciate</groupId>
 					<artifactId>enunciate-maven-plugin</artifactId>
-					<version>2.14.0</version>
+					<version>2.17.1</version>
 					<configuration>
 						<docsDir>${project.build.directory}/IFCtoLBD_OpenAPI</docsDir>
 						<configFile>src/conf/enunciate.xml</configFile>
