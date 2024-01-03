@@ -66,7 +66,7 @@ public abstract class RDFUtils {
      * 
      */
     public static void writeModel(Model m, String target_file, EventBus eventBus) {
-    	// Fix by JO 2024: finally is deprecated
+    	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
         try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder()); ){
                        
             m.write(fo, "TTL");

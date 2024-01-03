@@ -386,12 +386,12 @@ public abstract class IfcOWLUtils {
 				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
 			{
-			    return null;
+			    return null; 
 			}
 			model.read(in, null, "TTL");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {  //TODO  JO 2024: finally is deprecated
+		} finally {  // https://openjdk.org/jeps/421
 			try {
 				in.close();
 			} catch (Exception e1) {

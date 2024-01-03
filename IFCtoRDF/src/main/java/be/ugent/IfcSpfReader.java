@@ -174,7 +174,7 @@ public class IfcSpfReader {
 
     private static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-        	// Fix by JO 2024: finally is deprecated
+        	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
             try ( DataInputStream in = new DataInputStream(fstream);
                     BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
