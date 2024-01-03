@@ -435,7 +435,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
 
-		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory."));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory. Select \"Convert out to RDF\" to continue."));
 
 		return true;
 	}
