@@ -22,13 +22,12 @@ import org.bimserver.geometry.Matrix;
 import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.bimserver.plugins.renderengine.RenderEngineGeometry;
-import org.bimserver.plugins.renderengine.RenderEngineModel;
-import org.ifcopenshell.IfcGeomServerClientEntity;
 import org.ifcopenshell.IfcOpenShellEngine;
 import org.ifcopenshell.IfcOpenShellEntityInstance;
 import org.ifcopenshell.IfcOpenShellModel;
 
 import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
+import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.ObjDescription;
 
 public class IFCtoObj {
@@ -134,18 +133,20 @@ public class IFCtoObj {
 
 	}
 
-
+	
 	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-			IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, false);
-			ifcOpenShellEngine.init();
-			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
+			if(IFCGeometry.ifcOpenShellEngine_singlethon==null)
+			{
+				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
+				IFCGeometry.ifcOpenShellEngine_singlethon.init();
+			}			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
 			System.out.println("ifcFile: " + ifcFile);
-			IfcOpenShellModel model = ifcOpenShellEngine.openModel(ifcFileInputStream);
+			IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
 			System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
 
 			model.generateGeneralGeometry();

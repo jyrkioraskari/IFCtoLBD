@@ -1,17 +1,16 @@
 package be.ugent;
 
 import java.io.IOException;
-import java.io.PrintStream;
 import java.util.Optional;
 
 public class PerformanceTest extends IfcSpfReader {
 
-	private int i = 0;
+	//private int i = 0;
 
 	public Optional<String> convert_into_rdf(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
-		i = 0;
-		PrintStream orgSystemOut = System.out;
-		PrintStream orgSystemError = System.err;
+		//i = 0;
+		//PrintStream orgSystemOut = System.out;
+		//PrintStream orgSystemError = System.err;
 		
 		
 		System.out.println("ifcfile is: "+ifcFile);

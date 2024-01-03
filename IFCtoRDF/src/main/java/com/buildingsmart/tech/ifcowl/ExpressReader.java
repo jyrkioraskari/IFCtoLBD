@@ -411,17 +411,15 @@ public class ExpressReader {
 	// CONVERTING
 	private void readSpec() {
 		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(schemaInputStream));
-			try {
+			
+			try (BufferedReader br = new BufferedReader(new InputStreamReader(schemaInputStream));){
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					if (strLine.length() > 0) {
 						parse_level(strLine);
 					}
 				}
-			} finally {
-				br.close();
-			}
+			} 
 		} catch (FileNotFoundException fe) {
 			System.err.println("The IFC Express file is missing.");
 			System.exit(1);

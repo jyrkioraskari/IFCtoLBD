@@ -40,8 +40,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 	final private String uriBase;
 	final private String target_file;
 	final private int props_level;
-	final private boolean hasBuildingElements;
-	final private boolean hasBuildingProperties;
+	//final private boolean hasBuildingElements;
+	//final private boolean hasBuildingProperties;
 	
 	final boolean hasSeparateBuildingElementsModel; 
 	final boolean hasPropertiesBlankNodes;
@@ -62,8 +62,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.uriBase = uriBase;
 		this.target_file = target_file;
 		this.props_level=props_level;
-		this.hasBuildingElements=hasBuildingElements;
-		this.hasBuildingProperties=hasBuildingProperties;
+		//this.hasBuildingElements=hasBuildingElements;
+		//this.hasBuildingProperties=hasBuildingProperties;
 		
 		this.hasSeparateBuildingElementsModel=hasSeparateBuildingElementsModel;
 		this.hasSeparatePropertiesModel=hasSeparatePropertiesModel;

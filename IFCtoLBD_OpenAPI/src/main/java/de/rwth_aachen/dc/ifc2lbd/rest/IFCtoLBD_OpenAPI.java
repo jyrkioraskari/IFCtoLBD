@@ -57,7 +57,7 @@ public class IFCtoLBD_OpenAPI {
 			ifcFile.close();
 			if (accept_type.equals("application/ld+json")) {
 				StringBuilder result_string = new StringBuilder();
-				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.JSONLD_COMPACT_PRETTY);
+				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.JSONLD10_COMPACT_PRETTY);
 				return Response.ok(result_string.toString(), "application/ld+json").build();
 			} else if (accept_type.equals("application/rdf+xml")) {
 				StringBuilder result_string = new StringBuilder();

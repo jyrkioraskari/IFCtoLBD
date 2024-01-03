@@ -1,8 +1,5 @@
 package org.ifcopenshell;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-
 /******************************************************************************
  * Copyright (C) 2009-2019  BIMserver.org
  * 

@@ -6,29 +6,23 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.sys.JenaSystem;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
-import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import de.rwth_aachen.dc.lbd.IFCGeometry;
@@ -259,7 +253,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			ZipEntry zipEntry = zis.getNextEntry();
 			while (zipEntry != null) {
 				System.out.println("entry: " + zipEntry);
-				String name = zipEntry.getName().split("\\.")[0];
+				//String name = zipEntry.getName().split("\\.")[0];
 				File newFile = File.createTempFile("ifc", ".ifc");
 
 				// write file content
@@ -435,7 +429,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
 
-		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory."));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory. Select \"Convert out to RDF\" to continue."));
 
 		return true;
 	}

@@ -241,7 +241,7 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private void handle_building(Resource lbd_site, Resource building) {
-		String building_url_name = IfcOWLUtils.getURLEncodedName(building, this.ifcOWL);
+		//String building_url_name = IfcOWLUtils.getURLEncodedName(building, this.ifcOWL);
 
 		if (!RDFUtils.getType(building.asResource()).get().getURI().endsWith("#IfcBuilding")) {
 			System.err.println("Not an #IfcBuilding");
@@ -1188,7 +1188,7 @@ public abstract class IFCtoLBDConverterCore {
 			if (st.getPredicate().getLocalName().toString().toLowerCase().contains("globalid_ifcroot")) {
 				Resource ifcOWL_element = st.getSubject();
 				if (isIfcElement(ifcOWL_element)) {
-					Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcOWL_element);
+					//Optional<String> predefined_type = IfcOWLUtils.getPredefinedData(ifcOWL_element);
 					Optional<Resource> ifcowl_type = RDFUtils.getType(ifcOWL_element);
 					Optional<Resource> bot_type = Optional.empty();
 					if (ifcowl_type.isPresent()) {

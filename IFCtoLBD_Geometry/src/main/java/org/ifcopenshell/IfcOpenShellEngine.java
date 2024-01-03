@@ -50,7 +50,6 @@ import java.nio.file.Path;
 import org.bimserver.plugins.renderengine.Metrics;
 import org.bimserver.plugins.renderengine.RenderEngine;
 import org.bimserver.plugins.renderengine.RenderEngineException;
-import org.bimserver.plugins.renderengine.RenderEngineModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

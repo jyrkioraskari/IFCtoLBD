@@ -37,7 +37,6 @@ import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
 import com.vaadin.server.FileDownloader;
 import com.vaadin.server.FileResource;
-import com.vaadin.server.Page;
 import com.vaadin.server.Resource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
@@ -72,16 +71,16 @@ public class IFCPropsTOExcelOnlineUI extends UI {
 
 	Image image;
 
-	private UI ui_interface;
-	private String vaadin_session;
-	private Page vaadin_page;
+	//private UI ui_interface;
+	//private String vaadin_session;
+	//private Page vaadin_page;
 
 	@Override
 	protected void init(VaadinRequest vaadinRequest) {
 		final VerticalLayout layout = new VerticalLayout();
-		this.ui_interface = this.getUI();
-		this.vaadin_session = VaadinSession.getCurrent().getSession().getId();
-		this.vaadin_page = Page.getCurrent();
+		//this.ui_interface = this.getUI();
+		//this.vaadin_session = VaadinSession.getCurrent().getSession().getId();
+		//this.vaadin_page = Page.getCurrent();
 
 		Resource res = new ThemeResource("rwth_caad_en_schwarz_grau_rgb.svg");
 		this.image = new Image("", res);
@@ -284,6 +283,11 @@ public class IFCPropsTOExcelOnlineUI extends UI {
 	@WebServlet(urlPatterns = "/*", name = "mvdXMLOnlineCheckerUIServlet", asyncSupported = true)
 	@VaadinServletConfiguration(ui = IFCPropsTOExcelOnlineUI.class, productionMode = false)
 	public static class mvdXMLOnlineCheckerUIServlet extends VaadinServlet {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 	}
 
 	public static void main(String[] args) {

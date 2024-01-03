@@ -15,8 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -386,12 +385,12 @@ public abstract class IfcOWLUtils {
 				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
 			{
-			    return null;
+			    return null; 
 			}
 			model.read(in, null, "TTL");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {  // https://openjdk.org/jeps/421
 			try {
 				in.close();
 			} catch (Exception e1) {
@@ -414,9 +413,9 @@ public abstract class IfcOWLUtils {
 	 */
 	public static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try (DataInputStream in = new DataInputStream(fstream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -446,9 +445,7 @@ public abstract class IfcOWLUtils {
                         }
                     }
                 }
-            } finally {
-                br.close();
-            }
+            } 
         } catch (IOException e) {
             e.printStackTrace();
         }
