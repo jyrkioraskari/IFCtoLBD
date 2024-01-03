@@ -1,16 +1,10 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
 
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;

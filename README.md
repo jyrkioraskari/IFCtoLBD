@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.43.3
+Version 2.43.4
 
 Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, Maxime Lefrançois, and Lewis John McGibbney.
 
@@ -12,7 +12,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 19. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+It is recommended to use OpenJDK 21 (it is the modt current  Long-Term Support version). Java 17 is supported. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
 On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
@@ -21,7 +21,7 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Use Java 19 for compiling the converter and the desktop app.  For the OpenAPI interface, it is recommended to use Java 15 (The Enunciate library does not support a newer yet, but it seems to be possible to compile it with JDK 19 using the MAVEN_OPTS environment variable shown below. ).
+Use Java 21 for compiling the converter and the desktop app.  For the OpenAPI interface, it is recommended to use Java 21.
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
@@ -266,6 +266,9 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### January 02, 2024
+The recommendations was changed to encourage to use one of the last two performant Long-Term Support version of Java (17 or 21).
+  
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
@@ -278,7 +281,6 @@ The geometry tests are finished. The converter now exports OBJ formatted geometr
 
 ### June 07, 2022  
 Support for xsd:decimal.
-
 
 ### May 16, 2022  
 Support for multi-character Unicode sequences.
@@ -353,6 +355,12 @@ Testing the correctness of the created bounding boxes.
    ```
 
    where *your java installation directory* is the base directory where your Java runtime is installed.
+
+6.  How to disable the missing project natures in Eclipse prompt
+  - open Eclipse.
+  - go to Window > Preferences.
+  - navigate to General > Project Natures.
+    There, you can disable the option for discovering missing project natures and marketplace entries.     
 
 ## Acknowledgements
 The research was funded by the EU through the H2020 project BIM4REN.

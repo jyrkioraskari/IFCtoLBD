@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.rwth-aachen.dc.ifctolbd</groupId>
 	<artifactId>IFCtoLBD_OpenAPI</artifactId>
-	<version>2.43.0</version>
+	<version>2.43.4</version>
 	<packaging>war</packaging>
 	<name>IFCtoLBD OpenAPI Interface</name>
 
@@ -19,8 +19,8 @@
 		<maven>3</maven>
 	</prerequisites>
 	<properties>
-		<maven.compiler.source>11</maven.compiler.source>
-		<maven.compiler.target>11</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<jersey2.version>2.35</jersey2.version>
 		<jaxrs.version>2.1.1</jaxrs.version>
 		<tomcat.version>9.0.53</tomcat.version>
@@ -120,7 +120,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc-to-lbd</artifactId>
-			<version>2.43.3</version>
+			<version>2.43.4</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.apache.jena/apache-jena-libs -->

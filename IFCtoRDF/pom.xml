@@ -14,7 +14,7 @@
 	<artifactId>ifc2rdf</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.3.1</version>
+	<version>1.3.2</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -305,7 +305,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<!-- Dependencies -->
 		<commons-io.version>2.4</commons-io.version>
 		<junit.version>4.13.2</junit.version>
-		<jena.version>4.8.0</jena.version>
+		<jena.version>4.10.0</jena.version>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -321,9 +321,10 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
 		<!-- General Properties -->
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
-		<javac.src.version>15</javac.src.version>
-		<javac.target.version>15</javac.target.version>
-		<maven.compiler.target>15</maven.compiler.target>
+		<javac.src.version>17</javac.src.version>
+		<javac.target.version>17</javac.target.version>
+		<maven.compiler.target>17</maven.compiler.target>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
 		<skipTests>false</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
@@ -352,12 +353,12 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 <!--			<artifactId>logback-classic</artifactId>-->
 <!--			<version>1.4.5</version>-->
 <!--		</dependency>-->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<!-- The new version is 2.06 - needs to be checked -->
-			<version>2.0.4</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.slf4j</groupId>-->
+<!--			<artifactId>slf4j-api</artifactId>-->
+<!--			 The new version is 2.06 - needs to be checked -->
+<!--			<version>2.0.4</version>-->
+<!--		</dependency>-->
 		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>

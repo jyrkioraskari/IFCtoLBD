@@ -40,10 +40,10 @@ public class ConversionThread implements Callable<Integer> {
 	
 	final private IFCtoLBDConverter converter;
 	final private Set<String> selected_types;
-	final private String ifc_filename;
-	final private String uriBase;
-	final private String target_file;
-	final private int props_level;
+	//final private String ifc_filename;
+	//final private String uriBase;
+	//final private String target_file;
+	//final private int props_level;
 	final private boolean hasBuildingElements;
 	final private boolean hasBuildingProperties;
 	
@@ -65,10 +65,10 @@ public class ConversionThread implements Callable<Integer> {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
-		this.ifc_filename = ifc_filename;
-		this.uriBase = uriBase;
-		this.target_file = target_file;
-		this.props_level=props_level;
+		//this.ifc_filename = ifc_filename;
+		//this.uriBase = uriBase;
+		//this.target_file = target_file;
+		//this.props_level=props_level;
 		this.hasBuildingElements=hasBuildingElements;
 		this.hasBuildingProperties=hasBuildingProperties;
 		

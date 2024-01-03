@@ -143,9 +143,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.exportIfcOWL.isPresent())
 			exportIfcOWL = this.exportIfcOWL.get();
 
-		boolean namedGraphs = false;
-		if (this.namedGraphs.isPresent())
-			namedGraphs = this.namedGraphs.get();
+		//boolean namedGraphs = false;
+		//if (this.namedGraphs.isPresent())
+		//	namedGraphs = this.namedGraphs.get();
 
 		boolean hasUnits = false;
 		if (this.hasUnits.isPresent())

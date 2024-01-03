@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -298,7 +297,7 @@ public class PropertySet {
     }
 
     
-    private Set<String> getPropertynames() {
+    public Set<String> getPropertynames() {
 
     	return mapPnameType.keySet();
     }

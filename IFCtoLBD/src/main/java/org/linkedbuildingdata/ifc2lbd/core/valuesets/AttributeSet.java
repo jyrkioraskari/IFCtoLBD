@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Map.Entry;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
@@ -209,7 +208,7 @@ public class AttributeSet {
 
     }
     
-    private Set<String> getPropertynames() {
+    public Set<String> getPropertynames() {
 
     	return mapPnameType.keySet();
     }
