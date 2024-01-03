@@ -291,7 +291,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			String target_directory = prefs.get("ifc_target_directory", file.getParentFile().getAbsolutePath());
 			if (!new File(target_directory).exists())
 				target_directory = file.getParent();
-			rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
+			if(target_directory.endsWith("\\"))
+			  rdfTargetName = target_directory + file.getName().substring(0, i) + "_LBD.ttl";
+			else
+		      rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
 			labelTargetFile.setText(rdfTargetName);
 		}
 		if (ifcFileName != null && rdfTargetName != null) {
@@ -344,13 +347,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		fc_target.setInitialFileName(rdfTargetName);
 		if (!fwd.getParentFile().exists()) {
 			fc_target.setInitialDirectory(new File(ifcFileName).getParentFile());
-			fc_target.setInitialFileName(new File(ifcFileName).getParentFile() + File.pathSeparator + fwd.getName());
+			String filename=new File(ifcFileName).getParentFile()  + File.pathSeparator + fwd.getName();
+			System.out.println("Initial Filename to: "+filename);
+			fc_target.setInitialFileName(filename);
 			System.out.println("SET");
 		} else
 			fc_target.setInitialDirectory(fwd.getParentFile());
 
 		FileChooser.ExtensionFilter ef;
-		ef = new FileChooser.ExtensionFilter("All Files", "*.*");
+		ef = new FileChooser.ExtensionFilter("All Files", ".ttl");
 		fc_ifc.getExtensionFilters().clear();
 		fc_ifc.getExtensionFilters().addAll(ef);
 

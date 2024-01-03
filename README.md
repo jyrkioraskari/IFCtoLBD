@@ -69,11 +69,19 @@ cd ..
 
 cd IFCtoLBD_OpenAPI
 call mvn clean install
-set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
 call mvn enunciate:docs install
 cd ..
 ```
 -  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven-referred libraries of older Java versions). 
+
+OLD instruction was:
+```
+cd IFCtoLBD_OpenAPI
+call mvn clean install
+set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+call mvn enunciate:docs install
+cd ..
+```
 
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
@@ -208,8 +216,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Anna Wagner and
                   Ville Kukkonen and
                   Simon Steyskaland and
-                  Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD v 2.43.3},
+                  Joel Lehtonen and
+                  Maxime Lefrançois },
+  title        = {IFCtoLBD: IFCtoLBD v 2.43.3},
   month        = jul,
   year         = 2023,
   publisher    = {GitHub},
@@ -269,6 +278,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ### January 02, 2024
 The recommendations was changed to encourage to use one of the last two performant Long-Term Support version of Java (17 or 21).
   
+### November 13, 2023  
+The new user Java 17 (and above) compatible OpenAPI is now in the source code. Earlier Java versions are not supported as the current Enuciate package
+has that limitation. 
+
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
