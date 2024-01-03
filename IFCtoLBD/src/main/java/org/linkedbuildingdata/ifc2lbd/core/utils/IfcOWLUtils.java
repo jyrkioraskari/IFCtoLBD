@@ -391,7 +391,7 @@ public abstract class IfcOWLUtils {
 			model.read(in, null, "TTL");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {  //TODO  JO 2024: finally is deprecated
 			try {
 				in.close();
 			} catch (Exception e1) {
@@ -414,9 +414,9 @@ public abstract class IfcOWLUtils {
 	 */
 	public static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try (DataInputStream in = new DataInputStream(fstream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -446,9 +446,7 @@ public abstract class IfcOWLUtils {
                         }
                     }
                 }
-            } finally {
-                br.close();
-            }
+            } 
         } catch (IOException e) {
             e.printStackTrace();
         }

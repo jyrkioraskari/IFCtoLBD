@@ -66,54 +66,44 @@ public abstract class RDFUtils {
      * 
      */
     public static void writeModel(Model m, String target_file, EventBus eventBus) {
-        OutputStreamWriter fo = null;
-        try {
-            fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());            
+    	// Fix by JO 2024: finally is deprecated
+        try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder()); ){
+                       
             m.write(fo, "TTL");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
 
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
-        FileOutputStream fo = null;
-        try {
-            fo =new FileOutputStream(new File(target_file));
+        
+        try (FileOutputStream fo = new FileOutputStream(new File(target_file));){
+           
             StreamRDFWriter.write(fo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
     
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {
-        FileOutputStream fo = null;  // Outputstream for  RDFDataMgr.write is deprecated
-        try {
-            fo = new FileOutputStream(new File(target_file));     
+    	// Fix by JO 2024: finally is deprecated
+        try (FileOutputStream fo = new FileOutputStream(new File(target_file));){ 
             RDFDataMgr.write(fo, ds, RDFFormat.TRIG_PRETTY);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
     /**
      * 

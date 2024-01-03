@@ -174,9 +174,9 @@ public class IfcSpfReader {
 
     private static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try ( DataInputStream in = new DataInputStream(fstream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -206,8 +206,6 @@ public class IfcSpfReader {
                         }
                     }
                 }
-            } finally {
-                br.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -247,29 +245,25 @@ public class IfcSpfReader {
             if (fis == null)
                 fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
             
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            try {
+            
+         // Fix by JO 2024: finally is deprecated
+            try (ObjectInputStream ois = new ObjectInputStream(fis);){
                 ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                ois.close();
-            }
+            } 
 
             //JO -->>> 
             fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
             if (fis == null)
                 fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
 
-            ois = new ObjectInputStream(fis);
-            try {
+            //  Fix by JO 2024: finally is deprecated
+            try (ObjectInputStream ois = new ObjectInputStream(fis);){
                 typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                ois.close();
-            }
+            } 
             
 
             String inAlt = exp;
@@ -342,6 +336,7 @@ public class IfcSpfReader {
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         } finally {
+        	//TODO JO 2024:  finally is deprecated
             try {
                 in.close();
             } catch (Exception e1) {

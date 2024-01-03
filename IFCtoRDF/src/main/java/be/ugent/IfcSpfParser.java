@@ -32,9 +32,9 @@ public class IfcSpfParser {
 
     public void readModel() {
         try {
-            DataInputStream in = new DataInputStream(inputStream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try (DataInputStream in = new DataInputStream(inputStream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -55,9 +55,7 @@ public class IfcSpfParser {
                         }
                     }
                 }
-            } finally {
-                br.close();
-            }
+            } 
         } catch (IOException e) {
             e.printStackTrace();
         }
