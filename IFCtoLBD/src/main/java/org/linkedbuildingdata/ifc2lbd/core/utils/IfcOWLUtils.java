@@ -456,7 +456,6 @@ public abstract class IfcOWLUtils {
 	
 	
     static public File characterCoding(File whole_content_file) {
-    	System.out.println("characterCoding 0");
         File tempFile = null;
         int state = 0;
         try {
@@ -517,7 +516,6 @@ public abstract class IfcOWLUtils {
                                 }
                             }
                         }
-                        System.out.println("characterCoding 41");
                         line = new String(line.getBytes(), StandardCharsets.UTF_8);
                         line = line.replace("\\\\", "\\");
 
@@ -595,17 +593,12 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X2\\00FD\\X0\\", "ý");
                         line = line.replace("\\X2\\00FE\\X0\\", "þ");
                         line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
-                        System.out.println("characterCoding 42");
                         
                         line=unIFCUnicode(line);  // multi-character decode
-                        System.out.println("characterCoding 43 "+line.trim());
                         writer.write(line.trim());
-                        System.out.println("characterCoding 44");
                         writer.newLine();
-                        System.out.println("characterCoding 45");
                     }
                     writer.flush();
-                    System.out.println("characterCoding 46");
 
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -616,7 +609,6 @@ public abstract class IfcOWLUtils {
         } catch (IOException e2) {
             e2.printStackTrace();
         }
-        System.out.println("characterCoding 100");
         return tempFile;
     }
 
