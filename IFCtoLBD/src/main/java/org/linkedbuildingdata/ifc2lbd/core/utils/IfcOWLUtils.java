@@ -15,7 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import org.apache.commons.text.StringEscapeUtils;
+
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -469,7 +469,6 @@ public abstract class IfcOWLUtils {
                     for (int i = 0; i < 3; i++)
                         triple[i] = "";
                     while ((line = br.readLine()) != null) {
-                    	System.out.println("characterCoding 3");
                         String trimmed = line.trim();
                         if (!line.contains("@prefix") && !trimmed.startsWith("#")) {
                             int len = trimmed.length();

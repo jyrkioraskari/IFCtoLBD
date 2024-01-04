@@ -21,7 +21,6 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.SimpleSelector;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
@@ -1006,7 +1005,7 @@ public abstract class IFCtoLBDConverterCore {
 				Resource mapped_ifcowl_class = ontology_model
 						.getResource(this.ontURI.get() + "#" + ifcowl_class.getLocalName());
 				StmtIterator subclass_statement_iterator = ontology_model
-						.listStatements(new SimpleSelector(null, RDFS.subClassOf, mapped_ifcowl_class));
+						.listStatements(null, RDFS.subClassOf, mapped_ifcowl_class);
 				while (subclass_statement_iterator.hasNext()) {
 					Statement su = subclass_statement_iterator.next();
 					Resource ifcowl_subclass = su.getSubject();
