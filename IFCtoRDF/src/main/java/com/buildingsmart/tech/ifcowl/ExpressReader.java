@@ -343,7 +343,9 @@ public class ExpressReader {
 				else{
 					PropertyVO origprop = inverseOfInv;
 					if(origprop!=null){
-						PropertyVO originv = inverseOfInv.getInverseProperty();
+						PropertyVO originv = null;
+						   if(inverseOfInv!=null)  // JO 2024
+							   originv=inverseOfInv.getInverseProperty();
 						if(originv!=null){
 							System.out.println("removing property 2 from property list: " + originv.getName());
 							if(getProperties().remove(originv.getName())==null){
@@ -362,8 +364,11 @@ public class ExpressReader {
 						System.out.println("removing property 4: " + prop.getName());	
 						if(getProperties().remove(prop.getName())==null)
 							System.out.println("could not remove property 4 from list: " + prop.getName());
-						inverseOfInv.setInverseProp(null);
-						System.out.println("removed inverses of property: " + inverseOfInv.getName());
+						if(inverseOfInv!=null)  // JO 2024
+						{
+						  inverseOfInv.setInverseProp(null);
+						  System.out.println("removed inverses of property: " + inverseOfInv.getName());
+						}
 					}	
 					else{
 						System.out.println("removing property 5: " + prop.getName());

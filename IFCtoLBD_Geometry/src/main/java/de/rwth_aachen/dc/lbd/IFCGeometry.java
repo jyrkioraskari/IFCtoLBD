@@ -2,7 +2,6 @@ package de.rwth_aachen.dc.lbd;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Path;
@@ -19,7 +18,6 @@ import javax.vecmath.Point3d;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.bimserver.geometry.Matrix;
-import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.bimserver.plugins.renderengine.RenderEngineGeometry;
 import org.ifcopenshell.IfcOpenShellEngine;
@@ -30,7 +28,7 @@ import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
 
 /*
  *   
- *  Copyright (c) 2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,13 +47,13 @@ public class IFCGeometry {
 
 	private IfcOpenShellModel renderEngineModel = null;
 
-	public IFCGeometry(File ifcFile) throws DeserializeException, IOException, RenderEngineException {
+	public IFCGeometry(File ifcFile) {
 
 		ExecutorService executor = Executors.newCachedThreadPool();
-		Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
+		Callable<IfcOpenShellModel> task = new Callable<>() {
 			public IfcOpenShellModel call() {
-				renderEngineModel = getRenderEngineModel(ifcFile);
-				return renderEngineModel;
+				IFCGeometry.this.renderEngineModel = getRenderEngineModel(ifcFile);
+				return IFCGeometry.this.renderEngineModel;
 			}
 		};
 		Future<IfcOpenShellModel> future = executor.submit(task);
@@ -65,7 +63,9 @@ public class IFCGeometry {
 		} catch (TimeoutException ex) {
 			System.out.println("Timeout");
 		} catch (InterruptedException e) {
+			e.printStackTrace();
 		} catch (ExecutionException e) {
+			e.printStackTrace();
 		} finally {
 			future.cancel(true); // may or may not desire this
 		}
@@ -75,10 +75,10 @@ public class IFCGeometry {
 	public BoundingBox getBoundingBox(String guid) {
 		BoundingBox boundingBox = null;
 
-		if (renderEngineModel == null)
+		if (this.renderEngineModel == null)
 			return null;
 		IfcOpenShellEntityInstance renderEngineInstance;
-		renderEngineInstance = renderEngineModel.getInstanceFromGUID(guid);
+		renderEngineInstance = this.renderEngineModel.getInstanceFromGUID(guid);
 
 		if (renderEngineInstance == null) {
 			return null;

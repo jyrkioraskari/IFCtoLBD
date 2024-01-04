@@ -537,7 +537,7 @@ public class RDFWriter {
 		}
 
 		// interpret parse
-		if (!literals.isEmpty()) {
+		if ((evo != null) && !literals.isEmpty()) {
 			String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
 			OntProperty p = ontModel.getOntProperty(propURI);
 			OntResource typerange = p.getRange();

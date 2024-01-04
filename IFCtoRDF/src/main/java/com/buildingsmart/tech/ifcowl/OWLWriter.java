@@ -1028,7 +1028,8 @@ public class OWLWriter {
                 PrimaryTypeVO t = PrimaryTypeVO.getClosestResemblance(ptype);
                 if (t == null)
                     System.out.println("OWLWriter::writeTypesToOWL - Did not find useful primarytype: " + ptype);
-                out.write("\trdfs:subClassOf expr:" + t.getPTypeName() + " .\r\n\r\n");
+                else // JO 2024
+                    out.write("\trdfs:subClassOf expr:" + t.getPTypeName() + " .\r\n\r\n");
             }
         }
     }

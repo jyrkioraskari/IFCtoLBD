@@ -85,7 +85,7 @@ public class ConverterUnitTests {
 	
 	@DisplayName("Two walls geometry conversion")
 	@Test
-	public void testTwoWallsConversion() {
+	public static void testTwoWallsConversion() {
 		URL file_url = ClassLoader.getSystemResource("TWO WALLS.ifc");
 		try {
 			File ifc_file = new File(file_url.toURI());
@@ -138,6 +138,11 @@ public class ConverterUnitTests {
 			c1nb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());
 			@SuppressWarnings("unused")
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
+			if(m1nb.size()==0)
+			{
+				System.out.println("Conversion size should not be zero.");
+				fail("Conversion size should not be zero.");
+			}
 
 			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 1);
 			c1wb.convert(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath());

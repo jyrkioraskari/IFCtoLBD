@@ -375,6 +375,10 @@ Testing the correctness of the created bounding boxes.
   - navigate to General > Project Natures.
     There, you can disable the option for discovering missing project natures and marketplace entries.     
 
+7.  Eclipse build takes forever to complete
+    - Disable Project/Build Automatically, and build the all with Maven Install. Enable the option after.
+    - eclipse -clean -clearPersistedState  // It resets Eclipse perspectives, too.
+
 ## Acknowledgements
 The research was funded by the EU through the H2020 project BIM4REN.
 

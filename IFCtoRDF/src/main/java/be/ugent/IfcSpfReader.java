@@ -247,6 +247,10 @@ public class IfcSpfReader {
             
             
          // Fix by JO 2024: finally is deprecated
+            if(fis==null)
+            {
+            	System.err.println(exp + ".ser not found");
+            }
             try (ObjectInputStream ois = new ObjectInputStream(fis);){
                 ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {

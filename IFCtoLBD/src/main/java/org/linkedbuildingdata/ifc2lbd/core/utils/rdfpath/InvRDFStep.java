@@ -6,11 +6,10 @@ import java.util.List;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.SimpleSelector;
 
 /*
 * 
-* Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+* Copyright (c) 2017,2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
 * 
 * Licensed under the Apache License, Version 2.0 (the "License");
 * you may not use this file except in compliance with the License.
@@ -56,10 +55,10 @@ public class InvRDFStep extends RDFStep {
 	@Override
     public List<RDFNode> next(Resource r) {
 		if(r.getModel()==null)
-			return new ArrayList<RDFNode>();
+			return new ArrayList<>();
 		final List<RDFNode> ret = new ArrayList<>();
 		
-		r.getModel().listStatements(new SimpleSelector(null, this.property, r))
+		r.getModel().listStatements(null, this.property, r) // JO 2024 SimpleSelector is deprecated
 		.mapWith(t1 -> t1.getSubject()).forEachRemaining(s -> ret.add(s));
 		return ret;
     }

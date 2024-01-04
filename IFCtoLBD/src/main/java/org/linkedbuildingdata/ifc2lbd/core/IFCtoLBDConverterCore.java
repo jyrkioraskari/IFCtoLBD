@@ -1105,13 +1105,12 @@ public abstract class IFCtoLBDConverterCore {
 				// RDFDataMgr.read(m, t2.getAbsolutePath());
 				// } else
 				// RDFDataMgr.read(m, outputFile.getAbsolutePath());
-
 				File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
 				if (t2 != null) {
 					RDFDataMgr.read(m, t2.getAbsolutePath());
 				} else
 					RDFDataMgr.read(m, outputFile.getAbsolutePath());
-
+				System.out.println("ifcOWL read in done");
 				return m;
 			} catch (IOException e) {
 				e.printStackTrace();
