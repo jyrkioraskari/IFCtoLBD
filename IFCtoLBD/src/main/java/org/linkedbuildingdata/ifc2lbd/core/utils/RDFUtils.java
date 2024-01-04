@@ -130,7 +130,8 @@ public abstract class RDFUtils {
      */
     public static void readInOntologyTTL(Model model, String ontology_file, EventBus eventBus) {
 
-        InputStream in = null;
+        @SuppressWarnings("resource")
+		InputStream in = null;
         try {
             in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
             if (in == null) {
@@ -160,6 +161,14 @@ public abstract class RDFUtils {
             System.out.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
             //e.printStackTrace();
         }
+        finally {
+			if(in!=null)
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
 
     }
 

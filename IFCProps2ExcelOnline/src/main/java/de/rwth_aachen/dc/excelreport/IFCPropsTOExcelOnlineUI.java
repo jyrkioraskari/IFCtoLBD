@@ -189,94 +189,97 @@ public class IFCPropsTOExcelOnlineUI extends UI {
 				} 
 			}
 		}
-		;
+		
+        // JO 2024
+		try (Workbook workbook = new XSSFWorkbook()) {
+			CellStyle headerStyle = workbook.createCellStyle();
+			CellStyle style = workbook.createCellStyle();
+			style.setWrapText(true);
 
-		Workbook workbook = new XSSFWorkbook();
+			XSSFFont fontH = ((XSSFWorkbook) workbook).createFont();
+			fontH.setFontName("Arial");
+			fontH.setFontHeightInPoints((short) 16);
+			fontH.setBold(true);
+			headerStyle.setFont(fontH);
 
-		CellStyle headerStyle = workbook.createCellStyle();
-		CellStyle style = workbook.createCellStyle();
-		style.setWrapText(true);
+			XSSFFont fontC = ((XSSFWorkbook) workbook).createFont();
+			fontC.setFontName("Arial");
+			fontC.setFontHeightInPoints((short) 12);
+			fontC.setBold(false);
+			style.setFont(fontC);
+			style.setWrapText(true);
 
-		XSSFFont fontH = ((XSSFWorkbook) workbook).createFont();
-		fontH.setFontName("Arial");
-		fontH.setFontHeightInPoints((short) 16);
-		fontH.setBold(true);
-		headerStyle.setFont(fontH);
+			for (String type : value_map.keySet()) {
+				Map<String, Map<String, RDFNode>> type_values = value_map.get(type);
+				Sheet sheet = workbook.createSheet(type);
+				for (int i = 0; i < 500; i++)
+					sheet.setColumnWidth(i, 15000);
+				int rowinx = 0;
+				Row header = sheet.createRow(rowinx++);
+				int hinx = 0;
+				Cell headerCell_guid = header.createCell(hinx++);
+				headerCell_guid.setCellValue("Global ID");
+				headerCell_guid.setCellStyle(headerStyle);
 
-		XSSFFont fontC = ((XSSFWorkbook) workbook).createFont();
-		fontC.setFontName("Arial");
-		fontC.setFontHeightInPoints((short) 12);
-		fontC.setBold(false);
-		style.setFont(fontC);
-		style.setWrapText(true);
-
-		for (String type : value_map.keySet()) {
-			Map<String, Map<String, RDFNode>> type_values = value_map.get(type);
-			Sheet sheet = workbook.createSheet(type);
-			for (int i = 0; i < 500; i++)
-				sheet.setColumnWidth(i, 15000);
-			int rowinx = 0;
-			Row header = sheet.createRow(rowinx++);
-			int hinx = 0;
-			Cell headerCell_guid = header.createCell(hinx++);
-			headerCell_guid.setCellValue("Global ID");
-			headerCell_guid.setCellStyle(headerStyle);
-
-			
-			for (String prop : properties_map.get(type)) {
-				if(prop.equals("globalIdIfcRoot"))
-					continue;
-				Cell headerCell = header.createCell(hinx++);
-				headerCell.setCellValue(prop);
-				headerCell.setCellStyle(headerStyle);
-			}
-			
-
-			for (String element : value_map.get(type).keySet()) {
-				int cinx = 1;
-				Row row = sheet.createRow(rowinx++);
-
-				Map<String, RDFNode> values = type_values.get(element);
-				Cell cell_guid = row.createCell(0);
-				cell_guid.setCellValue(values.getOrDefault("globalIdIfcRoot",ResourceFactory.createPlainLiteral("-")).toString());
-
+				
 				for (String prop : properties_map.get(type)) {
 					if(prop.equals("globalIdIfcRoot"))
 						continue;
-					Cell cell = row.createCell(cinx++);
-					RDFNode object = values.getOrDefault(prop, ResourceFactory.createPlainLiteral("-"));
-					if (object.isLiteral()) {
-						if (Number.class.isAssignableFrom(object.asLiteral().getValue().getClass())) {
-							DataFormat format = workbook.createDataFormat();
-							style.setDataFormat(format.getFormat("0.00"));
-							cell.setCellValue(Double.parseDouble(object.asLiteral().getLexicalForm()));
-							cell.setCellStyle(style);
+					Cell headerCell = header.createCell(hinx++);
+					headerCell.setCellValue(prop);
+					headerCell.setCellStyle(headerStyle);
+				}
+				
+
+				for (String element : value_map.get(type).keySet()) {
+					int cinx = 1;
+					Row row = sheet.createRow(rowinx++);
+
+					Map<String, RDFNode> values = type_values.get(element);
+					Cell cell_guid = row.createCell(0);
+					cell_guid.setCellValue(values.getOrDefault("globalIdIfcRoot",ResourceFactory.createPlainLiteral("-")).toString());
+
+					for (String prop : properties_map.get(type)) {
+						if(prop.equals("globalIdIfcRoot"))
+							continue;
+						Cell cell = row.createCell(cinx++);
+						RDFNode object = values.getOrDefault(prop, ResourceFactory.createPlainLiteral("-"));
+						if (object.isLiteral()) {
+							if (Number.class.isAssignableFrom(object.asLiteral().getValue().getClass())) {
+								DataFormat format = workbook.createDataFormat();
+								style.setDataFormat(format.getFormat("0.00"));
+								cell.setCellValue(Double.parseDouble(object.asLiteral().getLexicalForm()));
+								cell.setCellStyle(style);
+							} else
+								cell.setCellValue(object.asLiteral().getLexicalForm());
 						} else
-							cell.setCellValue(object.asLiteral().getLexicalForm());
-					} else
-						cell.setCellValue(object.toString());
-					cell.setCellStyle(style);
+							cell.setCellValue(object.toString());
+						cell.setCellStyle(style);
+					}
 				}
 			}
-		}
-		;
+			;
 
-		try {
-			File tempExcelFile = File.createTempFile("ifc2lbd-", ".xlsx");
-			FileOutputStream outputStream = new FileOutputStream(tempExcelFile);
-			workbook.write(outputStream);
-			workbook.close();
-			Resource res = new FileResource(tempExcelFile);
-			if (this.fileDownloader == null) {
-				this.fileDownloader = new FileDownloader(res);
-				this.fileDownloader.extend(this.save_as_excel_button);
-			} else {
-				this.fileDownloader.setFileDownloadResource(res);
+			try {
+				File tempExcelFile = File.createTempFile("ifc2lbd-", ".xlsx");
+				FileOutputStream outputStream = new FileOutputStream(tempExcelFile);
+				workbook.write(outputStream);
+				workbook.close();
+				Resource res = new FileResource(tempExcelFile);
+				if (this.fileDownloader == null) {
+					this.fileDownloader = new FileDownloader(res);
+					this.fileDownloader.extend(this.save_as_excel_button);
+				} else {
+					this.fileDownloader.setFileDownloadResource(res);
+				}
+				this.save_as_excel_button.setEnabled(true);
+
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
-			this.save_as_excel_button.setEnabled(true);
-
-		} catch (IOException e1) {
-			e1.printStackTrace();
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

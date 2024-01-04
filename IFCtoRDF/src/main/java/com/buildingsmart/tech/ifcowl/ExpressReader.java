@@ -156,9 +156,8 @@ public class ExpressReader {
 					|| in.equalsIgnoreCase("IFC4x1")
 					|| in.equalsIgnoreCase("IFC4")
 					|| in.equalsIgnoreCase("IFC4x3_RC1")) {
-				try {
-					InputStream instr = ExpressReader.class
-							.getResourceAsStream("/" + in + ".exp");
+				try (InputStream instr = ExpressReader.class   // JO 2024
+						.getResourceAsStream("/" + in + ".exp")) {
 					ExpressReader er = new ExpressReader(instr);
 					
 					String inAlt = in;
