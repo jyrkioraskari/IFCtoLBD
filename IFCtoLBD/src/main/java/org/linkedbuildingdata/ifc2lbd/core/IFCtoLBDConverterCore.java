@@ -2,7 +2,6 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -784,43 +783,42 @@ public abstract class IFCtoLBDConverterCore {
 					});
 			this.included_elements.add(ifcOWL_element);
 			return lbd_element;
-		} else { //TODO Statement unnecessarily nested within else clause. The corresponding then clause does not complete normally
-			if (ifcowl_type.isPresent()) {
-				Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
-						this.lbd_general_output_model, "ifcOWL_" + ifcowl_type.get().getLocalName(), this.ifcOWL,
-						this.uriBase.get(), this.exportIfcOWL_setting);
-				String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
-				String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
-				addGeometry(lbd_element, guid);
-				Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
-				if (predefined_type.isPresent()) {
-					Resource product = this.lbd_product_output_model
-							.createResource(ifcowl_type.get().getURI() + "-" + predefined_type.get());
-					lbd_property_object.addProperty(RDF.type, product);
-				}
-				lbd_property_object.addProperty(RDF.type, ifcowl_type.get());
-				lbd_element.addProperty(RDF.type, BOT.element);
-
-				IfcOWLUtils.listPropertysets(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
-						.forEach(propertyset -> {
-							PropertySet p_set = this.propertysets.get(propertyset.getURI());
-							if (p_set != null)
-								p_set.connect(lbd_element, uncompressed_guid);
-						});
-				addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
-
-				IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
-						.forEach(ifc_element2 -> {
-							connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
-						});
-
-				IfcOWLUtils.listAggregated_Elements(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
-						.forEach(ifc_element2 -> {
-							connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
-						});
-				this.included_elements.add(ifcOWL_element);
-				return lbd_element;
+		}
+		if (ifcowl_type.isPresent()) {
+			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
+					this.lbd_general_output_model, "ifcOWL_" + ifcowl_type.get().getLocalName(), this.ifcOWL,
+					this.uriBase.get(), this.exportIfcOWL_setting);
+			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
+			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
+			addGeometry(lbd_element, guid);
+			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
+			if (predefined_type.isPresent()) {
+				Resource product = this.lbd_product_output_model
+						.createResource(ifcowl_type.get().getURI() + "-" + predefined_type.get());
+				lbd_property_object.addProperty(RDF.type, product);
 			}
+			lbd_property_object.addProperty(RDF.type, ifcowl_type.get());
+			lbd_element.addProperty(RDF.type, BOT.element);
+
+			IfcOWLUtils.listPropertysets(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
+					.forEach(propertyset -> {
+						PropertySet p_set = this.propertysets.get(propertyset.getURI());
+						if (p_set != null)
+							p_set.connect(lbd_element, uncompressed_guid);
+					});
+			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
+
+			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
+					.forEach(ifc_element2 -> {
+						connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
+					});
+
+			IfcOWLUtils.listAggregated_Elements(ifcOWL_element, this.ifcOWL).stream().map(rn -> rn.asResource())
+					.forEach(ifc_element2 -> {
+						connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
+					});
+			this.included_elements.add(ifcOWL_element);
+			return lbd_element;
 		}
 		return null;
 	}
@@ -1085,36 +1083,32 @@ public abstract class IFCtoLBDConverterCore {
 				}
 
 			}
-			try {
-				Model m = ModelFactory.createDefaultModel();
-				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
+			Model m = ModelFactory.createDefaultModel();
+			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
-				if (hasPerformanceBoost) {
-					File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
-					this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
-							uriBase, hasPerformanceBoost);
-				} else {
-					this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
-							hasPerformanceBoost);
-				}
-
-				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
-
-				// File t2 = IfcOWLUtils.filterContent(outputFile); // Performance!!
-				// if (t2 != null) {
-				// RDFDataMgr.read(m, t2.getAbsolutePath());
-				// } else
-				// RDFDataMgr.read(m, outputFile.getAbsolutePath());
-				File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
-				if (t2 != null) {
-					RDFDataMgr.read(m, t2.getAbsolutePath());
-				} else
-					RDFDataMgr.read(m, outputFile.getAbsolutePath());
-				System.out.println("ifcOWL read in done");
-				return m;
-			} catch (IOException e) {
-				e.printStackTrace();
+			if (hasPerformanceBoost) {
+				File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
+				this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
+						uriBase, hasPerformanceBoost);
+			} else {
+				this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
+						hasPerformanceBoost);
 			}
+
+			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
+
+			// File t2 = IfcOWLUtils.filterContent(outputFile); // Performance!!
+			// if (t2 != null) {
+			// RDFDataMgr.read(m, t2.getAbsolutePath());
+			// } else
+			// RDFDataMgr.read(m, outputFile.getAbsolutePath());
+			File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
+			if (t2 != null) {
+				RDFDataMgr.read(m, t2.getAbsolutePath());
+			} else
+				RDFDataMgr.read(m, outputFile.getAbsolutePath());
+			System.out.println("ifcOWL read in done");
+			return m;
 
 		} catch (Exception e) {
 			this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),

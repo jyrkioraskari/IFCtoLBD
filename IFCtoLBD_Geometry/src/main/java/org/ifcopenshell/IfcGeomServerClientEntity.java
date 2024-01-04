@@ -17,6 +17,9 @@ package org.ifcopenshell;
  * along with this program.  If not, see {@literal<http://www.gnu.org/licenses/>}.
  *****************************************************************************/
 
+
+// JO 2024
+
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -38,7 +41,6 @@ import java.nio.ByteBuffer;
  *****************************************************************************/
 
 import org.bimserver.geometry.Matrix;
-import org.bimserver.plugins.renderengine.RenderEngineException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -111,30 +113,30 @@ public class IfcGeomServerClientEntity {
 	}
 
 	public int getRepId() {
-		return repId;
+		return this.repId;
 	}
 
 	public ByteBuffer getPositions() {
-		return positions;
+		return this.positions;
 	}
 
 	public ByteBuffer getNormals() {
-		return normals;
+		return this.normals;
 	}
 
 	public ByteBuffer getIndices() {
-		return indices;
+		return this.indices;
 	}
 
 	public ByteBuffer getColors() {
-		return colors;
+		return this.colors;
 	}
 
 	public ByteBuffer getMaterialIndices() {
-		return materialIndices;
+		return this.materialIndices;
 	}
 
-	public ObjectNode getAllExtendedData() throws RenderEngineException {
+	public ObjectNode getAllExtendedData() {
 		return this.extendedData;
 	}
 }

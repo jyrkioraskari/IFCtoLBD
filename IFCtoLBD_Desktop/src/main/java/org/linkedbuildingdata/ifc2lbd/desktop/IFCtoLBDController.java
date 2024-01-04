@@ -254,15 +254,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
         File file = null;
 
-        if (fc_ifc == null) {
-            fc_ifc = new FileChooser();
-            String work_directory = prefs.get("ifc_work_directory", ".");
+        if (this.fc_ifc == null) {
+            this.fc_ifc = new FileChooser();
+            String work_directory = this.prefs.get("ifc_work_directory", ".");
             System.out.println("workdir got:" + work_directory);
             File fwd = new File(work_directory);
-            if (fwd != null && fwd.exists())
-                fc_ifc.setInitialDirectory(fwd.getParentFile());
+            if (fwd.exists())
+                this.fc_ifc.setInitialDirectory(fwd.getParentFile());
             else
-                fc_ifc.setInitialDirectory(new File("."));
+                this.fc_ifc.setInitialDirectory(new File("."));
         }
         FileChooser.ExtensionFilter ef1;
         ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
@@ -414,14 +414,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
     }
 
-    @Override
+    @SuppressWarnings("unused")
+	@Override
 	public void initialize(URL location, ResourceBundle resources) {
         this.eventBus.register(this);
         this.border.widthProperty().bind(this.root.widthProperty());
         this.border.heightProperty().bind(this.root.heightProperty());
         // Accepts dropping
         new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
+            @Override
+			public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 if (db.hasFiles()) {
                     event.acceptTransferModes(TransferMode.COPY);
@@ -433,7 +435,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         };
 
         // Accepts dropping
-        EventHandler<DragEvent> ad_conversion = new EventHandler<DragEvent>() {
+        EventHandler<DragEvent> ad_conversion = new EventHandler<>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 if (db.hasFiles()) {
@@ -445,7 +447,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         };
 
         // Dropping over surface
-        EventHandler<DragEvent> dh_conversion = new EventHandler<DragEvent>() {
+        EventHandler<DragEvent> dh_conversion = new EventHandler<>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
@@ -478,7 +480,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         this.conversionTxt.setOnDragDropped(dh_conversion);
 
         this.rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
+            @Override
+			public void handle(MouseEvent me) {
 
                 if (!IFCtoLBDController.this.rdf_fileIcon.isDisabled()) {
                     Dragboard db = handleOnTxt.startDragAndDrop(TransferMode.ANY);
@@ -517,7 +520,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         });
 
         this.rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent me) {
+            @Override
+			public void handle(DragEvent me) {
                 me.consume();
             }
         });
@@ -600,7 +604,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
     }
 
-    public void handle_notification(String txt) {
+    @Override
+	public void handle_notification(String txt) {
         this.conversionTxt.insertText(0, txt + "\n");
     }
 

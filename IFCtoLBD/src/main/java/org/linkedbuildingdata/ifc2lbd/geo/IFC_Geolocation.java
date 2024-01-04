@@ -39,8 +39,8 @@ public class IFC_Geolocation {
 
 
     private static Property ifcSiteProperty;
-    private static List<String> latitude = new ArrayList<String>();
-    private static List<String> longitude = new ArrayList<String>();
+    private static List<String> latitude = new ArrayList<>();
+    private static List<String> longitude = new ArrayList<>();
     
     private final String ns1;
     private final String ns3;
@@ -71,7 +71,7 @@ public class IFC_Geolocation {
 
     //Author Kris McGlinn - This function takes the Model and a resources, and adds it to that resourse in the model
     //For wkt literal, a seperate class WktLiteral java is required, to add the literal datatype to the Model
-    private String addWKTGeometryToModel()
+    private static String addWKTGeometryToModel()
     {
     
         latitude = longLatNegativeConvert(latitude);
@@ -88,7 +88,7 @@ public class IFC_Geolocation {
     
     
     //Author Kris McGlinn - This method changes the sign of the longitude or latitude values in a List
-    private List<String> longLatNegativeConvert(List<String> l)
+    private static List<String> longLatNegativeConvert(List<String> l)
     {
         String s = (String)l.get(l.size()-1);
         int x = Integer.parseInt(s);

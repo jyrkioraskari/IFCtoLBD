@@ -262,8 +262,9 @@ public class IFCPropsTOExcelOnlineUI extends UI {
 
 			try {
 				File tempExcelFile = File.createTempFile("ifc2lbd-", ".xlsx");
-				FileOutputStream outputStream = new FileOutputStream(tempExcelFile);
-				workbook.write(outputStream);
+				try (FileOutputStream outputStream = new FileOutputStream(tempExcelFile)) {
+					workbook.write(outputStream);
+				}
 				workbook.close();
 				Resource res = new FileResource(tempExcelFile);
 				if (this.fileDownloader == null) {

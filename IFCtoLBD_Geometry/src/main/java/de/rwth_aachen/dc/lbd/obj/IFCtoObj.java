@@ -2,7 +2,6 @@ package de.rwth_aachen.dc.lbd.obj;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Path;
@@ -19,7 +18,6 @@ import javax.vecmath.Point3d;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.bimserver.geometry.Matrix;
-import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.bimserver.plugins.renderengine.RenderEngineGeometry;
 import org.ifcopenshell.IfcOpenShellEngine;
@@ -34,13 +32,13 @@ public class IFCtoObj {
 
 	private IfcOpenShellModel renderEngineModel = null;
 
-	public IFCtoObj(File ifcFile) throws DeserializeException, IOException, RenderEngineException {
+	public IFCtoObj(File ifcFile) {
 
 		ExecutorService executor = Executors.newCachedThreadPool();
-		Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
+		Callable<IfcOpenShellModel> task = new Callable<>() {
 			public IfcOpenShellModel call() {
-				renderEngineModel = getRenderEngineModel(ifcFile);
-				return renderEngineModel;
+				IFCtoObj.this.renderEngineModel = getRenderEngineModel(ifcFile);
+				return IFCtoObj.this.renderEngineModel;
 			}
 		};
 		Future<IfcOpenShellModel> future = executor.submit(task);
@@ -73,8 +71,7 @@ public class IFCtoObj {
 
 		try {
 			RenderEngineGeometry geometry = renderEngineInstance.generateGeometry();
-			
-			
+
 			if (geometry != null && geometry.getIndices().limit() > 0) {
 				obj_desc = new ObjDescription();
 				double[] tranformationMatrix = new double[16];
@@ -82,22 +79,23 @@ public class IFCtoObj {
 				if (renderEngineInstance.getTransformationMatrix() != null) {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
-				
+
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				
-				while (ver.hasRemaining())
-				{
+
+				while (ver.hasRemaining()) {
 					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
 				}
-				
-				/*for (int i = 0; i < geometry.getNrIndices() / 3; i++) {
-					ImmutableTriple<Integer, Integer, Integer> f = processSurface(geometry.getIndices(), i * 3);
-					obj_desc.addFace(f);
 
-				}*/
+				/*
+				 * for (int i = 0; i < geometry.getNrIndices() / 3; i++) {
+				 * ImmutableTriple<Integer, Integer, Integer> f =
+				 * processSurface(geometry.getIndices(), i * 3); obj_desc.addFace(f);
+				 * 
+				 * }
+				 */
 				ByteBuffer inx = geometry.getIndices().order(ByteOrder.nativeOrder());
-               											
+
 				while (inx.hasRemaining()) {
 					ImmutableTriple<Integer, Integer, Integer> f = processSurface(inx);
 					obj_desc.addFace(f);
@@ -110,11 +108,11 @@ public class IFCtoObj {
 		return obj_desc;
 	}
 
-	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {		
+	private static Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
 		double x = byteBuffer.getDouble();
 		double y = byteBuffer.getDouble();
 		double z = byteBuffer.getDouble();
-	
+
 		double[] result = new double[4];
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
@@ -123,37 +121,37 @@ public class IFCtoObj {
 
 	}
 
-	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
-		
-		
+	private static ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
+
 		int xi = byteBuffer.getInt();
 		int yi = byteBuffer.getInt();
 		int zi = byteBuffer.getInt();
-		
-		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<Integer, Integer, Integer>(xi + 1, yi + 1, zi + 1);
+
+		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<>(xi + 1,
+				yi + 1, zi + 1);
 		return point;
 
 	}
 
-	
-	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
+	private static IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-			if(IFCGeometry.ifcOpenShellEngine_singlethon==null)
-			{
-				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
+			if (IFCGeometry.ifcOpenShellEngine_singlethon == null) {
+				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false,
+						true);
 				IFCGeometry.ifcOpenShellEngine_singlethon.init();
-			}			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
+			}
+			try (FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);) {
 
-			System.out.println("ifcFile: " + ifcFile);
-			IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
-			System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+				System.out.println("ifcFile: " + ifcFile);
+				IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
+				System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
 
-			model.generateGeneralGeometry();
-			return model;
-
+				model.generateGeneralGeometry();
+				return model;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

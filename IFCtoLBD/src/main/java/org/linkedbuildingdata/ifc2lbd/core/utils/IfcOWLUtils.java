@@ -81,11 +81,10 @@ public abstract class IfcOWLUtils {
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
 			return path;
-		} else {
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
-					new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
-			return path;
 		}
+		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
+				new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
+		return path;
 	}
 	
 
@@ -94,8 +93,7 @@ public abstract class IfcOWLUtils {
         List<RDFNode> list= RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcProject()), path);
         if(!list.isEmpty())
             return list.get(0).asResource();
-        else
-            return null;
+		return null;
     }
 
 
@@ -299,11 +297,10 @@ public abstract class IfcOWLUtils {
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
 			return path;
-		} else {
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
-					new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
-			return path;
 		}
+		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
+				new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
+		return path;
 	}
 
 		private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
@@ -441,8 +438,7 @@ public abstract class IfcOWLUtils {
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-                            else
-                                return null;
+							return null;
                         }
                     }
                 }
@@ -885,6 +881,7 @@ public abstract class IfcOWLUtils {
 		{
 			switch(state)
 			{
+			default:
 			case	0:
 				    if(ch=='\\' )
 				    	state=1;
@@ -947,6 +944,7 @@ public abstract class IfcOWLUtils {
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (state) {
+                default:
                 case 2:
                 if(!esc)
                 if (c == '\"' || c == '\'')

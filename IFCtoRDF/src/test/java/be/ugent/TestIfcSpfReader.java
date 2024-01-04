@@ -126,7 +126,7 @@ public class TestIfcSpfReader {
      *             if there is an error loading method parameters
      * @throws URISyntaxException
      */
-    private boolean compareFileContents(String testInputTTL, String testOutputTTL) throws IOException {
+    private static boolean compareFileContents(String testInputTTL, String testOutputTTL) throws IOException {
         FileInputStream finInput = new FileInputStream(testInputTTL);
         @SuppressWarnings("resource")
         BufferedReader brInput = new BufferedReader(new InputStreamReader(finInput));
@@ -147,9 +147,8 @@ public class TestIfcSpfReader {
 
         if (sbInput.toString().equals(sbOutput.toString())) {
             return true;
-        } else {
-            return false;
         }
+		return false;
     }
 
     /**

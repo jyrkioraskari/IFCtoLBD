@@ -108,7 +108,7 @@ public class IFCGeometry {
 		return boundingBox;
 	}
 
-	private Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer) {
+	private static Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer) {
 		double x = byteBuffer.getDouble();
 		double y = byteBuffer.getDouble();
 		double z = byteBuffer.getDouble();
@@ -165,7 +165,7 @@ public class IFCGeometry {
 		return obj_desc;
 	}
 
-	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
+	private static Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
 		double x = byteBuffer.getDouble();
 		double y = byteBuffer.getDouble();
 		double z = byteBuffer.getDouble();
@@ -178,13 +178,13 @@ public class IFCGeometry {
 
 	}
 
-	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
+	private static ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
 
 		int xi = byteBuffer.getInt();
 		int yi = byteBuffer.getInt();
 		int zi = byteBuffer.getInt();
 
-		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<Integer, Integer, Integer>(xi + 1,
+		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<>(xi + 1,
 				yi + 1, zi + 1);
 		return point;
 
@@ -192,7 +192,7 @@ public class IFCGeometry {
 
 	public static IfcOpenShellEngine ifcOpenShellEngine_singlethon = null;
 
-	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
+	private static IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);

@@ -61,7 +61,8 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasBoundingBoxWKT;
     final boolean hasHierarchicalNaming;
 
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
+    //TODO Check this
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,@SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -84,6 +85,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasHierarchicalNaming=hasHierarchicalNaming;
 	}
 
+	@Override
 	public Integer call() throws Exception {
 		try {
 			try {

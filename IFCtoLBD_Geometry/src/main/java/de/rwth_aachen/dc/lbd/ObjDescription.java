@@ -27,18 +27,18 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  */
 public class ObjDescription {
 	
-	List<Point3d> vertices = new ArrayList<Point3d>();
-	List<ImmutableTriple<Integer, Integer, Integer>> faces = new ArrayList<ImmutableTriple<Integer, Integer, Integer>>();
+	List<Point3d> vertices = new ArrayList<>();
+	List<ImmutableTriple<Integer, Integer, Integer>> faces = new ArrayList<>();
 
     public ObjDescription() {
     }
 
     public void addVertex(Point3d point) {
-    	vertices.add(point);
+    	this.vertices.add(point);
     }
     
     public void addFace(ImmutableTriple<Integer, Integer, Integer> face) {
-    	faces.add(face);
+    	this.faces.add(face);
      }
 
     @Override

@@ -10,7 +10,6 @@ import java.nio.file.attribute.PosixFilePermissions;
 
 public class OperatingSystemCopyOf_IfcGeomServer {
 
-    @SuppressWarnings("resource")
 	public static String getIfcGeomServer() {
 
         String OS = System.getProperty("os.name").toLowerCase();

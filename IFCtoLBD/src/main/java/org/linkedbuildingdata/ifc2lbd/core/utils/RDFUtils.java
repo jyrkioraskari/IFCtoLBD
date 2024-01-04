@@ -130,7 +130,6 @@ public abstract class RDFUtils {
      */
     public static void readInOntologyTTL(Model model, String ontology_file, EventBus eventBus) {
 
-        @SuppressWarnings("resource")
 		InputStream in = null;
         try {
             in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
@@ -211,21 +210,21 @@ public abstract class RDFUtils {
     public static List<RDFNode> pathQuery(Resource r, RDFStep[] path) {
         List<RDFStep> path_list = Arrays.asList(path);
         if (r.getModel() == null)
-            return new ArrayList<RDFNode>();
+            return new ArrayList<>();
         Optional<RDFStep> step = path_list.stream().findFirst();
         if (step.isPresent()) {
             List<RDFNode> step_result = step.get().next(r);
             if (path.length > 1) {
-                final List<RDFNode> result = new ArrayList<RDFNode>();
+                final List<RDFNode> result = new ArrayList<>();
                 step_result.stream().filter(rn1 -> rn1.isResource()).map(rn2 -> rn2.asResource()).forEach(r1 -> {
                     List<RDFStep> tail = path_list.stream().skip(1).collect(Collectors.toList());
                     result.addAll(pathQuery(r1, tail.toArray(new RDFStep[tail.size()])));
                 });
                 return result;
-            } else
-                return step_result;
+            }
+			return step_result;
         }
-        return new ArrayList<RDFNode>();
+        return new ArrayList<>();
     }
 
     /**

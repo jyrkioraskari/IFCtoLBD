@@ -43,7 +43,7 @@ import fi.ni.rdf.Namespace;
  */
 
 /*
- * Copyright 2016 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
+ * Copyright 2016, 2024 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,7 +140,7 @@ public class ExpressReader {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		// args should be: IFC2X3_Final, IFC2X3_TC1, IFC4 or IFC4_ADD1, nothing
 		// else is accepted here
 		if (args.length != 2)
@@ -203,8 +203,8 @@ public class ExpressReader {
 		}
 	}
 
-	private void generateNamedIndividualsWithoutRenaming() throws IOException {
-		for (Map.Entry<String, TypeVO> entry : types.entrySet()) {
+	private void generateNamedIndividualsWithoutRenaming() {
+		for (Map.Entry<String, TypeVO> entry : this.types.entrySet()) {
 			TypeVO vo = entry.getValue();
 			for (int n = 0; n < vo.getEnumEntities().size(); n++) {
 				getEnumIndividuals().add(new NamedIndividualVO(vo.getName(), vo
@@ -213,9 +213,9 @@ public class ExpressReader {
 		}
 	}
 
-	private void rearrangeAttributesWithFullRenaming() throws IOException {
+	private void rearrangeAttributesWithFullRenaming() {
 
-		Iterator<Entry<String, EntityVO>> iter = entities.entrySet().iterator();
+		Iterator<Entry<String, EntityVO>> iter = this.entities.entrySet().iterator();
 		while (iter.hasNext()) {
 			Entry<String, EntityVO> pairs = iter.next();
 			EntityVO evo = pairs.getValue();
@@ -448,15 +448,14 @@ public class ExpressReader {
 			//JO 2024
 			fos = new FileOutputStream(filePath+"ent"+schemaName+".ser");
 
-			ObjectOutputStream oos = new ObjectOutputStream(fos);
-			oos.writeObject(entities);
-			oos.close();
-
+			try (ObjectOutputStream oos1 = new ObjectOutputStream(fos)) {
+				oos1.writeObject(this.entities);
+			}
 			fos = new FileOutputStream(filePath+"typ"+schemaName+".ser");
 
-			oos = new ObjectOutputStream(fos);
-			oos.writeObject(types);
-			oos.close();
+			try (ObjectOutputStream oos2 = new ObjectOutputStream(fos)) {
+				oos2.writeObject(this.types);
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -479,29 +478,30 @@ public class ExpressReader {
 		try {
 			File file = new File(filePath+"proplist"+schemaName+".csv");
 			FileWriter fw = new FileWriter(file);
-			BufferedWriter bw = new BufferedWriter(fw);	
+			try (BufferedWriter bw = new BufferedWriter(fw)) { // JO 2024
+				Iterator<Entry<String, EntityVO>> it = this.entities.entrySet().iterator();
+				while (it.hasNext()) {
+					Entry<String, EntityVO> pairs = it.next();
+					EntityVO evo = pairs.getValue();
+					List<AttributeVO> attrs = evo.getDerivedAttributeList();
+					for(AttributeVO attr : attrs){
+						String setorlist = "ENTITY";
+						if(attr.isSet())
+							setorlist = "SET";
+						else if (attr.isArray())
+							setorlist = "ARRAY";
+						else if (attr.isListOfList())
+							setorlist = "LISTOFLIST";
+						else if (attr.isList())
+							setorlist = "LIST";
 
-			Iterator<Entry<String, EntityVO>> it = entities.entrySet().iterator();
-			while (it.hasNext()) {
-				Entry<String, EntityVO> pairs = it.next();
-				EntityVO evo = pairs.getValue();
-				List<AttributeVO> attrs = evo.getDerivedAttributeList();
-				for(AttributeVO attr : attrs){
-					String setorlist = "ENTITY";
-					if(attr.isSet())
-						setorlist = "SET";
-					else if (attr.isArray())
-						setorlist = "ARRAY";
-					else if (attr.isListOfList())
-						setorlist = "LISTOFLIST";
-					else if (attr.isList())
-						setorlist = "LIST";
-
-					bw.write(evo.getName() + "," + attr.getOriginalName() + "," + attr.getName() +  "," + setorlist + "\r\n");		
+						bw.write(evo.getName() + "," + attr.getOriginalName() + "," + attr.getName() +  "," + setorlist + "\r\n");		
+					}
+					bw.flush();
 				}
-				bw.flush();
-			}
-			bw.close();
+				bw.close();
+			}	
+
 			fw.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -590,10 +590,10 @@ public class ExpressReader {
 
 		if (isList)
 			return s + "_List";
-		else
-			return s;
+		return s;
 	}
 
+	@SuppressWarnings("unused")
 	private void stateMachine(String txt) {
 
 		switch (state) {
@@ -645,73 +645,73 @@ public class ExpressReader {
 							formatClassName(txt).equalsIgnoreCase("BOOLEAN") || formatClassName(txt).equalsIgnoreCase("STRING") || 
 							formatClassName(txt).equalsIgnoreCase("BINARY"))
 						new PrimaryTypeVO(formatClassName(txt));
-					state = INIT_STATE;
+					this.state = INIT_STATE;
 				}
 				txt = formatClassName(txt);
 			} else {
 				// references to TypeVOs
 				if (txt.endsWith(";"))
 					txt = txt.substring(0, txt.length() - 1);
-				state = INIT_STATE;
+				this.state = INIT_STATE;
 			}
-			current_type.setPrimarytype(txt);
+			this.current_type.setPrimarytype(txt);
 			break;
 
 		case TYPE_ARRAY:
 			if (!txt.endsWith(";")) {
-				if (current_type != null)
-					current_type.setPrimarytype(current_type.getPrimarytype()
+				if (this.current_type != null)
+					this.current_type.setPrimarytype(this.current_type.getPrimarytype()
 							+ " " + txt);
 			} else {
-				if (current_type != null)
-					current_type.setPrimarytype(current_type.getPrimarytype()
+				if (this.current_type != null)
+					this.current_type.setPrimarytype(this.current_type.getPrimarytype()
 							+ " " + txt);
-				state = INIT_STATE;
+				this.state = INIT_STATE;
 			}
 			break;
 
 		case TYPE_LIST:
 			if (!txt.endsWith(";")) {
-				if (current_type != null)
-					current_type.setPrimarytype(current_type.getPrimarytype()
+				if (this.current_type != null)
+					this.current_type.setPrimarytype(this.current_type.getPrimarytype()
 							+ " " + txt);
 			} else {
-				if (current_type != null)
-					current_type.setPrimarytype(current_type.getPrimarytype()
+				if (this.current_type != null)
+					this.current_type.setPrimarytype(this.current_type.getPrimarytype()
 							+ " " + txt);
-				state = INIT_STATE;
+				this.state = INIT_STATE;
 			}
 			break;
 
 		case TYPE_SELECT:
 			if (txt.endsWith(";")) {
 				String txtT = filterExtras(txt);
-				if (current_type != null)
-					current_type.getSelectEntities().add(txtT);
-				state = INIT_STATE;
+				if (this.current_type != null)
+					this.current_type.getSelectEntities().add(txtT);
+				this.state = INIT_STATE;
 			} else {
 				String txtT = filterExtras(txt);
-				if (current_type != null)
-					current_type.getSelectEntities().add(txtT);
+				if (this.current_type != null)
+					this.current_type.getSelectEntities().add(txtT);
 			}
 			break;
 
 		case TYPE_ENUMERATION:
 			if ("OF".equals(txt)) {
-				state = TYPE_ENUMERATION_OF;
+				this.state = TYPE_ENUMERATION_OF;
 			}
 			break;
 
 		case TYPE_ENUMERATION_OF:
 			if (txt.endsWith(";")) {
 				String txtT = formatClassName(txt);
-				if (current_type != null)
-					current_type.getEnumEntities().add(txtT);
-				state = INIT_STATE;
+				if (this.current_type != null)
+					this.current_type.getEnumEntities().add(txtT);
+				this.state = INIT_STATE;
 			} else {
 				String txtT = formatClassName(txt);
-				if (current_type != null)
-					current_type.getEnumEntities().add(txtT);
+				if (this.current_type != null)
+					this.current_type.getEnumEntities().add(txtT);
 			}
 			break;
 
@@ -722,36 +722,36 @@ public class ExpressReader {
 			if (orgName.endsWith(";"))
 				orgName = orgName.substring(0, orgName.length() - 1);
 			String entityName = ExpressReader.formatClassName(orgName);
-			current_entity = entities.get(entityName);
-			if (current_entity == null) {
-				current_entity = new EntityVO(orgName);
-				entities.put(entityName, current_entity);
+			this.current_entity = this.entities.get(entityName);
+			if (this.current_entity == null) {
+				this.current_entity = new EntityVO(orgName);
+				this.entities.put(entityName, this.current_entity);
 			}
-			state = ENTITY_STATE;
+			this.state = ENTITY_STATE;
 			break;
 
 		case ENTITY_STATE:
-			is_array = false;
-			is_set = false;
-			is_list = false;
-			is_optional = false;
-			tmp_mincard = 0;
-			tmp_maxcard = -1;
-			is_listoflist = false;
-			tmp_listoflist_mincard = 0;
-			tmp_listoflist_maxcard = -1;
+			this.is_array = false;
+			this.is_set = false;
+			this.is_list = false;
+			this.is_optional = false;
+			this.tmp_mincard = 0;
+			this.tmp_maxcard = -1;
+			this.is_listoflist = false;
+			this.tmp_listoflist_mincard = 0;
+			this.tmp_listoflist_maxcard = -1;
 
 			if (txt.equalsIgnoreCase("SUBTYPE")) {
-				state = ENTITY_SUBTYPE_STATE;
+				this.state = ENTITY_SUBTYPE_STATE;
 			} else if (txt.equalsIgnoreCase("SUPERTYPE")) {
-				state = ENTITY_SUPERTYPE;
+				this.state = ENTITY_SUPERTYPE;
 			} else if (txt.equalsIgnoreCase("ABSTRACT")) {
-				current_entity.setAbstractSuperclass(true);
-				state = ENTITY_SUPERTYPE;
+				this.current_entity.setAbstractSuperclass(true);
+				this.state = ENTITY_SUPERTYPE;
 			} else if (txt.equalsIgnoreCase("INVERSE")) {
-				state = ENTITY_INVERSE_STATE;
+				this.state = ENTITY_INVERSE_STATE;
 			} else if (txt.equalsIgnoreCase("UNIQUE")) {
-				state = ENTITY_UNIQUE;
+				this.state = ENTITY_UNIQUE;
 			} else if (txt.equalsIgnoreCase("WHERE")) {
 				state = ENTITY_WHERE;
 			} else if (txt.equalsIgnoreCase("DERIVE")) {

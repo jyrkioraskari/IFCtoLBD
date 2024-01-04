@@ -33,7 +33,7 @@ import fi.ni.rdf.Namespace;
  */
 
 /*
- * Copyright 2016 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
+ * Copyright 2016, 2024 Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,8 +74,8 @@ public class OWLWriter {
     }
 
     public void outputOWL(String filePath) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filePath)); //includes .ttl extension
+    	// JO 2024
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
             out.write("@base <" + Namespace.IFC + "> .\r\n");
             out.write("@prefix : <" + Namespace.IFC + "#> .\r\n");
             out.write("@prefix ifc: <" + Namespace.IFC + "#> .\r\n");
@@ -94,7 +94,6 @@ public class OWLWriter {
                 outputOWLproperty(out, property);
             }
 
-            out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -102,8 +101,8 @@ public class OWLWriter {
     }
 
     public void outputExpressOWL(String filePath) {
-        try {
-            BufferedWriter out = new BufferedWriter(new FileWriter(filePath)); //includes .ttl
+    	// JO 2024
+        try (BufferedWriter out = new BufferedWriter(new FileWriter(filePath))) {
             out.write("@base <" + Namespace.EXPRESS + "> .\r\n");
             out.write("@prefix : <" + Namespace.EXPRESS + "#> .\r\n");
             out.write("@prefix expr: <" + Namespace.EXPRESS + "#> .\r\n");
@@ -112,7 +111,6 @@ public class OWLWriter {
             writePrimaryTypes(out);
             writeHelperClasses(out);
 
-            out.close();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -284,8 +282,8 @@ public class OWLWriter {
         }
     }
 
-    private void writePrimaryTypes(BufferedWriter out) throws IOException {
-        HashMap<String, String> hm = new HashMap<String, String>();
+    private static void writePrimaryTypes(BufferedWriter out) throws IOException {
+        HashMap<String, String> hm = new HashMap<>();
         for (PrimaryTypeVO pt : PrimaryTypeVO.getListOfPrimaryTypes()) {
             // if (pt.getPTypeName().equalsIgnoreCase("BOOLEAN")) {
             // out.write("express:" + pt.getPTypeName() + "\r\n");
@@ -379,7 +377,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeHelperClasses(BufferedWriter out) throws IOException {
+    private static void writeHelperClasses(BufferedWriter out) throws IOException {
         // enumeration class
         out.write("expr:ENUMERATION" + "\r\n");
         out.write("\trdf:type owl:Class ." + "\r\n\r\n");
@@ -483,7 +481,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeRegularProperty(AttributeVO attr, BufferedWriter out) throws IOException {
+    private static void writeRegularProperty(AttributeVO attr, BufferedWriter out) throws IOException {
         // write property range
         out.write(" ;\r\n");
         out.write("\trdfs:subClassOf" + "\r\n");//
@@ -586,7 +584,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeInverseProperty(PropertyVO prop, BufferedWriter out) throws IOException {
+    private static void writeInverseProperty(PropertyVO prop, BufferedWriter out) throws IOException {
         out.write(" ;\r\n");
         out.write("\trdfs:subClassOf" + "\r\n");
         out.write("\t\t[" + "\r\n");
@@ -735,7 +733,7 @@ public class OWLWriter {
         out.write("\trdfs:subClassOf expr:ENUMERATION ." + "\r\n\r\n");
     }
 
-    private void writeSelects(TypeVO tvo, BufferedWriter out) throws IOException {
+    private static void writeSelects(TypeVO tvo, BufferedWriter out) throws IOException {
         out.write("ifc:" + tvo.getName() + "\r\n");
         out.write("\trdf:type owl:Class ;" + "\r\n");
         if (tvo.getParentSelectTypes() != null) {
@@ -946,7 +944,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeSetTypeVO(TypeVO tvo, BufferedWriter out) throws IOException {
+    private static void writeSetTypeVO(TypeVO tvo, BufferedWriter out) throws IOException {
         String[] cList = tvo.getPrimarytype().split(" ");
         String content = cList[cList.length - 1];
         if (content.endsWith(";"))
@@ -987,7 +985,7 @@ public class OWLWriter {
         out.write("\t\t] ." + "\r\n" + "\r\n");
     }
 
-    private void writeRegularTypeVO(TypeVO tvo, BufferedWriter out) throws IOException {
+    private static void writeRegularTypeVO(TypeVO tvo, BufferedWriter out) throws IOException {
         out.write("ifc:" + tvo.getName() + "\r\n");
         out.write("\trdf:type owl:Class ;" + "\r\n");
 
@@ -1161,7 +1159,7 @@ public class OWLWriter {
         return s;
     }
 
-    private void writeCardinalityRestrictionsForArray(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
+    private static void writeCardinalityRestrictionsForArray(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
         // write cardinality restrictions for the referenced array
         if ((minCard == -1 && maxCard == -1) || (minCard != -1 && maxCard == -1) || (minCard == -1 && maxCard != -1)) {
             System.out.println("WARNING - IMPOSSIBLE: did not find required cardinality restrictions for ARRAY property : " + attrName);
@@ -1177,7 +1175,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeCardinalityRestrictionsForList(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
+    private static void writeCardinalityRestrictionsForList(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
         if (minCard == -1 && maxCard == -1) {
             System.out.println("WARNING: [?,?] found for : " + attrName + " - " + className);
         } else if (minCard == -1 && maxCard != -1) {
@@ -1217,7 +1215,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeCardinalityRestrictionsForListOfList(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
+    private static void writeCardinalityRestrictionsForListOfList(int minCard, int maxCard, String className, String attrName, BufferedWriter out, boolean asEntity) throws IOException {
         // write cardinality restrictions for the referenced list
 
         if (minCard == -1 && maxCard == -1) {
@@ -1267,7 +1265,7 @@ public class OWLWriter {
     }
 
     @SuppressWarnings("unused")
-    private void writeQualCardRestr(String className, String attrName, BufferedWriter out, int qualCard) throws IOException {
+    private static void writeQualCardRestr(String className, String attrName, BufferedWriter out, int qualCard) throws IOException {
         out.write(" ;\r\n");
         out.write("\trdfs:subClassOf" + "\r\n");
         out.write("\t\t[" + "\r\n");
@@ -1300,7 +1298,7 @@ public class OWLWriter {
         out.write("\t\t]");
     }
 
-    private void writeMinCardRestr(String className, String attrName, BufferedWriter out, int minCard, boolean asEntity) throws IOException {
+    private static void writeMinCardRestr(String className, String attrName, BufferedWriter out, int minCard, boolean asEntity) throws IOException {
         out.write(" ;\r\n");
         out.write("\trdfs:subClassOf" + "\r\n");
         String tab = "\t";
@@ -1328,7 +1326,7 @@ public class OWLWriter {
         }
     }
 
-    private void writeMaxCardRestr(String className, String attrName, BufferedWriter out, int maxCard, boolean asEntity) throws IOException {
+    private static void writeMaxCardRestr(String className, String attrName, BufferedWriter out, int maxCard, boolean asEntity) throws IOException {
         out.write(" ;\r\n");
         out.write("\trdfs:subClassOf" + "\r\n");
         String tab = "\t";
@@ -1366,7 +1364,7 @@ public class OWLWriter {
     }
 
     @SuppressWarnings("unused")
-    private void writeExtraCardinalityRestrictionsForListOfList(AttributeVO attr, BufferedWriter out) throws IOException {
+    private static void writeExtraCardinalityRestrictionsForListOfList(AttributeVO attr, BufferedWriter out) throws IOException {
         if (attr.getMinCardListOfList() == -1 && attr.getMaxCardListOfList() == -1) {
             System.out.println("WARNING: [?,?] found for : " + attr.getLowerCaseName() + " - " + attr.getType().getName());
         } else if (attr.getMinCardListOfList() == -1 && attr.getMaxCardListOfList() != -1) {

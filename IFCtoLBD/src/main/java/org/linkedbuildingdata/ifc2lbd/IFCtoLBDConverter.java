@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Timer;
@@ -249,52 +248,41 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		return this.lbd_general_output_model;
 	}
 
-	private String unzip(String ifcZipFile) {
-		ZipInputStream zis = null;
-		try {
+	private static String unzip(String ifcZipFile) {
+		try (ZipInputStream zis = new ZipInputStream(new FileInputStream(ifcZipFile));){
 			byte[] buffer = new byte[1024];
-			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
+			
 			ZipEntry zipEntry = zis.getNextEntry();
 			while (zipEntry != null) {
 				System.out.println("entry: " + zipEntry);
 				//String name = zipEntry.getName().split("\\.")[0];
 				File newFile = File.createTempFile("ifc", ".ifc");
 
-				// write file content
-				FileOutputStream fos = new FileOutputStream(newFile);
-				int len;
-				while ((len = zis.read(buffer)) > 0) {
-					fos.write(buffer, 0, len);
+				// JO 2024
+				try (// write file content
+				FileOutputStream fos = new FileOutputStream(newFile)) {
+					int len;
+					while ((len = zis.read(buffer)) > 0) {
+						fos.write(buffer, 0, len);
+					}
+					fos.close();
 				}
-				fos.close();
-
 				zipEntry = zis.getNextEntry();
 				zis.close();
 				newFile.deleteOnExit();
 				return newFile.getAbsolutePath();
 			}
 
-		} catch (FileNotFoundException e) {
-			try {
-				if(zis!=null)
-				  zis.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+		} catch (FileNotFoundException e) {			
 			e.printStackTrace();
 		} catch (Exception e) {
-			try {
-				if(zis!=null)
-				  zis.close();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+			
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) throws InterruptedException {
+	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) {
 		CompletableFuture<IFCGeometry> completableFuture = new CompletableFuture<>();
 
 		Executors.newCachedThreadPool().submit(() -> {
@@ -417,11 +405,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		CompletableFuture<IFCGeometry> future_ifc_geometry = null;
 		if (hasGeometry)
-			try {
-				future_ifc_geometry = getgeom(ifc_filename);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			future_ifc_geometry = getgeom(ifc_filename);
 
 		this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 				hasPerformanceBoost); // Before:
@@ -495,6 +479,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 	}
 
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		JenaSystem.init();
 		if (args.length > 3) {
@@ -519,19 +504,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		} else if (args.length == 1) {
 			// directory upload
 			final List<String> inputFiles;
-			final List<String> outputFiles;
+			//final List<String> outputFiles;  //TODO Check this
 			inputFiles = FileUtils.listFiles(args[0]);
-			outputFiles = null;
+			//outputFiles = null;
 
 			for (int i = 0; i < inputFiles.size(); ++i) {
 				final String inputFile = inputFiles.get(i);
 				String outputFile;
 				if (inputFile.endsWith(".ifc")) {
-					if (outputFiles == null) {
+					//TODO Check this
+					//if (outputFiles == null) {
 						outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
-					} else {
-						outputFile = outputFiles.get(i);
-					}
+					//} else {
+					//	outputFile = outputFiles.get(i);
+					//}
 
 					outputFile = outputFile.replaceAll(args[0], args[0] + "\\___out\\");
 					String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");

@@ -56,7 +56,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
 
-	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
+    //TODO Check this
+	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -76,24 +77,25 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 	}
 
+	@Override
 	public IFCtoLBDConverter call() throws Exception {
 		try {
 			IFCtoLBDConverter c1nb;
 			try {
-				c1nb = new IFCtoLBDConverter(uriBase, false, this.props_level);
-				c1nb.convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL);
+				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
+				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL);
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
-				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
-				eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+				this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+				this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
 				return null;
 			}
-			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN));
+			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN));
 			return c1nb;
 		} catch (Exception e) {
 			e.printStackTrace();
-			eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
-			eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+			this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return null;
 	}

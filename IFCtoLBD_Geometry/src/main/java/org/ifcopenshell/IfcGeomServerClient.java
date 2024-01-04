@@ -122,9 +122,8 @@ public class IfcGeomServerClient implements AutoCloseable {
 		final String os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("windows")) {
 			return ".exe";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
 	public static Path getExecutablePathFromRepo(Path root) throws PluginException {
@@ -242,7 +241,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 		}
 	}
 
-	public IfcGeomServerClient(Path executableFilename) throws RenderEngineException {
+	public IfcGeomServerClient(Path executableFilename) {
 		this.executableFilename = executableFilename;
 	}
 
@@ -573,7 +572,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 					readByteBuffer(s), readByteBuffer(s), readByteBuffer(s), readRemainder(bis));
 		}
 
-		private String readRemainder(ByteArrayInputStream bis) {
+		private static String readRemainder(ByteArrayInputStream bis) {
 			if (bis.available() == 0) {
 				return null;
 			}
@@ -583,7 +582,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 		}
 
 		public IfcGeomServerClientEntity getEntity() {
-			return entity;
+			return this.entity;
 		}
 
 		@Override

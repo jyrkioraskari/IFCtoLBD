@@ -46,15 +46,16 @@ public class Example4 {
 						+ "  ?g <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
 						+ "  ?g fog:asObj_v3.0-obj ?obj \r\n"
 						+ "} ");
-				QueryExecution queryExecution = QueryExecutionFactory.create(query, m);
-				ResultSet rs = queryExecution.execSelect();
-				rs.forEachRemaining(qs -> {
-					System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
-					System.out.println("BOT element WKT: "+qs.get("wkt"));
-					System.out.println("BOT element OBJ: "+qs.get("obj"));
-					
-				});
-				//m.write(System.out, "TTL");
+				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
+					ResultSet rs = queryExecution.execSelect();
+					rs.forEachRemaining(qs -> {
+						System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
+						System.out.println("BOT element WKT: "+qs.get("wkt"));
+						System.out.println("BOT element OBJ: "+qs.get("obj"));
+						
+					});
+					//m.write(System.out, "TTL");
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

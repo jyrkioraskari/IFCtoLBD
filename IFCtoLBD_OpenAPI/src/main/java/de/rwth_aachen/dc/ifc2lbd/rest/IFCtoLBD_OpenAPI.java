@@ -79,7 +79,7 @@ public class IFCtoLBD_OpenAPI {
 	}
 
 
-	private void extractIFCtoLBD(File ifcFile, StringBuilder result_string, RDFFormat rdfformat) {
+	private static void extractIFCtoLBD(File ifcFile, StringBuilder result_string, RDFFormat rdfformat) {
 		IFCtoLBDConverter lbdconverter = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset", false, 3);
 		Model m = lbdconverter.convert(ifcFile.getAbsolutePath());
 
@@ -96,6 +96,7 @@ public class IFCtoLBD_OpenAPI {
 				this.string.append((char) b);
 			}
 
+			@Override
 			public String toString() {
 				return this.string.toString();
 			}

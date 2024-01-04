@@ -13,6 +13,7 @@ public class TestUTF8 {
 		{
 			switch(state)
 			{
+			default: 
 			case	0:
 				    if(ch=='\\' || ch=='/')
 				    	state=1;

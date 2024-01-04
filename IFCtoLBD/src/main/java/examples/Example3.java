@@ -26,12 +26,13 @@ public class Example3 {
 					+ "SELECT ?e WHERE {\r\n"
 					+ "  ?e a bot:Element .\r\n"
 					+ "} ");
-			QueryExecution queryExecution = QueryExecutionFactory.create(query, m);
-			ResultSet rs = queryExecution.execSelect();
-			rs.forEachRemaining(qs -> {
-				System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
-				
-			});
+			try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
+				ResultSet rs = queryExecution.execSelect();
+				rs.forEachRemaining(qs -> {
+					System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
+					
+				});
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

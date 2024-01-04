@@ -20,14 +20,16 @@ public class WktLiteral extends BaseDatatype {
      * Convert a value of this datatype out
      * to lexical form.
      */
-    public String unparse(Object value) {
+    @Override
+	public String unparse(Object value) {
         return value.toString();
     }
 
     /**
      * Parse a lexical form of this datatype to a value
      */
-    public Object parse(String lexicalForm) {
+    @Override
+	public Object parse(String lexicalForm) {
         return new TypedValue(String.format("%s %s", WktLiteral.CRS84, lexicalForm), this.getURI());
     }
 
@@ -40,7 +42,8 @@ public class WktLiteral extends BaseDatatype {
      * @param value2 Second value to compare
      * @return Value to determine whether both are equal.
      */
-    public boolean isEqual(LiteralLabel value1, LiteralLabel value2) {
+    @Override
+	public boolean isEqual(LiteralLabel value1, LiteralLabel value2) {
         return value1.getDatatype() == value2.getDatatype()
                 && value1.getValue().equals(value2.getValue());
     }

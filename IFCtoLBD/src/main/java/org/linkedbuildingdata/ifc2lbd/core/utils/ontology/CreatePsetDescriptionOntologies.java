@@ -24,9 +24,8 @@ public class CreatePsetDescriptionOntologies {
 
     public static void readInOntologyTTL(Model model, String ontology_file) {
 
-        try {
-            InputStream in;
-            in = new FileInputStream(new File(ontology_file));
+    	// JO 2024
+        try (InputStream in = new FileInputStream(new File(ontology_file))) {
             model.read(in, null, "TTL");
             in.close();
         } catch (FileNotFoundException e) {
@@ -95,7 +94,7 @@ public class CreatePsetDescriptionOntologies {
         System.out.println("java -jar C:\\temp\\IFC-PSD\\widoco-1.4.14-jar-with-dependencies.jar -confFile "+config+" -ontFile "+ontfile+" -rewriteAll -excludeIntroduction -includeAnnotationProperties -uniteSections -outFolder C:\\temp\\IFC-PSD\\out\\"+ontology);
     }
 
-    public static void generate(String[] args) {
+    public static void generate(@SuppressWarnings("unused") String[] args) {
 
         
         List<String> files = FileUtils.listFiles("C:\\temp\\IFC-PSD\\psets");

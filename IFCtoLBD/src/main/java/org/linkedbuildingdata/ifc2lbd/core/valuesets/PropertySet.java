@@ -286,14 +286,11 @@ public class PropertySet {
 
         if (val == null)
             return Optional.empty();
-        else {
-            if (!val.isLiteral())
-                return Optional.empty();
-            if (val.asLiteral().getValue().equals(true))
-                return Optional.of(true);
-            else
-                return Optional.of(false);
-        }
+		if (!val.isLiteral())
+		    return Optional.empty();
+		if (val.asLiteral().getValue().equals(true))
+		    return Optional.of(true);
+		return Optional.of(false);
     }
 
     

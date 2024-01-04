@@ -201,8 +201,7 @@ public class IfcSpfReader {
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-                            else
-                                return "";
+							return "";
                         }
                     }
                 }
