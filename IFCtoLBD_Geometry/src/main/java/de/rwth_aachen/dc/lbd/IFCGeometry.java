@@ -94,7 +94,7 @@ public class IFCGeometry {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				
+
 				while (ver.hasRemaining()) {
 					Point3d p = processExtends(tranformationMatrix, ver);
 					boundingBox.add(p);
@@ -145,7 +145,7 @@ public class IFCGeometry {
 				}
 
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				ver=ver.position(0);
+				ver = ver.position(0);
 				while (ver.hasRemaining()) {
 					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
@@ -190,27 +190,29 @@ public class IFCGeometry {
 
 	}
 
-	public static IfcOpenShellEngine ifcOpenShellEngine_singlethon=null;
-	
+	public static IfcOpenShellEngine ifcOpenShellEngine_singlethon = null;
+
 	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-			
-			if(IFCGeometry.ifcOpenShellEngine_singlethon==null)
-			{
-				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
+
+			if (IFCGeometry.ifcOpenShellEngine_singlethon == null) {
+				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false,
+						true);
 				IFCGeometry.ifcOpenShellEngine_singlethon.init();
 			}
-			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
+			// JO 2024
+			try (FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);) {
+				System.out.println("ifcFile: " + ifcFile);
+				IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
+				System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
 
-			System.out.println("ifcFile: " + ifcFile);
-			IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
-			System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+				model.generateGeneralGeometry();
 
-			model.generateGeneralGeometry();
-			return model;
+				return model;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

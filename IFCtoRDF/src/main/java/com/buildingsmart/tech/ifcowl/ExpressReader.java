@@ -444,8 +444,9 @@ public class ExpressReader {
 			filePath = filePathNoExt.substring(0, filePathNoExt.lastIndexOf(File.separatorChar))+File.separatorChar;
 		System.out.println("writing output to : " + filePath+"ent"+schemaName+".ser and " + filePath+"typ"+schemaName+".ser");
 
-		FileOutputStream fos;
+		FileOutputStream fos = null;
 		try {
+			//JO 2024
 			fos = new FileOutputStream(filePath+"ent"+schemaName+".ser");
 
 			ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -459,6 +460,15 @@ public class ExpressReader {
 			oos.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		finally {
+			try {
+				if(fos!=null)
+				  fos.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}	
 

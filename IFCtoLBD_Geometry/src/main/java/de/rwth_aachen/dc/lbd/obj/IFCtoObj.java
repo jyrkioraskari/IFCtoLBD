@@ -50,7 +50,9 @@ public class IFCtoObj {
 		} catch (TimeoutException ex) {
 			System.out.println("Timeout");
 		} catch (InterruptedException e) {
+			e.printStackTrace();
 		} catch (ExecutionException e) {
+			e.printStackTrace();
 		} finally {
 			future.cancel(true); // may or may not desire this
 		}

@@ -1,5 +1,5 @@
 /*
- * 
+ * 2024
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -224,78 +224,79 @@ public class IfcSpfReader {
 
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
-        ifcFile = ifcFileIn;
-        if (!ifcFile.endsWith(".ifc")) {
-            ifcFile += ".ifc";
+        this.ifcFile = ifcFileIn;
+        if (!this.ifcFile.endsWith(".ifc")) {
+            this.ifcFile += ".ifc";
         }
 
-        exp = getExpressSchema(ifcFile);
-        System.out.println("express schema: "+exp);
+        this.exp = getExpressSchema(this.ifcFile);
+        System.out.println("express schema: "+this.exp);
 
         // check if we are able to convert this: only four schemas are supported
-        if (!exp.equalsIgnoreCase("IFC2X3_Final") && !exp.equalsIgnoreCase("IFC2X3_TC1") && !exp.equalsIgnoreCase("IFC4_ADD2") && !exp.equalsIgnoreCase("IFC4_ADD1") && !exp.equalsIgnoreCase("IFC4")
-                        && !exp.equalsIgnoreCase("IFC4x1") && !exp.equalsIgnoreCase("IFC4x3_RC1")) {
-            LOG.error("Unrecognised EXPRESS schema: " + exp + ". File should be in IFC4x3_RC1, IFC4X1, IFC4 or IFC2X3 schema. Quitting." + "\r\n");
+        if (!this.exp.equalsIgnoreCase("IFC2X3_Final") && !this.exp.equalsIgnoreCase("IFC2X3_TC1") && !this.exp.equalsIgnoreCase("IFC4_ADD2") && !this.exp.equalsIgnoreCase("IFC4_ADD1") && !this.exp.equalsIgnoreCase("IFC4")
+                        && !this.exp.equalsIgnoreCase("IFC4x1") && !this.exp.equalsIgnoreCase("IFC4x3_RC1")) {
+            LOG.error("Unrecognised EXPRESS schema: " + this.exp + ". File should be in IFC4x3_RC1, IFC4X1, IFC4 or IFC2X3 schema. Quitting." + "\r\n");
         }
 
         try {
 
             //JO -->>> 
-            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
+            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + this.exp + ".ser");
             if (fis == null)
-                fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+                fis = IfcSpfReader.class.getResourceAsStream("/ent" + this.exp + ".ser");
             
             
          // Fix by JO 2024: finally is deprecated
             if(fis==null)
             {
-            	System.err.println(exp + ".ser not found");
+            	System.err.println(this.exp + ".ser not found");
             }
             try (ObjectInputStream ois = new ObjectInputStream(fis);){
-                ent = (Map<String, EntityVO>) ois.readObject();
+                this.ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } 
 
             //JO -->>> 
-            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
+            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + this.exp + ".ser");
             if (fis == null)
-                fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+                fis = IfcSpfReader.class.getResourceAsStream("/typ" + this.exp + ".ser");
 
             //  Fix by JO 2024: finally is deprecated
             try (ObjectInputStream ois = new ObjectInputStream(fis);){
-                typ = (Map<String, TypeVO>) ois.readObject();
+                this.typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } 
-            
+            if(fis!=null)  // Potential leak
+              fis.close();
 
-            String inAlt = exp;
-            if (exp.equalsIgnoreCase("IFC2X3_Final"))
+            String inAlt = this.exp;
+            if (this.exp.equalsIgnoreCase("IFC2X3_Final"))
                 inAlt = "IFC2x3/FINAL/";
-            if (exp.equalsIgnoreCase("IFC2X3_TC1"))
+            if (this.exp.equalsIgnoreCase("IFC2X3_TC1"))
                 inAlt = "IFC2x3/TC1/";
-            if (exp.equalsIgnoreCase("IFC4_ADD1"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD1"))
                 inAlt = "IFC4/ADD1/";
-            if (exp.equalsIgnoreCase("IFC4_ADD2"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD2"))
                 inAlt = "IFC4/ADD2/";
-            if (exp.equalsIgnoreCase("IFC4_ADD2_TC1"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD2_TC1"))
                 inAlt = "IFC4/ADD2_TC1/";
-            if (exp.equalsIgnoreCase("IFC4x1"))
+            if (this.exp.equalsIgnoreCase("IFC4x1"))
                 inAlt = "IFC4_1/";
-            if (exp.equalsIgnoreCase("IFC4x3"))
+            if (this.exp.equalsIgnoreCase("IFC4x3"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4X3"))
+            if (this.exp.equalsIgnoreCase("IFC4X3"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4x3_RC1"))
+            if (this.exp.equalsIgnoreCase("IFC4x3_RC1"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4X3_RC1"))
+            if (this.exp.equalsIgnoreCase("IFC4X3_RC1"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4"))
+            if (this.exp.equalsIgnoreCase("IFC4"))
                 inAlt = "IFC4/FINAL/";
 
-            ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
-            System.out.println("IFCtoRDF ont uri: "+ontURI);
+            this.ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            System.out.println("IFCtoRDF ont uri: "+this.ontURI);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }
@@ -305,33 +306,33 @@ public class IfcSpfReader {
         // CONVERSION
         OntModel om = null;
 
-        in = null;
+        this.in = null;
         //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
         //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-        in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/" + this.exp + ".ttl");
+        if (this.in == null)
+            this.in = IfcSpfReader.class.getResourceAsStream("/resources/" + this.exp + ".ttl");
+        om.read(this.in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntResource.asClass()" because "listrange" is null if no internet 
-        in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
+        if (this.in == null)
+        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
+        om.read(this.in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntProperty.toString()" because "valueProp" is null if no internet
-        in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
+        if (this.in == null)
+        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
+        om.read(this.in, null, "TTL");
 
         try {
-            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI,hasPerformanceBoost);
-            conv.setRemoveDuplicates(removeDuplicates);
+            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
+            conv.setRemoveDuplicates(this.removeDuplicates);
             try (FileOutputStream out = new FileOutputStream(outputFile)) {
                 String s = "# baseURI: " + baseURI;
-                s += "\r\n# imports: " + ontURI + "\r\n\r\n";
+                s += "\r\n# imports: " + this.ontURI + "\r\n\r\n";
                 out.write(s.getBytes());
                 LOG.info("Started parsing stream");
                 conv.parseModel2Stream(out);
@@ -342,7 +343,7 @@ public class IfcSpfReader {
         } finally {
         	//TODO JO 2024:  finally is deprecated
             try {
-                in.close();
+                this.in.close();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -350,18 +351,18 @@ public class IfcSpfReader {
     }
 
     public void setRemoveDuplicates(boolean val) {
-        removeDuplicates = val;
+        this.removeDuplicates = val;
     }
 
     public Map<String, EntityVO> getEntityMap() {
-        return ent;
+        return this.ent;
     }
 
     public Map<String, TypeVO> getTypeMap() {
-        return typ;
+        return this.typ;
     }
 
     public String getOntURI() {
-        return ontURI;
+        return this.ontURI;
     }
 }

@@ -10,7 +10,8 @@ import java.nio.file.attribute.PosixFilePermissions;
 
 public class OperatingSystemCopyOf_IfcGeomServer {
 
-    public static String getIfcGeomServer() {
+    @SuppressWarnings("resource")
+	public static String getIfcGeomServer() {
 
         String OS = System.getProperty("os.name").toLowerCase();
         String IfcGeomServerLocation = null;
@@ -31,7 +32,6 @@ public class OperatingSystemCopyOf_IfcGeomServer {
         if (OS.contains("mac")) {
             ixsystem = true;
             IfcGeomServerLocation = "/exe/64/osx/IfcGeomServer";
-            ;
         }
 
         if (OS.contains("nix") || OS.contains("nux") || OS.contains("aix")) {
@@ -68,6 +68,13 @@ public class OperatingSystemCopyOf_IfcGeomServer {
             } catch (Exception e1) {
                 System.err.println("Geom engine not updated.");
             }
+            finally {
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 
             if (ixsystem) {
                 try {
@@ -82,7 +89,8 @@ public class OperatingSystemCopyOf_IfcGeomServer {
         return geomserverPath.toString();
     }
 
-    public static void main(String[] args) {
+    @SuppressWarnings("unused")
+	public static void main(String[] args) {
         new OperatingSystemCopyOf_IfcGeomServer();
     }
 

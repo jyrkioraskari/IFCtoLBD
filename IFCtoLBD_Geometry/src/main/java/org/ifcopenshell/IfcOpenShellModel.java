@@ -139,14 +139,17 @@ public class IfcOpenShellModel implements RenderEngineModel {
 
 	@Override
 	public void setFormat(int format, int mask) throws RenderEngineException {
+		//TODO empty block
 	}
 
 	@Override
 	public void setSettings(RenderEngineSettings settings) throws RenderEngineException {
+		//TODO empty block
 	}
 
 	@Override
 	public void setFilter(RenderEngineFilter renderEngineFilter) {
+		//TODO empty block
 	}
 
 	@Override

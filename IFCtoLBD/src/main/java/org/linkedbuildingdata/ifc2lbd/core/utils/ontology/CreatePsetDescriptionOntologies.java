@@ -78,11 +78,10 @@ public class CreatePsetDescriptionOntologies {
         sb.append("N3Serialization=ontology.nt\r\n");
 
         File f = new File("C:\\temp\\IFC-PSD\\config." + ontology);
-        FileOutputStream fo;
-        try {
-            fo = new FileOutputStream(f);
-            fo.write(sb.toString().getBytes());
-            fo.close();
+        
+        // JO 2024
+        try (FileOutputStream fo = new FileOutputStream(f)) {
+        	fo.write(sb.toString().getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -113,13 +112,18 @@ public class CreatePsetDescriptionOntologies {
                 //if (s.getPredicate().getLocalName().endsWith("nameAlias"))
                 //    s.getSubject().addProperty(RDFS.label, s.getObject());
             }
-            FileOutputStream fo;
+            
             try {
                 File out_file = new File("C:\\temp\\IFC-PSD\\psets2\\" + (new File(file)).getAbsoluteFile().getName());
-                fo = new FileOutputStream(out_file);
-                ontology_model.write(fo, "TTL");
+                try (FileOutputStream fo = new FileOutputStream(out_file)) {  // JO 2024
+					ontology_model.write(fo, "TTL");
+				} catch (FileNotFoundException e) {
+					throw e;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
                 CreatePsetDescriptionOntologies.write((new File(file)).getAbsoluteFile().getName(),out_file.getAbsolutePath());
-
+                
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

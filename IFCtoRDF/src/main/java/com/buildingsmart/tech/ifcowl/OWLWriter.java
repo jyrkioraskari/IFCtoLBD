@@ -806,11 +806,13 @@ public class OWLWriter {
         try {
             start = Integer.parseInt(startIndex);
         } catch (NumberFormatException e) {
+        	e.printStackTrace();
         }
 
         try {
             end = Integer.parseInt(endIndex);
         } catch (NumberFormatException e) {
+        	e.printStackTrace();
         }
 
         writeCardinalityRestrictionsForList(start, end, ns + ":" + content, "hasNext", out, false);
@@ -892,11 +894,13 @@ public class OWLWriter {
         try {
             start = Integer.parseInt(startIndex);
         } catch (NumberFormatException e) {
+        	e.printStackTrace();
         }
 
         try {
             end = Integer.parseInt(endIndex);
         } catch (NumberFormatException e) {
+        	e.printStackTrace();
         }
 
         // cardinality restrictions

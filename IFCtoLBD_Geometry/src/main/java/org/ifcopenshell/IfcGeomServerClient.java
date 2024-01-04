@@ -224,6 +224,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 						permissions.add(PosixFilePermission.OWNER_WRITE);
 						Files.setPosixFilePermissions(this.executableFilename, permissions);
 					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				} else {
 					FileTime fileTime = (FileTime) Files.getAttribute(this.executableFilename, "creationTime");
@@ -518,6 +519,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -533,6 +535,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -543,10 +546,12 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void read_contents(LittleEndianDataInputStream s) throws IOException {
+			//TODO empty block
 		}
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -599,6 +604,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -711,6 +717,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 			}
 			b.read(dis);
 		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 
 		try {
@@ -735,6 +742,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		} finally {

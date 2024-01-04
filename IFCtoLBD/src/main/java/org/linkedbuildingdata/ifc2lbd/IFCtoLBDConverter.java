@@ -28,7 +28,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 /*
- *  Copyright (c) 2017,2018,2019, 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019, 2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -98,9 +98,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		super();
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 		this.props_level = props_level;
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		initialise();
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -140,9 +141,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		super();
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 		this.props_level = props_level;
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		System.out.println("Conversion starts");
 		initialise();
 
@@ -166,9 +168,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			this.props_level = 1;
 		this.hasPropertiesBlankNodes = true;
 
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		System.out.println("Conversion starts");
 		initialise();
 	}
@@ -187,15 +190,16 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 	 */
 	public IFCtoLBDConverter(String uriBase, boolean hasPropertiesBlankNodes, Integer... props_level) {
 		super();
-		if (props_level.length > 0)
+		if (props_level.length > 0) {
 			this.props_level = props_level[0];
-		else
+		} else
 			this.props_level = 1;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		initialise();
 	}
 
@@ -220,7 +224,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
-		return lbd_general_output_model;
+		return this.lbd_general_output_model;
 	}
 
 	/**
@@ -242,11 +246,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
-		return lbd_general_output_model;
+		return this.lbd_general_output_model;
 	}
 
 	private String unzip(String ifcZipFile) {
-		ZipInputStream zis;
+		ZipInputStream zis = null;
 		try {
 			byte[] buffer = new byte[1024];
 			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
@@ -271,8 +275,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			}
 
 		} catch (FileNotFoundException e) {
+			try {
+				if(zis!=null)
+				  zis.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			try {
+				if(zis!=null)
+				  zis.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		}
 		return null;
@@ -284,21 +300,21 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		Executors.newCachedThreadPool().submit(() -> {
 			IFCGeometry ifc_geometry = null;
 			try {
-				eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
+				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
 				Timer timer = new Timer();
 				this.ios = 0;
 				// final long start = System.currentTimeMillis();
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + ios++));
+						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
 					}
 				}, 1000, 1000);
 
 				ifc_geometry = new IFCGeometry(new File(ifc_filename));
 				timer.cancel();
 			} catch (Exception e) {
-				eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
 						"Geometry handling was not done. " + e.getMessage()));
 				e.printStackTrace();
 			}
