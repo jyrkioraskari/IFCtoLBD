@@ -1,4 +1,4 @@
-package org.linkedbuildingdata.ifc2lbd.core;
+package org.linkedbuildingdata.ifc2lbd.tests;
 
 import org.apache.commons.text.StringEscapeUtils;
 

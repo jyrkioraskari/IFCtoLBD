@@ -1,4 +1,4 @@
-package org.linkedbuildingdata.ifc2lbd.core;
+package org.linkedbuildingdata.ifc2lbd.tests;
 
 import java.io.File;
 
