@@ -106,7 +106,7 @@ public abstract class IFCtoLBDConverterCore {
 	private Set<Resource> has_geometry = new HashSet<>();
 
 	private RTree<Resource, Geometry> rtree;
-	private Map<Geometry, Resource> rtree_map = new HashMap<>();
+	private Map<Rectangle, Resource> rtree_map = new HashMap<>();
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;

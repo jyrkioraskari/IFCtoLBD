@@ -1,6 +1,7 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -12,6 +13,8 @@ import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -249,7 +252,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 	}
 
 	private static String unzip(String ifcZipFile) {
-		try (ZipInputStream zis = new ZipInputStream(new FileInputStream(ifcZipFile));){
+		int BUFFER_SIZE = 32 * 1024; // 32KB
+		// JO 2024: performance
+		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(ifcZipFile),BUFFER_SIZE));){
 			byte[] buffer = new byte[1024];
 			
 			ZipEntry zipEntry = zis.getNextEntry();
@@ -418,8 +423,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		if (future_ifc_geometry != null) {
 			future_ifc_geometry.join();
 			try {
-				this.ifc_geometry = future_ifc_geometry.get();
+				this.ifc_geometry = future_ifc_geometry.get(240, TimeUnit.SECONDS);  // max 240 sec
 			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			} catch (TimeoutException e) {
 				e.printStackTrace();
 			}
 		}

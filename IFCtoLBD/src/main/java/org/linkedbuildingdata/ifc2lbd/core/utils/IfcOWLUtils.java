@@ -483,7 +483,7 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        StringBuffer sb = new StringBuffer();
+                                        StringBuilder sb = new StringBuilder();
                                         sb.append(t.get(0));
                                         sb.append(" ");
                                         sb.append(t.get(1));
@@ -497,7 +497,7 @@ public abstract class IfcOWLUtils {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    StringBuffer sb = new StringBuffer();
+                                    StringBuilder sb = new StringBuilder();
                                     sb.append(triple[0]);
                                     sb.append(" ");
                                     sb.append(triple[1]);
@@ -721,7 +721,7 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        StringBuffer sb = new StringBuffer();
+                                    	StringBuilder sb = new StringBuilder();
                                         sb.append(t.get(0));
                                         sb.append(" ");
                                         sb.append(t.get(1));
@@ -735,7 +735,7 @@ public abstract class IfcOWLUtils {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    StringBuffer sb = new StringBuffer();
+                                    StringBuilder sb = new StringBuilder();
                                     sb.append(triple[0]);
                                     sb.append(" ");
                                     sb.append(triple[1]);
@@ -939,7 +939,7 @@ public abstract class IfcOWLUtils {
     private static List<String> split(String s) {
         List<String> ret = new ArrayList<>();
         int state = 0;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         boolean esc=false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
@@ -955,12 +955,12 @@ public abstract class IfcOWLUtils {
                 if(!esc)
                 if (c == '\"' || c == '\'') {
                     ret.add(sb.toString());
-                    sb = new StringBuffer();
+                    sb = new StringBuilder();
                     sb.append(c);
                     state = 2;
                 } else if (!Character.isSpace(c)) {
                     ret.add(sb.toString());
-                    sb = new StringBuffer();
+                    sb = new StringBuilder();
                     sb.append(c);
                     state = 0;
                 }

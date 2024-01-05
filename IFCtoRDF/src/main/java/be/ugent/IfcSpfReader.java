@@ -14,6 +14,7 @@
  */
 package be.ugent;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -27,7 +28,7 @@ import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class IfcSpfReader {
         String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
         Boolean[] optionValues = new Boolean[] { false, false, false };
 
-        String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());  // JO 2024: performance
         DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
         List<String> argsList = new ArrayList<>(Arrays.asList(args));
@@ -303,7 +304,7 @@ public class IfcSpfReader {
 
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
         // CONVERSION
-        OntModel om = null;
+        OntModel om;
 
         this.in = null;
         //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
@@ -329,12 +330,14 @@ public class IfcSpfReader {
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
             conv.setRemoveDuplicates(this.removeDuplicates);
-            try (FileOutputStream out = new FileOutputStream(outputFile)) {
+            // JO 2024: performance
+            try (FileOutputStream out = new FileOutputStream(outputFile);BufferedOutputStream bout = new BufferedOutputStream(out);
+) {
                 String s = "# baseURI: " + baseURI;
                 s += "\r\n# imports: " + this.ontURI + "\r\n\r\n";
-                out.write(s.getBytes());
+                bout.write(s.getBytes());
                 LOG.info("Started parsing stream");
-                conv.parseModel2Stream(out);
+                conv.parseModel2Stream(bout);
                 LOG.info("Finished!!");
             }
         } catch (FileNotFoundException e1) {
