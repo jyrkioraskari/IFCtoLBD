@@ -34,3 +34,11 @@ Duplex_A_20110907.ttl
 IFCtoLBD_CLI.jar
 IFCtoLBD_Desktop.jar
 IFCtoRDF/src/main/java/be/ugent/RDFWriter.java
+IFCtoLBD_Geometry/.eclipse-pmd
+.idea/modules.xml
+.idea/IFCtoLBD.iml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+IFCtoRDF/.eclipse-pmd
+IFCtoLBD/.eclipse-pmd

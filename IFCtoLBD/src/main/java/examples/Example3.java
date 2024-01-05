@@ -13,30 +13,29 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 public class Example3 {
 
-	public static void main(String[] args) {
-		URL ifc_file_url = ClassLoader.getSystemResource("Duplex_A.ifc");
-		try {
-			File ifc_file = new File(ifc_file_url.toURI());
+    public static void main(String[] args) {
+        URL ifcFileUrl = ClassLoader.getSystemResource("Duplex_A.ifc");
+        try {
+            File ifcFile = new File(ifcFileUrl.toURI());
 
-			IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", false, 1);
-			Model m = c.convert(ifc_file.getAbsolutePath());
-			
-			Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n"
-					+ "\r\n"
-					+ "SELECT ?e WHERE {\r\n"
-					+ "  ?e a bot:Element .\r\n"
-					+ "} ");
-			try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
-				ResultSet rs = queryExecution.execSelect();
-				rs.forEachRemaining(qs -> {
-					System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
-					
-				});
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+            IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
+            Model model = converter.convert(ifcFile.getAbsolutePath());
+            
+            Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n"
+                    + "\r\n"
+                    + "SELECT ?element WHERE {\r\n"
+                    + "  ?element a bot:Element .\r\n"
+                    + "} ");
+            try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
+                ResultSet resultSet = queryExecution.execSelect();
+                resultSet.forEachRemaining(qs -> {
+                    System.out.println("BOT element: "+qs.get("element").asResource().getLocalName());
+                    
+                });
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
 
-	}
-
+    }
 }

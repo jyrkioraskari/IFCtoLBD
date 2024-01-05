@@ -8,20 +8,19 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 public class Example2 {
 
-	public static void main(String[] args) {
-		URL ifc_file_url = ClassLoader.getSystemResource("Duplex_A.ifc");
-		try {
-			File ifc_file = new File(ifc_file_url.toURI());
+    public static void main(String[] args) {
+        URL ifcFileUrl = ClassLoader.getSystemResource("Duplex_A.ifc");
+        try {
+            File ifcFile = new File(ifcFileUrl.toURI());
 
-			IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", false, 1);
-			Model m = c.convert(ifc_file.getAbsolutePath());
-			
-			m.listSubjects().forEach(System.out::println);
+            IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
+            Model model = converter.convert(ifcFile.getAbsolutePath());
+            
+            model.listSubjects().forEach(System.out::println);
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
 
-	}
-
+    }
 }
