@@ -456,10 +456,8 @@ public abstract class IfcOWLUtils {
         int state = 0;
         try {
             tempFile = File.createTempFile("ifc", ".ttl");
-            System.out.println("characterCoding 1");
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
                 try (BufferedReader br = new BufferedReader(new FileReader(whole_content_file))) {
-                	System.out.println("characterCoding 2");
                     String line;
                     String[] triple = new String[3];
                     for (int i = 0; i < 3; i++)
