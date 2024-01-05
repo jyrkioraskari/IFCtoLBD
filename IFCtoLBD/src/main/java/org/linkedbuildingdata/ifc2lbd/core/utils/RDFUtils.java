@@ -1,5 +1,7 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -67,9 +69,10 @@ public abstract class RDFUtils {
      */
     public static void writeModel(Model m, String target_file, EventBus eventBus) {
     	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
-        try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder()); ){
+    	// JO 2024 performance
+        try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());BufferedWriter bfo=new BufferedWriter(fo);){
                        
-            m.write(fo, "TTL");
+            m.write(bfo, "TTL");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
@@ -81,9 +84,11 @@ public abstract class RDFUtils {
 
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
         
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));){
+    	// JO 2024: performance
+        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo);
+){
            
-            StreamRDFWriter.write(fo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
+            StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
@@ -95,8 +100,10 @@ public abstract class RDFUtils {
     
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {
     	// Fix by JO 2024: finally is deprecated
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));){ 
-            RDFDataMgr.write(fo, ds, RDFFormat.TRIG_PRETTY);
+    	// JO 2024: performance
+    	try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo);
+    			){
+            RDFDataMgr.write(bfo, ds, RDFFormat.TRIG_PRETTY);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));

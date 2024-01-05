@@ -16,7 +16,7 @@ public class Example2 {
 			IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", false, 1);
 			Model m = c.convert(ifc_file.getAbsolutePath());
 			
-			m.listSubjects().forEach(s->System.out.println(s));
+			m.listSubjects().forEach(System.out::println);
 
 		} catch (Exception e) {
 			e.printStackTrace();

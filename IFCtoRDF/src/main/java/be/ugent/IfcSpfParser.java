@@ -160,7 +160,8 @@ public class IfcSpfParser {
                 listOfDuplicateLineEntries.put(vo.getLineNum(), listOfUniqueResources.get(t).getLineNum());
             }
         }
-        LOG.info("MESSAGE: found and removed " + listOfDuplicateLineEntries.size() + " duplicates!");
+        //JO 2024: removed for performance
+        //LOG.info("MESSAGE: found and removed " + listOfDuplicateLineEntries.size() + " duplicates!");
         for (Long x : entriesToRemove) {
             linemap.remove(x);
         }

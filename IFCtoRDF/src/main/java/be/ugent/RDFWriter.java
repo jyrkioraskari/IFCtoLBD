@@ -581,9 +581,9 @@ public class RDFWriter {
 		return attributePointer;
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	private void fillPropertiesHandleListObject(Resource r, TypeVO tvo, Object o)  {
 
+		@SuppressWarnings("unchecked")
 		final LinkedList<Object> tmpList = (LinkedList<Object>) o;
 		LinkedList<String> literals = new LinkedList<>();
 
@@ -727,7 +727,6 @@ public class RDFWriter {
 		else
 			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString));
 
-		LOG.info("*OK 4*: added literal: " + r1.getLocalName() + " - " + valueProp + " - " + literalString);
 	}
 
 	// LIST HANDLING
