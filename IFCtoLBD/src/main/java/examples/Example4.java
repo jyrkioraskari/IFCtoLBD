@@ -42,8 +42,8 @@ public class Example4 {
 				Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n"
 						+ "\r\n"
 						+ "SELECT ?e ?wkt ?obj WHERE {\r\n"
-						+ "  ?e <http://www.opengis.net/ont/geosparql#hasGeometry> ?g .\r\n"
-						+ "  ?g <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
+						+ "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
+						+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
 						+ "  ?g fog:asObj_v3.0-obj ?obj \r\n"
 						+ "} ");
 				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
