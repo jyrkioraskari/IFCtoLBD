@@ -1,0 +1,7026 @@
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix props:    <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+
+props:textDecoration  rdf:type  owl:ObjectProperty .
+
+props:minuteOffset  rdf:type  owl:ObjectProperty .
+
+props:pHLevel_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:loopVertex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:workControlType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:currency  rdf:type  owl:ObjectProperty .
+
+props:definesType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startDistAlong_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:energySequence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isSuccessorFrom_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:displacementZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:directionRatios
+        rdf:type  owl:ObjectProperty .
+
+props:referenceTokens_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerRadius  rdf:type  owl:ObjectProperty .
+
+props:uAxes  rdf:type  owl:ObjectProperty .
+
+props:givenName  rdf:type  owl:ObjectProperty .
+
+props:relatedItems_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isRelatedWith  rdf:type  owl:ObjectProperty .
+
+props:role  rdf:type  owl:ObjectProperty .
+
+props:plasticShapeFactorY
+        rdf:type  owl:ObjectProperty .
+
+props:layerStyles  rdf:type  owl:ObjectProperty .
+
+props:radius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedObjectsType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:supportedLength
+        rdf:type  owl:ObjectProperty .
+
+props:valuesReferenced_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:constraintGrade_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pHLevel  rdf:type  owl:ObjectProperty .
+
+props:interferenceGeometry
+        rdf:type  owl:ObjectProperty .
+
+props:formula_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:user_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:styleOfSymbol  rdf:type  owl:ObjectProperty .
+
+props:vertical_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:materialClassifications_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:anchorageSlip_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:faces_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondOperand_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:slippageZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointOfReferenceHatchLine
+        rdf:type  owl:ObjectProperty .
+
+props:propertyDependsOn
+        rdf:type  owl:ObjectProperty .
+
+props:styledByItem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:cardinalPoint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:moveFrom  rdf:type  owl:ObjectProperty .
+
+props:compositeProfile
+        rdf:type  owl:ObjectProperty .
+
+props:unitBasis  rdf:type  owl:ObjectProperty .
+
+props:massDensity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:interferesElements
+        rdf:type  owl:ObjectProperty .
+
+props:topFlangeWidth  rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessByAreaX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flowConditionSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:propertiesForConstraint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:standardRequiredArea
+        rdf:type  owl:ObjectProperty .
+
+props:wordSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startCantRight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:electronicFormat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:zDim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:creatingActor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseSurface  rdf:type  owl:ObjectProperty .
+
+props:contextIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sequenceType  rdf:type  owl:ObjectProperty .
+
+props:voidsElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resultValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalLoadType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:crossSectionPositions
+        rdf:type  owl:ObjectProperty .
+
+props:realizingElements
+        rdf:type  owl:ObjectProperty .
+
+props:profileName  rdf:type  owl:ObjectProperty .
+
+props:properties  rdf:type  owl:ObjectProperty .
+
+props:lengthExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transverseBarNominalDiameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByLengthY
+        rdf:type  owl:ObjectProperty .
+
+props:distance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:engages_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:preparedBy  rdf:type  owl:ObjectProperty .
+
+props:physicalWeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:landTitleNumber
+        rdf:type  owl:ObjectProperty .
+
+props:hasConstraints  rdf:type  owl:ObjectProperty .
+
+props:secondaryMeasureType
+        rdf:type  owl:ObjectProperty .
+
+props:mappingTarget_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thresholdDepth  rdf:type  owl:ObjectProperty .
+
+props:resourceConsumption_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:enumerators  rdf:type  owl:ObjectProperty .
+
+props:directionRatios_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondaryUnit  rdf:type  owl:ObjectProperty .
+
+props:isPointedTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:reflectanceColour
+        rdf:type  owl:ObjectProperty .
+
+props:hasRepresentation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fileExtension_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:v_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:processType  rdf:type  owl:ObjectProperty .
+
+props:zone_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:priority  rdf:type  owl:ObjectProperty .
+
+props:userDefinedGrade_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maximumPowerInput
+        rdf:type  owl:ObjectProperty .
+
+props:duration  rdf:type  owl:ObjectProperty .
+
+props:title  rdf:type  owl:DatatypeProperty .
+
+props:massExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bottomFlangeEdgeRadius
+        rdf:type  owl:ObjectProperty .
+
+props:remainingTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sourceOfResultGroup_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordinateSpaceDimension_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualDuration  rdf:type  owl:ObjectProperty .
+
+props:templateType  rdf:type  owl:ObjectProperty .
+
+props:offsetLongitudinal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maximumSectionModulusY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representation  rdf:type  owl:ObjectProperty .
+
+props:country  rdf:type  owl:ObjectProperty .
+
+props:actualFinish  rdf:type  owl:ObjectProperty .
+
+props:referenceToDocument
+        rdf:type  owl:ObjectProperty .
+
+props:isEndRadiusCCW  rdf:type  owl:ObjectProperty .
+
+props:lowerVaporResistanceFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingControl_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:primaryMeasureType
+        rdf:type  owl:ObjectProperty .
+
+props:minuteComponent
+        rdf:type  owl:ObjectProperty .
+
+props:innerReference  rdf:type  owl:ObjectProperty .
+
+props:perimeter  rdf:type  owl:ObjectProperty .
+
+props:classifiedAs  rdf:type  owl:ObjectProperty .
+
+props:wordSpacing  rdf:type  owl:ObjectProperty .
+
+props:correspondingBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dynamicViscosity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:firstMullionOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:visibleReflectanceBack
+        rdf:type  owl:ObjectProperty .
+
+props:hasPorts_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:extent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minCurvatureRadius
+        rdf:type  owl:ObjectProperty .
+
+props:physicalWeight  rdf:type  owl:ObjectProperty .
+
+props:mode  rdf:type  owl:ObjectProperty .
+
+props:maximumPowerInput_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colourIndex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerFilletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:owningApplication_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:planarForceZ  rdf:type  owl:ObjectProperty .
+
+props:documentOwner_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:webSlope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lastModifyingApplication_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:volumeValue  rdf:type  owl:ObjectProperty .
+
+props:shapeRepresentations_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isCritical_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:perimeter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yieldStress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:unit  rdf:type  owl:ObjectProperty .
+
+props:subsequentAppliedLoads
+        rdf:type  owl:ObjectProperty .
+
+props:youngModulus_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endSweptArea  rdf:type  owl:ObjectProperty .
+
+props:minimumCircuitCurrent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedMonetaryUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isDecomposedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:styles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:phase  rdf:type  owl:ObjectProperty .
+
+props:electronicFormat
+        rdf:type  owl:ObjectProperty .
+
+props:longitudinalBarNominalDiameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:earlyDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:assignedToFlowElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedClassifications_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bottomFlangeWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointOnRelatedElement
+        rdf:type  owl:ObjectProperty .
+
+props:colourIndex  rdf:type  owl:ObjectProperty .
+
+props:lastModifyingUser_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:precision_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:blue  rdf:type  owl:ObjectProperty .
+
+props:addresses  rdf:type  owl:ObjectProperty .
+
+props:linearMomentX  rdf:type  owl:ObjectProperty .
+
+props:pointOfReferenceHatchLine_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:conversionFactor
+        rdf:type  owl:ObjectProperty .
+
+props:uClosed_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeEdgeRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedCategory_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ownerHistory_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessByLengthX
+        rdf:type  owl:ObjectProperty .
+
+props:scale_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedApprovals
+        rdf:type  owl:ObjectProperty .
+
+props:mostUsedValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:appliedCondition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearAreaZ  rdf:type  owl:ObjectProperty .
+
+props:impliedOrder  rdf:type  owl:ObjectProperty .
+
+props:webEdgeRadius  rdf:type  owl:ObjectProperty .
+
+props:yLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:realizingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rateSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:postalBox_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startOfNextHatchLine_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:records  rdf:type  owl:ObjectProperty .
+
+props:compressionFailureX
+        rdf:type  owl:ObjectProperty .
+
+props:literal  rdf:type  owl:ObjectProperty .
+
+props:notationFacets  rdf:type  owl:ObjectProperty .
+
+props:velocitySingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:height  rdf:type  owl:ObjectProperty .
+
+props:approvedProperties
+        rdf:type  owl:ObjectProperty .
+
+props:upperBoundValue
+        rdf:type  owl:ObjectProperty .
+
+props:submittedBy  rdf:type  owl:ObjectProperty .
+
+props:tagList  rdf:type  owl:ObjectProperty .
+
+props:isAttenuating_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:warpingConstant_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:declares_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:identifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:distributionPointFunction
+        rdf:type  owl:ObjectProperty .
+
+props:visibleReflectanceFront
+        rdf:type  owl:ObjectProperty .
+
+props:relatedPort_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:overallHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bottomFlangeSlope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:attributeIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:location_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thePerson_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingSystem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:plasticStrain  rdf:type  owl:ObjectProperty .
+
+props:propertySource  rdf:type  owl:ObjectProperty .
+
+props:destabilizingLoad_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeThickness
+        rdf:type  owl:ObjectProperty .
+
+props:approvalQualifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:areaValue  rdf:type  owl:ObjectProperty .
+
+props:applicableValueRatio_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:deltaTY  rdf:type  owl:ObjectProperty .
+
+props:impactType  rdf:type  owl:ObjectProperty .
+
+props:mappedTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definedUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:geodeticDatum  rdf:type  owl:ObjectProperty .
+
+props:secondaryMeasureType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:records_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lowerValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingMonetaryUnit
+        rdf:type  owl:ObjectProperty .
+
+props:language_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ribSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:creators  rdf:type  owl:ObjectProperty .
+
+props:mimeContentType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:varyingThicknessLocation
+        rdf:type  owl:ObjectProperty .
+
+props:fillStyles  rdf:type  owl:ObjectProperty .
+
+props:annotatedBySymbols_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingType  rdf:type  owl:ObjectProperty .
+
+props:constructionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedMonetaryUnit
+        rdf:type  owl:ObjectProperty .
+
+props:benchmarkValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:item  rdf:type  owl:ObjectProperty .
+
+props:relatingDocument_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectsStructuralMembers
+        rdf:type  owl:ObjectProperty .
+
+props:minRequiredArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partOfPset  rdf:type  owl:ObjectProperty .
+
+props:documentId  rdf:type  owl:ObjectProperty .
+
+props:colourAppearance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:worldCoordinateSystem
+        rdf:type  owl:ObjectProperty .
+
+props:propertyDependsOn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedControlElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:protectivePoreRatio
+        rdf:type  owl:ObjectProperty .
+
+props:owner  rdf:type  owl:ObjectProperty .
+
+props:sizeable_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forceX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refLongitude_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:causes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:semiAxis  rdf:type  owl:ObjectProperty .
+
+props:velocitySingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:materialProfiles
+        rdf:type  owl:ObjectProperty .
+
+props:fontFamily  rdf:type  owl:ObjectProperty .
+
+props:ratedPowerInput
+        rdf:type  owl:ObjectProperty .
+
+props:exponent  rdf:type  owl:ObjectProperty .
+
+props:interiorOrExteriorSpace
+        rdf:type  owl:ObjectProperty .
+
+props:earlyStart  rdf:type  owl:ObjectProperty .
+
+props:toMaterialConstituentSet
+        rdf:type  owl:ObjectProperty .
+
+props:isHeading_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedLibrary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerCoordIndices_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessByLengthX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:assetID_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:aggregates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordinates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeStep_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:wetBulbTemperatureSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:logicalAggregator
+        rdf:type  owl:ObjectProperty .
+
+props:hasFillings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasColours  rdf:type  owl:ObjectProperty .
+
+props:outer  rdf:type  owl:ObjectProperty .
+
+props:topXDim  rdf:type  owl:ObjectProperty .
+
+props:textCharacterAppearance
+        rdf:type  owl:ObjectProperty .
+
+props:mountable  rdf:type  owl:ObjectProperty .
+
+props:remainingWork  rdf:type  owl:ObjectProperty .
+
+props:cartesianPosition
+        rdf:type  owl:ObjectProperty .
+
+props:documentedBy  rdf:type  owl:ObjectProperty .
+
+props:repeatS  rdf:type  owl:ObjectProperty .
+
+props:colourComponents
+        rdf:type  owl:ObjectProperty .
+
+props:shearReinforcement
+        rdf:type  owl:ObjectProperty .
+
+props:relatingStructuralMember_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:version  rdf:type  owl:ObjectProperty .
+
+props:procedureType  rdf:type  owl:ObjectProperty .
+
+props:sourceCRS_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentOfInertiaYZ
+        rdf:type  owl:ObjectProperty .
+
+props:temperatureSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentOfInertiaZ
+        rdf:type  owl:ObjectProperty .
+
+props:barRole  rdf:type  owl:ObjectProperty .
+
+props:valueComponent  rdf:type  owl:ObjectProperty .
+
+props:meshWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:luminousIntensityExponent
+        rdf:type  owl:ObjectProperty .
+
+props:actionSource  rdf:type  owl:ObjectProperty .
+
+props:isDecomposedBy  rdf:type  owl:ObjectProperty .
+
+props:criterionDateTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:wAxes  rdf:type  owl:ObjectProperty .
+
+props:maxRequiredArea
+        rdf:type  owl:ObjectProperty .
+
+props:weekdayComponent
+        rdf:type  owl:ObjectProperty .
+
+props:relatingResource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contains_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByAreaX
+        rdf:type  owl:ObjectProperty .
+
+props:textureTransform
+        rdf:type  owl:ObjectProperty .
+
+props:earlyFinish  rdf:type  owl:ObjectProperty .
+
+props:owningApplication
+        rdf:type  owl:ObjectProperty .
+
+props:shearDeformationAreaZ
+        rdf:type  owl:ObjectProperty .
+
+props:red  rdf:type  owl:ObjectProperty .
+
+props:longDescription
+        rdf:type  owl:ObjectProperty .
+
+props:submittedOn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actors  rdf:type  owl:ObjectProperty .
+
+props:warpingStiffness
+        rdf:type  owl:ObjectProperty .
+
+props:segments  rdf:type  owl:ObjectProperty .
+
+props:orientation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:importanceRating
+        rdf:type  owl:ObjectProperty .
+
+props:engages  rdf:type  owl:ObjectProperty .
+
+props:fontStyle  rdf:type  owl:ObjectProperty .
+
+props:xAxisOrdinate  rdf:type  owl:ObjectProperty .
+
+props:serviceLifeDuration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedDocuments
+        rdf:type  owl:ObjectProperty .
+
+props:offsetValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:crossSectionArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingStructure_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vertexGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:targetView_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:destabilizingLoad
+        rdf:type  owl:ObjectProperty .
+
+props:relatedDocuments_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByAreaZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:areaValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:approval  rdf:type  owl:ObjectProperty .
+
+props:vertexGeometry  rdf:type  owl:ObjectProperty .
+
+props:transition  rdf:type  owl:ObjectProperty .
+
+props:relatedApprovals_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalConductivity
+        rdf:type  owl:ObjectProperty .
+
+props:expression_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedProperties
+        rdf:type  owl:ObjectProperty .
+
+props:textureTransform_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:toAlignmentCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:prefixTitles  rdf:type  owl:ObjectProperty .
+
+props:lengthValue  rdf:type  owl:ObjectProperty .
+
+props:width_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessY
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedOperationType
+        rdf:type  owl:ObjectProperty .
+
+props:constraintSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bendingShapeCode_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingProfileProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:headWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:direction  rdf:type  owl:ObjectProperty .
+
+props:meshLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeLag  rdf:type  owl:ObjectProperty .
+
+props:endRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:libraryReference
+        rdf:type  owl:ObjectProperty .
+
+props:partOfComplexTemplate
+        rdf:type  owl:ObjectProperty .
+
+props:shearModulus_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:valueSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isConvex  rdf:type  owl:ObjectProperty .
+
+props:timeStep  rdf:type  owl:ObjectProperty .
+
+props:status  rdf:type  owl:ObjectProperty .
+
+props:deltaTConstant_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:enumerationValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPropertyDefinition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeStamp_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:jurisdiction  rdf:type  owl:ObjectProperty .
+
+props:corresponds  rdf:type  owl:ObjectProperty .
+
+props:userDefinedDataOrigin_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:givingApproval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentX  rdf:type  owl:ObjectProperty .
+
+props:setPointValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleContour
+        rdf:type  owl:ObjectProperty .
+
+props:jobDescription  rdf:type  owl:ObjectProperty .
+
+props:specificHeatCapacity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sizeInX  rdf:type  owl:ObjectProperty .
+
+props:vMultiplicities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:interferenceGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uAxes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fraction  rdf:type  owl:ObjectProperty .
+
+props:referenceCurve  rdf:type  owl:ObjectProperty .
+
+props:costType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referenceSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeriesDataType
+        rdf:type  owl:ObjectProperty .
+
+props:topFlangeThickness
+        rdf:type  owl:ObjectProperty .
+
+props:relatingGroup_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endRadius  rdf:type  owl:ObjectProperty .
+
+props:characterSpacing
+        rdf:type  owl:ObjectProperty .
+
+props:finish_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refractionIndex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lagValue  rdf:type  owl:ObjectProperty .
+
+props:parameterTakesPrecedence
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedTargetView
+        rdf:type  owl:ObjectProperty .
+
+props:endProfile  rdf:type  owl:ObjectProperty .
+
+props:tensionFailureX
+        rdf:type  owl:ObjectProperty .
+
+props:definition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:meshWidth  rdf:type  owl:ObjectProperty .
+
+props:externalReferenceForResources_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetLateral  rdf:type  owl:ObjectProperty .
+
+props:owningUser  rdf:type  owl:ObjectProperty .
+
+props:isComponentIn  rdf:type  owl:ObjectProperty .
+
+props:relatingTemplate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:phase_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedBuildings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileOfPort  rdf:type  owl:ObjectProperty .
+
+props:placement  rdf:type  owl:ObjectProperty .
+
+props:maps_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:columns  rdf:type  owl:ObjectProperty .
+
+props:shearCentreY  rdf:type  owl:ObjectProperty .
+
+props:edgeRadius  rdf:type  owl:ObjectProperty .
+
+props:weekdayComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minorRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingSystem  rdf:type  owl:ObjectProperty .
+
+props:startTag  rdf:type  owl:ObjectProperty .
+
+props:refLongitude  rdf:type  owl:ObjectProperty .
+
+props:orientationOfDPlane_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:xLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedStructuralActivity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeEdgeRadius
+        rdf:type  owl:ObjectProperty .
+
+props:upperVaporResistanceFactor
+        rdf:type  owl:ObjectProperty .
+
+props:loadedBy  rdf:type  owl:ObjectProperty .
+
+props:daylightSavingOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dayComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveOnRelatedElement
+        rdf:type  owl:ObjectProperty .
+
+props:relatingContext
+        rdf:type  owl:ObjectProperty .
+
+props:lastUpdateDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isDefinedBy  rdf:type  owl:ObjectProperty .
+
+props:textureCoordinates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalLoadTimeSeriesValues
+        rdf:type  owl:ObjectProperty .
+
+props:referencedInStructures_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mappingOrigin_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondaryPlaneAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeStart  rdf:type  owl:ObjectProperty .
+
+props:cardinalPoint  rdf:type  owl:ObjectProperty .
+
+props:dimensions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actionType  rdf:type  owl:ObjectProperty .
+
+props:nominalBarDiameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:realizingElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hardeningModule_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rows  rdf:type  owl:ObjectProperty .
+
+props:slippageZ  rdf:type  owl:ObjectProperty .
+
+props:constantAttenuation
+        rdf:type  owl:ObjectProperty .
+
+props:actualWork_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:outerCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationsInContext_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:preStress  rdf:type  owl:ObjectProperty .
+
+props:actualWork  rdf:type  owl:ObjectProperty .
+
+props:minuteComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedObjectsType
+        rdf:type  owl:ObjectProperty .
+
+props:startDistance  rdf:type  owl:ObjectProperty .
+
+props:thermodynamicTemperatureExponent
+        rdf:type  owl:ObjectProperty .
+
+props:secondTransomOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleFinish  rdf:type  owl:ObjectProperty .
+
+props:relatingObject_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:displacementX  rdf:type  owl:ObjectProperty .
+
+props:freeFloat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:toLinearAxis_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:locationOfInteraction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:combustionTemperature_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:nContent  rdf:type  owl:ObjectProperty .
+
+props:casingDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:side_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeriesDataType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:effectiveDepth  rdf:type  owl:ObjectProperty .
+
+props:toLinearAxis  rdf:type  owl:ObjectProperty .
+
+props:actualUsage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingStructuralMember
+        rdf:type  owl:ObjectProperty .
+
+props:hasOpenings  rdf:type  owl:ObjectProperty .
+
+props:referenceIntoLibrary
+        rdf:type  owl:ObjectProperty .
+
+props:approvalDateTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:enumerationReference
+        rdf:type  owl:ObjectProperty .
+
+props:quantityInProcess
+        rdf:type  owl:ObjectProperty .
+
+props:relatingPriorities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:topFlangeFilletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flowDirection  rdf:type  owl:ObjectProperty .
+
+props:userDefinedCategory
+        rdf:type  owl:ObjectProperty .
+
+props:recurrenceType  rdf:type  owl:ObjectProperty .
+
+props:criterion_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedStructuralConnection
+        rdf:type  owl:ObjectProperty .
+
+props:mapUsage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minimumPlateThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inventoryType  rdf:type  owl:ObjectProperty .
+
+props:northings  rdf:type  owl:ObjectProperty .
+
+props:timeValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:depreciatedValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:nContent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vAxes  rdf:type  owl:ObjectProperty .
+
+props:forceX  rdf:type  owl:ObjectProperty .
+
+props:amountOfSubstanceExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingFlowElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isCCW  rdf:type  owl:ObjectProperty .
+
+props:applicableValueRatio
+        rdf:type  owl:ObjectProperty .
+
+props:acidityConcentration
+        rdf:type  owl:ObjectProperty .
+
+props:placementRefDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedFeatureElement
+        rdf:type  owl:ObjectProperty .
+
+props:isComponentIn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingObject  rdf:type  owl:ObjectProperty .
+
+props:refDirection  rdf:type  owl:ObjectProperty .
+
+props:ribWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:exceptionTimes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:internalOrExternalBoundary
+        rdf:type  owl:ObjectProperty .
+
+props:startPoint  rdf:type  owl:ObjectProperty .
+
+props:centreOfGravityInX
+        rdf:type  owl:ObjectProperty .
+
+props:mapUsage  rdf:type  owl:ObjectProperty .
+
+props:eccentricityInZ
+        rdf:type  owl:ObjectProperty .
+
+props:startTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contents  rdf:type  owl:ObjectProperty .
+
+props:relates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elevationOfRefHeight
+        rdf:type  owl:ObjectProperty .
+
+props:elements  rdf:type  owl:ObjectProperty .
+
+props:targetCRS  rdf:type  owl:ObjectProperty .
+
+props:transomOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingProfileDef_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:incorporationDate
+        rdf:type  owl:ObjectProperty .
+
+props:numberOfRisers  rdf:type  owl:ObjectProperty .
+
+props:quantityInProcess_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectedFrom  rdf:type  owl:ObjectProperty .
+
+props:magnitude_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forceZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:propertiesForConstraint
+        rdf:type  owl:ObjectProperty .
+
+props:hatchLineAppearance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:editors_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingProfileDef
+        rdf:type  owl:ObjectProperty .
+
+props:hasShapeAspects_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileDefinition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:punchList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endCantLeft_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedDefinitions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forLayerSet  rdf:type  owl:ObjectProperty .
+
+props:itemReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:items  rdf:type  owl:ObjectProperty .
+
+props:priority_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:plasticShapeFactorZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:costValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:componentOfTotal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resourceIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:givingApproval  rdf:type  owl:ObjectProperty .
+
+props:compressiveStrength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingConnectionType
+        rdf:type  owl:ObjectProperty .
+
+props:mapZone_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalDisplacementRZ
+        rdf:type  owl:ObjectProperty .
+
+props:creators_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedPurpose
+        rdf:type  owl:ObjectProperty .
+
+props:axisCurve  rdf:type  owl:ObjectProperty .
+
+props:unitsInContext_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:localOrigin  rdf:type  owl:ObjectProperty .
+
+props:requestedLocation
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedProcedureType
+        rdf:type  owl:ObjectProperty .
+
+props:defines  rdf:type  owl:ObjectProperty .
+
+props:timePeriods_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:axis_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thresholdThickness
+        rdf:type  owl:ObjectProperty .
+
+props:moistureDiffusivity
+        rdf:type  owl:ObjectProperty .
+
+props:extent  rdf:type  owl:ObjectProperty .
+
+props:hasTextureMaps  rdf:type  owl:ObjectProperty .
+
+props:barCount_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:restartDistance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startGradient_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:knotSpec  rdf:type  owl:ObjectProperty .
+
+props:faces  rdf:type  owl:ObjectProperty .
+
+props:costType  rdf:type  owl:ObjectProperty .
+
+props:vKnots_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inventoryType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:realizingElement
+        rdf:type  owl:ObjectProperty .
+
+props:overridingProperties
+        rdf:type  owl:ObjectProperty .
+
+props:methodOfMeasurement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isSuccessorFrom
+        rdf:type  owl:ObjectProperty .
+
+props:axisPosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:treeRootExpression_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:annotatedCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalStartPosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uMultiplicities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:overridingProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:intendedUse  rdf:type  owl:ObjectProperty .
+
+props:inputPhase_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:electricCurrentExponent
+        rdf:type  owl:ObjectProperty .
+
+props:timeSeriesScheduleType
+        rdf:type  owl:ObjectProperty .
+
+props:thermalLoadType
+        rdf:type  owl:ObjectProperty .
+
+props:approvalStatus_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:documentReferences
+        rdf:type  owl:ObjectProperty .
+
+props:associatedGeometry
+        rdf:type  owl:ObjectProperty .
+
+props:hasSubContexts_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedSequenceType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:objectiveQualifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inputFrequency  rdf:type  owl:ObjectProperty .
+
+props:rateDateTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:town_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:upperValue  rdf:type  owl:ObjectProperty .
+
+props:quantities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isVentilated  rdf:type  owl:ObjectProperty .
+
+props:userDefinedPartitioningType
+        rdf:type  owl:ObjectProperty .
+
+props:connectionGeometry
+        rdf:type  owl:ObjectProperty .
+
+props:conversionFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:unitComponent  rdf:type  owl:ObjectProperty .
+
+props:lightDistributionDataSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:iD_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:spineCurve  rdf:type  owl:ObjectProperty .
+
+props:intersectingAxes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingClassification_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedConnectionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:permitID_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingConstraint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:roles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contents_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:targetUsers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:upperBoundValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseCosts  rdf:type  owl:ObjectProperty .
+
+props:hasTextureMaps_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partOfComplex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:extrudedDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:verticalAxisDirection
+        rdf:type  owl:ObjectProperty .
+
+props:assignedItems_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:backgroundColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerCurves_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedEventTriggerType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicableOccurrence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actor  rdf:type  owl:ObjectProperty .
+
+props:distanceAlong_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:remainingUsage  rdf:type  owl:ObjectProperty .
+
+props:modelorDraughting
+        rdf:type  owl:ObjectProperty .
+
+props:bendingParameters
+        rdf:type  owl:ObjectProperty .
+
+props:partOfPsetTemplate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:materialProfiles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:postalCode_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseWidth  rdf:type  owl:ObjectProperty .
+
+props:nominalValue  rdf:type  owl:ObjectProperty .
+
+props:solarReflectanceFront_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:axisTag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:classifiedMaterial
+        rdf:type  owl:ObjectProperty .
+
+props:isCritical  rdf:type  owl:ObjectProperty .
+
+props:startCantLeft  rdf:type  owl:ObjectProperty .
+
+props:hasPropertySets_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:interferenceType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencePath  rdf:type  owl:ObjectProperty .
+
+props:relatingReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:physicalOrVirtualBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fixedAxisVertical_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boilingPoint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:massExponent  rdf:type  owl:ObjectProperty .
+
+props:relatingProcess
+        rdf:type  owl:ObjectProperty .
+
+props:interferesElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:treadLength  rdf:type  owl:ObjectProperty .
+
+props:procedureID_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxRotateAngle  rdf:type  owl:ObjectProperty .
+
+props:thermalLoadTimeSeriesValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencingValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:nominalValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondMullionOffset
+        rdf:type  owl:ObjectProperty .
+
+props:firstTransomOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:documentOwner  rdf:type  owl:ObjectProperty .
+
+props:relatedOpeningElement
+        rdf:type  owl:ObjectProperty .
+
+props:railHeadDistance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:responsiblePersons
+        rdf:type  owl:ObjectProperty .
+
+props:widths_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPort_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definitionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatesConstraints_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:girth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeWidth  rdf:type  owl:ObjectProperty .
+
+props:eccentricityInY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasFillings  rdf:type  owl:ObjectProperty .
+
+props:poissonRatio  rdf:type  owl:ObjectProperty .
+
+props:hasPorts  rdf:type  owl:ObjectProperty .
+
+props:relatedStructuralMember_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:approval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:overallDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeriesReferences_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearForceX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:facsimileNumbers
+        rdf:type  owl:ObjectProperty .
+
+props:curveD_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleContour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingLibrary
+        rdf:type  owl:ObjectProperty .
+
+props:instanceName  rdf:type  owl:ObjectProperty .
+
+props:relatesTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:material  rdf:type  owl:ObjectProperty .
+
+props:referencedSource
+        rdf:type  owl:ObjectProperty .
+
+props:relatedOrganizations
+        rdf:type  owl:ObjectProperty .
+
+props:applicableDate  rdf:type  owl:ObjectProperty .
+
+props:edgeElement  rdf:type  owl:ObjectProperty .
+
+props:profile  rdf:type  owl:ObjectProperty .
+
+props:linearMomentZ  rdf:type  owl:ObjectProperty .
+
+props:pixel  rdf:type  owl:ObjectProperty .
+
+props:geodeticDatum_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:knots_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textStyle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessByLengthZ
+        rdf:type  owl:ObjectProperty .
+
+props:factor  rdf:type  owl:ObjectProperty .
+
+props:actingRole_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:firstMullionOffset
+        rdf:type  owl:ObjectProperty .
+
+props:luminousIntensity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalExpansionCoefficient_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hourComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:polygonalBoundary
+        rdf:type  owl:ObjectProperty .
+
+props:relatedBuildingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:faceSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:visibleReflectanceFront_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:deltaTZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compressionFailureZ
+        rdf:type  owl:ObjectProperty .
+
+props:horizontalWidths
+        rdf:type  owl:ObjectProperty .
+
+props:cartesianPosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lagValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxSlantAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleUsage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasPropertySets
+        rdf:type  owl:ObjectProperty .
+
+props:ambientIntensity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointParameterV
+        rdf:type  owl:ObjectProperty .
+
+props:deltaT  rdf:type  owl:ObjectProperty .
+
+props:timeValue  rdf:type  owl:ObjectProperty .
+
+props:postalCode  rdf:type  owl:ObjectProperty .
+
+props:materials_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedCoverings
+        rdf:type  owl:ObjectProperty .
+
+props:workMethod_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maxAggregateSize_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lowerHeatingValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:providesBoundaries
+        rdf:type  owl:ObjectProperty .
+
+props:momentOfInertiaY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:operationType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transitionCurveType
+        rdf:type  owl:ObjectProperty .
+
+props:duration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uKnots_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByLengthZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vertices_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mapUnit  rdf:type  owl:ObjectProperty .
+
+props:relatedApproval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:wallThickness  rdf:type  owl:ObjectProperty .
+
+props:lightDistributionCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveForm_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerSetName  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaY
+        rdf:type  owl:ObjectProperty .
+
+props:referenceIntoLibrary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:impactType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:liningDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elevationWithFlooring_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:northings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeStamp  rdf:type  owl:ObjectProperty .
+
+props:numberOfTreads  rdf:type  owl:ObjectProperty .
+
+props:featureLength  rdf:type  owl:ObjectProperty .
+
+props:profileOrientation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:subsequentAppliedLoads_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startCantRight  rdf:type  owl:ObjectProperty .
+
+props:assignedToStructuralItem
+        rdf:type  owl:ObjectProperty .
+
+props:distributionData_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:directionSense_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxRotateAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startDirection  rdf:type  owl:ObjectProperty .
+
+props:listPositions  rdf:type  owl:ObjectProperty .
+
+props:carbonContent  rdf:type  owl:ObjectProperty .
+
+props:relatingSpace_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:centreOfGravityInX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flowConditionTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:hasInteractionReqsFrom_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:capacityByWeight
+        rdf:type  owl:ObjectProperty .
+
+props:unitType  rdf:type  owl:ObjectProperty .
+
+props:propertyForDependance
+        rdf:type  owl:ObjectProperty .
+
+props:headWidth  rdf:type  owl:ObjectProperty .
+
+props:tensionFailureX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:causes  rdf:type  owl:ObjectProperty .
+
+props:earlyDate  rdf:type  owl:ObjectProperty .
+
+props:senseAgreement  rdf:type  owl:ObjectProperty .
+
+props:numberOfRiser_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessByLengthY
+        rdf:type  owl:ObjectProperty .
+
+props:momentOfInertiaYZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointOnRelatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:conditionCoordinateSystem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:weightsData_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:assemblyPlace_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedRole_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contains  rdf:type  owl:ObjectProperty .
+
+props:sourceOfResultGroup
+        rdf:type  owl:ObjectProperty .
+
+props:dir  rdf:type  owl:ObjectProperty .
+
+props:relatingActor  rdf:type  owl:ObjectProperty .
+
+props:definingValues  rdf:type  owl:ObjectProperty .
+
+props:userDefinedQualifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualDuration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textIndent  rdf:type  owl:ObjectProperty .
+
+props:relatingBuildingElement
+        rdf:type  owl:ObjectProperty .
+
+props:surfaceOnRelatedElement
+        rdf:type  owl:ObjectProperty .
+
+props:liningToPanelOffsetY
+        rdf:type  owl:ObjectProperty .
+
+props:textureMaps_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:templateType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isPredecessorTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textFontStyle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endDistance  rdf:type  owl:ObjectProperty .
+
+props:hardeningModule
+        rdf:type  owl:ObjectProperty .
+
+props:causedBy  rdf:type  owl:ObjectProperty .
+
+props:repeatFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isNestedBy  rdf:type  owl:ObjectProperty .
+
+props:isClassifyingItemIn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:loadGroupFor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colours  rdf:type  owl:ObjectProperty .
+
+props:definesType  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:types_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:updateDate  rdf:type  owl:ObjectProperty .
+
+props:deltaTConstant  rdf:type  owl:ObjectProperty .
+
+props:profile_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByAreaZ
+        rdf:type  owl:ObjectProperty .
+
+props:diffuseReflectionColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileSectionLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:solarTransmittance
+        rdf:type  owl:ObjectProperty .
+
+props:constraintSource
+        rdf:type  owl:ObjectProperty .
+
+props:distanceAttenuation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:literal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:subContractor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:exponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sweptCurve  rdf:type  owl:ObjectProperty .
+
+props:green_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:legSlope  rdf:type  owl:ObjectProperty .
+
+props:panelDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingFlowElement
+        rdf:type  owl:ObjectProperty .
+
+props:productDefinitional_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:arithmeticOperator
+        rdf:type  owl:ObjectProperty .
+
+props:contextOfItems  rdf:type  owl:ObjectProperty .
+
+props:hasConstraints_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:accessState  rdf:type  owl:ObjectProperty .
+
+props:connectionType  rdf:type  owl:ObjectProperty .
+
+props:xAxisOrdinate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edition  rdf:type  owl:ObjectProperty .
+
+props:role_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representations_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:surfaceForm  rdf:type  owl:ObjectProperty .
+
+props:validUntil_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:projectedOrTrue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:completion  rdf:type  owl:ObjectProperty .
+
+props:flowDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:label  rdf:type  owl:ObjectProperty .
+
+props:basisSurface  rdf:type  owl:ObjectProperty .
+
+props:bounds_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dateComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:daylightSavingOffset
+        rdf:type  owl:ObjectProperty .
+
+props:middleNames  rdf:type  owl:ObjectProperty .
+
+props:diffuseColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:surfaceColour  rdf:type  owl:ObjectProperty .
+
+props:textureCoordinates
+        rdf:type  owl:ObjectProperty .
+
+props:innerFilletRadius
+        rdf:type  owl:ObjectProperty .
+
+props:predefinedType  rdf:type  owl:ObjectProperty .
+
+props:isPredecessorTo
+        rdf:type  owl:ObjectProperty .
+
+props:positions  rdf:type  owl:ObjectProperty .
+
+props:curveOnRelatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalStartPosition
+        rdf:type  owl:ObjectProperty .
+
+props:facsimileNumbers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flowConditionTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedControlType
+        rdf:type  owl:ObjectProperty .
+
+props:thresholdDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:capacityByNumber
+        rdf:type  owl:ObjectProperty .
+
+props:resourceType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessX
+        rdf:type  owl:ObjectProperty .
+
+props:curveD  rdf:type  owl:ObjectProperty .
+
+props:relatedMaterials
+        rdf:type  owl:ObjectProperty .
+
+props:rowCells  rdf:type  owl:ObjectProperty .
+
+props:transparency  rdf:type  owl:ObjectProperty .
+
+props:internalLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:topXDim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:closedCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:theoryType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:propertyDefinitionOf
+        rdf:type  owl:ObjectProperty .
+
+props:parentCurve  rdf:type  owl:ObjectProperty .
+
+props:planarForceX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bound_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeEnd_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:zone  rdf:type  owl:ObjectProperty .
+
+props:featureLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:letterSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:visibleTransmittance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessY
+        rdf:type  owl:ObjectProperty .
+
+props:relatingDocument
+        rdf:type  owl:ObjectProperty .
+
+props:serviceLifeType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parameterTakesPrecedence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetVertical_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pagerNumber  rdf:type  owl:ObjectProperty .
+
+props:referencedBy  rdf:type  owl:ObjectProperty .
+
+props:momentZ  rdf:type  owl:ObjectProperty .
+
+props:closed_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:casingDepth  rdf:type  owl:ObjectProperty .
+
+props:maximumSectionModulusZ
+        rdf:type  owl:ObjectProperty .
+
+props:casingThickness
+        rdf:type  owl:ObjectProperty .
+
+props:relatedControlElements
+        rdf:type  owl:ObjectProperty .
+
+props:propertyForDependance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partOfPsetTemplate
+        rdf:type  owl:ObjectProperty .
+
+props:bottomFlangeSlope
+        rdf:type  owl:ObjectProperty .
+
+props:theOrganization
+        rdf:type  owl:ObjectProperty .
+
+props:isCCW_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uKnots  rdf:type  owl:ObjectProperty .
+
+props:lastUpdateDate  rdf:type  owl:ObjectProperty .
+
+props:definitionType  rdf:type  owl:ObjectProperty .
+
+props:pointOnRelatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:material_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedQualifier
+        rdf:type  owl:ObjectProperty .
+
+props:wetBulbTemperatureTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:bottomRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:materialLayers  rdf:type  owl:ObjectProperty .
+
+props:dailyInteraction
+        rdf:type  owl:ObjectProperty .
+
+props:reflectanceColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:columns_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingActor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tensionFailureZ
+        rdf:type  owl:ObjectProperty .
+
+props:transomOffset  rdf:type  owl:ObjectProperty .
+
+props:startPoint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:appliedLoad  rdf:type  owl:ObjectProperty .
+
+props:roles  rdf:type  owl:ObjectProperty .
+
+props:exceptionTimes  rdf:type  owl:ObjectProperty .
+
+props:sourceCRS  rdf:type  owl:ObjectProperty .
+
+props:relatedProcess_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:surfaceOnRelatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:texCoordsList  rdf:type  owl:ObjectProperty .
+
+props:relatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:objectPlacement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearForceZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inputPhase  rdf:type  owl:ObjectProperty .
+
+props:sort_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualFinish_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:responsiblePerson
+        rdf:type  owl:ObjectProperty .
+
+props:recurrence  rdf:type  owl:ObjectProperty .
+
+props:texCoords_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedPropertySets_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:reinforcementSectionDefinitions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveFont  rdf:type  owl:ObjectProperty .
+
+props:fixedReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refractionIndex
+        rdf:type  owl:ObjectProperty .
+
+props:outerFilletRadius
+        rdf:type  owl:ObjectProperty .
+
+props:rasterFormat  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isHeading  rdf:type  owl:ObjectProperty .
+
+props:punchList  rdf:type  owl:ObjectProperty .
+
+props:loopVertex  rdf:type  owl:ObjectProperty .
+
+props:relatingControl
+        rdf:type  owl:ObjectProperty .
+
+props:side  rdf:type  owl:ObjectProperty .
+
+props:reinforcementRole
+        rdf:type  owl:ObjectProperty .
+
+props:referencePath_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:basisSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vertical  rdf:type  owl:ObjectProperty .
+
+props:relatingTemplate
+        rdf:type  owl:ObjectProperty .
+
+props:isRelatedToCallout_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sizeInX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:repeatT_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hatchLineAppearance
+        rdf:type  owl:ObjectProperty .
+
+props:referencesElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalDisplacementRY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:subContractor  rdf:type  owl:ObjectProperty .
+
+props:intent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectionConstraint
+        rdf:type  owl:ObjectProperty .
+
+props:topFlangeThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:preStress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:legSlope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:theActor  rdf:type  owl:ObjectProperty .
+
+props:relatedPriorities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalIrTransmittance
+        rdf:type  owl:ObjectProperty .
+
+props:dataValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actionID_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:suffixTitles  rdf:type  owl:ObjectProperty .
+
+props:userDefinedEnergySequence
+        rdf:type  owl:ObjectProperty .
+
+props:relatedFeatureElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forProfileSet  rdf:type  owl:ObjectProperty .
+
+props:originalValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:displacementZ  rdf:type  owl:ObjectProperty .
+
+props:containsElements
+        rdf:type  owl:ObjectProperty .
+
+props:timePeriods  rdf:type  owl:ObjectProperty .
+
+props:editionDate  rdf:type  owl:ObjectProperty .
+
+props:positions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:id_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedApproval
+        rdf:type  owl:ObjectProperty .
+
+props:endCantLeft  rdf:type  owl:ObjectProperty .
+
+props:containedIn  rdf:type  owl:ObjectProperty .
+
+props:assignedStructuralActivity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transverseBarSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:valuesReferenced
+        rdf:type  owl:ObjectProperty .
+
+props:localOrigin_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedItems  rdf:type  owl:ObjectProperty .
+
+props:edition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:angle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:varyingThicknessLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:weightValue  rdf:type  owl:ObjectProperty .
+
+props:points_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usense  rdf:type  owl:ObjectProperty .
+
+props:widths  rdf:type  owl:ObjectProperty .
+
+props:importanceRating_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:language  rdf:type  owl:DatatypeProperty .
+
+props:linearMomentX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vsense  rdf:type  owl:ObjectProperty .
+
+props:userDefinedType
+        rdf:type  owl:ObjectProperty .
+
+props:startDistance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fontFamily_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forceZ  rdf:type  owl:ObjectProperty .
+
+props:xAxisAbscissa  rdf:type  owl:ObjectProperty .
+
+props:targetUsers  rdf:type  owl:ObjectProperty .
+
+props:controlPointsList
+        rdf:type  owl:ObjectProperty .
+
+props:middleNames_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parentProfile_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sectionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:formula  rdf:type  owl:ObjectProperty .
+
+props:linearForceY  rdf:type  owl:ObjectProperty .
+
+props:permitID  rdf:type  owl:ObjectProperty .
+
+props:warpingConstant
+        rdf:type  owl:ObjectProperty .
+
+props:hasInteractionReqsTo
+        rdf:type  owl:ObjectProperty .
+
+props:targetView  rdf:type  owl:ObjectProperty .
+
+props:jobDescription_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:servicesBuildings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasResults_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:worldCoordinateSystem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vertices  rdf:type  owl:ObjectProperty .
+
+props:referencedByPlacements
+        rdf:type  owl:ObjectProperty .
+
+props:outerFilletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parentCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refElevation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:selfWeightCoefficients
+        rdf:type  owl:ObjectProperty .
+
+props:dependantProperty_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actingRole  rdf:type  owl:ObjectProperty .
+
+props:creationDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearCentreZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:identification_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeSlope  rdf:type  owl:ObjectProperty .
+
+props:crossSectionPositions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endTime  rdf:type  owl:ObjectProperty .
+
+props:category  rdf:type  owl:ObjectProperty .
+
+props:status_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:familyName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearAreaY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resultGroupFor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minimumPlateThickness
+        rdf:type  owl:ObjectProperty .
+
+props:bottomFlangeFilletRadius
+        rdf:type  owl:ObjectProperty .
+
+props:topFlangeFilletRadius
+        rdf:type  owl:ObjectProperty .
+
+props:curveOnRelatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lowerValue  rdf:type  owl:ObjectProperty .
+
+props:notationValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tensionFailureZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessByLengthX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingProduct
+        rdf:type  owl:ObjectProperty .
+
+props:sequenceType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedPropertySource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearDeformationAreaY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startDistAlong  rdf:type  owl:ObjectProperty .
+
+props:placesObject  rdf:type  owl:ObjectProperty .
+
+props:hourOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:steelGrade_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:depth  rdf:type  owl:ObjectProperty .
+
+props:minimumSectionModulusZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dataValue  rdf:type  owl:ObjectProperty .
+
+props:classifiedAs_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:additionalConditions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedPort  rdf:type  owl:ObjectProperty .
+
+props:visibleTransmittance
+        rdf:type  owl:ObjectProperty .
+
+props:shapeType  rdf:type  owl:ObjectProperty .
+
+props:totalCrossSectionArea
+        rdf:type  owl:ObjectProperty .
+
+props:colourTemperature
+        rdf:type  owl:ObjectProperty .
+
+props:flowrateSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:numberOfRiser  rdf:type  owl:ObjectProperty .
+
+props:concentrationExponent
+        rdf:type  owl:ObjectProperty .
+
+props:dir_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boilingPoint  rdf:type  owl:ObjectProperty .
+
+props:textureType  rdf:type  owl:ObjectProperty .
+
+props:placementLocation
+        rdf:type  owl:ObjectProperty .
+
+props:region_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:trueNorth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingConnectionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:soundValues  rdf:type  owl:ObjectProperty .
+
+props:isInterferedByElements
+        rdf:type  owl:ObjectProperty .
+
+props:endTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forProfileSet_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:creationTime  rdf:type  owl:ObjectProperty .
+
+props:definesOccurrence
+        rdf:type  owl:ObjectProperty .
+
+props:representationMap_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:listValues  rdf:type  owl:ObjectProperty .
+
+props:solarReflectanceBack_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dissolvedSolidsContent
+        rdf:type  owl:ObjectProperty .
+
+props:firstOperand_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencesElement
+        rdf:type  owl:ObjectProperty .
+
+props:isPointedTo  rdf:type  owl:ObjectProperty .
+
+props:electricCurrentExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:classifiedMaterial_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dispersionFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rateDateTime  rdf:type  owl:ObjectProperty .
+
+props:locationAtRelatedElement
+        rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessByLengthX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasProperties  rdf:type  owl:ObjectProperty .
+
+props:treadLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:prefix  rdf:type  owl:ObjectProperty .
+
+props:modelOrDraughting
+        rdf:type  owl:ObjectProperty .
+
+props:hasApprovals  rdf:type  owl:ObjectProperty .
+
+props:volumeOnRelatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedClassifications
+        rdf:type  owl:ObjectProperty .
+
+props:transomThickness
+        rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessByLengthX
+        rdf:type  owl:ObjectProperty .
+
+props:relationshipType
+        rdf:type  owl:ObjectProperty .
+
+props:assignedToStructuralItem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:libraryReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:directrix  rdf:type  owl:ObjectProperty .
+
+props:confidentiality_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isNestedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compressionFailureY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:siteAddress  rdf:type  owl:ObjectProperty .
+
+props:texturePoints  rdf:type  owl:ObjectProperty .
+
+props:actors_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sectionDefinition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:operator  rdf:type  owl:ObjectProperty .
+
+props:mimeSubtype  rdf:type  owl:ObjectProperty .
+
+props:bendingParameters_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:approvedResources_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textCharacterAppearance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:positioningElement
+        rdf:type  owl:ObjectProperty .
+
+props:segmentLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencesElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:trim  rdf:type  owl:ObjectProperty .
+
+props:representationType
+        rdf:type  owl:ObjectProperty .
+
+props:materialConstituents_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coefficient_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:predefinedType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ownerHistory  rdf:type  owl:ObjectProperty .
+
+props:representations
+        rdf:type  owl:ObjectProperty .
+
+props:invisibleSegmentLength
+        rdf:type  owl:ObjectProperty .
+
+props:pressureTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:elevationOfTerrain_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relaxations_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isAttenuating  rdf:type  owl:ObjectProperty .
+
+props:soundScale_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tags  rdf:type  owl:ObjectProperty .
+
+props:molecularWeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedElements
+        rdf:type  owl:ObjectProperty .
+
+props:description  rdf:type  owl:DatatypeProperty .
+
+props:coversSpaces  rdf:type  owl:ObjectProperty .
+
+props:proxyType  rdf:type  owl:ObjectProperty .
+
+props:characterSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:benchmarkValues
+        rdf:type  owl:ObjectProperty .
+
+props:ultimateStrain_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointParameterV_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:soundValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usageName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referenceTokens
+        rdf:type  owl:ObjectProperty .
+
+props:luminousFlux  rdf:type  owl:ObjectProperty .
+
+props:targetCRS_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:electricCurrentType
+        rdf:type  owl:ObjectProperty .
+
+props:planarForceZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:direction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:workControlType
+        rdf:type  owl:ObjectProperty .
+
+props:monthComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textFontStyle  rdf:type  owl:ObjectProperty .
+
+props:referenceExtent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:additionalConditions
+        rdf:type  owl:ObjectProperty .
+
+props:planarForceY  rdf:type  owl:ObjectProperty .
+
+props:constraintGrade
+        rdf:type  owl:ObjectProperty .
+
+props:nominalBarDiameter
+        rdf:type  owl:ObjectProperty .
+
+props:alongHorizontal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:axis  rdf:type  owl:ObjectProperty .
+
+props:bottomFlangeWidth
+        rdf:type  owl:ObjectProperty .
+
+props:timeExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:start  rdf:type  owl:ObjectProperty .
+
+props:styles  rdf:type  owl:ObjectProperty .
+
+props:dataOrigin_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleDate  rdf:type  owl:ObjectProperty .
+
+props:compositeProfile_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pressureSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:panelWidth  rdf:type  owl:ObjectProperty .
+
+props:displacementY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerSetDirection
+        rdf:type  owl:ObjectProperty .
+
+props:quadricAttenuation
+        rdf:type  owl:ObjectProperty .
+
+props:cardinalEndPoint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transmissionColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:controlPointsList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:numberOfTreads_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mappedRepresentation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definition  rdf:type  owl:ObjectProperty .
+
+props:thermalIrEmissivityBack_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearAreaY  rdf:type  owl:ObjectProperty .
+
+props:wetBulbTemperatureSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:surfaceForm_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:statusTime  rdf:type  owl:ObjectProperty .
+
+props:hasResults  rdf:type  owl:ObjectProperty .
+
+props:voids  rdf:type  owl:ObjectProperty .
+
+props:procedureID  rdf:type  owl:ObjectProperty .
+
+props:sweptArea  rdf:type  owl:ObjectProperty .
+
+props:coversElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fontWeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:depth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:segmentLength  rdf:type  owl:ObjectProperty .
+
+props:uRLReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lineHeight  rdf:type  owl:ObjectProperty .
+
+props:volumeValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasLibraryReferences
+        rdf:type  owl:ObjectProperty .
+
+props:approvalLevel  rdf:type  owl:ObjectProperty .
+
+props:outer_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isConvex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleStart  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:slippageY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedLibrary
+        rdf:type  owl:ObjectProperty .
+
+props:relatingDraughtingCallout
+        rdf:type  owl:ObjectProperty .
+
+props:workingTimes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:units  rdf:type  owl:ObjectProperty .
+
+props:xDim  rdf:type  owl:ObjectProperty .
+
+props:objectType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:creationDate  rdf:type  owl:ObjectProperty .
+
+props:parameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rasterCode_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:symbol_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resourceConsumption
+        rdf:type  owl:ObjectProperty .
+
+props:mainPlaneAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerSetName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseCosts_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:purpose  rdf:type  owl:ObjectProperty .
+
+props:userDefinedProcedureType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lateFinish  rdf:type  owl:ObjectProperty .
+
+props:itemOf_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dimensions  rdf:type  owl:ObjectProperty .
+
+props:textStyle  rdf:type  owl:ObjectProperty .
+
+props:approvedObjects
+        rdf:type  owl:ObjectProperty .
+
+props:relatedConstraints
+        rdf:type  owl:ObjectProperty .
+
+props:locations  rdf:type  owl:ObjectProperty .
+
+props:supportedLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:liningOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:barRole_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:conversionOffset
+        rdf:type  owl:ObjectProperty .
+
+props:startTime  rdf:type  owl:ObjectProperty .
+
+props:relatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:valueOfComponents_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:u_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:region  rdf:type  owl:ObjectProperty .
+
+props:finishTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:documentReferences_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:electronicMailAddresses_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:topXOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startRadius  rdf:type  owl:ObjectProperty .
+
+props:edgeGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startFloat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationContexts
+        rdf:type  owl:ObjectProperty .
+
+props:parentBoundary  rdf:type  owl:ObjectProperty .
+
+props:longDescription_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:approvedResources
+        rdf:type  owl:ObjectProperty .
+
+props:frequency  rdf:type  owl:ObjectProperty .
+
+props:linearMomentZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:typeIdentifier  rdf:type  owl:ObjectProperty .
+
+props:objectType  rdf:type  owl:ObjectProperty .
+
+props:subsequentThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:velocityTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingApproval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedElement  rdf:type  owl:ObjectProperty .
+
+props:colourList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:locationAtRelatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveFont_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minCurvatureRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:itemOf  rdf:type  owl:ObjectProperty .
+
+props:layerFrozen_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:criterionDateTime
+        rdf:type  owl:ObjectProperty .
+
+props:incorporationDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isConnectionRealization
+        rdf:type  owl:ObjectProperty .
+
+props:isMilestone  rdf:type  owl:ObjectProperty .
+
+props:ratedPowerInput_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseQuantity  rdf:type  owl:ObjectProperty .
+
+props:relatingProfileProperties
+        rdf:type  owl:ObjectProperty .
+
+props:eventOccurenceTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lowerVaporResistanceFactor
+        rdf:type  owl:ObjectProperty .
+
+props:aggregates  rdf:type  owl:ObjectProperty .
+
+props:approvalStatus  rdf:type  owl:ObjectProperty .
+
+props:barCount  rdf:type  owl:ObjectProperty .
+
+props:treeRootExpression
+        rdf:type  owl:ObjectProperty .
+
+props:timeForTask  rdf:type  owl:ObjectProperty .
+
+props:outerBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:normals  rdf:type  owl:ObjectProperty .
+
+props:relates  rdf:type  owl:ObjectProperty .
+
+props:minimumValue  rdf:type  owl:ObjectProperty .
+
+props:category_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:taskId_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasSubContexts  rdf:type  owl:ObjectProperty .
+
+props:deltaT_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contextType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yDim  rdf:type  owl:ObjectProperty .
+
+props:itemReference  rdf:type  owl:ObjectProperty .
+
+props:totalFloat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:propertyDefinitionOf_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lightColour  rdf:type  owl:ObjectProperty .
+
+props:userDefinedThermalLoadSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearModulus  rdf:type  owl:ObjectProperty .
+
+props:boxWidth  rdf:type  owl:ObjectProperty .
+
+props:filletRadius  rdf:type  owl:ObjectProperty .
+
+props:crossSections_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hatchLineAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maximumPlateThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forProfileEndSet_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPort  rdf:type  owl:ObjectProperty .
+
+props:momentOfInertiaY
+        rdf:type  owl:ObjectProperty .
+
+props:ribWidth  rdf:type  owl:ObjectProperty .
+
+props:impliedOrder_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:engagedIn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:changeAction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessByLengthZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:purpose_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:skillSet  rdf:type  owl:ObjectProperty .
+
+props:colourAppearance
+        rdf:type  owl:ObjectProperty .
+
+props:transomThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minimumValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedPropertySource
+        rdf:type  owl:ObjectProperty .
+
+props:theoryType  rdf:type  owl:ObjectProperty .
+
+props:userDefinedFunction
+        rdf:type  owl:ObjectProperty .
+
+props:mapProjection  rdf:type  owl:ObjectProperty .
+
+props:profiles  rdf:type  owl:ObjectProperty .
+
+props:endSweptArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isEndRadiusCCW_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:basisCurve  rdf:type  owl:ObjectProperty .
+
+props:workMethod  rdf:type  owl:ObjectProperty .
+
+props:crossSectionReinforcementDefinitions
+        rdf:type  owl:ObjectProperty .
+
+props:poissonRatio_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:initialStress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearDeformationAreaY
+        rdf:type  owl:ObjectProperty .
+
+props:extendedProperties
+        rdf:type  owl:ObjectProperty .
+
+props:bottomXDim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lastModifyingApplication
+        rdf:type  owl:ObjectProperty .
+
+props:overallDepth  rdf:type  owl:ObjectProperty .
+
+props:textTransform_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeriesReferences
+        rdf:type  owl:ObjectProperty .
+
+props:discrimination_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:meshLength  rdf:type  owl:ObjectProperty .
+
+props:expression  rdf:type  owl:ObjectProperty .
+
+props:boxAlignment_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:solarReflectanceBack
+        rdf:type  owl:ObjectProperty .
+
+props:projectsElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:corner  rdf:type  owl:ObjectProperty .
+
+props:precision  rdf:type  owl:ObjectProperty .
+
+props:pagerNumber_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boundaries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startParam  rdf:type  owl:ObjectProperty .
+
+props:liningToPanelOffsetY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:segments_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fullLoadCurrent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleDuration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vAxes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:countValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tilingScale  rdf:type  owl:ObjectProperty .
+
+props:approvedObjects_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:positionedRelativeTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:intensity  rdf:type  owl:ObjectProperty .
+
+props:texturePoints_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveColour  rdf:type  owl:ObjectProperty .
+
+props:relatedObjects_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:owner_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mostUsedValue  rdf:type  owl:ObjectProperty .
+
+props:textAlign_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:admixturesDescription_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usage  rdf:type  owl:ObjectProperty .
+
+props:versionDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessX
+        rdf:type  owl:ObjectProperty .
+
+props:buildingAddress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:correspondingBoundary
+        rdf:type  owl:ObjectProperty .
+
+props:luminousIntensityExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tilingPattern_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:setPointValue  rdf:type  owl:ObjectProperty .
+
+props:masterRepresentation
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleWork_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondRepeatFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:voids_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeForTask_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseQuantity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sort  rdf:type  owl:ObjectProperty .
+
+props:documentId_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:qualifier  rdf:type  owl:ObjectProperty .
+
+props:minimumCircuitCurrent
+        rdf:type  owl:ObjectProperty .
+
+props:partOfProductDefinitionShape
+        rdf:type  owl:ObjectProperty .
+
+props:layerSetDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:revision  rdf:type  owl:ObjectProperty .
+
+props:appliedValue  rdf:type  owl:ObjectProperty .
+
+props:temperatureTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:internalLocation
+        rdf:type  owl:ObjectProperty .
+
+props:relatingPositioningElement
+        rdf:type  owl:ObjectProperty .
+
+props:baseSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:annotatedSurface
+        rdf:type  owl:ObjectProperty .
+
+props:title_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:enclosure  rdf:type  owl:ObjectProperty .
+
+props:v  rdf:type  owl:ObjectProperty .
+
+props:recurrencePattern_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:electricCurrentType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startOfNextHatchLine
+        rdf:type  owl:ObjectProperty .
+
+props:lastModifyingUser
+        rdf:type  owl:ObjectProperty .
+
+props:valueComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:topFlangeEdgeRadius
+        rdf:type  owl:ObjectProperty .
+
+props:red_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:submittedOn  rdf:type  owl:ObjectProperty .
+
+props:numberOfRisers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scheduleUsage  rdf:type  owl:ObjectProperty .
+
+props:boundedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerBoundaries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessZ
+        rdf:type  owl:ObjectProperty .
+
+props:revision_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:webEdgeRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:recurrence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mappedTo  rdf:type  owl:ObjectProperty .
+
+props:prefix_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingConstraint
+        rdf:type  owl:ObjectProperty .
+
+props:relatingAppliedValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representedMaterial
+        rdf:type  owl:ObjectProperty .
+
+props:plasticStrain_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:diffuseTransmissionColour
+        rdf:type  owl:ObjectProperty .
+
+props:representationType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tiles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasPropertyTemplates
+        rdf:type  owl:ObjectProperty .
+
+props:horizontalLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isGroupedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isOverAllocated
+        rdf:type  owl:ObjectProperty .
+
+props:styleOfSymbol_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startFloat  rdf:type  owl:ObjectProperty .
+
+props:minuteOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetLongitudinal
+        rdf:type  owl:ObjectProperty .
+
+props:longName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedResourceObjects
+        rdf:type  owl:ObjectProperty .
+
+props:hasInteractionReqsFrom
+        rdf:type  owl:ObjectProperty .
+
+props:bottomXDim  rdf:type  owl:ObjectProperty .
+
+props:textAlign  rdf:type  owl:ObjectProperty .
+
+props:offsetFromReferenceLine_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedPurpose_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thresholdThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:urlReference  rdf:type  owl:ObjectProperty .
+
+props:hasStructuralMember
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedControlType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalIrTransmittance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:preparedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parabolaConstant
+        rdf:type  owl:ObjectProperty .
+
+props:orientation  rdf:type  owl:ObjectProperty .
+
+props:soundLevelSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maxAggregateSize
+        rdf:type  owl:ObjectProperty .
+
+props:globalOrLocal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isLinear_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:railHeadDistance
+        rdf:type  owl:ObjectProperty .
+
+props:elements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lateDate  rdf:type  owl:ObjectProperty .
+
+props:shapeAspectStyle
+        rdf:type  owl:ObjectProperty .
+
+props:tag  rdf:type  owl:ObjectProperty .
+
+props:slippageY  rdf:type  owl:ObjectProperty .
+
+props:riserHeight  rdf:type  owl:ObjectProperty .
+
+props:isDeclaredBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fixedAxisVertical
+        rdf:type  owl:ObjectProperty .
+
+props:electronicMailAddresses
+        rdf:type  owl:ObjectProperty .
+
+props:interferenceType
+        rdf:type  owl:ObjectProperty .
+
+props:pointParameter  rdf:type  owl:ObjectProperty .
+
+props:upperVaporResistanceFactor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicableEntity
+        rdf:type  owl:ObjectProperty .
+
+props:objectPlacement
+        rdf:type  owl:ObjectProperty .
+
+props:endTag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startProfile_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sheathDiameter  rdf:type  owl:ObjectProperty .
+
+props:urlReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerOn  rdf:type  owl:ObjectProperty .
+
+props:sourceDescription_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:locationAtRelatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:relatedBuildings
+        rdf:type  owl:ObjectProperty .
+
+props:taskId  rdf:type  owl:ObjectProperty .
+
+props:connectedTo  rdf:type  owl:ObjectProperty .
+
+props:name  rdf:type  owl:ObjectProperty .
+
+props:parentEdge  rdf:type  owl:ObjectProperty .
+
+props:position_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:corner_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:massDensity  rdf:type  owl:ObjectProperty .
+
+props:curveFontScaling
+        rdf:type  owl:ObjectProperty .
+
+props:isRelatedFromCallout_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:extrudedDirection
+        rdf:type  owl:ObjectProperty .
+
+props:outerCurve  rdf:type  owl:ObjectProperty .
+
+props:nominalDiameter
+        rdf:type  owl:ObjectProperty .
+
+props:placementMeasuredAlong
+        rdf:type  owl:ObjectProperty .
+
+props:knotMultiplicities
+        rdf:type  owl:ObjectProperty .
+
+props:externalReferenceForResources
+        rdf:type  owl:ObjectProperty .
+
+props:interval  rdf:type  owl:ObjectProperty .
+
+props:concentrationExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:annotatedBySymbols
+        rdf:type  owl:ObjectProperty .
+
+props:parentContext  rdf:type  owl:ObjectProperty .
+
+props:lightEmissionSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByAreaY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usageType  rdf:type  owl:ObjectProperty .
+
+props:intensity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colours_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondaryPlaneAngle
+        rdf:type  owl:ObjectProperty .
+
+props:owningUser_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:controlElementId_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:propertySource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lowerBoundValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingMaterial
+        rdf:type  owl:ObjectProperty .
+
+props:hasInteractionReqsTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:requestingApproval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:remainingWork_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definesOccurrence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eccentricityInY
+        rdf:type  owl:ObjectProperty .
+
+props:proxyType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:unitType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:blue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frictionCoefficient
+        rdf:type  owl:ObjectProperty .
+
+props:conversionOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:interval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:impuritiesContent
+        rdf:type  owl:ObjectProperty .
+
+props:maximumValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:controls  rdf:type  owl:ObjectProperty .
+
+props:wWWHomePageURL_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:version_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elevation  rdf:type  owl:ObjectProperty .
+
+props:placementMeasuredAlong_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingMaterial_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fontVariant  rdf:type  owl:ObjectProperty .
+
+props:label_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:visibleSegmentLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maximumSectionModulusZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasControlElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:values_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:factor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parentEdge_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:controls_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:landTitleNumber_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:warpingMoment  rdf:type  owl:ObjectProperty .
+
+props:distributionPointFunction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:servicesBuildings
+        rdf:type  owl:ObjectProperty .
+
+props:fbsmFaces  rdf:type  owl:ObjectProperty .
+
+props:surfaceOnRelatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contextType  rdf:type  owl:ObjectProperty .
+
+props:letterSpacing  rdf:type  owl:ObjectProperty .
+
+props:initialStress  rdf:type  owl:ObjectProperty .
+
+props:alongHorizontal
+        rdf:type  owl:ObjectProperty .
+
+props:addressLines  rdf:type  owl:ObjectProperty .
+
+props:elevationOfRefHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalEndPosition
+        rdf:type  owl:ObjectProperty .
+
+props:vKnots  rdf:type  owl:ObjectProperty .
+
+props:definedValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:assignedStructuralActivity
+        rdf:type  owl:ObjectProperty .
+
+props:layerThickness  rdf:type  owl:ObjectProperty .
+
+props:finishFloat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalDisplacementRY
+        rdf:type  owl:ObjectProperty .
+
+props:hasDocumentReferences
+        rdf:type  owl:ObjectProperty .
+
+props:transitionCurveType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flexible  rdf:type  owl:ObjectProperty .
+
+props:placementRefDirection
+        rdf:type  owl:ObjectProperty .
+
+props:fbsmFaces_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tags_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:proportionalStress
+        rdf:type  owl:ObjectProperty .
+
+props:axisTag  rdf:type  owl:ObjectProperty .
+
+props:materials  rdf:type  owl:ObjectProperty .
+
+props:userDefinedDataOrigin
+        rdf:type  owl:ObjectProperty .
+
+props:finishFloat  rdf:type  owl:ObjectProperty .
+
+props:dispersionFactor
+        rdf:type  owl:ObjectProperty .
+
+props:controlElementId
+        rdf:type  owl:ObjectProperty .
+
+props:minimumSectionModulusZ
+        rdf:type  owl:ObjectProperty .
+
+props:usageName  rdf:type  owl:ObjectProperty .
+
+props:relatingGroup  rdf:type  owl:ObjectProperty .
+
+props:dailyInteraction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curve  rdf:type  owl:ObjectProperty .
+
+props:profileDefinition
+        rdf:type  owl:ObjectProperty .
+
+props:specularColour  rdf:type  owl:ObjectProperty .
+
+props:units_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:patternStart  rdf:type  owl:ObjectProperty .
+
+props:positionedRelativeTo
+        rdf:type  owl:ObjectProperty .
+
+props:colourTemperature_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flowrateTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectionConstraint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencingValues
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedThermalLoadSource
+        rdf:type  owl:ObjectProperty .
+
+props:shapeAspectStyle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isRelatedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:covers  rdf:type  owl:ObjectProperty .
+
+props:cOContent  rdf:type  owl:ObjectProperty .
+
+props:applicableEntity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:conditionCoordinateSystem
+        rdf:type  owl:ObjectProperty .
+
+props:referenceExtent
+        rdf:type  owl:ObjectProperty .
+
+props:countValue  rdf:type  owl:ObjectProperty .
+
+props:durationType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedPartitioningType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:responsiblePerson_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isStartRadiusCCW
+        rdf:type  owl:ObjectProperty .
+
+props:thermalExpansionCoefficient
+        rdf:type  owl:ObjectProperty .
+
+props:loadGroupFor  rdf:type  owl:ObjectProperty .
+
+props:moveFrom_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startParam_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:containedIn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:moveTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sense  rdf:type  owl:ObjectProperty .
+
+props:plasticShapeFactorZ
+        rdf:type  owl:ObjectProperty .
+
+props:colour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:polygonalBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transversePosition
+        rdf:type  owl:ObjectProperty .
+
+props:componentOfTotal
+        rdf:type  owl:ObjectProperty .
+
+props:boxHeight  rdf:type  owl:ObjectProperty .
+
+props:vDegree_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:versionDate  rdf:type  owl:ObjectProperty .
+
+props:isDeclaredBy  rdf:type  owl:ObjectProperty .
+
+props:fillsVoids_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vaporPermeability
+        rdf:type  owl:ObjectProperty .
+
+props:eventTriggerType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:listPositions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:messagingIDs  rdf:type  owl:ObjectProperty .
+
+props:transverseBarCrossSectionArea
+        rdf:type  owl:ObjectProperty .
+
+props:transversePosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coefficient  rdf:type  owl:ObjectProperty .
+
+props:shapeOfProduct  rdf:type  owl:ObjectProperty .
+
+props:crossSectionArea
+        rdf:type  owl:ObjectProperty .
+
+props:sweptArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:start_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eastings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:submittedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:taskTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerBlocked  rdf:type  owl:ObjectProperty .
+
+props:parentBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fillStyles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedDraughtingCallout_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:volumeOnRelatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:flexible_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endProfile_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:addresses_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startHeight  rdf:type  owl:ObjectProperty .
+
+props:shapeOfProduct_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:acidityConcentration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:containsElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingReference
+        rdf:type  owl:ObjectProperty .
+
+props:modelorDraughting_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profiles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:quality_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:iD  rdf:type  owl:ObjectProperty .
+
+props:assetID  rdf:type  owl:ObjectProperty .
+
+props:panelPosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveWidth  rdf:type  owl:ObjectProperty .
+
+props:logicalAggregator_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isOverAllocated_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByLengthZ
+        rdf:type  owl:ObjectProperty .
+
+props:dependingProperty
+        rdf:type  owl:ObjectProperty .
+
+props:volumeOnRelatedElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:distanceAlong  rdf:type  owl:ObjectProperty .
+
+props:originalValue  rdf:type  owl:ObjectProperty .
+
+props:fillsVoids  rdf:type  owl:ObjectProperty .
+
+props:requestID_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasCoverings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:casingThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refElevation  rdf:type  owl:ObjectProperty .
+
+props:directionSense  rdf:type  owl:ObjectProperty .
+
+props:pnt  rdf:type  owl:ObjectProperty .
+
+props:mappedRepresentation
+        rdf:type  owl:ObjectProperty .
+
+props:curveInterpolation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:surfaceOnRelatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondRepeatFactor
+        rdf:type  owl:ObjectProperty .
+
+props:fluid  rdf:type  owl:ObjectProperty .
+
+props:user  rdf:type  owl:ObjectProperty .
+
+props:isVentilated_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isTypedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tilingPattern  rdf:type  owl:ObjectProperty .
+
+props:specularColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fontVariant_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forceY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalBarNominalDiameter
+        rdf:type  owl:ObjectProperty .
+
+props:unit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:roundingRadius  rdf:type  owl:ObjectProperty .
+
+props:topFlangeWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:monthComponent  rdf:type  owl:ObjectProperty .
+
+props:lateralAxisDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transmissionColour
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleWork  rdf:type  owl:ObjectProperty .
+
+props:rotationalStiffnessByLengthY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationMaps_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:serviceLifeDuration
+        rdf:type  owl:ObjectProperty .
+
+props:plasticShapeFactorY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:implicitOuter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isMilestone_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:cfsFaces_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:firstOperand  rdf:type  owl:ObjectProperty .
+
+props:curve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:criterion  rdf:type  owl:ObjectProperty .
+
+props:visibleSegmentLength
+        rdf:type  owl:ObjectProperty .
+
+props:userDefinedEventTriggerType
+        rdf:type  owl:ObjectProperty .
+
+props:relatedProducts_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:surfaceReinforcement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transparency_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalIrEmissivityFront
+        rdf:type  owl:ObjectProperty .
+
+props:startCantLeft_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vaporPermeability_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordList  rdf:type  owl:ObjectProperty .
+
+props:placesObject_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingDraughtingCallout_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colourComponents_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dependantProperty
+        rdf:type  owl:ObjectProperty .
+
+props:coversSpaces_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:wetBulbTemperatureTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frameDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:waterImpermeability
+        rdf:type  owl:ObjectProperty .
+
+props:theActor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:verticalDatum_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eastings  rdf:type  owl:ObjectProperty .
+
+props:theOrganization_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lastModifiedDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lastModifiedDate
+        rdf:type  owl:ObjectProperty .
+
+props:moveTo  rdf:type  owl:ObjectProperty .
+
+props:cOContent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:appliedLoad_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definingValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inclinating  rdf:type  owl:ObjectProperty .
+
+props:offsetDistances_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordIndex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contextIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:topFlangeSlope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:annotatedSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:extendedProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bottomFlangeEdgeRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:moistureDiffusivity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetDirection
+        rdf:type  owl:ObjectProperty .
+
+props:wAxes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:taskTime  rdf:type  owl:ObjectProperty .
+
+props:faceSurface  rdf:type  owl:ObjectProperty .
+
+props:isothermalMoistureCapacity
+        rdf:type  owl:ObjectProperty .
+
+props:magnitude  rdf:type  owl:ObjectProperty .
+
+props:partOfComplex  rdf:type  owl:ObjectProperty .
+
+props:targetScale  rdf:type  owl:ObjectProperty .
+
+props:maxRequiredArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedObjects  rdf:type  owl:ObjectProperty .
+
+props:linearMomentY  rdf:type  owl:ObjectProperty .
+
+props:weightValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:height_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startTag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:crossSections  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByLengthY
+        rdf:type  owl:ObjectProperty .
+
+props:curveInterpolation
+        rdf:type  owl:ObjectProperty .
+
+props:occurrences  rdf:type  owl:ObjectProperty .
+
+props:bottomFlangeFilletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:statusTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uMultiplicities
+        rdf:type  owl:ObjectProperty .
+
+props:relatingSpaceProgram
+        rdf:type  owl:ObjectProperty .
+
+props:specificHeatCapacity
+        rdf:type  owl:ObjectProperty .
+
+props:compressionFailureY
+        rdf:type  owl:ObjectProperty .
+
+props:notationFacets_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resultForLoadGroup
+        rdf:type  owl:ObjectProperty .
+
+props:pnIndex  rdf:type  owl:ObjectProperty .
+
+props:flangeWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isRelatedFromCallout
+        rdf:type  owl:ObjectProperty .
+
+props:isLinear  rdf:type  owl:ObjectProperty .
+
+props:sharedPlacement
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colourList  rdf:type  owl:ObjectProperty .
+
+props:classifiedConstraint
+        rdf:type  owl:ObjectProperty .
+
+props:connectedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondComponent
+        rdf:type  owl:ObjectProperty .
+
+props:polygon_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondTransomOffset
+        rdf:type  owl:ObjectProperty .
+
+props:applicationFullName
+        rdf:type  owl:ObjectProperty .
+
+props:referenceCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pointParameterU
+        rdf:type  owl:ObjectProperty .
+
+props:waterImpermeability_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:intent  rdf:type  owl:ObjectProperty .
+
+props:covers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parabolaConstant_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hardness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedConnectionType
+        rdf:type  owl:ObjectProperty .
+
+props:boundedBy  rdf:type  owl:ObjectProperty .
+
+props:lightDistributionCurve
+        rdf:type  owl:ObjectProperty .
+
+props:positioningElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:associatedGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:deltaTZ  rdf:type  owl:ObjectProperty .
+
+props:constantAttenuation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:overallWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:loadedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:porosity  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaX
+        rdf:type  owl:ObjectProperty .
+
+props:hasColours_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeSlope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sameSense  rdf:type  owl:ObjectProperty .
+
+props:rasterCode  rdf:type  owl:ObjectProperty .
+
+props:lowerBoundValue
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleTimeControlAssigned
+        rdf:type  owl:ObjectProperty .
+
+props:location  rdf:type  owl:ObjectProperty .
+
+props:isPotable_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bottomFlangeThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:constructionType
+        rdf:type  owl:ObjectProperty .
+
+props:implicitOuter  rdf:type  owl:ObjectProperty .
+
+props:relatingApproval
+        rdf:type  owl:ObjectProperty .
+
+props:buildingAddress
+        rdf:type  owl:ObjectProperty .
+
+props:bendingShapeCode
+        rdf:type  owl:ObjectProperty .
+
+props:recurrencePattern
+        rdf:type  owl:ObjectProperty .
+
+props:layerBlocked_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scope  rdf:type  owl:ObjectProperty .
+
+props:classifiedConstraint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:properties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:town  rdf:type  owl:ObjectProperty .
+
+props:slopes  rdf:type  owl:ObjectProperty .
+
+props:target  rdf:type  owl:ObjectProperty .
+
+props:verticalAxisDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:suppliers  rdf:type  owl:ObjectProperty .
+
+props:relatingOrganization
+        rdf:type  owl:ObjectProperty .
+
+props:enumerationValues
+        rdf:type  owl:ObjectProperty .
+
+props:depreciatedValue
+        rdf:type  owl:ObjectProperty .
+
+props:placementLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedDocument_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frameThickness  rdf:type  owl:ObjectProperty .
+
+props:distanceAttenuation
+        rdf:type  owl:ObjectProperty .
+
+props:voidsElements  rdf:type  owl:ObjectProperty .
+
+props:bottomRadius  rdf:type  owl:ObjectProperty .
+
+props:flowrateTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:actionID  rdf:type  owl:ObjectProperty .
+
+props:siteAddress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elevation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileOfPort_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ultimateStress  rdf:type  owl:ObjectProperty .
+
+props:firstTransomOffset
+        rdf:type  owl:ObjectProperty .
+
+props:selfIntersect  rdf:type  owl:ObjectProperty .
+
+props:rotationalStiffnessByLengthX
+        rdf:type  owl:ObjectProperty .
+
+props:layerOn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:masterRepresentation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:soundLevelTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:unitsInContext  rdf:type  owl:ObjectProperty .
+
+props:dissolvedSolidsContent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usageRatio_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:liningThickness
+        rdf:type  owl:ObjectProperty .
+
+props:axisPosition  rdf:type  owl:ObjectProperty .
+
+props:hasPropertyTemplates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:requestingApproval
+        rdf:type  owl:ObjectProperty .
+
+props:pointParameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eccentricityInX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thickness  rdf:type  owl:ObjectProperty .
+
+props:userDefinedFunction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flags_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refLatitude_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:reflectionColour
+        rdf:type  owl:ObjectProperty .
+
+props:proportionalStress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:repeatT  rdf:type  owl:ObjectProperty .
+
+props:familyName  rdf:type  owl:ObjectProperty .
+
+props:instanceName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:liningToPanelOffsetX
+        rdf:type  owl:ObjectProperty .
+
+props:description_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relaxations  rdf:type  owl:ObjectProperty .
+
+props:representationContexts_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minRequiredArea
+        rdf:type  owl:ObjectProperty .
+
+props:operator_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:toAlignmentCurve
+        rdf:type  owl:ObjectProperty .
+
+props:uDegree_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ultimateStress_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:headDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:amountOfSubstanceExponent
+        rdf:type  owl:ObjectProperty .
+
+props:relatingSpaceProgram_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:publisher  rdf:type  owl:ObjectProperty .
+
+props:torsionalSectionModulus
+        rdf:type  owl:ObjectProperty .
+
+props:rotationalStiffnessX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isClassifiedItemIn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPositioningElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:normals_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frequency_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:creationTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasControlElements
+        rdf:type  owl:ObjectProperty .
+
+props:usageType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:productDefinitional
+        rdf:type  owl:ObjectProperty .
+
+props:fixedUntilDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:varyingAppliedLoadLocation
+        rdf:type  owl:ObjectProperty .
+
+props:textureMaps  rdf:type  owl:ObjectProperty .
+
+props:fontStyle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partOfProductDefinitionShape_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:translationalStiffnessByAreaY
+        rdf:type  owl:ObjectProperty .
+
+props:approvalLevel_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:primaryMeasureType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedProducts
+        rdf:type  owl:ObjectProperty .
+
+props:curveOnRelatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:agreementFlag  rdf:type  owl:ObjectProperty .
+
+props:sizeable  rdf:type  owl:ObjectProperty .
+
+props:hatchLineAngle  rdf:type  owl:ObjectProperty .
+
+props:lateStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:temperatureTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:inputVoltage  rdf:type  owl:ObjectProperty .
+
+props:reflectanceMethod_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:exchangeRate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dependingProperty_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lengthValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sense_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:items_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:impuritiesContent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedPropertySets
+        rdf:type  owl:ObjectProperty .
+
+props:deltaTY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isRelatedBy  rdf:type  owl:ObjectProperty .
+
+props:endCantRight  rdf:type  owl:ObjectProperty .
+
+props:profileSectionLocation
+        rdf:type  owl:ObjectProperty .
+
+props:span  rdf:type  owl:ObjectProperty .
+
+props:earlyStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingProcess_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lastRevisionTime
+        rdf:type  owl:ObjectProperty .
+
+props:surfaceColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isDefinedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rateSource  rdf:type  owl:ObjectProperty .
+
+props:jurisdiction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:carbonContent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedConstraints_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boundaries  rdf:type  owl:ObjectProperty .
+
+props:quantities  rdf:type  owl:ObjectProperty .
+
+props:barLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:discrimination  rdf:type  owl:ObjectProperty .
+
+props:texCoords  rdf:type  owl:ObjectProperty .
+
+props:scope_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingAppliedValue
+        rdf:type  owl:ObjectProperty .
+
+props:protectivePoreRatio_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:axisCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:suppliers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:velocityTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:orthogonalHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vClosed_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeExponent  rdf:type  owl:ObjectProperty .
+
+props:validFrom  rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessByLengthY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:specularHighlight
+        rdf:type  owl:ObjectProperty .
+
+props:fraction_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:components_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessZ
+        rdf:type  owl:ObjectProperty .
+
+props:secondOperand  rdf:type  owl:ObjectProperty .
+
+props:zLength  rdf:type  owl:ObjectProperty .
+
+props:isClassifiedItemIn
+        rdf:type  owl:ObjectProperty .
+
+props:timeOfApproval  rdf:type  owl:ObjectProperty .
+
+props:representationMaps
+        rdf:type  owl:ObjectProperty .
+
+props:shearReinforcement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mappingTarget  rdf:type  owl:ObjectProperty .
+
+props:relatedCoverings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:appliedCondition
+        rdf:type  owl:ObjectProperty .
+
+props:resultGroupFor  rdf:type  owl:ObjectProperty .
+
+props:reflectanceMethod
+        rdf:type  owl:ObjectProperty .
+
+props:rotationalStiffnessX
+        rdf:type  owl:ObjectProperty .
+
+props:molecularWeight
+        rdf:type  owl:ObjectProperty .
+
+props:level_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:webThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:combustionTemperature
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleDuration
+        rdf:type  owl:ObjectProperty .
+
+props:lineHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:reinforcementRole_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:momentY  rdf:type  owl:ObjectProperty .
+
+props:referenceSurface
+        rdf:type  owl:ObjectProperty .
+
+props:workingTimes  rdf:type  owl:ObjectProperty .
+
+props:connectsStructuralMembers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sizeInY  rdf:type  owl:ObjectProperty .
+
+props:vMultiplicities
+        rdf:type  owl:ObjectProperty .
+
+props:maximumSectionModulusY
+        rdf:type  owl:ObjectProperty .
+
+props:capacityByWeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:item_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hardness  rdf:type  owl:ObjectProperty .
+
+props:directrix_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasAssignments_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:completion_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:temperatureSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:valueOfComponents
+        rdf:type  owl:ObjectProperty .
+
+props:notation  rdf:type  owl:ObjectProperty .
+
+props:systemType  rdf:type  owl:ObjectProperty .
+
+props:benchmark  rdf:type  owl:ObjectProperty .
+
+props:givenName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetLateral_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:polygon  rdf:type  owl:ObjectProperty .
+
+props:tensionFailureY
+        rdf:type  owl:ObjectProperty .
+
+props:globalId_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:luminousIntensity
+        rdf:type  owl:ObjectProperty .
+
+props:lightDistributionDataSource
+        rdf:type  owl:ObjectProperty .
+
+props:applicableOccurrence
+        rdf:type  owl:ObjectProperty .
+
+props:layerFrozen  rdf:type  owl:ObjectProperty .
+
+props:isClassifyingItemIn
+        rdf:type  owl:ObjectProperty .
+
+props:relatingOpeningElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isInterferedByElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:editors  rdf:type  owl:ObjectProperty .
+
+props:position  rdf:type  owl:ObjectProperty .
+
+props:sbsmBoundary  rdf:type  owl:ObjectProperty .
+
+props:shearCentreZ  rdf:type  owl:ObjectProperty .
+
+props:alkalinityConcentration
+        rdf:type  owl:ObjectProperty .
+
+props:resourceGroup  rdf:type  owl:ObjectProperty .
+
+props:knots  rdf:type  owl:ObjectProperty .
+
+props:appliedValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compositionType
+        rdf:type  owl:ObjectProperty .
+
+props:actionSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dayComponent  rdf:type  owl:ObjectProperty .
+
+props:barSurface_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:causedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:filletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:inputVoltage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:dateComponent  rdf:type  owl:ObjectProperty .
+
+props:mullionThickness
+        rdf:type  owl:ObjectProperty .
+
+props:materialClassifications
+        rdf:type  owl:ObjectProperty .
+
+props:values  rdf:type  owl:ObjectProperty .
+
+props:actor_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:suffixTitles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:torsionalConstantX
+        rdf:type  owl:ObjectProperty .
+
+props:approvalDateTime
+        rdf:type  owl:ObjectProperty .
+
+props:uRLReference  rdf:type  owl:ObjectProperty .
+
+props:relatingOpeningElement
+        rdf:type  owl:ObjectProperty .
+
+props:volumeOnRelatedElement
+        rdf:type  owl:ObjectProperty .
+
+props:innerCurves  rdf:type  owl:ObjectProperty .
+
+props:warpingMoment_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:beamWidthAngle  rdf:type  owl:ObjectProperty .
+
+props:relatingMonetaryUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:zDim  rdf:type  owl:ObjectProperty .
+
+props:relatedStructuralActivity
+        rdf:type  owl:ObjectProperty .
+
+props:displacementY  rdf:type  owl:ObjectProperty .
+
+props:referenceToDocument_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:attributeIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:unitBasis_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingOrganization_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:startGradient  rdf:type  owl:ObjectProperty .
+
+props:bottomFlangeThickness
+        rdf:type  owl:ObjectProperty .
+
+props:edgeGeometry  rdf:type  owl:ObjectProperty .
+
+props:pnt_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:panelOperation  rdf:type  owl:ObjectProperty .
+
+props:requestID  rdf:type  owl:ObjectProperty .
+
+props:userDefinedSequenceType
+        rdf:type  owl:ObjectProperty .
+
+props:quality  rdf:type  owl:ObjectProperty .
+
+props:servicedBySystems
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleTimeControlAssigned_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tensionForce_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:styledByItem  rdf:type  owl:ObjectProperty .
+
+props:hasAssignments  rdf:type  owl:ObjectProperty .
+
+props:yLength  rdf:type  owl:ObjectProperty .
+
+props:nominalLength  rdf:type  owl:ObjectProperty .
+
+props:coordinates  rdf:type  owl:ObjectProperty .
+
+props:name_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:level  rdf:type  owl:ObjectProperty .
+
+props:reflectionColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:agreementFlag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forceY  rdf:type  owl:ObjectProperty .
+
+props:hasApprovals_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:degree  rdf:type  owl:ObjectProperty .
+
+props:enclosure_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:methodOfMeasurement
+        rdf:type  owl:ObjectProperty .
+
+props:lengthExponent  rdf:type  owl:ObjectProperty .
+
+props:exchangeRate  rdf:type  owl:ObjectProperty .
+
+props:propertyReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:providesBoundaries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sectionDefinition
+        rdf:type  owl:ObjectProperty .
+
+props:linearForceX  rdf:type  owl:ObjectProperty .
+
+props:relaxationValue
+        rdf:type  owl:ObjectProperty .
+
+props:centreOfGravityInY
+        rdf:type  owl:ObjectProperty .
+
+props:applicableDates
+        rdf:type  owl:ObjectProperty .
+
+props:totalFloat  rdf:type  owl:ObjectProperty .
+
+props:operationType  rdf:type  owl:ObjectProperty .
+
+props:relatedStructuralConnection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:varyingAppliedLoadLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:assignedItems  rdf:type  owl:ObjectProperty .
+
+props:isRelatedWith_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resourceType  rdf:type  owl:ObjectProperty .
+
+props:fullLoadCurrent
+        rdf:type  owl:ObjectProperty .
+
+props:offsetDistances
+        rdf:type  owl:ObjectProperty .
+
+props:relatedPriorities
+        rdf:type  owl:ObjectProperty .
+
+props:definingUnit  rdf:type  owl:ObjectProperty .
+
+props:tangentialContinuity
+        rdf:type  owl:ObjectProperty .
+
+props:relationshipType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usense_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:operatesOn  rdf:type  owl:ObjectProperty .
+
+props:edgeEnd  rdf:type  owl:ObjectProperty .
+
+props:internalOrExternalBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tensionForce  rdf:type  owl:ObjectProperty .
+
+props:representation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:internalFilletRadius
+        rdf:type  owl:ObjectProperty .
+
+props:solarReflectanceFront
+        rdf:type  owl:ObjectProperty .
+
+props:ultimateStrain  rdf:type  owl:ObjectProperty .
+
+props:telephoneNumbers
+        rdf:type  owl:ObjectProperty .
+
+props:globalOrLocal  rdf:type  owl:ObjectProperty .
+
+props:ribSpacing  rdf:type  owl:ObjectProperty .
+
+props:state_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:toMaterialConstituentSet_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasQuantities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lateStart  rdf:type  owl:ObjectProperty .
+
+props:higherHeatingValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:finish  rdf:type  owl:ObjectProperty .
+
+props:primaryUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:endParam  rdf:type  owl:ObjectProperty .
+
+props:thresholdOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eccentricityInZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lifeCyclePhase  rdf:type  owl:ObjectProperty .
+
+props:opacity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:types  rdf:type  owl:ObjectProperty .
+
+props:state  rdf:type  owl:ObjectProperty .
+
+props:topXOffset  rdf:type  owl:ObjectProperty .
+
+props:tilingScale_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textures_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:changeAction  rdf:type  owl:ObjectProperty .
+
+props:resultValues  rdf:type  owl:ObjectProperty .
+
+props:innerRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partitioningType
+        rdf:type  owl:ObjectProperty .
+
+props:procedureType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedOpeningElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:webSlope  rdf:type  owl:ObjectProperty .
+
+props:mapUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:condition  rdf:type  owl:ObjectProperty .
+
+props:visibleReflectanceBack_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:forProfileEndSet
+        rdf:type  owl:ObjectProperty .
+
+props:linearForceY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeSeries  rdf:type  owl:ObjectProperty .
+
+props:edgeRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:distance  rdf:type  owl:ObjectProperty .
+
+props:userDefinedTargetView_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingBuildingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:barLength  rdf:type  owl:ObjectProperty .
+
+props:reinforcementSectionDefinitions
+        rdf:type  owl:ObjectProperty .
+
+props:documentedBy_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerBoundaries
+        rdf:type  owl:ObjectProperty .
+
+props:country_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingElement
+        rdf:type  owl:ObjectProperty .
+
+props:mapZone  rdf:type  owl:ObjectProperty .
+
+props:patternList  rdf:type  owl:ObjectProperty .
+
+props:texCoordIndex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:requestedLocation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actualStart  rdf:type  owl:ObjectProperty .
+
+props:curveFontScaling_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:repeatS_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:colour  rdf:type  owl:ObjectProperty .
+
+props:subsequentThickness
+        rdf:type  owl:ObjectProperty .
+
+props:offsetFromReferenceLine
+        rdf:type  owl:ObjectProperty .
+
+props:knotSpec_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:beamWidthAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:closed  rdf:type  owl:ObjectProperty .
+
+props:rotationalDisplacementRX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tangentialContinuity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalBarCrossSectionArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:locationOfInteraction
+        rdf:type  owl:ObjectProperty .
+
+props:declares  rdf:type  owl:ObjectProperty .
+
+props:longName  rdf:type  owl:ObjectProperty .
+
+props:textureVertices_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxSlantAngle  rdf:type  owl:ObjectProperty .
+
+props:relativePlacement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:updateDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:panelOperation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasStructuralMember_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:diffuseReflectionColour
+        rdf:type  owl:ObjectProperty .
+
+props:finishTime  rdf:type  owl:ObjectProperty .
+
+props:relaxationValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:path  rdf:type  owl:ObjectProperty .
+
+props:timeSeriesScheduleType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedResourceObjects_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:freezingPoint_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:basisCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:modelOrDraughting_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:scale  rdf:type  owl:ObjectProperty .
+
+props:relatedElements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalBarSpacing
+        rdf:type  owl:ObjectProperty .
+
+props:lastRevisionTime_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedEnergySequence_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedBuildingElement
+        rdf:type  owl:ObjectProperty .
+
+props:pointOnRelatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tiles  rdf:type  owl:ObjectProperty .
+
+props:relatedMaterials_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:xLength  rdf:type  owl:ObjectProperty .
+
+props:relatesTo  rdf:type  owl:ObjectProperty .
+
+props:referencedTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:spaceProgramIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isActingUpon  rdf:type  owl:ObjectProperty .
+
+props:anchorageSlip  rdf:type  owl:ObjectProperty .
+
+props:costQuantities  rdf:type  owl:ObjectProperty .
+
+props:momentOfInertiaZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:definingUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:webThickness  rdf:type  owl:ObjectProperty .
+
+props:definedValues  rdf:type  owl:ObjectProperty .
+
+props:fontSize  rdf:type  owl:ObjectProperty .
+
+props:hourOffset  rdf:type  owl:ObjectProperty .
+
+props:secondaryUnit_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yieldStress  rdf:type  owl:ObjectProperty .
+
+props:objectTypeOf  rdf:type  owl:ObjectProperty .
+
+props:sectionType  rdf:type  owl:ObjectProperty .
+
+props:locationAtRelatingElement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parentContext_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:qualifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:cardinalEndPoint
+        rdf:type  owl:ObjectProperty .
+
+props:relatingResource
+        rdf:type  owl:ObjectProperty .
+
+props:locations_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:senseAgreement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yearComponent  rdf:type  owl:ObjectProperty .
+
+props:source_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textures  rdf:type  owl:ObjectProperty .
+
+props:ribHeight  rdf:type  owl:ObjectProperty .
+
+props:horizontalWidths_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:representationsInContext
+        rdf:type  owl:ObjectProperty .
+
+props:dataOrigin  rdf:type  owl:ObjectProperty .
+
+props:relatingProduct_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasOpenings_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:xAxisAbscissa_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:durationType  rdf:type  owl:ObjectProperty .
+
+props:rowCells_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textIndent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:maps  rdf:type  owl:ObjectProperty .
+
+props:planarForceX  rdf:type  owl:ObjectProperty .
+
+props:shearCentreY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicationFullName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:selfWeightCoefficients_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:orthogonalHeight
+        rdf:type  owl:ObjectProperty .
+
+props:patternList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:higherHeatingValue
+        rdf:type  owl:ObjectProperty .
+
+props:messagingIDs_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frictionCoefficient_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:centreOfGravityInY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mimeContentType
+        rdf:type  owl:ObjectProperty .
+
+props:listValues_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isPointer  rdf:type  owl:ObjectProperty .
+
+props:timeComponent  rdf:type  owl:ObjectProperty .
+
+props:hasProjections  rdf:type  owl:ObjectProperty .
+
+props:targetScale_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:tensionFailureY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:actionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:standardRequiredArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:usage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:trueNorth  rdf:type  owl:ObjectProperty .
+
+props:nominalLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:remainingTime  rdf:type  owl:ObjectProperty .
+
+props:partOfComplexTemplate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:physicalOrVirtualBoundary
+        rdf:type  owl:ObjectProperty .
+
+props:assignedToFlowElement
+        rdf:type  owl:ObjectProperty .
+
+props:eventOccurenceTime
+        rdf:type  owl:ObjectProperty .
+
+props:typeIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:minimumSectionModulusY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:warpingStiffness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingItem_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:editionDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:overallWidth  rdf:type  owl:ObjectProperty .
+
+props:flowrateSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:paramLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalConductivity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectionGeometry_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:contextOfItems_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:orientationOfDPlane
+        rdf:type  owl:ObjectProperty .
+
+props:globalId  rdf:type  owl:ObjectProperty .
+
+props:userDefinedRole
+        rdf:type  owl:ObjectProperty .
+
+props:decomposes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:intersectingAxes
+        rdf:type  owl:ObjectProperty .
+
+props:torsionalSectionModulus_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicableDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:roundingRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:vDegree  rdf:type  owl:ObjectProperty .
+
+props:mountable_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:benchmark_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:occurrences_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedOrganizations_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sbsmBoundary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:patternStart_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:wallThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:liningDepth  rdf:type  owl:ObjectProperty .
+
+props:relatingItem  rdf:type  owl:ObjectProperty .
+
+props:spaceProgramIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:surfaceReinforcement
+        rdf:type  owl:ObjectProperty .
+
+props:diffuseTransmissionColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:youngModulus  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasProjections_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resourceGroup_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:currentValue  rdf:type  owl:ObjectProperty .
+
+props:invisibleSegmentLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:distributionData
+        rdf:type  owl:ObjectProperty .
+
+props:scheduleFinish_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:projectsElements
+        rdf:type  owl:ObjectProperty .
+
+props:notationValue  rdf:type  owl:ObjectProperty .
+
+props:inclinating_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yDim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:panelDepth  rdf:type  owl:ObjectProperty .
+
+props:overallHeight  rdf:type  owl:ObjectProperty .
+
+props:timeOfApproval_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ribHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:freeFloat  rdf:type  owl:ObjectProperty .
+
+props:porosity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:flangeThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pressureSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:timeLag_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:placement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:decomposes  rdf:type  owl:ObjectProperty .
+
+props:defines_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:trim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compressionFailureX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isRelatedToCallout
+        rdf:type  owl:ObjectProperty .
+
+props:engagedIn  rdf:type  owl:ObjectProperty .
+
+props:recurrenceType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasQuantities  rdf:type  owl:ObjectProperty .
+
+props:mappingSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:weightsData  rdf:type  owl:ObjectProperty .
+
+props:riserHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedDocument
+        rdf:type  owl:ObjectProperty .
+
+props:horizontal_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingSpace  rdf:type  owl:ObjectProperty .
+
+props:topFlangeEdgeRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:corresponds_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedDraughtingCallout
+        rdf:type  owl:ObjectProperty .
+
+props:hasCoverings  rdf:type  owl:ObjectProperty .
+
+props:lowerHeatingValue
+        rdf:type  owl:ObjectProperty .
+
+props:soundScale  rdf:type  owl:ObjectProperty .
+
+props:startHeight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compositionType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicationDeveloper_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mimeSubtype_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:parameter  rdf:type  owl:ObjectProperty .
+
+props:accessState_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencesElements
+        rdf:type  owl:ObjectProperty .
+
+props:isPotable  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaZ
+        rdf:type  owl:ObjectProperty .
+
+props:workability  rdf:type  owl:ObjectProperty .
+
+props:actualUsage  rdf:type  owl:ObjectProperty .
+
+props:pointParameterU_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:effectiveDepth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shapeType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:planarForceY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:publisher_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sheathDiameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:pressureTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:interiorOrExteriorSpace_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:resultForLoadGroup_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:baseDepth  rdf:type  owl:ObjectProperty .
+
+props:isTypedBy  rdf:type  owl:ObjectProperty .
+
+props:majorRadius  rdf:type  owl:ObjectProperty .
+
+props:frameDepth  rdf:type  owl:ObjectProperty .
+
+props:restartDistance
+        rdf:type  owl:ObjectProperty .
+
+props:hasLibraryReferences_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:postalBox  rdf:type  owl:ObjectProperty .
+
+props:vClosed  rdf:type  owl:ObjectProperty .
+
+props:creatingActor  rdf:type  owl:ObjectProperty .
+
+props:approvalQualifier
+        rdf:type  owl:ObjectProperty .
+
+props:fontSize_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lightEmissionSource
+        rdf:type  owl:ObjectProperty .
+
+props:mainPlaneAngle  rdf:type  owl:ObjectProperty .
+
+props:maximumPlateThickness
+        rdf:type  owl:ObjectProperty .
+
+props:inputFrequency_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:steelGrade  rdf:type  owl:ObjectProperty .
+
+props:processType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeList  rdf:type  owl:ObjectProperty .
+
+props:refDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fluid_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lateDate_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isGroupedBy  rdf:type  owl:ObjectProperty .
+
+props:notation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingLibrary_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasRepresentation
+        rdf:type  owl:ObjectProperty .
+
+props:displacementX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessByLengthZ
+        rdf:type  owl:ObjectProperty .
+
+props:wWWHomePageURL  rdf:type  owl:ObjectProperty .
+
+props:alkalinityConcentration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:specularHighlight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:spreadAngle_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicationIdentifier
+        rdf:type  owl:ObjectProperty .
+
+props:thermalLoadSource
+        rdf:type  owl:ObjectProperty .
+
+props:slopes_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:solarTransmittance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:edgeList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedGrade
+        rdf:type  owl:ObjectProperty .
+
+props:pixel_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uDegree  rdf:type  owl:ObjectProperty .
+
+props:sameSense_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rows_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lightColour_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:innerCoordIndices
+        rdf:type  owl:ObjectProperty .
+
+props:curveGeometry  rdf:type  owl:ObjectProperty .
+
+props:partOfPset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedSpaceProgram
+        rdf:type  owl:ObjectProperty .
+
+props:definedUnit  rdf:type  owl:ObjectProperty .
+
+props:torsionalConstantX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:frameThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:diffuseColour  rdf:type  owl:ObjectProperty .
+
+props:points  rdf:type  owl:ObjectProperty .
+
+props:paramLength  rdf:type  owl:ObjectProperty .
+
+props:flags  rdf:type  owl:ObjectProperty .
+
+props:resourceOf  rdf:type  owl:ObjectProperty .
+
+props:linearStiffnessByAreaY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:boxAlignment  rdf:type  owl:ObjectProperty .
+
+props:slippageX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:lifeCyclePhase_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:texCoordIndex  rdf:type  owl:ObjectProperty .
+
+props:endTag  rdf:type  owl:ObjectProperty .
+
+props:sizeInY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedProcess  rdf:type  owl:ObjectProperty .
+
+props:condition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalDisplacementRZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalBarCrossSectionArea
+        rdf:type  owl:ObjectProperty .
+
+props:elevationWithFlooring
+        rdf:type  owl:ObjectProperty .
+
+props:arithmeticOperator_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:majorRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordIndex  rdf:type  owl:ObjectProperty .
+
+props:textureVertices
+        rdf:type  owl:ObjectProperty .
+
+props:momentX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:totalReplacementCost_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:crossSectionReinforcementDefinitions_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:levelingDelay  rdf:type  owl:ObjectProperty .
+
+props:topFlangeSlope  rdf:type  owl:ObjectProperty .
+
+props:backgroundColour
+        rdf:type  owl:ObjectProperty .
+
+props:longitudinalBarSpacing_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:skillSet_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:verticalDatum  rdf:type  owl:ObjectProperty .
+
+props:thePerson  rdf:type  owl:ObjectProperty .
+
+props:maximumValue  rdf:type  owl:ObjectProperty .
+
+props:validFrom_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:symbol  rdf:type  owl:ObjectProperty .
+
+props:horizontal  rdf:type  owl:ObjectProperty .
+
+props:radius  rdf:type  owl:ObjectProperty .
+
+props:resourceIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textTransform  rdf:type  owl:ObjectProperty .
+
+props:mullionThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedInStructures
+        rdf:type  owl:ObjectProperty .
+
+props:admixturesDescription
+        rdf:type  owl:ObjectProperty .
+
+props:resourceOf_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:compressiveStrength
+        rdf:type  owl:ObjectProperty .
+
+props:hasTextures  rdf:type  owl:ObjectProperty .
+
+props:approvedProperties_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:green  rdf:type  owl:ObjectProperty .
+
+props:costValues  rdf:type  owl:ObjectProperty .
+
+props:endDistance_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:soundLevelTimeSeries_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fontWeight  rdf:type  owl:ObjectProperty .
+
+props:objectiveQualifier
+        rdf:type  owl:ObjectProperty .
+
+props:relativePlacement
+        rdf:type  owl:ObjectProperty .
+
+props:id  rdf:type  owl:ObjectProperty .
+
+props:representedMaterial_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicationIdentifier_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:currency_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isConnectionRealization_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:u  rdf:type  owl:ObjectProperty .
+
+props:angle  rdf:type  owl:ObjectProperty .
+
+props:distortion_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:upperValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:fixedReference  rdf:type  owl:ObjectProperty .
+
+props:opacity  rdf:type  owl:ObjectProperty .
+
+props:usageRatio  rdf:type  owl:ObjectProperty .
+
+props:linearMomentY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:cfsFaces  rdf:type  owl:ObjectProperty .
+
+props:tagList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:confidentiality
+        rdf:type  owl:ObjectProperty .
+
+props:offsetValues  rdf:type  owl:ObjectProperty .
+
+props:primaryUnit  rdf:type  owl:ObjectProperty .
+
+props:thresholdOffset
+        rdf:type  owl:ObjectProperty .
+
+props:identification  rdf:type  owl:ObjectProperty .
+
+props:totalCrossSectionArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:freezingPoint  rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessY
+        rdf:type  owl:ObjectProperty .
+
+props:costQuantities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:source  rdf:type  owl:ObjectProperty .
+
+props:coversElements  rdf:type  owl:ObjectProperty .
+
+props:sharedPlacement_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicableDates_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:texCoordsList_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:referencedTimeSeries
+        rdf:type  owl:ObjectProperty .
+
+props:materialConstituents
+        rdf:type  owl:ObjectProperty .
+
+props:nominalDiameter_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:responsiblePersons_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:curveForm  rdf:type  owl:ObjectProperty .
+
+props:energySequence  rdf:type  owl:ObjectProperty .
+
+props:remainingUsage_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:uClosed  rdf:type  owl:ObjectProperty .
+
+props:knotMultiplicities_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:systemType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:yearComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessZ
+        rdf:type  owl:ObjectProperty .
+
+props:fillStyleTarget
+        rdf:type  owl:ObjectProperty .
+
+props:intendedUse_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:offsetVertical  rdf:type  owl:ObjectProperty .
+
+props:relatesConstraints
+        rdf:type  owl:ObjectProperty .
+
+props:referencedByPlacements_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:unitComponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isothermalMoistureCapacity_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:closedCurve  rdf:type  owl:ObjectProperty .
+
+props:pnIndex_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:internalFilletRadius_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:spreadAngle  rdf:type  owl:ObjectProperty .
+
+props:placementRelTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:valueSource  rdf:type  owl:ObjectProperty .
+
+props:liningThickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermodynamicTemperatureExponent_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:selfIntersect_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:shearAreaZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:userDefinedOperationType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:applicationDeveloper
+        rdf:type  owl:ObjectProperty .
+
+props:currentValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:refLatitude  rdf:type  owl:ObjectProperty .
+
+props:flowConditionSingleValue_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:linearStiffnessByLengthY_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rotationalStiffnessByLengthZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:ambientIntensity
+        rdf:type  owl:ObjectProperty .
+
+props:relatingClassification
+        rdf:type  owl:ObjectProperty .
+
+props:shearDeformationAreaZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:earlyFinish_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPropertyDefinition
+        rdf:type  owl:ObjectProperty .
+
+props:components  rdf:type  owl:ObjectProperty .
+
+props:representationMap
+        rdf:type  owl:ObjectProperty .
+
+props:slippageX  rdf:type  owl:ObjectProperty .
+
+props:headDepth  rdf:type  owl:ObjectProperty .
+
+props:girth  rdf:type  owl:ObjectProperty .
+
+props:startProfile  rdf:type  owl:ObjectProperty .
+
+props:thickness_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:spineCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:xDim_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:totalReplacementCost
+        rdf:type  owl:ObjectProperty .
+
+props:endParam_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:path_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:annotatedCurve  rdf:type  owl:ObjectProperty .
+
+props:assemblyPlace  rdf:type  owl:ObjectProperty .
+
+props:lateralAxisDirection
+        rdf:type  owl:ObjectProperty .
+
+props:thermalIrEmissivityBack
+        rdf:type  owl:ObjectProperty .
+
+props:soundLevelSingleValue
+        rdf:type  owl:ObjectProperty .
+
+props:quadricAttenuation_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:repeatFactor  rdf:type  owl:ObjectProperty .
+
+props:semiAxis_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:enumerationReference_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:serviceLifeType
+        rdf:type  owl:ObjectProperty .
+
+props:vsense_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingPriorities
+        rdf:type  owl:ObjectProperty .
+
+props:dynamicViscosity
+        rdf:type  owl:ObjectProperty .
+
+props:offsetDirection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:sourceDescription
+        rdf:type  owl:ObjectProperty .
+
+props:isStartRadiusCCW_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textureType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elementType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalLoadSource_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:distortion  rdf:type  owl:ObjectProperty .
+
+props:liningToPanelOffsetX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:connectedTo_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:textDecoration_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transverseBarSpacing
+        rdf:type  owl:ObjectProperty .
+
+props:span_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:placementRelTo  rdf:type  owl:ObjectProperty .
+
+props:addressLines_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:prefixTitles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:rasterFormat_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasDocumentReferences_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:secondMullionOffset_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:endCantRight_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:zLength_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:levelingDelay_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:propertyReference
+        rdf:type  owl:ObjectProperty .
+
+props:fixedUntilDate  rdf:type  owl:ObjectProperty .
+
+props:minorRadius  rdf:type  owl:ObjectProperty .
+
+props:actualDate  rdf:type  owl:ObjectProperty .
+
+props:isActingUpon_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:horizontalLength
+        rdf:type  owl:ObjectProperty .
+
+props:eccentricityInX
+        rdf:type  owl:ObjectProperty .
+
+props:shapeRepresentations
+        rdf:type  owl:ObjectProperty .
+
+props:fillStyleTarget_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileOrientation
+        rdf:type  owl:ObjectProperty .
+
+props:lateFinish_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileName_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elementType  rdf:type  owl:ObjectProperty .
+
+props:compressionFailureZ_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:operatesOn_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:thermalIrEmissivityFront_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:objectTypeOf_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:barSurface  rdf:type  owl:ObjectProperty .
+
+props:mode_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingContext_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedStructuralMember
+        rdf:type  owl:ObjectProperty .
+
+props:identifier  rdf:type  owl:DatatypeProperty .
+
+props:transverseBarCrossSectionArea_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:materialLayers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatingStructure
+        rdf:type  owl:ObjectProperty .
+
+props:hourComponent  rdf:type  owl:ObjectProperty .
+
+props:projectedOrTrue
+        rdf:type  owl:ObjectProperty .
+
+props:translationalStiffnessX_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:hasShapeAspects
+        rdf:type  owl:ObjectProperty .
+
+props:connectedFrom_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mappingSource  rdf:type  owl:ObjectProperty .
+
+props:hasTextures_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:width  rdf:type  owl:ObjectProperty .
+
+props:connectedBy  rdf:type  owl:ObjectProperty .
+
+props:panelWidth_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:panelPosition  rdf:type  owl:ObjectProperty .
+
+props:bounds  rdf:type  owl:ObjectProperty .
+
+props:workability_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:eventTriggerType
+        rdf:type  owl:ObjectProperty .
+
+props:outerBoundary  rdf:type  owl:ObjectProperty .
+
+props:luminousFlux_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:coordinateSpaceDimension
+        rdf:type  owl:ObjectProperty .
+
+props:target_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:degree_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:relatedSpaceProgram_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:bound  rdf:type  owl:ObjectProperty .
+
+props:linearForceZ  rdf:type  owl:ObjectProperty .
+
+props:telephoneNumbers_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:longitudinalEndPosition_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:elevationOfTerrain
+        rdf:type  owl:ObjectProperty .
+
+props:rotationalDisplacementRX
+        rdf:type  owl:ObjectProperty .
+
+props:parentProfile  rdf:type  owl:ObjectProperty .
+
+props:liningOffset  rdf:type  owl:ObjectProperty .
+
+props:relatedSpace  rdf:type  owl:ObjectProperty .
+
+props:relatedSpace_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:isPointer_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:partitioningType_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:transverseBarNominalDiameter
+        rdf:type  owl:ObjectProperty .
+
+props:mappingOrigin  rdf:type  owl:ObjectProperty .
+
+props:relatedDefinitions
+        rdf:type  owl:ObjectProperty .
+
+props:minimumSectionModulusY
+        rdf:type  owl:ObjectProperty .
+
+props:forLayerSet_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:layerStyles_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:capacityByNumber_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:validUntil  rdf:type  owl:ObjectProperty .
+
+props:fileExtension  rdf:type  owl:ObjectProperty .
+
+props:sweptCurve_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:profileType  rdf:type  owl:ObjectProperty .
+
+props:enumerators_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:mapProjection_attribute_simple
+        rdf:type  owl:DatatypeProperty .
+
+props:servicedBySystems_attribute_simple
+        rdf:type  owl:DatatypeProperty .

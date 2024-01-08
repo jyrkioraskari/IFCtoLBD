@@ -306,7 +306,7 @@ public class IfcSpfReader {
         // CONVERSION
         OntModel om;
 
-        this.in = null;
+        
         //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
         //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
