@@ -1047,7 +1047,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * @return the Jena Model that contains the ifcOWL attribute value (Abox)
 	 *         output.
 	 */
-	protected Model readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile,
+	public Model readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile,
 			boolean hasPerformanceBoost) {
 		try {
 			IFCtoRDF rj = new IFCtoRDF();

@@ -161,6 +161,7 @@ public class PropertySet {
             }
     }
 
+    static long state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
         for (String pname : this.mapPnameValue.keySet()) {
@@ -183,7 +184,7 @@ public class PropertySet {
                 if (this.hasBlank_nodes)
                     state_resourse = this.lbd_model.createResource();
                 else
-                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_" + System.currentTimeMillis());
+                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_p" + PropertySet.state_resourse_counter++);
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
