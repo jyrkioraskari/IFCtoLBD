@@ -16,6 +16,7 @@ import be.ugent.IfcSpfReader;
 
 
 // https://groups.google.com/g/brickschema/c/vNLjax1ZwFc
+// chrome-extension://efaidnbmnnnibpcajpcglclefindmkaj/https://eva.fing.edu.uy/pluginfile.php/358551/mod_resource/content/1/SWTechnologies-Capitulo4.pdf
 public class CreatePsetAttributeOntology {
 	OntModel m = ModelFactory.createOntologyModel();
 	Set<String> attributes = new HashSet<>();	
