@@ -1,0 +1,39 @@
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd:    <http://www.w3.org/2001/XMLSchema#> .
+@prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
+@prefix bot:   <https://w3id.org/bot#> .
+@prefix props: <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix opm:   <https://w3id.org/opm> .
+@prefix schema: <http://schema.org/> .
+@prefix omg: <https://w3id.org/omg#> 
+@prefix fog: <https://w3id.org/fog#> .
+@prefix lbd: <https://linkebuildingdata.org/LBD#> .
+
+inst:RuleLevel1GeomShape1
+    a sh:NodeShape ;
+    sh:targetNode inst:slab_982f59b0-f2e1-485f-8ce1-c9f6117b72d9 ;
+    sh:property [
+	sh:path omg:hasGeometry ;
+        sh:minCount 1 ;
+        sh:hasValue inst:slab_982f59b0-f2e1-485f-8ce1-c9f6117b72d9_geometry
+    ] .
+
+inst:RuleLevel1GeomShape2
+    a sh:NodeShape ;
+    sh:targetNode inst:slab_982f59b0-f2e1-485f-8ce1-c9f6117b72d9_geometry ;
+    sh:property [
+	sh:path fog:asObj_v3.0-obj ;
+        sh:minCount 1 
+    ] .
+
+inst:RuleLevel1GeomShape3
+    a sh:NodeShape ;
+    sh:targetNode inst:slab_982f59b0-f2e1-485f-8ce1-c9f6117b72d9_geometry ;
+    sh:property [
+	sh:path lbd:hasBoundingBox ;
+        sh:minCount 1 ;
+        sh:hasValue inst:slab_982f59b0-f2e1-485f-8ce1-c9f6117b72d9_geometry_bb
+    ] .
+    

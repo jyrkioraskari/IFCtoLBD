@@ -12,6 +12,11 @@ import java.util.Optional;
 import java.util.Scanner;
 
 import org.apache.jena.graph.Graph;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
@@ -476,14 +481,14 @@ public class ConverterRunsUnitTests {
 
 				ShLib.printReport(report);
 				RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
-				fail("Conversion output does not conform SHACL_rulesetLevel3");
+				fail("Conversion output does not conform SHACL_rulesetLevel2");
 			} else
 				System.out.println("Actually ok");
 
 		} catch (Exception e) {
 			System.out.println("ERROR");
 			e.printStackTrace();
-			fail("Conversion using set SHACL_rulesetLevel4 had an error: " + e.getMessage());
+			fail("Conversion using set SHACL_rulesetLevel2 had an error: " + e.getMessage());
 		}
 	}
 
@@ -579,4 +584,129 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
+	@DisplayName("Test geometry 1")
+	@Test
+	public void testConversionGeometry() {
+		System.out.println("Start");
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		URL rule_file_url = ClassLoader.getSystemResource("SHACL_rulesetLevel1_geometry.ttl");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
+			ConversionProperties props=new ConversionProperties();
+			props.setHasGeometry(true);
+			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath(),props);
+			m1nb.write(System.out, "TTL");
+			Graph graph_m1nb = m1nb.getGraph();
+
+			File rule1_file = new File(rule_file_url.toURI());
+			Graph shapesGraph = RDFDataMgr.loadGraph(rule1_file.getAbsolutePath());
+			Shapes shapes = Shapes.parse(shapesGraph);
+
+			ValidationReport report = ShaclValidator.get().validate(shapes, graph_m1nb);
+			if (!report.conforms()) {
+				System.out.println("false");
+
+				ShLib.printReport(report);
+				RDFDataMgr.write(System.out, report.getModel(), Lang.TTL);
+				fail("Conversion output does not conform SHACL_rulesetLevel1_geometry");
+			} else
+				System.out.println("Actually ok");
+
+		} catch (Exception e) {
+			System.out.println("ERROR");
+			e.printStackTrace();
+			fail("Conversion using set SHACL_rulesetLevel1_geometry had an error: " + e.getMessage());
+		}
 	}
+
+	int count=0;
+	@DisplayName("Test Example 3")
+	@Test
+	public void testConversionExample3() {
+		this.count=0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		 try {
+	            File ifcFile = new File(file_url.toURI());
+
+	            IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
+	            Model model = converter.convert(ifcFile.getAbsolutePath());
+	            
+	            Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n"
+	                    + "\r\n"
+	                    + "SELECT ?element WHERE {\r\n"
+	                    + "  ?element a bot:Element .\r\n"
+	                    + "} ");
+	           
+	            try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
+	                ResultSet resultSet = queryExecution.execSelect();
+	                resultSet.forEachRemaining(qs -> {
+	                	this.count++;
+	                });
+	            }
+	            if(this.count!=268)
+				{
+					System.out.println("Converted BOT element count should be 268. Was: "+this.count);
+					fail("Converted BOT element count should be 268. Was:"+this.count);
+				}
+	        } catch (Exception e) {
+	            System.err.println("Example 3 error: " + e.getMessage());
+	            fail("Conversion Example 3 error: " + e.getMessage());
+	        }
+	}
+	static final private int props_level=1;
+	static final private boolean hasBuildingElements=true;
+	static final private boolean hasBuildingProperties=true;
+	
+	static final boolean hasSeparateBuildingElementsModel=false; 
+	static final boolean hasPropertiesBlankNodes=false;
+	static final boolean hasSeparatePropertiesModel=false;
+	
+	static final boolean hasGeolocation=false;
+	
+	static final boolean hasGeometry=true;
+	static final boolean exportIfcOWL=false;
+	static final boolean hasUnits=false;
+    
+	static final boolean hasPerformanceBoost=false;
+	static final boolean hasBoundingBoxWKT=true;
+	
+	@DisplayName("Test Example 4")
+	@Test
+	public void testConversionExample4() {
+		this.count=0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		 try {
+				File ifc_file = new File(file_url.toURI());
+
+				
+				IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes, props_level);
+				Model m=c.convert(ifc_file.getAbsoluteFile().toString(), null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,hasPerformanceBoost,hasBoundingBoxWKT);
+				if(m!=null)
+				{
+					Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n"
+							+ "\r\n"
+							+ "SELECT ?e ?wkt ?obj WHERE {\r\n"
+							+ "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
+							+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
+							+ "  ?g fog:asObj_v3.0-obj ?obj \r\n"
+							+ "} ");
+					try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
+						ResultSet rs = queryExecution.execSelect();
+						rs.forEachRemaining(qs -> {
+							this.count++;
+						});
+					}
+					if(this.count!=286)
+					{
+						System.out.println("Converted geom element count should be 286. Was: "+this.count);
+						fail("Converted geom element count should be 286. Was:"+this.count);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+	}
+}
