@@ -19,11 +19,17 @@ model=lbdconverter.convert("Duplex_A_20110505.ifc");
 statements=model.listStatements();
 
 
-# List all RDF subjects of the statements in the LBD Model
+# List all suvjects of the statements in the LBD Model
 while statements.hasNext() :
         triple=statements.next()
         subject=triple.getSubject().toString()
+        predicate=triple.getPredicate().toString()
+        object=triple.getObject().toString()
         print(subject)
+
+
+
+#model.write(jpype.java.lang.System.out)
 
 jpype.shutdownJVM()
 
