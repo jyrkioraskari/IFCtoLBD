@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Set;
 
@@ -162,6 +161,7 @@ public class PropertySet {
             }
     }
 
+    static long state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
         for (String pname : this.mapPnameValue.keySet()) {
@@ -184,7 +184,7 @@ public class PropertySet {
                 if (this.hasBlank_nodes)
                     state_resourse = this.lbd_model.createResource();
                 else
-                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_" + System.currentTimeMillis());
+                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_p" + PropertySet.state_resourse_counter++);
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
@@ -287,18 +287,15 @@ public class PropertySet {
 
         if (val == null)
             return Optional.empty();
-        else {
-            if (!val.isLiteral())
-                return Optional.empty();
-            if (val.asLiteral().getValue().equals(true))
-                return Optional.of(true);
-            else
-                return Optional.of(false);
-        }
+		if (!val.isLiteral())
+		    return Optional.empty();
+		if (val.asLiteral().getValue().equals(true))
+		    return Optional.of(true);
+		return Optional.of(false);
     }
 
     
-    private Set<String> getPropertynames() {
+    public Set<String> getPropertynames() {
 
     	return mapPnameType.keySet();
     }

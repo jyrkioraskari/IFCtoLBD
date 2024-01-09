@@ -78,7 +78,7 @@ public abstract class FileUtils {
      * @return List of files found
      */
     public static List<String> listFiles(String dir) {
-        List<String> goodFiles = new ArrayList<String>();
+        List<String> goodFiles = new ArrayList<>();
 
         File folder = new File(dir);
         File[] listOfFiles = folder.listFiles();

@@ -254,15 +254,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         Stage stage = (Stage) myMenuBar.getScene().getWindow();
         File file = null;
 
-        if (fc_ifc == null) {
-            fc_ifc = new FileChooser();
-            String work_directory = prefs.get("ifc_work_directory", ".");
+        if (this.fc_ifc == null) {
+            this.fc_ifc = new FileChooser();
+            String work_directory = this.prefs.get("ifc_work_directory", ".");
             System.out.println("workdir got:" + work_directory);
             File fwd = new File(work_directory);
-            if (fwd != null && fwd.exists())
-                fc_ifc.setInitialDirectory(fwd.getParentFile());
+            if (fwd.exists())
+                this.fc_ifc.setInitialDirectory(fwd.getParentFile());
             else
-                fc_ifc.setInitialDirectory(new File("."));
+                this.fc_ifc.setInitialDirectory(new File("."));
         }
         FileChooser.ExtensionFilter ef1;
         ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
@@ -270,33 +270,36 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         ef2 = new FileChooser.ExtensionFilter("IFC zip documents (*.ifczip)", "*.ifczip");
         FileChooser.ExtensionFilter ef3;
         ef3 = new FileChooser.ExtensionFilter("All Files", "*.*");
-        fc_ifc.getExtensionFilters().clear();
-        fc_ifc.getExtensionFilters().addAll(ef1, ef2,ef3);
+        this.fc_ifc.getExtensionFilters().clear();
+        this.fc_ifc.getExtensionFilters().addAll(ef1, ef2,ef3);
 
-        if (file == null)
-            file = fc_ifc.showOpenDialog(stage);
-        if (file == null)
+        file = this.fc_ifc.showOpenDialog(stage);
+        if (file == null) // Not redundant
             return;
-        fc_ifc.setInitialDirectory(file.getParentFile());
-        labelIFCFile.setText(file.getName());
-        ifcFileName = file.getAbsolutePath();
+        this.fc_ifc.setInitialDirectory(file.getParentFile());
+        this.labelIFCFile.setText(file.getName());
+        this.ifcFileName = file.getAbsolutePath();
         int i = file.getName().lastIndexOf(".");
         if (i > 0) {
-            String target_directory = prefs.get("ifc_target_directory", file.getParentFile().getAbsolutePath());
+            String target_directory = this.prefs.get("ifc_target_directory", file.getParentFile().getAbsolutePath());
             if (!new File(target_directory).exists())
                 target_directory = file.getParent();
-            rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
-            labelTargetFile.setText(rdfTargetName);
+            
+            if(target_directory.endsWith("\\"))
+  			  this.rdfTargetName = target_directory + file.getName().substring(0, i) + "_LBD.ttl";
+  			else
+  		      this.rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
+            this.labelTargetFile.setText(this.rdfTargetName);
         }
-        if (ifcFileName != null && rdfTargetName != null) {
-            selectTargetFileButton.setDisable(false);
-            convert2RDFButton.setDefaultButton(true);
-            convert2RDFButton.setDisable(false);
-            System.out.println("workdir put:" + ifcFileName);
-            prefs.put("ifc_work_directory", ifcFileName);
+        if (this.ifcFileName != null && this.rdfTargetName != null) {
+            this.selectTargetFileButton.setDisable(false);
+            this.convert2RDFButton.setDefaultButton(true);
+            this.convert2RDFButton.setDisable(false);
+            System.out.println("workdir put:" + this.ifcFileName);
+            this.prefs.put("ifc_work_directory", this.ifcFileName);
 
         }
-        selectIFCFileButton.setDefaultButton(false);
+        this.selectIFCFileButton.setDefaultButton(false);
         // rdf_fileIcon.setDisable(false);
         // rdf_fileIcon.setImage(fileimage);
     }
@@ -307,117 +310,120 @@ public class IFCtoLBDController implements Initializable, FxInterface {
     
     @FXML
     private void selectPropertyLevel1() {
-        level1.setSelected(true);
-        level2.setSelected(false);
-        level3.setSelected(false);
+        this.level1.setSelected(true);
+        this.level2.setSelected(false);
+        this.level3.setSelected(false);
     }
     
     @FXML
     private void selectPropertyLevel2() {
-        level1.setSelected(false);
-        level2.setSelected(true);
-        level3.setSelected(false);
+        this.level1.setSelected(false);
+        this.level2.setSelected(true);
+        this.level3.setSelected(false);
     }
     
     @FXML
     private void selectPropertyLevel3() {
-        level1.setSelected(false);
-        level2.setSelected(false);
-        level3.setSelected(true);
+    	this.level1.setSelected(false);
+    	this.level2.setSelected(false);
+    	this.level3.setSelected(true);
 
     }
     
 
     @FXML
     private void selectTargetFile() {
-        Stage stage = (Stage) myMenuBar.getScene().getWindow();
+        Stage stage = (Stage) this.myMenuBar.getScene().getWindow();
         File file = null;
 
-        fc_target = new FileChooser();
-        File fwd = new File(rdfTargetName);
-        fc_target.setInitialFileName(rdfTargetName);
+        this.fc_target = new FileChooser();
+        File fwd = new File(this.rdfTargetName);
+        this.fc_target.setInitialFileName(this.rdfTargetName);
         if (!fwd.getParentFile().exists()) {
-            fc_target.setInitialDirectory(new File(ifcFileName).getParentFile());
-            fc_target.setInitialFileName(new File(ifcFileName).getParentFile() + File.pathSeparator + fwd.getName());
+            this.fc_target.setInitialDirectory(new File(this.ifcFileName).getParentFile());
+            this.fc_target.setInitialFileName(new File(this.ifcFileName).getParentFile() + File.pathSeparator + fwd.getName());
             System.out.println("SET");
         } else
-            fc_target.setInitialDirectory(fwd.getParentFile());
+            this.fc_target.setInitialDirectory(fwd.getParentFile());
 
         FileChooser.ExtensionFilter ef;
-        ef = new FileChooser.ExtensionFilter("All Files", "*.*");
-        fc_ifc.getExtensionFilters().clear();
-        fc_ifc.getExtensionFilters().addAll(ef);
+        ef = new FileChooser.ExtensionFilter("All Files", "*.");
+        this.fc_ifc.getExtensionFilters().clear();
+        this.fc_ifc.getExtensionFilters().addAll(ef);
 
         try {
-            file = fc_target.showSaveDialog(stage);
+            file = this.fc_target.showSaveDialog(stage);
         } catch (Exception e) {
-            fwd = new File(rdfTargetName);
-            System.err.println("fwd parent: " + fwd.getParentFile() + " -> " + new File(ifcFileName).getParentFile());
-            System.err.println("path was: " + fc_target.getInitialDirectory().getAbsolutePath());
+            fwd = new File(this.rdfTargetName);
+            System.err.println("fwd parent: " + fwd.getParentFile() + " -> " + new File(this.ifcFileName).getParentFile());
+            System.err.println("path was: " + this.fc_target.getInitialDirectory().getAbsolutePath());
 
             e.printStackTrace();
         }
         if (file == null)
             return;
-        fc_target.setInitialDirectory(file.getParentFile());
-        prefs.put("ifc_target_directory", file.getParentFile().getAbsolutePath());
-        labelTargetFile.setText(file.getAbsolutePath());
+        this.fc_target.setInitialDirectory(file.getParentFile());
+        this.prefs.put("ifc_target_directory", file.getParentFile().getAbsolutePath());
+        this.labelTargetFile.setText(file.getAbsolutePath());
 
-        rdfTargetName = file.getAbsolutePath();
+        this.rdfTargetName = file.getAbsolutePath();
     }
 
     Future<Integer> running_task; 
     @FXML
     private void convertIFCToRDF() {
-        prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
-        prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
+        this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
+        this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
-        prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
+        this.prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
 
-        prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
-        prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-        prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
+        this.prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
+        this.prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
+        this.prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
 
-        prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
-        prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
-        prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
-        prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
+        this.prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
+        this.prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
+        this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+        this.prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
         
         
-        conversionTxt.setText("");
+        this.conversionTxt.setText("");
         try {
-            String uri_base = labelBaseURI.getText().trim();
+            String uri_base = this.labelBaseURI.getText().trim();
             int props_level = 2;
-            if (level1.isSelected())
+            if (this.level1.isSelected())
                 props_level = 1;
-            if (level3.isSelected())
+            if (this.level3.isSelected())
                 props_level = 3;
-            prefs.putInt("lbd_props_level", props_level);
-            masker_panel.setVisible(true);
+            this.prefs.putInt("lbd_props_level", props_level);
+            this.masker_panel.setVisible(true);
             
             // If masking is used...  not needed
-            if(running_task!=null)
+            if(this.running_task!=null)
             {
-            	if(!running_task.isDone())
+            	if(!this.running_task.isDone())
             	{
             		this.conversionTxt.appendText("Conversion is still running");
             	}
             }
-            running_task = executor.submit(new ConversionThread(ifcFileName, uri_base, rdfTargetName, props_level, building_elements.isSelected(), building_elements_separate_file.isSelected(),
-                            building_props.isSelected(), building_props_separate_file.isSelected(), building_props_blank_nodes.isSelected(), geolocation.isSelected(),geometry_elements.isSelected(),ifcOWL_elements.isSelected(),ifcOWL_elements.isSelected(),hasPerformanceBoost.isSelected(),hasBoundingBox_WKT.isSelected()));
+            this.running_task = this.executor.submit(new ConversionThread(this.ifcFileName, uri_base, this.rdfTargetName, props_level, this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
+                            this.building_props.isSelected(), this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(),this.geometry_elements.isSelected(),this.ifcOWL_elements.isSelected(),this.ifcOWL_elements.isSelected(),this.hasPerformanceBoost.isSelected(),this.hasBoundingBox_WKT.isSelected()));
         } catch (Exception e) {
             Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
         }
 
     }
 
-    public void initialize(URL location, ResourceBundle resources) {
-        eventBus.register(this);
-        border.widthProperty().bind(root.widthProperty());
-        border.heightProperty().bind(root.heightProperty());
+    @SuppressWarnings("unused")
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+        this.eventBus.register(this);
+        this.border.widthProperty().bind(this.root.widthProperty());
+        this.border.heightProperty().bind(this.root.heightProperty());
         // Accepts dropping
         new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
+            @Override
+			public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 if (db.hasFiles()) {
                     event.acceptTransferModes(TransferMode.COPY);
@@ -429,7 +435,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         };
 
         // Accepts dropping
-        EventHandler<DragEvent> ad_conversion = new EventHandler<DragEvent>() {
+        EventHandler<DragEvent> ad_conversion = new EventHandler<>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 if (db.hasFiles()) {
@@ -441,22 +447,22 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         };
 
         // Dropping over surface
-        EventHandler<DragEvent> dh_conversion = new EventHandler<DragEvent>() {
+        EventHandler<DragEvent> dh_conversion = new EventHandler<>() {
             public void handle(DragEvent event) {
                 Dragboard db = event.getDragboard();
                 boolean success = false;
                 if (db.hasFiles()) {
                     success = true;
                     for (File file : db.getFiles()) {
-                        labelIFCFile.setText(file.getName());
-                        ifcFileName = file.getAbsolutePath();
-                        if (ifcFileName != null && rdfTargetName != null) {
-                            convert2RDFButton.setDefaultButton(true);
-                            selectIFCFileButton.setDefaultButton(false);
-                            convert2RDFButton.setDisable(false);
+                        IFCtoLBDController.this.labelIFCFile.setText(file.getName());
+                        IFCtoLBDController.this.ifcFileName = file.getAbsolutePath();
+                        if (IFCtoLBDController.this.ifcFileName != null && IFCtoLBDController.this.rdfTargetName != null) {
+                            IFCtoLBDController.this.convert2RDFButton.setDefaultButton(true);
+                            IFCtoLBDController.this.selectIFCFileButton.setDefaultButton(false);
+                            IFCtoLBDController.this.convert2RDFButton.setDisable(false);
                         }
-                        rdf_fileIcon.setDisable(false);
-                        rdf_fileIcon.setImage(fileimage);
+                        IFCtoLBDController.this.rdf_fileIcon.setDisable(false);
+                        IFCtoLBDController.this.rdf_fileIcon.setImage(IFCtoLBDController.this.fileimage);
                     }
                 }
                 event.setDropCompleted(success);
@@ -464,19 +470,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
             }
         };
 
-        selectIFCFileButton.setOnDragOver(ad_conversion);
-        selectIFCFileButton.setOnDragDropped(dh_conversion);
-        convert2RDFButton.setOnDragOver(ad_conversion);
-        convert2RDFButton.setOnDragDropped(dh_conversion);
-        labelIFCFile.setOnDragOver(ad_conversion);
-        labelIFCFile.setOnDragDropped(dh_conversion);
-        conversionTxt.setOnDragOver(ad_conversion);
-        conversionTxt.setOnDragDropped(dh_conversion);
+        this.selectIFCFileButton.setOnDragOver(ad_conversion);
+        this.selectIFCFileButton.setOnDragDropped(dh_conversion);
+        this.convert2RDFButton.setOnDragOver(ad_conversion);
+        this.convert2RDFButton.setOnDragDropped(dh_conversion);
+        this.labelIFCFile.setOnDragOver(ad_conversion);
+        this.labelIFCFile.setOnDragDropped(dh_conversion);
+        this.conversionTxt.setOnDragOver(ad_conversion);
+        this.conversionTxt.setOnDragDropped(dh_conversion);
 
-        rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent me) {
+        this.rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() {
+            @Override
+			public void handle(MouseEvent me) {
 
-                if (!rdf_fileIcon.isDisabled()) {
+                if (!IFCtoLBDController.this.rdf_fileIcon.isDisabled()) {
                     Dragboard db = handleOnTxt.startDragAndDrop(TransferMode.ANY);
 
                     ClipboardContent content = new ClipboardContent();
@@ -484,20 +491,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
                     try {
                         File temp = File.createTempFile("rdf", ".ttl");
 
-                        conversionTxt.setText("");
+                        IFCtoLBDController.this.conversionTxt.setText("");
                         try {
-                            String uri_base = labelBaseURI.getText().trim();
+                            String uri_base = IFCtoLBDController.this.labelBaseURI.getText().trim();
                             int props_level = 2;
-                            if (level1.isSelected())
+                            if (IFCtoLBDController.this.level1.isSelected())
                                 props_level = 1;
-                            if (level3.isSelected())
+                            if (IFCtoLBDController.this.level3.isSelected())
                                 props_level = 3;
-                            masker_panel.setVisible(true);
-                            executor.submit(new ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(), props_level, building_elements.isSelected(),
-                                            building_elements_separate_file.isSelected(), building_props.isSelected(), building_props_separate_file.isSelected(),
-                                            building_props_blank_nodes.isSelected(), geolocation.isSelected(),geometry_elements.isSelected(),ifcOWL_elements.isSelected(),ifcOWL_elements.isSelected(),hasPerformanceBoost.isSelected(),hasBoundingBox_WKT.isSelected()));
+                            IFCtoLBDController.this.masker_panel.setVisible(true);
+                            IFCtoLBDController.this.executor.submit(new ConversionThread(IFCtoLBDController.this.ifcFileName, uri_base, temp.getAbsolutePath(), props_level, IFCtoLBDController.this.building_elements.isSelected(),
+                                            IFCtoLBDController.this.building_elements_separate_file.isSelected(), IFCtoLBDController.this.building_props.isSelected(), IFCtoLBDController.this.building_props_separate_file.isSelected(),
+                                            IFCtoLBDController.this.building_props_blank_nodes.isSelected(), IFCtoLBDController.this.geolocation.isSelected(),IFCtoLBDController.this.geometry_elements.isSelected(),IFCtoLBDController.this.ifcOWL_elements.isSelected(),IFCtoLBDController.this.ifcOWL_elements.isSelected(),IFCtoLBDController.this.hasPerformanceBoost.isSelected(),IFCtoLBDController.this.hasBoundingBox_WKT.isSelected()));
                         } catch (Exception e) {
-                            conversionTxt.appendText(e.getMessage());
+                            IFCtoLBDController.this.conversionTxt.appendText(e.getMessage());
                         }
 
                         content.putFiles(java.util.Collections.singletonList(temp));
@@ -512,25 +519,26 @@ public class IFCtoLBDController implements Initializable, FxInterface {
             }
         });
 
-        rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent me) {
+        this.rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() {
+            @Override
+			public void handle(DragEvent me) {
                 me.consume();
             }
         });
-        this.labelBaseURI.setText(prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
-        this.building_elements.setSelected(prefs.getBoolean("lbd_building_elements", true));
-        this.building_elements_separate_file.setSelected(prefs.getBoolean("lbd_building_elements_separate_file", false));
-        this.building_props.setSelected(prefs.getBoolean("lbd_building_props", true));
-        this.building_props_blank_nodes.setSelected(prefs.getBoolean("lbd_building_props_blank_nodes", false));
-        this.building_props_separate_file.setSelected(prefs.getBoolean("lbd_building_props_separate_file", false));
+        this.labelBaseURI.setText(this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
+        this.building_elements.setSelected(this.prefs.getBoolean("lbd_building_elements", true));
+        this.building_elements_separate_file.setSelected(this.prefs.getBoolean("lbd_building_elements_separate_file", false));
+        this.building_props.setSelected(this.prefs.getBoolean("lbd_building_props", true));
+        this.building_props_blank_nodes.setSelected(this.prefs.getBoolean("lbd_building_props_blank_nodes", false));
+        this.building_props_separate_file.setSelected(this.prefs.getBoolean("lbd_building_props_separate_file", false));
        
-        this.geometry_elements.setSelected(prefs.getBoolean("lbd_boundinbox_elements", true));
-        this.ifcOWL_elements.setSelected(prefs.getBoolean("lbd_ifcOWL_elements", false));
-        this.createUnits.setSelected(prefs.getBoolean("lbd_createUnits", false));
+        this.geometry_elements.setSelected(this.prefs.getBoolean("lbd_boundinbox_elements", true));
+        this.ifcOWL_elements.setSelected(this.prefs.getBoolean("lbd_ifcOWL_elements", false));
+        this.createUnits.setSelected(this.prefs.getBoolean("lbd_createUnits", false));
         
-        this.hasPerformanceBoost.setSelected(prefs.getBoolean("lbd_performance", true));
+        this.hasPerformanceBoost.setSelected(this.prefs.getBoolean("lbd_performance", true));
         
-        this.geolocation.setSelected(prefs.getBoolean("lbd_geolocation", true));
+        this.geolocation.setSelected(this.prefs.getBoolean("lbd_geolocation", true));
         
         
         if(this.ifcOWL_elements.isSelected())
@@ -544,55 +552,61 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		    this.hasPerformanceBoost.setDisable(false);    		
     	}
     	
-        int props_level = prefs.getInt("lbd_props_level", 3);
+        int props_level = this.prefs.getInt("lbd_props_level", 3);
         switch (props_level) {
             case 1:
-            level1.setSelected(true);
-            level2.setSelected(false);
-            level3.setSelected(false);
+            this.level1.setSelected(true);
+            this.level2.setSelected(false);
+            this.level3.setSelected(false);
                 break;
             case 2:
-            level1.setSelected(false);
-            level2.setSelected(true);
-            level3.setSelected(false);
+            this.level1.setSelected(false);
+            this.level2.setSelected(true);
+            this.level3.setSelected(false);
                 break;
             case 3:
-            level1.setSelected(false);
-            level2.setSelected(false);
-            level3.setSelected(true);
+            this.level1.setSelected(false);
+            this.level2.setSelected(false);
+            this.level3.setSelected(true);
                 break;
+		default:
+			this.level1.setSelected(true);
+            this.level2.setSelected(false);
+            this.level3.setSelected(false);
+			break;
 
         }
 
-        building_elements.setTooltip(new Tooltip("Building Product Ontology instances. \nThis is described in: https://github.com/w3c-lbd-cg/product"));
-        building_elements_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
-        building_props.setTooltip(
+        this.building_elements.setTooltip(new Tooltip("Building Product Ontology instances. \nThis is described in: https://github.com/w3c-lbd-cg/product"));
+        this.building_elements_separate_file.setTooltip(new Tooltip("Create the content in separate files."));
+        this.building_props.setTooltip(
                         new Tooltip("Building related properties\nThis is dedcribed in: https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf"));
-        building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files (Only levels 2 or 3)."));
+        this.building_props_separate_file.setTooltip(new Tooltip("Create the content in separate files (Only levels 2 or 3)."));
 
-        elements_link.setTooltip(new Tooltip("Opens a link that describes the Building Product Ontology."));
+        this.elements_link.setTooltip(new Tooltip("Opens a link that describes the Building Product Ontology."));
 
-        props_link.setTooltip(new Tooltip("Opens a link to the Towards a PROPS ontology presentation."));
-        opm_link.setTooltip(new Tooltip("Opens a link that describes the Ontology for Property Management."));
+        this.props_link.setTooltip(new Tooltip("Opens a link to the Towards a PROPS ontology presentation."));
+        this.opm_link.setTooltip(new Tooltip("Opens a link that describes the Ontology for Property Management."));
 
-        selectIFCFileButton.setTooltip(new Tooltip("Select an IFC Step formatted file to convert.\nThe supported IFC versions are\n2x3 TC1 & Final, 4 ADD1, 4 ADD2, 4  "));
-        selectTargetFileButton.setTooltip(new Tooltip("Select an target file for the conversion.\nIf there will be many files, the separate files are named accorrdingly."));
-        convert2RDFButton.setTooltip(new Tooltip("Press this button to start the conversion process."));
-        conversionTxt.setTooltip(new Tooltip("This shows the conversion process related messages\nand any error that occurs. "));
+        this.selectIFCFileButton.setTooltip(new Tooltip("Select an IFC Step formatted file to convert.\nThe supported IFC versions are\n2x3 TC1 & Final, 4 ADD1, 4 ADD2, 4  "));
+        this.selectTargetFileButton.setTooltip(new Tooltip("Select an target file for the conversion.\nIf there will be many files, the separate files are named accorrdingly."));
+        this.convert2RDFButton.setTooltip(new Tooltip("Press this button to start the conversion process."));
+        this.conversionTxt.setTooltip(new Tooltip("This shows the conversion process related messages\nand any error that occurs. "));
 
-        labelIFCFile.setTooltip(new Tooltip("The selected IFC file. "));
+        this.labelIFCFile.setTooltip(new Tooltip("The selected IFC file. "));
 
-        labelTargetFile.setTooltip(new Tooltip("The selected target RDF file. "));
+        this.labelTargetFile.setTooltip(new Tooltip("The selected target RDF file. "));
 
-        labelBaseURI.setTooltip(new Tooltip("The base URL is the consistent part of your links generated in the output. "));
+        this.labelBaseURI.setTooltip(new Tooltip("The base URL is the consistent part of your links generated in the output. "));
 
         
         this.hasPerformanceBoost.setTooltip(new Tooltip("When used, the memory consumption is saved by removing the ifcOWL geometry. "));
 
     }
 
-    public void handle_notification(String txt) {
-        conversionTxt.insertText(0, txt + "\n");
+    @Override
+	public void handle_notification(String txt) {
+        this.conversionTxt.insertText(0, txt + "\n");
     }
 
     @Subscribe
@@ -607,6 +621,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
         Platform.runLater(() -> this.conversionTxt.appendText(event.getClass_name() + ": " + event.getStatus_message() + "\n"));
     }
 
+    /**
+	 * @param ProcessReadyEvent event signal to notify the the status
+	 */
     @Subscribe
     public void handleEvent(final ProcessReadyEvent event) {
         this.masker_panel.setVisible(false);

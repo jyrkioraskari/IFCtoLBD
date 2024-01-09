@@ -1,6 +1,6 @@
-package org.linkedbuildingdata.ifc2lbd.core;
+package org.linkedbuildingdata.ifc2lbd.tests;
 
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 
 public class TestUTF8 {
 
@@ -13,6 +13,7 @@ public class TestUTF8 {
 		{
 			switch(state)
 			{
+			default: 
 			case	0:
 				    if(ch=='\\' || ch=='/')
 				    	state=1;

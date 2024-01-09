@@ -1,5 +1,5 @@
 /*
- * 
+ * 2024
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -14,6 +14,7 @@
  */
 package be.ugent;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.File;
@@ -27,7 +28,7 @@ import java.io.ObjectInputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class IfcSpfReader {
         String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
         Boolean[] optionValues = new Boolean[] { false, false, false };
 
-        String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(Calendar.getInstance().getTime());
+        String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());  // JO 2024: performance
         DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
         List<String> argsList = new ArrayList<>(Arrays.asList(args));
@@ -174,9 +175,9 @@ public class IfcSpfReader {
 
     private static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
+            try ( DataInputStream in = new DataInputStream(fstream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -201,13 +202,10 @@ public class IfcSpfReader {
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-                            else
-                                return "";
+							return "";
                         }
                     }
                 }
-            } finally {
-                br.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -226,78 +224,79 @@ public class IfcSpfReader {
 
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
-        ifcFile = ifcFileIn;
-        if (!ifcFile.endsWith(".ifc")) {
-            ifcFile += ".ifc";
+        this.ifcFile = ifcFileIn;
+        if (!this.ifcFile.endsWith(".ifc")) {
+            this.ifcFile += ".ifc";
         }
 
-        exp = getExpressSchema(ifcFile);
-        System.out.println("express schema: "+exp);
+        this.exp = getExpressSchema(this.ifcFile);
+        System.out.println("express schema: "+this.exp);
 
         // check if we are able to convert this: only four schemas are supported
-        if (!exp.equalsIgnoreCase("IFC2X3_Final") && !exp.equalsIgnoreCase("IFC2X3_TC1") && !exp.equalsIgnoreCase("IFC4_ADD2") && !exp.equalsIgnoreCase("IFC4_ADD1") && !exp.equalsIgnoreCase("IFC4")
-                        && !exp.equalsIgnoreCase("IFC4x1") && !exp.equalsIgnoreCase("IFC4x3_RC1")) {
-            LOG.error("Unrecognised EXPRESS schema: " + exp + ". File should be in IFC4x3_RC1, IFC4X1, IFC4 or IFC2X3 schema. Quitting." + "\r\n");
+        if (!this.exp.equalsIgnoreCase("IFC2X3_Final") && !this.exp.equalsIgnoreCase("IFC2X3_TC1") && !this.exp.equalsIgnoreCase("IFC4_ADD2") && !this.exp.equalsIgnoreCase("IFC4_ADD1") && !this.exp.equalsIgnoreCase("IFC4")
+                        && !this.exp.equalsIgnoreCase("IFC4x1") && !this.exp.equalsIgnoreCase("IFC4x3_RC1")) {
+            LOG.error("Unrecognised EXPRESS schema: " + this.exp + ". File should be in IFC4x3_RC1, IFC4X1, IFC4 or IFC2X3 schema. Quitting." + "\r\n");
         }
 
         try {
 
             //JO -->>> 
-            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + exp + ".ser");
+            InputStream fis = IfcSpfReader.class.getResourceAsStream("/resources/ent" + this.exp + ".ser");
             if (fis == null)
-                fis = IfcSpfReader.class.getResourceAsStream("/ent" + exp + ".ser");
+                fis = IfcSpfReader.class.getResourceAsStream("/ent" + this.exp + ".ser");
             
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            try {
-                ent = (Map<String, EntityVO>) ois.readObject();
+            
+         // Fix by JO 2024: finally is deprecated
+            if(fis==null)
+            {
+            	System.err.println(this.exp + ".ser not found");
+            }
+            try (ObjectInputStream ois = new ObjectInputStream(fis);){
+                this.ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                ois.close();
-            }
+            } 
 
             //JO -->>> 
-            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + exp + ".ser");
+            fis = IfcSpfReader.class.getResourceAsStream("/resources/typ" + this.exp + ".ser");
             if (fis == null)
-                fis = IfcSpfReader.class.getResourceAsStream("/typ" + exp + ".ser");
+                fis = IfcSpfReader.class.getResourceAsStream("/typ" + this.exp + ".ser");
 
-            ois = new ObjectInputStream(fis);
-            try {
-                typ = (Map<String, TypeVO>) ois.readObject();
+            //  Fix by JO 2024: finally is deprecated
+            try (ObjectInputStream ois = new ObjectInputStream(fis);){
+                this.typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            } finally {
-                ois.close();
-            }
-            
+            } 
+            if(fis!=null)  // Potential leak
+              fis.close();
 
-            String inAlt = exp;
-            if (exp.equalsIgnoreCase("IFC2X3_Final"))
+            String inAlt = this.exp;
+            if (this.exp.equalsIgnoreCase("IFC2X3_Final"))
                 inAlt = "IFC2x3/FINAL/";
-            if (exp.equalsIgnoreCase("IFC2X3_TC1"))
+            if (this.exp.equalsIgnoreCase("IFC2X3_TC1"))
                 inAlt = "IFC2x3/TC1/";
-            if (exp.equalsIgnoreCase("IFC4_ADD1"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD1"))
                 inAlt = "IFC4/ADD1/";
-            if (exp.equalsIgnoreCase("IFC4_ADD2"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD2"))
                 inAlt = "IFC4/ADD2/";
-            if (exp.equalsIgnoreCase("IFC4_ADD2_TC1"))
+            if (this.exp.equalsIgnoreCase("IFC4_ADD2_TC1"))
                 inAlt = "IFC4/ADD2_TC1/";
-            if (exp.equalsIgnoreCase("IFC4x1"))
+            if (this.exp.equalsIgnoreCase("IFC4x1"))
                 inAlt = "IFC4_1/";
-            if (exp.equalsIgnoreCase("IFC4x3"))
+            if (this.exp.equalsIgnoreCase("IFC4x3"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4X3"))
+            if (this.exp.equalsIgnoreCase("IFC4X3"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4x3_RC1"))
+            if (this.exp.equalsIgnoreCase("IFC4x3_RC1"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4X3_RC1"))
+            if (this.exp.equalsIgnoreCase("IFC4X3_RC1"))
                 inAlt = "IFC4_3/RC1/";
-            if (exp.equalsIgnoreCase("IFC4"))
+            if (this.exp.equalsIgnoreCase("IFC4"))
                 inAlt = "IFC4/FINAL/";
 
-            ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
-            System.out.println("IFCtoRDF ont uri: "+ontURI);
+            this.ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
+            System.out.println("IFCtoRDF ont uri: "+this.ontURI);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }
@@ -305,45 +304,48 @@ public class IfcSpfReader {
 
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
         // CONVERSION
-        OntModel om = null;
+        OntModel om;
 
-        in = null;
+        
         //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
         //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-        in = IfcSpfReader.class.getResourceAsStream("/" + exp + ".ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/" + exp + ".ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/" + this.exp + ".ttl");
+        if (this.in == null)
+            this.in = IfcSpfReader.class.getResourceAsStream("/resources/" + this.exp + ".ttl");
+        om.read(this.in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntResource.asClass()" because "listrange" is null if no internet 
-        in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
+        if (this.in == null)
+        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
+        om.read(this.in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntProperty.toString()" because "valueProp" is null if no internet
-        in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
-        if (in == null)
-            in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
-        om.read(in, null, "TTL");
+        this.in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
+        if (this.in == null)
+        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
+        om.read(this.in, null, "TTL");
 
         try {
-            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, ent, typ, ontURI,hasPerformanceBoost);
-            conv.setRemoveDuplicates(removeDuplicates);
-            try (FileOutputStream out = new FileOutputStream(outputFile)) {
+            RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
+            conv.setRemoveDuplicates(this.removeDuplicates);
+            // JO 2024: performance
+            try (FileOutputStream out = new FileOutputStream(outputFile);BufferedOutputStream bout = new BufferedOutputStream(out);
+) {
                 String s = "# baseURI: " + baseURI;
-                s += "\r\n# imports: " + ontURI + "\r\n\r\n";
-                out.write(s.getBytes());
+                s += "\r\n# imports: " + this.ontURI + "\r\n\r\n";
+                bout.write(s.getBytes());
                 LOG.info("Started parsing stream");
-                conv.parseModel2Stream(out);
+                conv.parseModel2Stream(bout);
                 LOG.info("Finished!!");
             }
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         } finally {
+        	//TODO JO 2024:  finally is deprecated
             try {
-                in.close();
+                this.in.close();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
@@ -351,18 +353,18 @@ public class IfcSpfReader {
     }
 
     public void setRemoveDuplicates(boolean val) {
-        removeDuplicates = val;
+        this.removeDuplicates = val;
     }
 
     public Map<String, EntityVO> getEntityMap() {
-        return ent;
+        return this.ent;
     }
 
     public Map<String, TypeVO> getTypeMap() {
-        return typ;
+        return this.typ;
     }
 
     public String getOntURI() {
-        return ontURI;
+        return this.ontURI;
     }
 }

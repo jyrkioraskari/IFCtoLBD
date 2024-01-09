@@ -24,9 +24,8 @@ public class CreatePsetDescriptionOntologies {
 
     public static void readInOntologyTTL(Model model, String ontology_file) {
 
-        try {
-            InputStream in;
-            in = new FileInputStream(new File(ontology_file));
+    	// JO 2024
+        try (InputStream in = new FileInputStream(new File(ontology_file))) {
             model.read(in, null, "TTL");
             in.close();
         } catch (FileNotFoundException e) {
@@ -78,11 +77,10 @@ public class CreatePsetDescriptionOntologies {
         sb.append("N3Serialization=ontology.nt\r\n");
 
         File f = new File("C:\\temp\\IFC-PSD\\config." + ontology);
-        FileOutputStream fo;
-        try {
-            fo = new FileOutputStream(f);
-            fo.write(sb.toString().getBytes());
-            fo.close();
+        
+        // JO 2024
+        try (FileOutputStream fo = new FileOutputStream(f)) {
+        	fo.write(sb.toString().getBytes());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -96,7 +94,7 @@ public class CreatePsetDescriptionOntologies {
         System.out.println("java -jar C:\\temp\\IFC-PSD\\widoco-1.4.14-jar-with-dependencies.jar -confFile "+config+" -ontFile "+ontfile+" -rewriteAll -excludeIntroduction -includeAnnotationProperties -uniteSections -outFolder C:\\temp\\IFC-PSD\\out\\"+ontology);
     }
 
-    public static void generate(String[] args) {
+    public static void generate(@SuppressWarnings("unused") String[] args) {
 
         
         List<String> files = FileUtils.listFiles("C:\\temp\\IFC-PSD\\psets");
@@ -113,13 +111,18 @@ public class CreatePsetDescriptionOntologies {
                 //if (s.getPredicate().getLocalName().endsWith("nameAlias"))
                 //    s.getSubject().addProperty(RDFS.label, s.getObject());
             }
-            FileOutputStream fo;
+            
             try {
                 File out_file = new File("C:\\temp\\IFC-PSD\\psets2\\" + (new File(file)).getAbsoluteFile().getName());
-                fo = new FileOutputStream(out_file);
-                ontology_model.write(fo, "TTL");
+                try (FileOutputStream fo = new FileOutputStream(out_file)) {  // JO 2024
+					ontology_model.write(fo, "TTL");
+				} catch (FileNotFoundException e) {
+					throw e;
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
                 CreatePsetDescriptionOntologies.write((new File(file)).getAbsoluteFile().getName(),out_file.getAbsolutePath());
-
+                
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }

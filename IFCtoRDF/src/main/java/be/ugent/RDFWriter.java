@@ -15,7 +15,6 @@
  */
 package be.ugent;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -93,7 +92,7 @@ public class RDFWriter {
 	}
 
 
-	public void parseModel2Stream(OutputStream out) throws IOException  {
+	public void parseModel2Stream(OutputStream out)  {
 		// CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
 		// 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)
 		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
@@ -537,7 +536,7 @@ public class RDFWriter {
 		}
 
 		// interpret parse
-		if (!literals.isEmpty()) {
+		if ((evo != null) && !literals.isEmpty()) {
 			String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
 			OntProperty p = ontModel.getOntProperty(propURI);
 			OntResource typerange = p.getRange();
@@ -582,9 +581,9 @@ public class RDFWriter {
 		return attributePointer;
 	}
 
-	@SuppressWarnings({ "unchecked" })
 	private void fillPropertiesHandleListObject(Resource r, TypeVO tvo, Object o)  {
 
+		@SuppressWarnings("unchecked")
 		final LinkedList<Object> tmpList = (LinkedList<Object>) o;
 		LinkedList<String> literals = new LinkedList<>();
 
@@ -728,7 +727,6 @@ public class RDFWriter {
 		else
 			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString));
 
-		LOG.info("*OK 4*: added literal: " + r1.getLocalName() + " - " + valueProp + " - " + literalString);
 	}
 
 	// LIST HANDLING

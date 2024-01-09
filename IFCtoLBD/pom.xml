@@ -1,8 +1,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
-	<artifactId>IFCtoLBD</artifactId>
-	<version>2.43.3</version>
+	<artifactId>ifc-to-lbd</artifactId>
+	<version>2.43.4</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -40,8 +40,8 @@
 		</developer>
 	</developers>
 	<properties>
-		<maven.compiler.source>15</maven.compiler.source>
-		<maven.compiler.target>15</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -66,27 +66,26 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>de.rwth-aachen.dc.lbd</groupId>
-			<artifactId>IFCtoLBD_Geometry</artifactId>
-			<version>2.43.0</version>
-			 <exclusions>
-            <exclusion>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-            </exclusion>
-        </exclusions>
+			<groupId>de.rwth-aachen.lbd</groupId>
+			<artifactId>idc_to_lbd_geometry</artifactId>
+			<version>2.43.4</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-log4j12</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
+			<version>3.14.0</version>
 		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.15</version>
+			<version>1.16.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
 		<dependency>
@@ -103,25 +102,25 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.9.2</version>
+			<version>5.10.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<version>1.9.2</version>
+			<version>1.10.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.9.2</version>
+			<version>5.10.1</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
-			<artifactId>IFC2RDF</artifactId>
-			<version>1.3.1</version>
+			<artifactId>ifc2rdf</artifactId>
+			<version>1.3.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
@@ -131,8 +130,19 @@
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
-			<version>4.7.1</version>
+			<version>4.7.5</version>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-text</artifactId>
+			<version>1.11.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jena</groupId>
+			<artifactId>jena-shaded-guava</artifactId>
+			<version>4.8.0</version>
+		</dependency>
+		<!-- Thanks for using https://jar-download.com -->
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
@@ -140,15 +150,6 @@
 		<url>https://https://github.com/jyrkioraskari/IFCtoLBD</url>
 		<tag>HEAD</tag>
 	</scm>
-	<distributionManagement>
-		<snapshotRepository>
-			<id>ossrh</id>
-		</snapshotRepository>
-		<repository>
-			<id>ossrh</id>
-			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-		</repository>
-	</distributionManagement>
 	<profiles>
 		<profile>
 			<id>release</id>
@@ -343,8 +344,15 @@
 							<dependencyConvergence />
 						</rules>
 					</configuration>
-				</plugin>				
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
+		</repository>
+	</distributionManagement>
 </project>

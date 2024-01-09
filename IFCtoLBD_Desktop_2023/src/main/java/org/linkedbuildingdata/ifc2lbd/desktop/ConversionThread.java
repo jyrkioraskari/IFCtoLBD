@@ -40,10 +40,10 @@ public class ConversionThread implements Callable<Integer> {
 	
 	final private IFCtoLBDConverter converter;
 	final private Set<String> selected_types;
-	final private String ifc_filename;
-	final private String uriBase;
-	final private String target_file;
-	final private int props_level;
+	//final private String ifc_filename;
+	//final private String uriBase;
+	//final private String target_file;
+	//final private int props_level;
 	final private boolean hasBuildingElements;
 	final private boolean hasBuildingProperties;
 	
@@ -61,14 +61,15 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasBoundingBoxWKT;
     final boolean hasHierarchicalNaming;
 
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,String ifc_filename, String uriBase, String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
+    //TODO Check this
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,@SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
-		this.ifc_filename = ifc_filename;
-		this.uriBase = uriBase;
-		this.target_file = target_file;
-		this.props_level=props_level;
+		//this.ifc_filename = ifc_filename;
+		//this.uriBase = uriBase;
+		//this.target_file = target_file;
+		//this.props_level=props_level;
 		this.hasBuildingElements=hasBuildingElements;
 		this.hasBuildingProperties=hasBuildingProperties;
 		
@@ -84,6 +85,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasHierarchicalNaming=hasHierarchicalNaming;
 	}
 
+	@Override
 	public Integer call() throws Exception {
 		try {
 			try {

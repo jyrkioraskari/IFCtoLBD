@@ -1,7 +1,7 @@
 # IFCtoLBD
-Version 2.43.3
+Version 2.43.4
 
-Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, and Maxime Lefrançois.
+Contributors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, Maxime Lefrançois, and Lewis John McGibbney.
 
 Free for all of us, forever.
 
@@ -12,7 +12,7 @@ Resource Description Framework (RDF) triples that follow the small ontologies de
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJava 19. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+It is recommended to use OpenJDK 21 (it is the modt current  Long-Term Support version). Java 17 is supported. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
 On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intell), and run it to install Java.
 
 ## Precompiled binaries
@@ -21,7 +21,7 @@ Precompiled applications are available in the published release.
 https://github.com/jyrkioraskari/IFCtoLBD/releases
 
 * Desktop application: IFCtoLBD-Desktop 
-Use Java 19 for compiling the converter and the desktop app.  For the OpenAPI interface, it is recommended to use Java 15 (The Enunciate library does not support a newer yet, but it seems to be possible to compile it with JDK 19 using the MAVEN_OPTS environment variable shown below. ).
+Use Java 21 for compiling the converter and the desktop app.  For the OpenAPI interface, it is recommended to use Java 21.
 
 These are runnable JAR files. If the Java installation is fine, the file can be run by clicking it. 
 When converting large files, `run.bat` can be used. It is also faster since it allows the program to use more memory for the calculation.
@@ -36,6 +36,10 @@ If the program does not start, try the following command at the command line: `j
 ## Source Code Documentation 
 
 [Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/)
+
+
+Java programming examples can be found
+[here ](/IFCtoLBD/examples.md).
 
 The desktop user interface was written using Java FXML. The editor can be get from:
 https://gluonhq.com/products/scene-builder/ (You need to import the org.openjfx:javafx-graphics, and org.openjfx:javafx-controls with the library manager to get the editor working)
@@ -65,11 +69,19 @@ cd ..
 
 cd IFCtoLBD_OpenAPI
 call mvn clean install
-set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
 call mvn enunciate:docs install
 cd ..
 ```
 -  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven-referred libraries of older Java versions). 
+
+OLD instruction was:
+```
+cd IFCtoLBD_OpenAPI
+call mvn clean install
+set MAVEN_OPTS=--add-exports jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED
+call mvn enunciate:docs install
+cd ..
+```
 
 Then, the best way to create a runnable [Java 19] (https://jdk.java.net/19/) program is to 
 1. Use an Eclipse (https://www.eclipse.org/) installation,
@@ -85,25 +97,29 @@ An example command line usage of the program is:
 java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 ```
 
+
+
 ## Maven
-The Maven library was published on the 29th of May, 2020.  
+The Maven library was published on the 21st of June, 2023.  
 
 ```
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
-  <artifactId>IFCtoLBD</artifactId>
-  <version>1.88</version>
-  <classifier>jar-with-dependencies</classifier>
+  <artifactId>ifc2rdf</artifactId>
+  <version>1.3.1</version>
 </dependency>
-```
-https://mvnrepository.com/artifact/io.github.jyrkioraskari/IFCtoLBD/1.88
 
-[Javadoc](https://jyrkioraskari.github.io/IFCtoLBD/org/lbd/ifc2lbd/IFCtoLBDConverter.html)
+<dependency>
+  <groupId>de.rwth-aachen.lbd</groupId>
+  <artifactId>idc_to_lbd_geometry</artifactId>
+  <version>2.43.0</version>
+</dependency>
 
-
-How to use the code:
-```
-new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.ttl",2, true, false, true, false, false, true);
+<dependency>
+  <groupId>io.github.jyrkioraskari</groupId>
+  <artifactId>ifc-to-lbd</artifactId>
+  <version>2.43.3</version>
+</dependency>
 ```
 
 ## IFCtoLBD Python Implementation
@@ -111,10 +127,10 @@ new IFCtoLBDConverter("c:\\in\model.ifc", "http://example.uri/", "c:\\out\\file.
 The example implementation can be found in the IFCtoLBD_Python  subfolder
 
 Installation:
-
+```
 pip install JPype1
-
 pip install rdflib
+```
 
 ```
 # !/usr/bin/env python3
@@ -160,9 +176,11 @@ for stmt in g:
 jpype.shutdownJVM()
 
 ```
-https://rdflib.readthedocs.io/en/stable/gettingstarted.html  can be used to access the created triples. 
 
-### Docker for the Open API interface
+More Python examples and detailed description can be found 
+[here ](/IFCtoLBD_Python/examples.md).
+
+## Docker for the Open API interface
 
 Install Docker Desktop:  https://www.docker.com/get-started
 
@@ -198,14 +216,14 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Anna Wagner and
                   Ville Kukkonen and
                   Simon Steyskaland and
-                  Joel Lehtonen},
-  title        = {jyrkioraskari/IFCtoLBD: IFCtoLBD v 2.40.1},
-  month        = feb,
+                  Joel Lehtonen and
+                  Maxime Lefrançois },
+  title        = {IFCtoLBD: IFCtoLBD v 2.43.3},
+  month        = jul,
   year         = 2023,
-  publisher    = {Zenodo},
-  version      = {2.40.1},
-  doi          = {10.5281/zenodo.7636217},
-  url          = {https://doi.org/10.5281/zenodo.7636217}
+  publisher    = {GitHub},
+  version      = {2.43.3},
+  url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
 ```
@@ -257,6 +275,13 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### January 02, 2024
+The recommendations was changed to encourage to use one of the last two performant Long-Term Support version of Java (17 or 21).
+  
+### November 13, 2023  
+The new user Java 17 (and above) compatible OpenAPI is now in the source code. Earlier Java versions are not supported as the current Enuciate package
+has that limitation. 
+
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
@@ -269,7 +294,6 @@ The geometry tests are finished. The converter now exports OBJ formatted geometr
 
 ### June 07, 2022  
 Support for xsd:decimal.
-
 
 ### May 16, 2022  
 Support for multi-character Unicode sequences.
@@ -344,6 +368,16 @@ Testing the correctness of the created bounding boxes.
    ```
 
    where *your java installation directory* is the base directory where your Java runtime is installed.
+
+6.  How to disable the missing project natures in Eclipse prompt
+  - open Eclipse.
+  - go to Window > Preferences.
+  - navigate to General > Project Natures.
+    There, you can disable the option for discovering missing project natures and marketplace entries.     
+
+7.  Eclipse build takes forever to complete
+    - Disable Project/Build Automatically, and build the all with Maven Install. Enable the option after.
+    - eclipse -clean -clearPersistedState  // It resets Eclipse perspectives, too.
 
 ## Acknowledgements
 The research was funded by the EU through the H2020 project BIM4REN.

@@ -1,5 +1,7 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -66,54 +68,49 @@ public abstract class RDFUtils {
      * 
      */
     public static void writeModel(Model m, String target_file, EventBus eventBus) {
-        OutputStreamWriter fo = null;
-        try {
-            fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());            
-            m.write(fo, "TTL");
+    	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
+    	// JO 2024 performance
+        try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(new File(target_file)), Charset.forName("UTF-8").newEncoder());BufferedWriter bfo=new BufferedWriter(fo);){
+                       
+            m.write(bfo, "TTL");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
 
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
-        FileOutputStream fo = null;
-        try {
-            fo =new FileOutputStream(new File(target_file));
-            StreamRDFWriter.write(fo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
+        
+    	// JO 2024: performance
+        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo);
+){
+           
+            StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
     
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {
-        FileOutputStream fo = null;  // Outputstream for  RDFDataMgr.write is deprecated
-        try {
-            fo = new FileOutputStream(new File(target_file));     
-            RDFDataMgr.write(fo, ds, RDFFormat.TRIG_PRETTY);
+    	// Fix by JO 2024: finally is deprecated
+    	// JO 2024: performance
+    	try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo);
+    			){
+            RDFDataMgr.write(bfo, ds, RDFFormat.TRIG_PRETTY);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-        } finally {
-            if (fo != null)
-                try {
-                    fo.close();
-                } catch (IOException e) {
-                }
-        }
+        } catch (IOException e1) {
+			e1.printStackTrace();
+            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
     }
     /**
      * 
@@ -140,7 +137,7 @@ public abstract class RDFUtils {
      */
     public static void readInOntologyTTL(Model model, String ontology_file, EventBus eventBus) {
 
-        InputStream in = null;
+		InputStream in = null;
         try {
             in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
             if (in == null) {
@@ -170,6 +167,14 @@ public abstract class RDFUtils {
             System.out.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
             //e.printStackTrace();
         }
+        finally {
+			if(in!=null)
+				try {
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
 
     }
 
@@ -212,21 +217,21 @@ public abstract class RDFUtils {
     public static List<RDFNode> pathQuery(Resource r, RDFStep[] path) {
         List<RDFStep> path_list = Arrays.asList(path);
         if (r.getModel() == null)
-            return new ArrayList<RDFNode>();
+            return new ArrayList<>();
         Optional<RDFStep> step = path_list.stream().findFirst();
         if (step.isPresent()) {
             List<RDFNode> step_result = step.get().next(r);
             if (path.length > 1) {
-                final List<RDFNode> result = new ArrayList<RDFNode>();
+                final List<RDFNode> result = new ArrayList<>();
                 step_result.stream().filter(rn1 -> rn1.isResource()).map(rn2 -> rn2.asResource()).forEach(r1 -> {
                     List<RDFStep> tail = path_list.stream().skip(1).collect(Collectors.toList());
                     result.addAll(pathQuery(r1, tail.toArray(new RDFStep[tail.size()])));
                 });
                 return result;
-            } else
-                return step_result;
+            }
+			return step_result;
         }
-        return new ArrayList<RDFNode>();
+        return new ArrayList<>();
     }
 
     /**

@@ -62,6 +62,7 @@ public class IfcOpenShellEntityInstance implements RenderEngineInstance {
 		return new RenderEngineGeometry(entity.getIndices(), entity.getPositions(), entity.getNormals(), entity.getColors(), entity.getMaterialIndices());
 	}
 
+	@Override
 	public ObjectNode getAdditionalData() throws RenderEngineException {
 		return entity.getAllExtendedData();
 	}

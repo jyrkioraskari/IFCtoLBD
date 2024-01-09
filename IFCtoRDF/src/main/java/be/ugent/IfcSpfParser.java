@@ -32,9 +32,9 @@ public class IfcSpfParser {
 
     public void readModel() {
         try {
-            DataInputStream in = new DataInputStream(inputStream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try (DataInputStream in = new DataInputStream(inputStream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -55,9 +55,7 @@ public class IfcSpfParser {
                         }
                     }
                 }
-            } finally {
-                br.close();
-            }
+            } 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -116,13 +114,12 @@ public class IfcSpfParser {
                         sb.setLength(0);
                         state = Integer.MAX_VALUE; // line is done
                         continue;
-                    } else {
-                        if (sb.toString().trim().length() > 0)
-                            current.add(sb.toString().trim());
-                        sb.setLength(0);
-                        clCount--;
-                        current = listStack.pop();
                     }
+					if (sb.toString().trim().length() > 0)
+					    current.add(sb.toString().trim());
+					sb.setLength(0);
+					clCount--;
+					current = listStack.pop();
                 } else if (ch == ',') {
                     if (sb.toString().trim().length() > 0)
                         current.add(sb.toString().trim());
@@ -163,7 +160,8 @@ public class IfcSpfParser {
                 listOfDuplicateLineEntries.put(vo.getLineNum(), listOfUniqueResources.get(t).getLineNum());
             }
         }
-        LOG.info("MESSAGE: found and removed " + listOfDuplicateLineEntries.size() + " duplicates!");
+        //JO 2024: removed for performance
+        //LOG.info("MESSAGE: found and removed " + listOfDuplicateLineEntries.size() + " duplicates!");
         for (Long x : entriesToRemove) {
             linemap.remove(x);
         }
@@ -225,8 +223,8 @@ public class IfcSpfParser {
                                     tmpList.set(j, "-");
                                     continue;
                                     //return true; // JO 2022-05
-                                } else
-                                    tmpList.set(j, or);
+                                }
+								tmpList.set(j, or);
                             } else {
                                 // list/set of values
                                 tmpList.set(j, s);
@@ -251,8 +249,8 @@ public class IfcSpfParser {
                                             tmp2List.set(j2, "-");
                                             continue;
                                             //return true; // JO 2022-05
-                                        } else
-                                            tmp2List.set(j2, or);
+                                        }
+										tmp2List.set(j2, or);
                                     }
                                 }
                             }
@@ -265,7 +263,7 @@ public class IfcSpfParser {
         return true;
     }
 
-    private Long toLong(String txt) {
+    private static Long toLong(String txt) {
         try {
             return Long.valueOf(txt);
         } catch (NumberFormatException e) {

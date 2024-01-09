@@ -30,6 +30,7 @@ public class WebFileHandler implements Receiver, SucceededListener, FailedListen
 			this.uploads = this.uploads + File.separator;
 	}
 
+	@Override
 	public OutputStream receiveUpload(String filename, String mimeType) {
 		if ((filename == null) || filename.length() == 0) {
 			Notification n = new Notification("A file has to be selected", " ", Notification.Type.ERROR_MESSAGE);
@@ -62,6 +63,7 @@ public class WebFileHandler implements Receiver, SucceededListener, FailedListen
 		return fos;
 	}
 
+	@Override
 	public void uploadSucceeded(SucceededEvent event) {
 		File file = new File(this.uploads + event.getFilename());
 		if (!file.exists()) {

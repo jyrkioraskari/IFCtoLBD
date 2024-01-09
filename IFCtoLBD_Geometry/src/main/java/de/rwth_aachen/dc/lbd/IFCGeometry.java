@@ -2,7 +2,6 @@ package de.rwth_aachen.dc.lbd;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.file.Path;
@@ -19,10 +18,8 @@ import javax.vecmath.Point3d;
 
 import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.bimserver.geometry.Matrix;
-import org.bimserver.plugins.deserializers.DeserializeException;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.bimserver.plugins.renderengine.RenderEngineGeometry;
-import org.ifcopenshell.IfcGeomServerClientEntity;
 import org.ifcopenshell.IfcOpenShellEngine;
 import org.ifcopenshell.IfcOpenShellEntityInstance;
 import org.ifcopenshell.IfcOpenShellModel;
@@ -31,7 +28,7 @@ import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
 
 /*
  *   
- *  Copyright (c) 2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,13 +47,13 @@ public class IFCGeometry {
 
 	private IfcOpenShellModel renderEngineModel = null;
 
-	public IFCGeometry(File ifcFile) throws DeserializeException, IOException, RenderEngineException {
+	public IFCGeometry(File ifcFile) {
 
 		ExecutorService executor = Executors.newCachedThreadPool();
-		Callable<IfcOpenShellModel> task = new Callable<IfcOpenShellModel>() {
+		Callable<IfcOpenShellModel> task = new Callable<>() {
 			public IfcOpenShellModel call() {
-				renderEngineModel = getRenderEngineModel(ifcFile);
-				return renderEngineModel;
+				IFCGeometry.this.renderEngineModel = getRenderEngineModel(ifcFile);
+				return IFCGeometry.this.renderEngineModel;
 			}
 		};
 		Future<IfcOpenShellModel> future = executor.submit(task);
@@ -66,7 +63,9 @@ public class IFCGeometry {
 		} catch (TimeoutException ex) {
 			System.out.println("Timeout");
 		} catch (InterruptedException e) {
+			e.printStackTrace();
 		} catch (ExecutionException e) {
+			e.printStackTrace();
 		} finally {
 			future.cancel(true); // may or may not desire this
 		}
@@ -76,10 +75,10 @@ public class IFCGeometry {
 	public BoundingBox getBoundingBox(String guid) {
 		BoundingBox boundingBox = null;
 
-		if (renderEngineModel == null)
+		if (this.renderEngineModel == null)
 			return null;
 		IfcOpenShellEntityInstance renderEngineInstance;
-		renderEngineInstance = renderEngineModel.getInstanceFromGUID(guid);
+		renderEngineInstance = this.renderEngineModel.getInstanceFromGUID(guid);
 
 		if (renderEngineInstance == null) {
 			return null;
@@ -95,7 +94,7 @@ public class IFCGeometry {
 					tranformationMatrix = renderEngineInstance.getTransformationMatrix();
 				}
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				
+
 				while (ver.hasRemaining()) {
 					Point3d p = processExtends(tranformationMatrix, ver);
 					boundingBox.add(p);
@@ -109,7 +108,7 @@ public class IFCGeometry {
 		return boundingBox;
 	}
 
-	private Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer) {
+	private static Point3d processExtends(double[] transformationMatrix, ByteBuffer byteBuffer) {
 		double x = byteBuffer.getDouble();
 		double y = byteBuffer.getDouble();
 		double z = byteBuffer.getDouble();
@@ -146,7 +145,7 @@ public class IFCGeometry {
 				}
 
 				ByteBuffer ver = geometry.getVertices().order(ByteOrder.nativeOrder());
-				ver=ver.position(0);
+				ver = ver.position(0);
 				while (ver.hasRemaining()) {
 					Point3d p = processVertex(tranformationMatrix, ver);
 					obj_desc.addVertex(p);
@@ -166,7 +165,7 @@ public class IFCGeometry {
 		return obj_desc;
 	}
 
-	private Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
+	private static Point3d processVertex(double[] transformationMatrix, ByteBuffer byteBuffer) {
 		double x = byteBuffer.getDouble();
 		double y = byteBuffer.getDouble();
 		double z = byteBuffer.getDouble();
@@ -179,33 +178,41 @@ public class IFCGeometry {
 
 	}
 
-	private ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
+	private static ImmutableTriple<Integer, Integer, Integer> processSurface(ByteBuffer byteBuffer) {
 
 		int xi = byteBuffer.getInt();
 		int yi = byteBuffer.getInt();
 		int zi = byteBuffer.getInt();
 
-		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<Integer, Integer, Integer>(xi + 1,
+		ImmutableTriple<Integer, Integer, Integer> point = new ImmutableTriple<>(xi + 1,
 				yi + 1, zi + 1);
 		return point;
 
 	}
 
-	private IfcOpenShellModel getRenderEngineModel(File ifcFile) {
+	public static IfcOpenShellEngine ifcOpenShellEngine_singlethon = null;
+
+	private static IfcOpenShellModel getRenderEngineModel(File ifcFile) {
 		try {
 			String ifcGeomServerLocation = OperatingSystemCopyOf_IfcGeomServer.getIfcGeomServer();
 			System.out.println("ifcGeomServerLocation: " + ifcGeomServerLocation);
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
-			IfcOpenShellEngine ifcOpenShellEngine = new IfcOpenShellEngine(ifcGeomServerLocationPath, false, true);
-			ifcOpenShellEngine.init();
-			FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);
 
-			System.out.println("ifcFile: " + ifcFile);
-			IfcOpenShellModel model = ifcOpenShellEngine.openModel(ifcFileInputStream);
-			System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+			if (IFCGeometry.ifcOpenShellEngine_singlethon == null) {
+				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false,
+						true);
+				IFCGeometry.ifcOpenShellEngine_singlethon.init();
+			}
+			// JO 2024
+			try (FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);) {
+				System.out.println("ifcFile: " + ifcFile);
+				IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
+				System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
 
-			model.generateGeneralGeometry();
-			return model;
+				model.generateGeneralGeometry();
+
+				return model;
+			}
 
 		} catch (Exception e) {
 			e.printStackTrace();

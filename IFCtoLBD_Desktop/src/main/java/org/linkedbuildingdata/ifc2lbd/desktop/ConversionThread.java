@@ -76,6 +76,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 	}
 
+	@Override
 	public Integer call() throws Exception {
 		try {
 			try {

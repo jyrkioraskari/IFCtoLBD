@@ -1,40 +1,36 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.sys.JenaSystem;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore;
 import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
-import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 /*
- *  Copyright (c) 2017,2018,2019, 2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019, 2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,9 +100,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		super();
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 		this.props_level = props_level;
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if(uri==null)
+			uri="https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		initialise();
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -146,9 +145,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		super();
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 		this.props_level = props_level;
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		System.out.println("Conversion starts");
 		initialise();
 
@@ -172,9 +172,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			this.props_level = 1;
 		this.hasPropertiesBlankNodes = true;
 
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		System.out.println("Conversion starts");
 		initialise();
 	}
@@ -193,15 +194,16 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 	 */
 	public IFCtoLBDConverter(String uriBase, boolean hasPropertiesBlankNodes, Integer... props_level) {
 		super();
-		if (props_level.length > 0)
+		if (props_level.length > 0) {
 			this.props_level = props_level[0];
-		else
+		} else
 			this.props_level = 1;
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 
-		if (!uriBase.endsWith("#") && !uriBase.endsWith("/"))
-			uriBase += "#";
-		this.uriBase = Optional.of(uriBase);
+		String uri = uriBase;
+		if (!uri.endsWith("#") && !uri.endsWith("/"))
+			uri += "#";
+		this.uriBase = Optional.of(uri);
 		initialise();
 	}
 
@@ -226,7 +228,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
-		return lbd_general_output_model;
+		return this.lbd_general_output_model;
 	}
 
 	/**
@@ -248,63 +250,90 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
-		return lbd_general_output_model;
+		return this.lbd_general_output_model;
+	}
+	
+	/**
+	 * Convert an IFC STEP file into LBD
+	 * 
+	 * @param ifc_filename The absolute path for the IFC file that will be converted
+	 * @param  props  conversion properties
+	 * @return The model as a Jena-model
+	 */
+	public Model convert(String ifc_filename, ConversionProperties props) {
+
+		boolean hasBuildingElements = props.isHasBuildingElements();
+		boolean hasSeparateBuildingElementsModel = props.isHasSeparateBuildingElementsModel();
+		boolean hasBuildingProperties = props.isHasBuildingProperties();
+		boolean hasSeparatePropertiesModel = props.isHasSeparatePropertiesModel();
+		boolean hasGeolocation = props.isHasGeolocation();
+		boolean hasGeometry = props.isHasGeometry();
+		boolean exportIfcOWL=props.isExportIfcOWL();
+		boolean hasUnits= props.isHasUnits();
+
+		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
+		return this.lbd_general_output_model;
 	}
 
-	private String unzip(String ifcZipFile) {
-		ZipInputStream zis;
-		try {
+
+	private static String unzip(String ifcZipFile) {
+		int BUFFER_SIZE = 32 * 1024; // 32KB
+		// JO 2024: performance
+		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(ifcZipFile),BUFFER_SIZE));){
 			byte[] buffer = new byte[1024];
-			zis = new ZipInputStream(new FileInputStream(ifcZipFile));
+			
 			ZipEntry zipEntry = zis.getNextEntry();
 			while (zipEntry != null) {
 				System.out.println("entry: " + zipEntry);
-				String name = zipEntry.getName().split("\\.")[0];
+				//String name = zipEntry.getName().split("\\.")[0];
 				File newFile = File.createTempFile("ifc", ".ifc");
 
-				// write file content
-				FileOutputStream fos = new FileOutputStream(newFile);
-				int len;
-				while ((len = zis.read(buffer)) > 0) {
-					fos.write(buffer, 0, len);
+				// JO 2024
+				try (// write file content
+				FileOutputStream fos = new FileOutputStream(newFile)) {
+					int len;
+					while ((len = zis.read(buffer)) > 0) {
+						fos.write(buffer, 0, len);
+					}
+					fos.close();
 				}
-				fos.close();
-
 				zipEntry = zis.getNextEntry();
 				zis.close();
 				newFile.deleteOnExit();
 				return newFile.getAbsolutePath();
 			}
 
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {			
 			e.printStackTrace();
-		} catch (IOException e) {
+		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) throws InterruptedException {
+	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) {
 		CompletableFuture<IFCGeometry> completableFuture = new CompletableFuture<>();
 
 		Executors.newCachedThreadPool().submit(() -> {
 			IFCGeometry ifc_geometry = null;
 			try {
-				eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
+				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
 				Timer timer = new Timer();
 				this.ios = 0;
 				// final long start = System.currentTimeMillis();
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + ios++));
+						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
 					}
 				}, 1000, 1000);
 
 				ifc_geometry = new IFCGeometry(new File(ifc_filename));
 				timer.cancel();
 			} catch (Exception e) {
-				eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
 						"Geometry handling was not done. " + e.getMessage()));
 				e.printStackTrace();
 			}
@@ -407,11 +436,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 
 		CompletableFuture<IFCGeometry> future_ifc_geometry = null;
 		if (hasGeometry)
-			try {
-				future_ifc_geometry = getgeom(ifc_filename);
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
+			future_ifc_geometry = getgeom(ifc_filename);
 
 		this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 				hasPerformanceBoost); // Before:
@@ -419,13 +444,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			return false;
 		
 		// readInOntologies(ifc_filename);
-		System.out.println("Geometry?");
+		System.out.println("Geometry");
 
 		if (future_ifc_geometry != null) {
 			future_ifc_geometry.join();
 			try {
-				this.ifc_geometry = future_ifc_geometry.get();
+				this.ifc_geometry = future_ifc_geometry.get(240, TimeUnit.SECONDS);  // max 240 sec
 			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			} catch (TimeoutException e) {
 				e.printStackTrace();
 			}
 		}
@@ -435,7 +462,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
 
-		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory."));
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory. Select \"Convert out to RDF\" to continue."));
 
 		return true;
 	}
@@ -485,6 +512,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 	}
 
 	
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		JenaSystem.init();
 		if (args.length > 3) {
@@ -509,19 +537,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		} else if (args.length == 1) {
 			// directory upload
 			final List<String> inputFiles;
-			final List<String> outputFiles;
+			//final List<String> outputFiles;  //TODO Check this
 			inputFiles = FileUtils.listFiles(args[0]);
-			outputFiles = null;
+			//outputFiles = null;
 
 			for (int i = 0; i < inputFiles.size(); ++i) {
 				final String inputFile = inputFiles.get(i);
 				String outputFile;
 				if (inputFile.endsWith(".ifc")) {
-					if (outputFiles == null) {
+					//TODO Check this
+					//if (outputFiles == null) {
 						outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
-					} else {
-						outputFile = outputFiles.get(i);
-					}
+					//} else {
+					//	outputFile = outputFiles.get(i);
+					//}
 
 					outputFile = outputFile.replaceAll(args[0], args[0] + "\\___out\\");
 					String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");

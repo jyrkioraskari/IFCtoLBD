@@ -62,7 +62,7 @@ public class About extends Stage
       root.setEffect(r);
       Scene scene = new Scene(root, 550.0, 250.0, Color.BLACK);
       EventHandler<MouseEvent> ehme;
-      ehme = new EventHandler<MouseEvent>()
+      ehme = new EventHandler<>()
       {
 
 		public void handle(MouseEvent event) {

@@ -1,8 +1,5 @@
 package org.ifcopenshell;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-
 /******************************************************************************
  * Copyright (C) 2009-2019  BIMserver.org
  * 
@@ -125,9 +122,8 @@ public class IfcGeomServerClient implements AutoCloseable {
 		final String os = System.getProperty("os.name").toLowerCase();
 		if (os.contains("windows")) {
 			return ".exe";
-		} else {
-			return "";
 		}
+		return "";
 	}
 
 	public static Path getExecutablePathFromRepo(Path root) throws PluginException {
@@ -227,6 +223,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 						permissions.add(PosixFilePermission.OWNER_WRITE);
 						Files.setPosixFilePermissions(this.executableFilename, permissions);
 					} catch (Exception e) {
+						e.printStackTrace();
 					}
 				} else {
 					FileTime fileTime = (FileTime) Files.getAttribute(this.executableFilename, "creationTime");
@@ -244,7 +241,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 		}
 	}
 
-	public IfcGeomServerClient(Path executableFilename) throws RenderEngineException {
+	public IfcGeomServerClient(Path executableFilename) {
 		this.executableFilename = executableFilename;
 	}
 
@@ -521,6 +518,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -536,6 +534,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -546,10 +545,12 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void read_contents(LittleEndianDataInputStream s) throws IOException {
+			//TODO empty block
 		}
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -571,7 +572,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 					readByteBuffer(s), readByteBuffer(s), readByteBuffer(s), readRemainder(bis));
 		}
 
-		private String readRemainder(ByteArrayInputStream bis) {
+		private static String readRemainder(ByteArrayInputStream bis) {
 			if (bis.available() == 0) {
 				return null;
 			}
@@ -581,7 +582,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 		}
 
 		public IfcGeomServerClientEntity getEntity() {
-			return entity;
+			return this.entity;
 		}
 
 		@Override
@@ -602,6 +603,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 
 		@Override
 		void write_contents(LittleEndianDataOutputStream s) {
+			//TODO empty block
 		}
 	}
 
@@ -714,6 +716,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 			}
 			b.read(dis);
 		} catch (Throwable e) {
+			e.printStackTrace();
 		}
 
 		try {
@@ -738,6 +741,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 				try {
 					Thread.sleep(100);
 				} catch (InterruptedException e) {
+					e.printStackTrace();
 				}
 			}
 		} finally {

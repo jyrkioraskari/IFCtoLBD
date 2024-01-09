@@ -19,6 +19,7 @@ package org.ifcopenshell;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.bimserver.plugins.renderengine.RenderEngineGeometry;
@@ -39,11 +40,14 @@ public class ClientRunner {
 				e1.printStackTrace();
 			}
 
-			try {
-				client.loadModel(new FileInputStream(args[0]));
+			// JO 2024
+			try (FileInputStream fs = new FileInputStream(args[0]);){
+				client.loadModel(fs);
 			} catch (FileNotFoundException | RenderEngineException e) {
 				e.printStackTrace();
 				return;
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
 
 			double t0 = java.lang.System.nanoTime();

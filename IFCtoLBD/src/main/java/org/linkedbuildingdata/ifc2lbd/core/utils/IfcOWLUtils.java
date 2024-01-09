@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
@@ -82,11 +81,10 @@ public abstract class IfcOWLUtils {
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
 			return path;
-		} else {
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
-					new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
-			return path;
 		}
+		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
+				new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
+		return path;
 	}
 	
 
@@ -95,8 +93,7 @@ public abstract class IfcOWLUtils {
         List<RDFNode> list= RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcProject()), path);
         if(!list.isEmpty())
             return list.get(0).asResource();
-        else
-            return null;
+		return null;
     }
 
 
@@ -300,11 +297,10 @@ public abstract class IfcOWLUtils {
 			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
 			return path;
-		} else {
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
-					new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
-			return path;
 		}
+		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
+				new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
+		return path;
 	}
 
 		private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
@@ -386,14 +382,15 @@ public abstract class IfcOWLUtils {
 				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
 			{
-			    return null;
+			    return null; 
 			}
 			model.read(in, null, "TTL");
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
+		} finally {  // https://openjdk.org/jeps/421
 			try {
-				in.close();
+				if(in!=null)  // JO 2024
+				  in.close();
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
@@ -414,9 +411,9 @@ public abstract class IfcOWLUtils {
 	 */
 	public static String getExpressSchema(String ifcFile) {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-            DataInputStream in = new DataInputStream(fstream);
-            BufferedReader br = new BufferedReader(new InputStreamReader(in));
-            try {
+        	// Fix by JO 2024: finally is deprecated
+            try (DataInputStream in = new DataInputStream(fstream);
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
                     if (strLine.length() > 0) {
@@ -441,14 +438,11 @@ public abstract class IfcOWLUtils {
                                 return "IFC4x1";
                             if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-                            else
-                                return null;
+							return null;
                         }
                     }
                 }
-            } finally {
-                br.close();
-            }
+            } 
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -487,7 +481,7 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        StringBuffer sb = new StringBuffer();
+                                        StringBuilder sb = new StringBuilder();
                                         sb.append(t.get(0));
                                         sb.append(" ");
                                         sb.append(t.get(1));
@@ -501,7 +495,7 @@ public abstract class IfcOWLUtils {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    StringBuffer sb = new StringBuffer();
+                                    StringBuilder sb = new StringBuilder();
                                     sb.append(triple[0]);
                                     sb.append(" ");
                                     sb.append(triple[1]);
@@ -594,7 +588,6 @@ public abstract class IfcOWLUtils {
                         line = line.replace("\\X2\\00FF\\X0\\", "ÿ");
                         
                         line=unIFCUnicode(line);  // multi-character decode
-                        
                         writer.write(line.trim());
                         writer.newLine();
                     }
@@ -726,7 +719,7 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        StringBuffer sb = new StringBuffer();
+                                    	StringBuilder sb = new StringBuilder();
                                         sb.append(t.get(0));
                                         sb.append(" ");
                                         sb.append(t.get(1));
@@ -740,7 +733,7 @@ public abstract class IfcOWLUtils {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    StringBuffer sb = new StringBuffer();
+                                    StringBuilder sb = new StringBuilder();
                                     sb.append(triple[0]);
                                     sb.append(" ");
                                     sb.append(triple[1]);
@@ -886,6 +879,7 @@ public abstract class IfcOWLUtils {
 		{
 			switch(state)
 			{
+			default:
 			case	0:
 				    if(ch=='\\' )
 				    	state=1;
@@ -936,18 +930,19 @@ public abstract class IfcOWLUtils {
 				break;
 			}
 		}
-		return StringEscapeUtils.unescapeJava(sb.toString());
+		return sb.toString();//StringEscapeUtils.unescapeJava(sb.toString());   // For some reasons this blocks
 	}
     
     @SuppressWarnings("deprecation")
     private static List<String> split(String s) {
         List<String> ret = new ArrayList<>();
         int state = 0;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         boolean esc=false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
             switch (state) {
+                default:
                 case 2:
                 if(!esc)
                 if (c == '\"' || c == '\'')
@@ -958,12 +953,12 @@ public abstract class IfcOWLUtils {
                 if(!esc)
                 if (c == '\"' || c == '\'') {
                     ret.add(sb.toString());
-                    sb = new StringBuffer();
+                    sb = new StringBuilder();
                     sb.append(c);
                     state = 2;
                 } else if (!Character.isSpace(c)) {
                     ret.add(sb.toString());
-                    sb = new StringBuffer();
+                    sb = new StringBuilder();
                     sb.append(c);
                     state = 0;
                 }

@@ -33,7 +33,7 @@ public class TypeVO implements Serializable {
     private List<String> enumEntities = new LinkedList<>();
     private List<TypeVO> parentSelect;
     private int[] listCardinalities = new int[2];
-    private static Set<TypeVO> listOfTypes = new HashSet<>();
+    private static final Set<TypeVO> listOfTypes = new HashSet<>();
 
     public TypeVO(String name) {
         super();
