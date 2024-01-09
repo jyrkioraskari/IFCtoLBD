@@ -101,6 +101,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		this.hasPropertiesBlankNodes = hasPropertiesBlankNodes;
 		this.props_level = props_level;
 		String uri = uriBase;
+		if(uri==null)
+			uri="https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
 		if (!uri.endsWith("#") && !uri.endsWith("/"))
 			uri += "#";
 		this.uriBase = Optional.of(uri);
@@ -250,6 +252,30 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
 		return this.lbd_general_output_model;
 	}
+	
+	/**
+	 * Convert an IFC STEP file into LBD
+	 * 
+	 * @param ifc_filename The absolute path for the IFC file that will be converted
+	 * @param  props  conversion properties
+	 * @return The model as a Jena-model
+	 */
+	public Model convert(String ifc_filename, ConversionProperties props) {
+
+		boolean hasBuildingElements = props.isHasBuildingElements();
+		boolean hasSeparateBuildingElementsModel = props.isHasSeparateBuildingElementsModel();
+		boolean hasBuildingProperties = props.isHasBuildingProperties();
+		boolean hasSeparatePropertiesModel = props.isHasSeparatePropertiesModel();
+		boolean hasGeolocation = props.isHasGeolocation();
+		boolean hasGeometry = props.isHasGeometry();
+		boolean exportIfcOWL=props.isExportIfcOWL();
+		boolean hasUnits= props.isHasUnits();
+
+		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
+		return this.lbd_general_output_model;
+	}
+
 
 	private static String unzip(String ifcZipFile) {
 		int BUFFER_SIZE = 32 * 1024; // 32KB
