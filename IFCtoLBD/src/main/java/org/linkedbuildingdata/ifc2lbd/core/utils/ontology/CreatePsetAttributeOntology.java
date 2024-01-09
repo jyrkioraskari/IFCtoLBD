@@ -1,23 +1,24 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils.ontology;
 
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 import be.ugent.IfcSpfReader;
 
+
+// https://groups.google.com/g/brickschema/c/vNLjax1ZwFc
 public class CreatePsetAttributeOntology {
 	OntModel m = ModelFactory.createOntologyModel();
-	Set<String> attributes = new HashSet<>();
-	Map<String, Boolean> ob_map = new HashMap<>();
+	Set<String> attributes = new HashSet<>();	
 	Set<String> simplified_attributes = new HashSet<String>();
 
 	public CreatePsetAttributeOntology() {
@@ -36,17 +37,11 @@ public class CreatePsetAttributeOntology {
 			// System.out.println(a+"_attribute_simple");
 		}
 		for (String a : simplified_attributes) {
-			Boolean op = ob_map.get(a);
-			if (op == null) {
-				System.out.println("No value if an object property.");
-			} else {
-				if(op)
-					m.createObjectProperty( PROPS.props_ns  + a );
-				else
-					m.createDatatypeProperty(PROPS.props_ns  + a );
-				
-				m.createDatatypeProperty(PROPS.props_ns  + a +"_attribute_simple");
-			}
+					//m.createObjectProperty( PROPS.props_ns  + a );
+					//m.createDatatypeProperty(PROPS.props_ns  + a );
+			        Property p = m.createProperty(PROPS.props_ns  + a );
+			        m.add(p, RDF.type, RDF.Property);
+			
 		}
 		
 		m.write(System.out,"TTL");
@@ -66,8 +61,7 @@ public class CreatePsetAttributeOntology {
 
 		om.listAllOntProperties().forEach(s -> {
 			if (s.toString().contains("buildingsmart"))
-				attributes.add(s.getLocalName());
-			ob_map.put(StringOperations.toCamelCase(s.getLocalName().split("_")[0]), s.isObjectProperty());
+				attributes.add(s.getLocalName());			
 		});
 	}
 

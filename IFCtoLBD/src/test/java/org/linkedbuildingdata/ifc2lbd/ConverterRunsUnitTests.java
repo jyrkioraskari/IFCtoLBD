@@ -70,7 +70,7 @@ public class ConverterRunsUnitTests {
 			EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 			RDFUtils.readInOntologyTTL(ontology_model, "prod.ttl", eventBus);
 		} catch (Exception e) {
-			fail("Test get test rilen and an ontology failed: " + e.getMessage());
+			fail("Test ontology failed: " + e.getMessage());
 		}
 	}
 	
