@@ -541,7 +541,7 @@ public class RDFWriter {
 			OntProperty p = ontModel.getOntProperty(propURI);
 			OntResource typerange = p.getRange();
 			if (typeRemembrance != null) {
-				if ((evo != null) && (evo.getDerivedAttributeList() != null)
+				if ((evo.getDerivedAttributeList() != null)
 						&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 					if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
 						addRegularListProperty(r, p, literals, typeRemembrance);
@@ -555,7 +555,7 @@ public class RDFWriter {
 					LOG.warn("*WARNING 15*: Nothing happened. Not sure if this is good or bad, possible or not.");
 				}
 				typeRemembrance = null;
-			} else if ((evo != null) && (evo.getDerivedAttributeList() != null)
+			} else if ((evo.getDerivedAttributeList() != null)
 					&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 				if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
 					addRegularListProperty(r, p, literals, null);

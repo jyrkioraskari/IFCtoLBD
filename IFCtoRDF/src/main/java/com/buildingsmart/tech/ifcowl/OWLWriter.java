@@ -354,7 +354,7 @@ public class OWLWriter {
         }
         Iterator<Map.Entry<String, String>> it = hm.entrySet().iterator();
         while (it.hasNext()) {
-            Map.Entry<String, String> pairs = (Map.Entry<String, String>) it.next();
+            Map.Entry<String, String> pairs = it.next();
             out.write("expr:has" + pairs.getKey().substring(0, 1).toUpperCase() + pairs.getKey().substring(1) + "\r\n");
             out.write("\trdf:type owl:DatatypeProperty, owl:FunctionalProperty ;" + "\r\n");
             out.write("\trdfs:label \"has" + pairs.getKey().substring(0, 1).toUpperCase() + pairs.getKey().substring(1) + "\" ;" + "\r\n");

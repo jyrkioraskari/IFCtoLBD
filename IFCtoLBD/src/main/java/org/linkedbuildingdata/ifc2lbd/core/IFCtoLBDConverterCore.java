@@ -103,10 +103,10 @@ public abstract class IFCtoLBDConverterCore {
 
 	protected IFCGeometry ifc_geometry = null;
 
-	private Set<Resource> has_geometry = new HashSet<>();
+	private final Set<Resource> has_geometry = new HashSet<>();
 
 	private RTree<Resource, Geometry> rtree;
-	private Map<Rectangle, Resource> rtree_map = new HashMap<>();
+	private final Map<Rectangle, Resource> rtree_map = new HashMap<>();
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
@@ -162,7 +162,7 @@ public abstract class IFCtoLBDConverterCore {
 		}
 
 		this.ifcowl_model.listStatements().forEachRemaining(st -> {
-			if (st.getPredicate().getLocalName().toString().toLowerCase().contains("globalid_ifcroot")) {
+			if (st.getPredicate().getLocalName().toLowerCase().contains("globalid_ifcroot")) {
 				Resource ifcOWL_element = st.getSubject();
 				if (isIfcElement(ifcOWL_element))
 					if (!this.included_elements.contains(ifcOWL_element)) {
@@ -324,7 +324,7 @@ public abstract class IFCtoLBDConverterCore {
 				spo.addProperty(RDF.type, BOT.space);
 
 				final ChangeableOptonal<Boolean> isExternal = new ChangeableOptonal<>();
-				IfcOWLUtils.listPropertysets(space.asResource(), this.ifcOWL).stream().map(rn -> rn.asResource())
+				IfcOWLUtils.listPropertysets(space.asResource(), this.ifcOWL).stream().map(RDFNode::asResource)
 						.forEach(propertyset -> {
 							PropertySet p_set = this.propertysets.get(propertyset.getURI());
 							if (p_set != null) {
@@ -334,14 +334,14 @@ public abstract class IFCtoLBDConverterCore {
 							}
 						});
 
-				IfcOWLUtils.listContained_SpaceElements(space.asResource(), this.ifcOWL).stream().map(rn -> rn.asResource())
+				IfcOWLUtils.listContained_SpaceElements(space.asResource(), this.ifcOWL).stream().map(RDFNode::asResource)
 						.forEach(element -> {
 							Resource lbd_element = connectIfcContaidedElement(spo, element);
 							if (lbd_element != null)
 								storey.addProperty(BOT.containsElement, lbd_element);
 						});
 
-				IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), this.ifcOWL).stream().map(rn -> rn.asResource())
+				IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), this.ifcOWL).stream().map(RDFNode::asResource)
 						.forEach(element -> {
 							Resource lbd_element = connectElement(spo, BOT.adjacentElement, element);
 							if (isExternal.isPresent() && isExternal.get() == true) {
@@ -495,34 +495,29 @@ public abstract class IFCtoLBDConverterCore {
 			}
 		}
 
-		IfcOWLUtils.listPropertysets(this.ifcOWL, this.ifcowl_model).stream().map(rn -> rn.asResource()).forEach(propertyset -> {
+		IfcOWLUtils.listPropertysets(this.ifcOWL, this.ifcowl_model).stream().map(RDFNode::asResource).forEach(propertyset -> {
 			RDFStep[] pname_path = { new RDFStep(this.ifcOWL.getName_IfcRoot()),
 					new RDFStep(IfcOWL.Express.getHasString()) };
 
-			final List<RDFNode> propertyset_name = new ArrayList<>();
-			RDFUtils.pathQuery(propertyset, pname_path).forEach(name -> propertyset_name.add(name));
+            final List<RDFNode> propertyset_name = new ArrayList<>(RDFUtils.pathQuery(propertyset, pname_path));
 
 			RDFStep[] path = { new RDFStep(this.ifcOWL.getHasProperties_IfcPropertySet()) };
 			RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
 
 				RDFStep[] name_path = { new RDFStep(this.ifcOWL.getName_IfcProperty()),
 						new RDFStep(IfcOWL.Express.getHasString()) };
-				final List<RDFNode> property_name = new ArrayList<>();
-				RDFUtils.pathQuery(propertySingleValue.asResource(), name_path)
-						.forEach(name -> property_name.add(name));
+                final List<RDFNode> property_name = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue.asResource(), name_path));
 
-				if (property_name.size() == 0)
+				if (property_name.isEmpty())
 					return; // = stream continue
 
-				final List<RDFNode> property_unit = new ArrayList<>();
-				final List<RDFNode> property_type = new ArrayList<>();
+                final List<RDFNode> property_type = new ArrayList<>();
 				final List<RDFNode> property_value = new ArrayList<>();
 
 				RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()),
 						new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
-				RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path)
-						.forEach(unit -> property_unit.add(unit)); // if
-																	// this
+                final List<RDFNode> property_unit = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path)); // if
+                // this
 																	// optional
 																	// property
 																	// exists,

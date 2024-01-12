@@ -88,13 +88,13 @@ public class IFC_Geolocation {
     //Author Kris McGlinn - This method changes the sign of the longitude or latitude values in a List
     private static List<String> longLatNegativeConvert(List<String> l)
     {
-        String s = (String)l.get(l.size()-1);
+        String s = l.get(l.size()-1); 
         int x = Integer.parseInt(s);
         if(x<0)
         {           
             for(int i = 0; i <l.size()-1; i++)
             {
-                s = (String)l.get(i);
+                s = l.get(i);  
                 l.set(i, s.substring(1));
                 
             }
