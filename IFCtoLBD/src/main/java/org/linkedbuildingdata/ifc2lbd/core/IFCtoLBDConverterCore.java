@@ -516,15 +516,8 @@ public abstract class IFCtoLBDConverterCore {
 
 				RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()),
 						new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
-                final List<RDFNode> property_unit = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path)); // if
-                // this
-																	// optional
-																	// property
-																	// exists,
-																	// it
-																	// has
-																	// the
-																	// priority
+                final List<RDFNode> property_unit = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path)); 
+                // if this optional property exists, it has the priority
 
 				RDFStep[] type_path = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
 						new RDFStep(RDF.type) };
