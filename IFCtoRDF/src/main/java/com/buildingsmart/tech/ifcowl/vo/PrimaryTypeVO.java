@@ -26,7 +26,7 @@ import java.util.Set;
 public class PrimaryTypeVO {
 
     private String pTypeName;
-    private static Set<PrimaryTypeVO> listOfPrimaryTypes = new HashSet<>();
+    private static final Set<PrimaryTypeVO> listOfPrimaryTypes = new HashSet<>();
     private List<TypeVO> parentSelect;
 
     public PrimaryTypeVO() {

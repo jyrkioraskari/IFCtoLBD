@@ -18,6 +18,7 @@ limitations under the License.
  
  package com.buildingsmart.tech.ifcowl.vo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 public class EntityVO implements Serializable {
+    @Serial
     private static final long serialVersionUID = -3172893316956350157L;
     private String name;
     private List<AttributeVO> attributes = new LinkedList<>();
@@ -38,11 +40,7 @@ public class EntityVO implements Serializable {
     private boolean abstractsuperclass = false;
     private List<TypeVO> parentSelect;
     private Set<String> subClassList = new HashSet<>();
-    private static Set<EntityVO> listOfEntities = new HashSet<>();
-
-    public EntityVO() {
-        //default constructor
-    }
+    private static final Set<EntityVO> listOfEntities = new HashSet<>();
 
     public EntityVO(String name) {
         super();

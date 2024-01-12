@@ -18,18 +18,20 @@ limitations under the License.
 
 package com.buildingsmart.tech.ifcowl.vo;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class AttributeVO implements Serializable {
+    @Serial
     private static final long serialVersionUID = -7269719435899663513L;
     private String name;
     private String originalName;
     private EntityVO domain;
     private String rangeNS;
 
-    private boolean array = false;
-    private boolean set = false;
-    private boolean list = false;
+    private final boolean array;
+    private boolean set;
+    private boolean list;
     private int minCard = -1;
     private int maxCard = -1;
     private boolean optional = false;
