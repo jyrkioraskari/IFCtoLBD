@@ -21,11 +21,12 @@ public class Example3 {
             IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
             Model model = converter.convert(ifcFile.getAbsolutePath());
             
-            Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n"
-                    + "\r\n"
-                    + "SELECT ?element WHERE {\r\n"
-                    + "  ?element a bot:Element .\r\n"
-                    + "} ");
+            Query query = QueryFactory.create("""
+                    PREFIX bot: <https://w3id.org/bot#>\r
+                    \r
+                    SELECT ?element WHERE {\r
+                      ?element a bot:Element .\r
+                    }\s""");
             try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
                 ResultSet resultSet = queryExecution.execSelect();
                 resultSet.forEachRemaining(qs -> {

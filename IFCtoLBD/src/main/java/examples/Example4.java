@@ -39,13 +39,14 @@ public class Example4 {
 			Model m=c.convert(ifc_file.getAbsoluteFile().toString(), null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,hasPerformanceBoost,hasBoundingBoxWKT);
 			if(m!=null)
 			{
-				Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n"
-						+ "\r\n"
-						+ "SELECT ?e ?wkt ?obj WHERE {\r\n"
-						+ "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
-						+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
-						+ "  ?g fog:asObj_v3.0-obj ?obj \r\n"
-						+ "} ");
+				Query query = QueryFactory.create("""
+                        PREFIX fog: <https://w3id.org/fog#>\r
+                        \r
+                        SELECT ?e ?wkt ?obj WHERE {\r
+                          ?e <https://w3id.org/omg#hasGeometry> ?g .\r
+                          ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r
+                          ?g fog:asObj_v3.0-obj ?obj \r
+                        }\s""");
 				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
 					ResultSet rs = queryExecution.execSelect();
 					rs.forEachRemaining(qs -> {
