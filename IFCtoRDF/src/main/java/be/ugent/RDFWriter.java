@@ -68,16 +68,16 @@ public class RDFWriter {
 	private final Map<String, TypeVO> typ;
 
 	private StreamRDF ttlWriter;
-	private InputStream inputStream;
+	private final InputStream inputStream;
 	private final OntModel ontModel;
 
 
 	// Taking care of avoiding duplicate resources
-	private Map<String, Resource> propertyResourceMap = new HashMap<>();
-	private Map<String, Resource> resourceMap = new HashMap<>();
+	private final Map<String, Resource> propertyResourceMap = new HashMap<>();
+	private final Map<String, Resource> resourceMap = new HashMap<>();
 
 	private boolean removeDuplicates = false;
-	private boolean hasPerformanceBoost;
+	private final boolean hasPerformanceBoost;
 
 
 	public RDFWriter(OntModel ontModel, InputStream inputStream, String baseURI, Map<String, EntityVO> ent,
@@ -142,9 +142,9 @@ public class RDFWriter {
 		ttlWriter.finish();
 	}
 
-	boolean filter_geometry = true;;
+	boolean filter_geometry = true;
 
-	private void createInstances()  {
+    private void createInstances()  {
 		for (Long key : linemap.keySet()) {
 			IFCVO ifcLineEntry = linemap.get(key);
 			String typeName = "";
@@ -180,7 +180,7 @@ public class RDFWriter {
 			if (cl == null) {
 				System.out.println("cl null typename: \"" + typeName + "\"");
 				// ontModel.write(System.err);
-				if (typeName == null || typeName.trim().length() == 0) {
+				if (typeName == null || typeName.trim().isEmpty()) {
 					if (ent.containsKey(ifcLineEntry.getName()))
 						System.out.println("cl null typename ent for: " + ifcLineEntry.getName());
 					else if (typ.containsKey(ifcLineEntry.getName()))
@@ -217,15 +217,15 @@ public class RDFWriter {
 			typeRemembrance = null;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
-				if (Character.class.isInstance(o)) {
+				if (o instanceof Character) {
 					if ((Character) o != ',') {
 						LOG.error("*ERROR 17*: We found a character that is not a comma. That should not be possible!");
 					}
-				} else if (String.class.isInstance(o)) {
+				} else if (o instanceof String) {
 					LOG.warn("*WARNING 1*: fillProperties 2: unhandled type property found.");
-				} else if (IFCVO.class.isInstance(o)) {
+				} else if (o instanceof IFCVO) {
 					LOG.warn("*WARNING 2*: fillProperties 2: unhandled type property found.");
-				} else if (LinkedList.class.isInstance(o)) {
+				} else if (o instanceof LinkedList) {
 					LOG.info("fillProperties 3 - fillPropertiesHandleListObject(tvo)");
 					fillPropertiesHandleListObject(r, tvo, o);
 				}
@@ -240,15 +240,15 @@ public class RDFWriter {
 			int attributePointer = 0;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
-				if (Character.class.isInstance(o)) {
+				if (o instanceof Character) {
 					if ((Character) o != ',') {
 						LOG.error("*ERROR 18*: We found a character that is not a comma. That should not be possible!");
 					}
-				} else if (String.class.isInstance(o)) {
+				} else if (o instanceof String) {
 					attributePointer = fillPropertiesHandleStringObject(r, evo, subject, attributePointer, o);
-				} else if (IFCVO.class.isInstance(o)) {
+				} else if (o instanceof IFCVO) {
 					attributePointer = fillPropertiesHandleIfcObject(r, evo, attributePointer, o);
-				} else if (LinkedList.class.isInstance(o)) {
+				} else if (o instanceof LinkedList) {
 					attributePointer = fillPropertiesHandleListObject(r, evo, attributePointer, o);
 				}
 			}
@@ -261,7 +261,7 @@ public class RDFWriter {
 
 	private int fillPropertiesHandleStringObject(Resource r, EntityVO evo, String subject, int attributePointer,
 			Object o)  {
-		if (!((String) o).equals("$") && !((String) o).equals("*")) {
+		if (!o.equals("$") && !o.equals("*")) {
 
 			if (typ.get(ExpressReader.formatClassName((String) o)) == null) {
 				if ((evo != null) && (evo.getDerivedAttributeList() != null)) {
@@ -317,7 +317,8 @@ public class RDFWriter {
 			OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
 			Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o).getLineNum(), rclass);
-			ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
+            assert r1 != null;
+            ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 		} else {
 			LOG.warn("*WARNING 3*: Nothing happened. Not sure if this is good or bad, possible or not.");
 		}
@@ -338,12 +339,11 @@ public class RDFWriter {
 		int tmpList_size = tmpList.size();
 		for (int j = 0; j < tmpList_size; j++) {
 			Object o1 = tmpList.get(j);
-			if (Character.class.isInstance(o1)) {
-				Character c = (Character) o1;
-				if (c != ',') {
+			if (o1 instanceof Character c) {
+                if (c != ',') {
 					LOG.error("*ERROR 12*: We found a character that is not a comma. That is odd. Check!");
 				}
-			} else if (String.class.isInstance(o1)) {
+			} else if (o1 instanceof String) {
 				TypeVO t = typ.get(ExpressReader.formatClassName((String) o1));
 				if (typeRemembrance == null) {
 					if (t != null) {
@@ -353,9 +353,7 @@ public class RDFWriter {
 					}
 				} else {
 					if (t != null) {
-						if (t == typeRemembrance) {
-							// Ignore and continue with life
-						} else {
+						if (t != typeRemembrance) {
 							// Panic
 							LOG.warn("*WARNING 37*: Found two different types in one list. This is worth checking.");
 						}
@@ -363,7 +361,7 @@ public class RDFWriter {
 						literals.add(filterExtras((String) o1));
 					}
 				}
-			} else if (IFCVO.class.isInstance(o1)) {
+			} else if (o1 instanceof IFCVO) {
 				if ((evo != null) && (evo.getDerivedAttributeList() != null)
 						&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 
@@ -391,112 +389,108 @@ public class RDFWriter {
 
 						Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o1).getLineNum(),
 								rclass);
-						ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
+                        assert r1 != null;
+                        ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 					}
 				} else {
 					LOG.warn("*WARNING 13*: Nothing happened. Not sure if this is good or bad, possible or not.");
 				}
-			} else if (LinkedList.class.isInstance(o1)) {
-				if (typeRemembrance != null) {
-					LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
-					int tmpListInList_size = tmpListInList.size();
-					for (int jj = 0; jj < tmpListInList_size; jj++) {
-						Object o2 = tmpListInList.get(jj);
-						if (Character.class.isInstance(o2)) {
-							if ((Character) o2 != ',') {
-								LOG.error(
-										"*ERROR 20*: We found a character that is not a comma. That should not be possible");
-							}
-						} else if (String.class.isInstance(o2)) {
-							literals.add(filterExtras((String) o2));
-						} else if (IFCVO.class.isInstance(o2)) {
-							// Lists of IFC entities
-							LOG.warn(
-									"*WARNING 30: Nothing happened. Not sure if this is good or bad, possible or not.");
-						} else if (LinkedList.class.isInstance(o2)) {
-							// this happens only for types that are equivalent
-							// to lists (e.g. IfcLineIndex in IFC4_ADD1)
-							// in this case, the elements of the list should be
-							// treated as new instances that are equivalent to
-							// the correct lists
-							LinkedList<Object> tmpListInListInList = (LinkedList<Object>) o2;
-							int tmpListInListInList_size = tmpListInListInList.size();
-							for (int jjj = 0; jjj < tmpListInListInList_size; jjj++) {
-								Object o3 = tmpListInListInList.get(jjj);
-								if (Character.class.isInstance(o3)) {
-									if ((Character) o3 != ',') {
-										LOG.error(
-												"*ERROR 24*: We found a character that is not a comma. That should not be possible");
-									}
-								} else if (String.class.isInstance(o3)) {
-									literals.add(filterExtras((String) o3));
-								} else {
-									LOG.warn(
-											"*WARNING 31: Nothing happened. Not sure if this is good or bad, possible or not.");
-								}
-							}
+			} else if (o1 instanceof LinkedList) {
+                LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
+                if (typeRemembrance != null) {
+                    //int tmpListInList_size = tmpListInList.size();
+                    for (Object o2 : tmpListInList) {
+                        if (o2 instanceof Character) {
+                            if ((Character) o2 != ',') {
+                                LOG.error(
+                                        "*ERROR 20*: We found a character that is not a comma. That should not be possible");
+                            }
+                        } else if (o2 instanceof String) {
+                            literals.add(filterExtras((String) o2));
+                        } else if (o2 instanceof IFCVO) {
+                            // Lists of IFC entities
+                            LOG.warn(
+                                    "*WARNING 30: Nothing happened. Not sure if this is good or bad, possible or not.");
+                        } else if (o2 instanceof LinkedList) {
+                            // this happens only for types that are equivalent
+                            // to lists (e.g. IfcLineIndex in IFC4_ADD1)
+                            // in this case, the elements of the list should be
+                            // treated as new instances that are equivalent to
+                            // the correct lists
+                            LinkedList<Object> tmpListInListInList = (LinkedList<Object>) o2;
+                            //int tmpListInListInList_size = tmpListInListInList.size();
+                            for (Object o3 : tmpListInListInList) {
+                                if (o3 instanceof Character) {
+                                    if ((Character) o3 != ',') {
+                                        LOG.error(
+                                                "*ERROR 24*: We found a character that is not a comma. That should not be possible");
+                                    }
+                                } else if (o3 instanceof String) {
+                                    literals.add(filterExtras((String) o3));
+                                } else {
+                                    LOG.warn(
+                                            "*WARNING 31: Nothing happened. Not sure if this is good or bad, possible or not.");
+                                }
+                            }
 
-							// exception. when a list points to a number of
-							// linked lists, it could be that there are multiple
-							// different entities are referenced
-							// example: #308=
-							// IFCINDEXEDPOLYCURVE(#309,(IFCLINEINDEX((1,2)),IFCARCINDEX((2,3,4)),IFCLINEINDEX((4,5)),IFCARCINDEX((5,6,7))),.F.);
-							// in this case, it is better to immediately print
-							// all relevant entities and properties for each
-							// case (e.g. IFCLINEINDEX((1,2))),
-							// and reset typeremembrance for the next case (e.g.
-							// IFCARCINDEX((4,5))).
+                            // exception. when a list points to a number of
+                            // linked lists, it could be that there are multiple
+                            // different entities are referenced
+                            // example: #308=
+                            // IFCINDEXEDPOLYCURVE(#309,(IFCLINEINDEX((1,2)),IFCARCINDEX((2,3,4)),IFCLINEINDEX((4,5)),IFCARCINDEX((5,6,7))),.F.);
+                            // in this case, it is better to immediately print
+                            // all relevant entities and properties for each
+                            // case (e.g. IFCLINEINDEX((1,2))),
+                            // and reset typeremembrance for the next case (e.g.
+                            // IFCARCINDEX((4,5))).
 
-							if ((evo != null) && (evo.getDerivedAttributeList() != null)
-									&& (evo.getDerivedAttributeList().size() > attributePointer)) {
+                            if ((evo != null) && (evo.getDerivedAttributeList() != null)
+                                    && (evo.getDerivedAttributeList().size() > attributePointer)) {
 
-								OntClass cl = ontModel.getOntClass(ontNS + typeRemembrance.getName());
-								Resource r1 = getResource(baseURI + typeRemembrance.getName() + "_" + idCounter, cl);
-								idCounter++;
-								OntResource range = ontModel.getOntResource(ontNS + typeRemembrance.getName());
+                                OntClass cl = ontModel.getOntClass(ontNS + typeRemembrance.getName());
+                                Resource r1 = getResource(baseURI + typeRemembrance.getName() + "_" + idCounter, cl);
+                                idCounter++;
+                                OntResource range = ontModel.getOntResource(ontNS + typeRemembrance.getName());
 
-								// finding listrange
-								String[] primTypeArr = typeRemembrance.getPrimarytype().split(" ");
-								String primType = ontNS + primTypeArr[primTypeArr.length - 1].replace(";", "");
-								OntResource listrange = ontModel.getOntResource(primType);
+                                // finding listrange
+                                String[] primTypeArr = typeRemembrance.getPrimarytype().split(" ");
+                                String primType = ontNS + primTypeArr[primTypeArr.length - 1].replace(";", "");
+                                OntResource listrange = ontModel.getOntResource(primType);
 
-								List<Object> literalObjects = new ArrayList<>();
-								literalObjects.addAll(literals);
-								addDirectRegularListProperty(r1, range, listrange, literalObjects, 0);
+                                List<Object> literalObjects = new ArrayList<>(literals);
+                                addDirectRegularListProperty(r1, range, listrange, literalObjects, 0);
 
-								// put relevant top list items in a list, which
-								// can then be parsed at the end of this method
-								listRemembranceResources.add(r1);
-							}
+                                // put relevant top list items in a list, which
+                                // can then be parsed at the end of this method
+                                listRemembranceResources.add(r1);
+                            }
 
-							typeRemembrance = null;
-							literals.clear();
-						} else {
-							LOG.warn(
-									"*WARNING 35: Nothing happened. Not sure if this is good or bad, possible or not.");
-						}
-					}
+                            typeRemembrance = null;
+                            literals.clear();
+                        } else {
+                            LOG.warn(
+                                    "*WARNING 35: Nothing happened. Not sure if this is good or bad, possible or not.");
+                        }
+                    }
 				} else {
-					LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
-					int tmpListInList_size = tmpListInList.size();
-					for (int jj = 0; jj < tmpListInList_size; jj++) {
-						Object o2 = tmpListInList.get(jj);
-						if (Character.class.isInstance(o2)) {
-							if ((Character) o2 != ',') {
-								LOG.error(
-										"*ERROR 21*: We found a character that is not a comma. That should not be possible");
-							}
-						} else if (String.class.isInstance(o2)) {
-							literals.add(filterExtras((String) o2));
-						} else if (IFCVO.class.isInstance(o2)) {
-							ifcVOs.add((IFCVO) o2);
-						} else if (LinkedList.class.isInstance(o2)) {
-							LOG.error("*ERROR 19*: Found List of List of List. Code cannot handle that.");
-						} else {
-							LOG.warn(
-									"*WARNING 32*: Nothing happened. Not sure if this is good or bad, possible or not.");
-						}
-					}
+                    //int tmpListInList_size = tmpListInList.size();
+                    for (Object o2 : tmpListInList) {
+                        if (o2 instanceof Character) {
+                            if ((Character) o2 != ',') {
+                                LOG.error(
+                                        "*ERROR 21*: We found a character that is not a comma. That should not be possible");
+                            }
+                        } else if (o2 instanceof String) {
+                            literals.add(filterExtras((String) o2));
+                        } else if (o2 instanceof IFCVO) {
+                            ifcVOs.add((IFCVO) o2);
+                        } else if (o2 instanceof LinkedList) {
+                            LOG.error("*ERROR 19*: Found List of List of List. Code cannot handle that.");
+                        } else {
+                            LOG.warn(
+                                    "*WARNING 32*: Nothing happened. Not sure if this is good or bad, possible or not.");
+                        }
+                    }
 					if ((evo != null) && (evo.getDerivedAttributeList() != null)
 							&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 
@@ -541,7 +535,7 @@ public class RDFWriter {
 			OntProperty p = ontModel.getOntProperty(propURI);
 			OntResource typerange = p.getRange();
 			if (typeRemembrance != null) {
-				if ((evo != null) && (evo.getDerivedAttributeList() != null)
+				if ((evo.getDerivedAttributeList() != null)
 						&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 					if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
 						addRegularListProperty(r, p, literals, typeRemembrance);
@@ -555,21 +549,20 @@ public class RDFWriter {
 					LOG.warn("*WARNING 15*: Nothing happened. Not sure if this is good or bad, possible or not.");
 				}
 				typeRemembrance = null;
-			} else if ((evo != null) && (evo.getDerivedAttributeList() != null)
+			} else if ((evo.getDerivedAttributeList() != null)
 					&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 				if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
 					addRegularListProperty(r, p, literals, null);
 				else {
-					int literals_size = literals.size();
-					for (int i = 0; i < literals_size; i++)
-						createLiteralProperty(r, p, typerange, literals.get(i));
+					//int literals_size = literals.size();
+                    for (String literal : literals) createLiteralProperty(r, p, typerange, literal);
 				}
 			} else {
 				LOG.warn("*WARNING 14*: Nothing happened. Not sure if this is good or bad, possible or not.");
 			}
 		}
 		if (!listRemembranceResources.isEmpty()) {
-			if ((evo != null) && (evo.getDerivedAttributeList() != null)
+			if ((evo.getDerivedAttributeList() != null)
 					&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 				String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
 				OntProperty p = ontModel.getOntProperty(propURI);
@@ -588,42 +581,39 @@ public class RDFWriter {
 		LinkedList<String> literals = new LinkedList<>();
 
 		// process list
-		int tmpList_size = tmpList.size();
-		for (int j = 0; j < tmpList_size; j++) {
-			Object o1 = tmpList.get(j);
-			if (Character.class.isInstance(o1)) {
-				Character c = (Character) o1;
-				if (c != ',') {
-					LOG.error("*ERROR 13*: We found a character that is not a comma. That is odd. Check!");
-				}
-			} else if (String.class.isInstance(o1)) {
-				if (typ.get(ExpressReader.formatClassName((String) o1)) != null && typeRemembrance == null) {
-					typeRemembrance = typ.get(ExpressReader.formatClassName((String) o1));
-				} else
-					literals.add(filterExtras((String) o1));
-			} else if (IFCVO.class.isInstance(o1)) {
-				if ((tvo != null)) {
-					LOG.warn(
-							"*WARNING 16*: found TYPE that is equivalent to a list if IFC entities - below is the code used when this happens for ENTITIES with a list of ENTITIES");
-				} else {
-					LOG.warn("*WARNING 19*: Nothing happened. Not sure if this is good or bad, possible or not.");
-				}
-			} else if (LinkedList.class.isInstance(o1) && typeRemembrance != null) {
-				LinkedList<Object> tmpListInlist = (LinkedList<Object>) o1;
-				int tmpListInlist_size = tmpListInlist.size();
-				for (int jj = 0; jj < tmpListInlist_size; jj++) {
-					Object o2 = tmpListInlist.get(jj);
-					if (String.class.isInstance(o2)) {
-						literals.add(filterExtras((String) o2));
-					} else {
-						LOG.warn("*WARNING 18*: Nothing happened. Not sure if this is good or bad, possible or not.");
-					}
-				}
-			} else {
-				LOG.error(
-						"*ERROR 10*: We found something that is not an IFC entity, not a list, not a string, and not a character. Check!");
-			}
-		}
+		//int tmpList_size = tmpList.size();
+        for (Object o1 : tmpList) {
+            if (o1 instanceof Character c) {
+                if (c != ',') {
+                    LOG.error("*ERROR 13*: We found a character that is not a comma. That is odd. Check!");
+                }
+            } else if (o1 instanceof String) {
+                if (typ.get(ExpressReader.formatClassName((String) o1)) != null && typeRemembrance == null) {
+                    typeRemembrance = typ.get(ExpressReader.formatClassName((String) o1));
+                } else
+                    literals.add(filterExtras((String) o1));
+            } else if (o1 instanceof IFCVO) {
+                if ((tvo != null)) {
+                    LOG.warn(
+                            "*WARNING 16*: found TYPE that is equivalent to a list if IFC entities - below is the code used when this happens for ENTITIES with a list of ENTITIES");
+                } else {
+                    LOG.warn("*WARNING 19*: Nothing happened. Not sure if this is good or bad, possible or not.");
+                }
+            } else if (o1 instanceof LinkedList && typeRemembrance != null) {
+                LinkedList<Object> tmpListInlist = (LinkedList<Object>) o1;
+                //int tmpListInlist_size = tmpListInlist.size();
+                for (Object o2 : tmpListInlist) {
+                    if (o2 instanceof String) {
+                        literals.add(filterExtras((String) o2));
+                    } else {
+                        LOG.warn("*WARNING 18*: Nothing happened. Not sure if this is good or bad, possible or not.");
+                    }
+                }
+            } else {
+                LOG.error(
+                        "*ERROR 10*: We found something that is not an IFC entity, not a list, not a string, and not a character. Check!");
+            }
+        }
 
 		// interpret parse
 		if (literals.isEmpty()) {
@@ -637,8 +627,7 @@ public class RDFWriter {
 					String typeURI = ontNS + primType;
 					OntResource range = ontModel.getOntResource(typeURI);
 					OntResource listrange = getListContentType(range.asClass());
-					List<Object> literalObjects = new ArrayList<>();
-					literalObjects.addAll(literals);
+                    List<Object> literalObjects = new ArrayList<>(literals);
 					addDirectRegularListProperty(r, range, listrange, literalObjects, 0);
 				} else {
 					LOG.warn("*WARNING 21*: Nothing happened. Not sure if this is good or bad, possible or not.");
@@ -650,8 +639,7 @@ public class RDFWriter {
 						+ primTypeArr[0].substring(0, 1).toUpperCase() + primTypeArr[0].substring(1).toLowerCase();
 				String typeURI = ontNS + primType;
 				OntResource range = ontModel.getOntResource(typeURI);
-				List<Object> literalObjects = new ArrayList<>();
-				literalObjects.addAll(literals);
+                List<Object> literalObjects = new ArrayList<>(literals);
 				OntResource listrange = getListContentType(range.asClass());
 				addDirectRegularListProperty(r, range, listrange, literalObjects, 0);
 			}
@@ -767,7 +755,8 @@ public class RDFWriter {
 						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 						Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
 						idCounter++;
-						ttlWriter.triple(Triple.create(r1.asNode(),
+                        assert r2 != null;
+                        ttlWriter.triple(Triple.create(r1.asNode(),
 								ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
 
 						if (i < el.size() - 1) {
@@ -787,8 +776,7 @@ public class RDFWriter {
 		if (range.isClass()) {
 			OntResource listrange = getListContentType(range.asClass());
 			if (typeRemembranceOverride != null) {
-				OntClass cla = ontModel.getOntClass(ontNS + typeRemembranceOverride.getName());
-				listrange = cla;
+                listrange = ontModel.getOntClass(ontNS + typeRemembranceOverride.getName());
 			}
 
 			if (listrange == null) {
@@ -848,8 +836,7 @@ public class RDFWriter {
 			if (listrange != null) {
 				if (listrange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
 					LOG.info("*OK 20*: Handling list of list");
-					listrange = range;
-				}
+                }
 				int el_size = el.size();
 				for (int i = 0; i < el_size; i++) {
 					Resource r1 = el.get(i);
@@ -882,7 +869,7 @@ public class RDFWriter {
 		// createrequirednumberofresources
 		int tmpList_size = tmpList.size();
 		for (int i = 0; i < tmpList_size; i++) {
-			if (IFCVO.class.isInstance(tmpList.get(i))) {
+			if (tmpList.get(i) instanceof IFCVO) {
 				Resource r1 = getResource(baseURI + typerange.getLocalName() + "_" + idCounter, typerange);
 				reslist.add(r1);
 				idCounter++;
@@ -904,17 +891,19 @@ public class RDFWriter {
 		for (int i = 0; i < reslist_size; i++) {
 			Resource r = reslist.get(i);
 
-			OntResource rclass = null;
+			OntResource rclass;
 			EntityVO evorange = ent.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 			if (evorange == null) {
 				TypeVO typerange = typ.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 				rclass = ontModel.getOntResource(ontNS + typerange.getName());
 				Resource r1 = getResource(baseURI + typerange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+                assert r1 != null;
+                ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
 			} else {
 				rclass = ontModel.getOntResource(ontNS + evorange.getName());
 				Resource r1 = getResource(baseURI + evorange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-				ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+                assert r1 != null;
+                ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
 			}
 
 			if (i < reslist.size() - 1) {
@@ -966,11 +955,9 @@ public class RDFWriter {
 		for (int n = 0; n < txt.length(); n++) {
 			char ch = txt.charAt(n);
 			switch (ch) {
-			case '\'':
+			case '\'', '=':
 				break;
-			case '=':
-				break;
-			default:
+                default:
 				sb.append(ch);
 			}
 		}
@@ -981,12 +968,9 @@ public class RDFWriter {
 		StringBuilder sb = new StringBuilder();
 		for (int n = 0; n < txt.length(); n++) {
 			char ch = txt.charAt(n);
-			switch (ch) {
-			case '.':
-				break;
-			default:
-				sb.append(ch);
-			}
+            if (ch != '.') {
+                sb.append(ch);
+            }
 		}
 		return sb.toString();
 	}
@@ -1087,9 +1071,7 @@ public class RDFWriter {
 		return r;
 	}
 
-	public boolean isRemoveDuplicates() {
-		return removeDuplicates;
-	}
+
 
 	public void setRemoveDuplicates(boolean removeDuplicates) {
 		this.removeDuplicates = removeDuplicates;

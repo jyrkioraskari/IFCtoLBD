@@ -18,6 +18,7 @@ limitations under the License.
 
 package com.buildingsmart.tech.ifcowl.vo;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 public class TypeVO implements Serializable {
+    @Serial
     private static final long serialVersionUID = -3366648676376786356L;
     private String name;
     private String primarytype;

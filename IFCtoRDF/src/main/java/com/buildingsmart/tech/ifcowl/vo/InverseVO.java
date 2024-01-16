@@ -18,17 +18,19 @@ limitations under the License.
 
 package com.buildingsmart.tech.ifcowl.vo;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 public class InverseVO implements Serializable {
+    @Serial
     private static final long serialVersionUID = -6700903862493542784L;
     private String name;
     private String classRange;
     private String inverseOfProperty;
-    private boolean set = false;
+    private boolean set;
     private boolean unique = false;
-    private int minCard = -1;
-    private int maxCard = -1;
+    private int minCard;
+    private int maxCard;
     private PropertyVO associatedProperty = null;
 
     public InverseVO(String name, String classRange, String inverseOfProperty, boolean set, int minCard, int maxCard) {
