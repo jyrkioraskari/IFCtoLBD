@@ -164,6 +164,7 @@ public class PropertySet {
     static long state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
+        LocalDateTime datetime = LocalDateTime.now();
         for (String pname : this.mapPnameValue.keySet()) {
             Resource property_resource;
             if (this.hasBlank_nodes)
@@ -188,7 +189,7 @@ public class PropertySet {
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
-                LocalDateTime datetime = LocalDateTime.now();
+
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);

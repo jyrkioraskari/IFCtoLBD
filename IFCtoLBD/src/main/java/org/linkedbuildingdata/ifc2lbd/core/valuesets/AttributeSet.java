@@ -46,7 +46,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 public class AttributeSet {
     private final Map<String, String> unitmap;
 
-    private class PsetProperty {
+    private static class PsetProperty {
         final Property p; // Jena RDF property
         final Resource r; // Jena RDF resource object
 
@@ -94,7 +94,7 @@ public class AttributeSet {
         switch (this.props_level) {
             case 1:
             default:
-            
+
             for (String  pname : this.mapPnameValue.keySet()) {
                 Property property;
                 if(pname.equals("nameIfcRoot"))
@@ -120,6 +120,7 @@ public class AttributeSet {
     static long state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
+        LocalDateTime datetime = LocalDateTime.now();
         for (String pname : this.mapPnameValue.keySet()) {
             Resource property_resource;
             if (this.hasBlank_nodes)
@@ -138,7 +139,7 @@ public class AttributeSet {
                // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
-                LocalDateTime datetime = LocalDateTime.now();
+
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
