@@ -206,7 +206,7 @@ public abstract class RDFUtils {
             List<RDFNode> step_result = step.get().next(r);
             if (path.length > 1) {
                 final List<RDFNode> result = new ArrayList<>();
-                step_result.stream().filter(rn1 -> rn1.isResource()).map(rn2 -> rn2.asResource()).forEach(r1 -> {
+                step_result.stream().filter(RDFNode::isResource).map(RDFNode::asResource).forEach(r1 -> {
                     List<RDFStep> tail = path_list.stream().skip(1).collect(Collectors.toList());
                     result.addAll(pathQuery(r1, tail.toArray(new RDFStep[tail.size()])));
                 });
@@ -230,7 +230,7 @@ public abstract class RDFUtils {
      */
     public static Optional<Resource> getType(Resource r) {
         RDFStep[] path = { new RDFStep(RDF.type) };
-        return RDFUtils.pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
+        return RDFUtils.pathQuery(r, path).stream().map(RDFNode::asResource).findAny();
     }
 
     

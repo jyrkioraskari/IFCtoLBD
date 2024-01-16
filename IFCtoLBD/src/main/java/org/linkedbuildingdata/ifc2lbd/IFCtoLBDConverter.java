@@ -446,12 +446,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			future_ifc_geometry.join();
 			try {
 				this.ifc_geometry = future_ifc_geometry.get(240, TimeUnit.SECONDS);  // max 240 sec
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			} catch (TimeoutException e) {
+			} catch (InterruptedException | ExecutionException | TimeoutException e) {
 				e.printStackTrace();
 			}
-		}
+        }
 		
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));

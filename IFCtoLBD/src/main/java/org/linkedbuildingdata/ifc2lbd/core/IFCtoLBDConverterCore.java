@@ -684,9 +684,7 @@ public abstract class IFCtoLBDConverterCore {
 			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
 
 			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
-					.forEach(ifc_element2 -> {
-						connectElement(lbd_element, BOT.hasSubElement, ifc_element2);
-					});
+					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));
 
 			IfcOWLUtils.listAggregated_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
 					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));

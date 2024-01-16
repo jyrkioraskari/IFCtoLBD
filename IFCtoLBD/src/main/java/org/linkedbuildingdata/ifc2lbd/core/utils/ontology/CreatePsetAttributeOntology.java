@@ -20,7 +20,7 @@ import be.ugent.IfcSpfReader;
 public class CreatePsetAttributeOntology {
 	OntModel m = ModelFactory.createOntologyModel();
 	Set<String> attributes = new HashSet<>();	
-	Set<String> simplified_attributes = new HashSet<String>();
+	Set<String> simplified_attributes = new HashSet<>();
 
 	public CreatePsetAttributeOntology() {
 		PROPS.addNameSpace(m);

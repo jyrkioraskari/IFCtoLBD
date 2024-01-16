@@ -346,7 +346,7 @@ public abstract class IfcOWLUtils {
 		final StringBuilder sb = new StringBuilder();
 		rn.asResource().listProperties().toList().stream()
 				.filter(t -> t.getPredicate().getLocalName().startsWith("predefinedType_"))
-				.map(t -> t.getObject().asResource().getLocalName()).forEach(o -> sb.append(o));
+				.map(t -> t.getObject().asResource().getLocalName()).forEach(sb::append);
 		if (sb.isEmpty())
 			return Optional.empty();
 		return Optional.of(sb.toString());
