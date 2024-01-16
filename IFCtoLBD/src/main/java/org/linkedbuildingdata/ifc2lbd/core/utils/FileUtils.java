@@ -43,7 +43,7 @@ public abstract class FileUtils {
      */
     public static List<String> getListofFiles(String dir, String extension) {
         List<String> goodFiles = new ArrayList<>();
-        System.out.println("read files /" + dir);
+        System.out.println(STR."read files /\{dir}");
 
         CodeSource src = IFCtoLBDConverter.class.getProtectionDomain().getCodeSource();
         System.out.println(src.getLocation());
@@ -56,7 +56,7 @@ public abstract class FileUtils {
                 if (e == null)
                     break;
                 String name = e.getName();
-                if (name.contains("/" + dir)) {
+                if (name.contains(STR."/\{dir}")) {
                     if (name.contains("_") && name.endsWith(extension))
                         goodFiles.add(name);
                 }
@@ -84,11 +84,11 @@ public abstract class FileUtils {
         File[] listOfFiles = folder.listFiles();
         if(listOfFiles==null)
             return goodFiles;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile())
-                goodFiles.add(listOfFiles[i].getAbsolutePath());
-            else if (listOfFiles[i].isDirectory())
-                goodFiles.addAll(listFiles(listOfFiles[i].getAbsolutePath()));
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile())
+                goodFiles.add(listOfFile.getAbsolutePath());
+            else if (listOfFile.isDirectory())
+                goodFiles.addAll(listFiles(listOfFile.getAbsolutePath()));
         }
         return goodFiles;
     }

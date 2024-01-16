@@ -285,7 +285,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			
 			ZipEntry zipEntry = zis.getNextEntry();
 			while (zipEntry != null) {
-				System.out.println("entry: " + zipEntry);
+				System.out.println(STR."entry: \{zipEntry}");
 				//String name = zipEntry.getName().split("\\.")[0];
 				File newFile = File.createTempFile("ifc", ".ifc");
 
@@ -322,7 +322,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				timer.schedule(new TimerTask() {
 					@Override
 					public void run() {
-						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
+						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."ifcOpenShell running  \{IFCtoLBDConverter.this.ios++}"));
 					}
 				}, 1000, 1000);
 
@@ -330,7 +330,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				timer.cancel();
 			} catch (Exception e) {
 				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-						"Geometry handling was not done. " + e.getMessage()));
+                        STR."Geometry handling was not done. \{e.getMessage()}"));
 				e.printStackTrace();
 			}
 
@@ -446,12 +446,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 			future_ifc_geometry.join();
 			try {
 				this.ifc_geometry = future_ifc_geometry.get(240, TimeUnit.SECONDS);  // max 240 sec
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			} catch (TimeoutException e) {
+			} catch (InterruptedException | ExecutionException | TimeoutException e) {
 				e.printStackTrace();
 			}
-		}
+        }
 		
 		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
@@ -498,7 +496,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		} catch (Exception e) {
 			e.printStackTrace();
 			eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-					"Conversion: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
+                    STR."Conversion: \{e.getMessage()} line:\{e.getStackTrace()[0].getLineNumber()}"));
 
 		}
 		System.out.println("conversion done..");
@@ -519,15 +517,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 				System.out.println("OPT level was not a number: Example: ");
 				return;
 			}
-			System.out.println("Base URI: " + args[0]);
-			System.out.println("Selected IFC File: " + args[1]);
-			System.out.println("Targer TTL File: " + args[2]);
-			System.out.println("OPM Level: " + level);
+			System.out.println(STR."Base URI: \{args[0]}");
+			System.out.println(STR."Selected IFC File: \{args[1]}");
+			System.out.println(STR."Targer TTL File: \{args[2]}");
+			System.out.println(STR."OPM Level: \{level}");
 			new IFCtoLBDConverter(args[1], args[0], args[2], level, true, false, true, false, false, true);
 		} else if (args.length > 2) {
-			System.out.println("Base URI: " + args[0]);
-			System.out.println("Selected IFC File: " + args[1]);
-			System.out.println("Targer TTL File: " + args[2]);
+			System.out.println(STR."Base URI: \{args[0]}");
+			System.out.println(STR."Selected IFC File: \{args[1]}");
+			System.out.println(STR."Targer TTL File: \{args[2]}");
 			System.out.println("OPM Level: " + 2);
 			new IFCtoLBDConverter(args[1], args[0], args[2], 2, true, false, true, false, false, true);
 		} else if (args.length == 1) {
@@ -542,16 +540,16 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
                 if (inputFile.endsWith(".ifc")) {
                     //TODO Check this
                     //if (outputFiles == null) {
-                    outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
+                    outputFile = STR."\{inputFile.substring(0, inputFile.length() - 4)}.ttl";
                     //} else {
                     //	outputFile = outputFiles.get(i);
                     //}
 
-                    outputFile = outputFile.replaceAll(args[0], args[0] + "\\___out\\");
-                    String copyFile = inputFile.replaceAll(args[0], args[0] + "\\___done\\");
+                    outputFile = outputFile.replaceAll(args[0], STR."\{args[0]}\\___out\\");
+                    String copyFile = inputFile.replaceAll(args[0], STR."\{args[0]}\\___done\\");
 
                     // move file to output directory
-                    System.out.println("--------- converting: " + inputFile);
+                    System.out.println(STR."--------- converting: \{inputFile}");
                     new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false,
                             true, false, false, false);
 

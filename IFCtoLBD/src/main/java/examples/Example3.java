@@ -29,13 +29,10 @@ public class Example3 {
                     }\s""");
             try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
                 ResultSet resultSet = queryExecution.execSelect();
-                resultSet.forEachRemaining(qs -> {
-                    System.out.println("BOT element: "+qs.get("element").asResource().getLocalName());
-                    
-                });
+                resultSet.forEachRemaining(qs -> System.out.println(STR."BOT element: \{qs.get("element").asResource().getLocalName()}"));
             }
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println(STR."Error: \{e.getMessage()}");
         }
 
     }

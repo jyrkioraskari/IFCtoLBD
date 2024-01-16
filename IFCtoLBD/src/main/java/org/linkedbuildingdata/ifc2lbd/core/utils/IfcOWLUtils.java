@@ -88,7 +88,7 @@ public abstract class IfcOWLUtils {
         RDFStep[] path = { new InvRDFStep(RDF.type) };
         List<RDFNode> list= RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcProject()), path);
         if(!list.isEmpty())
-            return list.get(0).asResource();
+            return list.getFirst().asResource();
 		return null;
     }
 
@@ -346,7 +346,7 @@ public abstract class IfcOWLUtils {
 		final StringBuilder sb = new StringBuilder();
 		rn.asResource().listProperties().toList().stream()
 				.filter(t -> t.getPredicate().getLocalName().startsWith("predefinedType_"))
-				.map(t -> t.getObject().asResource().getLocalName()).forEach(o -> sb.append(o));
+				.map(t -> t.getObject().asResource().getLocalName()).forEach(sb::append);
 		if (sb.isEmpty())
 			return Optional.empty();
 		return Optional.of(sb.toString());
@@ -364,12 +364,12 @@ public abstract class IfcOWLUtils {
 		    return;
 		InputStream in = null;
 		try {
-			in = IfcOWLUtils.class.getResourceAsStream("/" + exp + ".ttl");
+			in = IfcOWLUtils.class.getResourceAsStream(STR."/\{exp}.ttl");
 
 			if (in == null)
-				in = IfcOWLUtils.class.getResourceAsStream("/resources/" + exp + ".ttl");
+				in = IfcOWLUtils.class.getResourceAsStream(STR."/resources/\{exp}.ttl");
 			if (in == null)
-				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
+				in = ClassLoader.getSystemResources(STR."ifcOWL/\{exp}.ttl").nextElement().openStream(); // the module (Java 9 ) version
 			if(in==null)
 			{
 			    return;
@@ -470,24 +470,14 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        line = t.get(0) +
-                                                " " +
-                                                t.get(1) +
-                                                " " +
-                                                t.get(2) +
-                                                " .";
+                                        line = STR."\{t.get(0)} \{t.get(1)} \{t.get(2)} .";
                                     } else
                                         continue;
                                 } else {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    line = triple[0] +
-                                            " " +
-                                            triple[1] +
-                                            " " +
-                                            triple[2] +
-                                            " .";
+                                    line = STR."\{triple[0]} \{triple[1]} \{triple[2]} .";
 
                                     if (trimmed.endsWith("."))
                                         state = 0;
@@ -704,12 +694,7 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        String sb = t.get(0) +
-                                                " " +
-                                                t.get(1) +
-                                                " " +
-                                                t.get(2) +
-                                                " .";
+                                        String sb = STR."\{t.get(0)} \{t.get(1)} \{t.get(2)} .";
                                         line = sb;
                                     } else
                                         continue;

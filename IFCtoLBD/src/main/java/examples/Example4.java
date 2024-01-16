@@ -50,9 +50,9 @@ public class Example4 {
 				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
 					ResultSet rs = queryExecution.execSelect();
 					rs.forEachRemaining(qs -> {
-						System.out.println("BOT element: "+qs.get("e").asResource().getLocalName());
-						System.out.println("BOT element WKT: "+qs.get("wkt"));
-						System.out.println("BOT element OBJ: "+qs.get("obj"));
+						System.out.println(STR."BOT element: \{qs.get("e").asResource().getLocalName()}");
+						System.out.println(STR."BOT element WKT: \{qs.get("wkt")}");
+						System.out.println(STR."BOT element OBJ: \{qs.get("obj")}");
 						
 					});
 					//m.write(System.out, "TTL");

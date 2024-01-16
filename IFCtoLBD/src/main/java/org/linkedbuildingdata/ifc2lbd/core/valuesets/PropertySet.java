@@ -143,7 +143,7 @@ public class PropertySet {
                 case 1:
                 default:
                 for (String pname : this.mapPnameValue.keySet()) {
-                    Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
+                    Property property = lbd_resource.getModel().createProperty(STR."\{PROPS.props_ns}\{pname}_simple");
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
@@ -169,7 +169,7 @@ public class PropertySet {
             if (this.hasBlank_nodes)
                 property_resource = this.lbd_model.createResource();
             else {
-                property_resource = this.lbd_model.createResource(this.uriBase + pname + "_" + long_guid);
+                property_resource = this.lbd_model.createResource(STR."\{this.uriBase}\{pname}_\{long_guid}");
                 property_resource.addProperty(RDF.type, OPM.property);
             }
 
@@ -177,14 +177,14 @@ public class PropertySet {
                 property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
             
             // Just the complete name
-            property_resource.addProperty(RDFS.label, this.propertyset_name+":"+pname);
+            property_resource.addProperty(RDFS.label, STR."\{this.propertyset_name}:\{pname}");
 
             if (this.props_level == 3) {
                 Resource state_resourse;
                 if (this.hasBlank_nodes)
                     state_resourse = this.lbd_model.createResource();
                 else
-                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_p" + PropertySet.state_resourse_counter++);
+                    state_resourse = this.lbd_model.createResource(STR."\{this.uriBase}state_\{pname}_\{long_guid}_p\{PropertySet.state_resourse_counter++}");
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
@@ -214,20 +214,14 @@ public class PropertySet {
         if (ifc_unit != null) {
             String si_unit = ifc_unit.asResource().getLocalName();
             if (si_unit != null) {
-                if (si_unit.equals("METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-                } else if (si_unit.equals("SQUARE_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-                } else if (si_unit.equals("CUBIC_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-                } else if (si_unit.equals("MILLI METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-                } else if (si_unit.equals("MILLI SQUARE_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-                } else if (si_unit.equals("MILLI CUBIC_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-                } else if (si_unit.equals("RADIAN")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+                switch (si_unit) {
+                    case "METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+                    case "SQUARE_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+                    case "CUBIC_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                    case "MILLI METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
+                    case "MILLI SQUARE_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
+                    case "MILLI CUBIC_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
+                    case "RADIAN" -> lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
                 }
             }
         } else {
@@ -242,36 +236,34 @@ public class PropertySet {
                     unit = unit.substring(0, unit.length() - "measure".length());
                 String si_unit = this.unitmap.get(unit);
                 if (si_unit != null) {
-                    if (si_unit.equals("METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-                    } else if (si_unit.equals("SQUARE_METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-                    } else if (si_unit.equals("CUBIC_METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-                    } else if (si_unit.equals("MILLI METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-                    } else if (si_unit.equals("MILLI SQUARE_METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-                    } else if (si_unit.equals("MILLI CUBIC_METRE")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-                    } else if (si_unit.equals("RADIAN")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+                    switch (si_unit) {
+                        case "METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+                        case "SQUARE_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+                        case "CUBIC_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                        case "MILLI METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
+                        case "MILLI SQUARE_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
+                        case "MILLI CUBIC_METRE" -> lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
+                        case "RADIAN" -> lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
                     }
                 } else {
-                    if (unit.equals("length")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
-                                                                               // named
-                                                                               // in:
+                    switch (unit) {
+                        case "length" -> lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
+
+
+                        // named
+                        // in:
                         // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
-                    } else if (unit.equals("area")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
-                                                                                // named
-                                                                                // in:
+                        case "area" -> lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
+
+
+                        // named
+                        // in:
                         // https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
-                    } else if (unit.equals("volume")) {
-                        lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
-                                                                               // named
-                                                                               // in:
+                        case "volume" -> lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
+
+
+                        // named
+                        // in:
                         // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
                     }
 

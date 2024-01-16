@@ -48,17 +48,17 @@ public class CreateOntology {
                 }
             });
 
-            System.out.println("bsdd size "+mapBSDD.size());
+            System.out.println(STR."bsdd size \{mapBSDD.size()}");
             /*
              * m1nb.listStatements().forEachRemaining(s -> {
              * properties.add(s.getPredicate()); });
              */
 
-            ObjectProperty p_generalproperty = ontology_model.createObjectProperty(propsns + "property");
+            ObjectProperty p_generalproperty = ontology_model.createObjectProperty(STR."\{propsns}property");
 
             for (String pname : mapBSDD.keySet()) {
                 ObjectProperty ppredicate = ontology_model.createObjectProperty(propsns + pname);
-                ObjectProperty ppredicate_simple = ontology_model.createObjectProperty(propsns + pname + "_simple");
+                ObjectProperty ppredicate_simple = ontology_model.createObjectProperty(STR."\{propsns}\{pname}_simple");
                 ppredicate.setSuperProperty(p_generalproperty);
                 RDFNode bsdd = mapBSDD.get(pname);
                 ppredicate.addIsDefinedBy(bsdd.asResource());

@@ -19,7 +19,7 @@ public class Example2 {
             model.listSubjects().forEach(System.out::println);
 
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println(STR."Error: \{e.getMessage()}");
         }
 
     }

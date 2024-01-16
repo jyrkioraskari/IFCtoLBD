@@ -62,7 +62,7 @@ public class IFC_Geolocation {
         returnLongLat(model);
         String s = addWKTGeometryToModel();  // JO 2024
         
-        System.out.println("WKT Geolocation succesfully extracted: " + s);
+        System.out.println(STR."WKT Geolocation succesfully extracted: \{s}");
         
         return s;
     }
@@ -73,13 +73,13 @@ public class IFC_Geolocation {
     {
     
         latitude = longLatNegativeConvert(latitude);
-        latitude.set(latitude.size()-1, (latitude.get(latitude.size()-1)+"."));
+        latitude.set(latitude.size()-1, (STR."\{latitude.getLast()}."));
         String s1 = StringUtils.join(Lists.reverse(latitude), "");
         longitude = longLatNegativeConvert(longitude);
-        longitude.set(longitude.size()-1, (longitude.get(longitude.size()-1)+"."));
+        longitude.set(longitude.size()-1, (STR."\{longitude.getLast()}."));
         String s2 = StringUtils.join(Lists.reverse(longitude), "");
         //Have to switch long and lat for WKT
-        String wkt_point = "POINT ("+s2+" "+s1+")";
+        String wkt_point = STR."POINT (\{s2} \{s1})";
 
         return wkt_point;
     }
@@ -88,7 +88,7 @@ public class IFC_Geolocation {
     //Author Kris McGlinn - This method changes the sign of the longitude or latitude values in a List
     private static List<String> longLatNegativeConvert(List<String> l)
     {
-        String s = l.get(l.size()-1); 
+        String s = l.getLast();
         int x = Integer.parseInt(s);
         if(x<0)
         {           
@@ -107,8 +107,8 @@ public class IFC_Geolocation {
     {
         
         Model m = ModelFactory.createDefaultModel().add(original);
-        Property listHasContents = m.createProperty( ns3 + "hasContents" );
-        Property listHasNext = m.createProperty( ns3 + "hasNext" );
+        Property listHasContents = m.createProperty(STR."\{ns3}hasContents");
+        Property listHasNext = m.createProperty(STR."\{ns3}hasNext");
         boolean moreInList = false;
         String s[];
 
@@ -167,8 +167,8 @@ public class IFC_Geolocation {
         Model m = ModelFactory.createDefaultModel().add(original);
         
                 
-        Property refLatitude_IfcSite = m.createProperty( ns1 + "#refLatitude_IfcSite" );
-        Property refLongitude_IfcSite = m.createProperty( ns1 + "#refLongitude_IfcSite" );
+        Property refLatitude_IfcSite = m.createProperty(STR."\{ns1}#refLatitude_IfcSite");
+        Property refLongitude_IfcSite = m.createProperty(STR."\{ns1}#refLongitude_IfcSite");
         
         StmtIterator iter = m.listStatements( null, RDF.type, ifcSiteProperty );
 

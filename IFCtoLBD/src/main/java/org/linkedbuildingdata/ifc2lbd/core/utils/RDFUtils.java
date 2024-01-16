@@ -67,7 +67,7 @@ public abstract class RDFUtils {
             m.write(bfo, "TTL");
         } catch (IOException e1) {
 			e1.printStackTrace();
-			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."Error : \{e1.getMessage()}"));
 		} 
     }
 
@@ -80,7 +80,7 @@ public abstract class RDFUtils {
             StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
         } catch (IOException e1) {
 			e1.printStackTrace();
-		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		    eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."Error : \{e1.getMessage()}"));
 		} 
     }
     
@@ -92,7 +92,7 @@ public abstract class RDFUtils {
             RDFDataMgr.write(bfo, ds, RDFFormat.TRIG_PRETTY);
         } catch (IOException e1) {
 			e1.printStackTrace();
-            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+            eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."Error : \{e1.getMessage()}"));
 		} 
     }
     /**
@@ -122,21 +122,21 @@ public abstract class RDFUtils {
 
 		InputStream in = null;
         try {
-            in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
+            in = IFCtoLBDConverter.class.getResourceAsStream(STR."/\{ontology_file}");
             if (in == null) {
                 try {
-                    in = IFCtoLBDConverter.class.getResourceAsStream("/resources/" + ontology_file);
+                    in = IFCtoLBDConverter.class.getResourceAsStream(STR."/resources/\{ontology_file}");
                     if (in == null)
-                        in = IFCtoLBDConverter.class.getResourceAsStream("/" + ontology_file);
+                        in = IFCtoLBDConverter.class.getResourceAsStream(STR."/\{ontology_file}");
                     
                     if (in == null)
                         in = IFCtoLBDConverter.class.getResourceAsStream(ontology_file);  // Java 9  module version
                     
                     if (in == null)
-        				in = ClassLoader.getSystemResources("ifcOWL/"+ontology_file).nextElement().openStream(); // the module (Java 9 ) version 
+        				in = ClassLoader.getSystemResources(STR."ifcOWL/\{ontology_file}").nextElement().openStream(); // the module (Java 9 ) version
         	
                 } catch (Exception e) {
-                    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
+                    eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."Error : \{e.getMessage()}"));
                     e.printStackTrace();
                     return;
                 }
@@ -145,8 +145,8 @@ public abstract class RDFUtils {
             in.close();
 
         } catch (Exception e) {
-            eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-            System.out.println("Missing file: " + ontology_file);
+            eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."Error : \{e.getMessage()}"));
+            System.out.println(STR."Missing file: \{ontology_file}");
             System.out.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
             //e.printStackTrace();
         }
@@ -206,7 +206,7 @@ public abstract class RDFUtils {
             List<RDFNode> step_result = step.get().next(r);
             if (path.length > 1) {
                 final List<RDFNode> result = new ArrayList<>();
-                step_result.stream().filter(rn1 -> rn1.isResource()).map(rn2 -> rn2.asResource()).forEach(r1 -> {
+                step_result.stream().filter(RDFNode::isResource).map(RDFNode::asResource).forEach(r1 -> {
                     List<RDFStep> tail = path_list.stream().skip(1).collect(Collectors.toList());
                     result.addAll(pathQuery(r1, tail.toArray(new RDFStep[tail.size()])));
                 });
@@ -230,7 +230,7 @@ public abstract class RDFUtils {
      */
     public static Optional<Resource> getType(Resource r) {
         RDFStep[] path = { new RDFStep(RDF.type) };
-        return RDFUtils.pathQuery(r, path).stream().map(rn -> rn.asResource()).findAny();
+        return RDFUtils.pathQuery(r, path).stream().map(RDFNode::asResource).findAny();
     }
 
     

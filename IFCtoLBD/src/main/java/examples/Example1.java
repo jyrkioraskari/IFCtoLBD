@@ -18,7 +18,7 @@ public class Example1 {
             model.write(System.out, "TTL");
 
         } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+            System.err.println(STR."Error: \{e.getMessage()}");
         }
     }
 }

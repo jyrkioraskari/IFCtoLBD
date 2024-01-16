@@ -30,13 +30,13 @@ public class IFCtoRDF extends IfcSpfReader {
 		PrintStream orgSystemError = System.err;
 		
 		
-		System.out.println("ifcfile is: "+ifcFile);
+		System.out.println(STR."ifcfile is: \{ifcFile}");
 		try {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
 				@Override
 				public void run() {
-					IFCtoRDF.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF running  " + IFCtoRDF.this.i++));
+					IFCtoRDF.this.eventBus.post(new IFCtoLBD_SystemStatusEvent(STR."IFCtoRDF running  \{IFCtoRDF.this.i++}"));
 				}
 			}, 1000, 1000);
 

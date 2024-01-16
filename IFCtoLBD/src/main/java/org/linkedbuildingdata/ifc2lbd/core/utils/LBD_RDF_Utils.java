@@ -32,20 +32,20 @@ public abstract class LBD_RDF_Utils {
 			if (localName.startsWith("IfcPropertySingleValue")) {
 				if (localName.lastIndexOf('_') > 0)
 					localName = localName.substring(localName.lastIndexOf('_') + 1);
-				Resource uri = m.createResource(uriBase + "propertySingleValue_" + localName);
+				Resource uri = m.createResource(STR."\{uriBase}propertySingleValue_\{localName}");
 				if (exportIfcOWL)
 					uri.addProperty(OWL.sameAs, r);
 				return uri;
 			}
 			if (localName.toLowerCase().startsWith("ifc"))
 				localName = localName.substring(3);
-			Resource uri = m.createResource(uriBase + product_type.toLowerCase() + "_" + localName);
+			Resource uri = m.createResource(STR."\{uriBase}\{product_type.toLowerCase()}_\{localName}");
 			if (exportIfcOWL)
 				uri.addProperty(OWL.sameAs, r);
 			return uri;
 		}
 		Resource guid_uri = m.createResource(
-				uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
+                STR."\{uriBase}\{product_type.toLowerCase()}_\{GuidCompressor.uncompressGuidString(guid)}");
 		if (exportIfcOWL)
 			guid_uri.addProperty(OWL.sameAs, r);
 		return guid_uri;
@@ -61,7 +61,7 @@ public abstract class LBD_RDF_Utils {
 			if (guid != null) {
 
 				Resource guid_uri = m.createResource(
-						uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
+                        STR."\{uriBase}\{product_type.toLowerCase()}_\{GuidCompressor.uncompressGuidString(guid)}");
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
 				System.out.println("name nul & guid ");
@@ -71,7 +71,7 @@ public abstract class LBD_RDF_Utils {
 			if (localName.startsWith("IfcPropertySingleValue")) {
 				if (localName.lastIndexOf('_') > 0)
 					localName = localName.substring(localName.lastIndexOf('_') + 1);
-				Resource uri = m.createResource(uriBase + "propertySingleValue_" + localName);
+				Resource uri = m.createResource(STR."\{uriBase}propertySingleValue_\{localName}");
 				if (exportIfcOWL)
 					uri.addProperty(OWL.sameAs, r);
 				return uri;
@@ -87,7 +87,7 @@ public abstract class LBD_RDF_Utils {
 		Resource guid_uri = m.createResource(uriBase + element_url_name);
 		if (exportIfcOWL)
 			guid_uri.addProperty(OWL.sameAs, r);
-		System.out.println("name: "+element_url_name);
+		System.out.println(STR."name: \{element_url_name}");
 		return guid_uri;
 	}
 	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m, String product_type, 
@@ -99,7 +99,7 @@ public abstract class LBD_RDF_Utils {
 			if (guid != null) {
 
 				Resource guid_uri = m
-						.createResource(upper_url.toString() + "/" + product_type.toLowerCase() + "_" +GuidCompressor.uncompressGuidString(guid));
+						.createResource(STR."\{upper_url.toString()}/\{product_type.toLowerCase()}_\{GuidCompressor.uncompressGuidString(guid)}");
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
 				return guid_uri;
@@ -108,19 +108,19 @@ public abstract class LBD_RDF_Utils {
 			if (localName.startsWith("IfcPropertySingleValue")) {
 				if (localName.lastIndexOf('_') > 0)
 					localName = localName.substring(localName.lastIndexOf('_') + 1);
-				Resource uri = m.createResource(upper_url.toString() + "/" + "propertySingleValue_" + localName);
+				Resource uri = m.createResource(STR."\{upper_url.toString()}/propertySingleValue_\{localName}");
 				if (exportIfcOWL)
 					uri.addProperty(OWL.sameAs, r);
 				return uri;
 			}
 			if (localName.toLowerCase().startsWith("ifc"))
 				localName = localName.substring(3);
-			Resource uri = m.createResource(upper_url.toString() + "/" + localName);
+			Resource uri = m.createResource(STR."\{upper_url.toString()}/\{localName}");
 			if (exportIfcOWL)
 				uri.addProperty(OWL.sameAs, r);
 			return uri;
 		}
-		Resource guid_uri = m.createResource(upper_url.toString()  + "/" + element_url_name);
+		Resource guid_uri = m.createResource(STR."\{upper_url.toString()}/\{element_url_name}");
 		if (exportIfcOWL)
 			guid_uri.addProperty(OWL.sameAs, r);
 		return guid_uri;
