@@ -123,7 +123,7 @@ public class IfcSpfParser {
                 } else if (ch == ',') {
                     if (!sb.toString().trim().isEmpty())
                         current.add(sb.toString().trim());
-                    current.add(ch);
+                    current.add(Character.valueOf(ch));
 
                     sb.setLength(0);
                 } else {
@@ -175,8 +175,8 @@ public class IfcSpfParser {
             // mapping properties to IFCVOs
             for (int i = 0; i < vo.getObjectList().size(); i++) {
                 Object o = vo.getObjectList().get(i);
-                if (o instanceof Character) {
-                    if ((Character) o != ',') {
+                if (o instanceof Character c) {
+                    if (c != ',') {
                         LOG.error("*ERROR 15*: We found a character that is not a comma. That should not be possible");
                     }
                 } else if (o instanceof String s) {
@@ -202,8 +202,8 @@ public class IfcSpfParser {
 
                     for (int j = 0; j < tmpList.size(); j++) {
                         Object o1 = tmpList.get(j);
-                        if (o instanceof Character) {
-                            if ((Character) o != ',') {
+                        if (o instanceof Character c) {
+                            if (c != ',') {
                                 LOG.error("*ERROR 16*: We found a character that is not a comma. " + "That should not be possible!");
                             }
                         } else if (o1 instanceof String s) {

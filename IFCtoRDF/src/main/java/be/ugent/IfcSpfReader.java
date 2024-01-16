@@ -67,14 +67,14 @@ public class IfcSpfReader {
      */
     public static void main(String[] args) throws IOException {
         String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
-        Boolean[] optionValues = new Boolean[] { false, false, false };
+        Boolean[] optionValues = new Boolean[] {Boolean.FALSE, Boolean.FALSE, Boolean.FALSE};
 
         String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());  // JO 2024: performance
         DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
         List<String> argsList = new ArrayList<>(Arrays.asList(args));
         for (int i = 0; i < options.length; ++i) {
-            optionValues[i] = argsList.contains(options[i]);
+            optionValues[i] = Boolean.valueOf(argsList.contains(options[i]));
         }
 
         // State of flags has been stored in optionValues. Remove them from our
@@ -86,11 +86,11 @@ public class IfcSpfReader {
         }
 
         int numRequiredOptions = 0;
-        if (optionValues[FLAG_DIR])
+        if (optionValues[FLAG_DIR].booleanValue())
             numRequiredOptions++;
         else
             numRequiredOptions = 2;
-        if (optionValues[FLAG_BASEURI])
+        if (optionValues[FLAG_BASEURI].booleanValue())
             numRequiredOptions++;
 
         if (argsList.size() != numRequiredOptions) {
@@ -102,21 +102,20 @@ public class IfcSpfReader {
             return;
         }
 
-        final List<String> inputFiles;
-        final List<String> outputFiles;
+        List<String> inputFiles;
+        List<String> outputFiles = null;
         String baseURI;
 
-        if (optionValues[FLAG_DIR]) {
-            if (optionValues[FLAG_BASEURI]) {
+        if (optionValues[FLAG_DIR].booleanValue()) {
+            if (optionValues[FLAG_BASEURI].booleanValue()) {
                 baseURI = argsList.get(0);
                 inputFiles = showFiles(argsList.get(1));
             } else {
                 baseURI = DEFAULT_PATH;
                 inputFiles = showFiles(argsList.get(0));
             }
-            outputFiles = null;
         } else {
-            if (optionValues[FLAG_BASEURI]) {
+            if (optionValues[FLAG_BASEURI].booleanValue()) {
                 baseURI = argsList.get(0);
                 inputFiles = Arrays.asList(new String[] { argsList.get(1) });
                 outputFiles = Arrays.asList(new String[] { argsList.get(2) });
@@ -127,7 +126,8 @@ public class IfcSpfReader {
             }
         }
 
-        for (int i = 0; i < inputFiles.size(); ++i) {
+        int size = inputFiles.size();
+        for (int i = 0; i < size; ++i) {
             final String inputFile = inputFiles.get(i);
             final String outputFile;
             if (inputFile.endsWith(".ifc")) {
@@ -155,7 +155,7 @@ public class IfcSpfReader {
      * 
      * @param dir
      *            the input directory for which you wish to list file.
-     * @return a {@link java.util.List} of Strings denoting files.
+     * @return a {@link List} of Strings denoting files.
      */
     public static List<String> showFiles(String dir) {
         List<String> goodFiles = new ArrayList<>();

@@ -137,7 +137,6 @@ public class RDFWriter {
 
 		// Save memory
 		linemap.clear();
-		linemap = null;
 
 		ttlWriter.finish();
 	}
@@ -145,9 +144,8 @@ public class RDFWriter {
 	boolean filter_geometry = true;
 
     private void createInstances()  {
-		for (Long key : linemap.keySet()) {
-			IFCVO ifcLineEntry = linemap.get(key);
-			String typeName = "";
+		for (IFCVO ifcLineEntry : linemap.values()) {
+            String typeName = "";
 			if (ent.containsKey(ifcLineEntry.getName()))
 				typeName = ent.get(ifcLineEntry.getName()).getName();
 			else if (typ.containsKey(ifcLineEntry.getName()))
@@ -217,8 +215,8 @@ public class RDFWriter {
 			typeRemembrance = null;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
-				if (o instanceof Character) {
-					if ((Character) o != ',') {
+				if (o instanceof Character c) {
+					if (c != ',') {
 						LOG.error("*ERROR 17*: We found a character that is not a comma. That should not be possible!");
 					}
 				} else if (o instanceof String) {
@@ -240,8 +238,8 @@ public class RDFWriter {
 			int attributePointer = 0;
 			for (Object o : ifcLineEntry.getObjectList()) {
 
-				if (o instanceof Character) {
-					if ((Character) o != ',') {
+				if (o instanceof Character c) {
+					if (c != ',') {
 						LOG.error("*ERROR 18*: We found a character that is not a comma. That should not be possible!");
 					}
 				} else if (o instanceof String) {
@@ -400,8 +398,8 @@ public class RDFWriter {
                 if (typeRemembrance != null) {
                     //int tmpListInList_size = tmpListInList.size();
                     for (Object o2 : tmpListInList) {
-                        if (o2 instanceof Character) {
-                            if ((Character) o2 != ',') {
+                        if (o2 instanceof Character c) {
+                            if (c != ',') {
                                 LOG.error(
                                         "*ERROR 20*: We found a character that is not a comma. That should not be possible");
                             }
@@ -420,8 +418,8 @@ public class RDFWriter {
                             LinkedList<Object> tmpListInListInList = (LinkedList<Object>) o2;
                             //int tmpListInListInList_size = tmpListInListInList.size();
                             for (Object o3 : tmpListInListInList) {
-                                if (o3 instanceof Character) {
-                                    if ((Character) o3 != ',') {
+                                if (o3 instanceof Character c) {
+                                    if (c != ',') {
                                         LOG.error(
                                                 "*ERROR 24*: We found a character that is not a comma. That should not be possible");
                                     }
@@ -475,8 +473,8 @@ public class RDFWriter {
 				} else {
                     //int tmpListInList_size = tmpListInList.size();
                     for (Object o2 : tmpListInList) {
-                        if (o2 instanceof Character) {
-                            if ((Character) o2 != ',') {
+                        if (o2 instanceof Character c) {
+                            if (c != ',') {
                                 LOG.error(
                                         "*ERROR 21*: We found a character that is not a comma. That should not be possible");
                             }
@@ -950,9 +948,10 @@ public class RDFWriter {
 	}
 
 	// HELPER METHODS
-	private String filterExtras(String txt) {
+	private static String filterExtras(String txt) {
 		StringBuilder sb = new StringBuilder();
-		for (int n = 0; n < txt.length(); n++) {
+		int length = txt.length();
+		for (int n = 0; n < length; n++) {
 			char ch = txt.charAt(n);
 			switch (ch) {
 			case '\'', '=':
@@ -964,9 +963,10 @@ public class RDFWriter {
 		return sb.toString();
 	}
 
-	private String filterPoints(String txt) {
+	private static String filterPoints(String txt) {
 		StringBuilder sb = new StringBuilder();
-		for (int n = 0; n < txt.length(); n++) {
+		int length = txt.length();
+		for (int n = 0; n < length; n++) {
 			char ch = txt.charAt(n);
             if (ch != '.') {
                 sb.append(ch);
