@@ -100,25 +100,25 @@ java -jar IFCtoLBD.jar Duplex_A_20110505.ifc http://uribase out.ttl
 
 
 ## Maven
-The Maven library was published on the 21st of June, 2023.  
+The Maven library was published on the 16th of January, 2024.  
 
 ```
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
   <artifactId>ifc2rdf</artifactId>
-  <version>1.3.1</version>
-</dependency>
-
-<dependency>
-  <groupId>de.rwth-aachen.lbd</groupId>
-  <artifactId>idc_to_lbd_geometry</artifactId>
-  <version>2.43.0</version>
+  <version>1.3.2</version>
 </dependency>
 
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
   <artifactId>ifc-to-lbd</artifactId>
-  <version>2.43.3</version>
+  <version>2.43.4</version>
+</dependency>
+
+<dependency>
+  <groupId>de.rwth-aachen.lbd</groupId>
+  <artifactId>idc_to_lbd_geometry</artifactId>
+  <version>2.43.4</version>
 </dependency>
 ```
 

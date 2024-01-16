@@ -48,7 +48,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 public class PropertySet {
     private final Map<String, String> unitmap;
 
-    private class PsetProperty {
+    private static class PsetProperty {
         final Property p; // Jena RDF property
         final Resource r; // Jena RDF resource object
 
