@@ -39,3 +39,4 @@ IFCtoLBD_Geometry/.eclipse-pmd
 IFCtoRDF/.eclipse-pmd
 IFCtoLBD/.eclipse-pmd
 IFCtoLBD/.idea/*
+IFCtoLBD_NodeJS/node_modules/*
