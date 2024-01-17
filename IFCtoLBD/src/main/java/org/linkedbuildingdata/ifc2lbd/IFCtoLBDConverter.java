@@ -4,7 +4,6 @@ package org.linkedbuildingdata.ifc2lbd;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Optional;

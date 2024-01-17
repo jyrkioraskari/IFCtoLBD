@@ -49,7 +49,7 @@ public class IfcSpfReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(IfcSpfReader.class);
 
-    public static String DEFAULT_PATH = "";
+    private static String DEFAULT_PATH = "";
 
     private boolean removeDuplicates = false;
     private static final int FLAG_BASEURI = 0;
@@ -126,8 +126,7 @@ public class IfcSpfReader {
             }
         }
 
-        int size = inputFiles.size();
-        for (int i = 0; i < size; ++i) {
+        for (int i = 0; i < inputFiles.size(); ++i) {
             final String inputFile = inputFiles.get(i);
             final String outputFile;
             if (inputFile.endsWith(".ifc")) {
@@ -212,14 +211,14 @@ public class IfcSpfReader {
         return "";
     }
 
-    public static String slurp(InputStream in) throws IOException {
+   /* public static String slurp(InputStream in) throws IOException {
         StringBuilder out = new StringBuilder();
         byte[] b = new byte[4096];
         for (int n; (n = in.read(b)) != -1;) {
             out.append(new String(b, 0, n));
         }
         return out.toString();
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
@@ -303,7 +302,6 @@ public class IfcSpfReader {
     }
 
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
-        // CONVERSION
         OntModel om;
 
         

@@ -75,7 +75,7 @@ import de.rwth_aachen.dc.lbd.ObjDescription;
 public abstract class IFCtoLBDConverterCore {
 	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
-	protected Set<String> selected_types;
+	private Set<String> selected_types;  // The element types that are included in the output
 
 	protected Model ifcowl_model;
 	private Model ontology_model = null;
@@ -105,15 +105,15 @@ public abstract class IFCtoLBDConverterCore {
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
 
-	protected boolean hasHierarchicalNaming_setting = false;
+	private boolean hasHierarchicalNaming_setting = false;
 
-	Dataset lbd_dataset = null;
+	private Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
 	}
 
-	Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
+	private Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
 
 	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
@@ -363,7 +363,7 @@ public abstract class IFCtoLBDConverterCore {
 		return false;
 	}
 
-	Property fogasObj = null;
+	private Property fogasObj = null;
 
 	private void addGeometry(Resource lbd_resource, String guid) {
 		if (this.ifc_geometry == null)
@@ -1110,6 +1110,10 @@ public abstract class IFCtoLBDConverterCore {
 		return this.ontology_model;
 	}
 
+	/**
+	 * Lists the list of element types in the model so that they can be selected
+	 * @return the list
+	 */
 	public Set<Resource> getElementTypes() {
 		Set<Resource> types = new HashSet<>();
 		this.ifcowl_model.listStatements().forEachRemaining(st -> {
@@ -1131,6 +1135,10 @@ public abstract class IFCtoLBDConverterCore {
 		return types;
 	}
 
+	/**
+	 *  Sets the element types that are included in the output
+	 * @param selected_types list of types 
+	 */
 	public void setSelected_types(Set<String> selected_types) {
 		this.selected_types = selected_types;
 		System.out.println("updated selection: " + selected_types);

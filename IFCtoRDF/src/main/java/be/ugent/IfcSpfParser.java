@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
 
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
-public class IfcSpfParser {
+class IfcSpfParser {
     private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
     private final InputStream inputStream;
@@ -26,11 +26,11 @@ public class IfcSpfParser {
     private final Map<Long, Long> listOfDuplicateLineEntries = new HashMap<>();
 
 
-    public IfcSpfParser(InputStream inputStream) {
+    IfcSpfParser(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
-    public void readModel() {
+    void readModel() {
         try {
         	// Fix by JO 2024: finally is deprecated
             try (DataInputStream in = new DataInputStream(inputStream);
@@ -145,8 +145,8 @@ public class IfcSpfParser {
         idCounter++;
     }
 
-    //JO 2023  perfoemance optimization
-    public void resolveDuplicates()  {
+    //JO 2023  performance optimization
+    void resolveDuplicates()  {
         Map<String, IFCVO> listOfUniqueResources = new HashMap<>();
         List<Long> entriesToRemove = new ArrayList<>();
         for (Long key : linemap.keySet()) {
@@ -167,7 +167,7 @@ public class IfcSpfParser {
         }
     }
 
-    public boolean mapEntries()  {
+    boolean mapEntries()  {
         //JO 2023  performance optimization
         for (Long key : linemap.keySet()) {
             IFCVO vo = linemap.get(key);

@@ -709,4 +709,23 @@ public class ConverterRunsUnitTests {
 			}
 
 	}
+	
+	
+	@DisplayName("Test List Properties")
+	@Test
+	public void testListProperties() {
+		this.count=0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		 try {
+				File ifc_file = new File(file_url.toURI());
+
+				
+				IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes, props_level);
+				c.convert(ifc_file.getAbsoluteFile().toString(), null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,hasPerformanceBoost,hasBoundingBoxWKT);
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+	}
 }

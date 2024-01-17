@@ -92,7 +92,7 @@ public class RDFWriter {
 	}
 
 
-	public void parseModel2Stream(OutputStream out)  {
+	void parseModel2Stream(OutputStream out)  {
 		// CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
 		// 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)
 		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
@@ -141,7 +141,7 @@ public class RDFWriter {
 		ttlWriter.finish();
 	}
 
-	boolean filter_geometry = true;
+	private boolean filter_geometry = true;
 
     private void createInstances()  {
 		for (IFCVO ifcLineEntry : linemap.values()) {
@@ -202,7 +202,7 @@ public class RDFWriter {
 		propertyResourceMap.clear();
 	}
 
-	TypeVO typeRemembrance = null;
+	private TypeVO typeRemembrance = null;
 
 	private void fillProperties(IFCVO ifcLineEntry, Resource r)  {
 
