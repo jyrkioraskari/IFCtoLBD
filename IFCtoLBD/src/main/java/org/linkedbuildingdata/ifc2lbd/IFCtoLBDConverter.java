@@ -469,6 +469,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 
 
+		if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+				 hasUnits,  hasBoundingBoxWKT))
+		{
+			return lbd_general_output_model; 
+		}
 		System.out.println("Conversion phase 2");
 
 		boolean namedGraphs=false; 
@@ -487,7 +492,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	}
 
-	public void convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
+	public boolean convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
 			boolean hasUnits, boolean hasBoundingBoxWKT) {
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
 		resetModels();
@@ -497,17 +502,18 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
 		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWL(this.ontURI.get());
+			this.ifcOWL = new IfcOWL(this.ontURI.get());
 		else {
 			System.out.println("No ifcOWL ontology available.");
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
-			return;
+			return false;
 		}
 
 		System.out.println("Conversion phase 1");
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
 		}
+		return true;
 	}
 
 	

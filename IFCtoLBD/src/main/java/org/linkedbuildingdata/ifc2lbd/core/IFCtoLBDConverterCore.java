@@ -82,7 +82,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
 
-	protected Optional<String> ontURI = Optional.empty();
+	public Optional<String> ontURI = Optional.empty();
 	protected IfcOWL ifcOWL;
 
 	// URI-property set
@@ -1004,6 +1004,7 @@ public abstract class IFCtoLBDConverterCore {
 			if (isTmpFile || targetFile == null) {
 				outputFile = File.createTempFile("ifc", ".ttl");
 				outputFile.deleteOnExit();
+				System.out.println("on1");
 			} else {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
@@ -1020,8 +1021,11 @@ public abstract class IFCtoLBDConverterCore {
 					String inst_ns = model.getNsPrefixMap().get("inst");
 					if (inst_ns != null && this.ontURI.isEmpty())
 						this.uriBase = Optional.of(inst_ns);
+					System.out.println("op2");
 
 					this.ontURI = rj.getOntologyURI(ifc_file);
+					System.out.println("o ifc file was: "+ifc_file);
+					System.out.println("op5"+this.ontURI.isPresent());
 					return model;
 				}
 
@@ -1035,8 +1039,9 @@ public abstract class IFCtoLBDConverterCore {
 						uriBase, hasPerformanceBoost);
 			} else {
 				this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
-						hasPerformanceBoost);
+						hasPerformanceBoost);		
 			}
+			System.out.println("op3"+this.ontURI.isPresent());
 
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
@@ -1047,6 +1052,8 @@ public abstract class IFCtoLBDConverterCore {
 			return m;
 
 		} catch (Exception e) {
+			System.out.println("op4:"+e.getMessage());
+
 			this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
 					"readAndConvertIFC: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 			e.printStackTrace();

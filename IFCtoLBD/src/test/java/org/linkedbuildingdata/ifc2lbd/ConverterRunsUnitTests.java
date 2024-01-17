@@ -317,8 +317,15 @@ public class ConverterRunsUnitTests {
 
 			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
 					Integer.valueOf(3));
+			
 			Model m3nb1 = c3nb1.convert(ifc_file.getAbsolutePath());
+			
+			if(c3nb1.ontURI.isEmpty())
+			{
+				System.out.println("Ontology UEI should not be nonexistent. ");
+				fail("Ontology UEI should not be nonexistent. ");
 
+			}
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 			System.out.println("Converted subject count  5 was: " + subjectList51.size());
 
