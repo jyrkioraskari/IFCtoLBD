@@ -456,6 +456,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		createIfcLBDProductMapping();
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory. Select \"Convert out to RDF\" to continue."));
+		
+		
 
 		return true;
 	}
@@ -466,25 +468,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
 			boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 
-		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
-		resetModels();
-		System.out.println("Product mapping");
-
-		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
-
-		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
-		if (this.ontURI.isPresent())
-			ifcOWL = new IfcOWL(this.ontURI.get());
-		else {
-			System.out.println("No ifcOWL ontology available.");
-			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
-			return lbd_general_output_model;
-		}
-
-		System.out.println("Conversion phase 1");
-		if (hasBuildingProperties) {
-			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
-		}
 
 		System.out.println("Conversion phase 2");
 
@@ -504,6 +487,29 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	}
 
+	private void convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
+			boolean hasUnits, boolean hasBoundingBoxWKT) {
+		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
+		resetModels();
+		System.out.println("Product mapping");
+
+		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
+
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
+		if (this.ontURI.isPresent())
+			ifcOWL = new IfcOWL(this.ontURI.get());
+		else {
+			System.out.println("No ifcOWL ontology available.");
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
+			return;
+		}
+
+		System.out.println("Conversion phase 1");
+		if (hasBuildingProperties) {
+			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
+		}
+	}
+
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
@@ -520,13 +526,19 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			System.out.println("Selected IFC File: " + args[1]);
 			System.out.println("Targer TTL File: " + args[2]);
 			System.out.println("OPM Level: " + level);
-			new IFCtoLBDConverter(args[1], args[0], args[2], level, true, false, true, false, false, true);
+			try(IFCtoLBDConverter c=new IFCtoLBDConverter(args[1], args[0], args[2], level, true, false, true, false, false, true);)
+			{
+				;
+			}
 		} else if (args.length > 2) {
 			System.out.println("Base URI: " + args[0]);
 			System.out.println("Selected IFC File: " + args[1]);
 			System.out.println("Targer TTL File: " + args[2]);
 			System.out.println("OPM Level: " + 2);
-			new IFCtoLBDConverter(args[1], args[0], args[2], 2, true, false, true, false, false, true);
+			try(IFCtoLBDConverter c=new IFCtoLBDConverter(args[1], args[0], args[2], 2, true, false, true, false, false, true);)
+			{
+				;
+			}
 		} else if (args.length == 1) {
 			// directory upload
 			final List<String> inputFiles;
@@ -549,8 +561,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
                     // move file to output directory
                     System.out.println("--------- converting: " + inputFile);
-                    new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false,
-                            true, false, false, false);
+                    try(IFCtoLBDConverter c=new IFCtoLBDConverter(inputFile, "https://dot.ugent.be/IFCtoLBDset#", outputFile, 0, true, false,
+                            true, false, false, false);)
+                    {
+                    	;
+                    }
 
                     // move original file to output directory
                     File afile = new File(inputFile);

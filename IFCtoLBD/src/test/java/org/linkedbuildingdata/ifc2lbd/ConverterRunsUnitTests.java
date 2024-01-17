@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
@@ -34,6 +35,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationE
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoRDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
+import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -757,4 +759,36 @@ public class ConverterRunsUnitTests {
 		}
 
 	}
+	
+	@DisplayName("Test two phases property sets list")
+	@Test
+	public void testTwoPhasesPsets() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				
+				
+				
+				Map<String, PropertySet> psets = converter.getPropertysets();
+				if (psets.size() != 13) {
+					System.out.println("Pset count should be 13. Was: " + psets.size());
+					fail("Pset count should be 13. Was:" + psets.size());
+				}
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
+		}
+
+	}
+
 }
