@@ -487,7 +487,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	}
 
-	private void convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
+	public void convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
 			boolean hasUnits, boolean hasBoundingBoxWKT) {
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
 		resetModels();

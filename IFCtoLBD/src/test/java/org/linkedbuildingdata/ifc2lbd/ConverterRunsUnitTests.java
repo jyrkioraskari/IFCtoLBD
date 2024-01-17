@@ -772,13 +772,14 @@ public class ConverterRunsUnitTests {
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
 						exportIfcOWL);
-				
+				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
+						hasUnits, hasBoundingBoxWKT);
 				
 				
 				Map<String, PropertySet> psets = converter.getPropertysets();
-				if (psets.size() != 13) {
-					System.out.println("Pset count should be 13. Was: " + psets.size());
-					fail("Pset count should be 13. Was:" + psets.size());
+				if (psets.size() != 1459) {
+					System.out.println("Pset count should be 1459. Was: " + psets.size());
+					fail("Pset count should be 1459. Was:" + psets.size());
 				}
 			}
 
