@@ -64,7 +64,7 @@ import de.rwth_aachen.dc.lbd.IFCGeometry;
  * @enduml
  */
 
-public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
+public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoCloseable {
 	private int ios = 0;
 
 	/**
@@ -568,6 +568,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore {
 		}
 	}
 	
+	@Override
 	public void close()
 	{
 		if(this.lbd_general_output_model!=null)

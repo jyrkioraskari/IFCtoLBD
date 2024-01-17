@@ -13,9 +13,10 @@ public class Example1 {
         try {
             File ifcFile = new File(ifcFileUrl.toURI());
 
-            IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
-            Model model = converter.convert(ifcFile.getAbsolutePath());
-            model.write(System.out, "TTL");
+            try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);){
+                Model model = converter.convert(ifcFile.getAbsolutePath());
+                model.write(System.out, "TTL");
+            }
 
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
