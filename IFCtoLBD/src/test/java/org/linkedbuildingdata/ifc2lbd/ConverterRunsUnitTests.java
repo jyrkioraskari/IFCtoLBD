@@ -783,11 +783,18 @@ public class ConverterRunsUnitTests {
 						hasUnits, hasBoundingBoxWKT);
 				
 				
-				Map<String, PropertySet> psets = converter.getPropertysets();
+				Map<String, PropertySet> psets = converter.getPropertysets();				
 				if (psets.size() != 1459) {
 					System.out.println("Pset count should be 1459. Was: " + psets.size());
 					fail("Pset count should be 1459. Was:" + psets.size());
 				}
+			
+				Set<String> pset_names = converter.getPropertySetNames();
+				if (pset_names.size() != 34) {
+					System.out.println("Pset names count should be 34. Was: " + pset_names.size());
+					fail("Pset names count should be 34. Was:" + pset_names.size());
+				}
+			
 			}
 
 		} catch (

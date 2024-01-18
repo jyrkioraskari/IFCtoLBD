@@ -63,7 +63,7 @@ public class PropertySet {
     private final Model lbd_model;
     private String propertyset_name;
 
-    private final int props_level;
+	private final int props_level;
     private final boolean hasBlank_nodes;
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
@@ -300,5 +300,11 @@ public class PropertySet {
 
     	return mapPnameType.keySet();
     }
+    
+
+    public String getPropertyset_name() {
+		return propertyset_name;
+	}
+
 
 }

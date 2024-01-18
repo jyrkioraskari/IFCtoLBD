@@ -1112,6 +1112,13 @@ public abstract class IFCtoLBDConverterCore {
 	public Map<String, PropertySet> getPropertysets() {
 		return this.propertysets;
 	}
+	
+	public Set<String> getPropertySetNames() {
+		Set<String> pset_names = new HashSet<>();
+		for( PropertySet ps:this.propertysets.values())
+			pset_names.add(ps.getPropertyset_name());
+		return pset_names;
+	}
 
 	public Model getOntology_model() {
 		return this.ontology_model;
