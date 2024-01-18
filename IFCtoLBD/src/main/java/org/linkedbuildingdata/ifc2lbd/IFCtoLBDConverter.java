@@ -391,6 +391,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		
 		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL))			
 		{
+			if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+					 hasUnits,  hasBoundingBoxWKT))
+			{
+				return lbd_general_output_model; 
+			}
 		   return convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT,false);	
@@ -407,6 +412,11 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		
 		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL))			
 		{
+			if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+					 hasUnits,  hasBoundingBoxWKT))
+			{
+				return lbd_general_output_model; 
+			}
 		   return convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT,hasHierarchicalNaming);	
@@ -463,34 +473,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	}
 
 
-	public Model convert_LBD_phase(boolean hasBuildingElements,
-			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
-			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
-			boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
-
-
-		if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-				 hasUnits,  hasBoundingBoxWKT))
-		{
-			return lbd_general_output_model; 
-		}
-		System.out.println("Conversion phase 2");
-
-		boolean namedGraphs=false; 
-		try {
-			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
-					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs,hasHierarchicalNaming);
-		} catch (Exception e) {
-			e.printStackTrace();
-			eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-					"Conversion: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
-
-		}
-		System.out.println("conversion done..");
-		eventBus.post(new IFCtoLBD_SystemStatusEvent("Conversion done"));
-		return lbd_general_output_model;
-
-	}
+	
 
 	public boolean convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
 			boolean hasUnits, boolean hasBoundingBoxWKT) {
@@ -516,6 +499,30 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		return true;
 	}
 
+	public Model convert_LBD_phase(boolean hasBuildingElements,
+			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
+			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
+			boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
+
+
+		
+		System.out.println("Conversion phase 2");
+
+		boolean namedGraphs=false; 
+		try {
+			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs,hasHierarchicalNaming);
+		} catch (Exception e) {
+			e.printStackTrace();
+			eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+					"Conversion: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
+
+		}
+		System.out.println("conversion done..");
+		eventBus.post(new IFCtoLBD_SystemStatusEvent("Conversion done"));
+		return lbd_general_output_model;
+
+	}
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {

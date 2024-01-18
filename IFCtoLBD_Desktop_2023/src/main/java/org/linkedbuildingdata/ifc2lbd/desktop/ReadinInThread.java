@@ -40,8 +40,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 	final private String uriBase;
 	final private String target_file;
 	final private int props_level;
-	//final private boolean hasBuildingElements;
-	//final private boolean hasBuildingProperties;
+	final private boolean hasBuildingElements;
+	final private boolean hasBuildingProperties;
 	
 	final boolean hasSeparateBuildingElementsModel; 
 	final boolean hasPropertiesBlankNodes;
@@ -55,6 +55,7 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
     
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
+    
 
     //TODO Check this
 	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
@@ -63,8 +64,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.uriBase = uriBase;
 		this.target_file = target_file;
 		this.props_level=props_level;
-		//this.hasBuildingElements=hasBuildingElements;
-		//this.hasBuildingProperties=hasBuildingProperties;
+		this.hasBuildingElements=hasBuildingElements;
+		this.hasBuildingProperties=hasBuildingProperties;
 		
 		this.hasSeparateBuildingElementsModel=hasSeparateBuildingElementsModel;
 		this.hasSeparatePropertiesModel=hasSeparatePropertiesModel;
@@ -75,6 +76,7 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.hasUnits=hasUnits;
 		this.hasPerformanceBoost=hasPerformanceBoost;
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
+		
 	}
 
 	@Override
@@ -84,6 +86,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 			try {
 				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
 				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL);
+				c1nb.convert_unit_properties_phase( this.hasBuildingElements,  this.hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

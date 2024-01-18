@@ -711,7 +711,7 @@ public class ConverterRunsUnitTests {
 
 	@DisplayName("Test two phases conversion")
 	@Test
-	public void testTwoPhases() {
+	public void testThreePhases() {
 		this.count = 0;
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
 		try {
@@ -721,6 +721,8 @@ public class ConverterRunsUnitTests {
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
 						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
 				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
@@ -823,6 +825,8 @@ public class ConverterRunsUnitTests {
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
 						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
 				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
@@ -862,6 +866,8 @@ public class ConverterRunsUnitTests {
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
 						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
 				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
