@@ -65,6 +65,7 @@ public class PropertySet {
 
 	private final int props_level;
     private final boolean hasBlank_nodes;
+    private final boolean hasSimplified_properties;
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
@@ -90,6 +91,7 @@ public class PropertySet {
             is_bSDD_pset = true;
             psetDef = iter.next().getSubject();
         }
+        this.hasSimplified_properties = true;
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
@@ -143,7 +145,12 @@ public class PropertySet {
                 case 1:
                 default:
                 for (String pname : this.mapPnameValue.keySet()) {
-                    Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
+                    Property property;                  
+                    if(this.hasSimplified_properties)
+                		property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                	else
+                       property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                    
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
@@ -204,8 +211,10 @@ public class PropertySet {
             }
 
             Property p;
-            p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
-            properties.add(new PsetProperty(p, property_resource));
+            if(this.hasSimplified_properties)
+               p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+            else
+            	p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
     }

@@ -10,6 +10,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
+import org.linkedbuildingdata.ifc2lbd.namespace.ATTRIBUTES;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 import be.ugent.IfcSpfReader;
@@ -23,7 +24,7 @@ public class CreatePsetAttributeOntology {
 	Set<String> simplified_attributes = new HashSet<>();
 
 	public CreatePsetAttributeOntology() {
-		PROPS.addNameSpace(m);
+		ATTRIBUTES.addNameSpace(m);
 		readOntology("IFC2X3_TC1");
 		readOntology("IFC4x3_RC1");
 		readOntology("IFC4x1");

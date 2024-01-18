@@ -17,13 +17,14 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
+import org.linkedbuildingdata.ifc2lbd.namespace.ATTRIBUTES;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019.2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,6 +62,7 @@ public class AttributeSet {
     private final Model lbd_model;
     private final int props_level;
     private final boolean hasBlank_nodes;
+    private final boolean hasSimplified_properties;
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
@@ -71,6 +73,7 @@ public class AttributeSet {
         this.lbd_model = lbd_model;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
+        this.hasSimplified_properties = true;
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
@@ -100,7 +103,13 @@ public class AttributeSet {
                 if(pname.equals("nameIfcRoot"))
                 	property = RDFS.label;
                 else
-                    property = this.lbd_model.createProperty(PROPS.props_ns + pname + "_attribute_simple");
+                {
+                	if(this.hasSimplified_properties)
+                		property = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                	else
+                       property = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                	   
+                }
                 // No blank node etc is created, so no units expressed here
                 lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
             }
@@ -124,7 +133,7 @@ public class AttributeSet {
         for (String pname : this.mapPnameValue.keySet()) {
             Resource property_resource;
             if (this.hasBlank_nodes)
-                property_resource = this.lbd_model.createResource();
+                property_resource = this.lbd_model.createResource();  
             else {
                 property_resource = this.lbd_model.createResource(this.uriBase + pname + "_" + long_guid);
                 property_resource.addProperty(RDF.type, OPM.property);
@@ -152,7 +161,10 @@ public class AttributeSet {
             }
 
             Property p;
-            p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
+            if(this.hasSimplified_properties)
+               p = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+            else
+            	p = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));
         }
         return properties;

@@ -3,7 +3,14 @@ package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Dataset;
@@ -49,6 +56,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.AttributeSet;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.geo.IfcOWL_GeolocationUtil;
+import org.linkedbuildingdata.ifc2lbd.namespace.ATTRIBUTES;
 import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
@@ -615,6 +623,10 @@ public abstract class IFCtoLBDConverterCore {
 		if (hasBuildingProperties) {
 			PROPS.addNameSpace(this.lbd_property_output_model);
 			PROPS.addNameSpace(this.lbd_general_output_model);
+			
+			ATTRIBUTES.addNameSpace(this.lbd_property_output_model);
+			ATTRIBUTES.addNameSpace(this.lbd_general_output_model);
+			
 			if (props_level != 1)
 				this.lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 
