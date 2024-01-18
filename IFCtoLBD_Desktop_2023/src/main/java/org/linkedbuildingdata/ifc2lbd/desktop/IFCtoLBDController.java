@@ -181,10 +181,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private CheckTreeView<String> element_types_checkbox;
+	
+	@FXML
+	private CheckTreeView<String> propertysets_checkbox;
+	
 
 	@FXML
 	private ToggleSwitch hasHierarchicalNaming;
 
+	
+	@FXML
+	private ToggleSwitch hasSimpleProperties;
+
+	
 	@FXML
 	private void closeApplicationAction() {
 		this.eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
