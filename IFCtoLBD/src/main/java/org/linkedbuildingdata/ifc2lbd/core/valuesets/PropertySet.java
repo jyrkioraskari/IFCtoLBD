@@ -91,7 +91,7 @@ public class PropertySet {
             is_bSDD_pset = true;
             psetDef = iter.next().getSubject();
         }
-        this.hasSimplified_properties = true;
+        this.hasSimplified_properties = false;
     }
 
     public void putPnameValue(String property_name, RDFNode value) {

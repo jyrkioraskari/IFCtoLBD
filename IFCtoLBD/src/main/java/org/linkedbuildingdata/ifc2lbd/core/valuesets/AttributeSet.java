@@ -73,7 +73,7 @@ public class AttributeSet {
         this.lbd_model = lbd_model;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
-        this.hasSimplified_properties = true;
+        this.hasSimplified_properties = false;
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
