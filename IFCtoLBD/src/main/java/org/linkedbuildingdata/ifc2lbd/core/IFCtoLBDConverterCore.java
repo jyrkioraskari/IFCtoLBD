@@ -56,7 +56,6 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.AttributeSet;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.geo.IfcOWL_GeolocationUtil;
-import org.linkedbuildingdata.ifc2lbd.namespace.ATTRIBUTES;
 import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
@@ -623,10 +622,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (hasBuildingProperties) {
 			PROPS.addNameSpace(this.lbd_property_output_model);
 			PROPS.addNameSpace(this.lbd_general_output_model);
-			
-			ATTRIBUTES.addNameSpace(this.lbd_property_output_model);
-			ATTRIBUTES.addNameSpace(this.lbd_general_output_model);
-			
+						
 			if (props_level != 1)
 				this.lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
 
@@ -1016,7 +1012,6 @@ public abstract class IFCtoLBDConverterCore {
 			if (isTmpFile || targetFile == null) {
 				outputFile = File.createTempFile("ifc", ".ttl");
 				outputFile.deleteOnExit();
-				System.out.println("on1");
 			} else {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
@@ -1033,11 +1028,8 @@ public abstract class IFCtoLBDConverterCore {
 					String inst_ns = model.getNsPrefixMap().get("inst");
 					if (inst_ns != null && this.ontURI.isEmpty())
 						this.uriBase = Optional.of(inst_ns);
-					System.out.println("op2");
 
 					this.ontURI = rj.getOntologyURI(ifc_file);
-					System.out.println("o ifc file was: "+ifc_file);
-					System.out.println("op5"+this.ontURI.isPresent());
 					return model;
 				}
 
@@ -1053,7 +1045,6 @@ public abstract class IFCtoLBDConverterCore {
 				this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
 						hasPerformanceBoost);		
 			}
-			System.out.println("op3"+this.ontURI.isPresent());
 
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
@@ -1064,7 +1055,6 @@ public abstract class IFCtoLBDConverterCore {
 			return m;
 
 		} catch (Exception e) {
-			System.out.println("op4:"+e.getMessage());
 
 			this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
 					"readAndConvertIFC: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));

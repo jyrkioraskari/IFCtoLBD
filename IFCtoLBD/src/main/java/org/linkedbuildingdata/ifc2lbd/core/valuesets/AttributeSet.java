@@ -17,7 +17,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
-import org.linkedbuildingdata.ifc2lbd.namespace.ATTRIBUTES;
+import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
@@ -105,7 +105,7 @@ public class AttributeSet {
                 else
                 {
                 	if(this.hasSimplified_properties)
-                		property = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                		property = this.lbd_model.createProperty(LBD.lbd_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
                 	else
                        property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
                 	   
@@ -162,7 +162,7 @@ public class AttributeSet {
 
             Property p;
             if(this.hasSimplified_properties)
-               p = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+               p = this.lbd_model.createProperty(LBD.lbd_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
             else
             	p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));

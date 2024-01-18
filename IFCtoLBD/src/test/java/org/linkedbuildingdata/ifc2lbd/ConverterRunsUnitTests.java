@@ -14,6 +14,8 @@ import java.util.Scanner;
 import java.util.Set;
 
 import org.apache.jena.graph.Graph;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -23,6 +25,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -45,6 +48,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
 
 public class ConverterRunsUnitTests {
+	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
 	@DisplayName("Test the existence of the test data Duplex.ifc")
 	@Test
@@ -806,4 +810,92 @@ public class ConverterRunsUnitTests {
 
 	}
 
+	
+	@DisplayName("Test ontologocal validity 1")
+	@Test
+	public void testOntologicalValidity1() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				
+			    OntModel infModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF);
+			    infModel.add(converter.getOntology_model());
+			    infModel.add(m3nb1);
+				ValidityReport report = infModel.validate();
+				
+				if (!report.isValid()) {
+					System.out.println("The model is not consistent.");
+					fail("The model is not consistent.");
+				}
+				
+			}
+
+
+		} catch (
+
+		Exception e) {
+			System.err.println("OntologicalValidity1 error: " + e.getMessage());
+			fail("Conversion OntologicalValidity1 error: " + e.getMessage());
+		}
+
+	}
+	
+	@DisplayName("Test ontologocal name space validity ")
+	@Test
+	public void testOntologicalNSValidity() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				Set<Resource> subs = m.listSubjects().toSet();
+				Set<String> nss = m.listNameSpaces().toSet();
+				for(Resource s:subs)
+				{
+					Optional<Resource> type = RDFUtils.getType(s);
+					if(type.isPresent())
+					{
+						if(!nss.contains(type.get().getNameSpace()))
+						{
+				           System.out.println(type.get().getNameSpace());	
+				           System.out.println("Ontological name space was not defined error.");
+						   fail("Ontological name space was not defined error.");
+						}
+					}
+					else
+					{
+						//TODO
+						//System.err.println(s+" type is empty");
+					}
+				}
+			   
+			}
+
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Ontological name space was not defined error: " + e.getMessage());
+			fail("Ontological name space was not defined error: " + e.getMessage());
+		}
+
+	}
 }
