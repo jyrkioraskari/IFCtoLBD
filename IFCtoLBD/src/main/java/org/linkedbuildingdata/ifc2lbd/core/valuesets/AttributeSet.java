@@ -107,7 +107,7 @@ public class AttributeSet {
                 	if(this.hasSimplified_properties)
                 		property = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
                 	else
-                       property = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                       property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
                 	   
                 }
                 // No blank node etc is created, so no units expressed here
@@ -164,7 +164,7 @@ public class AttributeSet {
             if(this.hasSimplified_properties)
                p = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
             else
-            	p = this.lbd_model.createProperty(ATTRIBUTES.props_ns + StringOperations.toCamelCase(pname));
+            	p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
