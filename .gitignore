@@ -35,10 +35,8 @@ IFCtoLBD_CLI.jar
 IFCtoLBD_Desktop.jar
 IFCtoRDF/src/main/java/be/ugent/RDFWriter.java
 IFCtoLBD_Geometry/.eclipse-pmd
-.idea/modules.xml
-.idea/IFCtoLBD.iml
-.idea/misc.xml
-.idea/vcs.xml
-.idea/workspace.xml
+.idea/*
 IFCtoRDF/.eclipse-pmd
 IFCtoLBD/.eclipse-pmd
+IFCtoLBD/.idea/*
+IFCtoLBD_NodeJS/node_modules/*

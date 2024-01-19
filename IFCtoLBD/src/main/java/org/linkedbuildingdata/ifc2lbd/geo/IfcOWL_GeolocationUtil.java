@@ -2,10 +2,7 @@ package org.linkedbuildingdata.ifc2lbd.geo;
 
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.TypeMapper;
-import org.apache.jena.rdf.model.Literal;
-import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.Property;
-import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -38,7 +35,7 @@ public class IfcOWL_GeolocationUtil {
         }
 
         
-        IfcOWLUtils.listSites(ifcOWL_ns, ifcowl_model).stream().map(rn -> rn.asResource()).forEach(site -> {
+        IfcOWLUtils.listSites(ifcOWL_ns, ifcowl_model).stream().map(RDFNode::asResource).forEach(site -> {
             
             
             // Create a resource and add to bot model (resource, model, string)

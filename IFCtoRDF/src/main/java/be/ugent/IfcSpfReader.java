@@ -49,16 +49,13 @@ public class IfcSpfReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(IfcSpfReader.class);
 
-    public static String DEFAULT_PATH = "";
+    private static String DEFAULT_PATH = "";
 
     private boolean removeDuplicates = false;
     private static final int FLAG_BASEURI = 0;
     private static final int FLAG_DIR = 1;
     private static final int FLAG_KEEP_DUPLICATES = 2;
 
-    // used in conversion
-    private String ifcFile;
-    private InputStream in = null;
     private String exp = "";
     protected String ontURI = "";
     private Map<String, EntityVO> ent;
@@ -70,14 +67,14 @@ public class IfcSpfReader {
      */
     public static void main(String[] args) throws IOException {
         String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
-        Boolean[] optionValues = new Boolean[] { false, false, false };
+        Boolean[] optionValues = new Boolean[] {Boolean.FALSE, Boolean.FALSE, Boolean.FALSE};
 
         String timeLog = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());  // JO 2024: performance
         DEFAULT_PATH = "http://linkedbuildingdata.net/ifc/resources" + timeLog + "/";
 
         List<String> argsList = new ArrayList<>(Arrays.asList(args));
         for (int i = 0; i < options.length; ++i) {
-            optionValues[i] = argsList.contains(options[i]);
+            optionValues[i] = Boolean.valueOf(argsList.contains(options[i]));
         }
 
         // State of flags has been stored in optionValues. Remove them from our
@@ -89,35 +86,36 @@ public class IfcSpfReader {
         }
 
         int numRequiredOptions = 0;
-        if (optionValues[FLAG_DIR])
+        if (optionValues[FLAG_DIR].booleanValue())
             numRequiredOptions++;
         else
             numRequiredOptions = 2;
-        if (optionValues[FLAG_BASEURI])
+        if (optionValues[FLAG_BASEURI].booleanValue())
             numRequiredOptions++;
 
         if (argsList.size() != numRequiredOptions) {
-            LOG.info("Usage:\n" + "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] <input_file> <output_file>\n"
-                            + "    IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] --dir <directory>\n");
+            LOG.info("""
+                    Usage:
+                        IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] <input_file> <output_file>
+                        IfcSpfReader [--baseURI <baseURI>] [--keep-duplicates] --dir <directory>
+                    """);
             return;
         }
 
-        final List<String> inputFiles;
-        final List<String> outputFiles;
-        String baseURI = "";
+        List<String> inputFiles;
+        List<String> outputFiles = null;
+        String baseURI;
 
-        if (optionValues[FLAG_DIR]) {
-            if (optionValues[FLAG_BASEURI]) {
+        if (optionValues[FLAG_DIR].booleanValue()) {
+            if (optionValues[FLAG_BASEURI].booleanValue()) {
                 baseURI = argsList.get(0);
                 inputFiles = showFiles(argsList.get(1));
-                outputFiles = null;
             } else {
                 baseURI = DEFAULT_PATH;
                 inputFiles = showFiles(argsList.get(0));
-                outputFiles = null;
             }
         } else {
-            if (optionValues[FLAG_BASEURI]) {
+            if (optionValues[FLAG_BASEURI].booleanValue()) {
                 baseURI = argsList.get(0);
                 inputFiles = Arrays.asList(new String[] { argsList.get(1) });
                 outputFiles = Arrays.asList(new String[] { argsList.get(2) });
@@ -156,7 +154,7 @@ public class IfcSpfReader {
      * 
      * @param dir
      *            the input directory for which you wish to list file.
-     * @return a {@link java.util.List} of Strings denoting files.
+     * @return a {@link List} of Strings denoting files.
      */
     public static List<String> showFiles(String dir) {
         List<String> goodFiles = new ArrayList<>();
@@ -164,11 +162,11 @@ public class IfcSpfReader {
         File folder = new File(dir);
         File[] listOfFiles = folder.listFiles();
 
-        for (int i = 0; i < listOfFiles.length; i++) {
-            if (listOfFiles[i].isFile())
-                goodFiles.add(listOfFiles[i].getAbsolutePath());
-            else if (listOfFiles[i].isDirectory())
-                goodFiles.addAll(showFiles(listOfFiles[i].getAbsolutePath()));
+        for (File listOfFile : listOfFiles) {
+            if (listOfFile.isFile())
+                goodFiles.add(listOfFile.getAbsolutePath());
+            else if (listOfFile.isDirectory())
+                goodFiles.addAll(showFiles(listOfFile.getAbsolutePath()));
         }
         return goodFiles;
     }
@@ -177,30 +175,30 @@ public class IfcSpfReader {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
         	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
             try ( DataInputStream in = new DataInputStream(fstream);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in))){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
-                    if (strLine.length() > 0) {
+                    if (!strLine.isEmpty()) {
                         if (strLine.startsWith("FILE_SCHEMA")) {
-                            if (strLine.indexOf("IFC2X3") != -1)
+                            if (strLine.contains("IFC2X3"))
                                 return "IFC2X3_TC1";
-                            if (strLine.indexOf("IFC4x2") != -1)
+                            if (strLine.contains("IFC4x2"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X2") != -1)
+                            if (strLine.contains("IFC4X2"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4x3") != -1)
+                            if (strLine.contains("IFC4x3"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X3") != -1)
+                            if (strLine.contains("IFC4X3"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4x3_RC1") != -1)
+                            if (strLine.contains("IFC4x3_RC1"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X3_RC1") != -1)
+                            if (strLine.contains("IFC4X3_RC1"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4s1") != -1)
+                            if (strLine.contains("IFC4s1"))
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4X1") != -1)
+                            if (strLine.contains("IFC4X1"))
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
+                            if (strLine.contains("IFC4"))     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
 							return "";
                         }
@@ -213,23 +211,24 @@ public class IfcSpfReader {
         return "";
     }
 
-    public static String slurp(InputStream in) throws IOException {
+   /* public static String slurp(InputStream in) throws IOException {
         StringBuilder out = new StringBuilder();
         byte[] b = new byte[4096];
         for (int n; (n = in.read(b)) != -1;) {
             out.append(new String(b, 0, n));
         }
         return out.toString();
-    }
+    }*/
 
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
-        this.ifcFile = ifcFileIn;
-        if (!this.ifcFile.endsWith(".ifc")) {
-            this.ifcFile += ".ifc";
+        // used in conversion
+        String ifcFile = ifcFileIn;
+        if (!ifcFile.endsWith(".ifc")) {
+            ifcFile += ".ifc";
         }
 
-        this.exp = getExpressSchema(this.ifcFile);
+        this.exp = getExpressSchema(ifcFile);
         System.out.println("express schema: "+this.exp);
 
         // check if we are able to convert this: only four schemas are supported
@@ -251,7 +250,7 @@ public class IfcSpfReader {
             {
             	System.err.println(this.exp + ".ser not found");
             }
-            try (ObjectInputStream ois = new ObjectInputStream(fis);){
+            try (ObjectInputStream ois = new ObjectInputStream(fis)){
                 this.ent = (Map<String, EntityVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -263,7 +262,7 @@ public class IfcSpfReader {
                 fis = IfcSpfReader.class.getResourceAsStream("/typ" + this.exp + ".ser");
 
             //  Fix by JO 2024: finally is deprecated
-            try (ObjectInputStream ois = new ObjectInputStream(fis);){
+            try (ObjectInputStream ois = new ObjectInputStream(fis)){
                 this.typ = (Map<String, TypeVO>) ois.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -303,36 +302,35 @@ public class IfcSpfReader {
     }
 
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
-        // CONVERSION
         OntModel om;
 
         
         //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
         //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
         om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-        this.in = IfcSpfReader.class.getResourceAsStream("/" + this.exp + ".ttl");
-        if (this.in == null)
-            this.in = IfcSpfReader.class.getResourceAsStream("/resources/" + this.exp + ".ttl");
-        om.read(this.in, null, "TTL");
+        InputStream in = IfcSpfReader.class.getResourceAsStream("/" + this.exp + ".ttl");
+        if (in == null)
+            in = IfcSpfReader.class.getResourceAsStream("/resources/" + this.exp + ".ttl");
+        om.read(in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntResource.asClass()" because "listrange" is null if no internet 
-        this.in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
-        if (this.in == null)
-        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
-        om.read(this.in, null, "TTL");
+        in = IfcSpfReader.class.getResourceAsStream("/list.ttl");
+        if (in == null)
+        	in = IfcSpfReader.class.getResourceAsStream("/resources/list.ttl");
+        om.read(in, null, "TTL");
         
         //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntProperty.toString()" because "valueProp" is null if no internet
-        this.in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
-        if (this.in == null)
-        	this.in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
-        om.read(this.in, null, "TTL");
+        in = IfcSpfReader.class.getResourceAsStream("/express.ttl");
+        if (in == null)
+        	in = IfcSpfReader.class.getResourceAsStream("/resources/express.ttl");
+        om.read(in, null, "TTL");
 
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
             conv.setRemoveDuplicates(this.removeDuplicates);
             // JO 2024: performance
-            try (FileOutputStream out = new FileOutputStream(outputFile);BufferedOutputStream bout = new BufferedOutputStream(out);
-) {
+            try (FileOutputStream out = new FileOutputStream(outputFile);BufferedOutputStream bout = new BufferedOutputStream(out)
+            ) {
                 String s = "# baseURI: " + baseURI;
                 s += "\r\n# imports: " + this.ontURI + "\r\n\r\n";
                 bout.write(s.getBytes());
@@ -345,26 +343,13 @@ public class IfcSpfReader {
         } finally {
         	//TODO JO 2024:  finally is deprecated
             try {
-                this.in.close();
+                in.close();
             } catch (Exception e1) {
                 e1.printStackTrace();
             }
         }
     }
 
-    public void setRemoveDuplicates(boolean val) {
-        this.removeDuplicates = val;
-    }
-
-    public Map<String, EntityVO> getEntityMap() {
-        return this.ent;
-    }
-
-    public Map<String, TypeVO> getTypeMap() {
-        return this.typ;
-    }
-
-    public String getOntURI() {
-        return this.ontURI;
-    }
+    
+    
 }

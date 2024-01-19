@@ -181,10 +181,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private CheckTreeView<String> element_types_checkbox;
+	
+	@FXML
+	private CheckTreeView<String> propertysets_checkbox;
+	
 
 	@FXML
 	private ToggleSwitch hasHierarchicalNaming;
 
+	
+	@FXML
+	private ToggleSwitch hasSimpleProperties;
+
+	
 	@FXML
 	private void closeApplicationAction() {
 		this.eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
@@ -680,20 +689,38 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				try {
 					IFCtoLBDConverter converter = this.running_read_in.get();
 					Set<Resource> element_types = converter.getElementTypes();
-					CheckBoxTreeItem<String> r = new CheckBoxTreeItem<>("Model");
+					CheckBoxTreeItem<String> types_checkbox_values = new CheckBoxTreeItem<>("Model");
 
-					r.getChildren().clear();
+					types_checkbox_values.getChildren().clear();
 					// add items to the root
 					for (Resource et : element_types) {
 						CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(et.getLocalName());
 						item.setSelected(true);
-						r.getChildren().add(item);
+						types_checkbox_values.getChildren().add(item);
 
 					}
-					r.setExpanded(true);
+					types_checkbox_values.setExpanded(true);
+					
+					Set<String> pset_names = converter.getPropertySetNames();
 
-					this.element_types_checkbox.setRoot(r);
+					this.element_types_checkbox.setRoot(types_checkbox_values);
 					this.element_types_checkbox.setShowRoot(true);
+					
+					
+					CheckBoxTreeItem<String> psets_checkbox_values = new CheckBoxTreeItem<>("PSets");
+
+					psets_checkbox_values.getChildren().clear();
+					// add items to the root
+					for (String ps_name : pset_names) {
+						CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(ps_name);
+						item.setSelected(true);
+						psets_checkbox_values.getChildren().add(item);
+
+					}
+					psets_checkbox_values.setExpanded(true);
+					
+					this.propertysets_checkbox.setRoot(psets_checkbox_values);
+					this.propertysets_checkbox.setShowRoot(true);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (ExecutionException e) {

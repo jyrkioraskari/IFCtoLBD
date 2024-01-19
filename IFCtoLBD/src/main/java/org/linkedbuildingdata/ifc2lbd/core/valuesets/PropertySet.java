@@ -48,7 +48,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 public class PropertySet {
     private final Map<String, String> unitmap;
 
-    private class PsetProperty {
+    private static class PsetProperty {
         final Property p; // Jena RDF property
         final Resource r; // Jena RDF resource object
 
@@ -63,8 +63,9 @@ public class PropertySet {
     private final Model lbd_model;
     private String propertyset_name;
 
-    private final int props_level;
+	private final int props_level;
     private final boolean hasBlank_nodes;
+    private final boolean hasSimplified_properties;
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
@@ -90,6 +91,7 @@ public class PropertySet {
             is_bSDD_pset = true;
             psetDef = iter.next().getSubject();
         }
+        this.hasSimplified_properties = false;
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
@@ -143,7 +145,12 @@ public class PropertySet {
                 case 1:
                 default:
                 for (String pname : this.mapPnameValue.keySet()) {
-                    Property property = lbd_resource.getModel().createProperty(PROPS.props_ns + pname + "_simple");
+                    Property property;                  
+                    if(this.hasSimplified_properties)
+                		property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                	else
+                       property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                    
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
@@ -164,6 +171,7 @@ public class PropertySet {
     static long state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
+        LocalDateTime datetime = LocalDateTime.now();
         for (String pname : this.mapPnameValue.keySet()) {
             Resource property_resource;
             if (this.hasBlank_nodes)
@@ -188,7 +196,7 @@ public class PropertySet {
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
-                LocalDateTime datetime = LocalDateTime.now();
+
                 String time_string = datetime.format(DateTimeFormatter.ISO_LOCAL_DATE_TIME);
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
@@ -203,8 +211,10 @@ public class PropertySet {
             }
 
             Property p;
-            p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));
-            properties.add(new PsetProperty(p, property_resource));
+            if(this.hasSimplified_properties)
+               p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+            else
+            	p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
     }
@@ -299,5 +309,11 @@ public class PropertySet {
 
     	return mapPnameType.keySet();
     }
+    
+
+    public String getPropertyset_name() {
+		return propertyset_name;
+	}
+
 
 }

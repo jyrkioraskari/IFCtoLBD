@@ -64,6 +64,7 @@ public class IfcOpenShellEngine implements RenderEngine {
 		if (this.client.isRunning()) {
 			this.client.close();
 		}
+		client.close();
 	}
 
 	@Override

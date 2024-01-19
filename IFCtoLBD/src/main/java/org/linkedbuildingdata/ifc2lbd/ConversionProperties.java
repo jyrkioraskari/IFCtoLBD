@@ -1,14 +1,14 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 public class ConversionProperties {
-	boolean hasBuildingElements = true;
-	boolean hasSeparateBuildingElementsModel = false;
-	boolean hasBuildingProperties = true;
-	boolean hasSeparatePropertiesModel = false;
-	boolean hasGeolocation = false;
-	boolean hasGeometry = false;
-	boolean exportIfcOWL=true;
-	boolean hasUnits=false;
+	private boolean hasBuildingElements = true;
+	private boolean hasSeparateBuildingElementsModel = false;
+	private boolean hasBuildingProperties = true;
+	private boolean hasSeparatePropertiesModel = false;
+	private boolean hasGeolocation = false;
+	private boolean hasGeometry = false;
+	private boolean exportIfcOWL=true;
+	private boolean hasUnits=false;
 	
 	
 	public ConversionProperties() {

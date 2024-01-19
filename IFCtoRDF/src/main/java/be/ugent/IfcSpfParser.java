@@ -17,27 +17,27 @@ import org.slf4j.LoggerFactory;
 
 import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
-public class IfcSpfParser {
+class IfcSpfParser {
     private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
-    private InputStream inputStream;
+    private final InputStream inputStream;
     private int idCounter = 0;
-    private Map<Long, IFCVO> linemap = new HashMap<>();
-    private Map<Long, Long> listOfDuplicateLineEntries = new HashMap<>();
+    private final Map<Long, IFCVO> linemap = new HashMap<>();
+    private final Map<Long, Long> listOfDuplicateLineEntries = new HashMap<>();
 
 
-    public IfcSpfParser(InputStream inputStream) {
+    IfcSpfParser(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
-    public void readModel() {
+    void readModel() {
         try {
         	// Fix by JO 2024: finally is deprecated
             try (DataInputStream in = new DataInputStream(inputStream);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in))){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
-                    if (strLine.length() > 0) {
+                    if (!strLine.isEmpty()) {
                         if (strLine.charAt(0) == '#') {
                             StringBuilder sb = new StringBuilder();
                             String stmp = strLine;
@@ -51,7 +51,7 @@ public class IfcSpfParser {
                             // the whole IFC gets parsed, and everything ends up
                             // as IFCVO objects in the Map<Long, IFCVO> linemap
                             // variable
-                            parseIfcLineStatement(sb.toString().substring(1));
+                            parseIfcLineStatement(sb.substring(1));
                         }
                     }
                 }
@@ -101,7 +101,7 @@ public class IfcSpfParser {
                 if (ch == '(') {
                     listStack.push(current);
                     LinkedList<Object> tmp = new LinkedList<>();
-                    if (sb.toString().trim().length() > 0)
+                    if (!sb.toString().trim().isEmpty())
                         current.add(sb.toString().trim());
                     sb.setLength(0);
                     current.add(tmp);
@@ -109,19 +109,19 @@ public class IfcSpfParser {
                     clCount++;
                 } else if (ch == ')') {
                     if (clCount == 0) {
-                        if (sb.toString().trim().length() > 0)
+                        if (!sb.toString().trim().isEmpty())
                             current.add(sb.toString().trim());
                         sb.setLength(0);
                         state = Integer.MAX_VALUE; // line is done
                         continue;
                     }
-					if (sb.toString().trim().length() > 0)
+					if (!sb.toString().trim().isEmpty())
 					    current.add(sb.toString().trim());
 					sb.setLength(0);
 					clCount--;
 					current = listStack.pop();
                 } else if (ch == ',') {
-                    if (sb.toString().trim().length() > 0)
+                    if (!sb.toString().trim().isEmpty())
                         current.add(sb.toString().trim());
                     current.add(Character.valueOf(ch));
 
@@ -145,8 +145,8 @@ public class IfcSpfParser {
         idCounter++;
     }
 
-    //JO 2023  perfoemance optimization
-    public void resolveDuplicates()  {
+    //JO 2023  performance optimization
+    void resolveDuplicates()  {
         Map<String, IFCVO> listOfUniqueResources = new HashMap<>();
         List<Long> entriesToRemove = new ArrayList<>();
         for (Long key : linemap.keySet()) {
@@ -167,7 +167,7 @@ public class IfcSpfParser {
         }
     }
 
-    public boolean mapEntries()  {
+    boolean mapEntries()  {
         //JO 2023  performance optimization
         for (Long key : linemap.keySet()) {
             IFCVO vo = linemap.get(key);
@@ -175,16 +175,15 @@ public class IfcSpfParser {
             // mapping properties to IFCVOs
             for (int i = 0; i < vo.getObjectList().size(); i++) {
                 Object o = vo.getObjectList().get(i);
-                if (Character.class.isInstance(o)) {
-                    if ((Character) o != ',') {
+                if (o instanceof Character c) {
+                    if (c != ',') {
                         LOG.error("*ERROR 15*: We found a character that is not a comma. That should not be possible");
                     }
-                } else if (String.class.isInstance(o)) {
-                    String s = (String) o;
-                    if (s.length() < 1)
+                } else if (o instanceof String s) {
+                    if (s.isEmpty())
                         continue;
                     if (s.charAt(0) == '#') {
-                        Object or = null;
+                        Object or;
                         if (listOfDuplicateLineEntries.containsKey(toLong(s.substring(1))))
                             or = linemap.get(listOfDuplicateLineEntries.get(toLong(s.substring(1))));
                         else
@@ -197,22 +196,21 @@ public class IfcSpfParser {
                         }
                         vo.getObjectList().set(i, or);
                     }
-                } else if (LinkedList.class.isInstance(o)) {
+                } else if (o instanceof LinkedList) {
                     @SuppressWarnings("unchecked")
                     LinkedList<Object> tmpList = (LinkedList<Object>) o;
 
                     for (int j = 0; j < tmpList.size(); j++) {
                         Object o1 = tmpList.get(j);
-                        if (Character.class.isInstance(o)) {
-                            if ((Character) o != ',') {
+                        if (o instanceof Character c) {
+                            if (c != ',') {
                                 LOG.error("*ERROR 16*: We found a character that is not a comma. " + "That should not be possible!");
                             }
-                        } else if (String.class.isInstance(o1)) {
-                            String s = (String) o1;
-                            if (s.length() < 1)
+                        } else if (o1 instanceof String s) {
+                            if (s.isEmpty())
                                 continue;
                             if (s.charAt(0) == '#') {
-                                Object or = null;
+                                Object or;
                                 if (listOfDuplicateLineEntries.containsKey(toLong(s.substring(1))))
                                     or = linemap.get(listOfDuplicateLineEntries.get(toLong(s.substring(1))));
                                 else
@@ -229,17 +227,16 @@ public class IfcSpfParser {
                                 // list/set of values
                                 tmpList.set(j, s);
                             }
-                        } else if (LinkedList.class.isInstance(o1)) {
+                        } else if (o1 instanceof LinkedList) {
                             @SuppressWarnings("unchecked")
                             LinkedList<Object> tmp2List = (LinkedList<Object>) o1;
                             for (int j2 = 0; j2 < tmp2List.size(); j2++) {
                                 Object o2 = tmp2List.get(j2);
-                                if (String.class.isInstance(o2)) {
-                                    String s = (String) o2;
-                                    if (s.length() < 1)
+                                if (o2 instanceof String s) {
+                                    if (s.isEmpty())
                                         continue;
                                     if (s.charAt(0) == '#') {
-                                        Object or = null;
+                                        Object or;
                                         if (listOfDuplicateLineEntries.containsKey(toLong(s.substring(1))))
                                             or = linemap.get(listOfDuplicateLineEntries.get(toLong(s.substring(1))));
                                         else

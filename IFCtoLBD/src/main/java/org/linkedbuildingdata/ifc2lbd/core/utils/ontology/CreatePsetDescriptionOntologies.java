@@ -28,8 +28,6 @@ public class CreatePsetDescriptionOntologies {
         try (InputStream in = new FileInputStream(new File(ontology_file))) {
             model.read(in, null, "TTL");
             in.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -81,8 +79,6 @@ public class CreatePsetDescriptionOntologies {
         // JO 2024
         try (FileOutputStream fo = new FileOutputStream(f)) {
         	fo.write(sb.toString().getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -49,8 +49,8 @@ public abstract class FileUtils {
         System.out.println(src.getLocation());
         try {
             URL jar = src.getLocation();
-            ZipInputStream zip;
-            zip = new ZipInputStream(jar.openStream());
+            try(ZipInputStream zip = new ZipInputStream(jar.openStream());)
+            {
             while (true) {
                 ZipEntry e = zip.getNextEntry();
                 if (e == null)
@@ -60,6 +60,7 @@ public abstract class FileUtils {
                     if (name.contains("_") && name.endsWith(extension))
                         goodFiles.add(name);
                 }
+            }
             }
         } catch (IOException e1) {
             e1.printStackTrace();

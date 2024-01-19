@@ -49,9 +49,8 @@ public abstract class IfcOWLUtils {
 		StmtIterator i = r.listProperties(ifcOWL.getGuid());
 		if (i.hasNext()) {
 			Statement s = i.next();
-			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
+            return s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
 					.getLexicalForm();
-			return guid;
 		}
 		return null;
 	}
@@ -68,23 +67,20 @@ public abstract class IfcOWLUtils {
 		StmtIterator i = r.listProperties(ifcOWL.getName());
 		if (i.hasNext()) {
 			Statement s = i.next();
-			String guid = s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
+            return s.getObject().asResource().getProperty(IfcOWL.Express.getHasString()).getObject().asLiteral()
 					.getLexicalForm();
-			return guid;
 		}
 		return null;
 	}
 
 	// Solution proposed by Simon Steyskal 2018
 	private static RDFStep[] getNextLevelPath(IfcOWL ifcOWL) {
-		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
+		if (ifcOWL.getIfcURI().toUpperCase().contains("IFC2X3")) {  // fixed by JO 2020
+            return new RDFStep[]{ new InvRDFStep(ifcOWL.getRelatingObject_IfcRelDecomposes()),
 					new RDFStep(ifcOWL.getRelatedObjects_IfcRelDecomposes()) };
-			return path;
 		}
-		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
+        return new RDFStep[]{ new InvRDFStep(ifcOWL.getProperty("relatingObject_IfcRelAggregates")),
 				new RDFStep(ifcOWL.getProperty("relatedObjects_IfcRelAggregates")) };
-		return path;
 	}
 	
 
@@ -111,7 +107,7 @@ public abstract class IfcOWLUtils {
 	 */
 	public static List<RDFNode> listBuildings(Resource site, IfcOWL ifcOWL) {
 		List<RDFNode> buildings = RDFUtils.pathQuery(site, getNextLevelPath(ifcOWL));
-		if (buildings == null || buildings.size() == 0)
+		if (buildings == null || buildings.isEmpty())
 			System.err.println("No Buildings!");
 		return buildings;
 	}
@@ -269,9 +265,8 @@ public abstract class IfcOWLUtils {
 			if (rsuper == null)
 				return false;
 			return rsuper.getLocalName().equals("IfcBuildingElement");
-		}).mapWith(t1 -> t1.getSubject()).forEachRemaining(s -> ret.add(s));
-		;
-		return ret;
+		}).mapWith(Statement::getSubject).forEachRemaining(ret::add);
+        return ret;
 	}
 
 	/**
@@ -293,20 +288,17 @@ public abstract class IfcOWLUtils {
 
 	// Solution proposed by Simon Steyskal 2018
 	private static RDFStep[] getPropertySetPath(IfcOWL ifcOWL) {
-		if (ifcOWL.getIfcURI().toUpperCase().indexOf("IFC2X3") != -1) {  // fixed by JO 2020
-			RDFStep[] path = { new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
+		if (ifcOWL.getIfcURI().toUpperCase().contains("IFC2X3")) {  // fixed by JO 2020
+            return new RDFStep[]{ new InvRDFStep(ifcOWL.getRelatedObjects_IfcRelDefines()),
 					new RDFStep(ifcOWL.getRelatingPropertyDefinition_IfcRelDefinesByProperties()) };
-			return path;
 		}
-		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
+        return new RDFStep[]{ new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByProperties")),
 				new RDFStep(ifcOWL.getProperty("relatingPropertyDefinition_IfcRelDefinesByProperties")) };
-		return path;
 	}
 
 		private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
-				RDFStep[] path = { new RDFStep(ifcOWL.getProperty("ifc:relatingType_IfcRelDefinesByType")),
+            return new RDFStep[]{ new RDFStep(ifcOWL.getProperty("ifc:relatingType_IfcRelDefinesByType")),
 						new RDFStep(ifcOWL.getProperty("ifc:hasPropertySets_IfcTypeObject")) };
-				return path;
 		}
 
 	
@@ -318,8 +310,6 @@ public abstract class IfcOWLUtils {
 	
 	/**
 	 * Returns list of all RDF nodes that match the RDF graoh pattern:
-	 * 
-	 *
 	 * INVERSE (RelatedObjects_IfcRelDefines) -
 	 * RelatingPropertyDefinition_IfcRelDefinesByProperties
 	 * 
@@ -356,22 +346,22 @@ public abstract class IfcOWLUtils {
 		final StringBuilder sb = new StringBuilder();
 		rn.asResource().listProperties().toList().stream()
 				.filter(t -> t.getPredicate().getLocalName().startsWith("predefinedType_"))
-				.map(t -> t.getObject().asResource().getLocalName()).forEach(o -> sb.append(o));
-		if (sb.length() == 0)
+				.map(t -> t.getObject().asResource().getLocalName()).forEach(sb::append);
+		if (sb.isEmpty())
 			return Optional.empty();
 		return Optional.of(sb.toString());
 	}
 
 	/**
 	 * Reads in a Turtle formatted ontology file into a Jena RDF store
-	 * 
+	 *
 	 * @param ifc_file The absolute path of the Turtle formatted ontology file
 	 * @param model    Am Apache Jene model where the ontology triples are added.
 	 */
-	public static String readIfcOWLOntology(String ifc_file, Model model) {
+	public static void readIfcOWLOntology(String ifc_file, Model model) {
 		String exp = IfcOWLUtils.getExpressSchema(ifc_file); //TODO clean
 		if(exp==null)
-		    return null;
+		    return;
 		InputStream in = null;
 		try {
 			in = IfcOWLUtils.class.getResourceAsStream("/" + exp + ".ttl");
@@ -382,7 +372,7 @@ public abstract class IfcOWLUtils {
 				in = ClassLoader.getSystemResources("ifcOWL/"+exp + ".ttl").nextElement().openStream(); // the module (Java 9 ) version 
 			if(in==null)
 			{
-			    return null; 
+			    return;
 			}
 			model.read(in, null, "TTL");
 		} catch (IOException e) {
@@ -395,7 +385,6 @@ public abstract class IfcOWLUtils {
 				e1.printStackTrace();
 			}
 		}
-		return exp;
 	}
 
 	/**
@@ -413,30 +402,30 @@ public abstract class IfcOWLUtils {
         try (FileInputStream fstream = new FileInputStream(ifcFile)) {
         	// Fix by JO 2024: finally is deprecated
             try (DataInputStream in = new DataInputStream(fstream);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in));){
+                    BufferedReader br = new BufferedReader(new InputStreamReader(in))){
                 String strLine;
                 while ((strLine = br.readLine()) != null) {
-                    if (strLine.length() > 0) {
+                    if (!strLine.isEmpty()) {
                         if (strLine.startsWith("FILE_SCHEMA")) {
-                            if (strLine.indexOf("IFC2X3") != -1)
+                            if (strLine.contains("IFC2X3"))
                                 return "IFC2X3_TC1";
-                            if (strLine.indexOf("IFC4x2") != -1)
+                            if (strLine.contains("IFC4x2"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X2") != -1)
+                            if (strLine.contains("IFC4X2"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4x3") != -1)
+                            if (strLine.contains("IFC4x3"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X3") != -1)
+                            if (strLine.contains("IFC4X3"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4x3_RC1") != -1)
+                            if (strLine.contains("IFC4x3_RC1"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X3_RC1") != -1)
+                            if (strLine.contains("IFC4X3_RC1"))
                                 return "IFC4x3_RC1";
-                            if (strLine.indexOf("IFC4X1") != -1)
+                            if (strLine.contains("IFC4X1"))
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4x1") != -1)   
+                            if (strLine.contains("IFC4x1"))
                                 return "IFC4x1";
-                            if (strLine.indexOf("IFC4") != -1)     // Should do also IFC4X2
+                            if (strLine.contains("IFC4"))     // Should do also IFC4X2
                                 return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
 							return null;
                         }
@@ -471,7 +460,7 @@ public abstract class IfcOWLUtils {
                                 if (trimmed.endsWith(".") || trimmed.endsWith(";"))
                                     t = split(trimmed.substring(0, trimmed.length() - 1));
                                 else
-                                    t = split(trimmed.substring(0, trimmed.length()));
+                                    t = split(trimmed);
                                 if (state == 0) {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[i] = t.get(i);
@@ -481,28 +470,24 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                        StringBuilder sb = new StringBuilder();
-                                        sb.append(t.get(0));
-                                        sb.append(" ");
-                                        sb.append(t.get(1));
-                                        sb.append(" ");
-                                        sb.append(t.get(2));
-                                        sb.append(" .");
-                                        line = sb.toString();
+                                        line = t.get(0) +
+                                                " " +
+                                                t.get(1) +
+                                                " " +
+                                                t.get(2) +
+                                                " .";
                                     } else
                                         continue;
                                 } else {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[2 - i] = t.get(t.size() - 1 - i);
 
-                                    StringBuilder sb = new StringBuilder();
-                                    sb.append(triple[0]);
-                                    sb.append(" ");
-                                    sb.append(triple[1]);
-                                    sb.append(" ");
-                                    sb.append(triple[2]);
-                                    sb.append(" .");
-                                    line = sb.toString();
+                                    line = triple[0] +
+                                            " " +
+                                            triple[1] +
+                                            " " +
+                                            triple[2] +
+                                            " .";
 
                                     if (trimmed.endsWith("."))
                                         state = 0;
@@ -709,7 +694,7 @@ public abstract class IfcOWLUtils {
                                 if (trimmed.endsWith(".") || trimmed.endsWith(";"))
                                     t = split(trimmed.substring(0, trimmed.length() - 1));
                                 else
-                                    t = split(trimmed.substring(0, trimmed.length()));
+                                    t = split(trimmed);
                                 if (state == 0) {
                                     for (int i = 0; i < t.size(); i++)
                                         triple[i] = t.get(i);
@@ -719,14 +704,13 @@ public abstract class IfcOWLUtils {
                                     else
                                         state = 1;
                                     if (t.size() == 3) {
-                                    	StringBuilder sb = new StringBuilder();
-                                        sb.append(t.get(0));
-                                        sb.append(" ");
-                                        sb.append(t.get(1));
-                                        sb.append(" ");
-                                        sb.append(t.get(2));
-                                        sb.append(" .");
-                                        line = sb.toString();
+                                        String sb = t.get(0) +
+                                                " " +
+                                                t.get(1) +
+                                                " " +
+                                                t.get(2) +
+                                                " .";
+                                        line = sb;
                                     } else
                                         continue;
                                 } else {

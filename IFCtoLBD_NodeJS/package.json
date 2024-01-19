@@ -1,0 +1,19 @@
+{
+  "name": "javaonnodejs",
+  "version": "1.0.0",
+  "description": "IFC to LBD in Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "IFC",
+    "RDF",
+    "LBD"
+  ],
+  "author": "Jyrki Oraskari",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "java": "^0.14.0"
+  }
+}

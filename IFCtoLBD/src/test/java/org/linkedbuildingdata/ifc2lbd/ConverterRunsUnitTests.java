@@ -7,11 +7,16 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.apache.jena.graph.Graph;
+import org.apache.jena.ontology.OntModel;
+import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -21,6 +26,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.shacl.ShaclValidator;
@@ -33,6 +39,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationE
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoRDF;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
+import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -42,7 +49,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.eventbus.EventBus;
 
 public class ConverterRunsUnitTests {
-
+	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
 	@DisplayName("Test the existence of the test data Duplex.ifc")
 	@Test
@@ -57,11 +64,10 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
-
 	@DisplayName("Test the ontolgy read")
 	@Test
 	public void test_getOntology() {
-		
+
 		try {
 			URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
 			Model ontology_model = ModelFactory.createDefaultModel();
@@ -73,57 +79,58 @@ public class ConverterRunsUnitTests {
 			fail("Test ontology failed: " + e.getMessage());
 		}
 	}
-	
+
 	@DisplayName("Test ifcOWL 1")
-    @Test
-    public void test_ifcOWL_Conversion1() {
-        URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
-        try {
-            File ifc_file = new File(file_url.toURI());
-            File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
-            IFCtoRDF rj = new IFCtoRDF();
-            Optional<String>  ontURI1 = rj.convert_into_rdf(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath(), "http://test.de/", false);
-            
-            if(ontURI1.isEmpty())
-                fail("Should have an Ontology URI");
+	@Test
+	public void test_ifcOWL_Conversion1() {
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
+			IFCtoRDF rj = new IFCtoRDF();
+			Optional<String> ontURI1 = rj.convert_into_rdf(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath(),
+					"http://test.de/", false);
 
-            Optional<String>  ontURI2 = rj.convert_into_rdf(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath(), "http://test.de/", true);
-            
-            if(ontURI2.isEmpty())
-                fail("Should have an Ontology URI");
+			if (ontURI1.isEmpty())
+				fail("Should have an Ontology URI");
 
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("ifcOWL conversion had an error: " + e.getMessage());
-        }
-    }
+			Optional<String> ontURI2 = rj.convert_into_rdf(ifc_file.getAbsolutePath(), temp_file.getAbsolutePath(),
+					"http://test.de/", true);
+
+			if (ontURI2.isEmpty())
+				fail("Should have an Ontology URI");
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("ifcOWL conversion had an error: " + e.getMessage());
+		}
+	}
 
 	@DisplayName("Test ifcOWL 2")
-    @Test
-    public void test_ifcOWL_Conversion2() {
-        URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
-        try {
-            File ifc_file = new File(file_url.toURI());
-            
-            File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
-            IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, Integer.valueOf(1));
-            
-            Model m3wb = c1wb.readAndConvertIFC2ifcOWL(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, temp_file.getAbsolutePath(),false);
-            		
+	@Test
+	public void test_ifcOWL_Conversion2() {
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
+			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
+					Integer.valueOf(1));
+
+			Model m3wb = c1wb.readAndConvertIFC2ifcOWL(ifc_file.getAbsolutePath(),
+					"https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, temp_file.getAbsolutePath(), false);
+
 			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m3wb.listSubjects());
-			if(subjectList1.size()!=94539)
-			{
-				System.out.println("Converted subject count  should not be 94539. Was: "+subjectList1.size());
-				fail("Converted subject count  should not be 94539. Was: "+subjectList1.size());
+			if (subjectList1.size() != 94539) {
+				System.out.println("Converted subject count  should  be 94539. Was: " + subjectList1.size());
+				fail("Converted subject count  should  be 94539. Was: " + subjectList1.size());
 			}
 
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("ifcOWL conversion had an error: " + e.getMessage());
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail("ifcOWL conversion had an error: " + e.getMessage());
+		}
+	}
 
 	@SuppressWarnings("unused")
 	@DisplayName("Two walls geometry conversion")
@@ -137,14 +144,14 @@ public class ConverterRunsUnitTests {
 					temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
 			new IFCtoLBDConverter(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset",
 					temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
-			new IFCtoLBDConverter(ifc_file.getAbsolutePath(), null,
-					temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
+			new IFCtoLBDConverter(ifc_file.getAbsolutePath(), null, temp_file.getAbsolutePath(), 0, true, false, true,
+					false, false, false);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("Conversion had an error: " + e.getMessage());
 		}
 	}
-	
+
 	@SuppressWarnings("unused")
 	@DisplayName("Test basic conversion")
 	@Test
@@ -167,7 +174,6 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
-	
 	@SuppressWarnings("unused")
 	@DisplayName("Test old IFC version conversion")
 	@Test
@@ -182,7 +188,7 @@ public class ConverterRunsUnitTests {
 			fail("Conversion had an error: " + e.getMessage());
 		}
 	}
-	
+
 	@DisplayName("Test conversion test case 1")
 	@Test
 	public void testConversion1() {
@@ -193,129 +199,120 @@ public class ConverterRunsUnitTests {
 		try {
 			scanner = new Scanner(new File(example_url.toURI()));
 			while (scanner.hasNextLine()) {
-				String line=scanner.nextLine().trim();
-				if(line.length()>0)
-				   subject_samples.add(line);
+				String line = scanner.nextLine().trim();
+				if (line.length() > 0)
+					subject_samples.add(line);
 			}
 		} catch (FileNotFoundException | URISyntaxException e1) {
 			e1.printStackTrace();
 		}
 
-		
 		try {
 			File ifc_file = new File(file_url.toURI());
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
-			
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(1));
+
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-			if(subjectList1.size()!=295)
-			{
-				System.out.println("Converted subject count  should not be 295. Was: "+subjectList1.size());
-				fail("Converted subject count  should not be 295. Was: "+subjectList1.size());
+			if (subjectList1.size() != 295) {
+				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
+				fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
 			}
-			
-			if(m1nb.size()==0)
-			{
+
+			if (m1nb.size() == 0) {
 				System.out.println("Conversion size should not be zero.");
 				fail("Conversion size should not be zero.");
 			}
 
-			
-			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, Integer.valueOf(1));
+			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
+					Integer.valueOf(1));
 			Model m1wb = c1wb.convert(ifc_file.getAbsolutePath());
-			
-            ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1wb.listSubjects());
-			
-			if(subjectList2.size()!=295)
-			{
-				System.out.println("Converted subject count should not be 295. Was: "+subjectList2.size());
-				fail("Converted subject count  should not be 295. Was: "+subjectList2.size());
+
+			ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1wb.listSubjects());
+
+			if (subjectList2.size() != 295) {
+				System.out.println("Converted subject count should not be 295. Was: " + subjectList2.size());
+				fail("Converted subject count  should not be 295. Was: " + subjectList2.size());
 			}
-			
-			IFCtoLBDConverter c2nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(2));
+
+			IFCtoLBDConverter c2nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(2));
 			Model m2nb = c2nb.convert(ifc_file.getAbsolutePath());
-			
-            ImmutableList<Resource> subjectList3 = ImmutableList.copyOf(m2nb.listSubjects());
 
-			if(subjectList3.size()!=6792)
-			{
-				System.out.println("Converted subject count should not be 6792. Was: "+subjectList3.size());
-				fail("Converted subject count  should not be 6792. Was: "+subjectList3.size());
+			ImmutableList<Resource> subjectList3 = ImmutableList.copyOf(m2nb.listSubjects());
+
+			if (subjectList3.size() != 6792) {
+				System.out.println("Converted subject count should not be 6792. Was: " + subjectList3.size());
+				fail("Converted subject count  should not be 6792. Was: " + subjectList3.size());
 			}
 
-			IFCtoLBDConverter c2wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, Integer.valueOf(2));
-			
-			Model m2wb = c2wb.convert(ifc_file.getAbsolutePath()); 
-			
-            ImmutableList<Resource> subjectList4 = ImmutableList.copyOf(m2wb.listSubjects());
+			IFCtoLBDConverter c2wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
+					Integer.valueOf(2));
 
-			if(subjectList4.size()!=6799)
-			{
-				System.out.println("Converted subject count should not be 6799. Was2: "+subjectList4.size());
-				fail("Converted subject count  should not be 6799. Was2: "+subjectList4.size());
+			Model m2wb = c2wb.convert(ifc_file.getAbsolutePath());
+
+			ImmutableList<Resource> subjectList4 = ImmutableList.copyOf(m2wb.listSubjects());
+
+			if (subjectList4.size() != 6799) {
+				System.out.println("Converted subject count should not be 6799. Was2: " + subjectList4.size());
+				fail("Converted subject count  should not be 6799. Was2: " + subjectList4.size());
 			}
 
-			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(3));
-			Model m3nb = c3nb1.convert(ifc_file.getAbsolutePath());  
-			
-            ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb.listSubjects());
-            System.out.println("s5");
-            for(Resource r: subjectList51)
-            {
-            	if(!subject_samples.contains(r.getURI().split("_a")[0].split("_p")[0]))
-            	{
-            	    System.out.println(""+r);
-            	    fail("Converted subjects: extras: ");
-            	    
-            	}
-            }
-            
-            
-			if(subjectList51.size()!=13296)
-			{
-				System.out.println("Converted subject count should not be 13296. Was: "+subjectList51.size());
-				fail("Converted subject count  should not be 13296. Was: "+subjectList51.size());
+			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(3));
+			Model m3nb = c3nb1.convert(ifc_file.getAbsolutePath());
+
+			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb.listSubjects());
+			System.out.println("s5");
+			for (Resource r : subjectList51) {
+				if (!subject_samples.contains(r.getURI().split("_a")[0].split("_p")[0])) {
+					System.out.println("" + r);
+					fail("Converted subjects: extras: ");
+
+				}
 			}
-			
-			
-			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(3));
-			Model m3nb2 = c3nb2.convert(ifc_file.getAbsolutePath());  
-			
-            ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
-            
-            List<Resource> comparison = new ArrayList<>();
-            comparison.addAll(subjectList52);
-            comparison.removeAll(subjectList52);
-            if(comparison.size()!=0)
-			{
-				System.out.println("Two comparison and different results. Was: "+comparison);
+
+			if (subjectList51.size() != 13296) {
+				System.out.println("Converted subject count should not be 13296. Was: " + subjectList51.size());
+				fail("Converted subject count  should not be 13296. Was: " + subjectList51.size());
+			}
+
+			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(3));
+			Model m3nb2 = c3nb2.convert(ifc_file.getAbsolutePath());
+
+			ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
+
+			List<Resource> comparison = new ArrayList<>();
+			comparison.addAll(subjectList52);
+			comparison.removeAll(subjectList52);
+			if (comparison.size() != 0) {
+				System.out.println("Two comparison and different results. Was: " + comparison);
 				fail("Two comparison and different results. Was: ");
 			}
-            
-			if(subjectList52.size()!=13296)
-			{
-				System.out.println("Converted subject count should not be 13296. Was: "+subjectList52.size());
-				fail("Converted subject count  should not be 13296. Was: "+subjectList52.size());
+
+			if (subjectList52.size() != 13296) {
+				System.out.println("Converted subject count should not be 13296. Was: " + subjectList52.size());
+				fail("Converted subject count  should not be 13296. Was: " + subjectList52.size());
 			}
 
-			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, Integer.valueOf(3));
+			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
+					Integer.valueOf(3));
 
 			Model m3wb = c3wb.convert(ifc_file.getAbsolutePath());
-			
-            ImmutableList<Resource> subjectList6 = ImmutableList.copyOf(m3wb.listSubjects());
-            
 
-			if(subjectList6.size()!=13303)
-			{
-				System.out.println("Converted subject count should not be 13303. Was: "+subjectList6.size());
-				fail("Converted subject count  should not be 13303. Was: "+subjectList6.size());
+			ImmutableList<Resource> subjectList6 = ImmutableList.copyOf(m3wb.listSubjects());
+
+			if (subjectList6.size() != 13303) {
+				System.out.println("Converted subject count should not be 13303. Was: " + subjectList6.size());
+				fail("Converted subject count  should not be 13303. Was: " + subjectList6.size());
 			}
 
 		} catch (Exception e) {
 			fail("Conversion set 1 had an error: " + e.getMessage());
 		}
 	}
-	
+
 	@DisplayName("Test conversion test case 2: class variable text")
 	@Test
 	public void testConversion2() {
@@ -323,37 +320,42 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(file_url.toURI());
 
-			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(3));
+			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(3));
+			
 			Model m3nb1 = c3nb1.convert(ifc_file.getAbsolutePath());
 			
-            ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());         
-			System.out.println("Converted subject count  5 was: "+subjectList51.size());
-
-			if(subjectList51.size()!=13296)
+			if(c3nb1.ontURI.isEmpty())
 			{
-				System.out.println("Converted subject count should not be 13296. Was: "+subjectList51.size());
-				fail("Converted subject count  should not be 13296. Was: "+subjectList51.size());
+				System.out.println("Ontology UEI should not be nonexistent. ");
+				fail("Ontology UEI should not be nonexistent. ");
+
 			}
-			
+			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
+			System.out.println("Converted subject count  5 was: " + subjectList51.size());
+
+			if (subjectList51.size() != 13296) {
+				System.out.println("Converted subject count should not be 13296. Was: " + subjectList51.size());
+				fail("Converted subject count  should not be 13296. Was: " + subjectList51.size());
+			}
+
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
 			Model m3nb2 = c3nb2.convert(ifc_file.getAbsolutePath());
-			m3nb2.write(System.out,"TTL");
-            ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
-            
-			System.out.println("Converted subject count  5 was: "+subjectList52.size());
+			m3nb2.write(System.out, "TTL");
+			ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
 
-			if(subjectList52.size()!=13303)
-			{
-				System.out.println("Converted subject count should not be 13303. Was: "+subjectList52.size());
-				fail("Converted subject count  should not be 13303. Was: "+subjectList52.size());
+			System.out.println("Converted subject count  5 was: " + subjectList52.size());
+
+			if (subjectList52.size() != 13303) {
+				System.out.println("Converted subject count should not be 13303. Was: " + subjectList52.size());
+				fail("Converted subject count  should not be 13303. Was: " + subjectList52.size());
 			}
-			
 
 		} catch (Exception e) {
 			fail("Conversion set 1 had an error: " + e.getMessage());
 		}
 	}
-	
+
 	@DisplayName("Test conversion test case 3: repeated convert")
 	@Test
 	public void testConversion3() {
@@ -361,21 +363,20 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(file_url.toURI());
 
-			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(3));
+			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(3));
 			Model m3nb1 = c3nb1.convert(ifc_file.getAbsolutePath());
-			
-            ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());         
-			System.out.println("Converted subject count  5 was: "+subjectList51.size());
 
-			
+			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
+			System.out.println("Converted subject count  5 was: " + subjectList51.size());
+
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
 			Model m3nb21 = c3nb2.convert(ifc_file.getAbsolutePath());
 			Model m3nb22 = c3nb2.convert(ifc_file.getAbsolutePath());
-		    
-			Model out =m3nb21.remove(m3nb22);
-			
-			if(out.size()!=0)
-			{
+
+			Model out = m3nb21.remove(m3nb22);
+
+			if (out.size() != 0) {
 				System.out.println("Converted result shouls not change when doining it repeteadly.");
 				fail("Converted result shouls not change when doining it repeteadly.");
 			}
@@ -384,7 +385,7 @@ public class ConverterRunsUnitTests {
 			fail("Conversion set 1 had an error: " + e.getMessage());
 		}
 	}
-	
+
 	@DisplayName("Test conversion test case Level 3")
 	@Test
 	public void testConversionLevel3() {
@@ -394,7 +395,8 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(ifc_file_url.toURI());
 
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(3));
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(3));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 
 			Graph graph_m1nb = m1nb.getGraph();
@@ -418,8 +420,6 @@ public class ConverterRunsUnitTests {
 			fail("Conversion using set SHACL_rulesetLevel3 had an error: " + e.getMessage());
 		}
 	}
-	
-
 
 	@DisplayName("Test IfcRelAggregates not converting #16")
 	@Test
@@ -430,7 +430,8 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(ifc_file_url.toURI());
 
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			// m1nb.removeAll();
 			m1nb.write(System.out, "TTL");
@@ -466,7 +467,8 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(ifc_file_url.toURI());
 
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
@@ -501,7 +503,8 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(ifc_file_url.toURI());
 
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
@@ -562,18 +565,19 @@ public class ConverterRunsUnitTests {
 			File ifc_file = new File(ifc_file_url.toURI());
 			File tmp_output = File.createTempFile("ifc", ".ttl");
 			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://test.de/", false, Integer.valueOf(1));
-			c1nb.convert(ifc_file.getAbsolutePath(), tmp_output.getAbsolutePath(), true, false, true, false, true, false,
-					true, false);
+			c1nb.convert(ifc_file.getAbsolutePath(), tmp_output.getAbsolutePath(), true, false, true, false, true,
+					false, true, false);
 			File ifcOwlFile = new File(tmp_output.getAbsolutePath().split("\\.ttl")[0] + "_ifcOWL.ttl");
 			if (!ifcOwlFile.exists()) {
 				System.out.println("No ifcOWL File created");
 				System.out.println("Filename was: " + ifcOwlFile.getAbsolutePath());
 				fail("No ifcOWL File created");
 			}
-           
+
 			long bytes = ifcOwlFile.length();
-			if (bytes!=20289155) {
-				System.out.println("Wrong file size for ifcOWL result. (can be Jena version dependent) size was: "+bytes);
+			if (bytes != 20289155) {
+				System.out.println(
+						"Wrong file size for ifcOWL result. (can be Jena version dependent) size was: " + bytes);
 				System.out.println("Filename was: " + ifcOwlFile.getAbsolutePath());
 				fail("Wrong file size for ifcOWL result. (can be Jena version dependent)");
 			}
@@ -593,10 +597,11 @@ public class ConverterRunsUnitTests {
 		try {
 			File ifc_file = new File(file_url.toURI());
 
-			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, Integer.valueOf(1));
-			ConversionProperties props=new ConversionProperties();
+			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
+					Integer.valueOf(1));
+			ConversionProperties props = new ConversionProperties();
 			props.setHasGeometry(true);
-			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath(),props);
+			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath(), props);
 			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
 
@@ -621,92 +626,328 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
-	int count=0;
+	int count = 0;
+
 	@DisplayName("Test Example 3")
 	@Test
 	public void testConversionExample3() {
-		this.count=0;
+		this.count = 0;
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
-		 try {
-	            File ifcFile = new File(file_url.toURI());
+		try {
+			File ifcFile = new File(file_url.toURI());
 
-	            IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
-	            Model model = converter.convert(ifcFile.getAbsolutePath());
-	            
-	            Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n"
-	                    + "\r\n"
-	                    + "SELECT ?element WHERE {\r\n"
-	                    + "  ?element a bot:Element .\r\n"
-	                    + "} ");
-	           
-	            try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
-	                ResultSet resultSet = queryExecution.execSelect();
-	                resultSet.forEachRemaining(qs -> {
-	                	this.count++;
-	                });
-	            }
-	            if(this.count!=268)
-				{
-					System.out.println("Converted BOT element count should be 268. Was: "+this.count);
-					fail("Converted BOT element count should be 268. Was:"+this.count);
-				}
-	        } catch (Exception e) {
-	            System.err.println("Example 3 error: " + e.getMessage());
-	            fail("Conversion Example 3 error: " + e.getMessage());
-	        }
+			IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);
+			Model model = converter.convert(ifcFile.getAbsolutePath());
+
+			Query query = QueryFactory.create("PREFIX bot: <https://w3id.org/bot#>\r\n" + "\r\n"
+					+ "SELECT ?element WHERE {\r\n" + "  ?element a bot:Element .\r\n" + "} ");
+
+			try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
+				ResultSet resultSet = queryExecution.execSelect();
+				resultSet.forEachRemaining(qs -> {
+					this.count++;
+				});
+			}
+			if (this.count != 268) {
+				System.out.println("Converted BOT element count should be 268. Was: " + this.count);
+				fail("Converted BOT element count should be 268. Was:" + this.count);
+			}
+		} catch (Exception e) {
+			System.err.println("Example 3 error: " + e.getMessage());
+			fail("Conversion Example 3 error: " + e.getMessage());
+		}
 	}
-	static final private int props_level=1;
-	static final private boolean hasBuildingElements=true;
-	static final private boolean hasBuildingProperties=true;
-	
-	static final boolean hasSeparateBuildingElementsModel=false; 
-	static final boolean hasPropertiesBlankNodes=false;
-	static final boolean hasSeparatePropertiesModel=false;
-	
-	static final boolean hasGeolocation=false;
-	
-	static final boolean hasGeometry=true;
-	static final boolean exportIfcOWL=false;
-	static final boolean hasUnits=false;
-    
-	static final boolean hasPerformanceBoost=false;
-	static final boolean hasBoundingBoxWKT=true;
-	
+
+	static final private int props_level = 1;
+	static final private boolean hasBuildingElements = true;
+	static final private boolean hasBuildingProperties = true;
+
+	static final boolean hasSeparateBuildingElementsModel = false;
+	static final boolean hasPropertiesBlankNodes = false;
+	static final boolean hasSeparatePropertiesModel = false;
+
+	static final boolean hasGeolocation = false;
+
+	static final boolean hasGeometry = true;
+	static final boolean exportIfcOWL = false;
+	static final boolean hasUnits = false;
+
+	static final boolean hasPerformanceBoost = false;
+	static final boolean hasBoundingBoxWKT = true;
+
 	@DisplayName("Test Example 4")
 	@Test
 	public void testConversionExample4() {
-		this.count=0;
+		this.count = 0;
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
-		 try {
-				File ifc_file = new File(file_url.toURI());
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes, props_level);
+			Model m = c.convert(ifc_file.getAbsoluteFile().toString(), null, hasBuildingElements,
+					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation,
+					hasGeometry, exportIfcOWL, hasUnits, hasPerformanceBoost, hasBoundingBoxWKT);
+			if (m != null) {
+				Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n" + "\r\n"
+						+ "SELECT ?e ?wkt ?obj WHERE {\r\n" + "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
+						+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
+						+ "  ?g fog:asObj_v3.0-obj ?obj \r\n" + "} ");
+				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
+					ResultSet rs = queryExecution.execSelect();
+					rs.forEachRemaining(qs -> {
+						this.count++;
+					});
+				}
+				if (this.count != 286) {
+					System.out.println("Converted geom element count should be 286. Was: " + this.count);
+					fail("Converted geom element count should be 286. Was:" + this.count);
+				}
+			}
+		} catch (Exception e) {
+			System.err.println("Example 4 error: " + e.getMessage());
+			fail("Conversion Example 4 error: " + e.getMessage());
+		}
+
+	}
+
+	@DisplayName("Test two phases conversion")
+	@Test
+	public void testThreePhases() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
+				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
+
+				if (subjectList51.size() != 581) {
+					System.out.println("Converted subject count should  be 581. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 581. Was: " + subjectList51.size());
+				}
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases error: " + e.getMessage());
+			fail("Conversion Example two phaes error: " + e.getMessage());
+		}
+
+	}
+	
+
+	@DisplayName("Test two phases types list")
+	@Test
+	public void testTwoPhasesTypes() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				Set<Resource> element_types = converter.getElementTypes();
+				if (element_types.size() != 13) {
+					System.out.println("Element type count should be 13. Was: " + element_types.size());
+					fail("Element type count should be 13. Was:" + element_types.size());
+				}
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases types error: " + e.getMessage());
+			fail("Conversion Example two phases types error: " + e.getMessage());
+		}
+
+	}
+	
+	@DisplayName("Test three phases property sets list")
+	@Test
+	public void testThreePhasesPsets() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
+						hasUnits, hasBoundingBoxWKT);
+				
+				
+				Map<String, PropertySet> psets = converter.getPropertysets();				
+				if (psets.size() != 1459) {
+					System.out.println("Pset count should be 1459. Was: " + psets.size());
+					fail("Pset count should be 1459. Was:" + psets.size());
+				}
+			
+				Set<String> pset_names = converter.getPropertySetNames();
+				if (pset_names.size() != 34) {
+					System.out.println("Pset names count should be 34. Was: " + pset_names.size());
+					fail("Pset names count should be 34. Was:" + pset_names.size());
+				}
+			
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
+		}
+
+	}
+
+	
+	@DisplayName("Test ontologocal validity 1")
+	@Test
+	public void testOntologicalValidity1() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
+				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
 
 				
-				IFCtoLBDConverter c = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes, props_level);
-				Model m=c.convert(ifc_file.getAbsoluteFile().toString(), null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry,exportIfcOWL,hasUnits,hasPerformanceBoost,hasBoundingBoxWKT);
-				if(m!=null)
+			    OntModel infModel = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_RDFS_INF);
+			    infModel.add(converter.getOntology_model());
+			    infModel.add(m3nb1);
+				ValidityReport report = infModel.validate();
+				
+				if (!report.isValid()) {
+					System.out.println("The model is not consistent.");
+					fail("The model is not consistent.");
+				}
+				
+			}
+
+
+		} catch (
+
+		Exception e) {
+			System.err.println("OntologicalValidity1 error: " + e.getMessage());
+			fail("Conversion OntologicalValidity1 error: " + e.getMessage());
+		}
+
+	}
+	
+	@DisplayName("Test ontologocal name space validity ")
+	@Test
+	public void testOntologicalNSValidity() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
+						 hasUnits,  hasBoundingBoxWKT);
+				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				Set<Resource> subs = m.listSubjects().toSet();
+				Set<String> nss = m.listNameSpaces().toSet();
+				for(Resource s:subs)
 				{
-					Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n"
-							+ "\r\n"
-							+ "SELECT ?e ?wkt ?obj WHERE {\r\n"
-							+ "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
-							+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
-							+ "  ?g fog:asObj_v3.0-obj ?obj \r\n"
-							+ "} ");
-					try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
-						ResultSet rs = queryExecution.execSelect();
-						rs.forEachRemaining(qs -> {
-							this.count++;
-						});
-					}
-					if(this.count!=286)
+					Optional<Resource> type = RDFUtils.getType(s);
+					if(type.isPresent())
 					{
-						System.out.println("Converted geom element count should be 286. Was: "+this.count);
-						fail("Converted geom element count should be 286. Was:"+this.count);
+						if(!nss.contains(type.get().getNameSpace()))
+						{
+				           System.out.println(type.get().getNameSpace());	
+				           System.out.println("Ontological name space was not defined error.");
+						   fail("Ontological name space was not defined error.");
+						}
+					}
+					else
+					{
+						//TODO
+						//System.err.println(s+" type is empty");
 					}
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			   
 			}
+
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Ontological name space was not defined error: " + e.getMessage());
+			fail("Ontological name space was not defined error: " + e.getMessage());
+		}
+
+	}
+	
+	
+	@DisplayName("Test type selection ")
+	@Test
+	public void testTypeSelection() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
+						hasUnits, hasBoundingBoxWKT);
+				
+				Set<String> types = new HashSet<>();
+				types.add("Wall");
+				converter.setSelected_types(types);
+				
+				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m.listSubjects());
+				if (subjectList1.size() == 581) {  
+					// Because of the filtering should be less
+					System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
+					fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
+				}
+				if (subjectList1.size() != 262) {  
+					System.out.println("Converted subject count  should  be 262. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 262. Was: " + subjectList1.size());
+				}
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
+		}
 
 	}
 }

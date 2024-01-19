@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 
 /*
  *  Copyright (c) 2017 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -52,7 +53,7 @@ public class RDFStep {
      */
     public List<RDFNode> next(Resource r) {
 		final List<RDFNode> ret = new ArrayList<>();
-		r.listProperties(this.property).mapWith(t->t.getObject()).forEachRemaining(o -> ret.add(o));
+		r.listProperties(this.property).mapWith(Statement::getObject).forEachRemaining(ret::add);
 		return ret;
     }
 }
