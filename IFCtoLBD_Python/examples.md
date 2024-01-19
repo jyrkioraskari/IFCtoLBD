@@ -91,7 +91,7 @@ jpype.shutdownJVM()
 ```
 
 
-### Jet a JSON array of elements and tehir geometry in the OBJ notation
+### Jet a JSON array of elements and their geometry in the OBJ notation
 
 ```
 # !/usr/bin/env python3
