@@ -44,9 +44,6 @@ public class Example6 {
 				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
 						hasUnits, hasBoundingBoxWKT);
 				
-				Set<String> types = new HashSet<>();
-				types.add("Wall");  // Filter only wall elements
-				converter.setSelected_types(types);
 				
 				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
