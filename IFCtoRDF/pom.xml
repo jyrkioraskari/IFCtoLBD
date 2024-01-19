@@ -346,20 +346,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			<version>${jena.version}</version>
 			<type>pom</type>
 		</dependency>
-		
-<!--		Cannot be used with the Desktop App and Apache Jena -->
-<!--		<dependency>-->
-<!--			<groupId>ch.qos.logback</groupId>-->
-<!--			<artifactId>logback-classic</artifactId>-->
-<!--			<version>1.4.5</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.slf4j</groupId>-->
-<!--			<artifactId>slf4j-api</artifactId>-->
-<!--			 The new version is 2.06 - needs to be checked -->
-<!--			<version>2.0.4</version>-->
-<!--		</dependency>-->
-		<!-- Test dependencies -->
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

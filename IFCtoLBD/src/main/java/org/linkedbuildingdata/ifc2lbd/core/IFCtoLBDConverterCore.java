@@ -24,6 +24,8 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.RIOT;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
@@ -1198,6 +1200,14 @@ public abstract class IFCtoLBDConverterCore {
 	// Should be done only when the app is closing
 	public void closeJava() {
 		System.exit(0);
+	}
+	
+	public String getJSON()
+	{
+		java.io.OutputStream os = null; 
+		os = new java.io.ByteArrayOutputStream();
+		RDFDataMgr.write(os, this.lbd_general_output_model, RDFFormat.JSONLD);
+		return os.toString();
 	}
 
 }
