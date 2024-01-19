@@ -323,7 +323,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 					public void run() {
 						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
 					}
-				}, 1000, 1000);
+				}, 1000, 1000); //  delay in milliseconds before the message is to be send, and how often
 
 				ifc_geometry = new IFCGeometry(new File(ifc_filename));
 				timer.cancel();

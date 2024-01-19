@@ -28,6 +28,7 @@ import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
+import org.bimserver.plugins.renderengine.RenderEngineException;
 /*
  *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
@@ -1178,6 +1179,25 @@ public abstract class IFCtoLBDConverterCore {
 		} catch (InterruptedException e) {
 			// Just do it
 		}
-		System.exit(0); // Force IfcOpenShell to exit
+		closeGeometryEngine();
+		System.exit(0);
+		
 	}
+	
+	
+	// Should be done only when the app is closing
+	public void closeGeometryEngine() {
+		try {
+			if(IFCGeometry.ifcOpenShellEngine_singlethon!=null)
+			   IFCGeometry.ifcOpenShellEngine_singlethon.close();
+		} catch (RenderEngineException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	// Should be done only when the app is closing
+	public void closeJava() {
+		System.exit(0);
+	}
+
 }

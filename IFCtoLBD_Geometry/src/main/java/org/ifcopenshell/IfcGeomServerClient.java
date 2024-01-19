@@ -248,6 +248,7 @@ public class IfcGeomServerClient implements AutoCloseable {
 	public void initialize() throws RenderEngineException {
 		try {
 			process = Runtime.getRuntime().exec(this.executableFilename.toAbsolutePath().toString());
+			
 			dos = new LittleEndianDataOutputStream(process.getOutputStream());
 			dis = new LittleEndianDataInputStream(process.getInputStream());
 
