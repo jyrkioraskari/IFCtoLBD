@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -121,8 +122,8 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m3wb.listSubjects());
 			if (subjectList1.size() != 94539) {
-				System.out.println("Converted subject count  should not be 94539. Was: " + subjectList1.size());
-				fail("Converted subject count  should not be 94539. Was: " + subjectList1.size());
+				System.out.println("Converted subject count  should  be 94539. Was: " + subjectList1.size());
+				fail("Converted subject count  should  be 94539. Was: " + subjectList1.size());
 			}
 
 		} catch (Exception e) {
@@ -730,8 +731,8 @@ public class ConverterRunsUnitTests {
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
 				if (subjectList51.size() != 581) {
-					System.out.println("Converted subject count should not be 581. Was: " + subjectList51.size());
-					fail("Converted subject count  should not be 581. Was: " + subjectList51.size());
+					System.out.println("Converted subject count should  be 581. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 581. Was: " + subjectList51.size());
 				}
 			}
 
@@ -773,9 +774,9 @@ public class ConverterRunsUnitTests {
 
 	}
 	
-	@DisplayName("Test two phases property sets list")
+	@DisplayName("Test three phases property sets list")
 	@Test
-	public void testTwoPhasesPsets() {
+	public void testThreePhasesPsets() {
 		this.count = 0;
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
 		try {
@@ -901,6 +902,51 @@ public class ConverterRunsUnitTests {
 		Exception e) {
 			System.err.println("Ontological name space was not defined error: " + e.getMessage());
 			fail("Ontological name space was not defined error: " + e.getMessage());
+		}
+
+	}
+	
+	
+	@DisplayName("Test type selection ")
+	@Test
+	public void testTypeSelection() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL);
+				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
+						hasUnits, hasBoundingBoxWKT);
+				
+				Set<String> types = new HashSet<>();
+				types.add("Wall");
+				converter.setSelected_types(types);
+				
+				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m.listSubjects());
+				if (subjectList1.size() == 581) {  
+					// Because of the filtering should be less
+					System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
+					fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
+				}
+				if (subjectList1.size() != 262) {  
+					System.out.println("Converted subject count  should  be 262. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 262. Was: " + subjectList1.size());
+				}
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
 		}
 
 	}
