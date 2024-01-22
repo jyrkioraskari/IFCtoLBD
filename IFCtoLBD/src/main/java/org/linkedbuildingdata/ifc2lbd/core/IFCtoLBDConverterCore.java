@@ -1239,4 +1239,65 @@ public abstract class IFCtoLBDConverterCore {
 			return "";
 	}
 
+	
+	public double getGeometryMinX()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().min(0);
+		else
+		   return 0d;
+	}
+
+	public double getGeometryMinY()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().min(1);
+		else
+		   return 0d;
+	}
+
+	public double getGeometryMinZ()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().min(2);
+		else
+		   return 0d;
+	}
+
+	public double getGeometryMaxX()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().max(0);
+		else
+		   return 0d;
+	}
+
+	public double getGeometryMaxY()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().max(1);
+		else
+		   return 0d;
+	}
+
+	public double getGeometryMaxZ()
+	{
+		if(this.rtree.mbr().isPresent())
+		   return this.rtree.mbr().get().max(2);
+		else
+		   return 0d;
+	}
+
+	public List<Resource> getElementByGeometry(double x1, double y1, double z1, double x2, double y2, double z2)
+	{
+		List<Resource> result=new ArrayList<>();
+		Rectangle rectangle = Rectangle.create(x1, y1, z1, x2,
+				y2, z2);
+
+		Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rectangle);
+		for (Entry<Resource, Geometry> e : results) {
+			result.add(e.value());
+		}
+		return result;
+	}
 }
