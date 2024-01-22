@@ -1,5 +1,5 @@
 /*
- * Copyright 2016, 2022, 2023  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
+ * Copyright 2016, 2022, 2023, 2024  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -73,8 +73,8 @@ public class RDFWriter {
 
 
 	// Taking care of avoiding duplicate resources
-	private final Map<String, Resource> propertyResourceMap = new HashMap<>();
-	private final Map<String, Resource> resourceMap = new HashMap<>();
+	private final Map<String, Resource> propertyResourceMap = new HashMap<>(5000);
+	private final Map<String, Resource> resourceMap = new HashMap<>(50000);  // This saves around 20% calculation time
 
 	private boolean removeDuplicates = false;
 	private final boolean hasPerformanceBoost;
@@ -1055,6 +1055,7 @@ public class RDFWriter {
 	}
 
 	private Resource getResource(String uri, OntResource rclass) {
+		
 		Resource r = this.resourceMap.get(uri);
 		if (r == null) {
 			r = ResourceFactory.createResource(uri);

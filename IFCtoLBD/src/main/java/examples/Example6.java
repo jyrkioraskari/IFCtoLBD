@@ -40,10 +40,7 @@ public class Example6 {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
-						hasUnits, hasBoundingBoxWKT);
-				
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				
 				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,

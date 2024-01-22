@@ -92,13 +92,13 @@ public abstract class IFCtoLBDConverterCore {
 
 	private Set<String> selected_types; // The element types that are included in the output
 
-	protected Model ifcowl_model;
+	public Model ifcowl_model;
 	private Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
 
 	public Optional<String> ontURI = Optional.empty();
-	protected IfcOWL ifcOWL;
+	public IfcOWL ifcOWL;
 
 	// URI-property set
 	protected Map<String, PropertySet> propertysets = new HashMap<>();

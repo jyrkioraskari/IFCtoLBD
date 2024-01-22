@@ -1023,7 +1023,7 @@ public class ExpressReader {
 	}
 
 	static public String filterExtras(String txt) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int n = 0; n < txt.length(); n++) {
 			char ch = txt.charAt(n);
 			switch (ch) {
@@ -1043,7 +1043,7 @@ public class ExpressReader {
 	}
 
 	static public String filter_PTypeExtras(String txt) {
-		StringBuffer sb = new StringBuffer();
+		StringBuilder sb = new StringBuilder();
 		for (int n = 0; n < txt.length(); n++) {
 			char ch = txt.charAt(n);
 			switch (ch) {

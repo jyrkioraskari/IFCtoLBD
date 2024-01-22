@@ -11,7 +11,7 @@ public class ConversionProperties {
 	private boolean hasUnits=false;
 	private boolean hasBoundingBoxWKT=false;
 	private boolean hasHierarchicalNaming=false;
-	private boolean hasPerformanceBoost=false;
+	private boolean hasPerformanceBoost=true;
 	
 	public ConversionProperties() {
 		

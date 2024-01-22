@@ -39,9 +39,7 @@ public class Example5 {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
-						hasUnits, hasBoundingBoxWKT);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				
 				Set<String> types = new HashSet<>();
 				types.add("Wall");  // Filter only wall elements

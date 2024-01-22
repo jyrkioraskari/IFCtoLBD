@@ -331,13 +331,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			boolean hasPerformanceBoost, boolean hasBoundingBoxWKT) {
 
 		
-		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL))			
+		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL, hasBuildingElements,  hasBuildingProperties, hasBoundingBoxWKT, hasUnits))			
 		{
-			if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-					 hasUnits,  hasBoundingBoxWKT))
-			{
-				return lbd_general_output_model; 
-			}
+
 		   return convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT,false);	
@@ -352,13 +348,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			boolean hasPerformanceBoost, boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
 
 		
-		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL))			
+		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL, hasBuildingElements,  hasBuildingProperties, hasBoundingBoxWKT, hasUnits))			
 		{
-			if(!convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-					 hasUnits,  hasBoundingBoxWKT))
-			{
-				return lbd_general_output_model; 
-			}
+			
 		   return convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT,hasHierarchicalNaming);	
@@ -369,7 +361,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	private String target_file;
 	
-	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,boolean hasPerformanceBoost,boolean exportIfcOWL) {
+	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,boolean hasPerformanceBoost,boolean exportIfcOWL, boolean hasBuildingElements, boolean hasBuildingProperties,boolean hasBoundingBoxWKT,boolean hasUnits) {
 
 		this.target_file=target_file;
 
@@ -385,8 +377,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (hasGeometry)
 			future_ifc_geometry = getgeom(ifc_filename);
 
-		this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
+		if(hasPerformanceBoost)
+		   this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), false, target_file,
+				hasPerformanceBoost); 
+		else
+		   this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 				hasPerformanceBoost); // Before:
+
+		// Before:
 		if(this.ifcowl_model ==null)
 			return false;
 		
@@ -407,16 +405,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Model ready in the memory. Select \"Convert out to RDF\" to continue."));
 		
-		
-
-		return true;
-	}
-
-
-	
-
-	public boolean convert_unit_properties_phase(boolean hasBuildingElements, boolean hasBuildingProperties,
-			boolean hasUnits, boolean hasBoundingBoxWKT) {
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
 		resetModels();
 
@@ -436,6 +424,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		}
 		return true;
 	}
+
+
+	
 
 	public Model convert_LBD_phase(boolean hasBuildingElements,
 			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,

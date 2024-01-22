@@ -267,6 +267,8 @@ public class IfcSpfReader {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } 
+            
+            
             if(fis!=null)  // Potential leak
               fis.close();
 

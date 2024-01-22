@@ -712,7 +712,7 @@ public class ConverterRunsUnitTests {
 
 	@DisplayName("Test two phases conversion")
 	@Test
-	public void testThreePhases() {
+	public void testTwoPhases() {
 		this.count = 0;
 		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
 		try {
@@ -721,9 +721,7 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-						 hasUnits,  hasBoundingBoxWKT);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
@@ -757,7 +755,7 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				Set<Resource> element_types = converter.getElementTypes();
 				if (element_types.size() != 13) {
 					System.out.println("Element type count should be 13. Was: " + element_types.size());
@@ -785,9 +783,7 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
-						hasUnits, hasBoundingBoxWKT);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				
 				
 				Map<String, PropertySet> psets = converter.getPropertysets();				
@@ -825,9 +821,7 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-						 hasUnits,  hasBoundingBoxWKT);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				Model m3nb1 =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
@@ -866,10 +860,9 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase( hasBuildingElements,  hasBuildingProperties,
-						 hasUnits,  hasBoundingBoxWKT);
-				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+				
+			Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true);
 
@@ -918,9 +911,7 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL);
-				converter.convert_unit_properties_phase(hasBuildingElements, hasBuildingProperties,
-						hasUnits, hasBoundingBoxWKT);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				
 				Set<String> types = new HashSet<>();
 				types.add("Wall");
@@ -1010,8 +1001,8 @@ public class ConverterRunsUnitTests {
 			File ifc_file = new File(file_url.toURI());
 			ConversionProperties props = new ConversionProperties();
 			props.setHasPerformanceBoost(false);
-			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
-				Model m1nb = converter.convert(ifc_file.getAbsolutePath(),props);   
+			try(IFCtoLBDConverter converter1 = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
+				Model m1nb = converter1.convert(ifc_file.getAbsolutePath(),props);   
     			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
     			if (subjectList1.size() != 295) {
     				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
@@ -1021,12 +1012,13 @@ public class ConverterRunsUnitTests {
 			}
 
 			props.setHasPerformanceBoost(true);
-			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
-				Model m1nb = converter.convert(ifc_file.getAbsolutePath(),props);   
-    			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-    			if (subjectList1.size() != 295) {
-    				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
-    				fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
+			props.setExportIfcOWL(false);
+			try(IFCtoLBDConverter converter2 = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
+				Model m1nb1 = converter2.convert(ifc_file.getAbsolutePath(),props);   
+    			ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1nb1.listSubjects());
+    			if (subjectList2.size() != 295) {
+    				System.out.println("Converted subject count  should not be 295. Was: " + subjectList2.size());
+    				fail("Converted subject count  should not be 295. Was: " + subjectList2.size());
     			}
 
 			}

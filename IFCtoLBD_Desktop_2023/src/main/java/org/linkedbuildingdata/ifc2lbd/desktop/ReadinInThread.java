@@ -85,9 +85,8 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 			IFCtoLBDConverter c1nb;
 			try {
 				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
-				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL);
-				c1nb.convert_unit_properties_phase( this.hasBuildingElements,  this.hasBuildingProperties,
-						 hasUnits,  hasBoundingBoxWKT);
+				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits);
+				
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
