@@ -1011,13 +1011,23 @@ public class ConverterRunsUnitTests {
 			ConversionProperties props = new ConversionProperties();
 			props.setHasPerformanceBoost(false);
 			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
-                converter.convert(ifc_file.getAbsolutePath(),props);            
+				Model m1nb = converter.convert(ifc_file.getAbsolutePath(),props);   
+    			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
+    			if (subjectList1.size() != 295) {
+    				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
+    				fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
+    			}
 
 			}
 
 			props.setHasPerformanceBoost(true);
 			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
-                converter.convert(ifc_file.getAbsolutePath(),props);            
+				Model m1nb = converter.convert(ifc_file.getAbsolutePath(),props);   
+    			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
+    			if (subjectList1.size() != 295) {
+    				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
+    				fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
+    			}
 
 			}
 
