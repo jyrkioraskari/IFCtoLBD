@@ -9,7 +9,9 @@ public class ConversionProperties {
 	private boolean hasGeometry = false;
 	private boolean exportIfcOWL=true;
 	private boolean hasUnits=false;
-	
+	private boolean hasBoundingBoxWKT=false;
+	private boolean hasHierarchicalNaming=false;
+	private boolean hasPerformanceBoost=false;
 	
 	public ConversionProperties() {
 		
@@ -92,6 +94,30 @@ public class ConversionProperties {
 
 	public void setHasUnits(boolean hasUnits) {
 		this.hasUnits = hasUnits;
+	}
+
+	public boolean hasBoundingBoxWKT() {
+		return hasBoundingBoxWKT;
+	}
+
+	public void setHasBoundingBoxWKT(boolean hasBoundingBoxWKT) {
+		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
+	}
+
+	public boolean hasHierarchicalNaming() {
+		return hasHierarchicalNaming;
+	}
+
+	public void setHasHierarchicalNaming(boolean hasHierarchicalNaming) {
+		this.hasHierarchicalNaming = hasHierarchicalNaming;
+	}
+
+	public boolean hasPerformanceBoost() {
+		return hasPerformanceBoost;
+	}
+
+	public void setHasPerformanceBoost(boolean hasPerformanceBoost) {
+		this.hasPerformanceBoost = hasPerformanceBoost;
 	}
 	
 	

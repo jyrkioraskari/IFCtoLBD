@@ -43,10 +43,10 @@ public abstract class FileUtils {
      */
     public static List<String> getListofFiles(String dir, String extension) {
         List<String> goodFiles = new ArrayList<>();
-        System.out.println("read files /" + dir);
+        //System.out.println("read files /" + dir);
 
         CodeSource src = IFCtoLBDConverter.class.getProtectionDomain().getCodeSource();
-        System.out.println(src.getLocation());
+        //System.out.println(src.getLocation());
         try {
             URL jar = src.getLocation();
             try(ZipInputStream zip = new ZipInputStream(jar.openStream());)

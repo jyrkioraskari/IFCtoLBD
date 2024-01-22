@@ -229,7 +229,7 @@ public class IfcSpfReader {
         }
 
         this.exp = getExpressSchema(ifcFile);
-        System.out.println("express schema: "+this.exp);
+        //System.out.println("express schema: "+this.exp);
 
         // check if we are able to convert this: only four schemas are supported
         if (!this.exp.equalsIgnoreCase("IFC2X3_Final") && !this.exp.equalsIgnoreCase("IFC2X3_TC1") && !this.exp.equalsIgnoreCase("IFC4_ADD2") && !this.exp.equalsIgnoreCase("IFC4_ADD1") && !this.exp.equalsIgnoreCase("IFC4")
@@ -295,7 +295,7 @@ public class IfcSpfReader {
                 inAlt = "IFC4/FINAL/";
 
             this.ontURI = "https://standards.buildingsmart.org/IFC/DEV/" + inAlt + "OWL";
-            System.out.println("IFCtoRDF ont uri: "+this.ontURI);
+            //System.out.println("IFCtoRDF ont uri: "+this.ontURI);
         } catch (FileNotFoundException e1) {
             e1.printStackTrace();
         }

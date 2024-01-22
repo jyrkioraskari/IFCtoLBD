@@ -17,7 +17,7 @@ public class OperatingSystemCopyOf_IfcGeomServer {
         boolean os64bit = false;
         boolean ixsystem = false;
 
-        System.out.println("OS is: " + OS);
+        //System.out.println("OS is: " + OS);
 
         if (System.getProperty("sun.arch.data.model").equals("64"))
             os64bit = true;
@@ -65,7 +65,7 @@ public class OperatingSystemCopyOf_IfcGeomServer {
             try {
                 Files.copy(in, geomserverPath, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
             } catch (Exception e1) {
-                System.err.println("Geom engine not updated.");
+                System.err.println("Geom engine not updated. "+e1.getMessage());
             }
             finally {
 				try {
@@ -83,7 +83,7 @@ public class OperatingSystemCopyOf_IfcGeomServer {
                 }
             }
         } else
-            System.out.println("Undefined");
+            System.out.println("IfcGeomServerLocation Undefined");
 
         return geomserverPath.toString();
     }

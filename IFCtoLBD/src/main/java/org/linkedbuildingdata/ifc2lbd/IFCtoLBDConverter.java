@@ -148,7 +148,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (!uri.endsWith("#") && !uri.endsWith("/"))
 			uri += "#";
 		this.uriBase = Optional.of(uri);
-		System.out.println("Conversion starts");
 		initialise();
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -175,7 +174,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (!uri.endsWith("#") && !uri.endsWith("/"))
 			uri += "#";
 		this.uriBase = Optional.of(uri);
-		System.out.println("Conversion starts");
 		initialise();
 	}
 
@@ -269,76 +267,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		boolean hasGeometry = props.isHasGeometry();
 		boolean exportIfcOWL=props.isExportIfcOWL();
 		boolean hasUnits= props.isHasUnits();
+		boolean hasBoundingBoxWKT=props.hasBoundingBoxWKT();
+		boolean hasHierarchicalNaming=props.hasHierarchicalNaming();
+		boolean hasPerformanceBoost=props.hasPerformanceBoost();
+		
+		// Cannot ne used if ifcOWL is exported
+		if(hasPerformanceBoost && exportIfcOWL)
+			hasPerformanceBoost=!hasPerformanceBoost;
 
-		convert(ifc_filename, null, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
-				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
+		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
+				hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,
+				hasPerformanceBoost, hasBoundingBoxWKT,hasHierarchicalNaming);
 		return this.lbd_general_output_model;
 	}
 
-
-	private static String unzip(String ifcZipFile) {
-		int BUFFER_SIZE = 32 * 1024; // 32KB
-		// JO 2024: performance
-		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(ifcZipFile),BUFFER_SIZE))){
-			byte[] buffer = new byte[1024];
-			
-			ZipEntry zipEntry = zis.getNextEntry();
-			while (zipEntry != null) {
-				System.out.println("entry: " + zipEntry);
-				//String name = zipEntry.getName().split("\\.")[0];
-				File newFile = File.createTempFile("ifc", ".ifc");
-
-				// JO 2024
-				try (// write file content
-				FileOutputStream fos = new FileOutputStream(newFile)) {
-					int len;
-					while ((len = zis.read(buffer)) > 0) {
-						fos.write(buffer, 0, len);
-					}
-				}
-				zipEntry = zis.getNextEntry();
-				zis.close();
-				newFile.deleteOnExit();
-				return newFile.getAbsolutePath();
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-
-	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) {
-		CompletableFuture<IFCGeometry> completableFuture = new CompletableFuture<>();
-
-		Executors.newCachedThreadPool().submit(() -> {
-			IFCGeometry ifc_geometry = null;
-			try {
-				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
-				Timer timer = new Timer();
-				this.ios = 0;
-				// final long start = System.currentTimeMillis();
-				timer.schedule(new TimerTask() {
-					@Override
-					public void run() {
-						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
-					}
-				}, 1000, 1000); //  delay in milliseconds before the message is to be send, and how often
-
-				ifc_geometry = new IFCGeometry(new File(ifc_filename));
-				timer.cancel();
-			} catch (Exception e) {
-				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-						"Geometry handling was not done. " + e.getMessage()));
-				e.printStackTrace();
-			}
-
-			completableFuture.complete(ifc_geometry);
-			return null;
-		});
-
-		return completableFuture;
-	}
 
 	/**
 	 * Convert an IFC STEP file into LBD
@@ -449,7 +391,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			return false;
 		
 		// readInOntologies(ifc_filename);
-		System.out.println("Geometry");
 
 		if (future_ifc_geometry != null) {
 			future_ifc_geometry.join();
@@ -460,7 +401,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			}
         }
 		
-		System.out.println("Reading in ontologies");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Reading in ontologies"));
 		readInOntologies(ifc_filename);
 		createIfcLBDProductMapping();
@@ -479,7 +419,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			boolean hasUnits, boolean hasBoundingBoxWKT) {
 		this.hasBoundingBoxWKT = hasBoundingBoxWKT;
 		resetModels();
-		System.out.println("Product mapping");
 
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
@@ -492,7 +431,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			return false;
 		}
 
-		System.out.println("Conversion phase 1");
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
 		}
@@ -506,8 +444,6 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 
 		
-		System.out.println("Conversion phase 2");
-
 		boolean namedGraphs=false; 
 		try {
 			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
@@ -518,11 +454,73 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 					"Conversion: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 
 		}
-		System.out.println("conversion done..");
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("Conversion done"));
 		return lbd_general_output_model;
 
 	}
+	
+
+	private static String unzip(String ifcZipFile) {
+		int BUFFER_SIZE = 32 * 1024; // 32KB
+		try (ZipInputStream zis = new ZipInputStream(new BufferedInputStream(new FileInputStream(ifcZipFile),BUFFER_SIZE))){
+			byte[] buffer = new byte[1024];
+			
+			ZipEntry zipEntry = zis.getNextEntry();
+			while (zipEntry != null) {
+				File newFile = File.createTempFile("ifc", ".ifc");
+
+				// JO 2024
+				try (// write file content
+				FileOutputStream fos = new FileOutputStream(newFile)) {
+					int len;
+					while ((len = zis.read(buffer)) > 0) {
+						fos.write(buffer, 0, len);
+					}
+				}
+				zipEntry = zis.getNextEntry();
+				zis.close();
+				newFile.deleteOnExit();
+				return newFile.getAbsolutePath();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) {
+		CompletableFuture<IFCGeometry> completableFuture = new CompletableFuture<>();
+
+		Executors.newCachedThreadPool().submit(() -> {
+			IFCGeometry ifc_geometry = null;
+			try {
+				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
+				Timer timer = new Timer();
+				this.ios = 0;
+				// final long start = System.currentTimeMillis();
+				timer.schedule(new TimerTask() {
+					@Override
+					public void run() {
+						IFCtoLBDConverter.this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell running  " + IFCtoLBDConverter.this.ios++));
+					}
+				}, 1000, 1000); //  delay in milliseconds before the message is to be send, and how often
+
+				ifc_geometry = new IFCGeometry(new File(ifc_filename));
+				timer.cancel();
+			} catch (Exception e) {
+				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+						"Geometry handling was not done. " + e.getMessage()));
+				e.printStackTrace();
+			}
+
+			completableFuture.complete(ifc_geometry);
+			return null;
+		});
+
+		return completableFuture;
+	}
+
 	
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {

@@ -64,7 +64,6 @@ public abstract class LBD_RDF_Utils {
 						uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
 				if (exportIfcOWL)
 					guid_uri.addProperty(OWL.sameAs, r);
-				System.out.println("name nul & guid ");
 				return guid_uri;
 			}
 			String localName = r.getLocalName();
@@ -81,13 +80,11 @@ public abstract class LBD_RDF_Utils {
 			Resource uri = m.createResource(uriBase  + localName);
 			if (exportIfcOWL)
 				uri.addProperty(OWL.sameAs, r);
-			System.out.println("name & guid nul");
 			return uri;
 		}
 		Resource guid_uri = m.createResource(uriBase + element_url_name);
 		if (exportIfcOWL)
 			guid_uri.addProperty(OWL.sameAs, r);
-		System.out.println("name: "+element_url_name);
 		return guid_uri;
 	}
 	public static Resource createformattedHierarchicalURIRecource(Resource r, Model m, String product_type, 

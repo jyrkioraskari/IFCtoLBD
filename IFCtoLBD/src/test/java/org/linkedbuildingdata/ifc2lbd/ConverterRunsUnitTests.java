@@ -950,4 +950,83 @@ public class ConverterRunsUnitTests {
 		}
 
 	}
+	
+	
+	@DisplayName("Test geo selection ")
+	@Test
+	public void testGeoSelectionTest() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+			ConversionProperties props = new ConversionProperties();
+			props.setHasGeometry(true);
+			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
+                converter.convert(ifc_file.getAbsolutePath(),props);            
+				double geom_min_x= converter.getGeometryMinX();
+				double geom_min_y= converter.getGeometryMinY();
+				double geom_min_z= converter.getGeometryMinZ();
+				double geom_max_x= converter.getGeometryMaxX();
+				double geom_max_y= converter.getGeometryMaxY();
+				double geom_max_z= converter.getGeometryMaxZ();
+			
+				
+				
+				double geom_dx = (geom_max_x-geom_min_x)/2;
+				double geom_dy = (geom_max_y-geom_min_y)/2;
+				double geom_dz = (geom_max_z-geom_min_z)/2;
+
+				List<Resource> matching_elements1 = converter.getElementByGeometry(geom_min_x,geom_min_y, geom_min_z, geom_max_x, geom_max_y, geom_max_z);
+				List<Resource> matching_elements2 = converter.getElementByGeometry(geom_min_x+geom_dx,geom_min_y+geom_dy, geom_min_z+geom_dz, geom_max_x, geom_max_y, geom_max_z);
+				
+				
+				if (matching_elements1.size() != 286) {  
+					System.out.println("Converted selected geom element number 1 should be 286. Was: " + matching_elements1.size());
+					fail("Converted selected geom element number 1 should be 286. Was: " + matching_elements1.size());
+				}
+
+				if (matching_elements2.size() != 50) {  
+					System.out.println("Converted selected geom element number 2 should be 50. Was: " + matching_elements2.size());
+					fail("Converted selected geom element number 2 should be 50. Was: " + matching_elements2.size());
+				}
+
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
+		}
+
+	}
+	
+	@DisplayName("Test performance boost ")
+	@Test
+	public void testPerformanceBoost() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+			ConversionProperties props = new ConversionProperties();
+			props.setHasPerformanceBoost(false);
+			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
+                converter.convert(ifc_file.getAbsolutePath(),props);            
+
+			}
+
+			props.setHasPerformanceBoost(true);
+			try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://lbd.org/", false, 1);){
+                converter.convert(ifc_file.getAbsolutePath(),props);            
+
+			}
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Example two phases psets error: " + e.getMessage());
+			fail("Conversion Example two phases psets error: " + e.getMessage());
+		}
+
+	}
 }

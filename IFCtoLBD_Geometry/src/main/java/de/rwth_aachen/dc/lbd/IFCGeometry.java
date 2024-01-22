@@ -205,9 +205,9 @@ public class IFCGeometry {
 			}
 			// JO 2024
 			try (FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);) {
-				System.out.println("ifcFile: " + ifcFile);
+				//System.out.println("ifcFile: " + ifcFile);
 				IfcOpenShellModel model = IFCGeometry.ifcOpenShellEngine_singlethon.openModel(ifcFileInputStream);
-				System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
+				//System.out.println("IfcOpenShell opens ifc: " + ifcFile.getAbsolutePath());
 
 				model.generateGeneralGeometry();
 

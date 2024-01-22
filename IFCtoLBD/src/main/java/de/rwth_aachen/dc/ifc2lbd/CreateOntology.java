@@ -48,12 +48,6 @@ public class CreateOntology {
                 }
             });
 
-            System.out.println("bsdd size "+mapBSDD.size());
-            /*
-             * m1nb.listStatements().forEachRemaining(s -> {
-             * properties.add(s.getPredicate()); });
-             */
-
             ObjectProperty p_generalproperty = ontology_model.createObjectProperty(propsns + "property");
 
             for (String pname : mapBSDD.keySet()) {

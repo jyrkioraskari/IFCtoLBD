@@ -30,7 +30,7 @@ public class IFCtoRDF extends IfcSpfReader {
 		PrintStream orgSystemError = System.err;
 		
 		
-		System.out.println("ifcfile is: "+ifcFile);
+		//System.out.println("ifcfile is: "+ifcFile);
 		try {
 			Timer timer = new Timer();
 			timer.schedule(new TimerTask() {
