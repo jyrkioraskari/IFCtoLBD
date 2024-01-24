@@ -74,7 +74,6 @@ public class AttributeSet {
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
         this.hasSimplified_properties = hasSimplified_properties;
-        System.out.println("simple props: "+hasSimplified_properties);
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
