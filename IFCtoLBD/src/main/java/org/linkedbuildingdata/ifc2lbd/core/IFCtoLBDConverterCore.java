@@ -122,7 +122,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	private boolean hasHierarchicalNaming_setting = false;
 	private boolean hasSimplified_properties = false;
-
+	private Map<String, String> property_replace_map=new HashMap<>();  // allows users to replace default properties (for now foe the attributes)
 	private Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
@@ -878,7 +878,7 @@ public abstract class IFCtoLBDConverterCore {
 		addGeometry(bot_r, guid);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 		final AttributeSet connected_attributes = new AttributeSet(this.uriBase.get(), output_model, this.props_level,
-				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties);
+				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties,this.property_replace_map);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
@@ -1302,6 +1302,12 @@ public abstract class IFCtoLBDConverterCore {
 		
 		for (PropertySet pset : this.propertysets.values()) 
 			pset.setHasSimplified_properties(hasSimplified_properties);
+	}
+
+	
+	
+	public void setProperty_replace_map(Map<String, String> property_replace_map) {
+		this.property_replace_map = property_replace_map;
 	}
 
 	// Should be done only when the app is closing
