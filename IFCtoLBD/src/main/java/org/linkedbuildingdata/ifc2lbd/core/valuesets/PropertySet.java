@@ -142,11 +142,7 @@ public class PropertySet {
     public void connect(Resource lbd_resource, String long_guid) {
 
     	if(!this.isActive)
-    	{
-    		System.out.println("pset not active:"+getPropertyset_name());
     		return;
-    	}
-		System.out.println("pset active:"+getPropertyset_name());
         if (this.mapPnameValue.keySet().size() > 0)
             switch (this.props_level) {
                 case 1:

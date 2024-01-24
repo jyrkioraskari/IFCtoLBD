@@ -1181,12 +1181,10 @@ public abstract class IFCtoLBDConverterCore {
 		{
 		   if(selected_psets.contains(pset.getPropertyset_name()))
 		   {
-	    	   System.out.println("pset set active:"+pset.getPropertyset_name());
 			   pset.setActive(true);
 		   }
 		   else
 		   {
-	    	   System.out.println("pset set not active:"+pset.getPropertyset_name());
 		       pset.setActive(false);
 		   }
 		}
