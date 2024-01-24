@@ -77,9 +77,9 @@ public class AttributeSet {
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
-        mapPnameValue.put(attribute_name, value);
+        mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
         if (atype.isPresent()) {
-            mapPnameType.put(attribute_name, atype.get());
+            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
         }
     }
 

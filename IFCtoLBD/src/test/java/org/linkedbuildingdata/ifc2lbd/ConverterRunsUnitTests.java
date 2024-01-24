@@ -263,10 +263,11 @@ public class ConverterRunsUnitTests {
 			Model m3nb = c3nb1.convert(ifc_file.getAbsolutePath());
 
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb.listSubjects());
-			System.out.println("s5");
 			for (Resource r : subjectList51) {
 				if (!subject_samples.contains(r.getURI().split("_a")[0].split("_p")[0])) {
 					System.out.println("" + r);
+					
+					System.out.println("splitted was:"+r.getURI().split("_a")[0].split("_p")[0]);
 					fail("Converted subjects: extras: ");
 
 				}
