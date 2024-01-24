@@ -4,12 +4,12 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 
 public final class PROPS extends abstract_NS{
-    public static final String props_ns = "http://lbd.arch.rwth-aachen.de/props#";
+    public static final String ns = "http://lbd.arch.rwth-aachen.de/props#";
     public static final String psd_ns = "https://www.linkedbuildingdata.net/IFC4-PSD#";
 
     public static void addNameSpace(Model model)
     {
-        model.setNsPrefix("props", props_ns);
+        model.setNsPrefix("props", ns);
         model.setNsPrefix("IFC4-PSD", psd_ns);
     }
     

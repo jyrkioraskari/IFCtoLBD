@@ -1063,4 +1063,78 @@ public class ConverterRunsUnitTests {
 		}
 
 	}
+	
+	
+	@DisplayName("Test ontologocal name space validity 2")
+	@Test
+	public void testOntologyNSValidity2() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+				
+			    Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				Set<String> nss = m.listNameSpaces().toSet();
+				for(String ns:nss)
+				{
+					try
+					{
+					
+					// redirect does not work
+					if(ns.equals("https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#"))	
+							ns="https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL/IFC2X3_TC1.ttl";
+					
+					
+					// redirect does not work
+					if(ns.equals("https://pi.pauwel.be/voc/buildingelement#"))	
+							ns="https://pi.pauwel.be/voc/buildingelement/ontology.ttl";
+					
+					//known issue
+					//TODO
+					if(ns.equals("http://pi.pauwel.be/voc/furniture#"))	
+							continue;
+					
+					//known issue
+					//TODO
+					if(ns.equals("https://linkebuildingdata.org/LBD#"))	
+							continue;
+
+					// redirect does not work
+					if(ns.equals("http://lbd.arch.rwth-aachen.de/props#"))	
+							continue;  // may have server issues
+					
+					// Content negotiation should work: http://lbd.arch.rwth-aachen.de/props#	
+
+					Model model1 = ModelFactory.createDefaultModel();
+					RDFDataMgr.read(model1, ns, Lang.TURTLE);
+				
+					}
+					catch (Exception e) {
+						System.err.println("Ontological name space was not defined error: " + ns);
+						e.printStackTrace();
+						fail("Ontological name space was not defined error: " + ns);
+						
+					}
+				}
+			   
+			}
+
+
+		} catch (
+
+		Exception e) {
+			System.err.println("Ontological name space was not defined error: " + e.getMessage());
+			fail("Ontological name space was not defined error: " + e.getMessage());
+		}
+
+	}
+	
 }

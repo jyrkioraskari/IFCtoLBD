@@ -150,9 +150,9 @@ public class PropertySet {
                 for (String pname : this.mapPnameValue.keySet()) {
                     Property property;                  
                     if(this.hasSimplified_properties)
-                		property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                		property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
                 	else
-                       property = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                       property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
                     
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
@@ -215,9 +215,9 @@ public class PropertySet {
 
             Property p;
             if(this.hasSimplified_properties)
-               p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+               p = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
             else
-            	p = this.lbd_model.createProperty(PROPS.props_ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(p, property_resource));
+            	p = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(p, property_resource));
         }
         return properties;
     }

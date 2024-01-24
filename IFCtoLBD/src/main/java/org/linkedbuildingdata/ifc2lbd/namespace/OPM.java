@@ -6,7 +6,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 
 public class OPM extends abstract_NS{
-	public static final String opm_ns = "https://w3id.org/opm#";
+	public static final String ns = "https://w3id.org/opm#";
 	public static final String prov_ns = "http://www.w3.org/ns/prov#";
 	
 	
@@ -19,9 +19,9 @@ public class OPM extends abstract_NS{
 	//public static final Property hasState =property(seas_ns,"evaluation");
 	
 	
-	public static final Resource property=resource(opm_ns,"Property");
-	public static final Resource currentPropertyState=resource(opm_ns,"CurrentPropertyState");
-    public static final Property hasPropertyState =property(opm_ns,"hasPropertyState"); //Sub property of    seas:evaluation
+	public static final Resource property=resource(ns,"Property");
+	public static final Resource currentPropertyState=resource(ns,"CurrentPropertyState");
+    public static final Property hasPropertyState =property(ns,"hasPropertyState"); //Sub property of    seas:evaluation
 
 
 	
@@ -34,7 +34,7 @@ public class OPM extends abstract_NS{
 	
 	public static void addNameSpacesL3(Model model)
 	{
-		model.setNsPrefix("opm", opm_ns);
+		model.setNsPrefix("opm", ns);
 		model.setNsPrefix("schema", schema_ns);
 		model.setNsPrefix("seas", seas_ns);
 	}

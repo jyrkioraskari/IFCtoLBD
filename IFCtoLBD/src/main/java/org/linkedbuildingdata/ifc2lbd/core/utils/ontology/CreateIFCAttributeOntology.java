@@ -42,7 +42,7 @@ public class CreateIFCAttributeOntology {
 		for (String a : simplified_attributes) {
 					//m.createObjectProperty( PROPS.props_ns  + a );
 					//m.createDatatypeProperty(PROPS.props_ns  + a );
-			        Property p = m.createProperty(LBD.lbd_ns  + a );
+			        Property p = m.createProperty(LBD.ns  + a );
 			        m.add(p, RDF.type, RDF.Property);
 			
 		}
