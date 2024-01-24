@@ -449,6 +449,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
 		this.prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
 
+		this.prefs.putBoolean("lbd_hasHierarchicalNaming", this.hasHierarchicalNaming.isSelected());
+		this.prefs.putBoolean("lbd_hasSimpleProperties", this.hasSimpleProperties.isSelected());
+
 		this.conversionTxt.setText("");
 		try {
 			String uri_base = this.labelBaseURI.getText().trim();
@@ -475,7 +478,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				selected_psets.add(item.getValue());
 
 			}
-			this.running_conversion = this.executor.submit(new ConversionThread(this.running_read_in.get(),
+			
+			IFCtoLBDConverter converter = this.running_read_in.get();		
+			converter.setHasSimplified_properties(this.hasSimpleProperties.isSelected());
+			this.running_conversion = this.executor.submit(new ConversionThread(converter,
 					selected_types,selected_psets, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
 					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
 					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
@@ -598,6 +604,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.ifcOWL_elements.setSelected(this.prefs.getBoolean("lbd_ifcOWL_elements", false));
 		this.createUnits.setSelected(this.prefs.getBoolean("lbd_createUnits", false));
 		this.geolocation.setSelected(this.prefs.getBoolean("lbd_geolocation", true));
+		
+		this.hasHierarchicalNaming.setSelected(this.prefs.getBoolean("lbd_hasHierarchicalNaming", false));
+		this.hasSimpleProperties.setSelected(this.prefs.getBoolean("lbd_hasSimpleProperties", false));
 
 		this.hasPerformanceBoost.setSelected(this.prefs.getBoolean("lbd_performance", true));
 		if (this.ifcOWL_elements.isSelected()) {

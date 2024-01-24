@@ -20,6 +20,8 @@ public class LBD extends abstract_NS {
     public static final Property zmax = property(ns, "z-max"); 
     public static void addNameSpace(Model model) {
         model.setNsPrefix("lbd", ns);
+        
+        
     }
 
 }

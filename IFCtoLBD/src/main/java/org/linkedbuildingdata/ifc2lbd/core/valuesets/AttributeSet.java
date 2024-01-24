@@ -67,19 +67,20 @@ public class AttributeSet {
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
 
-    public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap) {
+    public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap,boolean hasSimplified_properties) {
         this.unitmap = unitmap;
         this.uriBase = uriBase;
         this.lbd_model = lbd_model;
         this.props_level = props_level;
         this.hasBlank_nodes = hasBlank_nodes;
-        this.hasSimplified_properties = false;
+        this.hasSimplified_properties = hasSimplified_properties;
+        System.out.println("simple props: "+hasSimplified_properties);
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
-        mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
+        mapPnameValue.put(attribute_name, value);
         if (atype.isPresent()) {
-            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
+            mapPnameType.put(attribute_name, atype.get());
         }
     }
 
@@ -105,7 +106,7 @@ public class AttributeSet {
                 else
                 {
                 	if(this.hasSimplified_properties)
-                		property = this.lbd_model.createProperty(LBD.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                		property = this.lbd_model.createProperty(LBD.ns + StringOperations.toCamelCase(pname.split("Ifc")[0]));
                 	else
                        property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
                 	   
@@ -162,7 +163,7 @@ public class AttributeSet {
 
             Property p;
             if(this.hasSimplified_properties)
-               p = this.lbd_model.createProperty(LBD.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+               p = this.lbd_model.createProperty(LBD.ns + StringOperations.toCamelCase(pname.split("Ifc")[0]));
             else
             	p = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname));
             properties.add(new PsetProperty(p, property_resource));

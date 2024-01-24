@@ -121,6 +121,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected boolean hasBoundingBoxWKT = false;
 
 	private boolean hasHierarchicalNaming_setting = false;
+	private boolean hasSimplified_properties = false;
 
 	private Dataset lbd_dataset = null;
 
@@ -134,7 +135,7 @@ public abstract class IFCtoLBDConverterCore {
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, @SuppressWarnings("unused") boolean namedGraphs,
 			boolean hasHierarchicalNaming) {
-
+		this.handledAttributes4resource.clear();  // less performant but more dynamic
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 		this.exportIfcOWL_setting = exportIfcOWL;
 		this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
@@ -493,7 +494,7 @@ public abstract class IFCtoLBDConverterCore {
 						si_unit = si_prefix + " " + si_unit;
 
 					if (named_unit != null && si_unit != null) {
-						//System.out.println("SI UNIT: " + named_unit + " - " + si_unit);
+						// System.out.println("SI UNIT: " + named_unit + " - " + si_unit);
 						this.unitmap.put(named_unit.toLowerCase(), si_unit);
 					}
 				}
@@ -537,13 +538,15 @@ public abstract class IFCtoLBDConverterCore {
 						RDFStep[] value_pathD = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
 								new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
 						RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> {
-							//if (property_name.toString().equals("[Width]"))
-								//System.out.println("Property value 1 for " + property_name + " was: " + value);
+							// if (property_name.toString().equals("[Width]"))
+							// System.out.println("Property value 1 for " + property_name + " was: " +
+							// value);
 							if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI()))
 								value = this.ifcowl_model.createTypedLiteral(
 										BigDecimal.valueOf(value.asLiteral().getDouble()), XSD.decimal.getURI());
-							//if (property_name.toString().equals("[Width]"))
-							//	System.out.println("Property value 2 for " + property_name + " was: " + value);
+							// if (property_name.toString().equals("[Width]"))
+							// System.out.println("Property value 2 for " + property_name + " was: " +
+							// value);
 							property_value.add(value);
 						}
 
@@ -875,7 +878,7 @@ public abstract class IFCtoLBDConverterCore {
 		addGeometry(bot_r, guid);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 		final AttributeSet connected_attributes = new AttributeSet(this.uriBase.get(), output_model, this.props_level,
-				this.hasPropertiesBlankNodes, this.unitmap);
+				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
@@ -1031,7 +1034,9 @@ public abstract class IFCtoLBDConverterCore {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
-				if (outputFile.exists() && outputFile.length() > 1000 && hasPerformanceBoost) {  // Only when the performance boost selected
+				if (outputFile.exists() && outputFile.length() > 1000 && hasPerformanceBoost) { // Only when the
+																								// performance boost
+																								// selected
 					System.out.println("Using existing ifcOWL file");
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Using existing ifcOWL file"));
 					Model model = ModelFactory.createDefaultModel();
@@ -1098,7 +1103,7 @@ public abstract class IFCtoLBDConverterCore {
 				file = file.substring(file.indexOf("pset"));
 				file = file.replaceAll("\\\\", "/");
 				RDFUtils.readInOntologyTTL(this.ontology_model, file, this.eventBus);
-				//System.out.println("read ontology file : " + file);
+				// System.out.println("read ontology file : " + file);
 			}
 
 		} catch (Exception e) {
@@ -1170,23 +1175,18 @@ public abstract class IFCtoLBDConverterCore {
 		this.selected_types = selected_types;
 	}
 
-	
 	/**
 	 * Sets the element types that are included in the output
 	 * 
 	 * @param selected_types list of types
 	 */
 	public void setSelected_psets(Set<String> selected_psets) {
-		for(PropertySet pset:this.propertysets.values())
-		{
-		   if(selected_psets.contains(pset.getPropertyset_name()))
-		   {
-			   pset.setActive(true);
-		   }
-		   else
-		   {
-		       pset.setActive(false);
-		   }
+		for (PropertySet pset : this.propertysets.values()) {
+			if (selected_psets.contains(pset.getPropertyset_name())) {
+				pset.setActive(true);
+			} else {
+				pset.setActive(false);
+			}
 		}
 	}
 
@@ -1223,8 +1223,6 @@ public abstract class IFCtoLBDConverterCore {
 		}
 	}
 
-	
-
 	public String getObjJSON() {
 		if (!this.has_geometry.isEmpty()) {
 			Query query = QueryFactory.create("""
@@ -1245,60 +1243,51 @@ public abstract class IFCtoLBDConverterCore {
 			return "";
 	}
 
-	
-	public double getGeometryMinX()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().min(0);
+	public double getGeometryMinX() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().min(0);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public double getGeometryMinY()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().min(1);
+	public double getGeometryMinY() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().min(1);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public double getGeometryMinZ()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().min(2);
+	public double getGeometryMinZ() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().min(2);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public double getGeometryMaxX()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().max(0);
+	public double getGeometryMaxX() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().max(0);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public double getGeometryMaxY()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().max(1);
+	public double getGeometryMaxY() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().max(1);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public double getGeometryMaxZ()
-	{
-		if(this.rtree.mbr().isPresent())
-		   return this.rtree.mbr().get().max(2);
+	public double getGeometryMaxZ() {
+		if (this.rtree.mbr().isPresent())
+			return this.rtree.mbr().get().max(2);
 		else
-		   return 0d;
+			return 0d;
 	}
 
-	public List<Resource> getElementByGeometry(double x1, double y1, double z1, double x2, double y2, double z2)
-	{
-		List<Resource> result=new ArrayList<>();
-		Rectangle rectangle = Rectangle.create(x1, y1, z1, x2,
-				y2, z2);
+	public List<Resource> getElementByGeometry(double x1, double y1, double z1, double x2, double y2, double z2) {
+		List<Resource> result = new ArrayList<>();
+		Rectangle rectangle = Rectangle.create(x1, y1, z1, x2, y2, z2);
 
 		Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rectangle);
 		for (Entry<Resource, Geometry> e : results) {
@@ -1307,8 +1296,18 @@ public abstract class IFCtoLBDConverterCore {
 		return result;
 	}
 	
+	public void setHasSimplified_properties(boolean hasSimplified_properties) {
+		System.out.println("set simple: "+hasSimplified_properties);
+		this.hasSimplified_properties = hasSimplified_properties;
+		
+		for (PropertySet pset : this.propertysets.values()) 
+			pset.setHasSimplified_properties(hasSimplified_properties);
+	}
+
 	// Should be done only when the app is closing
-		public void closeJava() {
-			System.exit(0);
-		}
+	public void closeJava() {
+		System.exit(0);
+	}
+	
+	
 }

@@ -158,7 +158,7 @@
                                  <children>
                                     <SplitPane dividerPositions="0.5" prefHeight="171.0" prefWidth="814.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="382.0">
+                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="382.0">
                                              <children>
                                                 <Hyperlink fx:id="elements_link" layoutX="180.0" layoutY="18.0" onAction="#hyperlink_product_handle" prefHeight="30.0" prefWidth="71.0" text="Read more" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
                                                    <font>
@@ -205,7 +205,7 @@
                                                    </toggleGroup>
                                     </RadioButton>
 												
-                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel2" text="Level 2" textFill="#0b95db" toggleGroup="$PL" AnchorPane.leftAnchor="105.0" AnchorPane.topAnchor="80.0">
+                                                <RadioButton fx:id="level2" layoutX="124.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel2" text="Level 2" textFill="#0b95db" toggleGroup="$PL" AnchorPane.leftAnchor="115.0" AnchorPane.topAnchor="80.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -225,7 +225,7 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </Hyperlink>
-                                                <ToggleSwitch fx:id="building_props_blank_nodes" layoutX="20.0" layoutY="89.0" prefHeight="18.0" prefWidth="130.0" text="Blank nodes" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0">
+                                                <ToggleSwitch fx:id="building_props_blank_nodes" layoutX="20.0" layoutY="89.0" text="Blank nodes" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
@@ -240,7 +240,7 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
-                                                <ToggleSwitch fx:id="hasSimpleProperties" layoutX="20.0" layoutY="179.0" prefHeight="18.0" prefWidth="130.0" text="Simple props" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="170.0">
+                                                <ToggleSwitch fx:id="hasSimpleProperties" layoutX="20.0" layoutY="179.0" prefHeight="18.0" text="Simple props" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="140.0">
                                                    <font>
                                                       <Font name="Arial" size="12.0" />
                                                    </font>

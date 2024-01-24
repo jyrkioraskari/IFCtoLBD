@@ -66,7 +66,7 @@ public class PropertySet {
 
 	private final int props_level;
     private final boolean hasBlank_nodes;
-    private final boolean hasSimplified_properties;
+    private boolean hasSimplified_properties;
 
     private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
@@ -152,7 +152,7 @@ public class PropertySet {
                     if(this.hasSimplified_properties)
                 		property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
                 	else
-                       property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_attribute_simple");
+                       property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_property_simple");
                     
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
@@ -320,6 +320,10 @@ public class PropertySet {
 
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
+	}
+
+	public void setHasSimplified_properties(boolean hasSimplified_properties) {
+		this.hasSimplified_properties = hasSimplified_properties;
 	}
 
 
