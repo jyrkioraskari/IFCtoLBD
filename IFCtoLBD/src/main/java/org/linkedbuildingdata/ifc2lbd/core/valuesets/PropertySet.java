@@ -46,6 +46,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
  *
  */
 public class PropertySet {
+	private boolean isActive=true;
     private final Map<String, String> unitmap;
 
     private static class PsetProperty {
@@ -140,6 +141,12 @@ public class PropertySet {
 
     public void connect(Resource lbd_resource, String long_guid) {
 
+    	if(!this.isActive)
+    	{
+    		System.out.println("pset not active:"+getPropertyset_name());
+    		return;
+    	}
+		System.out.println("pset active:"+getPropertyset_name());
         if (this.mapPnameValue.keySet().size() > 0)
             switch (this.props_level) {
                 case 1:
@@ -168,7 +175,7 @@ public class PropertySet {
             }
     }
 
-    static long state_resourse_counter = 0;
+    static private long  state_resourse_counter = 0;
     private List<PsetProperty> writeOPM_Set(String long_guid) {
         List<PsetProperty> properties = new ArrayList<>();
         LocalDateTime datetime = LocalDateTime.now();
@@ -313,6 +320,10 @@ public class PropertySet {
 
     public String getPropertyset_name() {
 		return propertyset_name;
+	}
+
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
 	}
 
 

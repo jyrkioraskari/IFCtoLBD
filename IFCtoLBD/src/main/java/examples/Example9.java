@@ -35,7 +35,7 @@ public class Example9 {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
 						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 				
-				// List ifcOWL IFCSITEs
+				// List ifcOWL IFCSITEs (IFC 2x3)
 				List<RDFNode> sites = IfcOWLUtils.listSites(converter.ifcOWL, converter.ifcowl_model);
 				System.out.println(sites);
 				IfcOWL ifcOWL=converter.ifcOWL;

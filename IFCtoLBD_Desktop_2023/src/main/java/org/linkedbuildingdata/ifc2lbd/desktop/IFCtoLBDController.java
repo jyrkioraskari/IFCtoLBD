@@ -469,8 +469,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				selected_types.add(item.getValue());
 
 			}
+			
+			Set<String> selected_psets = new HashSet<>();
+			for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
+				selected_psets.add(item.getValue());
+
+			}
 			this.running_conversion = this.executor.submit(new ConversionThread(this.running_read_in.get(),
-					selected_types, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
+					selected_types,selected_psets, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
 					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
 					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
 					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
@@ -482,7 +488,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	}
 
-	@SuppressWarnings("unused")
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.eventBus.register(this);

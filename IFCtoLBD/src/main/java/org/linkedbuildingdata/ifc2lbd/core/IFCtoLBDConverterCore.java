@@ -30,27 +30,11 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
-import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 import org.bimserver.plugins.renderengine.RenderEngineException;
-/*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
@@ -86,6 +70,22 @@ import com.openifctools.guidcompressor.GuidCompressor;
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.ObjDescription;
+
+/*
+ *  Copyright (c) 2017,2018,2019.2020,2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 public abstract class IFCtoLBDConverterCore {
 	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
@@ -1170,6 +1170,28 @@ public abstract class IFCtoLBDConverterCore {
 		this.selected_types = selected_types;
 	}
 
+	
+	/**
+	 * Sets the element types that are included in the output
+	 * 
+	 * @param selected_types list of types
+	 */
+	public void setSelected_psets(Set<String> selected_psets) {
+		for(PropertySet pset:this.propertysets.values())
+		{
+		   if(selected_psets.contains(pset.getPropertyset_name()))
+		   {
+	    	   System.out.println("pset set active:"+pset.getPropertyset_name());
+			   pset.setActive(true);
+		   }
+		   else
+		   {
+	    	   System.out.println("pset set not active:"+pset.getPropertyset_name());
+		       pset.setActive(false);
+		   }
+		}
+	}
+
 	public void resetModels() {
 		this.lbd_general_output_model.removeAll();
 		this.lbd_product_output_model.removeAll();
@@ -1203,10 +1225,7 @@ public abstract class IFCtoLBDConverterCore {
 		}
 	}
 
-	// Should be done only when the app is closing
-	public void closeJava() {
-		System.exit(0);
-	}
+	
 
 	public String getObjJSON() {
 		if (!this.has_geometry.isEmpty()) {
@@ -1289,4 +1308,9 @@ public abstract class IFCtoLBDConverterCore {
 		}
 		return result;
 	}
+	
+	// Should be done only when the app is closing
+		public void closeJava() {
+			System.exit(0);
+		}
 }
