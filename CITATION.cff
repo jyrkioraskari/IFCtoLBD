@@ -38,5 +38,5 @@ abstract: >-
   (https://github.com/w3c-lbd-cg/).
 license: Apache-2.0
 commit: 613e9cd
-version: ' 2.43.4'
+version: '2.43.4'
 date-released: '2024-01-24'
