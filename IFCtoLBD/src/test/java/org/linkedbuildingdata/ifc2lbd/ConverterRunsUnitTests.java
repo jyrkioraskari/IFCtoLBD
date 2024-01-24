@@ -1026,8 +1026,40 @@ public class ConverterRunsUnitTests {
 		} catch (
 
 		Exception e) {
-			System.err.println("Example two phases psets error: " + e.getMessage());
-			fail("Conversion Example two phases psets error: " + e.getMessage());
+			System.err.println("Performance boost error: " + e.getMessage());
+			fail("Performance boost error: " + e.getMessage());
+		}
+
+	}
+	
+	@DisplayName("Test element types and psets")
+	@Test
+	public void testTypesPsets() {
+		this.count = 0;
+		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+				
+				if (converter.getElementTypes().size() != 13) {  
+					System.out.println("Converted element types count should be 13. Was: " + converter.getElementTypes().size());
+					fail("Converted element types count should be 13. Was: " + converter.getElementTypes().size());
+				}
+
+				if (converter.getPropertySetNames().size() != 34) {  
+					System.out.println("Converted pset count should be 34. Was: " + converter.getPropertySetNames().size());
+					fail("Converted pset count should be 34. Was: " + converter.getPropertySetNames().size());
+				}
+
+			}
+		} catch (
+
+		Exception e) {
+			System.err.println("Types and psets error: " + e.getMessage());
+			fail("Types and psets error: " + e.getMessage());
 		}
 
 	}
