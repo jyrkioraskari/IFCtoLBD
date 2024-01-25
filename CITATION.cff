@@ -37,6 +37,6 @@ abstract: >-
   Building Data Community Group (W3C LBD-CG)
   (https://github.com/w3c-lbd-cg/).
 license: Apache-2.0
-commit: aaa317e
-version: ' 2.41.0'
-date-released: '2023-02-15'
+commit: 613e9cd
+version: '2.43.4'
+date-released: '2024-01-24'
