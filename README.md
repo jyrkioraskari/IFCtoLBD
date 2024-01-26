@@ -275,6 +275,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### January 26, 2024
+Python visualization demo code available [here ](/IFCtoLBD_Python/examples.md).
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/Python3DDemo.png)
+
 ### January 02, 2024
 The recommendations was changed to encourage to use one of the last two performant Long-Term Support version of Java (17 or 21).
   

@@ -54,6 +54,7 @@ public class Example4 {
 							System.out.println("BOT element: " + qs.get("e").asResource().getLocalName());
 							System.out.println("BOT element WKT: " + qs.get("wkt"));
 							System.out.println("BOT element OBJ: " + qs.get("obj"));
+							
 
 						});
 						// m.write(System.out, "TTL");
