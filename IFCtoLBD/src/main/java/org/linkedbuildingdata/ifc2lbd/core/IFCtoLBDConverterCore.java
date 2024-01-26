@@ -1296,6 +1296,8 @@ public abstract class IFCtoLBDConverterCore {
 		return result;
 	}
 	
+	
+	// Affects property sets only after: convert_read_in_phase
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
 		System.out.println("set simple: "+hasSimplified_properties);
 		this.hasSimplified_properties = hasSimplified_properties;
