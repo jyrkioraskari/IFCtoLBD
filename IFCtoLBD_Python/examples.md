@@ -36,8 +36,6 @@ while statements.hasNext() :
         object=triple.getObject().toString()
         print(subject)
 
-
-
 #model.write(jpype.java.lang.System.out)
 
 jpype.shutdownJVM()
@@ -97,6 +95,7 @@ jpype.shutdownJVM()
 # !/usr/bin/env python3
 
 import jpype
+import json
 
 # Enable Java imports
 import jpype.imports
@@ -116,7 +115,12 @@ props.setHasGeometry(True);
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
 
 lbdconverter.convert("Duplex_A_20110505.ifc",props)
-print(lbdconverter.getObjJSON());
+lbd_json = str(lbdconverter.getObjJSON())
+lbd_objs = json.loads(lbd_json);
+
+for o in lbd_objs:
+  print(o["element"])
+  print(o["obj"])   # base64 obj
 jpype.shutdownJVM()
 
 
