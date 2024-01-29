@@ -6,7 +6,7 @@ import org.apache.jena.rdf.model.Property;
 
 public class LBD extends abstract_NS {
 	//TODO
-    public static final String ns = "https://linkebuildingdata.org/LBD#";
+    public static final String ns = "https://linkedbuildingdata.org/LBD#";
 
     public static final Property containsInBoundingBox = property(ns, "containsInBoundingBox"); // contains,
                                                                                                     // containsBoundingBox,
