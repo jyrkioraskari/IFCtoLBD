@@ -202,7 +202,7 @@ jpype.shutdownJVM()
 
 ```
 
-### How to create a 3D viaualization
+### How to create a 3D visualization
 
 ```
 # !/usr/bin/env python3
