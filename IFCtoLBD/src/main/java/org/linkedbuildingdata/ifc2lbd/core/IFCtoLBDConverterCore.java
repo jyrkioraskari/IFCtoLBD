@@ -2,6 +2,7 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,6 +31,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
@@ -122,7 +124,8 @@ public abstract class IFCtoLBDConverterCore {
 
 	private boolean hasHierarchicalNaming_setting = false;
 	private boolean hasSimplified_properties = false;
-	private Map<String, String> property_replace_map=new HashMap<>();  // allows users to replace default properties (for now foe the attributes)
+	private Map<String, String> property_replace_map = new HashMap<>(); // allows users to replace default properties
+																		// (for now foe the attributes)
 	private Dataset lbd_dataset = null;
 
 	public IFCtoLBDConverterCore() {
@@ -135,7 +138,7 @@ public abstract class IFCtoLBDConverterCore {
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, @SuppressWarnings("unused") boolean namedGraphs,
 			boolean hasHierarchicalNaming) {
-		this.handledAttributes4resource.clear();  // less performant but more dynamic
+		this.handledAttributes4resource.clear(); // less performant but more dynamic
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 		this.exportIfcOWL_setting = exportIfcOWL;
 		this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
@@ -878,7 +881,7 @@ public abstract class IFCtoLBDConverterCore {
 		addGeometry(bot_r, guid);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 		final AttributeSet connected_attributes = new AttributeSet(this.uriBase.get(), output_model, this.props_level,
-				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties,this.property_replace_map);
+				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties, this.property_replace_map);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();
@@ -1243,18 +1246,28 @@ public abstract class IFCtoLBDConverterCore {
 			return "";
 	}
 
-	
 	public String getObjJSON(String json_query) {
-		if (!this.has_geometry.isEmpty()) {
-			Query query = QueryFactory.create(json_query, Syntax.syntaxARQ);
 
-			try (QueryExecution queryExecution = QueryExecutionFactory.create(query, this.lbd_general_output_model)) {
-				JsonArray jsonArray = queryExecution.execJson();
-				return jsonArray.toString();
+		Query query = QueryFactory.create(json_query, Syntax.syntaxARQ);
+
+		try (QueryExecution queryExecution = QueryExecutionFactory.create(query, this.lbd_general_output_model)) {
+			JsonArray jsonArray;
+			try {
+				jsonArray = queryExecution.execJson();
+			} catch (Exception e) {
+				return "";
 			}
-		} else
-			return "";
+			return jsonArray.toString();
+		}
+
 	}
+
+	public String getJSONLD() {
+		StringWriter sw = new StringWriter();
+		RDFDataMgr.write(sw, lbd_general_output_model, RDFFormat.JSONLD);
+		return sw.toString(); 
+	}
+
 	public double getGeometryMinX() {
 		if (this.rtree.mbr().isPresent())
 			return this.rtree.mbr().get().min(0);
@@ -1307,19 +1320,16 @@ public abstract class IFCtoLBDConverterCore {
 		}
 		return result;
 	}
-	
-	
+
 	// Affects property sets only after: convert_read_in_phase
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
-		System.out.println("set simple: "+hasSimplified_properties);
+		System.out.println("set simple: " + hasSimplified_properties);
 		this.hasSimplified_properties = hasSimplified_properties;
-		
-		for (PropertySet pset : this.propertysets.values()) 
+
+		for (PropertySet pset : this.propertysets.values())
 			pset.setHasSimplified_properties(hasSimplified_properties);
 	}
 
-	
-	
 	public void setProperty_replace_map(Map<String, String> property_replace_map) {
 		this.property_replace_map = property_replace_map;
 	}
@@ -1328,6 +1338,5 @@ public abstract class IFCtoLBDConverterCore {
 	public void closeJava() {
 		System.exit(0);
 	}
-	
-	
+
 }
