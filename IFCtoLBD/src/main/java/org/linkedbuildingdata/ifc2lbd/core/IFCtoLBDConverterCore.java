@@ -1243,6 +1243,18 @@ public abstract class IFCtoLBDConverterCore {
 			return "";
 	}
 
+	
+	public String getObjJSON(String json_query) {
+		if (!this.has_geometry.isEmpty()) {
+			Query query = QueryFactory.create(json_query, Syntax.syntaxARQ);
+
+			try (QueryExecution queryExecution = QueryExecutionFactory.create(query, this.lbd_general_output_model)) {
+				JsonArray jsonArray = queryExecution.execJson();
+				return jsonArray.toString();
+			}
+		} else
+			return "";
+	}
 	public double getGeometryMinX() {
 		if (this.rtree.mbr().isPresent())
 			return this.rtree.mbr().get().min(0);
