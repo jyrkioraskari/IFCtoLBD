@@ -15,6 +15,18 @@ from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
 from org.linkedbuildingdata.ifc2lbd import ConversionProperties
 
 
+#-------------------------------------------------------------------------------
+# Name:        Direct access as Python objects
+# Purpose:
+#
+# Author:      Jyrki Oraskari
+#
+# Created:     29/01/2024
+# Copyright:   (c) Jyrki Oraskari 2024
+# Licence:     Apache 2.0
+#-------------------------------------------------------------------------------
+
+
 props = ConversionProperties();
 props.setHasGeometry(True);
 # Convert the IFC file into LBD, OPM level 1 model

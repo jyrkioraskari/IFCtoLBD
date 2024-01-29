@@ -89,7 +89,7 @@ jpype.shutdownJVM()
 ```
 
 
-### Jet a JSON array of elements and their geometry in the OBJ notation
+### Get  elements and their geometry as an object array
 
 ```
 # !/usr/bin/env python3
@@ -107,6 +107,18 @@ jpype.startJVM(classpath = ['jars/*'])
 
 from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
 from org.linkedbuildingdata.ifc2lbd import ConversionProperties
+
+
+#-------------------------------------------------------------------------------
+# Name:        Direct access as Python objects
+# Purpose:
+#
+# Author:      Jyrki Oraskari
+#
+# Created:     29/01/2024
+# Copyright:   (c) Jyrki Oraskari 2024
+# Licence:     Apache 2.0
+#-------------------------------------------------------------------------------
 
 
 props = ConversionProperties();
@@ -130,8 +142,6 @@ for o in lbd_objs:
   print(o["element"])
   print(o["obj"])   # base64 obj
 jpype.shutdownJVM()
-
-
 
 ```
 
