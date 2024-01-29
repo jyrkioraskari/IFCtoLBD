@@ -9,7 +9,7 @@
 @prefix schema: <http://schema.org/> .
 @prefix omg: <https://w3id.org/omg#> 
 @prefix fog: <https://w3id.org/fog#> .
-@prefix lbd: <https://linkebuildingdata.org/LBD#> .
+@prefix lbd: <https://linkedbuildingdata.org/LBD#> .
 
 inst:RuleLevel1GeomShape1
     a sh:NodeShape ;
