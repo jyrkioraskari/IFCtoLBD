@@ -270,6 +270,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		boolean hasBoundingBoxWKT=props.hasBoundingBoxWKT();
 		boolean hasHierarchicalNaming=props.hasHierarchicalNaming();
 		boolean hasPerformanceBoost=props.hasPerformanceBoost();
+		this.hasNonLBDElement=props.hasNonLBDElement();
 		
 		// Cannot ne used if ifcOWL is exported
 		if(hasPerformanceBoost && exportIfcOWL)

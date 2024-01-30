@@ -275,6 +275,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### January 30, 2024
+Simple graph plot with Python
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/graph_plot.png)
+
 ### January 26, 2024
 Python visualization demo code available [here ](/IFCtoLBD_Python/examples.md).
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/Python3DDemo.png)

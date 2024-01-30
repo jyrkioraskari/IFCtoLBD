@@ -12,6 +12,7 @@ public class ConversionProperties {
 	private boolean hasBoundingBoxWKT=false;
 	private boolean hasHierarchicalNaming=false;
 	private boolean hasPerformanceBoost=true;
+	private boolean hasNonLBDElement=true;
 	
 	public ConversionProperties() {
 		
@@ -118,6 +119,14 @@ public class ConversionProperties {
 
 	public void setHasPerformanceBoost(boolean hasPerformanceBoost) {
 		this.hasPerformanceBoost = hasPerformanceBoost;
+	}
+
+	public boolean hasNonLBDElement() {
+		return hasNonLBDElement;
+	}
+
+	public void setHasNonLBDElement(boolean hasNonLBDElement) {
+		this.hasNonLBDElement = hasNonLBDElement;
 	}
 	
 	
