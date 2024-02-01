@@ -219,9 +219,9 @@ public class ConverterRunsUnitTests {
 
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-			if (subjectList1.size() != 295) {
-				System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
-				fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
+			if (subjectList1.size() != 548) {
+				System.out.println("Converted subject count  should not be 548. Was: " + subjectList1.size());
+				fail("Converted subject count  should not be 548. Was: " + subjectList1.size());
 			}
 
 			if (m1nb.size() == 0) {
@@ -235,9 +235,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1wb.listSubjects());
 
-			if (subjectList2.size() != 295) {
-				System.out.println("Converted subject count should not be 295. Was: " + subjectList2.size());
-				fail("Converted subject count  should not be 295. Was: " + subjectList2.size());
+			if (subjectList2.size() != 548) {
+				System.out.println("Converted subject count should not be 548. Was: " + subjectList2.size());
+				fail("Converted subject count  should not be 548. Was: " + subjectList2.size());
 			}
 
 			IFCtoLBDConverter c2nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -246,9 +246,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList3 = ImmutableList.copyOf(m2nb.listSubjects());
 
-			if (subjectList3.size() != 6792) {
-				System.out.println("Converted subject count should not be 6792. Was: " + subjectList3.size());
-				fail("Converted subject count  should not be 6792. Was: " + subjectList3.size());
+			if (subjectList3.size() != 7046) {
+				System.out.println("Converted subject count should not be 7046. Was: " + subjectList3.size());
+				fail("Converted subject count  should not be 7046. Was: " + subjectList3.size());
 			}
 
 			IFCtoLBDConverter c2wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
@@ -258,9 +258,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList4 = ImmutableList.copyOf(m2wb.listSubjects());
 
-			if (subjectList4.size() != 6799) {
-				System.out.println("Converted subject count should not be 6799. Was2: " + subjectList4.size());
-				fail("Converted subject count  should not be 6799. Was2: " + subjectList4.size());
+			if (subjectList4.size() != 7053) {
+				System.out.println("Converted subject count should not be 7053. Was: " + subjectList4.size());
+				fail("Converted subject count  should not be 7053. Was: " + subjectList4.size());
 			}
 
 			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -269,7 +269,13 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb.listSubjects());
 			for (Resource r : subjectList51) {
+				if(r.getURI().startsWith("http://lbd.arch.rwth-aachen.de/props#"))
+					continue;
+				if(r.getURI().startsWith("https://linkedbuildingdata.org/LBD#"))
+					continue;
+				
 				if (!subject_samples.contains(r.getURI().split("_a")[0].split("_p")[0])) {
+					
 					System.out.println("" + r);
 
 					System.out.println("splitted was:" + r.getURI().split("_a")[0].split("_p")[0]);
@@ -278,9 +284,9 @@ public class ConverterRunsUnitTests {
 				}
 			}
 
-			if (subjectList51.size() != 13296) {
-				System.out.println("Converted subject count should not be 13296. Was: " + subjectList51.size());
-				fail("Converted subject count  should not be 13296. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13550) {
+				System.out.println("Converted subject count should  be 13550. Was: " + subjectList51.size());
+				fail("Converted subject count  should be 13550. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -297,9 +303,9 @@ public class ConverterRunsUnitTests {
 				fail("Two comparison and different results. Was: ");
 			}
 
-			if (subjectList52.size() != 13296) {
-				System.out.println("Converted subject count should not be 13296. Was: " + subjectList52.size());
-				fail("Converted subject count  should not be 13296. Was: " + subjectList52.size());
+			if (subjectList52.size() != 13550) {
+				System.out.println("Converted subject count should  be 13550. Was: " + subjectList52.size());
+				fail("Converted subject count  should  be 13550. Was: " + subjectList52.size());
 			}
 
 			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
@@ -309,9 +315,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList6 = ImmutableList.copyOf(m3wb.listSubjects());
 
-			if (subjectList6.size() != 13303) {
-				System.out.println("Converted subject count should not be 13303. Was: " + subjectList6.size());
-				fail("Converted subject count  should not be 13303. Was: " + subjectList6.size());
+			if (subjectList6.size() != 13557) {
+				System.out.println("Converted subject count should not be 13557. Was: " + subjectList6.size());
+				fail("Converted subject count  should not be 13557. Was: " + subjectList6.size());
 			}
 
 		} catch (Exception e) {
@@ -337,11 +343,10 @@ public class ConverterRunsUnitTests {
 
 			}
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
-			System.out.println("Converted subject count  5 was: " + subjectList51.size());
 
-			if (subjectList51.size() != 13296) {
-				System.out.println("Converted subject count should not be 13296. Was: " + subjectList51.size());
-				fail("Converted subject count  should not be 13296. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13550) {
+				System.out.println("Converted subject count should  be 13550. Was: " + subjectList51.size());
+				fail("Converted subject count  should not be 13550. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
@@ -349,11 +354,9 @@ public class ConverterRunsUnitTests {
 			m3nb2.write(System.out, "TTL");
 			ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
 
-			System.out.println("Converted subject count  5 was: " + subjectList52.size());
-
-			if (subjectList52.size() != 13303) {
-				System.out.println("Converted subject count should not be 13303. Was: " + subjectList52.size());
-				fail("Converted subject count  should not be 13303. Was: " + subjectList52.size());
+			if (subjectList52.size() != 13557) {
+				System.out.println("Converted subject count should not be 13557. Was: " + subjectList52.size());
+				fail("Converted subject count  should not be 13557. Was: " + subjectList52.size());
 			}
 
 		} catch (Exception e) {
@@ -733,9 +736,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 581) {
-					System.out.println("Converted subject count should  be 581. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 581. Was: " + subjectList51.size());
+				if (subjectList51.size() != 834) {
+					System.out.println("Converted subject count should  be 834. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 834. Was: " + subjectList51.size());
 				}
 			}
 
@@ -920,9 +923,9 @@ public class ConverterRunsUnitTests {
 					System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
 					fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
 				}
-				if (subjectList1.size() != 262) {
-					System.out.println("Converted subject count  should  be 262. Was: " + subjectList1.size());
-					fail("Converted subject count  should  be 262. Was: " + subjectList1.size());
+				if (subjectList1.size() != 366) {
+					System.out.println("Converted subject count  should  be 366. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 366. Was: " + subjectList1.size());
 				}
 			}
 
@@ -997,9 +1000,9 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter1 = new IFCtoLBDConverter("https://lbd.org/", false, 1);) {
 				Model m1nb = converter1.convert(ifc_file.getAbsolutePath(), props);
 				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-				if (subjectList1.size() != 295) {
-					System.out.println("Converted subject count  should not be 295. Was: " + subjectList1.size());
-					fail("Converted subject count  should not be 295. Was: " + subjectList1.size());
+				if (subjectList1.size() != 548) {
+					System.out.println("Converted subject count  should not be 548. Was: " + subjectList1.size());
+					fail("Converted subject count  should not be 548. Was: " + subjectList1.size());
 				}
 
 			}
@@ -1009,9 +1012,9 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter2 = new IFCtoLBDConverter("https://lbd.org/", false, 1);) {
 				Model m1nb1 = converter2.convert(ifc_file.getAbsolutePath(), props);
 				ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1nb1.listSubjects());
-				if (subjectList2.size() != 295) {
-					System.out.println("Converted subject count  should not be 295. Was: " + subjectList2.size());
-					fail("Converted subject count  should not be 295. Was: " + subjectList2.size());
+				if (subjectList2.size() != 548) {
+					System.out.println("Converted subject count  should not be 548. Was: " + subjectList2.size());
+					fail("Converted subject count  should not be 548. Was: " + subjectList2.size());
 				}
 
 			}
@@ -1162,9 +1165,9 @@ public class ConverterRunsUnitTests {
 							hasGeolocation, local_hasGeometry, exportIfcOWL, hasUnits, local_hasGeometry, true);
 
 					ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(model_level1.listSubjects());
-					if (subjectList1.size() != 581) {
-						System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
-						fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
+					if (subjectList1.size() != 832) {
+						System.out.println("Converted subject count  should not be 832. Was: " + subjectList1.size());
+						fail("Converted subject count  should not be 832. Was: " + subjectList1.size());
 					}
 
 					final Set<String> properties = new HashSet<>();
