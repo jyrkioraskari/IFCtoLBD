@@ -1093,15 +1093,15 @@ public class ConverterRunsUnitTests {
 						if (ns.equals("http://pi.pauwel.be/voc/furniture#"))
 							continue;
 
-						// known issue
-						// TODO
-						if (ns.equals("https://linkebuildingdata.org/LBD#"))
-							continue;
-
 						// redirect does not work
 						if (ns.equals("http://lbd.arch.rwth-aachen.de/props#"))
 							continue; // may have server issues
 
+						// redirect does not work
+						if (ns.equals("https://linkedbuildingdata.org/LBD#"))
+							continue; // may have server issues
+						
+						
 						// Content negotiation should work: http://lbd.arch.rwth-aachen.de/props#
 
 						Model model1 = ModelFactory.createDefaultModel();
