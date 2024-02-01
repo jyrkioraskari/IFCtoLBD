@@ -61,9 +61,11 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
     final boolean hasHierarchicalNaming;
+    
+    final boolean hasIfc_based_elements;
 
     //TODO Check this
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -85,6 +87,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasPerformanceBoost=hasPerformanceBoost;
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 		this.hasHierarchicalNaming=hasHierarchicalNaming;
+		this.hasIfc_based_elements=hasIfc_based_elements;
 	}
 
 	@Override
@@ -93,6 +96,7 @@ public class ConversionThread implements Callable<Integer> {
 			try {
 				converter.setSelected_types(selected_types);
 				converter.setSelected_psets(selected_psets);
+				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming);

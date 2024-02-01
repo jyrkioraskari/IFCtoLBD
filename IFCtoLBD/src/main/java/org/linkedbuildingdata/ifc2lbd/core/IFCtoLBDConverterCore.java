@@ -1358,4 +1358,8 @@ public abstract class IFCtoLBDConverterCore {
 		System.exit(0);
 	}
 
+	public void setHasNonLBDElement(boolean hasNonLBDElement) {
+		this.hasNonLBDElement = hasNonLBDElement;
+	}
+
 }

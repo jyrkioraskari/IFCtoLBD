@@ -741,6 +741,25 @@ public class ConverterRunsUnitTests {
 					fail("Converted subject count  should  be 834. Was: " + subjectList51.size());
 				}
 			}
+			
+			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+					props_level);) {
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits);
+				
+				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
+						exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits);
+				Model m3nb1 = converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+						hasUnits, hasBoundingBoxWKT, true);
+
+				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
+
+				if (subjectList51.size() != 834) {
+					System.out.println("Converted subject count should  be 834. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 834. Was: " + subjectList51.size());
+				}
+			}
 
 		} catch (
 

@@ -113,7 +113,7 @@
                <opaqueInsets>
                   <Insets right="255.0" />
                </opaqueInsets></Button>
-            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="35.0" prefWidth="212.0" text="READ in an IFC file" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <Button fx:id="selectIFCFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" defaultButton="true" layoutX="50.0" layoutY="231.0" mnemonicParsing="false" onAction="#selectIFCFile" prefHeight="35.0" prefWidth="212.0" text="READ in an IFC file" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="90.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -129,7 +129,7 @@
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
-            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" textFill="WHITE" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="90.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
@@ -148,11 +148,11 @@
                </font>
             </Label>
             <CheckTreeView fx:id="propertysets_checkbox" layoutX="59.0" layoutY="267.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="255.0" />
-            <TitledPane expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="386.0" prefWidth="938.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="100.0">
+            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
-                        <SplitPane dividerPositions="0.75" layoutX="37.6" layoutY="10.6" orientation="VERTICAL" prefHeight="260.0" prefWidth="781.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                        <SplitPane dividerPositions="0.5441551812149056" layoutX="37.6" layoutY="10.6" orientation="VERTICAL" prefHeight="260.0" prefWidth="781.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
@@ -245,6 +245,7 @@
                                                       <Font name="Arial" size="12.0" />
                                                    </font>
                                                 </ToggleSwitch>
+                                                <Text fill="#d70909" layoutX="20.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Some of the values cannot be changed when the IFC file is already read." AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="178.05078125" />
                                              </children>
                                           </AnchorPane>
                                       </items>
@@ -255,12 +256,17 @@
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
-                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" onMouseReleased="#ifcOWLSelectionChange" text="Create and link ifcOWL" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
+                                          <ToggleSwitch fx:id="ifcOWL_elements" accessibleText="Building Product Ontology instances" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Create and link ifcOWL" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
                                           <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
