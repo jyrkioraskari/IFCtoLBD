@@ -16,6 +16,7 @@ import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
@@ -153,7 +154,9 @@ public class PropertySet {
                 		property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
                 	else
                        property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_property_simple");
-                    
+                	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
+                    this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
+
                     lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
@@ -213,11 +216,15 @@ public class PropertySet {
                     addUnit(property_resource, pname);
             }
 
-            Property p;
+            Property property;
             if(this.hasSimplified_properties)
-               p = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+               property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
             else
-            	p = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(p, property_resource));
+            	property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(property, property_resource));
+            	
+            	this.lbd_model.add(property, RDF.type, OWL.ObjectProperty);
+            	this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
+            	
         }
         return properties;
     }

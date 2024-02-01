@@ -149,9 +149,7 @@
 			<artifactId>jena-shaded-guava</artifactId>
 			<version>4.8.0</version>
 		</dependency>
-		
 
-		<!-- Thanks for using https://jar-download.com -->
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>

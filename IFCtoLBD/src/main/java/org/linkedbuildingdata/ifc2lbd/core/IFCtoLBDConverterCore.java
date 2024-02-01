@@ -685,19 +685,14 @@ public abstract class IFCtoLBDConverterCore {
 
 				if (!this.selected_types.contains(bot_type.get().getLocalName()))
 					return null;
-				else
-					System.out.println(bot_type.get().getLocalName()+" in "+this.selected_types);
-
 			}
 			else
 			{
-				System.out.println("Not a type:"+ifcowl_type.get().getLocalName());
 				if(!this.hasNonLBDElement)
 					return null;
 			}
 
 		}
-		// System.out.println("Connect element: " + ifcOWL_element);
 		if (bot_type.isPresent()) {
 			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
 					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase.get(),
@@ -746,20 +741,15 @@ public abstract class IFCtoLBDConverterCore {
 
 				if (!this.selected_types.contains(bot_type.get().getLocalName()))
 					return;
-				else
-					System.out.println(bot_type.get().getLocalName()+" in "+this.selected_types);
 
 			}
 			else
 			{
-				System.out.println("Not a type:"+ifcowl_type.get().getLocalName());
 				if(!this.hasNonLBDElement)
 					return;
 			}
 
 		}
-		else
-			System.out.println("ifcOWL Not have a type:"+ifcOWL_element);
 		
 
 		if (bot_type.isPresent()) {
@@ -849,19 +839,13 @@ public abstract class IFCtoLBDConverterCore {
 
 				if (!this.selected_types.contains(lbd_product_type.get().getLocalName()))
 					return null;
-				else
-					System.out.println(lbd_product_type.get().getLocalName()+" in "+this.selected_types);
-
 			}
 			else
 			{
-				System.out.println("Not a type:"+ifcowl_type.get().getLocalName());
 				if(!this.hasNonLBDElement)
 					return null;
 			}
 		}
-		else
-			System.out.println("Not have a type:"+bot_resource);
 		
 
 		if (lbd_product_type.isPresent()) {

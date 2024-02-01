@@ -14,6 +14,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
@@ -127,7 +128,9 @@ public class AttributeSet {
                 		property = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname.split("Ifc")[0])));
                 	else
                        property = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname) + "_attribute_simple"));
-                	   
+                	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
+                    this.lbd_model.add(property, RDFS.comment, "IFC standard attribute "+pname);
+
                 }
                 // No blank node etc is created, so no units expressed here
                 lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
@@ -179,12 +182,15 @@ public class AttributeSet {
                 addUnit(property_resource, pname);
             }
 
-            Property p;
+            Property property;
             if(this.hasSimplified_properties)
-               p = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname.split("Ifc")[0])));
+               property = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname.split("Ifc")[0])));
             else
-               p = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname)));
-            properties.add(new PsetProperty(p, property_resource));
+               property = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname)));
+            this.lbd_model.add(property, RDF.type, OWL.ObjectProperty);
+            this.lbd_model.add(property, RDFS.comment, "IFC standard attribute "+pname);
+
+            properties.add(new PsetProperty(property, property_resource));
         }
         return properties;
     }
