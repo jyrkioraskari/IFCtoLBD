@@ -247,9 +247,8 @@ public class AttributeSet {
     }
 
     private String property_replace(String property)
-    {
+    {    	
     	return this.property_replace_map.getOrDefault(property,property);
-
     }
     
     public Set<String> getPropertynames() {
