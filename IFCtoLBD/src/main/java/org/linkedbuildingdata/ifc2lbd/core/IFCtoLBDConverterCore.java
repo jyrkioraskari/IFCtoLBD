@@ -61,6 +61,9 @@ import org.linkedbuildingdata.ifc2lbd.namespace.Product;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
 import com.github.davidmoten.rtreemulti.geometry.Geometry;
@@ -1351,6 +1354,16 @@ public abstract class IFCtoLBDConverterCore {
 
 	public void setProperty_replace_map(Map<String, String> property_replace_map) {
 		this.property_replace_map = property_replace_map;
+	}
+	
+	public void setProperty_replace_map(String property_replace_map_json) {
+		try {
+			Map<String, String> mapping = new ObjectMapper().readValue(property_replace_map_json, HashMap.class);
+			this.property_replace_map = mapping;
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	// Should be done only when the app is closing
