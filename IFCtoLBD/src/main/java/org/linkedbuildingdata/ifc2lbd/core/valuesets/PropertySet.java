@@ -20,6 +20,7 @@ import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
+import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
@@ -77,7 +78,10 @@ public class PropertySet {
     private boolean is_bSDD_pset = false;
     private Resource psetDef = null;
     private final boolean hasUnits;
-
+    private static long pset_counter=0;
+    private long pset_inx=0;
+    private boolean done=false;
+    
     public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap, boolean hasUnits) {
         this.unitmap = unitmap;
         this.uriBase = uriBase;
@@ -94,6 +98,8 @@ public class PropertySet {
             psetDef = iter.next().getSubject();
         }
         this.hasSimplified_properties = false;
+        PropertySet.pset_counter++;
+        this.pset_inx=PropertySet.pset_counter;
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
@@ -139,9 +145,28 @@ public class PropertySet {
      *            The GUID of the elemet in the long form
      */
     Set<String> hashes = new HashSet<>();
-
+    private boolean pksetclasses=false;
     public void connect(Resource lbd_resource, String long_guid) {
+    	Resource to_connect=lbd_resource;
+    	if(pksetclasses)
+    	{
+    		to_connect=this.lbd_model.createResource(this.uriBase + "pset_" + this.propertyset_name + "_" + this.pset_inx);
+    		if(this.propertyset_name.contains("Common"))
+    		{
+        		Resource bsdd_class = this.lbd_model.createResource("https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/"+this.propertyset_name);
+    			to_connect.addProperty(RDF.type, bsdd_class);
 
+    		}
+    		Property property = this.lbd_model.createProperty(LBD.ns + "has"+this.propertyset_name);
+    		lbd_resource.addProperty(property,to_connect);
+    		if(this.done)
+    		{
+    			// Already done pset, just connect
+    			return;
+    		}
+    		this.done=true;
+    	}
+    	
     	if(!this.isActive)
     		return;
         if (this.mapPnameValue.keySet().size() > 0)
@@ -157,7 +182,7 @@ public class PropertySet {
                 	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
                     this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
 
-                    lbd_resource.addProperty(property, this.mapPnameValue.get(pname));
+                    to_connect.addProperty(property, this.mapPnameValue.get(pname));
                 }
                     break;
                 case 2:
@@ -165,7 +190,7 @@ public class PropertySet {
                 if (hashes.add(long_guid)) {
                     List<PsetProperty> properties = writeOPM_Set(long_guid);
                     for (PsetProperty pp : properties) {
-                        if (!this.lbd_model.listStatements(lbd_resource, pp.p, pp.r).hasNext()) {
+                        if (!this.lbd_model.listStatements(to_connect, pp.p, pp.r).hasNext()) {
                             lbd_resource.addProperty(pp.p, pp.r);
                         }
                     }

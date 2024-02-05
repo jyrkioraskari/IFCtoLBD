@@ -1215,6 +1215,22 @@ public abstract class IFCtoLBDConverterCore {
 		}
 	}
 
+	
+	public void setSelected_psets(String selected_psets_json) {
+		try {
+			Set<String> selected_psets = new ObjectMapper().readValue(selected_psets_json, HashSet.class);
+			for (PropertySet pset : this.propertysets.values()) {
+				if (selected_psets.contains(pset.getPropertyset_name())) {
+					pset.setActive(true);
+				} else {
+					pset.setActive(false);
+				}
+			}
+		} catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	public void resetModels() {
 		this.lbd_general_output_model.removeAll();
 		this.lbd_product_output_model.removeAll();
