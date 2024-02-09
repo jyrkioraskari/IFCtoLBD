@@ -14,7 +14,7 @@
     <repositories>       
         <repository>
          <id>github</id>
-         <url>https://jyrkioraskari:SECRETTOKEN@maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
+         <url>https://jyrkioraskari:SECRETKEY@maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
@@ -30,7 +30,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc-to-lbd</artifactId>
-			<version>2.43.4</version>
+			<version>2.43.5</version>
 		</dependency>
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
