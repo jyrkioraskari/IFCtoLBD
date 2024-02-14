@@ -1063,8 +1063,8 @@ public class RDFWriter {
 			try {
 				ttlWriter.triple(Triple.create(r.asNode(), RDF.type.asNode(), rclass.asNode()));
 			} catch (Exception e) {
-				e.printStackTrace();
-				System.out.println("rclass: " + rclass);
+				// Can be caused when optimization removes the IFC lines containing geometry.
+				System.err.println("rclass: " + rclass+" "+e.getMessage());
 				LOG.error("*ERROR 2*: getResource failed for " + uri);
 				return null;
 			}

@@ -54,6 +54,7 @@ public class IfcOWL extends abstract_NS {
     private final String IfcSpace;
     private final String IfcProduct;
     private final String IfcPropertySet;
+    private final String IfcQuantitySet;
     private final String IfcUnitAssignment;
     private final String IfcSIUnit;
     
@@ -109,6 +110,7 @@ public class IfcOWL extends abstract_NS {
         IfcSpace = ifcURI + "IfcSpace";
         IfcProduct = ifcURI + "IfcProduct";
         IfcPropertySet = ifcURI + "IfcPropertySet";
+        IfcQuantitySet = ifcURI +"IfcQuantitySet";
         IfcUnitAssignment = ifcURI + "IfcUnitAssignment";
         IfcSIUnit = ifcURI + "IfcSIUnit";
         
@@ -270,7 +272,12 @@ public class IfcOWL extends abstract_NS {
         return IfcPropertySet;
     }
 
-    public Property getHasProperties_IfcPropertySet() {
+    
+    public String getIfcQuantitySet() {
+		return IfcQuantitySet;
+	}
+
+	public Property getHasProperties_IfcPropertySet() {
         return hasProperties_IfcPropertySet;
     }
     

@@ -66,7 +66,6 @@ public class IfcOpenShellModel implements RenderEngineModel {
 
 	private InputStream ifcInputStream;
 
-	private Map<Long, IfcOpenShellEntityInstance> instancesById;
 	private HashMap<String, IfcOpenShellEntityInstance> instancesByGUID;
 
 	private IfcGeomServerClient client;
@@ -89,9 +88,6 @@ public class IfcOpenShellModel implements RenderEngineModel {
 
 	@Override
 	public void close() throws RenderEngineException {
-		if (this.instancesById != null) {
-			this.instancesById.clear();
-		}
 		// JO 2020
 		if (this.instancesByGUID != null) {
 			this.instancesByGUID.clear();
@@ -106,7 +102,6 @@ public class IfcOpenShellModel implements RenderEngineModel {
 	@Override
 	public void generateGeneralGeometry() throws RenderEngineException {
 		// We keep track of instances ourselves
-		this.instancesById = new HashMap<>();
 		this.instancesByGUID = new HashMap<>();
 
 		final double t0 = System.nanoTime();
@@ -115,25 +110,15 @@ public class IfcOpenShellModel implements RenderEngineModel {
 			IfcGeomServerClientEntity next = this.client.getNext();
 			// Store the instance in our dictionary
 			IfcOpenShellEntityInstance instance = new IfcOpenShellEntityInstance(next);
-			this.instancesById.put(next.getId(), instance);
 			this.instancesByGUID.put(next.getGuid(), instance);
 		}
 
 		final double t1 = System.nanoTime();
-
-		LOGGER.debug(String.format("Took %.2f seconds to obtain representations for %d entities", (t1 - t0) / 1.E9,
-				this.instancesById.size()));
 	}
 
 	@Override
 	public RenderEngineInstance getInstanceFromExpressId(long expressId) throws RenderEngineException {
-		if (this.instancesById.containsKey(expressId)) {
-			return this.instancesById.get(expressId);
-		}
-		// Probably something went wrong with the processing of this element in
-		// the IfcOpenShell binary, as it has not been included in the enumerated
-		// set of elements with geometry.
-		throw new EntityNotFoundException("Entity " + expressId + " not found in model");
+		return null;
 	}
 
 	@Override
