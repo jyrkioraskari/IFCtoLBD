@@ -33,6 +33,10 @@ public class IfcOWL extends abstract_NS {
     private final Property name_IfcProperty;
     private final Property hasProperties_IfcPropertySet;
     private final Property nominalValue_IfcPropertySingleValue;
+    
+    private final Property name_IfcPhysicalQuantity; 
+    private final Property quantities_IfcElementQuantity;
+    
     private final Property unit_IfcPropertySingleValue;
     private final Property description;
     private final Property name;
@@ -54,7 +58,7 @@ public class IfcOWL extends abstract_NS {
     private final String IfcSpace;
     private final String IfcProduct;
     private final String IfcPropertySet;
-    private final String IfcQuantitySet;
+    private final String IfcElementQuantity;
     private final String IfcUnitAssignment;
     private final String IfcSIUnit;
     
@@ -91,6 +95,11 @@ public class IfcOWL extends abstract_NS {
         name_IfcProperty  =property(ifcURI, "name_IfcProperty");
         hasProperties_IfcPropertySet =property(ifcURI, "hasProperties_IfcPropertySet");
         nominalValue_IfcPropertySingleValue =property(ifcURI, "nominalValue_IfcPropertySingleValue");
+        
+        quantities_IfcElementQuantity =property(ifcURI, "quantities_IfcElementQuantity");
+        name_IfcPhysicalQuantity =property(ifcURI, "name_IfcPhysicalQuantity");
+        
+        
         unit_IfcPropertySingleValue = property(ifcURI, "unit_IfcPropertySingleValue");
         
         description = property(ifcURI, "description_IfcRoot");
@@ -110,7 +119,7 @@ public class IfcOWL extends abstract_NS {
         IfcSpace = ifcURI + "IfcSpace";
         IfcProduct = ifcURI + "IfcProduct";
         IfcPropertySet = ifcURI + "IfcPropertySet";
-        IfcQuantitySet = ifcURI +"IfcQuantitySet";
+        IfcElementQuantity = ifcURI +"IfcElementQuantity";
         IfcUnitAssignment = ifcURI + "IfcUnitAssignment";
         IfcSIUnit = ifcURI + "IfcSIUnit";
         
@@ -172,11 +181,22 @@ public class IfcOWL extends abstract_NS {
         return name_IfcProperty;
     }
 
+    
+    public Property getQuantities_IfcElementQuantity() {
+		return quantities_IfcElementQuantity;
+	}
+
+    
     public Property getNominalValue_IfcPropertySingleValue() {
         return nominalValue_IfcPropertySingleValue;
     }
 
-    public Property getUnit_IfcPropertySingleValue() {
+
+	public Property getName_IfcPhysicalQuantity() {
+		return name_IfcPhysicalQuantity;
+	}
+
+	public Property getUnit_IfcPropertySingleValue() {
         return unit_IfcPropertySingleValue;
     }
 
@@ -273,8 +293,9 @@ public class IfcOWL extends abstract_NS {
     }
 
     
-    public String getIfcQuantitySet() {
-		return IfcQuantitySet;
+
+	public String getIfcElementQuantity() {
+		return IfcElementQuantity;
 	}
 
 	public Property getHasProperties_IfcPropertySet() {
