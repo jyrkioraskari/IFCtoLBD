@@ -27,7 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019.2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,10 +126,14 @@ public class PropertySet {
                 while (iterProp.hasNext()) {
                     Literal psetPropName = iterProp.next().getLiteral();
                     if (psetPropName.getString().equals(pname))
-                        mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
+                    {
+                    	mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
+                    }
                     else {
                         if (psetPropName.getString().toUpperCase().equals(pname.toUpperCase()))
+                        {
                             mapBSDD.put(pname, prop);
+                        }
                     }
                 }
             }
@@ -157,7 +161,7 @@ public class PropertySet {
     			to_connect.addProperty(RDF.type, bsdd_class);
 
     		}
-    		Property property = this.lbd_model.createProperty(LBD.ns + "has"+this.propertyset_name);
+    		Property property = this.lbd_model.createProperty(LBD.ns + "has"+this.propertyset_name.replace(" ", "_"));
     		lbd_resource.addProperty(property,to_connect);
     		if(this.done)
     		{
@@ -212,7 +216,7 @@ public class PropertySet {
                 property_resource.addProperty(RDF.type, OPM.property);
             }
 
-            if (mapBSDD.get(pname) != null)
+            if (this.mapBSDD.get(pname) != null)
                 property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
             
             // Just the complete name
