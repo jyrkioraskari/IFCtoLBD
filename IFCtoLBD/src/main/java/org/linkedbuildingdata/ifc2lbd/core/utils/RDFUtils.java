@@ -132,8 +132,14 @@ public abstract class RDFUtils {
                     if (in == null)
                         in = IFCtoLBDConverter.class.getResourceAsStream(ontology_file);  // Java 9  module version
                     
-                    if (in == null)
+                    try
+                    {
+                      if (in == null)
         				in = ClassLoader.getSystemResources("ifcOWL/"+ontology_file).nextElement().openStream(); // the module (Java 9 ) version 
+                    }
+                    catch (Exception e) {
+						System.err.println(e.getMessage());
+					}
         	
                 } catch (Exception e) {
                     eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));

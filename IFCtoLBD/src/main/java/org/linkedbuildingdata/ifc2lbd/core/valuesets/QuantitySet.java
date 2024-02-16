@@ -27,7 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
  * 
  *
  */
-public class PropertySet {
+public class QuantitySet {
 	private boolean isActive=true;
     private final Map<String, String> unitmap;
 
@@ -82,7 +82,7 @@ public class PropertySet {
     private long pset_inx=0;
     private boolean done=false;
     
-    public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap, boolean hasUnits) {
+    public QuantitySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap, boolean hasUnits) {
         this.unitmap = unitmap;
         this.uriBase = uriBase;
         this.lbd_model = lbd_model;
@@ -98,8 +98,8 @@ public class PropertySet {
             psetDef = iter.next().getSubject();
         }
         this.hasSimplified_properties = false;
-        PropertySet.pset_counter++;
-        this.pset_inx=PropertySet.pset_counter;
+        QuantitySet.pset_counter++;
+        this.pset_inx=QuantitySet.pset_counter;
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
@@ -126,14 +126,10 @@ public class PropertySet {
                 while (iterProp.hasNext()) {
                     Literal psetPropName = iterProp.next().getLiteral();
                     if (psetPropName.getString().equals(pname))
-                    {
-                    	mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
-                    }
+                        mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
                     else {
                         if (psetPropName.getString().toUpperCase().equals(pname.toUpperCase()))
-                        {
                             mapBSDD.put(pname, prop);
-                        }
                     }
                 }
             }
@@ -151,7 +147,6 @@ public class PropertySet {
     Set<String> hashes = new HashSet<>();
     private boolean pksetclasses=false;
     public void connect(Resource lbd_resource, String long_guid) {
-    	System.out.println("connect: "+this.getPropertyset_name()+" - "+lbd_resource.getLocalName());
     	Resource to_connect=lbd_resource;
     	if(pksetclasses)
     	{
@@ -162,7 +157,7 @@ public class PropertySet {
     			to_connect.addProperty(RDF.type, bsdd_class);
 
     		}
-    		Property property = this.lbd_model.createProperty(LBD.ns + "has"+this.propertyset_name.replace(" ", "_"));
+    		Property property = this.lbd_model.createProperty(LBD.ns + "has"+this.propertyset_name);
     		lbd_resource.addProperty(property,to_connect);
     		if(this.done)
     		{
@@ -217,7 +212,7 @@ public class PropertySet {
                 property_resource.addProperty(RDF.type, OPM.property);
             }
 
-            if (this.mapBSDD.get(pname) != null)
+            if (mapBSDD.get(pname) != null)
                 property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
             
             // Just the complete name
@@ -228,7 +223,7 @@ public class PropertySet {
                 if (this.hasBlank_nodes)
                     state_resourse = this.lbd_model.createResource();
                 else
-                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_p" + PropertySet.state_resourse_counter++);
+                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_p" + QuantitySet.state_resourse_counter++);
                 // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 

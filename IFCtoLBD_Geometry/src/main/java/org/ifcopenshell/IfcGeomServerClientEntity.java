@@ -17,9 +17,6 @@ package org.ifcopenshell;
  * along with this program.  If not, see {@literal<http://www.gnu.org/licenses/>}.
  *****************************************************************************/
 
-
-// JO 2024
-
 import java.io.IOException;
 import java.nio.ByteBuffer;
 
@@ -41,6 +38,7 @@ import java.nio.ByteBuffer;
  *****************************************************************************/
 
 import org.bimserver.geometry.Matrix;
+import org.bimserver.plugins.renderengine.RenderEngineException;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -60,9 +58,10 @@ public class IfcGeomServerClientEntity {
 	private ByteBuffer colors;
 	private ByteBuffer materialIndices;
 	private ObjectNode extendedData;
-
-	public IfcGeomServerClientEntity(long id, String guid, String name, String type, long parentId, double[] matrix,
-			int repId, ByteBuffer positions, ByteBuffer normals, ByteBuffer indices, ByteBuffer colors,
+	
+	public IfcGeomServerClientEntity(long id, String guid, String name,
+			String type, long parentId, double[] matrix, int repId,
+			ByteBuffer positions, ByteBuffer normals, ByteBuffer indices, ByteBuffer colors,
 			ByteBuffer materialIndices, String messageRemainder) {
 		super();
 		this.id = id;
@@ -77,7 +76,7 @@ public class IfcGeomServerClientEntity {
 		this.indices = indices;
 		this.colors = colors;
 		this.materialIndices = materialIndices;
-
+		
 		if (messageRemainder != null && messageRemainder.length() > 0) {
 			// un-pad string
 			try {
@@ -87,7 +86,7 @@ public class IfcGeomServerClientEntity {
 			}
 		}
 	}
-
+	
 	public long getId() {
 		return id;
 	}
@@ -113,30 +112,30 @@ public class IfcGeomServerClientEntity {
 	}
 
 	public int getRepId() {
-		return this.repId;
+		return repId;
 	}
 
 	public ByteBuffer getPositions() {
-		return this.positions;
+		return positions;
 	}
 
 	public ByteBuffer getNormals() {
-		return this.normals;
+		return normals;
 	}
 
 	public ByteBuffer getIndices() {
-		return this.indices;
+		return indices;
 	}
 
 	public ByteBuffer getColors() {
-		return this.colors;
+		return colors;
 	}
 
 	public ByteBuffer getMaterialIndices() {
-		return this.materialIndices;
+		return materialIndices;
 	}
-
-	public ObjectNode getAllExtendedData() {
+	
+	public ObjectNode getAllExtendedData() throws RenderEngineException {
 		return this.extendedData;
 	}
 }

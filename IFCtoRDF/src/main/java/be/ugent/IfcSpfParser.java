@@ -216,8 +216,9 @@ class IfcSpfParser {
                                 else
                                     or = linemap.get(toLong(s.substring(1)));
                                 if (or == null) {
-                                	System.out.println("\"JO P3\" *ERROR 7*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
-                                    LOG.error("*ERROR 7*: Reference to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
+                                	//Non-existing line number can ne caused because of the geometry removal.
+                                	//System.out.println("\"JO P3\" *ERROR 7*: Reference "+s.substring(1)+" to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
+                                    //LOG.error("*ERROR 7*: Reference "+s.substring(1)+" to non-existing line number in line: #" + vo.getLineNum() + " - " + vo.getFullLineAfterNum());
                                     tmpList.set(j, "-");
                                     continue;
                                     //return true; // JO 2022-05

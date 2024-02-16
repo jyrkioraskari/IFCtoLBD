@@ -7,6 +7,12 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 public class Example1 {
 
+	/* 
+	 * In Eclipse:
+	 * maven install
+	 * and then Maven Update Project
+	 */
+	
 	public static void main(String[] args) {
 		URL ifcFileUrl = ClassLoader.getSystemResource("Duplex_A.ifc");
 		try {
