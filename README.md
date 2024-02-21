@@ -277,7 +277,8 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ## Blog
 ### February 21, 2024
 2D linegraph splits from the model 
-![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split_Demo.png). Example 14 can be found [here](/IFCtoLBD/examples.md).
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split_Demo.png)
+Example 14 can be found [here](/IFCtoLBD/examples.md).
 
 
 ### January 30, 2024
@@ -298,7 +299,7 @@ has that limitation.
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
-![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG) (updated 21st Feb, 2024).
 ### March 1, 2023  
 Tested and update the Python interface.
 
