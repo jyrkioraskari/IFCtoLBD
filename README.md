@@ -299,7 +299,7 @@ has that limitation.
 ### June 21, 2023  
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
-![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Desktop_2023/src/main/resources/screen.PNG) (updated 21st Feb, 2024).
 ### March 1, 2023  
 Tested and update the Python interface.
 
