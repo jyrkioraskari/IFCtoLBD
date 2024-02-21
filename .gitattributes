@@ -1,0 +1,9 @@
+*.java linguist-language=Java
+*.java linguist-detectable=true
+*.py linguist-language=Python
+*.py linguist-detectable=Python
+*.js linguist-detectable=true
+*.html linguist-detectable=false
+*.xml linguist-detectable=false
+*.jar linguist-detectable=false
+
