@@ -48,6 +48,7 @@ PREFIX ifc: <https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#>
 
 SELECT ?e ?wkt ?obj WHERE {
   ?e <https://w3id.org/omg#hasGeometry> ?g .
+  ?e a beo:Wall .\r
   ?g fog:asObj_v3.0-obj ?obj
   FILTER NOT EXISTS {
     ?e a beo:Window .
@@ -86,9 +87,9 @@ while results.hasNext() :
         mesh = mesh + o3d.io.read_triangle_mesh(virtual_file.name,True,True)
     except NameError:
         mesh = o3d.io.read_triangle_mesh(virtual_file.name,True,True)
-
-R = np.array([[1, 0, 0], [0, 0, 1], [0, 1, 0]])
-mesh.rotate(R, center=(0, 0, 0)) # Switch y an z
+#R = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+R = o3d.geometry.get_rotation_matrix_from_axis_angle([-np.pi / 2, 0, 0])
+mesh.rotate(R, center=(0, 0, 0))
 
 mesh.paint_uniform_color([1, 0.5, 0.5])
 mesh.compute_vertex_normals()

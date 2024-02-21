@@ -117,6 +117,7 @@ public class IFCtoObj {
 		Matrix.multiplyMV(result, 0, transformationMatrix, 0, new double[] { x, y, z, 1 }, 0);
 
 		Point3d point = new Point3d(result[0], result[1], result[2]);
+		point = new Point3d(x, y, z);
 		return point;
 
 	}
