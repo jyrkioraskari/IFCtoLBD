@@ -278,7 +278,7 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ### February 21, 2024
 2D linegraph splits from the model 
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split_Demo.png)
-Example 14 can be found [here](/IFCtoLBD/examples.md).
+The short example code can be found [here](/IFCtoLBD/examples.md).
 
 
 ### January 30, 2024
