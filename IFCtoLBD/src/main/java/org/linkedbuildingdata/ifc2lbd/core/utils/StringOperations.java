@@ -10,7 +10,7 @@ public abstract class StringOperations {
 	 */
 	static public String toCamelCase(String txt) {
 		if(txt.toUpperCase().equals(txt))
-				return txt;
+				return txt.replace(" ", "_");
 		
 	    txt=org.apache.commons.lang3.StringUtils.stripAccents(txt);
 		if (txt == null)
