@@ -154,7 +154,7 @@ public class Example14 {
 				if (t.getPolygon().contains(ab) && t.getPolygon().contains(bc))
 					if (interplane.contains(ab) && interplane.contains(bc)) {
 						Line line3d = new Line(ab, bc,element_URI);
-						crossing_lines.add(line3d);
+						this.crossing_lines.add(line3d);
 					}
 			}
 
@@ -163,7 +163,7 @@ public class Example14 {
 					if (interplane.contains(bc) && interplane.contains(ca)) {
 						// if (between(b, bc, c) && between(c, ca, a)) {
 						Line line3d = new Line(bc, ca,element_URI);
-						crossing_lines.add(line3d);
+						this.crossing_lines.add(line3d);
 					}
 			}
 
@@ -172,7 +172,7 @@ public class Example14 {
 					if (interplane.contains(ca) && interplane.contains(ab)) {
 						// if (between(c, ca, a) && between(a, ab, b)) {
 						Line line3d = new Line(ca, ab,element_URI);
-						crossing_lines.add(line3d);
+						this.crossing_lines.add(line3d);
 					}
 			}
 
