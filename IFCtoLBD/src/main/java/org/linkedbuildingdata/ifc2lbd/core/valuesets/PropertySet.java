@@ -151,7 +151,7 @@ public class PropertySet {
     Set<String> hashes = new HashSet<>();
     private boolean pksetclasses=false;
     public void connect(Resource lbd_resource, String long_guid) {
-    	System.out.println("connect: "+this.getPropertyset_name()+" - "+lbd_resource.getLocalName());
+    	//System.out.println("connect: "+this.getPropertyset_name()+" - "+lbd_resource.getLocalName());
     	Resource to_connect=lbd_resource;
     	if(pksetclasses)
     	{
