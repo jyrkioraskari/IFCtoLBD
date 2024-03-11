@@ -63,11 +63,13 @@ public class Example14 {
 	class Line {
 		final Vector3D a;
 		final Vector3D b;
+		final String element_URI;
 
-		public Line(Vector3D a, Vector3D b) {
+		public Line(Vector3D a, Vector3D b,String element_URI) {
 			super();
 			this.a = a;
 			this.b = b;
+			this.element_URI=element_URI;
 		}
 		@Override
 			public String toString() {				
@@ -114,7 +116,7 @@ public class Example14 {
 									.decode(qs.get("obj").asLiteral().getLexicalForm());
 							String decodedString = new String(decodedBytes);
 
-							extract_2dlines(decodedString, 4);
+							extract_2dlines(decodedString, qs.get("e").asResource().getURI(),4);
 
 						});
 					}
@@ -125,7 +127,7 @@ public class Example14 {
 		}
 	}
 
-	private void extract_2dlines(String objfilecontent, double elevation) {
+	private void extract_2dlines(String objfilecontent, String element_URI,double elevation) {
 		Precision.DoubleEquivalence precision = Precision.doubleEquivalenceOfEpsilon(1e-6);
 
 		final Plane plane = Planes.fromPointAndNormal(Vector3D.of(0, 0, elevation), Vector3D.Unit.PLUS_Z, precision);
@@ -151,8 +153,8 @@ public class Example14 {
 			if (ab != null && bc != null && !ab.vectorTo(bc).isZero(precision)) {
 				if (t.getPolygon().contains(ab) && t.getPolygon().contains(bc))
 					if (interplane.contains(ab) && interplane.contains(bc)) {
-						Line line3d = new Line(ab, bc);
-						crossing_lines.add(line3d);
+						Line line3d = new Line(ab, bc,element_URI);
+						this.crossing_lines.add(line3d);
 					}
 			}
 
@@ -160,8 +162,8 @@ public class Example14 {
 				if (t.getPolygon().contains(bc) && t.getPolygon().contains(ca))
 					if (interplane.contains(bc) && interplane.contains(ca)) {
 						// if (between(b, bc, c) && between(c, ca, a)) {
-						Line line3d = new Line(bc, ca);
-						crossing_lines.add(line3d);
+						Line line3d = new Line(bc, ca,element_URI);
+						this.crossing_lines.add(line3d);
 					}
 			}
 
@@ -169,8 +171,8 @@ public class Example14 {
 				if (t.getPolygon().contains(ca) && t.getPolygon().contains(ab))
 					if (interplane.contains(ca) && interplane.contains(ab)) {
 						// if (between(c, ca, a) && between(a, ab, b)) {
-						Line line3d = new Line(ca, ab);
-						crossing_lines.add(line3d);
+						Line line3d = new Line(ca, ab,element_URI);
+						this.crossing_lines.add(line3d);
 					}
 			}
 

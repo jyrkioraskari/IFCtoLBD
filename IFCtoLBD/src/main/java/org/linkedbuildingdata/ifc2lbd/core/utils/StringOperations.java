@@ -1,5 +1,9 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public abstract class StringOperations {
 	/**
 	 * Converts a string into the CamelCase notation described in:
@@ -10,7 +14,11 @@ public abstract class StringOperations {
 	 */
 	static public String toCamelCase(String txt) {
 		if(txt.toUpperCase().equals(txt))
-				return txt;
+			try {
+				return URLEncoder.encode(txt.replace(" ", "_"), StandardCharsets.UTF_8.toString());
+			} catch (UnsupportedEncodingException e) {
+				return txt.replace(" ", "_");
+			}
 		
 	    txt=org.apache.commons.lang3.StringUtils.stripAccents(txt);
 		if (txt == null)
@@ -30,6 +38,11 @@ public abstract class StringOperations {
 			}
 		}
 
+		try {
+			return URLEncoder.encode(ret.toString(), StandardCharsets.UTF_8.toString());
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return ret.toString();
 	}
 

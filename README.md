@@ -286,7 +286,7 @@ The short example code can be found [here](/IFCtoLBD/examples.md).
 
 The same with doors and windows, and, finally, spaces.
 
-![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split_DemoSpaces2.png)
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split_DemoSpaces3.png)
 ### January 30, 2024
 Simple graph plot with Python.  Source code is [here ](/IFCtoLBD_Python/examples.md).
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/graph_plot.png)
