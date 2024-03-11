@@ -19,7 +19,7 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
 
 # Convert the IFC file into LBD level 3 model
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  3)
@@ -59,9 +59,9 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.apache.jena.query import QueryFactory, QueryExecutionFactory
-
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
+QueryExecutionFactory= jpype.JClass("org.apache.jena.query.QueryExecutionFactory")
 
 # Convert the IFC file into LBD, OPM level 1 model
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
@@ -105,9 +105,8 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
-
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 #-------------------------------------------------------------------------------
 # Name:        Direct access as Python objects
@@ -161,8 +160,8 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 #-------------------------------------------------------------------------------
@@ -219,8 +218,8 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 #-------------------------------------------------------------------------------
@@ -309,9 +308,10 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
-from org.apache.jena.query import QueryFactory, QueryExecutionFactory
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
+QueryExecutionFactory= jpype.JClass("org.apache.jena.query.QueryExecutionFactory")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 # Convert the IFC file into LBD, OPM level 1 model
@@ -402,8 +402,8 @@ from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 import io
 import numpy as np

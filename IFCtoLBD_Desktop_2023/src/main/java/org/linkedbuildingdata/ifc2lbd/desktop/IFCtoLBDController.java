@@ -436,7 +436,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
-		this.options_panel.setDisable(true);
+		//this.options_panel.setDisable(true);
 
 	}
 

@@ -14,3 +14,6 @@ pip install rdflib
 or
 python3 -m pip install jpype1
 python3 -m pip install rdflib
+
+Then,  for your app, copy the jars folder under it.
+
