@@ -519,7 +519,7 @@ lbd_jsonld = str(lbdconverter.getJSONLD())
 g = Graph()
 g.parse(data=json.loads(lbd_jsonld), format='json-ld')
 
-#  List the triples
+#  Lists the triples:
 print(g.serialize(format="turtle"))
 
 jpype.shutdownJVM()
