@@ -494,9 +494,9 @@ ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionPr
 #	setHasGeometry(boolean)       		If geometry is included
 #	setExportIfcOWL(boolean)       		If the BOT elements are linked with ifcOWL elements and ifcOWL graph is created into a separate file
 #	setHasUnits(boolean)                	If the units for the values are included  (Level 2 ja Level 3 )
-#	setHasBoundingBoxWKT(boolean)   		If the bounding boxes of the element are expressed as Well Known Text
-#	setHasHierarchicalNaming(boolean)   	Affects how the URLs are formed
-#	setHasPerformanceBoost(boolean)   		If set True, the converter tries to use conversion results of previous conversions and  filters out 
+#	setHasBoundingBoxWKT(boolean)			If the bounding boxes of the element are expressed as Well Known Text
+#	setHasHierarchicalNaming(boolean)		Affects how the URLs are formed
+#	setHasPerformanceBoost(boolean)		If set True, the converter tries to use conversion results of previous conversions and  filters out 
 #  								data that is not used in the calculation later
 props = ConversionProperties()
 props.setHasGeometry(True)
