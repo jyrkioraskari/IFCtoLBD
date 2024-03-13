@@ -351,7 +351,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		
 		if(convert_read_in_phase(ifc_filename,target_file, hasGeometry,hasPerformanceBoost,exportIfcOWL, hasBuildingElements,  hasBuildingProperties, hasBoundingBoxWKT, hasUnits))			
 		{
-			
+		   if(this.hasSimplified_properties)
+			   setHasSimplified_properties(true);  // for the read property sets
 		   return convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,	hasBoundingBoxWKT,hasHierarchicalNaming);	
