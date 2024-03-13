@@ -507,10 +507,10 @@ props.setHasPerformanceBoost(False)
 lbdconverter = IFCtoLBDConverter("https://www.econom.one/",  1)
 
 selected_types = "[\"Beam\", \"Wall\", \"Member\", \"Slab\", \"Stair\", \"Railing\"]"
-lbdconverter.setSelected_types(selected_types)   # Exported elements can be selected using the JSON list syntax.
+lbdconverter.setSelected_types(selected_types)		# Exported elements can be selected using the JSON list syntax.
 
-lbdconverter.setHasSimplified_properties(True)    # More clear naming,  but not recommended if rules or inferencing models are used (OWL full)
-lbdconverter.setHasNonLBDElement(False)            #  Filters out IFC elements not specified in Linked Building Data ontologies.
+lbdconverter.setHasSimplified_properties(True)		# More clear naming,  but not recommended if rules or inferencing models are used (OWL full)
+lbdconverter.setHasNonLBDElement(False)			#  Filters out IFC elements not specified in Linked Building Data ontologies.
 
 # Model to be read and selected properties
 lbdconverter.convert("AC20-FZK-Haus.ifc",props)
@@ -519,7 +519,7 @@ lbd_jsonld = str(lbdconverter.getJSONLD())
 g = Graph()
 g.parse(data=json.loads(lbd_jsonld), format='json-ld')
 
-#  Just list the triples
+#  List the triples
 print(g.serialize(format="turtle"))
 
 jpype.shutdownJVM()
