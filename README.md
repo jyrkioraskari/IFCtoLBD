@@ -279,7 +279,7 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 
 Just in case you have a path problem in a MacBook when writing Python: 
 
-A short example code can be found [here](/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
+A short example code can be found [here](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
 
 
 ### March 11, 2024
