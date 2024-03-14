@@ -275,6 +275,13 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### March 14, 2024
+
+Just in case you have a path problem in a MacBook when writing Python: 
+
+A short example code can be found [here](/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
+
+
 ### March 11, 2024
 The Python examples were rewritten so that the import error in some JPype versions should not appear.
 Also, instructions to copy the jars folder was added.
