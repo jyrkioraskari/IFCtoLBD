@@ -278,8 +278,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ### March 14, 2024
 
 Just in case you have a path problem in a MacBook when writing Python: 
+-- It is recommended yo use absolute path names for the Java library files (macOS). You can use a text editor Search&Replace to fix there ysour configuration at the line of code:
+jpype.startJVM(classpath = ['...<the JAR files in your configuration>']).
 
-A short example code can be found [here](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
+A short example code of relative names can be found [here](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
 
 
 ### March 11, 2024
