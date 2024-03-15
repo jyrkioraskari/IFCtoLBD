@@ -10,7 +10,7 @@ import jpype.imports
 # Pull in types
 from jpype.types import *
 
-jpype.startJVM(classpath = ['jars/*'])
+jpype.startJVM(classpath = ['./jars/*'])
 
 IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
 ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
