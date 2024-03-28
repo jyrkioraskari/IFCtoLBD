@@ -1474,6 +1474,10 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			Map<String, String> mapping = new ObjectMapper().readValue(property_replace_map_json, HashMap.class);
 			this.property_replace_map = mapping;
+			
+			for (PropertySet pset : this.propertysets.values()) {
+				pset.setProperty_replace_map(mapping);
+			}
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}

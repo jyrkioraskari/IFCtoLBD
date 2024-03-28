@@ -50,6 +50,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 public class PropertySet {
 	private boolean isActive=true;
     private final Map<String, String> unitmap;
+    private Map<String, String> property_replace_map;  // allows users to replace default properties
 
     private static class PsetProperty {
         final Property p; // Jena RDF property
@@ -181,9 +182,9 @@ public class PropertySet {
                 for (String pname : this.mapPnameValue.keySet()) {
                     Property property;                  
                     if(this.hasSimplified_properties)
-                		property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+                		property = this.lbd_model.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0])));
                 	else
-                       property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname) + "_property_simple");
+                       property = this.lbd_model.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname) + "_property_simple"));
                 	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
                     this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
 
@@ -248,9 +249,10 @@ public class PropertySet {
 
             Property property;
             if(this.hasSimplified_properties)
-               property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0]));
+               property = this.lbd_model.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0])));
             else
-            	property = this.lbd_model.createProperty(PROPS.ns + StringOperations.toCamelCase(pname));            properties.add(new PsetProperty(property, property_resource));
+            	property = this.lbd_model.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname)));            
+                properties.add(new PsetProperty(property, property_resource));
             	
             	this.lbd_model.add(property, RDF.type, OWL.ObjectProperty);
             	this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
@@ -363,5 +365,17 @@ public class PropertySet {
 		this.hasSimplified_properties = hasSimplified_properties;
 	}
 
+	
 
+	 public void setProperty_replace_map(Map<String, String> property_replace_map) {
+		this.property_replace_map = property_replace_map;
+	}
+
+	private String property_replace(String property)
+	    {    	
+		 if(property_replace_map==null)
+			 return property;
+			 
+	    	return this.property_replace_map.getOrDefault(property,property);
+	    }
 }
