@@ -28,7 +28,7 @@ import jpype.imports
 # Pull in types
 from jpype.types import *
 
-jpype.startJVM(classpath = ['./jars/*'])
+jpype.startJVM(classpath = ['jars/*'])
 
 IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
 QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
@@ -47,7 +47,7 @@ PREFIX beo: <https://pi.pauwel.be/voc/buildingelement#>
 PREFIX bot: <https://w3id.org/bot#>
 PREFIX ifc: <https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#>
 
-SELECT ?e ?wkt ?obj WHERE {
+SELECT ?e  ?obj WHERE {
   ?e <https://w3id.org/omg#hasGeometry> ?g .
   ?e a beo:Wall .\r
   ?g fog:asObj_v3.0-obj ?obj
