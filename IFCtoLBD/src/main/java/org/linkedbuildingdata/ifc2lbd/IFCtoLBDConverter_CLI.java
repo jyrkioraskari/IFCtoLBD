@@ -90,7 +90,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	private Optional<Boolean> hasBoundingBoxWKT;
 
 	
-	@Option(names = { "--ifcOWL" }, description = "Geolocation, i.e., the latitude and longitude are added.")
+	@Option(names = { "--ifcOWL" }, description = "An ifcOWL  model is created and linked.")
 	private Optional<Boolean> exportIfcOWL;
 
 	@Option(names = {
