@@ -13,7 +13,7 @@ Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
 It is recommended to use OpenJDK 21 (it is the modt current  Long-Term Support version). Java 17 is supported. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
-On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intell), and run it to install Java.
+On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intel), and run it to install Java.
 
 ## Precompiled binaries
 
