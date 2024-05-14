@@ -39,4 +39,8 @@ public class BoundingBox {
     public String toString() {
         return "MULTIPOINT Z((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
     }
+    
+    public String toLiteral() {
+        return "MULTIPOINT Z((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
+    }
 }

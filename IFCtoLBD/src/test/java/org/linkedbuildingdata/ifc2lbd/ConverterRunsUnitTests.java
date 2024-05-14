@@ -1184,9 +1184,9 @@ public class ConverterRunsUnitTests {
 							hasGeolocation, local_hasGeometry, exportIfcOWL, hasUnits, local_hasGeometry, true);
 
 					ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(model_level1.listSubjects());
-					if (subjectList1.size() != 833) {
-						System.out.println("Converted subject count  should not be 833. Was: " + subjectList1.size());
-						fail("Converted subject count  should not be 833. Was: " + subjectList1.size());
+					if (subjectList1.size() != 842) {
+						System.out.println("Converted subject count  should not be 842. Was: " + subjectList1.size());
+						fail("Converted subject count  should not be 842. Was: " + subjectList1.size());
 					}
 
 					final Set<String> properties = new HashSet<>();

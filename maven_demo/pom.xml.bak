@@ -14,7 +14,7 @@
     <repositories>       
         <repository>
          <id>github</id>
-         <url>https://jyrkioraskari:<AUTHENTICATIONCODE>@maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
+         <url>https://jyrkioraskari:<SECURITYCODE>@maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>

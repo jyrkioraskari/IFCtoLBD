@@ -238,8 +238,8 @@ public abstract class IFCtoLBDConverterCore {
 				String target_trig = target_file.replaceAll(".ttl", ".trig");
 				if (this.uriBase.isPresent() && this.lbd_dataset != null) {
 					this.lbd_dataset.getDefaultModel().add(this.lbd_general_output_model);
-					this.lbd_dataset.addNamedModel(this.uriBase + "product", this.lbd_product_output_model);
-					this.lbd_dataset.addNamedModel(this.uriBase + "property", this.lbd_property_output_model);
+					this.lbd_dataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
+					this.lbd_dataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
 				}
 
 				RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
@@ -404,6 +404,8 @@ public abstract class IFCtoLBDConverterCore {
 
 				Resource sp_geometry = this.lbd_general_output_model
 						.createResource(lbd_resource.getURI() + "_geometry");
+				
+				sp_geometry.addProperty(RDF.type, GEO.Geometry);
 				if (bb != null && obj != null)
 					lbd_resource.addProperty(OMG.hasGeometry, sp_geometry);
 				// lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
@@ -411,7 +413,8 @@ public abstract class IFCtoLBDConverterCore {
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
-						sp_geometry.addLiteral(GEO.asWKT, bb.toString());
+						Literal wktLiteral=this.lbd_general_output_model.createTypedLiteral(bb.toString(),GEO.wktLiteral);
+						sp_geometry.addLiteral(GEO.asWKT, wktLiteral);
 					} else {
 						Resource sp_bb = this.lbd_general_output_model
 								.createResource(lbd_resource.getURI() + "_geometry_bb");
