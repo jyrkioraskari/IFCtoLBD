@@ -736,9 +736,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 835) {
-					System.out.println("Converted subject count should  be 835. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 835. Was: " + subjectList51.size());
+				if (subjectList51.size() != 844) {
+					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
 				}
 			}
 			
@@ -755,9 +755,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 835) {
-					System.out.println("Converted subject count should  be 835. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 835. Was: " + subjectList51.size());
+				if (subjectList51.size() != 844) {
+					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
 				}
 			}
 
