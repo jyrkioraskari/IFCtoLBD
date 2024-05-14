@@ -942,9 +942,9 @@ public class ConverterRunsUnitTests {
 					System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
 					fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
 				}
-				if (subjectList1.size() != 367) {
-					System.out.println("Converted subject count  should  be 367. Was: " + subjectList1.size());
-					fail("Converted subject count  should  be 367. Was: " + subjectList1.size());
+				if (subjectList1.size() != 373) {
+					System.out.println("Converted subject count  should  be 373. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 373. Was: " + subjectList1.size());
 				}
 			}
 
