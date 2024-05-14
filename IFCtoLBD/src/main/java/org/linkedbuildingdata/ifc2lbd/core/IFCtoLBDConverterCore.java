@@ -443,7 +443,7 @@ public abstract class IFCtoLBDConverterCore {
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					Literal base64 = this.lbd_general_output_model.createTypedLiteral(obj.toString(),
-							"https://www.w3.org/TR/xmlschema-2/#base64Binary");
+							"https://www.w3.org/2001/XMLSchema#base64Binary");
 					sp_geometry.addLiteral(this.fogasObj, base64);
 				}
 			}
