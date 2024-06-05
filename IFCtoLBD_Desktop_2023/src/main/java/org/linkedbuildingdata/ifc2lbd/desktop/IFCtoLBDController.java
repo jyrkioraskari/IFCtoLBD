@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (c) 2017,2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -396,8 +396,29 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	Future<IFCtoLBDConverter> running_read_in;
 	Future<Integer> running_conversion;
 
+	private String fingerprint="";
+	private String selections_fingerprint() {
+		String uri_base = this.labelBaseURI.getText().trim();
+		int props_level = 2;
+		if (this.level1.isSelected())
+				props_level = 1;
+			if (this.level3.isSelected())
+				props_level = 3;
+			
+			String fingerprint=this.ifcFileName + uri_base + this.rdfTargetName + props_level +  this.building_elements.isSelected() +
+			this.building_elements_separate_file.isSelected() + this.building_props.isSelected() + this.building_props_separate_file.isSelected() + this.building_props_blank_nodes.isSelected()+
+			this.geolocation.isSelected() + this.geometry_elements.isSelected()+ this.ifcOWL_elements.isSelected()+ this.ifcOWL_elements.isSelected()+
+			this.hasPerformanceBoost.isSelected() + this.hasBoundingBox_WKT.isSelected();
+			return fingerprint;
+	}
+	
 	private void readInIFC() {
-
+		this.fingerprint=selections_fingerprint();
+		readInIFC_execute();
+	}
+	
+	
+	private void readInIFC_execute() {
 		this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
 		this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
@@ -442,6 +463,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void convertIFCToRDF() {
+		
+		if(!this.fingerprint.equals(selections_fingerprint()))
+		{
+			try {
+				// Wait and run
+				this.running_read_in.get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}	
+			Platform.runLater(() -> this.conversionTxt.appendText("Re-run the initial read"));
+			readInIFC_execute();
+		}
+		
+		
 		this.options_panel.setDisable(false);
 
 

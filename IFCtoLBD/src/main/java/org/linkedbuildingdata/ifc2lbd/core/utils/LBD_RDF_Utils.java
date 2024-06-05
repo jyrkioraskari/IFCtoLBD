@@ -1,5 +1,8 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.OWL;
@@ -44,6 +47,10 @@ public abstract class LBD_RDF_Utils {
 				uri.addProperty(OWL.sameAs, r);
 			return uri;
 		}
+		// Pure GUID implementation:
+		//String urlenc_guid = URLEncoder.encode(guid, StandardCharsets.UTF_8);
+		//Resource guid_uri = m.createResource(uriBase+urlenc_guid);
+		
 		Resource guid_uri = m.createResource(
 				uriBase + product_type.toLowerCase() + "_" + GuidCompressor.uncompressGuidString(guid));
 		if (exportIfcOWL)
