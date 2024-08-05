@@ -73,15 +73,15 @@ call mvn enunciate:docs install
 cd ..
 
 ```
-  When done as shown above by using the command line, copy the files in your app folder  <app>  (can be any) and run the conversion.
+When done as shown above by using the command line, copy the files in your app folder  <app>  (can be any) and run the conversion.
 ```
-  copy  IFCtoRDF/target/ifc-to-lbd-*-jar-with-dependencies.jar <app>
-  copy  IFCtoLBD_Geometry/target/ifc_to_lbd_geometry-*.jar <app>
-  copy  IFCtoLBD/ifc-to-lbd-*-jar-with-dependencies.jar <app>
-  copy  <your ifc> <app>
-  cd <app>
+copy  IFCtoRDF/target/ifc-to-lbd-*-jar-with-dependencies.jar <app>
+copy  IFCtoLBD_Geometry/target/ifc_to_lbd_geometry-*.jar <app>
+copy  IFCtoLBD/ifc-to-lbd-*-jar-with-dependencies.jar <app>
+copy  <your ifc> <app>
+cd <app>
  
-  java -cp * org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter http://lbd.example.com/ <your ifc> output.ttl 2
+java -cp * org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter http://lbd.example.com/ <your ifc> output.ttl 2
  
 ```
 
