@@ -71,7 +71,20 @@ cd IFCtoLBD_OpenAPI
 call mvn clean install
 call mvn enunciate:docs install
 cd ..
+
 ```
+  When done as shown above by using the command line, copy the files in your app folder  <app>  (can be any) and run the conversion.
+```
+  copy  IFCtoRDF/target/ifc-to-lbd-*-jar-with-dependencies.jar <app>
+  copy  IFCtoLBD_Geometry/target/ifc_to_lbd_geometry-*.jar <app>
+  copy  IFCtoLBD/ifc-to-lbd-*-jar-with-dependencies.jar <app>
+  copy  <your ifc> <app>
+  cd <app>
+ 
+  java -cp * org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter http://lbd.example.com/ <your ifc> output.ttl 2
+ 
+```
+
 -  Note: If you have problems compiling the sources, remove the module-info.java files (they expect to find the JAR files of the Maven-referred libraries of older Java versions). 
 
 OLD instruction was:
