@@ -188,7 +188,10 @@ public class PropertySet {
                 	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
                     this.lbd_model.add(property, RDFS.comment, "IFC property set "+this.propertyset_name+" property "+pname);
 
-                    to_connect.addProperty(property, this.mapPnameValue.get(pname));
+                    if(!this.mapPnameValue.get(pname).toString().contains("IfcPropertySingleValue"))
+                      to_connect.addProperty(property, this.mapPnameValue.get(pname));
+                    else
+                    	System.out.println("Odd value: "+this.mapPnameValue.get(pname));
                 }
                     break;
                 case 2:
