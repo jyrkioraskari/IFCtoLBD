@@ -50,7 +50,7 @@
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
+			<version>2.16.1</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
 		<dependency>
@@ -62,7 +62,7 @@
 		<dependency>
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>ifcplugins</artifactId>
-			<version>0.0.101</version>
+			<version>0.0.102</version>
 		</dependency>
 		<dependency>
 			<groupId>org.opensourcebim</groupId>
@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
+			<version>3.16.0</version>
 		</dependency>
 	</dependencies>
 	<build>

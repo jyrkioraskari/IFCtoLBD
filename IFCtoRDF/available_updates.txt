@@ -1,3 +1,0 @@
-org.apache.jena:apache-jena-libs ..................... 4.10.0 -> 5.1.0
-org.apache.jena:jena-arq ............................. 4.10.0 -> 5.1.0
-org.apache.jena:jena-core ............................ 4.10.0 -> 5.1.0

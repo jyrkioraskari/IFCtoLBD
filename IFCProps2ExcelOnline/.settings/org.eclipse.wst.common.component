@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-                                                                                                                                                                                
+                                                                                                                                                                                    
+    
     
     
     
@@ -43,7 +44,8 @@
     
     
     <wb-module deploy-name="IFCProps2ExcelOnline-2.43.4">
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -87,7 +89,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -131,7 +134,8 @@
         
         
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -175,7 +179,8 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -222,10 +227,14 @@
         <dependent-module archiveName="ifc-to-lbd-2.44.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+        <dependent-module archiveName="ifc_to_lbd_geometry-2.44.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD_Geometry/IFCtoLBD_Geometry">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <dependent-module archiveName="ifc2rdf-1.4.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFC2RDF/IFC2RDF">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -269,7 +278,8 @@
         
         
         <property name="java-output-path" value="/mvdXMLOnlineChecker/target/classes"/>
-                                                                                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -313,7 +323,8 @@
         
         
         <property name="component.exclusion.patterns" value="WEB-INF/classes/VAADIN/widgetsets/WEB-INF/**"/>
-                                                                                                                                                                                                                                                                                                
+                                                                                                                                                                                                                                                                                                        
+        
         
         
         
@@ -349,7 +360,8 @@
         
         
         <property name="context-root" value="IFCProps2ExcelOnline"/>
-                                                                                                                                                                                                                                                                                                                                                            
+                                                                                                                                                                                                                                                                                                                                                                    
+    
     
     
     
@@ -393,7 +405,8 @@
     
     
     </wb-module>
-                                                                                                                                                                            
+                                                                                                                                                                                
+
 
 
 
