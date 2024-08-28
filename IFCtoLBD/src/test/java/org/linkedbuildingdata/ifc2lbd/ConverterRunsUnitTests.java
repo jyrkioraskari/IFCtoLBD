@@ -583,7 +583,8 @@ public class ConverterRunsUnitTests {
 			}
 
 			long bytes = ifcOwlFile.length();
-			if (bytes != 20289155) {
+			// Apache Jena 5.1
+			if (bytes != 20185157) {  // Old Jena had: 20289155
 				System.out.println(
 						"Wrong file size for ifcOWL result. (can be Jena version dependent) size was: " + bytes);
 				System.out.println("Filename was: " + ifcOwlFile.getAbsolutePath());

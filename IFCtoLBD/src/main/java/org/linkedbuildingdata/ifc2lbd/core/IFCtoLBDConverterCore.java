@@ -30,6 +30,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.OWL;
@@ -1180,8 +1181,11 @@ public abstract class IFCtoLBDConverterCore {
 
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
-			File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
-			RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+			//TODO  This does not work wit Apache Jena 5.1 (org.apache.jena.riot.RiotException: Out of place: [DOT])
+			//File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
+			File t2=null;
+			System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+			RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(),Lang.TTL);
 			return m;
 
 		} catch (Exception e) {
