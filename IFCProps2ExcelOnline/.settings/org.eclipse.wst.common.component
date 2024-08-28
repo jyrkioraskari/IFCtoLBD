@@ -43,7 +43,7 @@
     
     
     
-    <wb-module deploy-name="IFCProps2ExcelOnline-2.43.4">
+    <wb-module deploy-name="IFCProps2ExcelOnline-2.44.0">
                                                                                                                                                                                                                                                                                                                                                                         
         
         
@@ -224,6 +224,7 @@
         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-resources/gwt"/>
         <dependent-module archiveName="ifc-to-lbd-2.44.0.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
             <dependency-type>uses</dependency-type>
         </dependent-module>
