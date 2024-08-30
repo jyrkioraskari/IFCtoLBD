@@ -28,7 +28,7 @@ public class Example7 {
                 System.out.println(converter.getObjJSON());
             }
         } catch (Exception e) {
-            // Print any errors that occur
+            // Print any errors that may occur
             e.printStackTrace();
         }
     }

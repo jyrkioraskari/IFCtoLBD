@@ -40,7 +40,7 @@ public class Example6 {
 
             }
         } catch (Exception e) {
-            // Print any errors that occur
+            // Print any errors that may occur
             e.printStackTrace();
         }
     }
