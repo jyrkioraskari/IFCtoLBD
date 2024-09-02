@@ -45,8 +45,8 @@ If the program does not start, try the following command at the command line: `j
 Java programming examples can be found
 [here ](/IFCtoLBD/examples.md).
 
-The desktop user interface was written using Java FXML. The editor can be get from:
-https://gluonhq.com/products/scene-builder/ (You need to import the org.openjfx:javafx-graphics, and org.openjfx:javafx-controls with the library manager to get the editor working)
+The desktop user interface was created using Java FXML, a scripting language defining the user interface in Java applications. You can download the editor from Gluon Scene Builder (https://gluonhq.com/products/scene-builder/). In the editor, import the org.openjfx:javafx-graphics and org.openjfx:javafx-controls libraries to get the editor working using the library manager.
+
 
 ## Compiling the code
 The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from https://maven.apache.org/download.cgi.
