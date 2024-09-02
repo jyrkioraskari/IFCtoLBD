@@ -49,7 +49,7 @@ The desktop user interface was created using Java FXML, a scripting language def
 
 
 ## Compiling the code
-The converter can be compiled using maven and Java JDK (the above link). Maven can be downloaded from https://maven.apache.org/download.cgi.
+The converter can be compiled using Maven and the Java JDK. Maven is a build automation tool for managing a project’s build. You can download Maven from Apache Maven from https://maven.apache.org/download.cgi.
 
 First, make sure that the `JAVA_HOME` environment variable point to the JAVA JDK directory. JRE is not enough. Then run the following commands:
 
