@@ -83,84 +83,148 @@
 			</exclusions>
 		</dependency>
 
+		<!-- Dependency for Apache Commons Lang library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.16.0</version>
+			<!-- URL for the Apache Commons Lang project:
+			https://commons.apache.org/proper/commons-lang/ -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+
+		<!-- Dependency for Apache Commons Codec library -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.17.1</version>
+			<!-- URL for the Apache Commons Codec project:
+			https://commons.apache.org/proper/commons-codec/ -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+
+		<!-- Dependency for XStream library -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>[1.4.14-jdk7,)</version>
+			<!-- URL for the XStream project: https://x-stream.github.io/ -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+
+		<!-- Dependency for Google Guava library -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>[30.0-jre,)</version>
+			<!-- URL for the Google Guava project:
+			https://github.com/google/guava -->
 		</dependency>
+
+		<!-- Dependency for JUnit Jupiter API library -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.11.0</version>
+			<!-- Scope of the dependency, used only for testing -->
 			<scope>test</scope>
+			<!-- URL for the JUnit Jupiter project: https://junit.org/junit5/ -->
 		</dependency>
+
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
 			<version>1.11.0</version>
 			<scope>test</scope>
 		</dependency>
+
+
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
 			<version>5.10.1</version>
 			<scope>test</scope>
 		</dependency>
+
+
+		<!-- Dependency for IFCtoRDF library -->
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
 			<version>1.4.0</version>
 		</dependency>
+
+		<!-- Dependency for RTree-Multi library -->
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
 			<artifactId>rtree-multi</artifactId>
 			<version>0.1</version>
+			<!-- URL for the RTree-Multi project:
+			https://github.com/davidmoten/rtree-multi -->
+			<!-- This library provides an in-memory immutable R-tree
+			implementation for n dimensions, commonly used for spatial indexing.
+			 It is thread-safe, fast, and memory
+			efficient. -->
 		</dependency>
+
+		<!-- Dependency for Picocli library -->
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
 			<version>4.7.6</version>
+			<!-- URL for the Picocli project: https://picocli.info -->
+			<!-- Picocli is a framework for creating Java command line
+			applications with almost zero code. It provides command line parsing,
+			autocompletion, and usage help with ANSI
+			styles and colors. -->
 		</dependency>
+
+
+		<!-- Dependency for Apache Commons Text library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
 			<version>1.12.0</version>
+			<!-- URL for the Apache Commons Text project:
+			https://commons.apache.org/proper/commons-text/ -->
+			<!-- Apache Commons Text is a library focused on algorithms working
+			on strings,providing utilities for text manipulation and processing. -->
 		</dependency>
+
+		<!-- Dependency for Apache Jena Shaded Guava library -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-shaded-guava</artifactId>
 			<version>4.8.0</version>
+			<!-- URL for the Apache Jena Shaded Guava project:
+			https://central.sonatype.com/artifact/org.apache.jena/jena-shaded-guava -->
+			<!-- This library shades Google's Guava to avoid version conflicts,
+             providing a repackaged version under the org.apache.jena.ext.com.google
+			package. uava is a set of core Java libraries from Google that includes new
+			collection types 
+			(such as multimap and multiset), immutable collections, -->
 		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+
+
+		<!-- Dependency for Jackson Databind library -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.17.2</version>
+			<!-- URL for the Jackson Databind project:
+			https://github.com/FasterXML/jackson-databind -->
+			<!-- Jackson Databind is used for converting Java objects to and
+			from JSON, providing data-binding functionality and tree-model 
+			for JSON processing. -->
 		</dependency>
 
+		<!-- Dependency for Apache Commons Geometry Core library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-geometry-core</artifactId>
 			<version>1.0</version>
+			<!-- URL for the Apache Commons Geometry project:
+			https://commons.apache.org/proper/commons-geometry/ -->
+			<!-- Apache Commons Geometry Core is a library for geometric
+			processing, providing types and utilities for working with Euclidean 
+			and spherical spaces. -->
 		</dependency>
 
 		<dependency>
@@ -174,6 +238,7 @@
 			<artifactId>commons-geometry-io-core</artifactId>
 			<version>1.0</version>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-geometry-io-euclidean</artifactId>
@@ -403,5 +468,5 @@
 			<url>https://maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
 		</repository>
 	</distributionManagement>
-	
+
 </project>
