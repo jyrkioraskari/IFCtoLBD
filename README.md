@@ -417,9 +417,9 @@ Testing the correctness of the created bounding boxes.
    where *your java installation directory* is the base directory where your Java runtime is installed.
 
 6.  How to disable the missing project natures in Eclipse prompt
-  - open Eclipse.
-  - go to Window > Preferences.
-  - navigate to General > Project Natures.
+   - open Eclipse.
+   - go to Window > Preferences.
+   - navigate to General > Project Natures.
     There, you can disable the option for discovering missing project natures and marketplace entries.     
 
 7.  Eclipse build takes forever to complete
