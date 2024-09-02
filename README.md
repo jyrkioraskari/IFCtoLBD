@@ -384,7 +384,7 @@ Testing the correctness of the created bounding boxes.
 
 1. What does it mean when IFCtoLBD says “Java heap space”?
 
-    -This error typically occurs when converting a large file. It indicates the program has run out of memory allocated for the Java heap. To resolve this, try starting the program using run.bat
+    - This error typically occurs when converting a large file. It indicates the program has run out of memory allocated for the Java heap. To resolve this, try starting the program using run.bat
 
 
 2. Why does the program say: *"Error: Cannot determine which IFC version the model it is: [IFC2X2_FINAL]"*
