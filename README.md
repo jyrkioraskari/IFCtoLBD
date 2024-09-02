@@ -45,7 +45,7 @@ If the program does not start, try the following command at the command line: `j
 Java programming examples can be found
 [here ](/IFCtoLBD/examples.md).
 
-The desktop user interface was created using Java FXML, a scripting language defining the user interface in Java applications. You can download the editor from Gluon Scene Builder (https://gluonhq.com/products/scene-builder/). In the editor, import the org.openjfx:javafx-graphics and org.openjfx:javafx-controls libraries to get the editor working using the library manager.
+The desktop user interface was created using Java FXML, a scripting language defining the user interface in Java applications. You can download the editor from Gluon Scene Builder (see https://gluonhq.com/products/scene-builder/). In the editor, import the org.openjfx:javafx-graphics and org.openjfx:javafx-controls libraries to get the editor working using the library manager.
 
 
 ## Compiling the code
