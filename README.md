@@ -8,7 +8,7 @@ Free for all of us, forever.
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: (https://github.com/w3c-lbd-cg/).
 
 ### What is IFC?
-Industry Foundation Classes (IFC) is a vendor-neutral data schema developed by buildingSMART to enhance interoperability in architecture, engineering, and construction (AEC). IFC files contain detailed information about building components and their relationships, ensuring seamless data exchange across various software applications.
+Industry Foundation Classes (IFC) is a vendor-neutral data schema developed by buildingSMART to enhance interoperability in architecture, engineering, and construction (AEC). IFC files contain detailed information about building components and their relationships, ensuring seamless data exchange across various software applications. Sample models can be found here: [buildingSMART/Sample-Test-Files](https://github.com/buildingSMART/Sample-Test-Files/tree/master/IFC%202x3).
 
 ### What is RDF?
 The Resource Description Framework (RDF) is a standard model for data interchange on the web, developed by the World Wide Web Consortium (W3C). RDF represents information using triples, which consist of a subject, predicate, and object. RDF facilitates data sharing and reuse across different applications and supports the integration of large datasets from various sources.
