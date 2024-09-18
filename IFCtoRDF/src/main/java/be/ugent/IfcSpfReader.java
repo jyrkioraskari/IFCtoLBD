@@ -194,7 +194,7 @@ public class IfcSpfReader {
                                 return "IFC4x3_RC1";
                             if (strLine.contains("IFC4X3_RC1"))
                                 return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4s1"))
+                            if (strLine.contains("IFC4x1"))
                                 return "IFC4x1";
                             if (strLine.contains("IFC4X1"))
                                 return "IFC4x1";

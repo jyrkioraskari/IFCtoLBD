@@ -5,7 +5,7 @@
 	<groupId>de.rwth-aachen.dc.lbd</groupId>
 	<artifactId>IFCProps2ExcelOnline</artifactId>
 	<packaging>war</packaging>
-	<version>2.43.4</version>
+	<version>2.44.0</version>
 	<name>IFC Properties to Excel User Interface</name>
 
 	<properties>
@@ -85,7 +85,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc-to-lbd</artifactId>
-			<version>2.43.5</version>
+			<version>2.44.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.poi</groupId>

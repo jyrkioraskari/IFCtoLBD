@@ -1,0 +1,6 @@
+org.controlsfx:controlsfx ........................... 11.2.0 -> 11.2.1
+org.openjfx:javafx-base ........................... 21-ea+5 -> 24-ea+5
+org.openjfx:javafx-controls ....................... 21-ea+5 -> 24-ea+5
+org.openjfx:javafx-fxml ........................... 21-ea+5 -> 24-ea+5
+org.openjfx:javafx-graphics ....................... 21-ea+5 -> 24-ea+5
+

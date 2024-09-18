@@ -30,6 +30,7 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.vocabulary.OWL;
@@ -247,8 +248,8 @@ public abstract class IFCtoLBDConverterCore {
 				String target_trig = target_file.replaceAll(".ttl", ".trig");
 				if (this.uriBase.isPresent() && this.lbd_dataset != null) {
 					this.lbd_dataset.getDefaultModel().add(this.lbd_general_output_model);
-					this.lbd_dataset.addNamedModel(this.uriBase + "product", this.lbd_product_output_model);
-					this.lbd_dataset.addNamedModel(this.uriBase + "property", this.lbd_property_output_model);
+					this.lbd_dataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
+					this.lbd_dataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
 				}
 
 				RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
@@ -413,6 +414,8 @@ public abstract class IFCtoLBDConverterCore {
 
 				Resource sp_geometry = this.lbd_general_output_model
 						.createResource(lbd_resource.getURI() + "_geometry");
+				
+				sp_geometry.addProperty(RDF.type, GEO.Geometry);
 				if (bb != null && obj != null)
 					lbd_resource.addProperty(OMG.hasGeometry, sp_geometry);
 				// lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
@@ -420,7 +423,8 @@ public abstract class IFCtoLBDConverterCore {
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
-						sp_geometry.addLiteral(GEO.asWKT, bb.toString());
+						Literal wktLiteral=this.lbd_general_output_model.createTypedLiteral(bb.toString(),GEO.wktLiteral);
+						sp_geometry.addLiteral(GEO.asWKT, wktLiteral);
 					} else {
 						Resource sp_bb = this.lbd_general_output_model
 								.createResource(lbd_resource.getURI() + "_geometry_bb");
@@ -496,7 +500,7 @@ public abstract class IFCtoLBDConverterCore {
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					Literal base64 = this.lbd_general_output_model.createTypedLiteral(obj.toString(),
-							"https://www.w3.org/TR/xmlschema-2/#base64Binary");
+							"https://www.w3.org/2001/XMLSchema#base64Binary");
 					sp_geometry.addLiteral(this.fogasObj, base64);
 				}*/
 			}
@@ -1280,8 +1284,11 @@ public abstract class IFCtoLBDConverterCore {
 
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
-			File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
-			RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+			//TODO  This does not work wit Apache Jena 5.1 (org.apache.jena.riot.RiotException: Out of place: [DOT])
+			//File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
+			File t2=null;
+			System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+			RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(),Lang.TTL);
 			return m;
 
 		} catch (Exception e) {

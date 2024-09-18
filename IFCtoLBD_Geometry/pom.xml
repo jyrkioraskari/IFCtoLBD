@@ -24,57 +24,120 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<dependencies>
-		<!-- https://mvnrepository.com/artifact/javax.vecmath/vecmath -->
+
+		<!-- Dependency for javax.vecmath library -->
 		<dependency>
 			<groupId>javax.vecmath</groupId>
 			<artifactId>vecmath</artifactId>
 			<version>1.5.2</version>
+			<!-- URL for the javax.vecmath project:
+			https://java.net/projects/vecmath/ -->
+			<!-- The javax.vecmath library provides classes for 3D vector
+			mathematics, including points, vectors, and matrices, commonly used in graphics
+			and
+			simulations. -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+
+		<!-- Dependency for SLF4J API library -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>2.0.4</version>
+			<!-- URL for the SLF4J project: https://www.slf4j.org/manual.html -->
+			<!-- SLF4J (Simple Logging Facade for Java) provides a simple
+			abstraction for various logging frameworks, allowing the end user to plug 
+			in the desired logging framework at deployment time. -->
 		</dependency>
+
+		<!-- Dependency for Log4j SLF4J2 Implementation library -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j2-impl</artifactId>
 			<version>2.19.0</version>
+			<!-- Scope of the dependency, used at runtime -->
 			<scope>runtime</scope>
+			<!-- URL for the Log4j SLF4J2 Implementation project:
+			https://logging.apache.org/log4j/2.x/log4j-slf4j-impl.html -->
+			<!-- This library allows applications using the SLF4J API to utilize
+			Log4j 2 as the logging implementation, providing a bridge between 
+			SLF4J and Log4j 2. -->
 		</dependency>
+
+		<!-- Dependency for Log4j Core library -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
 			<version>2.19.0</version>
+			<!-- URL for the Log4j project:
+			https://logging.apache.org/log4j/2.x/ -->
+			<!-- Log4j Core is the main implementation of the Log4j logging
+			framework, providing powerful and flexible logging capabilities 
+			for Java applications. -->
 		</dependency>
+
+		<!-- Dependency for Apache Commons IO library -->
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
-			<version>2.11.0</version>
+			<version>2.16.1</version>
+			<!-- URL for the Apache Commons IO project:
+			https://commons.apache.org/proper/commons-io/ -->
+			<!-- Apache Commons IO provides utility classes for input/output
+			operations, including file and stream handling, file filters, 
+			and comparators. -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+
+		<!-- Dependency for Google Guava library -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>[30.0-jre,)</version>
+			<!-- URL for the Google Guava project:
+			https://github.com/google/guava -->
+			<!-- Guava is a set of core Java libraries that include new
+			collection types, immutable collections, a graph library, and utilities for
+			concurrency, I/O,
+			hashing, primitives, strings, and more. -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.opensourcebim/ifcplugins -->
+
+		<!-- Dependency for IFC Plugins library -->
 		<dependency>
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>ifcplugins</artifactId>
-			<version>0.0.101</version>
+			<version>0.0.102</version>
+			<!-- URL for the IFC Plugins project:
+			https://github.com/opensourceBIM/IfcPlugins -->
+			<!-- IFC Plugins provide serialization and deserialization for IFC
+			files, enabling the conversion of building information models to 
+			and from various formats. -->
 		</dependency>
+
+		<!-- Dependency for PluginBase library -->
 		<dependency>
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>pluginbase</artifactId>
 			<version>1.5.184</version>
+			<!-- URL for the PluginBase project:
+			https://central.sonatype.com/artifact/org.opensourcebim/pluginbase -->
+			<!-- PluginBase is a foundational library for developing BIMserver
+			plugins,  providing essential functionalities and structures for plugin 
+			development. -->
 		</dependency>
+
+		<!-- Dependency for Apache Commons Lang library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.12.0</version>
+			<version>3.16.0</version>
+			<!-- URL for the Apache Commons Lang project:
+			https://commons.apache.org/proper/commons-lang/ -->
+			<!-- Apache Commons Lang provides a host of helper utilities for the
+			java.lang API,  enhancing core Java capabilities with additional methods for string
+			manipulation,  number handling, concurrency, and more. -->
 		</dependency>
+
 	</dependencies>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -89,7 +152,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>2.43.5</version>
+	<version>2.44.0</version>
 	<distributionManagement>
 		<repository>
 			<id>github</id>

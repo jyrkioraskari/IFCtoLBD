@@ -8,6 +8,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationE
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.LBD_RDF_Utils;
+import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 import com.google.common.eventbus.EventBus;
@@ -62,6 +63,7 @@ public class IfcOWL_GeolocationUtil {
 
             // Create a resource <urn:bot:geom:pt:guid>
             Resource rr = lbd_general_output_model.createResource(uncompressed_wktLiteralID);
+            rr.addProperty(RDF.type, GEO.Geometry);
             sio.addProperty(geo_hasGeometry, rr);
 
             // Create a property asWKT

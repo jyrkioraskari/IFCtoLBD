@@ -13,31 +13,37 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 public class Example3 {
 
-	public static void main(String[] args) {
-		URL ifcFileUrl = ClassLoader.getSystemResource("Duplex_A.ifc");
-		try {
-			File ifcFile = new File(ifcFileUrl.toURI());
+    public static void main(String[] args) {
+        // Get the URL of the IFC file from the resources folder
+        URL ifcFileUrl = ClassLoader.getSystemResource("Duplex_A.ifc");
+        try {
+            // Convert the URL to a File object
+            File ifcFile = new File(ifcFileUrl.toURI());
 
-			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);) {
-				Model model = converter.convert(ifcFile.getAbsolutePath());
+            // Use a try-with-resources statement to ensure the converter is closed after use
+            try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);) {
+                // Convert the IFC file to an RDF model
+                Model model = converter.convert(ifcFile.getAbsolutePath());
 
-				Query query = QueryFactory.create("""
-						PREFIX bot: <https://w3id.org/bot#>\r
-						\r
-						SELECT ?element WHERE {\r
-						  ?element a bot:Element .\r
-						}\s""");
-				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
-					ResultSet resultSet = queryExecution.execSelect();
-					resultSet.forEachRemaining(qs -> {
-						System.out.println("BOT element: " + qs.get("element").asResource().getLocalName());
-
-					});
-				}
-			}
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
-		}
-
-	}
+                // Create a SPARQL query to select all elements of type bot:Element
+                Query query = QueryFactory.create("""
+                        PREFIX bot: <https://w3id.org/bot#>
+                        
+                        SELECT ?element WHERE {
+                          ?element a bot:Element .
+                        }""");
+                
+                // Execute the SPARQL query on the RDF model
+                try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
+                    ResultSet resultSet = queryExecution.execSelect();
+                    // Iterate over the results and print each element's local name
+                    resultSet.forEachRemaining(qs -> {
+                        System.out.println("BOT element: " + qs.get("element").asResource().getLocalName());
+                    });
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
 }

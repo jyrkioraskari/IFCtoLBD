@@ -1,9 +1,12 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.Callable;
 
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
 
 import picocli.CommandLine;
@@ -15,7 +18,7 @@ import picocli.CommandLine.Parameters;
  * 
  *  IFCtoLBD Command Line interface
  *  
- *  Copyright (c) 2023 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,7 +86,11 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasGeometry" }, description = "The bounding boxes are generated for elements.")
 	private Optional<Boolean> hasGeometry;
 
-	@Option(names = { "--ifcOWL" }, description = "Geolocation, i.e., the latitude and longitude are added.")
+	@Option(names = { "--hasWKT" }, description = "The bounding boxes are generated as WKT.")
+	private Optional<Boolean> hasBoundingBoxWKT;
+
+	
+	@Option(names = { "--ifcOWL" }, description = "An ifcOWL  model is created and linked.")
 	private Optional<Boolean> exportIfcOWL;
 
 	@Option(names = {
@@ -93,6 +100,17 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasUnits" }, description = "Data units are added.")
 	private Optional<Boolean> hasUnits;
 
+	@Option(names = { "--hasHierarchicalNaming" }, description = "HierarchicalNaming is used.")
+	private Optional<Boolean> hasHierarchicalNaming;
+
+	
+	@Option(names = { "--hasPerformanceBoost" }, description = "PerformanceBoost is used.")
+	private Optional<Boolean> hasPerformanceBoost;
+
+	
+	
+	
+	
 	@Override
 	public Integer call() throws Exception {
 		String ifc_filename = this.ifc_filename;
@@ -143,6 +161,19 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.exportIfcOWL.isPresent())
 			exportIfcOWL = this.exportIfcOWL.get();
 
+		
+		boolean hasBoundingBoxWKT = false ;
+		if (this.hasBoundingBoxWKT.isPresent())
+			hasBoundingBoxWKT = this.hasBoundingBoxWKT.get();
+
+		boolean hasHierarchicalNaming = false ;
+		if (this.hasHierarchicalNaming.isPresent())
+			hasHierarchicalNaming = this.hasHierarchicalNaming.get();
+
+		boolean hasPerformanceBoost = false ;
+		if (this.hasPerformanceBoost.isPresent())
+			hasPerformanceBoost = this.hasPerformanceBoost.get();
+
 		//boolean namedGraphs = false;
 		//if (this.namedGraphs.isPresent())
 		//	namedGraphs = this.namedGraphs.get();
@@ -155,6 +186,17 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
 				hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
 
+		
+		
+		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes,
+				props_level);) {
+			converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry, hasPerformanceBoost,
+					exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+						
+			Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
+					hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+					hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming);
+		}
 		return null;
 	}
 
@@ -165,7 +207,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		int exitCode = commandLine.execute(args);
 		if (commandLine.isVersionHelpRequested()) {
 
-			System.out.println("Program version is 2.39.0.");
+			System.out.println("Program version is  2.43.5.");
 
 		}
 		System.exit(exitCode);

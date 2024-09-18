@@ -583,7 +583,8 @@ public class ConverterRunsUnitTests {
 			}
 
 			long bytes = ifcOwlFile.length();
-			if (bytes != 20289155) {
+			// Apache Jena 5.1
+			if (bytes != 20185157) {  // Old Jena had: 20289155
 				System.out.println(
 						"Wrong file size for ifcOWL result. (can be Jena version dependent) size was: " + bytes);
 				System.out.println("Filename was: " + ifcOwlFile.getAbsolutePath());
@@ -737,9 +738,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 835) {
-					System.out.println("Converted subject count should  be 835. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 835. Was: " + subjectList51.size());
+				if (subjectList51.size() != 844) {
+					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
 				}
 			}
 			
@@ -756,9 +757,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 835) {
-					System.out.println("Converted subject count should  be 835. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 835. Was: " + subjectList51.size());
+				if (subjectList51.size() != 844) {
+					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
 				}
 			}
 
@@ -943,9 +944,9 @@ public class ConverterRunsUnitTests {
 					System.out.println("Converted subject count  should not be 581. Was: " + subjectList1.size());
 					fail("Converted subject count  should not be 581. Was: " + subjectList1.size());
 				}
-				if (subjectList1.size() != 367) {
-					System.out.println("Converted subject count  should  be 367. Was: " + subjectList1.size());
-					fail("Converted subject count  should  be 367. Was: " + subjectList1.size());
+				if (subjectList1.size() != 373) {
+					System.out.println("Converted subject count  should  be 373. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 373. Was: " + subjectList1.size());
 				}
 			}
 
@@ -1185,9 +1186,9 @@ public class ConverterRunsUnitTests {
 							hasGeolocation, local_hasGeometry, exportIfcOWL, hasUnits, local_hasGeometry, true,hasInterfaces);
 
 					ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(model_level1.listSubjects());
-					if (subjectList1.size() != 833) {
-						System.out.println("Converted subject count  should not be 833. Was: " + subjectList1.size());
-						fail("Converted subject count  should not be 833. Was: " + subjectList1.size());
+					if (subjectList1.size() != 842) {
+						System.out.println("Converted subject count  should not be 842. Was: " + subjectList1.size());
+						fail("Converted subject count  should not be 842. Was: " + subjectList1.size());
 					}
 
 					final Set<String> properties = new HashSet<>();

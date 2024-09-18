@@ -1,0 +1,6 @@
+org.apache.logging.log4j:log4j-core ............ 2.19.0 -> 3.0.0-beta2
+org.apache.logging.log4j:log4j-slf4j2-impl ..... 2.19.0 -> 3.0.0-beta2
+
+// This needs a code change:
+org.opensourcebim:pluginbase ........................ 1.5.184 -> 2.0.0
+org.slf4j:slf4j-api ............................ 2.0.4 -> 2.1.0-alpha1
