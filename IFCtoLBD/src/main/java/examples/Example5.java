@@ -43,7 +43,7 @@ public class Example5 {
             try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes, props_level);) {
                 // Perform the initial conversion phase
                 converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-                        exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits);
+                        exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits,false);
                 
                 // Filter only wall elements
                 Set<String> types = new HashSet<>();
@@ -53,7 +53,7 @@ public class Example5 {
                 // Perform the LBD conversion phase with specified options
                 Model m = converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
                         hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
-                        hasUnits, hasBoundingBoxWKT, true);
+                        hasUnits, hasBoundingBoxWKT, true,false);
 
                 if (m != null) {
                     // Create a SPARQL query to select all elements of type bot:Element
