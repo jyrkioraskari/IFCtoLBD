@@ -63,9 +63,10 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasHierarchicalNaming;
     
     final boolean hasIfc_based_elements;
-
+    final boolean hasInterfaces;
+    
     //TODO Check this
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -88,6 +89,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 		this.hasHierarchicalNaming=hasHierarchicalNaming;
 		this.hasIfc_based_elements=hasIfc_based_elements;
+		this.hasInterfaces=hasInterfaces;
 	}
 
 	@Override
@@ -99,7 +101,7 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
-						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming);
+						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,hasInterfaces);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

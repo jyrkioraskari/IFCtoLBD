@@ -30,6 +30,7 @@ public class Example5 {
 
 	static final boolean hasPerformanceBoost = false;
 	static final boolean hasBoundingBoxWKT = true;
+	static final boolean hasInterfaces = false;
 
 	public static void main(String[] args) {
 		URL ifc_file_url = ClassLoader.getSystemResource("Duplex_A.ifc");
@@ -39,7 +40,7 @@ public class Example5 {
 			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
 					props_level);) {
 				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+						exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits,hasInterfaces);
 				
 				Set<String> types = new HashSet<>();
 				types.add("Wall");  // Filter only wall elements
@@ -47,7 +48,7 @@ public class Example5 {
 				
 				Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
-						hasUnits, hasBoundingBoxWKT, true);
+						hasUnits, hasBoundingBoxWKT, true,hasInterfaces);
 
 				if (m != null) {
 					Query query = QueryFactory.create("""

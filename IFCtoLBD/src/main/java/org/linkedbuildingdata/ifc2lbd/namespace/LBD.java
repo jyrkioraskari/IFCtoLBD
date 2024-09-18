@@ -12,6 +12,7 @@ public class LBD extends abstract_NS {
     public static final String ns = "https://linkedbuildingdata.org/LBD#";
 
     public static final Property containsInBoundingBox = property(ns, "containsInBoundingBox"); // contains,
+
                                                                                                     // containsBoundingBox,
                                                                                                     // containsInVolume
     public static final Property hasBoundingBox = property(ns, "hasBoundingBox"); 
