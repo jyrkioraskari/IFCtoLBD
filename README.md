@@ -292,6 +292,10 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### September 19, 2024
+There is a new beta version of bounding box based interface generation. It is still preliminary and needs testing.
+
+
 ### March 14, 2024
 
 Just in case you have a path problem in a MacBook when writing Python: 
