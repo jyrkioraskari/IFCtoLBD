@@ -293,8 +293,8 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 
 ## Blog
 ### September 19, 2024
-There is a new beta version of bounding box based interface generation. It is still preliminary and needs testing.
-
+While it’s still in the preliminary stages and requires thorough testing, a source code for our bounding box-based interface generation is now available. 
+The code quality is being tested, and we are gearing up for the next pre-compiled release soon. If you encounter any bugs, please let me know.
 
 ### March 14, 2024
 
