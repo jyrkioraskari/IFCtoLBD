@@ -120,6 +120,7 @@ public abstract class IFCtoLBDConverterCore {
 	private final Set<Resource> has_geometry = new HashSet<>();
 
 	private RTree<Resource, Geometry> rtree;
+	private RTree<Resource, Geometry> rtree_walls;
 	private final Map<Rectangle, Resource> rtree_map = new HashMap<>();
 
 	private boolean exportIfcOWL_setting = false;
@@ -143,14 +144,17 @@ public abstract class IFCtoLBDConverterCore {
 	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, @SuppressWarnings("unused") boolean namedGraphs,
-			boolean hasHierarchicalNaming) {
+			boolean hasHierarchicalNaming, boolean hasInterfaces) {
 		this.handledAttributes4resource.clear(); // less performant but more dynamic
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 		this.exportIfcOWL_setting = exportIfcOWL;
 		this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
 		this.included_elements.clear();
 		if (hasGeometry)
+		{
 			this.rtree = RTree.dimensions(3).create();
+			this.rtree_walls = RTree.dimensions(3).create();
+		}
 
 		List<RDFNode> sites = IfcOWLUtils.listSites(this.ifcOWL, this.ifcowl_model);
 		if (!sites.isEmpty()) {
@@ -215,6 +219,11 @@ public abstract class IFCtoLBDConverterCore {
 				this.lbd_general_output_model.add(this.lbd_product_output_model);
 		}
 
+		if (hasGeometry)
+		{
+		   finnish_geometry(hasInterfaces);
+		}
+		
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 
 		if (hasBuildingProperties) {
@@ -430,9 +439,24 @@ public abstract class IFCtoLBDConverterCore {
 					Rectangle rectangle = Rectangle.create(bb.getMin().x, bb.getMin().y, bb.getMin().z, bb.getMax().x,
 							bb.getMax().y, bb.getMax().z);
 
-					this.rtree = this.rtree.add(lbd_resource, rectangle); // rtree is
 					// immutable
+					this.rtree = this.rtree.add(lbd_resource, rectangle); // rtree is
 					this.rtree_map.put(rectangle, lbd_resource);
+
+					// TODO if not all is in place yet
+					if(lbd_resource.toString().toLowerCase().contains("furniture"))
+						return;
+					if(lbd_resource.toString().toLowerCase().contains("slab"))
+						return;
+					if(lbd_resource.toString().toLowerCase().contains("railing"))
+						return;				
+					if(lbd_resource.toString().toLowerCase().contains("beam"))
+						return;				
+					
+					if(lbd_resource.toString().toLowerCase().contains("stairflight"))
+						return;				
+					if(lbd_resource.toString().toLowerCase().contains("member"))
+						return;
 
 					Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rectangle);
 					for (Entry<Resource, Geometry> e : results) {
@@ -440,16 +464,45 @@ public abstract class IFCtoLBDConverterCore {
 							e.value().addProperty(LBD.containsInBoundingBox, lbd_resource);
 					}
 
+					double x1 = bb.getMin().x, y1 = bb.getMin().y, z1 = bb.getMin().z;
+					double x2 = bb.getMax().x, y2 = bb.getMax().y, z2 = bb.getMax().z;
+
+					// Front Face
+					Rectangle frontFace = Rectangle.create(x1, y1, z1, x2, y2, z1);
+
+					// Back Face
+					Rectangle backFace = Rectangle.create(x1, y1, z2, x2, y2, z2);
+
+					// Left Face
+					Rectangle leftFace = Rectangle.create(x1, y1, z1, x1, y2, z2);
+
+					// Right Face
+					Rectangle rightFace = Rectangle.create(x2, y1, z1, x2, y2, z2);
+
+					// Top Face
+					Rectangle topFace = Rectangle.create(x1, y2, z1, x2, y2, z2);
+
+					// Bottom Face
+					Rectangle bottomFace = Rectangle.create(x1, y1, z1, x2, y1, z2);
+
+					
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, frontFace);
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, backFace);
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, leftFace);
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, rightFace);
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, topFace);
+					this.rtree_walls = this.rtree_walls.add(lbd_resource, bottomFace);
+
 				}
 
-				if (obj != null) {
+				/*if (obj != null) {
 					if (this.fogasObj == null)
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					Literal base64 = this.lbd_general_output_model.createTypedLiteral(obj.toString(),
 							"https://www.w3.org/2001/XMLSchema#base64Binary");
 					sp_geometry.addLiteral(this.fogasObj, base64);
-				}
+				}*/
 			}
 
 		} catch (Exception e) { // Just in case IFCOpenShell does not function
@@ -457,6 +510,56 @@ public abstract class IFCtoLBDConverterCore {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void finnish_geometry(boolean hasInterfaces) {
+		for (java.util.Map.Entry<Rectangle, Resource> entry : rtree_map.entrySet()) {
+			Resource lbd_resource = entry.getValue();
+			Rectangle rect_geometry = entry.getKey();
+			
+			Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rect_geometry);
+			for (Entry<Resource, Geometry> e : results) {
+				Resource e_uri=e.value();
+				if (e_uri != lbd_resource)
+					lbd_resource.addProperty(LBD.containsInBoundingBox, e.value());
+			}
+
+			if(!hasInterfaces)
+				continue;
+			if(lbd_resource.toString().toLowerCase().contains("furniture"))
+				continue;
+			if(lbd_resource.toString().toLowerCase().contains("slab"))
+				continue;
+			if(lbd_resource.toString().toLowerCase().contains("railing"))
+				continue;				
+			if(lbd_resource.toString().toLowerCase().contains("beam"))
+				continue;				
+			
+			if(lbd_resource.toString().toLowerCase().contains("stairflight"))
+				continue;				
+			if(lbd_resource.toString().toLowerCase().contains("member"))
+				continue;
+			// Interfaces for the bounding boxes
+			//TODO 0.05  use model scale
+			Iterable<Entry<Resource, Geometry>> w_results = this.rtree_walls.search(rect_geometry,0.05);
+			for (Entry<Resource, Geometry> e : w_results) {
+				Resource e_uri=e.value();
+				
+
+				if (e_uri != lbd_resource)
+				{
+					Resource bot_interface = this.lbd_general_output_model
+							.createResource(lbd_resource.getURI() + "_interface_"+e.geometry().hashCode());
+					bot_interface.addProperty(RDF.type, BOT.bot_interface);
+					bot_interface.addProperty(BOT.bot_interfaceOf, e_uri);
+					bot_interface.addProperty(BOT.bot_interfaceOf, lbd_resource);  // Duplicates does not matter
+					
+				}
+			}
+
+			
+
+		}
 	}
 
 	private final Map<String, String> unitmap = new HashMap<>();
@@ -1481,7 +1584,7 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			Map<String, String> mapping = new ObjectMapper().readValue(property_replace_map_json, HashMap.class);
 			this.property_replace_map = mapping;
-			
+
 			for (PropertySet pset : this.propertysets.values()) {
 				pset.setProperty_replace_map(mapping);
 			}

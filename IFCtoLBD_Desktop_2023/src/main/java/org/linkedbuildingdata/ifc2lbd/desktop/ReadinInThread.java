@@ -55,10 +55,10 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
     
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
-    
+    final boolean hasInterfaces;
 
     //TODO Check this
-	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT) {
+	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasInterfaces) {
 		super();
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
@@ -76,7 +76,7 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.hasUnits=hasUnits;
 		this.hasPerformanceBoost=hasPerformanceBoost;
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
-		
+		this.hasInterfaces=hasInterfaces;
 	}
 
 	@Override
@@ -85,7 +85,7 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 			IFCtoLBDConverter c1nb;
 			try {
 				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
-				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits);
+				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits,this.hasInterfaces);
 				
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
