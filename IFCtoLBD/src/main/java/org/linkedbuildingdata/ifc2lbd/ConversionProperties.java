@@ -13,6 +13,7 @@ public class ConversionProperties {
 	private boolean hasHierarchicalNaming=false;
 	private boolean hasPerformanceBoost=true;
 	private boolean hasNonLBDElement=true;
+	private boolean hasInterfaces=false;
 	
 	public ConversionProperties() {
 		
@@ -127,6 +128,14 @@ public class ConversionProperties {
 
 	public void setHasNonLBDElement(boolean hasNonLBDElement) {
 		this.hasNonLBDElement = hasNonLBDElement;
+	}
+
+	public boolean isHasInterfaces() {
+		return hasInterfaces;
+	}
+
+	public void setHasInterfaces(boolean hasInterfaces) {
+		this.hasInterfaces = hasInterfaces;
 	}
 	
 	

@@ -41,6 +41,7 @@ lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
 props = ConversionProperties();
 props.setHasGeometry(True);
 
+
 model=lbdconverter.convert("Duplex_A_20110505.ifc",props)
 queryString = """PREFIX fog: <https://w3id.org/fog#>
 PREFIX beo: <https://pi.pauwel.be/voc/buildingelement#>

@@ -270,6 +270,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		boolean hasBoundingBoxWKT = props.hasBoundingBoxWKT();
 		boolean hasHierarchicalNaming = props.hasHierarchicalNaming();
 		boolean hasPerformanceBoost = props.hasPerformanceBoost();
+		boolean hasInterfaces = props.isHasInterfaces();
+		
 		this.hasNonLBDElement = props.hasNonLBDElement();
 
 		// Cannot ne used if ifcOWL is exported
@@ -278,7 +280,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasPerformanceBoost,
-				hasBoundingBoxWKT, hasHierarchicalNaming);
+				hasBoundingBoxWKT, hasHierarchicalNaming,hasInterfaces);
 		return this.lbd_general_output_model;
 	}
 
@@ -343,6 +345,24 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		return null;
 	}
+	
+	public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements,
+			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
+			boolean hasGeolocation, boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits,
+			boolean hasPerformanceBoost, boolean hasBoundingBoxWKT, boolean hasHierarchicalNaming, boolean hasInterfaces) {
+
+		if (convert_read_in_phase(ifc_filename, target_file, hasGeometry, hasPerformanceBoost, exportIfcOWL,
+				hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits,false)) {
+			if (this.hasSimplified_properties)
+				setHasSimplified_properties(true); // for the read property sets
+			return convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
+					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
+					hasHierarchicalNaming,hasInterfaces);
+		}
+
+		return null;
+	}
+
 
 	public Model convert(String ifc_filename, String target_file, boolean hasBuildingElements,
 			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties, boolean hasSeparatePropertiesModel,
