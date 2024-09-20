@@ -296,6 +296,7 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 I wrote a Python program to demonstrate how the interfaces can be used to infer which door to use to 
 enter a space. 
 ![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/door_interface.png)
+
 The short example code can be found [here](/IFCtoLBD_Python/IFCtoLBD_SPARQL_Open3D_Interface.py).
 
 
