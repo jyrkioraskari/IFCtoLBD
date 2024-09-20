@@ -409,6 +409,7 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 
 			if (this.has_geometry.add(lbd_resource)) {
+				System.out.println("got geometry");
 				BoundingBox bb = this.ifc_geometry.getBoundingBox(guid);
 				ObjDescription obj = this.ifc_geometry.getOBJ(guid);
 
@@ -495,14 +496,14 @@ public abstract class IFCtoLBDConverterCore {
 
 				}
 
-				/*if (obj != null) {
+				if (obj != null) {
 					if (this.fogasObj == null)
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					Literal base64 = this.lbd_general_output_model.createTypedLiteral(obj.toString(),
 							"https://www.w3.org/2001/XMLSchema#base64Binary");
 					sp_geometry.addLiteral(this.fogasObj, base64);
-				}*/
+				}
 			}
 
 		} catch (Exception e) { // Just in case IFCOpenShell does not function
