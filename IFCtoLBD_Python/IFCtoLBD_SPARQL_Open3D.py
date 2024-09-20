@@ -1,14 +1,12 @@
 # !/usr/bin/env python3
 #  To install:   pip install open3d
-
-
 #-------------------------------------------------------------------------------
 # Name:        lbd 3D visualization
 # Purpose:
 #
 # Author:      Jyrki Oraskari
 #
-# Created:     26/01/2024
+# Created:     20/09/2024
 # Copyright:   (c) Jyrki Oraskari 2024
 # Licence:     Apache 2.0
 #-------------------------------------------------------------------------------
@@ -18,15 +16,12 @@ import open3d as o3d
 import open3d.visualization as viss
 import base64
 import tempfile
-import jpype
 import numpy as np
-from open3d.cpu.pybind.visualization import MeshColorOption
 
 # Enable Java imports
 import jpype.imports
 
 # Pull in types
-from jpype.types import *
 
 jpype.startJVM(classpath = ['jars/*'])
 
