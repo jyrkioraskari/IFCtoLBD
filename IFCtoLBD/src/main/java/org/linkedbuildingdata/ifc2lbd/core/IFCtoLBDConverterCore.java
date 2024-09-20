@@ -221,7 +221,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		if (hasGeometry)
 		{
-		   finnish_geometry(hasInterfaces);
+		   finish_geometry(hasInterfaces);
 		}
 		
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
@@ -512,7 +512,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	}
 
-	private void finnish_geometry(boolean hasInterfaces) {
+	private void finish_geometry(boolean hasInterfaces) {
 		for (java.util.Map.Entry<Rectangle, Resource> entry : rtree_map.entrySet()) {
 			Resource lbd_resource = entry.getValue();
 			Rectangle rect_geometry = entry.getKey();
