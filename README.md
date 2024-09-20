@@ -292,6 +292,14 @@ java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output
 ```
 
 ## Blog
+### September 21, 2024
+I wrote a Python program to demonstrate how the interfaces can be used to infer which door to use to 
+enter a space. 
+![Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/door_interface.png
+The short example code can be found [here](/IFCtoLBD_Python/IFCtoLBD_SPARQL_Open3D_Interface.py).
+
+
+
 ### September 19, 2024
 While it’s still in the preliminary stages and requires thorough testing, a source code for our bounding box-based interface generation is now available. 
 The code quality is being tested, and we are gearing up for the next pre-compiled release soon. If you encounter any bugs, please let me know.
