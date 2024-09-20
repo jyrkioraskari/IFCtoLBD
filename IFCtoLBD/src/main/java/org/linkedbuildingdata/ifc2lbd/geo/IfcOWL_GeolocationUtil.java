@@ -31,7 +31,7 @@ public class IfcOWL_GeolocationUtil {
         try {
             wkt_point = c.addGeolocation(ifcowl_model);
         } catch (Exception e) {
-            System.out.println("No wkt_point");
+            System.err.println("No wkt_point");
             return; // no geolocation
         }
 

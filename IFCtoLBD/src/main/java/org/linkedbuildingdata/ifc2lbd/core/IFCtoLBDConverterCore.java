@@ -409,7 +409,6 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 
 			if (this.has_geometry.add(lbd_resource)) {
-				System.out.println("got geometry");
 				BoundingBox bb = this.ifc_geometry.getBoundingBox(guid);
 				ObjDescription obj = this.ifc_geometry.getOBJ(guid);
 
@@ -557,9 +556,6 @@ public abstract class IFCtoLBDConverterCore {
 					
 				}
 			}
-
-			
-
 		}
 	}
 
@@ -815,7 +811,7 @@ public abstract class IFCtoLBDConverterCore {
 										// System.out.println("Add value: "+name+" val:"+qvalue);
 										final_quantity_set.putPnameValue(name.get(0), qvalue);
 									} else
-										System.out.println(
+										System.err.println(
 												"qval empty " + q_value + " for: " + property_value.getObject());
 								}
 

@@ -191,7 +191,7 @@ public class PropertySet {
                     if(!this.mapPnameValue.get(pname).toString().contains("IfcPropertySingleValue"))
                       to_connect.addProperty(property, this.mapPnameValue.get(pname));
                     else
-                    	System.out.println("Odd value: "+this.mapPnameValue.get(pname));
+                    	System.err.println("Odd value: "+this.mapPnameValue.get(pname));
                 }
                     break;
                 case 2:

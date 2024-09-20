@@ -152,8 +152,8 @@ public abstract class RDFUtils {
 
         } catch (Exception e) {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e.getMessage()));
-            System.out.println("Missing file: " + ontology_file);
-            System.out.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
+            System.err.println("Missing file: " + ontology_file);
+            System.err.println("In the rare case, when you have a \"pset\" subdirectory at the current folder, \nan extra error message may be given.  ");
             //e.printStackTrace();
         }
         finally {
