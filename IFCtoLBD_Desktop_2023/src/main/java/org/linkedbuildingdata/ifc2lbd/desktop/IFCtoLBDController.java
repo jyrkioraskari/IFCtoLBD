@@ -82,6 +82,26 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/*
+ 
+Main Components
+- Event Handling: Uses Google Guava's EventBus for handling application events.
+- File Handling: Uses FileChooser for selecting IFC and target RDF files.
+
+- Conversion Process
+  -- Reads IFC files.
+  -- Converts them to RDF format.
+
+Methods
+- initialize(): Initializes the UI components and sets up event handlers.
+- selectIFCFile(): Handles the selection of IFC files.
+- selectTargetFile(): Handles the selection of target RDF files.
+- convertIFCToRDF(): Initiates the conversion process.
+- readInIFC(): Reads the IFC file and prepares for conversion.
+- handle_notification(), handleEvent(): Methods to handle various events and update the UI accordingly.
+ 
+ */
+
 public class IFCtoLBDController implements Initializable, FxInterface {
 	private Preferences prefs = Preferences.userNodeForPackage(IFCtoLBDController.class);
 

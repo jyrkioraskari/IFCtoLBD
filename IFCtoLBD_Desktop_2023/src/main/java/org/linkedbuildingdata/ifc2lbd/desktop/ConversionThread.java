@@ -41,10 +41,7 @@ public class ConversionThread implements Callable<Integer> {
 	final private IFCtoLBDConverter converter;
 	final private Set<String> selected_types;
 	final private Set<String> selected_psets ;
-	//final private String ifc_filename;
-	//final private String uriBase;
-	//final private String target_file;
-	//final private int props_level;
+
 	final private boolean hasBuildingElements;
 	final private boolean hasBuildingProperties;
 	
@@ -65,16 +62,12 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasIfc_based_elements;
     final boolean hasInterfaces;
     
-    //TODO Check this
 	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
 		this.selected_psets=selected_psets;
-		//this.ifc_filename = ifc_filename;
-		//this.uriBase = uriBase;
-		//this.target_file = target_file;
-		//this.props_level=props_level;
+	
 		this.hasBuildingElements=hasBuildingElements;
 		this.hasBuildingProperties=hasBuildingProperties;
 		
