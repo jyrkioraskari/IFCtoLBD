@@ -76,6 +76,37 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+/*
+
+Initialization
+- initialize(URL location, ResourceBundle resources): Sets up the UI components and event handlers.
+
+File Selection
+- selectIFCFile(): Opens a file chooser to select an IFC file.
+- selectTargetFile(): Opens a file chooser to select a target RDF file.
+
+Conversion
+- convertIFCToRDF(): Initiates the conversion process from IFC to RDF.
+
+Event Handlers
+- closeApplicationAction(): Closes the application.
+- aboutAction(): Displays the "About" dialog.
+- hyperlink_product_handle(ActionEvent event): Opens the product link.
+- hyperlink_opm_handle(ActionEvent event): Opens the OPM link.
+- hyperlink_towards_props(ActionEvent event): Opens the properties presentation link.
+- ifcOWLSelectionChange(MouseEvent event): Handles changes in the IFC OWL selection.
+
+Tooltip Setup
+- Sets tooltips for various UI components to provide additional information.
+
+Event Subscription
+- handle_notification(String txt): Handles notifications.
+- handleEvent(IFCtoLBD_SystemStatusEvent event): Handles system status events.
+- handleEvent(IFCtoLBD_SystemErrorEvent event): Handles system error events.
+- handleEvent(ProcessReadyEvent event): Handles process ready events.
+ */
+
 public class IFCtoLBDController implements Initializable, FxInterface {
     private Preferences prefs = Preferences.userNodeForPackage(IFCtoLBDController.class);
 
