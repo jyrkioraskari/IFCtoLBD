@@ -98,7 +98,7 @@ public abstract class IFCtoLBDConverterCore {
 	private Set<String> selected_types; // The element types that are included in the output
 
 	public Model ifcowl_model;
-	private Model ontology_model = null;
+	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
 
@@ -117,11 +117,11 @@ public abstract class IFCtoLBDConverterCore {
 
 	protected IFCGeometry ifc_geometry = null;
 
-	private final Set<Resource> has_geometry = new HashSet<>();
+	protected final Set<Resource> has_geometry = new HashSet<>();
 
-	private RTree<Resource, Geometry> rtree;
-	private RTree<Resource, Geometry> rtree_walls;
-	private final Map<Rectangle, Resource> rtree_map = new HashMap<>();
+	protected RTree<Resource, Geometry> rtree;
+	protected RTree<Resource, Geometry> rtree_walls;
+	protected final Map<Rectangle, Resource> rtree_map = new HashMap<>();
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
