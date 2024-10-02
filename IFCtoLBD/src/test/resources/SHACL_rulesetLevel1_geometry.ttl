@@ -5,7 +5,6 @@
 @prefix inst:  <https://dot.dc.rwth-aachen.de/IFCtoLBDset#> .
 @prefix bot:   <https://w3id.org/bot#> .
 @prefix props: <http://lbd.arch.rwth-aachen.de/props#> .
-@prefix opm:   <https://w3id.org/opm> .
 @prefix schema: <http://schema.org/> .
 @prefix omg: <https://w3id.org/omg#> 
 @prefix fog: <https://w3id.org/fog#> .
