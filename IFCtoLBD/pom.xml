@@ -45,6 +45,7 @@
 			<email>wagner [at] iib [dot] tu-darmstadt [dot] de</email>
 		</developer>
 	</developers>
+	
 	<properties>
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
