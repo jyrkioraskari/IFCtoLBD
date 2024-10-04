@@ -21,10 +21,11 @@
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	<description>IFCtoRDF is a set of reusable Java components that allows to parse IFC-SPF files and convert them into
-        RDF graphs.
+	<description>IFCtoRDF is a set of reusable Java components that allows to
+		parse IFC-SPF files and convert them into
+		RDF graphs.
 
-Based on:  https://github.com/pipauwel/IFCtoRDF</description>
+		Based on: https://github.com/pipauwel/IFCtoRDF</description>
 	<mailingLists>
 		<mailingList>
 			<name>Project Mailing List</name>
@@ -65,7 +66,7 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			</testResource>
 		</testResources>
 		<pluginManagement>
-			<plugins>
+			<plugins>				
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
@@ -210,8 +211,10 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven-javadoc-plugin.version}</version>
-				<configuration>
-					<source>15</source>
+				<configuration>	   
+				    <author>true</author>
+					<source>17</source>	
+					<excludePackageNames>com.*:fi.*</excludePackageNames>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -234,15 +237,20 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 								<configuration>
 									<archive>
 										<manifest>
-											<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+											<addDefaultImplementationEntries>
+												true</addDefaultImplementationEntries>
 											<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 										</manifest>
 										<manifestEntries>
-											<Implementation-Build>${implementation.build}</Implementation-Build>
-											<Implementation-Build-Date>${maven.build.timestamp}
+											<Implementation-Build>
+												${implementation.build}</Implementation-Build>
+											<Implementation-Build-Date>
+												${maven.build.timestamp}
 											</Implementation-Build-Date>
-											<X-Compile-Source-JDK>${javac.src.version}</X-Compile-Source-JDK>
-											<X-Compile-Target-JDK>${javac.target.version}</X-Compile-Target-JDK>
+											<X-Compile-Source-JDK>
+												${javac.src.version}</X-Compile-Source-JDK>
+											<X-Compile-Target-JDK>
+												${javac.target.version}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>
@@ -263,15 +271,20 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 									<quiet>true</quiet>
 									<archive>
 										<manifest>
-											<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+											<addDefaultImplementationEntries>
+												true</addDefaultImplementationEntries>
 											<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 										</manifest>
 										<manifestEntries>
-											<Implementation-Build>${implementation.build}</Implementation-Build>
-											<Implementation-Build-Date>${maven.build.timestamp}
+											<Implementation-Build>
+												${implementation.build}</Implementation-Build>
+											<Implementation-Build-Date>
+												${maven.build.timestamp}
 											</Implementation-Build-Date>
-											<X-Compile-Source-JDK>${javac.src.version}</X-Compile-Source-JDK>
-											<X-Compile-Target-JDK>${javac.target.version}</X-Compile-Target-JDK>
+											<X-Compile-Source-JDK>
+												${javac.src.version}</X-Compile-Source-JDK>
+											<X-Compile-Target-JDK>
+												${javac.target.version}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>

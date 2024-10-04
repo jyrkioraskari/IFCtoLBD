@@ -25,11 +25,21 @@ class IfcSpfParser {
     private final Map<Long, IFCVO> linemap = new HashMap<>();
     private final Map<Long, Long> listOfDuplicateLineEntries = new HashMap<>();
 
-
+    /**
+     * Constructs an IfcSpfParser with the specified input stream.
+     *
+     * @param inputStream the input stream to read the IFC data from
+     */
+    
     IfcSpfParser(InputStream inputStream) {
         this.inputStream = inputStream;
     }
 
+    /**
+     * Reads the IFC model from the input stream and parses it into IFCVO objects.
+     * The parsed objects are stored in the linemap.
+     */
+    
     void readModel() {
         try {
         	// Fix by JO 2024: finally is deprecated

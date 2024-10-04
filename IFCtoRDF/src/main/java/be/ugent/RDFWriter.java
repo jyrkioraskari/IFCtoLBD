@@ -1,5 +1,6 @@
-/*
- * Copyright 2016, 2022, 2023, 2024  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University; Lewis John McGibbney, Apache
+/**
+ * 
+ * Copyright 2016, 2022, 2023, 2024  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University, RWTH Aachen; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,6 +13,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ * 
+ * @author      Pieter Pauwels
+ * @author      Jyrki Oraskari
+ * @author      JLewis John McGibbney
  */
 package be.ugent;
 
@@ -52,6 +57,12 @@ import com.buildingsmart.tech.ifcowl.vo.TypeVO;
 
 import fi.ni.rdf.Namespace;
 
+
+/*
+ * RDFWriter is a component of the IFCtoRDF. This is a support class that writes the 
+ * parsed IFC into RDF statements. 
+ * 
+ */
 public class RDFWriter {
     private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
 
@@ -80,6 +91,18 @@ public class RDFWriter {
 	private final boolean hasPerformanceBoost;
 
 
+	/**
+	 * Constructs an RDFWriter with the specified parameters.
+	 *
+	 * @param ontModel The ontology model to be used.
+	 * @param inputStream The input stream containing the IFC data.
+	 * @param baseURI The base URI for the RDF data.
+	 * @param ent A map of entity value objects.
+	 * @param typ A map of type value objects.
+	 * @param ontURI The ontology URI.
+	 * @param hasPerformanceBoost A flag indicating whether performance boost features are enabled.
+	 */
+	
 	public RDFWriter(OntModel ontModel, InputStream inputStream, String baseURI, Map<String, EntityVO> ent,
 			Map<String, TypeVO> typ, String ontURI, boolean hasPerformanceBoost) {
 		this.ontModel = ontModel;
@@ -92,6 +115,15 @@ public class RDFWriter {
 	}
 
 
+	/**
+	 * Parses the model and writes the RDF data to the specified output stream.
+	 * <p>
+	 * This method initializes the RDF writer, sets up prefixes, and processes the IFC data
+	 * to generate RDF triples. It also handles duplicate entries and creates instances in the model.
+	 * </p>
+	 *
+	 * @param out The output stream to write the RDF data to.
+	 */
 	void parseModel2Stream(OutputStream out)  {
 		// CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
 		// 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)

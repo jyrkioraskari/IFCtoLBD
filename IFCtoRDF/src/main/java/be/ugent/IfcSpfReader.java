@@ -62,8 +62,8 @@ public class IfcSpfReader {
     private Map<String, TypeVO> typ;
 
     /**
-     * Primary integration point for the IFCtoRDF codebase. Run the method
-     * without any input parameters for descriptions of runtime parameters.
+     *  The main method, when called from a command line.
+     *  Run this without any input parameters for descriptions of runtime parameters.
      */
     public static void main(String[] args) throws IOException {
         String[] options = new String[] { "--baseURI", "--dir", "--keep-duplicates" };
@@ -156,6 +156,7 @@ public class IfcSpfReader {
      *            the input directory for which you wish to list file.
      * @return a {@link List} of Strings denoting files.
      */
+    
     public static List<String> showFiles(String dir) {
         List<String> goodFiles = new ArrayList<>();
 
@@ -211,15 +212,17 @@ public class IfcSpfReader {
         return "";
     }
 
-   /* public static String slurp(InputStream in) throws IOException {
-        StringBuilder out = new StringBuilder();
-        byte[] b = new byte[4096];
-        for (int n; (n = in.read(b)) != -1;) {
-            out.append(new String(b, 0, n));
-        }
-        return out.toString();
-    }*/
-
+  
+    /**
+     * Sets up the environment for processing an IFC file.
+     * <p>
+     * This method initializes the EXPRESS schema and loads the necessary serialized entity and type maps
+     * based on the provided IFC file. It also sets the ontology URI for the conversion process.
+     * </p>
+     *
+     * @param ifcFileIn The input IFC file name. If the file name does not end with ".ifc", the extension is added.
+     * @throws IOException If an I/O error occurs during the setup process.
+     */
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
         // used in conversion
@@ -303,6 +306,17 @@ public class IfcSpfReader {
         }
     }
 
+    
+    /**
+     * Converts an IFC file to RDF.
+     *
+     * @param ifcFile the path to the input IFC file
+     * @param outputFile the path to the output file
+     * @param baseURI the base URI for the RDF model
+     * @param hasPerformanceBoost flag indicating if performance optimizations should be applied
+     * @throws IOException if an I/O error occurs during the conversion process
+     */
+    
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
         OntModel om;
 
