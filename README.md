@@ -210,41 +210,6 @@ docker container run -it --publish 8081:8080 jyrkioraskari/ifc2lbdopenapi
 Then the software can be accessed from the local web address:
 http://localhost:8081/IFCtoLBD_OpenAPI
 
-
-## IFCtoLBD BimBot service plugin for BIMserver
-
-[jyrkioraskari/IFCtoLBD_BIMBot-Plugin](https://github.com/jyrkioraskari/IFCtoLBD_BIMBot-Plugin)
-
-### Contributors
-Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, Maxime Lefrançois, and Lewis John McGibbney. Thanks also to Vladimir Alexiev and Kathrin Dentler for their valuable comments.
-
-
-## License
-This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
-
-## How to cite
-```
-@software{jyrki_oraskari_2024_7636217,
- author       = {Jyrki Oraskari and
-                  Mathias Bonduel and
-                  Kris McGlinn and
-                  Pieter Pauwels and
-                  Freddy Priyatna and
-                  Anna Wagner and
-                  Ville Kukkonen and
-                  Simon Steyskaland and
-                  Joel Lehtonen and
-                  Maxime Lefrançois },
-  title        = {IFCtoLBD: IFCtoLBD v 2.44.0},
-  month        = aug,
-  year         = 2024,
-  publisher    = {GitHub},
-  version      = {2.44.0},
-  url          = {https://github.com/jyrkioraskari/IFCtoLBD}
-}
-
-```
-
 ## Command line usage
 ```
 Usage: IFCtoLBD_CLI [-bhpV] [-be] [--hasGeolocation] [--hasGeometry]
@@ -290,6 +255,43 @@ java  -Xms16G -Xmx16G -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc
 java  -Xms16G -Xmx16G -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --target_file output.ttl
 java  -jar IFCtoLBD_CLI.jar Duplex_A_20110907.ifc --level 1 --target_file output.ttl
 ```
+
+
+## IFCtoLBD BimBot service plugin for BIMserver
+
+[jyrkioraskari/IFCtoLBD_BIMBot-Plugin](https://github.com/jyrkioraskari/IFCtoLBD_BIMBot-Plugin)
+
+
+## Contributors
+Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner, Pieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen, Maxime Lefrançois, and Lewis John McGibbney. Thanks also to Vladimir Alexiev and Kathrin Dentler for their valuable comments.
+
+
+## License
+This project is released under the open source [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+## How to cite
+```
+@software{jyrki_oraskari_2024_7636217,
+ author       = {Jyrki Oraskari and
+                  Mathias Bonduel and
+                  Kris McGlinn and
+                  Pieter Pauwels and
+                  Freddy Priyatna and
+                  Anna Wagner and
+                  Ville Kukkonen and
+                  Simon Steyskaland and
+                  Joel Lehtonen and
+                  Maxime Lefrançois },
+  title        = {IFCtoLBD: IFCtoLBD v 2.44.0},
+  month        = aug,
+  year         = 2024,
+  publisher    = {GitHub},
+  version      = {2.44.0},
+  url          = {https://github.com/jyrkioraskari/IFCtoLBD}
+}
+
+```
+
 
 ## Blog
 ### September 20, 2024
