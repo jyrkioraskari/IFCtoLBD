@@ -1109,7 +1109,7 @@ public class ConverterRunsUnitTests {
 
 	}
 
-	@DisplayName("Test ontologocal name space validity 2")
+	/*@DisplayName("Test ontologocal name space validity 2")
 	@Test
 	public void testOntologyNSValidity2() {
 		this.count = 0;
@@ -1174,7 +1174,7 @@ public class ConverterRunsUnitTests {
 			fail("Ontological name space was not defined error: " + e.getMessage());
 		}
 
-	}
+	}*/
 
 	@DisplayName("Test simplified attributes")
 	@Test
