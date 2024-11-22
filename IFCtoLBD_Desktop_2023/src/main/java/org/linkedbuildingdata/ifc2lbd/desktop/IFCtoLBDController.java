@@ -560,7 +560,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
 					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
 					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
-					this.ifcOWL_elements.isSelected(), this.ifcOWL_elements.isSelected(), this.hasPerformanceBoost.isSelected(),
+					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
 					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
