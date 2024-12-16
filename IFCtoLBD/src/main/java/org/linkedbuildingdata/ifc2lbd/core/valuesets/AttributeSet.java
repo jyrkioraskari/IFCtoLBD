@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -97,7 +98,12 @@ public class AttributeSet {
     }
 
     public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
-        mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
+    	if (value.isLiteral()) {
+			String value_string = value.asLiteral().getLexicalForm();
+			Literal literal_value = this.lbd_model.createLiteral(StringOperations.handleUnicode(value_string));
+			mapPnameValue.put(StringOperations.toCamelCase(attribute_name), literal_value);
+		} else
+          mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
         if (atype.isPresent()) {
             mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
         }
@@ -177,6 +183,7 @@ public class AttributeSet {
                 state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(state_resourse, pname);
 
+                
             } else {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(property_resource, pname);

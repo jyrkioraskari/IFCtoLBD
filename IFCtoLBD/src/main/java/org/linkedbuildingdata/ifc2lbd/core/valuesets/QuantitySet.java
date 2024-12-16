@@ -103,8 +103,12 @@ public class QuantitySet {
     }
 
     public void putPnameValue(String property_name, RDFNode value) {
-
-        mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
+    	if (value.isLiteral()) {
+			String value_string = value.asLiteral().getLexicalForm();
+			Literal literal_value = this.lbd_model.createLiteral(StringOperations.handleUnicode(value_string));
+			mapPnameValue.put(StringOperations.toCamelCase(property_name), literal_value);
+		} else
+          mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
     }
 
     public void putPnameType(String property_name, RDFNode type) {

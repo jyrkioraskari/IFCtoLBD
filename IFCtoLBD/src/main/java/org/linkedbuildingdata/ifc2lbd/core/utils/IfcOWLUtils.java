@@ -490,7 +490,50 @@ public abstract class IfcOWLUtils {
 						// UTF-8 fix for French double encoding
 						line = line.replace("\\X\\0D", "");
 						line = line.replace("\\X\\0A", "");
+						
+						// For Scandinavian letters
+						line = line.replace("\\X\\C5", "Å");
+						line = line.replace("\\X\\C4", "Ä");
+						line = line.replace("\\X\\D6", "Ö");
+						line = line.replace("\\X\\E5", "å");
+						line = line.replace("\\X\\E4", "ä");
+						line = line.replace("\\X\\F6", "ö");
 
+						// For Norwegian and Danish letters
+						line = line.replace("\\X\\C6", "Æ");
+						line = line.replace("\\X\\D8", "Ø");
+						line = line.replace("\\X\\E6", "æ");
+						line = line.replace("\\X\\F8", "ø");
+
+						// For French letters
+						line = line.replace("\\X\\C0", "À");
+						line = line.replace("\\X\\C7", "Ç");
+						line = line.replace("\\X\\C8", "È");
+						line = line.replace("\\X\\C9", "É");
+						line = line.replace("\\X\\CA", "Ê");
+						line = line.replace("\\X\\CB", "Ë");
+						line = line.replace("\\X\\CC", "Ì");
+						line = line.replace("\\X\\CE", "Î");
+						line = line.replace("\\X\\CF", "Ï");
+						line = line.replace("\\X\\D4", "Ô");
+						line = line.replace("\\X\\D9", "Ù");
+						line = line.replace("\\X\\DB", "Û");
+						line = line.replace("\\X\\E0", "à");
+						line = line.replace("\\X\\E7", "ç");
+						line = line.replace("\\X\\E8", "è");
+						line = line.replace("\\X\\E9", "é");
+						line = line.replace("\\X\\EA", "ê");
+						line = line.replace("\\X\\EB", "ë");
+						line = line.replace("\\X\\EC", "ì");
+						line = line.replace("\\X\\EE", "î");
+						line = line.replace("\\X\\EF", "ï");
+						line = line.replace("\\X\\F4", "ô");
+						line = line.replace("\\X\\F9", "ù");
+						line = line.replace("\\X\\FB", "û");
+						line = line.replace("\\X\\FC", "ü");
+
+						
+						
 						line = line.replace("\\X2\\00A0\\X0\\", "");
 						line = line.replace("\\X2\\00B0\\X0\\", "Â°");
 						// LATIN letters
@@ -562,7 +605,7 @@ public abstract class IfcOWLUtils {
 						line = line.replace("\\X2\\00FE\\X0\\", "Ã¾");
 						line = line.replace("\\X2\\00FF\\X0\\", "Ã¿");
 
-						line = unIFCUnicode(line); // multi-character decode
+						line = StringOperations.unIFCUnicode(line); // multi-character decode
 						writer.write(line.trim());
 						writer.newLine();
 					}
@@ -721,6 +764,50 @@ public abstract class IfcOWLUtils {
 						// UTF-8 fix for French double encoding
 						line = line.replace("\\X\\0D", " ");
 						line = line.replace("\\X\\0A", "");
+						
+						System.out.println("Character coding...........................................................");
+						
+						// For Scandinavian letters
+						line = line.replace("\\X\\C5", "Å");
+						line = line.replace("\\X\\C4", "Ä");
+						line = line.replace("\\X\\D6", "Ö");
+						line = line.replace("\\X\\E5", "å");
+						line = line.replace("\\X\\E4", "ä");
+						line = line.replace("\\X\\F6", "ö");
+
+						// For Norwegian and Danish letters
+						line = line.replace("\\X\\C6", "Æ");
+						line = line.replace("\\X\\D8", "Ø");
+						line = line.replace("\\X\\E6", "æ");
+						line = line.replace("\\X\\F8", "ø");
+
+						// For French letters
+						line = line.replace("\\X\\C0", "À");
+						line = line.replace("\\X\\C7", "Ç");
+						line = line.replace("\\X\\C8", "È");
+						line = line.replace("\\X\\C9", "É");
+						line = line.replace("\\X\\CA", "Ê");
+						line = line.replace("\\X\\CB", "Ë");
+						line = line.replace("\\X\\CC", "Ì");
+						line = line.replace("\\X\\CE", "Î");
+						line = line.replace("\\X\\CF", "Ï");
+						line = line.replace("\\X\\D4", "Ô");
+						line = line.replace("\\X\\D9", "Ù");
+						line = line.replace("\\X\\DB", "Û");
+						line = line.replace("\\X\\E0", "à");
+						line = line.replace("\\X\\E7", "ç");
+						line = line.replace("\\X\\E8", "è");
+						line = line.replace("\\X\\E9", "é");
+						line = line.replace("\\X\\EA", "ê");
+						line = line.replace("\\X\\EB", "ë");
+						line = line.replace("\\X\\EC", "ì");
+						line = line.replace("\\X\\EE", "î");
+						line = line.replace("\\X\\EF", "ï");
+						line = line.replace("\\X\\F4", "ô");
+						line = line.replace("\\X\\F9", "ù");
+						line = line.replace("\\X\\FB", "û");
+						line = line.replace("\\X\\FC", "ü");
+
 
 						line = line.replace("\\X2\\00A0\\X0\\", " ");
 						line = line.replace("\\X2\\00B0\\X0\\", "Â°");
@@ -793,7 +880,7 @@ public abstract class IfcOWLUtils {
 						line = line.replace("\\X2\\00FE\\X0\\", "Ã¾");
 						line = line.replace("\\X2\\00FF\\X0\\", "Ã¿");
 
-						line = unIFCUnicode(line); // multi-character decode
+						line = StringOperations.unIFCUnicode(line); // multi-character decode
 						line = line.replace("\\", "\\\\");
 						line = line.replace("\\\\\"", "\\\"");
 
@@ -836,63 +923,8 @@ public abstract class IfcOWLUtils {
 		return tempFile;
 	}
 
-	static private String unIFCUnicode(String txt) {
-		StringBuilder sb = new StringBuilder();
-		StringBuilder su4 = new StringBuilder();
-		int state = 0;
-		for (char ch : txt.toCharArray()) {
-			switch (state) {
-			default:
-			case 0:
-				if (ch == '\\')
-					state = 1;
-				else
-					sb.append(ch);
-				break;
-			case 1:
-				if (ch == 'X' || ch == 'x')
-					state = 2;
-				else
-					state = 0;
-				break;
-			case 2:
-				if (ch == '2' || ch == '4')
-					state = 3;
-				else
-					state = 0;
-				break;
-			case 3:
-				if (ch == '\\')
-					state = 4;
-				else
-					state = 0;
-				break;
+	
 
-			case 4:
-				if (ch == '\\')
-					state = 5;
-				else {
-					su4.append(ch);
-					if (su4.length() > 3) {
-						sb.append("\\u");
-						sb.append(su4);
-						su4.setLength(0);
-					}
-				}
-				break;
-			case 5:
-				if (ch == '\'') {
-					sb.append("'");
-					state = 0;
-				}
-				if (ch == '/' || ch == '\\')
-					state = 0;
-				break;
-			}
-		}
-		return sb.toString();// StringEscapeUtils.unescapeJava(sb.toString()); // For some reasons this
-								// blocks
-	}
 
 	@SuppressWarnings("deprecation")
 	private static List<String> split(String s) {
