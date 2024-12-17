@@ -16,6 +16,7 @@ public abstract class StringOperations {
 	 * @return a Camel Case formatted string
 	 */
 	static public String toCamelCase(String txt) {
+		txt=handleUnicode(txt); 
 		if (txt.toUpperCase().equals(txt))
 			try {
 				return URLEncoder.encode(txt.replace(" ", "_"), StandardCharsets.UTF_8.toString());
