@@ -294,6 +294,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### January 10, 2025
+
+A short example to list properties by elements was added.
+[here ](/IFCtoLBD_Python/examples.md).
+
 ### September 20, 2024
 I wrote a Python program to demonstrate how the interfaces can be used to infer which door to use to 
 enter a space. 

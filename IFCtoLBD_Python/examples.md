@@ -526,6 +526,90 @@ jpype.shutdownJVM()
 
 ```
 
+### How to list properties for each element
+
+```
+# !/usr/bin/env python3
+
+import jpype
+from rdflib import Graph
+import json
+from urllib.parse import urlparse
+
+# Enable Java imports
+import jpype.imports
+
+# Pull in types
+from jpype.types import *
+
+jpype.startJVM(classpath = ['jars/*'])
+
+IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
+
+
+#-------------------------------------------------------------------------------
+# Name:        RDFLib Properties Listing
+# Purpose:     Compatible version
+#
+# Author:      Jyrki Oraskari
+#
+# Created:     06/01/2025
+# Copyright:   (c) Jyrki Oraskari 2025
+# Licence:     Apache 2.0
+#-------------------------------------------------------------------------------
+
+
+def remove_property_simple_suffix(text):
+    suffix = "_property_simple"
+    if text.endswith(suffix):
+        return text[:-len(suffix)]
+    return text
+
+
+props = ConversionProperties();
+props.setHasGeometry(False);
+# Convert the IFC file into LBD, OPM level 1 model
+lbdconverter = IFCtoLBDConverter("https://example.de/",  1)
+
+lbdconverter.convert("Duplex_A_20110505.ifc",props)
+lbd_jsonld = str(lbdconverter.getJSONLD())
+g = Graph()
+g.parse(data=json.loads(lbd_jsonld), format='json-ld')
+
+q = """
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX props: <http://lbd.arch.rwth-aachen.de/props#>
+
+SELECT ?element ?guid ?property ?value WHERE {
+   ?element rdf:type bot:Element .
+   ?element ?predicate ?value .
+   ?element  props:globalIdIfcRoot_attribute_simple ?guid .
+   BIND(STRAFTER(STR(?predicate), "#") AS ?property)
+   FILTER STRENDS(STR(?predicate), "_property_simple")
+}"""
+
+element_map = {}
+
+
+# Apply the query to the graph and iterate through results
+for r in g.query(q):
+    element_map.setdefault(r["guid"], {})
+    element =element_map[r["guid"]]
+    element[remove_property_simple_suffix(r["property"])] = r["value"]
+
+for key, values in element_map.items():
+    print(f"\nElement: {key}")
+    for props_key, props_value in values.items():
+        print(f"-    {props_key}: {props_value}")
+
+
+jpype.shutdownJVM()
+```
+
+
 
 
 
