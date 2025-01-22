@@ -53,7 +53,7 @@
          <children>
             <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <fill>
-                  <LinearGradient cycleMethod="REFLECT" endX="0.3421657548354102" endY="0.8767772511848342" startX="0.1943127962085308" startY="0.5047001221247466">
+                  <LinearGradient cycleMethod="REFLECT" endX="0.3380681818181817" endY="0.8210227272727273" startX="0.19791666666666666" startY="0.6354166666666665">
                      <stops>
                         <Stop>
                            <color>
@@ -62,32 +62,37 @@
                         </Stop>
                         <Stop offset="0.011018539947028722">
                            <color>
-                              <Color red="0.3803921639919281" green="0.12941177189350128" blue="0.3450980484485626" />
+                              <Color red="0.8980392217636108" green="0.8980392217636108" blue="0.7568627595901489" />
                            </color>
                         </Stop>
-                        <Stop offset="0.15517241379310326">
+                        <Stop offset="0.15248062375272642">
                            <color>
                               <Color />
                            </color>
                         </Stop>
-                        <Stop offset="0.325670498084291">
+                        <Stop offset="0.33374586820542146">
                            <color>
-                              <Color red="0.34736841917037964" green="0.3263547718524933" blue="0.2573099434375763" />
+                              <Color red="0.4000000059604645" green="0.25866666436195374" blue="0.18799999356269836" />
                            </color>
                         </Stop>
-                        <Stop offset="0.6053639846743293">
+                        <Stop offset="0.610747564755083">
                            <color>
-                              <Color red="0.22595638036727905" green="0.32236841320991516" blue="0.017909357324242592" />
+                              <Color red="0.4000000059604645" green="0.4000000059604645" blue="0.3319999873638153" />
                            </color>
                         </Stop>
                         <Stop offset="0.786546589248331">
                            <color>
-                              <Color red="0.1921568661928177" green="0.20000000298023224" blue="0.01568627543747425" />
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.9390243902439024">
+                           <color>
+                              <Color />
                            </color>
                         </Stop>
                         <Stop offset="1.0">
                            <color>
-                              <Color red="0.34117648005485535" green="0.6705882549285889" blue="0.15294118225574493" />
+                              <Color red="1.0" green="0.5199999809265137" blue="0.2800000011920929" />
                            </color>
                         </Stop>
                      </stops>
@@ -95,7 +100,7 @@
                </fill>
             </Rectangle>
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0" />
-            <Label layoutX="15.0" layoutY="470.0" text="Base URL" textFill="#ebe5e5" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
+            <Label layoutX="15.0" layoutY="470.0" text="Base URL" textFill="WHITE" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="130.0">
                <font>
                   <Font name="Arial Bold Italic" size="18.0" />
                </font></Label>
@@ -125,7 +130,7 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <Text fill="#f2eded" layoutX="50.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to the LBD  format" wrappingWidth="365.3779296875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+            <Text fill="WHITE" layoutX="50.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Convert an IFC file to the LBD  format" wrappingWidth="365.3779296875" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
                <font>
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
@@ -142,13 +147,13 @@
                   <Font name="Arial Narrow" size="18.0" />
                </font></Label>
             <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="257.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="255.0" />
-            <Label layoutX="10.0" layoutY="10.0" text="Select property sets to be included in the output" textFill="#f7f0f0" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="220.0">
+            <Label layoutX="10.0" layoutY="10.0" text="Select property sets to be included in the output" textFill="WHITE" AnchorPane.leftAnchor="400.0" AnchorPane.topAnchor="220.0">
                <font>
                   <Font name="Arial Narrow" size="18.0" />
                </font>
             </Label>
             <CheckTreeView fx:id="propertysets_checkbox" layoutX="59.0" layoutY="267.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="255.0" />
-            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" textFill="#0d0a09" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>

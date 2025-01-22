@@ -117,6 +117,9 @@
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>pluginbase</artifactId>
 			<version>1.5.184</version>
+			<exclusions>
+        </exclusions>
+
 			<!-- URL for the PluginBase project:
 			https://central.sonatype.com/artifact/org.opensourcebim/pluginbase -->
 			<!-- PluginBase is a foundational library for developing BIMserver
@@ -152,7 +155,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	<version>2.44.0</version>
+	<version>2.44.1</version>
 	<distributionManagement>
 		<repository>
 			<id>github</id>

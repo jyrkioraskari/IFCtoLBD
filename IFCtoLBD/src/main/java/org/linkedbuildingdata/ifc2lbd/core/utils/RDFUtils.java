@@ -1,10 +1,24 @@
 package org.linkedbuildingdata.ifc2lbd.core.utils;
 
-import com.google.common.eventbus.EventBus;
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
 import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDFWriter;
@@ -13,13 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import com.google.common.eventbus.EventBus;
 
 /*
  *  Copyright (c) 2017, 2021 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -72,13 +80,45 @@ public abstract class RDFUtils {
     }
 
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
-        
+       
     	// JO 2024: performance
         try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
            
             StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
         } catch (IOException e1) {
+			e1.printStackTrace();
+		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+		} 
+    }
+    
+    
+    
+ public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus,RDFFormat rdf_serlialization_format) {
+        if(rdf_serlialization_format==null)
+        	rdf_serlialization_format=RDFFormat.TURTLE_BLOCKS;
+        
+        if(rdf_serlialization_format==RDFFormat.JSONLD)
+        {
+        	  try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(target_file), StandardCharsets.UTF_8.newEncoder()); BufferedWriter bfo=new BufferedWriter(fo)){
+                  //TODO Check libraries
+        		  RDFDataMgr.write(System.out, m, Lang.JSONLD11);
+              } catch (IOException e1) {
+      			e1.printStackTrace();
+      			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
+      		} 
+        	return;
+        }
+        
+        System.out.println("target here: "+target_file);
+    	// JO 2024: performance
+        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
+        ){
+        	
+        	System.out.println("target stream here: "+fo);
+            StreamRDFWriter.write(bfo, m.getGraph(), rdf_serlialization_format) ;           
+        } catch (IOException e1) {
+        	System.out.println("target file here: "+(new File(target_file).exists()));
 			e1.printStackTrace();
 		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
 		} 
@@ -95,6 +135,8 @@ public abstract class RDFUtils {
             eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
 		} 
     }
+    
+  
     /**
      * 
      * Reads in a Turtle - Terse RDF Triple Language (TTL) formatted ontology

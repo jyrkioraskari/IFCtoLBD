@@ -77,7 +77,7 @@ import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.ObjDescription;
 
 /*
- *  Copyright (c) 2017,2018,2019.2020,2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2018,2019.2020,2024,2025 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -134,6 +134,8 @@ public abstract class IFCtoLBDConverterCore {
 	private Map<String, String> property_replace_map = new HashMap<>(); // allows users to replace default properties
 																		// (for now foe the attributes)
 	private Dataset lbd_dataset = null;
+	public RDFFormat default_serialization_format=RDFFormat.TURTLE_BLOCKS;
+	private boolean export_JSON_LD=false;
 
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
@@ -155,7 +157,13 @@ public abstract class IFCtoLBDConverterCore {
 			this.rtree = RTree.dimensions(3).create();
 			this.rtree_walls = RTree.dimensions(3).create();
 		}
-
+		
+		if(export_JSON_LD)
+		{
+			default_serialization_format=RDFFormat.JSONLD;
+			target_file=target_file.replaceAll(".ttl", ".json");
+			
+		}
 		List<RDFNode> sites = IfcOWLUtils.listSites(this.ifcOWL, this.ifcowl_model);
 		if (!sites.isEmpty()) {
 			sites.stream().map(RDFNode::asResource).forEach(site -> {
@@ -211,7 +219,7 @@ public abstract class IFCtoLBDConverterCore {
 				if (target_file != null) {
 					String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.ttl";
-					RDFUtils.writeModelRDFStream(this.ifcowl_model, out_products_filename, this.eventBus);
+					RDFUtils.writeModelRDFStream(this.ifcowl_model, out_products_filename, this.eventBus,default_serialization_format);
 					this.eventBus.post(
 							new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
 				}
@@ -232,7 +240,7 @@ public abstract class IFCtoLBDConverterCore {
 					String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_element_properties.ttl";
 					RDFUtils.writeModelRDFStream(this.lbd_property_output_model, out_properties_filename,
-							this.eventBus);
+							this.eventBus,default_serialization_format);
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
 							"Building elements properties file is: " + out_properties_filename));
 				} else
@@ -241,7 +249,7 @@ public abstract class IFCtoLBDConverterCore {
 				this.lbd_general_output_model.add(this.lbd_property_output_model);
 		}
 		if (target_file != null)
-			RDFUtils.writeModelRDFStream(this.lbd_general_output_model, target_file, this.eventBus);
+			RDFUtils.writeModelRDFStream(this.lbd_general_output_model, target_file, this.eventBus,default_serialization_format);
 
 		if (target_file != null) {
 			if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
