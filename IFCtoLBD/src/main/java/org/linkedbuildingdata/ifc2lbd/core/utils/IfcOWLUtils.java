@@ -13,8 +13,11 @@ import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
@@ -28,7 +31,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
 /*
- *  Copyright (c) 2020, 2021 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
+ *  Copyright (c) 2020, 2021, 2025 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -399,46 +402,40 @@ public abstract class IfcOWLUtils {
 	 *                the IFC file
 	 * @return the IFC Express chema of the IFC file.
 	 */
+	
+	
 	public static String getExpressSchema(String ifcFile) {
-		try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-			// Fix by JO 2024: finally is deprecated
-			try (DataInputStream in = new DataInputStream(fstream);
-					BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
-				String strLine;
-				while ((strLine = br.readLine()) != null) {
-					if (!strLine.isEmpty()) {
-						if (strLine.startsWith("FILE_SCHEMA")) {
-							if (strLine.contains("IFC2X3"))
-								return "IFC2X3_TC1";
-							if (strLine.contains("IFC4x2"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4X2"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4x3"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4X3"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4x3_RC1"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4X3_RC1"))
-								return "IFC4x3_RC1";
-							if (strLine.contains("IFC4X1"))
-								return "IFC4x1";
-							if (strLine.contains("IFC4x1"))
-								return "IFC4x1";
-							if (strLine.contains("IFC4")) // Should do also IFC4X2
-								return "IFC4_ADD2"; // JO 2020 to enable IFCPOLYGONALFACESET that was found in an IFC4
-													// model
-							return null;
-						}
-					}
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	    Map<String, String> schemaMapping = Map.of(
+	        "IFC2X3", "IFC2X3_TC1",
+	        "IFC4x2", "IFC4x3_RC1",
+	        "IFC4X2", "IFC4x3_RC1",
+	        "IFC4x3", "IFC4x3_RC1",
+	        "IFC4X3", "IFC4x3_RC1",
+	        "IFC4x3_RC1", "IFC4x3_RC1",
+	        "IFC4X3_RC1", "IFC4x3_RC1",
+	        "IFC4X1", "IFC4x1",
+	        "IFC4x1", "IFC4x1",
+	        "IFC4", "IFC4_ADD2"    // Should do also IFC4X2, //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
+	    );
+
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
+	        String strLine;
+	        while ((strLine = br.readLine()) != null) {
+	            if (!strLine.isEmpty() && strLine.startsWith("FILE_SCHEMA")) {
+	                for (Map.Entry<String, String> entry : schemaMapping.entrySet()) {
+	                    if (strLine.contains(entry.getKey())) {
+	                        return entry.getValue();
+	                    }
+	                }
+	                return "";
+	            }
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return "";
 	}
+
 
 	static public File characterCoding(File whole_content_file) {
 		File tempFile = null;
@@ -622,89 +619,38 @@ public abstract class IfcOWLUtils {
 		}
 		return tempFile;
 	}
-
+	
+	
 	static public File filterIFC(File ifc_file) {
-		File tempFile = null;
-		try {
-			tempFile = File.createTempFile("ifc", ".ifc");
-			try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
-				try (BufferedReader br = new BufferedReader(new FileReader(ifc_file))) {
-					String line;
-					while ((line = br.readLine()) != null) {
-
-						if (line.contains("= IFCCARTESIANPOINT("))
-							continue;
-
-						if (line.contains("= IFCPOLYLINE("))
-							continue;
-
-						if (line.contains("= IFCEDGECURVE("))
-							continue;
-
-						if (line.contains("= IFCAXIS2PLACEMENT3D("))
-							continue;
-
-						if (line.contains("= IFCPLANE("))
-							continue;
-
-						if (line.contains("= IFCFACEOUTERBOUND("))
-							continue;
-
-						if (line.contains("= IFCFACE("))
-							continue;
-
-						if (line.contains("= IFCORIENTEDEDGE("))
-							continue;
-
-						if (line.contains("= IFCCONNECTIONSURFACEGEOMETRY("))
-							continue;
-
-						if (line.contains("= IFCSURFACEOFLINEAREXTRUSION("))
-							continue;
-
-						if (line.contains("= IFCRELSPACEBOUNDARY("))
-							continue;
-
-						if (line.contains("= IFCPOLYLOOP("))
-							continue;
-
-						if (line.contains("= IFCLINE("))
-							continue;
-
-						if (line.contains("= IFCTRIMMEDCURVE("))
-							continue;
-
-						if (line.contains("= IFCVERTEXPOINT("))
-							continue;
-
-						if (line.contains("= IFCEDGELOOP("))
-							continue;
-
-						if (line.contains("= IFCADVANCEDFACE("))
-							continue;
-
-						if (line.contains("= IFCSHAPEREPRESENTATION("))
-							continue;
-
-						if (line.contains("= IFCEXTRUDEDAREASOLID("))
-							continue;
-
-						writer.write(line.trim());
-						writer.newLine();
-					}
-					writer.flush();
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
-		return tempFile;
+	    File tempFile = null;
+	    Set<String> keywords = new HashSet<>(Set.of(
+	        "= IFCCARTESIANPOINT(", "= IFCPOLYLINE(", "= IFCEDGECURVE(", "= IFCAXIS2PLACEMENT3D(",
+	        "= IFCPLANE(", "= IFCFACEOUTERBOUND(", "= IFCFACE(", "= IFCORIENTEDEDGE(",
+	        "= IFCCONNECTIONSURFACEGEOMETRY(", "= IFCSURFACEOFLINEAREXTRUSION(", "= IFCRELSPACEBOUNDARY(",
+	        "= IFCPOLYLOOP(", "= IFCLINE(", "= IFCTRIMMEDCURVE(", "= IFCVERTEXPOINT(",
+	        "= IFCEDGELOOP(", "= IFCADVANCEDFACE(", "= IFCSHAPEREPRESENTATION(", "= IFCEXTRUDEDAREASOLID("
+	    ));
+	    
+	    try {
+	        tempFile = File.createTempFile("ifc", ".ifc");
+	        try (BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+	             BufferedReader br = new BufferedReader(new FileReader(ifc_file))) {
+	            String line;
+	            while ((line = br.readLine()) != null) {
+	                boolean skip = keywords.stream().anyMatch(line::contains);
+	                if (!skip) {
+	                    writer.write(line.trim());
+	                    writer.newLine();
+	                }
+	            }
+	            writer.flush();
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return tempFile;
 	}
+
 
 	static public File filterContent(File whole_content_file) {
 		File tempFile = null;

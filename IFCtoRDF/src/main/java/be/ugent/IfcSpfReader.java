@@ -172,45 +172,38 @@ public class IfcSpfReader {
         return goodFiles;
     }
 
-    private static String getExpressSchema(String ifcFile) {
-        try (FileInputStream fstream = new FileInputStream(ifcFile)) {
-        	// Fix by JO 2024: finally is deprecated (https://openjdk.org/jeps/421)
-            try ( DataInputStream in = new DataInputStream(fstream);
-                    BufferedReader br = new BufferedReader(new InputStreamReader(in))){
-                String strLine;
-                while ((strLine = br.readLine()) != null) {
-                    if (!strLine.isEmpty()) {
-                        if (strLine.startsWith("FILE_SCHEMA")) {
-                            if (strLine.contains("IFC2X3"))
-                                return "IFC2X3_TC1";
-                            if (strLine.contains("IFC4x2"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4X2"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4x3"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4X3"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4x3_RC1"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4X3_RC1"))
-                                return "IFC4x3_RC1";
-                            if (strLine.contains("IFC4x1"))
-                                return "IFC4x1";
-                            if (strLine.contains("IFC4X1"))
-                                return "IFC4x1";
-                            if (strLine.contains("IFC4"))     // Should do also IFC4X2
-                                return "IFC4_ADD2";                //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-							return "";
-                        }
-                    }
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
+    public static String getExpressSchema(String ifcFile) {
+	    Map<String, String> schemaMapping = Map.of(
+	        "IFC2X3", "IFC2X3_TC1",
+	        "IFC4x2", "IFC4x3_RC1",
+	        "IFC4X2", "IFC4x3_RC1",
+	        "IFC4x3", "IFC4x3_RC1",
+	        "IFC4X3", "IFC4x3_RC1",
+	        "IFC4x3_RC1", "IFC4x3_RC1",
+	        "IFC4X3_RC1", "IFC4x3_RC1",
+	        "IFC4X1", "IFC4x1",
+	        "IFC4x1", "IFC4x1",
+	        "IFC4", "IFC4_ADD2"    // Should do also IFC4X2, //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
+	    );
+
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
+	        String strLine;
+	        while ((strLine = br.readLine()) != null) {
+	            if (!strLine.isEmpty() && strLine.startsWith("FILE_SCHEMA")) {
+	                for (Map.Entry<String, String> entry : schemaMapping.entrySet()) {
+	                    if (strLine.contains(entry.getKey())) {
+	                        return entry.getValue();
+	                    }
+	                }
+	                return "";
+	            }
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	    return "";
+	}
+
 
   
     /**
