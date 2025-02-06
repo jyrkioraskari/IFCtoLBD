@@ -1,4 +1,4 @@
-package org.linkedbuildingdata.ifc2lbd.core.valuesets;
+	package org.linkedbuildingdata.ifc2lbd.core.valuesets;
 
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
@@ -280,21 +280,7 @@ public class PropertySet {
 		if (ifc_unit != null) {
 			String si_unit = ifc_unit.asResource().getLocalName();
 			if (si_unit != null) {
-				if (si_unit.equals("METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-				} else if (si_unit.equals("SQUARE_METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-				} else if (si_unit.equals("CUBIC_METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-				} else if (si_unit.equals("MILLI METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-				} else if (si_unit.equals("MILLI SQUARE_METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-				} else if (si_unit.equals("MILLI CUBIC_METRE")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-				} else if (si_unit.equals("RADIAN")) {
-					lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
-				}
+				addSIUnit( lbd_resource,  si_unit);
 			}
 		} else {
 			RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
@@ -308,44 +294,66 @@ public class PropertySet {
 					unit = unit.substring(0, unit.length() - "measure".length());
 				String si_unit = this.unitmap.get(unit);
 				if (si_unit != null) {
-					if (si_unit.equals("METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-					} else if (si_unit.equals("SQUARE_METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-					} else if (si_unit.equals("CUBIC_METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-					} else if (si_unit.equals("MILLI METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-					} else if (si_unit.equals("MILLI SQUARE_METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-					} else if (si_unit.equals("MILLI CUBIC_METRE")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-					} else if (si_unit.equals("RADIAN")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
-					}
+					addSIUnit( lbd_resource,  si_unit);
 				} else {
-					if (unit.equals("length")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
-																				// named
-																				// in:
-						// https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
-					} else if (unit.equals("area")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
-																				// named
-																				// in:
-						// https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
-					} else if (unit.equals("volume")) {
-						lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
-																				// named
-																				// in:
-						// https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
-					}
+					addDefaultUnit( lbd_resource,  unit);
 
 				}
 			}
 		}
 
 	}
+	
+	private void addSIUnit(Resource lbd_resource, String si_unit) {
+        switch (si_unit) {
+            case "METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.METER);
+                break;
+            case "SQUARE_METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
+                break;
+            case "CUBIC_METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
+                break;
+            case "MILLI METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
+                break;
+            case "MILLI SQUARE_METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
+                break;
+            case "MILLI CUBIC_METRE":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
+                break;
+            case "RADIAN":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
+                break;
+            default:
+                break;
+        }
+    }
+	
+    private void addDefaultUnit(Resource lbd_resource, String unit) {
+        switch (unit) {
+            case "length":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
+				// named
+				// in:  https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
+                break;
+            case "area":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
+				// named
+				// in: https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
+                break;
+            case "volume":
+            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
+				// named
+				// in:  https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
+                break;
+            default:
+                break;
+        }
+    }
+
 
 	public Optional<Boolean> isExternal() {
 
