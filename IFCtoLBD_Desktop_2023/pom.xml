@@ -9,10 +9,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
-	<artifactId>IFCtoLBD_Desktop_2024</artifactId>
-	<version>2.44.0</version>
-	<name>IFCtoLBD Desktop 2023  Java 19 and newer</name>
-	<description>The IFC to BOT converter user interface for a desktop computer</description>
+	<artifactId>IFCtoLBD_Desktop_2025</artifactId>
+	<version>2.44.2</version>
+	<name>IFCtoLBD Desktop 2025  Java 19 and newer</name>
+	<description>The IFC to LBD converter user interface for a desktop computer</description>
 	<developers>
 		<developer>
 			<id>jyrkio</id>
@@ -67,7 +67,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc-to-lbd</artifactId>
-			<version>2.44.1</version>
+			<version>2.44.2</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.glassfish</groupId>

@@ -137,6 +137,8 @@ public abstract class IFCtoLBDConverterCore {
 	public RDFFormat default_serialization_format=RDFFormat.TURTLE_BLOCKS;
 	private boolean export_JSON_LD=false;
 
+	
+	
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
 	}
