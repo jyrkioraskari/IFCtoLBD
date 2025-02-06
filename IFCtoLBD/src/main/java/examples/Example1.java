@@ -16,7 +16,7 @@ public class Example1 {
             File ifcFile = new File(ifcFileUrl.toURI());
 
             // Use a try-with-resources statement to ensure the converter is closed after use
-            try(IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);){
+            try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", false, 1);) {
                 // Convert the IFC file to an RDF model
                 Model model = converter.convert(ifcFile.getAbsolutePath());
                 // Write the RDF model to the standard output in Turtle format
