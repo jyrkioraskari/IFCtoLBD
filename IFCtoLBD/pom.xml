@@ -157,7 +157,6 @@
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
 			<version>1.4.4</version>
-
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
