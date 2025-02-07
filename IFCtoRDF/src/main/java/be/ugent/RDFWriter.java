@@ -1,6 +1,6 @@
 /**
  * 
- * Copyright 2016, 2022, 2023, 2024  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University, RWTH Aachen; Lewis John McGibbney, Apache
+ * Copyright 2016, 2022, 2023, 2024, 2025  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University, RWTH Aachen; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.graph.NodeFactory;
@@ -717,37 +718,37 @@ public class RDFWriter {
 				+ "\r\nQuitting the application without output!");
 	}
 
-	private void addLiteralToResource(Resource r1, OntProperty valueProp, String xsdType, String literalString)
-			 {
-		if ("integer".equalsIgnoreCase(xsdType))
-			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDinteger));
-		else if ("double".equalsIgnoreCase(xsdType))
-			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDdouble));
-		else if ("hexBinary".equalsIgnoreCase(xsdType))
-			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDhexBinary));
-		else if ("boolean".equalsIgnoreCase(xsdType)) {
-			if (".F.".equalsIgnoreCase(literalString))
-				addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral("false", XSDDatatype.XSDboolean));
-			else if (".T.".equalsIgnoreCase(literalString))
-				addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral("true", XSDDatatype.XSDboolean));
-			else
-				LOG.warn("*WARNING 10*: found odd boolean value: " + literalString);
-		} else if ("logical".equalsIgnoreCase(xsdType)) {
-			if (".F.".equalsIgnoreCase(literalString))
-				addProperty(r1, valueProp, ontModel.getResource(Namespace.EXPRESS + "FALSE"));
-			else if (".T.".equalsIgnoreCase(literalString))
-				addProperty(r1, valueProp, ontModel.getResource(Namespace.EXPRESS + "TRUE"));
-			else if (".U.".equalsIgnoreCase(literalString))
-				addProperty(r1, valueProp, ontModel.getResource(Namespace.EXPRESS + "UNKNOWN"));
-			else
-				LOG.warn("*WARNING 9*: found odd logical value: " + literalString);
-		} else if ("string".equalsIgnoreCase(xsdType))
-			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDstring));
-		else
-			addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString));
+	private void addLiteralToResource(Resource r1, OntProperty valueProp, String xsdType, String literalString) {
+	    Map<String, BiConsumer<Resource, String>> typeHandlers = Map.of(
+	        "integer", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDinteger)),
+	        "double", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDdouble)),
+	        "hexBinary", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDhexBinary)),
+	        "boolean", (res, lit) -> {
+	            if (".F.".equalsIgnoreCase(lit)) 
+	                addLiteral(res, valueProp, ResourceFactory.createTypedLiteral("false", XSDDatatype.XSDboolean));
+	            else if (".T.".equalsIgnoreCase(lit)) 
+	                addLiteral(res, valueProp, ResourceFactory.createTypedLiteral("true", XSDDatatype.XSDboolean));
+	            else 
+	                LOG.warn("*WARNING 10*: found odd boolean value: " + lit);
+	        },
+	        "logical", (res, lit) -> {
+	            if (".F.".equalsIgnoreCase(lit))
+	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "FALSE"));
+	            else if (".T.".equalsIgnoreCase(lit))
+	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "TRUE"));
+	            else if (".U.".equalsIgnoreCase(lit))
+	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "UNKNOWN"));
+	            else
+	                LOG.warn("*WARNING 9*: found odd logical value: " + lit);
+	        },
+	        "string", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDstring))
+	    );
 
+	    typeHandlers.getOrDefault(xsdType.toLowerCase(), (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit)))
+	                .accept(r1, literalString);
 	}
-
+	
+	
 	// LIST HANDLING
 	private void addDirectRegularListProperty(Resource r, OntResource range, OntResource listrange, List<Object> el,
 			int mySwitch)  {
@@ -1044,39 +1045,7 @@ public class RDFWriter {
 	        return null;
 	    }
 	}
-	
-	/*private OntResource getListContentType(OntClass range)  {
-		String resourceURI = range.asClass().getURI();
-		if ((Namespace.EXPRESS + "STRING_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "STRING_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "STRING");
-		else if ((Namespace.EXPRESS + "REAL_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "REAL_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "REAL");
-		else if ((Namespace.EXPRESS + "INTEGER_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "INTEGER_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "INTEGER");
-		else if ((Namespace.EXPRESS + "BINARY_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BINARY_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "BINARY");
-		else if ((Namespace.EXPRESS + "BOOLEAN_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BOOLEAN_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "BOOLEAN");
-		else if ((Namespace.EXPRESS + "LOGICAL_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "LOGICAL_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "LOGICAL");
-		else if ((Namespace.EXPRESS + "NUMBER_List").equalsIgnoreCase(resourceURI)
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "NUMBER_List")))
-			return ontModel.getOntResource(Namespace.EXPRESS + "NUMBER");
-		else if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
-			String listvaluepropURI = ontNS + range.getLocalName().substring(0, range.getLocalName().length() - 5);
-			return ontModel.getOntResource(listvaluepropURI);
-		} else {
-			LOG.warn("*WARNING 29*: did not find listcontenttype for : {}", range.getLocalName());
-			return null;
-		}
-	}*/
-	
+		
 	private String getXSDTypeFromRange(OntResource range) {
 	    String uri = range.asClass().getURI();
 	    OntClass ontClass = range.asClass();
