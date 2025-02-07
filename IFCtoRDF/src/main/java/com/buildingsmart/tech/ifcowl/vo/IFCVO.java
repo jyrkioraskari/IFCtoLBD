@@ -29,7 +29,7 @@ import java.util.Map;
 public class IFCVO {
 
     private Long  stepLineNum;
-    private String fullLineAfterNum;
+    //private String fullLineAfterNum;  // uses unnecessary memory
     private String name = null;
     private LinkedList<Object> slot_list = new LinkedList<>();
     private Map<String, LinkedList<IFCVO>> inversePointerSets = new HashMap<>();
@@ -38,13 +38,13 @@ public class IFCVO {
         //default constructor
     }
 
-    public String getFullLineAfterNum() {
+    /*public String getFullLineAfterNum() {
         return fullLineAfterNum;
     }
 
     public void setFullLineAfterNum(String fullLineAfterNum) {
         this.fullLineAfterNum = fullLineAfterNum;
-    }
+    }*/
 
     public Long getLineNum() {
         return stepLineNum;

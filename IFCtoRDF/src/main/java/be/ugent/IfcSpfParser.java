@@ -83,7 +83,8 @@ class IfcSpfParser {
 
 	private void parseIfcLineStatement(String line) {
 		IFCVO ifcvo = new IFCVO();
-		ifcvo.setFullLineAfterNum(line.substring(line.indexOf('=') + 1));
+		// Documentation, takes lots of memory
+		//ifcvo.setFullLineAfterNum(line.substring(line.indexOf('=') + 1));
 		int state = 0;
 		StringBuilder sb = new StringBuilder();
 		int clCount = 0;
@@ -164,7 +165,7 @@ class IfcSpfParser {
 		idCounter++;
 	}
 
-	void resolveDuplicates() {
+	/*void resolveDuplicates() {
 		Map<String, IFCVO> listOfUniqueResources = new HashMap<>();
 		List<Long> entriesToRemove = new ArrayList<>();
 		for (Long key : linenum_linemap.keySet()) {
@@ -180,7 +181,7 @@ class IfcSpfParser {
 		for (Long x : entriesToRemove) {
 			linenum_linemap.remove(x);
 		}
-	}
+	}*/
 
 	boolean mapEntries() {
 		for (IFCVO ifcLine : linenum_linemap.values()) {
@@ -202,8 +203,10 @@ class IfcSpfParser {
 							ifcvo4reference = linenum_linemap.get(toLong(s.substring(1)));
 
 						if (ifcvo4reference == null) {
-							LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum()
-									+ "=" + ifcLine.getFullLineAfterNum());
+							//LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum()
+							//		+ "=" + ifcLine.getFullLineAfterNum());
+							LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum());
+
 							continue;
 						}
 						ifcLine.getObjectList().set(inx, ifcvo4reference);  // Replaces the #num ref with a IFC STEP line object 
@@ -246,8 +249,11 @@ class IfcSpfParser {
 										else
 											ifcvo4reference = linenum_linemap.get(toLong(s.substring(1)));
 										if (ifcvo4reference == null) {
+											//LOG.error("*ERROR 8*: Reference to non-existing line number in line: #"
+											//		+ ifcLine.getLineNum() + " - " + ifcLine.getFullLineAfterNum());
 											LOG.error("*ERROR 8*: Reference to non-existing line number in line: #"
-													+ ifcLine.getLineNum() + " - " + ifcLine.getFullLineAfterNum());
+													+ ifcLine.getLineNum());
+
 											objectList_level2.set(objlist_inx_level2, "-");
 											continue;
 										}

@@ -87,7 +87,7 @@ public class RDFWriter {
 	private final Map<String, Resource> propertyResourceMap = new HashMap<>(5000);
 	private final Map<String, Resource> resourceMap = new HashMap<>(50000);  // This saves around 20% calculation time
 
-	private boolean removeDuplicates = false;
+	//private boolean removeDuplicates = false;
 	private final boolean hasPerformanceBoost;
 
 
@@ -150,9 +150,9 @@ public class RDFWriter {
 
 		LOG.info("Model parsed");
 
-		if (removeDuplicates) {
+		/*if (removeDuplicates) {
 			parser.resolveDuplicates();
-		}
+		}*/
 
 		// map entries of the linemap Map object to the ontology Model and make
 		// new instances in the model
@@ -1107,8 +1107,8 @@ public class RDFWriter {
 
 
 
-	public void setRemoveDuplicates(boolean removeDuplicates) {
+	/*public void setRemoveDuplicates(boolean removeDuplicates) {
 		this.removeDuplicates = removeDuplicates;
-	}
+	}*/
 
 }

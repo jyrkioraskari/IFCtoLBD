@@ -1,17 +1,20 @@
 /*
- * 2024
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+Copyright (c) 2014, 2024, 2025 Jyrki Oraskari, RWTH AAáchen University (oraskarii [at] ip.rwth-aachen [dot] de)
+Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
+Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package be.ugent;
 
 import java.io.BufferedOutputStream;
@@ -51,10 +54,10 @@ public class IfcSpfReader {
 
     private static String DEFAULT_PATH = "";
 
-    private boolean removeDuplicates = false;
+    //private boolean removeDuplicates = false;
     private static final int FLAG_BASEURI = 0;
     private static final int FLAG_DIR = 1;
-    private static final int FLAG_KEEP_DUPLICATES = 2;
+    //private static final int FLAG_KEEP_DUPLICATES = 2;
 
     private String exp = "";
     protected String ontURI = "";
@@ -136,14 +139,14 @@ public class IfcSpfReader {
                     outputFile = outputFiles.get(i);
                 }
 
-                IfcSpfReader r = new IfcSpfReader();
+                IfcSpfReader reader = new IfcSpfReader();
 
-                r.removeDuplicates = !optionValues[FLAG_KEEP_DUPLICATES];
+                //r.removeDuplicates = !optionValues[FLAG_KEEP_DUPLICATES];
 
                 LOG.info("Converting file: " + inputFile + "\r\n");
 
-                r.setup(inputFile);
-                r.convert(inputFile, outputFile, baseURI,false);
+                reader.setup(inputFile);
+                reader.convert(inputFile, outputFile, baseURI,false);
             }
         }
 
@@ -336,7 +339,7 @@ public class IfcSpfReader {
 
         try {
             RDFWriter conv = new RDFWriter(om, new FileInputStream(ifcFile), baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
-            conv.setRemoveDuplicates(this.removeDuplicates);
+            //conv.setRemoveDuplicates(this.removeDuplicates);
             // JO 2024: performance
             try (FileOutputStream out = new FileOutputStream(outputFile);BufferedOutputStream bout = new BufferedOutputStream(out)
             ) {
