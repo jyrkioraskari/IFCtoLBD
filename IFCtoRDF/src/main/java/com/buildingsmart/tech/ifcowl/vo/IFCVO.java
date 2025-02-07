@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
+ Copyright (c) 2014, 2025 Jyrki Oraskari, RWTH AAáchen University (oraskarii [at] ip.rwth-aachen [dot] de)
  Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
  Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -28,10 +28,10 @@ import java.util.Map;
 
 public class IFCVO {
 
-    private Long lineNum;
+    private Long  stepLineNum;
     private String fullLineAfterNum;
     private String name = null;
-    private LinkedList<Object> list = new LinkedList<>();
+    private LinkedList<Object> slot_list = new LinkedList<>();
     private Map<String, LinkedList<IFCVO>> inversePointerSets = new HashMap<>();
 
     public IFCVO() {
@@ -47,11 +47,11 @@ public class IFCVO {
     }
 
     public Long getLineNum() {
-        return lineNum;
+        return stepLineNum;
     }
 
     public void setLineNum(Long lineNum) {
-        this.lineNum = lineNum;
+        this.stepLineNum = lineNum;
     }
 
     public String getName() {
@@ -63,11 +63,11 @@ public class IFCVO {
     }
 
     public List<Object> getObjectList() {
-        return list;
+        return slot_list;
     }
 
     public void setList(List<Object> list) {
-        this.list = (LinkedList<Object>) list;
+        this.slot_list = (LinkedList<Object>) list;
     }
 
     public Map<String, LinkedList<IFCVO>> getInversePointerSets() {
