@@ -1016,7 +1016,36 @@ public class RDFWriter {
 		ttlWriter.triple(Triple.create(r.asNode(), valueProp.asNode(), r1.asNode()));
 	}
 
-	private OntResource getListContentType(OntClass range)  {
+	
+	private OntResource getListContentType(OntClass range) {
+	    String resourceURI = range.getURI();
+	    Map<String, String> resourceMap = Map.of(
+	        "STRING_List", "STRING",
+	        "REAL_List", "REAL",
+	        "INTEGER_List", "INTEGER",
+	        "BINARY_List", "BINARY",
+	        "BOOLEAN_List", "BOOLEAN",
+	        "LOGICAL_List", "LOGICAL",
+	        "NUMBER_List", "NUMBER"
+	    );
+
+	    for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+	        if ((Namespace.EXPRESS + entry.getKey()).equalsIgnoreCase(resourceURI)
+	                || range.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + entry.getKey()))) {
+	            return ontModel.getOntResource(Namespace.EXPRESS + entry.getValue());
+	        }
+	    }
+
+	    if (range.hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+	        String listValuePropURI = ontNS + range.getLocalName().replace("_List", "");
+	        return ontModel.getOntResource(listValuePropURI);
+	    } else {
+	        LOG.warn("*WARNING 29*: did not find list content type for: {}", range.getLocalName());
+	        return null;
+	    }
+	}
+	
+	/*private OntResource getListContentType(OntClass range)  {
 		String resourceURI = range.asClass().getURI();
 		if ((Namespace.EXPRESS + "STRING_List").equalsIgnoreCase(resourceURI)
 				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "STRING_List")))
@@ -1046,33 +1075,32 @@ public class RDFWriter {
 			LOG.warn("*WARNING 29*: did not find listcontenttype for : {}", range.getLocalName());
 			return null;
 		}
+	}*/
+	
+	private String getXSDTypeFromRange(OntResource range) {
+	    String uri = range.asClass().getURI();
+	    OntClass ontClass = range.asClass();
+
+	    if (uri.equalsIgnoreCase(Namespace.EXPRESS + "STRING") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "STRING"))) {
+	        return "string";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "REAL") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "REAL"))) {
+	        return "double";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "INTEGER") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "INTEGER"))) {
+	        return "integer";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BINARY") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BINARY"))) {
+	        return "hexBinary";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BOOLEAN") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BOOLEAN"))) {
+	        return "boolean";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "LOGICAL") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "LOGICAL"))) {
+	        return "logical";
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "NUMBER") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "NUMBER"))) {
+	        return "double";
+	    } else {
+	        return null;
+	    }
 	}
 
-	private String getXSDTypeFromRange(OntResource range) {
-		if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "STRING")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "STRING")))
-			return "string";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "REAL")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "REAL")))
-			return "double";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "INTEGER")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "INTEGER")))
-			return "integer";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "BINARY")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BINARY")))
-			return "hexBinary";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "BOOLEAN")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BOOLEAN")))
-			return "boolean";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "LOGICAL")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "LOGICAL")))
-			return "logical";
-		else if (range.asClass().getURI().equalsIgnoreCase(Namespace.EXPRESS + "NUMBER")
-				|| range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "NUMBER")))
-			return "double";
-		else
-			return null;
-	}
+	
 
 	private String getXSDTypeFromRangeExpensiveMethod(OntResource range) {
 		ExtendedIterator<OntClass> iter = range.asClass().listSuperClasses();
