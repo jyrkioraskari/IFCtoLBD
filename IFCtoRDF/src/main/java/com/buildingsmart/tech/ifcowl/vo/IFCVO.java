@@ -23,6 +23,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
+// IFC value object describing one line of an IFC  STEP file
+
 public class IFCVO {
 
     private Long lineNum;
