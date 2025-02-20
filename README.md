@@ -294,6 +294,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### February 20, 2025
+A small LLM example was added in Python.
+
 ### January 10, 2025
 
 A short example to list properties by elements was added.
