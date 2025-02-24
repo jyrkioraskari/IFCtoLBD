@@ -223,6 +223,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	
 	
 	@FXML
+	private ToggleSwitch 	createTrig;
+	
+	@FXML
 	private TitledPane options_panel;
 	
 	@FXML
@@ -525,6 +528,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("lbd_hasSimpleProperties", this.hasSimpleProperties.isSelected());
 
 		this.prefs.putBoolean("ifc_based_elements", this.ifc_based_elements.isSelected());
+		this.prefs.putBoolean("createTrig", this.createTrig.isSelected());
 		
 		this.conversionTxt.setText("");
 		try {
@@ -561,7 +565,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
 					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
 					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
-					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected()));
+					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -632,39 +636,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.conversionTxt.setOnDragOver(ad_conversion);
 		this.conversionTxt.setOnDragDropped(dh_conversion);
 
-		/*
-		 * rdf_fileIcon.setOnDragDetected(new EventHandler<MouseEvent>() { public void
-		 * handle(MouseEvent me) {
-		 * 
-		 * if (!rdf_fileIcon.isDisabled()) { Dragboard db =
-		 * handleOnTxt.startDragAndDrop(TransferMode.ANY);
-		 * 
-		 * ClipboardContent content = new ClipboardContent(); Clipboard clipboard =
-		 * Clipboard.getSystemClipboard(); try { File temp = File.createTempFile("rdf",
-		 * ".ttl");
-		 * 
-		 * conversionTxt.setText(""); try { String uri_base =
-		 * labelBaseURI.getText().trim(); int props_level = 2; if (level1.isSelected())
-		 * props_level = 1; if (level3.isSelected()) props_level = 3;
-		 * masker_panel.setVisible(true); executor.submit(new
-		 * ConversionThread(ifcFileName, uri_base, temp.getAbsolutePath(), props_level,
-		 * building_elements.isSelected(), building_elements_separate_file.isSelected(),
-		 * building_props.isSelected(), building_props_separate_file.isSelected(),
-		 * building_props_blank_nodes.isSelected(), geolocation.isSelected(),
-		 * geometry_elements.isSelected(), ifcOWL_elements.isSelected(),
-		 * ifcOWL_elements.isSelected(), hasPerformanceBoost.isSelected(),
-		 * hasBoundingBox_WKT.isSelected())); } catch (Exception e) {
-		 * conversionTxt.appendText(e.getMessage()); }
-		 * 
-		 * content.putFiles(java.util.Collections.singletonList(temp));
-		 * db.setContent(content); clipboard.setContent(content); } catch (IOException
-		 * e) {
-		 * 
-		 * e.printStackTrace(); } } me.consume(); } });
-		 * 
-		 * rdf_fileIcon.setOnDragDone(new EventHandler<DragEvent>() { public void
-		 * handle(DragEvent me) { me.consume(); } });
-		 */
 		this.labelBaseURI
 				.setText(this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
 		this.building_elements.setSelected(this.prefs.getBoolean("lbd_building_elements", true));
@@ -684,6 +655,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.hasSimpleProperties.setSelected(this.prefs.getBoolean("lbd_hasSimpleProperties", false));
 
 		this.ifc_based_elements.setSelected(this.prefs.getBoolean("ifc_based_elements", false));
+		this.createTrig.setSelected(this.prefs.getBoolean("createTrig", false));
 		
 		this.hasPerformanceBoost.setSelected(this.prefs.getBoolean("lbd_performance", true));
 		if (this.ifcOWL_elements.isSelected()) {
@@ -694,7 +666,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.hasPerformanceBoost.setDisable(false);
 		}
 
-		int props_level = this.prefs.getInt("lbd_props_level", 3);
+		int props_level = this.prefs.getInt("lbd_props_level", 1);
 		switch (props_level) {
 		case 1:
 			this.level1.setSelected(true);
@@ -750,6 +722,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.hasPerformanceBoost.setTooltip(
 				new Tooltip("When used, the memory consumption is saved by removing the ifcOWL geometry. "));
 
+		this.geometry_interfaces.setTooltip(
+				new Tooltip("Creates bounding box based BOT interfaces. "));
+		
+		this.createTrig.setTooltip(
+				new Tooltip("If selected, creates also a RDF 1.1. TriG file (https://www.w3.org/TR/trig/). "));
+	
 	}
 
 	@Override

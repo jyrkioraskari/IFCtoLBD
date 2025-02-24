@@ -467,6 +467,21 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasHierarchicalNaming, false);
 	}
 
+	
+	public Model convert_LBD_phase(boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
+			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
+			boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits, boolean hasBoundingBoxWKT,
+			boolean hasHierarchicalNaming, boolean hasInterfaces, boolean createTrig) {
+		
+		    this.createTrig=createTrig;
+			return convert_LBD_phase( hasBuildingElements,  hasSeparateBuildingElementsModel,
+					 hasBuildingProperties,  hasSeparatePropertiesModel,  hasGeolocation,
+					 hasGeometry,  exportIfcOWL,  hasUnits,  hasBoundingBoxWKT,
+					 hasHierarchicalNaming,  hasInterfaces);
+			
+			
+	}
+	
 	public Model convert_LBD_phase(boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits, boolean hasBoundingBoxWKT,

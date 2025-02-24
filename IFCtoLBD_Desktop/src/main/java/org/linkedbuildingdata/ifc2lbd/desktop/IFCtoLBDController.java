@@ -583,7 +583,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		    this.hasPerformanceBoost.setDisable(false);    		
     	}
     	
-        int props_level = this.prefs.getInt("lbd_props_level", 3);
+        int props_level = this.prefs.getInt("lbd_props_level", 1);
         switch (props_level) {
             case 1:
             this.level1.setSelected(true);

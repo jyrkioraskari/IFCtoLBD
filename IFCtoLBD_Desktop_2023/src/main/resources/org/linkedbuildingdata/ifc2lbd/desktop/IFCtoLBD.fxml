@@ -266,12 +266,17 @@
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
+                                          <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" prefWidth="200.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="10.0">
+                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="10.0">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="createTrig" accessibleText="Building Product Ontology instances" layoutX="236.0" layoutY="67.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="200.0" text="Create an RDF  TriG  lfile" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>

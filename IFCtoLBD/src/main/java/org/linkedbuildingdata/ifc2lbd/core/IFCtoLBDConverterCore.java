@@ -137,7 +137,7 @@ public abstract class IFCtoLBDConverterCore {
 	public RDFFormat default_serialization_format=RDFFormat.TURTLE_BLOCKS;
 	private boolean export_JSON_LD=false;
 
-	
+	protected boolean createTrig = false;
 	
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
@@ -262,7 +262,8 @@ public abstract class IFCtoLBDConverterCore {
 					this.lbd_dataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
 				}
 
-				RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
+				if(this.createTrig)
+				   RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
 				this.eventBus.post(
 						new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data graphs file is: " + target_trig));
 			}

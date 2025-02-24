@@ -153,7 +153,7 @@
                </font>
             </Label>
             <CheckTreeView fx:id="propertysets_checkbox" layoutX="59.0" layoutY="267.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="255.0" />
-            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" textFill="#eab9a0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" textFill="#0d0a09" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                <content>
                   <AnchorPane prefHeight="271.0" prefWidth="745.0">
                      <children>
@@ -266,12 +266,17 @@
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
+                                          <ToggleSwitch fx:id="hasPerformanceBoost" accessibleText="Building Product Ontology instances" layoutX="216.0" layoutY="18.0" prefWidth="200.0" text="Performance optimization" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="10.0">
+                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="10.0">
+                                             <font>
+                                                <Font name="Arial" size="12.0" />
+                                             </font>
+                                          </ToggleSwitch>
+                                          <ToggleSwitch fx:id="createTrig" accessibleText="Building Product Ontology instances" layoutX="236.0" layoutY="67.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="200.0" text="Create an RDF  TriG  lfile" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
