@@ -135,7 +135,7 @@ public abstract class IFCtoLBDConverterCore {
 																		// (for now foe the attributes)
 	private Dataset lbd_dataset = null;
 	public RDFFormat default_serialization_format=RDFFormat.TURTLE_BLOCKS;
-	private boolean export_JSON_LD=false;
+	protected boolean export_as_JSON_LD=false;
 
 	protected boolean createTrig = false;
 	
@@ -160,7 +160,7 @@ public abstract class IFCtoLBDConverterCore {
 			this.rtree_walls = RTree.dimensions(3).create();
 		}
 		
-		if(export_JSON_LD)
+		if(export_as_JSON_LD)
 		{
 			default_serialization_format=RDFFormat.JSONLD;
 			target_file=target_file.replaceAll(".ttl", ".json");
@@ -219,8 +219,11 @@ public abstract class IFCtoLBDConverterCore {
 		if (hasBuildingElements) {
 			if (hasSeparateBuildingElementsModel) {
 				if (target_file != null) {
-					String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
+					String out_products_filename= target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.ttl";
+					if(export_as_JSON_LD)				
+						out_products_filename= target_file.substring(0, target_file.lastIndexOf("."))
+							+ "_building_elements.json";
 					RDFUtils.writeModelRDFStream(this.ifcowl_model, out_products_filename, this.eventBus,default_serialization_format);
 					this.eventBus.post(
 							new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
@@ -240,7 +243,11 @@ public abstract class IFCtoLBDConverterCore {
 			if (hasSeparatePropertiesModel) {
 				if (target_file != null) {
 					String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
-							+ "_element_properties.ttl";
+							+ "_element_properties.ttl";					
+					if(export_as_JSON_LD)				
+						out_properties_filename= target_file.substring(0, target_file.lastIndexOf("."))
+							+ "_element_properties.json";
+					
 					RDFUtils.writeModelRDFStream(this.lbd_property_output_model, out_properties_filename,
 							this.eventBus,default_serialization_format);
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
@@ -256,6 +263,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (target_file != null) {
 			if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
 				String target_trig = target_file.replaceAll(".ttl", ".trig");
+				target_trig = target_file.replaceAll(".json", ".trig");
 				if (this.uriBase.isPresent() && this.lbd_dataset != null) {
 					this.lbd_dataset.getDefaultModel().add(this.lbd_general_output_model);
 					this.lbd_dataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);

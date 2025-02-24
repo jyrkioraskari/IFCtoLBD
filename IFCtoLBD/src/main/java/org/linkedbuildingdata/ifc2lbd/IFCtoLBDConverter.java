@@ -471,9 +471,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	public Model convert_LBD_phase(boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, boolean hasUnits, boolean hasBoundingBoxWKT,
-			boolean hasHierarchicalNaming, boolean hasInterfaces, boolean createTrig) {
+			boolean hasHierarchicalNaming, boolean hasInterfaces, boolean createTrig, boolean export_as_JSON_LD) {
 		
 		    this.createTrig=createTrig;
+		    this.export_as_JSON_LD=export_as_JSON_LD;
 			return convert_LBD_phase( hasBuildingElements,  hasSeparateBuildingElementsModel,
 					 hasBuildingProperties,  hasSeparatePropertiesModel,  hasGeolocation,
 					 hasGeometry,  exportIfcOWL,  hasUnits,  hasBoundingBoxWKT,

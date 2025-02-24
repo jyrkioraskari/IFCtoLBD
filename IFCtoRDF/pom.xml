@@ -66,7 +66,7 @@
 			</testResource>
 		</testResources>
 		<pluginManagement>
-			<plugins>				
+			<plugins>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-deploy-plugin</artifactId>
@@ -211,9 +211,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven-javadoc-plugin.version}</version>
-				<configuration>	   
-				    <author>true</author>
-					<source>17</source>	
+				<configuration>
+					<author>true</author>
+					<source>17</source>
 					<excludePackageNames>com.*:fi.*</excludePackageNames>
 				</configuration>
 			</plugin>
@@ -357,7 +357,24 @@
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<version>${jena.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.json</groupId>
+					<artifactId>javax.json-api</artifactId>
+				</exclusion>
+			</exclusions>
+
 			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.json</groupId>
+			<artifactId>jakarta.json-api</artifactId>
+			<version>2.0.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.parsson</groupId>
+			<artifactId>parsson</artifactId>
+			<version>1.1.1</version>
 		</dependency>
 
 		<dependency>

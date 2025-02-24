@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -108,7 +109,7 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
-            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="212.0" text="Select target file (optional)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="500.0">
+            <Button fx:id="selectTargetFileButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="50.0" layoutY="226.0" mnemonicParsing="false" onAction="#selectTargetFile" opacity="0.9" prefHeight="35.0" prefWidth="312.0" text="Select target file (optional)" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="500.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font>
@@ -126,7 +127,7 @@
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
-            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="596.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="120.0" prefWidth="212.0" text="Convert out to RDF" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="550.0">
+            <Button fx:id="convert2RDFButton" accessibleHelp="Open EXP schema and convert to in-memory JENA OWL ontology, using the conversion procedure agreed upon at LDAC2015" disable="true" layoutX="42.0" layoutY="594.0" mnemonicParsing="false" onAction="#convertIFCToRDF" opacity="0.9" prefHeight="76.0" prefWidth="312.0" text="Convert out to RDF" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="594.0">
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
@@ -314,6 +315,7 @@
                </font>
             </TitledPane>
             <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <ChoiceBox fx:id="outputJSONorTTL" layoutX="10.0" layoutY="557.0" prefWidth="312.0" AnchorPane.topAnchor="550.0" />
          </children></AnchorPane>
         
     

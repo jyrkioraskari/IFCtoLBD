@@ -1,6 +1,6 @@
 
 /*
- *  Copyright (c) 2017,2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2017,2023, 2024, 2025 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,6 +63,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBoxTreeItem;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -227,6 +228,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	
 	@FXML
 	private TitledPane options_panel;
+	
+	
+	@FXML
+	private ChoiceBox<String> outputJSONorTTL;
 	
 	@FXML
 	private void closeApplicationAction() {
@@ -505,6 +510,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			readInIFC_execute();
 		}
 		
+		boolean export_as_JSON_LD=false;
+		if(this.outputJSONorTTL.getValue().toLowerCase().contains("json"))
+			export_as_JSON_LD=true;
 		
 		this.options_panel.setDisable(false);
 
@@ -565,7 +573,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
 					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
 					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
-					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected()));
+					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected(),export_as_JSON_LD));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -691,6 +699,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		}
 
+		
+		
+		outputJSONorTTL.getItems().addAll("Turtle TTL ", "JSON-LD");
+		outputJSONorTTL.setValue("Turtle TTL"); // Set default value
+        
+        
 		this.building_elements.setTooltip(new Tooltip(
 				"Building Product Ontology instances. \nThis is described in: https://github.com/w3c-lbd-cg/product"));
 		this.building_elements_separate_file.setTooltip(new Tooltip("Create the content in separate files."));

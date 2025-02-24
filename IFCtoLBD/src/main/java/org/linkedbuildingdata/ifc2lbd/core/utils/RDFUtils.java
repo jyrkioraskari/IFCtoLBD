@@ -100,9 +100,8 @@ public abstract class RDFUtils {
         
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
-        	  try (OutputStreamWriter fo = new OutputStreamWriter(new FileOutputStream(target_file), StandardCharsets.UTF_8.newEncoder()); BufferedWriter bfo=new BufferedWriter(fo)){
-                  //TODO Check libraries
-        		  RDFDataMgr.write(System.out, m, Lang.JSONLD11);
+        	  try (FileOutputStream fo = new FileOutputStream(target_file)){
+        		  RDFDataMgr.write(fo, m, RDFFormat.JSONLD11_PRETTY);
               } catch (IOException e1) {
       			e1.printStackTrace();
       			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
@@ -110,12 +109,10 @@ public abstract class RDFUtils {
         	return;
         }
         
-        System.out.println("target here: "+target_file);
     	// JO 2024: performance
         try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
         	
-        	System.out.println("target stream here: "+fo);
             StreamRDFWriter.write(bfo, m.getGraph(), rdf_serlialization_format) ;           
         } catch (IOException e1) {
         	System.out.println("target file here: "+(new File(target_file).exists()));
@@ -127,6 +124,7 @@ public abstract class RDFUtils {
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {
     	// Fix by JO 2024: finally is deprecated
     	// JO 2024: performance
+    	
     	try (FileOutputStream fo = new FileOutputStream(target_file); BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
             RDFDataMgr.write(bfo, ds, RDFFormat.TRIG_PRETTY);
