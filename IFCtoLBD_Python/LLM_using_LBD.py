@@ -10,6 +10,16 @@ Author: Jyrki Oraskari
 Functionality: Fetches the information about the building of the LBD model (OPT level 1) and creates a textual description of it.
 Date: 20 February 2025
 License: Apache 2
+
+To install:
+-  install Ollama
+
+Then:
+pip install transformers
+pip install sparqlwrapper
+pip install rdflib
+pip install dspy
+
 """
 
 import some_library  # Replace with the actual library name
