@@ -18,7 +18,7 @@ import picocli.CommandLine.Parameters;
  * 
  *  IFCtoLBD Command Line interface
  *  
- *  Copyright (c) 2023, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
+ *  Copyright (c) 2023, 2024, 2025 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -93,6 +93,11 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--ifcOWL" }, description = "An ifcOWL  model is created and linked.")
 	private Optional<Boolean> exportIfcOWL;
 
+	
+	@Option(names = { "--hasIfc_based_elements" }, description = "An IFC  based elements.")
+	private Optional<Boolean> hasIfc_based_elements;
+	
+	
 	@Option(names = {
 			"--hasTriG" }, description = "TriG is a serialization format for RDF (Resource Description Framework) graphs. It is a plain text format for serializing named graphs")
 	private Optional<Boolean> namedGraphs;
@@ -107,8 +112,14 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasPerformanceBoost" }, description = "PerformanceBoost is used.")
 	private Optional<Boolean> hasPerformanceBoost;
 
+	@Option(names = { "--hasInterfaces" }, description = "Export BoundinBox style BOT interfaces.")
+	private Optional<Boolean> hasInterfaces;
+
+
 	
-	
+	@Option(names = { "--JSON" }, description = "Export as JSON-LD.")
+	private Optional<Boolean> exportJSON;
+
 	
 	
 	@Override
@@ -161,11 +172,14 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.exportIfcOWL.isPresent())
 			exportIfcOWL = this.exportIfcOWL.get();
 
+		boolean hasIfc_based_elements = false;
+		if (this.hasIfc_based_elements.isPresent())
+			hasIfc_based_elements = this.hasIfc_based_elements.get();
 		
 		boolean hasBoundingBoxWKT = false ;
 		if (this.hasBoundingBoxWKT.isPresent())
 			hasBoundingBoxWKT = this.hasBoundingBoxWKT.get();
-
+		
 		boolean hasHierarchicalNaming = false ;
 		if (this.hasHierarchicalNaming.isPresent())
 			hasHierarchicalNaming = this.hasHierarchicalNaming.get();
@@ -182,6 +196,16 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.hasUnits.isPresent())
 			hasUnits = this.hasUnits.get();
 
+		
+		boolean hasInterfaces = false;
+		if (this.hasInterfaces.isPresent())
+			hasInterfaces = this.hasInterfaces.get();
+		
+		boolean exportJSON = false;
+		if (this.exportJSON.isPresent())
+			exportJSON = this.exportJSON.get();
+
+		
 		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
 		c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
 				hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
@@ -193,9 +217,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry, hasPerformanceBoost,
 					exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
 						
-			Model m =converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
-					hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
-					hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming);
+			converter.setHasNonLBDElement(hasIfc_based_elements);
+			
+			converter.convert_LBD_phase(hasBuildingElements,
+					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
+					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,hasInterfaces,false,exportJSON);
+
 		}
 		return null;
 	}
