@@ -99,13 +99,11 @@
 			https://commons.apache.org/proper/commons-lang/ -->
 		</dependency>
 
-		<!-- Dependency for Apache Commons Codec library -->
+		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.17.1</version>
-			<!-- URL for the Apache Commons Codec project:
-			https://commons.apache.org/proper/commons-codec/ -->
+			<version>1.18.0</version>
 		</dependency>
 
 		<!-- Dependency for XStream library -->
@@ -126,18 +124,20 @@
 		</dependency>
 
 
+		<!--
+		https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<version>1.11.1</version>
+			<version>1.13.0-M2</version>
 			<scope>test</scope>
 		</dependency>
-
+		
 		<!-- Dependency for JUnit Jupiter API library -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.11.1</version>
+			<version>5.13.0-M2</version>
 			<!-- Scope of the dependency, used only for testing -->
 			<scope>test</scope>
 			<!-- URL for the JUnit Jupiter project: https://junit.org/junit5/ -->
@@ -147,7 +147,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.11.1</version>
+			<version>5.13.0-M2</version>
 			<scope>test</scope>
 		</dependency>
 
