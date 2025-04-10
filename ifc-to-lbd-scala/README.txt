@@ -1,4 +1,4 @@
-You may need to install Ccala and add it to the path.
+You may need to install Scala and add it to the path.
 https://www.scala-lang.org/download/
 
 To Compile (in this directory=:
