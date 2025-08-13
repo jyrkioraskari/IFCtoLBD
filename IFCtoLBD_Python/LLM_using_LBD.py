@@ -18,8 +18,6 @@ pip install rdflib
 pip install dspy
 """
 
-
-
 from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import Graph
 import json
@@ -41,7 +39,7 @@ class GraphSparqlQAChain:
     def from_llm(model_name: str, graph_file: str):
         return GraphSparqlQAChain(model_name, graph_file)
 
-    def query_graph(self, question: str):
+    def query_graph(self):
 
         # Load your TTL file
         g = Graph()
@@ -67,7 +65,7 @@ class GraphSparqlQAChain:
         return results_json
 
     def answer_question(self, question: str):
-        results = self.query_graph(question)
+        results = self.query_graph()
         context_txt = " ".join([result["predicate"]+" "+result["object"] for result in results])
 
         lm = dspy.LM("ollama_chat/llama3.2",
