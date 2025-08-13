@@ -1,7 +1,8 @@
 #-------------------------------------------------------------------------------
-# Name:        LLM Example 4
+# Name:        LLM Example 
 # Author:      Jyrki Oraskari
-#
+# Functionality: Fetches the information about the building of the LBD model
+# (OPT level 1) and creates a textual description of it.
 # Created:     13/08/2025
 # Copyright:   (c) Jyrki Oraskari 2025
 # Licence:     MIT
@@ -13,45 +14,15 @@ import json
 import dspy
 
 """
-Author: Jyrki Oraskari
-Functionality: Fetches the information about the building of the LBD model (OPT level 1) and creates a textual description of it.
-Date: 20 February 2025
-License: Apache 2
-
 To install:
 -  install Ollama
 
 Then:
+pip install transformers
 pip install sparqlwrapper
 pip install rdflib
 pip install dspy
-
 """
-
-
-
-class BuildingInfoFetcher:
-    def __init__(self):
-        # Initialize your fetcher here
-        pass
-
-    def fetch_building_info(self):
-        # Fetch the building information from the LBD model (OPT level 1)
-        pass
-
-    def create_textual_description(self, building_info):
-        # Create a textual description from the fetched building information
-        pass
-
-    def process(self):
-        building_info = self.fetch_building_info()
-        description = self.create_textual_description(building_info)
-        return description
-
-if __name__ == "__main__":
-    fetcher = BuildingInfoFetcher()
-    description = fetcher.process()
-    print(description)
 
 
 class GenerateAnswer(dspy.Signature):
