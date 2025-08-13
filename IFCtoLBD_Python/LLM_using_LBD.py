@@ -19,7 +19,6 @@ To install:
    This may be in the default installation, but just in case:
    From the command line: ollama pull llama3
 Then:
-pip install transformers
 pip install sparqlwrapper
 pip install rdflib
 pip install dspy
