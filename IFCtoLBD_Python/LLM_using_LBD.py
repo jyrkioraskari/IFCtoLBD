@@ -28,7 +28,7 @@ pip install dspy
 class GenerateAnswer(dspy.Signature):
     """Answer questions with logical factoid answers."""
 
-    context = dspy.InputField(desc="will contain an AI act related document")
+    context = dspy.InputField(desc="will contain a BIN related document")
     question = dspy.InputField()
     answer = dspy.OutputField(desc="an answer within 20 to 30 words")
 
