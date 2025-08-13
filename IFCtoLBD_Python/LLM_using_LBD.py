@@ -1,5 +1,12 @@
-# !/usr/bin/env python3
-from transformers import pipeline
+#-------------------------------------------------------------------------------
+# Name:        LLM Example 4
+# Author:      Jyrki Oraskari
+#
+# Created:     13/08/2025
+# Copyright:   (c) Jyrki Oraskari 2025
+# Licence:     MIT
+#-------------------------------------------------------------------------------
+#from transformers import pipeline
 from SPARQLWrapper import SPARQLWrapper, JSON
 from rdflib import Graph
 import json
@@ -15,14 +22,13 @@ To install:
 -  install Ollama
 
 Then:
-pip install transformers
 pip install sparqlwrapper
 pip install rdflib
 pip install dspy
 
 """
 
-import some_library  # Replace with the actual library name
+
 
 class BuildingInfoFetcher:
     def __init__(self):
@@ -92,8 +98,9 @@ class GraphSparqlQAChain:
     def answer_question(self, question: str):
         results = self.query_graph(question)
         context_txt = " ".join([result["predicate"]+" "+result["object"] for result in results])
-        #print(context)
-        lm = dspy.OllamaLocal(model="llama3", timeout_s=180)
+
+        lm = dspy.LM("ollama_chat/llama3.2",
+            api_base="http://localhost:11434", api_key="")
         dspy.configure(lm=lm)
 
         generate_answer = dspy.ChainOfThought(GenerateAnswer)
