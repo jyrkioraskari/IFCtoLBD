@@ -7,12 +7,6 @@
 # Copyright:   (c) Jyrki Oraskari 2025
 # Licence:     MIT
 #-------------------------------------------------------------------------------
-#from transformers import pipeline
-from SPARQLWrapper import SPARQLWrapper, JSON
-from rdflib import Graph
-import json
-import dspy
-
 """
 To install:
 -  install Ollama
@@ -24,6 +18,12 @@ pip install rdflib
 pip install dspy
 """
 
+
+
+from SPARQLWrapper import SPARQLWrapper, JSON
+from rdflib import Graph
+import json
+import dspy
 
 class GenerateAnswer(dspy.Signature):
     """Answer questions with logical factoid answers."""
