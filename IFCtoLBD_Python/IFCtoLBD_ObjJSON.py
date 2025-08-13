@@ -25,6 +25,11 @@ ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionPr
 # Licence:     Apache 2.0
 #-------------------------------------------------------------------------------
 
+# Installation:
+# Install Java jdk-17.0.2
+# Set JAVA_HOME environment variable to point that
+# pip install jpype1
+
 
 props = ConversionProperties();
 props.setHasGeometry(True);
