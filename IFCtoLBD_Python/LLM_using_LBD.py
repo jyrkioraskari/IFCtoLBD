@@ -16,7 +16,8 @@ import dspy
 """
 To install:
 -  install Ollama
-
+   This may be in the default installation, but just in case:
+   From command line: ollama pull llama3
 Then:
 pip install transformers
 pip install sparqlwrapper
