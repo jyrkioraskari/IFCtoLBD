@@ -154,6 +154,7 @@ public abstract class IFCtoLBDConverterCore {
 		this.exportIfcOWL_setting = exportIfcOWL;
 		this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
 		this.included_elements.clear();
+		System.out.println("Conversion....");
 		if (hasGeometry)
 		{
 			this.rtree = RTree.dimensions(3).create();
@@ -224,6 +225,7 @@ public abstract class IFCtoLBDConverterCore {
 					if(export_as_JSON_LD)				
 						out_products_filename= target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_building_elements.json";
+					System.out.println("WM");
 					RDFUtils.writeModelRDFStream(this.ifcowl_model, out_products_filename, this.eventBus,default_serialization_format);
 					this.eventBus.post(
 							new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
@@ -241,6 +243,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		if (hasBuildingProperties) {
 			if (hasSeparatePropertiesModel) {
+				System.out.println("Separate properties model");
 				if (target_file != null) {
 					String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
 							+ "_element_properties.ttl";					
@@ -262,6 +265,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		if (target_file != null) {
 			if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
+				System.out.println("!Separate properties model");
 				String target_trig = target_file.replaceAll(".ttl", ".trig");
 				target_trig = target_file.replaceAll(".json", ".trig");
 				if (this.uriBase.isPresent() && this.lbd_dataset != null) {
@@ -271,7 +275,10 @@ public abstract class IFCtoLBDConverterCore {
 				}
 
 				if(this.createTrig)
+				{
+				   System.out.println("Create Trigs model");
 				   RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
+				}
 				this.eventBus.post(
 						new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data graphs file is: " + target_trig));
 			}

@@ -97,7 +97,7 @@ public abstract class RDFUtils {
  public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus,RDFFormat rdf_serlialization_format) {
         if(rdf_serlialization_format==null)
         	rdf_serlialization_format=RDFFormat.TURTLE_BLOCKS;
-        
+        System.out.println("Write RDF target file is: "+target_file);
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
         	  try (FileOutputStream fo = new FileOutputStream(target_file)){
@@ -110,6 +110,7 @@ public abstract class RDFUtils {
         }
         
     	// JO 2024: performance
+        System.out.println("Model print RDF");
         try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
         	

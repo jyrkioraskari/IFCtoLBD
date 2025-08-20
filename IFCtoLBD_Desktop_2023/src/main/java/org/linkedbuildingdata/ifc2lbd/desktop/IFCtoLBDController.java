@@ -580,6 +580,91 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	}
 
+	@FXML
+	private void convertIFCToRDF2() {
+		
+		if(!this.fingerprint.equals(selections_fingerprint()))
+		{
+			try {
+				// Wait and run
+				this.running_read_in.get();
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}	
+			Platform.runLater(() -> this.conversionTxt.appendText("Re-run the initial read"));
+			readInIFC_execute();
+		}
+		
+		boolean export_as_JSON_LD=false;
+		if(this.outputJSONorTTL.getValue().toLowerCase().contains("json"))
+			export_as_JSON_LD=true;
+		
+		this.options_panel.setDisable(false);
+	
+	
+		this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
+		this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
+	
+		this.prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
+	
+		this.prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
+		this.prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
+		this.prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
+	
+		this.prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
+		this.prefs.putBoolean("lbd_boundinbox_interfaces", this.geometry_interfaces.isSelected());
+		this.prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
+		this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
+		this.prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
+	
+		this.prefs.putBoolean("lbd_hasHierarchicalNaming", this.hasHierarchicalNaming.isSelected());
+		this.prefs.putBoolean("lbd_hasSimpleProperties", this.hasSimpleProperties.isSelected());
+	
+		this.prefs.putBoolean("ifc_based_elements", this.ifc_based_elements.isSelected());
+		this.prefs.putBoolean("createTrig", this.createTrig.isSelected());
+		
+		this.conversionTxt.setText("");
+		try {
+			String uri_base = this.labelBaseURI.getText().trim();
+			int props_level = 2;
+			if (this.level1.isSelected())
+				props_level = 1;
+			if (this.level3.isSelected())
+				props_level = 3;
+			this.prefs.putInt("lbd_props_level", props_level);
+			this.masker_panel.setVisible(true);
+			if (this.running_conversion != null && !this.running_conversion.isDone()) {
+				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
+				return;
+			}
+	
+			Set<String> selected_types = new HashSet<>();
+			for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
+				selected_types.add(item.getValue());
+	
+			}
+			
+			Set<String> selected_psets = new HashSet<>();
+			for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
+				selected_psets.add(item.getValue());
+	
+			}
+			
+			IFCtoLBDConverter converter = this.running_read_in.get();		
+			converter.setHasSimplified_properties(this.hasSimpleProperties.isSelected());
+			this.running_conversion = this.executor.submit(new ConversionThread(converter,
+					selected_types,selected_psets, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
+					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
+					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
+					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
+					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
+					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected(),export_as_JSON_LD));
+		} catch (Exception e) {
+			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
+		}
+	
+	}
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		this.eventBus.register(this);

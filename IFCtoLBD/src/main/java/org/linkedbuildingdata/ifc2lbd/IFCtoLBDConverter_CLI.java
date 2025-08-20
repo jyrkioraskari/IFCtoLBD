@@ -207,8 +207,8 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 		
 		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
-		c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
-				hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
+		//c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
+		//		hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
 
 		
 		
@@ -216,8 +216,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				props_level);) {
 			converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry, hasPerformanceBoost,
 					exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
-						
-			converter.setHasNonLBDElement(hasIfc_based_elements);
+				
+			//TODO: Does not work
+			//converter.setHasNonLBDElement(hasIfc_based_elements);
 			
 			converter.convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
