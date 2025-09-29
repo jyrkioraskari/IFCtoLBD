@@ -416,6 +416,7 @@ public class RDFWriter {
 						}
 					} else {
 						// EXPRESS SETs
+						try {
 						EntityVO evorange = ent.get(ExpressReader.formatClassName(((IFCVO) o1).getName()));
 						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
@@ -423,6 +424,11 @@ public class RDFWriter {
 								rclass);
                         assert r1 != null;
                         ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
+						}
+						catch (Exception e) {
+							e.printStackTrace();
+							System.err.println("Error in the file: "+e.getMessage());
+						}
 					}
 				} else {
 					LOG.warn("*WARNING 13*: Nothing happened. Not sure if this is good or bad, possible or not.");
