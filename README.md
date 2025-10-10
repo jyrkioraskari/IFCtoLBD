@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.44.3
+Version 2.45.0
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
@@ -14,7 +14,7 @@ RDF is a web standard by the W3C. It organizes data into triples (subject, predi
 Proceedings of the 6th Linked Data in Architecture and Construction Workshop:
 [The IFC to Linked Building Data Converter - Current Status](http://ceur-ws.org/Vol-2159/04paper.pdf).
 
-It is recommended to use OpenJDK 21 (it is the modt current  Long-Term Support version). Java 17 is supported. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
+It is recommended to use OpenJDK 21 (it is the most current  Long-Term Support version). Java 17 is supported. OpenJava can be downloaded from  (https://docs.microsoft.com/en-us/java/openjdk/download).
 On a Windows system, download the MSI file that matches your processor type (usually x64 aka Intel), and run it to install Java.
 
 ## Precompiled binaries
@@ -294,6 +294,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### October 10, 2025
+The new version introduces a significant change: the converter now relies on a TDB database. While this makes it slightly slower, it enables the conversion of substantially larger IFC models.
+
 ### April 9, 2025
 Added a small example in the Scala language. It depends on the maven compilation of the Java code shown above. 
 
@@ -454,7 +457,7 @@ Testing the correctness of the created bounding boxes.
     - eclipse -clean -clearPersistedState  // It resets Eclipse perspectives, too.
 
 ## Acknowledgements
-The research was funded by the EU through the H2020 project BIM4REN.
+The research was partly funded by the EU through the H2020 project BIM4REN.
 
 https://dc.rwth-aachen.de/de/forschung/bim4ren
 

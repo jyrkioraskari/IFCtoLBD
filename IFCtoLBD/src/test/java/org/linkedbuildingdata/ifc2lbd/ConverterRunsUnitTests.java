@@ -19,10 +19,12 @@ import java.util.Set;
 import org.apache.jena.graph.Graph;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
+import org.apache.jena.query.Dataset;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -40,6 +42,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoRDF;
+import org.linkedbuildingdata.ifc2lbd.core.TemporalDatasetSingleton;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
@@ -120,13 +123,22 @@ public class ConverterRunsUnitTests {
 			IFCtoLBDConverter c1wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
 					Integer.valueOf(1));
 
-			Model m3wb = c1wb.readAndConvertIFC2ifcOWL(ifc_file.getAbsolutePath(),
-					"https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false, temp_file.getAbsolutePath(), false);
+			c1wb.readAndConvertIFC2ifcOWL(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#",
+					false, temp_file.getAbsolutePath(), false);
 
-			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m3wb.listSubjects());
-			if (subjectList1.size() != 94539) {
-				System.out.println("Converted subject count  should  be 94539. Was: " + subjectList1.size());
-				fail("Converted subject count  should  be 94539. Was: " + subjectList1.size());
+			Dataset dataset = TemporalDatasetSingleton.getInstance();
+
+			try {
+				dataset.begin(ReadWrite.READ);
+				Model ifcowl_model = dataset.getDefaultModel();
+
+				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(ifcowl_model.listSubjects());
+				if (subjectList1.size() != 94539) {
+					System.out.println("Converted subject count  should  be 94539. Was: " + subjectList1.size());
+					fail("Converted subject count  should  be 94539. Was: " + subjectList1.size());
+				}
+			} finally {
+				dataset.end();
 			}
 
 		} catch (Exception e) {
@@ -135,7 +147,6 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
-	
 	@SuppressWarnings("unused")
 	@DisplayName("Two walls geometry conversion")
 	@Test
@@ -157,10 +168,11 @@ public class ConverterRunsUnitTests {
 								for (boolean param5 : boolValues) {
 									for (boolean param6 : boolValues) {
 										for (boolean param7 : boolValues) {
-											 try (IFCtoLBDConverter c =  new IFCtoLBDConverter(ifcFilePath, baseURI, tempFilePath, level, param1,
-													param2, param3, param4, param5, param6, param7)){
-													}
-													
+											try (IFCtoLBDConverter c = new IFCtoLBDConverter(ifcFilePath, baseURI,
+													tempFilePath, level, param1, param2, param3, param4, param5, param6,
+													param7)) {
+											}
+
 										}
 									}
 								}
@@ -816,6 +828,7 @@ public class ConverterRunsUnitTests {
 
 		Exception e) {
 			System.err.println("Example two phases types error: " + e.getMessage());
+			e.printStackTrace();
 			fail("Conversion Example two phases types error: " + e.getMessage());
 		}
 
@@ -853,6 +866,7 @@ public class ConverterRunsUnitTests {
 
 		Exception e) {
 			System.err.println("Example two phases psets error: " + e.getMessage());
+			e.printStackTrace();
 			fail("Conversion Example two phases psets error: " + e.getMessage());
 		}
 
@@ -1109,72 +1123,69 @@ public class ConverterRunsUnitTests {
 
 	}
 
-	/*@DisplayName("Test ontologocal name space validity 2")
-	@Test
-	public void testOntologyNSValidity2() {
-		this.count = 0;
-		URL file_url = ClassLoader.getSystemResource("Duplex.ifc");
-		try {
-			File ifc_file = new File(file_url.toURI());
-
-			try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
-					props_level);) {
-				converter.convert_read_in_phase(ifc_file.getAbsolutePath(), null, hasGeometry, hasPerformanceBoost,
-						exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits,
-						hasInterfaces);
-
-				Model m = converter.convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel,
-						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
-						hasUnits, hasBoundingBoxWKT, true, hasInterfaces);
-
-				Set<String> nss = m.listNameSpaces().toSet();
-				for (String ns : nss) {
-					try {
-
-						// redirect does not work
-						if (ns.equals("https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#"))
-							ns = "https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL/IFC2X3_TC1.ttl";
-
-						// redirect does not work
-						if (ns.equals("https://pi.pauwel.be/voc/buildingelement#"))
-							ns = "https://pi.pauwel.be/voc/buildingelement/ontology.ttl";
-
-						// known issue
-						// TODO
-						if (ns.equals("http://pi.pauwel.be/voc/furniture#"))
-							continue;
-
-						// redirect does not work
-						if (ns.equals("http://lbd.arch.rwth-aachen.de/props#"))
-							continue; // may have server issues
-
-						// redirect does not work
-						if (ns.equals("https://linkedbuildingdata.org/LBD#"))
-							continue; // may have server issues
-
-						// Content negotiation should work: http://lbd.arch.rwth-aachen.de/props#
-
-						Model model1 = ModelFactory.createDefaultModel();
-						RDFDataMgr.read(model1, ns, Lang.TURTLE);
-
-					} catch (Exception e) {
-						System.err.println("Ontological name space was not defined error: " + ns);
-						e.printStackTrace();
-						fail("Ontological name space was not defined error: " + ns);
-
-					}
-				}
-
-			}
-
-		} catch (
-
-		Exception e) {
-			System.err.println("Ontological name space was not defined error: " + e.getMessage());
-			fail("Ontological name space was not defined error: " + e.getMessage());
-		}
-
-	}*/
+	/*
+	 * @DisplayName("Test ontologocal name space validity 2")
+	 * 
+	 * @Test public void testOntologyNSValidity2() { this.count = 0; URL file_url =
+	 * ClassLoader.getSystemResource("Duplex.ifc"); try { File ifc_file = new
+	 * File(file_url.toURI());
+	 * 
+	 * try (IFCtoLBDConverter converter = new
+	 * IFCtoLBDConverter("https://example.com/", hasPropertiesBlankNodes,
+	 * props_level);) { converter.convert_read_in_phase(ifc_file.getAbsolutePath(),
+	 * null, hasGeometry, hasPerformanceBoost, exportIfcOWL, hasBuildingElements,
+	 * hasBuildingProperties, hasBoundingBoxWKT, hasUnits, hasInterfaces);
+	 * 
+	 * Model m = converter.convert_LBD_phase(hasBuildingElements,
+	 * hasSeparateBuildingElementsModel, hasBuildingProperties,
+	 * hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
+	 * hasUnits, hasBoundingBoxWKT, true, hasInterfaces);
+	 * 
+	 * Set<String> nss = m.listNameSpaces().toSet(); for (String ns : nss) { try {
+	 * 
+	 * // redirect does not work if
+	 * (ns.equals("https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#")) ns
+	 * =
+	 * "https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL/IFC2X3_TC1.ttl";
+	 * 
+	 * // redirect does not work if
+	 * (ns.equals("https://pi.pauwel.be/voc/buildingelement#")) ns =
+	 * "https://pi.pauwel.be/voc/buildingelement/ontology.ttl";
+	 * 
+	 * // known issue // TODO if (ns.equals("http://pi.pauwel.be/voc/furniture#"))
+	 * continue;
+	 * 
+	 * // redirect does not work if
+	 * (ns.equals("http://lbd.arch.rwth-aachen.de/props#")) continue; // may have
+	 * server issues
+	 * 
+	 * // redirect does not work if
+	 * (ns.equals("https://linkedbuildingdata.org/LBD#")) continue; // may have
+	 * server issues
+	 * 
+	 * // Content negotiation should work: http://lbd.arch.rwth-aachen.de/props#
+	 * 
+	 * Model model1 = ModelFactory.createDefaultModel(); RDFDataMgr.read(model1, ns,
+	 * Lang.TURTLE);
+	 * 
+	 * } catch (Exception e) {
+	 * System.err.println("Ontological name space was not defined error: " + ns);
+	 * e.printStackTrace(); fail("Ontological name space was not defined error: " +
+	 * ns);
+	 * 
+	 * } }
+	 * 
+	 * }
+	 * 
+	 * } catch (
+	 * 
+	 * Exception e) {
+	 * System.err.println("Ontological name space was not defined error: " +
+	 * e.getMessage()); fail("Ontological name space was not defined error: " +
+	 * e.getMessage()); }
+	 * 
+	 * }
+	 */
 
 	@DisplayName("Test simplified attributes")
 	@Test

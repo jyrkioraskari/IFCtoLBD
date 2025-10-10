@@ -393,7 +393,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,
 			boolean hasPerformanceBoost, boolean exportIfcOWL, boolean hasBuildingElements,
 			boolean hasBuildingProperties, boolean hasBoundingBoxWKT, boolean hasUnits, boolean hasInterfaces) {
-
+		try {
 		this.target_file = target_file;
 
 		if (ifc_filename.endsWith(".ifczip"))
@@ -409,15 +409,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			future_ifc_geometry = getgeom(ifc_filename);
 
 		if (hasPerformanceBoost)
-			this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), false, target_file,
+			readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), false, target_file,
 					hasPerformanceBoost);
 		else
-			this.ifcowl_model = readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
+			readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 					hasPerformanceBoost); // Before:
 
 		// Before:
-		if (this.ifcowl_model == null)
-			return false;
+		//if (this.ifcowl_model == null)
+		//	return false;
 
 		// readInOntologies(ifc_filename);
 
@@ -453,6 +453,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
+		}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 		return true;
 	}
@@ -490,6 +494,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		boolean namedGraphs = false;
 		try {
+			
 			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs,
 					hasHierarchicalNaming, hasInterfaces);
@@ -674,14 +679,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				ontology_model.close();
 			}
 		}
-		if (this.ifcowl_model != null) {
+		//NOTE  new model
+		/*if (this.ifcowl_model != null) {
 			if (!ifcowl_model.isClosed())
 			{
 				if (ifcowl_model.size() > 0)
 					ifcowl_model.removeAll();
 			  ifcowl_model.close();
 			}
-		}
+		}*/
 		this.ifcowl_product_map.clear();
 		this.propertysets.clear();
 		this.rtree = null;
