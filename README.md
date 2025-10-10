@@ -297,6 +297,8 @@ This project is released under the open source [Apache License, Version 2.0](htt
 ### October 10, 2025
 The new version introduces a significant change: the converter now relies on a TDB database. While this makes it slightly slower, it enables the conversion of substantially larger IFC models.
 
+- If you have a pretty large IFC model, the new version used disk space to convert it. There should be a proper error message about it now.
+
 ### April 9, 2025
 Added a small example in the Scala language. It depends on the maven compilation of the Java code shown above. 
 

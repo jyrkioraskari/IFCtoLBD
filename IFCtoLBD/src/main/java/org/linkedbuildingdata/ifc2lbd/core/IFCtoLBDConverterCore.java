@@ -101,7 +101,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	private Set<String> selected_types; // The element types that are included in the output
 
-	//public Model ifcowl_model;
+	// public Model ifcowl_model;
 	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
@@ -1314,54 +1314,68 @@ public abstract class IFCtoLBDConverterCore {
 					Dataset dataset = TemporalDatasetSingleton.getInstance();
 					dataset.begin(ReadWrite.WRITE);
 					Model model = dataset.getDefaultModel();
-					
-					try {
-						model.removeAll(); // just in case, empty it
-						// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
-						RDFDataMgr.read(model, ifcowlfilename);
-						String inst_ns = model.getNsPrefixMap().get("inst");
-						if (inst_ns != null && this.ontURI.isEmpty())
-							this.uriBase = Optional.of(inst_ns);
 
-						this.ontURI = rj.getOntologyURI(ifc_file);
-						dataset.commit(); // commit changes
+					try {
+						try {
+							model.removeAll(); // just in case, empty it
+							// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+							RDFDataMgr.read(model, ifcowlfilename);
+							String inst_ns = model.getNsPrefixMap().get("inst");
+							if (inst_ns != null && this.ontURI.isEmpty())
+								this.uriBase = Optional.of(inst_ns);
+
+							this.ontURI = rj.getOntologyURI(ifc_file);
+							dataset.commit(); // commit changes
+
+						} catch (Exception e) {
+
+							this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+									"readAndConvertIFC: " + e.getMessage()));
+							e.printStackTrace();
+						}
 					} finally {
 						dataset.end(); // always end the transaction
 					}
-					
+
 				}
 
 			}
 			Dataset dataset = TemporalDatasetSingleton.getInstance();
 			try {
-				dataset.begin(ReadWrite.WRITE);			
-				Model m = dataset.getDefaultModel();
-				m.removeAll(); // just in case, empty it
+				try {
+					dataset.begin(ReadWrite.WRITE);
+					Model m = dataset.getDefaultModel();
+					m.removeAll(); // just in case, empty it
 
-				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
+					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
-				if (hasPerformanceBoost) {
-					File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
-					this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
-							uriBase, hasPerformanceBoost);
-				} else {
-					this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
-							hasPerformanceBoost);
+					if (hasPerformanceBoost) {
+						File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
+						this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
+								uriBase, hasPerformanceBoost);
+					} else {
+						this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
+								hasPerformanceBoost);
+					}
+
+					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
+
+					// TODO This does not work wit Apache Jena 5.1
+					// (org.apache.jena.riot.RiotException: Out of place: [DOT])
+					// File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
+					File t2 = null;
+					System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+					RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(), Lang.TTL);
+					dataset.commit(); // commit changes
+				} catch (Exception e) {
+
+					this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
+							"readAndConvertIFC: " + e.getMessage()));
+					e.printStackTrace();
 				}
-
-				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
-
-				// TODO This does not work wit Apache Jena 5.1
-				// (org.apache.jena.riot.RiotException: Out of place: [DOT])
-				// File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
-				File t2 = null;
-				System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
-				RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(), Lang.TTL);
-				dataset.commit(); // commit changes
 			} finally {
 				dataset.end(); // always end the transaction
 			}
-			
 
 		} catch (Exception e) {
 
@@ -1371,7 +1385,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		}
 		System.err.println("IFC-RDF conversion not done");
-		//return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
+		// return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
 
 	/**
@@ -1390,7 +1404,7 @@ public abstract class IFCtoLBDConverterCore {
 				dataset.begin(ReadWrite.WRITE); // Just bulky one
 				Model ifcowl_model = dataset.getDefaultModel();
 				IfcOWLUtils.readIfcOWLOntology(ifc_file, ifcowl_model);
-				dataset.commit();   // must commit!
+				dataset.commit(); // must commit!
 			} finally {
 				dataset.end();
 			}
