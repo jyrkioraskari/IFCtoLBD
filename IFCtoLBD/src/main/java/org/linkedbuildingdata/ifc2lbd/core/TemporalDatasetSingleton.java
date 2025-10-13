@@ -40,16 +40,16 @@ public class TemporalDatasetSingleton {
 	        	                     .sorted((a, b) -> -a.compareTo(b)) // delete files before directories
 	        	                     .forEach(file -> {
 	        	                         if (!file.delete()) {
-	        	                             System.err.println("Failed to delete: " + file);
+	        	                             //System.err.println("Failed to delete: " + file);
 	        	                         }
 	        	                     });
 	        	                System.out.println("Temporary directory cleaned up.");
 	        	            } catch (IOException e) {
-	        	                e.printStackTrace();
+	        	                //e.printStackTrace();
 	        	            }
 	        	        }));
 					} catch (IOException e) {
-						e.printStackTrace();
+						//e.printStackTrace();
 					}
                 }
             }
