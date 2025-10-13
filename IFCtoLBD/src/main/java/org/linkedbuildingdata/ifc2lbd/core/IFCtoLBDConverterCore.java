@@ -142,7 +142,8 @@ public abstract class IFCtoLBDConverterCore {
 	protected boolean export_as_JSON_LD = false;
 
 	protected boolean createTrig = false;
-
+    protected boolean hasPerformanceBoost =false;
+	
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
 	}
@@ -215,7 +216,7 @@ public abstract class IFCtoLBDConverterCore {
 
 			});
 
-			if (hasGeolocation) {
+			if (hasGeolocation &&!this.hasPerformanceBoost) {
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 				try {
 					this.ontURI.ifPresent(s -> IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL,
@@ -1289,6 +1290,7 @@ public abstract class IFCtoLBDConverterCore {
 	public void readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile,
 			boolean hasPerformanceBoost) {
 		try {
+			this.hasPerformanceBoost=hasPerformanceBoost;
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
 
