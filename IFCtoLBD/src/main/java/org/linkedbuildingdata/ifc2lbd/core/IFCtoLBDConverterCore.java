@@ -1384,7 +1384,6 @@ public abstract class IFCtoLBDConverterCore {
 			e.printStackTrace();
 
 		}
-		System.err.println("IFC-RDF conversion not done");
 		// return ModelFactory.createOntologyModel(OntModelSpec.OWL_MEM);
 	}
 
