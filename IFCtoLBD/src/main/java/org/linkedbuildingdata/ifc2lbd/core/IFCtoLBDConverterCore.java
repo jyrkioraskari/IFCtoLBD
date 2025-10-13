@@ -1321,7 +1321,13 @@ public abstract class IFCtoLBDConverterCore {
 						try {
 							model.removeAll(); // just in case, empty it
 							// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+							try {
 							RDFDataMgr.read(model, ifcowlfilename);
+							}
+							catch (Exception e) {
+								this.eventBus.post(new IFCtoLBD_SystemErrorEvent("Possibly not enough space: "+this.getClass().getSimpleName(),
+										"readAndConvertIFC: " + e.getMessage()));
+							}
 							String inst_ns = model.getNsPrefixMap().get("inst");
 							if (inst_ns != null && this.ontURI.isEmpty())
 								this.uriBase = Optional.of(inst_ns);
@@ -1367,7 +1373,15 @@ public abstract class IFCtoLBDConverterCore {
 					// File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
 					File t2 = null;
 					System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
+					try
+					{
 					RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(), Lang.TTL);
+					}
+					catch (Exception e) {
+						this.eventBus.post(new IFCtoLBD_SystemErrorEvent("Possibly not enough space: "+this.getClass().getSimpleName(),
+								"readAndConvertIFC: " + e.getMessage()));
+					}
+
 					dataset.commit(); // commit changes
 				} catch (Exception e) {
 

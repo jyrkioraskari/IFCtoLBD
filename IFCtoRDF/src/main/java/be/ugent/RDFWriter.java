@@ -178,6 +178,7 @@ public class RDFWriter {
 	private boolean filter_geometry = true;
 
     private void createInstances()  {
+    	System.out.println("IFCtoRDF has performance boost. Filter geometry: "+filter_geometry);
 		for (IFCVO ifcLineEntry : linemap.values()) {
             String typeName = "";
 			if (ent.containsKey(ifcLineEntry.getName()))
