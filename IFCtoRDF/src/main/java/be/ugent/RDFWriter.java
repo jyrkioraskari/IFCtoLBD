@@ -206,6 +206,50 @@ public class RDFWriter {
 					continue;
 				if (filter_geometry && typeName.equals("IfcShapeRepresentation"))
 					continue;
+				
+				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYLINE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCEDGECURVE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCPLANE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCCONNECTIONSURFACEGEOMETRY"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCFACEOUTERBOUND"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCCONNECTIONSURFACEGEOMETRY"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCSURFACEOFLINEAREXTRUSION"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCRELSPACEBOUNDARY"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCLINE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCTRIMMEDCURVE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCVERTEXPOINT"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCEDGELOOP"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCADVANCEDFACE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCSHAPEREPRESENTATION"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCEXTRUDEDAREASOLID"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCINDEXEDPOLYCURVE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCINDEXEDPOLYGONALFACE"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCCARTESIANPOINTLIST2D"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCCARTESIANTRANSFORMATIONOPERATOR3D"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYGONALFACESET"))
+					continue;
+				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYGONALFACESET"))
+					continue;
+
 			}
 
 			OntClass cl = ontModel.getOntClass(ontNS + typeName);
