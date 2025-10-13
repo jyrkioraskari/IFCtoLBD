@@ -11,6 +11,7 @@ import org.apache.jena.tdb2.TDB2Factory;
 
 public class TemporalDatasetSingleton {
 
+	private static  Path tempDir;
     // The single instance (volatile for thread safety)
     private static volatile Dataset instance;
 
@@ -25,11 +26,28 @@ public class TemporalDatasetSingleton {
         if (instance == null) {
             synchronized (TemporalDatasetSingleton.class) {
                 if (instance == null) {
-                	Path tempDir;
+                	
 					try {
 						tempDir = Files.createTempDirectory("IFCtoLBD_");
 	        			System.out.println("Temporary directory created at: " + tempDir.toAbsolutePath());
 	        			instance = TDB2Factory.connectDataset(tempDir.toAbsolutePath().toString());
+	        			
+	        			// Register shutdown hook to delete tempDir on JVM exit
+	        	        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+	        	            try {
+	        	                Files.walk(tempDir)
+	        	                     .map(Path::toFile)
+	        	                     .sorted((a, b) -> -a.compareTo(b)) // delete files before directories
+	        	                     .forEach(file -> {
+	        	                         if (!file.delete()) {
+	        	                             System.err.println("Failed to delete: " + file);
+	        	                         }
+	        	                     });
+	        	                System.out.println("Temporary directory cleaned up.");
+	        	            } catch (IOException e) {
+	        	                e.printStackTrace();
+	        	            }
+	        	        }));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
