@@ -35,6 +35,11 @@ public class TemporalDatasetSingleton {
 	        			// Register shutdown hook to delete tempDir on JVM exit
 	        	        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 	        	            try {
+	        	            	instance.getDefaultModel().removeAll();
+	        	            	if(!instance.getDefaultModel().isClosed())
+	        	            	{
+	        	            	  instance.getDefaultModel().close();
+	        	                }
 	        	                Files.walk(tempDir)
 	        	                     .map(Path::toFile)
 	        	                     .sorted((a, b) -> -a.compareTo(b)) // delete files before directories
