@@ -35,7 +35,8 @@ public class TemporalDatasetSingleton {
 	        			// Register shutdown hook to delete tempDir on JVM exit
 	        	        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 	        	            try {
-	        	            	instance.getDefaultModel().removeAll();
+	        	            	
+	        	            	//instance.getDefaultModel().removeAll();
 	        	            	if(!instance.getDefaultModel().isClosed())
 	        	            	{
 	        	            	  instance.getDefaultModel().close();
