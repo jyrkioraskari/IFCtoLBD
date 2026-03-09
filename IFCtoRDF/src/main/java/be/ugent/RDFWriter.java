@@ -877,9 +877,12 @@ public class RDFWriter {
 				addLiteralToResource(r1, valueProp, xsdType, literalString);
 			}
 			ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
-		} else {
+		} 
+		//  Removed as it causes flood of messages. 
+		/*
+			else {
 			LOG.error("*ERROR 1*: XSD type not found for: " + p + " - " + range.getURI() + " - " + literalString);
-		}
+		}*/
 	}
 
 	private void addListPropertyToGivenEntities(Resource r, OntProperty p, List<Resource> el)  {
@@ -1000,9 +1003,11 @@ public class RDFWriter {
 							reslist.get(i + 1).asNode()));
 				}
 			}
-		} else {
+		} 
+		// Causes flood of messages
+		/*else {
 			LOG.error("*ERROR 5*: XSD type not found for: " + listrange.getLocalName());
-		}
+		}*/
 	}
 
 	// HELPER METHODS
@@ -1114,7 +1119,7 @@ public class RDFWriter {
 			return existing;
 		}
 		if (rclass == null) {
-			LOG.error("*ERROR 2*: getResource failed for {} because ontology class is null", uri);
+			LOG.debug("*ERROR 2*: getResource failed for {} because ontology class is null", uri);
 			return null;
 		}
 		Resource created = ResourceFactory.createResource(uri);
@@ -1123,7 +1128,7 @@ public class RDFWriter {
 			this.resourceMap.put(uri, created);
 			return created;
 		} catch (RuntimeException e) {
-			LOG.error("*ERROR 2*: getResource failed for {} with class {}", uri, rclass, e);
+			LOG.debug("*ERROR 2*: getResource failed for {} with class {}", uri, rclass, e);
 			return null;
 		}
 	}
