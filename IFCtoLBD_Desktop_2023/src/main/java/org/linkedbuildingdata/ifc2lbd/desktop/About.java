@@ -4,13 +4,6 @@
  */
 
 
-/*
- * To compile this, Java 8 is needed. jfxrt.jar is included, so, the the plugin should not be mandatory
- * but installing the http://www.eclipse.org/efxclipse/index.html and http://gluonhq.com/open-source/scene-builder/
- * make coding easier. 
- * 
- */
-
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
 
@@ -44,7 +37,7 @@ public class About extends Stage
       iv.setX(10.0);
       iv.setY((180.0-height)/2.0);
       root.getChildren().add(iv);
-      Text msg1 = new Text("IFCtoLBD Desktop\n2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025");
+      Text msg1 = new Text("IFCtoLBD Desktop\n2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026");
       msg1.setFill(Color.WHITE);
       msg1.setFont(new Font("Arial", 16.0));
       msg1.setX(iv.getX()+width+5);

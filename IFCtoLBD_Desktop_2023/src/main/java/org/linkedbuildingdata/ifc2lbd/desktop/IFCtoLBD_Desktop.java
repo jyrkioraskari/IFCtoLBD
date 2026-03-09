@@ -16,15 +16,6 @@
  */
 
 
-/*
- * To compile this, Java 8 is needed. jfxrt.jar is included, so, the the plugin should not be mandatory
- * but installing the http://www.eclipse.org/efxclipse/index.html and http://gluonhq.com/open-source/scene-builder/
- * make coding easier. 
- * 
- */
-
-
-
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
@@ -41,10 +32,13 @@ import javafx.stage.Stage;
 
 public class IFCtoLBD_Desktop extends Application {
     private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+    private IFCtoLBDController controller;
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("IFCtoLBD.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("IFCtoLBD.fxml"));
+        Parent root = loader.load();
+        this.controller = loader.getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -52,6 +46,9 @@ public class IFCtoLBD_Desktop extends Application {
 
     @Override
     public void stop() throws Exception {
+        if (this.controller != null) {
+            this.controller.shutdown();
+        }
         eventBus.post(new IFCtoLBD_SystemExit("Application exit."));
     }
 

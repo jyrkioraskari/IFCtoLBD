@@ -16,10 +16,6 @@
  */
 
 /*
- * To compile this, Java 8 is needed. jfxrt.jar is included, so, the the plugin should not be mandatory
- * but installing the http://www.eclipse.org/efxclipse/index.html and http://gluonhq.com/open-source/scene-builder/
- * make coding easier. 
- * 
    Royalty Free Stock Image: Blue Glass web icons, buttons
    The File image is implemented using:
    http://www.dreamstime.com/royalty-free-stock-image-blue-glass-web-icons-buttons-image8270526
@@ -33,6 +29,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashSet;
+import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
@@ -232,13 +230,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	
 	@FXML
 	private ChoiceBox<String> outputJSONorTTL;
-	
+
+	private ConversionSettings readInSettings;
+
+	private record ConversionSettings(String ifcFileName, String rdfTargetName, String baseUri, int propsLevel,
+			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
+			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation,
+			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
+			boolean hasInterfaces, boolean hasUnits, boolean hasHierarchicalNaming, boolean hasSimpleProperties,
+			boolean hasIfcBasedElements, boolean createTrig, boolean exportAsJsonLd) {
+	}
+
 	@FXML
 	private void closeApplicationAction() {
 		this.eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
-		Stage stage = (Stage) this.myMenuBar.getScene().getWindow();
-		stage.close();
-		System.exit(0);
+		Platform.exit();
 	}
 
 	@FXML
@@ -313,10 +319,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			String work_directory = this.prefs.get("ifc_work_directory", ".");
 			System.out.println("workdir got:" + work_directory);
 			File fwd = new File(work_directory);
-			if (fwd.exists())
-				this.fc_ifc.setInitialDirectory(fwd.getParentFile());
-			else
+			if (fwd.exists()) {
+				this.fc_ifc.setInitialDirectory(fwd.isDirectory() ? fwd : fwd.getParentFile());
+			} else {
 				this.fc_ifc.setInitialDirectory(new File("."));
+			}
 		}
 		FileChooser.ExtensionFilter ef1;
 		ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
@@ -348,8 +355,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.selectTargetFileButton.setDisable(false);
 			this.convert2RDFButton.setDefaultButton(true);
 			this.convert2RDFButton.setDisable(false);
-			System.out.println("workdir put:" + this.ifcFileName);
-			this.prefs.put("ifc_work_directory", this.ifcFileName);
+			System.out.println("workdir put:" + file.getParentFile().getAbsolutePath());
+			this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
 			readInIFC();
 		}
 		this.selectIFCFileButton.setDefaultButton(false);
@@ -394,7 +401,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.fc_target.setInitialFileName(this.rdfTargetName);
 		if (!fwd.getParentFile().exists()) {
 			this.fc_target.setInitialDirectory(new File(this.ifcFileName).getParentFile());
-			String filename = new File(this.ifcFileName).getParentFile() + File.pathSeparator + fwd.getName();
+			String filename = new File(this.ifcFileName).getParentFile() + File.separator + fwd.getName();
 			System.out.println("Initial Filename to: " + filename);
 			this.fc_target.setInitialFileName(filename);
 			System.out.println("SET");
@@ -402,9 +409,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.fc_target.setInitialDirectory(fwd.getParentFile());
 
 		FileChooser.ExtensionFilter ef;
-		ef = new FileChooser.ExtensionFilter("All Files", ".ttl");
-		this.fc_ifc.getExtensionFilters().clear();
-		this.fc_ifc.getExtensionFilters().addAll(ef);
+		ef = new FileChooser.ExtensionFilter("Turtle files (*.ttl)", "*.ttl");
+		this.fc_target.getExtensionFilters().clear();
+		this.fc_target.getExtensionFilters().addAll(ef);
 
 		try {
 			file = this.fc_target.showSaveDialog(stage);
@@ -428,125 +435,110 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	Future<IFCtoLBDConverter> running_read_in;
 	Future<Integer> running_conversion;
 
-	private String fingerprint="";
-	private String selections_fingerprint() {
-		String uri_base = this.labelBaseURI.getText().trim();
-		int props_level = 2;
-		if (this.level1.isSelected())
-				props_level = 1;
-			if (this.level3.isSelected())
-				props_level = 3;
-			
-			String fingerprint=this.ifcFileName + uri_base + this.rdfTargetName + props_level +  this.building_elements.isSelected() +
-			this.building_elements_separate_file.isSelected() + this.building_props.isSelected() + this.building_props_separate_file.isSelected() + this.building_props_blank_nodes.isSelected()+
-			this.geolocation.isSelected() + this.geometry_elements.isSelected()+ this.ifcOWL_elements.isSelected()+ this.ifcOWL_elements.isSelected()+
-			this.hasPerformanceBoost.isSelected() + this.hasBoundingBox_WKT.isSelected();
-			return fingerprint;
+	private int selectedPropertyLevel() {
+		if (this.level1.isSelected()) {
+			return 1;
+		}
+		if (this.level3.isSelected()) {
+			return 3;
+		}
+		return 2;
 	}
-	
+
+	private boolean isJsonLdOutputSelected() {
+		String outputFormat = this.outputJSONorTTL.getValue();
+		return outputFormat != null && outputFormat.toLowerCase(Locale.ROOT).contains("json");
+	}
+
+	private ConversionSettings currentSettings() {
+		return new ConversionSettings(this.ifcFileName, this.rdfTargetName, this.labelBaseURI.getText().trim(),
+				selectedPropertyLevel(), this.building_elements.isSelected(),
+				this.building_elements_separate_file.isSelected(), this.building_props.isSelected(),
+				this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(),
+				this.geolocation.isSelected(), this.geometry_elements.isSelected(), this.ifcOWL_elements.isSelected(),
+				this.hasPerformanceBoost.isSelected(), this.hasBoundingBox_WKT.isSelected(),
+				this.geometry_interfaces.isSelected(), this.createUnits.isSelected(),
+				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
+				this.ifc_based_elements.isSelected(), this.createTrig.isSelected(), isJsonLdOutputSelected());
+	}
+
+	private void persistSettings(ConversionSettings settings) {
+		this.prefs.putBoolean("lbd_building_elements", settings.hasBuildingElements());
+		this.prefs.putBoolean("lbd_building_elements_separate_file", settings.hasSeparateBuildingElementsModel());
+		this.prefs.putBoolean("lbd_building_props", settings.hasBuildingProperties());
+		this.prefs.putBoolean("lbd_building_props_blank_nodes", settings.hasPropertiesBlankNodes());
+		this.prefs.putBoolean("lbd_building_props_separate_file", settings.hasSeparatePropertiesModel());
+		this.prefs.put("lbd_props_base_url", settings.baseUri());
+		this.prefs.putBoolean("lbd_boundinbox_elements", settings.hasGeometry());
+		this.prefs.putBoolean("lbd_boundinbox_interfaces", settings.hasInterfaces());
+		this.prefs.putBoolean("lbd_ifcOWL_elements", settings.exportIfcOwl());
+		this.prefs.putBoolean("lbd_createUnits", settings.hasUnits());
+		this.prefs.putBoolean("lbd_geolocation", settings.hasGeolocation());
+		this.prefs.putBoolean("lbd_hasHierarchicalNaming", settings.hasHierarchicalNaming());
+		this.prefs.putBoolean("lbd_hasSimpleProperties", settings.hasSimpleProperties());
+		this.prefs.putBoolean("ifc_based_elements", settings.hasIfcBasedElements());
+		this.prefs.putBoolean("createTrig", settings.createTrig());
+		this.prefs.putInt("lbd_props_level", settings.propsLevel());
+	}
+
 	private void readInIFC() {
-		this.fingerprint=selections_fingerprint();
-		readInIFC_execute();
+		ConversionSettings settings = currentSettings();
+		this.readInSettings = settings;
+		readInIFCExecute(settings);
 	}
-	
-	
-	private void readInIFC_execute() {
-		this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
-		this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
 
-		this.prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
-
-		this.prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
-		this.prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-		this.prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
-
-		this.prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
-		this.prefs.putBoolean("lbd_boundinbox_interfaces", this.geometry_interfaces.isSelected());
-
-		this.prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
-		this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
-
+	private void readInIFCExecute(ConversionSettings settings) {
+		persistSettings(settings);
 		this.conversionTxt.setText("");
 		try {
-			String uri_base = this.labelBaseURI.getText().trim();
-			int props_level = 2;
-			if (this.level1.isSelected())
-				props_level = 1;
-			if (this.level3.isSelected())
-				props_level = 3;
-			this.prefs.putInt("lbd_props_level", props_level);
 			this.masker_panel.setVisible(true);
 			if (this.running_read_in != null && !this.running_read_in.isDone()) {
 				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
 				return;
 			}
-
-			this.running_read_in = this.executor.submit(new ReadinInThread(this.ifcFileName, uri_base,
-					this.rdfTargetName, props_level, this.building_elements.isSelected(),
-					this.building_elements_separate_file.isSelected(), this.building_props.isSelected(),
-					this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(),
-					this.geolocation.isSelected(), this.geometry_elements.isSelected(),
-					this.ifcOWL_elements.isSelected(), this.ifcOWL_elements.isSelected(),
-					this.hasPerformanceBoost.isSelected(), this.hasBoundingBox_WKT.isSelected(),this.geometry_interfaces.isSelected()));
+			this.running_read_in = this.executor
+					.submit(new ReadinInThread(settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
+							settings.propsLevel(), settings.hasBuildingElements(),
+							settings.hasSeparateBuildingElementsModel(), settings.hasBuildingProperties(),
+							settings.hasSeparatePropertiesModel(), settings.hasPropertiesBlankNodes(),
+							settings.hasGeolocation(), settings.hasGeometry(), settings.exportIfcOwl(),
+							settings.hasUnits(), settings.hasPerformanceBoost(), settings.hasBoundingBoxWkt(),
+							settings.hasInterfaces()));
 		} catch (Exception e) {
+			this.options_panel.setDisable(false);
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
-		//this.options_panel.setDisable(true);
-
 	}
 
 	@FXML
 	private void convertIFCToRDF() {
-		
-		if(!this.fingerprint.equals(selections_fingerprint()))
-		{
-			try {
-				// Wait and run
-				this.running_read_in.get();
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			}	
-			Platform.runLater(() -> this.conversionTxt.appendText("Re-run the initial read"));
-			readInIFC_execute();
+		ConversionSettings currentSettings = currentSettings();
+		if (currentSettings.ifcFileName() == null || currentSettings.rdfTargetName() == null) {
+			this.conversionTxt.appendText("Select IFC and target files before conversion.\n");
+			return;
 		}
-		
-		boolean export_as_JSON_LD=false;
-		if(this.outputJSONorTTL.getValue().toLowerCase().contains("json"))
-			export_as_JSON_LD=true;
-		
-		this.options_panel.setDisable(false);
+		if (!Objects.equals(this.readInSettings, currentSettings)) {
+			try {
+				if (this.running_read_in != null) {
+					this.running_read_in.get();
+				}
+			} catch (InterruptedException e) {
+				Thread.currentThread().interrupt();
+				this.conversionTxt.appendText("Read-in was interrupted.\n");
+				return;
+			} catch (ExecutionException e) {
+				this.conversionTxt.appendText("Read-in failed: " + e.getMessage() + "\n");
+				return;
+			}
+			this.conversionTxt.appendText("Re-running initial read due to changed settings.\n");
+			this.readInSettings = currentSettings;
+			readInIFCExecute(currentSettings);
+		}
 
-
-		this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
-		this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
-
-		this.prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
-
-		this.prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
-		this.prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-		this.prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
-
-		this.prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
-		this.prefs.putBoolean("lbd_boundinbox_interfaces", this.geometry_interfaces.isSelected());
-		this.prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
-		this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
-		this.prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
-
-		this.prefs.putBoolean("lbd_hasHierarchicalNaming", this.hasHierarchicalNaming.isSelected());
-		this.prefs.putBoolean("lbd_hasSimpleProperties", this.hasSimpleProperties.isSelected());
-
-		this.prefs.putBoolean("ifc_based_elements", this.ifc_based_elements.isSelected());
-		this.prefs.putBoolean("createTrig", this.createTrig.isSelected());
-		
+		persistSettings(currentSettings);
 		this.conversionTxt.setText("");
 		try {
-			String uri_base = this.labelBaseURI.getText().trim();
-			int props_level = 2;
-			if (this.level1.isSelected())
-				props_level = 1;
-			if (this.level3.isSelected())
-				props_level = 3;
-			this.prefs.putInt("lbd_props_level", props_level);
+			this.options_panel.setDisable(true);
 			this.masker_panel.setVisible(true);
 			if (this.running_conversion != null && !this.running_conversion.isDone()) {
 				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
@@ -564,105 +556,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				selected_psets.add(item.getValue());
 
 			}
-			
-			IFCtoLBDConverter converter = this.running_read_in.get();		
-			converter.setHasSimplified_properties(this.hasSimpleProperties.isSelected());
-			this.running_conversion = this.executor.submit(new ConversionThread(converter,
-					selected_types,selected_psets, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
-					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
-					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
-					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
-					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
-					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected(),export_as_JSON_LD));
+			IFCtoLBDConverter converter = this.running_read_in.get();
+			converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
+			this.running_conversion = this.executor.submit(new ConversionThread(converter, selected_types, selected_psets,
+					currentSettings.ifcFileName(), currentSettings.baseUri(), currentSettings.rdfTargetName(),
+					currentSettings.propsLevel(), currentSettings.hasBuildingElements(),
+					currentSettings.hasSeparateBuildingElementsModel(), currentSettings.hasBuildingProperties(),
+					currentSettings.hasSeparatePropertiesModel(), currentSettings.hasPropertiesBlankNodes(),
+					currentSettings.hasGeolocation(), currentSettings.hasGeometry(), currentSettings.exportIfcOwl(),
+					currentSettings.hasUnits(), currentSettings.hasPerformanceBoost(),
+					currentSettings.hasBoundingBoxWkt(), currentSettings.hasHierarchicalNaming(),
+					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
+					currentSettings.exportAsJsonLd()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
-
-	}
-
-	@FXML
-	private void convertIFCToRDF2() {
-		
-		if(!this.fingerprint.equals(selections_fingerprint()))
-		{
-			try {
-				// Wait and run
-				this.running_read_in.get();
-			} catch (InterruptedException | ExecutionException e) {
-				e.printStackTrace();
-			}	
-			Platform.runLater(() -> this.conversionTxt.appendText("Re-run the initial read"));
-			readInIFC_execute();
-		}
-		
-		boolean export_as_JSON_LD=false;
-		if(this.outputJSONorTTL.getValue().toLowerCase().contains("json"))
-			export_as_JSON_LD=true;
-		
-		this.options_panel.setDisable(false);
-	
-	
-		this.prefs.putBoolean("lbd_building_elements", this.building_elements.isSelected());
-		this.prefs.putBoolean("lbd_building_elements_separate_file", this.building_elements_separate_file.isSelected());
-	
-		this.prefs.putBoolean("lbd_building_props", this.building_props.isSelected());
-	
-		this.prefs.putBoolean("lbd_building_props_blank_nodes", this.building_props_blank_nodes.isSelected());
-		this.prefs.putBoolean("lbd_building_props_separate_file", this.building_props_separate_file.isSelected());
-		this.prefs.put("lbd_props_base_url", this.labelBaseURI.getText());
-	
-		this.prefs.putBoolean("lbd_boundinbox_elements", this.geometry_elements.isSelected());
-		this.prefs.putBoolean("lbd_boundinbox_interfaces", this.geometry_interfaces.isSelected());
-		this.prefs.putBoolean("lbd_ifcOWL_elements", this.ifcOWL_elements.isSelected());
-		this.prefs.putBoolean("lbd_createUnits", this.createUnits.isSelected());
-		this.prefs.putBoolean("lbd_geolocation", this.geolocation.isSelected());
-	
-		this.prefs.putBoolean("lbd_hasHierarchicalNaming", this.hasHierarchicalNaming.isSelected());
-		this.prefs.putBoolean("lbd_hasSimpleProperties", this.hasSimpleProperties.isSelected());
-	
-		this.prefs.putBoolean("ifc_based_elements", this.ifc_based_elements.isSelected());
-		this.prefs.putBoolean("createTrig", this.createTrig.isSelected());
-		
-		this.conversionTxt.setText("");
-		try {
-			String uri_base = this.labelBaseURI.getText().trim();
-			int props_level = 2;
-			if (this.level1.isSelected())
-				props_level = 1;
-			if (this.level3.isSelected())
-				props_level = 3;
-			this.prefs.putInt("lbd_props_level", props_level);
-			this.masker_panel.setVisible(true);
-			if (this.running_conversion != null && !this.running_conversion.isDone()) {
-				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
-				return;
-			}
-	
-			Set<String> selected_types = new HashSet<>();
-			for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
-				selected_types.add(item.getValue());
-	
-			}
-			
-			Set<String> selected_psets = new HashSet<>();
-			for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
-				selected_psets.add(item.getValue());
-	
-			}
-			
-			IFCtoLBDConverter converter = this.running_read_in.get();		
-			converter.setHasSimplified_properties(this.hasSimpleProperties.isSelected());
-			this.running_conversion = this.executor.submit(new ConversionThread(converter,
-					selected_types,selected_psets, this.ifcFileName, uri_base, this.rdfTargetName, props_level,
-					this.building_elements.isSelected(), this.building_elements_separate_file.isSelected(),
-					this.building_props.isSelected(), this.building_props_separate_file.isSelected(),
-					this.building_props_blank_nodes.isSelected(), this.geolocation.isSelected(), this.geometry_elements.isSelected(),
-					this.ifcOWL_elements.isSelected(), this.createUnits.isSelected(), this.hasPerformanceBoost.isSelected(),
-					this.hasBoundingBox_WKT.isSelected(), this.hasHierarchicalNaming.isSelected(),this.ifc_based_elements .isSelected(),this.geometry_interfaces.isSelected(),this.createTrig.isSelected(),export_as_JSON_LD));
-		} catch (Exception e) {
-			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
-		}
-	
 	}
 
 	@Override
@@ -786,7 +694,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		
 		
-		outputJSONorTTL.getItems().addAll("Turtle TTL ", "JSON-LD");
+		outputJSONorTTL.getItems().addAll("Turtle TTL", "JSON-LD");
 		outputJSONorTTL.setValue("Turtle TTL"); // Set default value
         
         
@@ -834,6 +742,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.conversionTxt.insertText(0, txt + "\n");
 	}
 
+	public void shutdown() {
+		if (this.running_read_in != null && !this.running_read_in.isDone()) {
+			this.running_read_in.cancel(true);
+		}
+		if (this.running_conversion != null && !this.running_conversion.isDone()) {
+			this.running_conversion.cancel(true);
+		}
+		this.executor.shutdownNow();
+		try {
+			this.eventBus.unregister(this);
+		} catch (IllegalArgumentException ignored) {
+			// Already unregistered or not registered.
+		}
+	}
+
 	@Subscribe
 	public void handleEvent(final IFCtoLBD_SystemStatusEvent event) {
 		System.out.println("message: " + event.getStatus_message());
@@ -849,7 +772,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@Subscribe
 	public void handleEvent(final ProcessReadyEvent event) {
-		this.masker_panel.setVisible(false);
+		Platform.runLater(() -> {
+			this.masker_panel.setVisible(false);
+			this.options_panel.setDisable(false);
+		});
 
 		if (event.getPhase() == ProcessReadyEvent.READ_IN) {
 			Platform.runLater(() -> {
