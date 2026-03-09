@@ -132,7 +132,7 @@
 			<version>1.13.0-M2</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- Dependency for JUnit Jupiter API library -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -156,7 +156,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>1.4.6</version>
+			<version>1.4.7</version>
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
@@ -239,6 +239,22 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-geometry-io-euclidean</artifactId>
 			<version>1.0</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-api</artifactId>
+			<version>1.9.3</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-engine</artifactId>
+			<version>1.9.3</version>
+			<scope>test</scope>
 		</dependency>
 
 

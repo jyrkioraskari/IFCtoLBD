@@ -14,7 +14,7 @@
 	<artifactId>ifc2rdf</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.4.6</version>
+	<version>1.4.7</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
@@ -339,7 +339,7 @@
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>true</skipTests>
+		<skipTests>false</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
@@ -381,6 +381,12 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.5.18</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

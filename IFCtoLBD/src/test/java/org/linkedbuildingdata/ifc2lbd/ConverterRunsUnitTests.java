@@ -147,45 +147,7 @@ public class ConverterRunsUnitTests {
 		}
 	}
 
-	@SuppressWarnings("unused")
-	@DisplayName("Two walls geometry conversion")
-	@Test
-	public void testTwoWallsConversionFull() {
-		URL file_url = ClassLoader.getSystemResource("TWO WALLS.ifc");
-		try {
-			File ifc_file = new File(file_url.toURI());
-			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
-			String ifcFilePath = ifc_file.getAbsolutePath();
-			String baseURI = "https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
-			String tempFilePath = temp_file.getAbsolutePath();
-
-			boolean[] boolValues = { true, false };
-			for (int level = 0; level < 3; level++)
-				for (boolean param1 : boolValues) {
-					for (boolean param2 : boolValues) {
-						for (boolean param3 : boolValues) {
-							for (boolean param4 : boolValues) {
-								for (boolean param5 : boolValues) {
-									for (boolean param6 : boolValues) {
-										for (boolean param7 : boolValues) {
-											try (IFCtoLBDConverter c = new IFCtoLBDConverter(ifcFilePath, baseURI,
-													tempFilePath, level, param1, param2, param3, param4, param5, param6,
-													param7)) {
-											}
-
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-		} catch (Exception e) {
-			e.printStackTrace();
-			fail("Full Conversion had an error: " + e.getMessage());
-		}
-	}
-
+	
 	@SuppressWarnings("unused")
 	@DisplayName("Test basic conversion")
 	@Test

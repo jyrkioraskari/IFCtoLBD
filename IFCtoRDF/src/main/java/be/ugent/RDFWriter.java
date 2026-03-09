@@ -1,6 +1,6 @@
 /**
  * 
- * Copyright 2016, 2022, 2023, 2024, 2025  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University, RWTH Aachen; Lewis John McGibbney, Apache
+ * Copyright 2016, 2022, 2023, 2024, 2025, 2026  Pieter Pauwels, Ghent University; Jyrki Oraskari, Aalto University, RWTH Aachen; Lewis John McGibbney, Apache
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,10 +23,15 @@ package be.ugent;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
@@ -66,6 +71,34 @@ import fi.ni.rdf.Namespace;
  */
 public class RDFWriter {
     private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
+    private static final Set<String> FILTERED_GEOMETRY_TYPES = Collections.unmodifiableSet(new HashSet<>(Arrays.asList(
+            "IFCFACE",
+            "IFCPOLYLOOP",
+            "IFCCARTESIANPOINT",
+            "IFCRELASSOCIATESMATERIAL",
+            "IFCEXTRUDEDAREASOLID",
+            "IFCCOMPOSITECURVE",
+            "IFCSURFACESTYLERENDERING",
+            "IFCSTYLEDITEM",
+            "IFCSHAPEREPRESENTATION",
+            "IFCPOLYLINE",
+            "IFCEDGECURVE",
+            "IFCPLANE",
+            "IFCCONNECTIONSURFACEGEOMETRY",
+            "IFCFACEOUTERBOUND",
+            "IFCSURFACEOFLINEAREXTRUSION",
+            "IFCRELSPACEBOUNDARY",
+            "IFCLINE",
+            "IFCTRIMMEDCURVE",
+            "IFCVERTEXPOINT",
+            "IFCEDGELOOP",
+            "IFCADVANCEDFACE",
+            "IFCINDEXEDPOLYCURVE",
+            "IFCINDEXEDPOLYGONALFACE",
+            "IFCCARTESIANPOINTLIST2D",
+            "IFCCARTESIANTRANSFORMATIONOPERATOR3D",
+            "IFCPOLYGONALFACESET"
+    )));
 
 	// input variables
 	private final String baseURI;
@@ -139,6 +172,7 @@ public class RDFWriter {
 		ttlWriter.prefix("xsd", Namespace.XSD);
 		ttlWriter.prefix("owl", Namespace.OWL);
 		ttlWriter.start();
+		try {
 
 		ttlWriter.triple(Triple.create(NodeFactory.createURI(baseURI), RDF.type.asNode(), OWL.Ontology.asNode()));
 		ttlWriter
@@ -159,8 +193,10 @@ public class RDFWriter {
 		// new instances in the model
 		boolean parsedSuccessfully = parser.mapEntries();
 
-		if (!parsedSuccessfully)
+		if (!parsedSuccessfully) {
+			LOG.error("IFC entries could not be mapped to ontology resources.");
 			return;
+		}
 
 		// recover data from parser
 		idCounter = parser.getIdCounter();
@@ -171,14 +207,15 @@ public class RDFWriter {
 
 		// Save memory
 		linemap.clear();
-
-		ttlWriter.finish();
+		} finally {
+			ttlWriter.finish();
+		}
 	}
 
-	private boolean filter_geometry = true;
+	private final boolean filterGeometry = true;
 
     private void createInstances()  {
-    	System.out.println("IFCtoRDF has performance boost. Filter geometry: "+filter_geometry);
+    	LOG.info("IFCtoRDF performance boost: {}. Geometry filter: {}", hasPerformanceBoost, filterGeometry);
 		for (IFCVO ifcLineEntry : linemap.values()) {
             String typeName = "";
 			if (ent.containsKey(ifcLineEntry.getName()))
@@ -186,86 +223,23 @@ public class RDFWriter {
 			else if (typ.containsKey(ifcLineEntry.getName()))
 				typeName = typ.get(ifcLineEntry.getName()).getName();
 
-			if (this.hasPerformanceBoost) {
-				if (filter_geometry && typeName.equals("IfcFace"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcPolyLoop"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcCartesianPoint"))
-					continue;
-				if (typeName.equals("IfcOwnerHistory"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcRelAssociatesMaterial"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcExtrudedAreaSolid"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcCompositeCurve"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcSurfaceStyleRendering"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcStyledItem"))
-					continue;
-				if (filter_geometry && typeName.equals("IfcShapeRepresentation"))
-					continue;
-				
-				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYLINE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCEDGECURVE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCPLANE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCCONNECTIONSURFACEGEOMETRY"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCFACEOUTERBOUND"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCCONNECTIONSURFACEGEOMETRY"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCSURFACEOFLINEAREXTRUSION"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCRELSPACEBOUNDARY"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCLINE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCTRIMMEDCURVE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCVERTEXPOINT"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCEDGELOOP"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCADVANCEDFACE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCSHAPEREPRESENTATION"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCEXTRUDEDAREASOLID"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCINDEXEDPOLYCURVE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCINDEXEDPOLYGONALFACE"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCCARTESIANPOINTLIST2D"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCCARTESIANTRANSFORMATIONOPERATOR3D"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYGONALFACESET"))
-					continue;
-				if (filter_geometry && typeName.toUpperCase().equals("IFCPOLYGONALFACESET"))
-					continue;
-
+			if (this.hasPerformanceBoost && shouldSkipInstance(typeName)) {
+				continue;
 			}
 
 			OntClass cl = ontModel.getOntClass(ontNS + typeName);
 			if (cl == null) {
-				System.out.println("cl null typename: \"" + typeName + "\"");
-				// ontModel.write(System.err);
+				LOG.warn("Class missing for IFC type: {}", typeName);
 				if (typeName == null || typeName.trim().isEmpty()) {
 					if (ent.containsKey(ifcLineEntry.getName()))
-						System.out.println("cl null typename ent for: " + ifcLineEntry.getName());
+						LOG.warn("Missing class name in entity map for: {}", ifcLineEntry.getName());
 					else if (typ.containsKey(ifcLineEntry.getName()))
-						System.out.println("cl null typename typ for: " + ifcLineEntry.getName());
+						LOG.warn("Missing class name in type map for: {}", ifcLineEntry.getName());
 					else
-						System.out.println("cl null typename not found for: " + ifcLineEntry.getName());
+						LOG.warn("Type not found in entity/type maps for: {}", ifcLineEntry.getName());
 				}
-				System.out.println("cl null for: " + ontNS + typeName);
+				LOG.warn("No ontology class found for URI: {}", ontNS + typeName);
+				continue;
 			}
 			Resource r = getResource(baseURI + typeName + "_" + ifcLineEntry.getLineNum(), cl);
 			if (r == null) {
@@ -394,8 +368,9 @@ public class RDFWriter {
 			OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
 			Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o).getLineNum(), rclass);
-            assert r1 != null;
-            ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
+			if (r1 != null) {
+				ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
+			}
 		} else {
 			LOG.warn("*WARNING 3*: Nothing happened. Not sure if this is good or bad, possible or not.");
 		}
@@ -461,18 +436,13 @@ public class RDFWriter {
 						}
 					} else {
 						// EXPRESS SETs
-						try {
 						EntityVO evorange = ent.get(ExpressReader.formatClassName(((IFCVO) o1).getName()));
 						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 
 						Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o1).getLineNum(),
 								rclass);
-                        assert r1 != null;
-                        ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
-						}
-						catch (Exception e) {
-							e.printStackTrace();
-							System.err.println("Error in the file: "+e.getMessage());
+						if (r1 != null) {
+							ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r1.asNode()));
 						}
 					}
 				} else {
@@ -837,10 +807,11 @@ public class RDFWriter {
 						EntityVO evorange = ent.get(ExpressReader.formatClassName((vo).getName()));
 						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
 						Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
-						idCounter++;
-                        assert r2 != null;
-                        ttlWriter.triple(Triple.create(r1.asNode(),
-								ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
+						if (r2 != null) {
+							idCounter++;
+							ttlWriter.triple(Triple.create(r1.asNode(),
+									ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
+						}
 
 						if (i < el.size() - 1) {
 							ttlWriter.triple(
@@ -980,13 +951,15 @@ public class RDFWriter {
 				TypeVO typerange = typ.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 				rclass = ontModel.getOntResource(ontNS + typerange.getName());
 				Resource r1 = getResource(baseURI + typerange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-                assert r1 != null;
-                ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+				if (r1 != null) {
+					ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+				}
 			} else {
 				rclass = ontModel.getOntResource(ontNS + evorange.getName());
 				Resource r1 = getResource(baseURI + evorange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
-                assert r1 != null;
-                ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+				if (r1 != null) {
+					ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
+				}
 			}
 
 			if (i < reslist.size() - 1) {
@@ -1136,21 +1109,33 @@ public class RDFWriter {
 	}
 
 	private Resource getResource(String uri, OntResource rclass) {
-		
-		Resource r = this.resourceMap.get(uri);
-		if (r == null) {
-			r = ResourceFactory.createResource(uri);
-			this.resourceMap.put(uri, r);
-			try {
-				ttlWriter.triple(Triple.create(r.asNode(), RDF.type.asNode(), rclass.asNode()));
-			} catch (Exception e) {
-				// Can be caused when optimization removes the IFC lines containing geometry.
-				System.err.println("rclass: " + rclass+" "+e.getMessage());
-				LOG.error("*ERROR 2*: getResource failed for " + uri);
-				return null;
-			}
+		Resource existing = this.resourceMap.get(uri);
+		if (existing != null) {
+			return existing;
 		}
-		return r;
+		if (rclass == null) {
+			LOG.error("*ERROR 2*: getResource failed for {} because ontology class is null", uri);
+			return null;
+		}
+		Resource created = ResourceFactory.createResource(uri);
+		try {
+			ttlWriter.triple(Triple.create(created.asNode(), RDF.type.asNode(), rclass.asNode()));
+			this.resourceMap.put(uri, created);
+			return created;
+		} catch (RuntimeException e) {
+			LOG.error("*ERROR 2*: getResource failed for {} with class {}", uri, rclass, e);
+			return null;
+		}
+	}
+
+	private boolean shouldSkipInstance(String typeName) {
+		if ("IFCOWNERHISTORY".equalsIgnoreCase(typeName)) {
+			return true;
+		}
+		if (!filterGeometry) {
+			return false;
+		}
+		return FILTERED_GEOMETRY_TYPES.contains(typeName.toUpperCase(Locale.ROOT));
 	}
 
 

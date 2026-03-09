@@ -19,7 +19,7 @@ import com.buildingsmart.tech.ifcowl.vo.IFCVO;
 
 
 /*
-Copyright (c) 2014, 2025 Jyrki Oraskari, RWTH AAáchen University (oraskarii [at] ip.rwth-aachen [dot] de)
+Copyright (c) 2014, 2025, 2026 Jyrki Oraskari, RWTH AAáchen University (oraskarii [at] ip.rwth-aachen [dot] de)
 Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
 Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -77,7 +77,7 @@ class IfcSpfParser {
 				}
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOG.error("Failed to read IFC model stream", e);
 		}
 	}
 
