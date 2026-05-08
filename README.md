@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.46.0
+Version 2.46.1
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
@@ -40,6 +40,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### May 8, 2026
+Support for new Apache Jena version 6.0.0. This means also that the oldest supported Java version is now 21.
+
 ### October 10, 2025
 The new version introduces a significant change: the converter now relies on a TDB database. While this makes it slightly slower, it enables the conversion of substantially larger IFC models.
 

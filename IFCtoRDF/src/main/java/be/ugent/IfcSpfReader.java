@@ -73,6 +73,7 @@ public class IfcSpfReader {
             "IFC4X3", "IFC4x3_RC1",
             "IFC4X3_RC1", "IFC4x3_RC1",
             "IFC4X1", "IFC4x1",
+            "IFC20_LONGFORM", "IFC20_LONGFORM",
             "IFC4", "IFC4_ADD2"
     );
     private static final Set<String> SUPPORTED_SCHEMAS = new HashSet<>(Arrays.asList(
@@ -202,8 +203,9 @@ public class IfcSpfReader {
 	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
 	        String strLine;
 	        while ((strLine = br.readLine()) != null) {
-	            if (!strLine.isEmpty() && strLine.startsWith("FILE_SCHEMA")) {
-	                final String schemaLineUpper = strLine.toUpperCase(Locale.ROOT);
+	            final String trimmedLine = strLine.trim();
+	            if (!trimmedLine.isEmpty() && trimmedLine.toUpperCase(Locale.ROOT).startsWith("FILE_SCHEMA")) {
+	                final String schemaLineUpper = trimmedLine.toUpperCase(Locale.ROOT);
 	                for (Map.Entry<String, String> entry : EXPRESS_SCHEMA_MAPPING.entrySet()) {
 	                    if (schemaLineUpper.contains(entry.getKey())) {
 	                        return entry.getValue();

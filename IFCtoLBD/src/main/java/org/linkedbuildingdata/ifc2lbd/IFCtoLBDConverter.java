@@ -415,6 +415,12 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), !exportIfcOWL, target_file,
 					hasPerformanceBoost); // Before:
 
+		if (this.ontURI.isEmpty()) {
+			System.out.println("No ifcOWL ontology available.");
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
+			return false;
+		}
+
 		// Before:
 		//if (this.ifcowl_model == null)
 		//	return false;
@@ -443,13 +449,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		addNamespaces(uriBase.get(), props_level, hasBuildingElements, hasBuildingProperties);
 
 		eventBus.post(new IFCtoLBD_SystemStatusEvent("IFC->LBD"));
-		if (this.ontURI.isPresent())
-			this.ifcOWL = new IfcOWL(this.ontURI.get());
-		else {
-			System.out.println("No ifcOWL ontology available.");
-			eventBus.post(new IFCtoLBD_SystemStatusEvent("No ifcOWL ontology available."));
-			return false;
-		}
+		this.ifcOWL = new IfcOWL(this.ontURI.get());
 
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
@@ -457,6 +457,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			return false;
 		}
 		return true;
 	}

@@ -1316,32 +1316,22 @@ public abstract class IFCtoLBDConverterCore {
 					Dataset dataset = TemporalDatasetSingleton.getInstance();
 					dataset.begin(ReadWrite.WRITE);
 					Model model = dataset.getDefaultModel();
+					boolean committed = false;
 
 					try {
-						try {
-							model.removeAll(); // just in case, empty it
-							// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
-							try {
-							RDFDataMgr.read(model, ifcowlfilename);
-							}
-							catch (Exception e) {
-								this.eventBus.post(new IFCtoLBD_SystemErrorEvent("Possibly not enough space: "+this.getClass().getSimpleName(),
-										"readAndConvertIFC: " + e.getMessage()));
-							}
-							String inst_ns = model.getNsPrefixMap().get("inst");
-							if (inst_ns != null && this.ontURI.isEmpty())
-								this.uriBase = Optional.of(inst_ns);
+						model.removeAll(); // just in case, empty it
+						// model.read(new FileInputStream(ifcowlfilename), null, "TTL");
+						RDFDataMgr.read(model, ifcowlfilename);
+						String inst_ns = model.getNsPrefixMap().get("inst");
+						if (inst_ns != null && this.ontURI.isEmpty())
+							this.uriBase = Optional.of(inst_ns);
 
-							this.ontURI = rj.getOntologyURI(ifc_file);
-							dataset.commit(); // commit changes
-
-						} catch (Exception e) {
-
-							this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-									"readAndConvertIFC: " + e.getMessage()));
-							e.printStackTrace();
-						}
+						this.ontURI = rj.getOntologyURI(ifc_file);
+						dataset.commit(); // commit changes
+						committed = true;
 					} finally {
+						if (!committed)
+							dataset.abort();
 						dataset.end(); // always end the transaction
 					}
 
@@ -1350,8 +1340,9 @@ public abstract class IFCtoLBDConverterCore {
 			}
 			Dataset dataset = TemporalDatasetSingleton.getInstance();
 			try {
+				dataset.begin(ReadWrite.WRITE);
+				boolean committed = false;
 				try {
-					dataset.begin(ReadWrite.WRITE);
 					Model m = dataset.getDefaultModel();
 					m.removeAll(); // just in case, empty it
 
@@ -1365,6 +1356,8 @@ public abstract class IFCtoLBDConverterCore {
 						this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
 								hasPerformanceBoost);
 					}
+					if (this.ontURI.isEmpty())
+						throw new IllegalStateException("IFCtoRDF conversion failed; ontology URI is missing.");
 
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
 
@@ -1373,21 +1366,13 @@ public abstract class IFCtoLBDConverterCore {
 					// File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
 					File t2 = null;
 					System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
-					try
-					{
 					RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(), Lang.TTL);
-					}
-					catch (Exception e) {
-						this.eventBus.post(new IFCtoLBD_SystemErrorEvent("Possibly not enough space: "+this.getClass().getSimpleName(),
-								"readAndConvertIFC: " + e.getMessage()));
-					}
 
 					dataset.commit(); // commit changes
-				} catch (Exception e) {
-
-					this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
-							"readAndConvertIFC: " + e.getMessage()));
-					e.printStackTrace();
+					committed = true;
+				} finally {
+					if (!committed)
+						dataset.abort();
 				}
 			} finally {
 				dataset.end(); // always end the transaction
@@ -1395,6 +1380,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		} catch (Exception e) {
 
+			this.ontURI = Optional.empty();
 			this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
 					"readAndConvertIFC: " + e.getMessage() + " line:" + e.getStackTrace()[0].getLineNumber()));
 			e.printStackTrace();
