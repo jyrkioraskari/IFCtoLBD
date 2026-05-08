@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -26,6 +27,7 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 
+import be.ugent.IfcSpfReader;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 
 /*
@@ -65,6 +67,9 @@ import de.rwth_aachen.dc.lbd.IFCGeometry;
  */
 
 public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoCloseable {
+	private static final String SUPPORTED_SCHEMA_MESSAGE =
+			"IFC2X3_FINAL, IFC2X3_TC1, IFC4_ADD1, IFC4_ADD2, IFC4, IFC4x1, IFC4x3_RC1";
+
 	private int ios = 0;
 
 	/**
@@ -399,8 +404,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (ifc_filename.endsWith(".ifczip"))
 			ifc_filename = unzip(ifc_filename);
 
-		if (IfcOWLUtils.getExpressSchema(ifc_filename) == null) {
+		String expressSchema = IfcSpfReader.getExpressSchema(ifc_filename);
+		if (expressSchema == null || expressSchema.isBlank()) {
 			eventBus.post(new IFCtoLBD_SystemStatusEvent("Not a valid IFC version."));
+			return false;
+		}
+		if (!isSupportedExpressSchema(expressSchema)) {
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Unsupported IFC schema: " + expressSchema
+					+ ". Supported: " + SUPPORTED_SCHEMA_MESSAGE + "."));
 			return false;
 		}
 
@@ -642,6 +653,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			System.out.println(
 					"Example: java -jar IFCtoLBD_Java_15.jar  http://lbd.example.com/ c:\\IFC\\Duplex_A_20110505.ifc c:\\IFC\\Duplex_A_20110505.ttl");
 		}
+	}
+
+	private static boolean isSupportedExpressSchema(String expressSchema) {
+		return switch (expressSchema.toUpperCase(Locale.ROOT)) {
+		case "IFC2X3_FINAL", "IFC2X3_TC1", "IFC4_ADD2", "IFC4_ADD1", "IFC4", "IFC4X1", "IFC4X3_RC1" -> true;
+		default -> false;
+		};
 	}
 
 	@Override

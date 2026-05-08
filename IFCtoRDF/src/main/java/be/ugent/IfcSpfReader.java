@@ -79,6 +79,8 @@ public class IfcSpfReader {
     private static final Set<String> SUPPORTED_SCHEMAS = new HashSet<>(Arrays.asList(
             "IFC2X3_FINAL", "IFC2X3_TC1", "IFC4_ADD2", "IFC4_ADD1", "IFC4", "IFC4X1", "IFC4X3_RC1"
     ));
+    private static final String SUPPORTED_SCHEMA_MESSAGE =
+            "IFC2X3_FINAL, IFC2X3_TC1, IFC4_ADD1, IFC4_ADD2, IFC4, IFC4x1, IFC4x3_RC1";
 
     /**
      *  The main method, when called from a command line.
@@ -220,6 +222,14 @@ public class IfcSpfReader {
 	    return "";
 	}
 
+    public static boolean isSupportedExpressSchema(String expressSchema) {
+        return expressSchema != null && SUPPORTED_SCHEMAS.contains(expressSchema.toUpperCase(Locale.ROOT));
+    }
+
+    public static String getSupportedSchemaMessage() {
+        return SUPPORTED_SCHEMA_MESSAGE;
+    }
+
 
   
     /**
@@ -249,7 +259,7 @@ public class IfcSpfReader {
         }
         if (!SUPPORTED_SCHEMAS.contains(this.exp.toUpperCase(Locale.ROOT))) {
             throw new IOException("Unsupported EXPRESS schema: " + this.exp
-                    + ". Supported: IFC2X3_FINAL, IFC2X3_TC1, IFC4_ADD1, IFC4_ADD2, IFC4, IFC4x1, IFC4x3_RC1.");
+                    + ". Supported: " + SUPPORTED_SCHEMA_MESSAGE + ".");
         }
 
         this.ent = loadSerializedMap("ent" + this.exp + ".ser");

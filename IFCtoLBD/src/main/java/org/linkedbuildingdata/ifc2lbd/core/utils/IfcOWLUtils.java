@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -421,9 +422,11 @@ public abstract class IfcOWLUtils {
 	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
 	        String strLine;
 	        while ((strLine = br.readLine()) != null) {
-	            if (!strLine.isEmpty() && strLine.startsWith("FILE_SCHEMA")) {
+	            String trimmedLine = strLine.trim();
+	            if (!trimmedLine.isEmpty() && trimmedLine.toUpperCase(Locale.ROOT).startsWith("FILE_SCHEMA")) {
+	                String schemaLineUpper = trimmedLine.toUpperCase(Locale.ROOT);
 	                for (Map.Entry<String, String> entry : schemaMapping.entrySet()) {
-	                    if (strLine.contains(entry.getKey())) {
+	                    if (schemaLineUpper.contains(entry.getKey().toUpperCase(Locale.ROOT))) {
 	                        return entry.getValue();
 	                    }
 	                }

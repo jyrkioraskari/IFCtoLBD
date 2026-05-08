@@ -70,7 +70,33 @@
 		<skipTests>true</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<log4j2.version>2.25.4</log4j2.version>
+		<slf4j.version>2.0.17</slf4j.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j2-impl</artifactId>
+				<version>${log4j2.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>

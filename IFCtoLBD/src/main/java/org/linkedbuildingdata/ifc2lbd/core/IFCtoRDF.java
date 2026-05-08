@@ -33,9 +33,9 @@ public class IFCtoRDF extends IfcSpfReader {
         this.counter = 0;
         PrintStream orgSystemOut = System.out;
         PrintStream orgSystemError = System.err;
+        Timer timer = new Timer();
 
         try {
-            Timer timer = new Timer();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -45,11 +45,11 @@ public class IFCtoRDF extends IfcSpfReader {
 
             setup(ifcFile);
             convert(ifcFile, outputFile, baseURI, hasPerformanceBoost);
-            timer.cancel();
         } catch (Exception e) {
             LOG.error("Error during IFC to RDF conversion", e);
             return Optional.empty();
         } finally {
+            timer.cancel();
             System.setOut(orgSystemOut);
             System.setErr(orgSystemError);
         }

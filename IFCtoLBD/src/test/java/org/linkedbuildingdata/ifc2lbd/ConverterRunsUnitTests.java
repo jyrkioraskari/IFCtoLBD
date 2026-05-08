@@ -1,13 +1,17 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -174,7 +178,7 @@ public class ConverterRunsUnitTests {
 	@DisplayName("Test old IFC version conversion")
 	@Test
 	public void testOldIFCVersionConversion() {
-		URL file_url = ClassLoader.getSystemResource("05111002_IFCR2_Geo_Columns_1.ifc");
+		URL file_url = ClassLoader.getSystemResource("IFC_Schependomlaan.ifc");
 		try {
 			File ifc_file = new File(file_url.toURI());
 			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
@@ -182,6 +186,29 @@ public class ConverterRunsUnitTests {
 					temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
 		} catch (Exception e) {
 			fail("Conversion had an error: " + e.getMessage());
+		}
+	}
+
+	@DisplayName("Test unsupported IFC 2.0 version is rejected before conversion")
+	@Test
+	public void testUnsupportedIFC20LongformIsRejected() {
+		URL file_url = ClassLoader.getSystemResource("05111002_IFCR2_Geo_Columns_1.ifc");
+		try {
+			File ifc_file = new File(file_url.toURI());
+			File temp_file = File.createTempFile("ifc2lbd", "test.ttl");
+			ByteArrayOutputStream output = new ByteArrayOutputStream();
+			PrintStream originalOut = System.out;
+			try (PrintStream capture = new PrintStream(output, true, StandardCharsets.UTF_8)) {
+				System.setOut(capture);
+				new IFCtoLBDConverter(ifc_file.getAbsolutePath(), "https://dot.dc.rwth-aachen.de/IFCtoLBDset#",
+						temp_file.getAbsolutePath(), 0, true, false, true, false, false, false);
+			} finally {
+				System.setOut(originalOut);
+			}
+			assertFalse(output.toString(StandardCharsets.UTF_8).contains("ifcOpenShell"),
+					"Unsupported IFC20_LONGFORM files must be rejected before geometry conversion.");
+		} catch (Exception e) {
+			fail("Unsupported IFC 2.0 rejection had an error: " + e.getMessage());
 		}
 	}
 

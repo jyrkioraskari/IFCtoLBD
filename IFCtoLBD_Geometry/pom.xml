@@ -22,6 +22,8 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<log4j2.version>2.25.4</log4j2.version>
+		<slf4j.version>2.0.17</slf4j.version>
 	</properties>
 	<dependencies>
 
@@ -42,7 +44,7 @@
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
-			<version>2.0.4</version>
+			<version>${slf4j.version}</version>
 			<!-- URL for the SLF4J project: https://www.slf4j.org/manual.html -->
 			<!-- SLF4J (Simple Logging Facade for Java) provides a simple
 			abstraction for various logging frameworks, allowing the end user to plug 
@@ -53,7 +55,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j2-impl</artifactId>
-			<version>2.19.0</version>
+			<version>${log4j2.version}</version>
 			<!-- Scope of the dependency, used at runtime -->
 			<scope>runtime</scope>
 			<!-- URL for the Log4j SLF4J2 Implementation project:
@@ -67,7 +69,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>2.19.0</version>
+			<version>${log4j2.version}</version>
 			<!-- URL for the Log4j project:
 			https://logging.apache.org/log4j/2.x/ -->
 			<!-- Log4j Core is the main implementation of the Log4j logging
