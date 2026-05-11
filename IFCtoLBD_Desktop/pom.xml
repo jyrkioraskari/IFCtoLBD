@@ -10,7 +10,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>IFCtoLBD_Desktop</artifactId>
-	<version>2.46.1</version>
+	<version>2.46.2</version>
 	<name>IFCtoLBD Desktop Java 17 and newer</name>
 	<description>The IFC to BOT converter user interface for a desktop computer</description>
 	<developers>
@@ -30,6 +30,8 @@
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<javafx.version>21.0.10</javafx.version>
+		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -46,28 +48,28 @@
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-controls</artifactId>
-			 <version>21-ea+5</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-fxml</artifactId>
-			 <version>21-ea+5</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-base</artifactId>
-			 <version>21-ea+5</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
 			<artifactId>javafx-graphics</artifactId>
-			 <version>21-ea+5</version>
+			<version>${javafx.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc-to-lbd</artifactId>
-			<version>2.46.1</version>
+			<version>2.46.2</version>
 		</dependency>
 	</dependencies>
 	<build>
@@ -80,10 +82,18 @@
 					<archive>
 						<manifest>
 							<mainClass>
-								org.linkedbuildingdata.ifc2lbd.Main
+								org.linkedbuildingdata.ifc2lbd.desktop.Main
 							</mainClass>
 						</manifest>
 					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.openjfx</groupId>
+				<artifactId>javafx-maven-plugin</artifactId>
+				<version>${javafx.maven.plugin.version}</version>
+				<configuration>
+					<mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>

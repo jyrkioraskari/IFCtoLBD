@@ -22,8 +22,9 @@
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<log4j2.version>2.25.4</log4j2.version>
-		<slf4j.version>2.0.17</slf4j.version>
+		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
+		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
+		<slf4j.version>2.1.0-alpha1</slf4j.version>
 	</properties>
 	<dependencies>
 
@@ -55,7 +56,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-slf4j2-impl</artifactId>
-			<version>${log4j2.version}</version>
+			<version>${log4j2.slf4j2.version}</version>
 			<!-- Scope of the dependency, used at runtime -->
 			<scope>runtime</scope>
 			<!-- URL for the Log4j SLF4J2 Implementation project:
@@ -69,7 +70,7 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<version>${log4j2.version}</version>
+			<version>${log4j2.core.version}</version>
 			<!-- URL for the Log4j project:
 			https://logging.apache.org/log4j/2.x/ -->
 			<!-- Log4j Core is the main implementation of the Log4j logging
@@ -133,7 +134,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.18.0</version>
+			<version>3.16.0</version>
 			<!-- URL for the Apache Commons Lang project:
 			https://commons.apache.org/proper/commons-lang/ -->
 			<!-- Apache Commons Lang provides a host of helper utilities for the

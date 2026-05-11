@@ -37,7 +37,7 @@ limitations under the License.
 */
 
 class IfcSpfParser {
-	private static final Logger LOG = LoggerFactory.getLogger(RDFWriter.class);
+	private static final Logger LOG = LoggerFactory.getLogger(IfcSpfParser.class);
 
 	private final InputStream inputStream;
 	private int idCounter = 0;
@@ -203,9 +203,9 @@ class IfcSpfParser {
 							ifcvo4reference = linenum_linemap.get(toLong(s.substring(1)));
 
 						if (ifcvo4reference == null) {
-							//LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum()
+							//LOG.warn("*WARNING 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum()
 							//		+ "=" + ifcLine.getFullLineAfterNum());
-							LOG.error("*ERROR 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum());
+							LOG.warn("*WARNING 6*: Reference to non-existing line number in line: #" + ifcLine.getLineNum());
 
 							continue;
 						}
@@ -249,9 +249,9 @@ class IfcSpfParser {
 										else
 											ifcvo4reference = linenum_linemap.get(toLong(s.substring(1)));
 										if (ifcvo4reference == null) {
-											//LOG.error("*ERROR 8*: Reference to non-existing line number in line: #"
+											//LOG.warn("*WARNING 8*: Reference to non-existing line number in line: #"
 											//		+ ifcLine.getLineNum() + " - " + ifcLine.getFullLineAfterNum());
-											LOG.error("*ERROR 8*: Reference to non-existing line number in line: #"
+											LOG.warn("*WARNING 8*: Reference to non-existing line number in line: #"
 													+ ifcLine.getLineNum());
 
 											objectList_level2.set(objlist_inx_level2, "-");

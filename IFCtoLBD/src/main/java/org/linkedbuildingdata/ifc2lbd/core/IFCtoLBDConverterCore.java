@@ -1293,11 +1293,12 @@ public abstract class IFCtoLBDConverterCore {
 			this.hasPerformanceBoost=hasPerformanceBoost;
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
+			boolean loadedExistingIfcOWL = false;
 
 			if (!isTmpFile && targetFile == null) {
 				String tmpdir = System.getProperty("java.io.tmpdir");
 				String name = new File(ifc_file).getName();
-				targetFile = tmpdir + name;
+				targetFile = new File(tmpdir, name).getAbsolutePath();
 			}
 			if (isTmpFile || targetFile == null) {
 				outputFile = File.createTempFile("ifc", ".ttl");
@@ -1329,6 +1330,7 @@ public abstract class IFCtoLBDConverterCore {
 						this.ontURI = rj.getOntologyURI(ifc_file);
 						dataset.commit(); // commit changes
 						committed = true;
+						loadedExistingIfcOWL = true;
 					} finally {
 						if (!committed)
 							dataset.abort();
@@ -1338,6 +1340,8 @@ public abstract class IFCtoLBDConverterCore {
 				}
 
 			}
+			if (loadedExistingIfcOWL)
+				return;
 			Dataset dataset = TemporalDatasetSingleton.getInstance();
 			try {
 				dataset.begin(ReadWrite.WRITE);

@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -71,6 +72,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			"IFC2X3_FINAL, IFC2X3_TC1, IFC4_ADD1, IFC4_ADD2, IFC4, IFC4x1, IFC4x3_RC1";
 
 	private int ios = 0;
+	private String lastReadInPhaseSignature;
+	private boolean readInPhaseReusable = false;
 
 	/**
 	 * IFCtoLBD constructor The construction method for the converter process. This
@@ -415,6 +418,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			return false;
 		}
 
+		String readInPhaseSignature = readInPhaseSignature(ifc_filename, target_file, hasGeometry, hasPerformanceBoost,
+				exportIfcOWL, hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits, hasInterfaces,
+				expressSchema);
+		if (readInPhaseReusable && readInPhaseSignature.equals(this.lastReadInPhaseSignature)) {
+			eventBus.post(new IFCtoLBD_SystemStatusEvent("Reusing existing read-in phase"));
+			return true;
+		}
+		this.readInPhaseReusable = false;
+
 		CompletableFuture<IFCGeometry> future_ifc_geometry = null;
 		if (hasGeometry)
 			future_ifc_geometry = getgeom(ifc_filename);
@@ -465,12 +477,29 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
 		}
+		this.lastReadInPhaseSignature = readInPhaseSignature;
+		this.readInPhaseReusable = true;
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			this.readInPhaseReusable = false;
 			return false;
 		}
 		return true;
+	}
+
+	private String readInPhaseSignature(String ifcFilename, String targetFile, boolean hasGeometry,
+			boolean hasPerformanceBoost, boolean exportIfcOWL, boolean hasBuildingElements,
+			boolean hasBuildingProperties, boolean hasBoundingBoxWKT, boolean hasUnits, boolean hasInterfaces,
+			String expressSchema) {
+		File ifcFile = new File(ifcFilename);
+		return String.join("|", ifcFile.getAbsolutePath(), Long.toString(ifcFile.lastModified()),
+				Long.toString(ifcFile.length()), Objects.toString(targetFile, ""), Boolean.toString(hasGeometry),
+				Boolean.toString(hasPerformanceBoost), Boolean.toString(exportIfcOWL),
+				Boolean.toString(hasBuildingElements), Boolean.toString(hasBuildingProperties),
+				Boolean.toString(hasBoundingBoxWKT), Boolean.toString(hasUnits), Boolean.toString(hasInterfaces),
+				Objects.toString(expressSchema, ""), Objects.toString(this.uriBase.orElse(null), ""),
+				Integer.toString(this.props_level), Boolean.toString(this.hasPropertiesBlankNodes));
 	}
 
 	public Model convert_LBD_phase(boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
@@ -506,6 +535,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 		boolean namedGraphs = false;
 		try {
+			this.readInPhaseReusable = false;
 			
 			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs,
