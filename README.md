@@ -17,7 +17,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 ## How to cite
 ```
-@software{jyrki_oraskari_2026_01,
+@software{jyrki_oraskari_2026_02,
  author       = {Jyrki Oraskari and
                   Mathias Bonduel and
                   Kris McGlinn and
@@ -28,11 +28,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {IFCtoLBD: IFCtoLBD v 2.46.0},
+  title        = {IFCtoLBD: IFCtoLBD v 2.46.2},
   month        = aug,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.46.0},
+  version      = {2.46.2},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
