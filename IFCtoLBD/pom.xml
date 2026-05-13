@@ -62,7 +62,9 @@
 		<maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
 		<maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
+		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
 		<!-- General Properties -->
+		<ifc2lbd.cli.mainClass>org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI</ifc2lbd.cli.mainClass>
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
 		<javac.src.version>21</javac.src.version>
 		<javac.target.version>21</javac.target.version>
@@ -74,6 +76,7 @@
 		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
 		<slf4j.version>2.1.0-alpha1</slf4j.version>
+		<picocli.version>4.7.7</picocli.version>
 		<junit.version>5.14.3</junit.version>
 	</properties>
 	<dependencyManagement>
@@ -117,6 +120,14 @@
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j2-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+				</exclusion>
 
 				<exclusion>
 					<groupId>org.glassfish</groupId>
@@ -124,6 +135,13 @@
 				</exclusion>
 
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
 		</dependency>
 
 		<!-- Dependency for Apache Commons Lang library -->
@@ -202,7 +220,7 @@
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
-			<version>4.7.7</version>
+			<version>${picocli.version}</version>
 			<!-- URL for the Picocli project: https://picocli.info -->
 			<!-- Picocli is a framework for creating Java command line
 			applications with almost zero code. It provides command line parsing,
@@ -372,10 +390,66 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>native</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<imageName>IFCtoLBDConverter_CLI</imageName>
+							<mainClass>${ifc2lbd.cli.mainClass}</mainClass>
+							<fallback>false</fallback>
+							<metadataRepository>
+								<enabled>true</enabled>
+							</metadataRepository>
+							<buildArgs>
+								<buildArg>--enable-url-protocols=http,https</buildArg>
+								<buildArg>--enable-all-security-services</buildArg>
+								<buildArg>-H:+ReportExceptionStackTraces</buildArg>
+								<buildArg>-H:IncludeResources=.*\.(ttl|ifc|ser|properties|xml|json|csv|txt)|exe/.*/IfcGeomServer(\.exe)?</buildArg>
+							</buildArgs>
+						</configuration>
+						<executions>
+							<execution>
+								<id>build-native</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<annotationProcessors>
+						<annotationProcessor>picocli.codegen.aot.graalvm.processor.NativeImageConfigGeneratorProcessor</annotationProcessor>
+					</annotationProcessors>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>info.picocli</groupId>
+							<artifactId>picocli-codegen</artifactId>
+							<version>${picocli.version}</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<arg>-Aproject=${project.groupId}/${project.artifactId}</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 			<!-- Maven Assembly Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

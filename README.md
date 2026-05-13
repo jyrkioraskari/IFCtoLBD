@@ -40,6 +40,20 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### May 13, 2026
+GraalVM compilation for IFCtoLBD command line for Windows 11. 
+
+- Install GraalVM for JDK 21 and set GRAALVM_HOME to point to that directory
+- Install Visual Studio Build Tools 2026 with the setting of Desktop development with C++.
+- install Maven and add that to the system path.
+
+At the project folder:
+```
+cd ./IFCtiLBD
+mvn clean -Pnative -DskipTests package
+```
+
+
 ### May 8, 2026
 Support for the new Apache Jena version 6.0.0. This means also that the oldest supported Java version is now 21.
 

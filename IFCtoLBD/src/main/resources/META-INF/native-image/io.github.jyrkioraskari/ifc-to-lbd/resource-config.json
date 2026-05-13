@@ -1,0 +1,48 @@
+{
+  "resources": {
+    "includes": [
+      {
+        "pattern": ".*\\.ser$"
+      },
+      {
+        "pattern": "entIFC.*\\.ser$"
+      },
+      {
+        "pattern": "typIFC.*\\.ser$"
+      },
+      {
+        "pattern": "ifcOWL/.*\\.ser$"
+      },
+      {
+        "pattern": ".*\\.ttl$"
+      },
+      {
+        "pattern": ".*\\.rdf$"
+      },
+      {
+        "pattern": ".*\\.nt$"
+      },
+      {
+        "pattern": ".*\\.exp$"
+      },
+      {
+        "pattern": ".*\\.csv$"
+      },
+      {
+        "pattern": ".*\\.xml$"
+      },
+      {
+        "pattern": ".*\\.json$"
+      },
+      {
+        "pattern": "ifcOWL/.*\\.(ttl|rdf|nt|exp|csv|xml|json)$"
+      },
+      {
+        "pattern": "exe/.*/IfcGeomServer(\\.exe)?$"
+      },
+      {
+        "pattern": "resources/exe/.*/IfcGeomServer(\\.exe)?$"
+      }
+    ]
+  }
+}
