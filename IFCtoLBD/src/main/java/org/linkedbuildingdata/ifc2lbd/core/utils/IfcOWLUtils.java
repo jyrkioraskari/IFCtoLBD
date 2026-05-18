@@ -298,8 +298,8 @@ public abstract class IfcOWLUtils {
 	}
 
 	private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
-		return new RDFStep[] { new RDFStep(ifcOWL.getProperty("ifc:relatingType_IfcRelDefinesByType")),
-				new RDFStep(ifcOWL.getProperty("ifc:hasPropertySets_IfcTypeObject")) };
+		return new RDFStep[] { new RDFStep(ifcOWL.getProperty("relatingType_IfcRelDefinesByType")),
+				new RDFStep(ifcOWL.getProperty("hasPropertySets_IfcTypeObject")) };
 	}
 
 	public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
