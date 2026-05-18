@@ -18,7 +18,7 @@ limitations under the License.
  
  package com.buildingsmart.tech.ifcowl.vo;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -31,8 +31,8 @@ public class IFCVO {
     private Long  stepLineNum;
     //private String fullLineAfterNum;  // uses unnecessary memory
     private String name = null;
-    private LinkedList<Object> slot_list = new LinkedList<>();
-    private Map<String, LinkedList<IFCVO>> inversePointerSets = new HashMap<>();
+    private List<Object> slot_list = new ArrayList<>();
+    private Map<String, LinkedList<IFCVO>> inversePointerSets;
 
     public IFCVO() {
         //default constructor
@@ -67,10 +67,13 @@ public class IFCVO {
     }
 
     public void setList(List<Object> list) {
-        this.slot_list = (LinkedList<Object>) list;
+        this.slot_list = list;
     }
 
     public Map<String, LinkedList<IFCVO>> getInversePointerSets() {
+        if (inversePointerSets == null) {
+            inversePointerSets = new java.util.HashMap<>();
+        }
         return inversePointerSets;
     }
 

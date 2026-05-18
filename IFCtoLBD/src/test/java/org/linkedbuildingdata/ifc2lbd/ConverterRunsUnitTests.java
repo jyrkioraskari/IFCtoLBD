@@ -1,7 +1,8 @@
 package org.linkedbuildingdata.ifc2lbd;
 
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,8 +33,11 @@ import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.ResourceFactory;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
@@ -42,6 +46,7 @@ import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
 import org.apache.jena.shacl.lib.ShLib;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.vocabulary.XSD;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
@@ -50,6 +55,8 @@ import org.linkedbuildingdata.ifc2lbd.core.TemporalDatasetSingleton;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 import com.github.davidmoten.rtreemulti.Entry;
 import com.github.davidmoten.rtreemulti.RTree;
@@ -1259,5 +1266,45 @@ public class ConverterRunsUnitTests {
 			System.err.println("testSimplifiedAttributes: " + e1.getMessage());
 			fail("testSimplifiedAttributes: " + e1.getMessage());
 		}
+	}
+
+	@DisplayName("PropertySet keeps literal datatypes")
+	@Test
+	public void testPropertySetKeepsLiteralDatatypes() {
+		Model model = ModelFactory.createDefaultModel();
+		PropertySet propertySet = new PropertySet("https://example.com/", model, ModelFactory.createDefaultModel(),
+				"Pset_Test", 1, true, Map.of(), false);
+		Resource element = model.createResource("https://example.com/element");
+
+		propertySet.putPnameValue("IsExternal", model.createTypedLiteral(true));
+		propertySet.connect(element, "guid");
+
+		Property property = ResourceFactory.createProperty(PROPS.ns + "isExternal_property_simple");
+		Statement statement = element.getProperty(property);
+		if (statement == null)
+			fail("Converted property value was not written.");
+		assertEquals(XSD.xboolean.getURI(), statement.getObject().asLiteral().getDatatypeURI());
+		assertEquals(true, statement.getObject().asLiteral().getValue());
+		assertEquals(Optional.of(true), propertySet.isExternal());
+	}
+
+	@DisplayName("Type object property sets are listed")
+	@Test
+	public void testTypeObjectPropertySetsAreListed() {
+		Model model = ModelFactory.createDefaultModel();
+		String ifcNs = "https://example.com/ifc#";
+		IfcOWL ifcOWL = new IfcOWL(ifcNs);
+		Resource element = model.createResource("https://example.com/element");
+		Resource relDefinesByType = model.createResource("https://example.com/relDefinesByType");
+		Resource typeObject = model.createResource("https://example.com/typeObject");
+		Resource propertySet = model.createResource("https://example.com/typePropertySet");
+
+		relDefinesByType.addProperty(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByType"), element);
+		relDefinesByType.addProperty(ifcOWL.getProperty("relatingType_IfcRelDefinesByType"), typeObject);
+		typeObject.addProperty(ifcOWL.getProperty("hasPropertySets_IfcTypeObject"), propertySet);
+
+		List<RDFNode> propertySets = IfcOWLUtils.listPropertysets(element, ifcOWL);
+		assertEquals(1, propertySets.size());
+		assertEquals(propertySet, propertySets.get(0));
 	}
 }

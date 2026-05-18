@@ -2103,7 +2103,7 @@ beo:Window-WINDOW rdf:type owl:Class ;
                   rdfs:subClassOf beo:Window ;
                   rdfs:comment """A building element that is predominately used to provide natural light and fresh air. It includes vertical opening but also horizontal opening such as skylights or light domes. It includes constructions with swinging, pivoting, sliding, or revolving panels and fixed panels. A window consists of a lining and one or several panels.
 NOTE  Definition according to ISO 6707-1
-Construction for closing a vertical or near vertical opening in a wall or pitched roof that will admit light and may admit fresh air."""@ifc-2x4 ,
+Construction for closing a vertical or near vertical opening in a wall or pitched roof that will admit light and may admit fresh air."""@en ,
                                "Abertura destinada a iluminar e ventilar os ambientes internos, além de facilitar a visão do exterior."@pt-br ,
                                "Bauteil zum Schließen einer Öffnung in einer Wand oder Satteldach, das Licht durchlassen und Belüftung ermöglichen kann"@de-de ,
                                "Een raam is een constructie met een scheidingsfunctie en een lichttoetredingsfunctie."@nl-nl ,

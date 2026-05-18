@@ -298,7 +298,8 @@ public abstract class IfcOWLUtils {
 	}
 
 	private static RDFStep[] getIfcTypeObjectPropertySetPath(IfcOWL ifcOWL) {
-		return new RDFStep[] { new RDFStep(ifcOWL.getProperty("relatingType_IfcRelDefinesByType")),
+		return new RDFStep[] { new InvRDFStep(ifcOWL.getProperty("relatedObjects_IfcRelDefinesByType")),
+				new RDFStep(ifcOWL.getProperty("relatingType_IfcRelDefinesByType")),
 				new RDFStep(ifcOWL.getProperty("hasPropertySets_IfcTypeObject")) };
 	}
 

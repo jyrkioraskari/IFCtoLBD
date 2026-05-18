@@ -5,12 +5,12 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
+import java.util.function.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,8 +88,8 @@ class IfcSpfParser {
 		int state = 0;
 		StringBuilder sb = new StringBuilder();
 		int clCount = 0;
-		LinkedList<Object> current = (LinkedList<Object>) ifcvo.getObjectList();
-		Stack<LinkedList<Object>> listStack = new Stack<>();
+		List<Object> current = ifcvo.getObjectList();
+		ArrayDeque<List<Object>> listStack = new ArrayDeque<>();
 		for (int i = 0; i < line.length(); i++) {
 			char ch = line.charAt(i);
 			switch (state) {
@@ -121,7 +121,7 @@ class IfcSpfParser {
 				}
 				if (ch == '(') {
 					listStack.push(current);
-					LinkedList<Object> tmp = new LinkedList<>();
+					List<Object> tmp = new ArrayList<>();
 					if (!sb.toString().trim().isEmpty())
 						current.add(sb.toString().trim());
 					sb.setLength(0);
@@ -184,7 +184,14 @@ class IfcSpfParser {
 	}*/
 
 	boolean mapEntries() {
+		return mapEntries(ifcLine -> false);
+	}
+
+	boolean mapEntries(Predicate<IFCVO> skipEntry) {
 		for (IFCVO ifcLine : linenum_linemap.values()) {
+			if (skipEntry.test(ifcLine)) {
+				continue;
+			}
 
 			for (int inx = 0; inx < ifcLine.getObjectList().size(); inx++) {
 				Object ifc_lineslot = ifcLine.getObjectList().get(inx);
@@ -211,9 +218,9 @@ class IfcSpfParser {
 						}
 						ifcLine.getObjectList().set(inx, ifcvo4reference);  // Replaces the #num ref with a IFC STEP line object 
 					}
-				} else if (ifc_lineslot instanceof LinkedList) {
+				} else if (ifc_lineslot instanceof List) {
 					@SuppressWarnings("unchecked")
-					LinkedList<Object> objectList_level1 = (LinkedList<Object>) ifc_lineslot;
+					List<Object> objectList_level1 = (List<Object>) ifc_lineslot;
 
 					for (int objlist_inx_level1 = 0; objlist_inx_level1 < objectList_level1.size(); objlist_inx_level1++) {
 						Object element_of_list_level1 = objectList_level1.get(objlist_inx_level1);
@@ -234,9 +241,9 @@ class IfcSpfParser {
 							} else {
 								objectList_level1.set(objlist_inx_level1, s);
 							}
-						} else if (element_of_list_level1 instanceof LinkedList) {
-							@SuppressWarnings("unchecked")
-							LinkedList<Object> objectList_level2 = (LinkedList<Object>) element_of_list_level1;
+							} else if (element_of_list_level1 instanceof List) {
+								@SuppressWarnings("unchecked")
+								List<Object> objectList_level2 = (List<Object>) element_of_list_level1;
 							for (int objlist_inx_level2 = 0; objlist_inx_level2 < objectList_level2.size(); objlist_inx_level2++) {
 								Object element_of_list_level2 = objectList_level2.get(objlist_inx_level2);
 								if (element_of_list_level2 instanceof String s) {

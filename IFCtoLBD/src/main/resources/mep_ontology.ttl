@@ -545,7 +545,7 @@ Audio-visual appliances may be fixed in place or may be able to be moved from on
 ###  https://pi.pauwel.be/voc/distributionelement#Boiler-STEAM
 <https://pi.pauwel.be/voc/distributionelement#Boiler-STEAM> rdf:type owl:Class ;
                                                            rdfs:subClassOf <https://pi.pauwel.be/voc/distributionelement#Boiler> ;
-                                                           rdfs:comment "The amount of steam consumed during the period specified in the time series."@ifc-2x4 ,
+                                                           rdfs:comment "The amount of steam consumed during the period specified in the time series."@en ,
                                                                         "http://bsdd.buildingsmart.org/#concept/details/3r3yMQaETCj9yTgeFnY6eO"@en ;
                                                            rdfs:label "Steam Boiler"@en ,
                                                                       "dampkjel"@nb-no ;
@@ -1622,7 +1622,7 @@ Audio-visual appliances may be fixed in place or may be able to be moved from on
                                                                   rdfs:comment "A generalization of all elements that participate in a distribution system. "@en ,
                                                                                """A generalization of all elements that participate in a distribution system. Typical examples :
 building service elements within a heating systems, cooling system, ventilation system, plumbing system
-or electrical elements within a communication network"""@ifc-2x4 ,
+or electrical elements within a communication network"""@en ,
                                                                                "http://bsdd.buildingsmart.org/#concept/details/1UHiGqJXTCL9Ds53EKce2Y"@en ;
                                                                   rdfs:label "Distribution Element"@en ,
                                                                              "Elément de distribution"@fr-fr ,
@@ -2128,7 +2128,6 @@ May be fixed in place or able to be moved from one space to another. Requires an
 <https://pi.pauwel.be/voc/distributionelement#ElectricMotor> rdf:type owl:Class ;
                                                             rdfs:subClassOf <https://pi.pauwel.be/voc/distributionelement#EnergyConversionDevice> ;
                                                             rdfs:comment "An engine that is a machine for converting electrical energy into mechanical energy."@en ,
-                                                                         "An engine that is a machine for converting electrical energy into mechanical energy."@ifc-2x4 ,
                                                                          "http://bsdd.buildingsmart.org/#concept/details/3_kLW3eI10Xem4Z9zSCTzp"@en ;
                                                             rdfs:label "Electric Motor"@en ,
                                                                        "Elektromotor"@de-de ,

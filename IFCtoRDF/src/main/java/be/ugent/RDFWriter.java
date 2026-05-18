@@ -27,12 +27,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.BiConsumer;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.graph.NodeFactory;
@@ -99,6 +97,15 @@ public class RDFWriter {
             "IFCCARTESIANTRANSFORMATIONOPERATOR3D",
             "IFCPOLYGONALFACESET"
     )));
+    private static final Map<String, String> EXPRESS_LIST_CONTENT_TYPES = Map.of(
+        "STRING_List", "STRING",
+        "REAL_List", "REAL",
+        "INTEGER_List", "INTEGER",
+        "BINARY_List", "BINARY",
+        "BOOLEAN_List", "BOOLEAN",
+        "LOGICAL_List", "LOGICAL",
+        "NUMBER_List", "NUMBER"
+    );
 
 	// input variables
 	private final String baseURI;
@@ -120,6 +127,11 @@ public class RDFWriter {
 	// Taking care of avoiding duplicate resources
 	private final Map<String, Resource> propertyResourceMap = new HashMap<>(5000);
 	private final Map<String, Resource> resourceMap = new HashMap<>(50000);  // This saves around 20% calculation time
+	private final Map<String, OntClass> ontClassCache = new HashMap<>(2048);
+	private final Map<String, OntProperty> ontPropertyCache = new HashMap<>(2048);
+	private final Map<String, OntResource> ontResourceCache = new HashMap<>(2048);
+	private final Map<String, String> xsdTypeCache = new HashMap<>(2048);
+	private final Map<String, OntResource> listContentTypeCache = new HashMap<>(2048);
 
 	//private boolean removeDuplicates = false;
 	private final boolean hasPerformanceBoost;
@@ -191,7 +203,7 @@ public class RDFWriter {
 
 		// map entries of the linemap Map object to the ontology Model and make
 		// new instances in the model
-		boolean parsedSuccessfully = parser.mapEntries();
+		boolean parsedSuccessfully = parser.mapEntries(this::shouldSkipParsedEntry);
 
 		if (!parsedSuccessfully) {
 			LOG.error("IFC entries could not be mapped to ontology resources.");
@@ -227,7 +239,7 @@ public class RDFWriter {
 				continue;
 			}
 
-			OntClass cl = ontModel.getOntClass(ontNS + typeName);
+			OntClass cl = getOntClass(ontNS + typeName);
 			if (cl == null) {
 				LOG.warn("Class missing for IFC type: {}", typeName);
 				if (typeName == null || typeName.trim().isEmpty()) {
@@ -276,7 +288,7 @@ public class RDFWriter {
 					LOG.warn("*WARNING 1*: fillProperties 2: unhandled type property found.");
 				} else if (o instanceof IFCVO) {
 					LOG.warn("*WARNING 2*: fillProperties 2: unhandled type property found.");
-				} else if (o instanceof LinkedList) {
+				} else if (o instanceof List) {
 					LOG.info("fillProperties 3 - fillPropertiesHandleListObject(tvo)");
 					fillPropertiesHandleListObject(r, tvo, o);
 				}
@@ -299,7 +311,7 @@ public class RDFWriter {
 					attributePointer = fillPropertiesHandleStringObject(r, evo, subject, attributePointer, o);
 				} else if (o instanceof IFCVO) {
 					attributePointer = fillPropertiesHandleIfcObject(r, evo, attributePointer, o);
-				} else if (o instanceof LinkedList) {
+				} else if (o instanceof List) {
 					attributePointer = fillPropertiesHandleListObject(r, evo, attributePointer, o);
 				}
 			}
@@ -327,16 +339,16 @@ public class RDFWriter {
 							+ evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
 					final String literalString = filterExtras((String) o);
 
-					OntProperty p = ontModel.getOntProperty(propURI);
+					OntProperty p = getOntProperty(propURI);
 					OntResource range = p.getRange();
 					if (range.isClass()) {
-						if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "ENUMERATION"))) {
+						if (range.asClass().hasSuperClass(getOntClass(Namespace.EXPRESS + "ENUMERATION"))) {
 							// Check for ENUM
 							addEnumProperty(r, p, range, literalString);
-						} else if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "SELECT"))) {
+						} else if (range.asClass().hasSuperClass(getOntClass(Namespace.EXPRESS + "SELECT"))) {
 							// Check for SELECT
 							createLiteralProperty(r, p, range, literalString);
-						} else if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+						} else if (range.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 							// Check for LIST
 						} else {
 							createLiteralProperty(r, p, range, literalString);
@@ -364,8 +376,8 @@ public class RDFWriter {
 			final String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
 			EntityVO evorange = ent.get(ExpressReader.formatClassName(((IFCVO) o).getName()));
 
-			OntProperty p = ontModel.getOntProperty(propURI);
-			OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
+			OntProperty p = getOntProperty(propURI);
+			OntResource rclass = getOntResource(ontNS + evorange.getName());
 
 			Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o).getLineNum(), rclass);
 			if (r1 != null) {
@@ -382,10 +394,10 @@ public class RDFWriter {
 	private int fillPropertiesHandleListObject(Resource r, EntityVO evo, int attributePointer, Object o)
 			 {
 
-		final LinkedList<Object> tmpList = (LinkedList<Object>) o;
-		LinkedList<String> literals = new LinkedList<>();
-		LinkedList<Resource> listRemembranceResources = new LinkedList<>();
-		LinkedList<IFCVO> ifcVOs = new LinkedList<>();
+		final List<Object> tmpList = (List<Object>) o;
+		List<String> literals = new ArrayList<>();
+		List<Resource> listRemembranceResources = new ArrayList<>();
+		List<IFCVO> ifcVOs = new ArrayList<>();
 
 		// process list
 		int tmpList_size = tmpList.size();
@@ -418,16 +430,16 @@ public class RDFWriter {
 						&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 
 					String propURI = evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-					OntProperty p = ontModel.getOntProperty(ontNS + propURI);
+					OntProperty p = getOntProperty(ontNS + propURI);
 					OntResource typerange = p.getRange();
 
-					if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+					if (typerange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 						// EXPRESS LISTs
 						String listvaluepropURI = ontNS
 								+ typerange.getLocalName().substring(0, typerange.getLocalName().length() - 5);
-						OntResource listrange = ontModel.getOntResource(listvaluepropURI);
+						OntResource listrange = getOntResource(listvaluepropURI);
 
-						if (listrange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+						if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 							LOG.error(
 									"*ERROR 22*: Found supposedly unhandled ListOfList, but this should not be possible.");
 						} else {
@@ -437,7 +449,7 @@ public class RDFWriter {
 					} else {
 						// EXPRESS SETs
 						EntityVO evorange = ent.get(ExpressReader.formatClassName(((IFCVO) o1).getName()));
-						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
+						OntResource rclass = getOntResource(ontNS + evorange.getName());
 
 						Resource r1 = getResource(baseURI + evorange.getName() + "_" + ((IFCVO) o1).getLineNum(),
 								rclass);
@@ -448,8 +460,8 @@ public class RDFWriter {
 				} else {
 					LOG.warn("*WARNING 13*: Nothing happened. Not sure if this is good or bad, possible or not.");
 				}
-			} else if (o1 instanceof LinkedList) {
-                LinkedList<Object> tmpListInList = (LinkedList<Object>) o1;
+			} else if (o1 instanceof List) {
+                List<Object> tmpListInList = (List<Object>) o1;
                 if (typeRemembrance != null) {
                     //int tmpListInList_size = tmpListInList.size();
                     for (Object o2 : tmpListInList) {
@@ -464,13 +476,13 @@ public class RDFWriter {
                             // Lists of IFC entities
                             LOG.warn(
                                     "*WARNING 30: Nothing happened. Not sure if this is good or bad, possible or not.");
-                        } else if (o2 instanceof LinkedList) {
+                        } else if (o2 instanceof List) {
                             // this happens only for types that are equivalent
                             // to lists (e.g. IfcLineIndex in IFC4_ADD1)
                             // in this case, the elements of the list should be
                             // treated as new instances that are equivalent to
                             // the correct lists
-                            LinkedList<Object> tmpListInListInList = (LinkedList<Object>) o2;
+                            List<Object> tmpListInListInList = (List<Object>) o2;
                             //int tmpListInListInList_size = tmpListInListInList.size();
                             for (Object o3 : tmpListInListInList) {
                                 if (o3 instanceof Character c) {
@@ -500,15 +512,15 @@ public class RDFWriter {
                             if ((evo != null) && (evo.getDerivedAttributeList() != null)
                                     && (evo.getDerivedAttributeList().size() > attributePointer)) {
 
-                                OntClass cl = ontModel.getOntClass(ontNS + typeRemembrance.getName());
+                                OntClass cl = getOntClass(ontNS + typeRemembrance.getName());
                                 Resource r1 = getResource(baseURI + typeRemembrance.getName() + "_" + idCounter, cl);
                                 idCounter++;
-                                OntResource range = ontModel.getOntResource(ontNS + typeRemembrance.getName());
+                                OntResource range = getOntResource(ontNS + typeRemembrance.getName());
 
                                 // finding listrange
                                 String[] primTypeArr = typeRemembrance.getPrimarytype().split(" ");
                                 String primType = ontNS + primTypeArr[primTypeArr.length - 1].replace(";", "");
-                                OntResource listrange = ontModel.getOntResource(primType);
+                                OntResource listrange = getOntResource(primType);
 
                                 List<Object> literalObjects = new ArrayList<>(literals);
                                 addDirectRegularListProperty(r1, range, listrange, literalObjects, 0);
@@ -537,7 +549,7 @@ public class RDFWriter {
                             literals.add(filterExtras((String) o2));
                         } else if (o2 instanceof IFCVO) {
                             ifcVOs.add((IFCVO) o2);
-                        } else if (o2 instanceof LinkedList) {
+                        } else if (o2 instanceof List) {
                             LOG.error("*ERROR 19*: Found List of List of List. Code cannot handle that.");
                         } else {
                             LOG.warn(
@@ -548,13 +560,13 @@ public class RDFWriter {
 							&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 
 						String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-						OntProperty p = ontModel.getOntProperty(propURI);
+						OntProperty p = getOntProperty(propURI);
 						OntClass typerange = p.getRange().asClass();
 
-						if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+						if (typerange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 							String listvaluepropURI = typerange.getLocalName().substring(0,
 									typerange.getLocalName().length() - 5);
-							OntResource listrange = ontModel.getOntResource(ontNS + listvaluepropURI);
+							OntResource listrange = getOntResource(ontNS + listvaluepropURI);
 							Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
 							idCounter++;
 							List<Object> objects = new ArrayList<>();
@@ -585,15 +597,15 @@ public class RDFWriter {
 		// interpret parse
 		if ((evo != null) && !literals.isEmpty()) {
 			String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-			OntProperty p = ontModel.getOntProperty(propURI);
+			OntProperty p = getOntProperty(propURI);
 			OntResource typerange = p.getRange();
 			if (typeRemembrance != null) {
 				if ((evo.getDerivedAttributeList() != null)
 						&& (evo.getDerivedAttributeList().size() > attributePointer)) {
-					if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
+					if (typerange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList")))
 						addRegularListProperty(r, p, literals, typeRemembrance);
 					else {
-						addSinglePropertyFromTypeRemembrance(r, p, literals.getFirst(), typeRemembrance);
+						addSinglePropertyFromTypeRemembrance(r, p, literals.get(0), typeRemembrance);
 						if (literals.size() > 1) {
 							LOG.warn("*WARNING 37*: We are ignoring a number of literal values here.");
 						}
@@ -604,7 +616,7 @@ public class RDFWriter {
 				typeRemembrance = null;
 			} else if ((evo.getDerivedAttributeList() != null)
 					&& (evo.getDerivedAttributeList().size() > attributePointer)) {
-				if (typerange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList")))
+				if (typerange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList")))
 					addRegularListProperty(r, p, literals, null);
 				else {
 					//int literals_size = literals.size();
@@ -618,7 +630,7 @@ public class RDFWriter {
 			if ((evo.getDerivedAttributeList() != null)
 					&& (evo.getDerivedAttributeList().size() > attributePointer)) {
 				String propURI = ontNS + evo.getDerivedAttributeList().get(attributePointer).getLowerCaseName();
-				OntProperty p = ontModel.getOntProperty(propURI);
+				OntProperty p = getOntProperty(propURI);
 				addListPropertyToGivenEntities(r, p, listRemembranceResources);
 			}
 		}
@@ -630,8 +642,8 @@ public class RDFWriter {
 	private void fillPropertiesHandleListObject(Resource r, TypeVO tvo, Object o)  {
 
 		@SuppressWarnings("unchecked")
-		final LinkedList<Object> tmpList = (LinkedList<Object>) o;
-		LinkedList<String> literals = new LinkedList<>();
+		final List<Object> tmpList = (List<Object>) o;
+		List<String> literals = new ArrayList<>();
 
 		// process list
 		//int tmpList_size = tmpList.size();
@@ -652,8 +664,8 @@ public class RDFWriter {
                 } else {
                     LOG.warn("*WARNING 19*: Nothing happened. Not sure if this is good or bad, possible or not.");
                 }
-            } else if (o1 instanceof LinkedList && typeRemembrance != null) {
-                LinkedList<Object> tmpListInlist = (LinkedList<Object>) o1;
+            } else if (o1 instanceof List && typeRemembrance != null) {
+                List<Object> tmpListInlist = (List<Object>) o1;
                 //int tmpListInlist_size = tmpListInlist.size();
                 for (Object o2 : tmpListInlist) {
                     if (o2 instanceof String) {
@@ -678,7 +690,7 @@ public class RDFWriter {
 					String primType = primtypeArr[primtypeArr.length - 1].replace(";", "") + "_"
 							+ primtypeArr[0].substring(0, 1).toUpperCase() + primtypeArr[0].substring(1).toLowerCase();
 					String typeURI = ontNS + primType;
-					OntResource range = ontModel.getOntResource(typeURI);
+					OntResource range = getOntResource(typeURI);
 					OntResource listrange = getListContentType(range.asClass());
                     List<Object> literalObjects = new ArrayList<>(literals);
 					addDirectRegularListProperty(r, range, listrange, literalObjects, 0);
@@ -691,7 +703,7 @@ public class RDFWriter {
 				String primType = primTypeArr[primTypeArr.length - 1].replace(";", "") + "_"
 						+ primTypeArr[0].substring(0, 1).toUpperCase() + primTypeArr[0].substring(1).toLowerCase();
 				String typeURI = ontNS + primType;
-				OntResource range = ontModel.getOntResource(typeURI);
+				OntResource range = getOntResource(typeURI);
                 List<Object> literalObjects = new ArrayList<>(literals);
 				OntResource listrange = getListContentType(range.asClass());
 				addDirectRegularListProperty(r, range, listrange, literalObjects, 0);
@@ -705,16 +717,16 @@ public class RDFWriter {
 
 	private void addSinglePropertyFromTypeRemembrance(Resource r, OntProperty p, String literalString,
 			TypeVO typeremembrance)  {
-		OntResource range = ontModel.getOntResource(ontNS + typeremembrance.getName());
+		OntResource range = getOntResource(ontNS + typeremembrance.getName());
 
 		if (range.isClass()) {
-			if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "ENUMERATION"))) {
+			if (range.asClass().hasSuperClass(getOntClass(Namespace.EXPRESS + "ENUMERATION"))) {
 				// Check for ENUM
 				addEnumProperty(r, p, range, literalString);
-			} else if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "SELECT"))) {
+			} else if (range.asClass().hasSuperClass(getOntClass(Namespace.EXPRESS + "SELECT"))) {
 				// Check for SELECT
 				createLiteralProperty(r, p, range, literalString);
-			} else if (range.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+			} else if (range.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 				// Check for LIST
 				LOG.warn("*WARNING 24*: found LIST property (but doing nothing with it): " + p + " - "
 						+ range.getLocalName() + " - " + literalString);
@@ -740,33 +752,41 @@ public class RDFWriter {
 	}
 
 	private void addLiteralToResource(Resource r1, OntProperty valueProp, String xsdType, String literalString) {
-	    Map<String, BiConsumer<Resource, String>> typeHandlers = Map.of(
-	        "integer", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDinteger)),
-	        "double", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDdouble)),
-	        "hexBinary", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDhexBinary)),
-	        "boolean", (res, lit) -> {
-	            if (".F.".equalsIgnoreCase(lit)) 
-	                addLiteral(res, valueProp, ResourceFactory.createTypedLiteral("false", XSDDatatype.XSDboolean));
-	            else if (".T.".equalsIgnoreCase(lit)) 
-	                addLiteral(res, valueProp, ResourceFactory.createTypedLiteral("true", XSDDatatype.XSDboolean));
-	            else 
-	                LOG.warn("*WARNING 10*: found odd boolean value: " + lit);
-	        },
-	        "logical", (res, lit) -> {
-	            if (".F.".equalsIgnoreCase(lit))
-	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "FALSE"));
-	            else if (".T.".equalsIgnoreCase(lit))
-	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "TRUE"));
-	            else if (".U.".equalsIgnoreCase(lit))
-	                addProperty(res, valueProp, ontModel.getResource(Namespace.EXPRESS + "UNKNOWN"));
-	            else
-	                LOG.warn("*WARNING 9*: found odd logical value: " + lit);
-	        },
-	        "string", (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit, XSDDatatype.XSDstring))
-	    );
-
-	    typeHandlers.getOrDefault(xsdType.toLowerCase(), (res, lit) -> addLiteral(res, valueProp, ResourceFactory.createTypedLiteral(lit)))
-	                .accept(r1, literalString);
+	    switch (xsdType.toLowerCase(Locale.ROOT)) {
+	    case "integer":
+	        addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDinteger));
+	        break;
+	    case "double":
+	        addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDdouble));
+	        break;
+	    case "hexbinary":
+	        addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDhexBinary));
+	        break;
+	    case "boolean":
+	        if (".F.".equalsIgnoreCase(literalString))
+	            addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral("false", XSDDatatype.XSDboolean));
+	        else if (".T.".equalsIgnoreCase(literalString))
+	            addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral("true", XSDDatatype.XSDboolean));
+	        else
+	            LOG.warn("*WARNING 10*: found odd boolean value: " + literalString);
+	        break;
+	    case "logical":
+	        if (".F.".equalsIgnoreCase(literalString))
+	            addProperty(r1, valueProp, getResourceOnly(Namespace.EXPRESS + "FALSE"));
+	        else if (".T.".equalsIgnoreCase(literalString))
+	            addProperty(r1, valueProp, getResourceOnly(Namespace.EXPRESS + "TRUE"));
+	        else if (".U.".equalsIgnoreCase(literalString))
+	            addProperty(r1, valueProp, getResourceOnly(Namespace.EXPRESS + "UNKNOWN"));
+	        else
+	            LOG.warn("*WARNING 9*: found odd logical value: " + literalString);
+	        break;
+	    case "string":
+	        addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString, XSDDatatype.XSDstring));
+	        break;
+	    default:
+	        addLiteral(r1, valueProp, ResourceFactory.createTypedLiteral(literalString));
+	        break;
+	    }
 	}
 	
 	
@@ -775,7 +795,7 @@ public class RDFWriter {
 			int mySwitch)  {
 
 		if (range.isClass()) {
-			if (listrange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+			if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 				LOG.warn("*WARNING 27*: Found unhandled ListOfList");
 			} else {
 				List<Resource> reslist = new ArrayList<>();
@@ -805,17 +825,17 @@ public class RDFWriter {
 						Resource r1 = reslist.get(i);
 						IFCVO vo = (IFCVO) el.get(i);
 						EntityVO evorange = ent.get(ExpressReader.formatClassName((vo).getName()));
-						OntResource rclass = ontModel.getOntResource(ontNS + evorange.getName());
+						OntResource rclass = getOntResource(ontNS + evorange.getName());
 						Resource r2 = getResource(baseURI + evorange.getName() + "_" + (vo).getLineNum(), rclass);
 						if (r2 != null) {
 							idCounter++;
 							ttlWriter.triple(Triple.create(r1.asNode(),
-									ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
+									getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
 						}
 
 						if (i < el.size() - 1) {
 							ttlWriter.triple(
-									Triple.create(r1.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+									Triple.create(r1.asNode(), getOntProperty(Namespace.LIST + "hasNext").asNode(),
 											reslist.get(i + 1).asNode()));
 						}
 					}
@@ -830,13 +850,13 @@ public class RDFWriter {
 		if (range.isClass()) {
 			OntResource listrange = getListContentType(range.asClass());
 			if (typeRemembranceOverride != null) {
-                listrange = ontModel.getOntClass(ontNS + typeRemembranceOverride.getName());
+                listrange = getOntClass(ontNS + typeRemembranceOverride.getName());
 			}
 
 			if (listrange == null) {
 				LOG.error("*ERROR 14*: We could not find what kind of content is expected in the LIST.");
 			} else {
-				if (listrange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+				if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 					LOG.warn("*WARNING 28*: Found unhandled ListOfList");
 				} else {
 					List<Resource> reslist = new ArrayList<>();
@@ -865,7 +885,7 @@ public class RDFWriter {
 		}
 		if (xsdType != null) {
 			String xsdTypeCAP = Character.toUpperCase(xsdType.charAt(0)) + xsdType.substring(1);
-			OntProperty valueProp = ontModel.getOntProperty(Namespace.EXPRESS + "has" + xsdTypeCAP);
+			OntProperty valueProp = getOntProperty(Namespace.EXPRESS + "has" + xsdTypeCAP);
 			String key = valueProp.toString() + ":" + xsdType + ":" + literalString;
 
 			Resource r1 = propertyResourceMap.get(key);
@@ -891,7 +911,7 @@ public class RDFWriter {
 			OntResource listrange = getListContentType(range.asClass());
 
 			if (listrange != null) {
-				if (listrange.asClass().hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+				if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 					LOG.info("*OK 20*: Handling list of list");
                 }
 				int el_size = el.size();
@@ -906,11 +926,11 @@ public class RDFWriter {
 					if (i == 0) {
 						ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), r2.asNode()));
 					}
-					ttlWriter.triple(Triple.create(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(),
+					ttlWriter.triple(Triple.create(r2.asNode(), getOntProperty(Namespace.LIST + "hasContents").asNode(),
 							r1.asNode()));
 
 					if (i < el.size() - 1) {
-						ttlWriter.triple(Triple.create(r2.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+						ttlWriter.triple(Triple.create(r2.asNode(), getOntProperty(Namespace.LIST + "hasNext").asNode(),
 								r3.asNode()));
 					}
 				}
@@ -918,7 +938,7 @@ public class RDFWriter {
 		}
 	}
 
-	private void fillClassInstanceList(LinkedList<Object> tmpList, OntResource typerange, OntProperty p, Resource r)
+	private void fillClassInstanceList(List<Object> tmpList, OntResource typerange, OntProperty p, Resource r)
 			 {
 		List<Resource> reslist = new ArrayList<>();
 		List<IFCVO> entlist = new ArrayList<>();
@@ -941,8 +961,8 @@ public class RDFWriter {
 	}
 
 	private void addClassInstanceListProperties(List<Resource> reslist, List<IFCVO> entlist)  {
-		OntProperty list_property = ontModel.getOntProperty(Namespace.LIST + "hasContents");
-		OntProperty isfollowed = ontModel.getOntProperty(Namespace.LIST + "hasNext");
+		OntProperty list_property = getOntProperty(Namespace.LIST + "hasContents");
+		OntProperty isfollowed = getOntProperty(Namespace.LIST + "hasNext");
 
 		int reslist_size = reslist.size();
 		for (int i = 0; i < reslist_size; i++) {
@@ -952,13 +972,13 @@ public class RDFWriter {
 			EntityVO evorange = ent.get(ExpressReader.formatClassName(entlist.get(i).getName()));
 			if (evorange == null) {
 				TypeVO typerange = typ.get(ExpressReader.formatClassName(entlist.get(i).getName()));
-				rclass = ontModel.getOntResource(ontNS + typerange.getName());
+				rclass = getOntResource(ontNS + typerange.getName());
 				Resource r1 = getResource(baseURI + typerange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
 				if (r1 != null) {
 					ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
 				}
 			} else {
-				rclass = ontModel.getOntResource(ontNS + evorange.getName());
+				rclass = getOntResource(ontNS + evorange.getName());
 				Resource r1 = getResource(baseURI + evorange.getName() + "_" + entlist.get(i).getLineNum(), rclass);
 				if (r1 != null) {
 					ttlWriter.triple(Triple.create(r.asNode(), list_property.asNode(), r1.asNode()));
@@ -979,7 +999,7 @@ public class RDFWriter {
 			xsdType = getXSDTypeFromRangeExpensiveMethod(listrange);
 		if (xsdType != null) {
 			String xsdTypeCAP = Character.toUpperCase(xsdType.charAt(0)) + xsdType.substring(1);
-			OntProperty valueProp = ontModel.getOntProperty(Namespace.EXPRESS + "has" + xsdTypeCAP);
+			OntProperty valueProp = getOntProperty(Namespace.EXPRESS + "has" + xsdTypeCAP);
 
 			// Adding Content only if found
 			int reslist_size = reslist.size();
@@ -996,10 +1016,10 @@ public class RDFWriter {
 					addLiteralToResource(r2, valueProp, xsdType, literalString);
 				}
 				ttlWriter.triple(
-						Triple.create(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
+						Triple.create(r.asNode(), getOntProperty(Namespace.LIST + "hasContents").asNode(), r2.asNode()));
 
 				if (i < listelements.size() - 1) {
-					ttlWriter.triple(Triple.create(r.asNode(), ontModel.getOntProperty(Namespace.LIST + "hasNext").asNode(),
+					ttlWriter.triple(Triple.create(r.asNode(), getOntProperty(Namespace.LIST + "hasNext").asNode(),
 							reslist.get(i + 1).asNode()));
 				}
 			}
@@ -1046,52 +1066,77 @@ public class RDFWriter {
 		ttlWriter.triple(Triple.create(r.asNode(), valueProp.asNode(), r1.asNode()));
 	}
 
+	private OntClass getOntClass(String uri) {
+		return ontClassCache.computeIfAbsent(uri, ontModel::getOntClass);
+	}
+
+	private OntProperty getOntProperty(String uri) {
+		return ontPropertyCache.computeIfAbsent(uri, ontModel::getOntProperty);
+	}
+
+	private OntResource getOntResource(String uri) {
+		return ontResourceCache.computeIfAbsent(uri, ontModel::getOntResource);
+	}
+
+	private Resource getResourceOnly(String uri) {
+		return ontResourceCache.computeIfAbsent(uri, ontModel::getOntResource);
+	}
+
 	
 	private OntResource getListContentType(OntClass range) {
 	    String resourceURI = range.getURI();
-	    Map<String, String> resourceMap = Map.of(
-	        "STRING_List", "STRING",
-	        "REAL_List", "REAL",
-	        "INTEGER_List", "INTEGER",
-	        "BINARY_List", "BINARY",
-	        "BOOLEAN_List", "BOOLEAN",
-	        "LOGICAL_List", "LOGICAL",
-	        "NUMBER_List", "NUMBER"
-	    );
+	    String cacheKey = resourceURI == null ? range.getLocalName() : resourceURI;
+	    if (listContentTypeCache.containsKey(cacheKey)) {
+	        return listContentTypeCache.get(cacheKey);
+	    }
 
-	    for (Map.Entry<String, String> entry : resourceMap.entrySet()) {
+	    OntResource contentType = null;
+	    for (Map.Entry<String, String> entry : EXPRESS_LIST_CONTENT_TYPES.entrySet()) {
 	        if ((Namespace.EXPRESS + entry.getKey()).equalsIgnoreCase(resourceURI)
-	                || range.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + entry.getKey()))) {
-	            return ontModel.getOntResource(Namespace.EXPRESS + entry.getValue());
+	                || range.hasSuperClass(getOntClass(Namespace.EXPRESS + entry.getKey()))) {
+	            contentType = getOntResource(Namespace.EXPRESS + entry.getValue());
+	            break;
 	        }
 	    }
 
-	    if (range.hasSuperClass(ontModel.getOntClass(Namespace.LIST + "OWLList"))) {
+	    if (contentType == null && range.hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 	        String listValuePropURI = ontNS + range.getLocalName().replace("_List", "");
-	        return ontModel.getOntResource(listValuePropURI);
-	    } else {
-	        LOG.warn("*WARNING 29*: did not find list content type for: {}", range.getLocalName());
-	        return null;
+	        contentType = getOntResource(listValuePropURI);
 	    }
+	    if (contentType == null) {
+	        LOG.warn("*WARNING 29*: did not find list content type for: {}", range.getLocalName());
+	    }
+	    listContentTypeCache.put(cacheKey, contentType);
+	    return contentType;
 	}
 		
 	private String getXSDTypeFromRange(OntResource range) {
+	    String cacheKey = range.getURI() == null ? range.getLocalName() : range.getURI();
+	    if (xsdTypeCache.containsKey(cacheKey)) {
+	        return xsdTypeCache.get(cacheKey);
+	    }
+	    String xsdType = computeXSDTypeFromRange(range);
+	    xsdTypeCache.put(cacheKey, xsdType);
+	    return xsdType;
+	}
+
+	private String computeXSDTypeFromRange(OntResource range) {
 	    String uri = range.asClass().getURI();
 	    OntClass ontClass = range.asClass();
 
-	    if (uri.equalsIgnoreCase(Namespace.EXPRESS + "STRING") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "STRING"))) {
+	    if (uri.equalsIgnoreCase(Namespace.EXPRESS + "STRING") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "STRING"))) {
 	        return "string";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "REAL") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "REAL"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "REAL") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "REAL"))) {
 	        return "double";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "INTEGER") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "INTEGER"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "INTEGER") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "INTEGER"))) {
 	        return "integer";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BINARY") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BINARY"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BINARY") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "BINARY"))) {
 	        return "hexBinary";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BOOLEAN") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "BOOLEAN"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "BOOLEAN") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "BOOLEAN"))) {
 	        return "boolean";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "LOGICAL") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "LOGICAL"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "LOGICAL") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "LOGICAL"))) {
 	        return "logical";
-	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "NUMBER") || ontClass.hasSuperClass(ontModel.getOntClass(Namespace.EXPRESS + "NUMBER"))) {
+	    } else if (uri.equalsIgnoreCase(Namespace.EXPRESS + "NUMBER") || ontClass.hasSuperClass(getOntClass(Namespace.EXPRESS + "NUMBER"))) {
 	        return "double";
 	    } else {
 	        return null;
@@ -1141,6 +1186,19 @@ public class RDFWriter {
 			return false;
 		}
 		return FILTERED_GEOMETRY_TYPES.contains(typeName.toUpperCase(Locale.ROOT));
+	}
+
+	private boolean shouldSkipParsedEntry(IFCVO ifcLineEntry) {
+		if (!this.hasPerformanceBoost) {
+			return false;
+		}
+        String typeName = "";
+		if (ent.containsKey(ifcLineEntry.getName()))
+			typeName = ent.get(ifcLineEntry.getName()).getName();
+		else if (typ.containsKey(ifcLineEntry.getName()))
+			typeName = typ.get(ifcLineEntry.getName()).getName();
+
+		return shouldSkipInstance(typeName);
 	}
 
 

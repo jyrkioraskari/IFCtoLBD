@@ -97,17 +97,26 @@ public class AttributeSet {
         this.setDefault_property_namespace(default_property_namebase);
     }
 
-    public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
-    	if (value.isLiteral()) {
-			String value_string = value.asLiteral().getLexicalForm();
-			Literal literal_value = this.lbd_model.createLiteral(StringOperations.handleUnicode(value_string));
-			mapPnameValue.put(StringOperations.toCamelCase(attribute_name), literal_value);
-		} else
-          mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
-        if (atype.isPresent()) {
-            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
-        }
-    }
+	    public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
+	    	if (value.isLiteral()) {
+				Literal literal_value = createLiteralPreservingMetadata(value.asLiteral());
+				mapPnameValue.put(StringOperations.toCamelCase(attribute_name), literal_value);
+			} else
+	          mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
+	        if (atype.isPresent()) {
+	            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
+	        }
+	    }
+
+		private Literal createLiteralPreservingMetadata(Literal original) {
+			String lexicalForm = StringOperations.handleUnicode(original.getLexicalForm());
+			String language = original.getLanguage();
+			if (language != null && !language.isEmpty())
+				return this.lbd_model.createLiteral(lexicalForm, language);
+			if (original.getDatatype() != null)
+				return this.lbd_model.createTypedLiteral(lexicalForm, original.getDatatype());
+			return this.lbd_model.createLiteral(lexicalForm);
+		}
 
     /**
      * Adds property value property for an resource.

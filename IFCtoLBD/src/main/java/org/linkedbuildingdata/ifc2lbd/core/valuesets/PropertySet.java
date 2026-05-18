@@ -108,11 +108,20 @@ public class PropertySet {
 	public void putPnameValue(String property_name, RDFNode value) {
 
 		if (value.isLiteral()) {
-			String value_string = value.asLiteral().getLexicalForm();
-			Literal literal_value = this.lbd_model.createLiteral(StringOperations.handleUnicode(value_string));
+			Literal literal_value = createLiteralPreservingMetadata(value.asLiteral());
 			mapPnameValue.put(StringOperations.toCamelCase(property_name), literal_value);
 		} else
 			mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
+	}
+
+	private Literal createLiteralPreservingMetadata(Literal original) {
+		String lexicalForm = StringOperations.handleUnicode(original.getLexicalForm());
+		String language = original.getLanguage();
+		if (language != null && !language.isEmpty())
+			return this.lbd_model.createLiteral(lexicalForm, language);
+		if (original.getDatatype() != null)
+			return this.lbd_model.createTypedLiteral(lexicalForm, original.getDatatype());
+		return this.lbd_model.createLiteral(lexicalForm);
 	}
 
 	public void putPnameType(String property_name, RDFNode type) {
