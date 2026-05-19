@@ -151,9 +151,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Hyperlink opm_link;
 
 	@FXML
-	private TextArea handleOnTxt;
-
-	@FXML
 	private Button selectIFCFileButton;
 
 	@FXML
@@ -171,8 +168,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private TextArea conversionTxt;
 
-	@FXML
-	private ImageView owl_fileIcon;
 	@FXML
 	private ImageView rdf_fileIcon;
 
@@ -297,7 +292,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.hasPerformanceBoost.setSelected(false);
 			this.hasPerformanceBoost.setDisable(true);
 		} else {
-			this.hasPerformanceBoost.setSelected(true);
 			this.hasPerformanceBoost.setDisable(false);
 		}
 
@@ -346,9 +340,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			if (!new File(target_directory).exists())
 				target_directory = file.getParent();
 			if (target_directory.endsWith("\\"))
-				this.rdfTargetName = target_directory + file.getName().substring(0, i) + "_LBD.ttl";
+				this.rdfTargetName = target_directory + file.getName().substring(0, i) + "_LBD"
+						+ selectedOutputExtension();
 			else
-				this.rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD.ttl";
+				this.rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD"
+						+ selectedOutputExtension();
 			this.labelTargetFile.setText(this.rdfTargetName);
 		}
 		if (this.ifcFileName != null && this.rdfTargetName != null) {
@@ -398,20 +394,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		this.fc_target = new FileChooser();
 		File fwd = new File(this.rdfTargetName);
-		this.fc_target.setInitialFileName(this.rdfTargetName);
-		if (!fwd.getParentFile().exists()) {
+		this.fc_target.setInitialFileName(fwd.getName());
+		if (fwd.getParentFile() == null || !fwd.getParentFile().exists()) {
 			this.fc_target.setInitialDirectory(new File(this.ifcFileName).getParentFile());
-			String filename = new File(this.ifcFileName).getParentFile() + File.separator + fwd.getName();
-			System.out.println("Initial Filename to: " + filename);
-			this.fc_target.setInitialFileName(filename);
+			System.out.println("Initial Filename to: " + fwd.getName());
+			this.fc_target.setInitialFileName(fwd.getName());
 			System.out.println("SET");
 		} else
 			this.fc_target.setInitialDirectory(fwd.getParentFile());
 
-		FileChooser.ExtensionFilter ef;
-		ef = new FileChooser.ExtensionFilter("Turtle files (*.ttl)", "*.ttl");
+		FileChooser.ExtensionFilter ttlFilter = new FileChooser.ExtensionFilter("Turtle files (*.ttl)", "*.ttl");
+		FileChooser.ExtensionFilter jsonLdFilter = new FileChooser.ExtensionFilter("JSON-LD files (*.jsonld)", "*.jsonld");
 		this.fc_target.getExtensionFilters().clear();
-		this.fc_target.getExtensionFilters().addAll(ef);
+		this.fc_target.getExtensionFilters().addAll(ttlFilter, jsonLdFilter);
+		this.fc_target.setSelectedExtensionFilter(isJsonLdOutputSelected() ? jsonLdFilter : ttlFilter);
 
 		try {
 			file = this.fc_target.showSaveDialog(stage);
@@ -450,6 +446,25 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return outputFormat != null && outputFormat.toLowerCase(Locale.ROOT).contains("json");
 	}
 
+	private String selectedOutputExtension() {
+		return isJsonLdOutputSelected() ? ".jsonld" : ".ttl";
+	}
+
+	private void updateTargetFileExtension() {
+		if (this.rdfTargetName == null) {
+			return;
+		}
+		String extension = selectedOutputExtension();
+		int separatorIndex = Math.max(this.rdfTargetName.lastIndexOf(File.separatorChar), this.rdfTargetName.lastIndexOf('/'));
+		int dotIndex = this.rdfTargetName.lastIndexOf('.');
+		if (dotIndex > separatorIndex) {
+			this.rdfTargetName = this.rdfTargetName.substring(0, dotIndex) + extension;
+		} else {
+			this.rdfTargetName = this.rdfTargetName + extension;
+		}
+		this.labelTargetFile.setText(this.rdfTargetName);
+	}
+
 	private ConversionSettings currentSettings() {
 		return new ConversionSettings(this.ifcFileName, this.rdfTargetName, this.labelBaseURI.getText().trim(),
 				selectedPropertyLevel(), this.building_elements.isSelected(),
@@ -471,13 +486,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.put("lbd_props_base_url", settings.baseUri());
 		this.prefs.putBoolean("lbd_boundinbox_elements", settings.hasGeometry());
 		this.prefs.putBoolean("lbd_boundinbox_interfaces", settings.hasInterfaces());
+		this.prefs.putBoolean("lbd_boundinbox_wkt", settings.hasBoundingBoxWkt());
 		this.prefs.putBoolean("lbd_ifcOWL_elements", settings.exportIfcOwl());
+		this.prefs.putBoolean("lbd_performance", settings.hasPerformanceBoost());
 		this.prefs.putBoolean("lbd_createUnits", settings.hasUnits());
 		this.prefs.putBoolean("lbd_geolocation", settings.hasGeolocation());
 		this.prefs.putBoolean("lbd_hasHierarchicalNaming", settings.hasHierarchicalNaming());
 		this.prefs.putBoolean("lbd_hasSimpleProperties", settings.hasSimpleProperties());
 		this.prefs.putBoolean("ifc_based_elements", settings.hasIfcBasedElements());
 		this.prefs.putBoolean("createTrig", settings.createTrig());
+		this.prefs.putBoolean("export_as_jsonld", settings.exportAsJsonLd());
 		this.prefs.putInt("lbd_props_level", settings.propsLevel());
 	}
 
@@ -517,11 +535,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.conversionTxt.appendText("Select IFC and target files before conversion.\n");
 			return;
 		}
+		if (this.running_read_in == null) {
+			this.conversionTxt.appendText("Read-in has not started yet.\n");
+			return;
+		}
+		if (!this.running_read_in.isDone()) {
+			this.conversionTxt.appendText("Read-in is still running. Start conversion after it finishes.\n");
+			return;
+		}
 		if (!Objects.equals(this.readInSettings, currentSettings)) {
 			try {
-				if (this.running_read_in != null) {
-					this.running_read_in.get();
-				}
+				this.running_read_in.get();
 			} catch (InterruptedException e) {
 				Thread.currentThread().interrupt();
 				this.conversionTxt.appendText("Read-in was interrupted.\n");
@@ -533,17 +557,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.conversionTxt.appendText("Re-running initial read due to changed settings.\n");
 			this.readInSettings = currentSettings;
 			readInIFCExecute(currentSettings);
+			this.conversionTxt.appendText("Start conversion after read-in finishes.\n");
+			return;
 		}
 
 		persistSettings(currentSettings);
-		this.conversionTxt.setText("");
-		try {
-			this.options_panel.setDisable(true);
-			this.masker_panel.setVisible(true);
-			if (this.running_conversion != null && !this.running_conversion.isDone()) {
-				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
-				return;
-			}
+			this.conversionTxt.setText("");
+			try {
+				if (this.running_conversion != null && !this.running_conversion.isDone()) {
+					this.conversionTxt.appendText("\nThe last conversion is still running. \n");
+					return;
+				}
+				this.options_panel.setDisable(true);
+				this.masker_panel.setVisible(true);
 
 			Set<String> selected_types = new HashSet<>();
 			for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
@@ -556,8 +582,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				selected_psets.add(item.getValue());
 
 			}
-			IFCtoLBDConverter converter = this.running_read_in.get();
-			converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
+				IFCtoLBDConverter converter = this.running_read_in.get();
+				if (converter == null) {
+					this.conversionTxt.appendText("Read-in failed. Conversion cannot continue.\n");
+					this.masker_panel.setVisible(false);
+					this.options_panel.setDisable(false);
+					return;
+				}
+				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
 			this.running_conversion = this.executor.submit(new ConversionThread(converter, selected_types, selected_psets,
 					currentSettings.ifcFileName(), currentSettings.baseUri(), currentSettings.rdfTargetName(),
 					currentSettings.propsLevel(), currentSettings.hasBuildingElements(),
@@ -609,18 +641,39 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			public void handle(DragEvent event) {
 				Dragboard db = event.getDragboard();
 				boolean success = false;
-				if (db.hasFiles()) {
-					success = true;
-					for (File file : db.getFiles()) {
-						IFCtoLBDController.this.labelIFCFile.setText(file.getName());
-						IFCtoLBDController.this.ifcFileName = file.getAbsolutePath();
-						if (IFCtoLBDController.this.ifcFileName != null && IFCtoLBDController.this.rdfTargetName != null) {
-							IFCtoLBDController.this.convert2RDFButton.setDefaultButton(true);
-							IFCtoLBDController.this.selectIFCFileButton.setDefaultButton(false);
-							IFCtoLBDController.this.convert2RDFButton.setDisable(false);
-						}
-						IFCtoLBDController.this.rdf_fileIcon.setDisable(false);
-						IFCtoLBDController.this.rdf_fileIcon.setImage(IFCtoLBDController.this.fileimage);
+					if (db.hasFiles()) {
+						success = true;
+						for (File file : db.getFiles()) {
+							IFCtoLBDController.this.labelIFCFile.setText(file.getName());
+							IFCtoLBDController.this.ifcFileName = file.getAbsolutePath();
+							int dotIndex = file.getName().lastIndexOf(".");
+							if (dotIndex > 0) {
+								String targetDirectory = IFCtoLBDController.this.prefs.get("ifc_target_directory",
+										file.getParentFile().getAbsolutePath());
+								if (!new File(targetDirectory).exists()) {
+									targetDirectory = file.getParent();
+								}
+								if (targetDirectory.endsWith("\\")) {
+									IFCtoLBDController.this.rdfTargetName = targetDirectory
+											+ file.getName().substring(0, dotIndex) + "_LBD"
+											+ IFCtoLBDController.this.selectedOutputExtension();
+								} else {
+									IFCtoLBDController.this.rdfTargetName = targetDirectory + File.separator
+											+ file.getName().substring(0, dotIndex) + "_LBD"
+											+ IFCtoLBDController.this.selectedOutputExtension();
+								}
+								IFCtoLBDController.this.labelTargetFile.setText(IFCtoLBDController.this.rdfTargetName);
+							}
+							if (IFCtoLBDController.this.ifcFileName != null && IFCtoLBDController.this.rdfTargetName != null) {
+								IFCtoLBDController.this.selectTargetFileButton.setDisable(false);
+								IFCtoLBDController.this.convert2RDFButton.setDefaultButton(true);
+								IFCtoLBDController.this.selectIFCFileButton.setDefaultButton(false);
+								IFCtoLBDController.this.convert2RDFButton.setDisable(false);
+								IFCtoLBDController.this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
+								IFCtoLBDController.this.readInIFC();
+							}
+							IFCtoLBDController.this.rdf_fileIcon.setDisable(false);
+							IFCtoLBDController.this.rdf_fileIcon.setImage(IFCtoLBDController.this.fileimage);
 					}
 				}
 				event.setDropCompleted(success);
@@ -648,6 +701,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		this.geometry_elements.setSelected(this.prefs.getBoolean("lbd_boundinbox_elements", true));
 		this.geometry_interfaces.setSelected(this.prefs.getBoolean("lbd_boundinbox_interfaces", false));
+		this.hasBoundingBox_WKT.setSelected(this.prefs.getBoolean("lbd_boundinbox_wkt", false));
 		this.ifcOWL_elements.setSelected(this.prefs.getBoolean("lbd_ifcOWL_elements", false));
 		this.createUnits.setSelected(this.prefs.getBoolean("lbd_createUnits", false));
 		this.geolocation.setSelected(this.prefs.getBoolean("lbd_geolocation", true));
@@ -663,7 +717,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.hasPerformanceBoost.setSelected(false);
 			this.hasPerformanceBoost.setDisable(true);
 		} else {
-			this.hasPerformanceBoost.setSelected(true);
 			this.hasPerformanceBoost.setDisable(false);
 		}
 
@@ -695,7 +748,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		
 		
 		outputJSONorTTL.getItems().addAll("Turtle TTL", "JSON-LD");
-		outputJSONorTTL.setValue("Turtle TTL"); // Set default value
+		outputJSONorTTL.setValue(this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL");
+		outputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> updateTargetFileExtension());
         
         
 		this.building_elements.setTooltip(new Tooltip(

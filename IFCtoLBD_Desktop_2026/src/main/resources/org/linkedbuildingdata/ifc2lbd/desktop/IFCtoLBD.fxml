@@ -29,7 +29,7 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 <?import org.controlsfx.control.textfield.CustomTextField?>
 
-<VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController">
+<VBox minHeight="-Infinity" minWidth="0.0" prefHeight="720.0" prefWidth="937.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController">
   <children>
     <MenuBar fx:id="myMenuBar" scaleShape="false" VBox.vgrow="NEVER">
       <menus>
@@ -50,7 +50,7 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane fx:id="root" maxWidth="-1.0" prefHeight="724.0" prefWidth="937.0" VBox.vgrow="ALWAYS">
+    <AnchorPane fx:id="root" maxWidth="Infinity" minWidth="0.0" prefHeight="724.0" prefWidth="937.0" VBox.vgrow="ALWAYS">
          <children>
             <Rectangle id="handleOntologiesTxt" fx:id="border" arcHeight="5.0" arcWidth="5.0" height="725.0" layoutX="-13.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" width="957.0" AnchorPane.bottomAnchor="-5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0">
                <fill>
@@ -101,7 +101,7 @@
                </fill>
             </Rectangle>
             <ImageView fx:id="rdf_fileIcon" disable="true" fitHeight="39.0" fitWidth="54.0" layoutX="50.0" layoutY="310.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="270.0" AnchorPane.topAnchor="50.0" />
-            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="159.0">
+            <CustomTextField fx:id="labelBaseURI" layoutX="314.0" layoutY="467.0" minWidth="0.0" prefHeight="23.0" prefWidth="567.0" promptText="Add the base URI here" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="500.0" AnchorPane.topAnchor="159.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></CustomTextField>
@@ -119,7 +119,7 @@
                <font>
                   <Font name="Arial" size="14.0" />
                </font></Button>
-            <TextArea fx:id="conversionTxt" editable="false" layoutX="397.0" layoutY="109.0" prefHeight="120.0" prefWidth="551.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="550.0">
+            <TextArea fx:id="conversionTxt" editable="false" layoutX="397.0" layoutY="109.0" minWidth="0.0" prefHeight="120.0" prefWidth="551.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="550.0">
                <font>
                   <Font name="Arial" size="12.0" />
                </font></TextArea>
@@ -132,13 +132,13 @@
                   <Font name="Arial Narrow Bold" size="24.0" />
                </font></Text>
             <CheckTreeView fx:id="element_types_checkbox" layoutX="49.0" layoutY="257.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="255.0" />
-            <CheckTreeView fx:id="propertysets_checkbox" layoutX="59.0" layoutY="267.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="255.0" />
+            <CheckTreeView fx:id="propertysets_checkbox" layoutX="59.0" layoutY="267.0" minWidth="0.0" prefHeight="229.0" prefWidth="312.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="255.0" />
             <ChoiceBox fx:id="outputJSONorTTL" layoutX="10.0" layoutY="557.0" prefWidth="312.0" AnchorPane.topAnchor="550.0" />
-            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" prefHeight="35.0" prefWidth="617.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="90.0">
+            <Label fx:id="labelIFCFile" layoutX="227.0" layoutY="52.0" minWidth="0.0" prefHeight="35.0" prefWidth="617.0" AnchorPane.leftAnchor="350.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="90.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
-            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" prefHeight="35.0" prefWidth="617.0" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="510.0">
+            <Label fx:id="labelTargetFile" layoutX="271.0" layoutY="226.0" minWidth="0.0" prefHeight="35.0" prefWidth="617.0" AnchorPane.bottomAnchor="583.0" AnchorPane.leftAnchor="400.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="510.0">
                <font>
                   <Font name="Arial" size="18.0" />
                </font></Label>
@@ -155,15 +155,15 @@
                   <Font name="Arial Narrow Bold" size="18.0" />
                </font>
             </Label>
-            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" textFill="#0d0a09" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+            <TitledPane fx:id="options_panel" expanded="false" layoutX="47.0" layoutY="62.0" minWidth="0.0" pickOnBounds="false" prefHeight="437.0" prefWidth="938.0" text="Options" textFill="#0d0a09" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
                <content>
-                  <AnchorPane prefHeight="271.0" prefWidth="745.0">
+                  <AnchorPane minWidth="0.0" prefHeight="271.0" prefWidth="745.0">
                      <children>
-                        <SplitPane dividerPositions="0.5441551812149056" layoutX="37.6" layoutY="10.6" orientation="VERTICAL" prefHeight="260.0" prefWidth="781.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+                        <SplitPane dividerPositions="0.5441551812149056" layoutX="37.6" layoutY="10.6" minWidth="0.0" orientation="VERTICAL" prefHeight="260.0" prefWidth="781.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
                           <items>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                                  <children>
-                                    <SplitPane dividerPositions="0.5" prefHeight="171.0" prefWidth="814.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <SplitPane dividerPositions="0.5" minWidth="0.0" prefHeight="171.0" prefWidth="814.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                       <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="382.0">
                                              <children>
@@ -259,7 +259,7 @@
                                     </SplitPane>
                                  </children>
                               </AnchorPane>
-                              <SplitPane dividerPositions="0.5" prefHeight="112.0" prefWidth="208.0">
+                              <SplitPane dividerPositions="0.5" minWidth="0.0" prefHeight="112.0" prefWidth="208.0">
                                  <items>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="150.0" prefWidth="438.0">
                                        <children>
@@ -273,12 +273,12 @@
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="10.0">
+                                          <ToggleSwitch fx:id="ifc_based_elements" accessibleText="Building Product Ontology instances" layoutX="10.0" layoutY="10.0" prefHeight="18.0" prefWidth="196.0" text="Include IFC based Elements" AnchorPane.bottomAnchor="65.0" AnchorPane.leftAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
                                           </ToggleSwitch>
-                                          <ToggleSwitch fx:id="createTrig" accessibleText="Building Product Ontology instances" layoutX="236.0" layoutY="67.0" onMouseReleased="#ifcOWLSelectionChange" prefHeight="18.0" prefWidth="200.0" text="Create an RDF  TriG  lfile" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="10.0">
+                                          <ToggleSwitch fx:id="createTrig" accessibleText="Building Product Ontology instances" layoutX="236.0" layoutY="67.0" prefHeight="18.0" prefWidth="200.0" text="Create an RDF  TriG  lfile" AnchorPane.bottomAnchor="65.0" AnchorPane.rightAnchor="10.0">
                                              <font>
                                                 <Font name="Arial" size="12.0" />
                                              </font>
@@ -315,7 +315,7 @@
                   <Font name="Arial" size="12.0" />
                </font>
             </TitledPane>
-            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            <MaskerPane fx:id="masker_panel" layoutX="-1.0" layoutY="-1.0" minWidth="0.0" prefHeight="800.0" prefWidth="937.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children></AnchorPane>
         
     
