@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc-to-lbd</artifactId>
-	<version>2.46.2</version>
+	<version>2.46.3</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -64,7 +64,8 @@
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
 		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
 		<!-- General Properties -->
-		<ifc2lbd.cli.mainClass>org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI</ifc2lbd.cli.mainClass>
+		<ifc2lbd.cli.mainClass>
+			org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI</ifc2lbd.cli.mainClass>
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
 		<javac.src.version>21</javac.src.version>
 		<javac.target.version>21</javac.target.version>
@@ -114,7 +115,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
 			<artifactId>ifc_to_lbd_geometry</artifactId>
-			<version>2.44.2</version>
+			<version>2.46.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -128,7 +129,6 @@
 					<groupId>org.apache.logging.log4j</groupId>
 					<artifactId>log4j-core</artifactId>
 				</exclusion>
-
 				<exclusion>
 					<groupId>org.glassfish</groupId>
 					<artifactId>javax.json</artifactId>
@@ -136,14 +136,12 @@
 
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-simple</artifactId>
 			<version>${slf4j.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-
 		<!-- Dependency for Apache Commons Lang library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -152,7 +150,6 @@
 			<!-- URL for the Apache Commons Lang project:
 			https://commons.apache.org/proper/commons-lang/ -->
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
@@ -185,7 +182,6 @@
 			<artifactId>junit-platform-launcher</artifactId>
 			<scope>test</scope>
 		</dependency>
-
 		<!-- Dependency for JUnit Jupiter API and engine libraries -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -195,12 +191,11 @@
 			<!-- URL for the JUnit Jupiter project: https://junit.org/junit5/ -->
 		</dependency>
 
-
 		<!-- Dependency for IFCtoRDF library -->
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>2.46.2</version>
+			<version>2.46.3</version>
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
@@ -299,6 +294,12 @@
 			<artifactId>jqwik-engine</artifactId>
 			<version>1.9.3</version>
 			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.locationtech.jts</groupId>
+			<artifactId>jts-core</artifactId>
+			<version>1.19.0</version>
 		</dependency>
 
 
@@ -410,7 +411,8 @@
 								<buildArg>--enable-url-protocols=http,https</buildArg>
 								<buildArg>--enable-all-security-services</buildArg>
 								<buildArg>-H:+ReportExceptionStackTraces</buildArg>
-								<buildArg>-H:IncludeResources=.*\.(ttl|ifc|ser|properties|xml|json|csv|txt)|exe/.*/IfcGeomServer(\.exe)?</buildArg>
+								<buildArg>
+									-H:IncludeResources=.*\.(ttl|ifc|ser|properties|xml|json|csv|txt)|exe/.*/IfcGeomServer(\.exe)?</buildArg>
 							</buildArgs>
 						</configuration>
 						<executions>
@@ -436,7 +438,8 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
 					<annotationProcessors>
-						<annotationProcessor>picocli.codegen.aot.graalvm.processor.NativeImageConfigGeneratorProcessor</annotationProcessor>
+						<annotationProcessor>
+							picocli.codegen.aot.graalvm.processor.NativeImageConfigGeneratorProcessor</annotationProcessor>
 					</annotationProcessors>
 					<annotationProcessorPaths>
 						<path>

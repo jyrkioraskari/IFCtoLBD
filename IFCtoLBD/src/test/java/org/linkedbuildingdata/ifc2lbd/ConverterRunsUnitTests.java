@@ -2,6 +2,7 @@ package org.linkedbuildingdata.ifc2lbd;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedInputStream;
@@ -725,11 +726,13 @@ public class ConverterRunsUnitTests {
 			if (m != null) {
 				Query query = QueryFactory.create("PREFIX fog: <https://w3id.org/fog#>\r\n" + "\r\n"
 						+ "SELECT ?e ?wkt ?obj WHERE {\r\n" + "  ?e <https://w3id.org/omg#hasGeometry> ?g .\r\n"
-						+ "  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
+						+ "  ?g <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r\n"
 						+ "  ?g fog:asObj_v3.0-obj ?obj \r\n" + "} ");
 				try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
 					ResultSet rs = queryExecution.execSelect();
 					rs.forEachRemaining(qs -> {
+						assertTrue(qs.getLiteral("wkt").getString().startsWith("<https://example.com/ifc-local> "),
+								"Bounding box WKT must be qualified with the local IFC CRS.");
 						this.count++;
 					});
 				}

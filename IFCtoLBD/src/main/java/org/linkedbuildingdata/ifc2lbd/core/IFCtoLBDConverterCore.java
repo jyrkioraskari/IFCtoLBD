@@ -4,9 +4,11 @@ package org.linkedbuildingdata.ifc2lbd.core;
 import java.io.File;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -455,15 +457,15 @@ public abstract class IFCtoLBDConverterCore {
 						.createResource(lbd_resource.getURI() + "_geometry");
 
 				sp_geometry.addProperty(RDF.type, GEO.Geometry);
-				if (bb != null && obj != null)
+				if (bb != null)
 					lbd_resource.addProperty(OMG.hasGeometry, sp_geometry);
 				// lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
 				else
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
-						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(bb.toString(),
-								GEO.wktLiteral);
+						Literal wktLiteral = this.lbd_general_output_model
+								.createTypedLiteral(toLocalIfcCrsWkt(bb), GEO.wktLiteral);
 						sp_geometry.addLiteral(GEO.asWKT, wktLiteral);
 					} else {
 						Resource sp_bb = this.lbd_general_output_model
@@ -483,14 +485,13 @@ public abstract class IFCtoLBDConverterCore {
 					this.rtree = this.rtree.add(lbd_resource, rectangle); // rtree is
 					this.rtree_map.put(rectangle, lbd_resource);
 
-					if (obj != null) {
-						if (this.fogasObj == null)
-							this.fogasObj = this.lbd_general_output_model
-									.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
-						Literal base64 = this.lbd_general_output_model.createTypedLiteral(obj.toString(),
-								"https://www.w3.org/2001/XMLSchema#base64Binary");
-						sp_geometry.addLiteral(this.fogasObj, base64);
-					}
+					if (this.fogasObj == null)
+						this.fogasObj = this.lbd_general_output_model
+								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
+					String objBase64 = obj != null ? obj.toString() : toBoundingBoxObjBase64(bb);
+					Literal base64 = this.lbd_general_output_model.createTypedLiteral(objBase64,
+							"https://www.w3.org/2001/XMLSchema#base64Binary");
+					sp_geometry.addLiteral(this.fogasObj, base64);
 					// TODO if not all is in place yet
 					if (lbd_resource.toString().toLowerCase().contains("furniture"))
 						return;
@@ -549,6 +550,44 @@ public abstract class IFCtoLBDConverterCore {
 			e.printStackTrace();
 		}
 
+	}
+
+	private String toLocalIfcCrsWkt(BoundingBox boundingBox) {
+		return "<" + this.uriBase.get() + "ifc-local> " + boundingBox.toLiteral();
+	}
+
+	private String toBoundingBoxObjBase64(BoundingBox boundingBox) {
+		double x1 = boundingBox.getMin().x;
+		double y1 = boundingBox.getMin().y;
+		double z1 = boundingBox.getMin().z;
+		double x2 = boundingBox.getMax().x;
+		double y2 = boundingBox.getMax().y;
+		double z2 = boundingBox.getMax().z;
+
+		String obj = """
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				v %s %s %s
+				f 1 2 3
+				f 1 3 4
+				f 5 8 7
+				f 5 7 6
+				f 1 5 6
+				f 1 6 2
+				f 2 6 7
+				f 2 7 3
+				f 3 7 8
+				f 3 8 4
+				f 5 1 4
+				f 5 4 8
+				""".formatted(x1, y1, z1, x2, y1, z1, x2, y2, z1, x1, y2, z1, x1, y1, z2, x2, y1,
+				z2, x2, y2, z2, x1, y2, z2);
+		return Base64.getEncoder().encodeToString(obj.getBytes(StandardCharsets.UTF_8));
 	}
 
 	private void finish_geometry(boolean hasInterfaces) {
@@ -910,7 +949,7 @@ public abstract class IFCtoLBDConverterCore {
 			model.setNsPrefix("owl", OWL.getURI());
 			model.setNsPrefix("xsd", "https://www.w3.org/2001/XMLSchema#");
 			model.setNsPrefix("inst", uriBase);
-			model.setNsPrefix("geo", "https://www.opengis.net/ont/geosparql#");
+			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
 			model.setNsPrefix("props", "http://lbd.arch.rwth-aachen.de/props#");
 			model.setNsPrefix("fog", "https://w3id.org/fog#");
 

@@ -165,7 +165,7 @@ public class Example4 {
 							\r
 							SELECT ?e ?wkt ?obj WHERE {\r
 							  ?e <https://w3id.org/omg#hasGeometry> ?g .\r
-							  ?g <https://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r
+							  ?g <http://www.opengis.net/ont/geosparql#asWKT> ?wkt .\r
 							  ?g fog:asObj_v3.0-obj ?obj \r
 							}\s""");
 					try (QueryExecution queryExecution = QueryExecutionFactory.create(query, m)) {
