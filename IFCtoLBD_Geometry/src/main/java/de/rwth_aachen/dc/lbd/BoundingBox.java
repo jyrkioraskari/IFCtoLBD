@@ -34,13 +34,13 @@ public class BoundingBox {
         return max;
     }
 
-    // JO 2020, 2026
+    // JO 2020
     @Override
     public String toString() {
-        return "MULTIPOINT Z ((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
+        return "MULTIPOINT Z((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
     }
     
     public String toLiteral() {
-        return "MULTIPOINT Z ((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
+        return "MULTIPOINT Z((" + min.x + " " + min.y + " " + min.z + "), (" + max.x + " " + max.y + " " + max.z + "))";
     }
 }

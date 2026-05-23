@@ -17,15 +17,6 @@
                         
         
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/target/generated-resources/gwt"/>
-        <dependent-module archiveName="ifc-to-lbd-2.46.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD/IFCtoLBD">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="ifc_to_lbd_geometry-2.46.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoLBD_Geometry/IFCtoLBD_Geometry">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="ifc2rdf-2.46.3.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/IFCtoRDF/IFCtoRDF">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
                         
         
         <property name="context-root" value="IFCProps2ExcelOnline"/>

@@ -65,7 +65,9 @@ public class IfcOWL_GeolocationUtil {
             Resource rr = lbd_general_output_model.createResource(uncompressed_wktLiteralID);
             rr.addProperty(RDF.type, GEO.Geometry);
             sio.addProperty(geo_hasGeometry, rr);
-
+            System.out.println("GEO GEO.Geometry");
+            
+            
             // Create a property asWKT
             Property geo_asWKT = lbd_general_output_model.createProperty("http://www.opengis.net/ont/geosparql#asWKT");
             // add a data type
