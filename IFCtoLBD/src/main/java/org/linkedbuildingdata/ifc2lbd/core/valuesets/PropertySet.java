@@ -134,6 +134,14 @@ public class PropertySet {
 
 	public void putPsetPropertyRef(RDFNode property) {
 		String pname = property.asLiteral().getString();
+		putPsetPropertyRef(pname, StringOperations.toCamelCase(property.toString()));
+	}
+
+	public void putPsetPropertyRef(String pname) {
+		putPsetPropertyRef(pname, StringOperations.toCamelCase(pname));
+	}
+
+	private void putPsetPropertyRef(String pname, String bsddKey) {
 		pname = StringOperations.toCamelCase(pname);
 		if (is_bSDD_pset) {
 			StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
@@ -143,7 +151,7 @@ public class PropertySet {
 				while (iterProp.hasNext()) {
 					Literal psetPropName = iterProp.next().getLiteral();
 					if (psetPropName.getString().equals(pname)) {
-						mapBSDD.put(StringOperations.toCamelCase(property.toString()), prop);
+						mapBSDD.put(bsddKey, prop);
 					} else {
 						if (psetPropName.getString().toUpperCase().equals(pname.toUpperCase())) {
 							mapBSDD.put(pname, prop);

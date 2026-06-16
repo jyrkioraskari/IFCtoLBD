@@ -99,6 +99,9 @@ import de.rwth_aachen.dc.lbd.ObjDescription;
  */
 
 public abstract class IFCtoLBDConverterCore {
+	private static final int MAX_COMPLEX_PROPERTY_DEPTH = 100;
+	private static final int MAX_COMPLEX_QUANTITY_DEPTH = 100;
+
 	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
 
 	private Set<String> selected_types; // The element types that are included in the output
@@ -702,109 +705,23 @@ public abstract class IFCtoLBDConverterCore {
 						final List<RDFNode> propertyset_name = new ArrayList<>(
 								RDFUtils.pathQuery(propertyset, pname_path));
 
+						PropertySet ps = this.propertysets.get(propertyset.getURI());
+						if (ps == null) {
+							if (!propertyset_name.isEmpty())
+								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+										this.ontology_model, propertyset_name.get(0).toString(), props_level,
+										hasPropertiesBlankNodes, this.unitmap, hasUnits);
+							else
+								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
+										hasUnits);
+							this.propertysets.put(propertyset.getURI(), ps);
+						}
+
+						PropertySet finalPs = ps;
 						RDFStep[] path = { new RDFStep(this.ifcOWL.getHasProperties_IfcPropertySet()) };
-						RDFUtils.pathQuery(propertyset, path).forEach(propertySingleValue -> {
-
-							RDFStep[] name_path = { new RDFStep(this.ifcOWL.getName_IfcProperty()),
-									new RDFStep(IfcOWL.Express.getHasString()) };
-							final List<RDFNode> property_name = new ArrayList<>(
-									RDFUtils.pathQuery(propertySingleValue.asResource(), name_path));
-
-							if (property_name.isEmpty())
-								return; // = stream continue
-
-							RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()),
-									new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
-							final List<RDFNode> property_unit = new ArrayList<>(
-									RDFUtils.pathQuery(propertySingleValue.asResource(), unit_path));
-							// if this optional property exists, it has the priority
-
-							RDFStep[] type_path = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(RDF.type) };
-							final List<RDFNode> property_type = new ArrayList<>(
-									RDFUtils.pathQuery(propertySingleValue.asResource(), type_path));
-
-							RDFStep[] value_pathS = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(IfcOWL.Express.getHasString()) };
-							final List<RDFNode> property_value = new ArrayList<>(
-									RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathS));
-
-							RDFStep[] value_pathD = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
-							RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathD).forEach(value -> {
-								// if (property_name.toString().equals("[Width]"))
-								// System.out.println("Property value 1 for " + property_name + " was: " +
-								// value);
-								if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI()))
-									value = ifcowl_model.createTypedLiteral(
-											BigDecimal.valueOf(value.asLiteral().getDouble()), XSD.decimal.getURI());
-								// if (property_name.toString().equals("[Width]"))
-								// System.out.println("Property value 2 for " + property_name + " was: " +
-								// value);
-								property_value.add(value);
-							}
-
-					);
-
-							RDFStep[] value_pathI = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(IfcOWL.Express.getHasInteger()) };
-							property_value.addAll(RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathI));
-
-							RDFStep[] value_pathB = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(IfcOWL.Express.getHasBoolean()) };
-							property_value.addAll(RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathB));
-
-							RDFStep[] value_pathL = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
-									new RDFStep(IfcOWL.Express.getHasLogical()) };
-							property_value.addAll(RDFUtils.pathQuery(propertySingleValue.asResource(), value_pathL));
-
-							RDFNode pname = property_name.get(0);
-
-							PropertySet ps = this.propertysets.get(propertyset.getURI());
-							if (ps == null) {
-								if (!propertyset_name.isEmpty())
-									ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-											this.ontology_model, propertyset_name.get(0).toString(), props_level,
-											hasPropertiesBlankNodes, this.unitmap, hasUnits);
-								else
-									ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-											this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
-											hasUnits);
-								this.propertysets.put(propertyset.getURI(), ps);
-							}
-							if (!property_value.isEmpty()) {
-								RDFNode pvalue = property_value.get(0);
-								if (!pname.toString().equals(pvalue.toString())) {
-									if (!pvalue.toString().trim().isEmpty()) {
-										if (pvalue.isLiteral()) {
-											String val = pvalue.asLiteral().getLexicalForm();
-											if (val.equals("-1.#IND"))
-												return;// pvalue =
-														// ResourceFactory.createTypedLiteral(Double.NaN);
-														// // in an extreme case can cause an
-														// empty property set in L2 or L3:
-														// fixed in PropertySet.connect
-										}
-										ps.putPnameValue(pname.toString(), pvalue);
-										ps.putPsetPropertyRef(pname);
-									}
-								}
-								// else: do nothing
-							} else {
-								ps.putPnameValue(pname.toString(), propertySingleValue);
-								ps.putPsetPropertyRef(pname);
-								RDFUtils.copyTriples(0, propertySingleValue, this.lbd_property_output_model);
-							}
-							if (!property_type.isEmpty()) {
-								RDFNode ptype = property_type.get(0);
-								ps.putPnameType(pname.toString(), ptype);
-							}
-							if (!property_unit.isEmpty()) {
-								RDFNode punit = property_unit.get(0);
-								ps.putPnameUnit(pname.toString(), punit);
-							}
-
-						});
+						RDFUtils.pathQuery(propertyset, path).forEach(property -> handleComplexProperties(
+								property.asResource(), "", finalPs, ifcowl_model, new HashSet<>(), 0));
 
 					});
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("LBD properties read"));
@@ -833,73 +750,8 @@ public abstract class IFCtoLBDConverterCore {
 
 							final PropertySet final_quantity_set = quantity_set;
 							RDFStep[] path = { new RDFStep(this.ifcOWL.getQuantities_IfcElementQuantity()) };
-							RDFUtils.pathQuery(quantityset, path).forEach(quantity -> {
-								// System.out.println("quantity:" + quantity);
-								final List<String> name = new ArrayList<>();
-								quantity.asResource().listProperties().forEach(property_value -> {
-
-									if (property_value.getPredicate().getLocalName().contains("name_")) {
-										// System.out.println("name:" +
-										// property_value.getObject().asResource().getLocalName());
-										RDFStep[] qname_path = { new RDFStep(IfcOWL.Express.getHasString()) };
-										List<RDFNode> names = RDFUtils
-												.pathQuery(property_value.getObject().asResource(), qname_path);
-										if (names.size() > 0)
-											name.add(names.get(0).toString());
-									}
-								});
-
-								quantity.asResource().listProperties().forEach(property_value -> {
-
-									// System.out.println("qname is: "+name+" val?
-									// :"+property_value.getPredicate().getLocalName());
-									if (!name.isEmpty()
-											&& property_value.getPredicate().getLocalName().contains("Value_")) {
-										// System.out.println("value:" +
-										// property_value.getObject().asResource().getLocalName());
-
-										RDFStep[] value_pathS = { new RDFStep(IfcOWL.Express.getHasString()) };
-										final List<RDFNode> q_value = new ArrayList<>(RDFUtils
-												.pathQuery(property_value.getObject().asResource(), value_pathS));
-
-										RDFStep[] value_pathD = { new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
-
-										RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathD)
-												.forEach(value -> {
-													if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI()))
-														value = ifcowl_model.createTypedLiteral(
-																BigDecimal.valueOf(value.asLiteral().getDouble()),
-																XSD.decimal.getURI());
-													// System.out.println("Double found for:
-													// "+property_value.getObject());
-													q_value.add(value);
-												}
-
-												);
-
-										RDFStep[] value_pathI = { new RDFStep(IfcOWL.Express.getHasInteger()) };
-										q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(),
-												value_pathI));
-
-										RDFStep[] value_pathB = { new RDFStep(IfcOWL.Express.getHasBoolean()) };
-										q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(),
-												value_pathB));
-
-										RDFStep[] value_pathL = { new RDFStep(IfcOWL.Express.getHasLogical()) };
-										q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(),
-												value_pathL));
-
-										if (!q_value.isEmpty()) {
-											RDFNode qvalue = q_value.get(0);
-											// System.out.println("Add value: "+name+" val:"+qvalue);
-											final_quantity_set.putPnameValue(name.get(0), qvalue);
-										} else
-											System.err.println(
-													"qval empty " + q_value + " for: " + property_value.getObject());
-									}
-
-								});
-							});
+							RDFUtils.pathQuery(quantityset, path).forEach(quantity -> handleComplexQuantities(
+									quantity.asResource(), "", final_quantity_set, ifcowl_model, new HashSet<>(), 0));
 						}
 						;
 					});
@@ -907,6 +759,197 @@ public abstract class IFCtoLBDConverterCore {
 		} finally {
 			dataset.end();
 		}
+	}
+
+	private void handleComplexProperties(Resource property, String propertyPrefix, PropertySet ps, Model ifcowl_model,
+			Set<Resource> complexPropertyPath, int depth) {
+		if (depth > MAX_COMPLEX_PROPERTY_DEPTH)
+			return;
+
+		if (isIfcComplexProperty(property, ifcowl_model)) {
+			if (!complexPropertyPath.add(property))
+				return;
+
+			RDFStep[] usage_name_path = { new RDFStep(this.ifcOWL.getProperty("usageName_IfcComplexProperty")),
+					new RDFStep(IfcOWL.Express.getHasString()) };
+			final List<RDFNode> usage_names = new ArrayList<>(RDFUtils.pathQuery(property, usage_name_path));
+			final String nextPrefix = usage_names.isEmpty() ? propertyPrefix
+					: propertyPrefix + usage_names.get(0).toString() + ": ";
+
+			RDFStep[] complex_property_path = {
+					new RDFStep(this.ifcOWL.getProperty("hasProperties_IfcComplexProperty")) };
+			RDFUtils.pathQuery(property, complex_property_path)
+					.forEach(nestedProperty -> handleComplexProperties(nestedProperty.asResource(), nextPrefix, ps,
+							ifcowl_model, complexPropertyPath, depth + 1));
+			complexPropertyPath.remove(property);
+			return;
+		}
+
+		handleProperty(property, propertyPrefix, ps, ifcowl_model);
+	}
+
+	private boolean isIfcComplexProperty(Resource property, Model ifcowl_model) {
+		Resource ifcComplexProperty = ifcowl_model.getResource(this.ifcOWL.getIfcURI() + "IfcComplexProperty");
+		if (ifcowl_model.contains(property, RDF.type, ifcComplexProperty))
+			return true;
+
+		RDFStep[] complex_property_path = { new RDFStep(this.ifcOWL.getProperty("hasProperties_IfcComplexProperty")) };
+		return !RDFUtils.pathQuery(property, complex_property_path).isEmpty();
+	}
+
+	private void handleProperty(Resource propertySingleValue, String propertyPrefix, PropertySet ps, Model ifcowl_model) {
+		RDFStep[] name_path = { new RDFStep(this.ifcOWL.getName_IfcProperty()),
+				new RDFStep(IfcOWL.Express.getHasString()) };
+		final List<RDFNode> property_name = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, name_path));
+
+		if (property_name.isEmpty())
+			return;
+
+		String pname = propertyPrefix + property_name.get(0).toString();
+
+		RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()),
+				new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
+		final List<RDFNode> property_unit = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, unit_path));
+		// if this optional property exists, it has the priority
+
+		RDFStep[] type_path = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(RDF.type) };
+		final List<RDFNode> property_type = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, type_path));
+
+		RDFStep[] value_pathS = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(IfcOWL.Express.getHasString()) };
+		final List<RDFNode> property_value = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, value_pathS));
+
+		RDFStep[] value_pathD = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
+		RDFUtils.pathQuery(propertySingleValue, value_pathD).forEach(value -> {
+			if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI()))
+				value = ifcowl_model.createTypedLiteral(BigDecimal.valueOf(value.asLiteral().getDouble()),
+						XSD.decimal.getURI());
+			property_value.add(value);
+		});
+
+		RDFStep[] value_pathI = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(IfcOWL.Express.getHasInteger()) };
+		property_value.addAll(RDFUtils.pathQuery(propertySingleValue, value_pathI));
+
+		RDFStep[] value_pathB = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(IfcOWL.Express.getHasBoolean()) };
+		property_value.addAll(RDFUtils.pathQuery(propertySingleValue, value_pathB));
+
+		RDFStep[] value_pathL = { new RDFStep(this.ifcOWL.getNominalValue_IfcPropertySingleValue()),
+				new RDFStep(IfcOWL.Express.getHasLogical()) };
+		property_value.addAll(RDFUtils.pathQuery(propertySingleValue, value_pathL));
+
+		if (!property_value.isEmpty()) {
+			RDFNode pvalue = property_value.get(0);
+			if (!pname.equals(pvalue.toString())) {
+				if (!pvalue.toString().trim().isEmpty()) {
+					if (pvalue.isLiteral()) {
+						String val = pvalue.asLiteral().getLexicalForm();
+						if (val.equals("-1.#IND"))
+							return;
+					}
+					ps.putPnameValue(pname, pvalue);
+					ps.putPsetPropertyRef(pname);
+				}
+			}
+		} else {
+			ps.putPnameValue(pname, propertySingleValue);
+			ps.putPsetPropertyRef(pname);
+			RDFUtils.copyTriples(0, propertySingleValue, this.lbd_property_output_model);
+		}
+		if (!property_type.isEmpty()) {
+			RDFNode ptype = property_type.get(0);
+			ps.putPnameType(pname, ptype);
+		}
+		if (!property_unit.isEmpty()) {
+			RDFNode punit = property_unit.get(0);
+			ps.putPnameUnit(pname, punit);
+		}
+	}
+
+	private void handleComplexQuantities(Resource quantity, String quantityPrefix, PropertySet quantitySet,
+			Model ifcowl_model, Set<Resource> complexQuantityPath, int depth) {
+		if (depth > MAX_COMPLEX_QUANTITY_DEPTH)
+			return;
+
+		if (isIfcPhysicalComplexQuantity(quantity, ifcowl_model)) {
+			if (!complexQuantityPath.add(quantity))
+				return;
+
+			RDFStep[] complex_quantity_name_path = { new RDFStep(this.ifcOWL.getName_IfcPhysicalQuantity()),
+					new RDFStep(IfcOWL.Express.getHasString()) };
+			final List<RDFNode> complex_quantity_names = new ArrayList<>(
+					RDFUtils.pathQuery(quantity, complex_quantity_name_path));
+			final String nextPrefix = complex_quantity_names.isEmpty() ? quantityPrefix
+					: quantityPrefix + complex_quantity_names.get(0).toString() + ": ";
+
+			RDFStep[] complex_quantity_path = {
+					new RDFStep(this.ifcOWL.getProperty("hasQuantities_IfcPhysicalComplexQuantity")) };
+			RDFUtils.pathQuery(quantity, complex_quantity_path)
+					.forEach(nestedQuantity -> handleComplexQuantities(nestedQuantity.asResource(), nextPrefix,
+							quantitySet, ifcowl_model, complexQuantityPath, depth + 1));
+			complexQuantityPath.remove(quantity);
+			return;
+		}
+
+		handleQuantity(quantity, quantityPrefix, quantitySet, ifcowl_model);
+	}
+
+	private boolean isIfcPhysicalComplexQuantity(Resource quantity, Model ifcowl_model) {
+		Resource ifcPhysicalComplexQuantity = ifcowl_model
+				.getResource(this.ifcOWL.getIfcURI() + "IfcPhysicalComplexQuantity");
+		if (ifcowl_model.contains(quantity, RDF.type, ifcPhysicalComplexQuantity))
+			return true;
+
+		RDFStep[] complex_quantity_path = {
+				new RDFStep(this.ifcOWL.getProperty("hasQuantities_IfcPhysicalComplexQuantity")) };
+		return !RDFUtils.pathQuery(quantity, complex_quantity_path).isEmpty();
+	}
+
+	private void handleQuantity(Resource quantity, String quantityPrefix, PropertySet quantitySet, Model ifcowl_model) {
+		final List<String> name = new ArrayList<>();
+		quantity.listProperties().forEach(property_value -> {
+
+			if (property_value.getPredicate().getLocalName().contains("name_")) {
+				RDFStep[] qname_path = { new RDFStep(IfcOWL.Express.getHasString()) };
+				List<RDFNode> names = RDFUtils.pathQuery(property_value.getObject().asResource(), qname_path);
+				if (names.size() > 0)
+					name.add(quantityPrefix + names.get(0).toString());
+			}
+		});
+
+		quantity.listProperties().forEach(property_value -> {
+			if (!name.isEmpty() && property_value.getPredicate().getLocalName().contains("Value_")) {
+				RDFStep[] value_pathS = { new RDFStep(IfcOWL.Express.getHasString()) };
+				final List<RDFNode> q_value = new ArrayList<>(
+						RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathS));
+
+				RDFStep[] value_pathD = { new RDFStep(IfcOWL.Express.getHasDouble()) }; // xsd:decimal
+				RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathD).forEach(value -> {
+					if (value.asLiteral().getDatatypeURI().equals(XSD.xdouble.getURI()))
+						value = ifcowl_model.createTypedLiteral(BigDecimal.valueOf(value.asLiteral().getDouble()),
+								XSD.decimal.getURI());
+					q_value.add(value);
+				});
+
+				RDFStep[] value_pathI = { new RDFStep(IfcOWL.Express.getHasInteger()) };
+				q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathI));
+
+				RDFStep[] value_pathB = { new RDFStep(IfcOWL.Express.getHasBoolean()) };
+				q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathB));
+
+				RDFStep[] value_pathL = { new RDFStep(IfcOWL.Express.getHasLogical()) };
+				q_value.addAll(RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathL));
+
+				if (!q_value.isEmpty()) {
+					RDFNode qvalue = q_value.get(0);
+					quantitySet.putPnameValue(name.get(0), qvalue);
+				} else
+					System.err.println("qval empty " + q_value + " for: " + property_value.getObject());
+			}
+		});
 	}
 
 	/**
