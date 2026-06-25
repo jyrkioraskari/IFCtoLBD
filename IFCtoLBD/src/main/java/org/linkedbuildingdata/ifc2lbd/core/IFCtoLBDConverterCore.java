@@ -80,6 +80,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
 
 import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
+import de.rwth_aachen.dc.lbd.MTLDescription;
 import de.rwth_aachen.dc.lbd.ObjDescription;
 
 /*
@@ -147,8 +148,8 @@ public abstract class IFCtoLBDConverterCore {
 	protected boolean export_as_JSON_LD = false;
 
 	protected boolean createTrig = false;
-    protected boolean hasPerformanceBoost =false;
-	
+	protected boolean hasPerformanceBoost = false;
+
 	public IFCtoLBDConverterCore() {
 		this.eventBus.register(this);
 	}
@@ -221,7 +222,7 @@ public abstract class IFCtoLBDConverterCore {
 
 			});
 
-			if (hasGeolocation &&!this.hasPerformanceBoost) {
+			if (hasGeolocation && !this.hasPerformanceBoost) {
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 				try {
 					this.ontURI.ifPresent(s -> IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL,
@@ -455,6 +456,7 @@ public abstract class IFCtoLBDConverterCore {
 			if (this.has_geometry.add(lbd_resource)) {
 				BoundingBox bb = this.ifc_geometry.getBoundingBox(guid);
 				ObjDescription obj = this.ifc_geometry.getOBJ(guid);
+				MTLDescription mtl = this.ifc_geometry.getMTL(guid);
 
 				Resource sp_geometry = this.lbd_general_output_model
 						.createResource(lbd_resource.getURI() + "_geometry");
@@ -467,8 +469,8 @@ public abstract class IFCtoLBDConverterCore {
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
-						Literal wktLiteral = this.lbd_general_output_model
-								.createTypedLiteral(toLocalIfcCrsWkt(bb), GEO.wktLiteral);
+						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(toLocalIfcCrsWkt(bb),
+								GEO.wktLiteral);
 						sp_geometry.addLiteral(GEO.asWKT, wktLiteral);
 					} else {
 						Resource sp_bb = this.lbd_general_output_model
@@ -495,6 +497,25 @@ public abstract class IFCtoLBDConverterCore {
 					Literal base64 = this.lbd_general_output_model.createTypedLiteral(objBase64,
 							"https://www.w3.org/2001/XMLSchema#base64Binary");
 					sp_geometry.addLiteral(this.fogasObj, base64);
+
+					/// MTL handling
+					if (mtl.toMTLString().length() > 0) {
+						Property mtl_property = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL");
+						sp_geometry.addLiteral(mtl_property, mtl.toMTLString());
+
+						Property mtl_property_ka = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL_ka");
+						sp_geometry.addLiteral(mtl_property_ka, mtl.getMaterials().getFirst().getKaColorString());
+						
+						Property mtl_property_kd = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL_kd");
+						sp_geometry.addLiteral(mtl_property_kd, mtl.getMaterials().getFirst().getKdColorString());
+						
+						Property mtl_property_ks = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL_ks");
+						sp_geometry.addLiteral(mtl_property_ks, mtl.getMaterials().getFirst().getKsColorString());
+						
+						Property mtl_property_alpha = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL_alpha");
+						sp_geometry.addLiteral(mtl_property_alpha, mtl.getMaterials().getFirst().getAlpha());
+					}
+
 					// TODO if not all is in place yet
 					if (lbd_resource.toString().toLowerCase().contains("furniture"))
 						return;
@@ -588,8 +609,8 @@ public abstract class IFCtoLBDConverterCore {
 				f 3 8 4
 				f 5 1 4
 				f 5 4 8
-				""".formatted(x1, y1, z1, x2, y1, z1, x2, y2, z1, x1, y2, z1, x1, y1, z2, x2, y1,
-				z2, x2, y2, z2, x1, y2, z2);
+				""".formatted(x1, y1, z1, x2, y1, z1, x2, y2, z1, x1, y2, z1, x1, y1, z2, x2, y1, z2, x2, y2, z2, x1,
+				y2, z2);
 		return Base64.getEncoder().encodeToString(obj.getBytes(StandardCharsets.UTF_8));
 	}
 
@@ -720,8 +741,9 @@ public abstract class IFCtoLBDConverterCore {
 
 						PropertySet finalPs = ps;
 						RDFStep[] path = { new RDFStep(this.ifcOWL.getHasProperties_IfcPropertySet()) };
-						RDFUtils.pathQuery(propertyset, path).forEach(property -> handleComplexProperties(
-								property.asResource(), "", finalPs, ifcowl_model, new HashSet<>(), 0));
+						RDFUtils.pathQuery(propertyset, path)
+								.forEach(property -> handleComplexProperties(property.asResource(), "", finalPs,
+										ifcowl_model, new HashSet<>(), 0));
 
 					});
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("LBD properties read"));
@@ -750,8 +772,9 @@ public abstract class IFCtoLBDConverterCore {
 
 							final PropertySet final_quantity_set = quantity_set;
 							RDFStep[] path = { new RDFStep(this.ifcOWL.getQuantities_IfcElementQuantity()) };
-							RDFUtils.pathQuery(quantityset, path).forEach(quantity -> handleComplexQuantities(
-									quantity.asResource(), "", final_quantity_set, ifcowl_model, new HashSet<>(), 0));
+							RDFUtils.pathQuery(quantityset, path)
+									.forEach(quantity -> handleComplexQuantities(quantity.asResource(), "",
+											final_quantity_set, ifcowl_model, new HashSet<>(), 0));
 						}
 						;
 					});
@@ -797,7 +820,8 @@ public abstract class IFCtoLBDConverterCore {
 		return !RDFUtils.pathQuery(property, complex_property_path).isEmpty();
 	}
 
-	private void handleProperty(Resource propertySingleValue, String propertyPrefix, PropertySet ps, Model ifcowl_model) {
+	private void handleProperty(Resource propertySingleValue, String propertyPrefix, PropertySet ps,
+			Model ifcowl_model) {
 		RDFStep[] name_path = { new RDFStep(this.ifcOWL.getName_IfcProperty()),
 				new RDFStep(IfcOWL.Express.getHasString()) };
 		final List<RDFNode> property_name = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, name_path));
@@ -1372,7 +1396,7 @@ public abstract class IFCtoLBDConverterCore {
 	public void readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile,
 			boolean hasPerformanceBoost) {
 		try {
-			this.hasPerformanceBoost=hasPerformanceBoost;
+			this.hasPerformanceBoost = hasPerformanceBoost;
 			IFCtoRDF rj = new IFCtoRDF();
 			File outputFile;
 			boolean loadedExistingIfcOWL = false;

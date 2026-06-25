@@ -47,6 +47,20 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### June 25, 2026
+
+When the geometry is exported, the material information as MTL is now included.
+
+```
+inst:wall_9808fd7f-dc48-478e-9217-628e833d7d12_geometry
+        <https://lbd.org/#asMTL_alpha>  "1.0"^^<http://www.w3.org/2001/XMLSchema#double>;
+        <https://lbd.org/#asMTL_ks>     "#000000";
+        <https://lbd.org/#asMTL_kd>     "#808080";
+        <https://lbd.org/#asMTL_ka>     "#808080";
+        <https://lbd.org/#asMTL>        "newmtl material_0\nKa 0.501961 0.501961 0.501961\nKd 0.501961 0.501961 0.501961\nKs 0.000000 0.000000 0.000000\nd 1.000000\nillum 2\n\n";
+        lbd:hasBoundingBox              inst:wall_9808fd7f-dc48-478e-9217-628e833d7d12_geometry_bb;
+        rdf:type                        geo:Geometry .
+```
 ### June 16, 2026
 
 First version of recursive IfcComplexProperty and IfcPhysicalComplexQuantity.
