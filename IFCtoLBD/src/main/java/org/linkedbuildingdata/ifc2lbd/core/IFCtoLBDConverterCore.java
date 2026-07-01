@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.UUID;
 
 import org.apache.jena.atlas.json.JsonArray;
 import org.apache.jena.ontology.OntModelSpec;
@@ -648,8 +649,12 @@ public abstract class IFCtoLBDConverterCore {
 				Resource e_uri = e.value();
 
 				if (e_uri != lbd_resource) {
+					String interfaceSeed = lbd_resource.getURI() + "|" + e_uri.getURI();
+					String interfaceId = UUID
+							.nameUUIDFromBytes(interfaceSeed.getBytes(StandardCharsets.UTF_8))
+							.toString();
 					Resource bot_interface = this.lbd_general_output_model
-							.createResource(lbd_resource.getURI() + "_interface_" + e.geometry().hashCode());
+							.createResource(lbd_resource.getURI() + "_interface_" + interfaceId);
 					bot_interface.addProperty(RDF.type, BOT.bot_interface);
 					bot_interface.addProperty(BOT.bot_interfaceOf, e_uri);
 					bot_interface.addProperty(BOT.bot_interfaceOf, lbd_resource); // Duplicates does not matter
