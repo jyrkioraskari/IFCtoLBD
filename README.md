@@ -47,6 +47,13 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### July 1, 2026
+New projects
+- **[LBD_Change_Inspector](https://github.com/jyrkioraskari/LBD_Change_Inspector)**
+- **[LBD_OBJ_Exporter](https://github.com/jyrkioraskari/LBD_OBJ_Exporter)**
+
+
+
 ### June 25, 2026
 
 When the geometry is exported, the material information as MTL is now included.
