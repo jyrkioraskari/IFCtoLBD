@@ -34,7 +34,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.46.3}},
+  title        = {{IFCtoLBD v 2.47.0}},
   month        = aug,
   year         = 2026,
   publisher    = {GitHub},
