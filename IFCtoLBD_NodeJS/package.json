@@ -2,9 +2,10 @@
   "name": "javaonnodejs",
   "version": "1.0.0",
   "description": "IFC to LBD in Node.js",
-  "main": "index.js",
+  "main": "example.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node example.js",
+    "test": "node -c example.js"
   },
   "keywords": [
     "IFC",
@@ -13,7 +14,10 @@
   ],
   "author": "Jyrki Oraskari",
   "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
   "dependencies": {
-    "java": "^0.14.0"
+    "java-bridge": "^2.8.1"
   }
 }
