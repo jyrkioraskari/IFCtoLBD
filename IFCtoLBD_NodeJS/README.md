@@ -1,6 +1,6 @@
 # IFCtoLBD Node.js Example
 
-This package shows how to call the IFCtoLBD Java converter from Node.js. It loads the IFCtoLBD and dependency JAR files from `java_libraries/`, starts a JVM through `java-bridge`, converts an IFC file, and prints the RDF model subjects.
+This package shows how to call the IFCtoLBD Java converter from Node.js. The `IFCtoLBD.js` wrapper loads the IFCtoLBD and dependency JAR files from `java_libraries/`, starts a JVM through `java-bridge`, converts IFC files, and exposes small JavaScript helper methods.
 
 ## Requirements
 
@@ -79,7 +79,7 @@ With `java-bridge`, Visual Studio Build Tools are not required for the normal Wi
 
 ## Run
 
-Run with the default sample IFC file:
+Run the basic example with the default sample IFC file:
 
 ```sh
 npm start
@@ -94,10 +94,71 @@ The default input is:
 Run with a specific IFC file:
 
 ```sh
-node example.js Duplex.ifc
+node example.js /path/to/model.ifc
 ```
 
 The output is a list of RDF subjects from the converted model.
+
+Run the additional examples:
+
+```sh
+npm run example1
+npm run example2
+npm run example3
+```
+
+`example1.js` sets a custom base URI and prints a subject count. `example2.js` shows direct access to the converted Jena model and prints the first subjects. `example3.js` serializes the converted Duplex model to Turtle, loads it into an in-memory RDF store, and queries it with Comunica.
+
+## Wrapper API
+
+Import the wrapper from `IFCtoLBD.js`:
+
+```js
+const { IFCtoLBD } = require("./IFCtoLBD");
+
+const converter = new IFCtoLBD({
+  baseUri: "https://example.com/building/",
+  hasGeometry: false,
+  levels: [1],
+});
+
+const subjects = converter.convertToSubjects("/path/to/model.ifc");
+console.log(subjects);
+```
+
+The constructor accepts:
+
+- `baseUri`: base URI used by IFCtoLBD for generated resources.
+- `hasGeometry`: passed to the IFCtoLBD Java converter constructor.
+- `levels`: conversion levels passed to the Java converter.
+- `javaHome`: optional JDK/JRE path. Defaults to `JAVA_HOME`, then `../.tools/jdk`.
+- `jarDir`: optional directory containing dependency JAR files. Defaults to `java_libraries/`.
+- `tmpDir`: optional Java temp directory. Defaults to `TMPDIR`, then the operating system temp directory.
+- `jvmOptions`: extra JVM options, for example `["-Xmx4G"]`.
+
+Useful methods:
+
+- `convert(ifcFile)`: converts an IFC file and returns the Java RDF model object.
+- `serializeModel(model, format)`: serializes a Java RDF model. The default format used by the examples is `TURTLE`.
+- `convertToTurtle(ifcFile)`: converts an IFC file and returns Turtle text.
+- `listSubjects(model)`: returns the subjects from a converted model.
+- `convertToSubjects(ifcFile)`: converts an IFC file and returns subjects in one call.
+
+## Comunica In-Memory Example
+
+`example3.js` demonstrates querying converted IFC data without writing RDF output files:
+
+```sh
+npm run example3
+```
+
+The example:
+
+- Converts the default Duplex IFC file with `IFCtoLBD`.
+- Serializes the Java RDF model to Turtle.
+- Parses Turtle with `n3`.
+- Stores the quads in an in-memory `N3.Store`.
+- Runs a SPARQL query with `@comunica/query-sparql`.
 
 ## Test
 
@@ -105,7 +166,7 @@ The output is a list of RDF subjects from the converted model.
 npm test
 ```
 
-The test currently checks that `example.js` is valid JavaScript syntax.
+The test currently checks that the wrapper and example files are valid JavaScript syntax.
 
 ## Java And Classpath
 
@@ -118,11 +179,15 @@ export JAVA_HOME=/path/to/jdk
 npm start
 ```
 
-The script also sets `java.io.tmpdir` with a trailing path separator. This avoids temporary-file path issues in the IFC conversion step.
+The wrapper also sets `java.io.tmpdir` with a trailing path separator. By default it creates a per-process temp directory under the operating system temp directory. This avoids temporary-file path issues in the IFC conversion step and prevents separate example runs from writing to the same converter temp file.
 
 ## Project Files
 
-- `example.js` starts the JVM, loads the JAR classpath, runs the converter, and prints subjects.
+- `IFCtoLBD.js` wraps JVM startup, classpath loading, converter creation, and common helper methods.
+- `example.js` is the shortest conversion example.
+- `example1.js` shows custom converter options and a subject count.
+- `example2.js` shows direct access to the converted Java model.
+- `example3.js` shows Comunica querying over an in-memory RDF store.
 - `java_libraries/` contains IFCtoLBD and Java dependency JAR files.
 - `package.json` defines install, run, and syntax-check commands.
 - `package-lock.json` locks the Node dependency versions.

@@ -2,10 +2,13 @@
   "name": "javaonnodejs",
   "version": "1.0.0",
   "description": "IFC to LBD in Node.js",
-  "main": "example.js",
+  "main": "IFCtoLBD.js",
   "scripts": {
     "start": "node example.js",
-    "test": "node -c example.js"
+    "example1": "node example1.js",
+    "example2": "node example2.js",
+    "example3": "node example3.js",
+    "test": "node -c IFCtoLBD.js && node -c example.js && node -c example1.js && node -c example2.js && node -c example3.js"
   },
   "keywords": [
     "IFC",
@@ -18,6 +21,8 @@
     "node": ">=18"
   },
   "dependencies": {
-    "java-bridge": "^2.8.1"
+    "@comunica/query-sparql": "^5.2.4",
+    "java-bridge": "^2.8.1",
+    "n3": "^2.1.1"
   }
 }
