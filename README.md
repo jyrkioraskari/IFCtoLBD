@@ -47,6 +47,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### July 9, 2026
+Python library updated to version 2.47.0.
+
 ### July 1, 2026
 New projects
 - **[LBD_Change_Inspector](https://github.com/jyrkioraskari/LBD_Change_Inspector)**

@@ -1,0 +1,114 @@
+@prefix bot: <https://w3id.org/bot#> .
+@prefix opm: <https://w3id.org/opm#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix schema: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix furn: <http://pi.pauwel.be/voc/furniture#> .
+@prefix lbdtest: <https://linkedbuildingdata.org/test/duplex-patterns#> .
+
+lbdtest:CoreGraphPatterns
+    a sh:NodeShape ;
+    sh:targetNode lbdtest:Graph ;
+    sh:sparql [
+        sh:message "The graph must contain the BOT site-building-storey hierarchy." ;
+        sh:select """
+            PREFIX bot: <https://w3id.org/bot#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?site a bot:Site ;
+                        bot:hasBuilding ?building .
+                    ?building a bot:Building ;
+                        bot:hasStorey ?storey .
+                    ?storey a bot:Storey .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The graph must contain BOT storeys with spaces and contained elements." ;
+        sh:select """
+            PREFIX bot: <https://w3id.org/bot#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?storey a bot:Storey ;
+                        bot:hasSpace ?space ;
+                        bot:containsElement ?element .
+                    ?space a bot:Space .
+                    ?element a bot:Element .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The graph must contain typed building elements from the Duplex example." ;
+        sh:select """
+            PREFIX bot: <https://w3id.org/bot#>
+            PREFIX beo: <https://pi.pauwel.be/voc/buildingelement#>
+            PREFIX furn: <http://pi.pauwel.be/voc/furniture#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { ?wall a bot:Element, beo:Wall . } }
+                UNION
+                { FILTER NOT EXISTS { ?door a bot:Element, beo:Door . } }
+                UNION
+                { FILTER NOT EXISTS { ?window a bot:Element, beo:Window . } }
+                UNION
+                { FILTER NOT EXISTS { ?furniture a bot:Element, furn:Furniture . } }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The graph must contain LBD properties with current states, timestamps, and values." ;
+        sh:select """
+            PREFIX opm: <https://w3id.org/opm#>
+            PREFIX prov: <http://www.w3.org/ns/prov#>
+            PREFIX schema: <http://schema.org/>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?property a opm:Property ;
+                        opm:hasPropertyState ?state .
+                    ?state a opm:CurrentPropertyState ;
+                        prov:generatedAtTime ?time ;
+                        schema:value ?value .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The graph must contain globalId, name, and objectType IFC root/object properties." ;
+        sh:select """
+            PREFIX opm: <https://w3id.org/opm#>
+            PREFIX props: <http://lbd.arch.rwth-aachen.de/props#>
+            SELECT $this WHERE {
+                { FILTER NOT EXISTS { ?element props:globalIdIfcRoot [ a opm:Property ] . } }
+                UNION
+                { FILTER NOT EXISTS { ?element props:nameIfcRoot [ a opm:Property ] . } }
+                UNION
+                { FILTER NOT EXISTS { ?element props:objectTypeIfcObject [ a opm:Property ] . } }
+            }
+        """
+    ] .
+
+lbdtest:CurrentPropertyStateShape
+    a sh:NodeShape ;
+    sh:targetClass opm:CurrentPropertyState ;
+    sh:property [
+        sh:path schema:value ;
+        sh:minCount 1
+    ] ;
+    sh:property [
+        sh:path prov:generatedAtTime ;
+        sh:minCount 1
+    ] .
+
+lbdtest:PropertyShape
+    a sh:NodeShape ;
+    sh:targetClass opm:Property ;
+    sh:property [
+        sh:path opm:hasPropertyState ;
+        sh:minCount 1 ;
+        sh:class opm:CurrentPropertyState
+    ] .

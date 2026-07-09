@@ -391,6 +391,16 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	private String target_file;
 
+	public void setTargetFile(String target_file) {
+		this.target_file = target_file;
+	}
+
+	public void exportExistingOutput(String target_file, boolean hasSeparatePropertiesModel, boolean createTrig,
+			boolean export_as_JSON_LD) {
+		this.target_file = target_file;
+		super.exportExistingOutput(target_file, hasSeparatePropertiesModel, createTrig, export_as_JSON_LD);
+	}
+
 	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,
 			boolean hasPerformanceBoost, boolean exportIfcOWL, boolean hasBuildingElements,
 			boolean hasBuildingProperties, boolean hasBoundingBoxWKT, boolean hasUnits) {
@@ -536,6 +546,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		boolean namedGraphs = false;
 		try {
 			this.readInPhaseReusable = false;
+			resetModels();
+			addNamespaces(this.uriBase.get(), this.props_level, hasBuildingElements, hasBuildingProperties);
 			
 			conversion(this.target_file, hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, namedGraphs,

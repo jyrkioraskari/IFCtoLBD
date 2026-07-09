@@ -402,6 +402,11 @@ public class PropertySet {
 		this.hasSimplified_properties = hasSimplified_properties;
 	}
 
+	public void resetConversionState() {
+		this.hashes.clear();
+		this.done = false;
+	}
+
 	public void setProperty_replace_map(Map<String, String> property_replace_map) {
 		this.property_replace_map = property_replace_map;
 	}

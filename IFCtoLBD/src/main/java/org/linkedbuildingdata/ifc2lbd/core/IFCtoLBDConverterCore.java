@@ -173,6 +173,7 @@ public abstract class IFCtoLBDConverterCore {
 			this.exportIfcOWL_setting = exportIfcOWL;
 			this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
 			this.included_elements.clear();
+			setOutputSerialization(export_as_JSON_LD);
 			System.out.println("Conversion....");
 			if (hasGeometry) {
 				this.rtree = RTree.dimensions(3).create();
@@ -284,8 +285,7 @@ public abstract class IFCtoLBDConverterCore {
 			if (target_file != null) {
 				if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
 					System.out.println("!Separate properties model");
-					String target_trig = target_file.replaceAll(".ttl", ".trig");
-					target_trig = target_file.replaceAll(".json", ".trig");
+					String target_trig = replaceOutputExtension(target_file, ".trig");
 					if (this.uriBase.isPresent() && this.lbd_dataset != null) {
 						this.lbd_dataset.getDefaultModel().add(this.lbd_general_output_model);
 						this.lbd_dataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
@@ -662,6 +662,63 @@ public abstract class IFCtoLBDConverterCore {
 				}
 			}
 		}
+	}
+
+	protected void exportExistingOutput(String target_file, boolean hasSeparatePropertiesModel, boolean createTrig,
+			boolean exportAsJsonLd) {
+		this.createTrig = createTrig;
+		this.export_as_JSON_LD = exportAsJsonLd;
+		setOutputSerialization(exportAsJsonLd);
+		writeExistingOutputFiles(target_file, hasSeparatePropertiesModel);
+	}
+
+	private void setOutputSerialization(boolean exportAsJsonLd) {
+		this.default_serialization_format = exportAsJsonLd ? RDFFormat.JSONLD : RDFFormat.TURTLE_BLOCKS;
+	}
+
+	private void writeExistingOutputFiles(String target_file, boolean hasSeparatePropertiesModel) {
+		if (target_file == null)
+			return;
+
+		String outputTarget = target_file;
+		if (this.export_as_JSON_LD && outputTarget.endsWith(".ttl"))
+			outputTarget = outputTarget.substring(0, outputTarget.length() - ".ttl".length()) + ".json";
+
+		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
+		if (hasSeparatePropertiesModel) {
+			String out_properties_filename = outputTarget.substring(0, outputTarget.lastIndexOf("."))
+					+ (this.export_as_JSON_LD ? "_element_properties.json" : "_element_properties.ttl");
+			RDFUtils.writeModelRDFStream(this.lbd_property_output_model, out_properties_filename, this.eventBus,
+					this.default_serialization_format);
+			this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
+					"Building elements properties file is: " + out_properties_filename));
+		}
+
+		RDFUtils.writeModelRDFStream(this.lbd_general_output_model, outputTarget, this.eventBus,
+				this.default_serialization_format);
+
+		String target_trig = replaceOutputExtension(outputTarget, ".trig");
+		if (this.createTrig) {
+			Dataset outputDataset = DatasetFactory.create();
+			outputDataset.setDefaultModel(this.lbd_general_output_model);
+			if (this.uriBase.isPresent()) {
+				outputDataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
+				outputDataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
+			}
+			RDFUtils.writeDataset(outputDataset, target_trig, this.eventBus);
+			this.eventBus
+					.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data graphs file is: " + target_trig));
+		}
+		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data file is: " + outputTarget));
+	}
+
+	private String replaceOutputExtension(String targetFile, String extension) {
+		int separatorIndex = Math.max(targetFile.lastIndexOf(File.separatorChar), targetFile.lastIndexOf('/'));
+		int dotIndex = targetFile.lastIndexOf('.');
+		if (dotIndex > separatorIndex) {
+			return targetFile.substring(0, dotIndex) + extension;
+		}
+		return targetFile + extension;
 	}
 
 	private final Map<String, String> unitmap = new HashMap<>();
@@ -1663,6 +1720,13 @@ public abstract class IFCtoLBDConverterCore {
 		this.lbd_general_output_model.removeAll();
 		this.lbd_product_output_model.removeAll();
 		this.lbd_property_output_model.removeAll();
+		this.lbd_dataset = DatasetFactory.create();
+		this.lbd_dataset.setDefaultModel(this.lbd_general_output_model);
+		this.has_geometry.clear();
+		this.rtree_map.clear();
+		this.included_elements.clear();
+		this.handledAttributes4resource.clear();
+		this.propertysets.values().forEach(PropertySet::resetConversionState);
 	}
 
 	@Subscribe

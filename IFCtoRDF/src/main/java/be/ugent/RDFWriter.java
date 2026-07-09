@@ -171,10 +171,9 @@ public class RDFWriter {
 	 * @param out The output stream to write the RDF data to.
 	 */
 	void parseModel2Stream(OutputStream out)  {
-		// CHANGED: Jena 3.16.0 JO: 2020, added Context.emptyContext
-		// 2021/12/10 The Context.emptyContext was not supported in Jena [4.2.0,)
-		//ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
-		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.TURTLE_BLOCKS, Context.emptyContext());
+		// N-Triples is intentionally used for the ifcOWL intermediate file.
+		// It is a Turtle subset and avoids Turtle block formatting/order work for large IFC models.
+		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.NTRIPLES_UTF8, Context.emptyContext());
 		ttlWriter.base(baseURI);
 		ttlWriter.prefix("ifc", ontNS);
 		ttlWriter.prefix("inst", baseURI);

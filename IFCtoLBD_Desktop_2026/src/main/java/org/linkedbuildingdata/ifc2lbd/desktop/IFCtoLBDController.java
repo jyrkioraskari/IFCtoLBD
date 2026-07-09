@@ -236,6 +236,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasIfcBasedElements, boolean createTrig, boolean exportAsJsonLd) {
 	}
 
+	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
+	}
+
+	private ConversionRequest lastSuccessfulConversionRequest;
+	private ConversionRequest pendingConversionRequest;
+
 	@FXML
 	private void closeApplicationAction() {
 		this.eventBus.post(new IFCtoLBD_SystemExit("User selected the application exit."));
@@ -477,6 +483,57 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.ifc_based_elements.isSelected(), this.createTrig.isSelected(), isJsonLdOutputSelected());
 	}
 
+	private boolean hasReadInSettingsChanged(ConversionSettings previous, ConversionSettings current) {
+		if (previous == null) {
+			return true;
+		}
+		return !Objects.equals(previous.ifcFileName(), current.ifcFileName())
+				|| !Objects.equals(previous.baseUri(), current.baseUri())
+				|| previous.propsLevel() != current.propsLevel()
+				|| previous.hasBuildingElements() != current.hasBuildingElements()
+				|| previous.hasBuildingProperties() != current.hasBuildingProperties()
+				|| previous.hasPropertiesBlankNodes() != current.hasPropertiesBlankNodes()
+				|| previous.hasGeolocation() != current.hasGeolocation()
+				|| previous.hasGeometry() != current.hasGeometry()
+				|| previous.exportIfcOwl() != current.exportIfcOwl()
+				|| previous.hasPerformanceBoost() != current.hasPerformanceBoost()
+				|| previous.hasBoundingBoxWkt() != current.hasBoundingBoxWkt()
+				|| previous.hasInterfaces() != current.hasInterfaces()
+				|| previous.hasUnits() != current.hasUnits();
+	}
+
+	private boolean hasConversionRequestChanged(ConversionRequest previous, ConversionRequest current) {
+		if (previous == null) {
+			return true;
+		}
+		ConversionSettings previousSettings = previous.settings();
+		ConversionSettings currentSettings = current.settings();
+		return hasReadInSettingsChanged(previousSettings, currentSettings)
+				|| previousSettings.hasSeparateBuildingElementsModel() != currentSettings.hasSeparateBuildingElementsModel()
+				|| previousSettings.hasSeparatePropertiesModel() != currentSettings.hasSeparatePropertiesModel()
+				|| previousSettings.hasHierarchicalNaming() != currentSettings.hasHierarchicalNaming()
+				|| previousSettings.hasSimpleProperties() != currentSettings.hasSimpleProperties()
+				|| previousSettings.hasIfcBasedElements() != currentSettings.hasIfcBasedElements()
+				|| !Objects.equals(previous.selectedTypes(), current.selectedTypes())
+				|| !Objects.equals(previous.selectedPsets(), current.selectedPsets());
+	}
+
+	private Set<String> selectedElementTypes() {
+		Set<String> selectedTypes = new HashSet<>();
+		for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
+			selectedTypes.add(item.getValue());
+		}
+		return selectedTypes;
+	}
+
+	private Set<String> selectedPropertySets() {
+		Set<String> selectedPsets = new HashSet<>();
+		for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
+			selectedPsets.add(item.getValue());
+		}
+		return selectedPsets;
+	}
+
 	private void persistSettings(ConversionSettings settings) {
 		this.prefs.putBoolean("lbd_building_elements", settings.hasBuildingElements());
 		this.prefs.putBoolean("lbd_building_elements_separate_file", settings.hasSeparateBuildingElementsModel());
@@ -543,7 +600,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.conversionTxt.appendText("Read-in is still running. Start conversion after it finishes.\n");
 			return;
 		}
-		if (!Objects.equals(this.readInSettings, currentSettings)) {
+		if (hasReadInSettingsChanged(this.readInSettings, currentSettings)) {
 			try {
 				this.running_read_in.get();
 			} catch (InterruptedException e) {
@@ -571,17 +628,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.options_panel.setDisable(true);
 				this.masker_panel.setVisible(true);
 
-			Set<String> selected_types = new HashSet<>();
-			for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
-				selected_types.add(item.getValue());
-
-			}
-			
-			Set<String> selected_psets = new HashSet<>();
-			for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
-				selected_psets.add(item.getValue());
-
-			}
+			Set<String> selected_types = selectedElementTypes();
+			Set<String> selected_psets = selectedPropertySets();
 				IFCtoLBDConverter converter = this.running_read_in.get();
 				if (converter == null) {
 					this.conversionTxt.appendText("Read-in failed. Conversion cannot continue.\n");
@@ -589,7 +637,26 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.options_panel.setDisable(false);
 					return;
 				}
+				converter.setTargetFile(currentSettings.rdfTargetName());
 				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
+				ConversionRequest conversionRequest = new ConversionRequest(currentSettings, selected_types, selected_psets);
+				this.pendingConversionRequest = conversionRequest;
+				if (!currentSettings.hasSeparateBuildingElementsModel()
+						&& !hasConversionRequestChanged(this.lastSuccessfulConversionRequest, conversionRequest)) {
+					this.running_conversion = this.executor.submit(() -> {
+						try {
+							converter.exportExistingOutput(currentSettings.rdfTargetName(),
+									currentSettings.hasSeparatePropertiesModel(), currentSettings.createTrig(),
+									currentSettings.exportAsJsonLd());
+							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.CONVERT));
+						} catch (Exception e) {
+							this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+						}
+						return 0;
+					});
+					return;
+				}
 			this.running_conversion = this.executor.submit(new ConversionThread(converter, selected_types, selected_psets,
 					currentSettings.ifcFileName(), currentSettings.baseUri(), currentSettings.rdfTargetName(),
 					currentSettings.propsLevel(), currentSettings.hasBuildingElements(),
@@ -875,6 +942,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					e.printStackTrace();
 				}
 			});
+		}
+		if (event.getPhase() == ProcessReadyEvent.CONVERT) {
+			this.lastSuccessfulConversionRequest = this.pendingConversionRequest;
+		}
+		if (event.getPhase() == ProcessReadyEvent.ERROR) {
+			this.pendingConversionRequest = null;
 		}
 	}
 }
