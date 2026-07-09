@@ -51,7 +51,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 Python library updated to version 2.47.0.
 A wrapper for the classes to support IDEs like PyCharm.
 
-IFCtoLBD_NodeJS updated.
+Also, IFCtoLBD_NodeJS updated.
 
 ### July 1, 2026
 New projects
