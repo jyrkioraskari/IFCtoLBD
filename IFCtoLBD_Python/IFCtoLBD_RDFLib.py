@@ -1,19 +1,8 @@
 # !/usr/bin/env python3
 
-import jpype
 from rdflib import Graph
 import json
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['./jars/*'])
-
-from org.linkedbuildingdata.ifc2lbd import IFCtoLBDConverter
-from org.linkedbuildingdata.ifc2lbd import ConversionProperties
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
 
 
 #-------------------------------------------------------------------------------
@@ -53,5 +42,5 @@ SELECT ?element WHERE {
 for r in g.query(q):
     print(r["element"])
 
-jpype.shutdownJVM()
+shutdown_jvm()
 

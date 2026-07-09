@@ -1,18 +1,7 @@
 # !/usr/bin/env python3
 
-import jpype
 import json
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['./jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
 
 #-------------------------------------------------------------------------------
 # Name:        Direct access as Python objects
@@ -51,5 +40,5 @@ lbd_objs = json.loads(lbd_json);
 for o in lbd_objs:
   print(o["element"])
   print(o["obj"])   # base64 obj
-jpype.shutdownJVM()
+shutdown_jvm()
 

@@ -20,21 +20,14 @@ import open3d as o3d
 import open3d.visualization as viss
 import base64
 import tempfile
-import jpype
 import numpy as np
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
-QueryExecutionFactory= jpype.JClass("org.apache.jena.query.QueryExecutionFactory")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
+from IFCtoLBD_wrapper import (
+    ConversionProperties,
+    IFCtoLBDConverter,
+    QueryExecutionFactory,
+    QueryFactory,
+    shutdown_jvm,
+)
 
 
 # Convert the IFC file into LBD, OPM level 1 model
@@ -151,4 +144,4 @@ mat_space.absorption_color = [0, 0, 1.0]
 geoms = [{'name': 'mesh_doors', 'geometry': mesh_doors, 'material': mat_door},{'name': 'mesh_spaces', 'geometry': mesh_spaces, 'material': mat_space}]
 viss.draw(geoms)
 
-jpype.shutdownJVM()
+shutdown_jvm()

@@ -9,17 +9,8 @@ The example source code can be found in the IFCtoLBD_Python subfolder
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import IFCtoLBDConverter, shutdown_jvm
 
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
 
 # Convert the IFC file into LBD level 3 model
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  3)
@@ -36,9 +27,9 @@ while statements.hasNext() :
         object=triple.getObject().toString()
         print(subject)
 
-#model.write(jpype.java.lang.System.out)
+#model.write(...)
 
-jpype.shutdownJVM()
+shutdown_jvm()
 
 
 ```
@@ -49,19 +40,8 @@ jpype.shutdownJVM()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import IFCtoLBDConverter, QueryExecutionFactory, QueryFactory, shutdown_jvm
 
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
-QueryExecutionFactory= jpype.JClass("org.apache.jena.query.QueryExecutionFactory")
 
 # Convert the IFC file into LBD, OPM level 1 model
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  1)
@@ -83,7 +63,7 @@ while results.hasNext() :
     x = soln.get("building")
     print(x)
 
-jpype.shutdownJVM()
+shutdown_jvm()
 
 
 ```
@@ -94,19 +74,10 @@ jpype.shutdownJVM()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
+
 import json
 
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 #-------------------------------------------------------------------------------
 # Name:        Direct access as Python objects
@@ -140,7 +111,7 @@ lbd_objs = json.loads(lbd_json);
 for o in lbd_objs:
   print(o["element"])
   print(o["obj"])   # base64 obj
-jpype.shutdownJVM()
+shutdown_jvm()
 
 ```
 ### How to list door elements using rdflib
@@ -148,20 +119,10 @@ jpype.shutdownJVM()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
+
 from rdflib import Graph
 import json
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 #-------------------------------------------------------------------------------
@@ -197,7 +158,7 @@ SELECT ?element WHERE {
 for r in g.query(q):
     print(r["element"])
 
-jpype.shutdownJVM()
+shutdown_jvm()
 
 ```
 
@@ -206,20 +167,10 @@ jpype.shutdownJVM()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
+
 from rdflib import Graph
 import json
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 #-------------------------------------------------------------------------------
@@ -265,9 +216,7 @@ SELECT ?element ?guid WHERE {
 for r in g.query(q):
     print(r["element"]," guid ",r["guid"])
 
-if jpype.isJVMStarted():
-            jpype.shutdownJVM()
-
+shutdown_jvm()
 
 
 ```
@@ -277,6 +226,8 @@ if jpype.isJVMStarted():
 
 ```
 # !/usr/bin/env python3
+
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, QueryExecutionFactory, QueryFactory, shutdown_jvm
 #  To install:   pip install open3d
 
 
@@ -296,22 +247,8 @@ import open3d as o3d
 import open3d.visualization as viss
 import base64
 import tempfile
-import jpype
 import numpy as np
 from open3d.cpu.pybind.visualization import MeshColorOption
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-QueryFactory= jpype.JClass("org.apache.jena.query.QueryFactory")
-QueryExecutionFactory= jpype.JClass("org.apache.jena.query.QueryExecutionFactory")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 # Convert the IFC file into LBD, OPM level 1 model
@@ -378,7 +315,7 @@ mat_mesh.shader = 'defaultLit'
 mat_mesh.base_color = [1, 0.8, 0.8, 0.5]
 geoms = [{'name': 'mesh', 'geometry': mesh, 'material': mat_mesh}]
 viss.draw(geoms)
-jpype.shutdownJVM()
+shutdown_jvm()
 
 
 ```
@@ -388,22 +325,13 @@ jpype.shutdownJVM()
 
 ```
 # !/usr/bin/env python3
+
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter
 # pip install matplotlib
 
-import jpype
 from rdflib import Graph
 import json
 
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 import io
 import numpy as np
@@ -461,18 +389,11 @@ plt.show()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
+
 from rdflib import Graph
 import json
-# Enable Java imports
-import jpype.imports
-# Pull in types
-from jpype.types import *
 
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 #-------------------------------------------------------------------------------
 # Name:        RDFLib access
@@ -522,7 +443,7 @@ g.parse(data=json.loads(lbd_jsonld), format='json-ld')
 #  Lists the triples:
 print(g.serialize(format="turtle"))
 
-jpype.shutdownJVM()
+shutdown_jvm()
 
 ```
 
@@ -531,21 +452,11 @@ jpype.shutdownJVM()
 ```
 # !/usr/bin/env python3
 
-import jpype
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_jvm
+
 from rdflib import Graph
 import json
 from urllib.parse import urlparse
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
 
 
 #-------------------------------------------------------------------------------
@@ -606,7 +517,7 @@ for key, values in element_map.items():
         print(f"-    {props_key}: {props_value}")
 
 
-jpype.shutdownJVM()
+shutdown_jvm()
 ```
 
 
