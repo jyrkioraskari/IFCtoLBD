@@ -414,6 +414,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		try {
 		this.target_file = target_file;
 
+		File ifcFile = new File(ifc_filename);
+		if (!ifcFile.isFile()) {
+			String message = "Cannot read IFC file: " + ifc_filename
+					+ " (resolved path: " + ifcFile.getAbsolutePath() + ")";
+			System.err.println(message);
+			eventBus.post(new IFCtoLBD_SystemStatusEvent(message));
+			return false;
+		}
+
 		if (ifc_filename.endsWith(".ifczip"))
 			ifc_filename = unzip(ifc_filename);
 

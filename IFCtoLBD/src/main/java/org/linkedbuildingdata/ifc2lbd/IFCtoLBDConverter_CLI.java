@@ -1,6 +1,7 @@
 
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.io.File;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -125,6 +126,14 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Override
 	public Integer call() throws Exception {
 		String ifc_filename = this.ifc_filename;
+		File ifcFile = new File(ifc_filename);
+		if (!ifcFile.isFile()) {
+			System.err.println("Cannot read IFC file: " + ifc_filename);
+			System.err.println("Resolved path: " + ifcFile.getAbsolutePath());
+			System.err.println("Current working directory: " + new File(".").getCanonicalPath());
+			System.err.println("Use an absolute path or run the command from the folder that contains the IFC file.");
+			return 1;
+		}
 
 		String uriBase = "https://lbd.example.com/";
 		if (this.uriBase.isPresent())
@@ -214,8 +223,13 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		
 		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes,
 				props_level);) {
-			converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry, hasPerformanceBoost,
-					exportIfcOWL,hasBuildingElements,hasBuildingProperties,hasBoundingBoxWKT,hasUnits);
+			boolean readOk = converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry,
+					hasPerformanceBoost, exportIfcOWL, hasBuildingElements, hasBuildingProperties,
+					hasBoundingBoxWKT, hasUnits);
+			if (!readOk) {
+				System.err.println("Conversion stopped because the IFC file could not be read.");
+				return 1;
+			}
 				
 			//TODO: Does not work
 			//converter.setHasNonLBDElement(hasIfc_based_elements);

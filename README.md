@@ -75,12 +75,19 @@ First version of recursive IfcComplexProperty and IfcPhysicalComplexQuantity.
 ### May 13, 2026
 
 GraalVM compilation for IFCtoLBD command line for Windows 11.
+- first compile IFCtoLBD projects, then:
 
 * Install GraalVM for JDK 21 and set GRAALVM\_HOME to point to that directory
-* Install Visual Studio Build Tools 2026 with the setting of Desktop development with C++.
-* install Maven and add that to the system path.
+	https://www.graalvm.org/release-notes/JDK_21/
 
+* Install Visual Studio Build Tools 2026 with the setting of Desktop development with C++.
+    Visual Studio Community
+* install Maven and add that to the system path.
+	https://maven.apache.org/download.cgi
+
+	
 At the project folder:
+
 
 ```
 cd ./IFCtiLBD
