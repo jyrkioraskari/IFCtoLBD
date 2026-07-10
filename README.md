@@ -47,6 +47,9 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+### July 10, 2026
+IFCProps2ExcelOnline  was ported to support Apache Tomcat 11.
+
 ### July 1, 2026
 New projects
 - **[LBD_Change_Inspector](https://github.com/jyrkioraskari/LBD_Change_Inspector)**
@@ -74,7 +77,7 @@ First version of recursive IfcComplexProperty and IfcPhysicalComplexQuantity.
 
 ### May 13, 2026
 
-GraalVM compilation for IFCtoLBD command line for Windows 11.
+GraalVM compilation for the IFCtoLBD command line for Windows 11.
 - first compile IFCtoLBD projects, then:
 
 * Install GraalVM for JDK 21 and set GRAALVM\_HOME to point to that directory
