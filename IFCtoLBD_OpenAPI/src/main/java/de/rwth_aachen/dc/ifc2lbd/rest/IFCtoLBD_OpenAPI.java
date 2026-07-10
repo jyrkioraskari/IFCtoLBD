@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
@@ -58,15 +59,15 @@ public class IFCtoLBD_OpenAPI {
 			if (accept_type.equals("application/ld+json")) {
 				StringBuilder result_string = new StringBuilder();
 				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.JSONLD);
-				return Response.ok(result_string.toString(), "application/ld+json").build();
+				return downloadResponse(result_string, "application/ld+json", "ifc2lbd.jsonld");
 			} else if (accept_type.equals("application/rdf+xml")) {
 				StringBuilder result_string = new StringBuilder();
 				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.RDFXML);
-				return Response.ok(result_string.toString(), "application/rdf+xml").build();
+				return downloadResponse(result_string, "application/rdf+xml", "ifc2lbd.rdf");
 			} else {
 				StringBuilder result_string = new StringBuilder();
 				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.TURTLE_PRETTY);
-				return Response.ok(result_string.toString(), "text/turtle").build();
+				return downloadResponse(result_string, "text/turtle", "ifc2lbd.ttl");
 
 			}
 
@@ -76,6 +77,12 @@ public class IFCtoLBD_OpenAPI {
 		}
 
 		return Response.noContent().build();
+	}
+
+	private static Response downloadResponse(StringBuilder result_string, String mediaType, String fileName) {
+		return Response.ok(result_string.toString().getBytes(StandardCharsets.UTF_8), mediaType)
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
+				.build();
 	}
 
 
