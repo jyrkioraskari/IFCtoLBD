@@ -118,7 +118,7 @@ A short example to list properties by elements was added.
 
 I wrote a Python program to demonstrate how the interfaces can be used to infer which door to use to
 enter a space.
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD\_Python/door\_interface.png)
+![Screen](IFCtoLBD_Python/door_interface.png)
 
 The short example code can be found [here](/IFCtoLBD_Python/IFCtoLBD_SPARQL_Open3D_Interface.py).
 
@@ -147,22 +147,22 @@ Also, instructions to copy the jars folder was added.
 ### February 21, 2024
 
 2D linegraph splits from the model
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split\_Demo.png)
+![Screen](IFCtoLBD/Split_Demo.png)
 The short example code can be found [here](/IFCtoLBD/examples.md).
 
 The same with doors and windows, and, finally, spaces.
 
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/Split\_DemoSpaces3.png)
+![Screen](IFCtoLBD/Split_DemoSpaces3.png)
 
 ### January 30, 2024
 
 Simple graph plot with Python.  Source code is [here ](/IFCtoLBD_Python/examples.md).
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD\_Python/graph\_plot.png)
+![Screen](IFCtoLBD_Python/graph_plot.png)
 
 ### January 26, 2024
 
 Python visualization demo code available [here ](/IFCtoLBD_Python/examples.md).
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD\_Python/Python3DDemo.png)
+![Screen](IFCtoLBD_Python/Python3DDemo.png)
 
 ### January 02, 2024
 
@@ -177,7 +177,7 @@ has that limitation.
 
 The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
 
-!\[Screen](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD\_Desktop\_2023/src/main/resources/screen2.PNG) (updated 21st Feb, 2024).
+![Screen](docs/screen2.PNG) (updated 21st Feb, 2024).
 
 ### March 1, 2023
 
@@ -235,7 +235,7 @@ The software was tested to function with https://jdk.java.net/15/
 
 Testing the correctness of the created bounding boxes.
 
-!\[The bounding boxes](https://raw.githubusercontent.com/jyrkioraskari/IFCtoLBD/master/docs/bounding\_boxes.PNG)
+![The bounding boxes](docs/bounding_boxes.PNG)
 
 ## Frequently asked questions
 
@@ -287,4 +287,3 @@ There, you can disable the option for discovering missing project natures and ma
    The research was partly funded by the EU through the H2020 project BIM4REN.
 
    https://dc.rwth-aachen.de/de/forschung/bim4ren
-
