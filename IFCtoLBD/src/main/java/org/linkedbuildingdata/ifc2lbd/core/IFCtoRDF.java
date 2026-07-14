@@ -1,11 +1,17 @@
 package org.linkedbuildingdata.ifc2lbd.core;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Optional;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import org.apache.jena.ontology.OntDocumentManager;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.slf4j.Logger;
@@ -18,6 +24,8 @@ import be.ugent.IfcSpfReader;
 public class IFCtoRDF extends IfcSpfReader {
     protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
     private static final Logger LOG = LoggerFactory.getLogger(IFCtoRDF.class);
+    private static final Object ONTOLOGY_IMPORT_LOCK = new Object();
+    private static boolean localOntologyImportsRegistered;
     private int counter = 0;
 
     /**
@@ -36,6 +44,7 @@ public class IFCtoRDF extends IfcSpfReader {
         Timer timer = new Timer();
 
         try {
+            registerLocalOntologyImports();
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -56,6 +65,47 @@ public class IFCtoRDF extends IfcSpfReader {
         return Optional.of(this.ontURI);
     }
 
+    private static void registerLocalOntologyImports() {
+        synchronized (ONTOLOGY_IMPORT_LOCK) {
+            if (localOntologyImportsRegistered)
+                return;
+
+            OntDocumentManager documentManager = OntDocumentManager.getInstance();
+            registerLocalOntologyImport(documentManager, "https://w3id.org/express", "/express.ttl",
+                    "/ifcOWL/express.ttl");
+            registerLocalOntologyImport(documentManager, "https://w3id.org/list", "/list.ttl", "/ifcOWL/list.ttl");
+            localOntologyImportsRegistered = true;
+        }
+    }
+
+    private static void registerLocalOntologyImport(OntDocumentManager documentManager, String publicUri,
+            String... resourcePaths) {
+        Optional<Model> model = readFirstAvailableModel(resourcePaths);
+        if (model.isEmpty()) {
+            LOG.warn("Local ontology import resource not found for {}", publicUri);
+            return;
+        }
+
+        documentManager.addModel(publicUri, model.get(), true);
+        documentManager.addModel(publicUri + "#", model.get(), true);
+    }
+
+    private static Optional<Model> readFirstAvailableModel(String... resourcePaths) {
+        for (String resourcePath : resourcePaths) {
+            try (InputStream input = IFCtoRDF.class.getResourceAsStream(resourcePath)) {
+                if (input == null)
+                    continue;
+
+                Model model = ModelFactory.createDefaultModel();
+                RDFDataMgr.read(model, input, Lang.TTL);
+                return Optional.of(model);
+            } catch (IOException | RuntimeException e) {
+                LOG.warn("Failed to read local ontology import {}", resourcePath, e);
+            }
+        }
+        return Optional.empty();
+    }
+
     /**
      * Retrieves the ontology URI from an IFC file.
      *
@@ -64,6 +114,7 @@ public class IFCtoRDF extends IfcSpfReader {
      */
     public Optional<String> getOntologyURI(String ifcFile) {
         try {
+            registerLocalOntologyImports();
             setup(ifcFile);
         } catch (IOException e) {
             LOG.error("Error during setup of IFC file", e);
