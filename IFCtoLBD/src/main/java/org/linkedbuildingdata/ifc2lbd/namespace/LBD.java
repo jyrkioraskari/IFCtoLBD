@@ -16,6 +16,7 @@ public class LBD extends abstract_NS {
                                                                                                     // containsBoundingBox,
                                                                                                     // containsInVolume
     public static final Property hasBoundingBox = property(ns, "hasBoundingBox"); 
+    public static final Property hasWireframe = property(ns, "hasWireframe"); 
     public static final Property xmin = property(ns, "x-min"); 
     public static final Property xmax = property(ns, "x-max"); 
     public static final Property ymin = property(ns, "y-min"); 
@@ -26,6 +27,7 @@ public class LBD extends abstract_NS {
         model.setNsPrefix("lbd", ns);
         
         model.add(hasBoundingBox, RDF.type, OWL.ObjectProperty);
+        model.add(hasWireframe, RDF.type, OWL.DatatypeProperty);
         model.add(xmin, RDF.type, OWL.DatatypeProperty);
         model.add(xmax, RDF.type, OWL.DatatypeProperty);
         model.add(ymin, RDF.type, OWL.DatatypeProperty);

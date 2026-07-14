@@ -260,6 +260,13 @@ public class IFCGeometry {
 		return mtl_desc;
 	}
 
+	public String getWireframeWKT(String guid) {
+		if (this.geometryIteratorModel != null) {
+			return this.geometryIteratorModel.getWireframeWKT(guid);
+		}
+		return WireframeWKT.fromObj(getOBJ(guid));
+	}
+
 	private Optional<MTLDescription.MTLMaterial> getVisualStyleMaterial(String guid) throws IOException {
 		Map<String, String> entities = getStepEntities();
 		Optional<String> productDefinitionShapeId = findProductDefinitionShapeId(entities, guid);

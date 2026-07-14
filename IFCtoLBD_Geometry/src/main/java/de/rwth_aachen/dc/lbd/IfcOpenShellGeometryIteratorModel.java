@@ -71,6 +71,14 @@ class IfcOpenShellGeometryIteratorModel {
 		return obj;
 	}
 
+	String getWireframeWKT(String guid) {
+		GeometryData geometry = this.geometryByGuid.get(guid);
+		if (geometry == null || geometry.vertices.length == 0 || geometry.faces.length == 0) {
+			return null;
+		}
+		return WireframeWKT.fromMesh(geometry.vertices, geometry.faces, false);
+	}
+
 	MTLDescription getMTL(String guid) {
 		GeometryData geometry = this.geometryByGuid.get(guid);
 		if (geometry == null || geometry.materials.length == 0) {

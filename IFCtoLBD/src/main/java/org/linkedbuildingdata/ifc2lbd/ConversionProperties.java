@@ -14,6 +14,7 @@ public class ConversionProperties {
 	private boolean hasPerformanceBoost=true;
 	private boolean hasNonLBDElement=true;
 	private boolean hasInterfaces=false;
+	private boolean hasWireframe=false;
 	
 	public ConversionProperties() {
 		
@@ -136,6 +137,14 @@ public class ConversionProperties {
 
 	public void setHasInterfaces(boolean hasInterfaces) {
 		this.hasInterfaces = hasInterfaces;
+	}
+
+	public boolean hasWireframe() {
+		return hasWireframe;
+	}
+
+	public void setHasWireframe(boolean hasWireframe) {
+		this.hasWireframe = hasWireframe;
 	}
 	
 	

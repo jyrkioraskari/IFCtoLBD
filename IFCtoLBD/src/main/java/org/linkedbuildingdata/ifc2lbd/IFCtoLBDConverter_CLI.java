@@ -90,6 +90,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasWKT" }, description = "The bounding boxes are generated as WKT.")
 	private Optional<Boolean> hasBoundingBoxWKT;
 
+	@Option(names = { "-hasWireframe",
+			"--hasWireframe" }, arity = "0..1", fallbackValue = "true", description = "Export simple mesh wireframes as lbd:hasWireframe WKT literals.")
+	private Optional<Boolean> hasWireframe;
 	
 	@Option(names = { "--ifcOWL" }, description = "An ifcOWL  model is created and linked.")
 	private Optional<Boolean> exportIfcOWL;
@@ -188,6 +191,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		boolean hasBoundingBoxWKT = false ;
 		if (this.hasBoundingBoxWKT.isPresent())
 			hasBoundingBoxWKT = this.hasBoundingBoxWKT.get();
+
+		boolean hasWireframe = false;
+		if (this.hasWireframe.isPresent())
+			hasWireframe = this.hasWireframe.get();
+		if (hasWireframe)
+			hasGeometry = true;
 		
 		boolean hasHierarchicalNaming = false ;
 		if (this.hasHierarchicalNaming.isPresent())
@@ -236,7 +245,8 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			
 			converter.convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
-					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,hasInterfaces,false,exportJSON);
+					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,
+					hasInterfaces, false, exportJSON, hasWireframe);
 
 		}
 		return null;

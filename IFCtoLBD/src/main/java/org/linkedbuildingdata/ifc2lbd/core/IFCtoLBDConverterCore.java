@@ -137,6 +137,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
+	protected boolean hasWireframe = false;
 
 	private boolean hasHierarchicalNaming_setting = false;
 	protected boolean hasSimplified_properties = false;
@@ -161,7 +162,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected void conversion(String target_file, boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel,
 			boolean hasBuildingProperties, boolean hasSeparatePropertiesModel, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOWL, @SuppressWarnings("unused") boolean namedGraphs,
-			boolean hasHierarchicalNaming, boolean hasInterfaces) {
+			boolean hasHierarchicalNaming, boolean hasInterfaces, boolean hasWireframe) {
 
 		Dataset dataset = TemporalDatasetSingleton.getInstance();
 
@@ -172,6 +173,7 @@ public abstract class IFCtoLBDConverterCore {
 			this.handledAttributes4resource.clear(); // less performant but more dynamic
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
 			this.exportIfcOWL_setting = exportIfcOWL;
+			this.hasWireframe = hasWireframe;
 			this.hasHierarchicalNaming_setting = hasHierarchicalNaming;
 			this.included_elements.clear();
 			setOutputSerialization(export_as_JSON_LD);
@@ -470,6 +472,14 @@ public abstract class IFCtoLBDConverterCore {
 				else
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				if (bb != null) {
+					if (this.hasWireframe) {
+						String wireframeWKT = this.ifc_geometry.getWireframeWKT(guid);
+						if (wireframeWKT != null && !wireframeWKT.isBlank()) {
+							Literal wktLiteral = this.lbd_general_output_model
+									.createTypedLiteral(toLocalIfcCrsWkt(wireframeWKT), GEO.wktLiteral);
+							lbd_resource.addLiteral(LBD.hasWireframe, wktLiteral);
+						}
+					}
 					if (this.hasBoundingBoxWKT) {
 						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(toLocalIfcCrsWkt(bb),
 								GEO.wktLiteral);
@@ -501,7 +511,7 @@ public abstract class IFCtoLBDConverterCore {
 					sp_geometry.addLiteral(this.fogasObj, base64);
 
 					/// MTL handling
-					if (mtl.toMTLString().length() > 0) {
+					if (mtl != null && mtl.toMTLString().length() > 0) {
 						Property mtl_property = this.lbd_general_output_model.createProperty("https://lbd.org/#asMTL");
 						sp_geometry.addLiteral(mtl_property, mtl.toMTLString());
 
@@ -580,6 +590,10 @@ public abstract class IFCtoLBDConverterCore {
 
 	private String toLocalIfcCrsWkt(BoundingBox boundingBox) {
 		return "<" + this.uriBase.get() + "ifc-local> " + boundingBox.toLiteral();
+	}
+
+	private String toLocalIfcCrsWkt(String wkt) {
+		return "<" + this.uriBase.get() + "ifc-local> " + wkt;
 	}
 
 	private String toBoundingBoxObjBase64(BoundingBox boundingBox) {
