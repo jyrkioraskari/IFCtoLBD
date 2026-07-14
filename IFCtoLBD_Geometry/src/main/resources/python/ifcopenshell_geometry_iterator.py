@@ -16,7 +16,10 @@ def _color_channels(color):
     if color is None:
         return None
     if hasattr(color, "r") and hasattr(color, "g") and hasattr(color, "b"):
-        return [_as_float(color.r), _as_float(color.g), _as_float(color.b)]
+        red = color.r() if callable(color.r) else color.r
+        green = color.g() if callable(color.g) else color.g
+        blue = color.b() if callable(color.b) else color.b
+        return [_as_float(red), _as_float(green), _as_float(blue)]
     try:
         values = list(color)
     except TypeError:

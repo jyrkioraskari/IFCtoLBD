@@ -8,8 +8,11 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -94,8 +97,26 @@ class IfcOpenShellGeometryIteratorModel {
 	}
 
 	private void runIterator(Path script, File ifcFile) throws IOException, InterruptedException {
-		String pythonCommand = System.getProperty("ifctolbd.ifcopenshell.python", "python3");
-		ProcessBuilder processBuilder = new ProcessBuilder(pythonCommand, script.toString(), ifcFile.getAbsolutePath());
+		List<List<String>> candidates = pythonCommandCandidates();
+		List<String> failures = new ArrayList<>();
+		for (List<String> candidate : candidates) {
+			try {
+				runIteratorWithCommand(candidate, script, ifcFile);
+				return;
+			} catch (IOException e) {
+				failures.add(String.join(" ", candidate) + ": " + e.getMessage());
+			}
+		}
+		throw new IOException("IfcOpenShell geometry iterator failed for all Python commands: "
+				+ String.join(" | ", failures));
+	}
+
+	private void runIteratorWithCommand(List<String> pythonCommand, Path script, File ifcFile)
+			throws IOException, InterruptedException {
+		List<String> command = new ArrayList<>(pythonCommand);
+		command.add(script.toString());
+		command.add(ifcFile.getAbsolutePath());
+		ProcessBuilder processBuilder = new ProcessBuilder(command);
 		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
 
@@ -113,6 +134,35 @@ class IfcOpenShellGeometryIteratorModel {
 			throw new IOException("IfcOpenShell geometry iterator failed with exit code " + process.exitValue()
 					+ diagnosticsMessage(diagnostics));
 		}
+	}
+
+	private static List<List<String>> pythonCommandCandidates() {
+		String configuredPython = System.getProperty("ifctolbd.ifcopenshell.python");
+		if (configuredPython == null || configuredPython.isBlank()) {
+			configuredPython = System.getenv("IFCTOLBD_IFCOPENSHELL_PYTHON");
+		}
+		if (configuredPython == null || configuredPython.isBlank()) {
+			configuredPython = System.getenv("PYTHON");
+		}
+		if (configuredPython != null && !configuredPython.isBlank()) {
+			return List.of(splitCommand(configuredPython));
+		}
+
+		List<List<String>> candidates = new ArrayList<>();
+		if (System.getProperty("os.name", "").toLowerCase().contains("win")) {
+			candidates.add(Arrays.asList("py", "-3"));
+			candidates.add(List.of("python"));
+			candidates.add(List.of("python3"));
+		} else {
+			candidates.add(List.of("python3"));
+			candidates.add(List.of("python"));
+		}
+		return candidates;
+	}
+
+	private static List<String> splitCommand(String command) {
+		String[] parts = command.trim().split("\\s+");
+		return Arrays.asList(parts);
 	}
 
 	private String readOutput(Process process) throws IOException {
