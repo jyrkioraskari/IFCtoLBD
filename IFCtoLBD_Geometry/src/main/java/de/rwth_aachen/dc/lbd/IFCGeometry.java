@@ -58,11 +58,22 @@ import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
 public class IFCGeometry {
 
 	private IfcOpenShellModel renderEngineModel = null;
+	private IfcOpenShellGeometryIteratorModel geometryIteratorModel = null;
 	private final File ifcFile;
 	private Map<String, String> stepEntities = null;
 
 	public IFCGeometry(File ifcFile) {
 		this.ifcFile = ifcFile;
+
+		if (Boolean.parseBoolean(System.getProperty("ifctolbd.ifcopenshell.iterator", "true"))) {
+			try {
+				this.geometryIteratorModel = new IfcOpenShellGeometryIteratorModel(ifcFile);
+				return;
+			} catch (Exception e) {
+				System.err.println("IfcOpenShell geometry iterator unavailable, falling back to IfcGeomServer: "
+						+ e.getMessage());
+			}
+		}
 
 		ExecutorService executor = Executors.newCachedThreadPool();
 		Callable<IfcOpenShellModel> task = new Callable<>() {
@@ -88,6 +99,9 @@ public class IFCGeometry {
 	}
 
 	public BoundingBox getBoundingBox(String guid) {
+		if (this.geometryIteratorModel != null) {
+			return this.geometryIteratorModel.getBoundingBox(guid);
+		}
 		BoundingBox boundingBox = null;
 
 		if (this.renderEngineModel == null)
@@ -137,6 +151,9 @@ public class IFCGeometry {
 	}
 
 	public ObjDescription getOBJ(String guid) {
+		if (this.geometryIteratorModel != null) {
+			return this.geometryIteratorModel.getOBJ(guid);
+		}
 		ObjDescription obj_desc = null;
 
 		if (renderEngineModel == null)
@@ -181,6 +198,9 @@ public class IFCGeometry {
 	}
 
 	public MTLDescription getMTL(String guid) {
+		if (this.geometryIteratorModel != null) {
+			return this.geometryIteratorModel.getMTL(guid);
+		}
 		MTLDescription mtl_desc = null;
 
 		if (renderEngineModel == null)
@@ -540,7 +560,7 @@ public class IFCGeometry {
 
 			if (IFCGeometry.ifcOpenShellEngine_singlethon == null) {
 				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false,
-						true);
+						false);
 				IFCGeometry.ifcOpenShellEngine_singlethon.init();
 			}
 			// JO 2024
