@@ -133,6 +133,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected RTree<Resource, Geometry> rtree;
 	protected RTree<Resource, Geometry> rtree_walls;
 	protected final Map<Rectangle, Resource> rtree_map = new HashMap<>();
+	private static final double BOUNDING_BOX_EPSILON = 1.0e-6;
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
@@ -534,7 +535,7 @@ public abstract class IFCtoLBDConverterCore {
 
 					Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rectangle);
 					for (Entry<Resource, Geometry> e : results) {
-						if (e.value() != lbd_resource)
+						if (e.value() != lbd_resource && containsBoundingBox(e.geometry().mbr(), rectangle))
 							e.value().addProperty(LBD.containsInBoundingBox, lbd_resource);
 					}
 
@@ -623,7 +624,7 @@ public abstract class IFCtoLBDConverterCore {
 			Iterable<Entry<Resource, Geometry>> results = this.rtree.search(rect_geometry);
 			for (Entry<Resource, Geometry> e : results) {
 				Resource e_uri = e.value();
-				if (e_uri != lbd_resource)
+				if (e_uri != lbd_resource && containsBoundingBox(rect_geometry, e.geometry().mbr()))
 					lbd_resource.addProperty(LBD.containsInBoundingBox, e.value());
 			}
 
@@ -662,6 +663,21 @@ public abstract class IFCtoLBDConverterCore {
 				}
 			}
 		}
+	}
+
+	private static boolean containsBoundingBox(Rectangle outer, Rectangle inner) {
+		if (outer.dimensions() != inner.dimensions()) {
+			return false;
+		}
+		for (int dimension = 0; dimension < outer.dimensions(); dimension++) {
+			if (outer.min(dimension) > inner.min(dimension) + BOUNDING_BOX_EPSILON) {
+				return false;
+			}
+			if (outer.max(dimension) + BOUNDING_BOX_EPSILON < inner.max(dimension)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	protected void exportExistingOutput(String target_file, boolean hasSeparatePropertiesModel, boolean createTrig,
