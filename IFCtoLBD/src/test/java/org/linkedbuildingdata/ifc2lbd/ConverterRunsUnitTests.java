@@ -245,9 +245,9 @@ public class ConverterRunsUnitTests {
 
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-			if (subjectList1.size() != 549) {
-				System.out.println("Converted subject count  should not be 549. Was: " + subjectList1.size());
-				fail("Converted subject count  should not be 549. Was: " + subjectList1.size());
+			if (subjectList1.size() != 550) {
+				System.out.println("Converted subject count  should not be 550. Was: " + subjectList1.size());
+				fail("Converted subject count  should not be 550. Was: " + subjectList1.size());
 			}
 
 			if (m1nb.size() == 0) {
@@ -261,9 +261,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1wb.listSubjects());
 
-			if (subjectList2.size() != 549) {
-				System.out.println("Converted subject count should not be 549. Was: " + subjectList2.size());
-				fail("Converted subject count  should not be 549. Was: " + subjectList2.size());
+			if (subjectList2.size() != 550) {
+				System.out.println("Converted subject count should not be 550. Was: " + subjectList2.size());
+				fail("Converted subject count  should not be 550. Was: " + subjectList2.size());
 			}
 
 			IFCtoLBDConverter c2nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -272,9 +272,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList3 = ImmutableList.copyOf(m2nb.listSubjects());
 
-			if (subjectList3.size() != 7068) {
-				System.out.println("Converted subject count should not be 7068. Was: " + subjectList3.size());
-				fail("Converted subject count  should not be 7068. Was: " + subjectList3.size());
+			if (subjectList3.size() != 7069) {
+				System.out.println("Converted subject count should not be 7069. Was: " + subjectList3.size());
+				fail("Converted subject count  should not be 7069. Was: " + subjectList3.size());
 			}
 
 			IFCtoLBDConverter c2wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
@@ -284,9 +284,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList4 = ImmutableList.copyOf(m2wb.listSubjects());
 
-			if (subjectList4.size() != 7075) {
-				System.out.println("Converted subject count should  be 7075. Was: " + subjectList4.size());
-				fail("Converted subject count  should  be 7075. Was: " + subjectList4.size());
+			if (subjectList4.size() != 7076) {
+				System.out.println("Converted subject count should  be 7076. Was: " + subjectList4.size());
+				fail("Converted subject count  should  be 7076. Was: " + subjectList4.size());
 			}
 
 			IFCtoLBDConverter c3nb1 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -310,9 +310,9 @@ public class ConverterRunsUnitTests {
 			 * } }
 			 */
 
-			if (subjectList51.size() != 13593) {
-				System.out.println("Converted subject count should  be 13593. Was: " + subjectList51.size());
-				fail("Converted subject count  should be 13593. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13594) {
+				System.out.println("Converted subject count should  be 13594. Was: " + subjectList51.size());
+				fail("Converted subject count  should be 13594. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -329,9 +329,9 @@ public class ConverterRunsUnitTests {
 				fail("Two comparison and different results. Was: ");
 			}
 
-			if (subjectList52.size() != 13593) {
-				System.out.println("Converted subject count should  be 13593. Was: " + subjectList52.size());
-				fail("Converted subject count  should  be 13593. Was: " + subjectList52.size());
+			if (subjectList52.size() != 13594) {
+				System.out.println("Converted subject count should  be 13594. Was: " + subjectList52.size());
+				fail("Converted subject count  should  be 13594. Was: " + subjectList52.size());
 			}
 
 			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
@@ -341,9 +341,9 @@ public class ConverterRunsUnitTests {
 
 			ImmutableList<Resource> subjectList6 = ImmutableList.copyOf(m3wb.listSubjects());
 
-			if (subjectList6.size() != 13600) {
-				System.out.println("Converted subject count should not be 13600. Was: " + subjectList6.size());
-				fail("Converted subject count  should not be 13600. Was: " + subjectList6.size());
+			if (subjectList6.size() != 13601) {
+				System.out.println("Converted subject count should not be 13601. Was: " + subjectList6.size());
+				fail("Converted subject count  should not be 13601. Was: " + subjectList6.size());
 			}
 
 		} catch (Exception e) {
@@ -370,9 +370,9 @@ public class ConverterRunsUnitTests {
 			}
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-			if (subjectList51.size() != 13593) {
-				System.out.println("Converted subject count should  be 13593. Was: " + subjectList51.size());
-				fail("Converted subject count  should not be 13593. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13594) {
+				System.out.println("Converted subject count should  be 13594. Was: " + subjectList51.size());
+				fail("Converted subject count  should not be 13594. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
@@ -380,9 +380,9 @@ public class ConverterRunsUnitTests {
 			m3nb2.write(System.out, "TTL");
 			ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
 
-			if (subjectList52.size() != 13600) {
-				System.out.println("Converted subject count should not be 13600. Was: " + subjectList52.size());
-				fail("Converted subject count  should not be 13600. Was: " + subjectList52.size());
+			if (subjectList52.size() != 13601) {
+				System.out.println("Converted subject count should not be 13601. Was: " + subjectList52.size());
+				fail("Converted subject count  should not be 13601. Was: " + subjectList52.size());
 			}
 
 		} catch (Exception e) {
@@ -763,9 +763,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 844) {
-					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
+				if (subjectList51.size() != 845) {
+					System.out.println("Converted subject count should  be 845. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 845. Was: " + subjectList51.size());
 				}
 			}
 
@@ -784,9 +784,9 @@ public class ConverterRunsUnitTests {
 
 				ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-				if (subjectList51.size() != 844) {
-					System.out.println("Converted subject count should  be 844. Was: " + subjectList51.size());
-					fail("Converted subject count  should  be 844. Was: " + subjectList51.size());
+				if (subjectList51.size() != 845) {
+					System.out.println("Converted subject count should  be 845. Was: " + subjectList51.size());
+					fail("Converted subject count  should  be 845. Was: " + subjectList51.size());
 				}
 			}
 
@@ -1055,9 +1055,9 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter1 = new IFCtoLBDConverter("https://lbd.org/", false, 1);) {
 				Model m1nb = converter1.convert(ifc_file.getAbsolutePath(), props);
 				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m1nb.listSubjects());
-				if (subjectList1.size() != 549) {
-					System.out.println("Converted subject count  should not be 549. Was: " + subjectList1.size());
-					fail("Converted subject count  should not be 549. Was: " + subjectList1.size());
+				if (subjectList1.size() != 550) {
+					System.out.println("Converted subject count  should not be 550. Was: " + subjectList1.size());
+					fail("Converted subject count  should not be 550. Was: " + subjectList1.size());
 				}
 
 			}
@@ -1067,9 +1067,9 @@ public class ConverterRunsUnitTests {
 			try (IFCtoLBDConverter converter2 = new IFCtoLBDConverter("https://lbd.org/", false, 1);) {
 				Model m1nb1 = converter2.convert(ifc_file.getAbsolutePath(), props);
 				ImmutableList<Resource> subjectList2 = ImmutableList.copyOf(m1nb1.listSubjects());
-				if (subjectList2.size() != 549) {
-					System.out.println("Converted subject count  should not be 549. Was: " + subjectList2.size());
-					fail("Converted subject count  should not be 549. Was: " + subjectList2.size());
+				if (subjectList2.size() != 550) {
+					System.out.println("Converted subject count  should not be 550. Was: " + subjectList2.size());
+					fail("Converted subject count  should not be 550. Was: " + subjectList2.size());
 				}
 
 			}
@@ -1220,9 +1220,9 @@ public class ConverterRunsUnitTests {
 							hasInterfaces);
 
 					ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(model_level1.listSubjects());
-					if (subjectList1.size() != 842) {
-						System.out.println("Converted subject count  should not be 842. Was: " + subjectList1.size());
-						fail("Converted subject count  should not be 842. Was: " + subjectList1.size());
+					if (subjectList1.size() != 843) {
+						System.out.println("Converted subject count  should not be 843. Was: " + subjectList1.size());
+						fail("Converted subject count  should not be 843. Was: " + subjectList1.size());
 					}
 
 					final Set<String> properties = new HashSet<>();
