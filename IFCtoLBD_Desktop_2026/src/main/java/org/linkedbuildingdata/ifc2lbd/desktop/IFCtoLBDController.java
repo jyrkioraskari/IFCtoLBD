@@ -23,13 +23,21 @@
 
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.charset.StandardCharsets;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
 import java.util.Set;
@@ -38,10 +46,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.prefs.Preferences;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.jena.rdf.model.Resource;
 import org.controlsfx.control.CheckTreeView;
-import org.controlsfx.control.MaskerPane;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
@@ -54,7 +63,12 @@ import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -62,6 +76,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBoxTreeItem;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
@@ -70,16 +85,23 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /*
  
@@ -111,9 +133,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private AnchorPane root;
 	@FXML
 	private Rectangle border;
-
-	@FXML
-	private MaskerPane masker_panel;
 
 	@FXML
 	MenuBar myMenuBar;
@@ -169,12 +188,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private TextArea conversionTxt;
 
 	@FXML
-	private ImageView rdf_fileIcon;
+	private StackPane geometryViewport;
+
+	@FXML
+	private AnchorPane floatingWorkspace;
+
+	@FXML
+	private TitledPane filtersCard;
+
+	@FXML
+	private TitledPane geometryCard;
 
 	@FXML
 	private CustomTextField labelBaseURI;
-
-	Image fileimage = new Image(getClass().getResourceAsStream("file.png"));
 
 	FileChooser fc_ifc;
 	FileChooser fc_target;
@@ -241,6 +267,27 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private ConversionRequest lastSuccessfulConversionRequest;
 	private ConversionRequest pendingConversionRequest;
+	private Pane geometryPane;
+	private PreviewMesh currentPreviewMesh;
+	private double geometryMouseX;
+	private double geometryMouseY;
+	private double geometryPitch = -25;
+	private double geometryYaw = -35;
+	private double geometryZoom = 1.0;
+	private double floatingMouseX;
+	private double floatingMouseY;
+	private double floatingCardX;
+	private double floatingCardY;
+	private final Map<TitledPane, Double> floatingCardNormalHeights = new IdentityHashMap<>();
+
+	private static final int MAX_PREVIEW_POINTS = 220_000;
+	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
+	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
+	private static final Pattern GEOMETRY_OBJ_LITERAL_PATTERN = Pattern.compile(
+			"(?:fog:asObj_v3\\.0-obj|<https://w3id\\.org/fog#asObj_v3\\.0-obj>|\"(?:fog:)?asObj_v3\\.0-obj\"|\"https://w3id\\.org/fog#asObj_v3\\.0-obj\")\\s*:?\\s*\"([A-Za-z0-9+/=]+)\"");
+	private static final Pattern GEOMETRY_MTL_KD_PATTERN = Pattern.compile(
+			"(?:lbd:asMTL_kd|<https://lbd\\.org/#asMTL_kd>|\"(?:lbd:)?asMTL_kd\"|\"https://lbd\\.org/#asMTL_kd\")\\s*:?\\s*\"(#[0-9a-fA-F]{6})\"");
+	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
 
 	@FXML
 	private void closeApplicationAction() {
@@ -253,6 +300,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		// get a handle to the stage
 		Stage stage = (Stage) this.myMenuBar.getScene().getWindow();
 		new About(stage).show();
+	}
+
+	@FXML
+	private void openSettingsWorkflow() {
+		toggleFloatingCard(this.options_panel);
+	}
+
+	@FXML
+	private void openFiltersWorkflow() {
+		toggleFloatingCard(this.filtersCard);
 	}
 
 	@FXML
@@ -355,15 +412,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (this.ifcFileName != null && this.rdfTargetName != null) {
 			this.selectTargetFileButton.setDisable(false);
-			this.convert2RDFButton.setDefaultButton(true);
-			this.convert2RDFButton.setDisable(false);
 			System.out.println("workdir put:" + file.getParentFile().getAbsolutePath());
 			this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
 			readInIFC();
 		}
 		this.selectIFCFileButton.setDefaultButton(false);
-		// rdf_fileIcon.setDisable(false);
-		// rdf_fileIcon.setImage(fileimage);
 	}
 
 	/*
@@ -564,13 +617,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void readInIFCExecute(ConversionSettings settings) {
 		persistSettings(settings);
+		setRunReady(false);
 		this.conversionTxt.setText("");
+		clearGeometryPreview("Convert with geometry enabled to preview the model.");
 		try {
-			this.masker_panel.setVisible(true);
-			if (this.running_read_in != null && !this.running_read_in.isDone()) {
-				this.conversionTxt.appendText("\nThe last conversion is still running. \n");
-				return;
-			}
+				if (this.running_read_in != null && !this.running_read_in.isDone()) {
+					this.conversionTxt.appendText("\nThe last conversion is still running. \n");
+					return;
+				}
 			this.running_read_in = this.executor
 					.submit(new ReadinInThread(settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
 							settings.propsLevel(), settings.hasBuildingElements(),
@@ -582,6 +636,609 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		} catch (Exception e) {
 			this.options_panel.setDisable(false);
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
+		}
+	}
+
+	private void setupGeometryPreview() {
+		this.geometryPane = new Pane();
+		this.geometryPane.setPickOnBounds(true);
+		this.geometryPane.prefWidthProperty().bind(this.geometryViewport.widthProperty());
+		this.geometryPane.prefHeightProperty().bind(this.geometryViewport.heightProperty());
+		this.geometryPane.widthProperty().addListener((observable, oldValue, newValue) -> renderGeometryShapes());
+		this.geometryPane.heightProperty().addListener((observable, oldValue, newValue) -> renderGeometryShapes());
+		this.geometryPane.setOnMousePressed(event -> {
+			this.geometryMouseX = event.getSceneX();
+			this.geometryMouseY = event.getSceneY();
+		});
+		this.geometryPane.setOnMouseDragged(event -> {
+			double dx = event.getSceneX() - this.geometryMouseX;
+			double dy = event.getSceneY() - this.geometryMouseY;
+			this.geometryYaw += dx * 0.4;
+			this.geometryPitch = Math.max(-90, Math.min(90, this.geometryPitch - dy * 0.4));
+			this.geometryMouseX = event.getSceneX();
+			this.geometryMouseY = event.getSceneY();
+			renderGeometryShapes();
+		});
+		this.geometryPane.setOnScroll(event -> {
+			this.geometryZoom = Math.max(0.35, Math.min(4.0, this.geometryZoom + event.getDeltaY() / 600.0));
+			renderGeometryShapes();
+		});
+
+		this.geometryViewport.getChildren().add(0, this.geometryPane);
+		clearGeometryPreview("Select geometry and convert to preview the model.");
+	}
+
+	private void setupFloatingCards() {
+		setupFloatingCard(this.options_panel, "Settings");
+		setupFloatingCard(this.filtersCard, "Filters");
+		setupFloatingCard(this.geometryCard, "Geometry Preview");
+		this.floatingWorkspace.widthProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
+		this.floatingWorkspace.heightProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
+		Platform.runLater(this::clampFloatingCardsToWorkspace);
+	}
+
+	private void setRunReady(boolean ready) {
+		if (this.convert2RDFButton == null) {
+			return;
+		}
+		this.convert2RDFButton.setDisable(!ready);
+		this.convert2RDFButton.setDefaultButton(ready);
+		this.convert2RDFButton.getStyleClass().removeAll("workflow-button", "workflow-run-button");
+		this.convert2RDFButton.getStyleClass().add(ready ? "workflow-run-button" : "workflow-button");
+		if (ready) {
+			this.selectIFCFileButton.setDefaultButton(false);
+		}
+	}
+
+	private void setupFloatingCard(TitledPane card, String title) {
+		if (card == null) {
+			return;
+		}
+		card.setText("");
+		card.setContentDisplay(ContentDisplay.GRAPHIC_ONLY);
+		card.setGraphic(createFloatingCardHeader(card, title));
+		this.floatingCardNormalHeights.put(card, card.getPrefHeight());
+		if (!card.isExpanded()) {
+			minimizeFloatingCard(card, false);
+		}
+		addFloatingCardBehavior(card);
+	}
+
+	private HBox createFloatingCardHeader(TitledPane card, String title) {
+		Label titleLabel = new Label(title);
+		titleLabel.getStyleClass().add("floating-card-title-label");
+		Region spacer = new Region();
+		HBox.setHgrow(spacer, Priority.ALWAYS);
+
+		Button minimizeButton = new Button("_");
+		minimizeButton.getStyleClass().add("floating-card-window-button");
+		minimizeButton.setFocusTraversable(false);
+		minimizeButton.setOnAction(event -> {
+			minimizeFloatingCard(card);
+			event.consume();
+		});
+
+		Button maximizeButton = new Button("□");
+		maximizeButton.getStyleClass().add("floating-card-window-button");
+		maximizeButton.setFocusTraversable(false);
+		maximizeButton.setOnAction(event -> {
+			restoreFloatingCard(card);
+			event.consume();
+		});
+
+		HBox header = new HBox(6, titleLabel, spacer, minimizeButton, maximizeButton);
+		header.getStyleClass().add("floating-card-title-bar");
+		header.setAlignment(Pos.CENTER_LEFT);
+		header.minWidthProperty().bind(card.widthProperty().subtract(34));
+		header.prefWidthProperty().bind(card.widthProperty().subtract(34));
+		header.maxWidthProperty().bind(card.widthProperty().subtract(34));
+		return header;
+	}
+
+	private void addFloatingCardBehavior(TitledPane card) {
+		if (card == null) {
+			return;
+		}
+		card.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+			if (!isCardHeaderEvent(event)) {
+				return;
+			}
+			card.toFront();
+			this.floatingMouseX = event.getSceneX();
+			this.floatingMouseY = event.getSceneY();
+			this.floatingCardX = card.getLayoutX();
+			this.floatingCardY = card.getLayoutY();
+		});
+		card.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
+			if (!isCardHeaderEvent(event)) {
+				return;
+			}
+			double nextX = this.floatingCardX + event.getSceneX() - this.floatingMouseX;
+			double nextY = this.floatingCardY + event.getSceneY() - this.floatingMouseY;
+			card.setLayoutX(clamp(nextX, 0, Math.max(0, this.floatingWorkspace.getWidth() - card.getWidth())));
+			card.setLayoutY(clamp(nextY, 0, Math.max(0, this.floatingWorkspace.getHeight() - FLOATING_CARD_HEADER_HEIGHT)));
+			event.consume();
+		});
+	}
+
+	private void clampFloatingCardsToWorkspace() {
+		clampFloatingCardToWorkspace(this.options_panel);
+		clampFloatingCardToWorkspace(this.filtersCard);
+		clampFloatingCardToWorkspace(this.geometryCard);
+	}
+
+	private void clampFloatingCardToWorkspace(TitledPane card) {
+		if (card == null || this.floatingWorkspace == null) {
+			return;
+		}
+		double workspaceWidth = this.floatingWorkspace.getWidth();
+		double workspaceHeight = this.floatingWorkspace.getHeight();
+		if (workspaceWidth <= 0 || workspaceHeight <= 0) {
+			return;
+		}
+		double cardWidth = card.getWidth() > 0 ? card.getWidth() : card.getPrefWidth();
+		double cardHeight = card.getHeight() > 0 ? card.getHeight() : card.getPrefHeight();
+		double maxX = Math.max(0, workspaceWidth - cardWidth);
+		double maxY = Math.max(0, workspaceHeight - Math.max(FLOATING_CARD_HEADER_HEIGHT, cardHeight));
+		card.setLayoutX(clamp(card.getLayoutX(), 0, maxX));
+		card.setLayoutY(clamp(card.getLayoutY(), 0, maxY));
+	}
+
+	private boolean isCardHeaderEvent(MouseEvent event) {
+		return event.getButton() == MouseButton.PRIMARY && event.getY() <= FLOATING_CARD_HEADER_HEIGHT
+				&& !(event.getTarget() instanceof Button);
+	}
+
+	private void toggleFloatingCard(TitledPane card) {
+		if (card == null) {
+			return;
+		}
+		card.setDisable(false);
+		if (card.isExpanded() || card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT + 1) {
+			minimizeFloatingCard(card);
+		} else {
+			restoreFloatingCard(card);
+			card.toFront();
+		}
+	}
+
+	private void minimizeFloatingCard(TitledPane card) {
+		minimizeFloatingCard(card, true);
+	}
+
+	private void minimizeFloatingCard(TitledPane card, boolean animate) {
+		if (card == null) {
+			return;
+		}
+		if (card.isExpanded() && card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT) {
+			this.floatingCardNormalHeights.put(card, card.getPrefHeight());
+		}
+		if (!animate) {
+			card.setExpanded(false);
+			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
+			renderGeometryShapes();
+			return;
+		}
+
+		double currentHeight = card.getHeight() > FLOATING_CARD_HEADER_HEIGHT ? card.getHeight() : card.getPrefHeight();
+		if (currentHeight <= FLOATING_CARD_HEADER_HEIGHT) {
+			currentHeight = this.floatingCardNormalHeights.getOrDefault(card, FLOATING_CARD_HEADER_HEIGHT);
+		}
+		card.setExpanded(true);
+		card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
+		card.setMaxHeight(Double.MAX_VALUE);
+		card.setPrefHeight(currentHeight);
+		animateFloatingCardHeight(card, FLOATING_CARD_HEADER_HEIGHT, () -> {
+			card.setExpanded(false);
+			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
+			renderGeometryShapes();
+		});
+	}
+
+	private void restoreFloatingCard(TitledPane card) {
+		restoreFloatingCard(card, true);
+	}
+
+	private void restoreFloatingCard(TitledPane card, boolean animate) {
+		if (card == null) {
+			return;
+		}
+		double targetHeight = this.floatingCardNormalHeights.getOrDefault(card, card.getPrefHeight());
+		if (targetHeight <= FLOATING_CARD_HEADER_HEIGHT) {
+			targetHeight = 320.0;
+		}
+		if (!animate) {
+			card.setMinHeight(Region.USE_COMPUTED_SIZE);
+			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
+			card.setPrefHeight(targetHeight);
+			card.setExpanded(true);
+			renderGeometryShapes();
+			return;
+		}
+
+		card.setExpanded(true);
+		card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
+		card.setMaxHeight(Double.MAX_VALUE);
+		card.setPrefHeight(Math.max(FLOATING_CARD_HEADER_HEIGHT, card.getHeight()));
+		double finalTargetHeight = targetHeight;
+		animateFloatingCardHeight(card, finalTargetHeight, () -> {
+			card.setMinHeight(Region.USE_COMPUTED_SIZE);
+			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
+			card.setPrefHeight(finalTargetHeight);
+			renderGeometryShapes();
+		});
+	}
+
+	private void animateFloatingCardHeight(TitledPane card, double targetHeight, Runnable onFinished) {
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(180),
+				new KeyValue(card.prefHeightProperty(), targetHeight, Interpolator.EASE_BOTH)));
+		timeline.setOnFinished(event -> {
+			if (onFinished != null) {
+				onFinished.run();
+			}
+		});
+		timeline.play();
+	}
+
+	private static double clamp(double value, double min, double max) {
+		return Math.max(min, Math.min(max, value));
+	}
+
+	private void clearGeometryPreview(String message) {
+		this.currentPreviewMesh = null;
+		renderGeometryShapes();
+		appendGeometryPreviewMessage(message);
+	}
+
+	private void scheduleGeometryPreview(ConversionSettings settings) {
+		if (settings == null || !settings.hasGeometry()) {
+			Platform.runLater(() -> clearGeometryPreview("Geometry was not selected for this conversion."));
+			return;
+		}
+		File rdfFile = new File(settings.rdfTargetName());
+		if (!rdfFile.isFile()) {
+			Platform.runLater(() -> clearGeometryPreview("Geometry preview unavailable: output RDF file was not found."));
+			return;
+		}
+		Platform.runLater(() -> appendGeometryPreviewMessage("Loading geometry preview..."));
+		this.executor.submit(() -> {
+			try {
+				PreviewMesh previewMesh = loadPreviewMesh(rdfFile);
+				Platform.runLater(() -> {
+					try {
+						showPreviewMesh(previewMesh);
+					} catch (Exception e) {
+						clearGeometryPreview("Geometry preview rendering failed: " + e.getMessage());
+					}
+				});
+			} catch (Exception e) {
+				Platform.runLater(() -> clearGeometryPreview("Geometry preview failed: " + e.getMessage()));
+			}
+		});
+	}
+
+	private PreviewMesh loadPreviewMesh(File rdfFile) throws IOException {
+		ObjMeshBuilder builder = new ObjMeshBuilder(MAX_PREVIEW_POINTS, MAX_PREVIEW_TRIANGLES);
+		try (BufferedReader reader = Files.newBufferedReader(rdfFile.toPath(), StandardCharsets.UTF_8)) {
+			String line;
+			String pendingObj = null;
+			int pendingColor = DEFAULT_PREVIEW_COLOR;
+			while ((line = reader.readLine()) != null && !builder.clipped()) {
+				Matcher objMatcher = GEOMETRY_OBJ_LITERAL_PATTERN.matcher(line);
+				while (objMatcher.find() && !builder.clipped()) {
+					if (pendingObj != null) {
+						builder.addObj(pendingObj, pendingColor);
+						pendingColor = DEFAULT_PREVIEW_COLOR;
+					}
+					try {
+						pendingObj = new String(Base64.getDecoder().decode(objMatcher.group(1)), StandardCharsets.UTF_8);
+					} catch (IllegalArgumentException ignored) {
+						// Ignore malformed geometry literals and continue scanning the output.
+						pendingObj = null;
+					}
+				}
+				Matcher colorMatcher = GEOMETRY_MTL_KD_PATTERN.matcher(line);
+				if (colorMatcher.find()) {
+					pendingColor = parseHexColor(colorMatcher.group(1));
+				}
+			}
+			if (pendingObj != null && !builder.clipped()) {
+				builder.addObj(pendingObj, pendingColor);
+			}
+		}
+		return builder.toPreviewMesh();
+	}
+
+	private void showPreviewMesh(PreviewMesh previewMesh) {
+		if (previewMesh.triangleCount() == 0) {
+			if (previewMesh.objectCount() == 0) {
+				clearGeometryPreview("No OBJ geometry literals were found in the converted RDF.");
+			} else {
+				clearGeometryPreview("Found " + previewMesh.objectCount() + " OBJ geometry objects, but no faces were parsed.");
+			}
+			return;
+		}
+
+		this.currentPreviewMesh = previewMesh;
+		this.geometryZoom = 1.0;
+		renderGeometryShapes();
+		appendGeometryPreviewMessage(previewMesh.statusText());
+	}
+
+	private void appendGeometryPreviewMessage(String message) {
+		if (this.conversionTxt != null && message != null && !message.isBlank()) {
+			this.conversionTxt.appendText("Geometry preview: " + message + "\n");
+		}
+	}
+
+	private void renderGeometryShapes() {
+		if (this.geometryPane == null) {
+			return;
+		}
+		this.geometryPane.getChildren().clear();
+		double width = this.geometryPane.getWidth();
+		double height = this.geometryPane.getHeight();
+		if (width <= 0 || height <= 0) {
+			return;
+		}
+		if (this.currentPreviewMesh == null || this.currentPreviewMesh.triangleCount() == 0) {
+			return;
+		}
+
+		float[] points = this.currentPreviewMesh.points();
+		int[] faces = this.currentPreviewMesh.faces();
+			double[] projectedX = new double[points.length / 3];
+			double[] projectedY = new double[points.length / 3];
+			double[] projectedZ = new double[points.length / 3];
+			double[] rotatedXValues = new double[points.length / 3];
+			double[] rotatedYValues = new double[points.length / 3];
+			double[] rotatedZValues = new double[points.length / 3];
+			double pitch = Math.toRadians(this.geometryPitch);
+			double yaw = Math.toRadians(this.geometryYaw);
+			double cosPitch = Math.cos(pitch);
+			double sinPitch = Math.sin(pitch);
+			double cosYaw = Math.cos(yaw);
+			double sinYaw = Math.sin(yaw);
+			double scale = Math.min(width, height) * 0.42 * this.geometryZoom / 260.0;
+			double cameraDistance = 760.0;
+
+			for (int i = 0; i < projectedX.length; i++) {
+				double x = points[i * 3];
+				double y = points[i * 3 + 1];
+				double z = points[i * 3 + 2];
+				double rotatedY = y * cosPitch - z * sinPitch;
+				double rotatedZ = y * sinPitch + z * cosPitch;
+				double rotatedX = x * cosYaw + rotatedZ * sinYaw;
+				rotatedZ = -x * sinYaw + rotatedZ * cosYaw;
+				double perspective = cameraDistance / Math.max(160.0, cameraDistance - rotatedZ);
+				rotatedXValues[i] = rotatedX;
+				rotatedYValues[i] = rotatedY;
+				rotatedZValues[i] = rotatedZ;
+				projectedX[i] = width / 2.0 + rotatedX * scale * perspective;
+				projectedY[i] = height / 2.0 + rotatedY * scale * perspective;
+				projectedZ[i] = rotatedZ;
+			}
+
+		List<ProjectedTriangle> triangles = new ArrayList<>();
+		for (int i = 0; i + 5 < faces.length; i += 6) {
+			int a = faces[i];
+			int b = faces[i + 2];
+			int c = faces[i + 4];
+				if (a < 0 || b < 0 || c < 0 || a >= projectedX.length || b >= projectedX.length || c >= projectedX.length) {
+					continue;
+				}
+				double depth = (projectedZ[a] + projectedZ[b] + projectedZ[c]) / 3.0;
+				double nx = ((rotatedYValues[b] - rotatedYValues[a]) * (rotatedZValues[c] - rotatedZValues[a]))
+						- ((rotatedZValues[b] - rotatedZValues[a]) * (rotatedYValues[c] - rotatedYValues[a]));
+				double ny = ((rotatedZValues[b] - rotatedZValues[a]) * (rotatedXValues[c] - rotatedXValues[a]))
+						- ((rotatedXValues[b] - rotatedXValues[a]) * (rotatedZValues[c] - rotatedZValues[a]));
+				double nz = ((rotatedXValues[b] - rotatedXValues[a]) * (rotatedYValues[c] - rotatedYValues[a]))
+						- ((rotatedYValues[b] - rotatedYValues[a]) * (rotatedXValues[c] - rotatedXValues[a]));
+				double normalLength = Math.sqrt(nx * nx + ny * ny + nz * nz);
+				if (normalLength == 0) {
+					continue;
+				}
+				nx /= normalLength;
+				ny /= normalLength;
+				nz /= normalLength;
+				double light = Math.max(0, nx * -0.35 + ny * -0.55 + nz * -0.76);
+				double view = Math.max(0, nz);
+				double shade = Math.max(0.34, Math.min(1.18, 0.54 + light * 0.52 + view * 0.12));
+				triangles.add(new ProjectedTriangle(a, b, c, depth, shade, this.currentPreviewMesh.triangleColors()[i / 6]));
+			}
+		triangles.sort((left, right) -> Double.compare(left.depth(), right.depth()));
+
+		for (ProjectedTriangle triangle : triangles) {
+				Polygon polygon = new Polygon(projectedX[triangle.a()], projectedY[triangle.a()], projectedX[triangle.b()],
+						projectedY[triangle.b()], projectedX[triangle.c()], projectedY[triangle.c()]);
+				polygon.setFill(shadeColor(triangle.color(), triangle.shade(), 0.96));
+				polygon.setStroke(shadeColor(triangle.color(), 0.42, 0.5));
+				polygon.setStrokeWidth(triangles.size() > 30_000 ? 0.15 : 0.28);
+				this.geometryPane.getChildren().add(polygon);
+			}
+		}
+
+	private record ProjectedTriangle(int a, int b, int c, double depth, double shade, int color) {
+	}
+
+	private static int parseHexColor(String value) {
+		if (value == null || !value.matches("#[0-9a-fA-F]{6}")) {
+			return DEFAULT_PREVIEW_COLOR;
+		}
+		return Integer.parseInt(value.substring(1), 16);
+	}
+
+	private static Color shadeColor(int rgb, double shade, double opacity) {
+		int red = (rgb >> 16) & 0xff;
+		int green = (rgb >> 8) & 0xff;
+		int blue = rgb & 0xff;
+		return Color.rgb((int) Math.round(red * shade), (int) Math.round(green * shade),
+				(int) Math.round(blue * shade), opacity);
+	}
+
+	private record PreviewMesh(float[] points, int[] faces, int[] triangleColors, int objectCount, int triangleCount,
+			boolean clipped) {
+		private String statusText() {
+			if (clipped) {
+				return "Preview clipped at " + triangleCount + " triangles from " + objectCount + " geometry objects.";
+			}
+			return objectCount + " geometry objects, " + triangleCount + " triangles.";
+		}
+	}
+
+	private static class ObjMeshBuilder {
+		private final int maxPoints;
+		private final int maxTriangles;
+		private final List<double[]> rawPoints = new ArrayList<>();
+		private final List<int[]> triangles = new ArrayList<>();
+		private final List<Integer> triangleColors = new ArrayList<>();
+		private int objectCount;
+		private boolean clipped;
+		private double minX = Double.POSITIVE_INFINITY;
+		private double minY = Double.POSITIVE_INFINITY;
+		private double minZ = Double.POSITIVE_INFINITY;
+		private double maxX = Double.NEGATIVE_INFINITY;
+		private double maxY = Double.NEGATIVE_INFINITY;
+		private double maxZ = Double.NEGATIVE_INFINITY;
+
+		private ObjMeshBuilder(int maxPoints, int maxTriangles) {
+			this.maxPoints = maxPoints;
+			this.maxTriangles = maxTriangles;
+		}
+
+		private boolean clipped() {
+			return this.clipped;
+		}
+
+		private void addObj(String obj, int color) {
+			if (this.clipped) {
+				return;
+			}
+			this.objectCount++;
+			List<double[]> localVertices = new ArrayList<>();
+			for (String rawLine : obj.split("\\R")) {
+				String line = rawLine.strip();
+				if (line.startsWith("v ")) {
+					addLocalVertex(line, localVertices);
+				} else if (line.startsWith("f ")) {
+					addFace(line, localVertices, color);
+				}
+				if (this.clipped) {
+					return;
+				}
+			}
+		}
+
+		private void addLocalVertex(String line, List<double[]> localVertices) {
+			if (this.rawPoints.size() >= this.maxPoints) {
+				this.clipped = true;
+				return;
+			}
+			String[] parts = line.split("\\s+");
+			if (parts.length < 4) {
+				return;
+			}
+			double x = parseDouble(parts[1]);
+			double y = parseDouble(parts[2]);
+			double z = parseDouble(parts[3]);
+			double[] point = new double[] { x, y, z };
+			localVertices.add(point);
+			this.rawPoints.add(point);
+			this.minX = Math.min(this.minX, x);
+			this.minY = Math.min(this.minY, y);
+			this.minZ = Math.min(this.minZ, z);
+			this.maxX = Math.max(this.maxX, x);
+			this.maxY = Math.max(this.maxY, y);
+			this.maxZ = Math.max(this.maxZ, z);
+		}
+
+		private void addFace(String line, List<double[]> localVertices, int color) {
+			String[] parts = line.split("\\s+");
+			if (parts.length < 4) {
+				return;
+			}
+			List<Integer> indexes = new ArrayList<>();
+			int globalBase = this.rawPoints.size() - localVertices.size();
+			for (int i = 1; i < parts.length; i++) {
+				int pointIndex = parseObjIndex(parts[i], localVertices.size(), globalBase, this.rawPoints.size());
+				if (pointIndex >= 0) {
+					indexes.add(pointIndex);
+				}
+			}
+			for (int i = 1; i < indexes.size() - 1; i++) {
+				if (this.triangles.size() >= this.maxTriangles) {
+					this.clipped = true;
+					return;
+				}
+				this.triangles.add(new int[] { indexes.get(0), indexes.get(i), indexes.get(i + 1) });
+				this.triangleColors.add(color);
+			}
+		}
+
+		private PreviewMesh toPreviewMesh() {
+			if (this.rawPoints.isEmpty() || this.triangles.isEmpty()) {
+				return new PreviewMesh(new float[0], new int[0], new int[0], this.objectCount, 0, this.clipped);
+			}
+			double centerX = (this.minX + this.maxX) / 2.0;
+			double centerY = (this.minY + this.maxY) / 2.0;
+			double centerZ = (this.minZ + this.maxZ) / 2.0;
+			double span = Math.max(this.maxX - this.minX, Math.max(this.maxY - this.minY, this.maxZ - this.minZ));
+			double scale = span == 0 ? 1 : 260.0 / span;
+
+			float[] points = new float[this.rawPoints.size() * 3];
+			for (int i = 0; i < this.rawPoints.size(); i++) {
+				double[] point = this.rawPoints.get(i);
+				points[i * 3] = (float) ((point[0] - centerX) * scale);
+				points[i * 3 + 1] = (float) (-(point[2] - centerZ) * scale);
+				points[i * 3 + 2] = (float) ((point[1] - centerY) * scale);
+			}
+
+			int[] faces = new int[this.triangles.size() * 6];
+			int[] colors = new int[this.triangles.size()];
+			for (int i = 0; i < this.triangles.size(); i++) {
+				int[] triangle = this.triangles.get(i);
+				faces[i * 6] = triangle[0];
+				faces[i * 6 + 1] = 0;
+				faces[i * 6 + 2] = triangle[1];
+				faces[i * 6 + 3] = 0;
+				faces[i * 6 + 4] = triangle[2];
+				faces[i * 6 + 5] = 0;
+				colors[i] = this.triangleColors.get(i);
+			}
+			return new PreviewMesh(points, faces, colors, this.objectCount, this.triangles.size(), this.clipped);
+		}
+
+		private static int parseObjIndex(String token, int localVertexCount, int globalBase, int globalPointCount) {
+			String indexPart = token.split("/", -1)[0];
+			if (indexPart.isBlank()) {
+				return -1;
+			}
+			int objIndex = Integer.parseInt(indexPart);
+			if (objIndex < 0) {
+				int localIndex = localVertexCount + objIndex;
+				return localIndex >= 0 && localIndex < localVertexCount ? globalBase + localIndex : -1;
+			}
+			if (objIndex >= 1 && objIndex <= localVertexCount) {
+				return globalBase + objIndex - 1;
+			}
+			if (objIndex >= 0 && objIndex < localVertexCount) {
+				return globalBase + objIndex;
+			}
+			if (objIndex >= 0 && objIndex < globalPointCount) {
+				return objIndex;
+			}
+			if (objIndex >= 1 && objIndex <= globalPointCount) {
+				return objIndex - 1;
+			}
+			return -1;
+		}
+
+		private static double parseDouble(String value) {
+			return Double.parseDouble(value.replace(',', '.'));
 		}
 	}
 
@@ -625,18 +1282,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.conversionTxt.appendText("\nThe last conversion is still running. \n");
 					return;
 				}
-				this.options_panel.setDisable(true);
-				this.masker_panel.setVisible(true);
+					this.options_panel.setDisable(true);
 
 			Set<String> selected_types = selectedElementTypes();
 			Set<String> selected_psets = selectedPropertySets();
-				IFCtoLBDConverter converter = this.running_read_in.get();
-				if (converter == null) {
-					this.conversionTxt.appendText("Read-in failed. Conversion cannot continue.\n");
-					this.masker_panel.setVisible(false);
-					this.options_panel.setDisable(false);
-					return;
-				}
+					IFCtoLBDConverter converter = this.running_read_in.get();
+					if (converter == null) {
+						this.conversionTxt.appendText("Read-in failed. Conversion cannot continue.\n");
+						this.options_panel.setDisable(false);
+						return;
+					}
 				converter.setTargetFile(currentSettings.rdfTargetName());
 				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
 				ConversionRequest conversionRequest = new ConversionRequest(currentSettings, selected_types, selected_psets);
@@ -677,6 +1332,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.eventBus.register(this);
 		this.border.widthProperty().bind(this.root.widthProperty());
 		this.border.heightProperty().bind(this.root.heightProperty());
+		setupGeometryPreview();
+		setupFloatingCards();
 		// Accepts dropping
 		new EventHandler<DragEvent>() {
 			@Override
@@ -733,14 +1390,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							}
 							if (IFCtoLBDController.this.ifcFileName != null && IFCtoLBDController.this.rdfTargetName != null) {
 								IFCtoLBDController.this.selectTargetFileButton.setDisable(false);
-								IFCtoLBDController.this.convert2RDFButton.setDefaultButton(true);
 								IFCtoLBDController.this.selectIFCFileButton.setDefaultButton(false);
-								IFCtoLBDController.this.convert2RDFButton.setDisable(false);
 								IFCtoLBDController.this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
 								IFCtoLBDController.this.readInIFC();
 							}
-							IFCtoLBDController.this.rdf_fileIcon.setDisable(false);
-							IFCtoLBDController.this.rdf_fileIcon.setImage(IFCtoLBDController.this.fileimage);
 					}
 				}
 				event.setDropCompleted(success);
@@ -892,11 +1545,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@Subscribe
-	public void handleEvent(final ProcessReadyEvent event) {
-		Platform.runLater(() -> {
-			this.masker_panel.setVisible(false);
-			this.options_panel.setDisable(false);
-		});
+		public void handleEvent(final ProcessReadyEvent event) {
+			Platform.runLater(() -> {
+				this.options_panel.setDisable(false);
+			});
 
 		if (event.getPhase() == ProcessReadyEvent.READ_IN) {
 			Platform.runLater(() -> {
@@ -936,18 +1588,26 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					
 					this.propertysets_checkbox.setRoot(psets_checkbox_values);
 					this.propertysets_checkbox.setShowRoot(true);
+					setRunReady(true);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (ExecutionException e) {
+					setRunReady(false);
 					e.printStackTrace();
 				}
 			});
 		}
 		if (event.getPhase() == ProcessReadyEvent.CONVERT) {
-			this.lastSuccessfulConversionRequest = this.pendingConversionRequest;
+			ConversionRequest successfulRequest = this.pendingConversionRequest;
+			this.lastSuccessfulConversionRequest = successfulRequest;
+			if (successfulRequest != null) {
+				scheduleGeometryPreview(successfulRequest.settings());
+			}
 		}
 		if (event.getPhase() == ProcessReadyEvent.ERROR) {
 			this.pendingConversionRequest = null;
+			Platform.runLater(() -> setRunReady(false));
+			Platform.runLater(() -> clearGeometryPreview("Geometry preview unavailable because conversion failed."));
 		}
 	}
 }

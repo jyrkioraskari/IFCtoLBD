@@ -28,6 +28,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class IFCtoLBD_Desktop extends Application {
@@ -36,11 +37,17 @@ public class IFCtoLBD_Desktop extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
+        stage.initStyle(StageStyle.DECORATED);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("IFCtoLBD.fxml"));
         Parent root = loader.load();
         this.controller = loader.getController();
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
         stage.setScene(scene);
+        stage.setTitle("IFCtoLBD Desktop");
+        stage.setResizable(true);
+        stage.setMinWidth(900);
+        stage.setMinHeight(640);
         stage.show();
     }
 
