@@ -1,15 +1,3 @@
-Below is a **cleaned‑up version** of your README content with a few markdown fixes and consistency improvements, while preserving your meaning and structure.
-
-Key fixes:
-
-- Ensure all code blocks are fenced correctly and separated from lists.
-- Fix a few small typos (`idc_to_lbd_geometry` → `ifc_to_lbd_geometry`, “point” → “points”, “he main file name” → “The main file name”).
-- Turn bare URLs into markdown links where it improves readability.
-- Use consistent heading levels and spacing.
-
-You can copy‑paste this over your current `README.md`:
-
-```md
 # IFCtoLBD
 Version 2.48.0  
 Free for all of us, forever.
@@ -387,6 +375,4 @@ This project is released under the open source [Apache License, Version 2.0](htt
 The research was partly funded by the EU through the H2020 project BIM4REN.
 
 <https://dc.rwth-aachen.de/de/forschung/bim4ren>
-```
 
-If there is a particular spot on the rendered page that still looks wrong after you paste this (e.g., a heading inside a gray code block), tell me exactly which section and I’ll pinpoint the specific markdown cause.
