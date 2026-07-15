@@ -232,7 +232,7 @@
                       </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="200.0" layoutY="14.0" prefHeight="450.0" prefWidth="360.0" styleClass="floating-card" text="Geometry Preview">
+                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="200.0" layoutY="96.0" prefHeight="450.0" prefWidth="360.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
 	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
 	                      </content>
