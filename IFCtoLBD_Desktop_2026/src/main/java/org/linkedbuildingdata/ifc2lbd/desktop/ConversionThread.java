@@ -61,10 +61,11 @@ public class ConversionThread implements Callable<Integer> {
     
     final boolean hasIfc_based_elements;
     final boolean hasInterfaces;
+    final boolean hasElementWireframe;
     final boolean createTrig;
     final boolean export_as_JSON_LD;
     
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean hasElementWireframe) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -85,6 +86,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasHierarchicalNaming=hasHierarchicalNaming;
 		this.hasIfc_based_elements=hasIfc_based_elements;
 		this.hasInterfaces=hasInterfaces;
+		this.hasElementWireframe=hasElementWireframe;
 		this.createTrig=createTrig;
 		this.export_as_JSON_LD=export_as_JSON_LD;
 	}
@@ -98,7 +100,8 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
-						hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,hasInterfaces,createTrig,export_as_JSON_LD);
+						hasGeolocation, hasGeometry || hasElementWireframe, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
+						hasHierarchicalNaming, hasInterfaces, createTrig, export_as_JSON_LD, hasElementWireframe);
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

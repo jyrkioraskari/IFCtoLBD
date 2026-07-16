@@ -4,13 +4,6 @@
  */
 
 
-/*
- * To compile this, Java 8 is needed. jfxrt.jar is included, so, the the plugin should not be mandatory
- * but installing the http://www.eclipse.org/efxclipse/index.html and http://gluonhq.com/open-source/scene-builder/
- * make coding easier. 
- * 
- */
-
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
 
@@ -44,17 +37,17 @@ public class About extends Stage
       iv.setX(10.0);
       iv.setY((180.0-height)/2.0);
       root.getChildren().add(iv);
-      Text msg1 = new Text("IFCtoLBD Desktop 2018, 2019, 2020, 2021, 2022, 2023");
+      Text msg1 = new Text("IFCtoLBD Desktop\n2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025, 2026");
       msg1.setFill(Color.WHITE);
       msg1.setFont(new Font("Arial", 16.0));
       msg1.setX(iv.getX()+width+5);
-      msg1.setY(iv.getY()+height/2.0);
+      msg1.setY(iv.getY()+height/2.0-35);
       root.getChildren().add(msg1);
-      Text msg2 = new Text("Authors: Oraskari, Bonduel, McGlinn, Wagner,\nPauwels, Kukkonen, Steyskaland, and Lehtonen");
+      Text msg2 = new Text("Authors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner,\nPieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen,\nMaxime Lefrançois, and Lewis John McGibbney. \nThanks also to Vladimir Alexiev, Kathrin Dentler, and Lukas Kirner\n for their valuable comments.");
       msg2.setFill(Color.WHITE);
       msg2.setFont(new Font("Arial", 12.0));
       msg2.setX(msg1.getX());
-      msg2.setY(msg1.getY()+25.0);
+      msg2.setY(msg1.getY()+35.0);
       root.getChildren().add(msg2);
       
       Reflection r = new Reflection();

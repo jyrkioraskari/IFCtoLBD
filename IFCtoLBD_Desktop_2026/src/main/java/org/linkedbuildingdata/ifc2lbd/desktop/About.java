@@ -43,7 +43,7 @@ public class About extends Stage
       msg1.setX(iv.getX()+width+5);
       msg1.setY(iv.getY()+height/2.0-35);
       root.getChildren().add(msg1);
-      Text msg2 = new Text("Authors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner,\nPieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen,\nMaxime Lefrançois, and Lewis John McGibbney. \nThanks also to Vladimir Alexiev and Kathrin Dentler for their valuable comments.");
+      Text msg2 = new Text("Authors: Jyrki Oraskari, Mathias Bonduel, Kris McGlinn, Anna Wagner,\nPieter Pauwels, Ville Kukkonen, Simon Steyskaland, Joel Lehtonen,\nMaxime Lefrançois, and Lewis John McGibbney. \nThanks also to Vladimir Alexiev, Kathrin Dentler, and Lukas Kirner\n for their valuable comments.");
       msg2.setFill(Color.WHITE);
       msg2.setFont(new Font("Arial", 12.0));
       msg2.setX(msg1.getX());

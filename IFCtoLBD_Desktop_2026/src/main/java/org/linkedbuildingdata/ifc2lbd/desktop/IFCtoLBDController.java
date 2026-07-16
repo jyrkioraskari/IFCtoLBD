@@ -230,6 +230,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ToggleSwitch hasBoundingBox_WKT;
 
 	@FXML
+	private ToggleSwitch hasElementWireframe;
+
+	@FXML
 	private ToggleSwitch ifcOWL_elements;
 
 	@FXML
@@ -272,8 +275,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
-			boolean hasInterfaces, boolean hasUnits, boolean hasHierarchicalNaming, boolean hasSimpleProperties,
-			boolean hasIfcBasedElements, boolean createTrig, boolean exportAsJsonLd) {
+			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
+			boolean hasSimpleProperties, boolean hasIfcBasedElements, boolean createTrig, boolean exportAsJsonLd) {
 	}
 
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
@@ -572,7 +575,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(),
 				this.geolocation.isSelected(), this.geometry_elements.isSelected(), this.ifcOWL_elements.isSelected(),
 				this.hasPerformanceBoost.isSelected(), this.hasBoundingBox_WKT.isSelected(),
-				this.geometry_interfaces.isSelected(), this.createUnits.isSelected(),
+				this.geometry_interfaces.isSelected(), this.hasElementWireframe.isSelected(), this.createUnits.isSelected(),
 				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
 				this.ifc_based_elements.isSelected(), this.createTrig.isSelected(), isJsonLdOutputSelected());
 	}
@@ -593,6 +596,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				|| previous.hasPerformanceBoost() != current.hasPerformanceBoost()
 				|| previous.hasBoundingBoxWkt() != current.hasBoundingBoxWkt()
 				|| previous.hasInterfaces() != current.hasInterfaces()
+				|| previous.hasElementWireframe() != current.hasElementWireframe()
 				|| previous.hasUnits() != current.hasUnits();
 	}
 
@@ -638,6 +642,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("lbd_boundinbox_elements", settings.hasGeometry());
 		this.prefs.putBoolean("lbd_boundinbox_interfaces", settings.hasInterfaces());
 		this.prefs.putBoolean("lbd_boundinbox_wkt", settings.hasBoundingBoxWkt());
+		this.prefs.putBoolean("lbd_element_wireframe", settings.hasElementWireframe());
 		this.prefs.putBoolean("lbd_ifcOWL_elements", settings.exportIfcOwl());
 		this.prefs.putBoolean("lbd_performance", settings.hasPerformanceBoost());
 		this.prefs.putBoolean("lbd_createUnits", settings.hasUnits());
@@ -671,7 +676,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							settings.propsLevel(), settings.hasBuildingElements(),
 							settings.hasSeparateBuildingElementsModel(), settings.hasBuildingProperties(),
 							settings.hasSeparatePropertiesModel(), settings.hasPropertiesBlankNodes(),
-							settings.hasGeolocation(), settings.hasGeometry(), settings.exportIfcOwl(),
+							settings.hasGeolocation(), settings.hasGeometry() || settings.hasElementWireframe(), settings.exportIfcOwl(),
 							settings.hasUnits(), settings.hasPerformanceBoost(), settings.hasBoundingBoxWkt(),
 							settings.hasInterfaces()));
 		} catch (Exception e) {
@@ -946,6 +951,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (card == null) {
 			return;
 		}
+		if (isFloatingCardMinimized(card)) {
+			return;
+		}
 		stopFloatingCardAnimation(card);
 		if (card.isExpanded() && card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT) {
 			this.floatingCardNormalHeights.put(card, card.getPrefHeight());
@@ -974,6 +982,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
 			renderGeometryScene();
 		});
+	}
+
+	private boolean isFloatingCardMinimized(TitledPane card) {
+		return !card.isExpanded() && card.getPrefHeight() <= FLOATING_CARD_HEADER_HEIGHT + 1;
 	}
 
 	private void restoreFloatingCard(TitledPane card) {
@@ -1481,7 +1493,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasUnits(), currentSettings.hasPerformanceBoost(),
 					currentSettings.hasBoundingBoxWkt(), currentSettings.hasHierarchicalNaming(),
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
-					currentSettings.exportAsJsonLd()));
+					currentSettings.exportAsJsonLd(), currentSettings.hasElementWireframe()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -1582,6 +1594,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.geometry_elements.setSelected(this.prefs.getBoolean("lbd_boundinbox_elements", true));
 		this.geometry_interfaces.setSelected(this.prefs.getBoolean("lbd_boundinbox_interfaces", false));
 		this.hasBoundingBox_WKT.setSelected(this.prefs.getBoolean("lbd_boundinbox_wkt", false));
+		this.hasElementWireframe.setSelected(this.prefs.getBoolean("lbd_element_wireframe", false));
 		this.ifcOWL_elements.setSelected(this.prefs.getBoolean("lbd_ifcOWL_elements", false));
 		this.createUnits.setSelected(this.prefs.getBoolean("lbd_createUnits", false));
 		this.geolocation.setSelected(this.prefs.getBoolean("lbd_geolocation", true));
@@ -1665,6 +1678,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		this.geometry_interfaces.setTooltip(
 				new Tooltip("Creates bounding box based BOT interfaces. "));
+
+		this.hasElementWireframe.setTooltip(
+				new Tooltip("Exports simple mesh wireframes as lbd:hasWireframe WKT literals. "));
 		
 		this.createTrig.setTooltip(
 				new Tooltip("If selected, creates also a RDF 1.1. TriG file (https://www.w3.org/TR/trig/). "));

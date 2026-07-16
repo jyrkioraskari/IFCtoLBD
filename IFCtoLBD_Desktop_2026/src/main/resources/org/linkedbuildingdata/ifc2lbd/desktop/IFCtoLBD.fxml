@@ -189,6 +189,7 @@
                                         <ToggleSwitch fx:id="geometry_elements" maxWidth="Infinity" text="Geometry" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="geometry_interfaces" maxWidth="Infinity" text="Interfaces" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="hasBoundingBox_WKT" maxWidth="Infinity" text="Bounding boxes" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                        <ToggleSwitch fx:id="hasElementWireframe" maxWidth="Infinity" text="Element wireframe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                       </children>
                                     </GridPane>
                                   </content>
