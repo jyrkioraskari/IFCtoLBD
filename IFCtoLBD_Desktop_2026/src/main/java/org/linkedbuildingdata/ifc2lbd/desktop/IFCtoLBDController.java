@@ -713,6 +713,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.geometryScene.setFill(Color.rgb(248, 250, 252));
 		this.geometryScene.setFocusTraversable(true);
 		this.geometryScene.setOnMousePressed(event -> {
+			bringFloatingCardToFront(this.geometryCard);
 			this.geometryMouseX = event.getSceneX();
 			this.geometryMouseY = event.getSceneY();
 			this.geometryPanning = event.getButton() == MouseButton.MIDDLE || event.getButton() == MouseButton.SECONDARY;
@@ -825,7 +826,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-			if (event.getButton() == MouseButton.PRIMARY && !(event.getTarget() instanceof Button)) {
+			if (event.getButton() == MouseButton.PRIMARY && !(event.getTarget() instanceof Button)
+					&& !isGeometrySceneEventTarget(event.getTarget())) {
 				bringFloatingCardToFront(card);
 			}
 			if (!isCardHeaderEvent(event)) {
@@ -900,6 +902,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return false;
 	}
 
+	private boolean isGeometrySceneEventTarget(Object target) {
+		if (!(target instanceof Node node)) {
+			return false;
+		}
+		while (node != null) {
+			if (node == this.geometryScene) {
+				return true;
+			}
+			node = node.getParent();
+		}
+		return false;
+	}
+
 	private void toggleFloatingCard(TitledPane card) {
 		if (card == null) {
 			return;
@@ -917,7 +932,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.setDisable(false);
-		restoreFloatingCard(card, false);
+		if (!card.isExpanded() || card.getPrefHeight() <= FLOATING_CARD_HEADER_HEIGHT + 1) {
+			restoreFloatingCard(card, false);
+		}
 		card.toFront();
 	}
 
