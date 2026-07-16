@@ -1,6 +1,6 @@
 # IFCtoLBD
 
-Version 2.48.0
+Version 2.49.0
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
@@ -60,11 +60,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.48.0}},
+  title        = {{IFCtoLBD v 2.49.0}},
   month        = aug,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.48.0},
+  version      = {2.49.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
