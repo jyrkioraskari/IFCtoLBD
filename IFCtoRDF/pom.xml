@@ -14,17 +14,18 @@
 	<artifactId>ifc2rdf</artifactId>
 	<name>IFC 2 RDF</name>
 	<packaging>jar</packaging>
-	<version>1.3.2</version>
+	<version>2.48.0</version>
 	<licenses>
 		<license>
 			<name>Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
 		</license>
 	</licenses>
-	<description>IFCtoRDF is a set of reusable Java components that allows to parse IFC-SPF files and convert them into
-        RDF graphs.
+	<description>IFCtoRDF is a set of reusable Java components that allows to
+		parse IFC-SPF files and convert them into
+		RDF graphs.
 
-Based on:  https://github.com/pipauwel/IFCtoRDF</description>
+		Based on: https://github.com/pipauwel/IFCtoRDF</description>
 	<mailingLists>
 		<mailingList>
 			<name>Project Mailing List</name>
@@ -211,7 +212,9 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
-					<source>15</source>
+					<author>true</author>
+					<source>17</source>
+					<excludePackageNames>com.*:fi.*</excludePackageNames>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -234,15 +237,20 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 								<configuration>
 									<archive>
 										<manifest>
-											<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+											<addDefaultImplementationEntries>
+												true</addDefaultImplementationEntries>
 											<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 										</manifest>
 										<manifestEntries>
-											<Implementation-Build>${implementation.build}</Implementation-Build>
-											<Implementation-Build-Date>${maven.build.timestamp}
+											<Implementation-Build>
+												${implementation.build}</Implementation-Build>
+											<Implementation-Build-Date>
+												${maven.build.timestamp}
 											</Implementation-Build-Date>
-											<X-Compile-Source-JDK>${javac.src.version}</X-Compile-Source-JDK>
-											<X-Compile-Target-JDK>${javac.target.version}</X-Compile-Target-JDK>
+											<X-Compile-Source-JDK>
+												${javac.src.version}</X-Compile-Source-JDK>
+											<X-Compile-Target-JDK>
+												${javac.target.version}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>
@@ -263,15 +271,20 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 									<quiet>true</quiet>
 									<archive>
 										<manifest>
-											<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+											<addDefaultImplementationEntries>
+												true</addDefaultImplementationEntries>
 											<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 										</manifest>
 										<manifestEntries>
-											<Implementation-Build>${implementation.build}</Implementation-Build>
-											<Implementation-Build-Date>${maven.build.timestamp}
+											<Implementation-Build>
+												${implementation.build}</Implementation-Build>
+											<Implementation-Build-Date>
+												${maven.build.timestamp}
 											</Implementation-Build-Date>
-											<X-Compile-Source-JDK>${javac.src.version}</X-Compile-Source-JDK>
-											<X-Compile-Target-JDK>${javac.target.version}</X-Compile-Target-JDK>
+											<X-Compile-Source-JDK>
+												${javac.src.version}</X-Compile-Source-JDK>
+											<X-Compile-Target-JDK>
+												${javac.target.version}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>
@@ -305,7 +318,8 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<!-- Dependencies -->
 		<commons-io.version>2.4</commons-io.version>
 		<junit.version>4.13.2</junit.version>
-		<jena.version>4.10.0</jena.version>
+		<jena.version>6.0.0</jena.version>
+		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -321,12 +335,12 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
 		<!-- General Properties -->
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
-		<javac.src.version>17</javac.src.version>
-		<javac.target.version>17</javac.target.version>
-		<maven.compiler.target>17</maven.compiler.target>
+		<javac.src.version>21</javac.src.version>
+		<javac.target.version>21</javac.target.version>
+		<maven.compiler.target>21</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>true</skipTests>
+		<skipTests>false</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
 	<dependencies>
@@ -339,18 +353,47 @@ Based on:  https://github.com/pipauwel/IFCtoRDF</description>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-arq</artifactId>
 			<version>${jena.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.glassfish</groupId>
+					<artifactId>jakarta.json</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>apache-jena-libs</artifactId>
 			<version>${jena.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>javax.json</groupId>
+					<artifactId>javax.json-api</artifactId>
+				</exclusion>
+			</exclusions>
+
 			<type>pom</type>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.json</groupId>
+			<artifactId>jakarta.json-api</artifactId>
+			<version>2.1.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.eclipse.parsson</groupId>
+			<artifactId>parsson</artifactId>
+			<version>1.1.7</version>
 		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j2-impl</artifactId>
+			<version>${log4j2.slf4j2.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

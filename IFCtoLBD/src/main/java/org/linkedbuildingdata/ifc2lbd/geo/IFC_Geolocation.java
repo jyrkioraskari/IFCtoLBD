@@ -4,12 +4,12 @@ package org.linkedbuildingdata.ifc2lbd.geo;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
-import org.apache.jena.ext.com.google.common.collect.Lists;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.ResourceFactory;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.RDF;
@@ -38,9 +38,9 @@ public class IFC_Geolocation {
     String outputfile = "";
 
 
-    private static Property ifcSiteProperty;
-    private static List<String> latitude = new ArrayList<>();
-    private static List<String> longitude = new ArrayList<>();
+    private final Resource ifcSiteResource;
+    private final List<String> latitude = new ArrayList<>();
+    private final List<String> longitude = new ArrayList<>();
     
     private final String ns1;
     private final String ns3;
@@ -49,14 +49,17 @@ public class IFC_Geolocation {
 
     public IFC_Geolocation(String ns1) {	
         
-        this.ns1=ns1;
+        this.ns1=normalizeNamespace(ns1);
         this.ns3 = "https://w3id.org/list#";
+        this.ifcSiteResource = ResourceFactory.createResource(this.ns1 + "IfcSite");
 
         
     }
 
     public String addGeolocation(Model model)
     {
+        latitude.clear();
+        longitude.clear();
         returnLongLat(model);
         String s = addWKTGeometryToModel();  // JO 2024
         return s;
@@ -64,15 +67,13 @@ public class IFC_Geolocation {
 
     //Author Kris McGlinn - This function takes the Model and a resources, and adds it to that resourse in the model
     //For wkt literal, a seperate class WktLiteral java is required, to add the literal datatype to the Model
-    private static String addWKTGeometryToModel()
+    private String addWKTGeometryToModel()
     {
-    
-        latitude = longLatNegativeConvert(latitude);
-        latitude.set(latitude.size()-1, (latitude.get(latitude.size()-1)+"."));
-        String s1 = StringUtils.join(Lists.reverse(latitude), "");
-        longitude = longLatNegativeConvert(longitude);
-        longitude.set(longitude.size()-1, (longitude.get(longitude.size()-1)+"."));
-        String s2 = StringUtils.join(Lists.reverse(longitude), "");
+        if (latitude.isEmpty() || longitude.isEmpty())
+            throw new IllegalStateException("IFC site geolocation latitude or longitude is missing.");
+
+        String s1 = compoundPlaneAngleToDecimalDegrees(latitude);
+        String s2 = compoundPlaneAngleToDecimalDegrees(longitude);
         //Have to switch long and lat for WKT
         String wkt_point = "POINT ("+s2+" "+s1+")";
 
@@ -80,23 +81,38 @@ public class IFC_Geolocation {
     }
     
     
-    //Author Kris McGlinn - This method changes the sign of the longitude or latitude values in a List
-    private static List<String> longLatNegativeConvert(List<String> l)
-    {
-        String s = l.get(l.size()-1); 
-        int x = Integer.parseInt(s);
-        if(x<0)
-        {           
-            for(int i = 0; i <l.size()-1; i++)
-            {
-                s = l.get(i);  
-                l.set(i, s.substring(1));
-                
-            }
-        }        
-        return l;
+    private static String normalizeNamespace(String ns) {
+        if (ns.endsWith("#") || ns.endsWith("/"))
+            return ns;
+        return ns + "#";
     }
-    
+
+    private static String compoundPlaneAngleToDecimalDegrees(List<String> components) {
+        double degrees = 0.0;
+        boolean negative = false;
+
+        for (int i = 0; i < components.size(); i++) {
+            double value = Double.parseDouble(components.get(i));
+            if (value < 0)
+                negative = true;
+
+            double absoluteValue = Math.abs(value);
+            if (i == 0)
+                degrees += absoluteValue;
+            else if (i == 1)
+                degrees += absoluteValue / 60.0;
+            else if (i == 2)
+                degrees += absoluteValue / 3600.0;
+            else if (i == 3)
+                degrees += absoluteValue / 3600000000.0;
+        }
+
+        if (negative)
+            degrees = -degrees;
+
+        return Double.toString(degrees);
+    }
+
     //Author Kris McGlinn - This method traverses the RDF express list and recursively adds latitude and longitude values to a Java list
     private Statement traverseList(Model original, Statement stmt, boolean lat)
     {
@@ -104,53 +120,26 @@ public class IFC_Geolocation {
         Model m = ModelFactory.createDefaultModel().add(original);
         Property listHasContents = m.createProperty( ns3 + "hasContents" );
         Property listHasNext = m.createProperty( ns3 + "hasNext" );
-        boolean moreInList = false;
-        String s[];
+        Resource listNode = stmt.getObject().asResource();
 
-                  
-        StmtIterator iter = m.listStatements( stmt.getObject().asResource(), null, (RDFNode) null );
-        
-        while ( iter.hasNext() ) 
-        {
-            Statement stmt1 = iter.nextStatement();
-
-            if(stmt1.getPredicate().equals(listHasContents))
-            {
-                StmtIterator iter2 = m.listStatements( stmt1.getObject().asResource(), null, (RDFNode) null );
-                while ( iter2.hasNext() ) 
-                    {
-                        Statement stmt2 = iter2.nextStatement();
-
-                        if(stmt2.getObject().isLiteral())
-                        {
-                            if(lat)
-                            {
-                                s = stmt2.getObject().toString().split("\\^\\^http");                               
-                                latitude.add(s[0]);
-                                
-                            }
-                            else {
-                                s = stmt2.getObject().toString().split("\\^\\^http");
-                                longitude.add(s[0]);
-
-                            }
-                        }
-
-                        
-                    }
+        StmtIterator contents = m.listStatements(listNode, listHasContents, (RDFNode) null);
+        while (contents.hasNext()) {
+            Statement content = contents.nextStatement();
+            StmtIterator values = m.listStatements(content.getObject().asResource(), null, (RDFNode) null);
+            while (values.hasNext()) {
+                Statement value = values.nextStatement();
+                if (value.getObject().isLiteral()) {
+                    if (lat)
+                        latitude.add(value.getLiteral().getLexicalForm());
+                    else
+                        longitude.add(value.getLiteral().getLexicalForm());
+                }
             }
-            else if(stmt1.getPredicate().equals(listHasNext))
-            {
-                moreInList = true;
-                traverseList(original, stmt1, lat);
-            }
-
         }
-        
-        if(!moreInList)
-        {
-            stmt = null;
-            return stmt;
+
+        StmtIterator nextNodes = m.listStatements(listNode, listHasNext, (RDFNode) null);
+        while (nextNodes.hasNext()) {
+            traverseList(original, nextNodes.nextStatement(), lat);
         }
         
         return stmt;
@@ -162,10 +151,10 @@ public class IFC_Geolocation {
         Model m = ModelFactory.createDefaultModel().add(original);
         
                 
-        Property refLatitude_IfcSite = m.createProperty( ns1 + "#refLatitude_IfcSite" );
-        Property refLongitude_IfcSite = m.createProperty( ns1 + "#refLongitude_IfcSite" );
+        Property refLatitude_IfcSite = m.createProperty( ns1 + "refLatitude_IfcSite" );
+        Property refLongitude_IfcSite = m.createProperty( ns1 + "refLongitude_IfcSite" );
         
-        StmtIterator iter = m.listStatements( null, RDF.type, ifcSiteProperty );
+        StmtIterator iter = m.listStatements( null, RDF.type, ifcSiteResource );
 
         while ( iter.hasNext() ) {
             Statement stmt = iter.nextStatement();
@@ -181,7 +170,7 @@ public class IFC_Geolocation {
         }
 
   
-        iter = m.listStatements( null, RDF.type, ifcSiteProperty );
+        iter = m.listStatements( null, RDF.type, ifcSiteResource );
 
         while ( iter.hasNext() ) {
             Statement stmt = iter.nextStatement();

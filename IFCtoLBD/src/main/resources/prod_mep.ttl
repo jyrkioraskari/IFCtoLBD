@@ -564,7 +564,7 @@ mep:Boiler rdf:type owl:Class ;
 ###  http://pi.pauwel.be/voc/distributionelement#Boiler-STEAM
 mep:Boiler-STEAM rdf:type owl:Class ;
                  rdfs:subClassOf mep:Boiler ;
-                 rdfs:comment "The amount of steam consumed during the period specified in the time series."@ifc-2x4 ,
+                 rdfs:comment "The amount of steam consumed during the period specified in the time series."@en ,
                               "http://bsdd.buildingsmart.org/#concept/details/3r3yMQaETCj9yTgeFnY6eO"@en ;
                  rdfs:label "Steam Boiler"@en ,
                             "dampkjel"@nb-no ;
@@ -1640,7 +1640,7 @@ mep:DistributionElement rdf:type owl:Class ;
                         rdfs:comment "A generalization of all elements that participate in a distribution system. "@en ,
                                      """A generalization of all elements that participate in a distribution system. Typical examples :
 building service elements within a heating systems, cooling system, ventilation system, plumbing system
-or electrical elements within a communication network"""@ifc-2x4 ,
+or electrical elements within a communication network"""@en ,
                                      "http://bsdd.buildingsmart.org/#concept/details/1UHiGqJXTCL9Ds53EKce2Y"@en ;
                         rdfs:label "Distribution Element"@en ,
                                    "Elément de distribution"@fr-fr ,
@@ -2146,7 +2146,6 @@ mep:ElectricGenerator-STANDALONE rdf:type owl:Class ;
 mep:ElectricMotor rdf:type owl:Class ;
                   rdfs:subClassOf mep:EnergyConversionDevice ;
                   rdfs:comment "An engine that is a machine for converting electrical energy into mechanical energy."@en ,
-                               "An engine that is a machine for converting electrical energy into mechanical energy."@ifc-2x4 ,
                                "http://bsdd.buildingsmart.org/#concept/details/3_kLW3eI10Xem4Z9zSCTzp"@en ;
                   rdfs:label "Electric Motor"@en ,
                              "Elektromotor"@de-de ,

@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
+ Copyright (c) 2014, 2025 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
  Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
  Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -41,27 +41,26 @@ public class AttributeVO implements Serializable {
     private int maxCardListOfList = -1;
 
     private TypeVO type;
-    boolean unique = false;
+    private boolean unique = false;
     private boolean reversePointer; // defined in another class
-    boolean isOne2One = false;
+    private boolean isOne2One = false;
 
     private InverseVO pointsFrom;
 
     public AttributeVO(String name, TypeVO type, boolean isArray, boolean isSet, boolean isList, boolean isListOfList, int minCard, int maxCard, int tmpListOfListMinCard, int tmpListOfListMaxCard,
-                    boolean isOptional) {
-        super();
+                       boolean isOptional) {
         this.name = name;
         this.type = type;
         this.reversePointer = false;
         this.array = isArray;
         this.set = isSet;
         this.list = isList;
-        this.setMinCard(minCard);
-        this.setMaxCard(maxCard);
-        this.setOptional(isOptional);
-        this.setListOfList(isListOfList);
-        this.setMinCardListOfList(tmpListOfListMinCard);
-        this.setMaxCardListOfList(tmpListOfListMaxCard);
+        this.minCard = minCard;
+        this.maxCard = maxCard;
+        this.optional = isOptional;
+        this.listOfList = isListOfList;
+        this.minCardListOfList = tmpListOfListMinCard;
+        this.maxCardListOfList = tmpListOfListMaxCard;
     }
 
     public boolean isArray() {
@@ -71,7 +70,7 @@ public class AttributeVO implements Serializable {
     public void setArray(boolean array) {
         this.set = array;
     }
-
+    
     public boolean isSet() {
         return set;
     }
@@ -204,16 +203,16 @@ public class AttributeVO implements Serializable {
         this.domain = domain;
     }
 
-    @Override
-    public String toString() {
-        return "AttributeVO [name=" + name + ", type=" + type + ", reverse_pointer=" + reversePointer + ", points_from=" + pointsFrom + ", set=" + set + "]";
-    }
-
     public String getRangeNS() {
         return rangeNS;
     }
 
     public void setRangeNS(String rangeNS) {
         this.rangeNS = rangeNS;
+    }
+
+    @Override
+    public String toString() {
+        return "AttributeVO [name=" + name + ", type=" + type + ", reversePointer=" + reversePointer + ", pointsFrom=" + pointsFrom + ", set=" + set + "]";
     }
 }

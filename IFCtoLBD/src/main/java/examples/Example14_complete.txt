@@ -47,21 +47,28 @@ import processing.core.PApplet;
  * This is the complete demo. You need to install jogamp-fat.jar
  * into LIBs/ to get this functioning and add Maven dependencies
  * 
+ 
+  <!-- Dependency for Processing core library -->
   <dependency>
-			<groupId>org.processing</groupId>
-			<artifactId>core</artifactId>
-			<version>3.3.7</version>
+    <groupId>org.processing</groupId>
+    <artifactId>core</artifactId>
+    <version>3.3.7</version>
+  </dependency>
+
+  <!-- Dependency for JogAmp library -->
+  <dependency>
+    <groupId>org.jogamp</groupId>
+    <artifactId>jogamp-fat</artifactId>
+    <version>2.4.0</version>
+    <scope>system</scope>
+    <systemPath>${basedir}/LIBs/jogamp-fat.jar</systemPath>
    </dependency>
-   <dependency>
-            <groupId>org.jogamp</groupId>
-            <artifactId>jogamp-fat</artifactId>
-            <version>2.4.0</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/LIBs/jogamp-fat.jar</systemPath>
-   </dependency>
-   
+*/
+  
+/*   
    The cut plane heigh is controlled by the second argument of extract_2dlines(decodedString, height); 
- *  */
+ *  
+ */
 
 public class Example14 extends PApplet {
 	static final private int props_level = 1;

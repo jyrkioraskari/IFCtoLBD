@@ -1,16 +1,6 @@
 # !/usr/bin/env python3
 
-import jpype
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['./jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
+from IFCtoLBD_wrapper import IFCtoLBDConverter, shutdown_jvm
 
 # Convert the IFC file into LBD level 3 model
 lbdconverter = IFCtoLBDConverter("https://example.domain.de/",  3)
@@ -29,7 +19,7 @@ while statements.hasNext() :
 
 
 
-#model.write(jpype.java.lang.System.out)
+#model.write(...)
 
-jpype.shutdownJVM()
+shutdown_jvm()
 

@@ -145,7 +145,7 @@ public class ExpressReader {
 		// else is accepted here
 		if (args.length != 2)
 			System.out
-			.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', and 'IFC4x3_RC1' are accepted options");
+			.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', 'IFC4x3_RC1', and 'IFC4x3_ADD2' are accepted options");
 		else {
 			String in = args[0];
 			if (in.equalsIgnoreCase("IFC2X3_Final")
@@ -155,7 +155,8 @@ public class ExpressReader {
 					|| in.equalsIgnoreCase("IFC4_ADD2_TC1")
 					|| in.equalsIgnoreCase("IFC4x1")
 					|| in.equalsIgnoreCase("IFC4")
-					|| in.equalsIgnoreCase("IFC4x3_RC1")) {
+					|| in.equalsIgnoreCase("IFC4x3_RC1") 
+				    || in.equalsIgnoreCase("IFC4x3_ADD2")) {
 				try (InputStream instr = ExpressReader.class   // JO 2024
 						.getResourceAsStream("/" + in + ".exp")) {
 					ExpressReader er = new ExpressReader(instr);
@@ -177,6 +178,8 @@ public class ExpressReader {
 						inAlt = "IFC4/FINAL/";
 					if (in.equalsIgnoreCase("IFC4x3_RC1"))
 						inAlt = "IFC4_3/RC1/";
+					if (in.equalsIgnoreCase("IFC4x3_ADD2"))
+						inAlt = "IFC4_3/ADD2/";
 					
 					Namespace.IFC = "https://standards.buildingsmart.org/IFC/DEV/"
 							+ inAlt + "OWL";
@@ -199,7 +202,7 @@ public class ExpressReader {
 				}
 			} else
 				System.out
-				.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', and 'IFC4x3_RC1' are accepted options");
+				.println("Usage: java ExpressReader expressSchemaname pathToOutputFile \nExample: java ExpressReader IFC2X3_TC1 outputfile.ttl \nNote: only 'IFC2X3_Final', 'IFC2X3_TC1', 'IFC4_ADD1', 'IFC4_ADD2', 'IFC4_ADD2_TC1', 'IFC4', 'IFC4x1', 'IFC4x3_RC1', and 'IFC4x3_ADD2' are accepted options");
 		}
 	}
 

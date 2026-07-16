@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"be.ugent","l":"IfcSpfReader"},{"p":"be.ugent","l":"RDFWriter"}];updateSearchResults();

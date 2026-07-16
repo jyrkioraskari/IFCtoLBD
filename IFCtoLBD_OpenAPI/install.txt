@@ -4,3 +4,48 @@
 
 mvn enunciate:docs
 mvn install
+
+
+
+The generated IFCtoLBD_OpenAPI.war  can be installed to Tomcat: https://tomcat.apache.org/
+
+- Copy to the ./webapps subdirectory and start the server at ./bim/startup.bat  
+- http://localhost:8080/IFCtoLBD_OpenAPI/apidocs/
+
+
+More detail: Apache Tomcat Installation:
+1. **Install Java**
+   - Tomcat needs a Java runtime (JDK or JRE, often JDK 11+).
+   - Install from an official source (e.g., Eclipse Temurin, Oracle, or your OS package manager).
+   - Ensure `java -version` works in a terminal/command prompt.
+
+2. **Download Tomcat**
+   - Go to the official Apache Tomcat website.
+   - Choose the version you need (e.g., Tomcat 10 or 9).
+   - Download the **Core** binary distribution (usually a `.zip` for Windows or `.tar.gz` for macOS/Linux).
+
+3. **Unpack Tomcat**
+   - Extract the archive to a directory, e.g.:
+     - Windows: `C:\tomcat`
+     - Linux/macOS: `/opt/tomcat` or your home directory.
+   - The extracted folder will contain `bin`, `conf`, `logs`, `webapps`, etc.
+
+4. **Configure JAVA_HOME (if needed)**
+   - Set the `JAVA_HOME` environment variable to your JDK/JRE installation directory.
+   - Make sure it’s visible in the environment where you’ll run Tomcat.
+
+5. **Start Tomcat**
+   - Open a terminal/command prompt, go to the `bin` directory inside Tomcat:
+     - Windows: run `startup.bat`
+     - Linux/macOS: run `./startup.sh` (may need `chmod +x` first).
+   - Tomcat starts as a background process and listens by default on port **8080**.
+
+6. **Access Tomcat**
+   - Open a browser and go to: `http://localhost:8080/`
+   - You should see the Tomcat welcome page if it’s running correctly.
+
+7. **Stop Tomcat**
+   - From the same `bin` directory:
+     - Windows: `shutdown.bat`
+     - Linux/macOS: `./shutdown.sh`
+

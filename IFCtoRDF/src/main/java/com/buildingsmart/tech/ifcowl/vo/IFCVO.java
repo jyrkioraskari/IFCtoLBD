@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2014 Jyrki Oraskari, Aalto University (jyrki [dot] oraskari [at] aalto [dot] fi)
+ Copyright (c) 2014, 2025 Jyrki Oraskari, RWTH AAáchen University (oraskarii [at] ip.rwth-aachen [dot] de)
  Copyright (c) 2014 Pieter Pauwels, Ghent University (modifications - pipauwel [dot] pauwels [at] ugent [dot] be / pipauwel [at] gmail [dot] com)
  Copyright (c) 2016 Lewis John McGibbney, Apache (mavenized - lewismc [at] apache [dot] org)
 
@@ -18,37 +18,40 @@ limitations under the License.
  
  package com.buildingsmart.tech.ifcowl.vo;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+
+// IFC value object describing one line of an IFC  STEP file
+
 public class IFCVO {
 
-    private Long lineNum;
-    private String fullLineAfterNum;
+    private Long  stepLineNum;
+    //private String fullLineAfterNum;  // uses unnecessary memory
     private String name = null;
-    private LinkedList<Object> list = new LinkedList<>();
-    private Map<String, LinkedList<IFCVO>> inversePointerSets = new HashMap<>();
+    private List<Object> slot_list = new ArrayList<>();
+    private Map<String, LinkedList<IFCVO>> inversePointerSets;
 
     public IFCVO() {
         //default constructor
     }
 
-    public String getFullLineAfterNum() {
+    /*public String getFullLineAfterNum() {
         return fullLineAfterNum;
     }
 
     public void setFullLineAfterNum(String fullLineAfterNum) {
         this.fullLineAfterNum = fullLineAfterNum;
-    }
+    }*/
 
     public Long getLineNum() {
-        return lineNum;
+        return stepLineNum;
     }
 
     public void setLineNum(Long lineNum) {
-        this.lineNum = lineNum;
+        this.stepLineNum = lineNum;
     }
 
     public String getName() {
@@ -60,14 +63,17 @@ public class IFCVO {
     }
 
     public List<Object> getObjectList() {
-        return list;
+        return slot_list;
     }
 
     public void setList(List<Object> list) {
-        this.list = (LinkedList<Object>) list;
+        this.slot_list = list;
     }
 
     public Map<String, LinkedList<IFCVO>> getInversePointerSets() {
+        if (inversePointerSets == null) {
+            inversePointerSets = new java.util.HashMap<>();
+        }
         return inversePointerSets;
     }
 

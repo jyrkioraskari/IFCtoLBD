@@ -1,20 +1,9 @@
 # !/usr/bin/env python3
 # pip install matplotlib
 
-import jpype
 from rdflib import Graph
 import json
-
-# Enable Java imports
-import jpype.imports
-
-# Pull in types
-from jpype.types import *
-
-jpype.startJVM(classpath = ['./jars/*'])
-
-IFCtoLBDConverter = jpype.JClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter")
-ConversionProperties = jpype.JClass("org.linkedbuildingdata.ifc2lbd.ConversionProperties")
+from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter
 
 import io
 import numpy as np

@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc-to-lbd</artifactId>
-	<version>2.43.5</version>
+	<version>2.48.0</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -45,14 +45,15 @@
 			<email>wagner [at] iib [dot] tu-darmstadt [dot] de</email>
 		</developer>
 	</developers>
+
 	<properties>
-		<maven.compiler.source>17</maven.compiler.source>
-		<maven.compiler.target>17</maven.compiler.target>
+		<maven.compiler.source>21</maven.compiler.source>
+		<maven.compiler.target>21</maven.compiler.target>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-		<maven-surefire-plugin.version>3.0.0-M3</maven-surefire-plugin.version>
+		<maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
 		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
 		<maven-javadoc-plugin.version>3.1.0</maven-javadoc-plugin.version>
@@ -61,106 +62,204 @@
 		<maven-assembly-plugin.version>3.1.1</maven-assembly-plugin.version>
 		<maven-deploy-plugin.version>3.0.0-M1</maven-deploy-plugin.version>
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
+		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
 		<!-- General Properties -->
+		<ifc2lbd.cli.mainClass>
+			org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI</ifc2lbd.cli.mainClass>
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
-		<javac.src.version>15</javac.src.version>
-		<javac.target.version>15</javac.target.version>
+		<javac.src.version>21</javac.src.version>
+		<javac.target.version>21</javac.target.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
 		<skipTests>true</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<log4j2.api.version>3.0.0-beta2</log4j2.api.version>
+		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
+		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
+		<slf4j.version>2.1.0-alpha1</slf4j.version>
+		<picocli.version>4.7.7</picocli.version>
+		<junit.version>5.14.3</junit.version>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>${junit.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-api</artifactId>
+				<version>${slf4j.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-api</artifactId>
+				<version>${log4j2.api.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-core</artifactId>
+				<version>${log4j2.core.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.logging.log4j</groupId>
+				<artifactId>log4j-slf4j2-impl</artifactId>
+				<version>${log4j2.slf4j2.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
 			<artifactId>ifc_to_lbd_geometry</artifactId>
-			<version>2.43.5</version>
+			<version>2.48.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-log4j12</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-slf4j2-impl</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.logging.log4j</groupId>
+					<artifactId>log4j-core</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.glassfish</groupId>
+					<artifactId>javax.json</artifactId>
+				</exclusion>
+
 			</exclusions>
 		</dependency>
-
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Dependency for Apache Commons Lang library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.14.0</version>
+			<version>3.20.0</version>
+			<!-- URL for the Apache Commons Lang project:
+			https://commons.apache.org/proper/commons-lang/ -->
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
 		<dependency>
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
-			<version>1.16.0</version>
+			<version>1.22.0</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.thoughtworks.xstream/xstream -->
+
+		<!-- Dependency for XStream library -->
 		<dependency>
 			<groupId>com.thoughtworks.xstream</groupId>
 			<artifactId>xstream</artifactId>
 			<version>[1.4.14-jdk7,)</version>
+			<!-- URL for the XStream project: https://x-stream.github.io/ -->
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+
+		<!-- Dependency for Google Guava library -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>[30.0-jre,)</version>
+			<!-- URL for the Google Guava project:
+			https://github.com/google/guava -->
 		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>5.10.1</version>
-			<scope>test</scope>
-		</dependency>
+
+
+		<!--
+		https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
 		<dependency>
 			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<version>1.10.1</version>
 			<scope>test</scope>
 		</dependency>
+		<!-- Dependency for JUnit Jupiter API and engine libraries -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.10.1</version>
+			<artifactId>junit-jupiter</artifactId>
+			<!-- Scope of the dependency, used only for testing -->
 			<scope>test</scope>
+			<!-- URL for the JUnit Jupiter project: https://junit.org/junit5/ -->
 		</dependency>
+
+		<!-- Dependency for IFCtoRDF library -->
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>1.3.2</version>
+			<version>2.48.0</version>
 		</dependency>
+
+		<!-- Dependency for RTree-Multi library -->
 		<dependency>
 			<groupId>com.github.davidmoten</groupId>
 			<artifactId>rtree-multi</artifactId>
 			<version>0.1</version>
+			<!-- URL for the RTree-Multi project:
+			https://github.com/davidmoten/rtree-multi -->
+			<!-- This library provides an in-memory immutable R-tree
+			implementation for n dimensions, commonly used for spatial indexing.
+			 It is thread-safe, fast, and memory
+			efficient. -->
 		</dependency>
+
+		<!-- Dependency for Picocli library -->
 		<dependency>
 			<groupId>info.picocli</groupId>
 			<artifactId>picocli</artifactId>
-			<version>4.7.5</version>
+			<version>${picocli.version}</version>
+			<!-- URL for the Picocli project: https://picocli.info -->
+			<!-- Picocli is a framework for creating Java command line
+			applications with almost zero code. It provides command line parsing,
+			autocompletion, and usage help with ANSI
+			styles and colors. -->
 		</dependency>
+
+
+		<!-- Dependency for Apache Commons Text library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-text</artifactId>
-			<version>1.11.0</version>
+			<version>1.15.0</version>
+			<!-- URL for the Apache Commons Text project:
+			https://commons.apache.org/proper/commons-text/ -->
+			<!-- Apache Commons Text is a library focused on algorithms working
+			on strings,providing utilities for text manipulation and processing. -->
 		</dependency>
+
+		<!-- Dependency for Apache Jena Shaded Guava library -->
 		<dependency>
 			<groupId>org.apache.jena</groupId>
 			<artifactId>jena-shaded-guava</artifactId>
 			<version>4.8.0</version>
-		</dependency>
-		<!--
-		https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
-			<version>2.16.1</version>
+			<!-- URL for the Apache Jena Shaded Guava project:
+			https://central.sonatype.com/artifact/org.apache.jena/jena-shaded-guava -->
+			<!-- This library shades Google's Guava to avoid version conflicts,
+             providing a repackaged version under the org.apache.jena.ext.com.google
+			package. uava is a set of core Java libraries from Google that includes new
+			collection types 
+			(such as multimap and multiset), immutable collections, -->
 		</dependency>
 
+
+		<!-- Dependency for Apache Commons Geometry Core library -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-geometry-core</artifactId>
 			<version>1.0</version>
+			<!-- URL for the Apache Commons Geometry project:
+			https://commons.apache.org/proper/commons-geometry/ -->
+			<!-- Apache Commons Geometry Core is a library for geometric
+			processing, providing types and utilities for working with Euclidean 
+			and spherical spaces. -->
 		</dependency>
 
 		<dependency>
@@ -174,11 +273,36 @@
 			<artifactId>commons-geometry-io-core</artifactId>
 			<version>1.0</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-geometry-io-euclidean</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-api</artifactId>
+			<version>1.9.3</version>
+			<scope>test</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>net.jqwik</groupId>
+			<artifactId>jqwik-engine</artifactId>
+			<version>1.9.3</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.locationtech.jts</groupId>
+			<artifactId>jts-core</artifactId>
+			<version>1.19.0</version>
+		</dependency>
+
+
 	</dependencies>
 	<scm>
 		<connection>scm:git:github.com/jyrkioraskari/IFCtoLBD.git</connection>
@@ -267,10 +391,68 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>native</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<imageName>IFCtoLBDConverter_CLI</imageName>
+							<mainClass>${ifc2lbd.cli.mainClass}</mainClass>
+							<fallback>false</fallback>
+							<metadataRepository>
+								<enabled>true</enabled>
+							</metadataRepository>
+							<buildArgs>
+								<buildArg>--enable-url-protocols=http,https</buildArg>
+								<buildArg>--enable-all-security-services</buildArg>
+								<buildArg>-H:+ReportExceptionStackTraces</buildArg>
+								<buildArg>
+									-H:IncludeResources=.*\.(ttl|ifc|ser|properties|xml|json|csv|txt)|exe/.*/IfcGeomServer(\.exe)?</buildArg>
+							</buildArgs>
+						</configuration>
+						<executions>
+							<execution>
+								<id>build-native</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<annotationProcessors>
+						<annotationProcessor>
+							picocli.codegen.aot.graalvm.processor.NativeImageConfigGeneratorProcessor</annotationProcessor>
+					</annotationProcessors>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>info.picocli</groupId>
+							<artifactId>picocli-codegen</artifactId>
+							<version>${picocli.version}</version>
+						</path>
+					</annotationProcessorPaths>
+					<compilerArgs>
+						<arg>-Aproject=${project.groupId}/${project.artifactId}</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
 			<!-- Maven Assembly Plugin -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -403,5 +585,5 @@
 			<url>https://maven.pkg.github.com/jyrkioraskari/IFCtoLBD</url>
 		</repository>
 	</distributionManagement>
-	
+
 </project>

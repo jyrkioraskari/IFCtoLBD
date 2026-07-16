@@ -1,0 +1,5 @@
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05","capabilities":{},"clientInfo":{"name":"ifctolbd-demo-client","version":"0.1.0"}}}
+{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"summarize_ifc_lbd","arguments":{"baseUri":"https://example.com/demo/","sampleSize":5}}}
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"query_ifc_lbd","arguments":{"baseUri":"https://example.com/demo/","sparql":"SELECT ?s WHERE { ?s ?p ?o } LIMIT 3","limit":3}}}
+{"jsonrpc":"2.0","id":5,"method":"tools/call","params":{"name":"convert_ifc_to_lbd","arguments":{"baseUri":"https://example.com/demo/","outputPath":"demo/output/duplex-demo.ttl","format":"TURTLE"}}}

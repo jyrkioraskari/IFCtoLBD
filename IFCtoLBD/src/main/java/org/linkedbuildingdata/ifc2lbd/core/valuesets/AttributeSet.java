@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
+import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -96,12 +97,26 @@ public class AttributeSet {
         this.setDefault_property_namespace(default_property_namebase);
     }
 
-    public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
-        mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
-        if (atype.isPresent()) {
-            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
-        }
-    }
+	    public void putAnameValue(String attribute_name, RDFNode value, Optional<Resource> atype) {
+	    	if (value.isLiteral()) {
+				Literal literal_value = createLiteralPreservingMetadata(value.asLiteral());
+				mapPnameValue.put(StringOperations.toCamelCase(attribute_name), literal_value);
+			} else
+	          mapPnameValue.put(StringOperations.toCamelCase(attribute_name), value);
+	        if (atype.isPresent()) {
+	            mapPnameType.put(StringOperations.toCamelCase(attribute_name), atype.get());
+	        }
+	    }
+
+		private Literal createLiteralPreservingMetadata(Literal original) {
+			String lexicalForm = StringOperations.handleUnicode(original.getLexicalForm());
+			String language = original.getLanguage();
+			if (language != null && !language.isEmpty())
+				return this.lbd_model.createLiteral(lexicalForm, language);
+			if (original.getDatatype() != null)
+				return this.lbd_model.createTypedLiteral(lexicalForm, original.getDatatype());
+			return this.lbd_model.createLiteral(lexicalForm);
+		}
 
     /**
      * Adds property value property for an resource.
@@ -177,6 +192,7 @@ public class AttributeSet {
                 state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(state_resourse, pname);
 
+                
             } else {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
                 addUnit(property_resource, pname);

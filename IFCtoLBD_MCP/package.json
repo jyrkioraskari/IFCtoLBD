@@ -1,0 +1,30 @@
+{
+  "name": "ifctolbd-mcp",
+  "version": "0.1.0",
+  "description": "Model Context Protocol server for IFCtoLBD conversion tools",
+  "main": "src/server.js",
+  "bin": {
+    "ifctolbd-mcp": "src/server.js"
+  },
+  "scripts": {
+    "start": "node src/server.js",
+    "demo": "node src/server.js < demo/demo-input.jsonl | node demo/print-demo-results.js",
+    "check": "node --check src/server.js",
+    "smoke": "node src/server.js < test/smoke-input.jsonl | node test/assert-smoke.js"
+  },
+  "keywords": [
+    "IFC",
+    "LBD",
+    "RDF",
+    "MCP",
+    "Model Context Protocol"
+  ],
+  "author": "Jyrki Oraskari",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "java-bridge": "^2.8.1"
+  }
+}

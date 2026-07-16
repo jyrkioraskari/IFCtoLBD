@@ -1,0 +1,88 @@
+package org.linkedbuildingdata.ifc2lbd.core;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import org.apache.jena.query.Dataset;
+import org.apache.jena.query.ReadWrite;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.tdb2.TDB2Factory;
+
+public class TemporalDatasetSingleton {
+
+	private static  Path tempDir;
+    // The single instance (volatile for thread safety)
+    private static volatile Dataset instance;
+
+    // Private constructor prevents instantiation
+    private TemporalDatasetSingleton() {}
+
+    /**
+     * Returns the singleton Dataset.
+     * This dataset is in-memory only (not persisted).
+     */
+    public static Dataset getInstance() {
+        if (instance == null) {
+            synchronized (TemporalDatasetSingleton.class) {
+                if (instance == null) {
+                	
+					try {
+						tempDir = Files.createTempDirectory("IFCtoLBD_");
+	        			System.out.println("Temporary directory created at: " + tempDir.toAbsolutePath());
+	        			instance = TDB2Factory.connectDataset(tempDir.toAbsolutePath().toString());
+	        			
+	        			// Register shutdown hook to delete tempDir on JVM exit
+	        	        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+	        	            try {
+	        	            	
+	        	            	//instance.getDefaultModel().removeAll();
+	        	            	if(!instance.getDefaultModel().isClosed())
+	        	            	{
+	        	            	  instance.getDefaultModel().close();
+	        	                }
+	        	                Files.walk(tempDir)
+	        	                     .map(Path::toFile)
+	        	                     .sorted((a, b) -> -a.compareTo(b)) // delete files before directories
+	        	                     .forEach(file -> {
+	        	                         if (!file.delete()) {
+	        	                             //System.err.println("Failed to delete: " + file);
+	        	                         }
+	        	                     });
+	        	                System.out.println("Temporary directory cleaned up.");
+	        	            } catch (IOException e) {
+	        	                //e.printStackTrace();
+	        	            }
+	        	        }));
+					} catch (IOException e) {
+						//e.printStackTrace();
+					}
+                }
+            }
+        }
+        return instance;
+    }
+
+    public static void main(String[] args) {
+        Dataset dataset = TemporalDatasetSingleton.getInstance();
+
+        // Write transaction
+        dataset.begin(ReadWrite.WRITE);
+        try {
+            Model model = dataset.getDefaultModel();
+            model.createResource("http://example.org/thing")
+                 .addProperty(model.createProperty("http://example.org/name"), "Temporal Singleton");
+            dataset.commit();
+        } finally {
+            dataset.end();
+        }
+
+        // Read transaction
+        dataset.begin(ReadWrite.READ);
+        try {
+            dataset.getDefaultModel().listStatements().forEachRemaining(System.out::println);
+        } finally {
+            dataset.end();
+        }
+    }
+}

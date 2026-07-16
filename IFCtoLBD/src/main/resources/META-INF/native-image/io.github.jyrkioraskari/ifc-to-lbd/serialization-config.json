@@ -1,0 +1,44 @@
+[
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.AttributeVO"
+  },
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.EntityVO"
+  },
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.InverseVO"
+  },
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.PropertyVO"
+  },
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.PropertyVO$propertyType"
+  },
+  {
+    "name": "com.buildingsmart.tech.ifcowl.vo.TypeVO"
+  },
+  {
+    "name": "java.util.HashMap"
+  },
+  {
+    "name": "java.util.ArrayList"
+  },
+  {
+    "name": "java.util.LinkedList"
+  },
+  {
+    "name": "java.util.HashSet"
+  },
+  {
+    "name": "java.util.LinkedHashMap"
+  },
+  {
+    "name": "java.util.LinkedHashSet"
+  },
+  {
+    "name": "java.util.TreeMap"
+  },
+  {
+    "name": "java.util.TreeSet"
+  }
+]

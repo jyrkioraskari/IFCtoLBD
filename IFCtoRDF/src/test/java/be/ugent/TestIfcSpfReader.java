@@ -158,11 +158,14 @@ public class TestIfcSpfReader {
      *            the input directory for which you wish to list file.
      * @return a {@link java.util.List} of Strings denoting files.
      */
-    public static List<String> showAllFiles(String dir) {
+	public static List<String> showAllFiles(String dir) {
 		List<String> goodFiles = new ArrayList<>();
 
 		File folder = new File(dir);
 		File[] listOfFiles = folder.listFiles();
+		if (listOfFiles == null) {
+			return goodFiles;
+		}
 
 		for (int i = 0; i < listOfFiles.length; i++) {
 			if (listOfFiles[i].isFile())

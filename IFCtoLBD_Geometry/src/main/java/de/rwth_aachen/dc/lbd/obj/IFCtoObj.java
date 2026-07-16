@@ -141,7 +141,7 @@ public class IFCtoObj {
 			Path ifcGeomServerLocationPath = Paths.get(ifcGeomServerLocation);
 			if (IFCGeometry.ifcOpenShellEngine_singlethon == null) {
 				IFCGeometry.ifcOpenShellEngine_singlethon = new IfcOpenShellEngine(ifcGeomServerLocationPath, false,
-						true);
+						false);
 				IFCGeometry.ifcOpenShellEngine_singlethon.init();
 			}
 			try (FileInputStream ifcFileInputStream = new FileInputStream(ifcFile);) {
