@@ -64,7 +64,7 @@ public class IFCtoLBD_Desktop extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        launch(args);
+        launch(IFCtoLBD_Desktop.class, args);
     }
     
 }

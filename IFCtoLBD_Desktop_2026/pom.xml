@@ -34,6 +34,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<javafx.version>21.0.10</javafx.version>
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
+		<ifc2lbd.desktop.mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</ifc2lbd.desktop.mainClass>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,7 +102,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</mainClass>
+							<mainClass>${ifc2lbd.desktop.mainClass}</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -110,7 +112,7 @@
 				<artifactId>javafx-maven-plugin</artifactId>
 				<version>${javafx.maven.plugin.version}</version>
 				<configuration>
-					<mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</mainClass>
+					<mainClass>${ifc2lbd.desktop.mainClass}</mainClass>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -199,5 +201,45 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<profiles>
+		<profile>
+			<id>native</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.graalvm.buildtools</groupId>
+						<artifactId>native-maven-plugin</artifactId>
+						<version>${native.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<imageName>IFCtoLBD_Desktop_2026</imageName>
+							<mainClass>${ifc2lbd.desktop.mainClass}</mainClass>
+							<fallback>false</fallback>
+							<metadataRepository>
+								<enabled>true</enabled>
+							</metadataRepository>
+							<buildArgs>
+								<buildArg>--enable-url-protocols=http,https</buildArg>
+								<buildArg>--enable-all-security-services</buildArg>
+								<buildArg>--enable-native-access=ALL-UNNAMED</buildArg>
+								<buildArg>-H:+ReportExceptionStackTraces</buildArg>
+								<buildArg>
+									-H:IncludeResources=.*\.(ttl|ifc|ser|properties|xml|json|csv|txt|fxml|css|dll|so|dylib)|exe/.*/IfcGeomServer(\.exe)?</buildArg>
+							</buildArgs>
+						</configuration>
+						<executions>
+							<execution>
+								<id>build-native</id>
+								<goals>
+									<goal>compile-no-fork</goal>
+								</goals>
+								<phase>package</phase>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 </project>

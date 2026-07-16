@@ -1,0 +1,48 @@
+[
+  {
+    "name": "org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBD_Desktop",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "org.linkedbuildingdata.ifc2lbd.desktop.IFCtoLBDController",
+    "allDeclaredConstructors": true,
+    "allDeclaredFields": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.tk.quantum.QuantumToolkit",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinPlatformFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.glass.ui.win.WinApplication",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.prism.d3d.D3DPipeline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.prism.sw.SWPipeline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.prism.es2.ES2Pipeline",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  },
+  {
+    "name": "com.sun.javafx.font.directwrite.DWFactory",
+    "allDeclaredConstructors": true,
+    "allDeclaredMethods": true
+  }
+]
