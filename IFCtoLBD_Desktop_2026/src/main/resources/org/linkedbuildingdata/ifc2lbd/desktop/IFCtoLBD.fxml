@@ -10,6 +10,8 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -77,46 +79,70 @@
                   <items>
                     <VBox prefWidth="390.0" spacing="12.0" styleClass="left-rail">
                       <children>
-                        <Label styleClass="section-title" text="Workflow" />
-                        <GridPane hgap="8.0" vgap="8.0" styleClass="step-list">
-                          <columnConstraints>
-                            <ColumnConstraints minWidth="115.0" prefWidth="125.0" />
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="230.0" prefWidth="235.0" />
-                          </columnConstraints>
-                          <children>
-                            <Button fx:id="selectIFCFileButton" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectIFCFile" styleClass="workflow-button-current" text="1  Read IFC" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                            <Label fx:id="labelIFCFile" maxWidth="Infinity" styleClass="file-label" text="No IFC file selected" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openSettingsWorkflow" styleClass="workflow-button" text="2  Settings" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                            <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openFiltersWorkflow" styleClass="workflow-button" text="3  Filters" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                            <Button fx:id="selectTargetFileButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectTargetFile" styleClass="workflow-button" text="4  Output" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                            <Label fx:id="labelTargetFile" maxWidth="Infinity" styleClass="target-label" text="Target path will be generated after input selection" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                            <Button fx:id="convert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                            <ChoiceBox fx:id="outputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                            <Label maxWidth="Infinity" styleClass="workflow-step-label" text="6  Test" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                            <HBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
-                              <children>
-                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
-                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
-                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
-                              </children>
-                            </HBox>
-                          </children>
-                        </GridPane>
+                        <TabPane styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
+                          <tabs>
+                            <Tab text="Basic workflow">
+                              <content>
+                                <GridPane hgap="8.0" vgap="8.0" styleClass="step-list">
+                                  <columnConstraints>
+                                    <ColumnConstraints minWidth="115.0" prefWidth="125.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="230.0" prefWidth="235.0" />
+                                  </columnConstraints>
+                                  <children>
+                                    <Button fx:id="basicSelectIFCFileButton" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectIFCFile" styleClass="workflow-button-current" text="1  Read IFC" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="basicLabelIFCFile" maxWidth="Infinity" styleClass="file-label" text="No IFC file selected" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openSettingsWorkflow" styleClass="workflow-button" text="2  Settings" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Button fx:id="basicConvert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <ChoiceBox fx:id="basicOutputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                  </children>
+                                </GridPane>
+                              </content>
+                            </Tab>
+                            <Tab text="Advanced workflow">
+                              <content>
+                                <GridPane hgap="8.0" vgap="8.0" styleClass="step-list">
+                                  <columnConstraints>
+                                    <ColumnConstraints minWidth="115.0" prefWidth="125.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="230.0" prefWidth="235.0" />
+                                  </columnConstraints>
+                                  <children>
+                                    <Button fx:id="selectIFCFileButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectIFCFile" styleClass="workflow-button-current" text="1  Read IFC" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="labelIFCFile" maxWidth="Infinity" styleClass="file-label" text="No IFC file selected" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#openSettingsWorkflow" styleClass="workflow-button" text="2  Settings" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Button fx:id="filtersWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#openFiltersWorkflow" styleClass="workflow-button" text="3  Filters" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Button fx:id="selectTargetFileButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectTargetFile" styleClass="workflow-button" text="4  Output" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Label fx:id="labelTargetFile" maxWidth="Infinity" styleClass="target-label" text="Target path will be generated after input selection" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <Button fx:id="convert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                    <ChoiceBox fx:id="outputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <Label maxWidth="Infinity" styleClass="workflow-step-label" text="6  Test" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                    <HBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                      <children>
+                                        <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
+                                        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
+                                      </children>
+                                    </HBox>
+                                  </children>
+                                </GridPane>
+                              </content>
+                            </Tab>
+                          </tabs>
+                        </TabPane>
                         <Label styleClass="section-title" text="Conversion Log" />
-                        <TextArea fx:id="conversionTxt" editable="false" prefHeight="260.0" prefWidth="280.0" promptText="Read-in and conversion messages appear here." wrapText="true" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="conversionTxt" editable="false" minHeight="220.0" prefHeight="260.0" prefWidth="280.0" promptText="Read-in and conversion messages appear here." wrapText="true" VBox.vgrow="ALWAYS" />
                       </children>
                     </VBox>
 
                     <AnchorPane fx:id="floatingWorkspace" styleClass="free-workspace">
                       <children>
-                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="460.0" styleClass="floating-card" text="Settings">
+                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="540.0" styleClass="floating-card" text="Settings">
                           <content>
 		                            <VBox spacing="10.0" styleClass="module-grid">
 	                              <children>
                                 <GridPane hgap="12.0" vgap="8.0" styleClass="settings-input-row">
                                   <columnConstraints>
                                     <ColumnConstraints minWidth="90.0" prefWidth="110.0" />
-                                    <ColumnConstraints hgrow="ALWAYS" minWidth="260.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="340.0" />
                                   </columnConstraints>
                                   <children>
                                     <Label styleClass="field-label" text="Base URI" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -216,7 +242,7 @@
                           </content>
                         </TitledPane>
 
-                    <TitledPane fx:id="filtersCard" expanded="false" layoutX="14.0" layoutY="350.0" prefHeight="330.0" prefWidth="560.0" styleClass="floating-card" text="Filters">
+                    <TitledPane fx:id="filtersCard" expanded="false" layoutX="14.0" layoutY="64.0" prefHeight="330.0" prefWidth="560.0" styleClass="floating-card" text="Filters">
                       <content>
                         <GridPane hgap="14.0" vgap="8.0">
                           <columnConstraints>
@@ -241,11 +267,30 @@
                       </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="150.0" layoutY="96.0" prefHeight="450.0" prefWidth="520.0" styleClass="floating-card" text="Geometry Preview">
+                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="86.0" layoutY="250.0" prefHeight="450.0" prefWidth="520.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
 	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" prefWidth="500.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
 	                      </content>
 	                    </TitledPane>
+
+                    <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="46.0" layoutY="160.0" prefHeight="520.0" prefWidth="600.0" styleClass="floating-card" text="SPARQL Query">
+                      <content>
+                        <VBox spacing="9.0">
+                          <children>
+                            <Label styleClass="section-title" text="SPARQL Editor" />
+                            <TextArea fx:id="sparqlEditorTxt" prefHeight="185.0" prefWidth="580.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+                                <Button fx:id="runSparqlQueryButton" mnemonicParsing="false" onAction="#runSparqlQuery" styleClass="primary-button" text="Run query" />
+                                <Label styleClass="query-status-label" text="Runs against the latest generated Turtle output." />
+                              </children>
+                            </HBox>
+                            <Label styleClass="section-title" text="Results" />
+                            <TextArea fx:id="sparqlResultsTxt" editable="false" prefHeight="210.0" prefWidth="580.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                          </children>
+                        </VBox>
+                      </content>
+                    </TitledPane>
 	                      </children>
                     </AnchorPane>
 	                  </items>

@@ -50,7 +50,18 @@ import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.QuerySolution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.controlsfx.control.CheckTreeView;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
@@ -190,6 +201,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Label labelIFCFile;
 
 	@FXML
+	private Button basicSelectIFCFileButton;
+
+	@FXML
+	private Label basicLabelIFCFile;
+
+	@FXML
 	private Button selectTargetFileButton;
 
 	@FXML
@@ -199,7 +216,31 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Button convert2RDFButton;
 
 	@FXML
+	private Button basicConvert2RDFButton;
+
+	@FXML
 	private TextArea conversionTxt;
+
+	@FXML
+	private Button filtersWorkflowButton;
+
+	@FXML
+	private Button geometryWorkflowButton;
+
+	@FXML
+	private Button queryWorkflowButton;
+
+	@FXML
+	private TitledPane sparqlQueryCard;
+
+	@FXML
+	private TextArea sparqlEditorTxt;
+
+	@FXML
+	private TextArea sparqlResultsTxt;
+
+	@FXML
+	private Button runSparqlQueryButton;
 
 	@FXML
 	private StackPane geometryViewport;
@@ -269,6 +310,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private ChoiceBox<String> outputJSONorTTL;
 
+	@FXML
+	private ChoiceBox<String> basicOutputJSONorTTL;
+
 	private ConversionSettings readInSettings;
 
 	private record ConversionSettings(String ifcFileName, String rdfTargetName, String baseUri, int propsLevel,
@@ -292,6 +336,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private final Rotate geometryRotateY = new Rotate(-35, Rotate.Y_AXIS);
 	private final Translate geometryCameraDistance = new Translate(0, 0, -760);
 	private PreviewMesh currentPreviewMesh;
+	private Model sparqlModel;
+	private File sparqlModelFile;
+	private long sparqlModelLastModified;
+	private boolean sparqlCardPositioned;
 	private double geometryMouseX;
 	private double geometryMouseY;
 	private double geometryZoom = 1.0;
@@ -317,6 +365,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final Pattern MTL_KD_LINE_PATTERN = Pattern.compile(
 			"(?m)^\\s*Kd\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*$");
 	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
+	private static final int MAX_SPARQL_RESULT_ROWS = 1_000;
+	private static final String DEFAULT_SPARQL_QUERY = """
+			PREFIX bot: <https://w3id.org/bot#>
+
+			SELECT ?element WHERE {
+			  ?element a bot:Element .
+			}
+			LIMIT 100
+			""";
 
 	@FXML
 	private void closeApplicationAction() {
@@ -338,11 +395,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void openFiltersWorkflow() {
+		if (!isFiltersAvailable()) {
+			this.conversionTxt.appendText("Read an IFC file before opening Filters.\n");
+			return;
+		}
 		toggleFloatingCard(this.filtersCard);
 	}
 
 	@FXML
 	private void testGeometryWorkflow() {
+		if (!isGeometryPreviewAvailable()) {
+			this.conversionTxt.appendText("Run a conversion before opening Geometry Preview.\n");
+			return;
+		}
 		toggleFloatingCard(this.geometryCard);
 	}
 
@@ -353,7 +418,38 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void queryWorkflow() {
-		this.conversionTxt.appendText("Query test is not implemented yet.\n");
+		if (!isSparqlQueryAvailable()) {
+			this.conversionTxt.appendText("Generate a Turtle LBD output before opening SPARQL Query.\n");
+			return;
+		}
+		positionGeometryAndSparqlCardsIfNeeded();
+		toggleFloatingCard(this.sparqlQueryCard);
+	}
+
+	@FXML
+	private void runSparqlQuery() {
+		if (!isSparqlQueryAvailable()) {
+			this.sparqlResultsTxt.setText("Generate a Turtle LBD output before running a SPARQL query.");
+			return;
+		}
+		String queryText = this.sparqlEditorTxt.getText();
+		if (queryText == null || queryText.isBlank()) {
+			this.sparqlResultsTxt.setText("Enter a SPARQL query.");
+			return;
+		}
+		this.runSparqlQueryButton.setDisable(true);
+		this.sparqlResultsTxt.setText("Running query...");
+		this.executor.submit(() -> {
+			try {
+				Model model = loadSparqlModel();
+				String output = executeSparqlQuery(model, queryText);
+				Platform.runLater(() -> this.sparqlResultsTxt.setText(output));
+			} catch (Exception e) {
+				Platform.runLater(() -> this.sparqlResultsTxt.setText("SPARQL query failed: " + e.getMessage()));
+			} finally {
+				Platform.runLater(() -> this.runSparqlQueryButton.setDisable(!isSparqlQueryAvailable()));
+			}
+		});
 	}
 
 	@FXML
@@ -439,7 +535,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (file == null)
 			return;
 		this.fc_ifc.setInitialDirectory(file.getParentFile());
-		this.labelIFCFile.setText(file.getName());
+		setIfcFileLabel(file.getName());
 		this.ifcFileName = file.getAbsolutePath();
 		int i = file.getName().lastIndexOf(".");
 		if (i > 0) {
@@ -452,7 +548,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			else
 				this.rdfTargetName = target_directory + File.separator + file.getName().substring(0, i) + "_LBD"
 						+ selectedOutputExtension();
-			this.labelTargetFile.setText(this.rdfTargetName);
+			setTargetFileLabel(this.rdfTargetName);
 		}
 		if (this.ifcFileName != null && this.rdfTargetName != null) {
 			this.selectTargetFileButton.setDisable(false);
@@ -460,7 +556,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
 			readInIFC();
 		}
-		this.selectIFCFileButton.setDefaultButton(false);
+		setSelectIfcDefault(false);
 	}
 
 	/*
@@ -526,7 +622,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		this.fc_target.setInitialDirectory(file.getParentFile());
 		this.prefs.put("ifc_target_directory", file.getParentFile().getAbsolutePath());
-		this.labelTargetFile.setText(file.getAbsolutePath());
+		setTargetFileLabel(file.getAbsolutePath());
 
 		this.rdfTargetName = file.getAbsolutePath();
 	}
@@ -565,7 +661,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		} else {
 			this.rdfTargetName = this.rdfTargetName + extension;
 		}
-		this.labelTargetFile.setText(this.rdfTargetName);
+		setTargetFileLabel(this.rdfTargetName);
+		setSparqlQueryAvailable(isSparqlQueryAvailable());
 	}
 
 	private ConversionSettings currentSettings() {
@@ -664,6 +761,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void readInIFCExecute(ConversionSettings settings) {
 		persistSettings(settings);
 		setRunReady(false);
+		setWorkflowDataAvailable(false, false, false);
 		this.conversionTxt.setText("");
 		clearGeometryPreview("Convert with geometry enabled to preview the model.");
 		try {
@@ -762,22 +860,203 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setupFloatingCard(this.options_panel, "Settings");
 		setupFloatingCard(this.filtersCard, "Filters");
 		setupFloatingCard(this.geometryCard, "Geometry Preview");
+		setupFloatingCard(this.sparqlQueryCard, "SPARQL Query");
 		this.floatingWorkspace.widthProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		this.floatingWorkspace.heightProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
-		Platform.runLater(this::clampFloatingCardsToWorkspace);
+		Platform.runLater(() -> {
+			positionGeometryAndSparqlCardsIfNeeded();
+			clampFloatingCardsToWorkspace();
+		});
+	}
+
+	private void setupSparqlQueryWindow() {
+		if (this.sparqlEditorTxt != null && this.sparqlEditorTxt.getText().isBlank()) {
+			this.sparqlEditorTxt.setText(DEFAULT_SPARQL_QUERY);
+		}
+		setSparqlQueryAvailable(false);
+	}
+
+	private boolean isFiltersAvailable() {
+		return this.running_read_in != null && this.running_read_in.isDone() && this.element_types_checkbox != null
+				&& this.element_types_checkbox.getRoot() != null;
+	}
+
+	private void setFiltersAvailable(boolean available) {
+		if (this.filtersWorkflowButton != null) {
+			this.filtersWorkflowButton.setDisable(!available);
+			setUnavailableStyle(this.filtersWorkflowButton, !available);
+		}
+		if (this.filtersCard != null) {
+			setUnavailableStyle(this.filtersCard, !available);
+		}
+	}
+
+	private boolean isGeometryPreviewAvailable() {
+		return this.lastSuccessfulConversionRequest != null;
+	}
+
+	private void setGeometryPreviewAvailable(boolean available) {
+		if (this.geometryWorkflowButton != null) {
+			this.geometryWorkflowButton.setDisable(!available);
+			setUnavailableStyle(this.geometryWorkflowButton, !available);
+		}
+		if (this.geometryCard != null) {
+			setUnavailableStyle(this.geometryCard, !available);
+		}
+	}
+
+	private boolean isSparqlQueryAvailable() {
+		if (this.lastSuccessfulConversionRequest == null) {
+			return false;
+		}
+		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
+		return settings != null && !settings.exportAsJsonLd() && settings.rdfTargetName() != null
+				&& new File(settings.rdfTargetName()).isFile();
+	}
+
+	private void setSparqlQueryAvailable(boolean available) {
+		if (this.queryWorkflowButton != null) {
+			this.queryWorkflowButton.setDisable(!available);
+			setUnavailableStyle(this.queryWorkflowButton, !available);
+		}
+		if (this.runSparqlQueryButton != null) {
+			this.runSparqlQueryButton.setDisable(!available);
+		}
+		if (this.sparqlQueryCard != null) {
+			setUnavailableStyle(this.sparqlQueryCard, !available);
+		}
+		if (!available) {
+			this.sparqlModel = null;
+			this.sparqlModelFile = null;
+			this.sparqlModelLastModified = 0L;
+			if (this.sparqlResultsTxt != null) {
+				this.sparqlResultsTxt.setText("Generate a Turtle LBD output to run SPARQL queries.");
+			}
+		}
+	}
+
+	private void setWorkflowDataAvailable(boolean filtersAvailable, boolean geometryAvailable, boolean sparqlAvailable) {
+		setFiltersAvailable(filtersAvailable);
+		setGeometryPreviewAvailable(geometryAvailable);
+		setSparqlQueryAvailable(sparqlAvailable);
+	}
+
+	private static void setUnavailableStyle(Node node, boolean unavailable) {
+		if (node == null) {
+			return;
+		}
+		if (unavailable) {
+			if (!node.getStyleClass().contains("data-unavailable")) {
+				node.getStyleClass().add("data-unavailable");
+			}
+		} else {
+			node.getStyleClass().remove("data-unavailable");
+		}
+	}
+
+	private void positionGeometryAndSparqlCardsIfNeeded() {
+		if (this.sparqlCardPositioned || this.geometryCard == null || this.sparqlQueryCard == null
+				|| this.floatingWorkspace == null) {
+			return;
+		}
+		double workspaceWidth = this.floatingWorkspace.getWidth();
+		double workspaceHeight = this.floatingWorkspace.getHeight();
+		if (workspaceWidth <= 0 || workspaceHeight <= 0) {
+			return;
+		}
+		double gap = 14.0;
+		double geometryWidth = this.geometryCard.getWidth() > 0 ? this.geometryCard.getWidth()
+				: this.geometryCard.getPrefWidth();
+		double sparqlWidth = this.sparqlQueryCard.getWidth() > 0 ? this.sparqlQueryCard.getWidth()
+				: this.sparqlQueryCard.getPrefWidth();
+		double geometryHeight = this.floatingCardNormalHeights.getOrDefault(this.geometryCard,
+				this.geometryCard.getPrefHeight());
+		double sparqlHeight = this.floatingCardNormalHeights.getOrDefault(this.sparqlQueryCard,
+				this.sparqlQueryCard.getPrefHeight());
+		double geometryY = Math.max(FLOATING_CARD_HEADER_HEIGHT * 2.0,
+				(workspaceHeight - geometryHeight) / 2.0 + 54.0);
+		double maxGeometryY = Math.max(0, workspaceHeight - FLOATING_CARD_HEADER_HEIGHT - gap);
+		geometryY = Math.min(geometryY, maxGeometryY);
+		double preferredSparqlY = geometryY + FLOATING_CARD_HEADER_HEIGHT + gap;
+		double maxSparqlY = Math.max(0, workspaceHeight - sparqlHeight);
+		double sparqlY = clamp(preferredSparqlY, 0, maxSparqlY);
+
+		this.geometryCard.setLayoutX(Math.max(0, (workspaceWidth - geometryWidth) / 2.0));
+		this.geometryCard.setLayoutY(geometryY);
+		this.sparqlQueryCard.setLayoutX(Math.max(0, (workspaceWidth - sparqlWidth) / 2.0));
+		this.sparqlQueryCard.setLayoutY(sparqlY);
+		this.sparqlCardPositioned = true;
 	}
 
 	private void setRunReady(boolean ready) {
-		if (this.convert2RDFButton == null) {
+		setRunButtonReady(this.convert2RDFButton, ready);
+		setRunButtonReady(this.basicConvert2RDFButton, ready);
+		if (ready) {
+			setSelectIfcDefault(false);
+		}
+	}
+
+	private static void setRunButtonReady(Button button, boolean ready) {
+		if (button == null) {
 			return;
 		}
-		this.convert2RDFButton.setDisable(!ready);
-		this.convert2RDFButton.setDefaultButton(ready);
-		this.convert2RDFButton.getStyleClass().removeAll("workflow-button", "workflow-run-button");
-		this.convert2RDFButton.getStyleClass().add(ready ? "workflow-run-button" : "workflow-button");
-		if (ready) {
-			this.selectIFCFileButton.setDefaultButton(false);
+		button.setDisable(!ready);
+		button.setDefaultButton(ready);
+		button.getStyleClass().removeAll("workflow-button", "workflow-run-button");
+		button.getStyleClass().add(ready ? "workflow-run-button" : "workflow-button");
+	}
+
+	private void setSelectIfcDefault(boolean isDefault) {
+		if (this.selectIFCFileButton != null) {
+			this.selectIFCFileButton.setDefaultButton(isDefault);
 		}
+		if (this.basicSelectIFCFileButton != null) {
+			this.basicSelectIFCFileButton.setDefaultButton(isDefault);
+		}
+	}
+
+	private void setIfcFileLabel(String text) {
+		if (this.labelIFCFile != null) {
+			this.labelIFCFile.setText(text);
+		}
+		if (this.basicLabelIFCFile != null) {
+			this.basicLabelIFCFile.setText(text);
+		}
+	}
+
+	private void setTargetFileLabel(String text) {
+		if (this.labelTargetFile != null) {
+			this.labelTargetFile.setText(text);
+		}
+	}
+
+	private void setupOutputFormatChoices() {
+		String initialValue = this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL";
+		this.outputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD");
+		this.basicOutputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD");
+		this.outputJSONorTTL.setValue(initialValue);
+		this.basicOutputJSONorTTL.setValue(initialValue);
+		this.outputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null && !Objects.equals(this.basicOutputJSONorTTL.getValue(), newValue)) {
+				this.basicOutputJSONorTTL.setValue(newValue);
+			}
+			updateTargetFileExtension();
+		});
+		this.basicOutputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (newValue != null && !Objects.equals(this.outputJSONorTTL.getValue(), newValue)) {
+				this.outputJSONorTTL.setValue(newValue);
+			}
+			updateTargetFileExtension();
+		});
+	}
+
+	private static void setDropHandlers(Node node, EventHandler<DragEvent> dragOverHandler,
+			EventHandler<DragEvent> dragDroppedHandler) {
+		if (node == null) {
+			return;
+		}
+		node.setOnDragOver(dragOverHandler);
+		node.setOnDragDropped(dragDroppedHandler);
 	}
 
 	private void setupFloatingCard(TitledPane card, String title) {
@@ -870,6 +1149,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		clampFloatingCardToWorkspace(this.options_panel);
 		clampFloatingCardToWorkspace(this.filtersCard);
 		clampFloatingCardToWorkspace(this.geometryCard);
+		clampFloatingCardToWorkspace(this.sparqlQueryCard);
 	}
 
 	private void clampFloatingCardToWorkspace(TitledPane card) {
@@ -1048,6 +1328,114 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private static double clamp(double value, double min, double max) {
 		return Math.max(min, Math.min(max, value));
+	}
+
+	private Model loadSparqlModel() {
+		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
+		File outputFile = new File(settings.rdfTargetName());
+		long lastModified = outputFile.lastModified();
+		if (this.sparqlModel != null && outputFile.equals(this.sparqlModelFile)
+				&& lastModified == this.sparqlModelLastModified) {
+			return this.sparqlModel;
+		}
+		Model model = ModelFactory.createDefaultModel();
+		RDFDataMgr.read(model, outputFile.getAbsolutePath(), Lang.TURTLE);
+		this.sparqlModel = model;
+		this.sparqlModelFile = outputFile;
+		this.sparqlModelLastModified = lastModified;
+		Platform.runLater(() -> this.conversionTxt
+				.appendText("SPARQL Query: loaded " + model.size() + " triples from " + outputFile.getName() + ".\n"));
+		return model;
+	}
+
+	private String executeSparqlQuery(Model model, String queryText) {
+		Query query = QueryFactory.create(queryText);
+		try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
+			if (query.isSelectType()) {
+				return formatSelectResults(queryExecution.execSelect());
+			}
+			if (query.isAskType()) {
+				return "ASK result: " + queryExecution.execAsk();
+			}
+			if (query.isConstructType()) {
+				return serializeQueryModel(queryExecution.execConstruct());
+			}
+			if (query.isDescribeType()) {
+				return serializeQueryModel(queryExecution.execDescribe());
+			}
+		}
+		return "Unsupported SPARQL query type.";
+	}
+
+	private String formatSelectResults(ResultSet resultSet) {
+		List<String> variables = resultSet.getResultVars();
+		StringBuilder output = new StringBuilder();
+		output.append(String.join("\t", variables)).append("\n");
+		int rowCount = 0;
+		while (resultSet.hasNext() && rowCount < MAX_SPARQL_RESULT_ROWS) {
+			QuerySolution solution = resultSet.nextSolution();
+			for (int i = 0; i < variables.size(); i++) {
+				if (i > 0) {
+					output.append('\t');
+				}
+				RDFNode node = solution.get(variables.get(i));
+				if (node != null) {
+					output.append(formatSparqlNode(node));
+				}
+			}
+			output.append('\n');
+			rowCount++;
+		}
+		if (rowCount == 0) {
+			output.append("No results.\n");
+		} else {
+			output.append("\nRows: ").append(rowCount);
+			if (resultSet.hasNext()) {
+				output.append(" (limited to ").append(MAX_SPARQL_RESULT_ROWS).append(")");
+			}
+			output.append('\n');
+		}
+		return output.toString();
+	}
+
+	private static String formatSparqlNode(RDFNode node) {
+		if (node.isLiteral()) {
+			return node.asLiteral().getString();
+		}
+		if (node.isResource() && node.asResource().isURIResource()) {
+			return node.asResource().getURI();
+		}
+		return node.toString();
+	}
+
+	private static String serializeQueryModel(Model model) {
+		StringBuilder output = new StringBuilder();
+		model.write(new StringBuilderWriter(output), "TURTLE");
+		if (output.isEmpty()) {
+			return "No triples.";
+		}
+		return output.toString();
+	}
+
+	private static class StringBuilderWriter extends java.io.Writer {
+		private final StringBuilder output;
+
+		private StringBuilderWriter(StringBuilder output) {
+			this.output = output;
+		}
+
+		@Override
+		public void write(char[] cbuf, int off, int len) {
+			this.output.append(cbuf, off, len);
+		}
+
+		@Override
+		public void flush() {
+		}
+
+		@Override
+		public void close() {
+		}
 	}
 
 	private void clearGeometryPreview(String message) {
@@ -1454,7 +1842,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					this.conversionTxt.appendText("\nThe last conversion is still running. \n");
 					return;
 				}
-					this.options_panel.setDisable(true);
+				setWorkflowDataAvailable(isFiltersAvailable(), false, false);
+				this.options_panel.setDisable(true);
 
 			Set<String> selected_types = selectedElementTypes();
 			Set<String> selected_psets = selectedPropertySets();
@@ -1505,7 +1894,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.border.widthProperty().bind(this.root.widthProperty());
 		this.border.heightProperty().bind(this.root.heightProperty());
 		setupGeometryPreview();
+		setupSparqlQueryWindow();
 		setupFloatingCards();
+		setWorkflowDataAvailable(false, false, false);
 		// Accepts dropping
 		new EventHandler<DragEvent>() {
 			@Override
@@ -1540,7 +1931,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					if (db.hasFiles()) {
 						success = true;
 						for (File file : db.getFiles()) {
-							IFCtoLBDController.this.labelIFCFile.setText(file.getName());
+							IFCtoLBDController.this.setIfcFileLabel(file.getName());
 							IFCtoLBDController.this.ifcFileName = file.getAbsolutePath();
 							int dotIndex = file.getName().lastIndexOf(".");
 							if (dotIndex > 0) {
@@ -1558,11 +1949,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 											+ file.getName().substring(0, dotIndex) + "_LBD"
 											+ IFCtoLBDController.this.selectedOutputExtension();
 								}
-								IFCtoLBDController.this.labelTargetFile.setText(IFCtoLBDController.this.rdfTargetName);
+								IFCtoLBDController.this.setTargetFileLabel(IFCtoLBDController.this.rdfTargetName);
 							}
 							if (IFCtoLBDController.this.ifcFileName != null && IFCtoLBDController.this.rdfTargetName != null) {
 								IFCtoLBDController.this.selectTargetFileButton.setDisable(false);
-								IFCtoLBDController.this.selectIFCFileButton.setDefaultButton(false);
+								IFCtoLBDController.this.setSelectIfcDefault(false);
 								IFCtoLBDController.this.prefs.put("ifc_work_directory", file.getParentFile().getAbsolutePath());
 								IFCtoLBDController.this.readInIFC();
 							}
@@ -1573,14 +1964,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 		};
 
-		this.selectIFCFileButton.setOnDragOver(ad_conversion);
-		this.selectIFCFileButton.setOnDragDropped(dh_conversion);
-		this.convert2RDFButton.setOnDragOver(ad_conversion);
-		this.convert2RDFButton.setOnDragDropped(dh_conversion);
-		this.labelIFCFile.setOnDragOver(ad_conversion);
-		this.labelIFCFile.setOnDragDropped(dh_conversion);
-		this.conversionTxt.setOnDragOver(ad_conversion);
-		this.conversionTxt.setOnDragDropped(dh_conversion);
+		setDropHandlers(this.selectIFCFileButton, ad_conversion, dh_conversion);
+		setDropHandlers(this.basicSelectIFCFileButton, ad_conversion, dh_conversion);
+		setDropHandlers(this.convert2RDFButton, ad_conversion, dh_conversion);
+		setDropHandlers(this.basicConvert2RDFButton, ad_conversion, dh_conversion);
+		setDropHandlers(this.labelIFCFile, ad_conversion, dh_conversion);
+		setDropHandlers(this.basicLabelIFCFile, ad_conversion, dh_conversion);
+		setDropHandlers(this.conversionTxt, ad_conversion, dh_conversion);
 
 		this.labelBaseURI
 				.setText(this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
@@ -1640,9 +2030,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		
 		
-		outputJSONorTTL.getItems().addAll("Turtle TTL", "JSON-LD");
-		outputJSONorTTL.setValue(this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL");
-		outputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> updateTargetFileExtension());
+		setupOutputFormatChoices();
         
         
 		this.building_elements.setTooltip(new Tooltip(
@@ -1658,15 +2046,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.props_link.setTooltip(new Tooltip("Opens a link to the Towards a PROPS ontology presentation."));
 		this.opm_link.setTooltip(new Tooltip("Opens a link that describes the Ontology for Property Management."));
 
-		this.selectIFCFileButton.setTooltip(new Tooltip(
-				"Select an IFC Step formatted file to convert.\nThe supported IFC versions are\n2x3 TC1 & Final, 4 ADD1, 4 ADD2, 4  "));
+		String selectIfcTooltip = "Select an IFC Step formatted file to convert.\nThe supported IFC versions are\n2x3 TC1 & Final, 4 ADD1, 4 ADD2, 4  ";
+		this.selectIFCFileButton.setTooltip(new Tooltip(selectIfcTooltip));
+		this.basicSelectIFCFileButton.setTooltip(new Tooltip(selectIfcTooltip));
 		this.selectTargetFileButton.setTooltip(new Tooltip(
 				"Select an target file for the conversion.\nIf there will be many files, the separate files are named accorrdingly."));
-		this.convert2RDFButton.setTooltip(new Tooltip("Press this button to start the conversion process."));
+		String runTooltip = "Press this button to start the conversion process.";
+		this.convert2RDFButton.setTooltip(new Tooltip(runTooltip));
+		this.basicConvert2RDFButton.setTooltip(new Tooltip(runTooltip));
 		this.conversionTxt.setTooltip(
 				new Tooltip("This shows the conversion process related messages\nand any error that occurs. "));
 
-		this.labelIFCFile.setTooltip(new Tooltip("The selected IFC file. "));
+		String ifcFileTooltip = "The selected IFC file. ";
+		this.labelIFCFile.setTooltip(new Tooltip(ifcFileTooltip));
+		this.basicLabelIFCFile.setTooltip(new Tooltip(ifcFileTooltip));
 
 		this.labelTargetFile.setTooltip(new Tooltip("The selected target RDF file. "));
 
@@ -1764,10 +2157,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					
 					this.propertysets_checkbox.setRoot(psets_checkbox_values);
 					this.propertysets_checkbox.setShowRoot(true);
+					setWorkflowDataAvailable(true, false, false);
 					setRunReady(true);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				} catch (ExecutionException e) {
+					setWorkflowDataAvailable(false, false, false);
 					setRunReady(false);
 					e.printStackTrace();
 				}
@@ -1778,11 +2173,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.lastSuccessfulConversionRequest = successfulRequest;
 			if (successfulRequest != null) {
 				scheduleGeometryPreview(successfulRequest.settings());
+				Platform.runLater(() -> {
+					boolean queryAvailable = isSparqlQueryAvailable();
+					setWorkflowDataAvailable(isFiltersAvailable(), true, queryAvailable);
+					if (queryAvailable) {
+						this.sparqlResultsTxt.setText("Ready. Run a SPARQL query against "
+								+ new File(successfulRequest.settings().rdfTargetName()).getName() + ".");
+					}
+				});
 			}
 		}
 		if (event.getPhase() == ProcessReadyEvent.ERROR) {
 			this.pendingConversionRequest = null;
 			Platform.runLater(() -> setRunReady(false));
+			Platform.runLater(() -> setWorkflowDataAvailable(isFiltersAvailable(), false, false));
 			Platform.runLater(() -> clearGeometryPreview("Geometry preview unavailable because conversion failed."));
 		}
 	}

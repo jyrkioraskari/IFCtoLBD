@@ -90,6 +90,33 @@
     -fx-padding: 0 0 1 0;
 }
 
+.workflow-tabs {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.workflow-tabs > .tab-header-area {
+    -fx-padding: 0;
+}
+
+.workflow-tabs > .tab-header-area > .headers-region {
+    -fx-padding: 0;
+}
+
+.workflow-tabs > .tab-header-area > .tab-header-background {
+    -fx-background-color: #eef2f7;
+    -fx-border-color: transparent transparent #aeb8c7 transparent;
+    -fx-border-width: 0 0 1 0;
+}
+
+.workflow-tabs > .tab-content-area {
+    -fx-padding: 6 8 8 8;
+    -fx-background-color: rgba(255, 255, 255, 0.72);
+    -fx-border-color: #c5cfdd;
+    -fx-border-width: 0 1 1 1;
+    -fx-effect: dropshadow(gaussian, rgba(71, 85, 105, 0.22), 4, 0, 0, 1);
+}
+
 .step-list {
     -fx-padding: 0;
 }
@@ -161,6 +188,14 @@
 .workflow-mini-button:hover {
     -fx-background-color: #f1f6fb;
     -fx-border-color: #b9c7d8;
+}
+
+.workflow-button.data-unavailable,
+.workflow-mini-button.data-unavailable {
+    -fx-opacity: 0.42;
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #e8eef6;
+    -fx-text-fill: #98a2b3;
 }
 
 .file-label,
@@ -375,11 +410,22 @@
     -fx-border-color: #7da9e8;
 }
 
+.query-status-label {
+    -fx-text-fill: #667085;
+    -fx-font-size: 12px;
+}
+
 .floating-card {
     -fx-background-color: rgba(255, 255, 255, 0.96);
     -fx-border-color: #b7c4d4;
     -fx-border-radius: 7px;
     -fx-background-radius: 7px;
+}
+
+.floating-card.data-unavailable {
+    -fx-opacity: 0.48;
+    -fx-background-color: rgba(255, 255, 255, 0.70);
+    -fx-border-color: #d7e0ea;
 }
 
 .floating-card > .title {
