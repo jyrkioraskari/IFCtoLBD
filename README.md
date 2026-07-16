@@ -9,7 +9,7 @@ Full documentation can be found
 [here](https://jyrkioraskari.github.io/IFCtoLBD/#/).
 
 
-<img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="600">
+<img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="750">
 
 ## Contributors
 
