@@ -135,7 +135,7 @@
 
                     <AnchorPane fx:id="floatingWorkspace" styleClass="free-workspace">
                       <children>
-                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="540.0" styleClass="floating-card" text="Settings">
+                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="560.0" styleClass="floating-card" text="Settings">
                           <content>
 		                            <VBox spacing="10.0" styleClass="module-grid">
 	                              <children>
@@ -267,18 +267,18 @@
                       </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="86.0" layoutY="250.0" prefHeight="450.0" prefWidth="520.0" styleClass="floating-card" text="Geometry Preview">
+                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="86.0" layoutY="275.0" prefHeight="450.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
-	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" prefWidth="500.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
+	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" prefWidth="540.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
 	                      </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="46.0" layoutY="160.0" prefHeight="520.0" prefWidth="600.0" styleClass="floating-card" text="SPARQL Query">
+                    <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="46.0" layoutY="160.0" prefHeight="520.0" prefWidth="560.0" styleClass="floating-card" text="SPARQL Query">
                       <content>
                         <VBox spacing="9.0">
                           <children>
                             <Label styleClass="section-title" text="SPARQL Editor" />
-                            <TextArea fx:id="sparqlEditorTxt" prefHeight="185.0" prefWidth="580.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                            <TextArea fx:id="sparqlEditorTxt" prefHeight="185.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                               <children>
                                 <Button fx:id="runSparqlQueryButton" mnemonicParsing="false" onAction="#runSparqlQuery" styleClass="primary-button" text="Run query" />
@@ -286,7 +286,7 @@
                               </children>
                             </HBox>
                             <Label styleClass="section-title" text="Results" />
-                            <TextArea fx:id="sparqlResultsTxt" editable="false" prefHeight="210.0" prefWidth="580.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                            <TextArea fx:id="sparqlResultsTxt" editable="false" prefHeight="210.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
                           </children>
                         </VBox>
                       </content>

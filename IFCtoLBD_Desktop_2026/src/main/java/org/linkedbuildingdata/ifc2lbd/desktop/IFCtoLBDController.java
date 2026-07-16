@@ -354,8 +354,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
 	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
-	private static final double GEOMETRY_CARD_WIDTH = 520.0;
-	private static final double GEOMETRY_VIEWPORT_WIDTH = 500.0;
+	private static final double GEOMETRY_CARD_WIDTH = 560.0;
+	private static final double GEOMETRY_VIEWPORT_WIDTH = 540.0;
 	private static final Pattern GEOMETRY_OBJ_LITERAL_PATTERN = Pattern.compile(
 			"(?:fog:asObj_v3\\.0-obj|<https://w3id\\.org/fog#asObj_v3\\.0-obj>|\"(?:fog:)?asObj_v3\\.0-obj\"|\"https://w3id\\.org/fog#asObj_v3\\.0-obj\")\\s*:?\\s*\"([A-Za-z0-9+/=]+)\"");
 	private static final Pattern GEOMETRY_MTL_KD_PATTERN = Pattern.compile(
@@ -974,7 +974,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		double sparqlHeight = this.floatingCardNormalHeights.getOrDefault(this.sparqlQueryCard,
 				this.sparqlQueryCard.getPrefHeight());
 		double geometryY = Math.max(FLOATING_CARD_HEADER_HEIGHT * 2.0,
-				(workspaceHeight - geometryHeight) / 2.0 + 54.0);
+				(workspaceHeight - geometryHeight) / 2.0 + 79.0);
 		double maxGeometryY = Math.max(0, workspaceHeight - FLOATING_CARD_HEADER_HEIGHT - gap);
 		geometryY = Math.min(geometryY, maxGeometryY);
 		double preferredSparqlY = geometryY + FLOATING_CARD_HEADER_HEIGHT + gap;
@@ -1217,6 +1217,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.setDisable(false);
+		if (card.getStyleClass().contains("data-unavailable")) {
+			card.toFront();
+			return;
+		}
 		if (!card.isExpanded() || card.getPrefHeight() <= FLOATING_CARD_HEADER_HEIGHT + 1) {
 			restoreFloatingCard(card, false);
 		}
