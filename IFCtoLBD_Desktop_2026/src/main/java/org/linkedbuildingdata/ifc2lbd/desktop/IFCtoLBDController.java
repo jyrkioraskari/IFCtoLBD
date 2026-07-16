@@ -1110,9 +1110,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
-			if (event.getButton() == MouseButton.PRIMARY && !(event.getTarget() instanceof Button)
+			if (event.getButton() == MouseButton.PRIMARY && !isButtonEventTarget(event.getTarget())
 					&& !isGeometrySceneEventTarget(event.getTarget())) {
-				bringFloatingCardToFront(card);
+				if (isCardHeaderEvent(event)) {
+					card.toFront();
+				} else {
+					bringFloatingCardToFront(card);
+				}
 			}
 			if (!isCardHeaderEvent(event)) {
 				return;
