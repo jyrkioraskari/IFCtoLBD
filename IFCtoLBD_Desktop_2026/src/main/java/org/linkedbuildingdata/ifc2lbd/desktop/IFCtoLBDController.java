@@ -340,7 +340,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void testGeometryWorkflow() {
-		bringFloatingCardToFront(this.geometryCard);
+		toggleFloatingCard(this.geometryCard);
 	}
 
 	@FXML
