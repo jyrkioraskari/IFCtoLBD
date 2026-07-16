@@ -8,33 +8,8 @@ The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STE
 Full documentation can be found
 [here](https://jyrkioraskari.github.io/IFCtoLBD/#/).
 
-## Geometry With IfcOpenShell
 
-When geometry export is enabled, IFCtoLBD first tries to use the IfcOpenShell 0.8.5 geometry iterator. This is faster for bulk geometry processing and supports multicore geometry generation. If the iterator cannot be started, IFCtoLBD falls back to the bundled legacy IfcGeomServer.
-
-Install IfcOpenShell for the Python that IFCtoLBD will use:
-
-```powershell
-py -3 -m pip install ifcopenshell==0.8.5
-```
-
-On Windows, IFCtoLBD tries Python commands in this order: `py -3`, `python`, then `python3`. If your IfcOpenShell installation is in a specific Python environment, pass the executable explicitly:
-
-```bash
--Difctolbd.ifcopenshell.python="C:\Path\To\python.exe"
-```
-
-You can also disable the iterator and force the legacy geometry engine:
-
-```bash
--Difctolbd.ifcopenshell.iterator=false
-```
-
-If you see a message such as `Python was not found; run without arguments to install from the Microsoft Store`, the Java process found the Windows Store Python alias instead of your real Python installation. Use `py -3 -m pip install ifcopenshell==0.8.5`, disable the Windows Python app execution aliases, or set `-Difctolbd.ifcopenshell.python` to the full Python executable path.
-
-Messages such as `The element has no geometry` can be normal for IFC spatial objects like `IfcSite`, because they often do not contain mesh geometry.
-
-
+<img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="400">
 
 ## Contributors
 
