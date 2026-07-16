@@ -36,7 +36,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Joel Lehtonen and
                   Maxime Lefrançois },
   title        = {{IFCtoLBD v 2.49.0}},
-  month        = aug,
+  month        = 07,
   year         = 2026,
   publisher    = {GitHub},
   version      = {2.49.0},
