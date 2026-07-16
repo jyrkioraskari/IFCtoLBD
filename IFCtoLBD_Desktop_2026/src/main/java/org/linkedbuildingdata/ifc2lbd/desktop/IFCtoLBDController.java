@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -85,6 +86,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
+import javafx.scene.AmbientLight;
+import javafx.scene.DepthTest;
+import javafx.scene.DirectionalLight;
+import javafx.scene.Group;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
@@ -92,13 +100,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.PhongMaterial;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
-import javafx.scene.shape.Polygon;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.DrawMode;
+import javafx.scene.shape.MeshView;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.TriangleMesh;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -267,13 +280,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private ConversionRequest lastSuccessfulConversionRequest;
 	private ConversionRequest pendingConversionRequest;
-	private Pane geometryPane;
+	private SubScene geometryScene;
+	private Group geometrySceneRoot;
+	private Group geometryModelRoot;
+	private PerspectiveCamera geometryCamera;
+	private final Rotate geometryRotateX = new Rotate(-25, Rotate.X_AXIS);
+	private final Rotate geometryRotateY = new Rotate(-35, Rotate.Y_AXIS);
+	private final Translate geometryCameraDistance = new Translate(0, 0, -760);
 	private PreviewMesh currentPreviewMesh;
 	private double geometryMouseX;
 	private double geometryMouseY;
-	private double geometryPitch = -25;
-	private double geometryYaw = -35;
 	private double geometryZoom = 1.0;
+	private boolean geometryPanning;
 	private double floatingMouseX;
 	private double floatingMouseY;
 	private double floatingCardX;
@@ -283,10 +301,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
 	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
+	private static final double GEOMETRY_CARD_WIDTH = 520.0;
+	private static final double GEOMETRY_VIEWPORT_WIDTH = 500.0;
 	private static final Pattern GEOMETRY_OBJ_LITERAL_PATTERN = Pattern.compile(
 			"(?:fog:asObj_v3\\.0-obj|<https://w3id\\.org/fog#asObj_v3\\.0-obj>|\"(?:fog:)?asObj_v3\\.0-obj\"|\"https://w3id\\.org/fog#asObj_v3\\.0-obj\")\\s*:?\\s*\"([A-Za-z0-9+/=]+)\"");
 	private static final Pattern GEOMETRY_MTL_KD_PATTERN = Pattern.compile(
 			"(?:lbd:asMTL_kd|<https://lbd\\.org/#asMTL_kd>|\"(?:lbd:)?asMTL_kd\"|\"https://lbd\\.org/#asMTL_kd\")\\s*:?\\s*\"(#[0-9a-fA-F]{6})\"");
+	private static final Pattern GEOMETRY_MTL_PATTERN = Pattern.compile(
+			"(?:lbd:asMTL|<https://lbd\\.org/#asMTL>|\"(?:lbd:)?asMTL\"|\"https://lbd\\.org/#asMTL\")\\s*:?\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
+	private static final Pattern MTL_KD_LINE_PATTERN = Pattern.compile(
+			"(?m)^\\s*Kd\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*$");
 	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
 
 	@FXML
@@ -640,31 +664,74 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void setupGeometryPreview() {
-		this.geometryPane = new Pane();
-		this.geometryPane.setPickOnBounds(true);
-		this.geometryPane.prefWidthProperty().bind(this.geometryViewport.widthProperty());
-		this.geometryPane.prefHeightProperty().bind(this.geometryViewport.heightProperty());
-		this.geometryPane.widthProperty().addListener((observable, oldValue, newValue) -> renderGeometryShapes());
-		this.geometryPane.heightProperty().addListener((observable, oldValue, newValue) -> renderGeometryShapes());
-		this.geometryPane.setOnMousePressed(event -> {
+		this.geometryCard.setMinWidth(GEOMETRY_CARD_WIDTH);
+		this.geometryCard.setPrefWidth(GEOMETRY_CARD_WIDTH);
+		this.geometryCard.setMaxWidth(GEOMETRY_CARD_WIDTH);
+		this.geometryViewport.setMinWidth(GEOMETRY_VIEWPORT_WIDTH);
+		this.geometryViewport.setPrefWidth(GEOMETRY_VIEWPORT_WIDTH);
+		this.geometryViewport.setMaxWidth(GEOMETRY_VIEWPORT_WIDTH);
+
+		this.geometryModelRoot = new Group();
+		this.geometryModelRoot.setDepthTest(DepthTest.ENABLE);
+		this.geometryModelRoot.getTransforms().addAll(this.geometryRotateX, this.geometryRotateY);
+
+		AmbientLight ambientLight = new AmbientLight(Color.rgb(190, 190, 190));
+		DirectionalLight keyLight = new DirectionalLight(Color.rgb(235, 235, 235));
+		keyLight.setTranslateX(-360);
+		keyLight.setTranslateY(-420);
+		keyLight.setTranslateZ(-520);
+
+		this.geometrySceneRoot = new Group(this.geometryModelRoot, ambientLight, keyLight);
+		this.geometrySceneRoot.setDepthTest(DepthTest.ENABLE);
+
+		this.geometryCamera = new PerspectiveCamera(true);
+		this.geometryCamera.setNearClip(0.1);
+		this.geometryCamera.setFarClip(10_000);
+		this.geometryCamera.getTransforms().add(this.geometryCameraDistance);
+
+		this.geometryScene = new SubScene(this.geometrySceneRoot, 320, 240, true, SceneAntialiasing.BALANCED);
+		this.geometryScene.widthProperty().bind(this.geometryViewport.widthProperty());
+		this.geometryScene.heightProperty().bind(this.geometryViewport.heightProperty());
+		this.geometryScene.setCamera(this.geometryCamera);
+		this.geometryScene.setFill(Color.rgb(248, 250, 252));
+		this.geometryScene.setFocusTraversable(true);
+		this.geometryScene.setOnMousePressed(event -> {
 			this.geometryMouseX = event.getSceneX();
 			this.geometryMouseY = event.getSceneY();
+			this.geometryPanning = event.getButton() == MouseButton.MIDDLE || event.getButton() == MouseButton.SECONDARY;
+			this.geometryScene.requestFocus();
 		});
-		this.geometryPane.setOnMouseDragged(event -> {
+		this.geometryScene.setOnMouseDragged(event -> {
 			double dx = event.getSceneX() - this.geometryMouseX;
 			double dy = event.getSceneY() - this.geometryMouseY;
-			this.geometryYaw += dx * 0.4;
-			this.geometryPitch = Math.max(-90, Math.min(90, this.geometryPitch - dy * 0.4));
+			if (this.geometryPanning) {
+				this.geometryModelRoot.setTranslateX(this.geometryModelRoot.getTranslateX() + dx);
+				this.geometryModelRoot.setTranslateY(this.geometryModelRoot.getTranslateY() + dy);
+			} else {
+				this.geometryRotateY.setAngle(this.geometryRotateY.getAngle() + dx * 0.35);
+				this.geometryRotateX.setAngle(clamp(this.geometryRotateX.getAngle() - dy * 0.35, -90, 90));
+			}
 			this.geometryMouseX = event.getSceneX();
 			this.geometryMouseY = event.getSceneY();
-			renderGeometryShapes();
+			event.consume();
 		});
-		this.geometryPane.setOnScroll(event -> {
-			this.geometryZoom = Math.max(0.35, Math.min(4.0, this.geometryZoom + event.getDeltaY() / 600.0));
-			renderGeometryShapes();
+		this.geometryScene.setOnScroll(event -> {
+			double zoomFactor = event.getDeltaY() > 0 ? 1.12 : 0.89;
+			this.geometryZoom = clamp(this.geometryZoom * zoomFactor, 0.25, 6.0);
+			updateGeometryCamera();
+			event.consume();
 		});
 
-		this.geometryViewport.getChildren().add(0, this.geometryPane);
+		Button fitButton = new Button("Fit");
+		fitButton.getStyleClass().add("geometry-tool-button");
+		fitButton.setFocusTraversable(false);
+		fitButton.setOnAction(event -> {
+			fitGeometryPreview();
+			event.consume();
+		});
+		StackPane.setAlignment(fitButton, Pos.TOP_RIGHT);
+
+		this.geometryViewport.getChildren().setAll(this.geometryScene, fitButton);
 		clearGeometryPreview("Select geometry and convert to preview the model.");
 	}
 
@@ -714,6 +781,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		minimizeButton.getStyleClass().add("floating-card-window-button");
 		minimizeButton.setFocusTraversable(false);
 		minimizeButton.setOnAction(event -> {
+			card.toFront();
 			minimizeFloatingCard(card);
 			event.consume();
 		});
@@ -722,6 +790,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		maximizeButton.getStyleClass().add("floating-card-window-button");
 		maximizeButton.setFocusTraversable(false);
 		maximizeButton.setOnAction(event -> {
+			card.toFront();
 			restoreFloatingCard(card);
 			event.consume();
 		});
@@ -818,7 +887,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
-			renderGeometryShapes();
+			renderGeometryScene();
 			return;
 		}
 
@@ -835,7 +904,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
-			renderGeometryShapes();
+			renderGeometryScene();
 		});
 	}
 
@@ -856,7 +925,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
 			card.setPrefHeight(targetHeight);
 			card.setExpanded(true);
-			renderGeometryShapes();
+			renderGeometryScene();
 			return;
 		}
 
@@ -869,7 +938,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMinHeight(Region.USE_COMPUTED_SIZE);
 			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
 			card.setPrefHeight(finalTargetHeight);
-			renderGeometryShapes();
+			renderGeometryScene();
 		});
 	}
 
@@ -890,7 +959,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void clearGeometryPreview(String message) {
 		this.currentPreviewMesh = null;
-		renderGeometryShapes();
+		renderGeometryScene();
 		appendGeometryPreviewMessage(message);
 	}
 
@@ -928,6 +997,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			String pendingObj = null;
 			int pendingColor = DEFAULT_PREVIEW_COLOR;
 			while ((line = reader.readLine()) != null && !builder.clipped()) {
+				if (pendingObj != null && startsNewRdfSubject(line)) {
+					builder.addObj(pendingObj, pendingColor);
+					pendingObj = null;
+					pendingColor = DEFAULT_PREVIEW_COLOR;
+				}
 				Matcher objMatcher = GEOMETRY_OBJ_LITERAL_PATTERN.matcher(line);
 				while (objMatcher.find() && !builder.clipped()) {
 					if (pendingObj != null) {
@@ -944,6 +1018,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				Matcher colorMatcher = GEOMETRY_MTL_KD_PATTERN.matcher(line);
 				if (colorMatcher.find()) {
 					pendingColor = parseHexColor(colorMatcher.group(1));
+				} else {
+					Matcher materialMatcher = GEOMETRY_MTL_PATTERN.matcher(line);
+					if (materialMatcher.find()) {
+						pendingColor = parseMtlDiffuseColor(materialMatcher.group(1), pendingColor);
+					}
 				}
 			}
 			if (pendingObj != null && !builder.clipped()) {
@@ -951,6 +1030,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 		}
 		return builder.toPreviewMesh();
+	}
+
+	private static boolean startsNewRdfSubject(String line) {
+		return !line.isBlank() && !Character.isWhitespace(line.charAt(0));
 	}
 
 	private void showPreviewMesh(PreviewMesh previewMesh) {
@@ -964,8 +1047,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 
 		this.currentPreviewMesh = previewMesh;
-		this.geometryZoom = 1.0;
-		renderGeometryShapes();
+		fitGeometryPreview();
+		renderGeometryScene();
 		appendGeometryPreviewMessage(previewMesh.statusText());
 	}
 
@@ -975,94 +1058,63 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 	}
 
-	private void renderGeometryShapes() {
-		if (this.geometryPane == null) {
+	private void fitGeometryPreview() {
+		this.geometryZoom = 1.0;
+		this.geometryRotateX.setAngle(-25);
+		this.geometryRotateY.setAngle(-35);
+		if (this.geometryModelRoot != null) {
+			this.geometryModelRoot.setTranslateX(0);
+			this.geometryModelRoot.setTranslateY(0);
+		}
+		updateGeometryCamera();
+	}
+
+	private void updateGeometryCamera() {
+		this.geometryCameraDistance.setZ(-760.0 / this.geometryZoom);
+	}
+
+	private void renderGeometryScene() {
+		if (this.geometryModelRoot == null) {
 			return;
 		}
-		this.geometryPane.getChildren().clear();
-		double width = this.geometryPane.getWidth();
-		double height = this.geometryPane.getHeight();
-		if (width <= 0 || height <= 0) {
-			return;
-		}
+		this.geometryModelRoot.getChildren().clear();
 		if (this.currentPreviewMesh == null || this.currentPreviewMesh.triangleCount() == 0) {
 			return;
 		}
 
 		float[] points = this.currentPreviewMesh.points();
 		int[] faces = this.currentPreviewMesh.faces();
-			double[] projectedX = new double[points.length / 3];
-			double[] projectedY = new double[points.length / 3];
-			double[] projectedZ = new double[points.length / 3];
-			double[] rotatedXValues = new double[points.length / 3];
-			double[] rotatedYValues = new double[points.length / 3];
-			double[] rotatedZValues = new double[points.length / 3];
-			double pitch = Math.toRadians(this.geometryPitch);
-			double yaw = Math.toRadians(this.geometryYaw);
-			double cosPitch = Math.cos(pitch);
-			double sinPitch = Math.sin(pitch);
-			double cosYaw = Math.cos(yaw);
-			double sinYaw = Math.sin(yaw);
-			double scale = Math.min(width, height) * 0.42 * this.geometryZoom / 260.0;
-			double cameraDistance = 760.0;
-
-			for (int i = 0; i < projectedX.length; i++) {
-				double x = points[i * 3];
-				double y = points[i * 3 + 1];
-				double z = points[i * 3 + 2];
-				double rotatedY = y * cosPitch - z * sinPitch;
-				double rotatedZ = y * sinPitch + z * cosPitch;
-				double rotatedX = x * cosYaw + rotatedZ * sinYaw;
-				rotatedZ = -x * sinYaw + rotatedZ * cosYaw;
-				double perspective = cameraDistance / Math.max(160.0, cameraDistance - rotatedZ);
-				rotatedXValues[i] = rotatedX;
-				rotatedYValues[i] = rotatedY;
-				rotatedZValues[i] = rotatedZ;
-				projectedX[i] = width / 2.0 + rotatedX * scale * perspective;
-				projectedY[i] = height / 2.0 + rotatedY * scale * perspective;
-				projectedZ[i] = rotatedZ;
-			}
-
-		List<ProjectedTriangle> triangles = new ArrayList<>();
-		for (int i = 0; i + 5 < faces.length; i += 6) {
-			int a = faces[i];
-			int b = faces[i + 2];
-			int c = faces[i + 4];
-				if (a < 0 || b < 0 || c < 0 || a >= projectedX.length || b >= projectedX.length || c >= projectedX.length) {
-					continue;
-				}
-				double depth = (projectedZ[a] + projectedZ[b] + projectedZ[c]) / 3.0;
-				double nx = ((rotatedYValues[b] - rotatedYValues[a]) * (rotatedZValues[c] - rotatedZValues[a]))
-						- ((rotatedZValues[b] - rotatedZValues[a]) * (rotatedYValues[c] - rotatedYValues[a]));
-				double ny = ((rotatedZValues[b] - rotatedZValues[a]) * (rotatedXValues[c] - rotatedXValues[a]))
-						- ((rotatedXValues[b] - rotatedXValues[a]) * (rotatedZValues[c] - rotatedZValues[a]));
-				double nz = ((rotatedXValues[b] - rotatedXValues[a]) * (rotatedYValues[c] - rotatedYValues[a]))
-						- ((rotatedYValues[b] - rotatedYValues[a]) * (rotatedXValues[c] - rotatedXValues[a]));
-				double normalLength = Math.sqrt(nx * nx + ny * ny + nz * nz);
-				if (normalLength == 0) {
-					continue;
-				}
-				nx /= normalLength;
-				ny /= normalLength;
-				nz /= normalLength;
-				double light = Math.max(0, nx * -0.35 + ny * -0.55 + nz * -0.76);
-				double view = Math.max(0, nz);
-				double shade = Math.max(0.34, Math.min(1.18, 0.54 + light * 0.52 + view * 0.12));
-				triangles.add(new ProjectedTriangle(a, b, c, depth, shade, this.currentPreviewMesh.triangleColors()[i / 6]));
-			}
-		triangles.sort((left, right) -> Double.compare(left.depth(), right.depth()));
-
-		for (ProjectedTriangle triangle : triangles) {
-				Polygon polygon = new Polygon(projectedX[triangle.a()], projectedY[triangle.a()], projectedX[triangle.b()],
-						projectedY[triangle.b()], projectedX[triangle.c()], projectedY[triangle.c()]);
-				polygon.setFill(shadeColor(triangle.color(), triangle.shade(), 0.96));
-				polygon.setStroke(shadeColor(triangle.color(), 0.42, 0.5));
-				polygon.setStrokeWidth(triangles.size() > 30_000 ? 0.15 : 0.28);
-				this.geometryPane.getChildren().add(polygon);
-			}
+		int[] triangleColors = this.currentPreviewMesh.triangleColors();
+		Map<Integer, List<Integer>> facesByColor = new LinkedHashMap<>();
+		for (int faceOffset = 0; faceOffset + 5 < faces.length; faceOffset += 6) {
+			int colorIndex = faceOffset / 6;
+			int color = colorIndex < triangleColors.length ? triangleColors[colorIndex] : DEFAULT_PREVIEW_COLOR;
+			facesByColor.computeIfAbsent(color, ignored -> new ArrayList<>()).add(faceOffset);
 		}
 
-	private record ProjectedTriangle(int a, int b, int c, double depth, double shade, int color) {
+		for (Map.Entry<Integer, List<Integer>> entry : facesByColor.entrySet()) {
+			TriangleMesh mesh = new TriangleMesh();
+			mesh.getPoints().setAll(points);
+			mesh.getTexCoords().setAll(0, 0);
+			int[] colorFaces = new int[entry.getValue().size() * 6];
+			int writeIndex = 0;
+			for (int faceOffset : entry.getValue()) {
+				colorFaces[writeIndex++] = faces[faceOffset];
+				colorFaces[writeIndex++] = 0;
+				colorFaces[writeIndex++] = faces[faceOffset + 2];
+				colorFaces[writeIndex++] = 0;
+				colorFaces[writeIndex++] = faces[faceOffset + 4];
+				colorFaces[writeIndex++] = 0;
+			}
+			mesh.getFaces().setAll(colorFaces);
+			mesh.getFaceSmoothingGroups().setAll(new int[entry.getValue().size()]);
+
+			MeshView meshView = new MeshView(mesh);
+			meshView.setCullFace(CullFace.NONE);
+			meshView.setDrawMode(DrawMode.FILL);
+			meshView.setMaterial(createPreviewMaterial(entry.getKey()));
+			this.geometryModelRoot.getChildren().add(meshView);
+		}
 	}
 
 	private static int parseHexColor(String value) {
@@ -1072,12 +1124,39 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return Integer.parseInt(value.substring(1), 16);
 	}
 
-	private static Color shadeColor(int rgb, double shade, double opacity) {
+	private static int parseMtlDiffuseColor(String escapedMtl, int fallbackColor) {
+		String material = escapedMtl.replace("\\n", "\n").replace("\\t", "\t").replace("\\\"", "\"")
+				.replace("\\\\", "\\");
+		Matcher matcher = MTL_KD_LINE_PATTERN.matcher(material);
+		if (!matcher.find()) {
+			return fallbackColor;
+		}
+		return toRgb(parseUnitColorChannel(matcher.group(1)), parseUnitColorChannel(matcher.group(2)),
+				parseUnitColorChannel(matcher.group(3)));
+	}
+
+	private static int toRgb(int red, int green, int blue) {
+		return (red << 16) | (green << 8) | blue;
+	}
+
+	private static int parseUnitColorChannel(String value) {
+		double channel = Double.parseDouble(value);
+		return (int) Math.round(clamp(channel, 0, 1) * 255.0);
+	}
+
+	private static PhongMaterial createPreviewMaterial(int rgb) {
 		int red = (rgb >> 16) & 0xff;
 		int green = (rgb >> 8) & 0xff;
 		int blue = rgb & 0xff;
-		return Color.rgb((int) Math.round(red * shade), (int) Math.round(green * shade),
-				(int) Math.round(blue * shade), opacity);
+		Color diffuse = Color.rgb(softenColorChannel(red), softenColorChannel(green), softenColorChannel(blue));
+		PhongMaterial material = new PhongMaterial(diffuse);
+		material.setSpecularColor(Color.rgb(42, 42, 42));
+		material.setSpecularPower(4);
+		return material;
+	}
+
+	private static int softenColorChannel(int channel) {
+		return (int) Math.round(channel * 0.78 + 245 * 0.22);
 	}
 
 	private record PreviewMesh(float[] points, int[] faces, int[] triangleColors, int objectCount, int triangleCount,

@@ -334,6 +334,26 @@
     -fx-background-radius: 6px;
 }
 
+.geometry-tool-button {
+    -fx-min-width: 38px;
+    -fx-pref-width: 38px;
+    -fx-min-height: 24px;
+    -fx-pref-height: 24px;
+    -fx-padding: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.88);
+    -fx-border-color: #aebed1;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-text-fill: #344054;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.geometry-tool-button:hover {
+    -fx-background-color: #e6f0ff;
+    -fx-border-color: #7da9e8;
+}
+
 .floating-card {
     -fx-background-color: rgba(255, 255, 255, 0.96);
     -fx-border-color: #b7c4d4;
