@@ -134,7 +134,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.16.0</version>
+			<version>3.18.0</version>
 			<!-- URL for the Apache Commons Lang project:
 			https://commons.apache.org/proper/commons-lang/ -->
 			<!-- Apache Commons Lang provides a host of helper utilities for the
