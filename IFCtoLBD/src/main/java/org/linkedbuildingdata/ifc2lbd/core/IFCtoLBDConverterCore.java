@@ -461,25 +461,23 @@ public abstract class IFCtoLBDConverterCore {
 				BoundingBox bb = this.ifc_geometry.getBoundingBox(guid);
 				ObjDescription obj = this.ifc_geometry.getOBJ(guid);
 				MTLDescription mtl = this.ifc_geometry.getMTL(guid);
+				String wireframeWKT = null;
+				if (this.hasWireframe) {
+					wireframeWKT = this.ifc_geometry.getWireframeWKT(guid);
+				}
 
-				Resource sp_geometry = this.lbd_general_output_model
-						.createResource(lbd_resource.getURI() + "_geometry");
-
-				sp_geometry.addProperty(RDF.type, GEO.Geometry);
-				if (bb != null)
-					lbd_resource.addProperty(OMG.hasGeometry, sp_geometry);
-				// lbd_resource.addProperty(GEO.hasGeometry, sp_geometry);
-				else
+				Resource sp_geometry = null;
+				if (bb != null || (wireframeWKT != null && !wireframeWKT.isBlank())) {
+					sp_geometry = getOrCreateGeometryResource(lbd_resource);
+				} else {
 					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
+				}
+				if (sp_geometry != null && wireframeWKT != null && !wireframeWKT.isBlank()) {
+					Literal wktLiteral = this.lbd_general_output_model
+							.createTypedLiteral(toLocalIfcCrsWkt(wireframeWKT), GEO.wktLiteral);
+					sp_geometry.addLiteral(LBD.hasWireframe, wktLiteral);
+				}
 				if (bb != null) {
-					if (this.hasWireframe) {
-						String wireframeWKT = this.ifc_geometry.getWireframeWKT(guid);
-						if (wireframeWKT != null && !wireframeWKT.isBlank()) {
-							Literal wktLiteral = this.lbd_general_output_model
-									.createTypedLiteral(toLocalIfcCrsWkt(wireframeWKT), GEO.wktLiteral);
-							lbd_resource.addLiteral(LBD.hasWireframe, wktLiteral);
-						}
-					}
 					if (this.hasBoundingBoxWKT) {
 						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(toLocalIfcCrsWkt(bb),
 								GEO.wktLiteral);
@@ -586,6 +584,27 @@ public abstract class IFCtoLBDConverterCore {
 			e.printStackTrace();
 		}
 
+	}
+
+	private Resource getOrCreateGeometryResource(Resource lbd_resource) {
+		StmtIterator existingGeometry = this.lbd_general_output_model.listStatements(lbd_resource, OMG.hasGeometry,
+				(RDFNode) null);
+		try {
+			while (existingGeometry.hasNext()) {
+				RDFNode geometryNode = existingGeometry.nextStatement().getObject();
+				if (geometryNode.isResource()) {
+					Resource geometryResource = geometryNode.asResource();
+					geometryResource.addProperty(RDF.type, GEO.Geometry);
+					return geometryResource;
+				}
+			}
+		} finally {
+			existingGeometry.close();
+		}
+		Resource geometryResource = this.lbd_general_output_model.createResource(lbd_resource.getURI() + "_geometry");
+		geometryResource.addProperty(RDF.type, GEO.Geometry);
+		lbd_resource.addProperty(OMG.hasGeometry, geometryResource);
+		return geometryResource;
 	}
 
 	private String toLocalIfcCrsWkt(BoundingBox boundingBox) {
