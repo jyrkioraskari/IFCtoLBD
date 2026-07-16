@@ -75,8 +75,8 @@
 }
 
 .left-rail {
-    -fx-min-width: 300px;
-    -fx-pref-width: 320px;
+    -fx-min-width: 380px;
+    -fx-pref-width: 390px;
 }
 
 .content-region {
@@ -96,7 +96,8 @@
 
 .workflow-button,
 .workflow-button-current,
-.workflow-run-button {
+.workflow-run-button,
+.workflow-step-label {
     -fx-alignment: CENTER_LEFT;
     -fx-padding: 7 9 7 9;
     -fx-background-radius: 5px;
@@ -107,6 +108,12 @@
 }
 
 .workflow-button {
+    -fx-text-fill: #344054;
+    -fx-background-color: transparent;
+    -fx-border-color: #e1e7f0;
+}
+
+.workflow-step-label {
     -fx-text-fill: #344054;
     -fx-background-color: transparent;
     -fx-border-color: #e1e7f0;
@@ -140,6 +147,20 @@
 .workflow-run-button:disabled,
 .workflow-button:disabled {
     -fx-opacity: 0.48;
+}
+
+.workflow-mini-button {
+    -fx-padding: 7 5 7 5;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #d9e1ec;
+    -fx-text-fill: #344054;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.workflow-mini-button:hover {
+    -fx-background-color: #f1f6fb;
+    -fx-border-color: #b9c7d8;
 }
 
 .file-label,

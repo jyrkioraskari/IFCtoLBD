@@ -90,6 +90,7 @@ import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
 import javafx.scene.DirectionalLight;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
@@ -297,6 +298,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private double floatingCardX;
 	private double floatingCardY;
 	private final Map<TitledPane, Double> floatingCardNormalHeights = new IdentityHashMap<>();
+	private final Map<TitledPane, Timeline> floatingCardAnimations = new IdentityHashMap<>();
 
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
@@ -334,6 +336,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private void openFiltersWorkflow() {
 		toggleFloatingCard(this.filtersCard);
+	}
+
+	@FXML
+	private void testGeometryWorkflow() {
+		bringFloatingCardToFront(this.geometryCard);
+	}
+
+	@FXML
+	private void validateWorkflow() {
+		this.conversionTxt.appendText("Validate test is not implemented yet.\n");
+	}
+
+	@FXML
+	private void queryWorkflow() {
+		this.conversionTxt.appendText("Query test is not implemented yet.\n");
 	}
 
 	@FXML
@@ -790,8 +807,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		maximizeButton.getStyleClass().add("floating-card-window-button");
 		maximizeButton.setFocusTraversable(false);
 		maximizeButton.setOnAction(event -> {
-			card.toFront();
-			restoreFloatingCard(card);
+			bringFloatingCardToFront(card);
 			event.consume();
 		});
 
@@ -809,14 +825,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+			if (event.getButton() == MouseButton.PRIMARY && !(event.getTarget() instanceof Button)) {
+				bringFloatingCardToFront(card);
+			}
 			if (!isCardHeaderEvent(event)) {
 				return;
 			}
-			card.toFront();
 			this.floatingMouseX = event.getSceneX();
 			this.floatingMouseY = event.getSceneY();
 			this.floatingCardX = card.getLayoutX();
 			this.floatingCardY = card.getLayoutY();
+			event.consume();
 		});
 		card.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
 			if (!isCardHeaderEvent(event)) {
@@ -827,6 +846,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setLayoutX(clamp(nextX, 0, Math.max(0, this.floatingWorkspace.getWidth() - card.getWidth())));
 			card.setLayoutY(clamp(nextY, 0, Math.max(0, this.floatingWorkspace.getHeight() - FLOATING_CARD_HEADER_HEIGHT)));
 			event.consume();
+		});
+		card.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
+			if (isCardHeaderEvent(event)) {
+				event.consume();
+			}
+		});
+		card.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+			if (isCardHeaderEvent(event)) {
+				event.consume();
+			}
 		});
 	}
 
@@ -855,7 +884,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private boolean isCardHeaderEvent(MouseEvent event) {
 		return event.getButton() == MouseButton.PRIMARY && event.getY() <= FLOATING_CARD_HEADER_HEIGHT
-				&& !(event.getTarget() instanceof Button);
+				&& !isButtonEventTarget(event.getTarget());
+	}
+
+	private boolean isButtonEventTarget(Object target) {
+		if (!(target instanceof Node node)) {
+			return target instanceof Button;
+		}
+		while (node != null) {
+			if (node instanceof Button) {
+				return true;
+			}
+			node = node.getParent();
+		}
+		return false;
 	}
 
 	private void toggleFloatingCard(TitledPane card) {
@@ -866,9 +908,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (card.isExpanded() || card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT + 1) {
 			minimizeFloatingCard(card);
 		} else {
-			restoreFloatingCard(card);
-			card.toFront();
+			bringFloatingCardToFront(card);
 		}
+	}
+
+	private void bringFloatingCardToFront(TitledPane card) {
+		if (card == null) {
+			return;
+		}
+		card.setDisable(false);
+		restoreFloatingCard(card, false);
+		card.toFront();
 	}
 
 	private void minimizeFloatingCard(TitledPane card) {
@@ -879,6 +929,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (card == null) {
 			return;
 		}
+		stopFloatingCardAnimation(card);
 		if (card.isExpanded() && card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT) {
 			this.floatingCardNormalHeights.put(card, card.getPrefHeight());
 		}
@@ -916,6 +967,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (card == null) {
 			return;
 		}
+		stopFloatingCardAnimation(card);
 		double targetHeight = this.floatingCardNormalHeights.getOrDefault(card, card.getPrefHeight());
 		if (targetHeight <= FLOATING_CARD_HEADER_HEIGHT) {
 			targetHeight = 320.0;
@@ -942,10 +994,22 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		});
 	}
 
+	private void stopFloatingCardAnimation(TitledPane card) {
+		Timeline timeline = this.floatingCardAnimations.remove(card);
+		if (timeline != null) {
+			timeline.stop();
+		}
+	}
+
 	private void animateFloatingCardHeight(TitledPane card, double targetHeight, Runnable onFinished) {
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(180),
 				new KeyValue(card.prefHeightProperty(), targetHeight, Interpolator.EASE_BOTH)));
+		this.floatingCardAnimations.put(card, timeline);
 		timeline.setOnFinished(event -> {
+			if (this.floatingCardAnimations.get(card) != timeline) {
+				return;
+			}
+			this.floatingCardAnimations.remove(card);
 			if (onFinished != null) {
 				onFinished.run();
 			}

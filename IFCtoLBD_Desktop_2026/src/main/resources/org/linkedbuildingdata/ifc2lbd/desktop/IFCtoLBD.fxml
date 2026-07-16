@@ -73,15 +73,15 @@
               </top>
 
               <center>
-                <SplitPane dividerPositions="0.29" styleClass="main-split">
+                <SplitPane dividerPositions="0.36" styleClass="main-split">
                   <items>
-                    <VBox prefWidth="320.0" spacing="12.0" styleClass="left-rail">
+                    <VBox prefWidth="390.0" spacing="12.0" styleClass="left-rail">
                       <children>
                         <Label styleClass="section-title" text="Workflow" />
                         <GridPane hgap="8.0" vgap="8.0" styleClass="step-list">
                           <columnConstraints>
-                            <ColumnConstraints minWidth="125.0" prefWidth="140.0" />
-                            <ColumnConstraints hgrow="ALWAYS" minWidth="130.0" />
+                            <ColumnConstraints minWidth="115.0" prefWidth="125.0" />
+                            <ColumnConstraints hgrow="ALWAYS" minWidth="230.0" prefWidth="235.0" />
                           </columnConstraints>
                           <children>
                             <Button fx:id="selectIFCFileButton" defaultButton="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#selectIFCFile" styleClass="workflow-button-current" text="1  Read IFC" GridPane.columnIndex="0" GridPane.rowIndex="0" />
@@ -92,6 +92,14 @@
                             <Label fx:id="labelTargetFile" maxWidth="Infinity" styleClass="target-label" text="Target path will be generated after input selection" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                             <Button fx:id="convert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                             <ChoiceBox fx:id="outputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                            <Label maxWidth="Infinity" styleClass="workflow-step-label" text="6  Test" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                            <HBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                              <children>
+                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
+                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
+                                <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
+                              </children>
+                            </HBox>
                           </children>
                         </GridPane>
                         <Label styleClass="section-title" text="Conversion Log" />
