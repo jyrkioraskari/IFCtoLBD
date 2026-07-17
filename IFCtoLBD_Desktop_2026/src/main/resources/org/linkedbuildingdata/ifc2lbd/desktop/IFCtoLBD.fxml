@@ -267,13 +267,13 @@
                       </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="86.0" layoutY="275.0" prefHeight="450.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
+                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="14.0" layoutY="114.0" prefHeight="450.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
 	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" prefWidth="540.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
 	                      </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="46.0" layoutY="160.0" prefHeight="520.0" prefWidth="560.0" styleClass="floating-card" text="SPARQL Query">
+                    <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="14.0" layoutY="164.0" prefHeight="520.0" prefWidth="560.0" styleClass="floating-card" text="SPARQL Query">
                       <content>
                         <VBox spacing="9.0">
                           <children>

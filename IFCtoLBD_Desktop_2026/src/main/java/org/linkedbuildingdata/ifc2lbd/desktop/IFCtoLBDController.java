@@ -354,6 +354,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
 	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
+	private static final double FLOATING_CARD_INITIAL_X = 14.0;
+	private static final double FLOATING_CARD_INITIAL_Y = 14.0;
+	private static final double FLOATING_CARD_INITIAL_GAP = 12.0;
 	private static final double GEOMETRY_CARD_WIDTH = 560.0;
 	private static final double GEOMETRY_VIEWPORT_WIDTH = 540.0;
 	private static final Pattern GEOMETRY_OBJ_LITERAL_PATTERN = Pattern.compile(
@@ -422,7 +425,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.conversionTxt.appendText("Generate a Turtle LBD output before opening SPARQL Query.\n");
 			return;
 		}
-		positionGeometryAndSparqlCardsIfNeeded();
+		alignFloatingCardsIfNeeded();
 		toggleFloatingCard(this.sparqlQueryCard);
 	}
 
@@ -864,7 +867,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.floatingWorkspace.widthProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		this.floatingWorkspace.heightProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		Platform.runLater(() -> {
-			positionGeometryAndSparqlCardsIfNeeded();
+			alignFloatingCardsIfNeeded();
 			clampFloatingCardsToWorkspace();
 		});
 	}
@@ -954,38 +957,25 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 	}
 
-	private void positionGeometryAndSparqlCardsIfNeeded() {
-		if (this.sparqlCardPositioned || this.geometryCard == null || this.sparqlQueryCard == null
-				|| this.floatingWorkspace == null) {
+	private void alignFloatingCardsIfNeeded() {
+		if (this.sparqlCardPositioned || this.floatingWorkspace == null) {
 			return;
 		}
-		double workspaceWidth = this.floatingWorkspace.getWidth();
-		double workspaceHeight = this.floatingWorkspace.getHeight();
-		if (workspaceWidth <= 0 || workspaceHeight <= 0) {
-			return;
-		}
-		double gap = 14.0;
-		double geometryWidth = this.geometryCard.getWidth() > 0 ? this.geometryCard.getWidth()
-				: this.geometryCard.getPrefWidth();
-		double sparqlWidth = this.sparqlQueryCard.getWidth() > 0 ? this.sparqlQueryCard.getWidth()
-				: this.sparqlQueryCard.getPrefWidth();
-		double geometryHeight = this.floatingCardNormalHeights.getOrDefault(this.geometryCard,
-				this.geometryCard.getPrefHeight());
-		double sparqlHeight = this.floatingCardNormalHeights.getOrDefault(this.sparqlQueryCard,
-				this.sparqlQueryCard.getPrefHeight());
-		double geometryY = Math.max(FLOATING_CARD_HEADER_HEIGHT * 2.0,
-				(workspaceHeight - geometryHeight) / 2.0 + 79.0);
-		double maxGeometryY = Math.max(0, workspaceHeight - FLOATING_CARD_HEADER_HEIGHT - gap);
-		geometryY = Math.min(geometryY, maxGeometryY);
-		double preferredSparqlY = geometryY + FLOATING_CARD_HEADER_HEIGHT + gap;
-		double maxSparqlY = Math.max(0, workspaceHeight - sparqlHeight);
-		double sparqlY = clamp(preferredSparqlY, 0, maxSparqlY);
-
-		this.geometryCard.setLayoutX(Math.max(0, (workspaceWidth - geometryWidth) / 2.0));
-		this.geometryCard.setLayoutY(geometryY);
-		this.sparqlQueryCard.setLayoutX(Math.max(0, (workspaceWidth - sparqlWidth) / 2.0));
-		this.sparqlQueryCard.setLayoutY(sparqlY);
+		double y = FLOATING_CARD_INITIAL_Y;
+		y = positionFloatingCardInLine(this.options_panel, y);
+		y = positionFloatingCardInLine(this.filtersCard, y);
+		y = positionFloatingCardInLine(this.geometryCard, y);
+		positionFloatingCardInLine(this.sparqlQueryCard, y);
 		this.sparqlCardPositioned = true;
+	}
+
+	private double positionFloatingCardInLine(TitledPane card, double y) {
+		if (card == null) {
+			return y;
+		}
+		card.setLayoutX(FLOATING_CARD_INITIAL_X);
+		card.setLayoutY(y);
+		return y + FLOATING_CARD_HEADER_HEIGHT + FLOATING_CARD_INITIAL_GAP;
 	}
 
 	private void setRunReady(boolean ready) {
