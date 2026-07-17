@@ -26,8 +26,10 @@ package org.linkedbuildingdata.ifc2lbd.desktop;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.StandardCopyOption;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -50,6 +52,7 @@ import java.util.prefs.Preferences;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.jena.graph.Graph;
 import org.apache.jena.query.Query;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -62,6 +65,11 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.shacl.ShaclValidator;
+import org.apache.jena.shacl.Shapes;
+import org.apache.jena.shacl.ValidationReport;
+import org.apache.jena.shacl.parser.Shape;
+import org.apache.jena.shacl.validation.ReportEntry;
 import org.controlsfx.control.CheckTreeView;
 import org.controlsfx.control.ToggleSwitch;
 import org.controlsfx.control.textfield.CustomTextField;
@@ -80,7 +88,10 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
+import javafx.geometry.Point2D;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -91,6 +102,8 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
@@ -228,10 +241,25 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Button geometryWorkflowButton;
 
 	@FXML
+	private Button validateWorkflowButton;
+
+	@FXML
 	private Button queryWorkflowButton;
 
 	@FXML
 	private TitledPane sparqlQueryCard;
+
+	@FXML
+	private TitledPane validateCard;
+
+	@FXML
+	private Button loadShaclButton;
+
+	@FXML
+	private Label validateStatusLabel;
+
+	@FXML
+	private ListView<ShapeValidationItem> shaclShapesList;
 
 	@FXML
 	private TextArea sparqlEditorTxt;
@@ -340,6 +368,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private File sparqlModelFile;
 	private long sparqlModelLastModified;
 	private boolean sparqlCardPositioned;
+	private final List<LoadedShapes> loadedShapes = new ArrayList<>();
+	private final ObservableList<ShapeValidationItem> shapeValidationItems = FXCollections.observableArrayList();
 	private double geometryMouseX;
 	private double geometryMouseY;
 	private double geometryZoom = 1.0;
@@ -348,12 +378,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private double floatingMouseY;
 	private double floatingCardX;
 	private double floatingCardY;
+	private Button pressedFloatingWindowButton;
+	private final Map<Button, Runnable> floatingWindowButtonActions = new IdentityHashMap<>();
+	private final Map<Button, TitledPane> floatingWindowButtonCards = new IdentityHashMap<>();
 	private final Map<TitledPane, Double> floatingCardNormalHeights = new IdentityHashMap<>();
 	private final Map<TitledPane, Timeline> floatingCardAnimations = new IdentityHashMap<>();
 
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
 	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
+	private static final double FLOATING_CARD_WINDOW_BUTTON_WIDTH = 24.0;
+	private static final double FLOATING_CARD_WINDOW_BUTTON_HEIGHT = 22.0;
 	private static final double FLOATING_CARD_INITIAL_X = 14.0;
 	private static final double FLOATING_CARD_INITIAL_Y = 14.0;
 	private static final double FLOATING_CARD_INITIAL_GAP = 12.0;
@@ -369,6 +404,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			"(?m)^\\s*Kd\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*$");
 	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
 	private static final int MAX_SPARQL_RESULT_ROWS = 1_000;
+	private static final String DEFAULT_SHACL_RESOURCE = "SHACL_rulesetLevel1.ttl";
 	private static final String DEFAULT_SPARQL_QUERY = """
 			PREFIX bot: <https://w3id.org/bot#>
 
@@ -377,6 +413,27 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 			LIMIT 100
 			""";
+
+	private record LoadedShapes(File file, String name, Shapes shapes, List<ShapeValidationItem> items) {
+	}
+
+	private static final class ShapeValidationItem {
+		private final String sourceName;
+		private final String displayName;
+		private final org.apache.jena.graph.Node shapeNode;
+		private final Set<org.apache.jena.graph.Node> constraintNodes;
+		private Boolean conforms;
+		private String message;
+
+		private ShapeValidationItem(String sourceName, String displayName, org.apache.jena.graph.Node shapeNode,
+				Set<org.apache.jena.graph.Node> constraintNodes) {
+			this.sourceName = sourceName;
+			this.displayName = displayName;
+			this.shapeNode = shapeNode;
+			this.constraintNodes = constraintNodes;
+			this.message = "Not tested yet";
+		}
+	}
 
 	@FXML
 	private void closeApplicationAction() {
@@ -416,7 +473,38 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void validateWorkflow() {
-		this.conversionTxt.appendText("Validate test is not implemented yet.\n");
+		if (!isValidationAvailable()) {
+			this.conversionTxt.appendText("Generate a Turtle LBD output before opening Validate.\n");
+			return;
+		}
+		alignFloatingCardsIfNeeded();
+		toggleFloatingCard(this.validateCard);
+		validateLoadedShapesAsync();
+	}
+
+	@FXML
+	private void loadShaclShapes() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Load SHACL shapes");
+		fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Turtle files (*.ttl)", "*.ttl"),
+				new FileChooser.ExtensionFilter("All Files", "*.*"));
+		File selectedFile = fileChooser.showOpenDialog(this.root.getScene().getWindow());
+		if (selectedFile != null) {
+			loadShapesFileAsync(selectedFile, selectedFile.getName());
+		}
+	}
+
+	@FXML
+	private void restoreDefaultShaclShapes() {
+		this.loadedShapes.clear();
+		this.shapeValidationItems.clear();
+		loadDefaultShapes();
+		if (this.shaclShapesList != null) {
+			this.shaclShapesList.refresh();
+		}
+		if (isValidationAvailable()) {
+			validateLoadedShapesAsync();
+		}
 	}
 
 	@FXML
@@ -864,6 +952,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setupFloatingCard(this.filtersCard, "Filters");
 		setupFloatingCard(this.geometryCard, "Geometry Preview");
 		setupFloatingCard(this.sparqlQueryCard, "SPARQL Query");
+		setupFloatingCard(this.validateCard, "Validate");
+		setupFloatingWindowButtonRouting();
 		this.floatingWorkspace.widthProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		this.floatingWorkspace.heightProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		Platform.runLater(() -> {
@@ -877,6 +967,53 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.sparqlEditorTxt.setText(DEFAULT_SPARQL_QUERY);
 		}
 		setSparqlQueryAvailable(false);
+	}
+
+	private void setupValidateWindow() {
+		if (this.shaclShapesList != null) {
+			this.shaclShapesList.setItems(this.shapeValidationItems);
+			this.shaclShapesList.setCellFactory(list -> new ListCell<>() {
+				private final Label shapeLabel = new Label();
+				private final Button removeButton = new Button("x");
+				private final HBox row = new HBox(8.0, this.shapeLabel, this.removeButton);
+
+				{
+					this.row.setAlignment(Pos.CENTER_LEFT);
+					this.shapeLabel.setMaxWidth(Double.MAX_VALUE);
+					this.shapeLabel.setWrapText(true);
+					HBox.setHgrow(this.shapeLabel, Priority.ALWAYS);
+					this.removeButton.getStyleClass().add("shape-remove-button");
+					this.removeButton.setTooltip(new Tooltip("Remove rule"));
+					this.removeButton.setFocusTraversable(false);
+				}
+
+				@Override
+				protected void updateItem(ShapeValidationItem item, boolean empty) {
+					super.updateItem(item, empty);
+					getStyleClass().removeAll("shape-valid", "shape-invalid", "shape-pending");
+					if (empty || item == null) {
+						setText(null);
+						setGraphic(null);
+						setTooltip(null);
+						return;
+					}
+					setText(null);
+					this.shapeLabel.setText(item.displayName + "\n" + item.sourceName);
+					this.removeButton.setOnAction(event -> removeShapeItem(item));
+					setGraphic(this.row);
+					setTooltip(new Tooltip(item.message));
+					if (Boolean.TRUE.equals(item.conforms)) {
+						getStyleClass().add("shape-valid");
+					} else if (Boolean.FALSE.equals(item.conforms)) {
+						getStyleClass().add("shape-invalid");
+					} else {
+						getStyleClass().add("shape-pending");
+					}
+				}
+			});
+		}
+		loadDefaultShapes();
+		setValidationAvailable(false);
 	}
 
 	private boolean isFiltersAvailable() {
@@ -917,6 +1054,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				&& new File(settings.rdfTargetName()).isFile();
 	}
 
+	private boolean isValidationAvailable() {
+		return isSparqlQueryAvailable();
+	}
+
 	private void setSparqlQueryAvailable(boolean available) {
 		if (this.queryWorkflowButton != null) {
 			this.queryWorkflowButton.setDisable(!available);
@@ -938,10 +1079,36 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 	}
 
+	private void setValidationAvailable(boolean available) {
+		if (this.validateWorkflowButton != null) {
+			this.validateWorkflowButton.setDisable(!available);
+			setUnavailableStyle(this.validateWorkflowButton, !available);
+		}
+		if (this.loadShaclButton != null) {
+			this.loadShaclButton.setDisable(false);
+		}
+		if (this.validateCard != null) {
+			setUnavailableStyle(this.validateCard, !available);
+		}
+		if (!available) {
+			for (ShapeValidationItem item : this.shapeValidationItems) {
+				item.conforms = null;
+				item.message = "Generate a Turtle LBD output to validate shapes.";
+			}
+			if (this.shaclShapesList != null) {
+				this.shaclShapesList.refresh();
+			}
+			if (this.validateStatusLabel != null) {
+				this.validateStatusLabel.setText("Generate a Turtle LBD output to validate loaded SHACL shapes.");
+			}
+		}
+	}
+
 	private void setWorkflowDataAvailable(boolean filtersAvailable, boolean geometryAvailable, boolean sparqlAvailable) {
 		setFiltersAvailable(filtersAvailable);
 		setGeometryPreviewAvailable(geometryAvailable);
 		setSparqlQueryAvailable(sparqlAvailable);
+		setValidationAvailable(sparqlAvailable);
 	}
 
 	private static void setUnavailableStyle(Node node, boolean unavailable) {
@@ -965,7 +1132,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		y = positionFloatingCardInLine(this.options_panel, y);
 		y = positionFloatingCardInLine(this.filtersCard, y);
 		y = positionFloatingCardInLine(this.geometryCard, y);
-		positionFloatingCardInLine(this.sparqlQueryCard, y);
+		y = positionFloatingCardInLine(this.sparqlQueryCard, y);
+		positionFloatingCardInLine(this.validateCard, y);
 		this.sparqlCardPositioned = true;
 	}
 
@@ -1070,29 +1238,121 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		HBox.setHgrow(spacer, Priority.ALWAYS);
 
 		Button minimizeButton = new Button("_");
-		minimizeButton.getStyleClass().add("floating-card-window-button");
-		minimizeButton.setFocusTraversable(false);
-		minimizeButton.setOnAction(event -> {
+		configureFloatingCardWindowButton(minimizeButton);
+		setFloatingCardWindowButtonAction(card, minimizeButton, () -> {
 			card.toFront();
 			minimizeFloatingCard(card);
-			event.consume();
 		});
 
 		Button maximizeButton = new Button("□");
-		maximizeButton.getStyleClass().add("floating-card-window-button");
-		maximizeButton.setFocusTraversable(false);
-		maximizeButton.setOnAction(event -> {
-			bringFloatingCardToFront(card);
-			event.consume();
-		});
+		configureFloatingCardWindowButton(maximizeButton);
+		setFloatingCardWindowButtonAction(card, maximizeButton, () -> bringFloatingCardToFront(card));
 
 		HBox header = new HBox(6, titleLabel, spacer, minimizeButton, maximizeButton);
 		header.getStyleClass().add("floating-card-title-bar");
 		header.setAlignment(Pos.CENTER_LEFT);
+		header.setFillHeight(false);
+		header.setPickOnBounds(true);
 		header.minWidthProperty().bind(card.widthProperty().subtract(34));
 		header.prefWidthProperty().bind(card.widthProperty().subtract(34));
 		header.maxWidthProperty().bind(card.widthProperty().subtract(34));
 		return header;
+	}
+
+	private static void configureFloatingCardWindowButton(Button button) {
+		button.getStyleClass().add("floating-card-window-button");
+		button.setFocusTraversable(false);
+		button.setPickOnBounds(false);
+		button.setMinSize(FLOATING_CARD_WINDOW_BUTTON_WIDTH, FLOATING_CARD_WINDOW_BUTTON_HEIGHT);
+		button.setPrefSize(FLOATING_CARD_WINDOW_BUTTON_WIDTH, FLOATING_CARD_WINDOW_BUTTON_HEIGHT);
+		button.setMaxSize(FLOATING_CARD_WINDOW_BUTTON_WIDTH, FLOATING_CARD_WINDOW_BUTTON_HEIGHT);
+	}
+
+	private void setupFloatingWindowButtonRouting() {
+		if (this.floatingWorkspace == null) {
+			return;
+		}
+		this.floatingWorkspace.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+			if (event.getButton() != MouseButton.PRIMARY) {
+				return;
+			}
+			Button button = findFloatingWindowButtonAt(event);
+			if (button != null) {
+				this.pressedFloatingWindowButton = button;
+				event.consume();
+			}
+		});
+		this.floatingWorkspace.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
+			if (this.pressedFloatingWindowButton == null) {
+				return;
+			}
+			Button pressedButton = this.pressedFloatingWindowButton;
+			this.pressedFloatingWindowButton = null;
+			if (event.getButton() == MouseButton.PRIMARY && pressedButton == findFloatingWindowButtonAt(event)) {
+				Runnable action = this.floatingWindowButtonActions.get(pressedButton);
+				if (action != null) {
+					action.run();
+				}
+			}
+			event.consume();
+		});
+	}
+
+	private Button findFloatingWindowButtonAt(MouseEvent event) {
+		Button topButton = null;
+		int topCardIndex = -1;
+		for (Button button : this.floatingWindowButtonActions.keySet()) {
+			TitledPane card = this.floatingWindowButtonCards.get(button);
+			if (card == null || !card.isVisible() || button.getScene() == null
+					|| !isInsideWindowButtonVisualBounds(button, event)) {
+				continue;
+			}
+			int cardIndex = this.floatingWorkspace.getChildren().indexOf(card);
+			if (cardIndex >= topCardIndex) {
+				topCardIndex = cardIndex;
+				topButton = button;
+			}
+		}
+		return topButton;
+	}
+
+	private void setFloatingCardWindowButtonAction(TitledPane card, Button button, Runnable action) {
+		this.floatingWindowButtonActions.put(button, action);
+		this.floatingWindowButtonCards.put(button, card);
+		button.setOnAction(null);
+		button.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+			if (event.getButton() == MouseButton.PRIMARY && isInsideWindowButtonVisualBounds(button, event)) {
+				this.pressedFloatingWindowButton = button;
+				event.consume();
+			}
+		});
+		button.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
+			if (this.pressedFloatingWindowButton == button) {
+				this.pressedFloatingWindowButton = null;
+				if (event.getButton() == MouseButton.PRIMARY && isInsideWindowButtonVisualBounds(button, event)) {
+					action.run();
+				}
+				event.consume();
+			}
+		});
+		button.addEventFilter(MouseEvent.MOUSE_EXITED, event -> {
+			if (this.pressedFloatingWindowButton == button) {
+				this.pressedFloatingWindowButton = null;
+			}
+		});
+	}
+
+	private static boolean isInsideWindowButtonVisualBounds(Button button, MouseEvent event) {
+		Point2D localPoint = button.screenToLocal(event.getScreenX(), event.getScreenY());
+		if (localPoint == null) {
+			return false;
+		}
+		double visualMinX = Math.max(0, (button.getWidth() - FLOATING_CARD_WINDOW_BUTTON_WIDTH) / 2.0);
+		double visualMinY = Math.max(0, (button.getHeight() - FLOATING_CARD_WINDOW_BUTTON_HEIGHT) / 2.0);
+		double visualMaxX = visualMinX + FLOATING_CARD_WINDOW_BUTTON_WIDTH;
+		double visualMaxY = visualMinY + FLOATING_CARD_WINDOW_BUTTON_HEIGHT;
+		return localPoint.getX() >= visualMinX && localPoint.getX() <= visualMaxX && localPoint.getY() >= visualMinY
+				&& localPoint.getY() <= visualMaxY;
 	}
 
 	private void addFloatingCardBehavior(TitledPane card) {
@@ -1100,15 +1360,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		card.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
+			if (!isInsideVisibleFloatingCardArea(card, event)) {
+				return;
+			}
 			if (event.getButton() == MouseButton.PRIMARY && !isButtonEventTarget(event.getTarget())
 					&& !isGeometrySceneEventTarget(event.getTarget())) {
-				if (isCardHeaderEvent(event)) {
+				if (isCardHeaderEvent(card, event)) {
 					card.toFront();
 				} else {
 					bringFloatingCardToFront(card);
 				}
 			}
-			if (!isCardHeaderEvent(event)) {
+			if (!isCardHeaderEvent(card, event)) {
 				return;
 			}
 			this.floatingMouseX = event.getSceneX();
@@ -1118,7 +1381,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			event.consume();
 		});
 		card.addEventFilter(MouseEvent.MOUSE_DRAGGED, event -> {
-			if (!isCardHeaderEvent(event)) {
+			if (!isInsideVisibleFloatingCardArea(card, event) || !isCardHeaderEvent(card, event)) {
 				return;
 			}
 			double nextX = this.floatingCardX + event.getSceneX() - this.floatingMouseX;
@@ -1128,12 +1391,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			event.consume();
 		});
 		card.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
-			if (isCardHeaderEvent(event)) {
+			if (isInsideVisibleFloatingCardArea(card, event) && isCardHeaderEvent(card, event)) {
 				event.consume();
 			}
 		});
 		card.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-			if (isCardHeaderEvent(event)) {
+			if (isInsideVisibleFloatingCardArea(card, event) && isCardHeaderEvent(card, event)) {
 				event.consume();
 			}
 		});
@@ -1144,6 +1407,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		clampFloatingCardToWorkspace(this.filtersCard);
 		clampFloatingCardToWorkspace(this.geometryCard);
 		clampFloatingCardToWorkspace(this.sparqlQueryCard);
+		clampFloatingCardToWorkspace(this.validateCard);
 	}
 
 	private void clampFloatingCardToWorkspace(TitledPane card) {
@@ -1163,9 +1427,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		card.setLayoutY(clamp(card.getLayoutY(), 0, maxY));
 	}
 
-	private boolean isCardHeaderEvent(MouseEvent event) {
+	private boolean isCardHeaderEvent(TitledPane card, MouseEvent event) {
 		return event.getButton() == MouseButton.PRIMARY && event.getY() <= FLOATING_CARD_HEADER_HEIGHT
-				&& !isButtonEventTarget(event.getTarget());
+				&& isInsideVisibleFloatingCardArea(card, event) && !isButtonEventTarget(event.getTarget());
+	}
+
+	private boolean isInsideVisibleFloatingCardArea(TitledPane card, MouseEvent event) {
+		Point2D localPoint = card.screenToLocal(event.getScreenX(), event.getScreenY());
+		if (localPoint == null) {
+			return false;
+		}
+		double visibleWidth = card.getWidth() > 0 ? card.getWidth() : card.getPrefWidth();
+		double visibleHeight = isFloatingCardMinimized(card) ? FLOATING_CARD_HEADER_HEIGHT
+				: Math.max(FLOATING_CARD_HEADER_HEIGHT, card.getHeight() > 0 ? card.getHeight() : card.getPrefHeight());
+		return localPoint.getX() >= 0 && localPoint.getX() <= visibleWidth && localPoint.getY() >= 0
+				&& localPoint.getY() <= visibleHeight;
 	}
 
 	private boolean isButtonEventTarget(Object target) {
@@ -1241,6 +1517,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setPickOnBounds(false);
 			renderGeometryScene();
 			return;
 		}
@@ -1258,6 +1535,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setPrefHeight(FLOATING_CARD_HEADER_HEIGHT);
 			card.setMaxHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setPickOnBounds(false);
 			renderGeometryScene();
 		});
 	}
@@ -1280,6 +1558,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			targetHeight = 320.0;
 		}
 		if (!animate) {
+			card.setPickOnBounds(true);
 			card.setMinHeight(Region.USE_COMPUTED_SIZE);
 			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
 			card.setPrefHeight(targetHeight);
@@ -1289,6 +1568,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 
 		card.setExpanded(true);
+		card.setPickOnBounds(true);
 		card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
 		card.setMaxHeight(Double.MAX_VALUE);
 		card.setPrefHeight(Math.max(FLOATING_CARD_HEADER_HEIGHT, card.getHeight()));
@@ -1326,6 +1606,181 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private static double clamp(double value, double min, double max) {
 		return Math.max(min, Math.min(max, value));
+	}
+
+	private void loadDefaultShapes() {
+		try {
+			File defaultShapes = resourceFile(DEFAULT_SHACL_RESOURCE);
+			LoadedShapes loaded = loadShapesFile(defaultShapes, DEFAULT_SHACL_RESOURCE);
+			this.loadedShapes.add(loaded);
+			this.shapeValidationItems.addAll(loaded.items());
+			if (this.validateStatusLabel != null) {
+				this.validateStatusLabel.setText("Loaded " + DEFAULT_SHACL_RESOURCE + ".");
+			}
+		} catch (Exception e) {
+			if (this.validateStatusLabel != null) {
+				this.validateStatusLabel.setText("Default SHACL load failed: " + e.getMessage());
+			}
+		}
+	}
+
+	private void loadShapesFileAsync(File shapeFile, String sourceName) {
+		if (this.loadShaclButton != null) {
+			this.loadShaclButton.setDisable(true);
+		}
+		if (this.validateStatusLabel != null) {
+			this.validateStatusLabel.setText("Loading " + sourceName + "...");
+		}
+		this.executor.submit(() -> {
+			try {
+				LoadedShapes loaded = loadShapesFile(shapeFile, sourceName);
+				Platform.runLater(() -> {
+					this.loadedShapes.add(loaded);
+					this.shapeValidationItems.addAll(loaded.items());
+					this.validateStatusLabel.setText("Loaded " + loaded.items().size() + " shapes from " + sourceName
+							+ ".");
+					this.shaclShapesList.refresh();
+					if (isValidationAvailable()) {
+						validateLoadedShapesAsync();
+					}
+				});
+			} catch (Exception e) {
+				Platform.runLater(() -> this.validateStatusLabel.setText("SHACL load failed: " + e.getMessage()));
+			} finally {
+				Platform.runLater(() -> this.loadShaclButton.setDisable(false));
+			}
+		});
+	}
+
+	private void removeShapeItem(ShapeValidationItem item) {
+		if (item == null) {
+			return;
+		}
+		for (LoadedShapes loaded : this.loadedShapes) {
+			loaded.items().remove(item);
+		}
+		this.loadedShapes.removeIf(loaded -> loaded.items().isEmpty());
+		this.shapeValidationItems.remove(item);
+		if (this.shaclShapesList != null) {
+			this.shaclShapesList.refresh();
+		}
+		if (this.validateStatusLabel != null) {
+			this.validateStatusLabel.setText("Removed " + item.displayName + ".");
+		}
+		if (isValidationAvailable() && !this.loadedShapes.isEmpty()) {
+			validateLoadedShapesAsync();
+		}
+	}
+
+	private LoadedShapes loadShapesFile(File shapeFile, String sourceName) {
+		Graph shapesGraph = RDFDataMgr.loadGraph(shapeFile.getAbsolutePath());
+		Shapes shapes = Shapes.parse(shapesGraph);
+		List<ShapeValidationItem> items = new ArrayList<>();
+		for (Shape shape : shapes.getTargetShapes()) {
+			items.add(new ShapeValidationItem(sourceName, formatShapeNode(shape.getShapeNode()), shape.getShapeNode(),
+					collectConstraintNodes(shape)));
+		}
+		if (items.isEmpty()) {
+			for (Shape shape : shapes) {
+				items.add(new ShapeValidationItem(sourceName, formatShapeNode(shape.getShapeNode()), shape.getShapeNode(),
+						collectConstraintNodes(shape)));
+			}
+		}
+		return new LoadedShapes(shapeFile, sourceName, shapes, items);
+	}
+
+	private void validateLoadedShapesAsync() {
+		if (!isValidationAvailable()) {
+			setValidationAvailable(false);
+			return;
+		}
+		List<LoadedShapes> shapesToValidate = new ArrayList<>(this.loadedShapes);
+		if (shapesToValidate.isEmpty()) {
+			this.validateStatusLabel.setText("Load SHACL shapes before validating.");
+			return;
+		}
+		this.validateStatusLabel.setText("Validating " + this.shapeValidationItems.size() + " shapes...");
+		this.executor.submit(() -> {
+			try {
+				Model dataModel = loadSparqlModel();
+				List<ShapeValidationItem> updated = new ArrayList<>();
+				for (LoadedShapes loaded : shapesToValidate) {
+					ValidationReport report = ShaclValidator.get().validate(loaded.shapes(), dataModel.getGraph());
+					applyValidationReport(loaded.items(), report);
+					updated.addAll(loaded.items());
+				}
+				long failureCount = updated.stream().filter(item -> Boolean.FALSE.equals(item.conforms)).count();
+				Platform.runLater(() -> {
+					this.shaclShapesList.refresh();
+					this.validateStatusLabel.setText("Validated " + updated.size() + " shapes against "
+							+ this.sparqlModelFile.getName() + ". Failed: " + failureCount + ".");
+				});
+			} catch (Exception e) {
+				Platform.runLater(() -> this.validateStatusLabel.setText("Validation failed: " + e.getMessage()));
+			}
+		});
+	}
+
+	private void applyValidationReport(List<ShapeValidationItem> items, ValidationReport report) {
+		for (ShapeValidationItem item : items) {
+			item.conforms = true;
+			item.message = "Validation passed.";
+		}
+		Set<org.apache.jena.graph.Node> matchedFailureSources = new HashSet<>();
+		for (ReportEntry entry : report.getEntries()) {
+			org.apache.jena.graph.Node source = entry.source();
+			for (ShapeValidationItem item : items) {
+				if (source != null && item.constraintNodes.contains(source)) {
+					item.conforms = false;
+					item.message = entry.message() == null || entry.message().isBlank() ? "Validation failed."
+							: entry.message();
+					matchedFailureSources.add(source);
+				}
+			}
+		}
+	}
+
+	private static Set<org.apache.jena.graph.Node> collectConstraintNodes(Shape shape) {
+		Set<org.apache.jena.graph.Node> nodes = new HashSet<>();
+		collectConstraintNodes(shape, nodes);
+		return nodes;
+	}
+
+	private static void collectConstraintNodes(Shape shape, Set<org.apache.jena.graph.Node> nodes) {
+		nodes.add(shape.getShapeNode());
+		for (Shape propertyShape : shape.getPropertyShapes()) {
+			collectConstraintNodes(propertyShape, nodes);
+		}
+	}
+
+	private static String formatShapeNode(org.apache.jena.graph.Node node) {
+		if (node == null) {
+			return "Unnamed shape";
+		}
+		if (node.isURI()) {
+			String localName = node.getLocalName();
+			return localName == null || localName.isBlank() ? node.getURI() : localName;
+		}
+		if (node.isBlank()) {
+			return "_:" + node.getBlankNodeLabel();
+		}
+		return node.toString();
+	}
+
+	private static File resourceFile(String resourceName) throws IOException, URISyntaxException {
+		URL resourceUrl = IFCtoLBDController.class.getClassLoader().getResource(resourceName);
+		if (resourceUrl == null) {
+			throw new IOException("Resource not found: " + resourceName);
+		}
+		if ("file".equals(resourceUrl.getProtocol())) {
+			return new File(resourceUrl.toURI());
+		}
+		File tempFile = File.createTempFile(resourceName.replaceAll("[^A-Za-z0-9._-]", "_"), ".ttl");
+		tempFile.deleteOnExit();
+		try (InputStream input = resourceUrl.openStream()) {
+			Files.copy(input, tempFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+		}
+		return tempFile;
 	}
 
 	private Model loadSparqlModel() {
@@ -1893,6 +2348,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.border.heightProperty().bind(this.root.heightProperty());
 		setupGeometryPreview();
 		setupSparqlQueryWindow();
+		setupValidateWindow();
 		setupFloatingCards();
 		setWorkflowDataAvailable(false, false, false);
 		// Accepts dropping
@@ -2177,6 +2633,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					if (queryAvailable) {
 						this.sparqlResultsTxt.setText("Ready. Run a SPARQL query against "
 								+ new File(successfulRequest.settings().rdfTargetName()).getName() + ".");
+						validateLoadedShapesAsync();
 					}
 				});
 			}

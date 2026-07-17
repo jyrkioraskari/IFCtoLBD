@@ -364,6 +364,7 @@
 
 .text-area,
 .tree-view,
+.list-view,
 .choice-box,
 .text-field {
     -fx-background-radius: 12px;
@@ -375,6 +376,7 @@
 
 .text-area:focused,
 .tree-view:focused,
+.list-view:focused,
 .choice-box:focused,
 .text-field:focused {
     -fx-border-color: #60a5fa;
@@ -392,6 +394,60 @@
 
 .tree-view {
     -fx-background-color: #ffffff;
+}
+
+.list-view {
+    -fx-background-color: #ffffff;
+}
+
+.list-cell {
+    -fx-padding: 8 10 8 10;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-text-fill: #293548;
+    -fx-font-size: 12px;
+}
+
+.list-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.list-cell.shape-valid {
+    -fx-background-color: #dcfce7;
+    -fx-border-color: #86efac;
+}
+
+.list-cell.shape-invalid {
+    -fx-background-color: #fee2e2;
+    -fx-border-color: #fca5a5;
+}
+
+.list-cell.shape-pending {
+    -fx-background-color: #f8fafc;
+    -fx-border-color: #d9e1ec;
+}
+
+.shape-remove-button {
+    -fx-min-width: 20px;
+    -fx-pref-width: 20px;
+    -fx-max-width: 20px;
+    -fx-min-height: 20px;
+    -fx-pref-height: 20px;
+    -fx-max-height: 20px;
+    -fx-padding: 0;
+    -fx-background-color: rgba(255, 255, 255, 0.72);
+    -fx-border-color: #cbd5e1;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-text-fill: #667085;
+    -fx-font-size: 11px;
+    -fx-font-weight: 800;
+}
+
+.shape-remove-button:hover {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f87171;
+    -fx-text-fill: #b91c1c;
 }
 
 .tree-cell {

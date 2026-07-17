@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -118,7 +119,7 @@
                                     <HBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                       <children>
                                         <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
-                                        <Button maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="validateWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
                                         <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
                                       </children>
                                     </HBox>
@@ -287,6 +288,28 @@
                             </HBox>
                             <Label styleClass="section-title" text="Results" />
                             <TextArea fx:id="sparqlResultsTxt" editable="false" prefHeight="210.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                          </children>
+                        </VBox>
+                      </content>
+                    </TitledPane>
+
+                    <TitledPane fx:id="validateCard" expanded="false" layoutX="14.0" layoutY="214.0" prefHeight="360.0" prefWidth="560.0" styleClass="floating-card" text="Validate">
+                      <content>
+                        <VBox spacing="9.0">
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+                                <Button fx:id="loadShaclButton" mnemonicParsing="false" onAction="#loadShaclShapes" styleClass="primary-button" text="Load SHACL" />
+                                <Label fx:id="validateStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="Loaded SHACL shapes are tested against the latest generated Turtle output." wrapText="true" HBox.hgrow="ALWAYS" />
+                              </children>
+                            </HBox>
+                            <Label styleClass="section-title" text="Shapes" />
+                            <ListView fx:id="shaclShapesList" prefHeight="225.0" prefWidth="540.0" VBox.vgrow="ALWAYS" />
+                            <HBox alignment="CENTER_RIGHT">
+                              <children>
+                                <Button mnemonicParsing="false" onAction="#restoreDefaultShaclShapes" styleClass="secondary-button" text="Restore defaults" />
+                              </children>
+                            </HBox>
                           </children>
                         </VBox>
                       </content>
