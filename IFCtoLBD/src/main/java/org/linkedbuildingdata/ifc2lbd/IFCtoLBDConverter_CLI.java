@@ -115,6 +115,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasSimpleProperties" }, arity = "0..1", fallbackValue = "true", description = "Simplified property predicates are used.")
 	private Optional<Boolean> hasSimpleProperties;
 
+	@Option(names = { "-asPropertySets", "--propertiesAsPropertySets" }, arity = "0..1", fallbackValue = "true", description = "Export properties as bSDD-typed property sets with OPM property states.")
+	private Optional<Boolean> propertiesAsPropertySets;
+
 	@Option(names = { "--selectedType" }, description = "Include the selected element type. May be repeated.")
 	private Set<String> selectedTypes = new HashSet<>();
 
@@ -236,6 +239,10 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.hasSimpleProperties.isPresent())
 			hasSimpleProperties = this.hasSimpleProperties.get();
 
+		boolean propertiesAsPropertySets = false;
+		if (this.propertiesAsPropertySets.isPresent())
+			propertiesAsPropertySets = this.propertiesAsPropertySets.get();
+
 		
 		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
 		//c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
@@ -255,6 +262,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				
 			converter.setHasNonLBDElement(hasIfc_based_elements);
 			converter.setHasSimplified_properties(hasSimpleProperties);
+			converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
 			converter.setSelected_types(this.selectedTypes);
 			if (!this.selectedPropertySets.isEmpty())
 				converter.setSelected_psets(this.selectedPropertySets);

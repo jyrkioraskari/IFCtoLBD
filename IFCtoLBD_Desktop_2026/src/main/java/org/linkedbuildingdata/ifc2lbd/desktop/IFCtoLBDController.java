@@ -330,6 +330,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ToggleSwitch hasSimpleProperties;
 
 	@FXML
+	private ToggleSwitch propertiesAsPropertySets;
+
+	@FXML
 	private ToggleSwitch ifc_based_elements;
 	
 	
@@ -353,7 +356,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
 			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
-			boolean hasSimpleProperties, boolean hasIfcBasedElements, boolean createTrig, boolean exportAsJsonLd) {
+			boolean hasSimpleProperties, boolean propertiesAsPropertySets, boolean hasIfcBasedElements,
+			boolean createTrig, boolean exportAsJsonLd) {
 	}
 
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
@@ -770,7 +774,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.hasPerformanceBoost.isSelected(), this.hasBoundingBox_WKT.isSelected(),
 				this.geometry_interfaces.isSelected(), this.hasElementWireframe.isSelected(), this.createUnits.isSelected(),
 				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
-				this.ifc_based_elements.isSelected(), this.createTrig.isSelected(), isJsonLdOutputSelected());
+				this.propertiesAsPropertySets.isSelected(), this.ifc_based_elements.isSelected(),
+				this.createTrig.isSelected(), isJsonLdOutputSelected());
 	}
 
 	private boolean hasReadInSettingsChanged(ConversionSettings previous, ConversionSettings current) {
@@ -804,6 +809,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				|| previousSettings.hasSeparatePropertiesModel() != currentSettings.hasSeparatePropertiesModel()
 				|| previousSettings.hasHierarchicalNaming() != currentSettings.hasHierarchicalNaming()
 				|| previousSettings.hasSimpleProperties() != currentSettings.hasSimpleProperties()
+				|| previousSettings.propertiesAsPropertySets() != currentSettings.propertiesAsPropertySets()
 				|| previousSettings.hasIfcBasedElements() != currentSettings.hasIfcBasedElements()
 				|| !Objects.equals(previous.selectedTypes(), current.selectedTypes())
 				|| !Objects.equals(previous.selectedPsets(), current.selectedPsets());
@@ -863,6 +869,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		addBooleanOption(arguments, "--hasUnits", settings.hasUnits());
 		addBooleanOption(arguments, "--hasHierarchicalNaming", settings.hasHierarchicalNaming());
 		addBooleanOption(arguments, "--hasSimpleProperties", settings.hasSimpleProperties());
+		addBooleanOption(arguments, "-asPropertySets", settings.propertiesAsPropertySets());
 		addBooleanOption(arguments, "--hasIfc_based_elements", settings.hasIfcBasedElements());
 		addBooleanOption(arguments, "--hasTriG", settings.createTrig());
 		addBooleanOption(arguments, "--JSON", settings.exportAsJsonLd());
@@ -912,6 +919,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("lbd_geolocation", settings.hasGeolocation());
 		this.prefs.putBoolean("lbd_hasHierarchicalNaming", settings.hasHierarchicalNaming());
 		this.prefs.putBoolean("lbd_hasSimpleProperties", settings.hasSimpleProperties());
+		this.prefs.putBoolean("lbd_propertiesAsPropertySets", settings.propertiesAsPropertySets());
 		this.prefs.putBoolean("ifc_based_elements", settings.hasIfcBasedElements());
 		this.prefs.putBoolean("createTrig", settings.createTrig());
 		this.prefs.putBoolean("export_as_jsonld", settings.exportAsJsonLd());
@@ -2383,6 +2391,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					}
 				converter.setTargetFile(currentSettings.rdfTargetName());
 				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
+				converter.setPropertiesAsPropertySets(currentSettings.propertiesAsPropertySets());
 				ConversionRequest conversionRequest = new ConversionRequest(currentSettings, selected_types, selected_psets);
 				this.pendingConversionRequest = conversionRequest;
 				if (!currentSettings.hasSeparateBuildingElementsModel()
@@ -2410,7 +2419,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasUnits(), currentSettings.hasPerformanceBoost(),
 					currentSettings.hasBoundingBoxWkt(), currentSettings.hasHierarchicalNaming(),
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
-					currentSettings.exportAsJsonLd(), currentSettings.hasElementWireframe()));
+					currentSettings.exportAsJsonLd(), currentSettings.hasElementWireframe(),
+					currentSettings.propertiesAsPropertySets()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
@@ -2521,6 +2531,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		
 		this.hasHierarchicalNaming.setSelected(this.prefs.getBoolean("lbd_hasHierarchicalNaming", false));
 		this.hasSimpleProperties.setSelected(this.prefs.getBoolean("lbd_hasSimpleProperties", false));
+		this.propertiesAsPropertySets.setSelected(this.prefs.getBoolean("lbd_propertiesAsPropertySets", false));
+		this.propertiesAsPropertySets.setTooltip(new Tooltip(
+				"Export bSDD-typed property-set resources containing OPM properties and current value states."));
 
 		this.ifc_based_elements.setSelected(this.prefs.getBoolean("ifc_based_elements", false));
 		this.createTrig.setSelected(this.prefs.getBoolean("createTrig", false));

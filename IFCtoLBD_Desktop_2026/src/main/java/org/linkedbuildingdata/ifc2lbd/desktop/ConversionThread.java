@@ -64,8 +64,9 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasElementWireframe;
     final boolean createTrig;
     final boolean export_as_JSON_LD;
+    final boolean propertiesAsPropertySets;
     
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean hasElementWireframe) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean hasElementWireframe, boolean propertiesAsPropertySets) {
 		super();
 		this.converter=converter;
 		this.selected_types=selected_types;
@@ -89,6 +90,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasElementWireframe=hasElementWireframe;
 		this.createTrig=createTrig;
 		this.export_as_JSON_LD=export_as_JSON_LD;
+		this.propertiesAsPropertySets=propertiesAsPropertySets;
 	}
 
 	@Override
@@ -98,6 +100,7 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_types(selected_types);
 				converter.setSelected_psets(selected_psets);
 				converter.setHasNonLBDElement(hasIfc_based_elements);
+				converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
 				converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 						hasGeolocation, hasGeometry || hasElementWireframe, exportIfcOWL, hasUnits, hasBoundingBoxWKT,

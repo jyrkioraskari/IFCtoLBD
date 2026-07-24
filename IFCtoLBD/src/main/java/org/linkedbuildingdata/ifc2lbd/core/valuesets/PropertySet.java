@@ -1,6 +1,10 @@
 	package org.linkedbuildingdata.ifc2lbd.core.valuesets;
 
 import java.nio.charset.StandardCharsets;
+import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
+import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
@@ -71,6 +76,7 @@ public class PropertySet {
 	private final int props_level;
 	private final boolean hasBlank_nodes;
 	private boolean hasSimplified_properties;
+	private boolean propertiesAsPropertySets;
 
 	private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameType = new HashMap<>();
@@ -101,6 +107,7 @@ public class PropertySet {
 			psetDef = iter.next().getSubject();
 		}
 		this.hasSimplified_properties = false;
+		this.propertiesAsPropertySets = false;
 		PropertySet.pset_counter++;
 		this.pset_inx = PropertySet.pset_counter;
 	}
@@ -196,6 +203,10 @@ public class PropertySet {
 
 		if (!this.isActive)
 			return;
+		if (this.propertiesAsPropertySets) {
+			writePropertySet(lbd_resource, long_guid);
+			return;
+		}
 		if (this.mapPnameValue.keySet().size() > 0)
 			switch (this.props_level) {
 			case 1:
@@ -233,6 +244,59 @@ public class PropertySet {
 	}
 
 	static private long state_resourse_counter = 0;
+
+	private void writePropertySet(Resource lbdResource, String longGuid) {
+		if (this.mapPnameValue.isEmpty())
+			return;
+
+		BSDD.addNameSpaces(this.lbd_model);
+		String psetId = stableId(longGuid + "\u0000" + this.propertyset_name);
+		Resource psetResource = this.lbd_model.createResource(this.uriBase + "cps_" + psetId);
+		lbdResource.addProperty(BSDD.hasPropertySet, psetResource);
+		if (!this.hashes.add(longGuid))
+			return;
+		psetResource.addProperty(RDF.type, BSDD.propertySet);
+		psetResource.addProperty(RDF.type, this.lbd_model.createResource(BSDD.class_ns + uriSegment(this.propertyset_name)));
+		psetResource.addProperty(RDFS.label, this.propertyset_name);
+
+		Instant generatedAt = Instant.now();
+		for (String pname : this.mapPnameValue.keySet()) {
+			String propertyId = stableId(longGuid + "\u0000" + this.propertyset_name + "\u0000" + pname);
+			Resource propertyResource = this.lbd_model.createResource(this.uriBase + "cp_" + propertyId);
+			Resource stateResource = this.lbd_model.createResource(this.uriBase + "cs_" + propertyId);
+
+			psetResource.addProperty(BSDD.containsProperty, propertyResource);
+			propertyResource.addProperty(RDF.type,
+					this.lbd_model.createResource(BSDD.property_ns + uriSegment(pname)));
+			propertyResource.addProperty(RDF.type, OPM.property);
+			propertyResource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
+			propertyResource.addProperty(OPM.hasPropertyState, stateResource);
+
+			stateResource.addProperty(RDF.type, OPM.currentPropertyState);
+			stateResource.addLiteral(OPM.generatedAtTime,
+					this.lbd_model.createTypedLiteral(generatedAt.toString(),
+							"http://www.w3.org/2001/XMLSchema#dateTime"));
+			stateResource.addProperty(OPM.value, this.mapPnameValue.get(pname));
+			if (this.hasUnits)
+				addUnit(stateResource, pname);
+		}
+	}
+
+	private static String stableId(String value) {
+		try {
+			byte[] digest = MessageDigest.getInstance("SHA-256").digest(value.getBytes(StandardCharsets.UTF_8));
+			StringBuilder id = new StringBuilder(16);
+			for (int i = 0; i < 8; i++)
+				id.append(String.format("%02x", digest[i]));
+			return id.toString();
+		} catch (NoSuchAlgorithmException e) {
+			throw new IllegalStateException("SHA-256 is unavailable", e);
+		}
+	}
+
+	private static String uriSegment(String value) {
+		return URLEncoder.encode(value, StandardCharsets.UTF_8).replace("+", "%20");
+	}
 
 	private List<PsetProperty> writeOPM_Set(String long_guid) {
 		List<PsetProperty> properties = new ArrayList<>();
@@ -400,6 +464,10 @@ public class PropertySet {
 
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
 		this.hasSimplified_properties = hasSimplified_properties;
+	}
+
+	public void setPropertiesAsPropertySets(boolean propertiesAsPropertySets) {
+		this.propertiesAsPropertySets = propertiesAsPropertySets;
 	}
 
 	public void resetConversionState() {

@@ -59,6 +59,7 @@ import org.linkedbuildingdata.ifc2lbd.core.valuesets.AttributeSet;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.geo.IfcOWL_GeolocationUtil;
 import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
+import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
@@ -141,6 +142,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	private boolean hasHierarchicalNaming_setting = false;
 	protected boolean hasSimplified_properties = false;
+	protected boolean propertiesAsPropertySets = false;
 
 	protected boolean hasNonLBDElement = true;
 
@@ -1111,6 +1113,10 @@ public abstract class IFCtoLBDConverterCore {
 		if (hasBuildingProperties) {
 			PROPS.addNameSpace(this.lbd_property_output_model);
 			PROPS.addNameSpace(this.lbd_general_output_model);
+			if (this.propertiesAsPropertySets) {
+				BSDD.addNameSpaces(this.lbd_property_output_model);
+				BSDD.addNameSpaces(this.lbd_general_output_model);
+			}
 
 			if (props_level != 1)
 				this.lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
@@ -1125,7 +1131,7 @@ public abstract class IFCtoLBDConverterCore {
 			model.setNsPrefix("rdf", RDF.uri);
 			model.setNsPrefix("rdfs", RDFS.uri);
 			model.setNsPrefix("owl", OWL.getURI());
-			model.setNsPrefix("xsd", "https://www.w3.org/2001/XMLSchema#");
+			model.setNsPrefix("xsd", "http://www.w3.org/2001/XMLSchema#");
 			model.setNsPrefix("inst", uriBase);
 			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
 			model.setNsPrefix("props", "http://lbd.arch.rwth-aachen.de/props#");
@@ -1907,6 +1913,16 @@ public abstract class IFCtoLBDConverterCore {
 
 		for (PropertySet pset : this.propertysets.values())
 			pset.setHasSimplified_properties(hasSimplified_properties);
+	}
+
+	public void setPropertiesAsPropertySets(boolean propertiesAsPropertySets) {
+		this.propertiesAsPropertySets = propertiesAsPropertySets;
+		if (propertiesAsPropertySets) {
+			BSDD.addNameSpaces(this.lbd_property_output_model);
+			BSDD.addNameSpaces(this.lbd_general_output_model);
+		}
+		for (PropertySet pset : this.propertysets.values())
+			pset.setPropertiesAsPropertySets(propertiesAsPropertySets);
 	}
 
 	public void setProperty_replace_map(Map<String, String> property_replace_map) {

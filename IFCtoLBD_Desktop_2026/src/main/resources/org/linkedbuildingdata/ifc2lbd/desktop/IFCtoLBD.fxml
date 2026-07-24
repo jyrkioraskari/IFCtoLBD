@@ -191,11 +191,12 @@
                                             <RadioButton fx:id="level3" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel3" text="3" toggleGroup="$PL" />
                                           </children>
                                         </HBox>
-                                        <ToggleSwitch fx:id="building_props_separate_file" maxWidth="Infinity" text="Separate property file" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                                        <ToggleSwitch fx:id="building_props_blank_nodes" maxWidth="Infinity" text="Blank nodes" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <ToggleSwitch fx:id="createUnits" maxWidth="Infinity" selected="true" text="Units" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                                        <ToggleSwitch fx:id="hasSimpleProperties" maxWidth="Infinity" text="Simple properties" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                        <HBox alignment="CENTER_LEFT" spacing="12.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3">
+                                        <ToggleSwitch fx:id="propertiesAsPropertySets" maxWidth="Infinity" text="Properties as property sets" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="1" />
+                                        <ToggleSwitch fx:id="building_props_separate_file" maxWidth="Infinity" text="Separate property file" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <ToggleSwitch fx:id="building_props_blank_nodes" maxWidth="Infinity" text="Blank nodes" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <ToggleSwitch fx:id="createUnits" maxWidth="Infinity" selected="true" text="Units" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <ToggleSwitch fx:id="hasSimpleProperties" maxWidth="Infinity" text="Simple properties" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <HBox alignment="CENTER_LEFT" spacing="12.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="4">
                                           <children>
                                             <Hyperlink fx:id="props_link" onAction="#hyperlink_towards_props" text="PROPS" />
                                             <Hyperlink fx:id="opm_link" onAction="#hyperlink_opm_handle" text="OPM" />
