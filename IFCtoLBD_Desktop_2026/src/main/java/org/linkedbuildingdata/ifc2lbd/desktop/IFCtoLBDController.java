@@ -120,6 +120,8 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
@@ -245,6 +247,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private Button queryWorkflowButton;
+
+	@FXML
+	private Button copyCommandLineButton;
 
 	@FXML
 	private TitledPane sparqlQueryCard;
@@ -818,6 +823,76 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			selectedPsets.add(item.getValue());
 		}
 		return selectedPsets;
+	}
+
+	private static String shellQuote(String value) {
+		if (System.getProperty("os.name", "").toLowerCase(Locale.ROOT).contains("win")) {
+			return "\"" + value.replace("\"", "\\\"") + "\"";
+		}
+		return "'" + value.replace("'", "'\"'\"'") + "'";
+	}
+
+	private static void addBooleanOption(List<String> arguments, String option, boolean enabled) {
+		if (enabled) {
+			arguments.add(option);
+		}
+	}
+
+	private String createCommandLine(ConversionSettings settings) {
+		List<String> arguments = new ArrayList<>();
+		arguments.add("IFCtoLBDConverter_CLI");
+		arguments.add(shellQuote(settings.ifcFileName()));
+		arguments.add("--target_file");
+		arguments.add(shellQuote(settings.rdfTargetName()));
+		arguments.add("--url");
+		arguments.add(shellQuote(settings.baseUri()));
+		arguments.add("--level");
+		arguments.add(Integer.toString(settings.propsLevel()));
+		addBooleanOption(arguments, "--hasBuildingElements", settings.hasBuildingElements());
+		addBooleanOption(arguments, "--hasSeparateBuildingElementsModel", settings.hasSeparateBuildingElementsModel());
+		addBooleanOption(arguments, "--hasBuildingElementProperties", settings.hasBuildingProperties());
+		addBooleanOption(arguments, "--hasSeparatePropertiesModel", settings.hasSeparatePropertiesModel());
+		addBooleanOption(arguments, "--hasBlankNodes", settings.hasPropertiesBlankNodes());
+		addBooleanOption(arguments, "--hasGeolocation", settings.hasGeolocation());
+		addBooleanOption(arguments, "--hasGeometry", settings.hasGeometry());
+		addBooleanOption(arguments, "--ifcOWL", settings.exportIfcOwl());
+		addBooleanOption(arguments, "--hasPerformanceBoost", settings.hasPerformanceBoost());
+		addBooleanOption(arguments, "--hasWKT", settings.hasBoundingBoxWkt());
+		addBooleanOption(arguments, "--hasInterfaces", settings.hasInterfaces());
+		addBooleanOption(arguments, "--hasWireframe", settings.hasElementWireframe());
+		addBooleanOption(arguments, "--hasUnits", settings.hasUnits());
+		addBooleanOption(arguments, "--hasHierarchicalNaming", settings.hasHierarchicalNaming());
+		addBooleanOption(arguments, "--hasSimpleProperties", settings.hasSimpleProperties());
+		addBooleanOption(arguments, "--hasIfc_based_elements", settings.hasIfcBasedElements());
+		addBooleanOption(arguments, "--hasTriG", settings.createTrig());
+		addBooleanOption(arguments, "--JSON", settings.exportAsJsonLd());
+		for (String type : selectedElementTypes().stream().sorted().toList()) {
+			arguments.add("--selectedType");
+			arguments.add(shellQuote(type));
+		}
+		for (String pset : selectedPropertySets().stream().sorted().toList()) {
+			arguments.add("--selectedPropertySet");
+			arguments.add(shellQuote(pset));
+		}
+		return String.join(" ", arguments);
+	}
+
+	@FXML
+	private void copyCommandLine() {
+		ConversionSettings settings = currentSettings();
+		if (settings.ifcFileName() == null || settings.rdfTargetName() == null) {
+			this.conversionTxt.appendText("Select IFC and target files before copying the command line.\n");
+			return;
+		}
+		String commandLine = createCommandLine(settings);
+		ClipboardContent content = new ClipboardContent();
+		content.putString(commandLine);
+		Clipboard.getSystemClipboard().setContent(content);
+		this.conversionTxt.appendText("Command line copied to the clipboard.\n");
+	}
+
+	private void setupCommandLinePreview() {
+		this.copyCommandLineButton.setTooltip(new Tooltip("The command line command to the clipboard"));
 	}
 
 	private void persistSettings(ConversionSettings settings) {
@@ -2346,6 +2421,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.eventBus.register(this);
 		this.border.widthProperty().bind(this.root.widthProperty());
 		this.border.heightProperty().bind(this.root.heightProperty());
+		setupCommandLinePreview();
 		setupGeometryPreview();
 		setupSparqlQueryWindow();
 		setupValidateWindow();

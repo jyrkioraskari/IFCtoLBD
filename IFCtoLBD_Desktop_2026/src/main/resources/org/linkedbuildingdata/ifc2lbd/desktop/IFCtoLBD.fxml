@@ -123,6 +123,7 @@
                                         <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
                                       </children>
                                     </HBox>
+                                    <Button fx:id="copyCommandLineButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#copyCommandLine" styleClass="workflow-button" text="7  Copy command line" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                                   </children>
                                 </GridPane>
                               </content>

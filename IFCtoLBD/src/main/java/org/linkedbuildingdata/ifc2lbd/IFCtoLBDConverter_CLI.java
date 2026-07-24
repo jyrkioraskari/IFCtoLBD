@@ -63,65 +63,74 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	private Optional<Integer> props_level;
 
 	@Option(names = { "-be",
-			"--hasBuildingElements" }, description = "The Building Elements will be created in the output.")
+			"--hasBuildingElements" }, arity = "0..1", fallbackValue = "true", description = "The Building Elements will be created in the output.")
 	private Optional<Boolean> hasBuildingElements;
 
 	@Option(names = {
-			"--hasSeparateBuildingElementsModel" }, description = "The Building elements will have a separate file.")
+			"--hasSeparateBuildingElementsModel" }, arity = "0..1", fallbackValue = "true", description = "The Building elements will have a separate file.")
 	private Optional<Boolean> hasSeparateBuildingElementsModel;
 
 	@Option(names = { "-p",
-			"--hasBuildingElementProperties" }, description = "The properties will ne added into the output.")
+			"--hasBuildingElementProperties" }, arity = "0..1", fallbackValue = "true", description = "The properties will ne added into the output.")
 	private Optional<Boolean> hasBuildingProperties;
 
 	@Option(names = {
-			"--hasSeparatePropertiesModel" }, description = "The properties will be written in a separate file.")
+			"--hasSeparatePropertiesModel" }, arity = "0..1", fallbackValue = "true", description = "The properties will be written in a separate file.")
 	private Optional<Boolean> hasSeparatePropertiesModel;
 
-	@Option(names = { "-b", "--hasBlankNodes" }, description = "Blank nodes are used.")
+	@Option(names = { "-b", "--hasBlankNodes" }, arity = "0..1", fallbackValue = "true", description = "Blank nodes are used.")
 	private Optional<Boolean> hasPropertiesBlankNodes;
 
-	@Option(names = { "--hasGeolocation" }, description = "Geolocation, i.e., the latitude and longitude are added.")
+	@Option(names = { "--hasGeolocation" }, arity = "0..1", fallbackValue = "true", description = "Geolocation, i.e., the latitude and longitude are added.")
 	private Optional<Boolean> hasGeolocation;
 
-	@Option(names = { "--hasGeometry" }, description = "The bounding boxes are generated for elements.")
+	@Option(names = { "--hasGeometry" }, arity = "0..1", fallbackValue = "true", description = "The bounding boxes are generated for elements.")
 	private Optional<Boolean> hasGeometry;
 
-	@Option(names = { "--hasWKT" }, description = "The bounding boxes are generated as WKT.")
+	@Option(names = { "--hasWKT" }, arity = "0..1", fallbackValue = "true", description = "The bounding boxes are generated as WKT.")
 	private Optional<Boolean> hasBoundingBoxWKT;
 
 	@Option(names = { "-hasWireframe",
 			"--hasWireframe" }, arity = "0..1", fallbackValue = "true", description = "Export simple mesh wireframes as lbd:hasWireframe WKT literals.")
 	private Optional<Boolean> hasWireframe;
 	
-	@Option(names = { "--ifcOWL" }, description = "An ifcOWL  model is created and linked.")
+	@Option(names = { "--ifcOWL" }, arity = "0..1", fallbackValue = "true", description = "An ifcOWL  model is created and linked.")
 	private Optional<Boolean> exportIfcOWL;
 
 	
-	@Option(names = { "--hasIfc_based_elements" }, description = "An IFC  based elements.")
+	@Option(names = { "--hasIfc_based_elements" }, arity = "0..1", fallbackValue = "true", description = "An IFC  based elements.")
 	private Optional<Boolean> hasIfc_based_elements;
 	
 	
 	@Option(names = {
-			"--hasTriG" }, description = "TriG is a serialization format for RDF (Resource Description Framework) graphs. It is a plain text format for serializing named graphs")
+			"--hasTriG" }, arity = "0..1", fallbackValue = "true", description = "TriG is a serialization format for RDF (Resource Description Framework) graphs. It is a plain text format for serializing named graphs")
 	private Optional<Boolean> namedGraphs;
 
-	@Option(names = { "--hasUnits" }, description = "Data units are added.")
+	@Option(names = { "--hasUnits" }, arity = "0..1", fallbackValue = "true", description = "Data units are added.")
 	private Optional<Boolean> hasUnits;
 
-	@Option(names = { "--hasHierarchicalNaming" }, description = "HierarchicalNaming is used.")
+	@Option(names = { "--hasHierarchicalNaming" }, arity = "0..1", fallbackValue = "true", description = "HierarchicalNaming is used.")
 	private Optional<Boolean> hasHierarchicalNaming;
 
+	@Option(names = { "--hasSimpleProperties" }, arity = "0..1", fallbackValue = "true", description = "Simplified property predicates are used.")
+	private Optional<Boolean> hasSimpleProperties;
+
+	@Option(names = { "--selectedType" }, description = "Include the selected element type. May be repeated.")
+	private Set<String> selectedTypes = new HashSet<>();
+
+	@Option(names = { "--selectedPropertySet" }, description = "Include the selected property set. May be repeated.")
+	private Set<String> selectedPropertySets = new HashSet<>();
+
 	
-	@Option(names = { "--hasPerformanceBoost" }, description = "PerformanceBoost is used.")
+	@Option(names = { "--hasPerformanceBoost" }, arity = "0..1", fallbackValue = "true", description = "PerformanceBoost is used.")
 	private Optional<Boolean> hasPerformanceBoost;
 
-	@Option(names = { "--hasInterfaces" }, description = "Export BoundinBox style BOT interfaces.")
+	@Option(names = { "--hasInterfaces" }, arity = "0..1", fallbackValue = "true", description = "Export BoundinBox style BOT interfaces.")
 	private Optional<Boolean> hasInterfaces;
 
 
 	
-	@Option(names = { "--JSON" }, description = "Export as JSON-LD.")
+	@Option(names = { "--JSON" }, arity = "0..1", fallbackValue = "true", description = "Export as JSON-LD.")
 	private Optional<Boolean> exportJSON;
 
 	
@@ -206,9 +215,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (this.hasPerformanceBoost.isPresent())
 			hasPerformanceBoost = this.hasPerformanceBoost.get();
 
-		//boolean namedGraphs = false;
-		//if (this.namedGraphs.isPresent())
-		//	namedGraphs = this.namedGraphs.get();
+		boolean namedGraphs = false;
+		if (this.namedGraphs.isPresent())
+			namedGraphs = this.namedGraphs.get();
 
 		boolean hasUnits = false;
 		if (this.hasUnits.isPresent())
@@ -222,6 +231,10 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		boolean exportJSON = false;
 		if (this.exportJSON.isPresent())
 			exportJSON = this.exportJSON.get();
+
+		boolean hasSimpleProperties = false;
+		if (this.hasSimpleProperties.isPresent())
+			hasSimpleProperties = this.hasSimpleProperties.get();
 
 		
 		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
@@ -240,13 +253,16 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				return 1;
 			}
 				
-			//TODO: Does not work
-			//converter.setHasNonLBDElement(hasIfc_based_elements);
+			converter.setHasNonLBDElement(hasIfc_based_elements);
+			converter.setHasSimplified_properties(hasSimpleProperties);
+			converter.setSelected_types(this.selectedTypes);
+			if (!this.selectedPropertySets.isEmpty())
+				converter.setSelected_psets(this.selectedPropertySets);
 			
 			converter.convert_LBD_phase(hasBuildingElements,
 					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,
-					hasInterfaces, false, exportJSON, hasWireframe);
+					hasInterfaces, namedGraphs, exportJSON, hasWireframe);
 
 		}
 		return null;
