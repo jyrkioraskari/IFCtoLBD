@@ -76,12 +76,20 @@
 		<log4j2.api.version>3.0.0-beta2</log4j2.api.version>
 		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
-		<slf4j.version>2.1.0-alpha1</slf4j.version>
+		<slf4j.version>2.0.17</slf4j.version>
 		<picocli.version>4.7.7</picocli.version>
 		<junit.version>5.14.3</junit.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- Keep every SLF4J module on one release, including transitive bridges. -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-bom</artifactId>
+				<version>${slf4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>

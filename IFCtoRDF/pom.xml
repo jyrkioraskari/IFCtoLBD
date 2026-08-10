@@ -320,6 +320,7 @@
 		<junit.version>4.13.2</junit.version>
 		<jena.version>6.0.0</jena.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
+		<slf4j.version>2.0.17</slf4j.version>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.10.1</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -343,6 +344,18 @@
 		<skipTests>false</skipTests>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<!-- Keep every SLF4J module on one release in target/lib. -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-bom</artifactId>
+				<version>${slf4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.apache.jena</groupId>

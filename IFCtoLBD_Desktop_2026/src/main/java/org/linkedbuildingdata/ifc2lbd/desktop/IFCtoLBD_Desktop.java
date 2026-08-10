@@ -18,6 +18,8 @@
 
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
+import java.net.URL;
+
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 
@@ -32,17 +34,28 @@ import javafx.stage.StageStyle;
 
 
 public class IFCtoLBD_Desktop extends Application {
+    private static final String RESOURCE_ROOT = "/org/linkedbuildingdata/ifc2lbd/desktop/";
     private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
     private IFCtoLBDController controller;
     
     @Override
     public void start(Stage stage) throws Exception {
         stage.initStyle(StageStyle.DECORATED);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("IFCtoLBD.fxml"));
+        URL fxml = IFCtoLBD_Desktop.class.getResource(RESOURCE_ROOT + "IFCtoLBD.fxml");
+        if (fxml == null) {
+            throw new IllegalStateException("Missing application resource " + RESOURCE_ROOT
+                    + "IFCtoLBD.fxml. Ensure src/main/resources is included in the runnable JAR.");
+        }
+        FXMLLoader loader = new FXMLLoader(fxml);
         Parent root = loader.load();
         this.controller = loader.getController();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
+        URL stylesheet = IFCtoLBD_Desktop.class.getResource(RESOURCE_ROOT + "app.css");
+        if (stylesheet == null) {
+            throw new IllegalStateException("Missing application resource " + RESOURCE_ROOT
+                    + "app.css. Ensure src/main/resources is included in the runnable JAR.");
+        }
+        scene.getStylesheets().add(stylesheet.toExternalForm());
         stage.setScene(scene);
         stage.setTitle("IFCtoLBD Desktop");
         stage.setResizable(true);

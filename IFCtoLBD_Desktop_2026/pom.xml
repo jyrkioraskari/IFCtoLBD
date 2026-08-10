@@ -35,9 +35,29 @@
 		<javafx.version>21.0.10</javafx.version>
 		<javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
 		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
+		<commons-lang3.version>3.20.0</commons-lang3.version>
+		<slf4j.version>2.0.17</slf4j.version>
 		<ifc2lbd.desktop.mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</ifc2lbd.desktop.mainClass>
 	</properties>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-bom</artifactId>
+				<version>${slf4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
+		<!-- Jena 6 uses the org.apache.commons.lang3.Strings API. Declaring the
+		     compatible version here prevents older transitive versions from winning. -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>${commons-lang3.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.controlsfx</groupId>
 			<artifactId>controlsfx</artifactId>
@@ -96,9 +116,15 @@
 			<artifactId>parsson</artifactId>
 			<version>1.1.3</version>
 		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-simple</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 	</dependencies>
 	<build>
+		<finalName>IFCtoLBD-Desktop_Java_21</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -108,6 +134,8 @@
 					<archive>
 						<manifest>
 							<mainClass>${ifc2lbd.desktop.mainClass}</mainClass>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>${project.build.finalName}_lib/</classpathPrefix>
 						</manifest>
 					</archive>
 				</configuration>
@@ -119,6 +147,25 @@
 				<configuration>
 					<mainClass>${ifc2lbd.desktop.mainClass}</mainClass>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.9.0</version>
+				<executions>
+					<execution>
+						<id>copy-runtime-dependencies</id>
+						<phase>package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<includeScope>runtime</includeScope>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}_lib</outputDirectory>
+							<excludeTransitive>false</excludeTransitive>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
