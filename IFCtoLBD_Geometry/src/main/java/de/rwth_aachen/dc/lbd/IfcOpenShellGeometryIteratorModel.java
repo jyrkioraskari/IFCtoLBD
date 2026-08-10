@@ -1,6 +1,9 @@
 package de.rwth_aachen.dc.lbd;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.EOFException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +14,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -23,16 +25,17 @@ import java.util.concurrent.TimeoutException;
 
 import javax.vecmath.Point3d;
 
-import org.apache.commons.lang3.tuple.ImmutableTriple;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 class IfcOpenShellGeometryIteratorModel {
 
-	private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 	private static final String SCRIPT_RESOURCE = "/python/ifcopenshell_geometry_iterator.py";
 	private static final int TIMEOUT_MINUTES = Integer.getInteger("ifctolbd.ifcopenshell.timeoutMinutes", 12);
+	private static final int PROTOCOL_MAGIC = 0x49464347; // IFCG
+	private static final int PROTOCOL_VERSION = 1;
+	private static final int RECORD_MAGIC = 0x47454F4D; // GEOM
+	private static final int MAX_GUID_BYTES = 4096;
+	private static final int MAX_MATERIAL_NAME_BYTES = 1_048_576;
+	private static final int MAX_ARRAY_VALUES = 300_000_000;
+	private static final int MAX_MATERIALS = 1_000_000;
 
 	private final Map<String, GeometryData> geometryByGuid = new HashMap<>();
 
@@ -50,10 +53,7 @@ class IfcOpenShellGeometryIteratorModel {
 		if (geometry == null || geometry.bbox == null) {
 			return null;
 		}
-		BoundingBox boundingBox = new BoundingBox();
-		boundingBox.add(new Point3d(geometry.bbox[0], geometry.bbox[1], geometry.bbox[2]));
-		boundingBox.add(new Point3d(geometry.bbox[3], geometry.bbox[4], geometry.bbox[5]));
-		return boundingBox;
+		return geometry.getBoundingBox();
 	}
 
 	ObjDescription getOBJ(String guid) {
@@ -61,14 +61,7 @@ class IfcOpenShellGeometryIteratorModel {
 		if (geometry == null || geometry.vertices.length == 0 || geometry.faces.length == 0) {
 			return null;
 		}
-		ObjDescription obj = new ObjDescription();
-		for (int i = 0; i + 2 < geometry.vertices.length; i += 3) {
-			obj.addVertex(new Point3d(geometry.vertices[i], geometry.vertices[i + 1], geometry.vertices[i + 2]));
-		}
-		for (int i = 0; i + 2 < geometry.faces.length; i += 3) {
-			obj.addFace(new ImmutableTriple<>(geometry.faces[i] + 1, geometry.faces[i + 1] + 1, geometry.faces[i + 2] + 1));
-		}
-		return obj;
+		return geometry.getOBJ();
 	}
 
 	String getWireframeWKT(String guid) {
@@ -76,7 +69,7 @@ class IfcOpenShellGeometryIteratorModel {
 		if (geometry == null || geometry.vertices.length == 0 || geometry.faces.length == 0) {
 			return null;
 		}
-		return WireframeWKT.fromMesh(geometry.vertices, geometry.faces, false);
+		return geometry.getWireframeWKT();
 	}
 
 	MTLDescription getMTL(String guid) {
@@ -84,13 +77,7 @@ class IfcOpenShellGeometryIteratorModel {
 		if (geometry == null || geometry.materials.length == 0) {
 			return null;
 		}
-		MTLDescription mtl = new MTLDescription();
-		for (MaterialData material : geometry.materials) {
-			double[] specular = new double[] { 0.0, 0.0, 0.0 };
-			mtl.addMaterial(new MTLDescription.MTLMaterial(material.name, material.diffuse, material.diffuse, specular,
-					material.alpha));
-		}
-		return mtl;
+		return geometry.getMTL();
 	}
 
 	private static Path copyScriptToTempFile() throws IOException {
@@ -109,6 +96,7 @@ class IfcOpenShellGeometryIteratorModel {
 		List<String> failures = new ArrayList<>();
 		for (List<String> candidate : candidates) {
 			try {
+				this.geometryByGuid.clear();
 				runIteratorWithCommand(candidate, script, ifcFile);
 				return;
 			} catch (IOException e) {
@@ -125,19 +113,30 @@ class IfcOpenShellGeometryIteratorModel {
 		command.add(script.toString());
 		command.add(ifcFile.getAbsolutePath());
 		ProcessBuilder processBuilder = new ProcessBuilder(command);
-		processBuilder.redirectErrorStream(true);
 		Process process = processBuilder.start();
 
-		ExecutorService outputReader = Executors.newSingleThreadExecutor();
-		Future<String> diagnosticsFuture = outputReader.submit(() -> readOutput(process));
+		ExecutorService outputReaders = Executors.newFixedThreadPool(2);
+		Future<Integer> geometryFuture = outputReaders.submit(() -> readGeometryOutput(process));
+		Future<String> diagnosticsFuture = outputReaders.submit(() -> readDiagnosticsOutput(process));
 
 		boolean finished = process.waitFor(TIMEOUT_MINUTES, TimeUnit.MINUTES);
 		if (!finished) {
 			process.destroyForcibly();
-			outputReader.shutdownNow();
+			outputReaders.shutdownNow();
 			throw new IOException("IfcOpenShell geometry iterator timed out after " + TIMEOUT_MINUTES + " minutes");
 		}
-		String diagnostics = readDiagnostics(diagnosticsFuture, outputReader);
+		String diagnostics = getFuture(diagnosticsFuture, "diagnostics");
+		try {
+			getFuture(geometryFuture, "geometry");
+		} catch (IOException e) {
+			if (process.exitValue() != 0) {
+				throw new IOException("IfcOpenShell geometry iterator failed with exit code " + process.exitValue()
+						+ diagnosticsMessage(diagnostics), e);
+			}
+			throw e;
+		} finally {
+			outputReaders.shutdownNow();
+		}
 		if (process.exitValue() != 0) {
 			throw new IOException("IfcOpenShell geometry iterator failed with exit code " + process.exitValue()
 					+ diagnosticsMessage(diagnostics));
@@ -173,16 +172,14 @@ class IfcOpenShellGeometryIteratorModel {
 		return Arrays.asList(parts);
 	}
 
-	private String readOutput(Process process) throws IOException {
+	private String readDiagnosticsOutput(Process process) throws IOException {
 		StringBuilder diagnostics = new StringBuilder();
 		try (BufferedReader reader = new BufferedReader(
-				new InputStreamReader(process.getInputStream(), StandardCharsets.UTF_8))) {
+				new InputStreamReader(process.getErrorStream(), StandardCharsets.UTF_8))) {
 			String line;
 			while ((line = reader.readLine()) != null) {
 				String trimmed = line.trim();
-				if (trimmed.startsWith("{")) {
-					readGeometry(trimmed);
-				} else if (!trimmed.isEmpty()) {
+				if (!trimmed.isEmpty()) {
 					diagnostics.append(trimmed).append(System.lineSeparator());
 				}
 			}
@@ -190,70 +187,95 @@ class IfcOpenShellGeometryIteratorModel {
 		return diagnostics.toString();
 	}
 
-	private static String readDiagnostics(Future<String> diagnosticsFuture, ExecutorService outputReader)
-			throws IOException, InterruptedException {
+	private static <T> T getFuture(Future<T> future, String streamName) throws IOException, InterruptedException {
 		try {
-			return diagnosticsFuture.get(5, TimeUnit.SECONDS);
+			return future.get(5, TimeUnit.SECONDS);
 		} catch (ExecutionException e) {
-			throw new IOException("Unable to read IfcOpenShell geometry iterator output", e.getCause());
+			throw new IOException("Unable to read IfcOpenShell " + streamName + " output", e.getCause());
 		} catch (TimeoutException e) {
-			throw new IOException("Timed out reading IfcOpenShell geometry iterator output", e);
-		} finally {
-			outputReader.shutdownNow();
+			throw new IOException("Timed out reading IfcOpenShell " + streamName + " output", e);
 		}
 	}
 
-	private void readGeometry(String jsonLine) throws IOException {
-		JsonNode root = OBJECT_MAPPER.readTree(jsonLine);
-		String guid = root.path("guid").asText(null);
-		if (guid == null || guid.isBlank()) {
-			return;
-		}
-		double[] bbox = readDoubleArray(root.path("bbox"));
-		if (bbox.length != 6) {
-			bbox = null;
-		}
-		this.geometryByGuid.put(guid, new GeometryData(bbox, readDoubleArray(root.path("vertices")),
-				readIntArray(root.path("faces")), readMaterials(root.path("materials"))));
-	}
-
-	private static MaterialData[] readMaterials(JsonNode materialsNode) {
-		if (!materialsNode.isArray()) {
-			return new MaterialData[0];
-		}
-		MaterialData[] materials = new MaterialData[materialsNode.size()];
-		int index = 0;
-		for (Iterator<JsonNode> it = materialsNode.elements(); it.hasNext();) {
-			JsonNode materialNode = it.next();
-			double[] diffuse = readDoubleArray(materialNode.path("diffuse"));
-			if (diffuse.length < 3) {
-				diffuse = new double[] { 0.8, 0.8, 0.8 };
+	private int readGeometryOutput(Process process) throws IOException {
+		try (DataInputStream input = new DataInputStream(new BufferedInputStream(process.getInputStream()))) {
+			int magic = input.readInt();
+			if (magic != PROTOCOL_MAGIC) {
+				throw new IOException("Invalid geometry protocol magic 0x" + Integer.toHexString(magic));
 			}
-			materials[index] = new MaterialData(materialNode.path("name").asText("material_" + index),
-					new double[] { diffuse[0], diffuse[1], diffuse[2] }, materialNode.path("alpha").asDouble(1.0));
-			index++;
+			int version = input.readInt();
+			if (version != PROTOCOL_VERSION) {
+				throw new IOException("Unsupported geometry protocol version " + version);
+			}
+			int records = 0;
+			while (true) {
+				int recordMagic;
+				try {
+					recordMagic = input.readInt();
+				} catch (EOFException e) {
+					return records;
+				}
+				if (recordMagic != RECORD_MAGIC) {
+					throw new IOException("Invalid geometry record magic 0x" + Integer.toHexString(recordMagic));
+				}
+				readGeometryRecord(input);
+				records++;
+			}
 		}
-		return materials;
 	}
 
-	private static double[] readDoubleArray(JsonNode node) {
-		if (!node.isArray()) {
-			return new double[0];
+	private void readGeometryRecord(DataInputStream input) throws IOException {
+		String guid = readString(input, MAX_GUID_BYTES, "GUID");
+		double[] bbox = null;
+		int hasBoundingBox = input.readUnsignedByte();
+		if (hasBoundingBox == 1) {
+			bbox = readDoubleArray(input, 6, "bounding box");
+		} else if (hasBoundingBox != 0) {
+			throw new IOException("Invalid bounding-box flag " + hasBoundingBox + " for " + guid);
 		}
-		double[] values = new double[node.size()];
-		for (int i = 0; i < node.size(); i++) {
-			values[i] = node.get(i).asDouble();
+		double[] vertices = readDoubleArray(input, readCount(input, MAX_ARRAY_VALUES, "vertex values"), "vertices");
+		int[] faces = readIntArray(input, readCount(input, MAX_ARRAY_VALUES, "face indices"));
+		int materialCount = readCount(input, MAX_MATERIALS, "materials");
+		MaterialData[] materials = new MaterialData[materialCount];
+		for (int i = 0; i < materialCount; i++) {
+			String name = readString(input, MAX_MATERIAL_NAME_BYTES, "material name");
+			double[] diffuse = readDoubleArray(input, 3, "material diffuse color");
+			materials[i] = new MaterialData(name, diffuse, input.readDouble());
+		}
+		if (!guid.isBlank()) {
+			this.geometryByGuid.put(guid, new GeometryData(bbox, vertices, faces, materials));
+		}
+	}
+
+	private static int readCount(DataInputStream input, int maximum, String field) throws IOException {
+		int count = input.readInt();
+		if (count < 0 || count > maximum) {
+			throw new IOException("Invalid " + field + " count " + count);
+		}
+		return count;
+	}
+
+	private static String readString(DataInputStream input, int maximumBytes, String field) throws IOException {
+		int length = readCount(input, maximumBytes, field + " bytes");
+		byte[] bytes = input.readNBytes(length);
+		if (bytes.length != length) {
+			throw new EOFException("Incomplete " + field);
+		}
+		return new String(bytes, StandardCharsets.UTF_8);
+	}
+
+	private static double[] readDoubleArray(DataInputStream input, int count, String field) throws IOException {
+		double[] values = new double[count];
+		for (int i = 0; i < count; i++) {
+			values[i] = input.readDouble();
 		}
 		return values;
 	}
 
-	private static int[] readIntArray(JsonNode node) {
-		if (!node.isArray()) {
-			return new int[0];
-		}
-		int[] values = new int[node.size()];
-		for (int i = 0; i < node.size(); i++) {
-			values[i] = node.get(i).asInt();
+	private static int[] readIntArray(DataInputStream input, int count) throws IOException {
+		int[] values = new int[count];
+		for (int i = 0; i < count; i++) {
+			values[i] = input.readInt();
 		}
 		return values;
 	}
@@ -270,12 +292,67 @@ class IfcOpenShellGeometryIteratorModel {
 		private final double[] vertices;
 		private final int[] faces;
 		private final MaterialData[] materials;
+		private BoundingBox boundingBox;
+		private ObjDescription obj;
+		private MTLDescription mtl;
+		private String wireframeWKT;
+		private boolean boundingBoxComputed;
+		private boolean objComputed;
+		private boolean mtlComputed;
+		private boolean wireframeComputed;
 
 		private GeometryData(double[] bbox, double[] vertices, int[] faces, MaterialData[] materials) {
 			this.bbox = bbox;
 			this.vertices = vertices;
 			this.faces = faces;
 			this.materials = materials;
+		}
+
+		private synchronized BoundingBox getBoundingBox() {
+			if (!this.boundingBoxComputed) {
+				this.boundingBoxComputed = true;
+				if (this.bbox != null) {
+					this.boundingBox = new BoundingBox();
+					this.boundingBox.add(new Point3d(this.bbox[0], this.bbox[1], this.bbox[2]));
+					this.boundingBox.add(new Point3d(this.bbox[3], this.bbox[4], this.bbox[5]));
+				}
+			}
+			return this.boundingBox;
+		}
+
+		private synchronized ObjDescription getOBJ() {
+			if (!this.objComputed) {
+				this.objComputed = true;
+				if (this.vertices.length > 0 && this.faces.length > 0) {
+					this.obj = ObjDescription.fromMesh(this.vertices, this.faces, false);
+				}
+			}
+			return this.obj;
+		}
+
+		private synchronized MTLDescription getMTL() {
+			if (!this.mtlComputed) {
+				this.mtlComputed = true;
+				if (this.materials.length > 0) {
+					this.mtl = new MTLDescription();
+					for (MaterialData material : this.materials) {
+						double[] specular = new double[] { 0.0, 0.0, 0.0 };
+						this.mtl.addMaterial(new MTLDescription.MTLMaterial(material.name, material.diffuse,
+								material.diffuse, specular, material.alpha));
+					}
+				}
+			}
+			return this.mtl;
+		}
+
+		private synchronized String getWireframeWKT() {
+			if (!this.wireframeComputed) {
+				this.wireframeComputed = true;
+				if (this.vertices.length > 0 && this.faces.length > 0) {
+					this.wireframeWKT = WireframeWKT.fromMesh(this.vertices, this.faces, false);
+				}
+			}
+			return this.wireframeWKT;
 		}
 	}
 

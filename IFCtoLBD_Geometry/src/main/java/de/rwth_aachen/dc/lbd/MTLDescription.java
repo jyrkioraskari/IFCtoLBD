@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.nio.charset.StandardCharsets;
 
 /*
  *  Copyright (c) 2026 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -24,9 +25,13 @@ import java.util.Locale;
 public class MTLDescription {
 
 	private final List<MTLMaterial> materials = new ArrayList<>();
+	private String serialized;
+	private String encoded;
 
 	public void addMaterial(MTLMaterial material) {
 		this.materials.add(material);
+		this.serialized = null;
+		this.encoded = null;
 	}
 
 	public List<MTLMaterial> getMaterials() {
@@ -34,16 +39,23 @@ public class MTLDescription {
 	}
 
 	public String toMTLString() {
+		if (this.serialized != null) {
+			return this.serialized;
+		}
 		StringBuilder sb = new StringBuilder();
 		for (MTLMaterial material : this.materials) {
 			sb.append(material.toMTLString()).append("\n");
 		}
-		return sb.toString();
+		this.serialized = sb.toString();
+		return this.serialized;
 	}
 
 	@Override
 	public String toString() {
-		return Base64.getEncoder().encodeToString(toMTLString().getBytes());
+		if (this.encoded == null) {
+			this.encoded = Base64.getEncoder().encodeToString(toMTLString().getBytes(StandardCharsets.UTF_8));
+		}
+		return this.encoded;
 	}
 
 	public static class MTLMaterial {
