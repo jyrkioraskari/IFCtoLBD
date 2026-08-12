@@ -173,7 +173,18 @@ public class RDFWriter {
 	void parseModel2Stream(OutputStream out)  {
 		// N-Triples is intentionally used for the ifcOWL intermediate file.
 		// It is a Turtle subset and avoids Turtle block formatting/order work for large IFC models.
-		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.NTRIPLES_UTF8, Context.emptyContext());
+		parseModel(StreamRDFWriter.getWriterStream(out, RDFFormat.NTRIPLES_UTF8, Context.emptyContext()));
+	}
+
+	/**
+	 * Parses the IFC model and sends the generated triples directly to a Jena
+	 * stream. This avoids serializing and parsing an intermediate RDF file when
+	 * the consumer is another Jena graph.
+	 *
+	 * @param destination destination for the generated ifcOWL triples
+	 */
+	public void parseModel(StreamRDF destination) {
+		ttlWriter = destination;
 		ttlWriter.base(baseURI);
 		ttlWriter.prefix("ifc", ontNS);
 		ttlWriter.prefix("inst", baseURI);

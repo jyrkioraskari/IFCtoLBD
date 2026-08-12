@@ -39,6 +39,7 @@ import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.riot.system.StreamRDFLib;
 import org.apache.jena.tdb2.TDB2Factory;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
@@ -297,13 +298,13 @@ public abstract class IFCtoLBDConverterCore {
 						this.lbd_dataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
 					}
 
-					if (this.createTrig) {
-						System.out.println("Create Trigs model");
-						RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
+						if (this.createTrig) {
+							System.out.println("Create Trigs model");
+							RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
+							this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
+									"Done. Linked Building Data graphs file is: " + target_trig));
+						}
 					}
-					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
-							"Done. Linked Building Data graphs file is: " + target_trig));
-				}
 				this.eventBus
 						.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data file is: " + target_file));
 			}
@@ -1515,7 +1516,7 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			this.hasPerformanceBoost = hasPerformanceBoost;
 			IFCtoRDF rj = new IFCtoRDF();
-			File outputFile;
+				File outputFile = null;
 			boolean loadedExistingIfcOWL = false;
 
 			if (!isTmpFile && targetFile == null) {
@@ -1523,10 +1524,7 @@ public abstract class IFCtoLBDConverterCore {
 				String name = new File(ifc_file).getName();
 				targetFile = new File(tmpdir, name).getAbsolutePath();
 			}
-			if (isTmpFile || targetFile == null) {
-				outputFile = File.createTempFile("ifc", ".ttl");
-				outputFile.deleteOnExit();
-			} else {
+				if (!isTmpFile) {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
@@ -1575,25 +1573,22 @@ public abstract class IFCtoLBDConverterCore {
 
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF conversion"));
 
-					if (hasPerformanceBoost) {
-						File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
-						this.ontURI = rj.convert_into_rdf(pruned_file_.getAbsolutePath(), outputFile.getAbsolutePath(),
-								uriBase, hasPerformanceBoost);
-					} else {
-						this.ontURI = rj.convert_into_rdf(ifc_file, outputFile.getAbsolutePath(), uriBase,
-								hasPerformanceBoost);
-					}
-					if (this.ontURI.isEmpty())
-						throw new IllegalStateException("IFCtoRDF conversion failed; ontology URI is missing.");
+						String conversionInput = ifc_file;
+						if (hasPerformanceBoost) {
+							File pruned_file_ = IfcOWLUtils.filterIFC(new File(ifc_file));
+							conversionInput = pruned_file_.getAbsolutePath();
+						}
+						this.ontURI = rj.convert_into_rdf(conversionInput,
+								StreamRDFLib.graph(m.getGraph()), uriBase, hasPerformanceBoost);
+						if (this.ontURI.isEmpty())
+							throw new IllegalStateException("IFCtoRDF conversion failed; ontology URI is missing.");
 
-					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready: reading in the model."));
-
-					// TODO This does not work wit Apache Jena 5.1
-					// (org.apache.jena.riot.RiotException: Out of place: [DOT])
-					// File t2 = IfcOWLUtils.characterCoding(outputFile); // UTF-8 characters
-					File t2 = null;
-					System.out.println(Objects.requireNonNullElse(t2, outputFile).getAbsolutePath());
-					RDFDataMgr.read(m, Objects.requireNonNullElse(t2, outputFile).getAbsolutePath(), Lang.TTL);
+						this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOWL ready in the model."));
+						if (!isTmpFile) {
+							try (java.io.OutputStream out = Files.newOutputStream(outputFile.toPath())) {
+								RDFDataMgr.write(out, m, RDFFormat.NTRIPLES_UTF8);
+							}
+						}
 
 					dataset.commit(); // commit changes
 					committed = true;

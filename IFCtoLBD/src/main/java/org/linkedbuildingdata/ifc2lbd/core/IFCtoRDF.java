@@ -12,6 +12,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.system.StreamRDF;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.slf4j.Logger;
@@ -63,6 +64,30 @@ public class IFCtoRDF extends IfcSpfReader {
             System.setErr(orgSystemError);
         }
         return Optional.of(this.ontURI);
+    }
+
+    /** Converts IFC directly into a Jena triple stream. */
+    public Optional<String> convert_into_rdf(String ifcFile, StreamRDF destination, String baseURI,
+            boolean hasPerformanceBoost) {
+        this.counter = 0;
+        Timer timer = new Timer();
+        try {
+            registerLocalOntologyImports();
+            timer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    eventBus.post(new IFCtoLBD_SystemStatusEvent("IFCtoRDF running  " + counter++));
+                }
+            }, 1000, 1000);
+            setup(ifcFile);
+            convert(ifcFile, destination, baseURI, hasPerformanceBoost);
+            return Optional.of(this.ontURI);
+        } catch (Exception e) {
+            LOG.error("Error during direct IFC to RDF conversion", e);
+            return Optional.empty();
+        } finally {
+            timer.cancel();
+        }
     }
 
     private static void registerLocalOntologyImports() {

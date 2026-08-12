@@ -42,6 +42,7 @@ import java.util.Set;
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.riot.system.StreamRDF;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -337,6 +338,31 @@ public class IfcSpfReader {
                 LOG.info("Started parsing stream");
                 conv.parseModel2Stream(bout);
                 LOG.info("Finished!!");
+        }
+    }
+
+    /**
+     * Converts an IFC file directly into a Jena triple stream, without an
+     * intermediate RDF serialization.
+     */
+    public void convert(String ifcFile, StreamRDF destination, String baseURI,
+            boolean hasPerformanceBoost) throws IOException {
+        OntModel om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
+
+        try (InputStream inSchema = getResourceStream("/" + this.exp + ".ttl", "/resources/" + this.exp + ".ttl")) {
+            om.read(inSchema, null, "TTL");
+        }
+        try (InputStream inList = getResourceStream("/list.ttl", "/resources/list.ttl")) {
+            om.read(inList, null, "TTL");
+        }
+        try (InputStream inExpress = getResourceStream("/express.ttl", "/resources/express.ttl");
+             InputStream input = new FileInputStream(ifcFile)) {
+            om.read(inExpress, null, "TTL");
+            RDFWriter conv = new RDFWriter(om, input, baseURI, this.ent, this.typ, this.ontURI,
+                    hasPerformanceBoost);
+            LOG.info("Started parsing directly into RDF stream");
+            conv.parseModel(destination);
+            LOG.info("Finished!!");
         }
     }
 
