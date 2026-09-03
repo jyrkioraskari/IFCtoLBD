@@ -64,6 +64,12 @@ Example stdio configuration:
 
 ## Tools
 
+- `load_ifc`: converts once and returns a reusable model ID, IFC checksum, schema, converter version, and conversion profile. Identical checksum/version/profile requests reuse the loaded model.
+- `describe_model`, `get_entity`, `list_classes`, and `list_properties`: inspect a loaded model without reconversion.
+- `query_model`: runs a parsed, row-limited SPARQL `SELECT` query against a loaded model. Federated `SERVICE` clauses are rejected.
+- `validate_model`: applies one or more versioned SHACL packs and retains the standard RDF validation report without changing the model.
+- `explain_validation`: returns the report's focus nodes, paths, values, severities, source shapes, and messages in structured form. It does not repair data.
+- `close_model`: releases the model, converter, TDB2 session, and geometry resources.
 - `convert_ifc_to_lbd`: converts an IFC file to RDF. It returns serialized RDF inline, or writes it to `outputPath`.
 - `summarize_ifc_lbd`: converts an IFC file and returns triple count, subject count, and sample subjects.
 - `query_ifc_lbd`: converts an IFC file and runs a SPARQL `SELECT` query against the in-memory Jena model.
@@ -72,3 +78,11 @@ Example stdio configuration:
 - `ifctolbd_runtime_info`: returns runtime paths and Java bridge settings.
 
 All tools accept `ifcPath`; when omitted, the sample `IFCtoLBD/src/main/resources/Duplex_A.ifc` is used.
+
+## Security and resource limits
+
+Input files are restricted to the repository root by default. Output files are restricted to `IFCtoLBD_MCP/demo/output`. Configure narrower or additional roots with the platform-separated `IFCTOLBD_MCP_READ_ROOTS` and `IFCTOLBD_MCP_WRITE_ROOTS` environment variables. `IFCTOLBD_MCP_MAX_MODELS` controls the number of simultaneously loaded models (default: 8).
+
+SPARQL is parsed by Jena and limited to `SELECT`; `SERVICE` is disabled, queries are capped at 100,000 characters, results at 1,000 rows, and a 10-second timeout is applied when supported by the bundled Jena API. Prefer the domain-specific inspection tools for agent workflows.
+
+The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `digital-twin-sensors`, `fire-accessibility`, `supply-chain-identifiers`, and `sustainability-declarations`, currently at version 1.0.0. Reports are available as `ifctolbd://models/{modelId}/validation/{reportId}` resources.

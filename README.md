@@ -1,12 +1,40 @@
 # IFCtoLBD
 
-Version 2.50.0
+Version 2.51.0
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
 
 Full documentation can be found
 [here](https://jyrkioraskari.github.io/IFCtoLBD/#/).
+
+## Building from source
+
+Install JDK 21 and Maven, then run Maven from the repository root. The build
+compiles IFCtoRDF, IFCtoLBD_Geometry, IFCtoLBD, IFCProps2ExcelOnline, and
+IFCtoLBD_Desktop_2026 in dependency order, so the modules do not need to be
+installed separately.
+
+To compile and install all five artifacts into the local Maven repository:
+
+```sh
+mvn install
+```
+
+To verify all five modules without installing the artifacts:
+
+```sh
+mvn verify
+```
+
+The default build runs the fast unit tests. Use the integration profile for
+converter and SHACL tests, or the full profile for every test including slow
+property-based tests:
+
+```sh
+mvn verify -Pintegration
+mvn verify -Pfull
+```
 
 
 <img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="800">
@@ -35,11 +63,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.50.0}},
+  title        = {{IFCtoLBD v 2.51.0}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.50.0},
+  version      = {2.51.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
@@ -298,3 +326,9 @@ There, you can disable the option for discovering missing project natures and ma
    The research was partly funded by the EU through the H2020 project BIM4REN.
 
    https://dc.rwth-aachen.de/de/forschung/bim4ren
+
+## Supply-chain and sustainability profiles
+
+The structured conversion API can emit normalized classification, product identity, GS1 and EPD
+resources with provenance and QUDT units. See
+[the supply-chain and sustainability guide](docs/supply-chain-and-sustainability.md).

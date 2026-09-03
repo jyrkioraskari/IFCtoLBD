@@ -9,6 +9,11 @@ import org.apache.jena.query.ReadWrite;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.tdb2.TDB2Factory;
 
+/**
+ * @deprecated Converter staging is now owned by {@code ConversionSession}.
+ *             This class remains temporarily for source compatibility only.
+ */
+@Deprecated(forRemoval = true)
 public class TemporalDatasetSingleton {
 
 	private static  Path tempDir;

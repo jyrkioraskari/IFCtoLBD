@@ -172,11 +172,29 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	 */
 	public IFCtoLBDConverter(String uriBase, Integer... props_level) {
 		super();
-		if (props_level.length > 0)
-			this.props_level = props_level[0];
+		configure(uriBase, true, props_level);
+	}
+
+	/**
+	 * Creates a converter backed by an explicitly managed conversion session.
+	 */
+	public IFCtoLBDConverter(ConversionSession session, String uriBase, Integer... props_level) {
+		super(session);
+		configure(uriBase, true, props_level);
+	}
+
+	public IFCtoLBDConverter(ConversionSession session, String uriBase, boolean hasPropertiesBlankNodes,
+			Integer... props_level) {
+		super(session);
+		configure(uriBase, hasPropertiesBlankNodes, props_level);
+	}
+
+	private void configure(String uriBase, boolean propertiesBlankNodes, Integer... propsLevel) {
+		if (propsLevel.length > 0)
+			this.props_level = propsLevel[0];
 		else
 			this.props_level = 1;
-		this.hasPropertiesBlankNodes = true;
+		this.hasPropertiesBlankNodes = propertiesBlankNodes;
 
 		String uri = uriBase;
 		if (!uri.endsWith("#") && !uri.endsWith("/"))
@@ -266,6 +284,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	 * @return The model as a Jena-model
 	 */
 	public Model convert(String ifc_filename, ConversionProperties props) {
+		Objects.requireNonNull(props, "props");
+		UriPolicy uriPolicy = props.hasStableIdentity()
+				? new StableGuidUriPolicy(ConversionManifest.sha256(java.nio.file.Path.of(ifc_filename)).substring(0, 16))
+				: conversionSession.getUriPolicy();
+		setUriPolicy(uriPolicy);
+		setHasSimplified_properties(props.getPropertyMode() == ConversionProperties.PropertyMode.SIMPLE);
+		setPropertiesAsPropertySets(props.getPropertyMode() == ConversionProperties.PropertyMode.OPM);
+		setGeometryArtifactsEnabled(props.hasGeometryArtifacts());
 
 		boolean hasBuildingElements = props.isHasBuildingElements();
 		boolean hasSeparateBuildingElementsModel = props.isHasSeparateBuildingElementsModel();
@@ -291,6 +317,38 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasPerformanceBoost,
 				hasBoundingBoxWKT, hasHierarchicalNaming, hasInterfaces, hasWireframe);
 		return this.lbd_general_output_model;
+	}
+
+	/** Convert using a named, immutable module profile. */
+	public Model convert(String ifcFilename, ConversionProfile profile) {
+		return convert(ifcFilename, Objects.requireNonNull(profile, "profile").toConversionProperties());
+	}
+
+	/**
+	 * Converts a request and returns an output snapshot independent of this
+	 * converter's mutable models.
+	 */
+	public ConversionResult convert(ConversionRequest request) {
+		Objects.requireNonNull(request, "request");
+		this.target_file = request.getTargetFile().orElse(null);
+		Model model = convert(request.getIfcFilename(), request.getProperties());
+		if (model == null) {
+			throw new IllegalStateException("IFC conversion failed for " + request.getIfcFilename());
+		}
+		var stagingDataset = getStagingDataset();
+		stagingDataset.begin(org.apache.jena.query.ReadWrite.READ);
+		try {
+			SupplyChainStage.enrich(stagingDataset.getDefaultModel(), this.ifcOWL, this.lbd_general_output_model,
+					this.lbdResourceByIfcResource, request.getClassificationResolver());
+		} finally {
+			stagingDataset.end();
+		}
+		ValidationStage.Result validation = ValidationStage.validate(request, this.lbd_general_output_model,
+				this.lbd_product_output_model, this.lbd_property_output_model);
+		Model manifest = ConversionManifest.create(request, conversionSession.now(), validation, getUriPolicy(),
+				conversionSession.getGeometryProvider(), getGeometryArtifacts());
+		return ConversionResult.copyOf(this.lbd_general_output_model, this.lbd_product_output_model,
+				this.lbd_property_output_model, manifest, validation.report());
 	}
 
 	/**
@@ -459,9 +517,9 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		}
 		this.readInPhaseReusable = false;
 
-		CompletableFuture<IFCGeometry> future_ifc_geometry = null;
+		CompletableFuture<GeometryResult> future_ifc_geometry = null;
 		if (hasGeometry)
-			future_ifc_geometry = getgeom(ifc_filename);
+			future_ifc_geometry = loadGeometry(ifc_filename);
 
 		if (hasPerformanceBoost)
 			readAndConvertIFC2ifcOWL(ifc_filename, uriBase.get(), false, target_file,
@@ -637,10 +695,14 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	}
 
 	public CompletableFuture<IFCGeometry> getgeom(String ifc_filename) {
-		CompletableFuture<IFCGeometry> completableFuture = new CompletableFuture<>();
+		return loadGeometry(ifc_filename).thenApply(GeometryResult::unwrap);
+	}
+
+	private CompletableFuture<GeometryResult> loadGeometry(String ifc_filename) {
+		CompletableFuture<GeometryResult> completableFuture = new CompletableFuture<>();
 
 		Executors.newCachedThreadPool().submit(() -> {
-			IFCGeometry ifc_geometry = null;
+			GeometryResult ifc_geometry = GeometryResult.unavailable();
 			try {
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("ifcOpenShell for the geometry"));
 				Timer timer = new Timer();
@@ -654,7 +716,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 					}
 				}, 1000, 1000); // delay in milliseconds before the message is to be send, and how often
 
-				ifc_geometry = new IFCGeometry(new File(ifc_filename));
+				ifc_geometry = conversionSession.getGeometryProvider().load(java.nio.file.Path.of(ifc_filename));
 				timer.cancel();
 			} catch (Exception e) {
 				this.eventBus.post(new IFCtoLBD_SystemErrorEvent(this.getClass().getSimpleName(),
@@ -801,6 +863,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		this.has_geometry.clear();
 		if (this.ifc_geometry != null)
 			this.ifc_geometry.close();
+		closeOwnedConversionSession();
 	}
 
 }

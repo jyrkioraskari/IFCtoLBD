@@ -79,6 +79,7 @@ public class PropertySet {
 	private boolean propertiesAsPropertySets;
 
 	private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
+	private final Map<String, String> originalPropertyNames = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameType = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameUnit = new HashMap<>();
 	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
@@ -113,12 +114,13 @@ public class PropertySet {
 	}
 
 	public void putPnameValue(String property_name, RDFNode value) {
-
+		String normalizedName = StringOperations.toCamelCase(property_name);
+		originalPropertyNames.put(normalizedName, property_name);
 		if (value.isLiteral()) {
 			Literal literal_value = createLiteralPreservingMetadata(value.asLiteral());
-			mapPnameValue.put(StringOperations.toCamelCase(property_name), literal_value);
+			mapPnameValue.put(normalizedName, literal_value);
 		} else
-			mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
+			mapPnameValue.put(normalizedName, value);
 	}
 
 	private Literal createLiteralPreservingMetadata(Literal original) {
@@ -261,13 +263,14 @@ public class PropertySet {
 
 		Instant generatedAt = Instant.now();
 		for (String pname : this.mapPnameValue.keySet()) {
+			String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
 			String propertyId = stableId(longGuid + "\u0000" + this.propertyset_name + "\u0000" + pname);
 			Resource propertyResource = this.lbd_model.createResource(this.uriBase + "cp_" + propertyId);
 			Resource stateResource = this.lbd_model.createResource(this.uriBase + "cs_" + propertyId);
 
 			psetResource.addProperty(BSDD.containsProperty, propertyResource);
 			propertyResource.addProperty(RDF.type,
-					this.lbd_model.createResource(BSDD.property_ns + uriSegment(pname)));
+					this.lbd_model.createResource(BSDD.property_ns + uriSegment(originalPname)));
 			propertyResource.addProperty(RDF.type, OPM.property);
 			propertyResource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
 			propertyResource.addProperty(OPM.hasPropertyState, stateResource);

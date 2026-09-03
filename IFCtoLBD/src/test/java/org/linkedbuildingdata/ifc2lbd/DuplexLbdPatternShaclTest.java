@@ -20,8 +20,10 @@ import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("shacl")
 public class DuplexLbdPatternShaclTest {
 	private static final String BASE_URI = "https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
 	private static final String CORE_SHAPES = "SHACL_duplex_lbd_patterns_core.ttl";

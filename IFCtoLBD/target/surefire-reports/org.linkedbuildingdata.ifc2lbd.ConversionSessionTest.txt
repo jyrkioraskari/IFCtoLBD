@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: org.linkedbuildingdata.ifc2lbd.ConversionSessionTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.071 s -- in org.linkedbuildingdata.ifc2lbd.ConversionSessionTest

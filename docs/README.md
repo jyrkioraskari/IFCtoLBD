@@ -1,5 +1,5 @@
 # IFCtoLBD
-Version 2.49.0  
+Version 2.51.0  
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group ([W3C LBD‑CG](https://github.com/w3c-lbd-cg/)).
@@ -402,4 +402,3 @@ Messages such as `The element has no geometry` can be normal for IFC spatial obj
 The research was partly funded by the EU through the H2020 project BIM4REN.
 
 <https://dc.rwth-aachen.de/de/forschung/bim4ren>
-

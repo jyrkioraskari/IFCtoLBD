@@ -1,6 +1,12 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 public class ConversionProperties {
+	public enum PropertyMode {
+		DEFAULT,
+		SIMPLE,
+		OPM
+	}
+
 	private boolean hasBuildingElements = true;
 	private boolean hasSeparateBuildingElementsModel = false;
 	private boolean hasBuildingProperties = true;
@@ -15,6 +21,9 @@ public class ConversionProperties {
 	private boolean hasNonLBDElement=true;
 	private boolean hasInterfaces=false;
 	private boolean hasWireframe=false;
+	private PropertyMode propertyMode = PropertyMode.DEFAULT;
+	private boolean stableIdentity;
+	private boolean geometryArtifacts;
 	
 	public ConversionProperties() {
 		
@@ -146,6 +155,19 @@ public class ConversionProperties {
 	public void setHasWireframe(boolean hasWireframe) {
 		this.hasWireframe = hasWireframe;
 	}
+
+	public PropertyMode getPropertyMode() {
+		return propertyMode;
+	}
+
+	public void setPropertyMode(PropertyMode propertyMode) {
+		this.propertyMode = java.util.Objects.requireNonNull(propertyMode, "propertyMode");
+	}
+
+	public boolean hasStableIdentity() { return stableIdentity; }
+	public void setStableIdentity(boolean stableIdentity) { this.stableIdentity = stableIdentity; }
+	public boolean hasGeometryArtifacts() { return geometryArtifacts; }
+	public void setGeometryArtifacts(boolean geometryArtifacts) { this.geometryArtifacts = geometryArtifacts; }
 	
 	
 }

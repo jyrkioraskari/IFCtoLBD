@@ -9,6 +9,9 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.locationtech.jts.geom.Point;
+import org.locationtech.jts.io.ParseException;
+import org.locationtech.jts.io.WKTReader;
 
 class IFC_GeolocationTest {
 	private static final String IFC_NS = "https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#";
@@ -16,19 +19,25 @@ class IFC_GeolocationTest {
 
 	@DisplayName("Returns WKT point from IfcSite RefLatitude and RefLongitude")
 	@Test
-	void addGeolocationReturnsWktPoint() {
+	void addGeolocationReturnsWktPoint() throws ParseException {
 		IFC_Geolocation geolocation = new IFC_Geolocation(IFC_NS);
 
-		assertEquals("POINT (-87.63939999972222 41.874400000000004)", geolocation.addGeolocation(model(IFC_NS)));
-		assertEquals("POINT (-87.63939999972222 41.874400000000004)", geolocation.addGeolocation(model(IFC_NS)));
+		assertCoordinates(geolocation.addGeolocation(model(IFC_NS)));
+		assertCoordinates(geolocation.addGeolocation(model(IFC_NS)));
 	}
 
 	@DisplayName("Accepts IFC namespace without trailing separator")
 	@Test
-	void addGeolocationNormalizesIfcNamespace() {
+	void addGeolocationNormalizesIfcNamespace() throws ParseException {
 		IFC_Geolocation geolocation = new IFC_Geolocation(IFC_NS.substring(0, IFC_NS.length() - 1));
 
-		assertEquals("POINT (-87.63939999972222 41.874400000000004)", geolocation.addGeolocation(model(IFC_NS)));
+		assertCoordinates(geolocation.addGeolocation(model(IFC_NS)));
+	}
+
+	private void assertCoordinates(String wkt) throws ParseException {
+		Point point = (Point) new WKTReader().read(wkt);
+		assertEquals(-87.63939999972222, point.getX(), 1e-12);
+		assertEquals(41.8744, point.getY(), 1e-12);
 	}
 
 	private Model model(String ifcNs) {

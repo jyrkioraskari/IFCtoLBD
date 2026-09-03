@@ -6,7 +6,6 @@ import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.HashMap;
@@ -40,13 +39,19 @@ import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.riot.system.StreamRDFLib;
-import org.apache.jena.tdb2.TDB2Factory;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 import org.bimserver.plugins.renderengine.RenderEngineException;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
+import org.linkedbuildingdata.ifc2lbd.ConversionSession;
+import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
+import org.linkedbuildingdata.ifc2lbd.GeometryResult;
+import org.linkedbuildingdata.ifc2lbd.GeometryArtifact;
+import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemExtractor;
+import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemInfo;
+import org.linkedbuildingdata.ifc2lbd.UriPolicy;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -113,6 +118,7 @@ public abstract class IFCtoLBDConverterCore {
 	// public Model ifcowl_model;
 	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
+	protected final Map<Resource, Resource> lbdResourceByIfcResource = new HashMap<>();
 	protected Optional<String> uriBase = Optional.empty();
 
 	public Optional<String> ontURI = Optional.empty();
@@ -128,7 +134,8 @@ public abstract class IFCtoLBDConverterCore {
 	protected Model lbd_product_output_model;
 	protected Model lbd_property_output_model;
 
-	protected IFCGeometry ifc_geometry = null;
+	protected GeometryResult ifc_geometry = null;
+	private IfcCoordinateReferenceSystemInfo coordinateReferenceSystem = IfcCoordinateReferenceSystemInfo.engineering();
 
 	protected final Set<Resource> has_geometry = new HashSet<>();
 
@@ -155,9 +162,65 @@ public abstract class IFCtoLBDConverterCore {
 
 	protected boolean createTrig = false;
 	protected boolean hasPerformanceBoost = false;
+	protected final ConversionSession conversionSession;
+	private UriPolicy uriPolicy;
+	private final boolean ownsConversionSession;
 
 	public IFCtoLBDConverterCore() {
+		this(new ConversionSession(), true);
+	}
+
+	protected IFCtoLBDConverterCore(ConversionSession conversionSession) {
+		this(conversionSession, false);
+	}
+
+	private IFCtoLBDConverterCore(ConversionSession conversionSession, boolean ownsConversionSession) {
+		this.conversionSession = Objects.requireNonNull(conversionSession, "conversionSession");
+		this.uriPolicy = conversionSession.getUriPolicy();
+		this.ownsConversionSession = ownsConversionSession;
 		this.eventBus.register(this);
+	}
+
+	protected final void setUriPolicy(UriPolicy uriPolicy) {
+		this.uriPolicy = Objects.requireNonNull(uriPolicy, "uriPolicy");
+	}
+
+	protected final UriPolicy getUriPolicy() {
+		return uriPolicy;
+	}
+
+	private Resource createLbdResource(Resource source, Model output, String productType) {
+		Resource created;
+		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
+			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL,
+					uriBase.get(), exportIfcOWL_setting);
+		} else {
+			created = uriPolicy.createResource(source, output, productType, ifcOWL, uriBase.get(), exportIfcOWL_setting);
+		}
+		lbdResourceByIfcResource.put(source, created);
+		return created;
+	}
+
+	private Resource createLbdResource(Resource source, Model output, String productType, Resource parent) {
+		Resource created;
+		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
+			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL, parent,
+					exportIfcOWL_setting);
+		} else {
+			created = uriPolicy.createResource(source, output, productType, ifcOWL, uriBase.get(), exportIfcOWL_setting);
+		}
+		lbdResourceByIfcResource.put(source, created);
+		return created;
+	}
+
+	protected final Dataset getStagingDataset() {
+		return this.conversionSession.getDataset();
+	}
+
+	protected final void closeOwnedConversionSession() {
+		if (this.ownsConversionSession) {
+			this.conversionSession.close();
+		}
 	}
 
 	private Set<Resource> included_elements = new HashSet<>(); // Resources of included elements
@@ -167,11 +230,12 @@ public abstract class IFCtoLBDConverterCore {
 			boolean hasGeometry, boolean exportIfcOWL, @SuppressWarnings("unused") boolean namedGraphs,
 			boolean hasHierarchicalNaming, boolean hasInterfaces, boolean hasWireframe) {
 
-		Dataset dataset = TemporalDatasetSingleton.getInstance();
+		Dataset dataset = getStagingDataset();
 
 		try {
 			dataset.begin(ReadWrite.READ); // Just bulky one
 			Model ifcowl_model = dataset.getDefaultModel();
+			this.coordinateReferenceSystem = IfcCoordinateReferenceSystemExtractor.extract(ifcowl_model, this.ifcOWL);
 
 			this.handledAttributes4resource.clear(); // less performant but more dynamic
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("The LBD conversion starts"));
@@ -194,8 +258,7 @@ public abstract class IFCtoLBDConverterCore {
 			List<RDFNode> sites = IfcOWLUtils.listSites(this.ifcOWL, ifcowl_model);
 			if (!sites.isEmpty()) {
 				sites.stream().map(RDFNode::asResource).forEach(site -> {
-					Resource lbd_site = LBD_RDF_Utils.createformattedURIRecource(site, this.lbd_general_output_model,
-							"Site", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL_setting);
+					Resource lbd_site = createLbdResource(site, this.lbd_general_output_model, "Site");
 					String guid_site = IfcOWLUtils.getGUID(site, this.ifcOWL);
 					String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
 					addAttrributes(this.lbd_property_output_model, site.asResource(), lbd_site);
@@ -234,7 +297,7 @@ public abstract class IFCtoLBDConverterCore {
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 				try {
 					this.ontURI.ifPresent(s -> IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL,
-							this.lbd_general_output_model, this.uriBase.get(), s));
+							this.lbd_general_output_model, this.uriBase.get(), s, this.uriPolicy));
 				} catch (Exception e) {
 					e.printStackTrace();
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
@@ -326,12 +389,7 @@ public abstract class IFCtoLBDConverterCore {
 			return;
 		}
 		Resource lbd_building;
-		if (this.hasHierarchicalNaming_setting)
-			lbd_building = LBD_RDF_Utils.createformattedHierarchicalURIRecource(building, this.lbd_general_output_model,
-					"Building", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL_setting);
-		else
-			lbd_building = LBD_RDF_Utils.createformattedURIRecource(building, this.lbd_general_output_model, "Building",
-					this.ifcOWL, this.uriBase.get(), this.exportIfcOWL_setting);
+		lbd_building = createLbdResource(building, this.lbd_general_output_model, "Building");
 
 		String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
 		String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
@@ -357,12 +415,7 @@ public abstract class IFCtoLBDConverterCore {
 				return;
 			}
 			Resource lbd_storey;
-			if (this.hasHierarchicalNaming_setting)
-				lbd_storey = LBD_RDF_Utils.createformattedHierarchicalURIRecource(storey, this.lbd_general_output_model,
-						"Storey", this.ifcOWL, lbd_building, this.exportIfcOWL_setting);
-			else
-				lbd_storey = LBD_RDF_Utils.createformattedURIRecource(storey, this.lbd_general_output_model, "Storey",
-						this.ifcOWL, this.uriBase.get(), this.exportIfcOWL_setting);
+			lbd_storey = createLbdResource(storey, this.lbd_general_output_model, "Storey", lbd_building);
 			String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
 			String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
 			addAttrributes(this.lbd_property_output_model, storey, lbd_storey);
@@ -388,12 +441,7 @@ public abstract class IFCtoLBDConverterCore {
 				if (!RDFUtils.getType(space.asResource()).get().getURI().endsWith("#IfcSpace"))
 					return;
 				Resource spo;
-				if (this.hasHierarchicalNaming_setting)
-					spo = LBD_RDF_Utils.createformattedHierarchicalURIRecource(space.asResource(),
-							this.lbd_general_output_model, "Space", this.ifcOWL, lbd_storey, this.exportIfcOWL_setting);
-				else
-					spo = LBD_RDF_Utils.createformattedURIRecource(space.asResource(), this.lbd_general_output_model,
-							"Space", this.ifcOWL, this.uriBase.get(), this.exportIfcOWL_setting);
+				spo = createLbdResource(space.asResource(), this.lbd_general_output_model, "Space", lbd_storey);
 				String guid_space = IfcOWLUtils.getGUID(space.asResource(), this.ifcOWL);
 				String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
 				addAttrributes(this.lbd_property_output_model, space.asResource(), spo);
@@ -454,6 +502,17 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private Property fogasObj = null;
+	private boolean geometryArtifactsEnabled;
+	private final List<GeometryArtifact> geometryArtifacts = new ArrayList<>();
+
+	protected final void setGeometryArtifactsEnabled(boolean enabled) {
+		this.geometryArtifactsEnabled = enabled;
+		this.geometryArtifacts.clear();
+	}
+
+	protected final List<GeometryArtifact> getGeometryArtifacts() {
+		return List.copyOf(geometryArtifacts);
+	}
 
 	private void addGeometry(Resource lbd_resource, String guid) {
 		if (this.ifc_geometry == null)
@@ -507,9 +566,17 @@ public abstract class IFCtoLBDConverterCore {
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					String objBase64 = obj != null ? obj.toString() : toBoundingBoxObjBase64(bb);
-					Literal base64 = this.lbd_general_output_model.createTypedLiteral(objBase64,
-							"https://www.w3.org/2001/XMLSchema#base64Binary");
-					sp_geometry.addLiteral(this.fogasObj, base64);
+					Optional<GeometryArtifact> artifact = Optional.empty();
+					if (geometryArtifactsEnabled) {
+						artifact = conversionSession.getGeometryArtifactStore().store(Base64.getDecoder().decode(objBase64),
+								"model/obj", "obj", "detailed", coordinateReferenceSystem.identifier());
+						if (artifact.isPresent()) addGeometryArtifactMetadata(sp_geometry, artifact.get());
+					}
+					if (artifact.isEmpty()) {
+						Literal base64 = this.lbd_general_output_model.createTypedLiteral(objBase64,
+								"https://www.w3.org/2001/XMLSchema#base64Binary");
+						sp_geometry.addLiteral(this.fogasObj, base64);
+					}
 
 					/// MTL handling
 					if (mtl != null && mtl.toMTLString().length() > 0) {
@@ -587,6 +654,25 @@ public abstract class IFCtoLBDConverterCore {
 			e.printStackTrace();
 		}
 
+	}
+
+	private void addGeometryArtifactMetadata(Resource geometry, GeometryArtifact artifact) {
+		String ns = "https://w3id.org/ifctolbd/geometry#";
+		Resource artifactResource = this.lbd_general_output_model.createResource(artifact.uri().toString())
+				.addProperty(RDF.type, this.lbd_general_output_model.createResource(ns + "GeometryArtifact"))
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "sha256"), artifact.sha256())
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "mediaType"), artifact.mediaType())
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "levelOfDetail"), artifact.levelOfDetail())
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "coordinateReferenceSystem"),
+						artifact.coordinateReferenceSystem())
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "provider"),
+						conversionSession.getGeometryProvider().id())
+				.addLiteral(this.lbd_general_output_model.createProperty(ns + "providerVersion"),
+						conversionSession.getGeometryProvider().version());
+		geometry.addProperty(this.lbd_general_output_model.createProperty(ns + "artifact"), artifactResource);
+		coordinateReferenceSystem.parameters().forEach((key, value) -> artifactResource.addLiteral(
+				this.lbd_general_output_model.createProperty(ns + key), value));
+		geometryArtifacts.add(artifact);
 	}
 
 	private Resource getOrCreateGeometryResource(Resource lbd_resource) {
@@ -786,7 +872,7 @@ public abstract class IFCtoLBDConverterCore {
 	 */
 	protected void handleUnitsAndPropertySetData(int props_level, boolean hasPropertiesBlankNodes, boolean hasUnits) {
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Handle Property set data"));
-		Dataset dataset = TemporalDatasetSingleton.getInstance();
+		Dataset dataset = getStagingDataset();
 
 		try {
 			dataset.begin(ReadWrite.READ); // Just bulky one
@@ -1164,9 +1250,8 @@ public abstract class IFCtoLBDConverterCore {
 
 		}
 		if (bot_type.isPresent()) {
-			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
-					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase.get(),
-					this.exportIfcOWL_setting);
+			Resource lbd_element = createLbdResource(ifcOWL_element, this.lbd_general_output_model,
+					bot_type.get().getLocalName());
 			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
@@ -1220,9 +1305,8 @@ public abstract class IFCtoLBDConverterCore {
 		}
 
 		if (bot_type.isPresent()) {
-			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
-					this.lbd_general_output_model, bot_type.get().getLocalName(), this.ifcOWL, this.uriBase.get(),
-					this.exportIfcOWL_setting);
+			Resource lbd_element = createLbdResource(ifcOWL_element, this.lbd_general_output_model,
+					bot_type.get().getLocalName());
 			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
@@ -1252,9 +1336,8 @@ public abstract class IFCtoLBDConverterCore {
 			return;
 		}
 		if (ifcowl_type.isPresent()) {
-			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
-					this.lbd_general_output_model, "ifcOWL_" + ifcowl_type.get().getLocalName(), this.ifcOWL,
-					this.uriBase.get(), this.exportIfcOWL_setting);
+			Resource lbd_element = createLbdResource(ifcOWL_element, this.lbd_general_output_model,
+					"ifcOWL_" + ifcowl_type.get().getLocalName());
 			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
@@ -1313,9 +1396,8 @@ public abstract class IFCtoLBDConverterCore {
 		}
 
 		if (lbd_product_type.isPresent()) {
-			Resource lbd_element = LBD_RDF_Utils.createformattedURIRecource(ifcOWL_element,
-					this.lbd_general_output_model, lbd_product_type.get().getLocalName(), this.ifcOWL,
-					this.uriBase.get(), this.exportIfcOWL_setting);
+			Resource lbd_element = createLbdResource(ifcOWL_element, this.lbd_general_output_model,
+					lbd_product_type.get().getLocalName());
 			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
 
 			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
@@ -1429,7 +1511,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * Uses also RDFS.subClassOf so that subclasses are included.
 	 */
 	protected void createIfcLBDProductMapping() {
-		Dataset dataset = TemporalDatasetSingleton.getInstance();
+		Dataset dataset = getStagingDataset();
 
 		try {
 			dataset.begin(ReadWrite.READ); // Just bulky one
@@ -1535,7 +1617,7 @@ public abstract class IFCtoLBDConverterCore {
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Using existing ifcOWL file"));
 					// Model model = ModelFactory.createDefaultModel();
 
-					Dataset dataset = TemporalDatasetSingleton.getInstance();
+					Dataset dataset = getStagingDataset();
 					dataset.begin(ReadWrite.WRITE);
 					Model model = dataset.getDefaultModel();
 					boolean committed = false;
@@ -1563,7 +1645,7 @@ public abstract class IFCtoLBDConverterCore {
 			}
 			if (loadedExistingIfcOWL)
 				return;
-			Dataset dataset = TemporalDatasetSingleton.getInstance();
+			Dataset dataset = getStagingDataset();
 			try {
 				dataset.begin(ReadWrite.WRITE);
 				boolean committed = false;
@@ -1621,7 +1703,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected void readInOntologies(String ifc_file) {
 		try {
 			IfcOWLUtils.readIfcOWLOntology(ifc_file, this.ontology_model);
-			Dataset dataset = TemporalDatasetSingleton.getInstance();
+			Dataset dataset = getStagingDataset();
 
 			try {
 				dataset.begin(ReadWrite.WRITE); // Just bulky one
@@ -1685,7 +1767,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * @return the list
 	 */
 	public Set<Resource> getElementTypes() {
-		Dataset dataset = TemporalDatasetSingleton.getInstance();
+		Dataset dataset = getStagingDataset();
 		Set<Resource> types = new HashSet<>();
 
 		try {
@@ -1776,6 +1858,7 @@ public abstract class IFCtoLBDConverterCore {
 		this.rtree_map.clear();
 		this.included_elements.clear();
 		this.handledAttributes4resource.clear();
+		this.lbdResourceByIfcResource.clear();
 		this.propertysets.values().forEach(PropertySet::resetConversionState);
 	}
 

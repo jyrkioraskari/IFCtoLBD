@@ -13,8 +13,10 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+@Tag("integration")
 public class ConverterRunsUnitTests2 {
 	private static final String BASE_URI = "https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
 

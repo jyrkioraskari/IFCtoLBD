@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc-to-lbd</artifactId>
-	<version>2.50.0</version>
+	<version>2.51.0</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -70,7 +70,10 @@
 		<javac.src.version>21</javac.src.version>
 		<javac.target.version>21</javac.target.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>true</skipTests>
+		<!-- The default build runs only fast tests. Heavier test groups are
+			enabled explicitly by the integration and full profiles below. -->
+		<skipTests>false</skipTests>
+		<test.excludedGroups>integration,shacl,slow</test.excludedGroups>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.api.version>3.0.0-beta2</log4j2.api.version>
@@ -123,7 +126,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
 			<artifactId>ifc_to_lbd_geometry</artifactId>
-			<version>2.50.0</version>
+			<version>2.51.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -203,7 +206,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>2.50.0</version>
+			<version>2.51.0</version>
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
@@ -319,6 +322,20 @@
 		<tag>HEAD</tag>
 	</scm>
 	<profiles>
+		<profile>
+			<id>integration</id>
+			<properties>
+				<!-- Run unit, converter integration, and SHACL tests. -->
+				<test.excludedGroups>slow</test.excludedGroups>
+			</properties>
+		</profile>
+		<profile>
+			<id>full</id>
+			<properties>
+				<!-- No test currently uses this sentinel tag, so all tests run. -->
+				<test.excludedGroups>none</test.excludedGroups>
+			</properties>
+		</profile>
 		<profile>
 			<id>release</id>
 			<build>
@@ -440,6 +457,14 @@
 	<build>
 		<defaultGoal>install</defaultGoal>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<excludedGroups>${test.excludedGroups}</excludedGroups>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

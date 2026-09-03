@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.github.jyrkioraskari</groupId>
+	<artifactId>ifctolbd-converter</artifactId>
+	<version>2.51.0</version>
+	<packaging>pom</packaging>
+	<name>IFCtoLBD Converter</name>
+
+	<!-- Maven sorts these modules by their declared dependencies, ensuring that
+		IFCtoRDF and geometry are built before the converter and its applications. -->
+	<modules>
+		<module>IFCtoRDF</module>
+		<module>IFCtoLBD_Geometry</module>
+		<module>IFCtoLBD</module>
+		<module>IFCProps2ExcelOnline</module>
+		<module>IFCtoLBD_Desktop_2026</module>
+	</modules>
+</project>
