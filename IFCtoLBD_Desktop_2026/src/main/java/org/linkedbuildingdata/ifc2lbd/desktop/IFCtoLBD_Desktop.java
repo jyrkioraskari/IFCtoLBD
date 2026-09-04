@@ -35,7 +35,7 @@ import javafx.stage.StageStyle;
 
 public class IFCtoLBD_Desktop extends Application {
     private static final String RESOURCE_ROOT = "/org/linkedbuildingdata/ifc2lbd/desktop/";
-    private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+    private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getDefaultEventBus();
     private IFCtoLBDController controller;
     
     @Override

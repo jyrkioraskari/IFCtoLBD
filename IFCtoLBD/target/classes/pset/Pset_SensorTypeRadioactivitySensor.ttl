@@ -1,0 +1,43 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeRadioactivitySensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeRadioactivitySensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypeRadioactivitySensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects atomic decay. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeRadioactivitySensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/RADIOACTIVITYSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/RADIOACTIVITYSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects atomic decay. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "原子核の崩壊を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeRadioactivitySensor" ;
+        IFC4-PSD:propertyDef          :p4bbade00d20611e1800000215ad4efdf .
+
+:p4bbade00d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The radioactivity value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointRadioactivity" ;
+        IFC4-PSD:definition       "The radioactivity value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 방사능. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en , "感知される放射能。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4bbade00d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointRadioactivity" ;
+        IFC4-PSD:nameAlias        "放射能設定値"@ja-JP , "Set Point Radioactivity"@en , "방사능 설정"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRadioActivityMeasure
+                                  ] .
+
+:SetPointRadioactivity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4bbade00d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointRadioactivity .

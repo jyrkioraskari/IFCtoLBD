@@ -1,0 +1,269 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ContrastRatio  a           rdf:Property ;
+        rdfs:seeAlso        :pb0ece000d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ContrastRatio .
+
+:VideoScaleMode  a          rdf:Property ;
+        rdfs:seeAlso        :pe42f6f00d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoScaleMode .
+
+:p8864e600d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of display." ;
+        rdfs:label                "DisplayType" ;
+        IFC4-PSD:definition       "Indicates the type of display." ;
+        IFC4-PSD:definitionAlias  "화면 종류를 나타낸다"@ko-KR , ""@en , "画面の種類を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8864e600d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DisplayType" ;
+        IFC4-PSD:nameAlias        "Display Type"@en , "画面種類"@ja-JP , "화면 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CRT" , "DLP" , "LCD" , "LED" , "PLASMA" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:pa03c6a00d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the physical width of the screen (only the display surface)." ;
+        rdfs:label                "DisplayWidth" ;
+        IFC4-PSD:definition       "Indicates the physical width of the screen (only the display surface)." ;
+        IFC4-PSD:definitionAlias  "화면 너비를 보여준다"@ko-KR , ""@en , "画面の幅を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a03c6a00d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DisplayWidth" ;
+        IFC4-PSD:nameAlias        "画面幅"@ja-JP , "Display Width"@en , "화면 폭"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pf6111200d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates audio sound modes and corresponding labels, if applicable." ;
+        rdfs:label                "AudioMode" ;
+        IFC4-PSD:definition       "Indicates audio sound modes and corresponding labels, if applicable." ;
+        IFC4-PSD:definitionAlias  "오디오 사운드 모드 설정."@ko-KR , "オーディオサウンドモードの設定。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f6111200d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioMode" ;
+        IFC4-PSD:nameAlias        "오디오 모드"@ko-KR , "オーディオモード"@ja-JP , "Audio Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:pb0ece000d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the display contrast ratio." ;
+        rdfs:label                "ContrastRatio" ;
+        IFC4-PSD:definition       "Indicates the display contrast ratio." ;
+        IFC4-PSD:definitionAlias  "명암비를 보여준다"@ko-KR , ""@en , "コントラスト比を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b0ece000d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ContrastRatio" ;
+        IFC4-PSD:nameAlias        "コントラスト比"@ja-JP , "Contrast Ratio"@en , "명암비"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pab8f9580d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the display brightness." ;
+        rdfs:label                "Brightness" ;
+        IFC4-PSD:definition       "Indicates the display brightness." ;
+        IFC4-PSD:definitionAlias  ""@en , "明るさ示す。"@ja-JP , "밝기 보여준다"@ko-KR ;
+        IFC4-PSD:ifdguid          "ab8f9580d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Brightness" ;
+        IFC4-PSD:nameAlias        "밝기"@ko-KR , "明るさ"@ja-JP , "Brightness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIlluminanceMeasure
+                                  ] .
+
+:VideoResolutionWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pcbbf5480d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionWidth .
+
+:VideoResolutionHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd2e66280d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionHeight .
+
+:pcbbf5480d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the number of horizontal pixels, e.g. 1920." ;
+        rdfs:label                "VideoResolutionWidth" ;
+        IFC4-PSD:definition       "Indicates the number of horizontal pixels, e.g. 1920." ;
+        IFC4-PSD:definitionAlias  "가로 픽셀 수를 나타낸다."@ko-KR , "水平方向のピクセル数を示す。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cbbf5480d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionWidth" ;
+        IFC4-PSD:nameAlias        "수평 해상도"@ko-KR , "Video Resolution Width"@en , "水平解像度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pd2e66280d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the number of vertical pixels, e.g. 1080." ;
+        rdfs:label                "VideoResolutionHeight" ;
+        IFC4-PSD:definition       "Indicates the number of vertical pixels, e.g. 1080." ;
+        IFC4-PSD:definitionAlias  ""@en , "垂直方向のピクセル数を示す。"@ja-JP , "수직 픽셀 수를 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "d2e66280d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionHeight" ;
+        IFC4-PSD:nameAlias        "Video Resolution Height"@en , "垂直解像度"@ja-JP , "수직 해상도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:RefreshRate  a             rdf:Property ;
+        rdfs:seeAlso        :pb77b5780d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RefreshRate .
+
+:pe42f6f00d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates video scaling modes." ;
+        rdfs:label                "VideoScaleMode" ;
+        IFC4-PSD:definition       "Indicates video scaling modes." ;
+        IFC4-PSD:definitionAlias  "ビデオスケーリングモードを示す。"@ja-JP , ""@en , "비디오 크기 조정 모드를 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "e42f6f00d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoScaleMode" ;
+        IFC4-PSD:nameAlias        "ビデオスケールモード"@ja-JP , "비디오 스케일 모드"@ko-KR , "Video Scale Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeDisplay>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:AudioMode  a               rdf:Property ;
+        rdfs:seeAlso        :pf6111200d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioMode .
+
+:VideoResolutionMode  a     rdf:Property ;
+        rdfs:seeAlso        :pda0d7080d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionMode .
+
+:pbc400b80d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates touchscreen support." ;
+        rdfs:label                "TouchScreen" ;
+        IFC4-PSD:definition       "Indicates touchscreen support." ;
+        IFC4-PSD:definitionAlias  "タッチスクリーンのサポートを示す。"@ja-JP , "터치 스크린 지원을 보여준다"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "bc400b80d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TouchScreen" ;
+        IFC4-PSD:nameAlias        "터치 스크린"@ko-KR , "Touch Screen"@en , "タッチスクリーン"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SINGLETOUCH" , "MULTITOUCH" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Brightness  a              rdf:Property ;
+        rdfs:seeAlso        :pab8f9580d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Brightness .
+
+:pa6cae180d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the physical height of the screen (only the display surface)." ;
+        rdfs:label                "DisplayHeight" ;
+        IFC4-PSD:definition       "Indicates the physical height of the screen (only the display surface)." ;
+        IFC4-PSD:definitionAlias  ""@en , "화면의 높이를 나타낸다"@ko-KR , "画面の高さを示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a6cae180d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DisplayHeight" ;
+        IFC4-PSD:nameAlias        "Display Height"@en , "画面高さ"@ja-JP , "화면 높이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_AudioVisualApplianceTypeDisplay
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual display is a device that renders video from a screen.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeDisplay" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/DISPLAY> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/DISPLAY" ;
+        IFC4-PSD:definition           "An audio-visual display is a device that renders video from a screen.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "画面からビデオ映像を送出する機器。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeDisplay" ;
+        IFC4-PSD:propertyDef          :p8864e600d1c211e1800000215ad4efdf , :p99adf280d1c211e1800000215ad4efdf , :pe42f6f00d1c211e1800000215ad4efdf , :pb0ece000d1c211e1800000215ad4efdf , :pab8f9580d1c211e1800000215ad4efdf , :pf6111200d1c211e1800000215ad4efdf , :pbc400b80d1c211e1800000215ad4efdf , :pedb8d700d1c211e1800000215ad4efdf , :pa03c6a00d1c211e1800000215ad4efdf , :pda0d7080d1c211e1800000215ad4efdf , :pcbbf5480d1c211e1800000215ad4efdf , :pd2e66280d1c211e1800000215ad4efdf , :pa6cae180d1c211e1800000215ad4efdf , :pb77b5780d1c211e1800000215ad4efdf .
+
+:DisplayWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pa03c6a00d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DisplayWidth .
+
+:DisplayType  a             rdf:Property ;
+        rdfs:seeAlso        :p8864e600d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DisplayType .
+
+:p99adf280d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the diagonal screen size." ;
+        rdfs:label                "NominalSize" ;
+        IFC4-PSD:definition       "Indicates the diagonal screen size." ;
+        IFC4-PSD:definitionAlias  "画面の対角線サイズを示す。"@ja-JP , "화면의 대각선 크기를 나타낸다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "99adf280d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSize" ;
+        IFC4-PSD:nameAlias        "Nominal Size"@en , "画面公称サイズ"@ja-JP , "화면 공칭 크기"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:VideoCaptionMode  a        rdf:Property ;
+        rdfs:seeAlso        :pedb8d700d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoCaptionMode .
+
+:pda0d7080d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates video resolution modes." ;
+        rdfs:label                "VideoResolutionMode" ;
+        IFC4-PSD:definition       "Indicates video resolution modes." ;
+        IFC4-PSD:definitionAlias  ""@en , "解像度モードを示す。"@ja-JP , "해상도를 보여준다"@ko-KR ;
+        IFC4-PSD:ifdguid          "da0d7080d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionMode" ;
+        IFC4-PSD:nameAlias        "解像度モード"@ja-JP , "디스플레이 모드"@ko-KR , "Video Resolution Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:DisplayHeight  a           rdf:Property ;
+        rdfs:seeAlso        :pa6cae180d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DisplayHeight .
+
+:TouchScreen  a             rdf:Property ;
+        rdfs:seeAlso        :pbc400b80d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TouchScreen .
+
+:pb77b5780d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the display refresh frequency." ;
+        rdfs:label                "RefreshRate" ;
+        IFC4-PSD:definition       "Indicates the display refresh frequency." ;
+        IFC4-PSD:definitionAlias  ""@en , "빈도 재생 빈도 주파수 범위를 나타낸다."@ko-KR , "リフレッシュレート周波数範囲を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b77b5780d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RefreshRate" ;
+        IFC4-PSD:nameAlias        "재생"@ko-KR , "リフレッシュレート"@ja-JP , "Refresh Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:NominalSize  a             rdf:Property ;
+        rdfs:seeAlso        :p99adf280d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSize .
+
+:pedb8d700d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates video closed captioning modes." ;
+        rdfs:label                "VideoCaptionMode" ;
+        IFC4-PSD:definition       "Indicates video closed captioning modes." ;
+        IFC4-PSD:definitionAlias  "자막 모드를 나타낸다. (자막 기능)"@ko-KR , "クローズドキャプションモードを示す。(字幕機能）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "edb8d700d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoCaptionMode" ;
+        IFC4-PSD:nameAlias        "비디오 캡션 모드"@ko-KR , "ビデオキャプションモード"@ja-JP , "Video Caption Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .

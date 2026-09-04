@@ -27,5 +27,24 @@ public final class ConversionProfiles {
 	public static final ConversionProfile SUSTAINABILITY = ConversionProfile.of("sustainability",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, SIMPLE_PROPERTIES, BuiltInConversionModule.SUSTAINABILITY);
 
+	/** Resolve a public profile name used by CLI, REST and MCP entry points. */
+	public static ConversionProfile named(String id) {
+		if (id == null) throw new IllegalArgumentException("Profile must not be null");
+		return switch (id.trim().toLowerCase(java.util.Locale.ROOT)) {
+		case "core" -> CORE;
+		case "properties-simple" -> PROPERTIES_SIMPLE;
+		case "properties-opm" -> PROPERTIES_OPM;
+		case "geometry-envelope" -> GEOMETRY_ENVELOPE;
+		case "geometry-full" -> GEOMETRY_FULL;
+		case "bim-gis" -> BIM_GIS;
+		case "compliance" -> COMPLIANCE;
+		case "revision-ready" -> REVISION_READY;
+		case "geometry-external" -> GEOMETRY_EXTERNAL;
+		case "supply-chain" -> SUPPLY_CHAIN;
+		case "sustainability" -> SUSTAINABILITY;
+		default -> throw new IllegalArgumentException("Unknown conversion profile: " + id);
+		};
+	}
+
 	private ConversionProfiles() { }
 }

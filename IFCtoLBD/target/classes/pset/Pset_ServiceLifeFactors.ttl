@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ServiceLifeFactors#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:DesignLevel  a             rdf:Property ;
+        rdfs:seeAlso        :p8d77f8cb925b4cfdbea48301f42c89a0 ;
+        rdfs:subPropertyOf  IFC4-PSD:DesignLevel .
+
+:p9988ab22befe45c9ab3c94972c61bd90
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the outdoor environment (where appropriate)" ;
+        rdfs:label                "OutdoorEnvironment" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the outdoor environment (where appropriate)" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9988ab22befe45c9ab3c94972c61bd90" ;
+        IFC4-PSD:name             "OutdoorEnvironment" ;
+        IFC4-PSD:nameAlias        "Outdoor Environment"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pac78d9e0d39b43f4af2c7b7596d60667
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the quality of work executed." ;
+        rdfs:label                "WorkExecutionLevel" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the quality of work executed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ac78d9e0d39b43f4af2c7b7596d60667" ;
+        IFC4-PSD:name             "WorkExecutionLevel" ;
+        IFC4-PSD:nameAlias        "Work Execution Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p8d77f8cb925b4cfdbea48301f42c89a0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of design level employed." ;
+        rdfs:label                "DesignLevel" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of design level employed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8d77f8cb925b4cfdbea48301f42c89a0" ;
+        IFC4-PSD:name             "DesignLevel" ;
+        IFC4-PSD:nameAlias        "Design Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_ServiceLifeFactors
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Captures various factors that impact the expected service life of elements within the system or zone." ;
+        rdfs:label                    "Pset_ServiceLifeFactors" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSystem ;
+        IFC4-PSD:applicableTypeValue  "IfcSystem" ;
+        IFC4-PSD:definition           "Captures various factors that impact the expected service life of elements within the system or zone." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ServiceLifeFactors" ;
+        IFC4-PSD:propertyDef          :p97e75274042544a89cb65b8a94766d30 , :pab27c286d027498e962abd4fa0cab9a8 , :p37ac936a1b0a42bfa3c0f4998cca50e4 , :pd5f5278715be42a0b539cf3f060054e3 , :pac78d9e0d39b43f4af2c7b7596d60667 , :p9988ab22befe45c9ab3c94972c61bd90 , :p8d77f8cb925b4cfdbea48301f42c89a0 .
+
+:p97e75274042544a89cb65b8a94766d30
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the level or degree of maintenance applied to dcomponents." ;
+        rdfs:label                "MaintenanceLevel" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the level or degree of maintenance applied to dcomponents." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "97e75274042544a89cb65b8a94766d30" ;
+        IFC4-PSD:name             "MaintenanceLevel" ;
+        IFC4-PSD:nameAlias        "Maintenance Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:IndoorEnvironment  a       rdf:Property ;
+        rdfs:seeAlso        :pab27c286d027498e962abd4fa0cab9a8 ;
+        rdfs:subPropertyOf  IFC4-PSD:IndoorEnvironment .
+
+:MaintenanceLevel  a        rdf:Property ;
+        rdfs:seeAlso        :p97e75274042544a89cb65b8a94766d30 ;
+        rdfs:subPropertyOf  IFC4-PSD:MaintenanceLevel .
+
+:p37ac936a1b0a42bfa3c0f4998cca50e4
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the conditions in which components are operating." ;
+        rdfs:label                "InUseConditions" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the conditions in which components are operating." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "37ac936a1b0a42bfa3c0f4998cca50e4" ;
+        IFC4-PSD:name             "InUseConditions" ;
+        IFC4-PSD:nameAlias        "In Use Conditions"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pab27c286d027498e962abd4fa0cab9a8
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the indoor environment (where appropriate)." ;
+        rdfs:label                "IndoorEnvironment" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the indoor environment (where appropriate)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ab27c286d027498e962abd4fa0cab9a8" ;
+        IFC4-PSD:name             "IndoorEnvironment" ;
+        IFC4-PSD:nameAlias        "Indoor Environment"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pd5f5278715be42a0b539cf3f060054e3
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Adjustment of the service life resulting from the effect of the quality of components used." ;
+        rdfs:label                "QualityOfComponents" ;
+        IFC4-PSD:definition       "Adjustment of the service life resulting from the effect of the quality of components used." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d5f5278715be42a0b539cf3f060054e3" ;
+        IFC4-PSD:name             "QualityOfComponents" ;
+        IFC4-PSD:nameAlias        "Quality Of Components"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:InUseConditions  a         rdf:Property ;
+        rdfs:seeAlso        :p37ac936a1b0a42bfa3c0f4998cca50e4 ;
+        rdfs:subPropertyOf  IFC4-PSD:InUseConditions .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ServiceLifeFactors>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WorkExecutionLevel  a      rdf:Property ;
+        rdfs:seeAlso        :pac78d9e0d39b43f4af2c7b7596d60667 ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkExecutionLevel .
+
+:QualityOfComponents  a     rdf:Property ;
+        rdfs:seeAlso        :pd5f5278715be42a0b539cf3f060054e3 ;
+        rdfs:subPropertyOf  IFC4-PSD:QualityOfComponents .
+
+:OutdoorEnvironment  a      rdf:Property ;
+        rdfs:seeAlso        :p9988ab22befe45c9ab3c94972c61bd90 ;
+        rdfs:subPropertyOf  IFC4-PSD:OutdoorEnvironment .

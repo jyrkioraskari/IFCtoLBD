@@ -1,0 +1,146 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ThermalLoadAggregate#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p064fde00d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Load safety factor." ;
+        rdfs:label                "LoadSafetyFactor" ;
+        IFC4-PSD:definition       "Load safety factor." ;
+        IFC4-PSD:definitionAlias  "空調負荷計算用の安全率（割増係数）。"@ja-JP , ""@en , "공조 부하 계산을위한 안전율 (할증 계수)."@ko-KR ;
+        IFC4-PSD:ifdguid          "064fde00d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LoadSafetyFactor" ;
+        IFC4-PSD:nameAlias        "負荷の安全率"@ja-JP , "Load Safety Factor"@en , "부하의 안전율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pf9cb8580d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity factor for Winter infiltration." ;
+        rdfs:label                "InfiltrationDiversityWinter" ;
+        IFC4-PSD:definition       "Diversity factor for Winter infiltration." ;
+        IFC4-PSD:definitionAlias  "冬期すき間換気率。"@ja-JP , ""@en , "겨울철 틈새 환기 비율."@ko-KR ;
+        IFC4-PSD:ifdguid          "f9cb8580d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InfiltrationDiversityWinter" ;
+        IFC4-PSD:nameAlias        "冬期すき間換気率"@ja-JP , "Infiltration Diversity Winter"@en , "겨울철 틈새 환기비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:InfiltrationDiversityWinter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf9cb8580d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InfiltrationDiversityWinter .
+
+:ApplianceDiversity  a      rdf:Property ;
+        rdfs:seeAlso        :p0059fd00d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ApplianceDiversity .
+
+:pdf91a780d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The peak total cooling load for the building, zone or space." ;
+        rdfs:label                "TotalCoolingLoad" ;
+        IFC4-PSD:definition       "The peak total cooling load for the building, zone or space." ;
+        IFC4-PSD:definitionAlias  ""@en , "건물 영역 방 피크 냉방 부하."@ko-KR , "建物、ゾーン、部屋のピーク時の冷房負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "df91a780d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalCoolingLoad" ;
+        IFC4-PSD:nameAlias        "냉방부하"@ko-KR , "冷房負荷"@ja-JP , "Total Cooling Load"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:TotalHeatingLoad  a        rdf:Property ;
+        rdfs:seeAlso        :pe4eef200d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatingLoad .
+
+:LightingDiversity  a       rdf:Property ;
+        rdfs:seeAlso        :peae4d300d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightingDiversity .
+
+:peae4d300d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Lighting diversity." ;
+        rdfs:label                "LightingDiversity" ;
+        IFC4-PSD:definition       "Lighting diversity." ;
+        IFC4-PSD:definitionAlias  "조명 부하 계수."@ko-KR , ""@en , "照明負荷係数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eae4d300d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightingDiversity" ;
+        IFC4-PSD:nameAlias        "照明負荷係数"@ja-JP , "Lighting Diversity"@en , "조명 부하계수"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:TotalCoolingLoad  a        rdf:Property ;
+        rdfs:seeAlso        :pdf91a780d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalCoolingLoad .
+
+:Pset_ThermalLoadAggregate
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The aggregated thermal loads experienced by one or many spaces, zones, or buildings. This aggregate thermal load information is typically addressed by a system or plant. HISTORY: New property set in IFC Release 1.0 (Pset_AggregateLoadInformation); renamed Pset_ThermalLoadAggregate in IFC2x2." ;
+        rdfs:label                    "Pset_ThermalLoadAggregate" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpatialElement ;
+        IFC4-PSD:applicableTypeValue  "IfcSpatialElement" ;
+        IFC4-PSD:definition           "The aggregated thermal loads experienced by one or many spaces, zones, or buildings. This aggregate thermal load information is typically addressed by a system or plant. HISTORY: New property set in IFC Release 1.0 (Pset_AggregateLoadInformation); renamed Pset_ThermalLoadAggregate in IFC2x2." ;
+        IFC4-PSD:definitionAlias      "戸別或いは複数の部屋、ゾーン、建物の熱負荷の集計。この集計した熱負荷情報は一般にシステムあるいはプラントによって扱われる。履歴：IFC1.0の新PropertySet（Pset_AggregateLoadInformation)、：IFC2ｘ２に新たにPset_ThermalLoadAggregateと定義された。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ThermalLoadAggregate" ;
+        IFC4-PSD:propertyDef          :pf9cb8580d21011e1800000215ad4efdf , :pf33d0e00d21011e1800000215ad4efdf , :p0059fd00d21111e1800000215ad4efdf , :peae4d300d21011e1800000215ad4efdf , :p064fde00d21111e1800000215ad4efdf , :pe4eef200d21011e1800000215ad4efdf , :pdf91a780d21011e1800000215ad4efdf .
+
+:LoadSafetyFactor  a        rdf:Property ;
+        rdfs:seeAlso        :p064fde00d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LoadSafetyFactor .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ThermalLoadAggregate>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0059fd00d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity of appliance load." ;
+        rdfs:label                "ApplianceDiversity" ;
+        IFC4-PSD:definition       "Diversity of appliance load." ;
+        IFC4-PSD:definitionAlias  ""@en , "機器の負荷率。"@ja-JP , "기기의 부하율."@ko-KR ;
+        IFC4-PSD:ifdguid          "0059fd00d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ApplianceDiversity" ;
+        IFC4-PSD:nameAlias        "Appliance Diversity"@en , "機器の負荷率"@ja-JP , "기기의 부하율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pf33d0e00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity factor for Summer infiltration." ;
+        rdfs:label                "InfiltrationDiversitySummer" ;
+        IFC4-PSD:definition       "Diversity factor for Summer infiltration." ;
+        IFC4-PSD:definitionAlias  ""@en , "夏期すき間換気率。"@ja-JP , "여름 틈새 환기 비율."@ko-KR ;
+        IFC4-PSD:ifdguid          "f33d0e00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InfiltrationDiversitySummer" ;
+        IFC4-PSD:nameAlias        "Infiltration Diversity Summer"@en , "夏期すき間換気率"@ja-JP , "여름 틈새 환기 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pe4eef200d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The peak total heating load for the building, zone or space." ;
+        rdfs:label                "TotalHeatingLoad" ;
+        IFC4-PSD:definition       "The peak total heating load for the building, zone or space." ;
+        IFC4-PSD:definitionAlias  "建物、ゾーン、部屋のピーク時の暖房負荷。"@ja-JP , ""@en , "건물 영역 방 최대 난방 부하."@ko-KR ;
+        IFC4-PSD:ifdguid          "e4eef200d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatingLoad" ;
+        IFC4-PSD:nameAlias        "Total Heating Load"@en , "난방 부하"@ko-KR , "暖房負荷"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:InfiltrationDiversitySummer
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf33d0e00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InfiltrationDiversitySummer .

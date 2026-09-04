@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeLinearActuation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Force  a                   rdf:Property ;
+        rdfs:seeAlso        :p877d8580d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Force .
+
+:Stroke  a                  rdf:Property ;
+        rdfs:seeAlso        :p8cdad000d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Stroke .
+
+:p877d8580d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the maximum close-off force for the actuator." ;
+        rdfs:label                "Force" ;
+        IFC4-PSD:definition       "Indicates the maximum close-off force for the actuator." ;
+        IFC4-PSD:definitionAlias  ""@en , "アクチュエータの最大締め切り力を示す。"@ja-JP , "액츄에이터의 최대 마감 힘을 보여준다."@ko-KR ;
+        IFC4-PSD:ifdguid          "877d8580d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Force" ;
+        IFC4-PSD:nameAlias        "최대추력"@ko-KR , "Force"@en , "最大推力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcForceMeasure
+                                  ] .
+
+:Pset_ActuatorTypeLinearActuation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Characteristics of linear actuation of an actuator\nHistory: Replaces Pset_LinearActuator" ;
+        rdfs:label                    "Pset_ActuatorTypeLinearActuation" ;
+        IFC4-PSD:applicableClass      IFC4:IfcActuator ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator" ;
+        IFC4-PSD:definition           "Characteristics of linear actuation of an actuator\nHistory: Replaces Pset_LinearActuator" ;
+        IFC4-PSD:definitionAlias      "アクチュエータの直線動作の特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorTypeLinearActuation" ;
+        IFC4-PSD:propertyDef          :p877d8580d1bd11e1800000215ad4efdf , :p8cdad000d1bd11e1800000215ad4efdf .
+
+:p8cdad000d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the maximum distance the actuator must traverse." ;
+        rdfs:label                "Stroke" ;
+        IFC4-PSD:definition       "Indicates the maximum distance the actuator must traverse." ;
+        IFC4-PSD:definitionAlias  "アクチュエータが動く最大距離を示す。"@ja-JP , "액츄에이터가 움직이는 최대 거리를 보여준다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "8cdad000d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Stroke" ;
+        IFC4-PSD:nameAlias        "ストローク"@ja-JP , "입력"@ko-KR , "Stroke"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeLinearActuation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

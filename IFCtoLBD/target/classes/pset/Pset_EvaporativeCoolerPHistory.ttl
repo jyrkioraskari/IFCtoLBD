@@ -1,0 +1,114 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporativeCoolerPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporativeCoolerPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5f544d80d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sensible heat transfer rate to primary air flow." ;
+        rdfs:label                "SensibleHeatTransferRate" ;
+        IFC4-PSD:definition       "Sensible heat transfer rate to primary air flow." ;
+        IFC4-PSD:definitionAlias  "一次空気流の顕熱交換量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5f544d80d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "顕熱交換量"@ja-JP , "Sensible Heat Transfer Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Effectiveness  a           rdf:Property ;
+        rdfs:seeAlso        :p5c595d00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Effectiveness .
+
+:WaterSumpTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p582d3f80d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterSumpTemperature .
+
+:p582d3f80d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water sump temperature." ;
+        rdfs:label                "WaterSumpTemperature" ;
+        IFC4-PSD:definition       "Water sump temperature." ;
+        IFC4-PSD:definitionAlias  "液温度　（水溜り温度）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "582d3f80d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterSumpTemperature" ;
+        IFC4-PSD:nameAlias        "Water Sump Temperature"@en , "液温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:LatentHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p62e7d480d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LatentHeatTransferRate .
+
+:TotalHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p65e2c500d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatTransferRate .
+
+:p62e7d480d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Latent heat transfer rate to primary air flow." ;
+        rdfs:label                "LatentHeatTransferRate" ;
+        IFC4-PSD:definition       "Latent heat transfer rate to primary air flow." ;
+        IFC4-PSD:definitionAlias  ""@en , "一次空気流の潜熱交換量"@ja-JP ;
+        IFC4-PSD:ifdguid          "62e7d480d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LatentHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "Latent Heat Transfer Rate"@en , "潜熱交換量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p65e2c500d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer rate to primary air flow." ;
+        rdfs:label                "TotalHeatTransferRate" ;
+        IFC4-PSD:definition       "Total heat transfer rate to primary air flow." ;
+        IFC4-PSD:definitionAlias  ""@en , "一次空気流の全熱交換量"@ja-JP ;
+        IFC4-PSD:ifdguid          "65e2c500d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "Total Heat Transfer Rate"@en , "全熱交換量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_EvaporativeCoolerPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Evaporative cooler performance history attributes." ;
+        rdfs:label                    "Pset_EvaporativeCoolerPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcEvaporativeCooler ;
+        IFC4-PSD:applicableTypeValue  "IfcEvaporativeCooler" ;
+        IFC4-PSD:definition           "Evaporative cooler performance history attributes." ;
+        IFC4-PSD:definitionAlias      "蒸発冷却器の性能履歴属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_EvaporativeCoolerPHistory" ;
+        IFC4-PSD:propertyDef          :p5f544d80d1e211e1800000215ad4efdf , :p65e2c500d1e211e1800000215ad4efdf , :p5c595d00d1e211e1800000215ad4efdf , :p62e7d480d1e211e1800000215ad4efdf , :p582d3f80d1e211e1800000215ad4efdf .
+
+:p5c595d00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the change in dry bulb temperature of the (primary) air stream to the difference between the entering dry bulb temperature of the (primary) air and the wet-bulb temperature of the (secondary) air." ;
+        rdfs:label                "Effectiveness" ;
+        IFC4-PSD:definition       "Ratio of the change in dry bulb temperature of the (primary) air stream to the difference between the entering dry bulb temperature of the (primary) air and the wet-bulb temperature of the (secondary) air." ;
+        IFC4-PSD:definitionAlias  ""@en , "（一次）空気の入力乾球温度と（二次）空気の湿球温度の差に対する（一次）空気の流れの乾球温度の変化の割合。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5c595d00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Effectiveness" ;
+        IFC4-PSD:nameAlias        "Effectiveness"@en , "効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SensibleHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5f544d80d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleHeatTransferRate .

@@ -14,6 +14,7 @@ import java.util.Objects;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.tdb2.TDB2Factory;
 import org.apache.jena.tdb2.sys.TDBInternal;
+import com.google.common.eventbus.EventBus;
 
 /**
  * Isolated working state for one IFC conversion lifecycle.
@@ -31,6 +32,7 @@ public final class ConversionSession implements AutoCloseable {
 	private final UriPolicy uriPolicy;
 	private final GeometryProvider geometryProvider;
 	private final GeometryArtifactStore geometryArtifactStore;
+	private final EventBus eventBus = new EventBus();
 	private boolean closed;
 
 	public ConversionSession() {
@@ -98,6 +100,7 @@ public final class ConversionSession implements AutoCloseable {
 
 	public GeometryProvider getGeometryProvider() { return geometryProvider; }
 	public GeometryArtifactStore getGeometryArtifactStore() { return geometryArtifactStore; }
+	public EventBus getEventBus() { return eventBus; }
 
 	Instant now() {
 		return clock.instant();

@@ -1,0 +1,212 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionSystemTypeVentilation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p02a16480d1db11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum duct width for oval or rectangular duct." ;
+        rdfs:label                "MinimumWidth" ;
+        IFC4-PSD:definition       "The minimum duct width for oval or rectangular duct." ;
+        IFC4-PSD:definitionAlias  ""@en , "矩形、円形或いは楕円形ダクトの最小幅。"@ja-JP , "사각형, 원형 또는 타원형 덕트의 최소 폭."@ko-KR ;
+        IFC4-PSD:ifdguid          "02a16480d1db11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumWidth" ;
+        IFC4-PSD:nameAlias        "최소폭"@ko-KR , "Minimum Width"@en , "最小幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DistributionSystemTypeVentilation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "This property set is used to define the general characteristics of the duct design parameters within a system.\nHISTORY: New property set in IFC Release 2.0.  Renamed from Pset_DuctDesignCriteria in IFC4." ;
+        rdfs:label                    "Pset_DistributionSystemTypeVentilation" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionSystem/VENTILATION> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionSystem/VENTILATION" ;
+        IFC4-PSD:definition           "This property set is used to define the general characteristics of the duct design parameters within a system.\nHISTORY: New property set in IFC Release 2.0.  Renamed from Pset_DuctDesignCriteria in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "ダクトシステムの一般的な特徴、パラメーターの属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionSystemTypeVentilation" ;
+        IFC4-PSD:propertyDef          :pce2da880d1da11e1800000215ad4efdf , :pd38af300d1da11e1800000215ad4efdf , :pe69dc300d1da11e1800000215ad4efdf , :peef5fe00d1da11e1800000215ad4efdf , :pb9511500d1da11e1800000215ad4efdf , :pd84fa700d1da11e1800000215ad4efdf , :pe271a580d1da11e1800000215ad4efdf , :pbfdf8c80d1da11e1800000215ad4efdf , :pddacf180d1da11e1800000215ad4efdf , :p02a16480d1db11e1800000215ad4efdf , :pf87f6600d1da11e1800000215ad4efdf .
+
+:ScrapFactor  a             rdf:Property ;
+        rdfs:seeAlso        :pddacf180d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ScrapFactor .
+
+:pf87f6600d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum duct height for rectangular, oval or round duct." ;
+        rdfs:label                "MinimumHeight" ;
+        IFC4-PSD:definition       "The minimum duct height for rectangular, oval or round duct." ;
+        IFC4-PSD:definitionAlias  ""@en , "사각형, 원형 또는 타원형 덕트의 최소 높이입니다."@ko-KR , "矩形、円形或いは楕円形ダクトの最小高さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f87f6600d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumHeight" ;
+        IFC4-PSD:nameAlias        "最小高さ"@ja-JP , "최소 높이"@ko-KR , "Minimum Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pbfdf8c80d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies the methodology to be used to size system components." ;
+        rdfs:label                "DuctSizingMethod" ;
+        IFC4-PSD:definition       "Enumeration that identifies the methodology to be used to size system components." ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクト寸法を決める計算方法。"@ja-JP , "덕트 치수를 결정하는 계산 방법."@ko-KR ;
+        IFC4-PSD:ifdguid          "bfdf8c80d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DuctSizingMethod" ;
+        IFC4-PSD:nameAlias        "덕트 치수 결정 방법"@ko-KR , "ダクト寸法の決め方"@ja-JP , "Duct Sizing Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONSTANTFRICTION" , "CONSTANTPRESSURE" , "STATICREGAIN" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pe69dc300d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum design velocity of the air in the duct or fitting." ;
+        rdfs:label                "MaximumVelocity" ;
+        IFC4-PSD:definition       "The maximum design velocity of the air in the duct or fitting." ;
+        IFC4-PSD:definitionAlias  "ダクト或いは継ぎ手の最大設計風速。"@ja-JP , ""@en , "덕트 또는 이음새의 최대 설계 바람."@ko-KR ;
+        IFC4-PSD:ifdguid          "e69dc300d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumVelocity" ;
+        IFC4-PSD:nameAlias        "최대 속도"@ko-KR , "最大速度"@ja-JP , "Maximum Velocity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+:pd84fa700d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pressure loss due to friction per unit length. (Data type = PressureMeasure/LengthMeasure)" ;
+        rdfs:label                "FrictionLoss" ;
+        IFC4-PSD:definition       "The pressure loss due to friction per unit length. (Data type = PressureMeasure/LengthMeasure)" ;
+        IFC4-PSD:definitionAlias  "단위 길이 당 압력 손실 (측정 압력 손실 / 덕트 길이)."@ko-KR , ""@en , "単位長さあたりの圧力損失（計測した圧力損失/ダクト長さ）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d84fa700d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrictionLoss" ;
+        IFC4-PSD:nameAlias        "마찰 소실"@ko-KR , "Friction Loss"@en , "摩擦損失"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:MaximumVelocity  a         rdf:Property ;
+        rdfs:seeAlso        :pe69dc300d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumVelocity .
+
+:AspectRatio  a             rdf:Property ;
+        rdfs:seeAlso        :peef5fe00d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AspectRatio .
+
+:pb9511500d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A name for the design values." ;
+        rdfs:label                "DesignName" ;
+        IFC4-PSD:definition       "A name for the design values." ;
+        IFC4-PSD:definitionAlias  ""@en , "설계 값의 명칭."@ko-KR , "設計値の名称。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b9511500d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DesignName" ;
+        IFC4-PSD:nameAlias        "設計値名称"@ja-JP , "Design Name"@en , "설계 값이름"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:MinimumHeight  a           rdf:Property ;
+        rdfs:seeAlso        :pf87f6600d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumHeight .
+
+:DuctSealant  a             rdf:Property ;
+        rdfs:seeAlso        :pe271a580d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DuctSealant .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionSystemTypeVentilation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd38af300d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal leakage rating for the system components." ;
+        rdfs:label                "LeakageClass" ;
+        IFC4-PSD:definition       "Nominal leakage rating for the system components." ;
+        IFC4-PSD:definitionAlias  "덕트 시스템 각 부위의 누출 비율."@ko-KR , ""@en , "ダクトシステム各部位の漏れ率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d38af300d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeakageClass" ;
+        IFC4-PSD:nameAlias        "Leakage Class"@en , "누설비율"@ko-KR , "漏れ率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pe271a580d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of sealant used on the duct and fittings." ;
+        rdfs:label                "DuctSealant" ;
+        IFC4-PSD:definition       "Type of sealant used on the duct and fittings." ;
+        IFC4-PSD:definitionAlias  "덕트와 이음새의 밀폐 형식입니다."@ko-KR , ""@en , "ダクトと継ぎ手の密閉形式。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e271a580d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DuctSealant" ;
+        IFC4-PSD:nameAlias        "Duct Sealant"@en , "덕트 밀폐"@ko-KR , "ダクトの密閉性"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:LeakageClass  a            rdf:Property ;
+        rdfs:seeAlso        :pd38af300d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeakageClass .
+
+:peef5fe00d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The default aspect ratio." ;
+        rdfs:label                "AspectRatio" ;
+        IFC4-PSD:definition       "The default aspect ratio." ;
+        IFC4-PSD:definitionAlias  ""@en , "기본 화면 비율."@ko-KR , "デフォルトアスペクト比。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eef5fe00d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AspectRatio" ;
+        IFC4-PSD:nameAlias        "화면 비율"@ko-KR , "アスペクト比"@ja-JP , "Aspect Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:FrictionLoss  a            rdf:Property ;
+        rdfs:seeAlso        :pd84fa700d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrictionLoss .
+
+:DesignName  a              rdf:Property ;
+        rdfs:seeAlso        :pb9511500d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DesignName .
+
+:MinimumWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p02a16480d1db11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumWidth .
+
+:DuctSizingMethod  a        rdf:Property ;
+        rdfs:seeAlso        :pbfdf8c80d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DuctSizingMethod .
+
+:pddacf180d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sheet metal scrap factor." ;
+        rdfs:label                "ScrapFactor" ;
+        IFC4-PSD:definition       "Sheet metal scrap factor." ;
+        IFC4-PSD:definitionAlias  "금속판의 폐재 비율."@ko-KR , "金属板の廃材率。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ddacf180d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ScrapFactor" ;
+        IFC4-PSD:nameAlias        "廃材率"@ja-JP , "Scrap Factor"@en , "폐기물 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:PressureClass  a           rdf:Property ;
+        rdfs:seeAlso        :pce2da880d1da11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureClass .
+
+:pce2da880d1da11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal pressure rating of the system components. (Data type = PressureMeasure)" ;
+        rdfs:label                "PressureClass" ;
+        IFC4-PSD:definition       "Nominal pressure rating of the system components. (Data type = PressureMeasure)" ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクトシステム各部位の圧力等級（計測した圧力）。"@ja-JP , "덕트 시스템 각 부위의 압력 등급 (측정된 압력)"@ko-KR ;
+        IFC4-PSD:ifdguid          "ce2da880d1da11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureClass" ;
+        IFC4-PSD:nameAlias        "압력 등급"@ko-KR , "圧力等級"@ja-JP , "Pressure Class"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .

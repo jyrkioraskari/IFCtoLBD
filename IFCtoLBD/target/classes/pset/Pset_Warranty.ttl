@@ -1,0 +1,160 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Warranty#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2a61ee00d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The content of the warranty." ;
+        rdfs:label                "WarrantyContent" ;
+        IFC4-PSD:definition       "The content of the warranty." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2a61ee00d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarrantyContent" ;
+        IFC4-PSD:nameAlias        "Warranty Content"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Warranty>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WarrantyPeriod  a          rdf:Property ;
+        rdfs:seeAlso        :p20d88600d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarrantyPeriod .
+
+:p14542d80d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The date on which the warranty expires." ;
+        rdfs:label                "WarrantyEndDate" ;
+        IFC4-PSD:definition       "The date on which the warranty expires." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "14542d80d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarrantyEndDate" ;
+        IFC4-PSD:nameAlias        "Warranty End Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .
+
+:WarrantyEndDate  a         rdf:Property ;
+        rdfs:seeAlso        :p14542d80d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarrantyEndDate .
+
+:p08686b80d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The identifier assigned to a warranty." ;
+        rdfs:label                "WarrantyIdentifier" ;
+        IFC4-PSD:definition       "The identifier assigned to a warranty." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "08686b80d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarrantyIdentifier" ;
+        IFC4-PSD:nameAlias        "Warranty Identifier"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p20d88600d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The time duration during which a manufacturer or supplier guarantees or warrants the performance of an artefact." ;
+        rdfs:label                "WarrantyPeriod" ;
+        IFC4-PSD:definition       "The time duration during which a manufacturer or supplier guarantees or warrants the performance of an artefact." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "20d88600d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarrantyPeriod" ;
+        IFC4-PSD:nameAlias        "Warranty Period"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDuration
+                                  ] .
+
+:WarrantyContent  a         rdf:Property ;
+        rdfs:seeAlso        :p2a61ee00d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarrantyContent .
+
+:IsExtendedWarranty  a      rdf:Property ;
+        rdfs:seeAlso        :p19b17800d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsExtendedWarranty .
+
+:p2635d080d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The organization that should be contacted for action under the terms of the warranty. Note that the role of the organization (manufacturer, supplier, installer etc.) is determined by the IfcActorRole attribute of IfcOrganization." ;
+        rdfs:label                "PointOfContact" ;
+        IFC4-PSD:definition       "The organization that should be contacted for action under the terms of the warranty. Note that the role of the organization (manufacturer, supplier, installer etc.) is determined by the IfcActorRole attribute of IfcOrganization." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2635d080d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PointOfContact" ;
+        IFC4-PSD:nameAlias        "Point Of Contact"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:WarrantyIdentifier  a      rdf:Property ;
+        rdfs:seeAlso        :p08686b80d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarrantyIdentifier .
+
+:p0ef6e300d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The date on which the warranty commences." ;
+        rdfs:label                "WarrantyStartDate" ;
+        IFC4-PSD:definition       "The date on which the warranty commences." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0ef6e300d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarrantyStartDate" ;
+        IFC4-PSD:nameAlias        "Warranty Start Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .
+
+:WarrantyStartDate  a       rdf:Property ;
+        rdfs:seeAlso        :p0ef6e300d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarrantyStartDate .
+
+:p30f06580d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Items, conditions or actions that may be excluded from the warranty or that may cause the warranty to become void." ;
+        rdfs:label                "Exclusions" ;
+        IFC4-PSD:definition       "Items, conditions or actions that may be excluded from the warranty or that may cause the warranty to become void." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "30f06580d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Exclusions" ;
+        IFC4-PSD:nameAlias        "Exclusions"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:Exclusions  a              rdf:Property ;
+        rdfs:seeAlso        :p30f06580d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Exclusions .
+
+:Pset_Warranty  a                     IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An assurance given by the seller or provider of an artefact that the artefact is without defects and will operate as described for a defined period of time without failure and that if a defect does arise during that time, that it will be corrected by the seller or provider." ;
+        rdfs:label                    "Pset_Warranty" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElement ;
+        IFC4-PSD:applicableTypeValue  "IfcElement" ;
+        IFC4-PSD:definition           "An assurance given by the seller or provider of an artefact that the artefact is without defects and will operate as described for a defined period of time without failure and that if a defect does arise during that time, that it will be corrected by the seller or provider." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_Warranty" ;
+        IFC4-PSD:propertyDef          :p2a61ee00d21611e1800000215ad4efdf , :p0ef6e300d21611e1800000215ad4efdf , :p2635d080d21611e1800000215ad4efdf , :p19b17800d21611e1800000215ad4efdf , :p08686b80d21611e1800000215ad4efdf , :p20d88600d21611e1800000215ad4efdf , :p14542d80d21611e1800000215ad4efdf , :p30f06580d21611e1800000215ad4efdf .
+
+:p19b17800d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether this is an extended warranty whose duration is greater than that normally assigned to an artefact (=TRUE) or not (= FALSE)." ;
+        rdfs:label                "IsExtendedWarranty" ;
+        IFC4-PSD:definition       "Indication of whether this is an extended warranty whose duration is greater than that normally assigned to an artefact (=TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "19b17800d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsExtendedWarranty" ;
+        IFC4-PSD:nameAlias        "Is Extended Warranty"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:PointOfContact  a          rdf:Property ;
+        rdfs:seeAlso        :p2635d080d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PointOfContact .

@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActionRequest#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe098e980d1bc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A specific name or label that further qualifies the identity of a request source. In the event of an email, this may be the email address." ;
+        rdfs:label                "RequestSourceLabel" ;
+        IFC4-PSD:definition       "A specific name or label that further qualifies the identity of a request source. In the event of an email, this may be the email address." ;
+        IFC4-PSD:definitionAlias  "要請がなされる源のあらかじめ定義されたタイプの識別子。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e098e980d1bc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RequestSourceLabel" ;
+        IFC4-PSD:nameAlias        "Request Source Label"@en , "要請ソースタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pf0b0c900d1bc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Comments that may be made on the request." ;
+        rdfs:label                "RequestComments" ;
+        IFC4-PSD:definition       "Comments that may be made on the request." ;
+        IFC4-PSD:definitionAlias  "要請を作成する人物の名称。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f0b0c900d1bc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RequestComments" ;
+        IFC4-PSD:nameAlias        "Request Comments"@en , "要請ソース名"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:peabae800d1bc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The person making the request, where known." ;
+        rdfs:label                "RequestSourceName" ;
+        IFC4-PSD:definition       "The person making the request, where known." ;
+        IFC4-PSD:definitionAlias  ""@en , "要請源の識別を確認するための特定の名称またはラベル。電子メールの場合、電子メールアドレスに相当する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eabae800d1bc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RequestSourceName" ;
+        IFC4-PSD:nameAlias        "要請ソースラベル"@ja-JP , "Request Source Name"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcPerson
+                                  ] .
+
+:RequestSourceLabel  a      rdf:Property ;
+        rdfs:seeAlso        :pe098e980d1bc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RequestSourceLabel .
+
+:Pset_ActionRequest  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An action request is a request for an action to fulfill a need.  HISTORY: IFC4: Removed RequestSourceType, RequestDescription, Status" ;
+        rdfs:label                    "Pset_ActionRequest" ;
+        IFC4-PSD:applicableClass      IFC4:IfcActionRequest ;
+        IFC4-PSD:applicableTypeValue  "IfcActionRequest" ;
+        IFC4-PSD:definition           "An action request is a request for an action to fulfill a need.  HISTORY: IFC4: Removed RequestSourceType, RequestDescription, Status" ;
+        IFC4-PSD:definitionAlias      ""@en , "ファシリティマネジメントにおける施策への要請事項に関するプロパティセット定義。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActionRequest" ;
+        IFC4-PSD:propertyDef          :pf0b0c900d1bc11e1800000215ad4efdf , :pe098e980d1bc11e1800000215ad4efdf , :peabae800d1bc11e1800000215ad4efdf .
+
+:RequestSourceName  a       rdf:Property ;
+        rdfs:seeAlso        :peabae800d1bc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RequestSourceName .
+
+:RequestComments  a         rdf:Property ;
+        rdfs:seeAlso        :pf0b0c900d1bc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RequestComments .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActionRequest>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

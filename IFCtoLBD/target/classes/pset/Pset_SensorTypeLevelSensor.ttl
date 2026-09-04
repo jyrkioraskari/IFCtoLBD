@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeLevelSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SensorTypeLevelSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects fill level.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeLevelSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/LEVEL> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/LEVEL" ;
+        IFC4-PSD:definition           "A device that senses or detects fill level.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "レベルを感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeLevelSensor" ;
+        IFC4-PSD:propertyDef          :pc9cab500d20511e1800000215ad4efdf .
+
+:SetPointLevel  a           rdf:Property ;
+        rdfs:seeAlso        :pc9cab500d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointLevel .
+
+:pc9cab500d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The fill level value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointLevel" ;
+        IFC4-PSD:definition       "The fill level value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知されるレベル。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , "감지되는 수준. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "c9cab500d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointLevel" ;
+        IFC4-PSD:nameAlias        "레벨 설정"@ko-KR , "レベル設定値"@ja-JP , "Set Point Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeLevelSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

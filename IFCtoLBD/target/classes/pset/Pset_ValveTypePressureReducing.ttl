@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypePressureReducing#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ValveTypePressureReducing
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve that reduces the pressure of a fluid immediately downstream of its position in a pipeline to a preselected value or by a predetermined ratio.\nNote that a pressure reducing valve is constrained to have a 2 port  pattern." ;
+        rdfs:label                    "Pset_ValveTypePressureReducing" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/PRESSUREREDUCING> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/PRESSUREREDUCING" ;
+        IFC4-PSD:definition           "Valve that reduces the pressure of a fluid immediately downstream of its position in a pipeline to a preselected value or by a predetermined ratio.\nNote that a pressure reducing valve is constrained to have a 2 port  pattern." ;
+        IFC4-PSD:definitionAlias      ""@en , "減圧弁"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypePressureReducing" ;
+        IFC4-PSD:propertyDef          :p5fba0c00d21511e1800000215ad4efdf , :p59c42b00d21511e1800000215ad4efdf .
+
+:p59c42b00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The operating pressure of the fluid upstream of the pressure reducing valve." ;
+        rdfs:label                "UpstreamPressure" ;
+        IFC4-PSD:definition       "The operating pressure of the fluid upstream of the pressure reducing valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "減圧弁の上流の流体運転圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "59c42b00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UpstreamPressure" ;
+        IFC4-PSD:nameAlias        "Upstream Pressure"@en , "上流圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:DownstreamPressure  a      rdf:Property ;
+        rdfs:seeAlso        :p5fba0c00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DownstreamPressure .
+
+:UpstreamPressure  a        rdf:Property ;
+        rdfs:seeAlso        :p59c42b00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UpstreamPressure .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypePressureReducing>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5fba0c00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The operating pressure of the fluid downstream of the pressure reducing valve." ;
+        rdfs:label                "DownstreamPressure" ;
+        IFC4-PSD:definition       "The operating pressure of the fluid downstream of the pressure reducing valve." ;
+        IFC4-PSD:definitionAlias  "減圧弁の下流の流体運転圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5fba0c00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DownstreamPressure" ;
+        IFC4-PSD:nameAlias        "下流圧力"@ja-JP , "Downstream Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .

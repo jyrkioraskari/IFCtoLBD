@@ -181,7 +181,7 @@ public class AttributeSet {
                 if (this.hasBlank_nodes)
                     state_resourse = this.lbd_model.createResource();
                 else
-                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_a" + AttributeSet.state_resourse_counter++);
+                    state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid + "_a" + stableValueId(this.mapPnameValue.get(pname)));
                // https://w3c-lbd-cg.github.io/opm/assets/states.svg
                 property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
@@ -209,6 +209,10 @@ public class AttributeSet {
             properties.add(new PsetProperty(property, property_resource));
         }
         return properties;
+    }
+
+    private static String stableValueId(RDFNode value) {
+        return Integer.toUnsignedString(java.util.Objects.toString(value, "").hashCode(), 36);
     }
 
     private void addUnit(Resource lbd_resource, String pname) {

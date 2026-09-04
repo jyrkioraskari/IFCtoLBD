@@ -1,0 +1,233 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ResidualFlowingPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p721d5100d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ResidualFlowingPressure .
+
+:p78133200d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The coefficient of flow at the sprinkler." ;
+        rdfs:label                "DischargeCoefficient" ;
+        IFC4-PSD:definition       "The coefficient of flow at the sprinkler." ;
+        IFC4-PSD:definitionAlias  "スプリンクラーの流れの係数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "78133200d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeCoefficient" ;
+        IFC4-PSD:nameAlias        "Discharge Coefficient"@en , "流量係数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p59ad3680d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The color of the liquid in the bulb for a bulb activated sprinkler. Note that the liquid color varies according to the activation temperature requirement of the sprinkler head. Note also that this property does not need to be asserted for quick response activated sprinklers." ;
+        rdfs:label                "BulbLiquidColor" ;
+        IFC4-PSD:definition       "The color of the liquid in the bulb for a bulb activated sprinkler. Note that the liquid color varies according to the activation temperature requirement of the sprinkler head. Note also that this property does not need to be asserted for quick response activated sprinklers." ;
+        IFC4-PSD:definitionAlias  "バルブ作動スプリンクラーのバルブ液体色の設定。液体色は、スプリンクラーヘッドの作動温度に応じて変化する。また、この属性は、高速応答スプリンクラーは設定する必要はない。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "59ad3680d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BulbLiquidColor" ;
+        IFC4-PSD:nameAlias        "Bulb Liquid Color"@en , "バルブ液体色"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "GREEN" , "OTHER" , "ORANGE" , "UNSET" , "BLUE" , "RED" , "NOTKNOWN" , "YELLOW" , "MAUVE"
+                                  ] .
+
+:ActivationTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p47cb9380d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActivationTemperature .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :p83665d80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:Pset_FireSuppressionTerminalTypeSprinkler
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Device for sprinkling water from a pipe under pressure over an area (BS6100 100 3432)" ;
+        rdfs:label                    "Pset_FireSuppressionTerminalTypeSprinkler" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/SPRINKLER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/SPRINKLER" ;
+        IFC4-PSD:definition           "Device for sprinkling water from a pipe under pressure over an area (BS6100 100 3432)" ;
+        IFC4-PSD:definitionAlias      ""@en , "特定エリアに水圧をかけた配管より散水する装置。（BS61001003432）"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeSprinkler" ;
+        IFC4-PSD:propertyDef          :p4d28de00d1e711e1800000215ad4efdf , :p78133200d1e711e1800000215ad4efdf , :p531ebf00d1e711e1800000215ad4efdf , :p83665d80d1e711e1800000215ad4efdf , :p47cb9380d1e711e1800000215ad4efdf , :p31bdd300d1e711e1800000215ad4efdf , :p3da99500d1e711e1800000215ad4efdf , :p721d5100d1e711e1800000215ad4efdf , :p59ad3680d1e711e1800000215ad4efdf , :p6cc00680d1e711e1800000215ad4efdf , :p7d707c80d1e711e1800000215ad4efdf , :p1d79d600d1e711e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeSprinkler>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Activation  a              rdf:Property ;
+        rdfs:seeAlso        :p31bdd300d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Activation .
+
+:MaximumWorkingPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7d707c80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumWorkingPressure .
+
+:p3da99500d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined methods of sprinkler response from which that required may be set." ;
+        rdfs:label                "Response" ;
+        IFC4-PSD:definition       "Identifies the predefined methods of sprinkler response from which that required may be set." ;
+        IFC4-PSD:definitionAlias  "あらかじめ定義済みのスプリンクラーの応答方式から必要な方式を設定する識別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "3da99500d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Response" ;
+        IFC4-PSD:nameAlias        "Response"@en , "応答"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "QUICK" , "STANDARD" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p31bdd300d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined methods of sprinkler activation from which that required may be set." ;
+        rdfs:label                "Activation" ;
+        IFC4-PSD:definition       "Identifies the predefined methods of sprinkler activation from which that required may be set." ;
+        IFC4-PSD:definitionAlias  "あらかじめ定義済みのスプリンクラーの作動方式から必要な方式を設定する識別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "31bdd300d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Activation" ;
+        IFC4-PSD:nameAlias        "作動"@ja-JP , "Activation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BULB" , "FUSIBLESOLDER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p4d28de00d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The area that the sprinkler is designed to protect." ;
+        rdfs:label                "CoverageArea" ;
+        IFC4-PSD:definition       "The area that the sprinkler is designed to protect." ;
+        IFC4-PSD:definitionAlias  ""@en , "スプリンクラーの設計保護区画面積。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4d28de00d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverageArea" ;
+        IFC4-PSD:nameAlias        "カバー面積"@ja-JP , "Coverage Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:DischargeFlowRate  a       rdf:Property ;
+        rdfs:seeAlso        :p6cc00680d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeFlowRate .
+
+:p7d707c80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum pressure that the object is manufactured to withstand." ;
+        rdfs:label                "MaximumWorkingPressure" ;
+        IFC4-PSD:definition       "Maximum pressure that the object is manufactured to withstand." ;
+        IFC4-PSD:definitionAlias  ""@en , "最大圧力、製造耐圧。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7d707c80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumWorkingPressure" ;
+        IFC4-PSD:nameAlias        "Maximum Working Pressure"@en , "最大作動圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:CoverageArea  a            rdf:Property ;
+        rdfs:seeAlso        :p4d28de00d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverageArea .
+
+:BulbLiquidColor  a         rdf:Property ;
+        rdfs:seeAlso        :p59ad3680d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BulbLiquidColor .
+
+:p1d79d600d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of sprinkler  from which the type required may be set." ;
+        rdfs:label                "SprinklerType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of sprinkler  from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  "あらかじめ定義済みのスプリンクラーの型から必要な型を設定する識別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1d79d600d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprinklerType" ;
+        IFC4-PSD:nameAlias        "Sprinkler Type"@en , "スプリンクラータイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UPRIGHT" , "CEILING" , "SIDEWALL" , "CUTOFF" , "NOTKNOWN" , "CONCEALED" , "RECESSEDPENDANT" , "PENDANT" , "UNSET" , "OTHER"
+                                  ] .
+
+:p531ebf00d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the sprinkler has a deflector (baffle) fitted to diffuse the discharge on activation (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "HasDeflector" ;
+        IFC4-PSD:definition       "Indication of whether the sprinkler has a deflector (baffle) fitted to diffuse the discharge on activation (= TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "スプリンクラー作動時、放水を拡散させる偏向器（バッフル）取り付けているかどうかの表示（= TRUE）そうでないか（= FALSE）を返します。"@ja-JP ;
+        IFC4-PSD:ifdguid          "531ebf00d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasDeflector" ;
+        IFC4-PSD:nameAlias        "ディフレクターの有無"@ja-JP , "Has Deflector"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p6cc00680d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The volumetric rate of fluid discharge." ;
+        rdfs:label                "DischargeFlowRate" ;
+        IFC4-PSD:definition       "The volumetric rate of fluid discharge." ;
+        IFC4-PSD:definitionAlias  "吐出流体の体積流量。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6cc00680d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeFlowRate" ;
+        IFC4-PSD:nameAlias        "Discharge Flow Rate"@en , "吐出流量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:Response  a                rdf:Property ;
+        rdfs:seeAlso        :p3da99500d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Response .
+
+:DischargeCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p78133200d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeCoefficient .
+
+:HasDeflector  a            rdf:Property ;
+        rdfs:seeAlso        :p531ebf00d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasDeflector .
+
+:p83665d80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the inlet connection to the sprinkler." ;
+        rdfs:label                "ConnectionSize" ;
+        IFC4-PSD:definition       "Size of the inlet connection to the sprinkler." ;
+        IFC4-PSD:definitionAlias  ""@en , "スプリンクラーへの入口接続のサイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "83665d80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "Connection Size"@en , "接続サイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p721d5100d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The residual flowing pressure in the pipeline at which the discharge flow rate is determined." ;
+        rdfs:label                "ResidualFlowingPressure" ;
+        IFC4-PSD:definition       "The residual flowing pressure in the pipeline at which the discharge flow rate is determined." ;
+        IFC4-PSD:definitionAlias  ""@en , "吐出流量が確保される、パイプラインの流れ時残留圧力。"@ja-JP ;
+        IFC4-PSD:ifdguid          "721d5100d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ResidualFlowingPressure" ;
+        IFC4-PSD:nameAlias        "Residual Flowing Pressure"@en , "残留流動圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p47cb9380d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature at which the object is designed to activate." ;
+        rdfs:label                "ActivationTemperature" ;
+        IFC4-PSD:definition       "The temperature at which the object is designed to activate." ;
+        IFC4-PSD:definitionAlias  ""@en , "設計作動温度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "47cb9380d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActivationTemperature" ;
+        IFC4-PSD:nameAlias        "Activation Temperature"@en , "作動温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:SprinklerType  a           rdf:Property ;
+        rdfs:seeAlso        :p1d79d600d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SprinklerType .

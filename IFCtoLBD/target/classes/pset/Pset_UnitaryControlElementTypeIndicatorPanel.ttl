@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_UnitaryControlElementTypeIndicatorPanel
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Unitary control element type indicator panel attributes.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_UnitaryControlElementTypeIndicatorPanel" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryControlElement/INDICATORPANEL> ;
+        IFC4-PSD:applicableTypeValue  "IfcUnitaryControlElement/INDICATORPANEL" ;
+        IFC4-PSD:definition           "Unitary control element type indicator panel attributes.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UnitaryControlElementTypeIndicatorPanel" ;
+        IFC4-PSD:propertyDef          :pa214298bc8bc4c2d91e02d20124d29f8 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementTypeIndicatorPanel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa214298bc8bc4c2d91e02d20124d29f8
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The application of the unitary control element." ;
+        rdfs:label                "Application" ;
+        IFC4-PSD:definition       "The application of the unitary control element." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a214298bc8bc4c2d91e02d20124d29f8" ;
+        IFC4-PSD:name             "Application" ;
+        IFC4-PSD:nameAlias        "Application"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LIFTCARDIRECTIONLANTERN" , "LIFTPOSITIONINDICATOR" , "LIFTFIRESYSTEMSPORT" , "NOTKNOWN" , "UNSET" , "LIFTHALLLANTERN" , "OTHER" , "LIFTARRIVALGONG" , "LIFTVOICEANNOUNCER"
+                                  ] .
+
+:Application  a             rdf:Property ;
+        rdfs:seeAlso        :pa214298bc8bc4c2d91e02d20124d29f8 ;
+        rdfs:subPropertyOf  IFC4-PSD:Application .

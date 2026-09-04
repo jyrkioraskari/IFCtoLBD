@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricApplianceTypeElectricCooker#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pcb818200d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of electric cooker." ;
+        rdfs:label                "ElectricCookerType" ;
+        IFC4-PSD:definition       "Type of electric cooker." ;
+        IFC4-PSD:definitionAlias  "電気調理器のタイプ。"@ja-JP , ""@en , "전자 조리기의 유형."@ko-KR ;
+        IFC4-PSD:ifdguid          "cb818200d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ElectricCookerType" ;
+        IFC4-PSD:nameAlias        "Electric Cooker Type"@en , "전기 밥솥의 종류"@ko-KR , "電気調理器のタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COOKINGKETTLE" , "STEAMCOOKER" , "UNKNOWN" , "OVEN" , "OTHER" , "TILTINGFRYINGPAN" , "UNSET" , "STOVE" , "DEEPFRYER"
+                                  ] .
+
+:ElectricCookerType  a      rdf:Property ;
+        rdfs:seeAlso        :pcb818200d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ElectricCookerType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricApplianceTypeElectricCooker>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ElectricApplianceTypeElectricCooker
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common properties for electric cooker appliances.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_ElectricApplianceTypeElectricCooker" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcElectricAppliance/ELECTRICCOOKER> ;
+        IFC4-PSD:applicableTypeValue  "IfcElectricAppliance/ELECTRICCOOKER" ;
+        IFC4-PSD:definition           "Common properties for electric cooker appliances.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "電気調理器の共通プロパティ。\nIFC4にて追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricApplianceTypeElectricCooker" ;
+        IFC4-PSD:propertyDef          :pcb818200d1df11e1800000215ad4efdf .

@@ -1,6 +1,6 @@
 # IFCtoLBD
 
-Version 2.51.0
+Version 2.51.1
 Free for all of us, forever.
 
 The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
@@ -36,6 +36,57 @@ mvn verify -Pintegration
 mvn verify -Pfull
 ```
 
+## Running the applications
+
+### Command-line converter
+
+Build the executable converter JAR and run it with an IFC file and output path:
+
+```sh
+mvn -pl IFCtoLBD -am package -DskipTests
+java -jar IFCtoLBD/target/ifc-to-lbd-2.51.1-jar-with-dependencies.jar \
+  --url https://example.com/ \
+  --target_file output.ttl \
+  model.ifc
+```
+
+Run `java -jar IFCtoLBD/target/ifc-to-lbd-2.51.1-jar-with-dependencies.jar --help`
+to see all options. Java 21 or newer is required.
+
+### Desktop application
+
+Build the desktop distribution, then start it from the directory containing the
+JAR and its copied libraries:
+
+```sh
+mvn -pl IFCtoLBD_Desktop_2026 -am package -DskipTests
+java -jar IFCtoLBD_Desktop_2026/target/IFCtoLBD-Desktop_Java_21.jar
+```
+
+On Windows, double-click the same JAR or run the command from PowerShell. If
+JavaFX cannot be found, keep the generated `IFCtoLBD-Desktop_Java_21_lib`
+directory next to the JAR.
+
+### Node.js wrapper
+
+```sh
+cd IFCtoLBD_NodeJS
+npm install
+npm start
+```
+
+The Node.js examples use the converter libraries in `java_libraries/`; copy the
+built converter and its runtime dependencies there before running them.
+
+### About `lbd:batid`
+
+The `lbd:batid` value is copied from the IFC object's `IfcRoot.Tag` attribute
+(the IFC-OWL predicate is typically named `tag_IfcRoot`). The converter maps
+that attribute to the LBD `batid` name for compatibility with building
+asset-identification workflows. It is not generated from the IFC GlobalId:
+`lbd:globalId` remains the stable IFC identifier, while `lbd:batid` is the
+author- or application-assigned tag and may be absent or reused in a model.
+
 
 <img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="800">
 
@@ -63,11 +114,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.51.0}},
+  title        = {{IFCtoLBD v 2.51.1}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.51.0},
+  version      = {2.51.1},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 

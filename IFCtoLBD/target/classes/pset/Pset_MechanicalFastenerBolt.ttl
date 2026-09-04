@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MechanicalFastenerBolt#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe7d9ea80d1f011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal diameter of the thread, if different from the bolt's overall nominal diameter" ;
+        rdfs:label                "ThreadDiameter" ;
+        IFC4-PSD:definition       "Nominal diameter of the thread, if different from the bolt's overall nominal diameter" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e7d9ea80d1f011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThreadDiameter" ;
+        IFC4-PSD:nameAlias        "Thread Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ThreadLength  a            rdf:Property ;
+        rdfs:seeAlso        :pee686200d1f011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThreadLength .
+
+:pf45e4300d1f011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Count of nuts to be mounted on one bolt" ;
+        rdfs:label                "NutsCount" ;
+        IFC4-PSD:definition       "Count of nuts to be mounted on one bolt" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f45e4300d1f011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NutsCount" ;
+        IFC4-PSD:nameAlias        "Nuts Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:p0b9d3080d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Shape of the nut, e.g. 'Hexagon', 'Cap', 'Castle', 'Wing'" ;
+        rdfs:label                "NutShape" ;
+        IFC4-PSD:definition       "Shape of the nut, e.g. 'Hexagon', 'Cap', 'Castle', 'Wing'" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0b9d3080d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NutShape" ;
+        IFC4-PSD:nameAlias        "Nut Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:WashersCount  a            rdf:Property ;
+        rdfs:seeAlso        :pfa542400d1f011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WashersCount .
+
+:p1d7ed380d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Shape of the washers, e.g. 'Standard', 'Square'" ;
+        rdfs:label                "WasherShape" ;
+        IFC4-PSD:definition       "Shape of the washers, e.g. 'Standard', 'Square'" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1d7ed380d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WasherShape" ;
+        IFC4-PSD:nameAlias        "Washer Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pfa542400d1f011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Count of washers to be mounted on one bolt" ;
+        rdfs:label                "WashersCount" ;
+        IFC4-PSD:definition       "Count of washers to be mounted on one bolt" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fa542400d1f011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WashersCount" ;
+        IFC4-PSD:nameAlias        "Washers Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MechanicalFastenerBolt>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pee686200d1f011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal length of the thread" ;
+        rdfs:label                "ThreadLength" ;
+        IFC4-PSD:definition       "Nominal length of the thread" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ee686200d1f011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThreadLength" ;
+        IFC4-PSD:nameAlias        "Thread Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pff18d800d1f011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Shape of the bolt's head, e.g. 'Hexagon', 'Countersunk', 'Cheese'" ;
+        rdfs:label                "HeadShape" ;
+        IFC4-PSD:definition       "Shape of the bolt's head, e.g. 'Hexagon', 'Countersunk', 'Cheese'" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ff18d800d1f011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeadShape" ;
+        IFC4-PSD:nameAlias        "Head Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ThreadDiameter  a          rdf:Property ;
+        rdfs:seeAlso        :pe7d9ea80d1f011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThreadDiameter .
+
+:Pset_MechanicalFastenerBolt
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties related to bolt-type fasteners. The properties of a whole set with bolt, washers and nut may be provided. Note, it is usually not necessary to transmit these properties in case of standardized bolts. Instead, the standard is referred to." ;
+        rdfs:label                    "Pset_MechanicalFastenerBolt" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcMechanicalFastener/BOLT> ;
+        IFC4-PSD:applicableTypeValue  "IfcMechanicalFastener/BOLT" ;
+        IFC4-PSD:definition           "Properties related to bolt-type fasteners. The properties of a whole set with bolt, washers and nut may be provided. Note, it is usually not necessary to transmit these properties in case of standardized bolts. Instead, the standard is referred to." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MechanicalFastenerBolt" ;
+        IFC4-PSD:propertyDef          :pee686200d1f011e1800000215ad4efdf , :pf45e4300d1f011e1800000215ad4efdf , :pff18d800d1f011e1800000215ad4efdf , :pe7d9ea80d1f011e1800000215ad4efdf , :p0b9d3080d1f111e1800000215ad4efdf , :pfa542400d1f011e1800000215ad4efdf , :p05a74f80d1f111e1800000215ad4efdf , :p1d7ed380d1f111e1800000215ad4efdf .
+
+:WasherShape  a             rdf:Property ;
+        rdfs:seeAlso        :p1d7ed380d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WasherShape .
+
+:p05a74f80d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If applicable, shape of the head's slot, e.g. 'Slot', 'Allen'" ;
+        rdfs:label                "KeyShape" ;
+        IFC4-PSD:definition       "If applicable, shape of the head's slot, e.g. 'Slot', 'Allen'" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "05a74f80d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "KeyShape" ;
+        IFC4-PSD:nameAlias        "Key Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:NutsCount  a               rdf:Property ;
+        rdfs:seeAlso        :pf45e4300d1f011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NutsCount .
+
+:KeyShape  a                rdf:Property ;
+        rdfs:seeAlso        :p05a74f80d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:KeyShape .
+
+:NutShape  a                rdf:Property ;
+        rdfs:seeAlso        :p0b9d3080d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NutShape .
+
+:HeadShape  a               rdf:Property ;
+        rdfs:seeAlso        :pff18d800d1f011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeadShape .

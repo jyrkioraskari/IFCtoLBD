@@ -1,0 +1,183 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p56548380d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boiler real load." ;
+        rdfs:label                "Load" ;
+        IFC4-PSD:definition       "Boiler real load." ;
+        IFC4-PSD:definitionAlias  ""@en , "Charge effective de la chaudière."@fr-FR , "ボイラ実負荷"@ja-JP ;
+        IFC4-PSD:ifdguid          "56548380d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Load" ;
+        IFC4-PSD:nameAlias        "負荷"@ja-JP , "Charge"@fr-FR , "Load"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p50f73900d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Average combustion chamber temperature." ;
+        rdfs:label                "CombustionTemperature" ;
+        IFC4-PSD:definition       "Average combustion chamber temperature." ;
+        IFC4-PSD:definitionAlias  "Température de combustion moyenne au foyer."@fr-FR , "燃焼室平均温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "50f73900d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CombustionTemperature" ;
+        IFC4-PSD:nameAlias        "TempératureCombustion"@fr-FR , "Combustion Temperature"@en , "燃焼温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_BoilerPHistory  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Boiler performance history common attributes.\nWaterQuality attribute deleted in IFC2x2 Pset Addendum: Use IfcWaterProperties instead. CombustionProductsMaximulLoad and CombustionProductsPartialLoad attributes deleted in IFC2x2 Pset Addendum: Use IfcProductsOfCombustionProperties instead." ;
+        rdfs:label                    "Pset_BoilerPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBoiler ;
+        IFC4-PSD:applicableTypeValue  "IfcBoiler" ;
+        IFC4-PSD:definition           "Boiler performance history common attributes.\nWaterQuality attribute deleted in IFC2x2 Pset Addendum: Use IfcWaterProperties instead. CombustionProductsMaximulLoad and CombustionProductsPartialLoad attributes deleted in IFC2x2 Pset Addendum: Use IfcProductsOfCombustionProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en , "ボイラ性能履歴共通属性：\nWaterQuality（水質属性）はIFC2ｘ２Psetの付録で削除された：代わりにIfcWaterPropertiesを使う。\nCombustionProductsMaximulLoad と CombustionProductsPartialLoadはIFC2ｘ２Psetの付録で削除された：代わりにIfcProductsOfCombustionPropertiesを使う"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BoilerPHistory" ;
+        IFC4-PSD:propertyDef          :p4dfc4880d1c411e1800000215ad4efdf , :p594f7400d1c411e1800000215ad4efdf , :p4a68c180d1c411e1800000215ad4efdf , :p5bb1ce00d1c411e1800000215ad4efdf , :p50f73900d1c411e1800000215ad4efdf , :p56548380d1c411e1800000215ad4efdf , :p53f22980d1c411e1800000215ad4efdf , :p476dd100d1c411e1800000215ad4efdf , :p43da4a00d1c411e1800000215ad4efdf .
+
+:p476dd100d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Operational efficiency: boiler output divided by total energy input (electrical and fuel)." ;
+        rdfs:label                "OperationalEfficiency" ;
+        IFC4-PSD:definition       "Operational efficiency: boiler output divided by total energy input (electrical and fuel)." ;
+        IFC4-PSD:definitionAlias  ""@en , "運転効率：\n全入力エネルギ（電力または燃料）でボイラ出力を割る"@ja-JP , "Efficacité opérationnelle: production de la chaudière divisée par l'apport total d'énergie (électrique et combustible)."@fr-FR ;
+        IFC4-PSD:ifdguid          "476dd100d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationalEfficiency" ;
+        IFC4-PSD:nameAlias        "運転効率"@ja-JP , "EfficacitéOpérationnelle"@fr-FR , "Operational Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p53f22980d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the real to the nominal capacity." ;
+        rdfs:label                "PartLoadRatio" ;
+        IFC4-PSD:definition       "Ratio of the real to the nominal capacity." ;
+        IFC4-PSD:definitionAlias  ""@en , "Ratio entre capacité effective et capacité nominale"@fr-FR , "設計容量との比"@ja-JP ;
+        IFC4-PSD:ifdguid          "53f22980d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PartLoadRatio" ;
+        IFC4-PSD:nameAlias        "部分負荷比"@ja-JP , "Taux de charge"@fr-FR , "Part Load Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AuxiliaryEnergyConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5bb1ce00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AuxiliaryEnergyConsumption .
+
+:p594f7400d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boiler primary energy source consumption (i.e., the fuel consumed for changing the thermodynamic state of the fluid)." ;
+        rdfs:label                "PrimaryEnergyConsumption" ;
+        IFC4-PSD:definition       "Boiler primary energy source consumption (i.e., the fuel consumed for changing the thermodynamic state of the fluid)." ;
+        IFC4-PSD:definitionAlias  ""@en , "ボイラ一次エネルギ消費量（つまり流体の熱力学状態変更のために消費された燃料）"@ja-JP , "Consommation d'énergie primaire de la chaudière(c'est-à-dire le combustible consommé pour le changement d'état thermodynamique du fluide)."@fr-FR ;
+        IFC4-PSD:ifdguid          "594f7400d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimaryEnergyConsumption" ;
+        IFC4-PSD:nameAlias        "ConsommationEnergiePrimaire"@fr-FR , "Primary Energy Consumption"@en , "一次エネルギ消費量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p4a68c180d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Combustion efficiency under nominal condition." ;
+        rdfs:label                "CombustionEfficiency" ;
+        IFC4-PSD:definition       "Combustion efficiency under nominal condition." ;
+        IFC4-PSD:definitionAlias  ""@en , "Efficacité de la combustion sous conditions nominales."@fr-FR , "設計条件での燃焼効率"@ja-JP ;
+        IFC4-PSD:ifdguid          "4a68c180d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CombustionEfficiency" ;
+        IFC4-PSD:nameAlias        "EfficacitéCombustion"@fr-FR , "Combustion Efficiency"@en , "燃焼効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:OperationalEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p476dd100d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationalEfficiency .
+
+:p4dfc4880d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boiler working pressure." ;
+        rdfs:label                "WorkingPressure" ;
+        IFC4-PSD:definition       "Boiler working pressure." ;
+        IFC4-PSD:definitionAlias  "Pression de fonctionnement de la chaudière."@fr-FR , ""@en , "ボイラ運転圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "4dfc4880d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkingPressure" ;
+        IFC4-PSD:nameAlias        "Working Pressure"@en , "PressionFonctionnement"@fr-FR , "作動圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:WorkingPressure  a         rdf:Property ;
+        rdfs:seeAlso        :p4dfc4880d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkingPressure .
+
+:CombustionEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4a68c180d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CombustionEfficiency .
+
+:Load   a                   rdf:Property ;
+        rdfs:seeAlso        :p56548380d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Load .
+
+:p5bb1ce00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boiler secondary energy source consumption (i.e., the electricity consumed by electrical devices such as fans and pumps)." ;
+        rdfs:label                "AuxiliaryEnergyConsumption" ;
+        IFC4-PSD:definition       "Boiler secondary energy source consumption (i.e., the electricity consumed by electrical devices such as fans and pumps)." ;
+        IFC4-PSD:definitionAlias  ""@en , "ボイラ補助エネルギ消費量（つまりファンおよびポンプのような電気装置によって消費される電気）"@ja-JP , "Consommation d'énergie secondaire de la chaudière(c'est-à-dire l'électricité consommée pour les équipements électriques tels que ventilateurs et circulateurs)."@fr-FR ;
+        IFC4-PSD:ifdguid          "5bb1ce00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AuxiliaryEnergyConsumption" ;
+        IFC4-PSD:nameAlias        "Auxiliary Energy Consumption"@en , "補助エネルギ消費量"@ja-JP , "ConsommationEnergieAuxiliaire"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:PrimaryEnergyConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p594f7400d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimaryEnergyConsumption .
+
+:CombustionTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p50f73900d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CombustionTemperature .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:EnergySourceConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p43da4a00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergySourceConsumption .
+
+:PartLoadRatio  a           rdf:Property ;
+        rdfs:seeAlso        :p53f22980d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PartLoadRatio .
+
+:p43da4a00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Energy consumption." ;
+        rdfs:label                "EnergySourceConsumption" ;
+        IFC4-PSD:definition       "Energy consumption." ;
+        IFC4-PSD:definitionAlias  "Consommation d'énergie."@fr-FR , "エネルギ消費量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "43da4a00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergySourceConsumption" ;
+        IFC4-PSD:nameAlias        "エネルギ消費量"@ja-JP , "Energy Source Consumption"@en , "ConsommationSourceEnergie."@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

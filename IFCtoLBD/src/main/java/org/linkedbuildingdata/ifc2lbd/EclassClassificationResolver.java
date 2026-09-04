@@ -12,6 +12,9 @@ public final class EclassClassificationResolver implements ClassificationResolve
 	}
 
 	EclassClassificationResolver(ClassificationResolver delegate) { this.delegate = delegate; }
+	@Override public String id() { return "eclass"; }
+	@Override public String version() { return "1"; }
+	@Override public String configurationId() { return id() + "@" + version() + "|" + delegate.configurationId(); }
 
 	@Override public Optional<Resolution> resolve(Request request) {
 		if (request.system() == null || !request.system().replaceAll("[^A-Za-z0-9]", "")

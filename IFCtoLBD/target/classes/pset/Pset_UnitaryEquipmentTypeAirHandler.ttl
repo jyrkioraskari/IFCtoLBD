@@ -1,0 +1,78 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pc6d6c100d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Does the AirHandler have a dual deck? TRUE = Yes, FALSE = No." ;
+        rdfs:label                "DualDeck" ;
+        IFC4-PSD:definition       "Does the AirHandler have a dual deck? TRUE = Yes, FALSE = No." ;
+        IFC4-PSD:definitionAlias  "空調機は2層になっているか\nTRUE=はい、FALSE=Iいいえ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c6d6c100d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DualDeck" ;
+        IFC4-PSD:nameAlias        "Dual Deck"@en , "2層"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:padce1000d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining how the air handler might be fabricated." ;
+        rdfs:label                "AirHandlerConstruction" ;
+        IFC4-PSD:definition       "Enumeration defining how the air handler might be fabricated." ;
+        IFC4-PSD:definitionAlias  "空調機の組立方法の定義の列挙"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "adce1000d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirHandlerConstruction" ;
+        IFC4-PSD:nameAlias        "空調機製造"@ja-JP , "Air Handler Construction"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MANUFACTUREDITEM" , "CONSTRUCTEDONSITE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:AirHandlerFanCoilArrangement
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbaeaff00d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirHandlerFanCoilArrangement .
+
+:AirHandlerConstruction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :padce1000d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirHandlerConstruction .
+
+:pbaeaff00d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the arrangement of the supply air fan and the cooling coil." ;
+        rdfs:label                "AirHandlerFanCoilArrangement" ;
+        IFC4-PSD:definition       "Enumeration defining the arrangement of the supply air fan and the cooling coil." ;
+        IFC4-PSD:definitionAlias  ""@en , "給気ファンと冷却コイルの配置の定義列挙"@ja-JP ;
+        IFC4-PSD:ifdguid          "baeaff00d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirHandlerFanCoilArrangement" ;
+        IFC4-PSD:nameAlias        "Air Handler Fan Coil Arrangement"@en , "空調機ファン・コイル配列"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BLOWTHROUGH" , "DRAWTHROUGH" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:DualDeck  a                rdf:Property ;
+        rdfs:seeAlso        :pc6d6c100d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DualDeck .
+
+:Pset_UnitaryEquipmentTypeAirHandler
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air handler unitary equipment type attributes.\nNote that these attributes were formerly Pset_AirHandler prior to IFC2x2." ;
+        rdfs:label                    "Pset_UnitaryEquipmentTypeAirHandler" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryEquipment/AIRHANDLER> ;
+        IFC4-PSD:applicableTypeValue  "IfcUnitaryEquipment/AIRHANDLER" ;
+        IFC4-PSD:definition           "Air handler unitary equipment type attributes.\nNote that these attributes were formerly Pset_AirHandler prior to IFC2x2." ;
+        IFC4-PSD:definitionAlias      "エアハンドリングユニットのプロパティ属性設定。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UnitaryEquipmentTypeAirHandler" ;
+        IFC4-PSD:propertyDef          :pbaeaff00d21311e1800000215ad4efdf , :pc6d6c100d21311e1800000215ad4efdf , :padce1000d21311e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryEquipmentTypeAirHandler>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

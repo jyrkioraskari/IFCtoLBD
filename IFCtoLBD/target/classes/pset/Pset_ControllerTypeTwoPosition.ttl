@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeTwoPosition#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ControllerTypeTwoPosition
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued binary output. HISTORY: In IFC4, extended properties to replace Pset_BinaryInput and Pset_BinaryOutput." ;
+        rdfs:label                    "Pset_ControllerTypeTwoPosition" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/TWOPOSITION> ;
+        IFC4-PSD:applicableTypeValue  "IfcController/TWOPOSITION" ;
+        IFC4-PSD:definition           "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued binary output. HISTORY: In IFC4, extended properties to replace Pset_BinaryInput and Pset_BinaryOutput." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ControllerTypeTwoPosition" ;
+        IFC4-PSD:propertyDef          :p201c0180d1ce11e1800000215ad4efdf , :p02e73300d1ce11e1800000215ad4efdf , :p2d38f080d1ce11e1800000215ad4efdf , :p27dba600d1ce11e1800000215ad4efdf .
+
+:p27dba600d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "True indicates normal polarity; False indicates reverse polarity." ;
+        rdfs:label                "Polarity" ;
+        IFC4-PSD:definition       "True indicates normal polarity; False indicates reverse polarity." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "27dba600d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Polarity" ;
+        IFC4-PSD:nameAlias        "Polarity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Polarity  a                rdf:Property ;
+        rdfs:seeAlso        :p27dba600d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Polarity .
+
+:p201c0180d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table mapping values to labels, where such labels indicate the meanings of True and False, such as 'Open' and 'Closed'" ;
+        rdfs:label                "Labels" ;
+        IFC4-PSD:definition       "Table mapping values to labels, where such labels indicate the meanings of True and False, such as 'Open' and 'Closed'" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "201c0180d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Labels" ;
+        IFC4-PSD:nameAlias        "Labels"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcBoolean
+                                  ] .
+
+:Labels  a                  rdf:Property ;
+        rdfs:seeAlso        :p201c0180d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Labels .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeTwoPosition>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Value  a                   rdf:Property ;
+        rdfs:seeAlso        :p2d38f080d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Value .
+
+:p02e73300d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of signal modification effected and applicable ports:\n\nLOWERLIMITSWITCH: Single analog input is read and if less than Value.LowerBound then True is written to the output value.\nUPPERLIMITSWITCH: Single analog input is read and if more than Value.UpperBound then True is written to the output value.\nLOWERBANDSWITCH: Single analog input is read and if less than Value.LowerBound+BandWidth then True is written to the output value.\nUPPERBANDSWITCH: Single analog input is read and if more than Value.UpperBound-BandWidth then True is written to the output value.\nNOT: Single binary input is read and the opposite value is written to the output value.\nAND: Two binary inputs are read and if both are True then True is written to the output value.\nOR: Two binary inputs are read and if either is True then True is written to the output value.\nXOR: Two binary inputs are read and if one is true then True is written to the output value.\nCALENDAR: No inputs; the current time is compared with an IfcWorkCalendar to which the IfcController is assigned and True is written if active.\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        rdfs:label                "ControlType" ;
+        IFC4-PSD:definition       "The type of signal modification effected and applicable ports:\n\nLOWERLIMITSWITCH: Single analog input is read and if less than Value.LowerBound then True is written to the output value.\nUPPERLIMITSWITCH: Single analog input is read and if more than Value.UpperBound then True is written to the output value.\nLOWERBANDSWITCH: Single analog input is read and if less than Value.LowerBound+BandWidth then True is written to the output value.\nUPPERBANDSWITCH: Single analog input is read and if more than Value.UpperBound-BandWidth then True is written to the output value.\nNOT: Single binary input is read and the opposite value is written to the output value.\nAND: Two binary inputs are read and if both are True then True is written to the output value.\nOR: Two binary inputs are read and if either is True then True is written to the output value.\nXOR: Two binary inputs are read and if one is true then True is written to the output value.\nCALENDAR: No inputs; the current time is compared with an IfcWorkCalendar to which the IfcController is assigned and True is written if active.\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        IFC4-PSD:definitionAlias  "신호 변경 유형 리미트 스위치가 범위를 Pset_ControllerTypeValue 값을 묶여 속성에 의해 결정 하한 : if (Value.LowerBound> Input) output = TRUE 상한 : if (Value.UpperBound <Input) output = TRUE 하한 + 불감대 : if (Value.LowerBound + BandWidth> Input) output = TRUE 최대 - 불감대 : if (Value.UpperBound - BandWidth <Input) output = TRUE 논리 부정 : output = NOT (input) 논리적 : output = AND (input1, input2) 논리합 : output = OR (input, input2) 배타적 논리합 : output = XOR (input, input2) 달력 : output = TRUE ※ 컨트롤러에 입력없이하고 IfcWorkCalendar 컨트롤러가 할당되어 현재 시간인 경우"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "02e73300d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlType" ;
+        IFC4-PSD:nameAlias        "TWOPOSITION 유형"@ko-KR , "Control Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "XOR" , "UPPERLIMITSWITCH" , "VARIABLE" , "UPPERBANDSWITCH" , "OR" , "AND" , "AVERAGE" , "NOTKNOWN" , "INPUT" , "OUTPUT" , "CALENDAR" , "UNSET" , "OTHER" , "LOWERBANDSWITCH" , "LOWERLIMITSWITCH" , "NOT"
+                                  ] .
+
+:p2d38f080d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The default value such as normally-closed or normally-open." ;
+        rdfs:label                "Value" ;
+        IFC4-PSD:definition       "The default value such as normally-closed or normally-open." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2d38f080d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Value" ;
+        IFC4-PSD:nameAlias        "Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :p02e73300d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .

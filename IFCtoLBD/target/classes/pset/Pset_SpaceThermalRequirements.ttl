@@ -1,0 +1,338 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalRequirements#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SpaceHumiditySummer  a     rdf:Property ;
+        rdfs:seeAlso        :p7c057b00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceHumiditySummer .
+
+:SpaceHumidityWinter  a     rdf:Property ;
+        rdfs:seeAlso        :p8162c580d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceHumidityWinter .
+
+:SpaceHumidity  a           rdf:Property ;
+        rdfs:seeAlso        :p6bed9b80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceHumidity .
+
+:p42cd0b00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature of the space or zone, that is required from user/designer view point.  If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period. Provide this value, if no temperatur range (Min-Max) is available." ;
+        rdfs:label                "SpaceTemperature" ;
+        IFC4-PSD:definition       "Temperature of the space or zone, that is required from user/designer view point.  If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period. Provide this value, if no temperatur range (Min-Max) is available." ;
+        IFC4-PSD:definitionAlias  "Geforderte Raumtemperatur, die nicht überschritten werden darf, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall. Diese wird angegeben, wenn kein geforderter Temperaturbereich (Min - Max) vorhanden ist."@de-DE , "Température de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison. A fournir si les valeurs maximale et minimale ne sont pas connues."@fr-FR , "空間またはゾーンの温度。利用者/設計者の視点から要求される。もし夏季または冬季の室内温度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "42cd0b00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperature" ;
+        IFC4-PSD:nameAlias        "Raumtemperatur"@de-DE , "Température"@fr-FR , "Space Temperature"@en , "最高室内温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:DiscontinuedHeating  a     rdf:Property ;
+        rdfs:seeAlso        :p86c01000d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiscontinuedHeating .
+
+:p9fc8c100d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this space requires air conditioning provided (TRUE) or not (FALSE)." ;
+        rdfs:label                "AirConditioning" ;
+        IFC4-PSD:definition       "Indication whether this space requires air conditioning provided (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "この空間が空調を要求するかどうかを示すブーリアン値。(TRUE)要、(FALSE)不要。"@ja-JP , ""@en , "이 공간이 공조를 요청할지 여부를 나타내는 부울 값입니다. (TRUE) 필요 (FALSE) 불필요."@ko-KR , "Anforderung, ob der Raum mit einer Klimaanlage ausgestattet werden soll (WAHR), oder nicht (Falsch)."@de-DE , "Indique si l'espace requiert un conditionnement d'air  (VRAI) ou non (FAUX)."@fr-FR ;
+        IFC4-PSD:ifdguid          "9fc8c100d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirConditioning" ;
+        IFC4-PSD:nameAlias        "공조"@ko-KR , "空調"@ja-JP , "Klimaanlage"@de-DE , "Air Conditioning"@en , "Conditionnement d'air"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:SpaceHumidityMax  a        rdf:Property ;
+        rdfs:seeAlso        :p70b24f80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceHumidityMax .
+
+:p4eb8cd00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimal temperature of the space or zone, that is required from user/designer view point. If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period." ;
+        rdfs:label                "SpaceTemperatureMin" ;
+        IFC4-PSD:definition       "Minimal temperature of the space or zone, that is required from user/designer view point. If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period." ;
+        IFC4-PSD:definitionAlias  "Température minimale de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison."@fr-FR , ""@en , "공간 또는 영역의 최저 온도 이용자 / 설계자의 관점에서 요구된다. 만약 여름철 또는 겨울철 실내 온도 요구가 주어지지 않는, 그것은 연중에, 그렇지 않으면 중간 분기별로 적용된다."@ko-KR , "空間またはゾーンの最低温度。利用者/設計者の視点から要求される。もし夏季または冬季の室内温度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , "Minimale geforderte Raumtemperatur, die nicht unterschritten werden darf, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall."@de-DE ;
+        IFC4-PSD:ifdguid          "4eb8cd00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureMin" ;
+        IFC4-PSD:nameAlias        "最低室内温度"@ja-JP , "최저온도"@ko-KR , "Raumtemperatur Minimal"@de-DE , "Space Temperature Min"@en , "Température minimale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:SpaceHumidityMin  a        rdf:Property ;
+        rdfs:seeAlso        :p76a83080d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceHumidityMin .
+
+:AirConditioningCentral
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa5bea200d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirConditioningCentral .
+
+:p8d4e8780d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space is required to have natural ventilation (TRUE) or mechanical ventilation (FALSE)." ;
+        rdfs:label                "NaturalVentilation" ;
+        IFC4-PSD:definition       "Indication whether the space is required to have natural ventilation (TRUE) or mechanical ventilation (FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Indique si la ventilation de l'espace doit être naturelle (VRAI) ou mécanique (FAUX)."@fr-FR , "空間が自然換気を持つか機械換気を持つかを示すブーリアン値。(TRUE)有、(FALSE)なし。"@ja-JP , "공간이 자연 환기가 있는지 환기있는 여부를 나타내는 값"@ko-KR , "Anforderung, ob der Raum eine natürliche Lüftung haben soll (WAHR), oder eine künstliche Lüftung (Falsch)."@de-DE ;
+        IFC4-PSD:ifdguid          "8d4e8780d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NaturalVentilation" ;
+        IFC4-PSD:nameAlias        "Natürliche Lüftung"@de-DE , "Natural Ventilation"@en , "自然換気"@ja-JP , "자연환기"@ko-KR , "Ventilation naturelle"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:SpaceTemperatureMax  a     rdf:Property ;
+        rdfs:seeAlso        :p48c2ec00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureMax .
+
+:p94759580d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of the requirement of a particular natural air ventilation rate, given in air changes per hour." ;
+        rdfs:label                "NaturalVentilationRate" ;
+        IFC4-PSD:definition       "Indication of the requirement of a particular natural air ventilation rate, given in air changes per hour." ;
+        IFC4-PSD:definitionAlias  "Taux de ventilation naturelle exprimé en volumes par heure."@fr-FR , "특정 자연 환기 율의 요구 지표. 시간 당 환기 회수로 주어진다."@ko-KR , ""@en , "特定の自然換気率の要求指標。1時間あたりの換気回数で与えられる。"@ja-JP , "Geforderte Luftwechselzahl (in Wechsel per Stunde) im Fall der natürlichen Lüftung."@de-DE ;
+        IFC4-PSD:ifdguid          "94759580d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NaturalVentilationRate" ;
+        IFC4-PSD:nameAlias        "自然換気率"@ja-JP , "Natürliche Luftwechselzahl"@de-DE , "Natural Ventilation Rate"@en , "Taux ventilation naturelle"@fr-FR , "자연환기 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:SpaceTemperatureWinterMax
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6001d980d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureWinterMax .
+
+:p65f7ba80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimal temperature of the space or zone for the cold (winter) period, that is required from user/designer view point and provided as requirement for heating." ;
+        rdfs:label                "SpaceTemperatureWinterMin" ;
+        IFC4-PSD:definition       "Minimal temperature of the space or zone for the cold (winter) period, that is required from user/designer view point and provided as requirement for heating." ;
+        IFC4-PSD:definitionAlias  "공간이나 영역 추운 계절 (겨울)의 최저 온도. 이용자 / 설계자의 관점에서 요구된다."@ko-KR , "Température minimale de l'espace ou de la zone en hiver. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le chauffage."@fr-FR , ""@en , "Minimal geforderte Raumtemperatur für die Auslegung der Raumheizung."@de-DE , "空間またはゾーンの寒冷季(冬季)の最低温度。利用者/設計者の視点から要求される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "65f7ba80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureWinterMin" ;
+        IFC4-PSD:nameAlias        "겨울철 최저온도"@ko-KR , "Température minimale en hiver"@fr-FR , "Space Temperature Winter Min"@en , "冬季最低室内温度"@ja-JP , "Raumtemperatur Heizung Minimal"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalRequirements>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p70b24f80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximal permitted humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period." ;
+        rdfs:label                "SpaceHumidityMax" ;
+        IFC4-PSD:definition       "Maximal permitted humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period." ;
+        IFC4-PSD:definitionAlias  "Maximal geforderte Luftfeuchtigkeit für diesen Raum, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall."@de-DE , ""@en , "공간 또는 영역의 습도. 이용자 / 설계자의 관점에서 요구된다. 만약 여름철 또는 겨울철 실내 습도 요구가 주어지지 않는, 그것은 연중에, 그렇지 않으면 중간 분기별로 적용된다."@ko-KR , "空間またはゾーンの最高湿度。利用者/設計者の視点から要求される。もし夏季または冬季の室内湿度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , "Humidité relative maximale de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison."@fr-FR ;
+        IFC4-PSD:ifdguid          "70b24f80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceHumidityMax" ;
+        IFC4-PSD:nameAlias        "最高室内湿度"@ja-JP , "Luftfeuchtigkeit Maximal"@de-DE , "Humidité relative maximale"@fr-FR , "실내습도"@ko-KR , "Space Humidity Max"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:SpaceTemperatureMin  a     rdf:Property ;
+        rdfs:seeAlso        :p4eb8cd00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureMin .
+
+:p6bed9b80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period. Provide this property, if no humidity range (Min-Max) is available." ;
+        rdfs:label                "SpaceHumidity" ;
+        IFC4-PSD:definition       "Humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period. Provide this property, if no humidity range (Min-Max) is available." ;
+        IFC4-PSD:definitionAlias  "Geforderte Luftfeuchtigkeit für diesen Raum, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall. Es wird angegeben, wenn kein geforderter Luftfeuchtigkeitsbereich (Min - Max)  vorhanden ist."@de-DE , "空間またはゾーンの湿度。利用者/設計者の視点から要求される。もし夏季または冬季の室内湿度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , "Humidité relative de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison. A fournir si les valeurs maximale et minimale ne sont pas connues."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "6bed9b80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceHumidity" ;
+        IFC4-PSD:nameAlias        "Humidité relative"@fr-FR , "Space Humidity"@en , "室内湿度"@ja-JP , "Luftfeuchtigkeit"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:Pset_SpaceThermalRequirements
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties related to the comfort requirements for thermal and other  thermal related performance properties of spaces that apply to the occurrences of IfcSpace, IfcSpatialZone or IfcZone. It can also be used to capture requirements for IfcSpaceType's. This includes the required design temperature, humidity, ventilation, and air conditioning." ;
+        rdfs:label                    "Pset_SpaceThermalRequirements" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> , IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
+        IFC4-PSD:definition           "Properties related to the comfort requirements for thermal and other  thermal related performance properties of spaces that apply to the occurrences of IfcSpace, IfcSpatialZone or IfcZone. It can also be used to capture requirements for IfcSpaceType's. This includes the required design temperature, humidity, ventilation, and air conditioning." ;
+        IFC4-PSD:definitionAlias      "室の快適な温熱環境に関連する要求性能。IfcSpace, IfcZoneに適用される。\n温度、湿度、空調についての設計上の設定を含む。"@ja-JP , "Property Set Definition in German"@de-DE , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceThermalRequirements" ;
+        IFC4-PSD:propertyDef          :p54161780d20c11e1800000215ad4efdf , :p70b24f80d20c11e1800000215ad4efdf , :pa5bea200d20c11e1800000215ad4efdf , :p9fc8c100d20c11e1800000215ad4efdf , :p8162c580d20c11e1800000215ad4efdf , :p76a83080d20c11e1800000215ad4efdf , :p8d4e8780d20c11e1800000215ad4efdf , :p65f7ba80d20c11e1800000215ad4efdf , :p42cd0b00d20c11e1800000215ad4efdf , :p5a0bf880d20c11e1800000215ad4efdf , :p4eb8cd00d20c11e1800000215ad4efdf , :p9a6b7680d20c11e1800000215ad4efdf , :p48c2ec00d20c11e1800000215ad4efdf , :p6bed9b80d20c11e1800000215ad4efdf , :p94759580d20c11e1800000215ad4efdf , :p6001d980d20c11e1800000215ad4efdf , :p7c057b00d20c11e1800000215ad4efdf , :p86c01000d20c11e1800000215ad4efdf .
+
+:SpaceTemperatureWinterMin
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p65f7ba80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureWinterMin .
+
+:MechanicalVentilationRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9a6b7680d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MechanicalVentilationRate .
+
+:p86c01000d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether discontinued heating is required/desirable from user/designer view point. (TRUE) if yes, (FALSE) otherwise." ;
+        rdfs:label                "DiscontinuedHeating" ;
+        IFC4-PSD:definition       "Indication whether discontinued heating is required/desirable from user/designer view point. (TRUE) if yes, (FALSE) otherwise." ;
+        IFC4-PSD:definitionAlias  ""@en , "不連続暖房が利用者/設計者の視点から要求/要望されるかどうかを示すブーリアン値。(TRUE)要、(FALSE)不要。"@ja-JP , "불연속 난방이 이용자 / 설계자의 관점에서 요청 / 요구되는지 여부를 나타내는 부울 값입니다. (TRUE) 필요 (FALSE) 불필요."@ko-KR , "Indique si un chauffage intermittent est requis ou souhaité par l'usager ou le concepteur (VRAI) ou non (FAUX)."@fr-FR , "Anfoderung, ob der Raum durch eine diskontinuierliche Heizung versorgt werden soll (WAHR) oder nicht (FALSCH)."@de-DE ;
+        IFC4-PSD:ifdguid          "86c01000d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiscontinuedHeating" ;
+        IFC4-PSD:nameAlias        "Chauffage intermittent"@fr-FR , "Diskontinuierliche Heizung"@de-DE , "Discontinued Heating"@en , "不連続暖房"@ja-JP , "불연속 난방"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:SpaceTemperature  a        rdf:Property ;
+        rdfs:seeAlso        :p42cd0b00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperature .
+
+:p8162c580d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Humidity of the space or zone for the cold (winter) period that is required from user/designer view point and provided as requirement for heating." ;
+        rdfs:label                "SpaceHumidityWinter" ;
+        IFC4-PSD:definition       "Humidity of the space or zone for the cold (winter) period that is required from user/designer view point and provided as requirement for heating." ;
+        IFC4-PSD:definitionAlias  ""@en , "Geforderte Luftfeuchtigkeit für diesen Raum für die Auslegung der Heizung."@de-DE , "空間またはゾーンの寒冷季(冬季)の室内湿度。利用者/設計者の視点から要求される。"@ja-JP , "Humidité relative minimale de l'espace ou de la zone  en été. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le refroidissement."@fr-FR , "공간이나 영역 추운 계절 (동절기) 실내 습도. 이용자 / 설계자의 관점에서 요구된다."@ko-KR ;
+        IFC4-PSD:ifdguid          "8162c580d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceHumidityWinter" ;
+        IFC4-PSD:nameAlias        "Space Humidity Winter"@en , "겨울철실내 습도"@ko-KR , "Humidité relative minimale en été"@fr-FR , "冬季室内湿度"@ja-JP , "Luftfeuchtigkeit Heizung"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:p48c2ec00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximal temperature of the space or zone, that is required from user/designer view point.  If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period." ;
+        rdfs:label                "SpaceTemperatureMax" ;
+        IFC4-PSD:definition       "Maximal temperature of the space or zone, that is required from user/designer view point.  If no summer or winter space temperature requirements are given, it applies all year, otherwise for the intermediate period." ;
+        IFC4-PSD:definitionAlias  "공간 또는 영역의 최고 온도. 이용자 / 설계자의 관점에서 요구된다. 만약 여름철 또는 겨울철 실내 온도 요구가 주어지지 않는, 그것은 연중에, 그렇지 않으면 중간 분기별로 적용된다."@ko-KR , "Maximale geforderte Raumtemperatur, die nicht überschritten werden darf, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall."@de-DE , "Température maximale de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison."@fr-FR , "空間またはゾーンの最高温度。利用者/設計者の視点から要求される。もし夏季または冬季の室内温度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "48c2ec00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureMax" ;
+        IFC4-PSD:nameAlias        "最高室内温度"@ja-JP , "최고 온도"@ko-KR , "Space Temperature Max"@en , "Raumtemperatur Maximal"@de-DE , "Température maximale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p5a0bf880d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimal temperature of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        rdfs:label                "SpaceTemperatureSummerMin" ;
+        IFC4-PSD:definition       "Minimal temperature of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        IFC4-PSD:definitionAlias  ""@en , "空間またはゾーンの暑熱季(夏季)の最低温度。利用者/設計者の視点から要求される。"@ja-JP , "Minimal geforderte Raumtemperatur aus dem Raumprogramm für die Auslegung der Raumkühlung."@de-DE , "공간이나 영역 혹서 계절 (여름)의 최저 온도. 이용자 / 설계자의 관점에서 요구된다."@ko-KR , "Température minimale de l'espace ou de la zone  en été. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le refroidissement."@fr-FR ;
+        IFC4-PSD:ifdguid          "5a0bf880d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureSummerMin" ;
+        IFC4-PSD:nameAlias        "夏季最低室内温度"@ja-JP , "여름최저온도"@ko-KR , "Température minimale en été"@fr-FR , "Space Temperature Summer Min"@en , "Raumtemperatur Kühlung Minimal"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:NaturalVentilationRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p94759580d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NaturalVentilationRate .
+
+:p54161780d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximal temperature of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        rdfs:label                "SpaceTemperatureSummerMax" ;
+        IFC4-PSD:definition       "Maximal temperature of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        IFC4-PSD:definitionAlias  "Température maximale de l'espace ou de la zone  en été. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le refroidissement."@fr-FR , "공간이나 영역 혹서 계절 (여름)의 최고 온도 이용자 / 설계자의 관점에서 요구된다."@ko-KR , "空間またはゾーンの暑熱季(夏季)の最高温度。利用者/設計者の視点から要求される。"@ja-JP , ""@en , "Maximal geforderte Raumtemperatur aus dem Raumprogramm für die Auslegung der Raumkühlung."@de-DE ;
+        IFC4-PSD:ifdguid          "54161780d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureSummerMax" ;
+        IFC4-PSD:nameAlias        "Space Temperature Summer Max"@en , "여름최고온도"@ko-KR , "Température maximale en été"@fr-FR , "夏季最高室内温度"@ja-JP , "Raumtemperatur Kühlung Maximal"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p6001d980d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximal temperature of the space or zone for the cold (winter) period, that is required from user/designer view point and provided as requirement for heating." ;
+        rdfs:label                "SpaceTemperatureWinterMax" ;
+        IFC4-PSD:definition       "Maximal temperature of the space or zone for the cold (winter) period, that is required from user/designer view point and provided as requirement for heating." ;
+        IFC4-PSD:definitionAlias  "空間またはゾーンの寒冷季(冬季)の最高温度。利用者/設計者の視点から要求される。"@ja-JP , "Maximal geforderte Raumtemperatur für die Auslegung der Raumheizung."@de-DE , "Température maximale de l'espace ou de la zone en hiver. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le chauffage."@fr-FR , "공간이나 영역 추운 계절 (겨울) 최고 온도 이용자 / 설계자의 관점에서 요구된다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "6001d980d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceTemperatureWinterMax" ;
+        IFC4-PSD:nameAlias        "Space Temperature Winter Max"@en , "Raumtemperatur Heizung Maximal"@de-DE , "겨울최고온도"@ko-KR , "Température maximale en hiver"@fr-FR , "冬季最高室内温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p7c057b00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Humidity of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        rdfs:label                "SpaceHumiditySummer" ;
+        IFC4-PSD:definition       "Humidity of the space or zone for the hot (summer) period, that is required from user/designer view point and provided as requirement for cooling." ;
+        IFC4-PSD:definitionAlias  "空間またはゾーンの暑熱季(夏季)の室内湿度。利用者/設計者の視点から要求される。"@ja-JP , "공간이나 영역 혹서 계절 (여름) 실내 습도. 이용자 / 설계자의 관점에서 요구된다."@ko-KR , "Humidité relative maximale de l'espace ou de la zone  en été. Spécifiée par l'usager ou le concepteur et utilisée comme consigne pour le refroidissement."@fr-FR , "Geforderte Luftfeuchtigkeit für diesen Raum für die Auslegung der Kühlung."@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "7c057b00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceHumiditySummer" ;
+        IFC4-PSD:nameAlias        "Space Humidity Summer"@en , "Humidité relative maximale en été"@fr-FR , "Luftfeuchtigkeit Kühlung"@de-DE , "여름철실내 습도"@ko-KR , "夏季室内湿度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:pa5bea200d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space  requires a central air conditioning provided (TRUE) or not (FALSE).\nIt should only be given, if the property \"AirConditioning\" is set to TRUE." ;
+        rdfs:label                "AirConditioningCentral" ;
+        IFC4-PSD:definition       "Indication whether the space  requires a central air conditioning provided (TRUE) or not (FALSE).\nIt should only be given, if the property \"AirConditioning\" is set to TRUE." ;
+        IFC4-PSD:definitionAlias  ""@en , "공간이 중앙 식 공조를 요청할지 여부를 나타내는 부울 값입니다. \"공조\"속성이 TRUE로 설정된 경우에만 주어진다."@ko-KR , "Anforderung, ob die Klimaanlage zentral gesteuert werden soll (WAHR), oder nicht (FALSCH). Soll nur angegeben werden, wenn die Eigenschaft \"Klimaanlage\" mit WAHR gegeben ist."@de-DE , "Indique si l'espace requiert un conditionnement d'air centralisé (VRAI) ou non (FAUX). A fournir si la propriété \"Conditionnement d'air\" est VRAI."@fr-FR , "空間が中央式空調を要求するかどうかを示すブーリアン値。「空調」プロパティがTRUEに設定された場合のみ、与えられる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a5bea200d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirConditioningCentral" ;
+        IFC4-PSD:nameAlias        "Air Conditioning Central"@en , "中央式空調"@ja-JP , "중앙식 에어컨"@ko-KR , "Klimaanlage zentral"@de-DE , "Conditionnement d'air centralisé"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:AirConditioning  a         rdf:Property ;
+        rdfs:seeAlso        :p9fc8c100d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirConditioning .
+
+:p76a83080d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimal permitted humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period." ;
+        rdfs:label                "SpaceHumidityMin" ;
+        IFC4-PSD:definition       "Minimal permitted humidity of the space or zone that is required from user/designer view point.  If no summer or winter space humidity requirements are given, it applies all year, otherwise for the intermediate period." ;
+        IFC4-PSD:definitionAlias  "空間またはゾーンの最低湿度。利用者/設計者の視点から要求される。もし夏季または冬季の室内湿度要求が与えられないと、それは通年に、さもなければ中間季に適用される。"@ja-JP , ""@en , "Minimal geforderte Luftfeuchtigkeit für diesen Raum, gilt als ganzjährige Anforderung unabhängig vom Heizungs-, oder Kühlungsfall."@de-DE , "Humidité relative minimale de l'espace ou de la zone spécifiée par l'usager ou le concepteur. Si les valeurs pour l'été et l'hiver ne sont pas connues, cette température s'applique toute l'année, sinon seulement en demi-saison."@fr-FR ;
+        IFC4-PSD:ifdguid          "76a83080d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceHumidityMin" ;
+        IFC4-PSD:nameAlias        "Space Humidity Min"@en , "Luftfeuchtigkeit Minimal"@de-DE , "Humidité relative minimale"@fr-FR , "最低室内湿度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:SpaceTemperatureSummerMax
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p54161780d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureSummerMax .
+
+:NaturalVentilation  a      rdf:Property ;
+        rdfs:seeAlso        :p8d4e8780d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NaturalVentilation .
+
+:p9a6b7680d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of the requirement of a particular mechanical air ventilation rate, given in air changes per hour." ;
+        rdfs:label                "MechanicalVentilationRate" ;
+        IFC4-PSD:definition       "Indication of the requirement of a particular mechanical air ventilation rate, given in air changes per hour." ;
+        IFC4-PSD:definitionAlias  ""@en , "특정 기계 환기 비율 요구 지표. 시간 당 환기 회수로 주어진다."@ko-KR , "Spécification du taux de ventilation mécanique exprimé en volumes par heure."@fr-FR , "Geforderte Luftwechselzahl (in Wechsel per Stunde) im Fall der künstlichen Lüftung."@de-DE , "特定の機械換気率の要求指標。1時間あたりの換気回数で与えられる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9a6b7680d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MechanicalVentilationRate" ;
+        IFC4-PSD:nameAlias        "Mechanical Ventilation Rate"@en , "Künstliche Luftwechselzahl"@de-DE , "機械換気率"@ja-JP , "기계환기 비율"@ko-KR , "Taux ventilation mécanique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:SpaceTemperatureSummerMin
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5a0bf880d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceTemperatureSummerMin .

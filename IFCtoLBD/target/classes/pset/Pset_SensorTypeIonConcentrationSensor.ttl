@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SetPointConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbcadc600d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
+
+:SubstanceDetected  a       rdf:Property ;
+        rdfs:seeAlso        :pb61f4e80d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SubstanceDetected .
+
+:pbcadc600d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ion concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointConcentration" ;
+        IFC4-PSD:definition       "The ion concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知されるイオン濃度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , "감지되는 이온 농도. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "bcadc600d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointConcentration" ;
+        IFC4-PSD:nameAlias        "이온 농도 설정"@ko-KR , "Set Point Concentration"@en , "イオン濃度設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIonConcentrationMeasure
+                                  ] .
+
+:Pset_SensorTypeIonConcentrationSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects ion concentration such as water hardness. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeIonConcentrationSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/IONCONCENTRATIONSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/IONCONCENTRATIONSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects ion concentration such as water hardness. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "水の硬度などのイオン濃度を感知または検出する装置"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeIonConcentrationSensor" ;
+        IFC4-PSD:propertyDef          :pb61f4e80d20511e1800000215ad4efdf , :pbcadc600d20511e1800000215ad4efdf .
+
+:pb61f4e80d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identification of the substance that is being detected according to chemical formula.  For example, calcium carbonate is 'CaCO3'" ;
+        rdfs:label                "SubstanceDetected" ;
+        IFC4-PSD:definition       "Identification of the substance that is being detected according to chemical formula.  For example, calcium carbonate is 'CaCO3'" ;
+        IFC4-PSD:definitionAlias  ""@en , "검출되는 물질의 식별."@ko-KR , "検出されている物質の識別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b61f4e80d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SubstanceDetected" ;
+        IFC4-PSD:nameAlias        "Substance Detected"@en , "대상 물질"@ko-KR , "対象物質"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeIonConcentrationSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

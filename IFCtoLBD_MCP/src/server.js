@@ -26,13 +26,20 @@ const DEFAULT_LOCAL_JAVA_HOME = path.join(MCP_ROOT, ".tools", "jdk");
 const DEFAULT_JAVA_HOME = fs.existsSync(DEFAULT_PARENT_JAVA_HOME)
   ? DEFAULT_PARENT_JAVA_HOME
   : DEFAULT_LOCAL_JAVA_HOME;
-const DEFAULT_JAR_DIR = path.join(REPO_ROOT, "IFCtoLBD_NodeJS", "java_libraries");
+const DEFAULT_CONVERTER_JAR = path.join(
+  MCP_ROOT,
+  "lib",
+  "ifctolbd-converter.jar"
+);
 const DEFAULT_BASE_URI = "https://example.com/ifctolbd/";
 const DEFAULT_FORMAT = "TURTLE";
 const MAX_INLINE_CHARS = 200000;
 const MAX_RESOURCE_CHARS = Number(process.env.IFCTOLBD_MCP_MAX_RESOURCE_CHARS || 5 * 1024 * 1024);
 const MAX_MODELS = Number(process.env.IFCTOLBD_MCP_MAX_MODELS || 8);
-const CONVERTER_VERSION = process.env.IFCTOLBD_CONVERTER_VERSION || "2.51.0";
+const CONVERTER_JAR = path.resolve(
+  process.env.IFCTOLBD_CONVERTER_JAR || DEFAULT_CONVERTER_JAR
+);
+const GEOMETRY_ROOT = path.join(os.tmpdir(), `ifctolbd-mcp-geometry-${process.pid}`);
 const READ_ROOTS = parseRoots(process.env.IFCTOLBD_MCP_READ_ROOTS, [REPO_ROOT]);
 const WRITE_ROOTS = parseRoots(process.env.IFCTOLBD_MCP_WRITE_ROOTS, [path.join(MCP_ROOT, "demo", "output")]);
 const SHAPE_PACKS = Object.freeze({
@@ -49,7 +56,7 @@ let javaBridge = null;
 let jvmReady = false;
 let classpathReady = false;
 let converterClass = null;
-let conversionPropertiesClass = null;
+let converterVersion = null;
 let byteArrayOutputStreamClass = null;
 const loadedModels = new Map();
 const modelIdsByCacheKey = new Map();
@@ -66,6 +73,10 @@ const RDF_FORMATS = new Set([
   "JSONLD",
   "N3",
 ]);
+const CONVERSION_PROFILES = [
+  "core", "properties-simple", "properties-opm", "geometry-envelope", "geometry-full",
+  "bim-gis", "compliance", "revision-ready", "geometry-external", "supply-chain", "sustainability"
+];
 
 const tools = [
   {
@@ -78,8 +89,20 @@ const tools = [
         baseUri: { type: "string", default: DEFAULT_BASE_URI },
         propertiesBlankNodes: { type: "boolean", default: true },
         propsLevel: { type: "integer", minimum: 1, maximum: 3, default: 1 },
-        hasGeometry: { type: "boolean", default: false },
-        hasBoundingBoxWKT: { type: "boolean", default: false }
+        profile: { type: "string", enum: CONVERSION_PROFILES, default: "properties-simple" },
+        modelScope: { type: "string" },
+        validationShapePacks: { type: "array", items: { type: "string", enum: Object.keys(SHAPE_PACKS) }, default: [] }
+      },
+      additionalProperties: false
+    }
+  },
+  {
+    name: "compare_revisions",
+    description: "Compare two loaded revision-ready conversions and retain their RDF change graph.",
+    inputSchema: {
+      type: "object", required: ["previousModelId", "currentModelId"],
+      properties: {
+        previousModelId: { type: "string" }, currentModelId: { type: "string" }
       },
       additionalProperties: false
     }
@@ -547,11 +570,11 @@ function findJvmLibrary(javaHome) {
   return candidates.find((candidate) => fs.existsSync(candidate));
 }
 
-function findJars(jarDir = DEFAULT_JAR_DIR) {
-  return fs
-    .readdirSync(jarDir)
-    .filter((fileName) => fileName.toLowerCase().endsWith(".jar"))
-    .map((fileName) => path.join(jarDir, fileName));
+function converterJar(jar = CONVERTER_JAR) {
+  if (!fs.existsSync(jar) || !fs.statSync(jar).isFile()) {
+    throw new Error(`IFCtoLBD distribution JAR is missing: ${jar}. Run npm run build:converter.`);
+  }
+  return jar;
 }
 
 function javaBridgeResolvePaths() {
@@ -611,7 +634,8 @@ function initializeClasspath(options = {}) {
 
   initializeJvm(options);
   const bridge = loadJavaBridge();
-  bridge.appendClasspath(findJars(options.jarDir));
+  // A single shaded distribution makes class loading deterministic.
+  bridge.appendClasspath(converterJar(options.converterJar));
   classpathReady = true;
 }
 
@@ -623,19 +647,14 @@ function importJavaClass(className) {
 function getConverterClass() {
   initializeClasspath();
   if (!converterClass) {
-    converterClass = importJavaClass("org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter");
+    converterClass = importJavaClass("org.linkedbuildingdata.ifc2lbd.McpConversionBridge");
   }
   return converterClass;
 }
 
-function getConversionPropertiesClass() {
-  initializeClasspath();
-  if (!conversionPropertiesClass) {
-    conversionPropertiesClass = importJavaClass(
-      "org.linkedbuildingdata.ifc2lbd.ConversionProperties"
-    );
-  }
-  return conversionPropertiesClass;
+function getConverterVersion() {
+  if (!converterVersion) converterVersion = String(getConverterClass().converterVersionSync());
+  return converterVersion;
 }
 
 function getByteArrayOutputStreamClass() {
@@ -656,31 +675,28 @@ class IFCtoLBD {
     };
 
     const Converter = getConverterClass();
+    this.artifactDirectory = this.options.artifactDirectory || "";
     this.converter = new Converter(
       this.options.baseUri,
       this.options.propertiesBlankNodes,
-      this.options.levels
+      this.options.levels[0],
+      this.artifactDirectory,
+      this.options.artifactBaseUri || "ifctolbd://artifacts/"
     );
   }
 
   convert(ifcFile = DEFAULT_IFC_FILE, options = {}) {
     const resolvedIfcFile = path.resolve(ifcFile);
-
-    if (options.hasGeometry || options.hasBoundingBoxWKT) {
-      const ConversionProperties = getConversionPropertiesClass();
-      const properties = new ConversionProperties();
-      properties.setHasGeometrySync(Boolean(options.hasGeometry));
-      if (options.hasBoundingBoxWKT) {
-        if (properties.setHasBoundingBoxWKTSync) {
-          properties.setHasBoundingBoxWKTSync(true);
-        } else if (properties.setHasBoundingBoxWktSync) {
-          properties.setHasBoundingBoxWktSync(true);
-        }
-      }
-      return this.converter.convertSync(resolvedIfcFile, properties);
-    }
-
-    return this.converter.convertSync(resolvedIfcFile);
+    const validationPacks = options.validationShapePacks || [];
+    const result = this.converter.convertSync(
+      resolvedIfcFile, options.profile || "properties-simple", options.modelScope || null, validationPacks
+    );
+    return {
+      result,
+      model: this.converter.dataModelSync(result),
+      manifestModel: result.getManifestModelSync(),
+      validationModel: result.getValidationModelSync(),
+    };
   }
 
   listSubjects(model) {
@@ -770,20 +786,15 @@ function createConverter(args) {
     baseUri,
     propertiesBlankNodes,
     levels: [propsLevel],
+    artifactDirectory: args.artifactDirectory,
+    artifactBaseUri: args.artifactBaseUri,
   });
 }
 
 function convertToModel(args) {
   const ifcPath = resolveIfcPath(args.ifcPath);
   const converter = createConverter(args);
-  return {
-    ifcPath,
-    converter,
-    model: converter.convert(ifcPath, {
-      hasGeometry: Boolean(args.hasGeometry),
-      hasBoundingBoxWKT: Boolean(args.hasBoundingBoxWKT),
-    }),
-  };
+  return { ifcPath, converter, ...converter.convert(ifcPath, args) };
 }
 
 function checksumFile(filePath) {
@@ -801,8 +812,9 @@ function conversionProfile(args) {
     baseUri: args.baseUri || DEFAULT_BASE_URI,
     propertiesBlankNodes: asBoolean(args.propertiesBlankNodes, true),
     propsLevel: asInteger(args.propsLevel, 1, 1, 3),
-    hasGeometry: asBoolean(args.hasGeometry, false),
-    hasBoundingBoxWKT: asBoolean(args.hasBoundingBoxWKT, false),
+    profile: args.profile || "properties-simple",
+    modelScope: args.modelScope || null,
+    validationShapePacks: selectedShapePacks(args.validationShapePacks, true),
   };
 }
 
@@ -826,8 +838,9 @@ function callLoadIfc(args) {
   const checksum = checksumFile(ifcPath);
   const schema = readIfcSchema(ifcPath);
   const profile = conversionProfile(args);
+  const actualConverterVersion = getConverterVersion();
   const cacheKey = crypto.createHash("sha256")
-    .update(JSON.stringify({ checksum, converterVersion: CONVERTER_VERSION, profile }))
+    .update(JSON.stringify({ checksum, converterVersion: actualConverterVersion, profile }))
     .digest("hex");
   const cachedId = modelIdsByCacheKey.get(cacheKey);
   if (cachedId && loadedModels.has(cachedId)) {
@@ -837,13 +850,20 @@ function callLoadIfc(args) {
   if (loadedModels.size >= MAX_MODELS) {
     throw new Error(`Loaded model limit (${MAX_MODELS}) reached; call close_model first`);
   }
-  const converted = convertToModel({ ...args, ...profile, ifcPath });
   const modelId = `ifc-${cacheKey.slice(0, 16)}`;
+  const artifactDirectory = path.join(GEOMETRY_ROOT, modelId);
+  const converted = convertToModel({ ...args, ...profile, ifcPath, artifactDirectory,
+    artifactBaseUri: `ifctolbd://models/${modelId}/geometry/` });
   const entry = {
     modelId, cacheKey, checksum, schema, profile, ifcPath,
-    converterVersion: CONVERTER_VERSION,
+    converterVersion: actualConverterVersion,
     converter: converted.converter,
     model: converted.model,
+    result: converted.result,
+    manifestModel: converted.manifestModel,
+    validationModel: converted.validationModel,
+    artifactDirectory,
+    comparisons: new Map(),
     loadedAt: new Date().toISOString(),
     lastAccessedAt: new Date().toISOString(),
     validationReports: new Map(),
@@ -911,9 +931,29 @@ function callCloseModel(args) {
   loadedModels.delete(entry.modelId);
   modelIdsByCacheKey.delete(entry.cacheKey);
   for (const report of entry.validationReports.values()) closeJavaObject(report.model);
-  closeJavaObject(entry.model);
+  for (const comparison of entry.comparisons.values()) closeJavaObject(comparison.diff);
+  closeJavaObject(entry.result);
   closeJavaObject(entry.converter.converter);
   return structuredContent({ modelId: entry.modelId, closed: true });
+}
+
+function callCompareRevisions(args) {
+  const previous = requireLoadedModel(args.previousModelId);
+  const current = requireLoadedModel(args.currentModelId);
+  const diff = current.converter.converter.compareSync(previous.result, current.result);
+  const comparisonId = `diff-${crypto.createHash("sha256")
+    .update(`${previous.modelId}|${current.modelId}`).digest("hex").slice(0, 16)}`;
+  const model = diff.getChangeModelSync();
+  const summary = {
+    comparisonId,
+    previousModelId: previous.modelId,
+    currentModelId: current.modelId,
+    added: Number(diff.getAddedCountSync()),
+    removed: Number(diff.getRemovedCountSync()),
+    changeResource: `ifctolbd://models/${current.modelId}/comparisons/${comparisonId}`,
+  };
+  current.comparisons.set(comparisonId, { diff, model, summary });
+  return structuredContent(summary);
 }
 
 function callQueryModel(args) {
@@ -925,10 +965,10 @@ function callQueryModel(args) {
   return structuredContent({ modelId: entry.modelId, ...executeSelect(entry.model, args.sparql, limit) });
 }
 
-function selectedShapePacks(value) {
-  const packs = value === undefined ? ["core-bot"] : value;
-  if (!Array.isArray(packs) || packs.length === 0) {
-    throw new Error("shapePacks must be a non-empty array");
+function selectedShapePacks(value, allowEmpty = false) {
+  const packs = value === undefined ? (allowEmpty ? [] : ["core-bot"]) : value;
+  if (!Array.isArray(packs) || (!allowEmpty && packs.length === 0)) {
+    throw new Error(`shapePacks must be ${allowEmpty ? "an" : "a non-empty"} array`);
   }
   for (const pack of packs) {
     if (!SHAPE_PACKS[pack]) throw new Error(`Unknown SHACL shape pack: ${pack}`);
@@ -988,15 +1028,32 @@ function callReadModelResource(args) {
   if (uri.protocol !== "ifctolbd:" || uri.hostname !== "models") {
     throw new Error(`Unsupported resource URI: ${args.uri}`);
   }
-  const match = uri.pathname.match(/^\/([^/]+)\/(rdf|validation\/([^/]+))$/);
+  const match = uri.pathname.match(/^\/([^/]+)\/(rdf|manifest|validation|validation\/([^/]+)|comparisons\/([^/]+)|geometry\/([a-f0-9]{64}\.[A-Za-z0-9]+))$/);
   if (!match) throw new Error(`Unsupported resource URI: ${args.uri}`);
   const entry = requireLoadedModel(decodeURIComponent(match[1]));
   const format = normalizeFormat(uri.searchParams.get("format") || DEFAULT_FORMAT);
   let resourceModel = entry.model;
+  if (match[2] === "manifest") resourceModel = entry.manifestModel;
+  if (match[2] === "validation") resourceModel = entry.validationModel;
   if (match[2].startsWith("validation/")) {
     const retained = entry.validationReports.get(decodeURIComponent(match[3]));
     if (!retained) throw new Error(`Unknown validation report: ${match[3]}`);
     resourceModel = retained.model;
+  }
+  if (match[2].startsWith("comparisons/")) {
+    const retained = entry.comparisons.get(decodeURIComponent(match[4]));
+    if (!retained) throw new Error(`Unknown revision comparison: ${match[4]}`);
+    resourceModel = retained.model;
+  }
+  if (match[2].startsWith("geometry/")) {
+    const fileName = match[5];
+    const artifactPath = path.join(entry.artifactDirectory, fileName);
+    if (!fs.existsSync(artifactPath)) throw new Error(`Unknown geometry artifact: ${fileName}`);
+    const data = fs.readFileSync(artifactPath);
+    if (data.length > MAX_RESOURCE_CHARS) throw new Error(`Geometry resource exceeds the ${MAX_RESOURCE_CHARS} byte output quota`);
+    const extension = path.extname(fileName).slice(1).toLowerCase();
+    const mimeType = extension === "obj" ? "model/obj" : "application/octet-stream";
+    return { uri: args.uri, mimeType, blob: data.toString("base64") };
   }
   const serialized = entry.converter.serializeModel(resourceModel, format);
   if (serialized.length > MAX_RESOURCE_CHARS) {
@@ -1368,8 +1425,7 @@ function callListElementsWithGeometry(args) {
   const typeTerm = sparqlTypeTerm(args.elementType);
   const { ifcPath, model } = convertToModel({
     ...args,
-    hasGeometry: true,
-    hasBoundingBoxWKT: asBoolean(args.hasBoundingBoxWKT, false),
+    profile: asBoolean(args.hasBoundingBoxWKT, false) ? "geometry-envelope" : "geometry-full",
   });
   const sparql = `
 PREFIX bot: <https://w3id.org/bot#>
@@ -1468,7 +1524,8 @@ function callRuntimeInfo() {
         tmpdir: os.tmpdir(),
         defaultIfcFile: DEFAULT_IFC_FILE,
         defaultJavaHome: DEFAULT_JAVA_HOME,
-        defaultJarDir: DEFAULT_JAR_DIR,
+        converterJar: CONVERTER_JAR,
+        converterVersion: getConverterVersion(),
         javaHome: process.env.JAVA_HOME || DEFAULT_JAVA_HOME,
         javaBridgeModule,
       },
@@ -1498,6 +1555,8 @@ function handleToolCallDirect(name, args) {
       return callListProperties(input);
     case "close_model":
       return callCloseModel(input);
+    case "compare_revisions":
+      return callCompareRevisions(input);
     case "query_model":
       return callQueryModel(input);
     case "validate_model":
@@ -1526,7 +1585,7 @@ let nextWorkerRequestId = 1;
 const workerRequests = new Map();
 const SESSION_TOOLS = new Set([
   "load_ifc", "describe_model", "get_entity", "list_classes", "list_properties", "query_model", "close_model",
-  "validate_model", "explain_validation", "__read_model_resource"
+  "validate_model", "explain_validation", "compare_revisions", "__read_model_resource"
 ]);
 
 function getWorker() {
@@ -1630,10 +1689,30 @@ async function handle(message) {
           description: "Serialized RDF for a loaded IFC model (default format: TURTLE)",
           mimeType: "text/turtle",
         }, {
+          uriTemplate: "ifctolbd://models/{modelId}/manifest{?format}",
+          name: "Conversion manifest",
+          description: "The immutable manifest graph returned by ConversionResult",
+          mimeType: "text/turtle",
+        }, {
+          uriTemplate: "ifctolbd://models/{modelId}/validation{?format}",
+          name: "Conversion validation graph",
+          description: "The validation graph returned by ConversionResult",
+          mimeType: "text/turtle",
+        }, {
           uriTemplate: "ifctolbd://models/{modelId}/validation/{reportId}{?format}",
           name: "SHACL validation report",
           description: "A standard RDF SHACL validation report retained for a loaded model",
           mimeType: "text/turtle",
+        }, {
+          uriTemplate: "ifctolbd://models/{modelId}/comparisons/{comparisonId}{?format}",
+          name: "Revision comparison",
+          description: "RDF change graph produced by compare_revisions",
+          mimeType: "text/turtle",
+        }, {
+          uriTemplate: "ifctolbd://models/{modelId}/geometry/{artifact}",
+          name: "Geometry artifact",
+          description: "Content-addressed external geometry generated by the geometry-external profile",
+          mimeType: "application/octet-stream",
         }] });
         break;
       case "resources/read": {
@@ -1676,7 +1755,8 @@ if (process.argv.includes("--worker")) {
   process.on("disconnect", () => {
     for (const entry of loadedModels.values()) {
       for (const report of entry.validationReports.values()) closeJavaObject(report.model);
-      closeJavaObject(entry.model);
+      for (const comparison of entry.comparisons.values()) closeJavaObject(comparison.diff);
+      closeJavaObject(entry.result);
       closeJavaObject(entry.converter.converter);
     }
     process.exit(0);

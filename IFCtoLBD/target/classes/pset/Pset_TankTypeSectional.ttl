@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypeSectional#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SectionLength  a           rdf:Property ;
+        rdfs:seeAlso        :pc4269c80d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SectionLength .
+
+:NumberOfSections  a        rdf:Property ;
+        rdfs:seeAlso        :pbd982500d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfSections .
+
+:pc4269c80d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of a section used in the construction of the tank." ;
+        rdfs:label                "SectionLength" ;
+        IFC4-PSD:definition       "The length of a section used in the construction of the tank." ;
+        IFC4-PSD:definitionAlias  "タンクの製作に使用されているセクションの長さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c4269c80d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SectionLength" ;
+        IFC4-PSD:nameAlias        "Section Length"@en , "セクションの長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypeSectional>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pbd982500d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of sections used in the construction of the tank\n\nNote: All sections assumed to be the same size." ;
+        rdfs:label                "NumberOfSections" ;
+        IFC4-PSD:definition       "Number of sections used in the construction of the tank\n\nNote: All sections assumed to be the same size." ;
+        IFC4-PSD:definitionAlias  "タンクの製作に使用されているセクションの数\n注：全てのセクションは同サイズと考える"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bd982500d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfSections" ;
+        IFC4-PSD:nameAlias        "Number Of Sections"@en , "セクションの数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:Pset_TankTypeSectional
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fixed vessel constructed from sectional parts with one or more compartments for storing a liquid.\n\nNote (1): All sectional construction tanks are considered to be rectangular by default.\nNote (2): Generally, it is not expected that sectional construction tanks will be used for the purposes of gas storage.\n\nPset renamed from Pset_TankTypeSectionalTank to Pset_TankTypeSectional in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_TankTypeSectional" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/SECTIONAL> ;
+        IFC4-PSD:applicableTypeValue  "IfcTank/SECTIONAL" ;
+        IFC4-PSD:definition           "Fixed vessel constructed from sectional parts with one or more compartments for storing a liquid.\n\nNote (1): All sectional construction tanks are considered to be rectangular by default.\nNote (2): Generally, it is not expected that sectional construction tanks will be used for the purposes of gas storage.\n\nPset renamed from Pset_TankTypeSectionalTank to Pset_TankTypeSectional in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      ""@en , "液体を貯蔵するために一つ以上の区画を持ち組立部品から造られている固定された容器　　注(1)：全ての組立式タンクは矩形をデフォルトと考えられている。注(2)：一般的に、組立式タンクは気体を貯蔵する目的のために使用されることは考えていない。　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　PsetはIFC2x2 Pset AddendumでPset_TankTypeSectionalTankからPsetまで_をTankTypeSectionalに改名しました。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankTypeSectional" ;
+        IFC4-PSD:propertyDef          :pc4269c80d21011e1800000215ad4efdf , :pbd982500d21011e1800000215ad4efdf , :pcd176e00d21011e1800000215ad4efdf .
+
+:pcd176e00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of a section used in the construction of the tank." ;
+        rdfs:label                "SectionWidth" ;
+        IFC4-PSD:definition       "The width of a section used in the construction of the tank." ;
+        IFC4-PSD:definitionAlias  "タンクの製作に使用されているセクションの幅"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cd176e00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SectionWidth" ;
+        IFC4-PSD:nameAlias        "セクションの幅"@ja-JP , "Section Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:SectionWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pcd176e00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SectionWidth .

@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitI2TCurve#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pd98fcc80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A curve that establishes the let through energy of a breaker unit when a particular prospective current is applied.  Note that the breaker unit curve is defined within a Cartesian coordinate system and this fact must be asserted within the property set:\n\n(1) Defining value: ProspectiveCurrent: A list of minimum 2 and maximum 16 numbers providing the currents in [A] for points in the current/I2t log/log coordinate space. The curve is drawn as a straight line between two consecutive points.\n(2) Defined value: LetThroughEnergy: A list of minimum 2 and maximum 16 numbers providing the let-through energy, I2t, in [A2s] for points in the current/I2t log/log coordinate space. The curve is drawn as a straight line between two consecutive points." ;
+        rdfs:label                "BreakerUnitCurve" ;
+        IFC4-PSD:definition       "A curve that establishes the let through energy of a breaker unit when a particular prospective current is applied.  Note that the breaker unit curve is defined within a Cartesian coordinate system and this fact must be asserted within the property set:\n\n(1) Defining value: ProspectiveCurrent: A list of minimum 2 and maximum 16 numbers providing the currents in [A] for points in the current/I2t log/log coordinate space. The curve is drawn as a straight line between two consecutive points.\n(2) Defined value: LetThroughEnergy: A list of minimum 2 and maximum 16 numbers providing the let-through energy, I2t, in [A2s] for points in the current/I2t log/log coordinate space. The curve is drawn as a straight line between two consecutive points." ;
+        IFC4-PSD:definitionAlias  "적용된 전류 통과 차단기의 에너지를 나타낸 곡선  (1) 정의 값 : ProspectiveCurrent (고유 전류) :    전류 / I2t에 표시된 최소 2에서 최대 8 개의 목록에서 전류 [A]를 정의합니다.    커브가 연속되는 두 개의 점을 연결하는 직선으로 그려져 있습니다.  (2) 정의 값 : LetThroughEnergy :    전류 / I2t에 표시된 최소 2에서 최대 8 개의 목록에서 통과 에너지 전류 [A2s을 정의합니다.    커브가 연속되는 두 개의 점을 연결하는 직선으로 그려져 있습니다."@ko-KR , ""@en , "適用された電流と通過する遮断機のエネルギーを示した曲線\n （1）定義値：ProspectiveCurrent（固有電流）：\n   電流/I2tで示される最小2から最大8のリストで電流[A]を定義します。\n   カーブが連続する2つの点を結ぶ直線として描かれています。\n\n\n （2）定義値：LetThroughEnergy：\n   電流/I2tで示される最小2から最大8のリストで通過エネルギー電流[[A2s]を定義します。\n   カーブが連続する2つの点を結ぶ直線として描かれています。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d98fcc80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BreakerUnitCurve" ;
+        IFC4-PSD:nameAlias        "차단기 곡선"@ko-KR , "Breaker Unit Curve"@en , "遮断機曲線"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:BreakerUnitCurve  a        rdf:Property ;
+        rdfs:seeAlso        :pd98fcc80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BreakerUnitCurve .
+
+:VoltageLevel  a            rdf:Property ;
+        rdfs:seeAlso        :pb6651d00d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VoltageLevel .
+
+:NominalCurrent  a          rdf:Property ;
+        rdfs:seeAlso        :pd09efb00d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCurrent .
+
+:pb6651d00d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage levels of the protective device for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        rdfs:label                "VoltageLevel" ;
+        IFC4-PSD:definition       "The voltage levels of the protective device for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        IFC4-PSD:definitionAlias  "保護装置が作動する電圧レベルを選択。\n[U230,U400,U525,U690,U1000,その他,不明,無]"@ja-JP , ""@en , "보호 장치가 작동 전압 레벨을 선택합니다. [U230, U400, U525, U690, U1000, 기타 알 수 없음, 무"@ko-KR ;
+        IFC4-PSD:ifdguid          "b6651d00d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VoltageLevel" ;
+        IFC4-PSD:nameAlias        "電圧レベル"@ja-JP , "전압 레벨"@ko-KR , "Voltage Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "U1000" , "NOTKNOWN" , "U690" , "OTHER" , "U400" , "U230" , "U525" , "U440" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitI2TCurve>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd09efb00d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A set of nominal currents in [A] for which the data of this instance is valid. At least one value shall be provided. Any value in the set shall not exceed the value of the \nUltimateRatedCurrent associated with the same breaker unit." ;
+        rdfs:label                "NominalCurrent" ;
+        IFC4-PSD:definition       "A set of nominal currents in [A] for which the data of this instance is valid. At least one value shall be provided. Any value in the set shall not exceed the value of the \nUltimateRatedCurrent associated with the same breaker unit." ;
+        IFC4-PSD:definitionAlias  "정격 전류 [A]를 적어도 1 개의 값을 설정해야한다.   동일한 차단기부와 연결된 정격전류는세트 내의 임의의 값은 초과할 수 없다."@ko-KR , "定格電流[A]を少なくても1つ値をセットしなければならない。\n セット内の任意の値の値を超えてはならない。\n 定格電流は、同じブレーカ部に関連付けられている。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d09efb00d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCurrent" ;
+        IFC4-PSD:nameAlias        "定格電流"@ja-JP , "정격전류"@ko-KR , "Nominal Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:Pset_ProtectiveDeviceBreakerUnitI2TCurve
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A coherent set of attributes representing a curve for let-through energy of a protective device. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics" ;
+        rdfs:label                    "Pset_ProtectiveDeviceBreakerUnitI2TCurve" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProtectiveDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice" ;
+        IFC4-PSD:definition           "A coherent set of attributes representing a curve for let-through energy of a protective device. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics" ;
+        IFC4-PSD:definitionAlias      ""@en , "保護装置の通電エネルギーの曲線を表す一連のプロパティセット。\n注記-保護装置は、根本的な特性に関連付けられた提供されたプロパティの情報は、　異なる実態に関連しているかもしれません。　　　　　　　　　　　　　　　　　"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceBreakerUnitI2TCurve" ;
+        IFC4-PSD:propertyDef          :pd98fcc80d1f811e1800000215ad4efdf , :pb6651d00d1f811e1800000215ad4efdf , :pd09efb00d1f811e1800000215ad4efdf .

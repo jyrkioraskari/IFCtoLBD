@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HumidifierPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AtmosphericPressure  a     rdf:Property ;
+        rdfs:seeAlso        :p9843f080d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AtmosphericPressure .
+
+:Pset_HumidifierPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Humidifier performance history attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_HumidifierPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcHumidifier ;
+        IFC4-PSD:applicableTypeValue  "IfcHumidifier" ;
+        IFC4-PSD:definition           "Humidifier performance history attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_HumidifierPHistory" ;
+        IFC4-PSD:propertyDef          :p9843f080d1e911e1800000215ad4efdf , :pa7c33980d1e911e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HumidifierPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa7c33980d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Saturation efficiency: Ratio of leaving air absolute humidity to the maximum absolute humidity." ;
+        rdfs:label                "SaturationEfficiency" ;
+        IFC4-PSD:definition       "Saturation efficiency: Ratio of leaving air absolute humidity to the maximum absolute humidity." ;
+        IFC4-PSD:definitionAlias  "飽和比率：最大絶対湿度に対する現在の絶対湿度の割合"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a7c33980d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SaturationEfficiency" ;
+        IFC4-PSD:nameAlias        "飽和比率"@ja-JP , "Saturation Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p9843f080d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient atmospheric pressure." ;
+        rdfs:label                "AtmosphericPressure" ;
+        IFC4-PSD:definition       "Ambient atmospheric pressure." ;
+        IFC4-PSD:definitionAlias  ""@en , "標準大気圧(外気圧）"@ja-JP ;
+        IFC4-PSD:ifdguid          "9843f080d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AtmosphericPressure" ;
+        IFC4-PSD:nameAlias        "Atmospheric Pressure"@en , "標準大気圧（外気圧）"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SaturationEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa7c33980d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SaturationEfficiency .

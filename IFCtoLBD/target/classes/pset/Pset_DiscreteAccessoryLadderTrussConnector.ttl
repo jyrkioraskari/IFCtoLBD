@@ -1,0 +1,131 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryLadderTrussConnector#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pc23de880d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The overall height of the truss connector." ;
+        rdfs:label                "LadderTrussHeight" ;
+        IFC4-PSD:definition       "The overall height of the truss connector." ;
+        IFC4-PSD:definitionAlias  "트러스 연결 부재의 전체 높이"@ko-KR , ""@en , "トラス接続部材の全体の高さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c23de880d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussHeight" ;
+        IFC4-PSD:nameAlias        "Ladder Truss Height"@en , "전체 높이"@ko-KR , "全体高さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DiscreteAccessoryLadderTrussConnector
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shape properties specific to connecting accessories in truss form with straight cross-bars in ladder shape." ;
+        rdfs:label                    "Pset_DiscreteAccessoryLadderTrussConnector" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/Ladder%20truss%20connector> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Ladder truss connector" ;
+        IFC4-PSD:definition           "Shape properties specific to connecting accessories in truss form with straight cross-bars in ladder shape." ;
+        IFC4-PSD:definitionAlias      "はじご状のまっすぐなクロスバーを使って接合したトラスの形状特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryLadderTrussConnector" ;
+        IFC4-PSD:propertyDef          :pcd911400d1d211e1800000215ad4efdf , :pd84ba900d1d211e1800000215ad4efdf , :pdda8f380d1d211e1800000215ad4efdf , :pc23de880d1d211e1800000215ad4efdf , :pd255c800d1d211e1800000215ad4efdf , :pc7029c80d1d211e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryLadderTrussConnector>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:LadderTrussBaseBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd255c800d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussBaseBarDiameter .
+
+:pdda8f380d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the straight cross-bars." ;
+        rdfs:label                "LadderTrussCrossBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the straight cross-bars." ;
+        IFC4-PSD:definitionAlias  "똑바른 크로스바 공칭 지름"@ko-KR , "まっすぐなクロスバーの公称直径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "dda8f380d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussCrossBarDiameter" ;
+        IFC4-PSD:nameAlias        "Ladder Truss Cross Bar Diameter"@en , "크로스바 지름"@ko-KR , "クロスバー径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LadderTrussHeight  a       rdf:Property ;
+        rdfs:seeAlso        :pc23de880d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussHeight .
+
+:pcd911400d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The spacing between the straight cross-bars." ;
+        rdfs:label                "LadderTrussCrossBarSpacing" ;
+        IFC4-PSD:definition       "The spacing between the straight cross-bars." ;
+        IFC4-PSD:definitionAlias  "まっすぐなのクロスバーの間隔。"@ja-JP , "똑바른 크로스바 간격"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "cd911400d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussCrossBarSpacing" ;
+        IFC4-PSD:nameAlias        "Ladder Truss Cross Bar Spacing"@en , "크로스바 간격"@ko-KR , "クロスバー間隔"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pd255c800d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the base bar." ;
+        rdfs:label                "LadderTrussBaseBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the base bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "기반 막대의 공칭 지름"@ko-KR , "ベースバーの公称直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d255c800d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussBaseBarDiameter" ;
+        IFC4-PSD:nameAlias        "Ladder Truss Base Bar Diameter"@en , "기반 막대 지름"@ko-KR , "ベースバー径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LadderTrussLength  a       rdf:Property ;
+        rdfs:seeAlso        :pc7029c80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussLength .
+
+:pc7029c80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The overall length of the truss connector." ;
+        rdfs:label                "LadderTrussLength" ;
+        IFC4-PSD:definition       "The overall length of the truss connector." ;
+        IFC4-PSD:definitionAlias  ""@en , "トラス接続部材の全体の長さ。"@ja-JP , "트러스 연결 부재의 전체 길이"@ko-KR ;
+        IFC4-PSD:ifdguid          "c7029c80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussLength" ;
+        IFC4-PSD:nameAlias        "Ladder Truss Length"@en , "전체길이"@ko-KR , "全体長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LadderTrussSecondaryBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd84ba900d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussSecondaryBarDiameter .
+
+:pd84ba900d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the secondary bar." ;
+        rdfs:label                "LadderTrussSecondaryBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the secondary bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "보조 막대의 공칭 지름"@ko-KR , "二次バーの公称直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d84ba900d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderTrussSecondaryBarDiameter" ;
+        IFC4-PSD:nameAlias        "보조막대 지름"@ko-KR , "Ladder Truss Secondary Bar Diameter"@en , "二次バー径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LadderTrussCrossBarSpacing
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pcd911400d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussCrossBarSpacing .
+
+:LadderTrussCrossBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdda8f380d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderTrussCrossBarDiameter .

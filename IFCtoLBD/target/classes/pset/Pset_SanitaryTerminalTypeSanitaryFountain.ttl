@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pc7b32700d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the form of mounting of the fountain from the enumerated list of mountings where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base\n.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        rdfs:label                "Mounting" ;
+        IFC4-PSD:definition       "Selection of the form of mounting of the fountain from the enumerated list of mountings where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base\n.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        IFC4-PSD:definitionAlias  "設置場所の選択：\n\n・床置き壁排出：接続口の後部に出水口を合わせること。\n・台：床置きの衛生器具には基礎があること。\n・調理台：衛生器具の表層が水平に設置されていること。※手洗い台として設置された場合「化粧台」として扱うこと。また、洗面台種類の規格表を参照のこと。\n・壁掛け型：衛生器具は片側固定がされ床から離れていること。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c7b32700d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mounting" ;
+        IFC4-PSD:nameAlias        "Mounting"@en , "設置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BACKTOWALL" , "PEDESTAL" , "COUNTERTOP" , "WALLHUNG" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_SanitaryTerminalTypeSanitaryFountain
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Asanitary terminal that provides a low pressure jet of water for a specific purpose (IAI). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeSanitaryFountain" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SANITARYFOUNTAIN> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SANITARYFOUNTAIN" ;
+        IFC4-PSD:definition           "Asanitary terminal that provides a low pressure jet of water for a specific purpose (IAI). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
+        IFC4-PSD:definitionAlias      "特定の使用用途の水を低圧で供給する衛生機器\n背景：IFC4で、要素のプロパティーは排除されています。IfcMaterialsResourceのタイプを使ってください。\n色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeSanitaryFountain" ;
+        IFC4-PSD:propertyDef          :pbb2ece80d20211e1800000215ad4efdf , :pc7b32700d20211e1800000215ad4efdf , :pf8935c00d20211e1800000215ad4efdf .
+
+:FountainType  a            rdf:Property ;
+        rdfs:seeAlso        :pbb2ece80d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FountainType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeSanitaryFountain>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf8935c00d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the drain outlet connection from the object." ;
+        rdfs:label                "DrainSize" ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "要素から排水溝への下水管サイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f8935c00d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "下水管サイズ"@ja-JP , "Drain Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :pf8935c00d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:pbb2ece80d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the type of fountain from the enumerated list of types where:-\n\nDrinkingWater: \tSanitary appliance that provides a low pressure jet of drinking water.\nEyewash: \tWaste water appliance, usually installed in work places where there is a risk of injury to eyes by solid particles or dangerous liquids, with which the user can wash the eyes without touching them." ;
+        rdfs:label                "FountainType" ;
+        IFC4-PSD:definition       "Selection of the type of fountain from the enumerated list of types where:-\n\nDrinkingWater: \tSanitary appliance that provides a low pressure jet of drinking water.\nEyewash: \tWaste water appliance, usually installed in work places where there is a risk of injury to eyes by solid particles or dangerous liquids, with which the user can wash the eyes without touching them." ;
+        IFC4-PSD:definitionAlias  "噴水タイプの選択：\n\n・飲用水：飲用水を低圧で供給するための衛生器具\n・洗眼器：廃水器具で、通常は個体の粒子か危険な液体による眼への障害の危険がある作業場所に設置され、使用者はそれらに触れずに目を洗うことができる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bb2ece80d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FountainType" ;
+        IFC4-PSD:nameAlias        "Fountain Type"@en , "噴水タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DRINKINGWATER" , "EYEWASH" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Mounting  a                rdf:Property ;
+        rdfs:seeAlso        :pc7b32700d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mounting .

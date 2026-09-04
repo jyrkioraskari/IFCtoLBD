@@ -1,0 +1,128 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeFloorWaste#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p03f08280d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:NominalBodyWidth  a        rdf:Property ;
+        rdfs:seeAlso        :pf20edf80d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyWidth .
+
+:NominalBodyDepth  a        rdf:Property ;
+        rdfs:seeAlso        :pfaffb100d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyDepth .
+
+:pf20edf80d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the y-axis in the local coordinate system of the waste." ;
+        rdfs:label                "NominalBodyWidth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the y-axis in the local coordinate system of the waste." ;
+        IFC4-PSD:definitionAlias  "廃棄物の半径か局所座標系のＹ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f20edf80d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyWidth" ;
+        IFC4-PSD:nameAlias        "Nominal Body Width"@en , "呼称躯体幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pe8857780d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the waste." ;
+        rdfs:label                "NominalBodyLength" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the waste." ;
+        IFC4-PSD:definitionAlias  "廃棄物の区画の半径か局所座標系のＸ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e8857780d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyLength" ;
+        IFC4-PSD:nameAlias        "Nominal Body Length"@en , "呼称躯体長"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeFloorWaste>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p17035280d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the y-axis in the local coordinate system of the cover of the  waste." ;
+        rdfs:label                "CoverWidth" ;
+        IFC4-PSD:definition       "The length measured along the y-axis in the local coordinate system of the cover of the  waste." ;
+        IFC4-PSD:definitionAlias  "局所座標系のY軸で測定された防臭弁カバーの長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "17035280d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverWidth" ;
+        IFC4-PSD:nameAlias        "カバー幅"@ja-JP , "Cover Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0d79ea80d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the waste." ;
+        rdfs:label                "CoverLength" ;
+        IFC4-PSD:definition       "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the waste." ;
+        IFC4-PSD:definitionAlias  "局所座標系のX軸に沿うか、半径（円状の形の場合）で測定された防臭弁カバーの長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0d79ea80d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverLength" ;
+        IFC4-PSD:nameAlias        "カバー長さ"@ja-JP , "Cover Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverWidth  a              rdf:Property ;
+        rdfs:seeAlso        :p17035280d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverWidth .
+
+:p03f08280d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the object." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "要素からの排気口サイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "03f08280d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "排気口サイズ"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pfaffb100d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the z-axis in the local coordinate system of the waste." ;
+        rdfs:label                "NominalBodyDepth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the z-axis in the local coordinate system of the waste." ;
+        IFC4-PSD:definitionAlias  "廃棄物の半径か局所座標系のZ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "faffb100d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyDepth" ;
+        IFC4-PSD:nameAlias        "呼称躯体深さ"@ja-JP , "Nominal Body Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverLength  a             rdf:Property ;
+        rdfs:seeAlso        :p0d79ea80d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverLength .
+
+:NominalBodyLength  a       rdf:Property ;
+        rdfs:seeAlso        :pe8857780d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyLength .
+
+:Pset_WasteTerminalTypeFloorWaste
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting, set into the floor, that collects waste water and discharges it to a separate trap." ;
+        rdfs:label                    "Pset_WasteTerminalTypeFloorWaste" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/FLOORWASTE> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/FLOORWASTE" ;
+        IFC4-PSD:definition           "Pipe fitting, set into the floor, that collects waste water and discharges it to a separate trap." ;
+        IFC4-PSD:definitionAlias      "廃水や廃水を集めて分離する防臭弁を持つ、床に据え付けられた配管。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeFloorWaste" ;
+        IFC4-PSD:propertyDef          :p0d79ea80d21711e1800000215ad4efdf , :pfaffb100d21611e1800000215ad4efdf , :pe8857780d21611e1800000215ad4efdf , :pf20edf80d21611e1800000215ad4efdf , :p03f08280d21711e1800000215ad4efdf , :p17035280d21711e1800000215ad4efdf .

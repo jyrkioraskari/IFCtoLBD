@@ -1,0 +1,97 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryCornerFixingPlate#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p4ba0eb00d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of the L-shaped corner plate." ;
+        rdfs:label                "CornerFixingPlateLength" ;
+        IFC4-PSD:definition       "The length of the L-shaped corner plate." ;
+        IFC4-PSD:definitionAlias  "L型コーナープレートの長さ。"@ja-JP , "L 형 코너 플레이트의 길이"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "4ba0eb00d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CornerFixingPlateLength" ;
+        IFC4-PSD:nameAlias        "長さ"@ja-JP , "길이"@ko-KR , "Corner Fixing Plate Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CornerFixingPlateFlangeWidthInPlaneX
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5bb8ca80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CornerFixingPlateFlangeWidthInPlaneX .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryCornerFixingPlate>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CornerFixingPlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p50fe3580d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CornerFixingPlateThickness .
+
+:Pset_DiscreteAccessoryCornerFixingPlate
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties specific to corner fixing plates." ;
+        rdfs:label                    "Pset_DiscreteAccessoryCornerFixingPlate" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/Corner%20fixing%20plate> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Corner fixing plate" ;
+        IFC4-PSD:definition           "Properties specific to corner fixing plates." ;
+        IFC4-PSD:definitionAlias      "コーナーを固定するプレートの固有特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryCornerFixingPlate" ;
+        IFC4-PSD:propertyDef          :p565b8000d1d211e1800000215ad4efdf , :p5bb8ca80d1d211e1800000215ad4efdf , :p4ba0eb00d1d211e1800000215ad4efdf , :p50fe3580d1d211e1800000215ad4efdf .
+
+:CornerFixingPlateLength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4ba0eb00d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CornerFixingPlateLength .
+
+:p50fe3580d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the L-shaped corner plate." ;
+        rdfs:label                "CornerFixingPlateThickness" ;
+        IFC4-PSD:definition       "The thickness of the L-shaped corner plate." ;
+        IFC4-PSD:definitionAlias  ""@en , "L 형 코너 플레이트의 두께"@ko-KR , "L型コーナープレートの板厚。"@ja-JP ;
+        IFC4-PSD:ifdguid          "50fe3580d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CornerFixingPlateThickness" ;
+        IFC4-PSD:nameAlias        "두께"@ko-KR , "板厚"@ja-JP , "Corner Fixing Plate Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p5bb8ca80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The flange width of the L-shaped corner plate in plane X." ;
+        rdfs:label                "CornerFixingPlateFlangeWidthInPlaneX" ;
+        IFC4-PSD:definition       "The flange width of the L-shaped corner plate in plane X." ;
+        IFC4-PSD:definitionAlias  "L型コーナープレートのX面のフランジ幅。"@ja-JP , ""@en , "L 형 코너 플레이트 X면 플랜지 폭"@ko-KR ;
+        IFC4-PSD:ifdguid          "5bb8ca80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CornerFixingPlateFlangeWidthInPlaneX" ;
+        IFC4-PSD:nameAlias        "Corner Fixing Plate Flange Width In Plane X"@en , "フランジ幅X"@ja-JP , "플랜지 폭 X"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CornerFixingPlateFlangeWidthInPlaneZ
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p565b8000d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CornerFixingPlateFlangeWidthInPlaneZ .
+
+:p565b8000d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The flange width of the L-shaped corner plate in plane Z." ;
+        rdfs:label                "CornerFixingPlateFlangeWidthInPlaneZ" ;
+        IFC4-PSD:definition       "The flange width of the L-shaped corner plate in plane Z." ;
+        IFC4-PSD:definitionAlias  "L型コーナープレートのZ面のフランジ幅。"@ja-JP , "L 형 코너 플레이트 Z면 플랜지 폭"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "565b8000d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CornerFixingPlateFlangeWidthInPlaneZ" ;
+        IFC4-PSD:nameAlias        "フランジ幅Z"@ja-JP , "Corner Fixing Plate Flange Width In Plane Z"@en , "플랜지 폭 Z"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

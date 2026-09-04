@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeGutter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pf4137700d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual flow capacity for the gutter. Value of 0.00 means this value has not been set." ;
+        rdfs:label                "FlowRating" ;
+        IFC4-PSD:definition       "Actual flow capacity for the gutter. Value of 0.00 means this value has not been set." ;
+        IFC4-PSD:definitionAlias  "実際の排水流量　　０.00値はこの値がｾｯﾄされていないことを意味する　"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f4137700d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowRating" ;
+        IFC4-PSD:nameAlias        "流量"@ja-JP , "Flow Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:FlowRating  a              rdf:Property ;
+        rdfs:seeAlso        :pf4137700d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowRating .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeGutter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_PipeSegmentTypeGutter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Gutter segment type common attributes." ;
+        rdfs:label                    "Pset_PipeSegmentTypeGutter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcPipeSegment/GUTTER> ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeSegment/GUTTER" ;
+        IFC4-PSD:definition           "Gutter segment type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeSegmentTypeGutter" ;
+        IFC4-PSD:propertyDef          :peeb62c80d1f311e1800000215ad4efdf , :pf4137700d1f311e1800000215ad4efdf .
+
+:peeb62c80d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Angle of the gutter to allow for drainage." ;
+        rdfs:label                "Slope" ;
+        IFC4-PSD:definition       "Angle of the gutter to allow for drainage." ;
+        IFC4-PSD:definitionAlias  "排水に必要な溝の角度（傾斜）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "eeb62c80d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Slope" ;
+        IFC4-PSD:nameAlias        "勾配"@ja-JP , "Slope"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:Slope  a                   rdf:Property ;
+        rdfs:seeAlso        :peeb62c80d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Slope .

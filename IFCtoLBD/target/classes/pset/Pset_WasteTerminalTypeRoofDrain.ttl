@@ -1,0 +1,128 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeRoofDrain#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p364eaf80d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the y-axis in the local coordinate system of the drain." ;
+        rdfs:label                "NominalBodyWidth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the y-axis in the local coordinate system of the drain." ;
+        IFC4-PSD:definitionAlias  ""@en , "半径か局所座標系のＹ軸に沿って測定された呼称もしくは積算された配管の長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "364eaf80d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyWidth" ;
+        IFC4-PSD:nameAlias        "呼称躯体幅"@ja-JP , "Nominal Body Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p3e0e5400d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the z-axis in the local coordinate system of the drain." ;
+        rdfs:label                "NominalBodyDepth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the z-axis in the local coordinate system of the drain." ;
+        IFC4-PSD:definitionAlias  "半径か局所座標系のZ軸に沿って測定された呼称もしくは積算された配管の長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "3e0e5400d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyDepth" ;
+        IFC4-PSD:nameAlias        "Nominal Body Depth"@en , "呼称躯体深さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p2df67480d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the drain." ;
+        rdfs:label                "NominalBodyLength" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the drain." ;
+        IFC4-PSD:definitionAlias  "半径か局所座標系のＸ軸に沿って測定された呼称もしくは積算された配管の長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2df67480d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyLength" ;
+        IFC4-PSD:nameAlias        "呼称躯体長"@ja-JP , "Nominal Body Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p4ebeca00d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the drain." ;
+        rdfs:label                "CoverLength" ;
+        IFC4-PSD:definition       "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the drain." ;
+        IFC4-PSD:definitionAlias  "局所座標系のX軸に沿うか、半径（円状の形の場合）で測定された配管カバーの長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "4ebeca00d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverLength" ;
+        IFC4-PSD:nameAlias        "カバーの長さ"@ja-JP , "Cover Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p46668f00d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:p46668f00d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the object." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "要素からの接続口口径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "46668f00d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "排気口接続口サイズ"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalBodyWidth  a        rdf:Property ;
+        rdfs:seeAlso        :p364eaf80d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyWidth .
+
+:p57170500d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the y-axis in the local coordinate system of the cover of the  drain." ;
+        rdfs:label                "CoverWidth" ;
+        IFC4-PSD:definition       "The length measured along the y-axis in the local coordinate system of the cover of the  drain." ;
+        IFC4-PSD:definitionAlias  "局所座標系のY軸で測定された配管カバーの長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "57170500d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverWidth" ;
+        IFC4-PSD:nameAlias        "カバーの幅"@ja-JP , "Cover Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeRoofDrain>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CoverWidth  a              rdf:Property ;
+        rdfs:seeAlso        :p57170500d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverWidth .
+
+:NominalBodyDepth  a        rdf:Property ;
+        rdfs:seeAlso        :p3e0e5400d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyDepth .
+
+:Pset_WasteTerminalTypeRoofDrain
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting, set into the roof, that collects rainwater for discharge into the rainwater system." ;
+        rdfs:label                    "Pset_WasteTerminalTypeRoofDrain" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/ROOFDRAIN> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/ROOFDRAIN" ;
+        IFC4-PSD:definition           "Pipe fitting, set into the roof, that collects rainwater for discharge into the rainwater system." ;
+        IFC4-PSD:definitionAlias      ""@en , "雨水排出設備に排出されるように雨水を集めるために屋根に設置される配管。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeRoofDrain" ;
+        IFC4-PSD:propertyDef          :p4ebeca00d21811e1800000215ad4efdf , :p364eaf80d21811e1800000215ad4efdf , :p2df67480d21811e1800000215ad4efdf , :p3e0e5400d21811e1800000215ad4efdf , :p46668f00d21811e1800000215ad4efdf , :p57170500d21811e1800000215ad4efdf .
+
+:NominalBodyLength  a       rdf:Property ;
+        rdfs:seeAlso        :p2df67480d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyLength .
+
+:CoverLength  a             rdf:Property ;
+        rdfs:seeAlso        :p4ebeca00d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverLength .

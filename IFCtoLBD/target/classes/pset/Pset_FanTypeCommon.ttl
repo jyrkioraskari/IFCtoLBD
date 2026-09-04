@@ -1,0 +1,251 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9b88ad80d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal fan power rate." ;
+        rdfs:label                "NominalPowerRate" ;
+        IFC4-PSD:definition       "Nominal fan power rate." ;
+        IFC4-PSD:definitionAlias  "設計動力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9b88ad80d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalPowerRate" ;
+        IFC4-PSD:nameAlias        "Nominal Power Rate"@en , "設計動力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p96c3f980d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal fan wheel speed." ;
+        rdfs:label                "NominalRotationSpeed" ;
+        IFC4-PSD:definition       "Nominal fan wheel speed." ;
+        IFC4-PSD:definitionAlias  ""@en , "設計ホイール速度"@ja-JP ;
+        IFC4-PSD:ifdguid          "96c3f980d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalRotationSpeed" ;
+        IFC4-PSD:nameAlias        "Nominal Rotation Speed"@en , "設計回転速度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRotationalFrequencyMeasure
+                                  ] .
+
+:Pset_FanTypeCommon  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fan type common attributes." ;
+        rdfs:label                    "Pset_FanTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFan ;
+        IFC4-PSD:applicableTypeValue  "IfcFan" ;
+        IFC4-PSD:definition           "Fan type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "Fanタイプ共通属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FanTypeCommon" ;
+        IFC4-PSD:propertyDef          :p96c3f980d1e411e1800000215ad4efdf , :p5b292f80d1e411e1800000215ad4efdf , :p43ea4200d1e411e1800000215ad4efdf , :p83189300d1e411e1800000215ad4efdf , :p4b115000d1e411e1800000215ad4efdf , :p890e7400d1e411e1800000215ad4efdf , :p90ce1880d1e411e1800000215ad4efdf , :p7ac05800d1e411e1800000215ad4efdf , :pa0e5f800d1e411e1800000215ad4efdf , :p9b88ad80d1e411e1800000215ad4efdf , :pb22f0480d1e411e1800000215ad4efdf , :pa6dbd900d1e411e1800000215ad4efdf , :p6a0fe200d1e411e1800000215ad4efdf .
+
+:OperationalCriteria  a     rdf:Property ;
+        rdfs:seeAlso        :pa0e5f800d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationalCriteria .
+
+:pa0e5f800d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Time of operation at maximum operational ambient air temperature." ;
+        rdfs:label                "OperationalCriteria" ;
+        IFC4-PSD:definition       "Time of operation at maximum operational ambient air temperature." ;
+        IFC4-PSD:definitionAlias  "最大動作周囲温度での動作の時間"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a0e5f800d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationalCriteria" ;
+        IFC4-PSD:nameAlias        "動作環境"@ja-JP , "Operational Criteria"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:EfficiencyCurve  a         rdf:Property ;
+        rdfs:seeAlso        :pb22f0480d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EfficiencyCurve .
+
+:CapacityControlType  a     rdf:Property ;
+        rdfs:seeAlso        :p6a0fe200d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CapacityControlType .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p43ea4200d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:PressureCurve  a           rdf:Property ;
+        rdfs:seeAlso        :pa6dbd900d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureCurve .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p4b115000d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:NominalStaticPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p90ce1880d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalStaticPressure .
+
+:NominalTotalPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p890e7400d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalTotalPressure .
+
+:p6a0fe200d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "InletVane: Control by adjusting inlet vane.\nVariableSpeedDrive: Control by variable speed drive. \nBladePitchAngle: Control by adjusting blade pitch angle.\nTwoSpeed: Control by switch between high and low speed.\nDischargeDamper: Control by modulating discharge damper." ;
+        rdfs:label                "CapacityControlType" ;
+        IFC4-PSD:definition       "InletVane: Control by adjusting inlet vane.\nVariableSpeedDrive: Control by variable speed drive. \nBladePitchAngle: Control by adjusting blade pitch angle.\nTwoSpeed: Control by switch between high and low speed.\nDischargeDamper: Control by modulating discharge damper." ;
+        IFC4-PSD:definitionAlias  "InletVane: インレットベーン\nVariableSpeedDrive: 変速駆動 \nBladePitchAngle: 羽根ピッチ制御\nTwoSpeed: 二速制御\nDischargeDamper: 吐出ダンパ制御"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6a0fe200d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapacityControlType" ;
+        IFC4-PSD:nameAlias        "Capacity Control Type"@en , "容量制御方式"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "INLETVANE" , "VARIABLESPEEDDRIVE" , "BLADEPITCHANGLE" , "TWOSPEED" , "DISCHARGEDAMPER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:NominalAirFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :p83189300d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalAirFlowRate .
+
+:p90ce1880d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The static pressure within the air stream that the fan must overcome to insure designed circulation of air." ;
+        rdfs:label                "NominalStaticPressure" ;
+        IFC4-PSD:definition       "The static pressure within the air stream that the fan must overcome to insure designed circulation of air." ;
+        IFC4-PSD:definitionAlias  ""@en , "設計空気循環量を保証するためにファンが克服しなければならない気流中の静圧"@ja-JP ;
+        IFC4-PSD:ifdguid          "90ce1880d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalStaticPressure" ;
+        IFC4-PSD:nameAlias        "設計静圧"@ja-JP , "Nominal Static Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p4b115000d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4b115000d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pb22f0480d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan efficiency =f (flow rate)." ;
+        rdfs:label                "EfficiencyCurve" ;
+        IFC4-PSD:definition       "Fan efficiency =f (flow rate)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b22f0480d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EfficiencyCurve" ;
+        IFC4-PSD:nameAlias        "Efficiency Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p5b292f80d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Motor drive type:\nDIRECTDRIVE: Direct drive. \nBELTDRIVE: Belt drive. \nCOUPLING: Coupling. \nOTHER: Other type of motor drive. \nUNKNOWN: Unknown motor drive type." ;
+        rdfs:label                "MotorDriveType" ;
+        IFC4-PSD:definition       "Motor drive type:\nDIRECTDRIVE: Direct drive. \nBELTDRIVE: Belt drive. \nCOUPLING: Coupling. \nOTHER: Other type of motor drive. \nUNKNOWN: Unknown motor drive type." ;
+        IFC4-PSD:definitionAlias  "モーター駆動種類\nDIRECTDRIVE: ダイレクトドライブ\nBELTDRIVE: ベルトドライブ\nCOUPLING: カップリング\nOTHER: その他"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5b292f80d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MotorDriveType" ;
+        IFC4-PSD:nameAlias        "モーター駆動種類"@ja-JP , "Motor Drive Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DIRECTDRIVE" , "BELTDRIVE" , "COUPLING" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p890e7400d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal total pressure rise across the fan." ;
+        rdfs:label                "NominalTotalPressure" ;
+        IFC4-PSD:definition       "Nominal total pressure rise across the fan." ;
+        IFC4-PSD:definitionAlias  "ファンでの設計全圧上昇"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "890e7400d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalTotalPressure" ;
+        IFC4-PSD:nameAlias        "設計全圧"@ja-JP , "Nominal Total Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:OperationTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7ac05800d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationTemperatureRange .
+
+:p43ea4200d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "43ea4200d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:MotorDriveType  a          rdf:Property ;
+        rdfs:seeAlso        :p5b292f80d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MotorDriveType .
+
+:pa6dbd900d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure rise = f (flow rate)." ;
+        rdfs:label                "PressureCurve" ;
+        IFC4-PSD:definition       "Pressure rise = f (flow rate)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a6dbd900d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureCurve" ;
+        IFC4-PSD:nameAlias        "Pressure Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:NominalRotationSpeed
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p96c3f980d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalRotationSpeed .
+
+:p7ac05800d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable operation ambient air temperature range." ;
+        rdfs:label                "OperationTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable operation ambient air temperature range." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容動作周囲温度範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "7ac05800d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationTemperatureRange" ;
+        IFC4-PSD:nameAlias        "動作温度範囲"@ja-JP , "Operation Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:NominalPowerRate  a        rdf:Property ;
+        rdfs:seeAlso        :p9b88ad80d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalPowerRate .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p83189300d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal air flow rate." ;
+        rdfs:label                "NominalAirFlowRate" ;
+        IFC4-PSD:definition       "Nominal air flow rate." ;
+        IFC4-PSD:definitionAlias  "設計風量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "83189300d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalAirFlowRate" ;
+        IFC4-PSD:nameAlias        "Nominal Air Flow Rate"@en , "設計風量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .

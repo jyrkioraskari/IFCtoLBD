@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeJunction#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p57e97000d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The radius of bending for the right junction where 0 indicates sharp bend." ;
+        rdfs:label                "JunctionRightRadius" ;
+        IFC4-PSD:definition       "The radius of bending for the right junction where 0 indicates sharp bend." ;
+        IFC4-PSD:definitionAlias  ""@en , "右継ぎ手の曲がりの半径(ゼロは鋭い曲がりを意味する)"@ja-JP ;
+        IFC4-PSD:ifdguid          "57e97000d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "JunctionRightRadius" ;
+        IFC4-PSD:nameAlias        "Junction Right Radius"@en , "右継ぎ手半径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p4607cd00d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The change of direction of flow for the left junction." ;
+        rdfs:label                "JunctionLeftAngle" ;
+        IFC4-PSD:definition       "The change of direction of flow for the left junction." ;
+        IFC4-PSD:definitionAlias  ""@en , "左継ぎ手の流れの方向の変化"@ja-JP ;
+        IFC4-PSD:ifdguid          "4607cd00d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "JunctionLeftAngle" ;
+        IFC4-PSD:nameAlias        "左継ぎ手角度"@ja-JP , "Junction Left Angle"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositivePlaneAngleMeasure
+                                  ] .
+
+:p39837480d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of junction. TEE=3 ports, CROSS = 4 ports." ;
+        rdfs:label                "JunctionType" ;
+        IFC4-PSD:definition       "The type of junction. TEE=3 ports, CROSS = 4 ports." ;
+        IFC4-PSD:definitionAlias  "接合のタイプ　(T継ぎ手は3本　十字継ぎ手は4本)"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "39837480d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "JunctionType" ;
+        IFC4-PSD:nameAlias        "継ぎ手タイプ"@ja-JP , "Junction Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "TEE" , "CROSS" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:JunctionType  a            rdf:Property ;
+        rdfs:seeAlso        :p39837480d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:JunctionType .
+
+:JunctionLeftAngle  a       rdf:Property ;
+        rdfs:seeAlso        :p4607cd00d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:JunctionLeftAngle .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeJunction>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5324bc00d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The change of direction of flow for the right junction where 0 indicates straight segment." ;
+        rdfs:label                "JunctionRightAngle" ;
+        IFC4-PSD:definition       "The change of direction of flow for the right junction where 0 indicates straight segment." ;
+        IFC4-PSD:definitionAlias  ""@en , "右継ぎ手の流れの方向の変化"@ja-JP ;
+        IFC4-PSD:ifdguid          "5324bc00d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "JunctionRightAngle" ;
+        IFC4-PSD:nameAlias        "Junction Right Angle"@en , "右継ぎ手角度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositivePlaneAngleMeasure
+                                  ] .
+
+:Pset_PipeFittingTypeJunction
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting type attributes for junction shapes." ;
+        rdfs:label                    "Pset_PipeFittingTypeJunction" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcPipeFitting/JUNCTION> ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeFitting/JUNCTION" ;
+        IFC4-PSD:definition           "Pipe fitting type attributes for junction shapes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeFittingTypeJunction" ;
+        IFC4-PSD:propertyDef          :p5324bc00d1f311e1800000215ad4efdf , :p4607cd00d1f311e1800000215ad4efdf , :p57e97000d1f311e1800000215ad4efdf , :p4acc8100d1f311e1800000215ad4efdf , :p39837480d1f311e1800000215ad4efdf .
+
+:p4acc8100d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The radius of bending for the left junction." ;
+        rdfs:label                "JunctionLeftRadius" ;
+        IFC4-PSD:definition       "The radius of bending for the left junction." ;
+        IFC4-PSD:definitionAlias  "左継ぎ手の曲がりの半径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "4acc8100d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "JunctionLeftRadius" ;
+        IFC4-PSD:nameAlias        "Junction Left Radius"@en , "左継ぎ手半径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:JunctionRightRadius  a     rdf:Property ;
+        rdfs:seeAlso        :p57e97000d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:JunctionRightRadius .
+
+:JunctionLeftRadius  a      rdf:Property ;
+        rdfs:seeAlso        :p4acc8100d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:JunctionLeftRadius .
+
+:JunctionRightAngle  a      rdf:Property ;
+        rdfs:seeAlso        :p5324bc00d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:JunctionRightAngle .

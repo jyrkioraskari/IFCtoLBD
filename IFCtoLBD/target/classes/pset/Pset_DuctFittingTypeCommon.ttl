@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p04205c00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p097da680d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "097da680d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p1601ff00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure classification as defined by the authority having jurisdiction (e.g., SMACNA, etc.)." ;
+        rdfs:label                "PressureClass" ;
+        IFC4-PSD:definition       "Pressure classification as defined by the authority having jurisdiction (e.g., SMACNA, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en , "管轄権を持つ当局（SMACNAなど）によって定義された圧力分類"@ja-JP ;
+        IFC4-PSD:ifdguid          "1601ff00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureClass" ;
+        IFC4-PSD:nameAlias        "圧力クラス"@ja-JP , "Pressure Class"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p1ac6b300d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        rdfs:label                "PressureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容最大・最小動作圧力（周辺圧力との相対値）"@ja-JP ;
+        IFC4-PSD:ifdguid          "1ac6b300d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRange" ;
+        IFC4-PSD:nameAlias        "圧力範囲"@ja-JP , "Pressure Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_DuctFittingTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct fitting type common attributes." ;
+        rdfs:label                    "Pset_DuctFittingTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctFitting ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctFitting" ;
+        IFC4-PSD:definition           "Duct fitting type common attributes." ;
+        IFC4-PSD:definitionAlias      "ダクト継手形式共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctFittingTypeCommon" ;
+        IFC4-PSD:propertyDef          :p1ac6b300d1de11e1800000215ad4efdf , :p097da680d1de11e1800000215ad4efdf , :p04205c00d1de11e1800000215ad4efdf , :p1601ff00d1de11e1800000215ad4efdf , :p21edc100d1de11e1800000215ad4efdf .
+
+:p21edc100d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum temperature." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum temperature." ;
+        IFC4-PSD:definitionAlias  "許容最高・最低温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "21edc100d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "温度範囲"@ja-JP , "Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:PressureClass  a           rdf:Property ;
+        rdfs:seeAlso        :p1601ff00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureClass .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p21edc100d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:PressureRange  a           rdf:Property ;
+        rdfs:seeAlso        :p1ac6b300d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRange .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p097da680d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p04205c00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "04205c00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .

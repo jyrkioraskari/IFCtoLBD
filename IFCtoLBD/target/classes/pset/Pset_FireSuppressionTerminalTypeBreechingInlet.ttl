@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:InletDiameter  a           rdf:Property ;
+        rdfs:seeAlso        :p54032100d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletDiameter .
+
+:p54032100d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The inlet diameter of the breeching inlet." ;
+        rdfs:label                "InletDiameter" ;
+        IFC4-PSD:definition       "The inlet diameter of the breeching inlet." ;
+        IFC4-PSD:definitionAlias  "入口の直径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "54032100d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletDiameter" ;
+        IFC4-PSD:nameAlias        "Inlet Diameter"@en , "入口口径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:BreechingInletType  a      rdf:Property ;
+        rdfs:seeAlso        :p49488c00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BreechingInletType .
+
+:p5ebdb600d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the type coupling on the inlet of the breeching inlet." ;
+        rdfs:label                "CouplingType" ;
+        IFC4-PSD:definition       "Defines the type coupling on the inlet of the breeching inlet." ;
+        IFC4-PSD:definitionAlias  "送水口入口のカップリングタイプ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5ebdb600d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CouplingType" ;
+        IFC4-PSD:nameAlias        "Coupling Type"@en , "カップリングタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "INSTANTANEOUS_FEMALE" , "INSTANTANEOUS_MALE" , "OTHER" , "USERDEFINED" , "NOTDEFINED"
+                                  ] .
+
+:p49488c00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the type of breeching inlet." ;
+        rdfs:label                "BreechingInletType" ;
+        IFC4-PSD:definition       "Defines the type of breeching inlet." ;
+        IFC4-PSD:definitionAlias  ""@en , "送水口タイプの定義。"@ja-JP ;
+        IFC4-PSD:ifdguid          "49488c00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BreechingInletType" ;
+        IFC4-PSD:nameAlias        "送水口タイプ"@ja-JP , "Breeching Inlet Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "TWOWAY" , "FOURWAY" , "OTHER" , "USERDEFINED" , "NOTDEFINED"
+                                  ] .
+
+:HasCaps  a                 rdf:Property ;
+        rdfs:seeAlso        :p6a10e180d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasCaps .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeBreechingInlet>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:OutletDiameter  a          rdf:Property ;
+        rdfs:seeAlso        :p59606b80d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletDiameter .
+
+:CouplingType  a            rdf:Property ;
+        rdfs:seeAlso        :p5ebdb600d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CouplingType .
+
+:Pset_FireSuppressionTerminalTypeBreechingInlet
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Symmetrical pipe fitting that unites two or more inlets into a single pipe (BS6100 330 114 adapted)." ;
+        rdfs:label                    "Pset_FireSuppressionTerminalTypeBreechingInlet" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/BREECHINGINLET> ;
+        IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/BREECHINGINLET" ;
+        IFC4-PSD:definition           "Symmetrical pipe fitting that unites two or more inlets into a single pipe (BS6100 330 114 adapted)." ;
+        IFC4-PSD:definitionAlias      ""@en , "ひとつのパイプ（適合BS6100330114）に2つ以上の入口をもつ対称配管継手。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeBreechingInlet" ;
+        IFC4-PSD:propertyDef          :p6a10e180d1e611e1800000215ad4efdf , :p49488c00d1e611e1800000215ad4efdf , :p5ebdb600d1e611e1800000215ad4efdf , :p59606b80d1e611e1800000215ad4efdf , :p54032100d1e611e1800000215ad4efdf .
+
+:p59606b80d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The outlet diameter of the breeching inlet." ;
+        rdfs:label                "OutletDiameter" ;
+        IFC4-PSD:definition       "The outlet diameter of the breeching inlet." ;
+        IFC4-PSD:definitionAlias  ""@en , "出口の直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "59606b80d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletDiameter" ;
+        IFC4-PSD:nameAlias        "出口口径"@ja-JP , "Outlet Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p6a10e180d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Does the inlet connection have protective caps." ;
+        rdfs:label                "HasCaps" ;
+        IFC4-PSD:definition       "Does the inlet connection have protective caps." ;
+        IFC4-PSD:definitionAlias  ""@en , "入口接続が保護キャップを持っているか。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6a10e180d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasCaps" ;
+        IFC4-PSD:nameAlias        "Has Caps"@en , "保護キャップ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

@@ -1,0 +1,111 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeFaucet#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FaucetFunction  a          rdf:Property ;
+        rdfs:seeAlso        :pcbe84000d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaucetFunction .
+
+:FaucetType  a              rdf:Property ;
+        rdfs:seeAlso        :pa3f8dc80d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaucetType .
+
+:FaucetTopDescription
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe02c3d00d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaucetTopDescription .
+
+:pb70bac80d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the range of ways in which a faucet can be operated that may be specified where:\n\nCeramicDisc: Quick action faucet with a ceramic seal to open or close the orifice\n.\nLeverHandle: Quick action faucet that is operated by a lever handle\n.\nNonConcussiveSelfClosing:\t Self closing faucet that does not induce surge pressure\n.\nQuarterTurn: Quick action faucet that can be fully opened or shut by turning the operating mechanism through 90 degrees.\nQuickAction: Faucet that can be opened or closed fully with a single small movement of the operating mechanism\n.\nScrewDown: Faucet in which a plate or disc is moved, by the rotation of a screwed spindle, to close or open the orifice.\nSelfClosing: Faucet that is opened by pressure of the top of an operating spindle and is closed under the action of a spring or weight when the pressure is released.\nTimedSelfClosing: \tSelf closing faucet that discharges for a predetermined period of time\n." ;
+        rdfs:label                "FaucetOperation" ;
+        IFC4-PSD:definition       "Defines the range of ways in which a faucet can be operated that may be specified where:\n\nCeramicDisc: Quick action faucet with a ceramic seal to open or close the orifice\n.\nLeverHandle: Quick action faucet that is operated by a lever handle\n.\nNonConcussiveSelfClosing:\t Self closing faucet that does not induce surge pressure\n.\nQuarterTurn: Quick action faucet that can be fully opened or shut by turning the operating mechanism through 90 degrees.\nQuickAction: Faucet that can be opened or closed fully with a single small movement of the operating mechanism\n.\nScrewDown: Faucet in which a plate or disc is moved, by the rotation of a screwed spindle, to close or open the orifice.\nSelfClosing: Faucet that is opened by pressure of the top of an operating spindle and is closed under the action of a spring or weight when the pressure is released.\nTimedSelfClosing: \tSelf closing faucet that discharges for a predetermined period of time\n." ;
+        IFC4-PSD:definitionAlias  ""@en , "水栓の操作方法の範囲をここで明確に定義する：\nCeramicDisc = 口を開閉するセラミックシールを持った急操作水栓　LeverHandle = レバーハンドルで操作される急操作水栓　SelfClosing =サージ圧をもたらさない自閉水栓　QuarterTurn =90度、操作機構を回すことで全開又は全閉できる急操作水栓　QuickAction =操作機構の一つの小さな動きで全開又は全閉できる水栓　ScrewDown =口を開閉するためにねじの主軸を回して中の板又は円板を動かす水栓　SelfClosing = 操作主軸の頂部の圧力で開けられ、圧力が開放された時は、ばね又は錘の動作で閉められる水栓　TimedSelfClosing =前もって決められた時間、吐出する自閉水栓"@ja-JP ;
+        IFC4-PSD:ifdguid          "b70bac80d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaucetOperation" ;
+        IFC4-PSD:nameAlias        "Faucet Operation"@en , "水栓操作"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CERAMICDISC" , "SELFCLOSING" , "LEVERHANDLE" , "QUICKACTION" , "OTHER" , "QUARTERTURN" , "NONCONCUSSIVESELFCLOSING" , "TIMEDSELFCLOSING" , "SCREWDOWN" , "UNSET" , "NOTKNOWN"
+                                  ] .
+
+:pa3f8dc80d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the range of faucet types that may be specified where:\n\nBib:\t Faucet with a horizontal inlet and a nozzle that discharges downwards.\nGlobe:\t Faucet fitted through the end of a bath, with a horizontal inlet, a partially spherical body and a vertical nozzle.\nDiverter: \tCombination faucet assembly with a valve to enable the flow of mixed water to be transferred to a showerhead.\nDividedFlowCombination:\t Combination faucet assembly in which hot and cold water are kept separate until emerging from a common nozzle\n.\nPillar:\t Faucet that has a vertical inlet and a nozzle that discharges downwards\n.\nSingleOutletCombination =\t Combination faucet assembly in which hot and cold water mix before emerging from a common nozzle\n.\nSpray:\t Faucet with a spray outlet\n.\nSprayMixing:\t Spray faucet connected to hot and cold water supplies that delivers water at a temperature determined during use." ;
+        rdfs:label                "FaucetType" ;
+        IFC4-PSD:definition       "Defines the range of faucet types that may be specified where:\n\nBib:\t Faucet with a horizontal inlet and a nozzle that discharges downwards.\nGlobe:\t Faucet fitted through the end of a bath, with a horizontal inlet, a partially spherical body and a vertical nozzle.\nDiverter: \tCombination faucet assembly with a valve to enable the flow of mixed water to be transferred to a showerhead.\nDividedFlowCombination:\t Combination faucet assembly in which hot and cold water are kept separate until emerging from a common nozzle\n.\nPillar:\t Faucet that has a vertical inlet and a nozzle that discharges downwards\n.\nSingleOutletCombination =\t Combination faucet assembly in which hot and cold water mix before emerging from a common nozzle\n.\nSpray:\t Faucet with a spray outlet\n.\nSprayMixing:\t Spray faucet connected to hot and cold water supplies that delivers water at a temperature determined during use." ;
+        IFC4-PSD:definitionAlias  ""@en , "水栓タイプの範囲をここに明確に定義する\nBib = 入口が水平で、下に吐出するノズルの水栓　Globe =浴槽の端に付けられ、入口が水平で、本体が部分的に球形で、ノズルが垂直な水栓　Diverter =シャワーヘッドへの混合水の流れを変えられる弁を持った組合せ水栓　DividedFlowCombination = 共通のノズルから出るまで水と湯が分かれたままになっている組合せ水栓　Pillar =垂直な入口と下へ吐出するノズルを持った水栓　SingleOutletCombination =共通のノズルから出る前に水と湯が混合する組合せ水栓　Spray =スプレー状の吐出口を持った水栓　SprayMixing =使用中決められた温度で供給する給水と給湯に接続されたスプレー水栓"@ja-JP ;
+        IFC4-PSD:ifdguid          "a3f8dc80d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaucetType" ;
+        IFC4-PSD:nameAlias        "Faucet Type"@en , "水栓タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NOTKNOWN" , "SPRAY" , "UNSET" , "DIVERTER" , "BIB" , "OTHER" , "SPRAYMIXING" , "SINGLEOUTLETCOMBINATION" , "PILLAR" , "DIVIDEDFLOWCOMBINATION" , "GLOBE"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeFaucet>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe02c3d00d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the operating mechanism/top of the faucet." ;
+        rdfs:label                "FaucetTopDescription" ;
+        IFC4-PSD:definition       "Description of the operating mechanism/top of the faucet." ;
+        IFC4-PSD:definitionAlias  "操作機構/水栓の頂部の説明"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e02c3d00d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaucetTopDescription" ;
+        IFC4-PSD:nameAlias        "Faucet Top Description"@en , "水栓の頂部"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:Pset_ValveTypeFaucet
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A small diameter valve, with a free outlet, from which water is drawn." ;
+        rdfs:label                    "Pset_ValveTypeFaucet" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/FAUCET> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/FAUCET" ;
+        IFC4-PSD:definition           "A small diameter valve, with a free outlet, from which water is drawn." ;
+        IFC4-PSD:definitionAlias      "弁タイプ水栓"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeFaucet" ;
+        IFC4-PSD:propertyDef          :pb70bac80d21411e1800000215ad4efdf , :pcbe84000d21411e1800000215ad4efdf , :pa3f8dc80d21411e1800000215ad4efdf , :pda365c00d21411e1800000215ad4efdf , :pe02c3d00d21411e1800000215ad4efdf .
+
+:pda365c00d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the finish applied to the faucet." ;
+        rdfs:label                "Finish" ;
+        IFC4-PSD:definition       "Description of the finish applied to the faucet." ;
+        IFC4-PSD:definitionAlias  ""@en , "水栓に適用される仕上げの説明"@ja-JP ;
+        IFC4-PSD:ifdguid          "da365c00d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Finish" ;
+        IFC4-PSD:nameAlias        "Finish"@en , "仕上げ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:FaucetOperation  a         rdf:Property ;
+        rdfs:seeAlso        :pb70bac80d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaucetOperation .
+
+:Finish  a                  rdf:Property ;
+        rdfs:seeAlso        :pda365c00d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Finish .
+
+:pcbe84000d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the operating temperature of a faucet that may be specified." ;
+        rdfs:label                "FaucetFunction" ;
+        IFC4-PSD:definition       "Defines the operating temperature of a faucet that may be specified." ;
+        IFC4-PSD:definitionAlias  ""@en , "水栓の作動温度を明確に定義する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cbe84000d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaucetFunction" ;
+        IFC4-PSD:nameAlias        "Faucet Function"@en , "水栓機能"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COLD" , "HOT" , "MIXED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

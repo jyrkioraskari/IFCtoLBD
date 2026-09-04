@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeTemperatureSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeTemperatureSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypeTemperatureSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects temperature. HISTORY: TemperatureSensorSensorSetPoint changed to SetPointTemperature. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeTemperatureSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/TEMPERATURESENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/TEMPERATURESENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects temperature. HISTORY: TemperatureSensorSensorSetPoint changed to SetPointTemperature. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en , "温度を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeTemperatureSensor" ;
+        IFC4-PSD:propertyDef          :p93416a00d20611e1800000215ad4efdf , :p815fc700d20611e1800000215ad4efdf .
+
+:SetPointTemperature  a     rdf:Property ;
+        rdfs:seeAlso        :p93416a00d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointTemperature .
+
+:p815fc700d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that Identifies the types of temperature sensor that can be specified." ;
+        rdfs:label                "TemperatureSensorType" ;
+        IFC4-PSD:definition       "Enumeration that Identifies the types of temperature sensor that can be specified." ;
+        IFC4-PSD:definitionAlias  ""@en , "明示された温度センサーのタイプを識別する一覧。"@ja-JP , "명시된 온도 센서 유형을 식별하는 목록."@ko-KR ;
+        IFC4-PSD:ifdguid          "815fc700d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureSensorType" ;
+        IFC4-PSD:nameAlias        "온도 센서 타입"@ko-KR , "Temperature Sensor Type"@en , "温度センサータイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HIGHLIMIT" , "LOWLIMIT" , "OUTSIDETEMPERATURE" , "OPERATINGTEMPERATURE" , "ROOMTEMPERATURE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:TemperatureSensorType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p815fc700d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureSensorType .
+
+:p93416a00d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointTemperature" ;
+        IFC4-PSD:definition       "The temperature value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 온도. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , "感知される温度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "93416a00d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointTemperature" ;
+        IFC4-PSD:nameAlias        "温度設定値"@ja-JP , "온도 성정"@ko-KR , "Set Point Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .

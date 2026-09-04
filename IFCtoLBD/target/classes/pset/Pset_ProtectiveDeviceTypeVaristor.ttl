@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeVaristor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:VaristorType  a            rdf:Property ;
+        rdfs:seeAlso        :p6b4e0880d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VaristorType .
+
+:Pset_ProtectiveDeviceTypeVaristor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A high voltage surge protection device." ;
+        rdfs:label                    "Pset_ProtectiveDeviceTypeVaristor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/VARISTOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/VARISTOR" ;
+        IFC4-PSD:definition           "A high voltage surge protection device." ;
+        IFC4-PSD:definitionAlias      "高圧避雷装置。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTypeVaristor" ;
+        IFC4-PSD:propertyDef          :p6b4e0880d1fe11e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeVaristor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p6b4e0880d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of varistor  from which that required may be selected." ;
+        rdfs:label                "VaristorType" ;
+        IFC4-PSD:definition       "A list of the available types of varistor  from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、バリスターの一覧リスト。"@ja-JP , "선택된 varistor(소자)의 유용한 유형목록"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "6b4e0880d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VaristorType" ;
+        IFC4-PSD:nameAlias        "Varistor Type"@en , "보호 종류"@ko-KR , "保護タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "METALOXIDE" , "ZINCOXIDE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

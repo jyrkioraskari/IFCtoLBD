@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeEnergyMeter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_FlowMeterTypeEnergyMeter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Device that measures, indicates and sometimes records, the energy usage in a system." ;
+        rdfs:label                    "Pset_FlowMeterTypeEnergyMeter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowMeter/ENERGYMETER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter/ENERGYMETER" ;
+        IFC4-PSD:definition           "Device that measures, indicates and sometimes records, the energy usage in a system." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterTypeEnergyMeter" ;
+        IFC4-PSD:propertyDef          :p4058ba00d1e811e1800000215ad4efdf , :p3636bb80d1e811e1800000215ad4efdf , :p3afb6f80d1e811e1800000215ad4efdf .
+
+:MultipleTarriff  a         rdf:Property ;
+        rdfs:seeAlso        :p4058ba00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MultipleTarriff .
+
+:p3636bb80d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal current that is designed to be measured." ;
+        rdfs:label                "NominalCurrent" ;
+        IFC4-PSD:definition       "The nominal current that is designed to be measured." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3636bb80d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCurrent" ;
+        IFC4-PSD:nameAlias        "Nominal Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:MaximumCurrent  a          rdf:Property ;
+        rdfs:seeAlso        :p3afb6f80d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumCurrent .
+
+:p3afb6f80d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum allowed current that a device is certified to handle." ;
+        rdfs:label                "MaximumCurrent" ;
+        IFC4-PSD:definition       "The maximum allowed current that a device is certified to handle." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3afb6f80d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumCurrent" ;
+        IFC4-PSD:nameAlias        "Maximum Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p4058ba00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether meter has built-in support for multiple tarriffs (variable energy cost rates)." ;
+        rdfs:label                "MultipleTarriff" ;
+        IFC4-PSD:definition       "Indicates whether meter has built-in support for multiple tarriffs (variable energy cost rates)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4058ba00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MultipleTarriff" ;
+        IFC4-PSD:nameAlias        "Multiple Tarriff"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeEnergyMeter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NominalCurrent  a          rdf:Property ;
+        rdfs:seeAlso        :p3636bb80d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCurrent .

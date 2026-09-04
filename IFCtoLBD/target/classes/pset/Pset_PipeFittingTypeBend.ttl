@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeBend#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:BendAngle  a               rdf:Property ;
+        rdfs:seeAlso        :ped383480d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BendAngle .
+
+:ped383480d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The change of direction of flow." ;
+        rdfs:label                "BendAngle" ;
+        IFC4-PSD:definition       "The change of direction of flow." ;
+        IFC4-PSD:definitionAlias  "流れの方向を変える"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ed383480d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BendAngle" ;
+        IFC4-PSD:nameAlias        "Bend Angle"@en , "曲がり角度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositivePlaneAngleMeasure
+                                  ] .
+
+:BendRadius  a              rdf:Property ;
+        rdfs:seeAlso        :pf2957f00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BendRadius .
+
+:pf2957f00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The radius of bending if circular arc or zero if sharp bend." ;
+        rdfs:label                "BendRadius" ;
+        IFC4-PSD:definition       "The radius of bending if circular arc or zero if sharp bend." ;
+        IFC4-PSD:definitionAlias  ""@en , "円弧の曲率半径？"@ja-JP ;
+        IFC4-PSD:ifdguid          "f2957f00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BendRadius" ;
+        IFC4-PSD:nameAlias        "Bend Radius"@en , "曲率半径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeBend>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_PipeFittingTypeBend
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting type attributes for bend shapes." ;
+        rdfs:label                    "Pset_PipeFittingTypeBend" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcPipeFitting/BEND> ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeFitting/BEND" ;
+        IFC4-PSD:definition           "Pipe fitting type attributes for bend shapes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeFittingTypeBend" ;
+        IFC4-PSD:propertyDef          :ped383480d1f211e1800000215ad4efdf , :pf2957f00d1f211e1800000215ad4efdf .

@@ -1,0 +1,79 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryStandardFixingPlate#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:StandardFixingPlateDepth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peef20000d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StandardFixingPlateDepth .
+
+:pe8fc1f00d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the standard fixing plate." ;
+        rdfs:label                "StandardFixingPlateWidth" ;
+        IFC4-PSD:definition       "The width of the standard fixing plate." ;
+        IFC4-PSD:definitionAlias  "표준 고정 플레이트의 폭"@ko-KR , "標準的な固定プレートの幅。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e8fc1f00d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StandardFixingPlateWidth" ;
+        IFC4-PSD:nameAlias        "폭"@ko-KR , "幅"@ja-JP , "Standard Fixing Plate Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DiscreteAccessoryStandardFixingPlate
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties specific to standard fixing plates." ;
+        rdfs:label                    "Pset_DiscreteAccessoryStandardFixingPlate" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/Standard%20fixing%20plate> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Standard fixing plate" ;
+        IFC4-PSD:definition           "Properties specific to standard fixing plates." ;
+        IFC4-PSD:definitionAlias      "標準的な固定プレートの固有特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryStandardFixingPlate" ;
+        IFC4-PSD:propertyDef          :pf44f4a80d1d211e1800000215ad4efdf , :peef20000d1d211e1800000215ad4efdf , :pe8fc1f00d1d211e1800000215ad4efdf .
+
+:StandardFixingPlateWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe8fc1f00d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StandardFixingPlateWidth .
+
+:StandardFixingPlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf44f4a80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StandardFixingPlateThickness .
+
+:peef20000d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The depth of the standard fixing plate." ;
+        rdfs:label                "StandardFixingPlateDepth" ;
+        IFC4-PSD:definition       "The depth of the standard fixing plate." ;
+        IFC4-PSD:definitionAlias  "標準的な固定プレートの成。"@ja-JP , "표준 고정 플레이트 구성"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "eef20000d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StandardFixingPlateDepth" ;
+        IFC4-PSD:nameAlias        "成"@ja-JP , "Standard Fixing Plate Depth"@en , "구성"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryStandardFixingPlate>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf44f4a80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the standard fixing plate." ;
+        rdfs:label                "StandardFixingPlateThickness" ;
+        IFC4-PSD:definition       "The thickness of the standard fixing plate." ;
+        IFC4-PSD:definitionAlias  "표준 고정 플레이트의 두께"@ko-KR , ""@en , "標準的な固定プレートの板厚。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f44f4a80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StandardFixingPlateThickness" ;
+        IFC4-PSD:nameAlias        "板厚"@ja-JP , "두께"@ko-KR , "Standard Fixing Plate Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

@@ -5,6 +5,9 @@ import java.util.Optional;
 /** Resolves an IFC classification code to a registry-controlled concept URI. */
 @FunctionalInterface
 public interface ClassificationResolver {
+	default String id() { return getClass().getName(); }
+	default String version() { return "unspecified"; }
+	default String configurationId() { return id() + "@" + version(); }
 	record Request(String system, String edition, String code, String label, String sourceLocation) { }
 	record Resolution(String conceptUri, String authority, String authorityVersion, double confidence) {
 		public Resolution {
@@ -17,5 +20,13 @@ public interface ClassificationResolver {
 
 	Optional<Resolution> resolve(Request request);
 
-	static ClassificationResolver none() { return request -> Optional.empty(); }
+	static ClassificationResolver none() { return NoneHolder.INSTANCE; }
+	final class NoneHolder {
+		private static final ClassificationResolver INSTANCE = new ClassificationResolver() {
+			@Override public String id() { return "none"; }
+			@Override public String version() { return "1"; }
+			@Override public Optional<Resolution> resolve(Request request) { return Optional.empty(); }
+		};
+		private NoneHolder() { }
+	}
 }

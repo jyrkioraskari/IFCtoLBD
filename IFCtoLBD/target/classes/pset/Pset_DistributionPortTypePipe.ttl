@@ -1,0 +1,212 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypePipe#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pcc4abc86f21d4ee3a86d3815019c5ab3
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pressure of the fluid." ;
+        rdfs:label                "Pressure" ;
+        IFC4-PSD:definition       "The pressure of the fluid." ;
+        IFC4-PSD:definitionAlias  "流体の圧力。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cc4abc86f21d4ee3a86d3815019c5ab3" ;
+        IFC4-PSD:name             "Pressure" ;
+        IFC4-PSD:nameAlias        "圧力"@ja-JP , "Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pb6cb7483a65d4bd5ac6551b080116323
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature of the fluid." ;
+        rdfs:label                "Temperature" ;
+        IFC4-PSD:definition       "Temperature of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en , "流体の温度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b6cb7483a65d4bd5ac6551b080116323" ;
+        IFC4-PSD:name             "Temperature" ;
+        IFC4-PSD:nameAlias        "Temperature"@en , "温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pa09f286511e94d0f939193c2e0155921
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the flow condition as a percentage of the cross-sectional area." ;
+        rdfs:label                "FlowCondition" ;
+        IFC4-PSD:definition       "Defines the flow condition as a percentage of the cross-sectional area." ;
+        IFC4-PSD:definitionAlias  "断面の充満率で流動状態を定義する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a09f286511e94d0f939193c2e0155921" ;
+        IFC4-PSD:name             "FlowCondition" ;
+        IFC4-PSD:nameAlias        "流動状態"@ja-JP , "Flow Condition"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pdf1d39774bb44a8d96c833058af039e0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical port connection subtype that further qualifies the ConnectionType." ;
+        rdfs:label                "ConnectionSubType" ;
+        IFC4-PSD:definition       "The physical port connection subtype that further qualifies the ConnectionType." ;
+        IFC4-PSD:definitionAlias  ""@en , "物理ポート接続のサブタイプ。接続タイプ以外の情報を設定する場合に使用。下記の値を設定：\n\n- DSub: DA15, DB25, DC37, DD50, DE9, DE15 \n- Radio: IEEE802.11g, IEEE802.11n\n- RJ: 4P4C, 6P2C, 8P8C \n- USB: A, B, MiniA, MiniB, MicroA, MicroB"@ja-JP ;
+        IFC4-PSD:ifdguid          "df1d39774bb44a8d96c833058af039e0" ;
+        IFC4-PSD:name             "ConnectionSubType" ;
+        IFC4-PSD:nameAlias        "Connection Sub Type"@en , "接続サブタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:FlowCondition  a           rdf:Property ;
+        rdfs:seeAlso        :pa09f286511e94d0f939193c2e0155921 ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowCondition .
+
+:pf842a89d8ec5470cb8ba7fec7338c6e3
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The end-style treatment of the pipe port:\n\nBRAZED: Brazed. \nCOMPRESSION: Compression. \nFLANGED: Flanged. \nGROOVED: Grooved. \nOUTSIDESLEEVE: Outside Sleeve. \nSOLDERED: Soldered. \nSWEDGE: Swedge. \nTHREADED: Threaded. \nWELDED: Welded. \nOTHER: Another type of end-style has been applied.\nNONE: No end-style has been applied.\nUSERDEFINED: User-defined port connection type. \nNOTDEFINED: Undefined port connection type." ;
+        rdfs:label                "ConnectionType" ;
+        IFC4-PSD:definition       "The end-style treatment of the pipe port:\n\nBRAZED: Brazed. \nCOMPRESSION: Compression. \nFLANGED: Flanged. \nGROOVED: Grooved. \nOUTSIDESLEEVE: Outside Sleeve. \nSOLDERED: Soldered. \nSWEDGE: Swedge. \nTHREADED: Threaded. \nWELDED: Welded. \nOTHER: Another type of end-style has been applied.\nNONE: No end-style has been applied.\nUSERDEFINED: User-defined port connection type. \nNOTDEFINED: Undefined port connection type." ;
+        IFC4-PSD:definitionAlias  "物理ポート接続：\n\n- Coaxial: 同軸コネクタ.\n- DSub: D-Subコネクタ.\n- Infrared:赤外線\n- RJ: 登録済みジャック.\n- Radio: 無線\n- USB: USB."@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f842a89d8ec5470cb8ba7fec7338c6e3" ;
+        IFC4-PSD:name             "ConnectionType" ;
+        IFC4-PSD:nameAlias        "Connection Type"@en , "接続タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SOLDERED" , "NONE" , "OTHER" , "SWEDGE" , "COMPRESSION" , "WELDED" , "UNSET" , "GROOVED" , "BRAZED" , "FLANGED" , "OUTSIDESLEEVE" , "THREADED"
+                                  ] .
+
+:p7faf6c2ffbd64304b38859166e006c4a
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The velocity of the fluid." ;
+        rdfs:label                "Velocity" ;
+        IFC4-PSD:definition       "The velocity of the fluid." ;
+        IFC4-PSD:definitionAlias  "流体の速度。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7faf6c2ffbd64304b38859166e006c4a" ;
+        IFC4-PSD:name             "Velocity" ;
+        IFC4-PSD:nameAlias        "Velocity"@en , "速度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+:ConnectionSubType  a       rdf:Property ;
+        rdfs:seeAlso        :pdf1d39774bb44a8d96c833058af039e0 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSubType .
+
+:Pset_DistributionPortTypePipe
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        rdfs:label                    "Pset_DistributionPortTypePipe" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/PIPE> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/PIPE" ;
+        IFC4-PSD:definition           "Pipe port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        IFC4-PSD:definitionAlias      ""@en , "IfcDistributionPortオブジェクトに設定される配管ポートに関する属性情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortTypePipe" ;
+        IFC4-PSD:propertyDef          :p7faf6c2ffbd64304b38859166e006c4a , :pf842a89d8ec5470cb8ba7fec7338c6e3 , :pb6cb7483a65d4bd5ac6551b080116323 , :pa09f286511e94d0f939193c2e0155921 , :pcc4abc86f21d4ee3a86d3815019c5ab3 , :pfcd3dc22fdfd4ea084f200be83155aa3 , :pdf1d39774bb44a8d96c833058af039e0 , :pac9d798031fc44e1828a2cc76ae5d86c , :pa3db7690009f42a988a9f5683b29eb8f , :p4d18569df1264f3baceb2da495f1dfda , :pb4252ef25858465d840e3539db7eed5e .
+
+:VolumetricFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :pb4252ef25858465d840e3539db7eed5e ;
+        rdfs:subPropertyOf  IFC4-PSD:VolumetricFlowRate .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypePipe>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:OuterDiameter  a           rdf:Property ;
+        rdfs:seeAlso        :p4d18569df1264f3baceb2da495f1dfda ;
+        rdfs:subPropertyOf  IFC4-PSD:OuterDiameter .
+
+:p4d18569df1264f3baceb2da495f1dfda
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual outer diameter of the pipe." ;
+        rdfs:label                "OuterDiameter" ;
+        IFC4-PSD:definition       "The actual outer diameter of the pipe." ;
+        IFC4-PSD:definitionAlias  ""@en , "配管の実外径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4d18569df1264f3baceb2da495f1dfda" ;
+        IFC4-PSD:name             "OuterDiameter" ;
+        IFC4-PSD:nameAlias        "外径"@ja-JP , "Outer Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pa3db7690009f42a988a9f5683b29eb8f
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The mass flow rate of the fluid." ;
+        rdfs:label                "MassFlowRate" ;
+        IFC4-PSD:definition       "The mass flow rate of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en , "流体の質量流量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a3db7690009f42a988a9f5683b29eb8f" ;
+        IFC4-PSD:name             "MassFlowRate" ;
+        IFC4-PSD:nameAlias        "質量流量"@ja-JP , "Mass Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassFlowRateMeasure
+                                  ] .
+
+:InnerDiameter  a           rdf:Property ;
+        rdfs:seeAlso        :pfcd3dc22fdfd4ea084f200be83155aa3 ;
+        rdfs:subPropertyOf  IFC4-PSD:InnerDiameter .
+
+:pfcd3dc22fdfd4ea084f200be83155aa3
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual inner diameter of the pipe." ;
+        rdfs:label                "InnerDiameter" ;
+        IFC4-PSD:definition       "The actual inner diameter of the pipe." ;
+        IFC4-PSD:definitionAlias  "配管の実内径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fcd3dc22fdfd4ea084f200be83155aa3" ;
+        IFC4-PSD:name             "InnerDiameter" ;
+        IFC4-PSD:nameAlias        "内径"@ja-JP , "Inner Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalDiameter  a         rdf:Property ;
+        rdfs:seeAlso        :pac9d798031fc44e1828a2cc76ae5d86c ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDiameter .
+
+:Velocity  a                rdf:Property ;
+        rdfs:seeAlso        :p7faf6c2ffbd64304b38859166e006c4a ;
+        rdfs:subPropertyOf  IFC4-PSD:Velocity .
+
+:MassFlowRate  a            rdf:Property ;
+        rdfs:seeAlso        :pa3db7690009f42a988a9f5683b29eb8f ;
+        rdfs:subPropertyOf  IFC4-PSD:MassFlowRate .
+
+:pb4252ef25858465d840e3539db7eed5e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The volumetric flow rate of the fluid." ;
+        rdfs:label                "VolumetricFlowRate" ;
+        IFC4-PSD:definition       "The volumetric flow rate of the fluid." ;
+        IFC4-PSD:definitionAlias  "流体の体積流量。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b4252ef25858465d840e3539db7eed5e" ;
+        IFC4-PSD:name             "VolumetricFlowRate" ;
+        IFC4-PSD:nameAlias        "体積流量"@ja-JP , "Volumetric Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:pac9d798031fc44e1828a2cc76ae5d86c
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the pipe connection." ;
+        rdfs:label                "NominalDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the pipe connection." ;
+        IFC4-PSD:definitionAlias  "配管の呼び径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ac9d798031fc44e1828a2cc76ae5d86c" ;
+        IFC4-PSD:name             "NominalDiameter" ;
+        IFC4-PSD:nameAlias        "呼び径"@ja-JP , "Nominal Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ConnectionType  a          rdf:Property ;
+        rdfs:seeAlso        :pf842a89d8ec5470cb8ba7fec7338c6e3 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionType .
+
+:Pressure  a                rdf:Property ;
+        rdfs:seeAlso        :pcc4abc86f21d4ee3a86d3815019c5ab3 ;
+        rdfs:subPropertyOf  IFC4-PSD:Pressure .
+
+:Temperature  a             rdf:Property ;
+        rdfs:seeAlso        :pb6cb7483a65d4bd5ac6551b080116323 ;
+        rdfs:subPropertyOf  IFC4-PSD:Temperature .

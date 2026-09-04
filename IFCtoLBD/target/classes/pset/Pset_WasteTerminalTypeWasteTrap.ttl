@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeWasteTrap>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p83cb1c80d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of trap from which the type required may be set." ;
+        rdfs:label                "WasteTrapType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of trap from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "必要とされるタイプがセットされる防臭弁の定義されたタイプを確認してください。"@ja-JP ;
+        IFC4-PSD:ifdguid          "83cb1c80d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WasteTrapType" ;
+        IFC4-PSD:nameAlias        "廃棄物防臭弁種類"@ja-JP , "Waste Trap Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "P_TRAP" , "Q_TRAP" , "S_TRAP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p904f7500d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the object." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素からの接続口サイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "904f7500d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "排出口接続口サイズ"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p904f7500d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:WasteTrapType  a           rdf:Property ;
+        rdfs:seeAlso        :p83cb1c80d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WasteTrapType .
+
+:Pset_WasteTerminalTypeWasteTrap
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting, set adjacent to a sanitary terminal, that retains liquid to prevent the passage of foul air." ;
+        rdfs:label                    "Pset_WasteTerminalTypeWasteTrap" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/WASTETRAP> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/WASTETRAP" ;
+        IFC4-PSD:definition           "Pipe fitting, set adjacent to a sanitary terminal, that retains liquid to prevent the passage of foul air." ;
+        IFC4-PSD:definitionAlias      ""@en , "液体を溜めて汚れた空気の通過を防ぐよう衛生機器に隣接して設置させた配管。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeWasteTrap" ;
+        IFC4-PSD:propertyDef          :p83cb1c80d21811e1800000215ad4efdf , :p904f7500d21811e1800000215ad4efdf , :p980f1980d21811e1800000215ad4efdf .
+
+:InletConnectionSize  a     rdf:Property ;
+        rdfs:seeAlso        :p980f1980d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletConnectionSize .
+
+:p980f1980d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        rdfs:label                "InletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        IFC4-PSD:definitionAlias  ""@en , "吸気口接続口のサイズ。\n\n注意：同サイズの吸気口接続口がないものとします。"@ja-JP ;
+        IFC4-PSD:ifdguid          "980f1980d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletConnectionSize" ;
+        IFC4-PSD:nameAlias        "Inlet Connection Size"@en , "吸気口接続口サイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

@@ -1,0 +1,253 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilTypeHydronic#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilTypeHydronic>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:BypassFactor  a            rdf:Property ;
+        rdfs:seeAlso        :p3758f000d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BypassFactor .
+
+:FluidPressureRange  a      rdf:Property ;
+        rdfs:seeAlso        :pdc26fd80d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FluidPressureRange .
+
+:TotalUACurves  a           rdf:Property ;
+        rdfs:seeAlso        :p26a87a00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalUACurves .
+
+:p2f00b500d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water pressure drop curve, pressure drop – flow rate curve, WaterPressureDrop = f(WaterflowRate)." ;
+        rdfs:label                "WaterPressureDropCurve" ;
+        IFC4-PSD:definition       "Water pressure drop curve, pressure drop – flow rate curve, WaterPressureDrop = f(WaterflowRate)." ;
+        IFC4-PSD:definitionAlias  "Courbe de perte de charge hydraulique, courbe perte de charge - débit, perte de charge = f(DébitHydraulique)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "2f00b500d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterPressureDropCurve" ;
+        IFC4-PSD:nameAlias        "Water Pressure Drop Curve"@en , "CourbePerteChargeHydraulique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:CoilFaceArea  a            rdf:Property ;
+        rdfs:seeAlso        :p0b3d6f00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilFaceArea .
+
+:pe1844800d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The fluid used for heating or cooling used by the hydronic coil." ;
+        rdfs:label                "CoilCoolant" ;
+        IFC4-PSD:definition       "The fluid used for heating or cooling used by the hydronic coil." ;
+        IFC4-PSD:definitionAlias  ""@en , "Le fluide utilisé pour chauffer ou refroidir dans la batterie deux tubes."@fr-FR ;
+        IFC4-PSD:ifdguid          "e1844800d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilCoolant" ;
+        IFC4-PSD:nameAlias        "Coil Coolant"@en , "RefrigerantBatterie"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "WATER" , "BRINE" , "GLYCOL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:CoilCoolant  a             rdf:Property ;
+        rdfs:seeAlso        :pe1844800d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilCoolant .
+
+:p42ac1b80d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of coil surface area that is wet (0-1)." ;
+        rdfs:label                "WetCoilFraction" ;
+        IFC4-PSD:definition       "Fraction of coil surface area that is wet (0-1)." ;
+        IFC4-PSD:definitionAlias  "Fraction de la surface de la batterie qui est humide (0 à 1)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "42ac1b80d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WetCoilFraction" ;
+        IFC4-PSD:nameAlias        "Wet Coil Fraction"@en , "FractionBatterieHumide"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:peea13700d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Coil connection direction (facing into the air stream)." ;
+        rdfs:label                "CoilConnectionDirection" ;
+        IFC4-PSD:definition       "Coil connection direction (facing into the air stream)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Direction de la connexion à la batterie (en face du jet d'air)"@fr-FR ;
+        IFC4-PSD:ifdguid          "eea13700d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilConnectionDirection" ;
+        IFC4-PSD:nameAlias        "DirectionConnexionBatterie"@fr-FR , "Coil Connection Direction"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LEFT" , "RIGHT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SensibleHeatRatio  a       rdf:Property ;
+        rdfs:seeAlso        :p3cb63a80d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleHeatRatio .
+
+:Pset_CoilTypeHydronic
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Hydronic coil type attributes." ;
+        rdfs:label                    "Pset_CoilTypeHydronic" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCoil ;
+        IFC4-PSD:applicableTypeValue  "IfcCoil" ;
+        IFC4-PSD:definition           "Hydronic coil type attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoilTypeHydronic" ;
+        IFC4-PSD:propertyDef          :pdc26fd80d1c911e1800000215ad4efdf , :pfd87e980d1c911e1800000215ad4efdf , :p2f00b500d1ca11e1800000215ad4efdf , :p3cb63a80d1ca11e1800000215ad4efdf , :p109ab980d1ca11e1800000215ad4efdf , :p3758f000d1ca11e1800000215ad4efdf , :p15f80400d1ca11e1800000215ad4efdf , :p1abcb800d1ca11e1800000215ad4efdf , :peea13700d1c911e1800000215ad4efdf , :p42ac1b80d1ca11e1800000215ad4efdf , :pe1844800d1c911e1800000215ad4efdf , :p0b3d6f00d1ca11e1800000215ad4efdf , :p26a87a00d1ca11e1800000215ad4efdf .
+
+:PrimarySurfaceArea  a      rdf:Property ;
+        rdfs:seeAlso        :p15f80400d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimarySurfaceArea .
+
+:pdc26fd80d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable water working pressure range inside the tube." ;
+        rdfs:label                "FluidPressureRange" ;
+        IFC4-PSD:definition       "Allowable water working pressure range inside the tube." ;
+        IFC4-PSD:definitionAlias  ""@en , "Plage de pression hydraulique fonctionnelle admissible dans le tube."@fr-FR ;
+        IFC4-PSD:ifdguid          "dc26fd80d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FluidPressureRange" ;
+        IFC4-PSD:nameAlias        "PlagePressionFluide"@fr-FR , "Fluid Pressure Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p3cb63a80d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air-side sensible heat ratio, or fraction of sensible heat transfer to the total heat transfer." ;
+        rdfs:label                "SensibleHeatRatio" ;
+        IFC4-PSD:definition       "Air-side sensible heat ratio, or fraction of sensible heat transfer to the total heat transfer." ;
+        IFC4-PSD:definitionAlias  "Ratio de chaleur sensible, ou fraction d'échange thermique sensible sur la chaleur thermique totale échangée."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "3cb63a80d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleHeatRatio" ;
+        IFC4-PSD:nameAlias        "Sensible Heat Ratio"@en , "RatioChaleurSensible"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p26a87a00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total UA curves, UA - air and water velocities, UA = [(C1 * AirFlowRate^0.8)^-1 + (C2 * WaterFlowRate^0.8)^-1]^-1.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: AirFlowRate,WaterFlowRate,UA.  The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        rdfs:label                "TotalUACurves" ;
+        IFC4-PSD:definition       "Total UA curves, UA - air and water velocities, UA = [(C1 * AirFlowRate^0.8)^-1 + (C2 * WaterFlowRate^0.8)^-1]^-1.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: AirFlowRate,WaterFlowRate,UA.  The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        IFC4-PSD:definitionAlias  "Courbes de coefficient de transmission thermique total - vitesses de l'eau et de l'air, U.S = [(C1*DébitAéraulique^0,8)^-1 + (C2*DébitHydraulique^0,8)^-1]^-1.\nRemarque: comme deux variables sont utilisées, ValeursDefinir et ValeursDéfinies sont nulles, et les valeurs sont enregistrées dans IfcTable dans l'ordre suivant:\nDébitAéraulique, DebitHydraulique, U.S.\nLe IfcTable est lié à IfcPropertyTableValue en utilisant IfcMetric et IfcPropertyConstraintRelationship."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "26a87a00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalUACurves" ;
+        IFC4-PSD:nameAlias        "CourbesCoefficientTransmissionThermiqueTotal"@fr-FR , "Total UACurves"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcVolumetricFlowRateMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcReal
+                                  ] .
+
+:p15f80400d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Primary heat transfer surface area of the tubes and headers." ;
+        rdfs:label                "PrimarySurfaceArea" ;
+        IFC4-PSD:definition       "Primary heat transfer surface area of the tubes and headers." ;
+        IFC4-PSD:definitionAlias  ""@en , "Surface d'échange thermique au primaire des tubes et aux collecteurs."@fr-FR ;
+        IFC4-PSD:ifdguid          "15f80400d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimarySurfaceArea" ;
+        IFC4-PSD:nameAlias        "SurfaceEchangePrimaire"@fr-FR , "Primary Surface Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:CoilConnectionDirection
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peea13700d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilConnectionDirection .
+
+:CoilFluidArrangement
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfd87e980d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilFluidArrangement .
+
+:WetCoilFraction  a         rdf:Property ;
+        rdfs:seeAlso        :p42ac1b80d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WetCoilFraction .
+
+:WaterPressureDropCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2f00b500d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterPressureDropCurve .
+
+:p0b3d6f00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Coil face area in the direction against air the flow." ;
+        rdfs:label                "CoilFaceArea" ;
+        IFC4-PSD:definition       "Coil face area in the direction against air the flow." ;
+        IFC4-PSD:definitionAlias  ""@en , "Surface d'échange de la batterie dans la direction contraire du jet."@fr-FR ;
+        IFC4-PSD:ifdguid          "0b3d6f00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilFaceArea" ;
+        IFC4-PSD:nameAlias        "SurfaceEchangeBatterie"@fr-FR , "Coil Face Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p1abcb800d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Secondary heat transfer surface area created by fins." ;
+        rdfs:label                "SecondarySurfaceArea" ;
+        IFC4-PSD:definition       "Secondary heat transfer surface area created by fins." ;
+        IFC4-PSD:definitionAlias  ""@en , "Surface d'échange thermique au secondaire crée par les ailettes."@fr-FR ;
+        IFC4-PSD:ifdguid          "1abcb800d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondarySurfaceArea" ;
+        IFC4-PSD:nameAlias        "Secondary Surface Area"@en , "SurfaceEchangeSecondaire"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p3758f000d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of air that is bypassed by the coil (0-1)." ;
+        rdfs:label                "BypassFactor" ;
+        IFC4-PSD:definition       "Fraction of air that is bypassed by the coil (0-1)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Fraction de l'air qui est bypassé par la batterie (0 à 1)."@fr-FR ;
+        IFC4-PSD:ifdguid          "3758f000d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BypassFactor" ;
+        IFC4-PSD:nameAlias        "Bypass Factor"@en , "FacteurBypass"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:pfd87e980d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fluid flow arrangement of the coil.\n\nCrossCounterFlow: Air and water flow enter in different directions.\nCrossFlow: Air and water flow are perpendicular.\nCrossParallelFlow: Air and water flow enter in same directions." ;
+        rdfs:label                "CoilFluidArrangement" ;
+        IFC4-PSD:definition       "Fluid flow arrangement of the coil.\n\nCrossCounterFlow: Air and water flow enter in different directions.\nCrossFlow: Air and water flow are perpendicular.\nCrossParallelFlow: Air and water flow enter in same directions." ;
+        IFC4-PSD:definitionAlias  "Disposition du flux du fluide dans la batterie."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "fd87e980d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilFluidArrangement" ;
+        IFC4-PSD:nameAlias        "Coil Fluid Arrangement"@en , "DispositionFluideBatterie"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CROSSFLOW" , "CROSSCOUNTERFLOW" , "CROSSPARALLELFLOW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p109ab980d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat exchange surface area associated with U-value." ;
+        rdfs:label                "HeatExchangeSurfaceArea" ;
+        IFC4-PSD:definition       "Heat exchange surface area associated with U-value." ;
+        IFC4-PSD:definitionAlias  ""@en , "Surface d'échange thermique associé à la valeur U."@fr-FR ;
+        IFC4-PSD:ifdguid          "109ab980d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatExchangeSurfaceArea" ;
+        IFC4-PSD:nameAlias        "Heat Exchange Surface Area"@en , "SurfaceEchangeThermique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:SecondarySurfaceArea
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1abcb800d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondarySurfaceArea .
+
+:HeatExchangeSurfaceArea
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p109ab980d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatExchangeSurfaceArea .

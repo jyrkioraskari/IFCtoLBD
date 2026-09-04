@@ -1,0 +1,255 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:OutletTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa3d0f080d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletTemperatureRange .
+
+:PartialLoadEfficiencyCurves
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9ca9e280d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PartialLoadEfficiencyCurves .
+
+:p9ca9e280d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boiler efficiency as a function of the partial load factor; E = f (partialLaodfactor)." ;
+        rdfs:label                "PartialLoadEfficiencyCurves" ;
+        IFC4-PSD:definition       "Boiler efficiency as a function of the partial load factor; E = f (partialLaodfactor)." ;
+        IFC4-PSD:definitionAlias  "Rendement de la chaudière en fonction de la facteur de charge partielle; E= f(FacteurChargePartielle)."@fr-FR , ""@en , "部分負荷係数の関数としてのボイラ効率　　E=f(部分負荷率）"@ja-JP ;
+        IFC4-PSD:ifdguid          "9ca9e280d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PartialLoadEfficiencyCurves" ;
+        IFC4-PSD:nameAlias        "Partial Load Efficiency Curves"@en , "CourbesEfficacitéChargePartielle"@fr-FR , "部分負荷効率曲線"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:PressureRating  a          rdf:Property ;
+        rdfs:seeAlso        :p75ebac00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRating .
+
+:OperatingMode  a           rdf:Property ;
+        rdfs:seeAlso        :p7a17c980d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperatingMode .
+
+:p9451a780d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water storage capacity." ;
+        rdfs:label                "WaterStorageCapacity" ;
+        IFC4-PSD:definition       "Water storage capacity." ;
+        IFC4-PSD:definitionAlias  "缶内水量"@ja-JP , ""@en , "Capacité de réserve en eau"@fr-FR ;
+        IFC4-PSD:ifdguid          "9451a780d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterStorageCapacity" ;
+        IFC4-PSD:nameAlias        "Water Storage Capacity"@en , "缶内水量"@ja-JP , "CapacitéRéservoirEau"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:NominalPartLoadRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p89971280d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalPartLoadRatio .
+
+:EnergySource  a            rdf:Property ;
+        rdfs:seeAlso        :padf2ef00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergySource .
+
+:p89971280d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable part load ratio range." ;
+        rdfs:label                "NominalPartLoadRatio" ;
+        IFC4-PSD:definition       "Allowable part load ratio range." ;
+        IFC4-PSD:definitionAlias  "Plage de charge partielle admissible"@fr-FR , ""@en , "許容部分負荷比範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "89971280d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalPartLoadRatio" ;
+        IFC4-PSD:nameAlias        "PlageNominaleChargePartielle"@fr-FR , "設計部分負荷比率"@ja-JP , "Nominal Part Load Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:pa9c6d180d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal fuel consumption rate required to produce the total boiler heat output." ;
+        rdfs:label                "NominalEnergyConsumption" ;
+        IFC4-PSD:definition       "Nominal fuel consumption rate required to produce the total boiler heat output." ;
+        IFC4-PSD:definitionAlias  "Consommation nominale de combustible correspondant à la production nominale totale de la chaudière."@fr-FR , ""@en , "ボイラ最大能力時の設計燃料消費量"@ja-JP ;
+        IFC4-PSD:ifdguid          "a9c6d180d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalEnergyConsumption" ;
+        IFC4-PSD:nameAlias        "Consommation nominale d'energie"@fr-FR , "Nominal Energy Consumption"@en , "設計エネルギー消費量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p68cebd00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR , ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "68cebd00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "Etat"@fr-FR , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:padf2ef00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the energy source or fuel cumbusted to generate heat." ;
+        rdfs:label                "EnergySource" ;
+        IFC4-PSD:definition       "Enumeration defining the energy source or fuel cumbusted to generate heat." ;
+        IFC4-PSD:definitionAlias  "加熱に使用する燃料のエネルギ種類　（石炭、石炭粉末、電気、ガス、油、プロパン、木材、木材チップ、木材ペレット、木粉、他）"@ja-JP , "Liste définissant les sources d'énergie ou combustibles pour générer la chaleur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "adf2ef00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergySource" ;
+        IFC4-PSD:nameAlias        "エネルギ種別"@ja-JP , "Energy Source"@en , "SourceEnergie"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "WOOD" , "WOOD_PULVERIZED" , "WOOD_PELLET" , "COAL_PULVERIZED" , "OTHER" , "COAL" , "NOTKNOWN" , "ELECTRICITY" , "GAS" , "WOOD_CHIP" , "OIL" , "UNSET" , "PROPANE"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p64a29f80d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p68cebd00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:NominalEnergyConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa9c6d180d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalEnergyConsumption .
+
+:p8ef45d00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable water inlet temperature range." ;
+        rdfs:label                "WaterInletTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable water inlet temperature range." ;
+        IFC4-PSD:definitionAlias  "入口水温範囲"@ja-JP , "Plage de température de l'alimentation en eau admissible"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "8ef45d00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterInletTemperatureRange" ;
+        IFC4-PSD:nameAlias        "Water Inlet Temperature Range"@en , "PlageTempératureAlimentationEau"@fr-FR , "入口水温範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:HeatTransferSurfaceArea
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p84d25e80d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatTransferSurfaceArea .
+
+:Pset_BoilerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Boiler type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead. PrimaryEnergySource and AuxiliaryEnergySource attributes deleted in IFC2x2 Pset Addendum: Use IfcEnergyProperties, IfcFuelProperties, etc. instead." ;
+        rdfs:label                    "Pset_BoilerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBoiler ;
+        IFC4-PSD:applicableTypeValue  "IfcBoiler" ;
+        IFC4-PSD:definition           "Boiler type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead. PrimaryEnergySource and AuxiliaryEnergySource attributes deleted in IFC2x2 Pset Addendum: Use IfcEnergyProperties, IfcFuelProperties, etc. instead." ;
+        IFC4-PSD:definitionAlias      "ボイラ型共通属性を設定します。\nSoundLevel属性はIFC2x2 psetの付録で削除された：IfcSoundPropertiesを代わりに使用します。\n一次エネルギ源と補助エネルギ源属性はIFC2x2 psetの付録で削除された：IfcEnergyProperties,IfcFuelProperties等を代わりに使用"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BoilerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p64a29f80d1c411e1800000215ad4efdf , :p9451a780d1c411e1800000215ad4efdf , :p75ebac00d1c411e1800000215ad4efdf , :p9ca9e280d1c411e1800000215ad4efdf , :p84d25e80d1c411e1800000215ad4efdf , :p7a17c980d1c411e1800000215ad4efdf , :pa3d0f080d1c411e1800000215ad4efdf , :padf2ef00d1c411e1800000215ad4efdf , :p68cebd00d1c411e1800000215ad4efdf , :pa9c6d180d1c411e1800000215ad4efdf , :p987dc500d1c411e1800000215ad4efdf , :p8ef45d00d1c411e1800000215ad4efdf , :p89971280d1c411e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsWaterStorageHeater
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p987dc500d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsWaterStorageHeater .
+
+:pa3d0f080d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable outlet temperature of either the water or the steam." ;
+        rdfs:label                "OutletTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable outlet temperature of either the water or the steam." ;
+        IFC4-PSD:definitionAlias  "Température admissible de sortie de l'eau ou de la vapeur"@fr-FR , ""@en , "水または蒸気のどちらかの許容出口温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "a3d0f080d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletTemperatureRange" ;
+        IFC4-PSD:nameAlias        "PlageTempératureSortie"@fr-FR , "Outlet Temperature Range"@en , "出口温度範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p84d25e80d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer area of the vessel." ;
+        rdfs:label                "HeatTransferSurfaceArea" ;
+        IFC4-PSD:definition       "Total heat transfer area of the vessel." ;
+        IFC4-PSD:definitionAlias  "容器の伝熱部面積の合計"@ja-JP , ""@en , "Surface totale d'échange de chaleur du foyer"@fr-FR ;
+        IFC4-PSD:ifdguid          "84d25e80d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatTransferSurfaceArea" ;
+        IFC4-PSD:nameAlias        "SurfaceEchangeChaleur"@fr-FR , "Heat Transfer Surface Area"@en , "伝熱面積"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p987dc500d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "This is used to identify if the boiler has storage capacity (TRUE). If FALSE, then there is no storage capacity built into the boiler, such as an instantaneous hot water heater." ;
+        rdfs:label                "IsWaterStorageHeater" ;
+        IFC4-PSD:definition       "This is used to identify if the boiler has storage capacity (TRUE). If FALSE, then there is no storage capacity built into the boiler, such as an instantaneous hot water heater." ;
+        IFC4-PSD:definitionAlias  "給湯用の缶体があればTRUE、（瞬間湯沸かし器のように）ボイラにタンクがなければFALSE"@ja-JP , "Utilisé pour identifier si la chaudière une capacité de réserve en eau (VRAI). Si FAUX, alors il n'y a pas de capacité de réserve intégrée dans la chaudière, tel qu'un chauffe-eau instantané."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "987dc500d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsWaterStorageHeater" ;
+        IFC4-PSD:nameAlias        "Is Water Storage Heater"@en , "給湯タンク有無"@ja-JP , "AvoirChauffeEau"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:WaterStorageCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9451a780d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterStorageCapacity .
+
+:p7a17c980d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the operating mode of the boiler." ;
+        rdfs:label                "OperatingMode" ;
+        IFC4-PSD:definition       "Identifies the operating mode of the boiler." ;
+        IFC4-PSD:definitionAlias  "ボイラの動作モードのID　（固定、２段階、比例．．．）"@ja-JP , "Identifie le mode de fonctionnement de la chaudière."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "7a17c980d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperatingMode" ;
+        IFC4-PSD:nameAlias        "ModeFonctionnement"@fr-FR , "Operating Mode"@en , "動作モード"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FIXED" , "TWOSTEP" , "MODULATING" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:WaterInletTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8ef45d00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterInletTemperatureRange .
+
+:p75ebac00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal pressure rating of the boiler as rated by the agency having jurisdiction." ;
+        rdfs:label                "PressureRating" ;
+        IFC4-PSD:definition       "Nominal pressure rating of the boiler as rated by the agency having jurisdiction." ;
+        IFC4-PSD:definitionAlias  "Pression nominale admissible de la chaudière comme classée par l'organisme qui fait autorité."@fr-FR , ""@en , "管轄組織により設定されたボイラの常用圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "75ebac00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRating" ;
+        IFC4-PSD:nameAlias        "常用圧力"@ja-JP , "PressionAdmissibleNominale"@fr-FR , "Pressure Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p64a29f80d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "64a29f80d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Référence"@fr-FR , "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .

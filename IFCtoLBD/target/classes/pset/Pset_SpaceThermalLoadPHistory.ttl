@@ -1,0 +1,266 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalLoadPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p12856c80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Loads from the relative humidity." ;
+        rdfs:label                "RelativeHumidity" ;
+        IFC4-PSD:definition       "Loads from the relative humidity." ;
+        IFC4-PSD:definitionAlias  "상대습도에 의한 열부하"@ko-KR , "相対湿度による熱負荷。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "12856c80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RelativeHumidity" ;
+        IFC4-PSD:nameAlias        "相対湿度"@ja-JP , "Relative Humidity"@en , "상대습도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:InfiltrationSensible
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p15805d00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InfiltrationSensible .
+
+:p03062380d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ventilation loads from outdoor air." ;
+        rdfs:label                "VentilationOutdoorAir" ;
+        IFC4-PSD:definition       "Ventilation loads from outdoor air." ;
+        IFC4-PSD:definitionAlias  ""@en , "外気による熱負荷。"@ja-JP , "외기에한 열부하"@ko-KR ;
+        IFC4-PSD:ifdguid          "03062380d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VentilationOutdoorAir" ;
+        IFC4-PSD:nameAlias        "Ventilation Outdoor Air"@en , "外気量"@ja-JP , "외기량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p0f8a7c00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Loads from the dry bulb temperature." ;
+        rdfs:label                "DryBulbTemperature" ;
+        IFC4-PSD:definition       "Loads from the dry bulb temperature." ;
+        IFC4-PSD:definitionAlias  "乾球温度による熱負荷。"@ja-JP , "건구온도에의한 열부하"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "0f8a7c00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DryBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Dry Bulb Temperature"@en , "乾球温度"@ja-JP , "건구온도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p15805d00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat gains and losses from infiltration." ;
+        rdfs:label                "InfiltrationSensible" ;
+        IFC4-PSD:definition       "Heat gains and losses from infiltration." ;
+        IFC4-PSD:definitionAlias  ""@en , "열 부하및 열손실"@ko-KR , "すき間風からの熱負荷と熱ロス。"@ja-JP ;
+        IFC4-PSD:ifdguid          "15805d00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InfiltrationSensible" ;
+        IFC4-PSD:nameAlias        "すき間風の顕熱"@ja-JP , "Infiltration Sensible"@en , "열취득 및 손실"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p08fc0480d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Loads from exhaust air." ;
+        rdfs:label                "ExhaustAir" ;
+        IFC4-PSD:definition       "Loads from exhaust air." ;
+        IFC4-PSD:definitionAlias  ""@en , "排気による熱負荷。"@ja-JP , "배기에 의한 열부하"@ko-KR ;
+        IFC4-PSD:ifdguid          "08fc0480d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ExhaustAir" ;
+        IFC4-PSD:nameAlias        "Exhaust Air"@en , "배기"@ko-KR , "排気"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pfaade880d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Lighting loads." ;
+        rdfs:label                "Lighting" ;
+        IFC4-PSD:definition       "Lighting loads." ;
+        IFC4-PSD:definitionAlias  "조명 부하"@ko-KR , "照明負荷。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "faade880d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Lighting" ;
+        IFC4-PSD:nameAlias        "조명"@ko-KR , "照明"@ja-JP , "Lighting"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p06011400d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Loads from recirculated air." ;
+        rdfs:label                "RecirculatedAir" ;
+        IFC4-PSD:definition       "Loads from recirculated air." ;
+        IFC4-PSD:definitionAlias  ""@en , "순환공기에 의한 열부하"@ko-KR , "循環空気による熱負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "06011400d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RecirculatedAir" ;
+        IFC4-PSD:nameAlias        "循環空気"@ja-JP , "Recirculated Air"@en , "순환공기"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:TotalLatentLoad  a         rdf:Property ;
+        rdfs:seeAlso        :p1b763e00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalLatentLoad .
+
+:TotalSensibleLoad  a       rdf:Property ;
+        rdfs:seeAlso        :p187b4d80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalSensibleLoad .
+
+:TotalRadiantLoad  a        rdf:Property ;
+        rdfs:seeAlso        :p1e712e80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalRadiantLoad .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalLoadPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:DryBulbTemperature  a      rdf:Property ;
+        rdfs:seeAlso        :p0f8a7c00d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DryBulbTemperature .
+
+:VentilationOutdoorAir
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p03062380d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VentilationOutdoorAir .
+
+:pfda8d900d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat gains and losses from equipment." ;
+        rdfs:label                "EquipmentSensible" ;
+        IFC4-PSD:definition       "Heat gains and losses from equipment." ;
+        IFC4-PSD:definitionAlias  "사무기기에서 열 취득 및 손실"@ko-KR , "事務機器からの熱取得と熱ロス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fda8d900d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EquipmentSensible" ;
+        IFC4-PSD:nameAlias        "사무기기의 현열"@ko-KR , "事務機器の顕熱"@ja-JP , "Equipment Sensible"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_SpaceThermalLoadPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The space thermal load IfcSpaceThermalLoadProperties defines actual measured thermal losses and gains occurring within a space or zone. The thermal load source attribute defines an enumeration of possible sources of the thermal load." ;
+        rdfs:label                    "Pset_SpaceThermalLoadPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpace ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace" ;
+        IFC4-PSD:definition           "The space thermal load IfcSpaceThermalLoadProperties defines actual measured thermal losses and gains occurring within a space or zone. The thermal load source attribute defines an enumeration of possible sources of the thermal load." ;
+        IFC4-PSD:definitionAlias      "室内熱負荷属性IfcSpaceThermalLoadProperties はある居室或いはゾーンの実際の熱ロスと熱取得を定義する。熱取得の要因属性は熱負荷の各因子を示している。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceThermalLoadPHistory" ;
+        IFC4-PSD:propertyDef          :p15805d00d20c11e1800000215ad4efdf , :pfaade880d20b11e1800000215ad4efdf , :p0f8a7c00d20c11e1800000215ad4efdf , :p12856c80d20c11e1800000215ad4efdf , :pfda8d900d20b11e1800000215ad4efdf , :p1e712e80d20c11e1800000215ad4efdf , :p000b3300d20c11e1800000215ad4efdf , :p187b4d80d20c11e1800000215ad4efdf , :p1b763e00d20c11e1800000215ad4efdf , :pf7b2f800d20b11e1800000215ad4efdf , :p03062380d20c11e1800000215ad4efdf , :p0bf6f500d20c11e1800000215ad4efdf , :p08fc0480d20c11e1800000215ad4efdf , :p06011400d20c11e1800000215ad4efdf .
+
+:EquipmentSensible  a       rdf:Property ;
+        rdfs:seeAlso        :pfda8d900d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EquipmentSensible .
+
+:VentilationIndoorAir
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p000b3300d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VentilationIndoorAir .
+
+:People  a                  rdf:Property ;
+        rdfs:seeAlso        :pf7b2f800d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:People .
+
+:Lighting  a                rdf:Property ;
+        rdfs:seeAlso        :pfaade880d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Lighting .
+
+:RecirculatedAir  a         rdf:Property ;
+        rdfs:seeAlso        :p06011400d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RecirculatedAir .
+
+:p0bf6f500d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Loads from the air exchange rate." ;
+        rdfs:label                "AirExchangeRate" ;
+        IFC4-PSD:definition       "Loads from the air exchange rate." ;
+        IFC4-PSD:definitionAlias  "환기에 의한 열부하"@ko-KR , ""@en , "換気による熱負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "0bf6f500d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirExchangeRate" ;
+        IFC4-PSD:nameAlias        "환기회수"@ko-KR , "換気回数"@ja-JP , "Air Exchange Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p187b4d80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total energy added or removed from air that affects its temperature.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        rdfs:label                "TotalSensibleLoad" ;
+        IFC4-PSD:definition       "Total energy added or removed from air that affects its temperature.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        IFC4-PSD:definitionAlias  "공기 온도를 상승 · 하강하는 취득 · 손실 열량의 총. 제로보다 작은 (-) 경우 실내가 열 손실이된다. 제로보다 큰 (+) 경우 실내가 열을 검색된다."@ko-KR , "空気温度を上昇・下降させる取得・損失の熱量の合計。ゼロより小さい（－）場合、室内が熱損失となる。ゼロより大きい（＋）場合、室内が熱取得となる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "187b4d80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalSensibleLoad" ;
+        IFC4-PSD:nameAlias        "Total Sensible Load"@en , "顕熱負荷の合計"@ja-JP , "현열부하의 합계"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p1b763e00d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total energy added or removed from air that affects its humidity or concentration of water vapor.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        rdfs:label                "TotalLatentLoad" ;
+        IFC4-PSD:definition       "Total energy added or removed from air that affects its humidity or concentration of water vapor.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        IFC4-PSD:definitionAlias  "습도 (수증기량)을 상승 · 하강하는 취득 · 손실 열량의 총. 제로보다 작은 (-) 경우 실내의 수증기가 감소된다. 제로보다 큰 (+) 경우 실내의 수증기가 증가된다."@ko-KR , "空気湿度（水蒸気量）を上昇・下降させる取得・損失の熱量の合計。ゼロより小さい（－）場合、室内の水蒸気が減少となる。ゼロより大きい（＋）場合、室内の水蒸気が増大となる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1b763e00d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalLatentLoad" ;
+        IFC4-PSD:nameAlias        "Total Latent Load"@en , "잠열부하의 합계"@ko-KR , "潜熱負荷の合計"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ExhaustAir  a              rdf:Property ;
+        rdfs:seeAlso        :p08fc0480d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ExhaustAir .
+
+:pf7b2f800d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat gains and losses from people." ;
+        rdfs:label                "People" ;
+        IFC4-PSD:definition       "Heat gains and losses from people." ;
+        IFC4-PSD:definitionAlias  "人員からの熱取得。"@ja-JP , ""@en , "사람의 열"@ko-KR ;
+        IFC4-PSD:ifdguid          "f7b2f800d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "People" ;
+        IFC4-PSD:nameAlias        "인원"@ko-KR , "People"@en , "人員"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p1e712e80d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total electromagnetic energy added or removed by emission or absorption.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        rdfs:label                "TotalRadiantLoad" ;
+        IFC4-PSD:definition       "Total electromagnetic energy added or removed by emission or absorption.  If a value is less than zero (negative), then the thermal load is lost from the space. If a value is greater than zero (positive), then the thermal load is a gain to the space." ;
+        IFC4-PSD:definitionAlias  "放射や吸収による放射エネルギーの増加、或いは減少の合計。ゼロより小さい（－）場合、放射エネルギーが減少となる。ゼロより大きい（＋）場合、放射エネルギーが増大となる。"@ja-JP , "방사선 및 흡수에 의한 방사 에너지 증가 또는 감소의 총. 제로보다 작은 (-) 경우 방사 에너지가 감소된다. 제로보다 큰 (+) 경우 방사 에너지가 증대된다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "1e712e80d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalRadiantLoad" ;
+        IFC4-PSD:nameAlias        "복사열로드 합계"@ko-KR , "放射熱負荷の合計"@ja-JP , "Total Radiant Load"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:RelativeHumidity  a        rdf:Property ;
+        rdfs:seeAlso        :p12856c80d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RelativeHumidity .
+
+:AirExchangeRate  a         rdf:Property ;
+        rdfs:seeAlso        :p0bf6f500d20c11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirExchangeRate .
+
+:p000b3300d20c11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ventilation loads from indoor air." ;
+        rdfs:label                "VentilationIndoorAir" ;
+        IFC4-PSD:definition       "Ventilation loads from indoor air." ;
+        IFC4-PSD:definitionAlias  ""@en , "실내 환기에 의한 열 부하"@ko-KR , "室内の換気による熱負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "000b3300d20c11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VentilationIndoorAir" ;
+        IFC4-PSD:nameAlias        "室内の換気量"@ja-JP , "실내 환기량"@ko-KR , "Ventilation Indoor Air"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

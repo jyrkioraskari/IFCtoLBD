@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p94eb3d80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:p8f8df300d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width of the segment." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width of the segment." ;
+        IFC4-PSD:definitionAlias  "呼び幅寸法。"@ja-JP , "폭 치수"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "8f8df300d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "公称幅"@ja-JP , "공칭 폭"@ko-KR , "Nominal Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p94eb3d80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the segment." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the segment." ;
+        IFC4-PSD:definitionAlias  "呼び高寸法。"@ja-JP , "고 치수"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "94eb3d80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "Nominal Height"@en , "公称高"@ja-JP , "공칭 높이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p99aff180d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the cable tray has a cover (=TRUE) or not (= FALSE). By default, this value should be set to FALSE.." ;
+        rdfs:label                "HasCover" ;
+        IFC4-PSD:definition       "Indication of whether the cable tray has a cover (=TRUE) or not (= FALSE). By default, this value should be set to FALSE.." ;
+        IFC4-PSD:definitionAlias  ""@en , "カバー付かどうか。"@ja-JP , "커버 유무"@ko-KR ;
+        IFC4-PSD:ifdguid          "99aff180d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasCover" ;
+        IFC4-PSD:nameAlias        "カバー"@ja-JP , "커버"@ko-KR , "Has Cover"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:HasCover  a                rdf:Property ;
+        rdfs:seeAlso        :p99aff180d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasCover .
+
+:Pset_CableCarrierSegmentTypeCableTraySegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An (typically) open carrier segment onto which cables are laid. \nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
+        rdfs:label                    "Pset_CableCarrierSegmentTypeCableTraySegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRAYSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLETRAYSEGMENT" ;
+        IFC4-PSD:definition           "An (typically) open carrier segment onto which cables are laid. \nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
+        IFC4-PSD:definitionAlias      "典型的な開放型ケーブルキャリアに関するプロパティセット定義。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableCarrierSegmentTypeCableTraySegment" ;
+        IFC4-PSD:propertyDef          :p8f8df300d1c611e1800000215ad4efdf , :p99aff180d1c611e1800000215ad4efdf , :p94eb3d80d1c611e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTraySegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p8f8df300d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .

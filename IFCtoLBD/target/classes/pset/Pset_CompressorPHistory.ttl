@@ -1,0 +1,272 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CompressorPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe4336d00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the actual volume of gas entering the compressor to the theoretical displacement of the compressor." ;
+        rdfs:label                "VolumetricEfficiency" ;
+        IFC4-PSD:definition       "Ratio of the actual volume of gas entering the compressor to the theoretical displacement of the compressor." ;
+        IFC4-PSD:definitionAlias  "Rapport entre le volume effectif de gaz rentrant dans le compresseur et le volume déplacé théorique du compresseur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "e4336d00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VolumetricEfficiency" ;
+        IFC4-PSD:nameAlias        "Volumetric Efficiency"@en , "RendementVolumétrique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pe09fe600d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Coefficient of performance (COP)." ;
+        rdfs:label                "CoefficientOfPerformance" ;
+        IFC4-PSD:definition       "Coefficient of performance (COP)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Coefficient de performance (COP)."@fr-FR ;
+        IFC4-PSD:ifdguid          "e09fe600d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoefficientOfPerformance" ;
+        IFC4-PSD:nameAlias        "Coefficient Of Performance"@en , "CoefficientPerformance"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CompressionEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe72e5d80d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressionEfficiency .
+
+:pf4e3e300d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual shaft power input to the compressor." ;
+        rdfs:label                "ShaftPower" ;
+        IFC4-PSD:definition       "The actual shaft power input to the compressor." ;
+        IFC4-PSD:definitionAlias  "La puissance mécanique appliquée au niveau de l'arbre du compresseur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "f4e3e300d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShaftPower" ;
+        IFC4-PSD:nameAlias        "Shaft Power"@en , "PuissanceArbre"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ShaftPower  a              rdf:Property ;
+        rdfs:seeAlso        :pf4e3e300d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShaftPower .
+
+:p0200d200d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Compressor total heat gain." ;
+        rdfs:label                "CompressorTotalHeatGain" ;
+        IFC4-PSD:definition       "Compressor total heat gain." ;
+        IFC4-PSD:definitionAlias  "Gain thermique total au niveau du compresseur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "0200d200d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorTotalHeatGain" ;
+        IFC4-PSD:nameAlias        "Compressor Total Heat Gain"@en , "GainThermiqueTotalCompresseur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:EnergyEfficiencyRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdd0c5f00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergyEfficiencyRatio .
+
+:pfc0af100d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Lubricant pump heat gain." ;
+        rdfs:label                "LubricantPumpHeatGain" ;
+        IFC4-PSD:definition       "Lubricant pump heat gain." ;
+        IFC4-PSD:definitionAlias  ""@en , "Gain thermique par lubrification de la pompe à chaleur."@fr-FR ;
+        IFC4-PSD:ifdguid          "fc0af100d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LubricantPumpHeatGain" ;
+        IFC4-PSD:nameAlias        "GainThermiqueLubrifiantPompe"@fr-FR , "Lubricant Pump Heat Gain"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:FullLoadRatio  a           rdf:Property ;
+        rdfs:seeAlso        :p05945900d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FullLoadRatio .
+
+:Pset_CompressorPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Compressor performance history attributes." ;
+        rdfs:label                    "Pset_CompressorPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCompressor ;
+        IFC4-PSD:applicableTypeValue  "IfcCompressor" ;
+        IFC4-PSD:definition           "Compressor performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CompressorPHistory" ;
+        IFC4-PSD:propertyDef          :pff05e180d1ca11e1800000215ad4efdf , :pfc0af100d1ca11e1800000215ad4efdf , :pdd0c5f00d1ca11e1800000215ad4efdf , :pda116e80d1ca11e1800000215ad4efdf , :pe4336d00d1ca11e1800000215ad4efdf , :pf0b7c580d1ca11e1800000215ad4efdf , :pe72e5d80d1ca11e1800000215ad4efdf , :pf8776a00d1ca11e1800000215ad4efdf , :p05945900d1cb11e1800000215ad4efdf , :p0200d200d1cb11e1800000215ad4efdf , :ped243e80d1ca11e1800000215ad4efdf , :pf4e3e300d1ca11e1800000215ad4efdf , :pea294e00d1ca11e1800000215ad4efdf , :pe09fe600d1ca11e1800000215ad4efdf .
+
+:pff05e180d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Friction heat gain." ;
+        rdfs:label                "FrictionHeatGain" ;
+        IFC4-PSD:definition       "Friction heat gain." ;
+        IFC4-PSD:definitionAlias  "Gain thermique par friction."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "ff05e180d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrictionHeatGain" ;
+        IFC4-PSD:nameAlias        "Friction Heat Gain"@en , "GainThermiqueFriction"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CompressorCapacity  a      rdf:Property ;
+        rdfs:seeAlso        :pda116e80d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorCapacity .
+
+:CompressorTotalEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf0b7c580d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorTotalEfficiency .
+
+:pda116e80d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The product of the  ideal capacity and the overall volumetric efficiency of the compressor." ;
+        rdfs:label                "CompressorCapacity" ;
+        IFC4-PSD:definition       "The product of the  ideal capacity and the overall volumetric efficiency of the compressor." ;
+        IFC4-PSD:definitionAlias  "Le produit de la puissance optimale par le rendement global du compresseur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "da116e80d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorCapacity" ;
+        IFC4-PSD:nameAlias        "PuissanceCompresseur"@fr-FR , "Compressor Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:InputPower  a              rdf:Property ;
+        rdfs:seeAlso        :pf8776a00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InputPower .
+
+:FrictionHeatGain  a        rdf:Property ;
+        rdfs:seeAlso        :pff05e180d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrictionHeatGain .
+
+:CoefficientOfPerformance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe09fe600d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoefficientOfPerformance .
+
+:CompressorTotalHeatGain
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0200d200d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorTotalHeatGain .
+
+:pe72e5d80d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the work required for isentropic compression of the gas to the work delivered to the gas within the compression volume (as obtained by measurement)." ;
+        rdfs:label                "CompressionEfficiency" ;
+        IFC4-PSD:definition       "Ratio of the work required for isentropic compression of the gas to the work delivered to the gas within the compression volume (as obtained by measurement)." ;
+        IFC4-PSD:definitionAlias  "Rapport entre le travail requis pour une compression isentropique du gaz et le travail fourni au gaz dans le volume comprimé (telq qu'obtenu par mesure)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "e72e5d80d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressionEfficiency" ;
+        IFC4-PSD:nameAlias        "Compression Efficiency"@en , "RendementCompression"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pea294e00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the work (as measured) delivered to the gas to the work input to the compressor shaft." ;
+        rdfs:label                "MechanicalEfficiency" ;
+        IFC4-PSD:definition       "Ratio of the work (as measured) delivered to the gas to the work input to the compressor shaft." ;
+        IFC4-PSD:definitionAlias  ""@en , "Rapport entre le travail fourni (tel que mesuré) au gaz et le travail fourni à l'arbre du compresseur."@fr-FR ;
+        IFC4-PSD:ifdguid          "ea294e00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MechanicalEfficiency" ;
+        IFC4-PSD:nameAlias        "RendementMécanique"@fr-FR , "Mechanical Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf8776a00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Input power to the compressor motor." ;
+        rdfs:label                "InputPower" ;
+        IFC4-PSD:definition       "Input power to the compressor motor." ;
+        IFC4-PSD:definitionAlias  ""@en , "Puissance fournie au moteur du compresseur."@fr-FR ;
+        IFC4-PSD:ifdguid          "f8776a00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InputPower" ;
+        IFC4-PSD:nameAlias        "Input Power"@en , "PuissanceEntréeMoteur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ped243e80d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the work required for isentropic compression of the gas to work input to the compressor shaft." ;
+        rdfs:label                "IsentropicEfficiency" ;
+        IFC4-PSD:definition       "Ratio of the work required for isentropic compression of the gas to work input to the compressor shaft." ;
+        IFC4-PSD:definitionAlias  "Rapport entre le travail requis pour une compression isentropique du gaz et le travail fourni à l'arbre du compresseur."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "ed243e80d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsentropicEfficiency" ;
+        IFC4-PSD:nameAlias        "RendementIsentropique"@fr-FR , "Isentropic Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:MechanicalEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pea294e00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MechanicalEfficiency .
+
+:LubricantPumpHeatGain
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfc0af100d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LubricantPumpHeatGain .
+
+:VolumetricEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe4336d00d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VolumetricEfficiency .
+
+:IsentropicEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :ped243e80d1ca11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsentropicEfficiency .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CompressorPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf0b7c580d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the thermal cooling capacity to electrical input." ;
+        rdfs:label                "CompressorTotalEfficiency" ;
+        IFC4-PSD:definition       "Ratio of the thermal cooling capacity to electrical input." ;
+        IFC4-PSD:definitionAlias  "Rapport entre la puissance frigorifique et l'énergie électrique absorbée."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "f0b7c580d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorTotalEfficiency" ;
+        IFC4-PSD:nameAlias        "Compressor Total Efficiency"@en , "RendementGlobalIsentropique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pdd0c5f00d1ca11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Energy efficiency ratio (EER)." ;
+        rdfs:label                "EnergyEfficiencyRatio" ;
+        IFC4-PSD:definition       "Energy efficiency ratio (EER)." ;
+        IFC4-PSD:definitionAlias  ""@en , "EER, coefficient d'efficacité Thermique"@fr-FR ;
+        IFC4-PSD:ifdguid          "dd0c5f00d1ca11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergyEfficiencyRatio" ;
+        IFC4-PSD:nameAlias        "CoefficientEfficacitéThermique"@fr-FR , "Energy Efficiency Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p05945900d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of actual power to full load power as a quadratic function of part load, at certain condensing and evaporating temperature, FracFullLoadPower = f ( PartLoadRatio)." ;
+        rdfs:label                "FullLoadRatio" ;
+        IFC4-PSD:definition       "Ratio of actual power to full load power as a quadratic function of part load, at certain condensing and evaporating temperature, FracFullLoadPower = f ( PartLoadRatio)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Rapport entre puissance actuelle sur la puissance à pleine charge, comme fonction quadratique de la charge partielle, à une température de condensation et une température d'évaporation donnée, FracFullLoadPower = f (RapportChargePartielle)."@fr-FR ;
+        IFC4-PSD:ifdguid          "05945900d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FullLoadRatio" ;
+        IFC4-PSD:nameAlias        "Full Load Ratio"@en , "CoefficientChargeTotale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

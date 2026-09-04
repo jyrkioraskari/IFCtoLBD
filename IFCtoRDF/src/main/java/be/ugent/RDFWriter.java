@@ -749,16 +749,24 @@ public class RDFWriter {
 	}
 
 	private void addEnumProperty(Resource r, Property p, OntResource range, String literalString)  {
+		String enumValue = normalizeEnumValue(literalString);
 		for (ExtendedIterator<? extends OntResource> instances = range.asClass().listInstances(); instances
 				.hasNext();) {
 			OntResource rangeInstance = instances.next();
-			if (rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(filterPoints(literalString))) {
+			if (rangeInstance.getProperty(RDFS.label) != null
+					&& rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(enumValue)) {
 				ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), rangeInstance.asNode()));
 				return;
 			}
 		}
-		LOG.error("*ERROR 9*: did not find ENUM individual for " + literalString
-				+ "\r\nQuitting the application without output!");
+		LOG.warn("*WARNING*: did not find ENUM individual for " + literalString + " (normalized: " + enumValue + ")");
+	}
+
+	private static String normalizeEnumValue(String value) {
+		if (value == null) return "";
+		String filtered = filterPoints(value).replace("\uFFFD", "").trim();
+		java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("([A-Za-z][A-Za-z0-9_]*)\\.?\\s*$").matcher(filtered);
+		return matcher.find() ? matcher.group(1) : filtered;
 	}
 
 	private void addLiteralToResource(Resource r1, OntProperty valueProp, String xsdType, String literalString) {

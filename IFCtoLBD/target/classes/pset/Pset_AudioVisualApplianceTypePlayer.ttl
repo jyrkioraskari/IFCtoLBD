@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p18a32b00d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates supported media formats." ;
+        rdfs:label                "PlayerMediaFormat" ;
+        IFC4-PSD:definition       "Indicates supported media formats." ;
+        IFC4-PSD:definitionAlias  ""@en , "サポートされているメディアのフォーマットを示す。"@ja-JP , "지원되는 미디어 형식을 보여준다."@ko-KR ;
+        IFC4-PSD:ifdguid          "18a32b00d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlayerMediaFormat" ;
+        IFC4-PSD:nameAlias        "미디어 포맷"@ko-KR , "メディアフォーマット"@ja-JP , "Player Media Format"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_AudioVisualApplianceTypePlayer
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual player is a device that plays stored media into a stream of audio and/or video, such as camera footage in security systems, background audio in retail areas, or media presentations in conference rooms or theatres.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypePlayer" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/PLAYER> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/PLAYER" ;
+        IFC4-PSD:definition           "An audio-visual player is a device that plays stored media into a stream of audio and/or video, such as camera footage in security systems, background audio in retail areas, or media presentations in conference rooms or theatres.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "セキュリティーシステムのカメラや店舗などのBGMシステム、または劇場や会議室ないのプレゼンテーションシステムのような収容された音響映像信号を表示・放送する装置。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypePlayer" ;
+        IFC4-PSD:propertyDef          :p18a32b00d1c311e1800000215ad4efdf , :p04f7c480d1c311e1800000215ad4efdf , :p1214b380d1c311e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypePlayer>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:PlayerType  a              rdf:Property ;
+        rdfs:seeAlso        :p04f7c480d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlayerType .
+
+:p1214b380d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the media can be ejected from the player (if physical media)." ;
+        rdfs:label                "PlayerMediaEject" ;
+        IFC4-PSD:definition       "Indicates whether the media can be ejected from the player (if physical media)." ;
+        IFC4-PSD:definitionAlias  ""@en , "미디어를 꺼낼 수 있는지 여부를 나타낸다."@ko-KR , "メディアを取り出すことができるかどうかを示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1214b380d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlayerMediaEject" ;
+        IFC4-PSD:nameAlias        "미디어 꺼내기 여부"@ko-KR , "メディア取り出し可否"@ja-JP , "Player Media Eject"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:PlayerMediaEject  a        rdf:Property ;
+        rdfs:seeAlso        :p1214b380d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlayerMediaEject .
+
+:PlayerMediaFormat  a       rdf:Property ;
+        rdfs:seeAlso        :p18a32b00d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlayerMediaFormat .
+
+:p04f7c480d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of player." ;
+        rdfs:label                "PlayerType" ;
+        IFC4-PSD:definition       "Indicates the type of player." ;
+        IFC4-PSD:definitionAlias  ""@en , "재생 가능한 형식을 보여준다."@ko-KR , "再生可能な形式を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "04f7c480d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlayerType" ;
+        IFC4-PSD:nameAlias        "プレイヤー形式"@ja-JP , "플레이어 형식"@ko-KR , "Player Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "AUDIO" , "VIDEO" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .

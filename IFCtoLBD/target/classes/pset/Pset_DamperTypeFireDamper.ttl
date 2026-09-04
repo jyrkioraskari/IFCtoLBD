@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperTypeFireDamper#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperTypeFireDamper>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FireResistanceRating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd6351a80d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireResistanceRating .
+
+:FusibleLinkTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdc2afb80d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FusibleLinkTemperature .
+
+:ClosureRatingEnum  a       rdf:Property ;
+        rdfs:seeAlso        :pc9182b80d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClosureRatingEnum .
+
+:pdc2afb80d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature that the fusible link melts." ;
+        rdfs:label                "FusibleLinkTemperature" ;
+        IFC4-PSD:definition       "The temperature that the fusible link melts." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "dc2afb80d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FusibleLinkTemperature" ;
+        IFC4-PSD:nameAlias        "Fusible Link Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pd6351a80d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure of the fire resistance rating in hours (e.g., 1.5 hours, 2 hours, etc.)." ;
+        rdfs:label                "FireResistanceRating" ;
+        IFC4-PSD:definition       "Measure of the fire resistance rating in hours (e.g., 1.5 hours, 2 hours, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d6351a80d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireResistanceRating" ;
+        IFC4-PSD:nameAlias        "Fire Resistance Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ActuationType  a           rdf:Property ;
+        rdfs:seeAlso        :pbc93d300d1d111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActuationType .
+
+:pc9182b80d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies the closure rating for the damper." ;
+        rdfs:label                "ClosureRatingEnum" ;
+        IFC4-PSD:definition       "Enumeration that identifies the closure rating for the damper." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c9182b80d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClosureRatingEnum" ;
+        IFC4-PSD:nameAlias        "Closure Rating Enum"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DYNAMIC" , "STATIC" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pbc93d300d1d111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies the different types of dampers." ;
+        rdfs:label                "ActuationType" ;
+        IFC4-PSD:definition       "Enumeration that identifies the different types of dampers." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bc93d300d1d111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActuationType" ;
+        IFC4-PSD:nameAlias        "Actuation Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "GRAVITY" , "SPRING" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_DamperTypeFireDamper
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fire damper type attributes.\nPset renamed from Pset_DamperTypeFire to Pset_DamperTypeFireDamper in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_DamperTypeFireDamper" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDamper/FIREDAMPER> ;
+        IFC4-PSD:applicableTypeValue  "IfcDamper/FIREDAMPER" ;
+        IFC4-PSD:definition           "Fire damper type attributes.\nPset renamed from Pset_DamperTypeFire to Pset_DamperTypeFireDamper in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DamperTypeFireDamper" ;
+        IFC4-PSD:propertyDef          :pc9182b80d1d111e1800000215ad4efdf , :pbc93d300d1d111e1800000215ad4efdf , :pdc2afb80d1d111e1800000215ad4efdf , :pd6351a80d1d111e1800000215ad4efdf .

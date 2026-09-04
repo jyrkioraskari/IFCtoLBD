@@ -1,0 +1,264 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceCoveringRequirements#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1e0092682e5347b2b2c5050bd03ee111
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Height of the molding.\n\nThe height information is provided in absence of an IfcCovering (type=MOLDING) object with own shape representation and material assignment. In case of inconsistency the height assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "MoldingHeight" ;
+        IFC4-PSD:definition       "Height of the molding.\n\nThe height information is provided in absence of an IfcCovering (type=MOLDING) object with own shape representation and material assignment. In case of inconsistency the height assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Angabe der  Höhe des umlaufenden Gesims (Deckenkante). \n\nDer Höhenparameter wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = MOLDING) für das Gesims dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Höhe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , "部屋の廻縁の高さ。\n\n形状表現を持つIfcCovering(type=MOLDING)オブジェクトが存在しない場合に与えられる厚さ情報。IfcCoveringの幾何形状パラメータとこのプロパティ値が一致しない場合、幾何形状パラメータの値を優先する。"@ja-JP , ""@en , ""@fr-FR ;
+        IFC4-PSD:ifdguid          "1e0092682e5347b2b2c5050bd03ee111" ;
+        IFC4-PSD:name             "MoldingHeight" ;
+        IFC4-PSD:nameAlias        "Höhe des Gesims"@de-DE , "廻縁高"@ja-JP , "Molding Height"@en , "Hauteur de la moulure"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p56029141a7c040c4aef51a242fa1611f
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Distance between the floor slab and the floor covering, often used for cables and other installations. Often referred to as raised flooring. " ;
+        rdfs:label             "ConcealedFlooringOffset" ;
+        IFC4-PSD:definition    "Distance between the floor slab and the floor covering, often used for cables and other installations. Often referred to as raised flooring. " ;
+        IFC4-PSD:ifdguid       "56029141a7c040c4aef51a242fa1611f" ;
+        IFC4-PSD:name          "ConcealedFlooringOffset" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                               ] .
+
+:pbfd1f6a6ca08440899165d31dda04831
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=FLOORING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "FloorCovering" ;
+        IFC4-PSD:definition       "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=FLOORING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  ""@en , "部屋の床材質または仕上げに関するラベル（識別情報）。このラベル名は部屋リスト情報や部屋情報表示の際に利用される。"@ja-JP , "Indication sur la nature du revêtement de sol […]. L'information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=FLOORING) avec sa propre représentation de forme et une assignation à un matériau. En cas d'incohérence, c'est le matériau assigné à l'instance de IfcCovering qui prime."@fr-FR , "Angabe des Materials für den Bodenbelag. Diese Angabe wird im Raumbuch verwendet und oft im Raumstempel angezeigt.\n\nDie Materialangabe wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = FLOORING) für den Bodenbelag dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialangabe des zugeordneten Bekleidungsobjekts Priorität."@de-DE ;
+        IFC4-PSD:ifdguid          "bfd1f6a6ca08440899165d31dda04831" ;
+        IFC4-PSD:name             "FloorCovering" ;
+        IFC4-PSD:nameAlias        "床仕上げ"@ja-JP , "RevetementSol"@fr-FR , "Floor Covering"@en , "Bodenbelag"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ConcealedFlooringOffset
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p56029141a7c040c4aef51a242fa1611f ;
+        rdfs:subPropertyOf  IFC4-PSD:ConcealedFlooringOffset .
+
+:ConcealedCeiling  a        rdf:Property ;
+        rdfs:seeAlso        :p7502fd34b7fa494280c610aec4787043 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConcealedCeiling .
+
+:SkirtingBoardHeight  a     rdf:Property ;
+        rdfs:seeAlso        :paf1249f71eb24579aaec871aa4a6287b ;
+        rdfs:subPropertyOf  IFC4-PSD:SkirtingBoardHeight .
+
+:p44c775b14a0d46c58ad8c7e36c34a349
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the material layer(s) for the space cladding.  \n\nThe thickness information is provided in absence of an IfcCovering (type=CLADDING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        rdfs:label                "WallCoveringThickness" ;
+        IFC4-PSD:definition       "Thickness of the material layer(s) for the space cladding.  \n\nThe thickness information is provided in absence of an IfcCovering (type=CLADDING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Epaisseur de la couche de matériau constituant le revêtement de mur. Cette information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=CLADDING) avec sa propre représentation de forme. En cas d'incohérence entre les paramètres géométriques de l'instance de IfcCovering et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "部屋の壁に関する材質層の厚さ。\n\n形状表現を持つIfcCovering(type=CLADDING)オブジェクトが存在しない場合に与えられる厚さ情報。IfcCoveringの幾何形状パラメータとこのプロパティ値が一致しない場合、幾何形状パラメータの値を優先する。"@ja-JP , "Angabe der Dicke der Materialschichten für die Wandbekleidung. \n\nDer Dickenparameter wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = CLADDING) für die Wandbekleidung dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialdicke des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "44c775b14a0d46c58ad8c7e36c34a349" ;
+        IFC4-PSD:name             "WallCoveringThickness" ;
+        IFC4-PSD:nameAlias        "Dicke der Wandbekleidung"@de-DE , "Epaisseur du revêtement de mur"@fr-FR , "Wall Covering Thickness"@en , "壁仕上げ厚"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Molding  a                 rdf:Property ;
+        rdfs:seeAlso        :p3f9ca576246247ff8bdca254b651a15a ;
+        rdfs:subPropertyOf  IFC4-PSD:Molding .
+
+:CeilingCovering  a         rdf:Property ;
+        rdfs:seeAlso        :pda83c4235c1d40aba9510f6abe2412f6 ;
+        rdfs:subPropertyOf  IFC4-PSD:CeilingCovering .
+
+:ConcealedFlooring  a       rdf:Property ;
+        rdfs:seeAlso        :p8650a689ba064df69f052a87ab070f02 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConcealedFlooring .
+
+:WallCoveringThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p44c775b14a0d46c58ad8c7e36c34a349 ;
+        rdfs:subPropertyOf  IFC4-PSD:WallCoveringThickness .
+
+:p69193a7f647f4526bd7f1d3b9fdd1a9e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=CLADDING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "WallCovering" ;
+        IFC4-PSD:definition       "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=CLADDING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Angabe des Materials für die Wandbekleidung, oder den Wandbelag Diese Angabe wird im Raumbuch verwendet und oft im Raumstempel angezeigt.\n\nDie Materialangabe wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = CLADDING) für die Wandbekleidung dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialangabe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@en , "Indication sur la nature du revêtement de mur […]. L'information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=CLADDING) avec sa propre représentation de forme et une assignation à un matériau. En cas d'incohérence, c'est le matériau assigné à l'instance de IfcCovering qui prime."@fr-FR , "部屋の壁材質または仕上げに関するラベル（識別情報）。このラベル名は部屋リスト情報や部屋情報表示の際に利用される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "69193a7f647f4526bd7f1d3b9fdd1a9e" ;
+        IFC4-PSD:name             "WallCovering" ;
+        IFC4-PSD:nameAlias        "Wandbekleidung"@de-DE , "Wall Covering"@en , "RevetementMur"@fr-FR , "壁仕上げ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p7502fd34b7fa494280c610aec4787043
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this space is designed to have a concealed flooring space (TRUE) or not (FALSE). A concealed ceiling space is normally meant to be the space between a slab and a ceiling." ;
+        rdfs:label                "ConcealedCeiling" ;
+        IFC4-PSD:definition       "Indication whether this space is designed to have a concealed flooring space (TRUE) or not (FALSE). A concealed ceiling space is normally meant to be the space between a slab and a ceiling." ;
+        IFC4-PSD:definitionAlias  "Angabe, ob dieser Raum mit einer Installationsdecke (abgehängten Decke) ausgestattet ist (JA), oder nicht (NEIN)."@de-DE , ""@en , "Indique si la pièce comprend un faux plafond (VRAI) ou non (FAUX)"@fr-FR , "この部屋（空間）が隠蔽された天井空間を持つように設計されているかどうかを示すブーリアン値。隠蔽された天井空間とは、スラブと天井の間の空間。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7502fd34b7fa494280c610aec4787043" ;
+        IFC4-PSD:name             "ConcealedCeiling" ;
+        IFC4-PSD:nameAlias        "Concealed Ceiling"@en , "Installationsdecke"@de-DE , "FauxPlafond"@fr-FR , "隠蔽天井"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:MoldingHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p1e0092682e5347b2b2c5050bd03ee111 ;
+        rdfs:subPropertyOf  IFC4-PSD:MoldingHeight .
+
+:ConcealedCeilingOffset
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa7d072c8df3245bd9c1b9424d7f35a87 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConcealedCeilingOffset .
+
+:p8650a689ba064df69f052a87ab070f02
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this space is designed to have a concealed flooring space (TRUE) or not (FALSE). A concealed flooring space is normally meant to be the space beneath a raised floor." ;
+        rdfs:label                "ConcealedFlooring" ;
+        IFC4-PSD:definition       "Indication whether this space is designed to have a concealed flooring space (TRUE) or not (FALSE). A concealed flooring space is normally meant to be the space beneath a raised floor." ;
+        IFC4-PSD:definitionAlias  ""@en , "この部屋（空間）が隠蔽された床空間を持つように設計されているかどうかを示すブーリアン値。隠蔽された床空間とは、上げ床の下の空間。"@ja-JP , "Angabe, ob dieser Raum mit einem aufgeständerten Fußboden ausgestattet ist (JA), oder nicht (NEIN)."@de-DE , "Indique si la pièce comprend un faux plancher (VRAI) ou non (FAUX)"@fr-FR ;
+        IFC4-PSD:ifdguid          "8650a689ba064df69f052a87ab070f02" ;
+        IFC4-PSD:name             "ConcealedFlooring" ;
+        IFC4-PSD:nameAlias        "FauxPlancher"@fr-FR , "隠蔽床"@ja-JP , "Installationsboden"@de-DE , "Concealed Flooring"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:paf1249f71eb24579aaec871aa4a6287b
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Height of the skirting board.\n\nThe height information is provided in absence of an IfcCovering (type=SKIRTINGBOARD) object with own shape representation and material assignment. In case of inconsistency the height assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "SkirtingBoardHeight" ;
+        IFC4-PSD:definition       "Height of the skirting board.\n\nThe height information is provided in absence of an IfcCovering (type=SKIRTINGBOARD) object with own shape representation and material assignment. In case of inconsistency the height assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Angabe der  Höhe der umlaufenden Sockelleiste. \n\nDer Höhenparameter wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = SKIRTINGBOARD) für die Sockelleiste dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Höhe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@en , ""@fr-FR , "部屋の幅木の高さ。\n\n形状表現を持つIfcCovering(type=SKIRTINGBOARD)オブジェクトが存在しない場合に与えられる厚さ情報。IfcCoveringの幾何形状パラメータとこのプロパティ値が一致しない場合、幾何形状パラメータの値を優先する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "af1249f71eb24579aaec871aa4a6287b" ;
+        IFC4-PSD:name             "SkirtingBoardHeight" ;
+        IFC4-PSD:nameAlias        "Höhe der Sockelleite"@de-DE , "Skirting Board Height"@en , "幅木材高"@ja-JP , "Hauteur de la plinthe"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p9650c4d3c07f4ccc9fd8147b099f0939
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the material layer(s) for the space flooring.  \n\nThe thickness information is provided in absence of an IfcCovering (type=FLOORING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        rdfs:label                "FloorCoveringThickness" ;
+        IFC4-PSD:definition       "Thickness of the material layer(s) for the space flooring.  \n\nThe thickness information is provided in absence of an IfcCovering (type=FLOORING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Epaisseur de la couche de matériau constituant le revêtement de sol. Cette information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=FLOORING) avec sa propre représentation de forme. En cas d'incohérence entre les paramètres géométriques de l'instance de IfcCovering et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , ""@en , "Angabe der Dicke der Materialschichten für den Bodenbelag. \n\nDer Dickenparameter wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = FLOORING) für den Bodenbelag dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialdicke des zugeordneten Bekleidungsobjekts Priorität."@de-DE , "部屋の床に関する材質層の厚さ。\n\n形状表現を持つIfcCovering(type=FLOORING)オブジェクトが存在しない場合に与えられる厚さ情報。IfcCoveringの幾何形状パラメータとこのプロパティ値が一致しない場合、幾何形状パラメータの値を優先する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9650c4d3c07f4ccc9fd8147b099f0939" ;
+        IFC4-PSD:name             "FloorCoveringThickness" ;
+        IFC4-PSD:nameAlias        "Floor Covering Thickness"@en , "Epaisseur du revêtement de sol"@fr-FR , "床仕上げ材厚"@ja-JP , "Dicke des Bodenbelags"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:FloorCoveringThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9650c4d3c07f4ccc9fd8147b099f0939 ;
+        rdfs:subPropertyOf  IFC4-PSD:FloorCoveringThickness .
+
+:p6d6b4d00a2234b90b4eb1901ca5be2b5
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label to indicate the material or construction of the skirting board around the space flooring. The label is used for room book information.\n\nThe material information is provided in absence of an IfcCovering (type=SKIRTINGBOARD) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "SkirtingBoard" ;
+        IFC4-PSD:definition       "Label to indicate the material or construction of the skirting board around the space flooring. The label is used for room book information.\n\nThe material information is provided in absence of an IfcCovering (type=SKIRTINGBOARD) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Angabe des Materials für die Sockelleiste. Diese Angabe wird im Raumbuch verwendet.\n\nDie Materialangabe wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = SKIRTINGBOARD) für die Sockelleiste dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialangabe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , "部屋の床の周りにある幅木の材質または施工に関するラベル（識別情報）。ラベル名は部屋リスト情報に使用される。\n\n形状表現を持つIfcCovering (type=SKIRTINGBOARD)オブジェクトが存在しない場合に与えられる材質情報。IfcCoveringの材質情報とこのプロパティ値が一致しない場合、IfcCoveringに与えられている材質情報を優先する。"@ja-JP , ""@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "6d6b4d00a2234b90b4eb1901ca5be2b5" ;
+        IFC4-PSD:name             "SkirtingBoard" ;
+        IFC4-PSD:nameAlias        "Skirting Board"@en , "Matériau de la plinthe"@fr-FR , "幅木材"@ja-JP , "Sockelleiste"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:WallCovering  a            rdf:Property ;
+        rdfs:seeAlso        :p69193a7f647f4526bd7f1d3b9fdd1a9e ;
+        rdfs:subPropertyOf  IFC4-PSD:WallCovering .
+
+:SkirtingBoard  a           rdf:Property ;
+        rdfs:seeAlso        :p6d6b4d00a2234b90b4eb1901ca5be2b5 ;
+        rdfs:subPropertyOf  IFC4-PSD:SkirtingBoard .
+
+:CeilingCoveringThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pabdab367fcc64b08b03d584baeb819c8 ;
+        rdfs:subPropertyOf  IFC4-PSD:CeilingCoveringThickness .
+
+:pa7d072c8df3245bd9c1b9424d7f35a87
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Distance between the upper floor slab and the suspended ceiling, often used for distribution systems. Often referred to as plenum. " ;
+        rdfs:label             "ConcealedCeilingOffset" ;
+        IFC4-PSD:definition    "Distance between the upper floor slab and the suspended ceiling, often used for distribution systems. Often referred to as plenum. " ;
+        IFC4-PSD:ifdguid       "a7d072c8df3245bd9c1b9424d7f35a87" ;
+        IFC4-PSD:name          "ConcealedCeilingOffset" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                               ] .
+
+:pabdab367fcc64b08b03d584baeb819c8
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the material layer(s) for the space ceiling.  \n\nThe thickness information is provided in absence of an IfcCovering (type=CEILING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        rdfs:label                "CeilingCoveringThickness" ;
+        IFC4-PSD:definition       "Thickness of the material layer(s) for the space ceiling.  \n\nThe thickness information is provided in absence of an IfcCovering (type=CEILING) object with own shape representation. In cases of inconsistency between the geometric parameters of an assigned IfcCovering and this attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Epaisseur de la couche de matériau constituant le revêtement de sol. Cette information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=CEILING) avec sa propre représentation de forme. En cas d'incohérence entre les paramètres géométriques de l'instance de IfcCovering et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "Angabe der  Dicke der Materialschichten für die Deckenbekleidung. \n\nDer Dickenparameter wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = CEILING) für die Deckenbekleidung dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialdicke des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@en , "部屋の天井に関する材質層の厚さ。\n\n形状表現を持つIfcCovering(type=CEILING)オブジェクトが存在しない場合に与えられる厚さ情報。IfcCoveringの幾何形状パラメータとこのプロパティ値が一致しない場合、幾何形状パラメータの値を優先する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "abdab367fcc64b08b03d584baeb819c8" ;
+        IFC4-PSD:name             "CeilingCoveringThickness" ;
+        IFC4-PSD:nameAlias        "Ceiling Covering Thickness"@en , "Dicke der Deckenbekleidung"@de-DE , "Epaisseur du revêtement de plafond"@fr-FR , "天井仕上げ厚"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:FloorCovering  a           rdf:Property ;
+        rdfs:seeAlso        :pbfd1f6a6ca08440899165d31dda04831 ;
+        rdfs:subPropertyOf  IFC4-PSD:FloorCovering .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceCoveringRequirements>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pda83c4235c1d40aba9510f6abe2412f6
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=CEILING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "CeilingCovering" ;
+        IFC4-PSD:definition       "Label to indicate the material or finish of the space flooring. The label is used for room book information and often displayed in room stamp.\n\nThe material information is provided in absence of an IfcCovering (type=CEILING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Indication sur la nature du revêtement de plafond […]. L'information sur le matériau est fournie en l'absence d'un objet de la classe IfcCovering (Type=CEILING) avec sa propre représentation de forme et une assignation à un matériau. En cas d'incohérence, c'est le matériau assigné à l'instance de IfcCovering qui prime."@fr-FR , "部屋の天井材質または仕上げに関するラベル（識別情報）。このラベル名は部屋リスト情報や部屋情報表示の際に利用される。"@ja-JP , "Angabe des Materials für die Deckenbekleidung oder den Deckenbelag (bzw. der Unterdecke). Diese Angabe wird im Raumbuch verwendet und oft im Raumstempel angezeigt.\n\nDie Materialangabe wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = CEILING) für die Deckenbekleidung dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialangabe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "da83c4235c1d40aba9510f6abe2412f6" ;
+        IFC4-PSD:name             "CeilingCovering" ;
+        IFC4-PSD:nameAlias        "Deckenbekleidung"@de-DE , "Ceiling Covering"@en , "RevetementPlafond"@fr-FR , "天井仕上げ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p3f9ca576246247ff8bdca254b651a15a
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label to indicate the material or construction of the molding around the space ceiling. The label is used for room book information.\n\nThe material information is provided in absence of an IfcCovering (type=MOLDING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        rdfs:label                "Molding" ;
+        IFC4-PSD:definition       "Label to indicate the material or construction of the molding around the space ceiling. The label is used for room book information.\n\nThe material information is provided in absence of an IfcCovering (type=MOLDING) object with own shape representation and material assignment. In case of inconsistency the material assigned to IfcCovering elements takes precedence." ;
+        IFC4-PSD:definitionAlias  "Angabe des Materials für das Gesims (Deckenkante). Diese Angabe wird im Raumbuch verwendet.\n\nDie Materialangabe wird übernommen, wenn kein eigenes Bekleidungsobjekt (IfcCovering mit PredefinedType = MOLDING) für das Gesims dem Raum zugeordnet ist. Bei Inkonsistenzen (wenn beides gegeben ist), hat die Materialangabe des zugeordneten Bekleidungsobjekts Priorität."@de-DE , ""@fr-FR , ""@en , "部屋の廻縁の材質または施工に関するラベル（識別情報）。ラベル名は部屋リスト情報に使用される。\n\n形状表現を持つIfcCovering (type=MOLDING)オブジェクトが存在しない場合に与えられる材質情報。IfcCoveringの材質情報とこのプロパティ値が一致しない場合、IfcCoveringに与えられている材質情報を優先する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3f9ca576246247ff8bdca254b651a15a" ;
+        IFC4-PSD:name             "Molding" ;
+        IFC4-PSD:nameAlias        "Molding"@en , "Matériau de la moulure"@fr-FR , "廻縁"@ja-JP , "Gesims"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_SpaceCoveringRequirements
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of covering requirements of IfcSpace. Those properties define the requirements coming from a space program in early project phases and can later be used to define the room book information, if such coverings are not modeled explicitly as covering elements." ;
+        rdfs:label                    "Pset_SpaceCoveringRequirements" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpace ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace" ;
+        IFC4-PSD:definition           "Properties common to the definition of covering requirements of IfcSpace. Those properties define the requirements coming from a space program in early project phases and can later be used to define the room book information, if such coverings are not modeled explicitly as covering elements." ;
+        IFC4-PSD:definitionAlias      ""@en , "IfcSpace（部屋）の仕上げ(Covering)の共通属性。プロジェクト初期の空間計画からの仕上げ要求仕様情報を設定する。もし。Coveringオブジェクトが生成されていない場合は、このプロパティセットの情報は仕上げ表作成に使用することができる。"@ja-JP , "Eigenschaften der Bekleidungen des Raumes.\n\nDiese Eigenschaften werden als Anforderungen in frühen Phasen im Raumprogramm geführt und können für spätere Phasen als Informationen für das Raumbuch dienen, falls die Bekleidungen nicht als eigenständige Elemente angelegt werden."@de-DE ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceCoveringRequirements" ;
+        IFC4-PSD:propertyDef          :pabdab367fcc64b08b03d584baeb819c8 , :p9650c4d3c07f4ccc9fd8147b099f0939 , :pbfd1f6a6ca08440899165d31dda04831 , :p8650a689ba064df69f052a87ab070f02 , :p56029141a7c040c4aef51a242fa1611f , :paf1249f71eb24579aaec871aa4a6287b , :p3f9ca576246247ff8bdca254b651a15a , :p44c775b14a0d46c58ad8c7e36c34a349 , :pda83c4235c1d40aba9510f6abe2412f6 , :pa7d072c8df3245bd9c1b9424d7f35a87 , :p1e0092682e5347b2b2c5050bd03ee111 , :p6d6b4d00a2234b90b4eb1901ca5be2b5 , :p7502fd34b7fa494280c610aec4787043 , :p69193a7f647f4526bd7f1d3b9fdd1a9e .

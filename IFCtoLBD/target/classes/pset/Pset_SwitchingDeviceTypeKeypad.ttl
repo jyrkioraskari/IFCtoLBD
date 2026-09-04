@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeKeypad#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeKeypad>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p38137580d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of keypad switch from which that required may be selected." ;
+        rdfs:label                "KeypadType" ;
+        IFC4-PSD:definition       "A list of the available types of keypad switch from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en , "選択が必要となる、キーパッドスイッチの一覧リスト。"@ja-JP , "선택이 필요한 키패드 스위치 목록"@ko-KR ;
+        IFC4-PSD:ifdguid          "38137580d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "KeypadType" ;
+        IFC4-PSD:nameAlias        "키패드 유형"@ko-KR , "キーパッドタイプ"@ja-JP , "Keypad Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BUTTONS" , "TOUCHSCREEN" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_SwitchingDeviceTypeKeypad
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A keypad is a switch supporting multiple functions.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeKeypad" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/KEYPAD> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/KEYPAD" ;
+        IFC4-PSD:definition           "A keypad is a switch supporting multiple functions.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "キーパッドは複数の機能をサポートするスイッチ。\n履歴： IFC4に追加。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeKeypad" ;
+        IFC4-PSD:propertyDef          :p38137580d20e11e1800000215ad4efdf .
+
+:KeypadType  a              rdf:Property ;
+        rdfs:seeAlso        :p38137580d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:KeypadType .

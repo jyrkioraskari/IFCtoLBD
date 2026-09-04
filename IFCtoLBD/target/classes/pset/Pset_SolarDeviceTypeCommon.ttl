@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SolarDeviceTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SolarDeviceTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common properties for solar device types." ;
+        rdfs:label                    "Pset_SolarDeviceTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSolarDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcSolarDevice" ;
+        IFC4-PSD:definition           "Common properties for solar device types." ;
+        IFC4-PSD:definitionAlias      "太陽の装置タイプのための共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SolarDeviceTypeCommon" ;
+        IFC4-PSD:propertyDef          :p5bd3bd00d20811e1800000215ad4efdf , :p55dddc00d20811e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p55dddc00d20811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p55dddc00d20811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクト (例． 'A-1'　タイプなど)で指定された参照ID。認められた分類体系の分類参照が存在しない場合に適用される。"@ja-JP , ""@en , "프로젝트 (예 : 'A-1'유형 등) 지정된 참조 ID. 인정 분류 체계의 분류 참조가없는 경우에 적용된다."@ko-KR ;
+        IFC4-PSD:ifdguid          "55dddc00d20811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照"@ja-JP , "Reference"@en , "참조"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p5bd3bd00d20811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p5bd3bd00d20811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5bd3bd00d20811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SolarDeviceTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

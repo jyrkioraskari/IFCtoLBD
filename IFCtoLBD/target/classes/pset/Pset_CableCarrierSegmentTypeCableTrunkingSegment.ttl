@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:paaf8fe00d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the segment." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the segment." ;
+        IFC4-PSD:definitionAlias  "呼び高寸法。"@ja-JP , "고 치수"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "aaf8fe00d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "공칭높이"@ko-KR , "Nominal Height"@en , "公称高"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NumberOfCompartments
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb0eedf00d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfCompartments .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :paaf8fe00d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:pa59bb380d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width of the segment." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width of the segment." ;
+        IFC4-PSD:definitionAlias  "폭 치수"@ko-KR , ""@en , "呼び幅寸法。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a59bb380d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "공칭 폭"@ko-KR , "Nominal Width"@en , "公称幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pb0eedf00d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of separate internal compartments within the trunking." ;
+        rdfs:label                "NumberOfCompartments" ;
+        IFC4-PSD:definition       "The number of separate internal compartments within the trunking." ;
+        IFC4-PSD:definitionAlias  ""@en , "管の区別される内部区画の個数。"@ja-JP , "관 구분되는 내부 파티션 개수"@ko-KR ;
+        IFC4-PSD:ifdguid          "b0eedf00d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfCompartments" ;
+        IFC4-PSD:nameAlias        "Number Of Compartments"@en , "区画数"@ja-JP , "구획 수"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:Pset_CableCarrierSegmentTypeCableTrunkingSegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An enclosed carrier segment with one or more compartments into which cables are placed.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
+        rdfs:label                    "Pset_CableCarrierSegmentTypeCableTrunkingSegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLETRUNKINGSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLETRUNKINGSEGMENT" ;
+        IFC4-PSD:definition           "An enclosed carrier segment with one or more compartments into which cables are placed.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure" ;
+        IFC4-PSD:definitionAlias      "一つ以上の区画にケーブルを収納する密閉型ケーブルキャリアに関するプロパティセット定義。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableCarrierSegmentTypeCableTrunkingSegment" ;
+        IFC4-PSD:propertyDef          :pb0eedf00d1c611e1800000215ad4efdf , :paaf8fe00d1c611e1800000215ad4efdf , :pa59bb380d1c611e1800000215ad4efdf .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pa59bb380d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableTrunkingSegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

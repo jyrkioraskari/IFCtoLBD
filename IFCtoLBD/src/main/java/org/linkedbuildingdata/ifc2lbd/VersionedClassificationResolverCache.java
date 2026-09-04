@@ -32,6 +32,11 @@ public final class VersionedClassificationResolverCache implements Classificatio
 	}
 
 	@Override
+	public String id() { return "versioned-cache"; }
+	@Override public String version() { return cacheVersion; }
+	@Override public String configurationId() { return id() + "@" + version() + "|" + delegate.configurationId(); }
+
+	@Override
 	public synchronized Optional<Resolution> resolve(Request request) {
 		String key = key(request);
 		String cached = entries.getProperty(key);

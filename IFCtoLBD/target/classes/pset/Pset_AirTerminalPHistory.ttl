@@ -1,0 +1,149 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2b1b6580d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volumetric flow rate." ;
+        rdfs:label                "AirFlowRate" ;
+        IFC4-PSD:definition       "Volumetric flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "Débit d'air volumique"@fr-FR , "送風量"@ja-JP ;
+        IFC4-PSD:ifdguid          "2b1b6580d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowRate" ;
+        IFC4-PSD:nameAlias        "Air Flow Rate"@en , "風量"@ja-JP , "Débit d'air"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SupplyAirTemperatureCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p366e9100d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupplyAirTemperatureCooling .
+
+:p3d959f00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Induction ratio versus distance from the diffuser and its discharge direction; induction ratio (or entrainment ratio) is the ratio of the volumetric flow rate in the jet to the volumetric flow rate at the air terminal." ;
+        rdfs:label                "InductionRatio" ;
+        IFC4-PSD:definition       "Induction ratio versus distance from the diffuser and its discharge direction; induction ratio (or entrainment ratio) is the ratio of the volumetric flow rate in the jet to the volumetric flow rate at the air terminal." ;
+        IFC4-PSD:definitionAlias  ""@en , "制気口からの距離とその排出方向に対する誘引比、\n誘導比（または同調比）は、エアターミナルでの体積流量に対する噴流の体積流量の比である。"@ja-JP , "Taux d'induction par rapport à la distance entre le diffuseur et sa direction de rejet;\nLe taux d'induction est le rapport entre  le débit volumique d'air dans le jet sur  le débit volumique d'air au niveau du terminal."@fr-FR ;
+        IFC4-PSD:ifdguid          "3d959f00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InductionRatio" ;
+        IFC4-PSD:nameAlias        "Taux d'induction"@fr-FR , "Induction Ratio"@en , "誘引率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLengthMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcReal
+                                  ] .
+
+:p46867080d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Centerline air velocity versus distance from the diffuser and temperature differential; a function of distance from diffuser and temperature difference between supply air and room air." ;
+        rdfs:label                "CenterlineAirVelocity" ;
+        IFC4-PSD:definition       "Centerline air velocity versus distance from the diffuser and temperature differential; a function of distance from diffuser and temperature difference between supply air and room air." ;
+        IFC4-PSD:definitionAlias  "吹出口かからの距離と温度差に対する中心速度、\n給気と室内空気の間の吹出口かからの距離と温度差の関数"@ja-JP , "Vitesse de l'air en axe central de jet par rapport à la distance entre le diffuseur et la température différentielle; une fonction de la distance entre le diffuseur et la différence de température entre celui de l'air fourni et celui de l'air de la pièce."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "46867080d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CenterlineAirVelocity" ;
+        IFC4-PSD:nameAlias        "中心空気速度"@ja-JP , "Centerline Air Velocity"@en , "Vitesse de l'air en axe central de jet"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLengthMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+:p3a9aae80d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Drop in total pressure between inlet and outlet at nominal air-flow rate." ;
+        rdfs:label                "PressureDrop" ;
+        IFC4-PSD:definition       "Drop in total pressure between inlet and outlet at nominal air-flow rate." ;
+        IFC4-PSD:definitionAlias  "設定風量での入口/出口間の全圧降下"@ja-JP , ""@en , "Chute de pression totale entre l'entrée et la sortie en débit d'air nominal"@fr-FR ;
+        IFC4-PSD:ifdguid          "3a9aae80d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureDrop" ;
+        IFC4-PSD:nameAlias        "圧力降下"@ja-JP , "Pressure Drop"@en , "Chute de pression"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:InductionRatio  a          rdf:Property ;
+        rdfs:seeAlso        :p3d959f00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InductionRatio .
+
+:SupplyAirTemperatureHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p32db0a00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupplyAirTemperatureHeating .
+
+:p2eaeec80d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air velocity at the neck." ;
+        rdfs:label                "NeckAirVelocity" ;
+        IFC4-PSD:definition       "Air velocity at the neck." ;
+        IFC4-PSD:definitionAlias  "ネックの風速"@ja-JP , "Vitesse de l'air au point le plus étroit"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "2eaeec80d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NeckAirVelocity" ;
+        IFC4-PSD:nameAlias        "Vitesse de l'air au point le plus étroit"@fr-FR , "Neck Air Velocity"@en , "ネック風速"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p32db0a00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Supply air temperature in heating mode." ;
+        rdfs:label                "SupplyAirTemperatureHeating" ;
+        IFC4-PSD:definition       "Supply air temperature in heating mode." ;
+        IFC4-PSD:definitionAlias  ""@en , "Température de l'air soufflé en mode chauffage"@fr-FR , "暖房時の給気温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "32db0a00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupplyAirTemperatureHeating" ;
+        IFC4-PSD:nameAlias        "Supply Air Temperature Heating"@en , "暖房給気温度"@ja-JP , "Température de l'air soufflé en chauffage"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:NeckAirVelocity  a         rdf:Property ;
+        rdfs:seeAlso        :p2eaeec80d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NeckAirVelocity .
+
+:CenterlineAirVelocity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p46867080d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CenterlineAirVelocity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p366e9100d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Supply air temperature in cooling mode." ;
+        rdfs:label                "SupplyAirTemperatureCooling" ;
+        IFC4-PSD:definition       "Supply air temperature in cooling mode." ;
+        IFC4-PSD:definitionAlias  "冷房時の給気温度"@ja-JP , ""@en , "Température de l'air soufflé en mode refroidissement"@fr-FR ;
+        IFC4-PSD:ifdguid          "366e9100d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupplyAirTemperatureCooling" ;
+        IFC4-PSD:nameAlias        "Supply Air Temperature Cooling"@en , "冷房給気温度"@ja-JP , "Température de l'air soufflé en refroidissement"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AirFlowRate  a             rdf:Property ;
+        rdfs:seeAlso        :p2b1b6580d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowRate .
+
+:Pset_AirTerminalPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air terminal performance history common attributes." ;
+        rdfs:label                    "Pset_AirTerminalPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAirTerminal ;
+        IFC4-PSD:applicableTypeValue  "IfcAirTerminal" ;
+        IFC4-PSD:definition           "Air terminal performance history common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "エアターミナル性能履歴の共通属性を設定します。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirTerminalPHistory" ;
+        IFC4-PSD:propertyDef          :p3a9aae80d1bf11e1800000215ad4efdf , :p2eaeec80d1bf11e1800000215ad4efdf , :p2b1b6580d1bf11e1800000215ad4efdf , :p366e9100d1bf11e1800000215ad4efdf , :p3d959f00d1bf11e1800000215ad4efdf , :p46867080d1bf11e1800000215ad4efdf , :p32db0a00d1bf11e1800000215ad4efdf .
+
+:PressureDrop  a            rdf:Property ;
+        rdfs:seeAlso        :p3a9aae80d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureDrop .

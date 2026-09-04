@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ActuatorPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for history of actuators. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_ActuatorPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcActuator ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator" ;
+        IFC4-PSD:definition           "Properties for history of actuators. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "アクチュエータの性能履歴の属性。IFC4にて追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorPHistory" ;
+        IFC4-PSD:propertyDef          :p1dfd7700d1bd11e1800000215ad4efdf , :p16d66900d1bd11e1800000215ad4efdf , :p1b028680d1bd11e1800000215ad4efdf .
+
+:p1dfd7700d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates an error code or identifier, whose meaning is specific to the particular automation system.  Example values include: 'ConfigurationError', 'NotConnected', 'DeviceFailure', 'SensorFailure', 'LastKnown, 'CommunicationsFailure', 'OutOfService'." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Indicates an error code or identifier, whose meaning is specific to the particular automation system.  Example values include: 'ConfigurationError', 'NotConnected', 'DeviceFailure', 'SensorFailure', 'LastKnown, 'CommunicationsFailure', 'OutOfService'." ;
+        IFC4-PSD:definitionAlias  "대체 기능으로 수동 조작이 제공되는지 (= TRUE) 여부 (= FALSE)를 확인한다. 수동으로 조작하는 액츄에이터의 경우는이 값을 기본값으로 FALSE로 설정해야하므로주의한다."@ko-KR , "エラーコードまたはIDを示す。例：'ConfigurationError', 'NotConnected', 'DeviceFailure', 'SensorFailure', 'LastKnown, 'CommunicationsFailure', 'OutOfService'."@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1dfd7700d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "재정 기능의 유무"@ko-KR , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Position  a                rdf:Property ;
+        rdfs:seeAlso        :p16d66900d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Position .
+
+:p16d66900d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates position of the actuator over time where 0.0 is fully closed and 1.0 is fully open." ;
+        rdfs:label                "Position" ;
+        IFC4-PSD:definition       "Indicates position of the actuator over time where 0.0 is fully closed and 1.0 is fully open." ;
+        IFC4-PSD:definitionAlias  "해당 프로젝트에서 사용이 유형에 대한 참조 ID (예 : 'A-1') ※ 기본이있는 경우 그 기호를 사용"@ko-KR , "アクチュエータの時間ごとの位置を示す値。0.0が完全に閉じられた状態で、1.0が完全に開いた状態。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "16d66900d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Position" ;
+        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Position"@en , "位置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p1dfd7700d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p1b028680d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the quality of measurement or failure condition, which may be further qualified by the Status.  True: measured values are considered reliable; False: measured values are considered not reliable (i.e. a fault has been detected); Unknown: reliability of values is uncertain." ;
+        rdfs:label                "Quality" ;
+        IFC4-PSD:definition       "Indicates the quality of measurement or failure condition, which may be further qualified by the Status.  True: measured values are considered reliable; False: measured values are considered not reliable (i.e. a fault has been detected); Unknown: reliability of values is uncertain." ;
+        IFC4-PSD:definitionAlias  "計測の品質を示す値。"@ja-JP , ""@en , "요청한 액츄에이터의 안전 장치 유형을 표시"@ko-KR ;
+        IFC4-PSD:ifdguid          "1b028680d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Quality" ;
+        IFC4-PSD:nameAlias        "Quality"@en , "品質"@ja-JP , "페일 세이프 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Quality  a                 rdf:Property ;
+        rdfs:seeAlso        :p1b028680d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Quality .

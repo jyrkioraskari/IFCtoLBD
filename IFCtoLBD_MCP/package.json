@@ -7,10 +7,12 @@
     "ifctolbd-mcp": "src/server.js"
   },
   "scripts": {
+    "build:converter": "mvn -f ../pom.xml -pl IFCtoLBD -am -DskipTests package",
     "start": "node src/server.js",
     "demo": "node src/server.js < demo/demo-input.jsonl | node demo/print-demo-results.js",
     "check": "node --check src/server.js",
-    "smoke": "node src/server.js < test/smoke-input.jsonl | node test/assert-smoke.js"
+    "smoke": "node src/server.js < test/smoke-input.jsonl | node test/assert-smoke.js",
+    "test:integration": "node src/server.js < test/version-input.jsonl | node test/assert-version.js"
   },
   "keywords": [
     "IFC",

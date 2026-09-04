@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfBeam#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pcb917a00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  "一般的な鉄筋タイプの説明ラベル。\n（例えば、梁の両端・中央で肋筋や巾止筋の間隔が異なる場合に、\"Start\",\"Center\",\"End\"を記述する）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cb917a00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfBeam>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SpacingBarPitch  a         rdf:Property ;
+        rdfs:seeAlso        :pd9df9600d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpacingBarPitch .
+
+:pd9df9600d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the spacing bar." ;
+        rdfs:label                "SpacingBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the spacing bar." ;
+        IFC4-PSD:definitionAlias  "巾止筋の間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d9df9600d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpacingBarPitch" ;
+        IFC4-PSD:nameAlias        "幅止筋間隔"@ja-JP , "Spacing Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pcb917a00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :pc59b9900d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:pc59b9900d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  "鉄筋の説明。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c59b9900d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "Description"@en , "説明"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:StirrupBarPitch  a         rdf:Property ;
+        rdfs:seeAlso        :pd3511e80d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StirrupBarPitch .
+
+:Pset_ReinforcementBarPitchOfBeam
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The pitch length information of reinforcement  bar with the beam." ;
+        rdfs:label                    "Pset_ReinforcementBarPitchOfBeam" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBeam ;
+        IFC4-PSD:applicableTypeValue  "IfcBeam" ;
+        IFC4-PSD:definition           "The pitch length information of reinforcement  bar with the beam." ;
+        IFC4-PSD:definitionAlias      ""@en , "梁補強筋の間隔情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarPitchOfBeam" ;
+        IFC4-PSD:propertyDef          :pc59b9900d1ff11e1800000215ad4efdf , :pcb917a00d1ff11e1800000215ad4efdf , :pd9df9600d1ff11e1800000215ad4efdf , :pd3511e80d1ff11e1800000215ad4efdf .
+
+:pd3511e80d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the stirrup bar." ;
+        rdfs:label                "StirrupBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the stirrup bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "肋筋の間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d3511e80d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StirrupBarPitch" ;
+        IFC4-PSD:nameAlias        "肋筋間隔"@ja-JP , "Stirrup Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

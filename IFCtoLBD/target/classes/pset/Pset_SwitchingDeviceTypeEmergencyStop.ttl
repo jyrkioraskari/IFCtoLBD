@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeEmergencyStop#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeEmergencyStop>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SwitchOperation  a         rdf:Property ;
+        rdfs:seeAlso        :p25993c00d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SwitchOperation .
+
+:Pset_SwitchingDeviceTypeEmergencyStop
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An emergency stop device acts to remove as quickly as possible any danger that may have arisen unexpectedly." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeEmergencyStop" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/EMERGENCYSTOP> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/EMERGENCYSTOP" ;
+        IFC4-PSD:definition           "An emergency stop device acts to remove as quickly as possible any danger that may have arisen unexpectedly." ;
+        IFC4-PSD:definitionAlias      "IEC 826-08-03の定義: \n緊急停止スイッチは予期せずして起こるさまざまな危険を可能な限り迅速に取り除くように動作する装置である。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeEmergencyStop" ;
+        IFC4-PSD:propertyDef          :p25993c00d20e11e1800000215ad4efdf .
+
+:p25993c00d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates operation of emergency stop switch." ;
+        rdfs:label                "SwitchOperation" ;
+        IFC4-PSD:definition       "Indicates operation of emergency stop switch." ;
+        IFC4-PSD:definitionAlias  "비상 정지 스위치의 조작을 보여준다."@ko-KR , "緊急停止スイッチの操作を示す。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "25993c00d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SwitchOperation" ;
+        IFC4-PSD:nameAlias        "スイッチ操作"@ja-JP , "스위치 조작"@ko-KR , "Switch Operation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MUSHROOM" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

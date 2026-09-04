@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p797e3380d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates discrete audio volume levels and corresponding sound power offsets, if applicable.  Missing values may be interpolated." ;
+        rdfs:label                "AudioVolume" ;
+        IFC4-PSD:definition       "Indicates discrete audio volume levels and corresponding sound power offsets, if applicable.  Missing values may be interpolated." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "797e3380d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioVolume" ;
+        IFC4-PSD:nameAlias        "Audio Volume"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcSoundPowerMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcInteger
+                                  ] .
+
+:AudioVolume  a             rdf:Property ;
+        rdfs:seeAlso        :p797e3380d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioVolume .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p61a6af80d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p5bb0ce80d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Pset_AudioVisualApplianceTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual appliance is a device that renders or captures audio and/or video.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAudioVisualAppliance ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance" ;
+        IFC4-PSD:definition           "An audio-visual appliance is a device that renders or captures audio and/or video.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "音響と映像を撮影・録音し放送送出する機器。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeCommon" ;
+        IFC4-PSD:propertyDef          :p5bb0ce80d1c211e1800000215ad4efdf , :p7125f880d1c211e1800000215ad4efdf , :p797e3380d1c211e1800000215ad4efdf , :p61a6af80d1c211e1800000215ad4efdf .
+
+:p5bb0ce80d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP , "해당 프로젝트에 정의된 형식의 참조 ID (예 : A-1) 승인된 분류에 존재하지 않을 때 사용된다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "5bb0ce80d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照"@ja-JP , "Reference"@en , "참조"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p7125f880d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates media sources and corresponding names of ports (IfcDistributionPort with FlowDirection=SINK and PredefinedType=AUDIOVISUAL) or aggregated audio/video components (IfcAudioVisualAppliance)." ;
+        rdfs:label                "MediaSource" ;
+        IFC4-PSD:definition       "Indicates media sources and corresponding names of ports (IfcDistributionPort with FlowDirection=SINK and PredefinedType=AUDIOVISUAL) or aggregated audio/video components (IfcAudioVisualAppliance)." ;
+        IFC4-PSD:definitionAlias  "メディアソースと定義済みタイプ(IfcDistributionPort with FlowDirection=SINK and PredefinedType=AUDIOVISUAL)及びaudio/videoを構成する集合に対応する名前。"@ja-JP , "미디어 소스 정의된 유형 (IfcDistributionPort with FlowDirection = SINK and PredefinedType = AUDIOVISUAL) 및 audio / video 구성 집합에 해당하는 이름."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "7125f880d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MediaSource" ;
+        IFC4-PSD:nameAlias        "メディアソース"@ja-JP , "미디어 소스"@ko-KR , "Media Source"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:p61a6af80d1c211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en , "현재 전원 상태를 나타냄"@ko-KR ;
+        IFC4-PSD:ifdguid          "61a6af80d1c211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "전원 상태"@ko-KR , "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MediaSource  a             rdf:Property ;
+        rdfs:seeAlso        :p7125f880d1c211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MediaSource .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

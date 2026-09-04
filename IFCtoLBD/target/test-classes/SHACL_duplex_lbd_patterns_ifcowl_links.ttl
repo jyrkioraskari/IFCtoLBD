@@ -1,0 +1,20 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix lbdtest: <https://linkedbuildingdata.org/test/duplex-patterns#> .
+
+lbdtest:IfcOwlLinkGraphPatterns
+    a sh:NodeShape ;
+    sh:targetNode lbdtest:Graph ;
+    sh:sparql [
+        sh:message "The graph must contain owl:sameAs links back to matching ifcOWL resources." ;
+        sh:select """
+            PREFIX bot: <https://w3id.org/bot#>
+            PREFIX owl: <http://www.w3.org/2002/07/owl#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?element a bot:Element ;
+                        owl:sameAs ?ifcResource .
+                }
+            }
+        """
+    ] .
+

@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeAirRelease#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ValveTypeAirRelease
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve used to release air from a pipe or fitting. \nNote that an air release valve is constrained to have a single port pattern" ;
+        rdfs:label                    "Pset_ValveTypeAirRelease" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/AIRRELEASE> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/AIRRELEASE" ;
+        IFC4-PSD:definition           "Valve used to release air from a pipe or fitting. \nNote that an air release valve is constrained to have a single port pattern" ;
+        IFC4-PSD:definitionAlias      ""@en , "弁タイプ空気抜き弁"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeAirRelease" ;
+        IFC4-PSD:propertyDef          :p161cf180d21411e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeAirRelease>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsAutomatic  a             rdf:Property ;
+        rdfs:seeAlso        :p161cf180d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsAutomatic .
+
+:p161cf180d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the valve is automatically operated (TRUE) or manually operated (FALSE)." ;
+        rdfs:label                "IsAutomatic" ;
+        IFC4-PSD:definition       "Indication of whether the valve is automatically operated (TRUE) or manually operated (FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "弁が自動(TRUE)で操作されるか手動(FALSE)で操作されるかの表示"@ja-JP ;
+        IFC4-PSD:ifdguid          "161cf180d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsAutomatic" ;
+        IFC4-PSD:nameAlias        "Is Automatic"@en , "自動"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

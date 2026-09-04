@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ShadingDevicePHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Azimuth  a                 rdf:Property ;
+        rdfs:seeAlso        :pc6382d80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Azimuth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ShadingDevicePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ShadingDevicePHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shading device performance history attributes." ;
+        rdfs:label                    "Pset_ShadingDevicePHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcShadingDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcShadingDevice" ;
+        IFC4-PSD:definition           "Shading device performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ShadingDevicePHistory" ;
+        IFC4-PSD:propertyDef          :pc6382d80d20711e1800000215ad4efdf , :pb3255d80d20711e1800000215ad4efdf .
+
+:TiltAngle  a               rdf:Property ;
+        rdfs:seeAlso        :pb3255d80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TiltAngle .
+
+:pc6382d80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The azimuth of the outward normal for the outward or upward facing surface." ;
+        rdfs:label                "Azimuth" ;
+        IFC4-PSD:definition       "The azimuth of the outward normal for the outward or upward facing surface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c6382d80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Azimuth" ;
+        IFC4-PSD:nameAlias        "Azimuth"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pb3255d80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The angle of tilt defined in the plane perpendicular to the extrusion axis (X-Axis of the local placement). The angle shall be measured from the orientation of the Z-Axis in the local placement." ;
+        rdfs:label                "TiltAngle" ;
+        IFC4-PSD:definition       "The angle of tilt defined in the plane perpendicular to the extrusion axis (X-Axis of the local placement). The angle shall be measured from the orientation of the Z-Axis in the local placement." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b3255d80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TiltAngle" ;
+        IFC4-PSD:nameAlias        "Tilt Angle"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

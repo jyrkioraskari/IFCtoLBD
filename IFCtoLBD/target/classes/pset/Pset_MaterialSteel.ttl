@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialSteel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe9ee7a00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the proportional stress of the material. It describes the stress before the first plastic deformation occurs and is commonly measured at a deformation of 0.01%." ;
+        rdfs:label                "ProportionalStress" ;
+        IFC4-PSD:definition       "A measure of the proportional stress of the material. It describes the stress before the first plastic deformation occurs and is commonly measured at a deformation of 0.01%." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e9ee7a00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProportionalStress" ;
+        IFC4-PSD:nameAlias        "Proportional Stress"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:UltimateStress  a          rdf:Property ;
+        rdfs:seeAlso        :pd9d69a80d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UltimateStress .
+
+:Pset_MaterialSteel  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of extended mechanical properties related to steel (or other metallic and isotropic) materials." ;
+        rdfs:label                    "Pset_MaterialSteel" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcMaterial/Steel> ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial/Steel" ;
+        IFC4-PSD:definition           "A set of extended mechanical properties related to steel (or other metallic and isotropic) materials." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialSteel" ;
+        IFC4-PSD:propertyDef          :pd3e0b980d1ed11e1800000215ad4efdf , :pf541a580d1ed11e1800000215ad4efdf , :pefe45b00d1ed11e1800000215ad4efdf , :pe9ee7a00d1ed11e1800000215ad4efdf , :pd9d69a80d1ed11e1800000215ad4efdf , :pe4912f80d1ed11e1800000215ad4efdf , :pdf33e500d1ed11e1800000215ad4efdf .
+
+:pdf33e500d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the (engineering) strain at the state of ultimate stress of the material." ;
+        rdfs:label                "UltimateStrain" ;
+        IFC4-PSD:definition       "A measure of the (engineering) strain at the state of ultimate stress of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "df33e500d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UltimateStrain" ;
+        IFC4-PSD:nameAlias        "Ultimate Strain"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pd9d69a80d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the ultimate stress of the material." ;
+        rdfs:label                "UltimateStress" ;
+        IFC4-PSD:definition       "A measure of the ultimate stress of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d9d69a80d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UltimateStress" ;
+        IFC4-PSD:nameAlias        "Ultimate Stress"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pefe45b00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the permanent displacement, as in slip or twinning, which remains after the stress has been removed. Currently applied to a strain of 0.2% proportional stress of the material." ;
+        rdfs:label                "PlasticStrain" ;
+        IFC4-PSD:definition       "A measure of the permanent displacement, as in slip or twinning, which remains after the stress has been removed. Currently applied to a strain of 0.2% proportional stress of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "efe45b00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlasticStrain" ;
+        IFC4-PSD:nameAlias        "Plastic Strain"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:HardeningModule  a         rdf:Property ;
+        rdfs:seeAlso        :pe4912f80d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HardeningModule .
+
+:ProportionalStress  a      rdf:Property ;
+        rdfs:seeAlso        :pe9ee7a00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProportionalStress .
+
+:pf541a580d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measures of decrease in stress over long time intervals resulting from plastic flow. Different relaxation values for different initial stress levels for a material may be given. It describes the time dependent relative relaxation value for a given initial stress level at constant strain.\nRelating values are the \"RelaxationValue\". Related values are the \"InitialStress\"" ;
+        rdfs:label                "Relaxations" ;
+        IFC4-PSD:definition       "Measures of decrease in stress over long time intervals resulting from plastic flow. Different relaxation values for different initial stress levels for a material may be given. It describes the time dependent relative relaxation value for a given initial stress level at constant strain.\nRelating values are the \"RelaxationValue\". Related values are the \"InitialStress\"" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f541a580d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Relaxations" ;
+        IFC4-PSD:nameAlias        "Relaxations"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:pe4912f80d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the hardening module of the material (slope of stress versus strain curve after yield range)." ;
+        rdfs:label                "HardeningModule" ;
+        IFC4-PSD:definition       "A measure of the hardening module of the material (slope of stress versus strain curve after yield range)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e4912f80d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HardeningModule" ;
+        IFC4-PSD:nameAlias        "Hardening Module"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcModulusOfElasticityMeasure
+                                  ] .
+
+:UltimateStrain  a          rdf:Property ;
+        rdfs:seeAlso        :pdf33e500d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UltimateStrain .
+
+:YieldStress  a             rdf:Property ;
+        rdfs:seeAlso        :pd3e0b980d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:YieldStress .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialSteel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Relaxations  a             rdf:Property ;
+        rdfs:seeAlso        :pf541a580d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Relaxations .
+
+:pd3e0b980d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the yield stress (or characteristic 0.2 percent proof stress) of the material." ;
+        rdfs:label                "YieldStress" ;
+        IFC4-PSD:definition       "A measure of the yield stress (or characteristic 0.2 percent proof stress) of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d3e0b980d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "YieldStress" ;
+        IFC4-PSD:nameAlias        "Yield Stress"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:PlasticStrain  a           rdf:Property ;
+        rdfs:seeAlso        :pefe45b00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlasticStrain .

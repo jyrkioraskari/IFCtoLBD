@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSilencerPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_DuctSilencerPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct silencer performance history common attributes." ;
+        rdfs:label                    "Pset_DuctSilencerPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctSilencer ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctSilencer" ;
+        IFC4-PSD:definition           "Duct silencer performance history common attributes." ;
+        IFC4-PSD:definitionAlias      "ダクト消音器の性能履歴共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctSilencerPHistory" ;
+        IFC4-PSD:propertyDef          :pce2fa780d1de11e1800000215ad4efdf , :pca038a00d1de11e1800000215ad4efdf .
+
+:pce2fa780d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop as a function of air flow rate." ;
+        rdfs:label                "AirPressureDropCurve" ;
+        IFC4-PSD:definition       "Air pressure drop as a function of air flow rate." ;
+        IFC4-PSD:definitionAlias  "風量の関数としての空気圧力降下"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ce2fa780d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurve" ;
+        IFC4-PSD:nameAlias        "圧力降下曲線"@ja-JP , "Air Pressure Drop Curve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AirFlowRate  a             rdf:Property ;
+        rdfs:seeAlso        :pca038a00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowRate .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSilencerPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:AirPressureDropCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pce2fa780d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurve .
+
+:pca038a00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volumetric air flow rate." ;
+        rdfs:label                "AirFlowRate" ;
+        IFC4-PSD:definition       "Volumetric air flow rate." ;
+        IFC4-PSD:definitionAlias  "体積風量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ca038a00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowRate" ;
+        IFC4-PSD:nameAlias        "Air Flow Rate"@en , "風量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

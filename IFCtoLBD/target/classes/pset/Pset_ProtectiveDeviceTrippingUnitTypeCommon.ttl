@@ -1,0 +1,145 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Standard  a                rdf:Property ;
+        rdfs:seeAlso        :p1f01c900d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Standard .
+
+:p0e515300d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0e515300d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p1f01c900d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The designation of the standard applicable for the definition of the characteristics of the\ntripping_unit." ;
+        rdfs:label                "Standard" ;
+        IFC4-PSD:definition       "The designation of the standard applicable for the definition of the characteristics of the\ntripping_unit." ;
+        IFC4-PSD:definitionAlias  ""@en , "토릿삔구 장치의 특성 정의에 대한 표준 적용 지정."@ko-KR , "トリッピング装置の特性定義のための標準的な適用の指定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1f01c900d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Standard" ;
+        IFC4-PSD:nameAlias        "Standard"@en , "特性定義"@ja-JP , "특성 정의"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p393ba700d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum terminal size capacity of the device." ;
+        rdfs:label                "LimitingTerminalSize" ;
+        IFC4-PSD:definition       "The maximum terminal size capacity of the device." ;
+        IFC4-PSD:definitionAlias  ""@en , "装置に接続される最大サイズ。"@ja-JP , "장치에 연결되는 최대 크기입니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "393ba700d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LimitingTerminalSize" ;
+        IFC4-PSD:nameAlias        "接続限界値"@ja-JP , "Limiting Terminal Size"@en , "연결 한계"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p32149900d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the protection_ unit is out-dated or not. If not out-dated, the device is still for sale." ;
+        rdfs:label                "OldDevice" ;
+        IFC4-PSD:definition       "Indication whether the protection_ unit is out-dated or not. If not out-dated, the device is still for sale." ;
+        IFC4-PSD:definitionAlias  "기준에 적합하여 판매하는지에 대한 여부"@ko-KR , ""@en , "基準に適合されていて販売されているかどうか。"@ja-JP ;
+        IFC4-PSD:ifdguid          "32149900d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OldDevice" ;
+        IFC4-PSD:nameAlias        "販売中止装置"@ja-JP , "Old Device"@en , "판매중지 장치"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:UseInDiscrimination  a     rdf:Property ;
+        rdfs:seeAlso        :p25904080d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UseInDiscrimination .
+
+:LimitingTerminalSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p393ba700d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LimitingTerminalSize .
+
+:OldDevice  a               rdf:Property ;
+        rdfs:seeAlso        :p32149900d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OldDevice .
+
+:Pset_ProtectiveDeviceTrippingUnitTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common information concerning tripping units that area associated with protective devices" ;
+        rdfs:label                    "Pset_ProtectiveDeviceTrippingUnitTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProtectiveDeviceTrippingUnit ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDeviceTrippingUnit" ;
+        IFC4-PSD:definition           "Common information concerning tripping units that area associated with protective devices" ;
+        IFC4-PSD:definitionAlias      "保護装置に関連付けられているトリップ機能に関する共通情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTrippingUnitTypeCommon" ;
+        IFC4-PSD:propertyDef          :p1f01c900d1fc11e1800000215ad4efdf , :p393ba700d1fc11e1800000215ad4efdf , :p0e515300d1fc11e1800000215ad4efdf , :p32149900d1fc11e1800000215ad4efdf , :p2c1eb800d1fc11e1800000215ad4efdf , :p25904080d1fc11e1800000215ad4efdf , :p085b7200d1fc11e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p085b7200d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p0e515300d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:AtexVerified  a            rdf:Property ;
+        rdfs:seeAlso        :p2c1eb800d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AtexVerified .
+
+:p2c1eb800d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the tripping_unit is verified to be applied in EX-environment or not." ;
+        rdfs:label                "AtexVerified" ;
+        IFC4-PSD:definition       "An indication whether the tripping_unit is verified to be applied in EX-environment or not." ;
+        IFC4-PSD:definitionAlias  "트립 장치가 EX-환경에 적용되는지 여부"@ko-KR , ""@en , "トリップ装置がEX-環境で適用されるかどうか。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2c1eb800d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AtexVerified" ;
+        IFC4-PSD:nameAlias        "EX -환경 인증"@ko-KR , "Atex Verified"@en , "アテックス認証"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p25904080d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the time/current tripping information can be applied in a discrimination\nanalysis or not." ;
+        rdfs:label                "UseInDiscrimination" ;
+        IFC4-PSD:definition       "An indication whether the time/current tripping information can be applied in a discrimination\nanalysis or not." ;
+        IFC4-PSD:definitionAlias  "트립 정보를 시간 또는 전류가 어디에서 결정하는가?"@ko-KR , "トリップ情報を時間か電流かどちらで判断するか。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "25904080d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UseInDiscrimination" ;
+        IFC4-PSD:nameAlias        "使用方法"@ja-JP , "Use In Discrimination"@en , "사용방법"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p085b7200d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "해당 프로젝트에 정의된 형식의 참조 ID (예 : A-1) 승인된 분류에 존재하지 않을 때 사용된다."@ko-KR , "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "085b7200d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照"@ja-JP , "참조"@ko-KR , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .

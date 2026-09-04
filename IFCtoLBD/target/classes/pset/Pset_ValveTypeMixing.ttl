@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeMixing#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2c777d00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the form of control of the mixing valve." ;
+        rdfs:label                "MixerControl" ;
+        IFC4-PSD:definition       "Defines the form of control of the mixing valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "混合弁の制御形式の定義"@ja-JP ;
+        IFC4-PSD:ifdguid          "2c777d00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MixerControl" ;
+        IFC4-PSD:nameAlias        "Mixer Control"@en , "混合制御"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MANUAL" , "PREDEFINED" , "THERMOSTATIC" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MixerControl  a            rdf:Property ;
+        rdfs:seeAlso        :p2c777d00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MixerControl .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeMixing>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ValveTypeMixing
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A valve where typically the temperature of the outlet is determined by mixing hot and cold water inlet flows." ;
+        rdfs:label                    "Pset_ValveTypeMixing" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/MIXING> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/MIXING" ;
+        IFC4-PSD:definition           "A valve where typically the temperature of the outlet is determined by mixing hot and cold water inlet flows." ;
+        IFC4-PSD:definitionAlias      "混合弁"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeMixing" ;
+        IFC4-PSD:propertyDef          :p2c777d00d21511e1800000215ad4efdf , :p49ac4b80d21511e1800000215ad4efdf .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p49ac4b80d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:p49ac4b80d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the pipework connection from the mixing valve." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "The size of the pipework connection from the mixing valve." ;
+        IFC4-PSD:definitionAlias  "混合弁の配管接続サイズ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "49ac4b80d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "出力側接続口径"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

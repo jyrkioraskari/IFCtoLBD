@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeFlowSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SensorTypeFlowSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects flow. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeFlowSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/FLOWSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/FLOWSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects flow. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "流れを感知または検出するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeFlowSensor" ;
+        IFC4-PSD:propertyDef          :p3a250680d20511e1800000215ad4efdf .
+
+:p3a250680d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The volumetric flow value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointFlow" ;
+        IFC4-PSD:definition       "The volumetric flow value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 유량. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en , "感知される流量。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3a250680d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointFlow" ;
+        IFC4-PSD:nameAlias        "유량 설정"@ko-KR , "流量設定値"@ja-JP , "Set Point Flow"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:SetPointFlow  a            rdf:Property ;
+        rdfs:seeAlso        :p3a250680d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointFlow .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeFlowSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

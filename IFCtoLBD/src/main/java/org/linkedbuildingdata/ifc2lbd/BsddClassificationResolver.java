@@ -46,6 +46,15 @@ public final class BsddClassificationResolver implements ClassificationResolver 
 	}
 
 	@Override
+	public String id() { return "buildingSMART-bsdd"; }
+	@Override public String version() { return "v1"; }
+	@Override public String configurationId() {
+		return id() + "@" + version() + "|" + endpoint + "|" + dictionaryUris.entrySet().stream()
+				.sorted(Map.Entry.comparingByKey()).map(e -> e.getKey() + "=" + e.getValue())
+				.reduce("", (a, b) -> a + "|" + b);
+	}
+
+	@Override
 	public Optional<Resolution> resolve(Request request) {
 		if (request.system() == null || request.code() == null) return Optional.empty();
 		String dictionaryUri = dictionaryUris.get(normalize(request.system()));
@@ -53,7 +62,7 @@ public final class BsddClassificationResolver implements ClassificationResolver 
 		String query = "api/Dictionary/v1/Classes?Uri=" + encode(dictionaryUri) + "&SearchText="
 				+ encode(request.code()) + "&Limit=100";
 		HttpRequest httpRequest = HttpRequest.newBuilder(endpoint.resolve(query)).timeout(Duration.ofSeconds(15))
-				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.51.0").GET().build();
+				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.51.1").GET().build();
 		try {
 			RegistryResponse response = transport == null
 					? fromHttp(client.send(httpRequest, HttpResponse.BodyHandlers.ofString()))

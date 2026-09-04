@@ -1,0 +1,284 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoolingTowerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p89504480d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "CounterFlow: Air and water flow enter in different directions.\nCrossFlow: Air and water flow are perpendicular.\nParallelFlow: air and water flow enter in same directions." ;
+        rdfs:label                "FlowArrangement" ;
+        IFC4-PSD:definition       "CounterFlow: Air and water flow enter in different directions.\nCrossFlow: Air and water flow are perpendicular.\nParallelFlow: air and water flow enter in same directions." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "89504480d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowArrangement" ;
+        IFC4-PSD:nameAlias        "Flow Arrangement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COUNTERFLOW" , "CROSSFLOW" , "PARALLELFLOW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:FlowArrangement  a         rdf:Property ;
+        rdfs:seeAlso        :p89504480d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowArrangement .
+
+:CapacityControl  a         rdf:Property ;
+        rdfs:seeAlso        :pa553e600d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CapacityControl .
+
+:AmbientDesignWetBulbTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pef3ccc00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AmbientDesignWetBulbTemperature .
+
+:p95d49d00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "SprayFilled: Water is sprayed into airflow.\nSplashTypeFill: water cascades over successive rows of splash bars.\nFilmTypeFill: water flows in a thin layer over closely spaced sheets." ;
+        rdfs:label                "SprayType" ;
+        IFC4-PSD:definition       "SprayFilled: Water is sprayed into airflow.\nSplashTypeFill: water cascades over successive rows of splash bars.\nFilmTypeFill: water flows in a thin layer over closely spaced sheets." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "95d49d00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprayType" ;
+        IFC4-PSD:nameAlias        "Spray Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SPRAYFILLED" , "SPLASHTYPEFILL" , "FILMTYPEFILL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_CoolingTowerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Cooling tower type common attributes.\nWaterRequirement attribute unit type modified in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_CoolingTowerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCoolingTower ;
+        IFC4-PSD:applicableTypeValue  "IfcCoolingTower" ;
+        IFC4-PSD:definition           "Cooling tower type common attributes.\nWaterRequirement attribute unit type modified in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoolingTowerTypeCommon" ;
+        IFC4-PSD:propertyDef          :pa553e600d1cf11e1800000215ad4efdf , :pe9df8180d1cf11e1800000215ad4efdf , :p7b022880d1cf11e1800000215ad4efdf , :p75a4de00d1cf11e1800000215ad4efdf , :pdb916580d1cf11e1800000215ad4efdf , :pc583a500d1cf11e1800000215ad4efdf , :pe0561980d1cf11e1800000215ad4efdf , :p6160e100d1cf11e1800000215ad4efdf , :pd6341b00d1cf11e1800000215ad4efdf , :pef3ccc00d1cf11e1800000215ad4efdf , :p66be2b80d1cf11e1800000215ad4efdf , :p89504480d1cf11e1800000215ad4efdf , :p95d49d00d1cf11e1800000215ad4efdf , :pe51acd80d1cf11e1800000215ad4efdf , :pd0d6d080d1cf11e1800000215ad4efdf .
+
+:NominalCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :p75a4de00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCapacity .
+
+:SprayType  a               rdf:Property ;
+        rdfs:seeAlso        :p95d49d00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SprayType .
+
+:p6160e100d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6160e100d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:NumberOfCells  a           rdf:Property ;
+        rdfs:seeAlso        :pd0d6d080d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfCells .
+
+:p7b022880d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "OpenCircuit: Exposes water directly to the cooling atmosphere.\nCloseCircuit: The fluid is separated from the atmosphere by a heat exchanger.\nWet: The air stream or the heat exchange surface is evaporatively cooled.\nDry: No evaporation into the air stream.\nDryWet: A combination of a dry tower and a wet tower." ;
+        rdfs:label                "CircuitType" ;
+        IFC4-PSD:definition       "OpenCircuit: Exposes water directly to the cooling atmosphere.\nCloseCircuit: The fluid is separated from the atmosphere by a heat exchanger.\nWet: The air stream or the heat exchange surface is evaporatively cooled.\nDry: No evaporation into the air stream.\nDryWet: A combination of a dry tower and a wet tower." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7b022880d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CircuitType" ;
+        IFC4-PSD:nameAlias        "Circuit Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OPENCIRCUIT" , "CLOSEDCIRCUITWET" , "CLOSEDCIRCUITDRY" , "CLOSEDCIRCUITDRYWET" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pdb916580d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Elevation difference between cooling tower sump and the top of the tower." ;
+        rdfs:label                "LiftElevationDifference" ;
+        IFC4-PSD:definition       "Elevation difference between cooling tower sump and the top of the tower." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "db916580d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LiftElevationDifference" ;
+        IFC4-PSD:nameAlias        "Lift Elevation Difference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ControlStrategy  a         rdf:Property ;
+        rdfs:seeAlso        :pc583a500d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlStrategy .
+
+:pef3ccc00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient design wet bulb temperature used for selecting the cooling tower." ;
+        rdfs:label                "AmbientDesignWetBulbTemperature" ;
+        IFC4-PSD:definition       "Ambient design wet bulb temperature used for selecting the cooling tower." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ef3ccc00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AmbientDesignWetBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Ambient Design Wet Bulb Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:LiftElevationDifference
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdb916580d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LiftElevationDifference .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p6160e100d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:WaterRequirement  a        rdf:Property ;
+        rdfs:seeAlso        :pe0561980d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterRequirement .
+
+:AmbientDesignDryBulbTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe9df8180d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AmbientDesignDryBulbTemperature .
+
+:pe0561980d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Make-up water requirements." ;
+        rdfs:label                "WaterRequirement" ;
+        IFC4-PSD:definition       "Make-up water requirements." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e0561980d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterRequirement" ;
+        IFC4-PSD:nameAlias        "Water Requirement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p66be2b80d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "66be2b80d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:CircuitType  a             rdf:Property ;
+        rdfs:seeAlso        :p7b022880d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CircuitType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoolingTowerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd0d6d080d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of cells in one cooling tower unit." ;
+        rdfs:label                "NumberOfCells" ;
+        IFC4-PSD:definition       "Number of cells in one cooling tower unit." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d0d6d080d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfCells" ;
+        IFC4-PSD:nameAlias        "Number Of Cells"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pc583a500d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "FixedExitingWaterTemp: The capacity is controlled to maintain a fixed exiting water temperature.\nWetBulbTempReset: The set-point is reset based on the wet-bulb temperature." ;
+        rdfs:label                "ControlStrategy" ;
+        IFC4-PSD:definition       "FixedExitingWaterTemp: The capacity is controlled to maintain a fixed exiting water temperature.\nWetBulbTempReset: The set-point is reset based on the wet-bulb temperature." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c583a500d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlStrategy" ;
+        IFC4-PSD:nameAlias        "Control Strategy"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FIXEDEXITINGWATERTEMP" , "WETBULBTEMPRESET" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p66be2b80d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pe51acd80d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable operation ambient air temperature range." ;
+        rdfs:label                "OperationTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable operation ambient air temperature range." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e51acd80d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationTemperatureRange" ;
+        IFC4-PSD:nameAlias        "Operation Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:BasinReserveVolume  a      rdf:Property ;
+        rdfs:seeAlso        :pd6341b00d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BasinReserveVolume .
+
+:pa553e600d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "FanCycling: Fan is cycled on and off to control duty.\nTwoSpeedFan: Fan is switched between low and high speed to control duty.\nVariableSpeedFan: Fan speed is varied to control duty.\nDampersControl: Dampers modulate the air flow to control duty.\nBypassValveControl: Bypass valve modulates the water flow to control duty.\nMultipleSeriesPumps: Turn on/off multiple series pump to control duty.\nTwoSpeedPump: Switch between high/low pump speed to control duty.\nVariableSpeedPump: vary pump speed to control duty." ;
+        rdfs:label                "CapacityControl" ;
+        IFC4-PSD:definition       "FanCycling: Fan is cycled on and off to control duty.\nTwoSpeedFan: Fan is switched between low and high speed to control duty.\nVariableSpeedFan: Fan speed is varied to control duty.\nDampersControl: Dampers modulate the air flow to control duty.\nBypassValveControl: Bypass valve modulates the water flow to control duty.\nMultipleSeriesPumps: Turn on/off multiple series pump to control duty.\nTwoSpeedPump: Switch between high/low pump speed to control duty.\nVariableSpeedPump: vary pump speed to control duty." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a553e600d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapacityControl" ;
+        IFC4-PSD:nameAlias        "Capacity Control"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DAMPERSCONTROL" , "NOTKNOWN" , "MULTIPLESERIESPUMPS" , "VARIABLESPEEDFAN" , "BYPASSVALVECONTROL" , "VARIABLESPEEDPUMP" , "TWOSPEEDFAN" , "OTHER" , "TWOSPEEDPUMP" , "UNSET" , "FANCYCLING"
+                                  ] .
+
+:pe9df8180d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient design dry bulb temperature used for selecting the cooling tower." ;
+        rdfs:label                "AmbientDesignDryBulbTemperature" ;
+        IFC4-PSD:definition       "Ambient design dry bulb temperature used for selecting the cooling tower." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e9df8180d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AmbientDesignDryBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Ambient Design Dry Bulb Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:OperationTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe51acd80d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationTemperatureRange .
+
+:pd6341b00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volume between operating and overflow levels in cooling tower basin." ;
+        rdfs:label                "BasinReserveVolume" ;
+        IFC4-PSD:definition       "Volume between operating and overflow levels in cooling tower basin." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d6341b00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BasinReserveVolume" ;
+        IFC4-PSD:nameAlias        "Basin Reserve Volume"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:p75a4de00d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal cooling tower capacity in terms of heat transfer rate of the cooling tower between air stream and water stream at nominal conditions." ;
+        rdfs:label                "NominalCapacity" ;
+        IFC4-PSD:definition       "Nominal cooling tower capacity in terms of heat transfer rate of the cooling tower between air stream and water stream at nominal conditions." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "75a4de00d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCapacity" ;
+        IFC4-PSD:nameAlias        "Nominal Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .

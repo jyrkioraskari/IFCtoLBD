@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanCentrifugal#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:DirectionOfRotation  a     rdf:Property ;
+        rdfs:seeAlso        :p94ad6b00d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DirectionOfRotation .
+
+:DischargePosition  a       rdf:Property ;
+        rdfs:seeAlso        :p7cd5e700d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargePosition .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanCentrifugal>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_FanCentrifugal  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Centrifugal fan occurrence attributes attached to an instance of IfcFan." ;
+        rdfs:label                    "Pset_FanCentrifugal" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFan/CENTRIFUGAL> ;
+        IFC4-PSD:applicableTypeValue  "IfcFan/CENTRIFUGAL" ;
+        IFC4-PSD:definition           "Centrifugal fan occurrence attributes attached to an instance of IfcFan." ;
+        IFC4-PSD:definitionAlias      ""@en , "IfcFanの値に付け加えられた遠心送風機の属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FanCentrifugal" ;
+        IFC4-PSD:propertyDef          :p7cd5e700d1e311e1800000215ad4efdf , :pa262f080d1e311e1800000215ad4efdf , :p94ad6b00d1e311e1800000215ad4efdf .
+
+:Arrangement  a             rdf:Property ;
+        rdfs:seeAlso        :pa262f080d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Arrangement .
+
+:p94ad6b00d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The direction of the centrifugal fan wheel rotation when viewed from the drive side of the fan.\n\nCLOCKWISE: Clockwise. \nCOUNTERCLOCKWISE: Counter-clockwise. \nOTHER: Other type of fan rotation." ;
+        rdfs:label                "DirectionOfRotation" ;
+        IFC4-PSD:definition       "The direction of the centrifugal fan wheel rotation when viewed from the drive side of the fan.\n\nCLOCKWISE: Clockwise. \nCOUNTERCLOCKWISE: Counter-clockwise. \nOTHER: Other type of fan rotation." ;
+        IFC4-PSD:definitionAlias  ""@en , "ファンの駆動側から見たホイール回転方向\nCLOCKWISE　　時計回り\n COUNTERCLOCKWISE　反時計回り\n OTHER　その他"@ja-JP ;
+        IFC4-PSD:ifdguid          "94ad6b00d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DirectionOfRotation" ;
+        IFC4-PSD:nameAlias        "角度方向"@ja-JP , "Direction Of Rotation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CLOCKWISE" , "COUNTERCLOCKWISE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pa262f080d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the fan and motor drive arrangement as defined by AMCA.\n\nARRANGEMENT1: Arrangement 1. \nARRANGEMENT2: Arrangement 2. \nARRANGEMENT3: Arrangement 3. \nARRANGEMENT4: Arrangement 4. \nARRANGEMENT7: Arrangement 7. \nARRANGEMENT8: Arrangement 8. \nARRANGEMENT9: Arrangement 9. \nARRANGEMENT10: Arrangement 10. \nOTHER: Other type of fan drive arrangement." ;
+        rdfs:label                "Arrangement" ;
+        IFC4-PSD:definition       "Defines the fan and motor drive arrangement as defined by AMCA.\n\nARRANGEMENT1: Arrangement 1. \nARRANGEMENT2: Arrangement 2. \nARRANGEMENT3: Arrangement 3. \nARRANGEMENT4: Arrangement 4. \nARRANGEMENT7: Arrangement 7. \nARRANGEMENT8: Arrangement 8. \nARRANGEMENT9: Arrangement 9. \nARRANGEMENT10: Arrangement 10. \nOTHER: Other type of fan drive arrangement." ;
+        IFC4-PSD:definitionAlias  "ファンとモーターの配置（AMCAによる定義）\nARRANGEMENT1, ARRANGEMENT2, ARRANGEMENT3, ARRANGEMENT4, ARRANGEMENT7, ARRANGEMENT8, ARRANGEMENT9, ARRANGEMENT10, OTHER, NOTKNOWN, UNSET"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a262f080d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Arrangement" ;
+        IFC4-PSD:nameAlias        "Arrangement"@en , "配置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ARRANGEMENT2" , "ARRANGEMENT3" , "ARRANGEMENT9" , "UNSET" , "ARRANGEMENT1" , "ARRANGEMENT8" , "ARRANGEMENT10" , "ARRANGEMENT4" , "NOTKNOWN" , "OTHER" , "ARRANGEMENT7"
+                                  ] .
+
+:p7cd5e700d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Centrifugal fan discharge position.\n\nTOPHORIZONTAL: Top horizontal discharge. \nTOPANGULARDOWN: Top angular down discharge. \nDOWNBLAST: Downblast discharge. \nBOTTOMANGULARDOWN: Bottom angular down discharge. \nBOTTOMHORIZONTAL: Bottom horizontal discharge. \nBOTTOMANGULARUP: Bottom angular up discharge. \nUPBLAST: Upblast discharge. \nTOPANGULARUP: Top angular up discharge. \nOTHER: Other type of fan arrangement." ;
+        rdfs:label                "DischargePosition" ;
+        IFC4-PSD:definition       "Centrifugal fan discharge position.\n\nTOPHORIZONTAL: Top horizontal discharge. \nTOPANGULARDOWN: Top angular down discharge. \nDOWNBLAST: Downblast discharge. \nBOTTOMANGULARDOWN: Bottom angular down discharge. \nBOTTOMHORIZONTAL: Bottom horizontal discharge. \nBOTTOMANGULARUP: Bottom angular up discharge. \nUPBLAST: Upblast discharge. \nTOPANGULARUP: Top angular up discharge. \nOTHER: Other type of fan arrangement." ;
+        IFC4-PSD:definitionAlias  ""@en , "遠心送風機の吐出位置\nTOPHORIZONTAL: 上部水平 \nTOPANGULARDOWN: 上部角度付き下向き \nDOWNBLAST: 下向き\nBOTTOMANGULARDOWN: 下部角度付き下向き\nBOTTOMHORIZONTAL: 下部水平\nBOTTOMANGULARUP: 下部角度付き上向き\nUPBLAST: 上向き\nTOPANGULARUP: 上部角度付き上向き. \nOTHER: その他"@ja-JP ;
+        IFC4-PSD:ifdguid          "7cd5e700d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargePosition" ;
+        IFC4-PSD:nameAlias        "吐出位置"@ja-JP , "Discharge Position"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "TOPHORIZONTAL" , "OTHER" , "NOTKNOWN" , "UNSET" , "DOWNBLAST" , "BOTTOMHORIZONTAL" , "BOTTOMANGULARDOWN" , "BOTTOMANGULARUP" , "TOPANGULARUP" , "UPBLAST" , "TOPANGULARDOWN"
+                                  ] .

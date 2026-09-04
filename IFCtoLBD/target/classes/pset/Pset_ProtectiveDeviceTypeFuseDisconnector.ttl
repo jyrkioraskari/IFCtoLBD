@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p45c0ff00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The power loss in [W] of the fuse when the nominal current is flowing through the fuse." ;
+        rdfs:label                "PowerLoss" ;
+        IFC4-PSD:definition       "The power loss in [W] of the fuse when the nominal current is flowing through the fuse." ;
+        IFC4-PSD:definitionAlias  ""@en , "정격 전류가 퓨즈에 흐르는시 전력 손실 [W]."@ko-KR , "定格電流がヒューズに流れる時の電力損失[W]。"@ja-JP ;
+        IFC4-PSD:ifdguid          "45c0ff00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PowerLoss" ;
+        IFC4-PSD:nameAlias        "電力損失"@ja-JP , "Power Loss"@en , "전력 손실"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p3fcb1e00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The breaking capacity in [A] for fuses in accordance with the IEC 60269 series." ;
+        rdfs:label                "IC60269" ;
+        IFC4-PSD:definition       "The breaking capacity in [A] for fuses in accordance with the IEC 60269 series." ;
+        IFC4-PSD:definitionAlias  "IECの60269シリーズに応じたヒューズの遮断容量[A]。"@ja-JP , ""@en , "IEC의 60269 시리즈에 따라 퓨즈의 차단 용량 [A]."@ko-KR ;
+        IFC4-PSD:ifdguid          "3fcb1e00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IC60269" ;
+        IFC4-PSD:nameAlias        "IC60269"@en , "IC60269"@ja-JP , "IC60269"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:VoltageLevel  a            rdf:Property ;
+        rdfs:seeAlso        :p2d50e480d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VoltageLevel .
+
+:IC60269  a                 rdf:Property ;
+        rdfs:seeAlso        :p3fcb1e00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IC60269 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeFuseDisconnector>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf37fde00d1fd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of fuse disconnector from which that required may be selected where:\n\nEngineProtectionDevice: A fuse whose characteristic is specifically designed for the protection of a motor or generator.\nFuseSwitchDisconnector: A switch disconnector in which a fuse link or a fuse carrier with fuse link forms the moving contact,\nHRC: A standard fuse (High Rupturing Capacity)\nOverloadProtectionDevice: A device that disconnects the supply when the operating conditions in an electrically undamaged circuit causes an overcurrent,\nSemiconductorFuse: A fuse whose characteristic is specifically designed for the protection of sem-conductor devices.\nSwitchDisconnectorFuse: A switch disconnector in which one or more poles have a fuse in series in a composite unit." ;
+        rdfs:label                "FuseDisconnectorType" ;
+        IFC4-PSD:definition       "A list of the available types of fuse disconnector from which that required may be selected where:\n\nEngineProtectionDevice: A fuse whose characteristic is specifically designed for the protection of a motor or generator.\nFuseSwitchDisconnector: A switch disconnector in which a fuse link or a fuse carrier with fuse link forms the moving contact,\nHRC: A standard fuse (High Rupturing Capacity)\nOverloadProtectionDevice: A device that disconnects the supply when the operating conditions in an electrically undamaged circuit causes an overcurrent,\nSemiconductorFuse: A fuse whose characteristic is specifically designed for the protection of sem-conductor devices.\nSwitchDisconnectorFuse: A switch disconnector in which one or more poles have a fuse in series in a composite unit." ;
+        IFC4-PSD:definitionAlias  "자가용 발전 연계 측면 : 모터 및 발전기 보호를 위해 디자인되는 퓨즈.  지락 보호 장치 : 이제 퓨즈 링크 또는 퓨즈 링크 퓨즈 캐리어는 가동 접점을 형성하는 스위치 단로기,  HRC : 표준 퓨즈 (높이 연동 파괴 용량)  누전 보호 장치 : 전기 손상 회로의 동작 조건은 과전류가 발생하는 전원을 차단 장치  결상 보호 부착 : 그 특성을 구체적으로 sem이 심 장치 보호를 위해 디자인되는 퓨즈.  복합 퓨즈 보호 장치 : 어떤 한 개 이상의 전극은 복합 유닛에 직렬로 퓨즈를 가지고있는 스위치 단로기."@ko-KR , "自家用発電連携側：モータや発電機の保護のために設計されているヒューズ。\n 地絡保護装置：これでヒューズリンクまたはヒューズリンクヒューズキャリアは、可動接点を形成するスイッチ断路器、\n HRC：標準ヒューズ（高連動破壊容量）\n 漏電保護装置：電気的に破損して回路の動作条件は、過電流が発生する電源を切断装置\n 欠相保護付：その特性を具体的にsemが芯デバイスの保護のために設計されているヒューズ。\n 複合ヒューズ保護装置：その内の1つまたは複数の極は、複合ユニットに直列にヒューズを持っているスイッチ断路器。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f37fde00d1fd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FuseDisconnectorType" ;
+        IFC4-PSD:nameAlias        "ヒューズ遮断機のタイプ"@ja-JP , "Fuse Disconnector Type"@en , "퓨즈차단기 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ENGINEPROTECTIONDEVICE" , "FUSEDSWITCH" , "HRC" , "OVERLOADPROTECTIONDEVICE" , "SWITCHDISCONNECTORFUSE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:FuseDisconnectorType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf37fde00d1fd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FuseDisconnectorType .
+
+:p2d50e480d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        rdfs:label                "VoltageLevel" ;
+        IFC4-PSD:definition       "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        IFC4-PSD:definitionAlias  ""@en , "전압 레벨을 선택합니다."@ko-KR , "電圧レベルを選択。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2d50e480d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VoltageLevel" ;
+        IFC4-PSD:nameAlias        "電圧レベル"@ja-JP , "Voltage Level"@en , "전압레벨"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "U1000" , "U230" , "UNSET" , "NOTKNOWN" , "U690" , "U440" , "OTHER" , "U400" , "U525"
+                                  ] .
+
+:Pset_ProtectiveDeviceTypeFuseDisconnector
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A coherent set of attributes representing the breakeing capacity of a fuse, defined in accordance with IEC 60269. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics." ;
+        rdfs:label                    "Pset_ProtectiveDeviceTypeFuseDisconnector" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/FUSEDISCONNECTOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/FUSEDISCONNECTOR" ;
+        IFC4-PSD:definition           "A coherent set of attributes representing the breakeing capacity of a fuse, defined in accordance with IEC 60269. Note - A protective device may be associated with different instances of this pSet providing information related to different  basic characteristics." ;
+        IFC4-PSD:definitionAlias      "ヒューズのbreakeing容量を表す属性の一貫したセットは、IEC60269に基づいて定義されています。\n 注-保護デバイスが別の基本的な特性に関連する情報を提供し、このプロセッサセットの別のインスタンスに関連付けられている可能性があります。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTypeFuseDisconnector" ;
+        IFC4-PSD:propertyDef          :p45c0ff00d1fe11e1800000215ad4efdf , :p2d50e480d1fe11e1800000215ad4efdf , :p3fcb1e00d1fe11e1800000215ad4efdf , :pf37fde00d1fd11e1800000215ad4efdf .
+
+:PowerLoss  a               rdf:Property ;
+        rdfs:seeAlso        :p45c0ff00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerLoss .

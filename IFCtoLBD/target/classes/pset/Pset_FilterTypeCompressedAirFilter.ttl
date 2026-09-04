@@ -1,0 +1,115 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeCompressedAirFilter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:CloggingIndicator  a       rdf:Property ;
+        rdfs:seeAlso        :p2ae29080d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CloggingIndicator .
+
+:p0c7c9500d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "ACTIVATEDCARBON: absorbs oil vapor and odor; PARTICLE_FILTER: used to absorb solid particles of medium size; COALESCENSE_FILTER: used to absorb fine solid, oil, and water particles, also called micro filter" ;
+        rdfs:label                "CompressedAirFilterType" ;
+        IFC4-PSD:definition       "ACTIVATEDCARBON: absorbs oil vapor and odor; PARTICLE_FILTER: used to absorb solid particles of medium size; COALESCENSE_FILTER: used to absorb fine solid, oil, and water particles, also called micro filter" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0c7c9500d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressedAirFilterType" ;
+        IFC4-PSD:nameAlias        "Compressed Air Filter Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ACTIVATEDCARBON" , "PARTICLE_FILTER" , "COALESCENSE_FILTER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:AutomaticCondensateDischarge
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p25854600d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AutomaticCondensateDischarge .
+
+:p17cfc080d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum pressure under normal operating conditions." ;
+        rdfs:label                "OperationPressureMax" ;
+        IFC4-PSD:definition       "Maximum pressure under normal operating conditions." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "17cfc080d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationPressureMax" ;
+        IFC4-PSD:nameAlias        "Operation Pressure Max"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p25854600d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Whether or not the condensing water or oil is discharged automatically from the filter." ;
+        rdfs:label                "AutomaticCondensateDischarge" ;
+        IFC4-PSD:definition       "Whether or not the condensing water or oil is discharged automatically from the filter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "25854600d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AutomaticCondensateDischarge" ;
+        IFC4-PSD:nameAlias        "Automatic Condensate Discharge"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:ParticleAbsorptionCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1bfbde00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ParticleAbsorptionCurve .
+
+:CompressedAirFilterType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0c7c9500d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressedAirFilterType .
+
+:p2ae29080d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Whether the filter has an indicator to display the degree of clogging of the filter." ;
+        rdfs:label                "CloggingIndicator" ;
+        IFC4-PSD:definition       "Whether the filter has an indicator to display the degree of clogging of the filter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2ae29080d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CloggingIndicator" ;
+        IFC4-PSD:nameAlias        "Clogging Indicator"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_FilterTypeCompressedAirFilter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Compressed air filter type attributes." ;
+        rdfs:label                    "Pset_FilterTypeCompressedAirFilter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFilter/COMPRESSEDAIRFILTER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFilter/COMPRESSEDAIRFILTER" ;
+        IFC4-PSD:definition           "Compressed air filter type attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FilterTypeCompressedAirFilter" ;
+        IFC4-PSD:propertyDef          :p2ae29080d1e611e1800000215ad4efdf , :p17cfc080d1e611e1800000215ad4efdf , :p1bfbde00d1e611e1800000215ad4efdf , :p25854600d1e611e1800000215ad4efdf , :p0c7c9500d1e611e1800000215ad4efdf .
+
+:p1bfbde00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of particles that are removed by the filter.  Each entry describes the ratio of particles absorbed greater than equal to the specified size and less than the next specified size.  For example,  given for 3 significant particle sizes >= 0,1 micro m, >= 1 micro m, >= 5 micro m" ;
+        rdfs:label                "ParticleAbsorptionCurve" ;
+        IFC4-PSD:definition       "Ratio of particles that are removed by the filter.  Each entry describes the ratio of particles absorbed greater than equal to the specified size and less than the next specified size.  For example,  given for 3 significant particle sizes >= 0,1 micro m, >= 1 micro m, >= 5 micro m" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1bfbde00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ParticleAbsorptionCurve" ;
+        IFC4-PSD:nameAlias        "Particle Absorption Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPositiveRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeCompressedAirFilter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:OperationPressureMax
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p17cfc080d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationPressureMax .

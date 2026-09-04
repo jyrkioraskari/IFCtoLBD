@@ -1,0 +1,186 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialOptical#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pbd3a6280d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reflectance at normal incidence (visible): front side. Defines the fraction of the solar ray in the visible spectrum that is reflected and not transmitted when the ray passes from one medium into another, at the \"front\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        rdfs:label                "VisibleReflectanceFront" ;
+        IFC4-PSD:definition       "Reflectance at normal incidence (visible): front side. Defines the fraction of the solar ray in the visible spectrum that is reflected and not transmitted when the ray passes from one medium into another, at the \"front\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bd3a6280d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleReflectanceFront" ;
+        IFC4-PSD:nameAlias        "Visible Reflectance Front"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pa72ca200d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal IR emissivity: back side. Defines the fraction of thermal energy emitted per unit area to \"blackbody\" at the same temperature, through the \"back\" side of the material." ;
+        rdfs:label                "ThermalIrEmissivityBack" ;
+        IFC4-PSD:definition       "Thermal IR emissivity: back side. Defines the fraction of thermal energy emitted per unit area to \"blackbody\" at the same temperature, through the \"back\" side of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a72ca200d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalIrEmissivityBack" ;
+        IFC4-PSD:nameAlias        "Thermal Ir Emissivity Back"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:VisibleReflectanceFront
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbd3a6280d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleReflectanceFront .
+
+:Pset_MaterialOptical
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of optical properties of materials." ;
+        rdfs:label                    "Pset_MaterialOptical" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of optical properties of materials." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialOptical" ;
+        IFC4-PSD:propertyDef          :pbd3a6280d1ed11e1800000215ad4efdf , :pa72ca200d1ed11e1800000215ad4efdf , :pac89ec80d1ed11e1800000215ad4efdf , :pc3304380d1ed11e1800000215ad4efdf , :pc7f4f780d1ed11e1800000215ad4efdf , :p954aff00d1ed11e1800000215ad4efdf , :pa1cf5780d1ed11e1800000215ad4efdf , :pb7448180d1ed11e1800000215ad4efdf , :p9c720d00d1ed11e1800000215ad4efdf .
+
+:SolarReflectanceBack
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc3304380d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarReflectanceBack .
+
+:SolarTransmittance  a      rdf:Property ;
+        rdfs:seeAlso        :p9c720d00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarTransmittance .
+
+:VisibleReflectanceBack
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb7448180d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleReflectanceBack .
+
+:ThermalIrTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa1cf5780d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalIrTransmittance .
+
+:pac89ec80d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal IR emissivity: front side. Defines the fraction of thermal energy emitted per unit area to \"blackbody\" at the same temperature, through the \"front\" side of the material." ;
+        rdfs:label                "ThermalIrEmissivityFront" ;
+        IFC4-PSD:definition       "Thermal IR emissivity: front side. Defines the fraction of thermal energy emitted per unit area to \"blackbody\" at the same temperature, through the \"front\" side of the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ac89ec80d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalIrEmissivityFront" ;
+        IFC4-PSD:nameAlias        "Thermal Ir Emissivity Front"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialOptical>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pc7f4f780d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reflectance at normal incidence (solar): front side. Defines the fraction of the solar ray that is reflected and not transmitted when the ray passes from one medium into another, at the \"front\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        rdfs:label                "SolarReflectanceFront" ;
+        IFC4-PSD:definition       "Reflectance at normal incidence (solar): front side. Defines the fraction of the solar ray that is reflected and not transmitted when the ray passes from one medium into another, at the \"front\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c7f4f780d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarReflectanceFront" ;
+        IFC4-PSD:nameAlias        "Solar Reflectance Front"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pc3304380d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reflectance at normal incidence (solar): back side. Defines the fraction of the solar ray that is reflected and not transmitted when the ray passes from one medium into another, at the \"back\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        rdfs:label                "SolarReflectanceBack" ;
+        IFC4-PSD:definition       "Reflectance at normal incidence (solar): back side. Defines the fraction of the solar ray that is reflected and not transmitted when the ray passes from one medium into another, at the \"back\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c3304380d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarReflectanceBack" ;
+        IFC4-PSD:nameAlias        "Solar Reflectance Back"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pb7448180d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reflectance at normal incidence (visible): back side. Defines the fraction of the solar ray in the visible spectrum that is reflected and not transmitted when the ray passes from one medium into another, at the \"back\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        rdfs:label                "VisibleReflectanceBack" ;
+        IFC4-PSD:definition       "Reflectance at normal incidence (visible): back side. Defines the fraction of the solar ray in the visible spectrum that is reflected and not transmitted when the ray passes from one medium into another, at the \"back\" side of the other material, perpendicular to the surface. Dependent on material and surface characteristics." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b7448180d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleReflectanceBack" ;
+        IFC4-PSD:nameAlias        "Visible Reflectance Back"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p9c720d00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Transmittance at normal incidence (solar). Defines the fraction of solar radiation that passes through per unit area, perpendicular to the surface." ;
+        rdfs:label                "SolarTransmittance" ;
+        IFC4-PSD:definition       "Transmittance at normal incidence (solar). Defines the fraction of solar radiation that passes through per unit area, perpendicular to the surface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9c720d00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarTransmittance" ;
+        IFC4-PSD:nameAlias        "Solar Transmittance"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:ThermalIrEmissivityBack
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa72ca200d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalIrEmissivityBack .
+
+:pa1cf5780d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal IR transmittance at normal incidence. Defines the fraction of thermal energy that passes through per unit area, perpendicular to the surface." ;
+        rdfs:label                "ThermalIrTransmittance" ;
+        IFC4-PSD:definition       "Thermal IR transmittance at normal incidence. Defines the fraction of thermal energy that passes through per unit area, perpendicular to the surface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a1cf5780d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalIrTransmittance" ;
+        IFC4-PSD:nameAlias        "Thermal Ir Transmittance"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p954aff00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Transmittance at normal incidence (visible). Defines the fraction of the visible spectrum of solar radiation that passes through per unit area, perpendicular to the surface." ;
+        rdfs:label                "VisibleTransmittance" ;
+        IFC4-PSD:definition       "Transmittance at normal incidence (visible). Defines the fraction of the visible spectrum of solar radiation that passes through per unit area, perpendicular to the surface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "954aff00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleTransmittance" ;
+        IFC4-PSD:nameAlias        "Visible Transmittance"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:SolarReflectanceFront
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc7f4f780d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarReflectanceFront .
+
+:ThermalIrEmissivityFront
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pac89ec80d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalIrEmissivityFront .
+
+:VisibleTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p954aff00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleTransmittance .

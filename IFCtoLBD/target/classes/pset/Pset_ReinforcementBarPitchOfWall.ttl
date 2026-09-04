@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfWall#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ReinforcementBarPitchOfWall
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The pitch length information of reinforcement  bar with the wall." ;
+        rdfs:label                    "Pset_ReinforcementBarPitchOfWall" ;
+        IFC4-PSD:applicableClass      IFC4:IfcWall ;
+        IFC4-PSD:applicableTypeValue  "IfcWall" ;
+        IFC4-PSD:definition           "The pitch length information of reinforcement  bar with the wall." ;
+        IFC4-PSD:definitionAlias      "壁における補強筋のピッチ長さ情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarPitchOfWall" ;
+        IFC4-PSD:propertyDef          :pde587e80d20011e1800000215ad4efdf , :pc1bc4680d20011e1800000215ad4efdf , :pc84abe00d20011e1800000215ad4efdf , :pe7495000d20011e1800000215ad4efdf , :pbbc66580d20011e1800000215ad4efdf , :pd698da00d20011e1800000215ad4efdf .
+
+:SpacingBarPitch  a         rdf:Property ;
+        rdfs:seeAlso        :pe7495000d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpacingBarPitch .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :pbbc66580d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:HorizontalBarPitch  a      rdf:Property ;
+        rdfs:seeAlso        :pde587e80d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HorizontalBarPitch .
+
+:pc1bc4680d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  ""@en , "一般的な鉄筋タイプの説明ラベル。\n（例えば、壁の外側・内側で鉄筋間隔が異なる場合に、\"Outside\",\"Inside\"を記述する）"@ja-JP ;
+        IFC4-PSD:ifdguid          "c1bc4680d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:VerticalBarPitch  a        rdf:Property ;
+        rdfs:seeAlso        :pd698da00d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VerticalBarPitch .
+
+:BarAllocationType  a       rdf:Property ;
+        rdfs:seeAlso        :pc84abe00d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BarAllocationType .
+
+:pe7495000d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the spacing bar." ;
+        rdfs:label                "SpacingBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the spacing bar." ;
+        IFC4-PSD:definitionAlias  "巾止筋の間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e7495000d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpacingBarPitch" ;
+        IFC4-PSD:nameAlias        "Spacing Bar Pitch"@en , "巾止筋ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pbbc66580d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  "鉄筋の説明。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bbc66580d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "説明"@ja-JP , "Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:pde587e80d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the horizontal bar." ;
+        rdfs:label                "HorizontalBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the horizontal bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "水平方向の補強筋の間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "de587e80d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HorizontalBarPitch" ;
+        IFC4-PSD:nameAlias        "Horizontal Bar Pitch"@en , "横筋ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pc1bc4680d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfWall>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd698da00d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the vertical bar." ;
+        rdfs:label                "VerticalBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the vertical bar." ;
+        IFC4-PSD:definitionAlias  "鉛直方向の補強筋の間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d698da00d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VerticalBarPitch" ;
+        IFC4-PSD:nameAlias        "縦筋ピッチ"@ja-JP , "Vertical Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pc84abe00d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the type of the reinforcement bar allocation." ;
+        rdfs:label                "BarAllocationType" ;
+        IFC4-PSD:definition       "Defines the type of the reinforcement bar allocation." ;
+        IFC4-PSD:definitionAlias  "配筋タイプの定義。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c84abe00d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BarAllocationType" ;
+        IFC4-PSD:nameAlias        "配筋タイプ"@ja-JP , "Bar Allocation Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SINGLE" , "DOUBLE" , "ALTERNATE" , "OTHER" , "USERDEFINED" , "NOTDEFINED"
+                                  ] .

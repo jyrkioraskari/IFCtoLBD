@@ -1,0 +1,195 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypeDuct#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p26538518abf6475ba1562ce731d7975e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The velocity of the fluid." ;
+        rdfs:label                "Velocity" ;
+        IFC4-PSD:definition       "The velocity of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "26538518abf6475ba1562ce731d7975e" ;
+        IFC4-PSD:name             "Velocity" ;
+        IFC4-PSD:nameAlias        "Velocity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+:WetBulbTemperature  a      rdf:Property ;
+        rdfs:seeAlso        :p46e6cb4f3ecb4016b3d952ec26836ce6 ;
+        rdfs:subPropertyOf  IFC4-PSD:WetBulbTemperature .
+
+:pd2b239a61db14c2ab423e3d735a6de1f
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The end-style treatment of the duct port:\n\nBEADEDSLEEVE: Beaded Sleeve. \nCOMPRESSION: Compression. \nCRIMP: Crimp. \nDRAWBAND: Drawband. \nDRIVESLIP: Drive slip. \nFLANGED: Flanged. \nOUTSIDESLEEVE: Outside Sleeve. \nSLIPON: Slipon. \nSOLDERED: Soldered. \nSSLIP: S-Slip. \nSTANDINGSEAM: Standing seam. \nSWEDGE: Swedge. \nWELDED: Welded. \nOTHER: Another type of end-style has been applied.\nNONE: No end-style has been applied." ;
+        rdfs:label                "ConnectionType" ;
+        IFC4-PSD:definition       "The end-style treatment of the duct port:\n\nBEADEDSLEEVE: Beaded Sleeve. \nCOMPRESSION: Compression. \nCRIMP: Crimp. \nDRAWBAND: Drawband. \nDRIVESLIP: Drive slip. \nFLANGED: Flanged. \nOUTSIDESLEEVE: Outside Sleeve. \nSLIPON: Slipon. \nSOLDERED: Soldered. \nSSLIP: S-Slip. \nSTANDINGSEAM: Standing seam. \nSWEDGE: Swedge. \nWELDED: Welded. \nOTHER: Another type of end-style has been applied.\nNONE: No end-style has been applied." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d2b239a61db14c2ab423e3d735a6de1f" ;
+        IFC4-PSD:name             "ConnectionType" ;
+        IFC4-PSD:nameAlias        "Connection Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BEADEDSLEEVE" , "FLANGED" , "NONE" , "STANDINGSEAM" , "USERDEFINED" , "OTHER" , "DRIVESLIP" , "DRAWBAND" , "COMPRESSION" , "SOLDERED" , "OUTSIDESLEEVE" , "SLIPON" , "WELDED" , "SSLIP" , "SWEDGE" , "NOTDEFINED" , "CRIMP"
+                                  ] .
+
+:NominalThickness  a        rdf:Property ;
+        rdfs:seeAlso        :p9aa93573818943ee9e7ad7e898fddfae ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalThickness .
+
+:Pset_DistributionPortTypeDuct
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        rdfs:label                    "Pset_DistributionPortTypeDuct" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/DUCT> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/DUCT" ;
+        IFC4-PSD:definition           "Duct port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortTypeDuct" ;
+        IFC4-PSD:propertyDef          :p15d916dd1d7340bc81481576f81d2a08 , :p26538518abf6475ba1562ce731d7975e , :p9aa93573818943ee9e7ad7e898fddfae , :pa28e9f226e204a909976810e633a45f4 , :p639c0067eb444ed8b9d177247c1f1cc2 , :p0e28d2efe50346319664f17e52ebd118 , :p46e6cb4f3ecb4016b3d952ec26836ce6 , :p90a90418907a41809a527bb1ef069005 , :pd2b239a61db14c2ab423e3d735a6de1f , :p7583cd7c5ea74d109e2b6ad6d0dafa4b .
+
+:pa28e9f226e204a909976810e633a45f4
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width or diameter of the duct connection." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width or diameter of the duct connection." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a28e9f226e204a909976810e633a45f4" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "Nominal Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p639c0067eb444ed8b9d177247c1f1cc2
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The volumetric flow rate of the fluid." ;
+        rdfs:label                "VolumetricFlowRate" ;
+        IFC4-PSD:definition       "The volumetric flow rate of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "639c0067eb444ed8b9d177247c1f1cc2" ;
+        IFC4-PSD:name             "VolumetricFlowRate" ;
+        IFC4-PSD:nameAlias        "Volumetric Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p0e28d2efe50346319664f17e52ebd118
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Dry bulb temperature of the air." ;
+        rdfs:label                "DryBulbTemperature" ;
+        IFC4-PSD:definition       "Dry bulb temperature of the air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0e28d2efe50346319664f17e52ebd118" ;
+        IFC4-PSD:name             "DryBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Dry Bulb Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:VolumetricFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :p639c0067eb444ed8b9d177247c1f1cc2 ;
+        rdfs:subPropertyOf  IFC4-PSD:VolumetricFlowRate .
+
+:p9aa93573818943ee9e7ad7e898fddfae
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal wall thickness of the duct at the connection point." ;
+        rdfs:label                "NominalThickness" ;
+        IFC4-PSD:definition       "The nominal wall thickness of the duct at the connection point." ;
+        IFC4-PSD:definitionAlias  "The nominal wall thickness of the duct at the connection point."@en ;
+        IFC4-PSD:ifdguid          "9aa93573818943ee9e7ad7e898fddfae" ;
+        IFC4-PSD:name             "NominalThickness" ;
+        IFC4-PSD:nameAlias        "Nominal Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p90a90418907a41809a527bb1ef069005 ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:p15d916dd1d7340bc81481576f81d2a08
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical port connection subtype that further qualifies the ConnectionType." ;
+        rdfs:label                "ConnectionSubType" ;
+        IFC4-PSD:definition       "The physical port connection subtype that further qualifies the ConnectionType." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "15d916dd1d7340bc81481576f81d2a08" ;
+        IFC4-PSD:name             "ConnectionSubType" ;
+        IFC4-PSD:nameAlias        "Connection Sub Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pressure  a                rdf:Property ;
+        rdfs:seeAlso        :p7583cd7c5ea74d109e2b6ad6d0dafa4b ;
+        rdfs:subPropertyOf  IFC4-PSD:Pressure .
+
+:ConnectionSubType  a       rdf:Property ;
+        rdfs:seeAlso        :p15d916dd1d7340bc81481576f81d2a08 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSubType .
+
+:p46e6cb4f3ecb4016b3d952ec26836ce6
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Wet bulb temperature of the air." ;
+        rdfs:label                "WetBulbTemperature" ;
+        IFC4-PSD:definition       "Wet bulb temperature of the air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "46e6cb4f3ecb4016b3d952ec26836ce6" ;
+        IFC4-PSD:name             "WetBulbTemperature" ;
+        IFC4-PSD:nameAlias        "Wet Bulb Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:ConnectionType  a          rdf:Property ;
+        rdfs:seeAlso        :pd2b239a61db14c2ab423e3d735a6de1f ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionType .
+
+:Velocity  a                rdf:Property ;
+        rdfs:seeAlso        :p26538518abf6475ba1562ce731d7975e ;
+        rdfs:subPropertyOf  IFC4-PSD:Velocity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypeDuct>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p7583cd7c5ea74d109e2b6ad6d0dafa4b
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pressure of the fluid." ;
+        rdfs:label                "Pressure" ;
+        IFC4-PSD:definition       "The pressure of the fluid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7583cd7c5ea74d109e2b6ad6d0dafa4b" ;
+        IFC4-PSD:name             "Pressure" ;
+        IFC4-PSD:nameAlias        "Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:DryBulbTemperature  a      rdf:Property ;
+        rdfs:seeAlso        :p0e28d2efe50346319664f17e52ebd118 ;
+        rdfs:subPropertyOf  IFC4-PSD:DryBulbTemperature .
+
+:p90a90418907a41809a527bb1ef069005
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the duct connection. Only provided for rectangular shaped ducts." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the duct connection. Only provided for rectangular shaped ducts." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "90a90418907a41809a527bb1ef069005" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "Nominal Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pa28e9f226e204a909976810e633a45f4 ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .

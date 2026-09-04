@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeWaterFilter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p35048f00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Further qualifies the type of water filter.  Filtration removes undissolved matter; Purification removes dissolved matter; Softening replaces dissolved matter." ;
+        rdfs:label                "WaterFilterType" ;
+        IFC4-PSD:definition       "Further qualifies the type of water filter.  Filtration removes undissolved matter; Purification removes dissolved matter; Softening replaces dissolved matter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "35048f00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterFilterType" ;
+        IFC4-PSD:nameAlias        "Water Filter Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FILTRATION_DIATOMACEOUSEARTH" , "FILTRATION_SAND" , "PURIFICATION_DEIONIZING" , "PURIFICATION_REVERSEOSMOSIS" , "SOFTENING_ZEOLITE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_FilterTypeWaterFilter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Water filter type attributes." ;
+        rdfs:label                    "Pset_FilterTypeWaterFilter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFilter/WATERFILTER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFilter/WATERFILTER" ;
+        IFC4-PSD:definition           "Water filter type attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FilterTypeWaterFilter" ;
+        IFC4-PSD:propertyDef          :p35048f00d1e611e1800000215ad4efdf .
+
+:WaterFilterType  a         rdf:Property ;
+        rdfs:seeAlso        :p35048f00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterFilterType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeWaterFilter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

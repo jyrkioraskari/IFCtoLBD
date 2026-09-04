@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortPHistoryCable#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:paf897460248b427685e28b50acfc7106
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Apparent power." ;
+        rdfs:label                "ApparentPower" ;
+        IFC4-PSD:definition       "Apparent power." ;
+        IFC4-PSD:definitionAlias  ""@en , "皮相電力。"@ja-JP ;
+        IFC4-PSD:ifdguid          "af897460248b427685e28b50acfc7106" ;
+        IFC4-PSD:name             "ApparentPower" ;
+        IFC4-PSD:nameAlias        "皮相電力"@ja-JP , "Apparent Power"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ApparentPower  a           rdf:Property ;
+        rdfs:seeAlso        :paf897460248b427685e28b50acfc7106 ;
+        rdfs:subPropertyOf  IFC4-PSD:ApparentPower .
+
+:pfbaec68991c14f8fb0c963eb65250f26
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Real power." ;
+        rdfs:label                "RealPower" ;
+        IFC4-PSD:definition       "Real power." ;
+        IFC4-PSD:definitionAlias  "有効電力。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fbaec68991c14f8fb0c963eb65250f26" ;
+        IFC4-PSD:name             "RealPower" ;
+        IFC4-PSD:nameAlias        "有効電力"@ja-JP , "Real Power"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:DataReceived  a            rdf:Property ;
+        rdfs:seeAlso        :pe72bcd7d84ae42c6b1e3f696451d1e6e ;
+        rdfs:subPropertyOf  IFC4-PSD:DataReceived .
+
+:Current  a                 rdf:Property ;
+        rdfs:seeAlso        :p9fadeb7592de4a228764c24ee4f76b0b ;
+        rdfs:subPropertyOf  IFC4-PSD:Current .
+
+:p6fa8730d435442e497527bd9defeb047
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Log of electrical voltage." ;
+        rdfs:label                "Voltage" ;
+        IFC4-PSD:definition       "Log of electrical voltage." ;
+        IFC4-PSD:definitionAlias  "電圧のログ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6fa8730d435442e497527bd9defeb047" ;
+        IFC4-PSD:name             "Voltage" ;
+        IFC4-PSD:nameAlias        "電圧"@ja-JP , "Voltage"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ReactivePower  a           rdf:Property ;
+        rdfs:seeAlso        :p401dc737009748699b073ef617ef615c ;
+        rdfs:subPropertyOf  IFC4-PSD:ReactivePower .
+
+:RealPower  a               rdf:Property ;
+        rdfs:seeAlso        :pfbaec68991c14f8fb0c963eb65250f26 ;
+        rdfs:subPropertyOf  IFC4-PSD:RealPower .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortPHistoryCable>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Voltage  a                 rdf:Property ;
+        rdfs:seeAlso        :p6fa8730d435442e497527bd9defeb047 ;
+        rdfs:subPropertyOf  IFC4-PSD:Voltage .
+
+:Pset_DistributionPortPHistoryCable
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Log of electrical activity attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type CABLE." ;
+        rdfs:label                    "Pset_DistributionPortPHistoryCable" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/CABLE> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/CABLE" ;
+        IFC4-PSD:definition           "Log of electrical activity attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type CABLE." ;
+        IFC4-PSD:definitionAlias      "IfcDistributionPortオブジェクトがELECTRICAL型の際に関連するIfcPerformanceHistoryに設定される電力使用のログ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortPHistoryCable" ;
+        IFC4-PSD:propertyDef          :pfbaec68991c14f8fb0c963eb65250f26 , :pc1d8b4f5077244d98bb7d96e3b9a3282 , :pe72bcd7d84ae42c6b1e3f696451d1e6e , :p6fa8730d435442e497527bd9defeb047 , :p401dc737009748699b073ef617ef615c , :paf897460248b427685e28b50acfc7106 , :p53e43bcebef54a4096fd8862a450903d , :p9fadeb7592de4a228764c24ee4f76b0b .
+
+:DataTransmitted  a         rdf:Property ;
+        rdfs:seeAlso        :pc1d8b4f5077244d98bb7d96e3b9a3282 ;
+        rdfs:subPropertyOf  IFC4-PSD:DataTransmitted .
+
+:p401dc737009748699b073ef617ef615c
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reactive power." ;
+        rdfs:label                "ReactivePower" ;
+        IFC4-PSD:definition       "Reactive power." ;
+        IFC4-PSD:definitionAlias  "無効電力。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "401dc737009748699b073ef617ef615c" ;
+        IFC4-PSD:name             "ReactivePower" ;
+        IFC4-PSD:nameAlias        "無効電力"@ja-JP , "Reactive Power"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p9fadeb7592de4a228764c24ee4f76b0b
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Log of electrical current." ;
+        rdfs:label                "Current" ;
+        IFC4-PSD:definition       "Log of electrical current." ;
+        IFC4-PSD:definitionAlias  ""@en , "電流のログ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9fadeb7592de4a228764c24ee4f76b0b" ;
+        IFC4-PSD:name             "Current" ;
+        IFC4-PSD:nameAlias        "Current"@en , "電流"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pe72bcd7d84ae42c6b1e3f696451d1e6e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For data ports, captures log of data received.  The LIST at IfcTimeSeriesValue.Values may split out data according to Pset_DistributionPortTypeCable.Protocols." ;
+        rdfs:label                "DataReceived" ;
+        IFC4-PSD:definition       "For data ports, captures log of data received.  The LIST at IfcTimeSeriesValue.Values may split out data according to Pset_DistributionPortTypeCable.Protocols." ;
+        IFC4-PSD:definitionAlias  "受信データのログ。IfcTimeSeriesValue.Valuesのリスト値にはPset_DistributionPortTypeCable.Protocolsよりデータを受信する。"@ja , ""@en ;
+        IFC4-PSD:ifdguid          "e72bcd7d84ae42c6b1e3f696451d1e6e" ;
+        IFC4-PSD:name             "DataReceived" ;
+        IFC4-PSD:nameAlias        "Data Received"@en , "受信"@ja ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pc1d8b4f5077244d98bb7d96e3b9a3282
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For data ports, captures log of data transmitted.  The LIST at IfcTimeSeriesValue.Values may split out data according to Pset_DistributionPortTypeCable.Protocols." ;
+        rdfs:label                "DataTransmitted" ;
+        IFC4-PSD:definition       "For data ports, captures log of data transmitted.  The LIST at IfcTimeSeriesValue.Values may split out data according to Pset_DistributionPortTypeCable.Protocols." ;
+        IFC4-PSD:definitionAlias  ""@en , "発信データのログ。IfcTimeSeriesValue.Valuesのリスト値にはPset_DistributionPortTypeCable.Protocolsよりデータを送信する。"@ja ;
+        IFC4-PSD:ifdguid          "c1d8b4f5077244d98bb7d96e3b9a3282" ;
+        IFC4-PSD:name             "DataTransmitted" ;
+        IFC4-PSD:nameAlias        "Data Transmitted"@en , "発信"@ja ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:PowerFactor  a             rdf:Property ;
+        rdfs:seeAlso        :p53e43bcebef54a4096fd8862a450903d ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerFactor .
+
+:p53e43bcebef54a4096fd8862a450903d
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor." ;
+        rdfs:label                "PowerFactor" ;
+        IFC4-PSD:definition       "Power factor." ;
+        IFC4-PSD:definitionAlias  ""@en , "パワーファクタ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "53e43bcebef54a4096fd8862a450903d" ;
+        IFC4-PSD:name             "PowerFactor" ;
+        IFC4-PSD:nameAlias        "パワーファクタ"@ja-JP , "Power Factor"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

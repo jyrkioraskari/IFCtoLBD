@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeOilMeter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :p75650c80d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:MaximumFlowRate  a         rdf:Property ;
+        rdfs:seeAlso        :p7bf38400d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumFlowRate .
+
+:Pset_FlowMeterTypeOilMeter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Device that measures, indicates and sometimes records, the volume of oil that passes through it without interrupting the flow." ;
+        rdfs:label                    "Pset_FlowMeterTypeOilMeter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowMeter/OILMETER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter/OILMETER" ;
+        IFC4-PSD:definition           "Device that measures, indicates and sometimes records, the volume of oil that passes through it without interrupting the flow." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterTypeOilMeter" ;
+        IFC4-PSD:propertyDef          :p7bf38400d1e811e1800000215ad4efdf , :p75650c80d1e811e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeOilMeter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p75650c80d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the size of inlet and outlet pipe connections to the meter." ;
+        rdfs:label                "ConnectionSize" ;
+        IFC4-PSD:definition       "Defines the size of inlet and outlet pipe connections to the meter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "75650c80d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p7bf38400d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum rate of flow which the meter is expected to pass." ;
+        rdfs:label                "MaximumFlowRate" ;
+        IFC4-PSD:definition       "Maximum rate of flow which the meter is expected to pass." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7bf38400d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumFlowRate" ;
+        IFC4-PSD:nameAlias        "Maximum Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .

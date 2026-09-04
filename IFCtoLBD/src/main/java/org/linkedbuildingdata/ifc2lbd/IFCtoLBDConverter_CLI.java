@@ -2,12 +2,19 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import java.io.File;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+import java.util.List;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.concurrent.Callable;
 
-import org.apache.jena.rdf.model.Model;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.sys.JenaSystem;
 
 import picocli.CommandLine;
@@ -34,7 +41,8 @@ import picocli.CommandLine.Parameters;
  * limitations under the License.
  */
 
-@Command(name = "IFCtoLBD_CLI", mixinStandardHelpOptions = true)
+@Command(name = "IFCtoLBD_CLI", mixinStandardHelpOptions = true,
+		versionProvider = IFCtoLBDConverter_CLI.ManifestVersionProvider.class)
 public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 	/*
@@ -112,6 +120,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasHierarchicalNaming" }, arity = "0..1", fallbackValue = "true", description = "HierarchicalNaming is used.")
 	private Optional<Boolean> hasHierarchicalNaming;
 
+	@Option(names = "--naming-strategy", description = "IRI strategy: ${COMPLETION-CANDIDATES}")
+	private Optional<ConversionProperties.NamingStrategy> namingStrategy;
+
 	@Option(names = { "--hasSimpleProperties" }, arity = "0..1", fallbackValue = "true", description = "Simplified property predicates are used.")
 	private Optional<Boolean> hasSimpleProperties;
 
@@ -123,6 +134,8 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 	@Option(names = { "--selectedPropertySet" }, description = "Include the selected property set. May be repeated.")
 	private Set<String> selectedPropertySets = new HashSet<>();
+	@Option(names = { "--property-mappings" }, description = "JSON array of property mapping rules.")
+	private Optional<String> propertyMappings;
 
 	
 	@Option(names = { "--hasPerformanceBoost" }, arity = "0..1", fallbackValue = "true", description = "PerformanceBoost is used.")
@@ -136,11 +149,22 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--JSON" }, arity = "0..1", fallbackValue = "true", description = "Export as JSON-LD.")
 	private Optional<Boolean> exportJSON;
 
+	@Option(names = "--profile", description = "Named conversion profile (for example core, properties-opm, geometry-full).")
+	private Optional<String> profile;
+
+	@Option(names = "--validate", arity = "0..1", fallbackValue = "true", description = "Run all standard SHACL validation packs.")
+	private Optional<Boolean> validate;
+
+	@Option(names = "--validation", description = "SHACL validation pack. May be repeated. Values: ${COMPLETION-CANDIDATES}")
+	private Set<ValidationShapePack> validationPacks = new HashSet<>();
+
+	@Option(names = "--model-scope", description = "Stable model identity namespace required by revision-ready profiles.")
+	private Optional<String> modelScope;
+
 	
 	
 	@Override
 	public Integer call() throws Exception {
-		String ifc_filename = this.ifc_filename;
 		File ifcFile = new File(ifc_filename);
 		if (!ifcFile.isFile()) {
 			System.err.println("Cannot read IFC file: " + ifc_filename);
@@ -150,143 +174,72 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			return 1;
 		}
 
-		String uriBase = "https://lbd.example.com/";
-		if (this.uriBase.isPresent())
-			uriBase = this.uriBase.get();
-
-		String target_file = ifc_filename.split("\\.ifc")[0] + ".ttl";
-		if (this.target_file.isPresent())
-			target_file = this.target_file.get();
-
-		int props_level = 1;
-		if (this.props_level.isPresent())
-			props_level = this.props_level.get();
-
-		boolean hasBuildingElements = false;
-		if (this.hasBuildingElements.isPresent())
-			hasBuildingElements = this.hasBuildingElements.get();
-
-		boolean hasSeparateBuildingElementsModel = false;
-		if (this.hasSeparateBuildingElementsModel.isPresent())
-			hasSeparateBuildingElementsModel = this.hasSeparateBuildingElementsModel.get();
-
-		boolean hasBuildingProperties = false;
-		if (this.hasBuildingProperties.isPresent())
-			hasBuildingProperties = this.hasBuildingProperties.get();
-
-		boolean hasSeparatePropertiesModel = false;
-		if (this.hasSeparatePropertiesModel.isPresent())
-			hasSeparatePropertiesModel = this.hasSeparatePropertiesModel.get();
-
-		boolean hasPropertiesBlankNodes = false;
-		if (this.hasPropertiesBlankNodes.isPresent())
-			hasPropertiesBlankNodes = this.hasPropertiesBlankNodes.get();
-
-		boolean hasGeolocation = false;
-		if (this.hasGeolocation.isPresent())
-			hasGeolocation = this.hasGeolocation.get();
-
-		System.out.println("Target is: " + target_file);
-
-		boolean hasGeometry = false;
-		if (this.hasGeometry.isPresent())
-			hasGeometry = this.hasGeometry.get();
-
-		boolean exportIfcOWL = false;
-		if (this.exportIfcOWL.isPresent())
-			exportIfcOWL = this.exportIfcOWL.get();
-
-		boolean hasIfc_based_elements = false;
-		if (this.hasIfc_based_elements.isPresent())
-			hasIfc_based_elements = this.hasIfc_based_elements.get();
-		
-		boolean hasBoundingBoxWKT = false ;
-		if (this.hasBoundingBoxWKT.isPresent())
-			hasBoundingBoxWKT = this.hasBoundingBoxWKT.get();
-
-		boolean hasWireframe = false;
-		if (this.hasWireframe.isPresent())
-			hasWireframe = this.hasWireframe.get();
-		if (hasWireframe)
-			hasGeometry = true;
-		
-		boolean hasHierarchicalNaming = false ;
-		if (this.hasHierarchicalNaming.isPresent())
-			hasHierarchicalNaming = this.hasHierarchicalNaming.get();
-
-		boolean hasPerformanceBoost = false ;
-		if (this.hasPerformanceBoost.isPresent())
-			hasPerformanceBoost = this.hasPerformanceBoost.get();
-
-		boolean namedGraphs = false;
-		if (this.namedGraphs.isPresent())
-			namedGraphs = this.namedGraphs.get();
-
-		boolean hasUnits = false;
-		if (this.hasUnits.isPresent())
-			hasUnits = this.hasUnits.get();
-
-		
-		boolean hasInterfaces = false;
-		if (this.hasInterfaces.isPresent())
-			hasInterfaces = this.hasInterfaces.get();
-		
-		boolean exportJSON = false;
-		if (this.exportJSON.isPresent())
-			exportJSON = this.exportJSON.get();
-
-		boolean hasSimpleProperties = false;
-		if (this.hasSimpleProperties.isPresent())
-			hasSimpleProperties = this.hasSimpleProperties.get();
-
-		boolean propertiesAsPropertySets = false;
-		if (this.propertiesAsPropertySets.isPresent())
-			propertiesAsPropertySets = this.propertiesAsPropertySets.get();
-
-		
-		IFCtoLBDConverter c1nb = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes, props_level);
-		//c1nb.convert(ifc_filename, target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
-		//		hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits);
-
-		
-		
-		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase, hasPropertiesBlankNodes,
-				props_level);) {
-			boolean readOk = converter.convert_read_in_phase(ifc_filename, target_file, hasGeometry,
-					hasPerformanceBoost, exportIfcOWL, hasBuildingElements, hasBuildingProperties,
-					hasBoundingBoxWKT, hasUnits);
-			if (!readOk) {
-				System.err.println("Conversion stopped because the IFC file could not be read.");
-				return 1;
-			}
-				
-			converter.setHasNonLBDElement(hasIfc_based_elements);
-			converter.setHasSimplified_properties(hasSimpleProperties);
-			converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
-			converter.setSelected_types(this.selectedTypes);
-			if (!this.selectedPropertySets.isEmpty())
-				converter.setSelected_psets(this.selectedPropertySets);
-			
-			converter.convert_LBD_phase(hasBuildingElements,
-					hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
-					hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT, hasHierarchicalNaming,
-					hasInterfaces, namedGraphs, exportJSON, hasWireframe);
-
+		String outputFile = target_file.orElseGet(() -> ifc_filename.replaceFirst("(?i)\\.ifc(?:zip)?$", "")
+				+ (namedGraphs.orElse(false) ? ".trig" : exportJSON.orElse(false) ? ".jsonld" : ".ttl"));
+		ConversionRequest request;
+		if (profile.isPresent()) {
+			request = new ConversionRequest(ifcFile.getAbsolutePath(), ConversionProfiles.named(profile.get()));
+		} else {
+			ConversionProperties properties = legacyProperties();
+			request = new ConversionRequest(ifcFile.getAbsolutePath(), properties);
 		}
-		return null;
+		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
+		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
+		if (validate.orElse(false)) request = request.withStandardValidation();
+		else if (!validationPacks.isEmpty())
+			request = request.withValidation(validationPacks.toArray(ValidationShapePack[]::new));
+
+		System.out.println("Target is: " + outputFile);
+		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
+				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
+				ConversionResult result = converter.convert(request);
+				OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
+			if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
+			else if (exportJSON.orElse(false)) RDFDataMgr.write(output, result.getModel(), RDFFormat.JSONLD);
+			else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
+		}
+		return 0;
+	}
+
+	private ConversionProperties legacyProperties() {
+		ConversionProperties properties = new ConversionProperties();
+		properties.setHasBuildingElements(hasBuildingElements.orElse(false));
+		properties.setHasSeparateBuildingElementsModel(hasSeparateBuildingElementsModel.orElse(false));
+		properties.setHasBuildingProperties(hasBuildingProperties.orElse(false));
+		properties.setHasSeparatePropertiesModel(hasSeparatePropertiesModel.orElse(false));
+		properties.setHasGeolocation(hasGeolocation.orElse(false));
+		boolean wireframe = hasWireframe.orElse(false);
+		properties.setHasGeometry(hasGeometry.orElse(false) || wireframe);
+		properties.setExportIfcOWL(exportIfcOWL.orElse(false));
+		properties.setHasUnits(hasUnits.orElse(false));
+		properties.setHasBoundingBoxWKT(hasBoundingBoxWKT.orElse(false));
+		properties.setHasWireframe(wireframe);
+		properties.setHasHierarchicalNaming(hasHierarchicalNaming.orElse(false));
+		if (namingStrategy.isPresent()) properties.setNamingStrategy(namingStrategy.get());
+		properties.setHasPerformanceBoost(hasPerformanceBoost.orElse(false));
+		properties.setHasNonLBDElement(hasIfc_based_elements.orElse(false));
+		properties.setHasInterfaces(hasInterfaces.orElse(false));
+		if (propertiesAsPropertySets.orElse(false)) properties.setPropertyMode(ConversionProperties.PropertyMode.OPM);
+		else if (hasSimpleProperties.orElse(false)) properties.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
+		propertyMappings.ifPresent(json -> {
+			try { properties.setPropertyMappings(new ObjectMapper().readValue(json, new TypeReference<List<PropertyMappingRule>>() {})); }
+			catch (Exception e) { throw new IllegalArgumentException("Invalid --property-mappings JSON", e); }
+		});
+		return properties;
 	}
 
 	public static void main(String[] args) {
 		JenaSystem.init();
 		IFCtoLBDConverter_CLI cli = new IFCtoLBDConverter_CLI();
-		CommandLine commandLine = new CommandLine(cli);
-		int exitCode = commandLine.execute(args);
-		if (commandLine.isVersionHelpRequested()) {
-
-			System.out.println("Program version is  2.43.5.");
-
-		}
+		int exitCode = new CommandLine(cli).execute(args);
 		System.exit(exitCode);
+	}
+
+	public static final class ManifestVersionProvider implements CommandLine.IVersionProvider {
+		@Override public String[] getVersion() {
+			String version = IFCtoLBDConverter.class.getPackage().getImplementationVersion();
+			return new String[] { version == null || version.isBlank() ? "development build" : version };
+		}
 	}
 
 }

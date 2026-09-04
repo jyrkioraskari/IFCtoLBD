@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamTypeActive#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AirflowRateRange  a        rdf:Property ;
+        rdfs:seeAlso        :p8acd3d00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirflowRateRange .
+
+:p915bb480d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The manner in which the pipe connection is made to the cooled beam." ;
+        rdfs:label                "SupplyAirConnectionType" ;
+        IFC4-PSD:definition       "The manner in which the pipe connection is made to the cooled beam." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "915bb480d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupplyAirConnectionType" ;
+        IFC4-PSD:nameAlias        "Supply Air Connection Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "STRAIGHT" , "RIGHT" , "LEFT" , "TOP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p8acd3d00d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Possible range of airflow that can be delivered." ;
+        rdfs:label                "AirflowRateRange" ;
+        IFC4-PSD:definition       "Possible range of airflow that can be delivered." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8acd3d00d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirflowRateRange" ;
+        IFC4-PSD:nameAlias        "Airflow Rate Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p7c7f2100d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air flow configuration type of cooled beam." ;
+        rdfs:label                "AirFlowConfiguration" ;
+        IFC4-PSD:definition       "Air flow configuration type of cooled beam." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7c7f2100d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowConfiguration" ;
+        IFC4-PSD:nameAlias        "Air Flow Configuration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BIDIRECTIONAL" , "UNIDIRECTIONALRIGHT" , "UNIDIRECTIONALLEFT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :pa0426700d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:pa0426700d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Duct connection diameter." ;
+        rdfs:label                "ConnectionSize" ;
+        IFC4-PSD:definition       "Duct connection diameter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a0426700d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamTypeActive>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SupplyAirConnectionType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p915bb480d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupplyAirConnectionType .
+
+:AirFlowConfiguration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7c7f2100d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowConfiguration .
+
+:Pset_CooledBeamTypeActive
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Active (ventilated) cooled beam common attributes." ;
+        rdfs:label                    "Pset_CooledBeamTypeActive" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCooledBeam/ACTIVE> ;
+        IFC4-PSD:applicableTypeValue  "IfcCooledBeam/ACTIVE" ;
+        IFC4-PSD:definition           "Active (ventilated) cooled beam common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CooledBeamTypeActive" ;
+        IFC4-PSD:propertyDef          :p8acd3d00d1ce11e1800000215ad4efdf , :p7c7f2100d1ce11e1800000215ad4efdf , :p915bb480d1ce11e1800000215ad4efdf , :pa0426700d1ce11e1800000215ad4efdf .

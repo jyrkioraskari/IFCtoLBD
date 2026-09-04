@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCistern#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:IsAutomaticFlush  a        rdf:Property ;
+        rdfs:seeAlso        :p9cc8d300d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsAutomaticFlush .
+
+:CisternCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :p786cf680d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CisternCapacity .
+
+:IsSingleFlush  a           rdf:Property ;
+        rdfs:seeAlso        :p7dca4100d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsSingleFlush .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCistern>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SanitaryTerminalTypeCistern
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A water storage unit attached to a sanitary terminal that is fitted with a device, operated automatically or by the user, that discharges water to cleanse a water closet (toilet) pan, urinal or slop hopper. (BS6100 330 5008)" ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeCistern" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/CISTERN> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/CISTERN" ;
+        IFC4-PSD:definition           "A water storage unit attached to a sanitary terminal that is fitted with a device, operated automatically or by the user, that discharges water to cleanse a water closet (toilet) pan, urinal or slop hopper. (BS6100 330 5008)" ;
+        IFC4-PSD:definitionAlias      ""@en , "衛生配管に接続されている貯水装置で、自動または手動により、大便器（トイレ）パン、小便器や汚物ホッパーなどを排水により洗浄する。 （BS61003305008）"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeCistern" ;
+        IFC4-PSD:propertyDef          :p95a1c500d20211e1800000215ad4efdf , :p9cc8d300d20211e1800000215ad4efdf , :p786cf680d20211e1800000215ad4efdf , :p84f14f00d20211e1800000215ad4efdf , :p7dca4100d20211e1800000215ad4efdf , :p6a1eda80d20211e1800000215ad4efdf .
+
+:p786cf680d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volumetric capacity of the cistern" ;
+        rdfs:label                "CisternCapacity" ;
+        IFC4-PSD:definition       "Volumetric capacity of the cistern" ;
+        IFC4-PSD:definitionAlias  ""@en , "貯水タンクの体積容量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "786cf680d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CisternCapacity" ;
+        IFC4-PSD:nameAlias        "Cistern Capacity"@en , "貯水タンク容量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:FlushRate  a               rdf:Property ;
+        rdfs:seeAlso        :p95a1c500d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlushRate .
+
+:p9cc8d300d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Boolean value that determines if the cistern is flushed automatically either after each use or periodically (TRUE) or whether manual flushing is required (FALSE)." ;
+        rdfs:label                "IsAutomaticFlush" ;
+        IFC4-PSD:definition       "Boolean value that determines if the cistern is flushed automatically either after each use or periodically (TRUE) or whether manual flushing is required (FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "貯水タンクは、使用後に自動的または定期的に洗浄する場合（TRUE）、手動で洗浄する場合（FALSE）をブーリアン値で指定する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9cc8d300d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsAutomaticFlush" ;
+        IFC4-PSD:nameAlias        "Is Automatic Flush"@en , "自動フラッシュか"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p7dca4100d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the cistern is single flush = TRUE (i.e. the same amount of water is used for each and every flush) or dual flush = FALSE (i.e. the amount of water used for a flush may be selected by the user to be high or low depending on the waste material to be removed)." ;
+        rdfs:label                "IsSingleFlush" ;
+        IFC4-PSD:definition       "Indicates whether the cistern is single flush = TRUE (i.e. the same amount of water is used for each and every flush) or dual flush = FALSE (i.e. the amount of water used for a flush may be selected by the user to be high or low depending on the waste material to be removed)." ;
+        IFC4-PSD:definitionAlias  ""@en , "単一フラッシュ= TRUE（各洗浄に同量の水が使用される）、デュアルフラッシュ= FALSE（洗浄する汚物に応じてハイまたはローをユーザが選択することができるフラッシュ使用）の指標を設定する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7dca4100d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsSingleFlush" ;
+        IFC4-PSD:nameAlias        "Is Single Flush"@en , "単一のフラッシュ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p95a1c500d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The minimum and maximum volume of water used at each flush. Where a single flush is used, the value of upper bound and lower bound should be equal. For a dual flush toilet, the lower bound should be used for the lesser flush rate and the upper bound for the greater flush rate. Where flush is achieved using mains pressure water through a flush valve, the value of upper and lower bound should be equal and should be the same as the flush rate property of the flush valve (see relevant valve property set). Alternatively, in this case, do not assert the flush rate property; refer to the flush rate of the flush valve." ;
+        rdfs:label                "FlushRate" ;
+        IFC4-PSD:definition       "The minimum and maximum volume of water used at each flush. Where a single flush is used, the value of upper bound and lower bound should be equal. For a dual flush toilet, the lower bound should be used for the lesser flush rate and the upper bound for the greater flush rate. Where flush is achieved using mains pressure water through a flush valve, the value of upper and lower bound should be equal and should be the same as the flush rate property of the flush valve (see relevant valve property set). Alternatively, in this case, do not assert the flush rate property; refer to the flush rate of the flush valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "各フラッシュで使用される水量の最小値と最大値。単一フラッシュが使用されている場合、上下限値は同じ。デュアルフラッシュトイレについては、下限が低いフラッシュレート、上限に大きいフラッシュ率を使用する。ここで、洗浄はフラッシュバルブを通した水の水圧を用いて達成されるので、フラッシュレートとフラッシュバルブの上下限値と等しくなければなりません（関連バルブプロパティセットを参照してください）。また、この場合には、フラッシュレートのプロパティを設定しない。フラッシュバルブのフラッシュレートを参照。"@ja-JP ;
+        IFC4-PSD:ifdguid          "95a1c500d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlushRate" ;
+        IFC4-PSD:nameAlias        "Flush Rate"@en , "フラッシュレート"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:p84f14f00d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The property enumeration Pset_FlushTypeEnum defines the types of flushing mechanism that may be specified for cisterns and sanitary terminals where:-\n\nLever: \tFlushing is achieved by twisting a lever that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nPull: \tFlushing is achieved by pulling a handle or knob vertically upwards that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nPush: \tFlushing is achieved by pushing a button or plate that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nSensor: Flush is activated through an automatic sensing mechanism." ;
+        rdfs:label                "FlushType" ;
+        IFC4-PSD:definition       "The property enumeration Pset_FlushTypeEnum defines the types of flushing mechanism that may be specified for cisterns and sanitary terminals where:-\n\nLever: \tFlushing is achieved by twisting a lever that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nPull: \tFlushing is achieved by pulling a handle or knob vertically upwards that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nPush: \tFlushing is achieved by pushing a button or plate that causes a predetermined flow of water to be passed from a cistern to the sanitary terminal.\nSensor: Flush is activated through an automatic sensing mechanism." ;
+        IFC4-PSD:definitionAlias  "列挙するプロパティはPset_FlushTypeEnumでは貯水槽や衛生配管の配置による、フラッシュメカニズムのタイプを定義する：\n\nレバー式：洗浄水は、レバーをねじることによって貯水タンクから衛生配管にの所定の流量を流す。\n\n引っ張り式：洗浄水は、ハンドルまたはノブを垂直方向に引くことによって貯水タンクから衛生配管にの所定の流量を流す。\n\n押しボタン式：洗浄水は、ボタンかプレートを押すことによって貯水タンクから衛生配管にの所定の流量を流す。\n\nセンサー式：洗浄水は、自動検出機構を介して作動する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "84f14f00d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlushType" ;
+        IFC4-PSD:nameAlias        "Flush Type"@en , "タイプフラッシュ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LEVER" , "PULL" , "PUSH" , "SENSOR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:FlushType  a               rdf:Property ;
+        rdfs:seeAlso        :p84f14f00d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlushType .
+
+:CisternHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p6a1eda80d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CisternHeight .
+
+:p6a1eda80d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies the height of the cistern or, if set to 'None' if the urinal has no cistern and is flushed using mains or high pressure water through a flushing valve." ;
+        rdfs:label                "CisternHeight" ;
+        IFC4-PSD:definition       "Enumeration that identifies the height of the cistern or, if set to 'None' if the urinal has no cistern and is flushed using mains or high pressure water through a flushing valve." ;
+        IFC4-PSD:definitionAlias  "貯水タンクの高さを示す。小便器がフラッシュバルブを使い貯水タンクを持っていない場合は'None'に設定される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6a1eda80d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CisternHeight" ;
+        IFC4-PSD:nameAlias        "貯水タンクの高さ"@ja-JP , "Cistern Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HIGHLEVEL" , "LOWLEVEL" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

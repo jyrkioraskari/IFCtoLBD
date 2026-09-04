@@ -16,6 +16,7 @@ C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildi
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\UNIT.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\IFCtoLBDConverter_CLI.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\IfcOpenShellGeometryProvider.java
+C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\PropertyMappingRule.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\tests\ProfilingTests.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\examples\Example4.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\com\openifctools\guidcompressor\Guid.java
@@ -25,6 +26,7 @@ C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildi
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\examples\Example11.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\examples\IPE240Tekla_L3_maped.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\GeometryArtifactStore.java
+C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\ConversionContext.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\SMLS.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\OMG.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\BSDD.java
@@ -79,6 +81,7 @@ C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildi
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\examples\Example7.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\ConversionProfile.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\core\utils\ontology\CreatePsetDescriptionOntologies.java
+C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\SustainabilityStage.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\GeometryArtifact.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\abstract_NS.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\de\rwth_aachen\dc\ifc2lbd\CreateOntology.java
@@ -89,9 +92,11 @@ C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\examples\Example
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\ConversionProfiles.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\SupplyChainStage.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\core\utils\rdfpath\InvRDFStep.java
+C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\ConversionGraphNames.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\core\utils\FileUtils.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\IfcCoordinateReferenceSystemInfo.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\RevisionComparator.java
+C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\McpConversionBridge.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\ConversionResult.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\namespace\IfcOWL.java
 C:\Users\kiori\Documents\GitHub\IFCtoLBD\IFCtoLBD\src\main\java\org\linkedbuildingdata\ifc2lbd\BuiltInConversionModule.java

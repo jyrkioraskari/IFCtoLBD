@@ -325,7 +325,7 @@ public class PropertySet {
 					state_resourse = this.lbd_model.createResource();
 				else
 					state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid
-							+ "_p" + PropertySet.state_resourse_counter++);
+							+ "_p" + stableValueId(this.mapPnameValue.get(pname)));
 				// https://w3c-lbd-cg.github.io/opm/assets/states.svg
 				property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
@@ -467,6 +467,10 @@ public class PropertySet {
 
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
 		this.hasSimplified_properties = hasSimplified_properties;
+	}
+
+	private static String stableValueId(RDFNode value) {
+		return Integer.toUnsignedString(java.util.Objects.toString(value, "").hashCode(), 36);
 	}
 
 	public void setPropertiesAsPropertySets(boolean propertiesAsPropertySets) {

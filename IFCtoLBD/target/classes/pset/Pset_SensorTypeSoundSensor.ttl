@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeSoundSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SetPointSound  a           rdf:Property ;
+        rdfs:seeAlso        :p7442d800d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointSound .
+
+:Pset_SensorTypeSoundSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects sound. HISTORY: SoundSensorSensorSetPoint changed to SetPointSound. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeSoundSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/SOUNDSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/SOUNDSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects sound. HISTORY: SoundSensorSensorSetPoint changed to SetPointSound. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en , "音を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeSoundSensor" ;
+        IFC4-PSD:propertyDef          :p7442d800d20611e1800000215ad4efdf .
+
+:p7442d800d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The sound pressure value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointSound" ;
+        IFC4-PSD:definition       "The sound pressure value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 음압. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en , "感知される音圧。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7442d800d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointSound" ;
+        IFC4-PSD:nameAlias        "音圧設定値"@ja-JP , "읍압 설정치"@ko-KR , "Set Point Sound"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSoundPressureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeSoundSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

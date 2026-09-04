@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BurnerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:EnergySource  a            rdf:Property ;
+        rdfs:seeAlso        :p3cb43b80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergySource .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p273f1180d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p273f1180d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR ;
+        IFC4-PSD:ifdguid          "273f1180d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Référence"@fr-FR , "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p2d34f280d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC-PSD/Pset_BurnerTypeCommon>
+        a            owl:Ontology ;
+        owl:imports  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> .
+
+:p3cb43b80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the energy source or fuel cumbusted to generate heat." ;
+        rdfs:label                "EnergySource" ;
+        IFC4-PSD:definition       "Enumeration defining the energy source or fuel cumbusted to generate heat." ;
+        IFC4-PSD:definitionAlias  "Liste définissant les sources d'énergie ou combustibles pour générer la chaleur."@fr-FR , ""@en , "加熱に使用する燃料のエネルギ種類　（石炭、石炭粉末、電気、ガス、油、プロパン、木材、木材チップ、木材ペレット、木粉、他）"@ja-JP ;
+        IFC4-PSD:ifdguid          "3cb43b80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergySource" ;
+        IFC4-PSD:nameAlias        "SourceEnergie"@fr-FR , "Energy Source"@en , "エネルギ源"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ELECTRICITY" , "WOOD_PULVERIZED" , "PROPANE" , "NOTKNOWN" , "UNSET" , "GAS" , "COAL_PULVERIZED" , "WOOD_CHIP" , "OIL" , "WOOD_PELLET" , "OTHER" , "WOOD" , "COAL"
+                                  ] .
+
+:p2d34f280d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en , "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR ;
+        IFC4-PSD:ifdguid          "2d34f280d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en , "Etat"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "NEW" , "EXISTING" , "DEMOLISH"
+                                  ] .
+
+:Pset_BurnerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes of burner types." ;
+        rdfs:label                    "Pset_BurnerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBurner ;
+        IFC4-PSD:applicableTypeValue  "IfcBurner" ;
+        IFC4-PSD:definition           "Common attributes of burner types." ;
+        IFC4-PSD:definitionAlias      "バーナータイプの共通属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BurnerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p3cb43b80d1c611e1800000215ad4efdf , :p273f1180d1c611e1800000215ad4efdf , :p2d34f280d1c611e1800000215ad4efdf .

@@ -1,0 +1,129 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeSecurityLighting#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_LightFixtureTypeSecurityLighting
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties that characterize security lighting." ;
+        rdfs:label                    "Pset_LightFixtureTypeSecurityLighting" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcLightFixture/SECURITYLIGHTING> ;
+        IFC4-PSD:applicableTypeValue  "IfcLightFixture/SECURITYLIGHTING" ;
+        IFC4-PSD:definition           "Properties that characterize security lighting." ;
+        IFC4-PSD:definitionAlias      ""@en , "防犯灯の特徴プロパティ。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_LightFixtureTypeSecurityLighting" ;
+        IFC4-PSD:propertyDef          :p28833500d1ec11e1800000215ad4efdf , :p1a351900d1ec11e1800000215ad4efdf , :p0d182a00d1ec11e1800000215ad4efdf , :pf5d93c80d1eb11e1800000215ad4efdf , :p05588580d1ec11e1800000215ad4efdf , :p35a02400d1ec11e1800000215ad4efdf .
+
+:FixtureHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p05588580d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FixtureHeight .
+
+:p28833500d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The direction of escape pictogram." ;
+        rdfs:label                "PictogramEscapeDirection" ;
+        IFC4-PSD:definition       "The direction of escape pictogram." ;
+        IFC4-PSD:definitionAlias  "피난 표지판 방향"@ko-KR , "避難標識の向き。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "28833500d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PictogramEscapeDirection" ;
+        IFC4-PSD:nameAlias        "避難標識の向き"@ja-JP , "피난 표지판 방향"@ko-KR , "Pictogram Escape Direction"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "RIGHTARROW" , "LEFTARROW" , "DOWNARROW" , "UPARROW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SelfTestFunction  a        rdf:Property ;
+        rdfs:seeAlso        :p0d182a00d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SelfTestFunction .
+
+:p0d182a00d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of self test function." ;
+        rdfs:label                "SelfTestFunction" ;
+        IFC4-PSD:definition       "The type of self test function." ;
+        IFC4-PSD:definitionAlias  ""@en , "자기 진단 기능의 유형"@ko-KR , "自己診断機能のタイプ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "0d182a00d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SelfTestFunction" ;
+        IFC4-PSD:nameAlias        "Self Test Function"@en , "자기 진단 기능"@ko-KR , "自己診断機能"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CENTRAL" , "LOCAL" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Addressablility  a         rdf:Property ;
+        rdfs:seeAlso        :p35a02400d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Addressablility .
+
+:pf5d93c80d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of security lighting." ;
+        rdfs:label                "SecurityLightingType" ;
+        IFC4-PSD:definition       "The type of security lighting." ;
+        IFC4-PSD:definitionAlias  "防犯灯のタイプ。"@ja-JP , ""@en , "방범등 유형"@ko-KR ;
+        IFC4-PSD:ifdguid          "f5d93c80d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecurityLightingType" ;
+        IFC4-PSD:nameAlias        "防犯灯"@ja-JP , "방범등"@ko-KR , "Security Lighting Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SAFETYLIGHT" , "WARNINGLIGHT" , "EMERGENCYEXITLIGHT" , "BLUEILLUMINATION" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:BackupSupplySystem  a      rdf:Property ;
+        rdfs:seeAlso        :p1a351900d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BackupSupplySystem .
+
+:p1a351900d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of backup supply system." ;
+        rdfs:label                "BackupSupplySystem" ;
+        IFC4-PSD:definition       "The type of backup supply system." ;
+        IFC4-PSD:definitionAlias  "電源バックアップシステムのタイプ。"@ja-JP , ""@en , "전원 백업 시스템 유형"@ko-KR ;
+        IFC4-PSD:ifdguid          "1a351900d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BackupSupplySystem" ;
+        IFC4-PSD:nameAlias        "전원백업 시스템"@ko-KR , "電源バックアップシステム"@ja-JP , "Backup Supply System"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LOCALBATTERY" , "CENTRALBATTERY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:PictogramEscapeDirection
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p28833500d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PictogramEscapeDirection .
+
+:p05588580d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The height of the fixture, such as the text height of an exit sign." ;
+        rdfs:label                "FixtureHeight" ;
+        IFC4-PSD:definition       "The height of the fixture, such as the text height of an exit sign." ;
+        IFC4-PSD:definitionAlias  "出口標識などの器具の高さ。"@ja-JP , ""@en , "출구 표지판 등의기구의 높이"@ko-KR ;
+        IFC4-PSD:ifdguid          "05588580d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FixtureHeight" ;
+        IFC4-PSD:nameAlias        "기구의 높이"@ko-KR , "器具の高さ"@ja-JP , "Fixture Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeSecurityLighting>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SecurityLightingType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf5d93c80d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecurityLightingType .
+
+:p35a02400d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of addressability." ;
+        rdfs:label                "Addressablility" ;
+        IFC4-PSD:definition       "The type of addressability." ;
+        IFC4-PSD:definitionAlias  "アドレス指定能力のタイプ。"@ja-JP , ""@en , "주소 지정 능력 타입"@ko-KR ;
+        IFC4-PSD:ifdguid          "35a02400d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Addressablility" ;
+        IFC4-PSD:nameAlias        "주소 지정 능력"@ko-KR , "アドレス指定能力"@ja-JP , "Addressablility"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "IMPLEMENTED" , "UPGRADEABLETO" , "NOTIMPLEMENTED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

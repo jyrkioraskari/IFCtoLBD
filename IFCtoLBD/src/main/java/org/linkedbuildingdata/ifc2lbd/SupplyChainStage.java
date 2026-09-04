@@ -28,7 +28,9 @@ public final class SupplyChainStage {
 			Map.entry("batchreference", "batchId"), Map.entry("productionlotid", "productionLotId"),
 			Map.entry("serialnumber", "serialNumber"), Map.entry("warrantyidentifier", "warrantyId"),
 			Map.entry("warrantystartdate", "warrantyStartDate"), Map.entry("warrantyenddate", "warrantyEndDate"),
-			Map.entry("warrantyperiod", "warrantyPeriod"), Map.entry("globalwarmingpotential", "globalWarmingPotential"),
+			Map.entry("warrantyperiod", "warrantyPeriod"));
+	private static final Map<String, String> SUSTAINABILITY_PROPERTIES = Map.ofEntries(
+			Map.entry("globalwarmingpotential", "globalWarmingPotential"),
 			Map.entry("embodiedcarbon", "embodiedCarbon"));
 	private static final Map<String, String> EPD_PROPERTIES = Map.ofEntries(
 			Map.entry("environmentalproductdeclarationidentifier", "declarationId"),
@@ -42,17 +44,30 @@ public final class SupplyChainStage {
 
 	public static void enrich(Model ifcModel, IfcOWL ifc, Model output, Map<Resource, Resource> resources,
 			ClassificationResolver resolver) {
+		enrichSupplyChain(ifcModel, ifc, output, resources, resolver);
+		enrichSustainability(ifcModel, ifc, output, resources);
+	}
+
+	public static void enrichSupplyChain(Model ifcModel, IfcOWL ifc, Model output,
+			Map<Resource, Resource> resources, ClassificationResolver resolver) {
 		output.setNsPrefix("supply", NS);
 		output.setNsPrefix("prov", PROV);
 		output.setNsPrefix("qudt", QUDT);
-		output.setNsPrefix("sust", SUSTAINABILITY);
 		extractClassifications(ifcModel, ifc, output, resources, resolver);
-		Set<String> directlyExtracted = extractPropertySets(ifcModel, ifc, output, resources);
-		normalizeExistingProperties(output, directlyExtracted);
+		Set<String> directlyExtracted = extractPropertySets(ifcModel, ifc, output, resources, false);
+		normalizeExistingProperties(output, directlyExtracted, false);
+	}
+
+	static void enrichSustainability(Model ifcModel, IfcOWL ifc, Model output,
+			Map<Resource, Resource> resources) {
+		output.setNsPrefix("sust", SUSTAINABILITY);
+		output.setNsPrefix("qudt", QUDT);
+		Set<String> directlyExtracted = extractPropertySets(ifcModel, ifc, output, resources, true);
+		normalizeExistingProperties(output, directlyExtracted, true);
 	}
 
 	private static Set<String> extractPropertySets(Model ifcModel, IfcOWL ifc, Model output,
-			Map<Resource, Resource> resources) {
+			Map<Resource, Resource> resources, boolean sustainability) {
 		Set<String> extracted = new HashSet<>();
 		Resource relationType = ifcModel.createResource(ifc.getIfcURI() + "IfcRelDefinesByProperties");
 		ifcModel.listResourcesWithProperty(RDF.type, relationType).forEachRemaining(relation -> {
@@ -66,8 +81,9 @@ public final class SupplyChainStage {
 				Resource property = node.asResource();
 				String propertyName = firstText(property, ifc, "name_IfcProperty");
 				RDFNode value = propertyValue(property, ifc.getNominalValue_IfcPropertySingleValue());
-				String normalized = NORMALIZED_PROPERTIES.get(normalizeName(propertyName));
-				String epdProperty = EPD_PROPERTIES.get(normalizeName(propertyName));
+				String normalized = (sustainability ? SUSTAINABILITY_PROPERTIES : NORMALIZED_PROPERTIES)
+						.get(normalizeName(propertyName));
+				String epdProperty = sustainability ? EPD_PROPERTIES.get(normalizeName(propertyName)) : null;
 				if (value == null || (normalized == null && epdProperty == null)) return;
 				for (RDFNode targetNode : targets) {
 					Resource target = targetNode.isResource() ? resources.get(targetNode.asResource()) : null;
@@ -132,13 +148,14 @@ public final class SupplyChainStage {
 		});
 	}
 
-	private static void normalizeExistingProperties(Model output, Set<String> directlyExtracted) {
+	private static void normalizeExistingProperties(Model output, Set<String> directlyExtracted,
+			boolean sustainability) {
 		output.listStatements().toList().forEach(statement -> {
 			if (!statement.getObject().isLiteral()) return;
 			String key = statement.getPredicate().getLocalName().replaceAll("_(property|attribute)_simple$", "")
 					.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
-			String normalized = NORMALIZED_PROPERTIES.get(key);
-			String epdProperty = EPD_PROPERTIES.get(key);
+			String normalized = (sustainability ? SUSTAINABILITY_PROPERTIES : NORMALIZED_PROPERTIES).get(key);
+			String epdProperty = sustainability ? EPD_PROPERTIES.get(key) : null;
 			if (!statement.getSubject().isURIResource()) return;
 			if (directlyExtracted.contains(statement.getSubject().getURI() + "\u0000" + key)) return;
 			if (epdProperty != null) normalizeEpdProperty(output, statement.getSubject(), statement.getObject(),

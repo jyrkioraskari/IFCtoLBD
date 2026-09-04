@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypeWorkSurface#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NominalThickness  a        rdf:Property ;
+        rdfs:seeAlso        :p8a08cb00d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalThickness .
+
+:SupportType  a             rdf:Property ;
+        rdfs:seeAlso        :p73fb0a80d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupportType .
+
+:ShapeDescription  a        rdf:Property ;
+        rdfs:seeAlso        :p92610600d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShapeDescription .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypeWorkSurface>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SystemFurnitureElementTypeWorkSurface
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of specific properties for work surfaces used in workstations. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Worksurface" ;
+        rdfs:label                    "Pset_SystemFurnitureElementTypeWorkSurface" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSystemFurnitureElement/WORKSURFACE> ;
+        IFC4-PSD:applicableTypeValue  "IfcSystemFurnitureElement/WORKSURFACE" ;
+        IFC4-PSD:definition           "A set of specific properties for work surfaces used in workstations. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Worksurface" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SystemFurnitureElementTypeWorkSurface" ;
+        IFC4-PSD:propertyDef          :p807f6300d20f11e1800000215ad4efdf , :p6cd3fc80d20f11e1800000215ad4efdf , :p92610600d20f11e1800000215ad4efdf , :p8a08cb00d20f11e1800000215ad4efdf , :p73fb0a80d20f11e1800000215ad4efdf .
+
+:p6cd3fc80d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The principal purpose for which the work surface is intended to be used e.g. writing/reading, computer, meeting, printer, reference files, etc." ;
+        rdfs:label                "UsePurpose" ;
+        IFC4-PSD:definition       "The principal purpose for which the work surface is intended to be used e.g. writing/reading, computer, meeting, printer, reference files, etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6cd3fc80d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UsePurpose" ;
+        IFC4-PSD:nameAlias        "Use Purpose"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:HangingHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p807f6300d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HangingHeight .
+
+:p73fb0a80d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Available support types from which that required may be selected." ;
+        rdfs:label                "SupportType" ;
+        IFC4-PSD:definition       "Available support types from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "73fb0a80d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupportType" ;
+        IFC4-PSD:nameAlias        "Support Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HORZ_SEG" , "ACOUSTICAL" , "ENDS" , "GLAZED" , "NOTKNOWN" , "OPEN" , "UNSET" , "SCREEN" , "MONOLITHIC" , "OTHER" , "DOOR"
+                                  ] .
+
+:p807f6300d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The hanging height of the worksurface." ;
+        rdfs:label                "HangingHeight" ;
+        IFC4-PSD:definition       "The hanging height of the worksurface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "807f6300d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HangingHeight" ;
+        IFC4-PSD:nameAlias        "Hanging Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8a08cb00d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal thickness of the work surface." ;
+        rdfs:label                "NominalThickness" ;
+        IFC4-PSD:definition       "The nominal thickness of the work surface." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8a08cb00d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalThickness" ;
+        IFC4-PSD:nameAlias        "Nominal Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:UsePurpose  a              rdf:Property ;
+        rdfs:seeAlso        :p6cd3fc80d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UsePurpose .
+
+:p92610600d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A description of the shape of the work surface e.g. corner square, rectangle, etc." ;
+        rdfs:label                "ShapeDescription" ;
+        IFC4-PSD:definition       "A description of the shape of the work surface e.g. corner square, rectangle, etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "92610600d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShapeDescription" ;
+        IFC4-PSD:nameAlias        "Shape Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .

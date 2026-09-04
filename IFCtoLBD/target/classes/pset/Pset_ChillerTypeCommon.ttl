@@ -1,0 +1,220 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NominalEvaporatingTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0e842b00d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalEvaporatingTemperature .
+
+:pef859900d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR , ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "ef859900d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en , "Etat"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:NominalPowerConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p19d75680d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalPowerConsumption .
+
+:CapacityCurve  a           rdf:Property ;
+        rdfs:seeAlso        :p1e9c0a80d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CapacityCurve .
+
+:FullLoadRatioCurve  a      rdf:Property ;
+        rdfs:seeAlso        :p2fe51700d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FullLoadRatioCurve .
+
+:NominalEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p04622c80d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalEfficiency .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :peac0e500d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p147a0c00d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        rdfs:label                "NominalHeatRejectionRate" ;
+        IFC4-PSD:definition       "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        IFC4-PSD:definitionAlias  ""@en , "Somme de l'effet de réfrigération et de la chaleur équivalente à la puisssance absorbée par le compresseur."@fr-FR ;
+        IFC4-PSD:ifdguid          "147a0c00d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeatRejectionRate" ;
+        IFC4-PSD:nameAlias        "Nominal Heat Rejection Rate"@en , "CoefficientEvacuationNominaleChaleur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p1e9c0a80d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Chiller cooling capacity is a function of condensing temperature and evaporating temperature, data is in table form, Capacity = f (TempCon, TempEvp), capacity = a1+b1*Tei+c1*Tei^2+d1*Tci+e1*Tci^2+f1*Tei*Tci. \nThis table uses multiple input variables; to represent, both DefiningValues and DefinedValues lists are null and IfcTable is attached using IfcPropertyConstraintRelationship and IfcMetric.  Columns are specified in the following order: \n1.IfcPowerMeasure:Capacity\n2.IfcThermodynamicTemperatureMeasure:CondensingTemperature\n3.IfcThermodynamicTemperatureMeasure:EvaporatingTemperature" ;
+        rdfs:label                "CapacityCurve" ;
+        IFC4-PSD:definition       "Chiller cooling capacity is a function of condensing temperature and evaporating temperature, data is in table form, Capacity = f (TempCon, TempEvp), capacity = a1+b1*Tei+c1*Tei^2+d1*Tci+e1*Tci^2+f1*Tei*Tci. \nThis table uses multiple input variables; to represent, both DefiningValues and DefinedValues lists are null and IfcTable is attached using IfcPropertyConstraintRelationship and IfcMetric.  Columns are specified in the following order: \n1.IfcPowerMeasure:Capacity\n2.IfcThermodynamicTemperatureMeasure:CondensingTemperature\n3.IfcThermodynamicTemperatureMeasure:EvaporatingTemperature" ;
+        IFC4-PSD:definitionAlias  ""@en , "Puissance frigoifique du groupe froid qui est une fonction de la température de condensation et de la température d'évaporation, les informations sont sous la forme d'un tableau, Puissance = f(TempCon,TempEvp), puissance = a1+b1*Tei+c1*Tei^2+d1*Tci+e1*Tci^2+f1*Tei*Tci.\nCe tableau utilises plusieurs entrées variables; pour la  représenter, DefiningValues et DefinedValues sont pour les deux nulles et IfcTable est attachée en utilisant IfcPropertyConstraintRelationship et IfcMetric. Les colonnes sont indiquées dans l'ordre suivant:\n1. IfcPowerMeasure: Capacity\n2. IfcThermodynamicTemperatureMeasure: CondensingTemperature\n3. IfcThermodynamicTemperatureMeasure: EvaporatingTemperature"@fr-FR ;
+        IFC4-PSD:ifdguid          "1e9c0a80d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapacityCurve" ;
+        IFC4-PSD:nameAlias        "CourbePuissance"@fr-FR , "Capacity Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPowerMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pef859900d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p278cdc00d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Chiller coefficient of performance (COP) is function of condensing temperature and evaporating temperature, data is in table form, COP= f (TempCon, TempEvp), COP = a2+b2*Tei+c2*Tei^2+d2*Tci+e2*Tci^2+f2*Tei*Tci. \nThis table uses multiple input variables; to represent, both DefiningValues and DefinedValues lists are null and IfcTable is attached using IfcPropertyConstraintRelationship and IfcMetric.  Columns are specified in the following order: \n1.IfcPositiveRatioMeasure:CoefficientOfPerformance\n2.IfcThermodynamicTemperatureMeasure:CondensingTemperature\n3.IfcThermodynamicTemperatureMeasure:EvaporatingTemperature" ;
+        rdfs:label                "CoefficientOfPerformanceCurve" ;
+        IFC4-PSD:definition       "Chiller coefficient of performance (COP) is function of condensing temperature and evaporating temperature, data is in table form, COP= f (TempCon, TempEvp), COP = a2+b2*Tei+c2*Tei^2+d2*Tci+e2*Tci^2+f2*Tei*Tci. \nThis table uses multiple input variables; to represent, both DefiningValues and DefinedValues lists are null and IfcTable is attached using IfcPropertyConstraintRelationship and IfcMetric.  Columns are specified in the following order: \n1.IfcPositiveRatioMeasure:CoefficientOfPerformance\n2.IfcThermodynamicTemperatureMeasure:CondensingTemperature\n3.IfcThermodynamicTemperatureMeasure:EvaporatingTemperature" ;
+        IFC4-PSD:definitionAlias  ""@en , "Coefficient de Performance (COP) du groupe froid qui est une fonction de la température de condensation et de la température d'évaporation, les informations sont sous la forme d'un tableau, COP = f(TempCon,TempEvp), COP = a2+b1*Tei+c2*Tei^2+d2*Tci+e2*Tci^2+f2*Tei*Tci.\nCe tableau utilises plusieurs entrées variables; pour la  représenter, DefiningValues et DefinedValues sont pour les deux nulles et IfcTable est attachée en utilisant IfcPropertyConstraintRelationship et IfcMetric. Les colonnes sont indiquées dans l'ordre suivant:\n1. IfcPowerMeasureCapacity\n2. IfcThermodynamicTemperatureMeasure: CondensingTemperature\n3. IfcThermodynamicTemperatureMeasure: EvaporatingTemperature"@fr-FR ;
+        IFC4-PSD:ifdguid          "278cdc00d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoefficientOfPerformanceCurve" ;
+        IFC4-PSD:nameAlias        "CourbeCOP"@fr-FR , "Coefficient Of Performance Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p2fe51700d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of actual power to full load power as a quadratic function of part load, at certain condensing and evaporating temperature, FracFullLoadPower = f ( PartLoadRatio)." ;
+        rdfs:label                "FullLoadRatioCurve" ;
+        IFC4-PSD:definition       "Ratio of actual power to full load power as a quadratic function of part load, at certain condensing and evaporating temperature, FracFullLoadPower = f ( PartLoadRatio)." ;
+        IFC4-PSD:definitionAlias  "Rapport entre la puissance instantanée et la puissance à pleine charge comme fonction quadratique de charge partielle, pour une certaine température de condensation et une température d'évaporation, FracFullLoadPower= f (CoefficientChargePartielle)"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "2fe51700d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FullLoadRatioCurve" ;
+        IFC4-PSD:nameAlias        "Full Load Ratio Curve"@en , "CourbeFonctionnementPleineCharge"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_ChillerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Chiller type common attributes." ;
+        rdfs:label                    "Pset_ChillerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcChiller ;
+        IFC4-PSD:applicableTypeValue  "IfcChiller" ;
+        IFC4-PSD:definition           "Chiller type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ChillerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p0e842b00d1c911e1800000215ad4efdf , :p19d75680d1c911e1800000215ad4efdf , :p2fe51700d1c911e1800000215ad4efdf , :p278cdc00d1c911e1800000215ad4efdf , :p1e9c0a80d1c911e1800000215ad4efdf , :peac0e500d1c811e1800000215ad4efdf , :p0926e080d1c911e1800000215ad4efdf , :pfe6c4b80d1c811e1800000215ad4efdf , :p147a0c00d1c911e1800000215ad4efdf , :pef859900d1c811e1800000215ad4efdf , :p04622c80d1c911e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0926e080d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Chiller condensing temperature." ;
+        rdfs:label                "NominalCondensingTemperature" ;
+        IFC4-PSD:definition       "Chiller condensing temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "Température de condensation du groupe froid."@fr-FR ;
+        IFC4-PSD:ifdguid          "0926e080d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCondensingTemperature" ;
+        IFC4-PSD:nameAlias        "Nominal Condensing Temperature"@en , "TemperatureCondensationNominale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p04622c80d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal chiller efficiency under nominal conditions." ;
+        rdfs:label                "NominalEfficiency" ;
+        IFC4-PSD:definition       "Nominal chiller efficiency under nominal conditions." ;
+        IFC4-PSD:definitionAlias  "Efficactié nominale du groupe froid sous les conditions nominales."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "04622c80d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalEfficiency" ;
+        IFC4-PSD:nameAlias        "EfficacitéNominale"@fr-FR , "Nominal Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:CoefficientOfPerformanceCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p278cdc00d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoefficientOfPerformanceCurve .
+
+:p0e842b00d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Chiller evaporating temperature." ;
+        rdfs:label                "NominalEvaporatingTemperature" ;
+        IFC4-PSD:definition       "Chiller evaporating temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "Température d'évaporation du groupe froid."@fr-FR ;
+        IFC4-PSD:ifdguid          "0e842b00d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalEvaporatingTemperature" ;
+        IFC4-PSD:nameAlias        "TempératureEvaporationNominale"@fr-FR , "Nominal Evaporating Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:peac0e500d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR , ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eac0e500d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "Référence"@fr-FR , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:NominalCondensingTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0926e080d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCondensingTemperature .
+
+:pfe6c4b80d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal cooling capacity of chiller at standardized conditions as defined by the agency having jurisdiction." ;
+        rdfs:label                "NominalCapacity" ;
+        IFC4-PSD:definition       "Nominal cooling capacity of chiller at standardized conditions as defined by the agency having jurisdiction." ;
+        IFC4-PSD:definitionAlias  "Puissance froid nominale du groupe froid aux conditions standardisées telles que définies par l'organisation faisant autorité."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "fe6c4b80d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCapacity" ;
+        IFC4-PSD:nameAlias        "Nominal Capacity"@en , "PuissanceNominale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:NominalHeatRejectionRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p147a0c00d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeatRejectionRate .
+
+:NominalCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :pfe6c4b80d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCapacity .
+
+:p19d75680d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal total power consumption." ;
+        rdfs:label                "NominalPowerConsumption" ;
+        IFC4-PSD:definition       "Nominal total power consumption." ;
+        IFC4-PSD:definitionAlias  ""@en , "Puissance de consommation totale nominale."@fr-FR ;
+        IFC4-PSD:ifdguid          "19d75680d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalPowerConsumption" ;
+        IFC4-PSD:nameAlias        "Nominal Power Consumption"@en , "ConsommationPuissanceNominale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .

@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentTypeConductorSegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p30c97900d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of function for which the conductor is intended." ;
+        rdfs:label                "Function" ;
+        IFC4-PSD:definition       "Type of function for which the conductor is intended." ;
+        IFC4-PSD:definitionAlias  ""@en , "도체의 기능 유형."@ko-KR , "導体の機能のタイプ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "30c97900d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Function" ;
+        IFC4-PSD:nameAlias        "Function"@en , "기능"@ko-KR , "機能"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LINE" , "NEUTRAL" , "PROTECTIVEEARTH" , "PROTECTIVEEARTHNEUTRAL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Function  a                rdf:Property ;
+        rdfs:seeAlso        :p30c97900d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Function .
+
+:CrossSectionalArea  a      rdf:Property ;
+        rdfs:seeAlso        :p2a3b0180d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CrossSectionalArea .
+
+:Material  a                rdf:Property ;
+        rdfs:seeAlso        :p40e15880d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Material .
+
+:Construction  a            rdf:Property ;
+        rdfs:seeAlso        :p4ccd1a80d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Construction .
+
+:Shape  a                   rdf:Property ;
+        rdfs:seeAlso        :p59ea0980d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Shape .
+
+:p40e15880d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of material from which the conductor is constructed." ;
+        rdfs:label                "Material" ;
+        IFC4-PSD:definition       "Type of material from which the conductor is constructed." ;
+        IFC4-PSD:definitionAlias  ""@en , "도체를 구성하는 재료의 종류."@ko-KR , "導体を構成する材料のタイプ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "40e15880d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Material" ;
+        IFC4-PSD:nameAlias        "도체의 기능 유형."@ko-KR , "材料"@ja-JP , "Material"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ALUMINIUM" , "COPPER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentTypeConductorSegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p2a3b0180d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Cross section area of the phase(s) lead(s)." ;
+        rdfs:label                "CrossSectionalArea" ;
+        IFC4-PSD:definition       "Cross section area of the phase(s) lead(s)." ;
+        IFC4-PSD:definitionAlias  "리드 단면적."@ko-KR , "位相、リードの断面積。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2a3b0180d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CrossSectionalArea" ;
+        IFC4-PSD:nameAlias        "断面積"@ja-JP , "Cross Sectional Area"@en , "단면적 영역"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p59ea0980d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of the shape of the conductor." ;
+        rdfs:label                "Shape" ;
+        IFC4-PSD:definition       "Indication of the shape of the conductor." ;
+        IFC4-PSD:definitionAlias  "導体の形状を表示。"@ja-JP , ""@en , "도체의 형상을 표시합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "59ea0980d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Shape" ;
+        IFC4-PSD:nameAlias        "형상"@ko-KR , "形状"@ja-JP , "Shape"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HELICALCONDUCTOR" , "CIRCULARCONDUCTOR" , "SECTORCONDUCTOR" , "RECTANGULARCONDUCTOR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p4ccd1a80d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Purpose of informing on how the vonductor is constucted (interwined or solid). I.e. Solid (IEV 461-01-06), stranded (IEV 461-01-07), solid-/finestranded(IEV 461-01-11) (not flexible/flexible)." ;
+        rdfs:label                "Construction" ;
+        IFC4-PSD:definition       "Purpose of informing on how the vonductor is constucted (interwined or solid). I.e. Solid (IEV 461-01-06), stranded (IEV 461-01-07), solid-/finestranded(IEV 461-01-11) (not flexible/flexible)." ;
+        IFC4-PSD:definitionAlias  "도체 구성 (연선 또는 단선)의 정의 즉 단선 (IEV 461-01-06), 트위스트 (IEV 461-01-07), 플렉서블 도체 (IEV 461-01-11) (유연한 아닌지 가) 정의"@ko-KR , ""@en , "導体の構成（より線か単線）の定義。すなわち単線（IEV 461-01-06）、より線（IEV 461-01-07）、フレキシブル導体（IEV 461-01-11）（フレキシブルか否か）で定義。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4ccd1a80d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Construction" ;
+        IFC4-PSD:nameAlias        "構造"@ja-JP , "Construction"@en , "구조"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SOLIDCONDUCTOR" , "STRANDEDCONDUCTOR" , "FLEXIBLESTRANDEDCONDUCTOR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_CableSegmentTypeConductorSegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An electrical conductor is a single linear element with the specific purpose to lead electric current. The core of one lead is normally single wired or multiwired which are intertwined. According to IEC 60050: IEV 195-01-07, a conductor is a conductive part intended to carry a specified electric current." ;
+        rdfs:label                    "Pset_CableSegmentTypeConductorSegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableSegment/CONDUCTORSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableSegment/CONDUCTORSEGMENT" ;
+        IFC4-PSD:definition           "An electrical conductor is a single linear element with the specific purpose to lead electric current. The core of one lead is normally single wired or multiwired which are intertwined. According to IEC 60050: IEV 195-01-07, a conductor is a conductive part intended to carry a specified electric current." ;
+        IFC4-PSD:definitionAlias      "電気導体は電流を導く目的で使用される線状の導体である。\n1本の導体の中心は、1本のワイヤーまたは、寄り合わせた複数のワイヤーからなる。IEC 60050：IEV 195-01-07によると、導体は指定された電流を運ぶことを目的とする伝導部分である。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableSegmentTypeConductorSegment" ;
+        IFC4-PSD:propertyDef          :p4ccd1a80d1c811e1800000215ad4efdf , :p2a3b0180d1c811e1800000215ad4efdf , :p40e15880d1c811e1800000215ad4efdf , :p59ea0980d1c811e1800000215ad4efdf , :p30c97900d1c811e1800000215ad4efdf .

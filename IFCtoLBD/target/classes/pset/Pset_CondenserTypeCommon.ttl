@@ -1,0 +1,177 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CondenserTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:InternalRefrigerantVolume
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbc450900d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InternalRefrigerantVolume .
+
+:pc6670780d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal heat transfer surface area associated with nominal overall heat transfer coefficient." ;
+        rdfs:label                "NominalHeatTransferArea" ;
+        IFC4-PSD:definition       "Nominal heat transfer surface area associated with nominal overall heat transfer coefficient." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c6670780d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeatTransferArea" ;
+        IFC4-PSD:nameAlias        "Nominal Heat Transfer Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:pbc450900d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Internal volume of condenser (refrigerant side)." ;
+        rdfs:label                "InternalRefrigerantVolume" ;
+        IFC4-PSD:definition       "Internal volume of condenser (refrigerant side)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bc450900d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InternalRefrigerantVolume" ;
+        IFC4-PSD:nameAlias        "Internal Refrigerant Volume"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pd296b7a0f2bb4e309010357681bd4adc ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:InternalWaterVolume  a     rdf:Property ;
+        rdfs:seeAlso        :pc1a25380d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InternalWaterVolume .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p8f90f180d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pb6e7be80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Internal surface area." ;
+        rdfs:label                "InternalSurfaceArea" ;
+        IFC4-PSD:definition       "Internal surface area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b6e7be80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InternalSurfaceArea" ;
+        IFC4-PSD:nameAlias        "Internal Surface Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p94ee3c00d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Refrigerant class used by the condenser.\n\nCFC: Chlorofluorocarbons.\nHCFC: Hydrochlorofluorocarbons.\nHFC: Hydrofluorocarbons." ;
+        rdfs:label                "RefrigerantClass" ;
+        IFC4-PSD:definition       "Refrigerant class used by the condenser.\n\nCFC: Chlorofluorocarbons.\nHCFC: Hydrochlorofluorocarbons.\nHFC: Hydrofluorocarbons." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "94ee3c00d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RefrigerantClass" ;
+        IFC4-PSD:nameAlias        "Refrigerant Class"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CFC" , "H2O" , "OTHER" , "AMMONIA" , "CO2" , "NOTKNOWN" , "HFC" , "UNSET" , "HYDROCARBONS" , "HCFC"
+                                  ] .
+
+:pc1a25380d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Internal volume of condenser (water side)." ;
+        rdfs:label                "InternalWaterVolume" ;
+        IFC4-PSD:definition       "Internal volume of condenser (water side)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c1a25380d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InternalWaterVolume" ;
+        IFC4-PSD:nameAlias        "Internal Water Volume"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:NominalHeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pcbc45200d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeatTransferCoefficient .
+
+:pcbc45200d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal overall heat transfer coefficient associated with nominal heat transfer area." ;
+        rdfs:label                "NominalHeatTransferCoefficient" ;
+        IFC4-PSD:definition       "Nominal overall heat transfer coefficient associated with nominal heat transfer area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cbc45200d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "Nominal Heat Transfer Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalTransmittanceMeasure
+                                  ] .
+
+:ExternalSurfaceArea  a     rdf:Property ;
+        rdfs:seeAlso        :pb0f1dd80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ExternalSurfaceArea .
+
+:Pset_CondenserTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Condenser type common attributes." ;
+        rdfs:label                    "Pset_CondenserTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCondenser ;
+        IFC4-PSD:applicableTypeValue  "IfcCondenser" ;
+        IFC4-PSD:definition           "Condenser type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "コンデンサー型の共通プロパティ属性設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CondenserTypeCommon" ;
+        IFC4-PSD:propertyDef          :pb6e7be80d1cc11e1800000215ad4efdf , :pd296b7a0f2bb4e309010357681bd4adc , :pb0f1dd80d1cc11e1800000215ad4efdf , :pbc450900d1cc11e1800000215ad4efdf , :pc1a25380d1cc11e1800000215ad4efdf , :p94ee3c00d1cc11e1800000215ad4efdf , :pc6670780d1cc11e1800000215ad4efdf , :pcbc45200d1cc11e1800000215ad4efdf , :p8f90f180d1cc11e1800000215ad4efdf .
+
+:RefrigerantClass  a        rdf:Property ;
+        rdfs:seeAlso        :p94ee3c00d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RefrigerantClass .
+
+:p8f90f180d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8f90f180d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:InternalSurfaceArea  a     rdf:Property ;
+        rdfs:seeAlso        :pb6e7be80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InternalSurfaceArea .
+
+:pd296b7a0f2bb4e309010357681bd4adc
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "d296b7a0f2bb4e309010357681bd4adc" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CondenserTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NominalHeatTransferArea
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc6670780d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeatTransferArea .
+
+:pb0f1dd80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "External surface area (both primary and secondary area)." ;
+        rdfs:label                "ExternalSurfaceArea" ;
+        IFC4-PSD:definition       "External surface area (both primary and secondary area)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b0f1dd80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ExternalSurfaceArea" ;
+        IFC4-PSD:nameAlias        "External Surface Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .

@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_DamperOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Damper occurrence attributes attached to an instance of IfcDamper" ;
+        rdfs:label                    "Pset_DamperOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDamper ;
+        IFC4-PSD:applicableTypeValue  "IfcDamper" ;
+        IFC4-PSD:definition           "Damper occurrence attributes attached to an instance of IfcDamper" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DamperOccurrence" ;
+        IFC4-PSD:propertyDef          :pb2250980d1d011e1800000215ad4efdf .
+
+:SizingMethod  a            rdf:Property ;
+        rdfs:seeAlso        :pb2250980d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SizingMethod .
+
+:pb2250980d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies whether the damper is sized nominally or with exact measurements:\n\nNOMINAL: Nominal sizing method. \nEXACT: Exact sizing method." ;
+        rdfs:label                "SizingMethod" ;
+        IFC4-PSD:definition       "Identifies whether the damper is sized nominally or with exact measurements:\n\nNOMINAL: Nominal sizing method. \nEXACT: Exact sizing method." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b2250980d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SizingMethod" ;
+        IFC4-PSD:nameAlias        "Sizing Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NOMINAL" , "EXACT" , "NOTKNOWN" , "UNSET"
+                                  ] .

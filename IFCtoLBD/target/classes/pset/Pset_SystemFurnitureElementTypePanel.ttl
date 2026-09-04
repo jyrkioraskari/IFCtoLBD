@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypePanel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FurniturePanelType  a      rdf:Property ;
+        rdfs:seeAlso        :p4a41e380d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FurniturePanelType .
+
+:p5e85e080d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal thickness of the panel." ;
+        rdfs:label                "NominalThickness" ;
+        IFC4-PSD:definition       "The nominal thickness of the panel." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5e85e080d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalThickness" ;
+        IFC4-PSD:nameAlias        "Nominal Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p4a41e380d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Available panel types from which that required may be selected." ;
+        rdfs:label                "FurniturePanelType" ;
+        IFC4-PSD:definition       "Available panel types from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4a41e380d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FurniturePanelType" ;
+        IFC4-PSD:nameAlias        "Furniture Panel Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "NOTKNOWN" , "HORZ_SEG" , "GLAZED" , "ENDS" , "OTHER" , "ACOUSTICAL" , "OPEN" , "DOOR" , "MONOLITHIC" , "SCREEN"
+                                  ] .
+
+:p43b36c00d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "indicates whether the panel has an opening (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "HasOpening" ;
+        IFC4-PSD:definition       "indicates whether the panel has an opening (= TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "43b36c00d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasOpening" ;
+        IFC4-PSD:nameAlias        "Has Opening"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_SystemFurnitureElementTypePanel
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of specific properties for vertical panels that assembly workstations.. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Panel" ;
+        rdfs:label                    "Pset_SystemFurnitureElementTypePanel" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSystemFurnitureElement/PANEL> ;
+        IFC4-PSD:applicableTypeValue  "IfcSystemFurnitureElement/PANEL" ;
+        IFC4-PSD:definition           "A set of specific properties for vertical panels that assembly workstations.. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Panel" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SystemFurnitureElementTypePanel" ;
+        IFC4-PSD:propertyDef          :p5e85e080d20f11e1800000215ad4efdf , :p43b36c00d20f11e1800000215ad4efdf , :p4a41e380d20f11e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypePanel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HasOpening  a              rdf:Property ;
+        rdfs:seeAlso        :p43b36c00d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasOpening .
+
+:NominalThickness  a        rdf:Property ;
+        rdfs:seeAlso        :p5e85e080d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalThickness .

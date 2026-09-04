@@ -1,0 +1,221 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporatorPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ExteriorHeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd12c9700d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ExteriorHeatTransferCoefficient .
+
+:WaterFoulingResistance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfc16eb00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterFoulingResistance .
+
+:pe1dd0d00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "UV = f (VExterior, VInterior), UV as a function of interior and exterior fluid flow velocity at the entrance." ;
+        rdfs:label                "UAcurves" ;
+        IFC4-PSD:definition       "UV = f (VExterior, VInterior), UV as a function of interior and exterior fluid flow velocity at the entrance." ;
+        IFC4-PSD:definitionAlias  "UV=ｆ（V外面、V内面）、UVは、入り口での内面・外面流体速度の関数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e1dd0d00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UAcurves" ;
+        IFC4-PSD:nameAlias        "UAcurves"@en , "UA曲線"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporatorPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd8ec3b80d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fouling resistance on the refrigerant side." ;
+        rdfs:label                "RefrigerantFoulingResistance" ;
+        IFC4-PSD:definition       "Fouling resistance on the refrigerant side." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d8ec3b80d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RefrigerantFoulingResistance" ;
+        IFC4-PSD:nameAlias        "Refrigerant Fouling Resistance"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:EvaporatingTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdbe72c00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EvaporatingTemperature .
+
+:pdbe72c00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Refrigerant evaporating temperature." ;
+        rdfs:label                "EvaporatingTemperature" ;
+        IFC4-PSD:definition       "Refrigerant evaporating temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "蒸発温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "dbe72c00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EvaporatingTemperature" ;
+        IFC4-PSD:nameAlias        "Evaporating Temperature"@en , "蒸発温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:peef9fc00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat gain between the evaporator outlet and the compressor inlet." ;
+        rdfs:label                "CompressorEvaporatorHeatGain" ;
+        IFC4-PSD:definition       "Heat gain between the evaporator outlet and the compressor inlet." ;
+        IFC4-PSD:definitionAlias  "蒸発器出口と圧縮機入口間の熱取得"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "eef9fc00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorEvaporatorHeatGain" ;
+        IFC4-PSD:nameAlias        "圧縮機・蒸発器熱取得"@ja-JP , "Compressor Evaporator Heat Gain"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:EvaporatorMeanVoidFraction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf8836400d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EvaporatorMeanVoidFraction .
+
+:pd4c01e00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Interior heat transfer coefficient associated with interior surface area." ;
+        rdfs:label                "InteriorHeatTransferCoefficient" ;
+        IFC4-PSD:definition       "Interior heat transfer coefficient associated with interior surface area." ;
+        IFC4-PSD:definitionAlias  "内面に関連づけられた内面熱交換係数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d4c01e00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InteriorHeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "Interior Heat Transfer Coefficient"@en , "内面熱交換係数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pdee21c80d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Logarithmic mean temperature difference between refrigerant and water or air." ;
+        rdfs:label                "LogarithmicMeanTemperatureDifference" ;
+        IFC4-PSD:definition       "Logarithmic mean temperature difference between refrigerant and water or air." ;
+        IFC4-PSD:definitionAlias  "冷媒と水または空気の対数平均温度差"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "dee21c80d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LogarithmicMeanTemperatureDifference" ;
+        IFC4-PSD:nameAlias        "対数平均温度差"@ja-JP , "Logarithmic Mean Temperature Difference"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CompressorEvaporatorHeatGain
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peef9fc00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorEvaporatorHeatGain .
+
+:LogarithmicMeanTemperatureDifference
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdee21c80d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LogarithmicMeanTemperatureDifference .
+
+:pf3beb000d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure drop between the evaporator outlet and the compressor inlet." ;
+        rdfs:label                "CompressorEvaporatorPressureDrop" ;
+        IFC4-PSD:definition       "Pressure drop between the evaporator outlet and the compressor inlet." ;
+        IFC4-PSD:definitionAlias  ""@en , "蒸発器出口と圧縮機入口間の圧力降下"@ja-JP ;
+        IFC4-PSD:ifdguid          "f3beb000d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorEvaporatorPressureDrop" ;
+        IFC4-PSD:nameAlias        "Compressor Evaporator Pressure Drop"@en , "圧縮機・蒸発器圧力降下"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_EvaporatorPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Evaporator performance history attributes." ;
+        rdfs:label                    "Pset_EvaporatorPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcEvaporator ;
+        IFC4-PSD:applicableTypeValue  "IfcEvaporator" ;
+        IFC4-PSD:definition           "Evaporator performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "蒸発器性能履歴属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_EvaporatorPHistory" ;
+        IFC4-PSD:propertyDef          :pd12c9700d1e211e1800000215ad4efdf , :pd8ec3b80d1e211e1800000215ad4efdf , :pe1dd0d00d1e211e1800000215ad4efdf , :pfc16eb00d1e211e1800000215ad4efdf , :pd4c01e00d1e211e1800000215ad4efdf , :pf8836400d1e211e1800000215ad4efdf , :pdbe72c00d1e211e1800000215ad4efdf , :pce31a680d1e211e1800000215ad4efdf , :pf3beb000d1e211e1800000215ad4efdf , :pdee21c80d1e211e1800000215ad4efdf , :peef9fc00d1e211e1800000215ad4efdf .
+
+:RefrigerantFoulingResistance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd8ec3b80d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RefrigerantFoulingResistance .
+
+:InteriorHeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd4c01e00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InteriorHeatTransferCoefficient .
+
+:pce31a680d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        rdfs:label                "HeatRejectionRate" ;
+        IFC4-PSD:definition       "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        IFC4-PSD:definitionAlias  "冷凍効果と圧縮機への電源入力の相当熱量の合計"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ce31a680d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatRejectionRate" ;
+        IFC4-PSD:nameAlias        "排熱量"@ja-JP , "Heat Rejection Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pfc16eb00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fouling resistance on water/air side." ;
+        rdfs:label                "WaterFoulingResistance" ;
+        IFC4-PSD:definition       "Fouling resistance on water/air side." ;
+        IFC4-PSD:definitionAlias  "水／空気面の汚れ抵抗"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fc16eb00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterFoulingResistance" ;
+        IFC4-PSD:nameAlias        "Water Fouling Resistance"@en , "水側汚れ抵抗"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:UAcurves  a                rdf:Property ;
+        rdfs:seeAlso        :pe1dd0d00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UAcurves .
+
+:CompressorEvaporatorPressureDrop
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf3beb000d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorEvaporatorPressureDrop .
+
+:pf8836400d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mean void fraction in evaporator." ;
+        rdfs:label                "EvaporatorMeanVoidFraction" ;
+        IFC4-PSD:definition       "Mean void fraction in evaporator." ;
+        IFC4-PSD:definitionAlias  "蒸発器の平均の空隙率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f8836400d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EvaporatorMeanVoidFraction" ;
+        IFC4-PSD:nameAlias        "Evaporator Mean Void Fraction"@en , "蒸発器平均空隙率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:HeatRejectionRate  a       rdf:Property ;
+        rdfs:seeAlso        :pce31a680d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatRejectionRate .
+
+:pd12c9700d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Exterior heat transfer coefficient associated with exterior surface area." ;
+        rdfs:label                "ExteriorHeatTransferCoefficient" ;
+        IFC4-PSD:definition       "Exterior heat transfer coefficient associated with exterior surface area." ;
+        IFC4-PSD:definitionAlias  ""@en , "外表面に関連づけられた外表面熱交換係数"@ja-JP ;
+        IFC4-PSD:ifdguid          "d12c9700d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ExteriorHeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "外表面熱交換係数"@ja-JP , "Exterior Heat Transfer Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

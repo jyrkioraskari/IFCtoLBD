@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2a4af980d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the meter has a connection for remote reading through connection of a communication device (set TRUE) or not (set FALSE)." ;
+        rdfs:label                "RemoteReading" ;
+        IFC4-PSD:definition       "Indicates whether the meter has a connection for remote reading through connection of a communication device (set TRUE) or not (set FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2a4af980d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RemoteReading" ;
+        IFC4-PSD:nameAlias        "Remote Reading"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0d162b00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0d162b00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p07204a00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Pset_FlowMeterTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes of a flow meter type" ;
+        rdfs:label                    "Pset_FlowMeterTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFlowMeter ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter" ;
+        IFC4-PSD:definition           "Common attributes of a flow meter type" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterTypeCommon" ;
+        IFC4-PSD:propertyDef          :p07204a00d1e811e1800000215ad4efdf , :p0d162b00d1e811e1800000215ad4efdf , :p1bfcdd80d1e811e1800000215ad4efdf , :p2a4af980d1e811e1800000215ad4efdf .
+
+:p1bfcdd80d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of the form that readout from the meter takes. In the case of a dial read out, this may comprise multiple dials that give a cumulative reading and/or a mechanical odometer." ;
+        rdfs:label                "ReadOutType" ;
+        IFC4-PSD:definition       "Indication of the form that readout from the meter takes. In the case of a dial read out, this may comprise multiple dials that give a cumulative reading and/or a mechanical odometer." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1bfcdd80d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReadOutType" ;
+        IFC4-PSD:nameAlias        "Read Out Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DIAL" , "DIGITAL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p0d162b00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p07204a00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "07204a00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:ReadOutType  a             rdf:Property ;
+        rdfs:seeAlso        :p1bfcdd80d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReadOutType .
+
+:RemoteReading  a           rdf:Property ;
+        rdfs:seeAlso        :p2a4af980d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RemoteReading .

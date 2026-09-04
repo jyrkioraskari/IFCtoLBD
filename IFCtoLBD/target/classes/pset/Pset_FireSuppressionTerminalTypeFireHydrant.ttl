@@ -1,0 +1,197 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:CapColor  a                rdf:Property ;
+        rdfs:seeAlso        :pc07e2000d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CapColor .
+
+:pbbb96c00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Color of the body of the hydrant.\n\nNote: Consult local fire regulations for statutory colors that may be required for hydrant bodies in particular circumstances." ;
+        rdfs:label                "BodyColor" ;
+        IFC4-PSD:definition       "Color of the body of the hydrant.\n\nNote: Consult local fire regulations for statutory colors that may be required for hydrant bodies in particular circumstances." ;
+        IFC4-PSD:definitionAlias  ""@en , "消火栓本体の色。\n\n注意：特定の状況で消火栓ボディに求められる地域消防規則法定色による。"@ja-JP ;
+        IFC4-PSD:ifdguid          "bbb96c00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BodyColor" ;
+        IFC4-PSD:nameAlias        "Body Color"@en , "本体色"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:BodyColor  a               rdf:Property ;
+        rdfs:seeAlso        :pbbb96c00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BodyColor .
+
+:pa5abab80d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The volumetric rate of fluid discharge." ;
+        rdfs:label                "DischargeFlowRate" ;
+        IFC4-PSD:definition       "The volumetric rate of fluid discharge." ;
+        IFC4-PSD:definitionAlias  "放水液体の体積。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a5abab80d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeFlowRate" ;
+        IFC4-PSD:nameAlias        "Discharge Flow Rate"@en , "放水流量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:PumperConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p94629f00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PumperConnectionSize .
+
+:pc07e2000d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Color of the caps of the hydrant.\n\nNote: Consult local fire regulations for statutory colors that may be required for hydrant caps in particular circumstances." ;
+        rdfs:label                "CapColor" ;
+        IFC4-PSD:definition       "Color of the caps of the hydrant.\n\nNote: Consult local fire regulations for statutory colors that may be required for hydrant caps in particular circumstances." ;
+        IFC4-PSD:definitionAlias  "消火栓キャップの色。\n\n注意：特定の状況で消火栓キャップに求められる地域消防規則法定色による。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c07e2000d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CapColor" ;
+        IFC4-PSD:nameAlias        "Cap Color"@en , "キャップ色"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:WaterIsPotable  a          rdf:Property ;
+        rdfs:seeAlso        :pb0fed700d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterIsPotable .
+
+:p9af11680d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of hose connections on the hydrant (excluding the pumper connection)." ;
+        rdfs:label                "NumberOfHoseConnections" ;
+        IFC4-PSD:definition       "The number of hose connections on the hydrant (excluding the pumper connection)." ;
+        IFC4-PSD:definitionAlias  "（ポンプ接続を除く）消火栓のホース接続の数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9af11680d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfHoseConnections" ;
+        IFC4-PSD:nameAlias        "ホースの接続の数"@ja-JP , "Number Of Hose Connections"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeFireHydrant>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HoseConnectionSize  a      rdf:Property ;
+        rdfs:seeAlso        :p9fb5ca80d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseConnectionSize .
+
+:Pset_FireSuppressionTerminalTypeFireHydrant
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Device, fitted to a pipe, through which a temporary supply of water may be provided (BS6100 330 6107)\n\nFor further details on fire hydrants, see www.firehydrant.org" ;
+        rdfs:label                    "Pset_FireSuppressionTerminalTypeFireHydrant" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/FIREHYDRANT> ;
+        IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/FIREHYDRANT" ;
+        IFC4-PSD:definition           "Device, fitted to a pipe, through which a temporary supply of water may be provided (BS6100 330 6107)\n\nFor further details on fire hydrants, see www.firehydrant.org" ;
+        IFC4-PSD:definitionAlias      ""@en , "（BS61003306107）から供給される一時的な水を通す配管に取り付けられる装置。\n\n消火栓の詳細については、www.firehydrant.orgを参照。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeFireHydrant" ;
+        IFC4-PSD:propertyDef          :pb65c2180d1e611e1800000215ad4efdf , :pbbb96c00d1e611e1800000215ad4efdf , :pb0fed700d1e611e1800000215ad4efdf , :p94629f00d1e611e1800000215ad4efdf , :pc07e2000d1e611e1800000215ad4efdf , :p9fb5ca80d1e611e1800000215ad4efdf , :pa5abab80d1e611e1800000215ad4efdf , :p8a40a080d1e611e1800000215ad4efdf , :paa705f80d1e611e1800000215ad4efdf , :p9af11680d1e611e1800000215ad4efdf .
+
+:paa705f80d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Alphanumeric indication of the flow class of a hydrant (may be used in connection with or instead of the FlowRate property)." ;
+        rdfs:label                "FlowClass" ;
+        IFC4-PSD:definition       "Alphanumeric indication of the flow class of a hydrant (may be used in connection with or instead of the FlowRate property)." ;
+        IFC4-PSD:definitionAlias  "消火栓流量クラスの英数字表示（流量属性と一緒に、または代わりに用いられる）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "aa705f80d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowClass" ;
+        IFC4-PSD:nameAlias        "Flow Class"@en , "流量クラス"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:FireHydrantType  a         rdf:Property ;
+        rdfs:seeAlso        :p8a40a080d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireHydrantType .
+
+:p9fb5ca80d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of connections to which a hose may be connected (other than that to be linked to a pumping unit)." ;
+        rdfs:label                "HoseConnectionSize" ;
+        IFC4-PSD:definition       "The size of connections to which a hose may be connected (other than that to be linked to a pumping unit)." ;
+        IFC4-PSD:definitionAlias  "接続ホースのサイズ（ポンプユニット接続以外の）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9fb5ca80d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseConnectionSize" ;
+        IFC4-PSD:nameAlias        "Hose Connection Size"@en , "ホース接続サイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NumberOfHoseConnections
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9af11680d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfHoseConnections .
+
+:DischargeFlowRate  a       rdf:Property ;
+        rdfs:seeAlso        :pa5abab80d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeFlowRate .
+
+:p94629f00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of a connection to which a fire hose may be connected that is then linked to a pumping unit." ;
+        rdfs:label                "PumperConnectionSize" ;
+        IFC4-PSD:definition       "The size of a connection to which a fire hose may be connected that is then linked to a pumping unit." ;
+        IFC4-PSD:definitionAlias  ""@en , "ポンプユニットに接続されであろう消防ホースの接続サイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "94629f00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PumperConnectionSize" ;
+        IFC4-PSD:nameAlias        "ポンプ接続サイズ"@ja-JP , "Pumper Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8a40a080d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the range of hydrant types from which the required type can be selected where.\n\nDryBarrel:\t A hydrant that has isolating valves fitted below ground and that may be used where the possibility of water freezing is a consideration.\nWetBarrel:\t A hydrant that has isolating valves fitted above ground and that may be used where there is no possibility of water freezing." ;
+        rdfs:label                "FireHydrantType" ;
+        IFC4-PSD:definition       "Defines the range of hydrant types from which the required type can be selected where.\n\nDryBarrel:\t A hydrant that has isolating valves fitted below ground and that may be used where the possibility of water freezing is a consideration.\nWetBarrel:\t A hydrant that has isolating valves fitted above ground and that may be used where there is no possibility of water freezing." ;
+        IFC4-PSD:definitionAlias  ""@en , "消火栓の必要なタイプを定義する。\n\n乾式l：凍結の可能性のあるとき地中に開放弁セット。\n\n湿式：凍結の可能性のないとき地上に開放弁セット。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8a40a080d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireHydrantType" ;
+        IFC4-PSD:nameAlias        "Fire Hydrant Type"@en , "消火栓のタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DRYBARREL" , "WETBARREL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pb65c2180d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum pressure that the hydrant is manufactured to withstand." ;
+        rdfs:label                "PressureRating" ;
+        IFC4-PSD:definition       "Maximum pressure that the hydrant is manufactured to withstand." ;
+        IFC4-PSD:definitionAlias  "最大圧力、消火栓の耐圧。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b65c2180d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRating" ;
+        IFC4-PSD:nameAlias        "Pressure Rating"@en , "圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:PressureRating  a          rdf:Property ;
+        rdfs:seeAlso        :pb65c2180d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRating .
+
+:pb0fed700d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the water flow from the hydrant is potable (set TRUE) or non potable (set FALSE)." ;
+        rdfs:label                "WaterIsPotable" ;
+        IFC4-PSD:definition       "Indication of whether the water flow from the hydrant is potable (set TRUE) or non potable (set FALSE)." ;
+        IFC4-PSD:definitionAlias  "消火栓の水が飲用かどうかの表示（飲用：TRUEを設定、飲用以外：FALSEを設定）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b0fed700d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterIsPotable" ;
+        IFC4-PSD:nameAlias        "飲用水かどうか"@ja-JP , "Water Is Potable"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FlowClass  a               rdf:Property ;
+        rdfs:seeAlso        :paa705f80d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowClass .

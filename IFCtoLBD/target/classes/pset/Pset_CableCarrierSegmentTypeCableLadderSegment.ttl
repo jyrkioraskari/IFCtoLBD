@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:LadderConfiguration  a     rdf:Property ;
+        rdfs:seeAlso        :p83099a80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LadderConfiguration .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p7e44e680d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:p83099a80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the configuration of the ladder structure used." ;
+        rdfs:label                "LadderConfiguration" ;
+        IFC4-PSD:definition       "Description of the configuration of the ladder structure used." ;
+        IFC4-PSD:definitionAlias  ""@en , "사용되는 사다리 구조의 개요 설명."@ko-KR , "使用されるはしご構造の概要説明。"@ja-JP ;
+        IFC4-PSD:ifdguid          "83099a80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LadderConfiguration" ;
+        IFC4-PSD:nameAlias        "사다리 설정"@ko-KR , "Ladder Configuration"@en , "梯子設定"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p7e44e680d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the segment." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the segment." ;
+        IFC4-PSD:definitionAlias  "고치수"@ko-KR , "呼び高寸法。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7e44e680d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "公称高"@ja-JP , "Nominal Height"@en , "공칭 높이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeCableLadderSegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p78e79c00d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width of the segment." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width of the segment." ;
+        IFC4-PSD:definitionAlias  "폭 치수."@ko-KR , ""@en , "呼び幅寸法。"@ja-JP ;
+        IFC4-PSD:ifdguid          "78e79c00d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "공칭 폭"@ko-KR , "公称幅"@ja-JP , "Nominal Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p78e79c00d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
+
+:Pset_CableCarrierSegmentTypeCableLadderSegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An open carrier segment on which cables are carried on a ladder structure.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
+        rdfs:label                    "Pset_CableCarrierSegmentTypeCableLadderSegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CABLELADDERSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CABLELADDERSEGMENT" ;
+        IFC4-PSD:definition           "An open carrier segment on which cables are carried on a ladder structure.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
+        IFC4-PSD:definitionAlias      ""@en , "はしご構造の上にケーブルを乗せる開放型ケーブルキャリアに関するプロパティセット定義。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableCarrierSegmentTypeCableLadderSegment" ;
+        IFC4-PSD:propertyDef          :p83099a80d1c611e1800000215ad4efdf , :p7e44e680d1c611e1800000215ad4efdf , :p78e79c00d1c611e1800000215ad4efdf .

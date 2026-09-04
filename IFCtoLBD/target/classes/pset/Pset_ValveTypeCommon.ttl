@@ -1,0 +1,191 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p103808cf5fe64d589e7317c7493147b5 ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p8a579500d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Close off rating." ;
+        rdfs:label                "CloseOffRating" ;
+        IFC4-PSD:definition       "Close off rating." ;
+        IFC4-PSD:definitionAlias  ""@en , "クローズオフレーティング"@ja-JP ;
+        IFC4-PSD:ifdguid          "8a579500d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CloseOffRating" ;
+        IFC4-PSD:nameAlias        "クローズオフレーティング"@ja-JP , "Close Off Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:TestPressure  a            rdf:Property ;
+        rdfs:seeAlso        :p7875f200d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TestPressure .
+
+:p7e6bd300d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The normally expected maximum working pressure of the valve." ;
+        rdfs:label                "WorkingPressure" ;
+        IFC4-PSD:definition       "The normally expected maximum working pressure of the valve." ;
+        IFC4-PSD:definitionAlias  "バルブの通常予想される最高運転圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7e6bd300d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkingPressure" ;
+        IFC4-PSD:nameAlias        "Working Pressure"@en , "運転圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p51b7bb80d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The mechanism by which the valve function is achieved where:\n\nBALL: Valve that has a ported ball that can be turned relative to the body seat ports.\nBUTTERFLY: Valve in which a streamlined disc pivots about a diametric axis.\nCONFIGUREDGATE: Screwdown valve in which the closing gate is shaped in a configured manner to have a more precise control of pressure and flow change across the valve.\nGLAND: Valve with a tapered seating, in which a rotatable plug is retained by means of a gland and gland packing.\nGLOBE: Screwdown valve that has a spherical body.\nLUBRICATEDPLUG: Plug valve in which a lubricant is injected under pressure between the plug face and the body.\nNEEDLE: Valve for regulating the flow in or from a pipe, in which a slender cone moves along the axis of flow to close against a fixed conical seat.\nPARALLELSLIDE: Screwdown valve that has a machined plate that slides in formed grooves to form a seal.\nPLUG: Valve that has a ported plug that can be turned relative to the body seat ports.\nWEDGEGATE: Screwdown valve that has a wedge shaped plate fitting into tapered guides to form a seal." ;
+        rdfs:label                "ValveMechanism" ;
+        IFC4-PSD:definition       "The mechanism by which the valve function is achieved where:\n\nBALL: Valve that has a ported ball that can be turned relative to the body seat ports.\nBUTTERFLY: Valve in which a streamlined disc pivots about a diametric axis.\nCONFIGUREDGATE: Screwdown valve in which the closing gate is shaped in a configured manner to have a more precise control of pressure and flow change across the valve.\nGLAND: Valve with a tapered seating, in which a rotatable plug is retained by means of a gland and gland packing.\nGLOBE: Screwdown valve that has a spherical body.\nLUBRICATEDPLUG: Plug valve in which a lubricant is injected under pressure between the plug face and the body.\nNEEDLE: Valve for regulating the flow in or from a pipe, in which a slender cone moves along the axis of flow to close against a fixed conical seat.\nPARALLELSLIDE: Screwdown valve that has a machined plate that slides in formed grooves to form a seal.\nPLUG: Valve that has a ported plug that can be turned relative to the body seat ports.\nWEDGEGATE: Screwdown valve that has a wedge shaped plate fitting into tapered guides to form a seal." ;
+        IFC4-PSD:definitionAlias  "機構により可能な弁機能は以下の通り：\nボール弁(BALL valve)＝本体のシートポートに関連して回転できるポートボールを持つ弁　バタフライ弁(BUTTERFLY valve)＝直径軸あたりに流線型の円板の旋回軸のある弁　CONFIGUREDスクリュー弁(CONFIGUREDGATE Screwdown valve)＝閉鎖ゲートを持つねじ回し式弁。その弁は、弁を通過する時圧力と流量変更をより正確に制御できる方法で形づけられている　グランド弁(GLAND Valve)＝テーパーのついたシートを持った弁。その中に回転プラグがグランドとグランドパッキンによって保持されている　グローブスクリュー弁(GLOBE Screwdown valve)＝ 球形の本体を持つねじ回し式弁　滑プラグ弁(LUBRICATEDPLUG Plug valve)＝プラグ表面と本体との間の圧力を下げるために潤滑油が注入された弁　ニードル弁(NEEDLE Valve)＝管内外の流量を調節する弁。その中に固定した円錐形のシートを閉止ために、流れの軸に沿って動く細長いコーンを持っている　平行スライドスクリュー弁(PARALLELSLIDE Screwdown valve)＝機械加工されたプレートを持つねじ回し式弁。そのプレートはシールを形成するために溝の中を滑る　プラグ弁(PLUG Valve)＝本体のシートポートと関連して回転できる、ポートしたプラグを持つ弁　くさびゲートスクリュー弁(WEDGEGATE Screwdown valve)＝シールを形成するためにテーパーの付いたガイドの中をくさび状の板部品を持つねじ回し式弁"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "51b7bb80d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ValveMechanism" ;
+        IFC4-PSD:nameAlias        "Valve Mechanism"@en , "弁機構"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "WEDGEGATE" , "BUTTERFLY" , "CONFIGUREDGATE" , "PLUG" , "BALL" , "OTHER" , "NEEDLE" , "PARALLELSLIDE" , "GLAND" , "NOTKNOWN" , "LUBRICATEDPLUG" , "GLOBE" , "UNSET"
+                                  ] .
+
+:p38167400d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The method of valve operation where:\n\nDROPWEIGHT: A valve that is closed by the action of a weighted lever being released, the weight normally being prevented from dropping by being held by a wire, the closure normally being made by the action of heat on a fusible link in the wire\nFLOAT: A valve that is opened and closed by the action of a float that rises and falls with water level. The float may be a ball attached to a lever or other mechanism\nHYDRAULIC: A valve that is opened and closed by hydraulic actuation\nLEVER: A valve that is opened and closed by the action of a lever rotating the gate within the valve.\nLOCKSHIELD: A valve that requires the use of a special lockshield key for opening and closing, the operating mechanism being protected by a shroud during normal operation.\nMOTORIZED: A valve that is opened and closed by the action of an electric motor on an actuator\nPNEUMATIC: A valve that is opened and closed by pneumatic actuation\nSOLENOID: A valve that is normally held open by a magnetic field in a coil acting on the gate but that is closed immediately if the electrical current generating the magnetic field is removed. \nSPRING: A valve that is normally held in position by the pressure of a spring on a plate but that may be caused to open if the pressure of the fluid is sufficient to overcome the spring pressure. \nTHERMOSTATIC: A valve in which the ports are opened or closed to maintain a required predetermined temperature.\nWHEEL: A valve that is opened and closed by the action of a wheel moving the gate within the valve." ;
+        rdfs:label                "ValveOperation" ;
+        IFC4-PSD:definition       "The method of valve operation where:\n\nDROPWEIGHT: A valve that is closed by the action of a weighted lever being released, the weight normally being prevented from dropping by being held by a wire, the closure normally being made by the action of heat on a fusible link in the wire\nFLOAT: A valve that is opened and closed by the action of a float that rises and falls with water level. The float may be a ball attached to a lever or other mechanism\nHYDRAULIC: A valve that is opened and closed by hydraulic actuation\nLEVER: A valve that is opened and closed by the action of a lever rotating the gate within the valve.\nLOCKSHIELD: A valve that requires the use of a special lockshield key for opening and closing, the operating mechanism being protected by a shroud during normal operation.\nMOTORIZED: A valve that is opened and closed by the action of an electric motor on an actuator\nPNEUMATIC: A valve that is opened and closed by pneumatic actuation\nSOLENOID: A valve that is normally held open by a magnetic field in a coil acting on the gate but that is closed immediately if the electrical current generating the magnetic field is removed. \nSPRING: A valve that is normally held in position by the pressure of a spring on a plate but that may be caused to open if the pressure of the fluid is sufficient to overcome the spring pressure. \nTHERMOSTATIC: A valve in which the ports are opened or closed to maintain a required predetermined temperature.\nWHEEL: A valve that is opened and closed by the action of a wheel moving the gate within the valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "The method of valve operation where:弁操作方法は以下の通り：\nおもり(DROPWEIGHT)＝おもりを付けられたレバーが外される動作で閉まる弁　浮き(FLOAT)＝水位と共に上下する浮きの動作で開閉する弁。浮きはレバーに付けたボール又は他の機構　水力(HYDRAULIC)＝水力アクチュエータで開閉する弁　レバー(LEVER)＝弁内のゲートを回転させるレバーの動作で開閉する弁　ロックシールド(LOCKSHIELD)＝開閉のために特別のロックシールドキーの使用を要求する弁。操作機構は通常の操作の間は覆いで保護されている　電動化(MOTORIZED)＝アクチュエータに付けられた電動モータの動作で開閉する弁　空気圧(PNEUMATIC)＝圧縮空気で動くアクチュエータで開閉する弁　筒型コイル(SOLENOID)＝ゲートに付けられ作動しているコイルの磁界で通常は開に保たれている弁。しかし、もし磁界を発生している電流が消されたらただちに閉まる　ばね(SPRING)＝板に付けられたばねの圧力で、通常は位置を保たれている弁。しかし、もし流体の圧力が、ばねの圧力より十分大きければ開いてしまう。　自動温度調節(THERMOSTATIC)＝前もって決められた要求温度を維持するために、中のポートが開閉する弁　ハンドル(WHEEL)＝弁内のゲートを動かすハンドルの動作で開閉する弁"@ja-JP ;
+        IFC4-PSD:ifdguid          "38167400d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ValveOperation" ;
+        IFC4-PSD:nameAlias        "Valve Operation"@en , "弁操作"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SOLENOID" , "FLOAT" , "LEVER" , "NOTKNOWN" , "DROPWEIGHT" , "SPRING" , "HYDRAULIC" , "LOCKSHIELD" , "UNSET" , "MOTORIZED" , "WHEEL" , "THERMOSTATIC" , "OTHER" , "PNEUMATIC"
+                                  ] .
+
+:ValveOperation  a          rdf:Property ;
+        rdfs:seeAlso        :p38167400d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ValveOperation .
+
+:p103808cf5fe64d589e7317c7493147b5
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "103808cf5fe64d589e7317c7493147b5" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+:FlowCoefficient  a         rdf:Property ;
+        rdfs:seeAlso        :p8461b400d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowCoefficient .
+
+:WorkingPressure  a         rdf:Property ;
+        rdfs:seeAlso        :p7e6bd300d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkingPressure .
+
+:p2208b380d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2208b380d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p2208b380d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:ValveMechanism  a          rdf:Property ;
+        rdfs:seeAlso        :p51b7bb80d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ValveMechanism .
+
+:p27fe9480d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The configuration of the ports of a valve according to either the linear route taken by a fluid flowing through the valve or by the number of ports where:\n\nSINGLEPORT: Valve that has a single entry port from the system that it serves, the exit port being to the surrounding environment.\nANGLED_2_PORT: Valve in which the direction of flow is changed through 90 degrees.\nSTRAIGHT_2_PORT: Valve in which the flow is straight through.\nSTRAIGHT_3_PORT: Valve with three separate ports.\nCROSSOVER_4_PORT: Valve with 4 separate ports." ;
+        rdfs:label                "ValvePattern" ;
+        IFC4-PSD:definition       "The configuration of the ports of a valve according to either the linear route taken by a fluid flowing through the valve or by the number of ports where:\n\nSINGLEPORT: Valve that has a single entry port from the system that it serves, the exit port being to the surrounding environment.\nANGLED_2_PORT: Valve in which the direction of flow is changed through 90 degrees.\nSTRAIGHT_2_PORT: Valve in which the flow is straight through.\nSTRAIGHT_3_PORT: Valve with three separate ports.\nCROSSOVER_4_PORT: Valve with 4 separate ports." ;
+        IFC4-PSD:definitionAlias  ""@en , "単一ポートSINGLEPORT()=システムで単一入口ポートを持ち、出口ポートは周囲環境である　2ポート直角型(ANGLED_2_PORT)＝中で流れ方向が完全に90度変わる弁　2ポート直行型(STRAIGHT_2_PORT)＝中で流れが真っ直ぐな弁　3ポート直行型(STRAIGHT_3_PORT)＝3つの別々のポートを持つ　4ポート交差型(CROSSOVER_4_PORT)＝4つの別々のポートを持つ"@ja-JP ;
+        IFC4-PSD:ifdguid          "27fe9480d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ValvePattern" ;
+        IFC4-PSD:nameAlias        "Valve Pattern"@en , "弁の形"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SINGLEPORT" , "ANGLED_2_PORT" , "STRAIGHT_2_PORT" , "STRAIGHT_3_PORT" , "CROSSOVER_4_PORT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:CloseOffRating  a          rdf:Property ;
+        rdfs:seeAlso        :p8a579500d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CloseOffRating .
+
+:Pset_ValveTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve type common attributes." ;
+        rdfs:label                    "Pset_ValveTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcValve ;
+        IFC4-PSD:applicableTypeValue  "IfcValve" ;
+        IFC4-PSD:definition           "Valve type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "弁タイプ共通プロパティ属性設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeCommon" ;
+        IFC4-PSD:propertyDef          :p2208b380d21411e1800000215ad4efdf , :p6a27d600d21411e1800000215ad4efdf , :p51b7bb80d21411e1800000215ad4efdf , :p7875f200d21411e1800000215ad4efdf , :p7e6bd300d21411e1800000215ad4efdf , :p8461b400d21411e1800000215ad4efdf , :p27fe9480d21411e1800000215ad4efdf , :p38167400d21411e1800000215ad4efdf , :p103808cf5fe64d589e7317c7493147b5 , :p8a579500d21411e1800000215ad4efdf .
+
+:ValvePattern  a            rdf:Property ;
+        rdfs:seeAlso        :p27fe9480d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ValvePattern .
+
+:Size   a                   rdf:Property ;
+        rdfs:seeAlso        :p6a27d600d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Size .
+
+:p8461b400d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flow coefficient (the quantity of fluid that passes through a fully open valve at unit pressure drop), typically expressed as the Kv or Cv value for the valve." ;
+        rdfs:label                "FlowCoefficient" ;
+        IFC4-PSD:definition       "Flow coefficient (the quantity of fluid that passes through a fully open valve at unit pressure drop), typically expressed as the Kv or Cv value for the valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "流出係数（全開のバルブを通過する単位圧力損失当たりの流体の量）一般的にバルブのKv又はCv値で表される"@ja-JP ;
+        IFC4-PSD:ifdguid          "8461b400d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowCoefficient" ;
+        IFC4-PSD:nameAlias        "Flow Coefficient"@en , "流出係数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p7875f200d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum pressure to which the valve has been subjected under test." ;
+        rdfs:label                "TestPressure" ;
+        IFC4-PSD:definition       "The maximum pressure to which the valve has been subjected under test." ;
+        IFC4-PSD:definitionAlias  ""@en , "試験の時、掛けられる最高圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "7875f200d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TestPressure" ;
+        IFC4-PSD:nameAlias        "Test Pressure"@en , "試験圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p6a27d600d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the connection to the valve (or to each connection for faucets, mixing valves, etc.)." ;
+        rdfs:label                "Size" ;
+        IFC4-PSD:definition       "The size of the connection to the valve (or to each connection for faucets, mixing valves, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en , "弁（又は、水栓、混合弁等の接続）接続サイズ"@ja-JP ;
+        IFC4-PSD:ifdguid          "6a27d600d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Size" ;
+        IFC4-PSD:nameAlias        "サイズ"@ja-JP , "Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

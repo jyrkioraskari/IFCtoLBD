@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.apache.jena.graph.Node;
+import org.apache.jena.graph.NodeFactory;
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.DatasetFactory;
 import org.apache.jena.rdf.model.Model;
@@ -24,8 +25,8 @@ public final class RevisionComparator {
 		Metadata newMetadata = metadata(current);
 		requireCompatible(oldMetadata, newMetadata);
 
-		Set<Quad> oldQuads = conversionQuads(previous.getDataset());
-		Set<Quad> newQuads = conversionQuads(current.getDataset());
+		Set<Quad> oldQuads = conversionQuads(previous);
+		Set<Quad> newQuads = conversionQuads(current);
 		List<Quad> removed = difference(oldQuads, newQuads);
 		List<Quad> added = difference(newQuads, oldQuads);
 
@@ -49,15 +50,25 @@ public final class RevisionComparator {
 		return new ConversionDiff(output, added.size(), removed.size());
 	}
 
-	private static Set<Quad> conversionQuads(Dataset dataset) {
-		Set<Quad> result = new HashSet<>();
-		dataset.asDatasetGraph().find().forEachRemaining(quad -> {
+	private static Set<Quad> conversionQuads(ConversionResult result) {
+		Set<Quad> quads = new HashSet<>();
+		ConversionGraphNames names = result.getGraphNames();
+		result.getDataset().asDatasetGraph().find().forEachRemaining(quad -> {
 			String graph = quad.getGraph().isURI() ? quad.getGraph().getURI() : "";
-			if (!ConversionResult.MANIFEST_GRAPH.equals(graph) && !ConversionResult.VALIDATION_GRAPH.equals(graph)) {
-				result.add(quad);
+			if (!names.manifest().equals(graph) && !names.validation().equals(graph)) {
+				quads.add(normalizeGraphRole(quad, names));
 			}
 		});
-		return result;
+		return quads;
+	}
+
+	private static Quad normalizeGraphRole(Quad quad, ConversionGraphNames names) {
+		if (!quad.getGraph().isURI()) return quad;
+		String graph = quad.getGraph().getURI();
+		String role = names.product().equals(graph) ? "product"
+				: names.property().equals(graph) ? "property" : null;
+		return role == null ? quad : new Quad(NodeFactory.createURI("urn:ifctolbd:graph-role:" + role),
+				quad.getSubject(), quad.getPredicate(), quad.getObject());
 	}
 
 	private static List<Quad> difference(Set<Quad> left, Set<Quad> right) {
@@ -86,7 +97,8 @@ public final class RevisionComparator {
 	private static Metadata metadata(ConversionResult result) {
 		Model manifest = result.getManifestModel();
 		return new Metadata(value(manifest, "cacheKey"), value(manifest, "sourceChecksum"),
-				value(manifest, "profile"), value(manifest, "uriPolicy"), moduleSignature(manifest));
+				value(manifest, "profile"), value(manifest, "uriPolicy"),
+				value(manifest, "uriPolicyConfiguration"), value(manifest, "modelScope"), moduleSignature(manifest));
 	}
 
 	private static String value(Model manifest, String localName) {
@@ -106,9 +118,14 @@ public final class RevisionComparator {
 	private static void requireCompatible(Metadata previous, Metadata current) {
 		if (!"stable-guid-v1".equals(previous.uriPolicy) || !previous.uriPolicy.equals(current.uriPolicy))
 			throw new IllegalArgumentException("Revision comparison requires matching stable-guid-v1 URI policies");
+		if (!previous.modelScope.equals(current.modelScope))
+			throw new IllegalArgumentException("Revision comparison requires matching model scopes");
+		if (!previous.uriPolicyConfiguration.equals(current.uriPolicyConfiguration))
+			throw new IllegalArgumentException("Revision comparison requires matching URI policy configurations");
 		if (!previous.profile.equals(current.profile) || !previous.modules.equals(current.modules))
 			throw new IllegalArgumentException("Revision comparison requires matching profiles and module versions");
 	}
 
-	private record Metadata(String cacheKey, String sourceChecksum, String profile, String uriPolicy, String modules) { }
+	private record Metadata(String cacheKey, String sourceChecksum, String profile, String uriPolicy,
+			String uriPolicyConfiguration, String modelScope, String modules) { }
 }

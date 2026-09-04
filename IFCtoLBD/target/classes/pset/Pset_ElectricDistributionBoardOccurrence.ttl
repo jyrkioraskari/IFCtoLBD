@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pc8b9fc58cd024eeda3208ff916082beb
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies if the current instance is a main distribution point or topmost level in an electrical distribution hierarchy (= TRUE) or a sub-main distribution point (= FALSE)." ;
+        rdfs:label                "IsMain" ;
+        IFC4-PSD:definition       "Identifies if the current instance is a main distribution point or topmost level in an electrical distribution hierarchy (= TRUE) or a sub-main distribution point (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c8b9fc58cd024eeda3208ff916082beb" ;
+        IFC4-PSD:name             "IsMain" ;
+        IFC4-PSD:nameAlias        "Is Main"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p421bd7510cf947d8982953510c16a01a
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies if the current instance requires a skilled person or instructed person to perform operations on the distribution board (= TRUE) or whether operations may be performed by a person without appropriate skills or instruction (= FALSE)." ;
+        rdfs:label                "IsSkilledOperator" ;
+        IFC4-PSD:definition       "Identifies if the current instance requires a skilled person or instructed person to perform operations on the distribution board (= TRUE) or whether operations may be performed by a person without appropriate skills or instruction (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "421bd7510cf947d8982953510c16a01a" ;
+        IFC4-PSD:name             "IsSkilledOperator" ;
+        IFC4-PSD:nameAlias        "Is Skilled Operator"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_ElectricDistributionBoardOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties that may be applied to electric distribution board occurrences." ;
+        rdfs:label                    "Pset_ElectricDistributionBoardOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElectricDistributionBoard ;
+        IFC4-PSD:applicableTypeValue  "IfcElectricDistributionBoard" ;
+        IFC4-PSD:definition           "Properties that may be applied to electric distribution board occurrences." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricDistributionBoardOccurrence" ;
+        IFC4-PSD:propertyDef          :pc8b9fc58cd024eeda3208ff916082beb , :p421bd7510cf947d8982953510c16a01a .
+
+:IsSkilledOperator  a       rdf:Property ;
+        rdfs:seeAlso        :p421bd7510cf947d8982953510c16a01a ;
+        rdfs:subPropertyOf  IFC4-PSD:IsSkilledOperator .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricDistributionBoardOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsMain  a                  rdf:Property ;
+        rdfs:seeAlso        :pc8b9fc58cd024eeda3208ff916082beb ;
+        rdfs:subPropertyOf  IFC4-PSD:IsMain .

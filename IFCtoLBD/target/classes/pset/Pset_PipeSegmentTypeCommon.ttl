@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p9121e000d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:WorkingPressure  a         rdf:Property ;
+        rdfs:seeAlso        :pa72fa080d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkingPressure .
+
+:NominalDiameter  a         rdf:Property ;
+        rdfs:seeAlso        :pc0385180d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDiameter .
+
+:Pset_PipeSegmentTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe segment type common attributes." ;
+        rdfs:label                    "Pset_PipeSegmentTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPipeSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeSegment" ;
+        IFC4-PSD:definition           "Pipe segment type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeSegmentTypeCommon" ;
+        IFC4-PSD:propertyDef          :pcf1f0400d1f311e1800000215ad4efdf , :pa72fa080d1f311e1800000215ad4efdf , :pc7f7f600d1f311e1800000215ad4efdf , :p9121e000d1f311e1800000215ad4efdf , :p97b05780d1f311e1800000215ad4efdf , :pb7e01680d1f311e1800000215ad4efdf , :pc0385180d1f311e1800000215ad4efdf , :padbe1800d1f311e1800000215ad4efdf .
+
+:p9121e000d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9121e000d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:pcf1f0400d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual outer diameter of the pipe." ;
+        rdfs:label                "OuterDiameter" ;
+        IFC4-PSD:definition       "The actual outer diameter of the pipe." ;
+        IFC4-PSD:definitionAlias  ""@en , "配管の実外径(リストの複数の数字の解釈については呼び径参照)"@ja-JP ;
+        IFC4-PSD:ifdguid          "cf1f0400d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OuterDiameter" ;
+        IFC4-PSD:nameAlias        "外径"@ja-JP , "Outer Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p97b05780d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p97b05780d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "97b05780d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pc0385180d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the pipe segment." ;
+        rdfs:label                "NominalDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the pipe segment." ;
+        IFC4-PSD:definitionAlias  ""@en , "配管部の呼び径、リストに一つの数字しかないとき、この呼び径が全ての管端に当てはまる。一つ以上の数字があるとき、呼び径はリストの表示に対応する管端にあてはまる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c0385180d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDiameter" ;
+        IFC4-PSD:nameAlias        "呼び径"@ja-JP , "Nominal Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pc7f7f600d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual inner diameter of the pipe." ;
+        rdfs:label                "InnerDiameter" ;
+        IFC4-PSD:definition       "The actual inner diameter of the pipe." ;
+        IFC4-PSD:definitionAlias  ""@en , "配管の実内径(リストの複数の数字の解釈については呼び径参照)"@ja-JP ;
+        IFC4-PSD:ifdguid          "c7f7f600d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InnerDiameter" ;
+        IFC4-PSD:nameAlias        "Inner Diameter"@en , "内径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :pb7e01680d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:PressureRange  a           rdf:Property ;
+        rdfs:seeAlso        :padbe1800d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRange .
+
+:OuterDiameter  a           rdf:Property ;
+        rdfs:seeAlso        :pcf1f0400d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OuterDiameter .
+
+:padbe1800d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        rdfs:label                "PressureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        IFC4-PSD:definitionAlias  "許容最大/最小管内圧力(周囲圧力に比較して)"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "adbe1800d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRange" ;
+        IFC4-PSD:nameAlias        "Pressure Range"@en , "圧力範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pb7e01680d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum temperature." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum temperature." ;
+        IFC4-PSD:definitionAlias  "許容最大/最小温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b7e01680d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "Temperature Range"@en , "温度範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:InnerDiameter  a           rdf:Property ;
+        rdfs:seeAlso        :pc7f7f600d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InnerDiameter .
+
+:pa72fa080d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Working pressure." ;
+        rdfs:label                "WorkingPressure" ;
+        IFC4-PSD:definition       "Working pressure." ;
+        IFC4-PSD:definitionAlias  "動作圧"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a72fa080d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkingPressure" ;
+        IFC4-PSD:nameAlias        "Working Pressure"@en , "動作圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .

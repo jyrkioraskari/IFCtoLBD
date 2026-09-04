@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_FilterPHistory  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Filter performance history attributes." ;
+        rdfs:label                    "Pset_FilterPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFilter ;
+        IFC4-PSD:applicableTypeValue  "IfcFilter" ;
+        IFC4-PSD:definition           "Filter performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FilterPHistory" ;
+        IFC4-PSD:propertyDef          :p3c776880d1e511e1800000215ad4efdf , :p397c7800d1e511e1800000215ad4efdf , :p35505a80d1e511e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WeightedEfficiency  a      rdf:Property ;
+        rdfs:seeAlso        :p397c7800d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WeightedEfficiency .
+
+:p397c7800d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Filter efficiency based the particle weight concentration before and after filter against particles with certain size distribution." ;
+        rdfs:label                "WeightedEfficiency" ;
+        IFC4-PSD:definition       "Filter efficiency based the particle weight concentration before and after filter against particles with certain size distribution." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "397c7800d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WeightedEfficiency" ;
+        IFC4-PSD:nameAlias        "Weighted Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CountedEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p35505a80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CountedEfficiency .
+
+:p3c776880d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mass of particle holding in the filter." ;
+        rdfs:label                "ParticleMassHolding" ;
+        IFC4-PSD:definition       "Mass of particle holding in the filter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3c776880d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ParticleMassHolding" ;
+        IFC4-PSD:nameAlias        "Particle Mass Holding"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ParticleMassHolding  a     rdf:Property ;
+        rdfs:seeAlso        :p3c776880d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ParticleMassHolding .
+
+:p35505a80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Filter efficiency based the particle counts concentration before and after filter against particles with certain size distribution." ;
+        rdfs:label                "CountedEfficiency" ;
+        IFC4-PSD:definition       "Filter efficiency based the particle counts concentration before and after filter against particles with certain size distribution." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "35505a80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CountedEfficiency" ;
+        IFC4-PSD:nameAlias        "Counted Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

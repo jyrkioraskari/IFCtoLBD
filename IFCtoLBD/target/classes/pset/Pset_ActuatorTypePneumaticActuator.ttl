@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypePneumaticActuator#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ActuatorTypePneumaticActuator
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that pneumatically actuates a control element" ;
+        rdfs:label                    "Pset_ActuatorTypePneumaticActuator" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcActuator/PNEUMATICACTUATOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator/PNEUMATICACTUATOR" ;
+        IFC4-PSD:definition           "A device that pneumatically actuates a control element" ;
+        IFC4-PSD:definitionAlias      ""@en , "制御要素を空気圧で作動させるデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorTypePneumaticActuator" ;
+        IFC4-PSD:propertyDef          :p9c5a1900d1bd11e1800000215ad4efdf , :pa24ffa00d1bd11e1800000215ad4efdf .
+
+:pa24ffa00d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum input control air flowrate requirement." ;
+        rdfs:label                "InputFlowrate" ;
+        IFC4-PSD:definition       "Maximum input control air flowrate requirement." ;
+        IFC4-PSD:definitionAlias  ""@en , "최대 제어 공기 유량"@ko-KR , "最大制御空気流量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a24ffa00d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InputFlowrate" ;
+        IFC4-PSD:nameAlias        "입력 유량"@ko-KR , "Input Flowrate"@en , "入力流量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p9c5a1900d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum input control air pressure requirement." ;
+        rdfs:label                "InputPressure" ;
+        IFC4-PSD:definition       "Maximum input control air pressure requirement." ;
+        IFC4-PSD:definitionAlias  ""@en , "최대 제어 공압"@ko-KR , "最大制御空気圧。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9c5a1900d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InputPressure" ;
+        IFC4-PSD:nameAlias        "入力圧力"@ja-JP , "Input Pressure"@en , "입력 압력"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:InputPressure  a           rdf:Property ;
+        rdfs:seeAlso        :p9c5a1900d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InputPressure .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypePneumaticActuator>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:InputFlowrate  a           rdf:Property ;
+        rdfs:seeAlso        :pa24ffa00d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InputFlowrate .

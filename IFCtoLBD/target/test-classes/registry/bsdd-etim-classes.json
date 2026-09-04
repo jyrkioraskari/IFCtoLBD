@@ -1,0 +1,9 @@
+{
+  "classes": [
+    {
+      "code": "EC0001",
+      "name": "Mock ETIM class",
+      "uri": "https://identifier.example/etim/EC0001"
+    }
+  ]
+}

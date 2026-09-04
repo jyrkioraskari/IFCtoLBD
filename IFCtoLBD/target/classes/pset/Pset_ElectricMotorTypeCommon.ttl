@@ -1,0 +1,230 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricMotorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1b147d80d1e111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the motor is single speed, i.e. has a single winding (= FALSE) or multi-speed i.e.has part winding (= TRUE) ." ;
+        rdfs:label                "HasPartWinding" ;
+        IFC4-PSD:definition       "Indication of whether the motor is single speed, i.e. has a single winding (= FALSE) or multi-speed i.e.has part winding (= TRUE) ." ;
+        IFC4-PSD:definitionAlias  "モータが単一の速度であるかどうかを示す。例えば、単巻線、マルチスピード、分割巻線。"@ja-JP , "모터가 단일 속도인지 여부를 나타내는 예를 들어, 단일 권선, 다중 속도 분할 권선"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "1b147d80d1e111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasPartWinding" ;
+        IFC4-PSD:nameAlias        "Has Part Winding"@en , "권선"@ko-KR , "巻線　"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:ElectricMotorEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe99bb200d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ElectricMotorEfficiency .
+
+:p15b73300d1e111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the motor enclosure is guarded (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "IsGuarded" ;
+        IFC4-PSD:definition       "Indication of whether the motor enclosure is guarded (= TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  "モーターの筐体が守られているかどうかを示す。"@ja-JP , "모터의 케이스가 지켜지고 있는지 여부를 나타낸다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "15b73300d1e111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsGuarded" ;
+        IFC4-PSD:nameAlias        "보호"@ko-KR , "Is Guarded"@en , "保護"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pd7217880d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d7217880d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:HasPartWinding  a          rdf:Property ;
+        rdfs:seeAlso        :p1b147d80d1e111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasPartWinding .
+
+:FrameSize  a               rdf:Property ;
+        rdfs:seeAlso        :p0fc15200d1e111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrameSize .
+
+:TeTime  a                  rdf:Property ;
+        rdfs:seeAlso        :pf8826480d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TeTime .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pd7217880d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pf8826480d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum time (in s) at which the motor could run with locked rotor when the motor is used in an EX-environment. The time indicates that a protective device should trip before this time when the starting current of the motor is slowing through the device." ;
+        rdfs:label                "TeTime" ;
+        IFC4-PSD:definition       "The maximum time (in s) at which the motor could run with locked rotor when the motor is used in an EX-environment. The time indicates that a protective device should trip before this time when the starting current of the motor is slowing through the device." ;
+        IFC4-PSD:definitionAlias  ""@en , "モーターがEX環境でローターロックされて使用きる最大時間。\nモーター始動電流が機器を介して減速している時間より前に保護装置で停止する時間を示す。"@ja-JP , "모터가 EX 환경 로터 잠겨 사용 수있는 최대 시간. 모터 기동 전류가 장비를 통해 감속하고있다 시간 전에 보호 장치 중지 시간을 보여준다"@ko-KR ;
+        IFC4-PSD:ifdguid          "f8826480d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TeTime" ;
+        IFC4-PSD:nameAlias        "最大時間"@ja-JP , "Te Time"@en , "최대 시간"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:Pset_ElectricMotorTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Defines a particular type of engine that is a machine for converting electrical energy into mechanical energy. Note that in cases where a close coupled or monobloc pump or close coupled fan is being driven by the motor, the motor may itself be considered to be directly part of the pump or fan. In this case , motor information may need to be specified directly at the pump or fan and not througfh separate motor/motor connection entities. NOTE: StartingTime and TeTime added at IFC4" ;
+        rdfs:label                    "Pset_ElectricMotorTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElectricMotor ;
+        IFC4-PSD:applicableTypeValue  "IfcElectricMotor" ;
+        IFC4-PSD:definition           "Defines a particular type of engine that is a machine for converting electrical energy into mechanical energy. Note that in cases where a close coupled or monobloc pump or close coupled fan is being driven by the motor, the motor may itself be considered to be directly part of the pump or fan. In this case , motor information may need to be specified directly at the pump or fan and not througfh separate motor/motor connection entities. NOTE: StartingTime and TeTime added at IFC4" ;
+        IFC4-PSD:definitionAlias      "電気エネルギーを機械エネルギーに変換するエンジンを定義。一体型ポンプやファンの近くで接続した場合は、モーター自体が直接ポンプやファンの一部とみなされる可能性があるので、モーターで駆動されている時は注意。この場合、モーターの情報はモーター/モーターの接続実態を経由せずにポンプやファンで直接指定する必要がある。\nStartingTimeとTeTimeは IFC4で追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricMotorTypeCommon" ;
+        IFC4-PSD:propertyDef          :p0fc15200d1e111e1800000215ad4efdf , :p15b73300d1e111e1800000215ad4efdf , :pd25cc480d1e011e1800000215ad4efdf , :p02a46300d1e111e1800000215ad4efdf , :p1b147d80d1e111e1800000215ad4efdf , :pe99bb200d1e011e1800000215ad4efdf , :pd7217880d1e011e1800000215ad4efdf , :pf8826480d1e011e1800000215ad4efdf , :pf3251a00d1e011e1800000215ad4efdf , :pe56f9480d1e011e1800000215ad4efdf , :peef8fc80d1e011e1800000215ad4efdf , :pfddfaf00d1e011e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pd25cc480d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pe99bb200d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio of output capacity to intake capacity." ;
+        rdfs:label                "ElectricMotorEfficiency" ;
+        IFC4-PSD:definition       "The ratio of output capacity to intake capacity." ;
+        IFC4-PSD:definitionAlias  "출력 용량을 입력 용량의 비율."@ko-KR , "出力容量と入力容量の比率。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e99bb200d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ElectricMotorEfficiency" ;
+        IFC4-PSD:nameAlias        "출력 효율"@ko-KR , "Electric Motor Efficiency"@en , "出力効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p0fc15200d1e111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Designation of the frame size according to the named range of frame sizes designated at the place of use or according to a given standard." ;
+        rdfs:label                "FrameSize" ;
+        IFC4-PSD:definition       "Designation of the frame size according to the named range of frame sizes designated at the place of use or according to a given standard." ;
+        IFC4-PSD:definitionAlias  "フレームサイズの意味が実際の大きさを表示しているのか、規格表記なのかを指定。"@ja-JP , ""@en , "프레임 크기의 의미가 실제 크기를 표시하고 있는지, 표준 표기인지 지정합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "0fc15200d1e111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrameSize" ;
+        IFC4-PSD:nameAlias        "프레임 크기"@ko-KR , "Frame Size"@en , "フレームサイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricMotorTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe56f9480d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum output power rating of the engine." ;
+        rdfs:label                "MaximumPowerOutput" ;
+        IFC4-PSD:definition       "The maximum output power rating of the engine." ;
+        IFC4-PSD:definitionAlias  ""@en , "엔진의 최대 출력 정격."@ko-KR , "エンジンの最大出力定格。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e56f9480d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPowerOutput" ;
+        IFC4-PSD:nameAlias        "最大出力"@ja-JP , "최대 출력"@ko-KR , "Maximum Power Output"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:IsGuarded  a               rdf:Property ;
+        rdfs:seeAlso        :p15b73300d1e111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsGuarded .
+
+:MotorEnclosureType  a      rdf:Property ;
+        rdfs:seeAlso        :p02a46300d1e111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MotorEnclosureType .
+
+:StartCurrentFactor  a      rdf:Property ;
+        rdfs:seeAlso        :peef8fc80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StartCurrentFactor .
+
+:peef8fc80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "IEC. Start current factor defines how large the peak starting current will become on the engine. StartCurrentFactor is multiplied to NominalCurrent and to give the start current." ;
+        rdfs:label                "StartCurrentFactor" ;
+        IFC4-PSD:definition       "IEC. Start current factor defines how large the peak starting current will become on the engine. StartCurrentFactor is multiplied to NominalCurrent and to give the start current." ;
+        IFC4-PSD:definitionAlias  "시동 전류 계수는 엔진이 움직이기 시작했다 피크 기동 전류를 정의합니다. 시동 전류 계수는 정격 전류 시동시 전류를 곱한 것"@ko-KR , ""@en , "始動電流係数はエンジンが動き始めた時のピーク始動電流を定義。始動電流係数は定格電流と始動時の電流を掛け合わせたもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eef8fc80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StartCurrentFactor" ;
+        IFC4-PSD:nameAlias        "始動電流係数"@ja-JP , "시동전류 계수"@ko-KR , "Start Current Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:MaximumPowerOutput  a      rdf:Property ;
+        rdfs:seeAlso        :pe56f9480d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPowerOutput .
+
+:p02a46300d1e111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of motor enclosure from which that required may be selected." ;
+        rdfs:label                "MotorEnclosureType" ;
+        IFC4-PSD:definition       "A list of the available types of motor enclosure from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "모터에 필요한 케이스를 사용 가능한 종류 목록에서 선택합니다."@ko-KR , "モーターに必要な筐体を使用可能なタイプのリストから選択。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "02a46300d1e111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MotorEnclosureType" ;
+        IFC4-PSD:nameAlias        "모터 보호구조"@ko-KR , "モーター保護構造"@ja-JP , "Motor Enclosure Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OPENDRIPPROOF" , "TOTALLYENCLOSEDAIROVER" , "TOTALLYENCLOSEDFANCOOLED" , "TOTALLYENCLOSEDNONVENTILATED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pd25cc480d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "해당 프로젝트에 정의된 형식의 참조 ID (예 : A-1) 승인된 분류에 존재하지 않을 때 사용된다."@ko-KR , ""@en , "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d25cc480d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조"@ko-KR , "参照"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:StartingTime  a            rdf:Property ;
+        rdfs:seeAlso        :pf3251a00d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StartingTime .
+
+:pf3251a00d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The time (in s) needed for the motor to reach its rated speed with its driven equipment attached, starting from standstill and at the nominal voltage applied at its terminals." ;
+        rdfs:label                "StartingTime" ;
+        IFC4-PSD:definition       "The time (in s) needed for the motor to reach its rated speed with its driven equipment attached, starting from standstill and at the nominal voltage applied at its terminals." ;
+        IFC4-PSD:definitionAlias  ""@en , "모터가 정지 상태에서 정격 전압을인가하여 정격 속도에 도달하는 데 필요한 시간"@ko-KR , "モーターが停止状態から定格電圧を印加し定格速度に到達するまでに必要な時間。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f3251a00d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StartingTime" ;
+        IFC4-PSD:nameAlias        "시작 시간"@ko-KR , "始動時間"@ja-JP , "Starting Time"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:LockedRotorCurrent  a      rdf:Property ;
+        rdfs:seeAlso        :pfddfaf00d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LockedRotorCurrent .
+
+:pfddfaf00d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Input current when a motor armature is energized but not rotating." ;
+        rdfs:label                "LockedRotorCurrent" ;
+        IFC4-PSD:definition       "Input current when a motor armature is energized but not rotating." ;
+        IFC4-PSD:definitionAlias  "モーターの電機子に電圧を印加しロータが回っていない時の入力電流。"@ja-JP , "모터의 전기자 전압을인가 로터가 회전하지 않을 때 입력 전류."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "fddfaf00d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LockedRotorCurrent" ;
+        IFC4-PSD:nameAlias        "Locked Rotor Current"@en , "구속 회전자 전류"@ko-KR , "拘束ロータ電流"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .

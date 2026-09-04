@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Mounting  a                rdf:Property ;
+        rdfs:seeAlso        :p9176a700d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mounting .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeWashHandBasin>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pbff48200d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the drain outlet connection from the object." ;
+        rdfs:label                "DrainSize" ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素への接続口径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "bff48200d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "Drain Size"@en , "管径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_SanitaryTerminalTypeWashHandBasin
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Waste water appliance for washing the upper parts of the body. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeWashHandBasin" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/WASHHANDBASIN> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/WASHHANDBASIN" ;
+        IFC4-PSD:definition           "Waste water appliance for washing the upper parts of the body. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)." ;
+        IFC4-PSD:definitionAlias      ""@en , "体の上部分を洗浄するための廃水機器。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。また、「設置」のプロパティーが加えられました。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeWashHandBasin" ;
+        IFC4-PSD:propertyDef          :pbff48200d20411e1800000215ad4efdf , :p802d9a80d20411e1800000215ad4efdf , :p9176a700d20411e1800000215ad4efdf , :pc97dea00d20411e1800000215ad4efdf .
+
+:pc97dea00d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For counter top mounted basins the vertical offset between the top of the sink and the counter top." ;
+        rdfs:label                "MountingOffset" ;
+        IFC4-PSD:definition       "For counter top mounted basins the vertical offset between the top of the sink and the counter top." ;
+        IFC4-PSD:definitionAlias  "カウンター用途として、カウンターとシンクの間に垂直洗浄に据付される廃水機器。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c97dea00d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MountingOffset" ;
+        IFC4-PSD:nameAlias        "Mounting Offset"@en , "据付補正"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p9176a700d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the form of mounting from the enumerated list of mountings where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        rdfs:label                "Mounting" ;
+        IFC4-PSD:definition       "Selection of the form of mounting from the enumerated list of mountings where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        IFC4-PSD:definitionAlias  "以下のリストから設置方法を選択\n\n\n・床置き壁排出：接続口の後部に出水口を合わせること。\n・台：床置きの衛生器具には基礎があること。\n・カウンター：衛生器具の表層が水平に設置されていること。※手洗い台として設置された場合「化粧台」として扱うこと。また、洗面台種類の規格表を参照のこと。\n・壁掛け型：衛生器具は片側固定がされ床から離れていること。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9176a700d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mounting" ;
+        IFC4-PSD:nameAlias        "設置"@ja-JP , "Mounting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BACKTOWALL" , "PEDESTAL" , "COUNTERTOP" , "WALLHUNG" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MountingOffset  a          rdf:Property ;
+        rdfs:seeAlso        :pc97dea00d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MountingOffset .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :pbff48200d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:p802d9a80d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of wash hand basin that may be specified where:\n\n\nDentalCuspidor: Waste water appliance that receives and flushes away mouth washings\n.\nHandRinse: Wall mounted wash hand basin that has an overall width of 500mm or less\n.\nHospital: Wash hand basin that has a smooth easy clean surface without tapholes or overflow slot for use where hygiene is of prime importance. \n\nTipup: Wash hand basin mounted on pivots so that it can be emptied by tilting.\n\nVanity: Wash hand basin for installation into a horizontal surface.\n\nWashfountain: Wash hand basin that is circular, semi-circular or polygonal on plan, at which more than one person can wash at the same time.\nWashingTrough: Wash hand basin of elongated rectangular shape in plan, at which more than one person can wash at the same time." ;
+        rdfs:label                "WashHandBasinType" ;
+        IFC4-PSD:definition       "Defines the types of wash hand basin that may be specified where:\n\n\nDentalCuspidor: Waste water appliance that receives and flushes away mouth washings\n.\nHandRinse: Wall mounted wash hand basin that has an overall width of 500mm or less\n.\nHospital: Wash hand basin that has a smooth easy clean surface without tapholes or overflow slot for use where hygiene is of prime importance. \n\nTipup: Wash hand basin mounted on pivots so that it can be emptied by tilting.\n\nVanity: Wash hand basin for installation into a horizontal surface.\n\nWashfountain: Wash hand basin that is circular, semi-circular or polygonal on plan, at which more than one person can wash at the same time.\nWashingTrough: Wash hand basin of elongated rectangular shape in plan, at which more than one person can wash at the same time." ;
+        IFC4-PSD:definitionAlias  ""@en , "手洗いの種類は設置される場所で定義されます。\n\n歯科用痰壷：口をゆすぐ際に受けて流す廃水機器\n手洗い：500ｍｍ以下の幅の壁掛け型手洗い\n病院用：サイフォンか氾濫防止弁が付いた衛生が最優先とされる場所で使用される手洗い洗面器\n上げ起こし型：角度調整によって空にできる軸上に設置された手洗い\n化粧台：地平面に設置された手洗い台\n洗浄噴水型：一人以上の人間が同時に使用できる円・半円・多角形の洗面台\n洗浄ボウル：一人以上の人間が同時に使用できる多角形の洗面台"@ja-JP ;
+        IFC4-PSD:ifdguid          "802d9a80d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WashHandBasinType" ;
+        IFC4-PSD:nameAlias        "Wash Hand Basin Type"@en , "手洗い種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HOSPITAL" , "TIPUP" , "WASHINGTROUGH" , "OTHER" , "HANDRINSE" , "UNSET" , "NOTKNOWN" , "WASHFOUNTAIN" , "DENTALCUSPIDOR"
+                                  ] .
+
+:WashHandBasinType  a       rdf:Property ;
+        rdfs:seeAlso        :p802d9a80d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WashHandBasinType .

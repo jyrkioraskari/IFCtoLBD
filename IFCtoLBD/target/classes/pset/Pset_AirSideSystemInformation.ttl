@@ -1,0 +1,336 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirSideSystemInformation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p0ecaf900d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The air flowrate required to satisfy the sensible peak loads." ;
+        rdfs:label                "AirflowSensible" ;
+        IFC4-PSD:definition       "The air flowrate required to satisfy the sensible peak loads." ;
+        IFC4-PSD:definitionAlias  "최대 잠열 부하에 대한 급기 량"@ko-KR , "最大潜熱負荷に対応する給気量。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0ecaf900d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirflowSensible" ;
+        IFC4-PSD:nameAlias        "Airflow Sensible"@en , "顕熱空調給気量"@ja-JP , "현열 공조 급기 량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p08d51800d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total amount of energy gains for the spaces served by the system during the peak cooling conditions, plus any system-level total energy gains." ;
+        rdfs:label                "EnergyGainTotal" ;
+        IFC4-PSD:definition       "The total amount of energy gains for the spaces served by the system during the peak cooling conditions, plus any system-level total energy gains." ;
+        IFC4-PSD:definitionAlias  "거실 최대 냉방 부하 및 공조 시스템 (장비 등) 재열 부하에 의한 최대 열부하."@ko-KR , ""@en , "居室の最大冷房負荷と空調システム（機器等）の再熱負荷による最大熱負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "08d51800d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergyGainTotal" ;
+        IFC4-PSD:nameAlias        "총 열 검색"@ko-KR , "Energy Gain Total"@en , "総熱取得"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:Name   a                   rdf:Property ;
+        rdfs:seeAlso        :pc9a6c700d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Name .
+
+:p2609e680d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity factor for Summer infiltration." ;
+        rdfs:label                "InfiltrationDiversitySummer" ;
+        IFC4-PSD:definition       "Diversity factor for Summer infiltration." ;
+        IFC4-PSD:definitionAlias  ""@en , "夏期すき間換気率。"@ja-JP , "여름 틈새 환기 비율"@ko-KR ;
+        IFC4-PSD:ifdguid          "2609e680d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InfiltrationDiversitySummer" ;
+        IFC4-PSD:nameAlias        "Infiltration Diversity Summer"@en , "夏期すき間換気率"@ja-JP , "여름틈새 환기 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pf3f88480d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "This enumeration defines the basic types of air side systems (e.g., SingleDuct, DualDuct, Multizone, etc.)." ;
+        rdfs:label                "AirSideSystemDistributionType" ;
+        IFC4-PSD:definition       "This enumeration defines the basic types of air side systems (e.g., SingleDuct, DualDuct, Multizone, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en , "기본적인 공조 방식 (단일 덕트, 이중 덕트, 멀티존 등)"@ko-KR , "基本的な空調方式（単一ダクト、二重ダクト、マルチゾーン等）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f3f88480d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirSideSystemDistributionType" ;
+        IFC4-PSD:nameAlias        "搬送方式"@ja-JP , "Air Side System Distribution Type"@en , "반송방식"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SINGLEDUCT" , "DUALDUCT" , "MULTIZONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:LoadSafetyFactor  a        rdf:Property ;
+        rdfs:seeAlso        :p37eb8980d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LoadSafetyFactor .
+
+:p14284380d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The sum of total energy gains for the spaces served by the system during the peak cooling conditions, plus any system-level sensible energy gains." ;
+        rdfs:label                "EnergyGainSensible" ;
+        IFC4-PSD:definition       "The sum of total energy gains for the spaces served by the system during the peak cooling conditions, plus any system-level sensible energy gains." ;
+        IFC4-PSD:definitionAlias  "ピーク時各居室の最大冷房負荷と空調システムの顕熱負荷による最大顕熱負荷。"@ja-JP , "최대 각 거실 최대 냉방 부하 및 공조 시스템의 현열 부하에 의한 최대 현열 부하"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "14284380d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergyGainSensible" ;
+        IFC4-PSD:nameAlias        "顕熱空調負荷"@ja-JP , "Energy Gain Sensible"@en , "현열 공조 부하"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p43d74b80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Cooling temperature difference for calculating space air flow rates." ;
+        rdfs:label                "CoolingTemperatureDelta" ;
+        IFC4-PSD:definition       "Cooling temperature difference for calculating space air flow rates." ;
+        IFC4-PSD:definitionAlias  "에어컨 송풍 량 계산을위한 냉방 급기 온도차"@ko-KR , "空調送風量計算用の冷房給気温度差。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "43d74b80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingTemperatureDelta" ;
+        IFC4-PSD:nameAlias        "Cooling Temperature Delta"@en , "冷房時送風温度差"@ja-JP , "냉방시 돌풍 온도차"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:Pset_AirSideSystemInformation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Attributes that apply to an air side HVAC system. HISTORY: New property set in IFC Release 1.0." ;
+        rdfs:label                    "Pset_AirSideSystemInformation" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpatialZone , IFC4:IfcZone , IFC4:IfcSpace ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace,IfcZone,IfcSpatialZone" ;
+        IFC4-PSD:definition           "Attributes that apply to an air side HVAC system. HISTORY: New property set in IFC Release 1.0." ;
+        IFC4-PSD:definitionAlias      "空調システムに適用する属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirSideSystemInformation" ;
+        IFC4-PSD:propertyDef          :p2b673100d1be11e1800000215ad4efdf , :pf3f88480d1bd11e1800000215ad4efdf , :pd62b1f80d1bd11e1800000215ad4efdf , :p31f5a880d1be11e1800000215ad4efdf , :p37eb8980d1be11e1800000215ad4efdf , :pd0353e80d1bd11e1800000215ad4efdf , :p49cd2c80d1be11e1800000215ad4efdf , :p14284380d1be11e1800000215ad4efdf , :p2609e680d1be11e1800000215ad4efdf , :p0ecaf900d1be11e1800000215ad4efdf , :p20ac9c00d1be11e1800000215ad4efdf , :p0377cd80d1be11e1800000215ad4efdf , :p1ab6bb00d1be11e1800000215ad4efdf , :pc9a6c700d1bd11e1800000215ad4efdf , :p3de16a80d1be11e1800000215ad4efdf , :p43d74b80d1be11e1800000215ad4efdf , :p08d51800d1be11e1800000215ad4efdf , :p4fc30d80d1be11e1800000215ad4efdf .
+
+:pc9a6c700d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The name of the air side system." ;
+        rdfs:label                "Name" ;
+        IFC4-PSD:definition       "The name of the air side system." ;
+        IFC4-PSD:definitionAlias  ""@en , "空調方式の名称。"@ja-JP , "공조 방식의 명칭"@ko-KR ;
+        IFC4-PSD:ifdguid          "c9a6c700d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Name" ;
+        IFC4-PSD:nameAlias        "Name"@en , "名前"@ja-JP , "이름"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p20ac9c00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Lighting diversity." ;
+        rdfs:label                "LightingDiversity" ;
+        IFC4-PSD:definition       "Lighting diversity." ;
+        IFC4-PSD:definitionAlias  "조명 부하 계수"@ko-KR , "照明負荷係数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "20ac9c00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightingDiversity" ;
+        IFC4-PSD:nameAlias        "조명부하계수"@ko-KR , "照明負荷係数"@ja-JP , "Lighting Diversity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:CoolingTemperatureDelta
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p43d74b80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingTemperatureDelta .
+
+:EnergyGainSensible  a      rdf:Property ;
+        rdfs:seeAlso        :p14284380d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergyGainSensible .
+
+:pd0353e80d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The description of the air side system." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "The description of the air side system." ;
+        IFC4-PSD:definitionAlias  ""@en , "공조 방식 설명"@ko-KR , "空調方式の説明。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d0353e80d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "설명"@ko-KR , "説明"@ja-JP , "Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:TotalAirflow  a            rdf:Property ;
+        rdfs:seeAlso        :p0377cd80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalAirflow .
+
+:FanPower  a                rdf:Property ;
+        rdfs:seeAlso        :p4fc30d80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FanPower .
+
+:p1ab6bb00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The sum of energy losses for the spaces served by the system during the peak heating conditions." ;
+        rdfs:label                "EnergyLoss" ;
+        IFC4-PSD:definition       "The sum of energy losses for the spaces served by the system during the peak heating conditions." ;
+        IFC4-PSD:definitionAlias  "최대 공조 시스템 최대 난방 부하를 제공할 수있는 열 손실"@ko-KR , "ピーク時空調システム最大暖房負荷を提供する際の熱ロス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1ab6bb00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergyLoss" ;
+        IFC4-PSD:nameAlias        "Energy Loss"@en , "열(에너지)로스"@ko-KR , "熱（エネルギー）ロス"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p2b673100d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity factor for Winter infiltration." ;
+        rdfs:label                "InfiltrationDiversityWinter" ;
+        IFC4-PSD:definition       "Diversity factor for Winter infiltration." ;
+        IFC4-PSD:definitionAlias  "冬期すき間換気率。"@ja-JP , "겨울철 틈새 환기 비율"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "2b673100d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InfiltrationDiversityWinter" ;
+        IFC4-PSD:nameAlias        "Infiltration Diversity Winter"@en , "겨울철 틈새 환기 비율"@ko-KR , "冬期すき間換気率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:InfiltrationDiversitySummer
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2609e680d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InfiltrationDiversitySummer .
+
+:EnergyLoss  a              rdf:Property ;
+        rdfs:seeAlso        :p1ab6bb00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergyLoss .
+
+:InfiltrationDiversityWinter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2b673100d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InfiltrationDiversityWinter .
+
+:HeatingTemperatureDelta
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3de16a80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingTemperatureDelta .
+
+:ApplianceDiversity  a      rdf:Property ;
+        rdfs:seeAlso        :p31f5a880d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ApplianceDiversity .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :pd0353e80d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:AirSideSystemDistributionType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf3f88480d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirSideSystemDistributionType .
+
+:p3de16a80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heating temperature difference for calculating space air flow rates." ;
+        rdfs:label                "HeatingTemperatureDelta" ;
+        IFC4-PSD:definition       "Heating temperature difference for calculating space air flow rates." ;
+        IFC4-PSD:definitionAlias  "空調送風量計算用の暖房給気温度差。"@ja-JP , ""@en , "에어컨 송풍 량 계산을위한 난방 급기 온도차"@ko-KR ;
+        IFC4-PSD:ifdguid          "3de16a80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingTemperatureDelta" ;
+        IFC4-PSD:nameAlias        "暖房時送風温度差"@ja-JP , "Heating Temperature Delta"@en , "난방시 돌풍 온도차"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p0377cd80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total design supply air flowrate required for the system for either heating or cooling conditions, whichever is greater." ;
+        rdfs:label                "TotalAirflow" ;
+        IFC4-PSD:definition       "The total design supply air flowrate required for the system for either heating or cooling conditions, whichever is greater." ;
+        IFC4-PSD:definitionAlias  "暖房、冷房の条件の、いずれか大きい条件で要求される設計給気量。"@ja-JP , ""@en , "난방, 냉방 조건 중 하나 큰 조건에서 요구되는 설계 급기 량"@ko-KR ;
+        IFC4-PSD:ifdguid          "0377cd80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalAirflow" ;
+        IFC4-PSD:nameAlias        "給気量"@ja-JP , "급기량"@ko-KR , "Total Airflow"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:AirSideSystemType  a       rdf:Property ;
+        rdfs:seeAlso        :pd62b1f80d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirSideSystemType .
+
+:p49cd2c80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Required outside air ventilation." ;
+        rdfs:label                "Ventilation" ;
+        IFC4-PSD:definition       "Required outside air ventilation." ;
+        IFC4-PSD:definitionAlias  ""@en , "요청한 외기 량"@ko-KR , "要求された外気量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "49cd2c80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Ventilation" ;
+        IFC4-PSD:nameAlias        "外気量"@ja-JP , "Ventilation"@en , "외기량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p31f5a880d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity of appliance load." ;
+        rdfs:label                "ApplianceDiversity" ;
+        IFC4-PSD:definition       "Diversity of appliance load." ;
+        IFC4-PSD:definitionAlias  ""@en , "機器の負荷率。"@ja-JP , "기기의 부하율"@ko-KR ;
+        IFC4-PSD:ifdguid          "31f5a880d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ApplianceDiversity" ;
+        IFC4-PSD:nameAlias        "기기의 부하율"@ko-KR , "Appliance Diversity"@en , "機器の負荷率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:LightingDiversity  a       rdf:Property ;
+        rdfs:seeAlso        :p20ac9c00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightingDiversity .
+
+:pd62b1f80d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "This enumeration specifies the basic types of possible air side systems (e.g., Constant Volume, Variable Volume, etc.)." ;
+        rdfs:label                "AirSideSystemType" ;
+        IFC4-PSD:definition       "This enumeration specifies the basic types of possible air side systems (e.g., Constant Volume, Variable Volume, etc.)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d62b1f80d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirSideSystemType" ;
+        IFC4-PSD:nameAlias        "Air Side System Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONSTANTVOLUMEMULTIPLEZONEREHEAT" , "VARIABLEAIRVOLUMEVARIABLETEMPERATURE" , "VARIABLEAIRVOLUME" , "VARIABLEAIRVOLUMEINDUCTION" , "CONSTANTVOLUMEBYPASS" , "VARIABLEAIRVOLUMEDUALCONDUIT" , "VARIABLEAIRVOLUMEREHEAT" , "VARIABLEAIRVOLUMEVARIABLEDIFFUSERS" , "UNSET" , "CONSTANTVOLUMESINGLEZONE" , "VARIABLEAIRVOLUMEFANPOWERED" , "NOTKNOWN" , "CONSTANTVOLUME" , "OTHER"
+                                  ] .
+
+:AirflowSensible  a         rdf:Property ;
+        rdfs:seeAlso        :p0ecaf900d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirflowSensible .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirSideSystemInformation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p4fc30d80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan motor loads contributing to the cooling load." ;
+        rdfs:label                "FanPower" ;
+        IFC4-PSD:definition       "Fan motor loads contributing to the cooling load." ;
+        IFC4-PSD:definitionAlias  ""@en , "송풍기 모터의 열 취득"@ko-KR , "送風機モーターからの熱取得。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4fc30d80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FanPower" ;
+        IFC4-PSD:nameAlias        "송풍기 소비 전력"@ko-KR , "送風機電力消費量"@ja-JP , "Fan Power"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:Ventilation  a             rdf:Property ;
+        rdfs:seeAlso        :p49cd2c80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Ventilation .
+
+:p37eb8980d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Load safety factor." ;
+        rdfs:label                "LoadSafetyFactor" ;
+        IFC4-PSD:definition       "Load safety factor." ;
+        IFC4-PSD:definitionAlias  ""@en , "空調負荷計算用の安全率（割増係数）。"@ja-JP , "공조 부하 계산을위한 안전율 (할증 계수)"@ko-KR ;
+        IFC4-PSD:ifdguid          "37eb8980d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LoadSafetyFactor" ;
+        IFC4-PSD:nameAlias        "부하의 안전율"@ko-KR , "Load Safety Factor"@en , "負荷の安全率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:EnergyGainTotal  a         rdf:Property ;
+        rdfs:seeAlso        :p08d51800d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergyGainTotal .

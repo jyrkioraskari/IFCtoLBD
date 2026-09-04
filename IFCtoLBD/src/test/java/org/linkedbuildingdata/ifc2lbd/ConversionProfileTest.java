@@ -3,12 +3,19 @@ package org.linkedbuildingdata.ifc2lbd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
 class ConversionProfileTest {
+	@Test
+	void resolvesProfilesByPublicName() {
+		assertSame(ConversionProfiles.PROPERTIES_OPM, ConversionProfiles.named("properties-opm"));
+		assertSame(ConversionProfiles.GEOMETRY_FULL, ConversionProfiles.named(" GEOMETRY-FULL "));
+		assertThrows(IllegalArgumentException.class, () -> ConversionProfiles.named("missing"));
+	}
 
 	@Test
 	void coreProfileDoesNotEnableOptionalOutput() {

@@ -1,0 +1,162 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PumpTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pbff18380d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pedd6c800d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable operational range of the fluid temperature." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Allowable operational range of the fluid temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "流体温度の許容範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "edd6c800d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "Temperature Range"@en , "温度範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pd4ce1700d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable range of volume of fluid being pumped against the resistance specified." ;
+        rdfs:label                "FlowRateRange" ;
+        IFC4-PSD:definition       "Allowable range of volume of fluid being pumped against the resistance specified." ;
+        IFC4-PSD:definitionAlias  ""@en , "指定された抵抗に対してポンプでくみ上げ可能な流対量の許容範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "d4ce1700d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowRateRange" ;
+        IFC4-PSD:nameAlias        "流量範囲"@ja-JP , "Flow Rate Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassFlowRateMeasure
+                                  ] .
+
+:pbff18380d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bff18380d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_PumpTypeCommon  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes of a pump type." ;
+        rdfs:label                    "Pset_PumpTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPump ;
+        IFC4-PSD:applicableTypeValue  "IfcPump" ;
+        IFC4-PSD:definition           "Common attributes of a pump type." ;
+        IFC4-PSD:definitionAlias      "ポンプタイプ共通属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PumpTypeCommon" ;
+        IFC4-PSD:propertyDef          :pfb8c4d80d1fe11e1800000215ad4efdf , :pc67ffb00d1fe11e1800000215ad4efdf , :pdbf52500d1fe11e1800000215ad4efdf , :pf5966c80d1fe11e1800000215ad4efdf , :pbff18380d1fe11e1800000215ad4efdf , :pedd6c800d1fe11e1800000215ad4efdf , :pd4ce1700d1fe11e1800000215ad4efdf , :pe6afba00d1fe11e1800000215ad4efdf .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pc67ffb00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :pe6afba00d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:pc67ffb00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c67ffb00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:NetPositiveSuctionHead
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf5966c80d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NetPositiveSuctionHead .
+
+:pf5966c80d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum liquid pressure at the pump inlet to prevent cavitation." ;
+        rdfs:label                "NetPositiveSuctionHead" ;
+        IFC4-PSD:definition       "Minimum liquid pressure at the pump inlet to prevent cavitation." ;
+        IFC4-PSD:definitionAlias  "キャビテーションを防ぐポンプ入口の最小限の流体圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f5966c80d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NetPositiveSuctionHead" ;
+        IFC4-PSD:nameAlias        "Net Positive Suction Head"@en , "正味吸入側水頭"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PumpTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe6afba00d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The connection size of the to and from the pump." ;
+        rdfs:label                "ConnectionSize" ;
+        IFC4-PSD:definition       "The connection size of the to and from the pump." ;
+        IFC4-PSD:definitionAlias  ""@en , "ポンプの入出の接続サイズ"@ja-JP ;
+        IFC4-PSD:ifdguid          "e6afba00d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "接続サイズ"@ja-JP , "Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pdbf52500d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable range of frictional resistance against which the fluid is being pumped." ;
+        rdfs:label                "FlowResistanceRange" ;
+        IFC4-PSD:definition       "Allowable range of frictional resistance against which the fluid is being pumped." ;
+        IFC4-PSD:definitionAlias  "流体をポンプでくみ上げる際の摩擦抵抗の許容範囲"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "dbf52500d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowResistanceRange" ;
+        IFC4-PSD:nameAlias        "流体抵抗の範囲"@ja-JP , "Flow Resistance Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:NominalRotationSpeed
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfb8c4d80d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalRotationSpeed .
+
+:FlowResistanceRange  a     rdf:Property ;
+        rdfs:seeAlso        :pdbf52500d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowResistanceRange .
+
+:pfb8c4d80d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pump rotational speed under nominal conditions." ;
+        rdfs:label                "NominalRotationSpeed" ;
+        IFC4-PSD:definition       "Pump rotational speed under nominal conditions." ;
+        IFC4-PSD:definitionAlias  "多目的な状況の下でのポンプの回転速度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fb8c4d80d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalRotationSpeed" ;
+        IFC4-PSD:nameAlias        "通常の回転速度"@ja-JP , "Nominal Rotation Speed"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRotationalFrequencyMeasure
+                                  ] .
+
+:FlowRateRange  a           rdf:Property ;
+        rdfs:seeAlso        :pd4ce1700d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowRateRange .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :pedd6c800d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .

@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualAppliancePHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pbd246d80d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the power state of the device where True is on and False is off." ;
+        rdfs:label                "PowerState" ;
+        IFC4-PSD:definition       "Indicates the power state of the device where True is on and False is off." ;
+        IFC4-PSD:definitionAlias  ""@en , "機器の電源オンオフの時間ごとの状態を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "bd246d80d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PowerState" ;
+        IFC4-PSD:nameAlias        "Power State"@en , "電源状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AudioVolume  a             rdf:Property ;
+        rdfs:seeAlso        :pcad9f300d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioVolume .
+
+:PowerState  a              rdf:Property ;
+        rdfs:seeAlso        :pbd246d80d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerState .
+
+:pcad9f300d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the audio volume level where the integer level corresponds to an entry or interpolation within Pset_AudioVisualApplianceTypeCommon.AudioVolume." ;
+        rdfs:label                "AudioVolume" ;
+        IFC4-PSD:definition       "Indicates the audio volume level where the integer level corresponds to an entry or interpolation within Pset_AudioVisualApplianceTypeCommon.AudioVolume." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cad9f300d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioVolume" ;
+        IFC4-PSD:nameAlias        "Audio Volume"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:MediaContent  a            rdf:Property ;
+        rdfs:seeAlso        :pc7466c00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MediaContent .
+
+:pc7466c00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the media content storage location, such as URLs to camera footage within particular time periods." ;
+        rdfs:label                "MediaContent" ;
+        IFC4-PSD:definition       "Indicates the media content storage location, such as URLs to camera footage within particular time periods." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c7466c00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MediaContent" ;
+        IFC4-PSD:nameAlias        "Media Content"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pc31a4e80d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the media source where the identifier corresponds to an entry within the table of available media sources on Pset_AudioVisualApplianceTypeCommon.MediaSource." ;
+        rdfs:label                "MediaSource" ;
+        IFC4-PSD:definition       "Indicates the media source where the identifier corresponds to an entry within the table of available media sources on Pset_AudioVisualApplianceTypeCommon.MediaSource." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c31a4e80d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MediaSource" ;
+        IFC4-PSD:nameAlias        "Media Source"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualAppliancePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:MediaSource  a             rdf:Property ;
+        rdfs:seeAlso        :pc31a4e80d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MediaSource .
+
+:Pset_AudioVisualAppliancePHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Captures realtime information for audio-video devices, such as for security camera footage and retail information displays.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualAppliancePHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAudioVisualAppliance ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance" ;
+        IFC4-PSD:definition           "Captures realtime information for audio-video devices, such as for security camera footage and retail information displays.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "オーディオビジュアル機器のリアルタイム情報の把握のためのプロパティセット。たとえばセキュリティカメラの画像情報インデックスや音量設定など。IFC4にて追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualAppliancePHistory" ;
+        IFC4-PSD:propertyDef          :pc31a4e80d1c111e1800000215ad4efdf , :pbd246d80d1c111e1800000215ad4efdf , :pcad9f300d1c111e1800000215ad4efdf , :pc7466c00d1c111e1800000215ad4efdf .

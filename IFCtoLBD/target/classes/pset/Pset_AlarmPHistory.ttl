@@ -1,0 +1,109 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AlarmPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Acknowledge  a             rdf:Property ;
+        rdfs:seeAlso        :pf90b0300d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Acknowledge .
+
+:Pset_AlarmPHistory  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for history of alarm values.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AlarmPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAlarm ;
+        IFC4-PSD:applicableTypeValue  "IfcAlarm" ;
+        IFC4-PSD:definition           "Properties for history of alarm values.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AlarmPHistory" ;
+        IFC4-PSD:propertyDef          :pf3adb880d1c011e1800000215ad4efdf , :pfc9e8a00d1c011e1800000215ad4efdf , :pf90b0300d1c011e1800000215ad4efdf , :pef819b00d1c011e1800000215ad4efdf , :pea245080d1c011e1800000215ad4efdf .
+
+:pef819b00d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates alarm condition over time.  The range of possible values and their meanings is defined by Pset_AlarmTypeCommon.Condition.  An empty value indicates no present alarm condition." ;
+        rdfs:label                "Condition" ;
+        IFC4-PSD:definition       "Indicates alarm condition over time.  The range of possible values and their meanings is defined by Pset_AlarmTypeCommon.Condition.  An empty value indicates no present alarm condition." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ef819b00d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Condition" ;
+        IFC4-PSD:nameAlias        "Condition"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Condition  a               rdf:Property ;
+        rdfs:seeAlso        :pef819b00d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Condition .
+
+:Enabled  a                 rdf:Property ;
+        rdfs:seeAlso        :pea245080d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Enabled .
+
+:pea245080d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether alarm is enabled or disabled over time." ;
+        rdfs:label                "Enabled" ;
+        IFC4-PSD:definition       "Indicates whether alarm is enabled or disabled over time." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ea245080d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Enabled" ;
+        IFC4-PSD:nameAlias        "Enabled"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:User   a                   rdf:Property ;
+        rdfs:seeAlso        :pfc9e8a00d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:User .
+
+:pf3adb880d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates alarm severity over time, where the scale of values is determined by the control system configuration.  A zero value indicates no present alarm." ;
+        rdfs:label                "Severity" ;
+        IFC4-PSD:definition       "Indicates alarm severity over time, where the scale of values is determined by the control system configuration.  A zero value indicates no present alarm." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f3adb880d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Severity" ;
+        IFC4-PSD:nameAlias        "Severity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf90b0300d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates acknowledgement status where False indicates acknowlegement is required and outstanding, True indicates condition has been acknowedged, and Unknown indicates no acknowledgement is required.  Upon resetting the condition, then acknowledgement reverts to Unknown." ;
+        rdfs:label                "Acknowledge" ;
+        IFC4-PSD:definition       "Indicates acknowledgement status where False indicates acknowlegement is required and outstanding, True indicates condition has been acknowedged, and Unknown indicates no acknowledgement is required.  Upon resetting the condition, then acknowledgement reverts to Unknown." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f90b0300d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Acknowledge" ;
+        IFC4-PSD:nameAlias        "Acknowledge"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AlarmPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pfc9e8a00d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates acknowledging user over time by identification corresponding to IfcPerson.Identification on an IfcActor." ;
+        rdfs:label                "User" ;
+        IFC4-PSD:definition       "Indicates acknowledging user over time by identification corresponding to IfcPerson.Identification on an IfcActor." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fc9e8a00d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "User" ;
+        IFC4-PSD:nameAlias        "User"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Severity  a                rdf:Property ;
+        rdfs:seeAlso        :pf3adb880d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Severity .

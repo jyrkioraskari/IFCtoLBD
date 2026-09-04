@@ -1,0 +1,166 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfColumn#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:XDirectionTieHoopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p085d7100d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:XDirectionTieHoopBarPitch .
+
+:XDirectionTieHoopCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p101d1580d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:XDirectionTieHoopCount .
+
+:YDirectionTieHoopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p14e1c980d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:YDirectionTieHoopBarPitch .
+
+:p01366300d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the hoop bar." ;
+        rdfs:label                "HoopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the hoop bar." ;
+        IFC4-PSD:definitionAlias  "帯筋の間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "01366300d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoopBarPitch" ;
+        IFC4-PSD:nameAlias        "帯筋間隔"@ja-JP , "Hoop Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pecf26600d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  "一般的な鉄筋タイプの説明ラベル。\n（例えば、柱の柱頭・柱脚で帯筋や巾止筋の間隔・本数が異なる場合に、\"Top\",\"Bottom\"を記述する）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ecf26600d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pf54aa100d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the type of the reinforcement bar." ;
+        rdfs:label                "ReinforcementBarType" ;
+        IFC4-PSD:definition       "Defines the type of the reinforcement bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "補強筋タイプの定義。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f54aa100d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReinforcementBarType" ;
+        IFC4-PSD:nameAlias        "Reinforcement Bar Type"@en , "補強筋タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "RING" , "SPIRAL" , "OTHER" , "USERDEFINED" , "NOTDEFINED"
+                                  ] .
+
+:p1ca16e00d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with Y direction tie hoop bars." ;
+        rdfs:label                "YDirectionTieHoopCount" ;
+        IFC4-PSD:definition       "The number of bars with Y direction tie hoop bars." ;
+        IFC4-PSD:definitionAlias  ""@en , "Y方向巾止筋の本数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1ca16e00d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "YDirectionTieHoopCount" ;
+        IFC4-PSD:nameAlias        "Y方向巾止め筋本数"@ja-JP , "YDirection Tie Hoop Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :pe82db200d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:HoopBarPitch  a            rdf:Property ;
+        rdfs:seeAlso        :p01366300d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoopBarPitch .
+
+:p101d1580d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with X direction tie hoop bars." ;
+        rdfs:label                "XDirectionTieHoopCount" ;
+        IFC4-PSD:definition       "The number of bars with X direction tie hoop bars." ;
+        IFC4-PSD:definitionAlias  ""@en , "Ｘ方向巾止筋の本数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "101d1580d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "XDirectionTieHoopCount" ;
+        IFC4-PSD:nameAlias        "XDirection Tie Hoop Count"@en , "Ｘ方向巾止め筋本数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pecf26600d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:YDirectionTieHoopCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1ca16e00d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:YDirectionTieHoopCount .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfColumn>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ReinforcementBarType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf54aa100d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReinforcementBarType .
+
+:p085d7100d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The X direction pitch length of the tie hoop." ;
+        rdfs:label                "XDirectionTieHoopBarPitch" ;
+        IFC4-PSD:definition       "The X direction pitch length of the tie hoop." ;
+        IFC4-PSD:definitionAlias  ""@en , "Ｘ方向巾止筋の間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "085d7100d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "XDirectionTieHoopBarPitch" ;
+        IFC4-PSD:nameAlias        "XDirection Tie Hoop Bar Pitch"@en , "Ｘ方向巾止め筋間隔"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pe82db200d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  "鉄筋の説明。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e82db200d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "Description"@en , "説明"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:Pset_ReinforcementBarPitchOfColumn
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The pitch length information of reinforcement  bar with the column. The X and Y direction are based on the local coordinate system of building storey. The X and Y direction of the reinforcement bar are parallel to the X and Y axis of the IfcBuildingStorey's local coordinate system, respectively." ;
+        rdfs:label                    "Pset_ReinforcementBarPitchOfColumn" ;
+        IFC4-PSD:applicableClass      IFC4:IfcColumn ;
+        IFC4-PSD:applicableTypeValue  "IfcColumn" ;
+        IFC4-PSD:definition           "The pitch length information of reinforcement  bar with the column. The X and Y direction are based on the local coordinate system of building storey. The X and Y direction of the reinforcement bar are parallel to the X and Y axis of the IfcBuildingStorey's local coordinate system, respectively." ;
+        IFC4-PSD:definitionAlias      "柱補強筋の間隔情報。\nX方向とY方向は建物のローカル座標系に基づいている。X方向とY方向の補強筋はIｆｃBuildingStoreyのローカル座標系のX軸、Y軸にそれぞれ平行である。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarPitchOfColumn" ;
+        IFC4-PSD:propertyDef          :p01366300d20011e1800000215ad4efdf , :p14e1c980d20011e1800000215ad4efdf , :pf54aa100d1ff11e1800000215ad4efdf , :pecf26600d1ff11e1800000215ad4efdf , :pe82db200d1ff11e1800000215ad4efdf , :p1ca16e00d20011e1800000215ad4efdf , :p085d7100d20011e1800000215ad4efdf , :p101d1580d20011e1800000215ad4efdf .
+
+:p14e1c980d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The Y direction pitch length of the tie hoop." ;
+        rdfs:label                "YDirectionTieHoopBarPitch" ;
+        IFC4-PSD:definition       "The Y direction pitch length of the tie hoop." ;
+        IFC4-PSD:definitionAlias  ""@en , "Y方向巾止筋の間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "14e1c980d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "YDirectionTieHoopBarPitch" ;
+        IFC4-PSD:nameAlias        "Y方向巾止め筋間隔"@ja-JP , "YDirection Tie Hoop Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

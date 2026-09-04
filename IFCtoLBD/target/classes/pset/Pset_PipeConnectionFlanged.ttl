@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeConnectionFlanged#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FlangeTable  a             rdf:Property ;
+        rdfs:seeAlso        :p8c106100d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeTable .
+
+:BoreSize  a                rdf:Property ;
+        rdfs:seeAlso        :p9a5e7d00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BoreSize .
+
+:FlangeDiameter  a          rdf:Property ;
+        rdfs:seeAlso        :pa21e2180d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeDiameter .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeConnectionFlanged>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NumberOfBoltholes  a       rdf:Property ;
+        rdfs:seeAlso        :pb104d400d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfBoltholes .
+
+:BoltSize  a                rdf:Property ;
+        rdfs:seeAlso        :pb6621e80d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BoltSize .
+
+:p8c106100d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Designation of the standard table to which the flange conforms." ;
+        rdfs:label                "FlangeTable" ;
+        IFC4-PSD:definition       "Designation of the standard table to which the flange conforms." ;
+        IFC4-PSD:definitionAlias  "フランジ形状の名称基準"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8c106100d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeTable" ;
+        IFC4-PSD:nameAlias        "Flange Table"@en , "フランジ基準"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pbc57ff80d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diameter of the circle along which the boltholes are placed." ;
+        rdfs:label                "BoltholePitch" ;
+        IFC4-PSD:definition       "Diameter of the circle along which the boltholes are placed." ;
+        IFC4-PSD:definitionAlias  "ボルト穴がある円の直径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bc57ff80d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BoltholePitch" ;
+        IFC4-PSD:nameAlias        "ボルト穴ピッチ"@ja-JP , "Bolthole Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:BoltholePitch  a           rdf:Property ;
+        rdfs:seeAlso        :pbc57ff80d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BoltholePitch .
+
+:FlangeStandard  a          rdf:Property ;
+        rdfs:seeAlso        :p93d00580d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeStandard .
+
+:pa9ddc600d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the material from which the pipe bend is constructed." ;
+        rdfs:label                "FlangeThickness" ;
+        IFC4-PSD:definition       "Thickness of the material from which the pipe bend is constructed." ;
+        IFC4-PSD:definitionAlias  ""@en , "パイプをつなぐ材料の厚み"@ja-JP ;
+        IFC4-PSD:ifdguid          "a9ddc600d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeThickness" ;
+        IFC4-PSD:nameAlias        "Flange Thickness"@en , "フランジの厚さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p9a5e7d00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal bore of the pipe flange." ;
+        rdfs:label                "BoreSize" ;
+        IFC4-PSD:definition       "The nominal bore of the pipe flange." ;
+        IFC4-PSD:definitionAlias  "フランジの呼び径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9a5e7d00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BoreSize" ;
+        IFC4-PSD:nameAlias        "Bore Size"@en , "フランジの内径のサイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_PipeConnectionFlanged
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "This property set is used to define the specifics of a flanged pipe connection used between occurrences of pipe segments and fittings." ;
+        rdfs:label                    "Pset_PipeConnectionFlanged" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPipeSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeSegment" ;
+        IFC4-PSD:definition           "This property set is used to define the specifics of a flanged pipe connection used between occurrences of pipe segments and fittings." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeConnectionFlanged" ;
+        IFC4-PSD:propertyDef          :pbc57ff80d1f211e1800000215ad4efdf , :pb6621e80d1f211e1800000215ad4efdf , :pa9ddc600d1f211e1800000215ad4efdf , :p93d00580d1f211e1800000215ad4efdf , :pa21e2180d1f211e1800000215ad4efdf , :p9a5e7d00d1f211e1800000215ad4efdf , :p8c106100d1f211e1800000215ad4efdf , :pb104d400d1f211e1800000215ad4efdf .
+
+:FlangeThickness  a         rdf:Property ;
+        rdfs:seeAlso        :pa9ddc600d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeThickness .
+
+:pb6621e80d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the bolts securing the flange." ;
+        rdfs:label                "BoltSize" ;
+        IFC4-PSD:definition       "Size of the bolts securing the flange." ;
+        IFC4-PSD:definitionAlias  ""@en , "フランジを締めるボルトの大きさ"@ja-JP ;
+        IFC4-PSD:ifdguid          "b6621e80d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BoltSize" ;
+        IFC4-PSD:nameAlias        "ボルトの大きさ"@ja-JP , "Bolt Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p93d00580d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Designation of the standard describing the flange table." ;
+        rdfs:label                "FlangeStandard" ;
+        IFC4-PSD:definition       "Designation of the standard describing the flange table." ;
+        IFC4-PSD:definitionAlias  ""@en , "フランジ規格を記述している基準"@ja-JP ;
+        IFC4-PSD:ifdguid          "93d00580d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeStandard" ;
+        IFC4-PSD:nameAlias        "フランジ規格"@ja-JP , "Flange Standard"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pb104d400d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of boltholes in the flange." ;
+        rdfs:label                "NumberOfBoltholes" ;
+        IFC4-PSD:definition       "Number of boltholes in the flange." ;
+        IFC4-PSD:definitionAlias  ""@en , "フランジにあるボルト穴の数"@ja-JP ;
+        IFC4-PSD:ifdguid          "b104d400d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfBoltholes" ;
+        IFC4-PSD:nameAlias        "ボルト穴の数"@ja-JP , "Number Of Boltholes"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pa21e2180d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall diameter of the flange." ;
+        rdfs:label                "FlangeDiameter" ;
+        IFC4-PSD:definition       "Overall diameter of the flange." ;
+        IFC4-PSD:definitionAlias  ""@en , "フランジの全直径"@ja-JP ;
+        IFC4-PSD:ifdguid          "a21e2180d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeDiameter" ;
+        IFC4-PSD:nameAlias        "フランジの直径"@ja-JP , "Flange Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

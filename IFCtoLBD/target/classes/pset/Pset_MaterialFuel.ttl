@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialFuel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_MaterialFuel  a                 IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of extended material properties of fuel energy typically used within the context of building services and flow distribution systems." ;
+        rdfs:label                    "Pset_MaterialFuel" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of extended material properties of fuel energy typically used within the context of building services and flow distribution systems." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialFuel" ;
+        IFC4-PSD:propertyDef          :p3eddc080d1ed11e1800000215ad4efdf , :p4ef5a000d1ed11e1800000215ad4efdf , :p4a30ec00d1ed11e1800000215ad4efdf , :p44d3a180d1ed11e1800000215ad4efdf .
+
+:p4a30ec00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Lower Heating Value is defined as the amount of energy released (MJ/kg) when a fuel is burned completely, and H2O is in vapor form in the combustion products." ;
+        rdfs:label                "LowerHeatingValue" ;
+        IFC4-PSD:definition       "Lower Heating Value is defined as the amount of energy released (MJ/kg) when a fuel is burned completely, and H2O is in vapor form in the combustion products." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4a30ec00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LowerHeatingValue" ;
+        IFC4-PSD:nameAlias        "Lower Heating Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcHeatingValueMeasure
+                                  ] .
+
+:HigherHeatingValue  a      rdf:Property ;
+        rdfs:seeAlso        :p4ef5a000d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HigherHeatingValue .
+
+:p4ef5a000d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Higher Heating Value is defined as the amount of energy released (MJ/kg) when a fuel is burned completely, and H2O is in liquid form in the combustion products." ;
+        rdfs:label                "HigherHeatingValue" ;
+        IFC4-PSD:definition       "Higher Heating Value is defined as the amount of energy released (MJ/kg) when a fuel is burned completely, and H2O is in liquid form in the combustion products." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4ef5a000d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HigherHeatingValue" ;
+        IFC4-PSD:nameAlias        "Higher Heating Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcHeatingValueMeasure
+                                  ] .
+
+:LowerHeatingValue  a       rdf:Property ;
+        rdfs:seeAlso        :p4a30ec00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LowerHeatingValue .
+
+:CarbonContent  a           rdf:Property ;
+        rdfs:seeAlso        :p44d3a180d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CarbonContent .
+
+:p44d3a180d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The carbon content in the fuel. This is measured in weight of carbon per unit weight of fuel and is therefore unitless." ;
+        rdfs:label                "CarbonContent" ;
+        IFC4-PSD:definition       "The carbon content in the fuel. This is measured in weight of carbon per unit weight of fuel and is therefore unitless." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "44d3a180d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CarbonContent" ;
+        IFC4-PSD:nameAlias        "Carbon Content"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p3eddc080d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Combustion temperature of the material when air is at 298 K and 100 kPa." ;
+        rdfs:label                "CombustionTemperature" ;
+        IFC4-PSD:definition       "Combustion temperature of the material when air is at 298 K and 100 kPa." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3eddc080d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CombustionTemperature" ;
+        IFC4-PSD:nameAlias        "Combustion Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialFuel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CombustionTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3eddc080d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CombustionTemperature .

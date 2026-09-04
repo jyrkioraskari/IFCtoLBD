@@ -166,7 +166,7 @@ Methods
 public class IFCtoLBDController implements Initializable, FxInterface {
 	private Preferences prefs = Preferences.userNodeForPackage(IFCtoLBDController.class);
 
-	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getDefaultEventBus();
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
 
 	@FXML
@@ -766,7 +766,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private ConversionSettings currentSettings() {
-		return new ConversionSettings(this.ifcFileName, this.rdfTargetName, this.labelBaseURI.getText().trim(),
+		String baseUri = this.labelBaseURI.getText().trim();
+		if (baseUri.isEmpty()) {
+			baseUri = IFCtoLBDConverter.DEFAULT_BASE_URI;
+		}
+		return new ConversionSettings(this.ifcFileName, this.rdfTargetName, baseUri,
 				selectedPropertyLevel(), this.building_elements.isSelected(),
 				this.building_elements_separate_file.isSelected(), this.building_props.isSelected(),
 				this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(),
@@ -818,7 +822,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Set<String> selectedElementTypes() {
 		Set<String> selectedTypes = new HashSet<>();
 		for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
-			selectedTypes.add(item.getValue());
+			String value = item.getValue();
+			int suffix = value.lastIndexOf(" (");
+			selectedTypes.add(suffix > 0 && value.endsWith(")") ? value.substring(0, suffix) : value);
 		}
 		return selectedTypes;
 	}
@@ -2668,12 +2674,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				try {
 					IFCtoLBDConverter converter = this.running_read_in.get();
 					Set<Resource> element_types = converter.getElementTypes();
+					Map<String, Integer> element_type_counts = converter.getElementTypeCounts();
 					CheckBoxTreeItem<String> types_checkbox_values = new CheckBoxTreeItem<>("Model");
 
 					types_checkbox_values.getChildren().clear();
 					// add items to the root
 					for (Resource et : element_types) {
-						CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(et.getLocalName());
+						String typeName = et.getLocalName();
+						CheckBoxTreeItem<String> item = new CheckBoxTreeItem<>(typeName + " (" + element_type_counts.getOrDefault(typeName, 0) + ")");
 						item.setSelected(true);
 						types_checkbox_values.getChildren().add(item);
 

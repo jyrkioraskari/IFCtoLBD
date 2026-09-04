@@ -1,0 +1,275 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfSlab#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ShortInsideCenterLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa5200e80d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortInsideCenterLowerBarPitch .
+
+:p95a0c580d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long inside end lower bar." ;
+        rdfs:label                "LongInsideEndLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long inside end lower bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "長辺方向・柱間帯・下端端部の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "95a0c580d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongInsideEndLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Long Inside End Lower Bar Pitch"@en , "長辺・柱列帯・下端端部ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfSlab>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ShortOutsideTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6e49f880d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortOutsideTopBarPitch .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :p48245880d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:p5d998280d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long inside center top bar." ;
+        rdfs:label                "LongInsideCenterTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long inside center top bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "長辺方向・柱間帯・上端中央の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5d998280d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongInsideCenterTopBarPitch" ;
+        IFC4-PSD:nameAlias        "長辺・柱列帯・上端中央ピッチ"@ja-JP , "Long Inside Center Top Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8de12100d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long inside center lower bar." ;
+        rdfs:label                "LongInsideCenterLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long inside center lower bar." ;
+        IFC4-PSD:definitionAlias  "長辺方向・柱間帯・下端中央の鉄筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8de12100d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongInsideCenterLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Long Inside Center Lower Bar Pitch"@en , "長辺・柱列帯・下端中央ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LongInsideEndLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p95a0c580d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongInsideEndLowerBarPitch .
+
+:p7dc94180d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short inside end top bar." ;
+        rdfs:label                "ShortInsideEndTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short inside end top bar." ;
+        IFC4-PSD:definitionAlias  "短辺方向・柱間帯・上端端部の鉄筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7dc94180d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortInsideEndTopBarPitch" ;
+        IFC4-PSD:nameAlias        "短辺・柱列帯・上端端部ピッチ"@ja-JP , "Short Inside End Top Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8588e600d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long outside lower bar." ;
+        rdfs:label                "LongOutsideLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long outside lower bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "長辺方向・柱列帯・下端の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8588e600d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongOutsideLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Long Outside Lower Bar Pitch"@en , "長辺・柱列帯・下端ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LongInsideCenterTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5d998280d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongInsideCenterTopBarPitch .
+
+:p75710680d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short inside center top bar." ;
+        rdfs:label                "ShortInsideCenterTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short inside center top bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "短辺方向・柱間帯・上端中央の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "75710680d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortInsideCenterTopBarPitch" ;
+        IFC4-PSD:nameAlias        "短辺・柱列帯・上端中央ピッチ"@ja-JP , "Short Inside Center Top Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ShortInsideCenterTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p75710680d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortInsideCenterTopBarPitch .
+
+:p65f1bd80d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long inside end top bar." ;
+        rdfs:label                "LongInsideEndTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long inside end top bar." ;
+        IFC4-PSD:definitionAlias  "長辺方向・柱間帯・上端端部の鉄筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "65f1bd80d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongInsideEndTopBarPitch" ;
+        IFC4-PSD:nameAlias        "長辺・柱列帯・上端端部ピッチ"@ja-JP , "Long Inside End Top Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pacdfb300d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short inside end lower bar." ;
+        rdfs:label                "ShortInsideEndLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short inside end lower bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "短辺方向・柱間帯・下端端部の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "acdfb300d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortInsideEndLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Short Inside End Lower Bar Pitch"@en , "短辺・柱列帯・下端端部ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pa5200e80d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short inside center lower bar." ;
+        rdfs:label                "ShortInsideCenterLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short inside center lower bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "短辺方向・柱間帯・下端中央の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a5200e80d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortInsideCenterLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Short Inside Center Lower Bar Pitch"@en , "短辺・柱列帯・下端中央ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p55414780d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the long outside top bar." ;
+        rdfs:label                "LongOutsideTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the long outside top bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "長辺方向・柱列帯・上端の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "55414780d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LongOutsideTopBarPitch" ;
+        IFC4-PSD:nameAlias        "Long Outside Top Bar Pitch"@en , "長辺・柱列帯・上端ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ShortInsideEndLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pacdfb300d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortInsideEndLowerBarPitch .
+
+:ShortOutsideLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9cc7d380d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortOutsideLowerBarPitch .
+
+:LongOutsideLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8588e600d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongOutsideLowerBarPitch .
+
+:p9cc7d380d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short outside lower bar." ;
+        rdfs:label                "ShortOutsideLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short outside lower bar." ;
+        IFC4-PSD:definitionAlias  "短辺方向・柱列帯・下端の鉄筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9cc7d380d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortOutsideLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "Short Outside Lower Bar Pitch"@en , "短辺・柱列帯・下端ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_ReinforcementBarPitchOfSlab
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The pitch length information of reinforcement  bar with the slab." ;
+        rdfs:label                    "Pset_ReinforcementBarPitchOfSlab" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSlab ;
+        IFC4-PSD:applicableTypeValue  "IfcSlab" ;
+        IFC4-PSD:definition           "The pitch length information of reinforcement  bar with the slab." ;
+        IFC4-PSD:definitionAlias      "スラブの鉄筋間隔に関する情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarPitchOfSlab" ;
+        IFC4-PSD:propertyDef          :p7dc94180d20011e1800000215ad4efdf , :pacdfb300d20011e1800000215ad4efdf , :p75710680d20011e1800000215ad4efdf , :p8588e600d20011e1800000215ad4efdf , :p9cc7d380d20011e1800000215ad4efdf , :p65f1bd80d20011e1800000215ad4efdf , :pa5200e80d20011e1800000215ad4efdf , :p95a0c580d20011e1800000215ad4efdf , :p8de12100d20011e1800000215ad4efdf , :p6e49f880d20011e1800000215ad4efdf , :p5d998280d20011e1800000215ad4efdf , :p48245880d20011e1800000215ad4efdf , :p4eb2d000d20011e1800000215ad4efdf , :p55414780d20011e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p4eb2d000d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:LongInsideCenterLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8de12100d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongInsideCenterLowerBarPitch .
+
+:p48245880d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  ""@en , "鉄筋の説明。"@ja-JP ;
+        IFC4-PSD:ifdguid          "48245880d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "説明"@ja-JP , "Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:LongOutsideTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p55414780d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongOutsideTopBarPitch .
+
+:ShortInsideEndTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7dc94180d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortInsideEndTopBarPitch .
+
+:p4eb2d000d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  ""@en , "一般的な鉄筋タイプの説明ラベル。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4eb2d000d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p6e49f880d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the short outside top bar." ;
+        rdfs:label                "ShortOutsideTopBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the short outside top bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "短辺方向・柱列帯・上端の鉄筋間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6e49f880d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortOutsideTopBarPitch" ;
+        IFC4-PSD:nameAlias        "Short Outside Top Bar Pitch"@en , "短辺・柱列帯・上端ピッチ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:LongInsideEndTopBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p65f1bd80d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LongInsideEndTopBarPitch .

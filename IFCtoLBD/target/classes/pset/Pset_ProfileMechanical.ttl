@@ -1,0 +1,459 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProfileMechanical#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:CrossSectionArea  a        rdf:Property ;
+        rdfs:seeAlso        :p6ab17400d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CrossSectionArea .
+
+:MaximumSectionModulusZ
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf3301480d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumSectionModulusZ .
+
+:MomentOfInertiaY  a        rdf:Property ;
+        rdfs:seeAlso        :pa5b3a780d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MomentOfInertiaY .
+
+:TorsionalSectionModulus
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0216c700d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TorsionalSectionModulus .
+
+:Pset_ProfileMechanical
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "This is a collection of mechanical properties that are applicable to virtually all profile classes. Most of these properties are especially used in structural analysis." ;
+        rdfs:label                    "Pset_ProfileMechanical" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProfileDef ;
+        IFC4-PSD:applicableTypeValue  "IfcProfileDef" ;
+        IFC4-PSD:definition           "This is a collection of mechanical properties that are applicable to virtually all profile classes. Most of these properties are especially used in structural analysis." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProfileMechanical" ;
+        IFC4-PSD:propertyDef          :p8a489c80d1f611e1800000215ad4efdf , :pd7c50980d1f611e1800000215ad4efdf , :pf9be8c00d1f611e1800000215ad4efdf , :p25417680d1f711e1800000215ad4efdf , :pad734c00d1f611e1800000215ad4efdf , :p14910080d1f711e1800000215ad4efdf , :pd0056500d1f611e1800000215ad4efdf , :p92084100d1f611e1800000215ad4efdf , :p0ba02f00d1f711e1800000215ad4efdf , :p0216c700d1f711e1800000215ad4efdf , :pa5b3a780d1f611e1800000215ad4efdf , :p9fbdc680d1f611e1800000215ad4efdf , :p769d3600d1f611e1800000215ad4efdf , :p6ab17400d1f611e1800000215ad4efdf , :p65ecc000d1f611e1800000215ad4efdf , :peb707000d1f611e1800000215ad4efdf , :pc5e36680d1f611e1800000215ad4efdf , :pf3301480d1f611e1800000215ad4efdf , :p80bf3480d1f611e1800000215ad4efdf , :p992f4f00d1f611e1800000215ad4efdf , :pbd8b2b80d1f611e1800000215ad4efdf , :p700ebe80d1f611e1800000215ad4efdf , :pe14e7180d1f611e1800000215ad4efdf , :pb532f080d1f611e1800000215ad4efdf , :p1d81d200d1f711e1800000215ad4efdf .
+
+:WarpingConstant  a         rdf:Property ;
+        rdfs:seeAlso        :pc5e36680d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WarpingConstant .
+
+:p0216c700d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Torsional resistance (about xs). For example measured in mm³." ;
+        rdfs:label                "TorsionalSectionModulus" ;
+        IFC4-PSD:definition       "Torsional resistance (about xs). For example measured in mm³." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0216c700d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TorsionalSectionModulus" ;
+        IFC4-PSD:nameAlias        "Torsional Section Modulus"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSectionModulusMeasure
+                                  ] .
+
+:PlasticShapeFactorY  a     rdf:Property ;
+        rdfs:seeAlso        :p1d81d200d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlasticShapeFactorY .
+
+:MassPerLength  a           rdf:Property ;
+        rdfs:seeAlso        :p65ecc000d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MassPerLength .
+
+:p9fbdc680d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location of the profile's shear centre, measured along ys." ;
+        rdfs:label                "ShearCentreY" ;
+        IFC4-PSD:definition       "Location of the profile's shear centre, measured along ys." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9fbdc680d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearCentreY" ;
+        IFC4-PSD:nameAlias        "Shear Centre Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:ShearCentreZ  a            rdf:Property ;
+        rdfs:seeAlso        :p992f4f00d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearCentreZ .
+
+:pe14e7180d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Bending resistance about the ys axis at the point with maximum zs ordinate. For example measured in mm³." ;
+        rdfs:label                "MaximumSectionModulusY" ;
+        IFC4-PSD:definition       "Bending resistance about the ys axis at the point with maximum zs ordinate. For example measured in mm³." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e14e7180d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumSectionModulusY" ;
+        IFC4-PSD:nameAlias        "Maximum Section Modulus Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSectionModulusMeasure
+                                  ] .
+
+:TorsionalConstantX  a      rdf:Property ;
+        rdfs:seeAlso        :pbd8b2b80d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TorsionalConstantX .
+
+:pbd8b2b80d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Torsional constant about xs. For example measured in mm4." ;
+        rdfs:label                "TorsionalConstantX" ;
+        IFC4-PSD:definition       "Torsional constant about xs. For example measured in mm4." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bd8b2b80d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TorsionalConstantX" ;
+        IFC4-PSD:nameAlias        "Torsional Constant X"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMomentOfInertiaMeasure
+                                  ] .
+
+:MaximumSectionModulusY
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe14e7180d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumSectionModulusY .
+
+:ShearCentreY  a            rdf:Property ;
+        rdfs:seeAlso        :p9fbdc680d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearCentreY .
+
+:p0ba02f00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Area of the profile for calculating the shear stress due to shear force parallel to the section analysis axis zs. For example measured in mm². If given, the shear area zs shall be non-negative." ;
+        rdfs:label                "ShearAreaZ" ;
+        IFC4-PSD:definition       "Area of the profile for calculating the shear stress due to shear force parallel to the section analysis axis zs. For example measured in mm². If given, the shear area zs shall be non-negative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0ba02f00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearAreaZ" ;
+        IFC4-PSD:nameAlias        "Shear Area Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:ShearAreaZ  a              rdf:Property ;
+        rdfs:seeAlso        :p0ba02f00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearAreaZ .
+
+:peb707000d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Bending resistance about the ys axis at the point with minimum zs ordinate. For example measured in mm³." ;
+        rdfs:label                "MinimumSectionModulusY" ;
+        IFC4-PSD:definition       "Bending resistance about the ys axis at the point with minimum zs ordinate. For example measured in mm³." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "eb707000d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumSectionModulusY" ;
+        IFC4-PSD:nameAlias        "Minimum Section Modulus Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSectionModulusMeasure
+                                  ] .
+
+:MaximumPlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p80bf3480d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPlateThickness .
+
+:MinimumSectionModulusZ
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf9be8c00d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumSectionModulusZ .
+
+:p80bf3480d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "This value may be needed for stress analysis and to handle buckling problems. It can also be derived from the given profile geometry or classification and therefore it is only an optional feature allowing for an explicit description. For example measured in mm." ;
+        rdfs:label                "MaximumPlateThickness" ;
+        IFC4-PSD:definition       "This value may be needed for stress analysis and to handle buckling problems. It can also be derived from the given profile geometry or classification and therefore it is only an optional feature allowing for an explicit description. For example measured in mm." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "80bf3480d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPlateThickness" ;
+        IFC4-PSD:nameAlias        "Maximum Plate Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pa5b3a780d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Moment of inertia about ys (second moment of area, about ys). For example measured in mm4." ;
+        rdfs:label                "MomentOfInertiaY" ;
+        IFC4-PSD:definition       "Moment of inertia about ys (second moment of area, about ys). For example measured in mm4." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a5b3a780d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MomentOfInertiaY" ;
+        IFC4-PSD:nameAlias        "Moment Of Inertia Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMomentOfInertiaMeasure
+                                  ] .
+
+:p14910080d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Area of the profile for calculating the shear stress due to shear force parallel to the section analysis axis ys. For example measured in mm². If given, the shear area ys shall be non-negative." ;
+        rdfs:label                "ShearAreaY" ;
+        IFC4-PSD:definition       "Area of the profile for calculating the shear stress due to shear force parallel to the section analysis axis ys. For example measured in mm². If given, the shear area ys shall be non-negative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "14910080d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearAreaY" ;
+        IFC4-PSD:nameAlias        "Shear Area Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:CentreOfGravityInY  a      rdf:Property ;
+        rdfs:seeAlso        :p92084100d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CentreOfGravityInY .
+
+:MinimumPlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p769d3600d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumPlateThickness .
+
+:p8a489c80d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location of the profile's centre of gravity (geometric centroid), measured along xp." ;
+        rdfs:label                "CentreOfGravityInX" ;
+        IFC4-PSD:definition       "Location of the profile's centre of gravity (geometric centroid), measured along xp." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8a489c80d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CentreOfGravityInX" ;
+        IFC4-PSD:nameAlias        "Centre Of Gravity In X"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p65ecc000d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mass per length, i.e. mass of a beam with a unit length of extrusion. For example measured in kg/m." ;
+        rdfs:label                "MassPerLength" ;
+        IFC4-PSD:definition       "Mass per length, i.e. mass of a beam with a unit length of extrusion. For example measured in kg/m." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "65ecc000d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MassPerLength" ;
+        IFC4-PSD:nameAlias        "Mass Per Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassPerLengthMeasure
+                                  ] .
+
+:p25417680d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of plastic versus elastic bending moment capacity about the section analysis axis zs. A dimensionless value." ;
+        rdfs:label                "PlasticShapeFactorZ" ;
+        IFC4-PSD:definition       "Ratio of plastic versus elastic bending moment capacity about the section analysis axis zs. A dimensionless value." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "25417680d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlasticShapeFactorZ" ;
+        IFC4-PSD:nameAlias        "Plastic Shape Factor Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p700ebe80d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Perimeter of the profile for calculating the surface area. For example measured in mm." ;
+        rdfs:label                "Perimeter" ;
+        IFC4-PSD:definition       "Perimeter of the profile for calculating the surface area. For example measured in mm." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "700ebe80d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Perimeter" ;
+        IFC4-PSD:nameAlias        "Perimeter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ShearAreaY  a              rdf:Property ;
+        rdfs:seeAlso        :p14910080d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearAreaY .
+
+:pc5e36680d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Warping constant of the profile for torsional action. For example measured in mm6." ;
+        rdfs:label                "WarpingConstant" ;
+        IFC4-PSD:definition       "Warping constant of the profile for torsional action. For example measured in mm6." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c5e36680d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WarpingConstant" ;
+        IFC4-PSD:nameAlias        "Warping Constant"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcWarpingConstantMeasure
+                                  ] .
+
+:MinimumSectionModulusY
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peb707000d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumSectionModulusY .
+
+:CentreOfGravityInX  a      rdf:Property ;
+        rdfs:seeAlso        :p8a489c80d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CentreOfGravityInX .
+
+:p992f4f00d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location of the profile's shear centre, measured along zs." ;
+        rdfs:label                "ShearCentreZ" ;
+        IFC4-PSD:definition       "Location of the profile's shear centre, measured along zs." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "992f4f00d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearCentreZ" ;
+        IFC4-PSD:nameAlias        "Shear Centre Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProfileMechanical>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ShearDeformationAreaZ
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd0056500d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearDeformationAreaZ .
+
+:Perimeter  a               rdf:Property ;
+        rdfs:seeAlso        :p700ebe80d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Perimeter .
+
+:p769d3600d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "This value may be needed for stress analysis and to handle buckling problems. It can also be derived from the given profile geometry or classification and therefore it is only an optional feature allowing for an explicit description. For example measured in mm." ;
+        rdfs:label                "MinimumPlateThickness" ;
+        IFC4-PSD:definition       "This value may be needed for stress analysis and to handle buckling problems. It can also be derived from the given profile geometry or classification and therefore it is only an optional feature allowing for an explicit description. For example measured in mm." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "769d3600d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumPlateThickness" ;
+        IFC4-PSD:nameAlias        "Minimum Plate Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pad734c00d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Moment of inertia about zs (second moment of area, about zs). For example measured in mm4" ;
+        rdfs:label                "MomentOfInertiaZ" ;
+        IFC4-PSD:definition       "Moment of inertia about zs (second moment of area, about zs). For example measured in mm4" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ad734c00d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MomentOfInertiaZ" ;
+        IFC4-PSD:nameAlias        "Moment Of Inertia Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMomentOfInertiaMeasure
+                                  ] .
+
+:pd7c50980d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Area of the profile for calculating the shear deformation due to a shear force parallel to ys. For example measured in mm². If given, the shear deformation area ys shall be non-negative." ;
+        rdfs:label                "ShearDeformationAreaY" ;
+        IFC4-PSD:definition       "Area of the profile for calculating the shear deformation due to a shear force parallel to ys. For example measured in mm². If given, the shear deformation area ys shall be non-negative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d7c50980d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearDeformationAreaY" ;
+        IFC4-PSD:nameAlias        "Shear Deformation Area Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p92084100d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location of the profile's centre of gravity (geometric centroid), measured along yp." ;
+        rdfs:label                "CentreOfGravityInY" ;
+        IFC4-PSD:definition       "Location of the profile's centre of gravity (geometric centroid), measured along yp." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "92084100d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CentreOfGravityInY" ;
+        IFC4-PSD:nameAlias        "Centre Of Gravity In Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p1d81d200d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of plastic versus elastic bending moment capacity about the section analysis axis ys. A dimensionless value." ;
+        rdfs:label                "PlasticShapeFactorY" ;
+        IFC4-PSD:definition       "Ratio of plastic versus elastic bending moment capacity about the section analysis axis ys. A dimensionless value." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1d81d200d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlasticShapeFactorY" ;
+        IFC4-PSD:nameAlias        "Plastic Shape Factor Y"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p6ab17400d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Area of the profile. For example measured in mm2. If given, the value of the cross section area shall be greater than zero." ;
+        rdfs:label                "CrossSectionArea" ;
+        IFC4-PSD:definition       "Area of the profile. For example measured in mm2. If given, the value of the cross section area shall be greater than zero." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6ab17400d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CrossSectionArea" ;
+        IFC4-PSD:nameAlias        "Cross Section Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:pf3301480d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Bending resistance about the zs axis at the point with maximum ys ordinate. For example measured in mm³." ;
+        rdfs:label                "MaximumSectionModulusZ" ;
+        IFC4-PSD:definition       "Bending resistance about the zs axis at the point with maximum ys ordinate. For example measured in mm³." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f3301480d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumSectionModulusZ" ;
+        IFC4-PSD:nameAlias        "Maximum Section Modulus Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSectionModulusMeasure
+                                  ] .
+
+:MomentOfInertiaZ  a        rdf:Property ;
+        rdfs:seeAlso        :pad734c00d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MomentOfInertiaZ .
+
+:ShearDeformationAreaY
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd7c50980d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShearDeformationAreaY .
+
+:PlasticShapeFactorZ  a     rdf:Property ;
+        rdfs:seeAlso        :p25417680d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlasticShapeFactorZ .
+
+:MomentOfInertiaYZ  a       rdf:Property ;
+        rdfs:seeAlso        :pb532f080d1f611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MomentOfInertiaYZ .
+
+:pd0056500d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Area of the profile for calculating the shear deformation due to a shear force parallel to zs. For example measured in mm². If given, the shear deformation area zs shall be non-negative." ;
+        rdfs:label                "ShearDeformationAreaZ" ;
+        IFC4-PSD:definition       "Area of the profile for calculating the shear deformation due to a shear force parallel to zs. For example measured in mm². If given, the shear deformation area zs shall be non-negative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d0056500d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShearDeformationAreaZ" ;
+        IFC4-PSD:nameAlias        "Shear Deformation Area Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:pb532f080d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Moment of inertia about ys and zs (product moment of area). For example measured in mm4." ;
+        rdfs:label                "MomentOfInertiaYZ" ;
+        IFC4-PSD:definition       "Moment of inertia about ys and zs (product moment of area). For example measured in mm4." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b532f080d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MomentOfInertiaYZ" ;
+        IFC4-PSD:nameAlias        "Moment Of Inertia YZ"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMomentOfInertiaMeasure
+                                  ] .
+
+:pf9be8c00d1f611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Bending resistance about the zs axis at the point with minimum ys ordinate. For example measured in mm³." ;
+        rdfs:label                "MinimumSectionModulusZ" ;
+        IFC4-PSD:definition       "Bending resistance about the zs axis at the point with minimum ys ordinate. For example measured in mm³." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f9be8c00d1f611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumSectionModulusZ" ;
+        IFC4-PSD:nameAlias        "Minimum Section Modulus Z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSectionModulusMeasure
+                                  ] .

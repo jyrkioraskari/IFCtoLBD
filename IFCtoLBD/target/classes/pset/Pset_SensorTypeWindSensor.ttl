@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeWindSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pa2c0b300d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that Identifies the types of wind sensors that can be specified." ;
+        rdfs:label                "WindSensorType" ;
+        IFC4-PSD:definition       "Enumeration that Identifies the types of wind sensors that can be specified." ;
+        IFC4-PSD:definitionAlias  ""@en , "명시된 바람 센서 유형을 식별하는 목록."@ko-KR , "明示された風センサーのタイプを識別する一覧。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a2c0b300d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WindSensorType" ;
+        IFC4-PSD:nameAlias        "바람 센서 타입"@ko-KR , "風センサータイプ"@ja-JP , "Wind Sensor Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CUP" , "UNSET" , "OTHER" , "TUBE" , "SONIC" , "LASERDOPPLER" , "WINDMILL" , "HOTWIRE" , "NOTKNOWN" , "PLATE"
+                                  ] .
+
+:SetPointSpeed  a           rdf:Property ;
+        rdfs:seeAlso        :pb66c1980d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointSpeed .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeWindSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypeWindSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects wind speed and direction. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeWindSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/WINDSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/WINDSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects wind speed and direction. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "風速を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeWindSensor" ;
+        IFC4-PSD:propertyDef          :pb66c1980d20611e1800000215ad4efdf , :pa2c0b300d20611e1800000215ad4efdf .
+
+:pb66c1980d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The wind speed value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointSpeed" ;
+        IFC4-PSD:definition       "The wind speed value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 바람. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , "感知される風速。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b66c1980d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointSpeed" ;
+        IFC4-PSD:nameAlias        "Set Point Speed"@en , "풍속 설정"@ko-KR , "風速設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+:WindSensorType  a          rdf:Property ;
+        rdfs:seeAlso        :pa2c0b300d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WindSensorType .

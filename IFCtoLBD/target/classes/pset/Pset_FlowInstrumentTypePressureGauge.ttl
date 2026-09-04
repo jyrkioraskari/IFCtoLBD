@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentTypePressureGauge#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:DisplaySize  a             rdf:Property ;
+        rdfs:seeAlso        :pcaece980d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DisplaySize .
+
+:Pset_FlowInstrumentTypePressureGauge
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that reads and displays a pressure value at a point or the pressure difference between two points." ;
+        rdfs:label                    "Pset_FlowInstrumentTypePressureGauge" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowInstrument/PRESSUREGAUGE> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowInstrument/PRESSUREGAUGE" ;
+        IFC4-PSD:definition           "A device that reads and displays a pressure value at a point or the pressure difference between two points." ;
+        IFC4-PSD:definitionAlias      "その位置の圧力、または、2か所の差圧を測定し表示するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowInstrumentTypePressureGauge" ;
+        IFC4-PSD:propertyDef          :pcaece980d1e711e1800000215ad4efdf , :pbc9ecd80d1e711e1800000215ad4efdf .
+
+:pbc9ecd80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the means by which pressure is displayed." ;
+        rdfs:label                "PressureGaugeType" ;
+        IFC4-PSD:definition       "Identifies the means by which pressure is displayed." ;
+        IFC4-PSD:definitionAlias  "圧力が表示される手段を識別する。"@ja-JP , "압력이 표시되는 방법을 확인한다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "bc9ecd80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureGaugeType" ;
+        IFC4-PSD:nameAlias        "圧力計タイプ"@ja-JP , "Pressure Gauge Type"@en , "압력계 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DIAL" , "DIGITAL" , "MANOMETER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pcaece980d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical size of the display. For a dial pressure gauge it will be the diameter of the dial." ;
+        rdfs:label                "DisplaySize" ;
+        IFC4-PSD:definition       "The physical size of the display. For a dial pressure gauge it will be the diameter of the dial." ;
+        IFC4-PSD:definitionAlias  "표시의 크기입니다. 다이얼 게이지에 관해서는 전화 직경된다."@ko-KR , "表示のサイズ。 ダイヤル圧力計に関しては、ダイヤルの直径になる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "caece980d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DisplaySize" ;
+        IFC4-PSD:nameAlias        "表示サイズ"@ja-JP , "디스플레이 크기"@ko-KR , "Display Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentTypePressureGauge>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:PressureGaugeType  a       rdf:Property ;
+        rdfs:seeAlso        :pbc9ecd80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureGaugeType .

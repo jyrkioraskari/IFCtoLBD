@@ -1,0 +1,230 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_StairFlightCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p4f059800d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total number of the risers included in the stair flight." ;
+        rdfs:label                "NumberOfRiser" ;
+        IFC4-PSD:definition       "Total number of the risers included in the stair flight." ;
+        IFC4-PSD:definitionAlias  "階段の蹴上げ数。"@ja-JP , "German-description-2"@de-DE , "该梯段所包含的踢板总数。"@zh-CN , "Nombre total de contremarches de l'escalier"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "4f059800d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfRiser" ;
+        IFC4-PSD:nameAlias        "NombreContreMarches"@fr-FR , "蹴上げ数"@ja-JP , "踢板数"@zh-CN , "Anzahl der Steigungen"@de-DE , "Number Of Riser"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:TreadLengthAtInnerSide
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8411ea80d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TreadLengthAtInnerSide .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p39906e00d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p63499500d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Horizontal distance from the front of the thread to the front of the next tread. \nThe tread length is supposed to be equal for all steps of the stair or stair flight at the walking line." ;
+        rdfs:label                "TreadLength" ;
+        IFC4-PSD:definition       "Horizontal distance from the front of the thread to the front of the next tread. \nThe tread length is supposed to be equal for all steps of the stair or stair flight at the walking line." ;
+        IFC4-PSD:definitionAlias  "German-description-5"@de-DE , ""@en , "踏板前缘到下一级踏板前缘的水平距离。\n走线方向上楼梯或梯段所有梯级的踏板宽度应当一致。"@zh-CN , "Longueur de giron (largeur de marche), supposée égale pour toutes les marches de l'escalier ou de la volée de marchesle long de la ligne de foulée"@fr-FR , "踏面の前面部分から次の踏面までの水平方向の距離。この踏面長の値は、一連の階段において同じ値と仮定する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "63499500d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TreadLength" ;
+        IFC4-PSD:nameAlias        "踏面長"@ja-JP , "Tread Length"@en , "Auftritt"@de-DE , "踏板长度"@zh-CN , "LongueurGiron"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WalkingLineOffset  a       rdf:Property ;
+        rdfs:seeAlso        :p7197b100d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WalkingLineOffset .
+
+:NosingLength  a            rdf:Property ;
+        rdfs:seeAlso        :p6c3a6680d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NosingLength .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_StairFlightCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p8411ea80d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum length of treads at the inner side of the winder. \nOnly relevant in case of winding flights, for straight flights it is identical with IfcStairFlight.TreadLength. It is a pre-calculated value, in case of inconsistencies, the value derived from the shape representation shall take precedence." ;
+        rdfs:label                "TreadLengthAtInnerSide" ;
+        IFC4-PSD:definition       "Minimum length of treads at the inner side of the winder. \nOnly relevant in case of winding flights, for straight flights it is identical with IfcStairFlight.TreadLength. It is a pre-calculated value, in case of inconsistencies, the value derived from the shape representation shall take precedence." ;
+        IFC4-PSD:definitionAlias  "Longueur minimum des girons du côté intérieur de l'enroulement. Pertinent seulement pour les escaliers tournants car pour une volée droite, la valeur est donnée par la propriété \"Longueur du giron\". C'est une valeur précalculée. En cas d'incohérence, c'est la valeur dérivée de la représentation de la forme qui prime."@fr-FR , "螺旋楼梯踏板内侧的最小长度。\n该属性仅适用于螺旋楼梯。对直跑楼梯，该属性与IfcStairFlight.TreadLength一致。该属性为预设值，若有冲突，应以从形状描述得到的值为准。"@zh-CN , ""@en , "German-description-9"@de-DE ;
+        IFC4-PSD:ifdguid          "8411ea80d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TreadLengthAtInnerSide" ;
+        IFC4-PSD:nameAlias        "minimaler Auftritt an der Innenseite"@de-DE , "LongueurGironCoteInterieur"@fr-FR , "内侧踏板长度"@zh-CN , "Tread Length At Inner Side"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p401ee580d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p7b211900d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of treads at a given offset.\nWalking line position is given by the 'WalkingLineOffset'. The resulting value should normally be identical with TreadLength, it may be given in addition, if the walking line offset for building code calculations is different from that used in design." ;
+        rdfs:label                "TreadLengthAtOffset" ;
+        IFC4-PSD:definition       "Length of treads at a given offset.\nWalking line position is given by the 'WalkingLineOffset'. The resulting value should normally be identical with TreadLength, it may be given in addition, if the walking line offset for building code calculations is different from that used in design." ;
+        IFC4-PSD:definitionAlias  "German-description-8"@de-DE , "Longueur du giron le long de la ligne de foulée. La valeur relativement à cette position doit normalement être identique à la propriété \"Longueur du giron\" ; elle peut être indiquée si la valeur de la propriété \"Décalage de la ligne de foulée\" donnée par une règle de calcul est différente de celle utilisée en conception."@fr-FR , ""@en , "在指定偏移量处踏板的长度。\n走线位置由“走线偏移”指定。该属性一般应与踏板长度一致，但如果根据建筑规范计算得到的走线偏移量和设计中使用的走线偏移量不同时，应使用该属性。"@zh-CN ;
+        IFC4-PSD:ifdguid          "7b211900d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TreadLengthAtOffset" ;
+        IFC4-PSD:nameAlias        "偏移踏板长度"@zh-CN , "Tread Length At Offset"@en , "LongueurGironSurLigneFoulee"@fr-FR , "Auftritt an der Lauflinie"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:TreadLengthAtOffset  a     rdf:Property ;
+        rdfs:seeAlso        :p7b211900d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TreadLengthAtOffset .
+
+:TreadLength  a             rdf:Property ;
+        rdfs:seeAlso        :p63499500d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TreadLength .
+
+:Headroom  a                rdf:Property ;
+        rdfs:seeAlso        :p8bd18f00d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Headroom .
+
+:RiserHeight  a             rdf:Property ;
+        rdfs:seeAlso        :p5af15a00d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiserHeight .
+
+:p9429ca00d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum thickness of the stair flight, measured perpendicular to the slope of the flight to the inner corner of riser and tread. It is a pre-calculated value, in case of inconsistencies, the value derived from the shape representation shall take precedence." ;
+        rdfs:label                "WaistThickness" ;
+        IFC4-PSD:definition       "Minimum thickness of the stair flight, measured perpendicular to the slope of the flight to the inner corner of riser and tread. It is a pre-calculated value, in case of inconsistencies, the value derived from the shape representation shall take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en , "楼梯梯段的最小厚度，即踢板和踏板所成的内角到梯段斜面的垂线长度。该属性为预设值，若有冲突，应以从形状描述得到的值为准。"@zh-CN , "German-description-11"@de-DE , "Epaisseur minimum de la volée mesurée perpendiculairement à la pente de la volée jusqu'au coin intérieur formé par la marche et la contremarche. C'est une valeur précalculée. En cas d'incohérence, c'est la valeur dérivée de la représentation de la forme qui prime."@fr-FR ;
+        IFC4-PSD:ifdguid          "9429ca00d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaistThickness" ;
+        IFC4-PSD:nameAlias        "腰部厚度"@zh-CN , "minimale Dicke des Treppenplatte"@de-DE , "Waist Thickness"@en , "Epaisseur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WaistThickness  a          rdf:Property ;
+        rdfs:seeAlso        :p9429ca00d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaistThickness .
+
+:p7197b100d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Offset of the walking line from the inner side of the flight. \nNote: the walking line may have a own shape representation (in case of inconsistencies, the value derived from the shape representation shall take precedence)." ;
+        rdfs:label                "WalkingLineOffset" ;
+        IFC4-PSD:definition       "Offset of the walking line from the inner side of the flight. \nNote: the walking line may have a own shape representation (in case of inconsistencies, the value derived from the shape representation shall take precedence)." ;
+        IFC4-PSD:definitionAlias  ""@en , "走线到梯段内侧的偏移量。\n注：走线可能有单独的形状描述（如果不一致，应以从形状描述得到的值为准）。"@zh-CN , "German-description-7"@de-DE , "Décalage de la ligne de foulée par rapport au côté intérieur de la volée. Nota : la ligne de foulée peut avoir sa propre représentation. En cas d'incohérences, c'est la valeur déduite de la représentation de la forme qui prime."@fr-FR ;
+        IFC4-PSD:ifdguid          "7197b100d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WalkingLineOffset" ;
+        IFC4-PSD:nameAlias        "Walking Line Offset"@en , "PositionLigneFoulee"@fr-FR , "走线偏移"@zh-CN , "Abstand der Lauflinie"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p39906e00d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        IFC4-PSD:definitionAlias  "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE , ""@en , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN ;
+        IFC4-PSD:ifdguid          "39906e00d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Bauteiltyp"@de-DE , "Reference"@en , "Reference"@fr-FR , "参照記号"@ja-JP , "参考号"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p8bd18f00d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual headroom clearance for the passageway according to the current design. \nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        rdfs:label                "Headroom" ;
+        IFC4-PSD:definition       "Actual headroom clearance for the passageway according to the current design. \nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Hauteur de passage (échappée) actuellement projetée. Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "German-description-10"@de-DE , ""@en , "当前设计方案确定的通道实际净空高度。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN ;
+        IFC4-PSD:ifdguid          "8bd18f00d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Headroom" ;
+        IFC4-PSD:nameAlias        "HauteurPassage"@fr-FR , "净空"@zh-CN , "Durchgangshöhe"@de-DE , "Headroom"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p5af15a00d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Vertical distance from tread to tread. \nThe riser height is supposed to be equal for all steps of a stair or stair flight." ;
+        rdfs:label                "RiserHeight" ;
+        IFC4-PSD:definition       "Vertical distance from tread to tread. \nThe riser height is supposed to be equal for all steps of a stair or stair flight." ;
+        IFC4-PSD:definitionAlias  "踏板之间的垂直高度。\n楼梯或梯段所有梯级的踢板高度应当一致。"@zh-CN , "German-description-4"@de-DE , "Hauteur de la contremarche, supposée homogène pour toutes les marches de l'escalier ou de la volée de marches."@fr-FR , "踏面と踏面の垂直方向の距離。この蹴上げ高さ値は、一連の階段において同じ値と仮定する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5af15a00d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiserHeight" ;
+        IFC4-PSD:nameAlias        "Riser Height"@en , "踢板高度"@zh-CN , "Steigung"@de-DE , "HauteurContreMarche"@fr-FR , "蹴上げ高さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NumberOfRiser  a           rdf:Property ;
+        rdfs:seeAlso        :p4f059800d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfRiser .
+
+:p6c3a6680d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Horizontal distance from the front of the tread to the riser underneath. It is the overhang of the tread." ;
+        rdfs:label                "NosingLength" ;
+        IFC4-PSD:definition       "Horizontal distance from the front of the tread to the riser underneath. It is the overhang of the tread." ;
+        IFC4-PSD:definitionAlias  ""@en , "German-description-6"@de-DE , "踏板前边沿到下级踢板的水平距离，即踏板悬挑部分的长度。"@zh-CN , "Longueur du nez de marche."@fr-FR ;
+        IFC4-PSD:ifdguid          "6c3a6680d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NosingLength" ;
+        IFC4-PSD:nameAlias        "Überstand"@de-DE , "LongueurNez"@fr-FR , "Nosing Length"@en , "踏板前缘长度"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:NumberOfTreads  a          rdf:Property ;
+        rdfs:seeAlso        :p54fb7900d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfTreads .
+
+:Pset_StairFlightCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrences of IfcStairFlight." ;
+        rdfs:label                    "Pset_StairFlightCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcStairFlight ;
+        IFC4-PSD:applicableTypeValue  "IfcStairFlight" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcStairFlight." ;
+        IFC4-PSD:definitionAlias      ""@en , "所有IfcStairFlight实例的定义中通用的属性。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcStairFlight"@fr-FR , "IfcStairFlightオブジェクトに関する共通プロパティセット定義。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_StairFlightCommon" ;
+        IFC4-PSD:propertyDef          :p63499500d20d11e1800000215ad4efdf , :p9429ca00d20d11e1800000215ad4efdf , :p8411ea80d20d11e1800000215ad4efdf , :p401ee580d20d11e1800000215ad4efdf , :p4f059800d20d11e1800000215ad4efdf , :p5af15a00d20d11e1800000215ad4efdf , :p7197b100d20d11e1800000215ad4efdf , :p8bd18f00d20d11e1800000215ad4efdf , :p54fb7900d20d11e1800000215ad4efdf , :p6c3a6680d20d11e1800000215ad4efdf , :p7b211900d20d11e1800000215ad4efdf , :p39906e00d20d11e1800000215ad4efdf .
+
+:p401ee580d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR , "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "401ee580d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "Status"@de-DE , "状態"@ja-JP , "Statut"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p54fb7900d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total number of treads included in the stair flight." ;
+        rdfs:label                "NumberOfTreads" ;
+        IFC4-PSD:definition       "Total number of treads included in the stair flight." ;
+        IFC4-PSD:definitionAlias  "階段の踏面数。"@ja-JP , "German-description-3"@de-DE , "Nombre total de girons de l'escalier"@fr-FR , ""@en , "该梯段所包含的踏板总数。"@zh-CN ;
+        IFC4-PSD:ifdguid          "54fb7900d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfTreads" ;
+        IFC4-PSD:nameAlias        "踏面数"@ja-JP , "Number Of Treads"@en , "踏板数"@zh-CN , "NombreGirons"@fr-FR , "Anzahl der Auftritte"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .

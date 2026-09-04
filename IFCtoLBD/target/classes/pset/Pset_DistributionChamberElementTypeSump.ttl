@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeSump#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p6aa07c80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the sump." ;
+        rdfs:label                "Width" ;
+        IFC4-PSD:definition       "The width of the sump." ;
+        IFC4-PSD:definitionAlias  "배수 챔버의 폭"@ko-KR , "排水チャンバーの幅。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6aa07c80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Width" ;
+        IFC4-PSD:nameAlias        "Width"@en , "幅"@ja-JP , "폭"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DistributionChamberElementTypeSump
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Recess or small chamber into which liquid is drained to facilitate its removal." ;
+        rdfs:label                    "Pset_DistributionChamberElementTypeSump" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/SUMP> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/SUMP" ;
+        IFC4-PSD:definition           "Recess or small chamber into which liquid is drained to facilitate its removal." ;
+        IFC4-PSD:definitionAlias      "排水チャンバー（ピット）に関する属性情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionChamberElementTypeSump" ;
+        IFC4-PSD:propertyDef          :p64aa9b80d1d411e1800000215ad4efdf , :p6aa07c80d1d411e1800000215ad4efdf , :p70965d80d1d411e1800000215ad4efdf .
+
+:InvertLevel  a             rdf:Property ;
+        rdfs:seeAlso        :p70965d80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InvertLevel .
+
+:p70965d80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The lowest point in the cross section of the sump." ;
+        rdfs:label                "InvertLevel" ;
+        IFC4-PSD:definition       "The lowest point in the cross section of the sump." ;
+        IFC4-PSD:definitionAlias  "단면의 가장 낮은 부분의 깊이 (지상에서)"@ko-KR , "断面の最も低い部分の深さ（地面から）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "70965d80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InvertLevel" ;
+        IFC4-PSD:nameAlias        "最大深さ"@ja-JP , "최대 깊이"@ko-KR , "Invert Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeSump>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Width  a                   rdf:Property ;
+        rdfs:seeAlso        :p6aa07c80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Width .
+
+:Length  a                  rdf:Property ;
+        rdfs:seeAlso        :p64aa9b80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Length .
+
+:p64aa9b80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of the sump." ;
+        rdfs:label                "Length" ;
+        IFC4-PSD:definition       "The length of the sump." ;
+        IFC4-PSD:definitionAlias  ""@en , "排水チャンバーの長さ。"@ja-JP , "배수 챔버의 길이"@ko-KR ;
+        IFC4-PSD:ifdguid          "64aa9b80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Length" ;
+        IFC4-PSD:nameAlias        "長さ"@ja-JP , "길이"@ko-KR , "Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

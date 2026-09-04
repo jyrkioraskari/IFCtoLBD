@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentTypeBusBarSegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_CableSegmentTypeBusBarSegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties specific to busbar cable segments." ;
+        rdfs:label                    "Pset_CableSegmentTypeBusBarSegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableSegment/BUSBARSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableSegment/BUSBARSEGMENT" ;
+        IFC4-PSD:definition           "Properties specific to busbar cable segments." ;
+        IFC4-PSD:definitionAlias      ""@en , "busbarケーブルの性質、性能。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableSegmentTypeBusBarSegment" ;
+        IFC4-PSD:propertyDef          :p1e027480d1c711e1800000215ad4efdf .
+
+:IsHorizontalBusbar  a      rdf:Property ;
+        rdfs:seeAlso        :p1e027480d1c711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsHorizontalBusbar .
+
+:p1e027480d1c711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the busbar occurrences are routed horizontally (= TRUE) or vertically (= FALSE)." ;
+        rdfs:label                "IsHorizontalBusbar" ;
+        IFC4-PSD:definition       "Indication of whether the busbar occurrences are routed horizontally (= TRUE) or vertically (= FALSE)." ;
+        IFC4-PSD:definitionAlias  "母線は、水平方向にルーティングされるかどうかを示す（= TRUE）または垂直方向に（= FALSE）を返します。"@ja-JP , ""@en , "모선은 가로로 라우팅되는지 여부를 나타내는 (= TRUE) 또는 수직 (= FALSE)를 반환합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "1e027480d1c711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsHorizontalBusbar" ;
+        IFC4-PSD:nameAlias        "수평 모선"@ko-KR , "Is Horizontal Busbar"@en , "水平母線"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentTypeBusBarSegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

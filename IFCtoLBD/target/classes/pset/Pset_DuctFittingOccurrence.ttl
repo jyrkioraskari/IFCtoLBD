@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:peb17ab00d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The color of the duct segment.\n\nNote: This is typically used for any duct segments with a painted surface which is not otherwise specified as a covering." ;
+        rdfs:label                "Color" ;
+        IFC4-PSD:definition       "The color of the duct segment.\n\nNote: This is typically used for any duct segments with a painted surface which is not otherwise specified as a covering." ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクト継手の色\nメモ：塗装されているときに使用される。他の場合は仕上げとして定義"@ja-JP ;
+        IFC4-PSD:ifdguid          "eb17ab00d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Color" ;
+        IFC4-PSD:nameAlias        "色"@ja-JP , "Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pe0f5ac80d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The interior roughness of the duct fitting material." ;
+        rdfs:label                "InteriorRoughnessCoefficient" ;
+        IFC4-PSD:definition       "The interior roughness of the duct fitting material." ;
+        IFC4-PSD:definitionAlias  "ダクト継手材料の内面粗さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e0f5ac80d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InteriorRoughnessCoefficient" ;
+        IFC4-PSD:nameAlias        "内面粗さ係数"@ja-JP , "Interior Roughness Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DuctFittingOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct fitting occurrence attributes." ;
+        rdfs:label                    "Pset_DuctFittingOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctFitting ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctFitting" ;
+        IFC4-PSD:definition           "Duct fitting occurrence attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "ダクト継手の属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctFittingOccurrence" ;
+        IFC4-PSD:propertyDef          :pe652f700d1dd11e1800000215ad4efdf , :pe0f5ac80d1dd11e1800000215ad4efdf , :peb17ab00d1dd11e1800000215ad4efdf .
+
+:pe652f700d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "TRUE if the fitting has interior duct insulating lining, FALSE if it does not." ;
+        rdfs:label                "HasLiner" ;
+        IFC4-PSD:definition       "TRUE if the fitting has interior duct insulating lining, FALSE if it does not." ;
+        IFC4-PSD:definitionAlias  "内貼り保温ダクト内面にあるときにTRUE。無い時にFALSE"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e652f700d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasLiner" ;
+        IFC4-PSD:nameAlias        "内張り有無"@ja-JP , "Has Liner"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:HasLiner  a                rdf:Property ;
+        rdfs:seeAlso        :pe652f700d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasLiner .
+
+:InteriorRoughnessCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe0f5ac80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InteriorRoughnessCoefficient .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Color  a                   rdf:Property ;
+        rdfs:seeAlso        :peb17ab00d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Color .

@@ -1,0 +1,146 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PrecastConcreteElementFabrication#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SerialNumber  a            rdf:Property ;
+        rdfs:seeAlso        :p48b6f200d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SerialNumber .
+
+:TypeDesignator  a          rdf:Property ;
+        rdfs:seeAlso        :p3d63c680d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TypeDesignator .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PrecastConcreteElementFabrication>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p608e7600d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines a unique piece for production purposes. All pieces with the same piece mark value are identical and interchangeable. The piece mark may be composed of sub-parts that have specific locally defined meaning (e.g. B-1A may denote a beam, of generic type ‘1’ and specific shape ‘A’)." ;
+        rdfs:label                "PieceMark" ;
+        IFC4-PSD:definition       "Defines a unique piece for production purposes. All pieces with the same piece mark value are identical and interchangeable. The piece mark may be composed of sub-parts that have specific locally defined meaning (e.g. B-1A may denote a beam, of generic type ‘1’ and specific shape ‘A’)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "608e7600d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PieceMark" ;
+        IFC4-PSD:nameAlias        "Piece Mark"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ProductionLotId  a         rdf:Property ;
+        rdfs:seeAlso        :p4359a780d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProductionLotId .
+
+:PieceMark  a               rdf:Property ;
+        rdfs:seeAlso        :p608e7600d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PieceMark .
+
+:p671ced80d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines a unique location within a structure, the ‘slot’ into which the piece was installed. Where pieces share the same piece mark, they can be interchanged. The value is only known after erection." ;
+        rdfs:label                "AsBuiltLocationNumber" ;
+        IFC4-PSD:definition       "Defines a unique location within a structure, the ‘slot’ into which the piece was installed. Where pieces share the same piece mark, they can be interchanged. The value is only known after erection." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "671ced80d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AsBuiltLocationNumber" ;
+        IFC4-PSD:nameAlias        "As Built Location Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:AsBuiltLocationNumber
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p671ced80d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AsBuiltLocationNumber .
+
+:p4359a780d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The manufacturer's production lot identifier." ;
+        rdfs:label                "ProductionLotId" ;
+        IFC4-PSD:definition       "The manufacturer's production lot identifier." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4359a780d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProductionLotId" ;
+        IFC4-PSD:nameAlias        "Production Lot Id"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p48b6f200d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The manufacturer's serial number for the precast concrete element." ;
+        rdfs:label                "SerialNumber" ;
+        IFC4-PSD:definition       "The manufacturer's serial number for the precast concrete element." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "48b6f200d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SerialNumber" ;
+        IFC4-PSD:nameAlias        "Serial Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_PrecastConcreteElementFabrication
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Production and manufacturing related properties common to different types of precast concrete elements. The Pset applies to manufactured pieces. It can be used by a number of subtypes of IfcBuildingElement. If the precast concrete ele" ;
+        rdfs:label                    "Pset_PrecastConcreteElementFabrication" ;
+        IFC4-PSD:applicableClass      IFC4:IfcRampFlight , IFC4:IfcMember , IFC4:IfcRoof , IFC4:IfcPile , IFC4:IfcRamp , IFC4:IfcChimney , IFC4:IfcSlab , IFC4:IfcCivilElement , IFC4:IfcStairFlight , IFC4:IfcPlate , IFC4:IfcBeam , IFC4:IfcBuildingElementProxy , IFC4:IfcWall , IFC4:IfcStair , IFC4:IfcColumn , IFC4:IfcFooting ;
+        IFC4-PSD:applicableTypeValue  "IfcBeam,IfcBuildingElementProxy,IfcChimney,IfcColumn,IfcFooting,IfcMember,IfcPile,IfcPlate,IfcRamp,IfcRampFlight,IfcRoof,IfcSlab,IfcStair,IfcStairFlight,IfcWall,IfcCivilElement" ;
+        IFC4-PSD:definition           "Production and manufacturing related properties common to different types of precast concrete elements. The Pset applies to manufactured pieces. It can be used by a number of subtypes of IfcBuildingElement. If the precast concrete ele" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PrecastConcreteElementFabrication" ;
+        IFC4-PSD:propertyDef          :p6dab6500d1f411e1800000215ad4efdf , :p3d63c680d1f411e1800000215ad4efdf , :p48b6f200d1f411e1800000215ad4efdf , :p4359a780d1f411e1800000215ad4efdf , :p671ced80d1f411e1800000215ad4efdf , :p608e7600d1f411e1800000215ad4efdf , :p72701900d1f411e1800000215ad4efdf .
+
+:p6dab6500d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Production date (stripped from form)." ;
+        rdfs:label                "ActualProductionDate" ;
+        IFC4-PSD:definition       "Production date (stripped from form)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6dab6500d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActualProductionDate" ;
+        IFC4-PSD:nameAlias        "Actual Production Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:ActualErectionDate  a      rdf:Property ;
+        rdfs:seeAlso        :p72701900d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActualErectionDate .
+
+:p72701900d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Date erected." ;
+        rdfs:label                "ActualErectionDate" ;
+        IFC4-PSD:definition       "Date erected." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "72701900d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActualErectionDate" ;
+        IFC4-PSD:nameAlias        "Actual Erection Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:p3d63c680d1f411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type designator for the precast concrete element. The content depends on local standards. For instance in Finland it usually a one-letter acronym, e.g. P=Column, K=reinforced concrete beam,etc." ;
+        rdfs:label                "TypeDesignator" ;
+        IFC4-PSD:definition       "Type designator for the precast concrete element. The content depends on local standards. For instance in Finland it usually a one-letter acronym, e.g. P=Column, K=reinforced concrete beam,etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3d63c680d1f411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TypeDesignator" ;
+        IFC4-PSD:nameAlias        "Type Designator"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ActualProductionDate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6dab6500d1f411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActualProductionDate .

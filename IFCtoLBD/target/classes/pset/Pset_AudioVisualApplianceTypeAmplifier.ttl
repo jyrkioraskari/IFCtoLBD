@@ -1,0 +1,78 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeAmplifier#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe644fe00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates audio amplification frequency ranges." ;
+        rdfs:label                "AudioAmplification" ;
+        IFC4-PSD:definition       "Indicates audio amplification frequency ranges." ;
+        IFC4-PSD:definitionAlias  "再生周波数帯域を示す。"@ja-JP , "재생 주파수 대역을 나타낸다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "e644fe00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioAmplification" ;
+        IFC4-PSD:nameAlias        "オーディオアンプ"@ja-JP , "Audio Amplification"@en , "오디오 앰프"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcSoundPowerMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:Pset_AudioVisualApplianceTypeAmplifier
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual amplifier is a device that renders audio from a single external source connected from a port.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeAmplifier" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/AMPLIFIER> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/AMPLIFIER" ;
+        IFC4-PSD:definition           "An audio-visual amplifier is a device that renders audio from a single external source connected from a port.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "ポートに接続された外部ソースからの音源を増幅する装置。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeAmplifier" ;
+        IFC4-PSD:propertyDef          :pd7f6e200d1c111e1800000215ad4efdf , :pee9d3900d1c111e1800000215ad4efdf , :pe644fe00d1c111e1800000215ad4efdf .
+
+:AudioMode  a               rdf:Property ;
+        rdfs:seeAlso        :pee9d3900d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioMode .
+
+:pd7f6e200d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of amplifier." ;
+        rdfs:label                "AmplifierType" ;
+        IFC4-PSD:definition       "Indicates the type of amplifier." ;
+        IFC4-PSD:definitionAlias  "앰프의 형식을 보여준다."@ko-KR , ""@en , "アンプの形式を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d7f6e200d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AmplifierType" ;
+        IFC4-PSD:nameAlias        "Amplifier Type"@en , "アンプ形式"@ja-JP , "앰프 형식"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FIXED" , "VARIABLE" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:AudioAmplification  a      rdf:Property ;
+        rdfs:seeAlso        :pe644fe00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioAmplification .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeAmplifier>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pee9d3900d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates audio sound modes and corresponding labels, if applicable." ;
+        rdfs:label                "AudioMode" ;
+        IFC4-PSD:definition       "Indicates audio sound modes and corresponding labels, if applicable." ;
+        IFC4-PSD:definitionAlias  "오디오 사운드 모드 설정."@ko-KR , ""@en , "オーディオサウンドモードの設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "ee9d3900d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioMode" ;
+        IFC4-PSD:nameAlias        "オーディオモード"@ja-JP , "Audio Mode"@en , "오디오 모드"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:AmplifierType  a           rdf:Property ;
+        rdfs:seeAlso        :pd7f6e200d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AmplifierType .

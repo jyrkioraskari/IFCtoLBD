@@ -75,7 +75,7 @@ public class IFCGeometry {
 			}
 		}
 
-		ExecutorService executor = Executors.newCachedThreadPool();
+		ExecutorService executor = Executors.newSingleThreadExecutor();
 		Callable<IfcOpenShellModel> task = new Callable<>() {
 			public IfcOpenShellModel call() {
 				IFCGeometry.this.renderEngineModel = getRenderEngineModel(ifcFile);
@@ -89,11 +89,12 @@ public class IFCGeometry {
 		} catch (TimeoutException ex) {
 			System.out.println("Timeout");
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			Thread.currentThread().interrupt();
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		} finally {
-			future.cancel(true); // may or may not desire this
+			future.cancel(true);
+			executor.shutdownNow();
 		}
 
 	}

@@ -1,0 +1,249 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p216b1f80d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the energy source or fuel combusted to generate heat if applicable.  Note: hydronic heaters shall use UNSET; dual-use hydronic/electric heaters shall use ELECTRICITY." ;
+        rdfs:label                "EnergySource" ;
+        IFC4-PSD:definition       "Enumeration defining the energy source or fuel combusted to generate heat if applicable.  Note: hydronic heaters shall use UNSET; dual-use hydronic/electric heaters shall use ELECTRICITY." ;
+        IFC4-PSD:definitionAlias  "列挙型はエネルギー源や燃料該当する場合は熱を発生させる燃焼定義します。注：温水循環式のヒーターはunsetを使用してはならない。デュアル使用すると、温水循環式の電気ヒーターは電気を使用しなければならない。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "216b1f80d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergySource" ;
+        IFC4-PSD:nameAlias        "エネルギー源"@ja-JP , "Energy Source"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ELECTRICITY" , "OIL" , "NOTKNOWN" , "WOOD" , "WOOD_CHIP" , "WOOD_PULVERIZED" , "PROPANE" , "UNSET" , "COAL" , "GAS" , "WOOD_PELLET" , "OTHER" , "COAL_PULVERIZED"
+                                  ] .
+
+:NumberOfPanels  a          rdf:Property ;
+        rdfs:seeAlso        :p6d1dc900d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfPanels .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pcafde100d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Pset_SpaceHeaterTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Space heater type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead.  Properties added in IFC4." ;
+        rdfs:label                    "Pset_SpaceHeaterTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpaceHeater ;
+        IFC4-PSD:applicableTypeValue  "IfcSpaceHeater" ;
+        IFC4-PSD:definition           "Space heater type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead.  Properties added in IFC4." ;
+        IFC4-PSD:definitionAlias      "暖房用ヒーター共通属性　　　　　　　　　　　　　　　　　　　　　　　SoundLevel属性はIFC2x2付録で削除された。： IfcSoundPropertiesを代わりに使う　特性はIFC4を加えました"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceHeaterTypeCommon" ;
+        IFC4-PSD:propertyDef          :p07c9d800d20a11e1800000215ad4efdf , :p4f506400d20a11e1800000215ad4efdf , :pe9fc7300d20911e1800000215ad4efdf , :p216b1f80d20a11e1800000215ad4efdf , :pd224ef00d20911e1800000215ad4efdf , :pfbde1600d20911e1800000215ad4efdf , :p63946100d20a11e1800000215ad4efdf , :p57a89f00d20a11e1800000215ad4efdf , :p727b1380d20a11e1800000215ad4efdf , :pcafde100d20911e1800000215ad4efdf , :p5d9e8000d20a11e1800000215ad4efdf , :p14e6c700d20a11e1800000215ad4efdf , :p6d1dc900d20a11e1800000215ad4efdf .
+
+:ThermalEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p63946100d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalEfficiency .
+
+:EnergySource  a            rdf:Property ;
+        rdfs:seeAlso        :p216b1f80d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergySource .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pd224ef00d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pcafde100d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cafde100d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p14e6c700d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the heat transfer medium if applicable." ;
+        rdfs:label                "HeatTransferMedium" ;
+        IFC4-PSD:definition       "Enumeration defining the heat transfer medium if applicable." ;
+        IFC4-PSD:definitionAlias  ""@en , "列挙体は熱媒体を必要に応じて定義します。"@ja-JP ;
+        IFC4-PSD:ifdguid          "14e6c700d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatTransferMedium" ;
+        IFC4-PSD:nameAlias        "Heat Transfer Medium"@en , "熱媒体"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "WATER" , "STEAM" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p6d1dc900d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of panels." ;
+        rdfs:label                "NumberOfPanels" ;
+        IFC4-PSD:definition       "Number of panels." ;
+        IFC4-PSD:definitionAlias  ""@en , "パネルの数"@ja-JP ;
+        IFC4-PSD:ifdguid          "6d1dc900d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfPanels" ;
+        IFC4-PSD:nameAlias        "Number Of Panels"@en , "パネルの数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:ThermalMassHeatCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p57a89f00d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalMassHeatCapacity .
+
+:HeatTransferMedium  a      rdf:Property ;
+        rdfs:seeAlso        :p14e6c700d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatTransferMedium .
+
+:OutputCapacity  a          rdf:Property ;
+        rdfs:seeAlso        :p5d9e8000d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutputCapacity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe9fc7300d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates how the space heater is designed to be placed." ;
+        rdfs:label                "PlacementType" ;
+        IFC4-PSD:definition       "Indicates how the space heater is designed to be placed." ;
+        IFC4-PSD:definitionAlias  "暖房用ヒーターが置かれるようにどう設計されているかを示します。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e9fc7300d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlacementType" ;
+        IFC4-PSD:nameAlias        "プレースメントタイプ"@ja-JP , "Placement Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BASEBOARD" , "TOWELWARMER" , "SUSPENDED" , "WALL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:PlacementType  a           rdf:Property ;
+        rdfs:seeAlso        :pe9fc7300d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlacementType .
+
+:pfbde1600d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the temperature classification of the space heater surface temperature.\nlow temperature - surface temperature is relatively low, usually heated by hot water or electricity.\nhigh temperature - surface temperature is relatively high, usually heated by gas or steam." ;
+        rdfs:label                "TemperatureClassification" ;
+        IFC4-PSD:definition       "Enumeration defining the temperature classification of the space heater surface temperature.\nlow temperature - surface temperature is relatively low, usually heated by hot water or electricity.\nhigh temperature - surface temperature is relatively high, usually heated by gas or steam." ;
+        IFC4-PSD:definitionAlias  "暖房用ヒーター表面温度の温度分類を定義。低温タイプ-お湯またｈ電気によるものの表面温度は相対的に低い。高温タイプ-ガスまたは蒸気によって熱するタイプの表面温度は比較的高い。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fbde1600d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureClassification" ;
+        IFC4-PSD:nameAlias        "温度分類"@ja-JP , "Temperature Classification"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LOWTEMPERATURE" , "HIGHTEMPERATURE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:BodyMass  a                rdf:Property ;
+        rdfs:seeAlso        :p4f506400d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BodyMass .
+
+:p57a89f00d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Product of component mass and specific heat." ;
+        rdfs:label                "ThermalMassHeatCapacity" ;
+        IFC4-PSD:definition       "Product of component mass and specific heat." ;
+        IFC4-PSD:definitionAlias  "質量あたりの熱容量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "57a89f00d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalMassHeatCapacity" ;
+        IFC4-PSD:nameAlias        "Thermal Mass Heat Capacity"@en , "保有熱容量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p4f506400d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall body mass of the heater." ;
+        rdfs:label                "BodyMass" ;
+        IFC4-PSD:definition       "Overall body mass of the heater." ;
+        IFC4-PSD:definitionAlias  "ヒーターの全体的な質量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "4f506400d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BodyMass" ;
+        IFC4-PSD:nameAlias        "Body Mass"@en , "本体重量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:p07c9d800d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates how heat is transmitted according to the shape of the space heater." ;
+        rdfs:label                "HeatTransferDimension" ;
+        IFC4-PSD:definition       "Indicates how heat is transmitted according to the shape of the space heater." ;
+        IFC4-PSD:definitionAlias  "室内暖房機の形に従って熱がどう伝えられるかを示します。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "07c9d800d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatTransferDimension" ;
+        IFC4-PSD:nameAlias        "熱伝達値"@ja-JP , "Heat Transfer Dimension"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "POINT" , "PATH" , "SURFACE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:TemperatureClassification
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pfbde1600d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureClassification .
+
+:HeatTransferDimension
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p07c9d800d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatTransferDimension .
+
+:p5d9e8000d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total nominal heat output as listed by the manufacturer." ;
+        rdfs:label                "OutputCapacity" ;
+        IFC4-PSD:definition       "Total nominal heat output as listed by the manufacturer." ;
+        IFC4-PSD:definitionAlias  "メーカーによりリストアップされた公称熱出力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5d9e8000d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutputCapacity" ;
+        IFC4-PSD:nameAlias        "Output Capacity"@en , "出力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:NumberOfSections  a        rdf:Property ;
+        rdfs:seeAlso        :p727b1380d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfSections .
+
+:p63946100d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall Thermal Efficiency is defined as gross energy output of the heat transfer device divided by the energy input." ;
+        rdfs:label                "ThermalEfficiency" ;
+        IFC4-PSD:definition       "Overall Thermal Efficiency is defined as gross energy output of the heat transfer device divided by the energy input." ;
+        IFC4-PSD:definitionAlias  ""@en , "熱効率：熱伝導装置の総エネルギー出力/エネルギー入力として総合的な熱効率は定義される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "63946100d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalEfficiency" ;
+        IFC4-PSD:nameAlias        "熱効率"@ja-JP , "Thermal Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p727b1380d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of vertical sections, measured in the direction of flow." ;
+        rdfs:label                "NumberOfSections" ;
+        IFC4-PSD:definition       "Number of vertical sections, measured in the direction of flow." ;
+        IFC4-PSD:definitionAlias  ""@en , "流れ方向で測定した垂直方向のセクションの数"@ja-JP ;
+        IFC4-PSD:ifdguid          "727b1380d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfSections" ;
+        IFC4-PSD:nameAlias        "セクションの数"@ja-JP , "Number Of Sections"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pd224ef00d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d224ef00d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

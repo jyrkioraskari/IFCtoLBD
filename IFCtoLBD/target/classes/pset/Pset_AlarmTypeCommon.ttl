@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AlarmTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p222b9380d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table mapping alarm condition identifiers to descriptive labels, which may be used for interpreting Pset_AlarmPHistory.Condition." ;
+        rdfs:label                "Condition" ;
+        IFC4-PSD:definition       "Table mapping alarm condition identifiers to descriptive labels, which may be used for interpreting Pset_AlarmPHistory.Condition." ;
+        IFC4-PSD:definitionAlias  "Pset_AlarmPHistory.Conditionで使用される、警報条件の識別子とラベル情報のマッピングを行う。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "222b9380d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Condition" ;
+        IFC4-PSD:nameAlias        "Condition"@en , "条件"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:p0e802d00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0e802d00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p0e802d00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p088a4c00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "해당 프로젝트에서 사용이 유형에 대한 참조 ID (예 : 'A-1') ※ 기본이있는 경우 그 기호를 사용"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "088a4c00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "참조 ID"@ko-KR , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_AlarmTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Alarm type common attributes.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AlarmTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAlarm ;
+        IFC4-PSD:applicableTypeValue  "IfcAlarm" ;
+        IFC4-PSD:definition           "Alarm type common attributes.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "アラームタイプの共通属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AlarmTypeCommon" ;
+        IFC4-PSD:propertyDef          :p0e802d00d1c111e1800000215ad4efdf , :p088a4c00d1c111e1800000215ad4efdf , :p222b9380d1c111e1800000215ad4efdf .
+
+:Condition  a               rdf:Property ;
+        rdfs:seeAlso        :p222b9380d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Condition .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p088a4c00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AlarmTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

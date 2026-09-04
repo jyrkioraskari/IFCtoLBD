@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ConstructionResource#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pee566b00d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The scheduled work on behalf of the resource allocation." ;
+        rdfs:label                "ScheduleWork" ;
+        IFC4-PSD:definition       "The scheduled work on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "資源配分のための予定された作業。"@ja-JP ;
+        IFC4-PSD:ifdguid          "ee566b00d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ScheduleWork" ;
+        IFC4-PSD:nameAlias        "Schedule Work"@en , "予定作業時間"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:RemainingWork  a           rdf:Property ;
+        rdfs:seeAlso        :pf3b3b580d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RemainingWork .
+
+:ScheduleCompletion  a      rdf:Property ;
+        rdfs:seeAlso        :pfe6e4a80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ScheduleCompletion .
+
+:ActualCompletion  a        rdf:Property ;
+        rdfs:seeAlso        :p00d0a480d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActualCompletion .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ConstructionResource>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ConstructionResource
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for tracking resource usage over time." ;
+        rdfs:label                    "Pset_ConstructionResource" ;
+        IFC4-PSD:applicableClass      IFC4:IfcConstructionResource ;
+        IFC4-PSD:applicableTypeValue  "IfcConstructionResource" ;
+        IFC4-PSD:definition           "Properties for tracking resource usage over time." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ConstructionResource" ;
+        IFC4-PSD:propertyDef          :pf1515b80d1cc11e1800000215ad4efdf , :pfe6e4a80d1cc11e1800000215ad4efdf , :pee566b00d1cc11e1800000215ad4efdf , :pf3b3b580d1cc11e1800000215ad4efdf , :pf6aea600d1cc11e1800000215ad4efdf , :p00d0a480d1cd11e1800000215ad4efdf , :pfb735a00d1cc11e1800000215ad4efdf , :pf9110000d1cc11e1800000215ad4efdf .
+
+:RemainingCost  a           rdf:Property ;
+        rdfs:seeAlso        :pfb735a00d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RemainingCost .
+
+:pf1515b80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual work on behalf of the resource allocation." ;
+        rdfs:label                "ActualWork" ;
+        IFC4-PSD:definition       "The actual work on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  "資源配分のための実績の作業。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f1515b80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActualWork" ;
+        IFC4-PSD:nameAlias        "Actual Work"@en , "実績作業時間"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pfb735a00d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The remaining cost on behalf of the resource allocation." ;
+        rdfs:label                "RemainingCost" ;
+        IFC4-PSD:definition       "The remaining cost on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "資源配分のための残存しているコスト。"@ja-JP ;
+        IFC4-PSD:ifdguid          "fb735a00d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RemainingCost" ;
+        IFC4-PSD:nameAlias        "Remaining Cost"@en , "残存コスト"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ScheduleWork  a            rdf:Property ;
+        rdfs:seeAlso        :pee566b00d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ScheduleWork .
+
+:p00d0a480d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual completion percentage of the allocation." ;
+        rdfs:label                "ActualCompletion" ;
+        IFC4-PSD:definition       "The actual completion percentage of the allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "実績の完了率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "00d0a480d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActualCompletion" ;
+        IFC4-PSD:nameAlias        "Actual Completion"@en , "実績完了率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf3b3b580d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The remaining work on behalf of the resource allocation." ;
+        rdfs:label                "RemainingWork" ;
+        IFC4-PSD:definition       "The remaining work on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "資源配分のための残存している作業。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f3b3b580d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RemainingWork" ;
+        IFC4-PSD:nameAlias        "Remaining Work"@en , "残存作業時間"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf9110000d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual cost on behalf of the resource allocation." ;
+        rdfs:label                "ActualCost" ;
+        IFC4-PSD:definition       "The actual cost on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "資源配分のための実績のコスト。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f9110000d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActualCost" ;
+        IFC4-PSD:nameAlias        "Actual Cost"@en , "実績コスト"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ActualWork  a              rdf:Property ;
+        rdfs:seeAlso        :pf1515b80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActualWork .
+
+:ScheduleCost  a            rdf:Property ;
+        rdfs:seeAlso        :pf6aea600d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ScheduleCost .
+
+:ActualCost  a              rdf:Property ;
+        rdfs:seeAlso        :pf9110000d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActualCost .
+
+:pfe6e4a80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The scheduled completion percentage of the allocation." ;
+        rdfs:label                "ScheduleCompletion" ;
+        IFC4-PSD:definition       "The scheduled completion percentage of the allocation." ;
+        IFC4-PSD:definitionAlias  ""@en , "予定された完了率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "fe6e4a80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ScheduleCompletion" ;
+        IFC4-PSD:nameAlias        "予定完了率"@ja-JP , "Schedule Completion"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf6aea600d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The budgeted cost on behalf of the resource allocation." ;
+        rdfs:label                "ScheduleCost" ;
+        IFC4-PSD:definition       "The budgeted cost on behalf of the resource allocation." ;
+        IFC4-PSD:definitionAlias  "資源配分のための予定されているコスト。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f6aea600d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ScheduleCost" ;
+        IFC4-PSD:nameAlias        "Schedule Cost"@en , "予定コスト"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

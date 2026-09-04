@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeHumiditySensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeHumiditySensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SetPointHumidity  a        rdf:Property ;
+        rdfs:seeAlso        :pa6a00580d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointHumidity .
+
+:pa6a00580d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The humidity value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointHumidity" ;
+        IFC4-PSD:definition       "The humidity value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知される湿度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , "감지되는 습도. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "a6a00580d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointHumidity" ;
+        IFC4-PSD:nameAlias        "Set Point Humidity"@en , "습도 설정"@ko-KR , "湿度設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_SensorTypeHumiditySensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects humidity. HISTORY: HumiditySensorSetPoint changed to SetPointHumidity. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeHumiditySensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/HUMIDITYSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/HUMIDITYSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects humidity. HISTORY: HumiditySensorSetPoint changed to SetPointHumidity. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en , "湿度を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeHumiditySensor" ;
+        IFC4-PSD:propertyDef          :pa6a00580d20511e1800000215ad4efdf .

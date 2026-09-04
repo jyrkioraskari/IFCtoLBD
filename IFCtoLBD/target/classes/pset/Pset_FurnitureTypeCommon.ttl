@@ -1,0 +1,151 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p7334640eaf3943b9acb2ae43ea34a47d
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "7334640eaf3943b9acb2ae43ea34a47d" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+:NominalLength  a           rdf:Property ;
+        rdfs:seeAlso        :p076d1500d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalLength .
+
+:p1fdd2f80d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the furniture type is intended to be 'built in' i.e. physically attached to a building or facility (= TRUE) or not i.e. Loose and movable (= FALSE)." ;
+        rdfs:label                "IsBuiltIn" ;
+        IFC4-PSD:definition       "Indicates whether the furniture type is intended to be 'built in' i.e. physically attached to a building or facility (= TRUE) or not i.e. Loose and movable (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1fdd2f80d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsBuiltIn" ;
+        IFC4-PSD:nameAlias        "Is Built In"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p076d1500d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal length of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "NominalLength" ;
+        IFC4-PSD:definition       "The nominal length of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "076d1500d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalLength" ;
+        IFC4-PSD:nameAlias        "Nominal Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p00460700d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "00460700d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "Nominal Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:MainColor  a               rdf:Property ;
+        rdfs:seeAlso        :p19e74e80d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MainColor .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_FurnitureTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common properties for all types of furniture such as chair, desk, table, and file cabinet. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FurnitureCommon. IFC 2x4: 'IsBuiltIn' property added" ;
+        rdfs:label                    "Pset_FurnitureTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFurniture ;
+        IFC4-PSD:applicableTypeValue  "IfcFurniture" ;
+        IFC4-PSD:definition           "Common properties for all types of furniture such as chair, desk, table, and file cabinet. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FurnitureCommon. IFC 2x4: 'IsBuiltIn' property added" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FurnitureTypeCommon" ;
+        IFC4-PSD:propertyDef          :p7334640eaf3943b9acb2ae43ea34a47d , :p00460700d1e911e1800000215ad4efdf , :p118f1380d1e911e1800000215ad4efdf , :p076d1500d1e911e1800000215ad4efdf , :pc67404c9010c4f04a3d3f31eb6a4d813 , :p19e74e80d1e911e1800000215ad4efdf , :pf7553580d1e811e1800000215ad4efdf , :p1fdd2f80d1e911e1800000215ad4efdf .
+
+:NominalDepth  a            rdf:Property ;
+        rdfs:seeAlso        :p118f1380d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDepth .
+
+:p118f1380d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal depth of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "NominalDepth" ;
+        IFC4-PSD:definition       "The nominal depth of the furniture of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "118f1380d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDepth" ;
+        IFC4-PSD:nameAlias        "Nominal Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pc67404c9010c4f04a3d3f31eb6a4d813 ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p19e74e80d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The main color of the furniture of this type." ;
+        rdfs:label                "MainColor" ;
+        IFC4-PSD:definition       "The main color of the furniture of this type." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "19e74e80d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MainColor" ;
+        IFC4-PSD:nameAlias        "Main Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Style  a                   rdf:Property ;
+        rdfs:seeAlso        :pf7553580d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Style .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p7334640eaf3943b9acb2ae43ea34a47d ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:IsBuiltIn  a               rdf:Property ;
+        rdfs:seeAlso        :p1fdd2f80d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsBuiltIn .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p00460700d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:pc67404c9010c4f04a3d3f31eb6a4d813
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Reference" ;
+        IFC4-PSD:ifdguid       "c67404c9010c4f04a3d3f31eb6a4d813" ;
+        IFC4-PSD:name          "Reference" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .
+
+:pf7553580d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the furniture style." ;
+        rdfs:label                "Style" ;
+        IFC4-PSD:definition       "Description of the furniture style." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f7553580d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Style" ;
+        IFC4-PSD:nameAlias        "Style"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .

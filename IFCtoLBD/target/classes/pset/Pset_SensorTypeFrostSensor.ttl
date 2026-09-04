@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeFrostSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeFrostSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypeFrostSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects the presense of frost." ;
+        rdfs:label                    "Pset_SensorTypeFrostSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/FROSTSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/FROSTSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects the presense of frost." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeFrostSensor" ;
+        IFC4-PSD:propertyDef          :p2c68553a248d4030943839a8806ebd51 .
+
+:SetPointFrost  a           rdf:Property ;
+        rdfs:seeAlso        :p2c68553a248d4030943839a8806ebd51 ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointFrost .
+
+:p2c68553a248d4030943839a8806ebd51
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The detection of frost." ;
+        rdfs:label                "SetPointFrost" ;
+        IFC4-PSD:definition       "The detection of frost." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2c68553a248d4030943839a8806ebd51" ;
+        IFC4-PSD:name             "SetPointFrost" ;
+        IFC4-PSD:nameAlias        "Set Point Frost"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .

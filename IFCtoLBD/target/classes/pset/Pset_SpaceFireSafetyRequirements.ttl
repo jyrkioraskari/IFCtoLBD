@@ -1,0 +1,128 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceFireSafetyRequirements#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p8bcf9000d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space is required to have pressurized air (TRUE) or not (FALSE)." ;
+        rdfs:label                "AirPressurization" ;
+        IFC4-PSD:definition       "Indication whether the space is required to have pressurized air (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "Angabe, ob der Raum einen Luftdruckausgleich erfordert (WAHR) oder nicht (FALSCH)."@de-DE , "Indique si l'espace nécessite d'être alimenté en air comprimé (VRAI) ou non (FAUX)"@fr-FR , ""@en , "공간이 가압 요구되고 있는지 여부를 나타내는 부울 값입니다. (TRUE) 가압 (FALSE) 비 가압."@ko-KR , "空間が加圧することを要求されているかどうかを示すブーリアン値。(TRUE)加圧、(FALSE)非加圧。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8bcf9000d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressurization" ;
+        IFC4-PSD:nameAlias        "AirComprimeDisponible"@fr-FR , "Air Pressurization"@en , "Luftdruckausgleich"@de-DE , "공기 가압"@ko-KR , "空気加圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FlammableStorage  a        rdf:Property ;
+        rdfs:seeAlso        :p3c895f80d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlammableStorage .
+
+:AirPressurization  a       rdf:Property ;
+        rdfs:seeAlso        :p8bcf9000d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressurization .
+
+:p3c895f80d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space is intended to serve as a storage of flammable material (which is regarded as such by the presiding building code. (TRUE) indicates yes, (FALSE) otherwise." ;
+        rdfs:label                "FlammableStorage" ;
+        IFC4-PSD:definition       "Indication whether the space is intended to serve as a storage of flammable material (which is regarded as such by the presiding building code. (TRUE) indicates yes, (FALSE) otherwise." ;
+        IFC4-PSD:definitionAlias  "Indique si l'espace est destiné au stockage de matières inflammables (considérées comme telles par le Code de la Construction en vigueur). (VRAI) signifie oui, (FAUX) sinon."@fr-FR , "Angabe, ob der Raum zur Lagerung der Produktion von brennbaren Stoffen genutzt wird (WHAHR) oder nicht (FALSCH). Die Angabe erfolgt nach der nationalen oder regionalen Brandschutzverordnung."@de-DE , ""@en , "空間が可燃物(建築基準を管理することによりそのように考慮される)の倉庫として使われることを意図されているかどうかを示すブーリアン値。(TRUE)はい、(FALSE)いいえ。"@ja-JP , "공간이 가연물 (건축 기준을 관리함으로써 그렇게 여겨지는)의 창고로 사용되는 것을 의도하고 있는지 여부를 나타내는 부울 값입니다. (TRUE) 예 (FALSE) 아니오. \"이 물체가 화재의 경우 출구로 사용되도록 설계되었는지 여부를 나타내는  (TRUE) 예 (FALSE) 아니오 값"@ko-KR ;
+        IFC4-PSD:ifdguid          "3c895f80d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlammableStorage" ;
+        IFC4-PSD:nameAlias        "Lagerung brennbarer Stoffe"@de-DE , "可燃物保管区分"@ja-JP , "StockageCombustible"@fr-FR , "가연성 물질 창고"@ko-KR , "Flammable Storage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p840feb80d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space has an automatic sprinkler protection (TRUE) or not (FALSE).\nIt should only be given, if the property \"SprinklerProtection\" is set to TRUE." ;
+        rdfs:label                "SprinklerProtectionAutomatic" ;
+        IFC4-PSD:definition       "Indication whether the space has an automatic sprinkler protection (TRUE) or not (FALSE).\nIt should only be given, if the property \"SprinklerProtection\" is set to TRUE." ;
+        IFC4-PSD:definitionAlias  "스프링 클러 설비가 자동 여부를 나타내는 부울 값입니다. (TRUE) 자동 (FALSE) 비자동. \"스프링 클러 방어\"속성이 TRUE로 설정된 경우에만 주어진다."@ko-KR , "スプリンクラー設備が自動かどうか示すブーリアン値。(TRUE)自動、(FALSE)非自動。「スプリンクラー防御」プロパティがTRUEに設定された場合のみ、与えられる。"@ja-JP , ""@en , "Indication selon laquelle ce bâtiment bénéficie d'une protection automatique par sprinkler (VRAI) ou non (FAUX)."@fr-FR , "Angabe, ob der Raum durch eine automatische Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH).  Dieser Wert soll nur angegeben werden, wenn das Attribut SprinklerProtection auf (WAHR) gesetzt ist."@de-DE ;
+        IFC4-PSD:ifdguid          "840feb80d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprinklerProtectionAutomatic" ;
+        IFC4-PSD:nameAlias        "自動スプリンクラー防御"@ja-JP , "Sprinklerschutz automatisch"@de-DE , "Sprinkler Protection Automatic"@en , "스프링 클러 방어 자동 구분"@ko-KR , "ProtectionAutomatiqueParSprinkler"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:SprinklerProtectionAutomatic
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p840feb80d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SprinklerProtectionAutomatic .
+
+:p7e1a0a80d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the space is sprinkler protected (TRUE) or not (FALSE)." ;
+        rdfs:label                "SprinklerProtection" ;
+        IFC4-PSD:definition       "Indication whether the space is sprinkler protected (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "スプリンクラー設備の有無を示すブーリアン値。(TRUE)有、(FALSE)なし。"@ja-JP , "Indication selon laquelle ce bâtiment bénéficie d'une protection par sprinkler (VRAI) ou non (FAUX)."@fr-FR , "Angabe, ob der Raum durch eine Sprinkleranlage geschützt wird (WAHR) oder nicht (FALSCH)."@de-DE , "스프링 클러 설비의 유무를 나타내는 부울 값입니다. (TRUE) 유 (FALSE) 없음."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "7e1a0a80d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SprinklerProtection" ;
+        IFC4-PSD:nameAlias        "Sprinklerschutz"@de-DE , "スプリンクラー防御"@ja-JP , "스프링 클러 방어"@ko-KR , "ProtectionParSprinkler"@fr-FR , "Sprinkler Protection"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FireRiskFactor  a          rdf:Property ;
+        rdfs:seeAlso        :p33988e00d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireRiskFactor .
+
+:p76f2fc80d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this object is designed to serve as an exit in the case of fire (TRUE) or not (FALSE).\nHere whether the space (in case of e.g., a corridor) is designed to serve as an exit space, e.g., for fire escape purposes." ;
+        rdfs:label                "FireExit" ;
+        IFC4-PSD:definition       "Indication whether this object is designed to serve as an exit in the case of fire (TRUE) or not (FALSE).\nHere whether the space (in case of e.g., a corridor) is designed to serve as an exit space, e.g., for fire escape purposes." ;
+        IFC4-PSD:definitionAlias  ""@en , "Indique si cet objet est conçu pour servir de sortie en cas d'incendie (VRAI) ou non (FAUX). Cas d'un espace comme un couloir conçu pour servir d'espace de sortie, par exemple pour l'évacuation en cas d'incendie."@fr-FR , "Angabe, ob der Raum einen Notausgang für den Brandfall hat und als ein Notausgangs(sammel)raum im Sinne der Brandschutzverordnung gilt (WAHR), oder nicht (FALSCH)."@de-DE , "여기에 공간 (예 복도), 예를 들면 화재 피난 목적을 위해 출구 공간으로 사용하도록 설계되었는지 여부"@ko-KR , "このオブジェクトが火災の場合に出口として使われるように設計されているかどうかを示すブーリアン値。(TRUE)はい、(FALSE)いいえ。\nここに、空間(例えば廊下)は、例えば火災避難目的のために出口空間として使われるよう設計されているかどうか。"@ja-JP ;
+        IFC4-PSD:ifdguid          "76f2fc80d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireExit" ;
+        IFC4-PSD:nameAlias        "Fire Exit"@en , "SortieSecours"@fr-FR , "화재 출구 (피난 출구)"@ko-KR , "非常口区分"@ja-JP , "Notausgang"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_SpaceFireSafetyRequirements
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties related to fire protection of spaces that apply to the occurrences of IfcSpace or IfcZone." ;
+        rdfs:label                    "Pset_SpaceFireSafetyRequirements" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> , IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
+        IFC4-PSD:definition           "Properties related to fire protection of spaces that apply to the occurrences of IfcSpace or IfcZone." ;
+        IFC4-PSD:definitionAlias      "Property Set Definition in German"@de-DE , "Définition de l'IAI : propriétés relatives à la protection incendie, qui s'appliquent à toutes les occurrences des classes IfcSpace et IfcZone."@fr-FR , ""@en , "IfcSpaceまたはIfcZoneの存在に適用される、空間の火災防御(防火)に関連したプロパティ。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceFireSafetyRequirements" ;
+        IFC4-PSD:propertyDef          :p76f2fc80d20911e1800000215ad4efdf , :p7e1a0a80d20911e1800000215ad4efdf , :p3c895f80d20911e1800000215ad4efdf , :p8bcf9000d20911e1800000215ad4efdf , :p33988e00d20911e1800000215ad4efdf , :p840feb80d20911e1800000215ad4efdf .
+
+:FireExit  a                rdf:Property ;
+        rdfs:seeAlso        :p76f2fc80d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireExit .
+
+:SprinklerProtection  a     rdf:Property ;
+        rdfs:seeAlso        :p7e1a0a80d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SprinklerProtection .
+
+:p33988e00d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fire Risk factor assigned to the space according to local building regulations. It defines the fire risk of the space at several levels of fire hazard." ;
+        rdfs:label                "FireRiskFactor" ;
+        IFC4-PSD:definition       "Fire Risk factor assigned to the space according to local building regulations. It defines the fire risk of the space at several levels of fire hazard." ;
+        IFC4-PSD:definitionAlias  ""@en , "지역 건축 규칙에 따라 공간에 할당된 화재 위험 요인 화재 어느 정도의 공간의 화재 위험도를 정의한다. \""@ko-KR , "地域の建築規則に従って空間に割り当てられた火災危険要因\n火災のいくつかのレベルにおける空間の火災危険度を定義する。"@ja-JP , "Facteur de risque incendie attribué à l'espace, selon la réglementation locale en matière de construction."@fr-FR , "Brandgefahrenklasse des Raums, angegeben nach der nationalen oder regionalen Brandschutzverordnung."@de-DE ;
+        IFC4-PSD:ifdguid          "33988e00d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireRiskFactor" ;
+        IFC4-PSD:nameAlias        "화재 위험 요인"@ko-KR , "FacteurRisqueIncendie"@fr-FR , "火災危険度要因"@ja-JP , "Brandgefahrenklasse"@de-DE , "Fire Risk Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceFireSafetyRequirements>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

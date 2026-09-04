@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p5c972f80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The shape form of the provision for void, the minimum set of agreed values includes 'Rectangle', 'Round', and 'Undefined'." ;
+        rdfs:label                "Shape" ;
+        IFC4-PSD:definition       "The shape form of the provision for void, the minimum set of agreed values includes 'Rectangle', 'Round', and 'Undefined'." ;
+        IFC4-PSD:definitionAlias  "空間の形状を定義します。少なくとも「四角形」、「円」、「未定義」の値を含みます。"@ja-JP , "空构件的形状，当前得到认可的值至少包括“矩形”、“圆形”及“未定义”。"@zh-CN , ""@en , "La forme de la réservation. L'ensemble des valeurs autorisées contient au moins \"Rectangle\", \"Round\" et \"Undefined\"."@fr-FR , "Anforderung an die Form des Durchbruchs, vordefinierte Werte sind \"Rechteck\", \"Rund\", und \"Nicht definiert\"."@de-DE ;
+        IFC4-PSD:ifdguid          "5c972f80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Shape" ;
+        IFC4-PSD:nameAlias        "Shape"@en , "Forme"@fr-FR , "形状"@ja-JP , "形状"@zh-CN , "Form"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p720c5980d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "he building service system that requires the provision for voids, e.g. 'Air Conditioning', 'Plumbing', 'Electro', etc." ;
+        rdfs:label                "System" ;
+        IFC4-PSD:definition       "he building service system that requires the provision for voids, e.g. 'Air Conditioning', 'Plumbing', 'Electro', etc." ;
+        IFC4-PSD:definitionAlias  "需要空构件的建筑服务系统，例如，“空调”、“给排水”、“电气”等。"@zh-CN , "Angabe zu welcher Anlage (oder Anlagen) der Durchbruch benötigt wird."@de-DE , "Le système qui requiert la réservation (exemples : \"Conditionnement d'air\", \"Plomberie\", \"Electricité\")"@fr-FR , ""@en , "空間に提示される建物サービスシステムです。例えば「空調」「配管」「電気」です。"@ja-JP ;
+        IFC4-PSD:ifdguid          "720c5980d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "System" ;
+        IFC4-PSD:nameAlias        "System"@en , "システム"@ja-JP , "Anlage"@de-DE , "系统"@zh-CN , "Système"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Width  a                   rdf:Property ;
+        rdfs:seeAlso        :p615be380d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Width .
+
+:Height  a                  rdf:Property ;
+        rdfs:seeAlso        :p65880100d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Height .
+
+:Shape  a                   rdf:Property ;
+        rdfs:seeAlso        :p5c972f80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Shape .
+
+:p6de03c00d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The requested depth or thickness of the provision for void." ;
+        rdfs:label                "Depth" ;
+        IFC4-PSD:definition       "The requested depth or thickness of the provision for void." ;
+        IFC4-PSD:definitionAlias  ""@en , "Geforderte Tiefe des Durchbruchs für eine Nische oder Aussparung. Wenn nicht angegeben, dann ist der geforderte Durchbruch eine Durchbruchsöffnung."@de-DE , "空构件的深度或厚度。"@zh-CN , "La profondeur requise ou épaisseur de la réservation."@fr-FR , "空間の厚さに対しての深さが提示されます。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6de03c00d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Depth" ;
+        IFC4-PSD:nameAlias        "深さ"@ja-JP , "深度"@zh-CN , "Tiefe"@de-DE , "Depth"@en , "Profondeur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p615be380d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The requested width (horizontal extension in elevation) of the provision for void, only provided if the Shape property is set to \"rectangle\"." ;
+        rdfs:label                "Width" ;
+        IFC4-PSD:definition       "The requested width (horizontal extension in elevation) of the provision for void, only provided if the Shape property is set to \"rectangle\"." ;
+        IFC4-PSD:definitionAlias  "空构件的宽度（在立面图中水平方向的长度），仅当“形状”属性为“矩形”时适用。"@zh-CN , ""@en , "Geforderte Breite des Durchbruchs, wird nur dann angegeben, wenn der Wert des Attributes \"Form\" gleich \"Rechteck\" ist."@de-DE , "空間の幅（高さにおける水平方向の拡張）を求める定義です。「四角形」の形状プロパティのみ提示されます。"@ja-JP , "La largeur requise de la réservation (extension horizontale en élévation). Fournie seulement si la propriété Forme a pour valeur \"Rectangle\"."@fr-FR ;
+        IFC4-PSD:ifdguid          "615be380d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Width" ;
+        IFC4-PSD:nameAlias        "Largeur"@fr-FR , "Width"@en , "Breite"@de-DE , "宽度"@zh-CN , "幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingElementProxyProvisionForVoid>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Depth  a                   rdf:Property ;
+        rdfs:seeAlso        :p6de03c00d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Depth .
+
+:p69b41e80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The requested diameter (in elevation) of the provision for void, only provided if the Shape property is set to \"round\"." ;
+        rdfs:label                "Diameter" ;
+        IFC4-PSD:definition       "The requested diameter (in elevation) of the provision for void, only provided if the Shape property is set to \"round\"." ;
+        IFC4-PSD:definitionAlias  ""@en , "Le diamètre requis de la réservation (en élévation). Fournie seulement si la propriété Forme a pour valeur \"Round\"."@fr-FR , "空构件的直径（在立面图中），仅当“形状”属性为“圆形”时适用。"@zh-CN , "Geforderte Durchmesser des Durchbruchs, wird nur dann angegeben, wenn der Wert des Attributes \"Form\" gleich \"Rund\" ist."@de-DE , "空間における直径（高さにおける）を求める定義です。「円」形状プロパティのみに提示されます。"@ja-JP ;
+        IFC4-PSD:ifdguid          "69b41e80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Diameter" ;
+        IFC4-PSD:nameAlias        "Diamètre"@fr-FR , "Durchmesser"@de-DE , "Diameter"@en , "直径"@ja-JP , "直径"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Diameter  a                rdf:Property ;
+        rdfs:seeAlso        :p69b41e80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Diameter .
+
+:p65880100d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The requested height (vertical extension in elevation) of the provision for void\", only provided if the Shape property is set to \"rectangle\"." ;
+        rdfs:label                "Height" ;
+        IFC4-PSD:definition       "The requested height (vertical extension in elevation) of the provision for void\", only provided if the Shape property is set to \"rectangle\"." ;
+        IFC4-PSD:definitionAlias  ""@en , "La hauteur requise de la réservation (extension verticale en élévation). Fournie seulement si la propriété Forme a pour valeur \"Rectangle\"."@fr-FR , "空間の高さ（高さにおける垂直方向の拡張）を求める定義です。「四角形」の形状プロパティのみ提示されます。"@ja-JP , "空构件的高度（在立面图中竖直方向的长度），仅当“形状”属性为“矩形”时适用。"@zh-CN , "Geforderte Höhe des Durchbruchs, wird nur dann angegeben, wenn der Wert des Attributes \"Form\" gleich \"Rechteck\" ist."@de-DE ;
+        IFC4-PSD:ifdguid          "65880100d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Height" ;
+        IFC4-PSD:nameAlias        "高度"@zh-CN , "高さ"@ja-JP , "Height"@en , "Höhe"@de-DE , "Hauteur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_BuildingElementProxyProvisionForVoid
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of a provision for void as a special type of an instance of IfcBuildingElementProxy. A provision for void is a spatial provision that might be resolved into a void in a building element. The properties carry requested values." ;
+        rdfs:label                    "Pset_BuildingElementProxyProvisionForVoid" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcBuildingElementProxy/PROVISIONFORVOID> ;
+        IFC4-PSD:applicableTypeValue  "IfcBuildingElementProxy/PROVISIONFORVOID" ;
+        IFC4-PSD:definition           "Properties common to the definition of a provision for void as a special type of an instance of IfcBuildingElementProxy. A provision for void is a spatial provision that might be resolved into a void in a building element. The properties carry requested values." ;
+        IFC4-PSD:definitionAlias      "所有作为IfcBuildingElementProxy特例的空构件的定义中通用的属性。空构件是一种特殊的构件，可用以挖空其他建筑构件。其属性仅含特定的值。"@zh-CN , ""@en , "IfcBuildingElementProxyオブジェクトを使用して空間の取り合いにおける穴の位置を提案する際に必要な共通プロパティ情報を定義。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BuildingElementProxyProvisionForVoid" ;
+        IFC4-PSD:propertyDef          :p5c972f80d1c511e1800000215ad4efdf , :p69b41e80d1c511e1800000215ad4efdf , :p720c5980d1c511e1800000215ad4efdf , :p65880100d1c511e1800000215ad4efdf , :p6de03c00d1c511e1800000215ad4efdf , :p615be380d1c511e1800000215ad4efdf .
+
+:System  a                  rdf:Property ;
+        rdfs:seeAlso        :p720c5980d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:System .

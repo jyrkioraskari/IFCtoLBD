@@ -1,0 +1,199 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HumidifierTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p02f52c00d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Saturation efficiency as a function of the air flow rate." ;
+        rdfs:label                "SaturationEfficiencyCurve" ;
+        IFC4-PSD:definition       "Saturation efficiency as a function of the air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "02f52c00d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SaturationEfficiencyCurve" ;
+        IFC4-PSD:nameAlias        "Saturation Efficiency Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:WaterRequirement  a        rdf:Property ;
+        rdfs:seeAlso        :pfcff4b00d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterRequirement .
+
+:pd6d9ab00d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The weight of the humidifier." ;
+        rdfs:label                "Weight" ;
+        IFC4-PSD:definition       "The weight of the humidifier." ;
+        IFC4-PSD:definitionAlias  "加湿器の重量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d6d9ab00d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Weight" ;
+        IFC4-PSD:nameAlias        "重量"@ja-JP , "Weight"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:InternalControl  a         rdf:Property ;
+        rdfs:seeAlso        :pe953e480d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InternalControl .
+
+:pe1944000d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal rate of air flow into which water vapor is added." ;
+        rdfs:label                "NominalAirFlowRate" ;
+        IFC4-PSD:definition       "Nominal rate of air flow into which water vapor is added." ;
+        IFC4-PSD:definitionAlias  ""@en , "加湿される気流の平均量"@ja-JP ;
+        IFC4-PSD:ifdguid          "e1944000d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalAirFlowRate" ;
+        IFC4-PSD:nameAlias        "Nominal Air Flow Rate"@en , "気流量の平均"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:NominalMoistureGain  a     rdf:Property ;
+        rdfs:seeAlso        :pdc36f580d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalMoistureGain .
+
+:pb3166500d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b3166500d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p11dbde80d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop versus air-flow rate." ;
+        rdfs:label                "AirPressureDropCurve" ;
+        IFC4-PSD:definition       "Air pressure drop versus air-flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "11dbde80d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurve" ;
+        IFC4-PSD:nameAlias        "Air Pressure Drop Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HumidifierTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pb90c4600d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b90c4600d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pe953e480d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Internal modulation control." ;
+        rdfs:label                "InternalControl" ;
+        IFC4-PSD:definition       "Internal modulation control." ;
+        IFC4-PSD:definitionAlias  ""@en , "内部調整の制御"@ja-JP ;
+        IFC4-PSD:ifdguid          "e953e480d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InternalControl" ;
+        IFC4-PSD:nameAlias        "内部制御"@ja-JP , "Internal Control"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ONOFF" , "STEPPED" , "MODULATING" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SaturationEfficiencyCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p02f52c00d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SaturationEfficiencyCurve .
+
+:Weight  a                  rdf:Property ;
+        rdfs:seeAlso        :pd6d9ab00d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Weight .
+
+:NominalAirFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :pe1944000d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalAirFlowRate .
+
+:pfcff4b00d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Make-up water requirement." ;
+        rdfs:label                "WaterRequirement" ;
+        IFC4-PSD:definition       "Make-up water requirement." ;
+        IFC4-PSD:definitionAlias  "補給水の必要量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fcff4b00d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterRequirement" ;
+        IFC4-PSD:nameAlias        "Water Requirement"@en , "水必要量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:Application  a             rdf:Property ;
+        rdfs:seeAlso        :pcaede900d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Application .
+
+:pcaede900d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Humidifier application.\n\nFixed: Humidifier installed in a ducted flow distribution system.\nPortable: Humidifier is not installed in a ducted flow distribution system." ;
+        rdfs:label                "Application" ;
+        IFC4-PSD:definition       "Humidifier application.\n\nFixed: Humidifier installed in a ducted flow distribution system.\nPortable: Humidifier is not installed in a ducted flow distribution system." ;
+        IFC4-PSD:definitionAlias  ""@en , "加湿器の応用　(固定式：ダクト搬送系に設置する加湿器、可搬式：クト搬送系に設置しない加湿器)"@ja-JP ;
+        IFC4-PSD:ifdguid          "caede900d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Application" ;
+        IFC4-PSD:nameAlias        "Application"@en , "応用"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PORTABLE" , "FIXED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pb90c4600d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:Pset_HumidifierTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Humidifier type common attributes.\nWaterProperties attribute renamed to WaterRequirement and unit type modified in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_HumidifierTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcHumidifier ;
+        IFC4-PSD:applicableTypeValue  "IfcHumidifier" ;
+        IFC4-PSD:definition           "Humidifier type common attributes.\nWaterProperties attribute renamed to WaterRequirement and unit type modified in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      ""@en , "加湿器型情報に関する共通プロパティ属性設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_HumidifierTypeCommon" ;
+        IFC4-PSD:propertyDef          :pe1944000d1e911e1800000215ad4efdf , :pb90c4600d1e911e1800000215ad4efdf , :pe953e480d1e911e1800000215ad4efdf , :pcaede900d1e911e1800000215ad4efdf , :pdc36f580d1e911e1800000215ad4efdf , :p11dbde80d1ea11e1800000215ad4efdf , :pb3166500d1e911e1800000215ad4efdf , :pfcff4b00d1e911e1800000215ad4efdf , :p02f52c00d1ea11e1800000215ad4efdf , :pd6d9ab00d1e911e1800000215ad4efdf .
+
+:AirPressureDropCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p11dbde80d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurve .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pb3166500d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pdc36f580d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal rate of water vapor added into the airstream." ;
+        rdfs:label                "NominalMoistureGain" ;
+        IFC4-PSD:definition       "Nominal rate of water vapor added into the airstream." ;
+        IFC4-PSD:definitionAlias  ""@en , "気流に加わった水蒸気の平均量"@ja-JP ;
+        IFC4-PSD:ifdguid          "dc36f580d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalMoistureGain" ;
+        IFC4-PSD:nameAlias        "加湿量の平均"@ja-JP , "Nominal Moisture Gain"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassFlowRateMeasure
+                                  ] .

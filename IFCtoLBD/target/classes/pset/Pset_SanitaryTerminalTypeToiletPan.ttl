@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:PanMounting  a             rdf:Property ;
+        rdfs:seeAlso        :pf7aefa00d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PanMounting .
+
+:ToiletPanType  a           rdf:Property ;
+        rdfs:seeAlso        :pe7971a80d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ToiletPanType .
+
+:pe7971a80d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The property enumeration Pset_ToiletPanTypeEnum defines the types of toilet pan that may be specified within the property set Pset_Toilet:-\n\nSiphonic: \tToilet pan in which excrement is removed by siphonage induced by the flushing water.\nSquat: \tToilet pan with an elongated bowl installed with its top edge at or near floor level, so that the user has to squat.\nWashDown: \tToilet pan in which excrement is removed by the momentum of the flushing water.\nWashOut: \tA washdown toilet pan in which excrement falls first into a shallow water filled bowl." ;
+        rdfs:label                "ToiletPanType" ;
+        IFC4-PSD:definition       "The property enumeration Pset_ToiletPanTypeEnum defines the types of toilet pan that may be specified within the property set Pset_Toilet:-\n\nSiphonic: \tToilet pan in which excrement is removed by siphonage induced by the flushing water.\nSquat: \tToilet pan with an elongated bowl installed with its top edge at or near floor level, so that the user has to squat.\nWashDown: \tToilet pan in which excrement is removed by the momentum of the flushing water.\nWashOut: \tA washdown toilet pan in which excrement falls first into a shallow water filled bowl." ;
+        IFC4-PSD:definitionAlias  "Pset_SanitaryMountingEnumは下記に列挙された便器タイプとして定義されます。\n\nサイホン式：流水を含むサイホンにより汚物が廃棄される便器\n和式：便器が床面か淵の高さと同じに配置された便器。使用者はしゃがまなければならない。\nウォッシュダウン式：勢いよく洗い流すことにより便器をきれいにします\n洗浄式便器：まず汚物が落ちその後、便器に水が流れます"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e7971a80d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ToiletPanType" ;
+        IFC4-PSD:nameAlias        "Toilet Pan Type"@en , "便器タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SIPHONIC" , "SQUAT" , "WASHDOWN" , "WASHOUT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p0f867e00d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The level at which water spills out of the terminal." ;
+        rdfs:label                "SpilloverLevel" ;
+        IFC4-PSD:definition       "The level at which water spills out of the terminal." ;
+        IFC4-PSD:definitionAlias  "継手からの水位。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0f867e00d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpilloverLevel" ;
+        IFC4-PSD:nameAlias        "水位"@ja-JP , "Spillover Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pd221f080d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that defines the types of toilet (water closet) arrangements that may be specified where:-\n\nBedPanWasher: Enclosed soil appliance in which bedpans and urinal bottles are emptied and cleansed.\nChemical: Portable receptacle or soil appliance that receives and retains excrement in either an integral or a separate container, in which it is chemically treated and from which it has to be emptied periodically.\nCloseCoupled: \tToilet suite in which a flushing cistern is connected directly to the water closet pan.\nLooseCoupled: \tToilet arrangement in which a flushing cistern is connected to the water closet pan through a flushing pipe.\nSlopHopper: \tHopper shaped soil appliance with a flushing rim and outlet similar to those of a toilet pan, into which human excrement is emptied for disposal." ;
+        rdfs:label                "ToiletType" ;
+        IFC4-PSD:definition       "Enumeration that defines the types of toilet (water closet) arrangements that may be specified where:-\n\nBedPanWasher: Enclosed soil appliance in which bedpans and urinal bottles are emptied and cleansed.\nChemical: Portable receptacle or soil appliance that receives and retains excrement in either an integral or a separate container, in which it is chemically treated and from which it has to be emptied periodically.\nCloseCoupled: \tToilet suite in which a flushing cistern is connected directly to the water closet pan.\nLooseCoupled: \tToilet arrangement in which a flushing cistern is connected to the water closet pan through a flushing pipe.\nSlopHopper: \tHopper shaped soil appliance with a flushing rim and outlet similar to those of a toilet pan, into which human excrement is emptied for disposal." ;
+        IFC4-PSD:definitionAlias  "トイレ配置は下記に列挙された仕様となります。\n\n便器洗浄機：便器と小便器が空にされ洗浄される周囲が囲まれた電気機器。\nケミカル：別々の容器で排泄物を受けて、保持し、化学的に扱われる、定期的に空にされる携帯用の容器または土機器。\nｼｽﾀｰﾝ直結型：ｼｽﾀｰﾝがが便器に直接密着して設置されたタイプ\nｼｽﾀｰﾝ分離型：ｼｽﾀｰﾝがﾊﾟｲﾌﾟを介して便器につながっているタイプ\n汚物流し：ホッパーは土壌器具にデザイされており、汚物が流され空になります。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d221f080d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ToiletType" ;
+        IFC4-PSD:nameAlias        "トイレ種類"@ja-JP , "Toilet Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BEDPANWASHER" , "CHEMICAL" , "CLOSECOUPLED" , "LOOSECOUPLED" , "SLOPHOPPER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_SanitaryTerminalTypeToiletPan
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Soil appliance for the disposal of excrement. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value)." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeToiletPan" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/TOILETPAN> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/TOILETPAN" ;
+        IFC4-PSD:definition           "Soil appliance for the disposal of excrement. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value)." ;
+        IFC4-PSD:definitionAlias      "排泄物排気用の機器。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色の設定は取り除かれています。色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeToiletPan" ;
+        IFC4-PSD:propertyDef          :pd221f080d20311e1800000215ad4efdf , :p0f867e00d20411e1800000215ad4efdf , :pe7971a80d20311e1800000215ad4efdf , :pf7aefa00d20311e1800000215ad4efdf .
+
+:pf7aefa00d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The property enumeration Pset_SanitaryMountingEnum defines the forms of mounting or fixing of the sanitary terminal that may be specified within property sets used to define sanitary terminals (WC’s, basins, sinks, etc.) where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        rdfs:label                "PanMounting" ;
+        IFC4-PSD:definition       "The property enumeration Pset_SanitaryMountingEnum defines the forms of mounting or fixing of the sanitary terminal that may be specified within property sets used to define sanitary terminals (WC’s, basins, sinks, etc.) where:-\n\nBackToWall: \tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        IFC4-PSD:definitionAlias  ""@en , "Pset_SanitaryMountingEnumは固定された衛生器具の接続点（トイレや洗面器、シンクなど）に取り付けられます。\n\n・床置き壁排出：背面の壁に接続口を合わせること。\n・台：床置きの衛生器具には基礎があること。\n・カウンター：衛生器具の表層が水平に設置されていること。※手洗い台として設置された場合「化粧台」として扱うこと。また、洗面台種類の規格表を参照のこと。\n・壁掛け型：衛生器具は片側固定がされ床から離れていること。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f7aefa00d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PanMounting" ;
+        IFC4-PSD:nameAlias        "取付方法"@ja-JP , "Pan Mounting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BACKTOWALL" , "PEDESTAL" , "COUNTERTOP" , "WALLHUNG" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ToiletType  a              rdf:Property ;
+        rdfs:seeAlso        :pd221f080d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ToiletType .
+
+:SpilloverLevel  a          rdf:Property ;
+        rdfs:seeAlso        :p0f867e00d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpilloverLevel .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeToiletPan>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,92 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Permit#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p6e42fc00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Any additional special requirements that need to be included in the permit to work.\n\nNOTE - Additional permit requirements may be imposed according to the nature of the facility at which the work is carried out. For instance, in clean areas, special clothing may be required whilst in corrective institutions, it may be necessary to check in and check out tools that will be used for work as a safety precaution." ;
+        rdfs:label                "SpecialRequirements" ;
+        IFC4-PSD:definition       "Any additional special requirements that need to be included in the permit to work.\n\nNOTE - Additional permit requirements may be imposed according to the nature of the facility at which the work is carried out. For instance, in clean areas, special clothing may be required whilst in corrective institutions, it may be necessary to check in and check out tools that will be used for work as a safety precaution." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6e42fc00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpecialRequirements" ;
+        IFC4-PSD:nameAlias        "Special Requirements"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:EndDate  a                 rdf:Property ;
+        rdfs:seeAlso        :p697e4800d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EndDate .
+
+:SpecialRequirements  a     rdf:Property ;
+        rdfs:seeAlso        :p6e42fc00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpecialRequirements .
+
+:EscortRequirement  a       rdf:Property ;
+        rdfs:seeAlso        :p5d928600d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EscortRequirement .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Permit>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5d928600d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether or not an escort is required to accompany persons carrying out a work order at or to/from the place of work (= TRUE) or not (= FALSE).\n\nNOTE - There are many instances where escorting is required, particularly in a facility that has a high security rating. Escorting may require that persons are escorted to and from the place of work. Alternatively, it may involve the escort remaining at the place of work at all times." ;
+        rdfs:label                "EscortRequirement" ;
+        IFC4-PSD:definition       "Indicates whether or not an escort is required to accompany persons carrying out a work order at or to/from the place of work (= TRUE) or not (= FALSE).\n\nNOTE - There are many instances where escorting is required, particularly in a facility that has a high security rating. Escorting may require that persons are escorted to and from the place of work. Alternatively, it may involve the escort remaining at the place of work at all times." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5d928600d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EscortRequirement" ;
+        IFC4-PSD:nameAlias        "Escort Requirement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:StartDate  a               rdf:Property ;
+        rdfs:seeAlso        :p63886700d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StartDate .
+
+:p63886700d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Date and time from which the permit becomes valid." ;
+        rdfs:label                "StartDate" ;
+        IFC4-PSD:definition       "Date and time from which the permit becomes valid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "63886700d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StartDate" ;
+        IFC4-PSD:nameAlias        "Start Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:p697e4800d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Date and time at which the permit ceases to be valid." ;
+        rdfs:label                "EndDate" ;
+        IFC4-PSD:definition       "Date and time at which the permit ceases to be valid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "697e4800d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EndDate" ;
+        IFC4-PSD:nameAlias        "End Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:Pset_Permit  a                       IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A permit is a document that allows permission to gain access to an area or carry out work in a situation where security or other access restrictions apply.\nHISTORY: IFC4 EndDate added. PermitType, PermitDuration, StartTime and EndTime are deleted." ;
+        rdfs:label                    "Pset_Permit" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPermit ;
+        IFC4-PSD:applicableTypeValue  "IfcPermit" ;
+        IFC4-PSD:definition           "A permit is a document that allows permission to gain access to an area or carry out work in a situation where security or other access restrictions apply.\nHISTORY: IFC4 EndDate added. PermitType, PermitDuration, StartTime and EndTime are deleted." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_Permit" ;
+        IFC4-PSD:propertyDef          :p6e42fc00d1f211e1800000215ad4efdf , :p697e4800d1f211e1800000215ad4efdf , :p5d928600d1f211e1800000215ad4efdf , :p63886700d1f211e1800000215ad4efdf .

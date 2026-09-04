@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSegmentPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p52cdf600d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Leakage per unit length curve versus working pressure. If a scalar is expressed then it represents LeakageClass which is flowrate per unit area at a specified pressure rating (e.g., ASHRAE Fundamentals 2001 34.16.)." ;
+        rdfs:label                "LeakageCurve" ;
+        IFC4-PSD:definition       "Leakage per unit length curve versus working pressure. If a scalar is expressed then it represents LeakageClass which is flowrate per unit area at a specified pressure rating (e.g., ASHRAE Fundamentals 2001 34.16.)." ;
+        IFC4-PSD:definitionAlias  "作動圧力に対する単位長さあたりの漏れ曲線。\nスカラー値が表現されている場合は、所定の圧力（例えば、ASHRAE　Fundamentals 200134.16）における単位面積当たりの流量である漏れクラスを表す。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "52cdf600d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeakageCurve" ;
+        IFC4-PSD:nameAlias        "漏れ曲線"@ja-JP , "Leakage Curve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p4ba6e800d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Dimensionless loss coefficient used for calculating fluid resistance representing the ratio of total pressure loss to velocity pressure at a referenced cross-section." ;
+        rdfs:label                "LossCoefficient" ;
+        IFC4-PSD:definition       "Dimensionless loss coefficient used for calculating fluid resistance representing the ratio of total pressure loss to velocity pressure at a referenced cross-section." ;
+        IFC4-PSD:definitionAlias  "参照された断面での動圧に対する全圧損失の比を表わす流体抵抗の計算に使用される無次元の損失係数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "4ba6e800d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LossCoefficient" ;
+        IFC4-PSD:nameAlias        "損失係数"@ja-JP , "Loss Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:FluidFlowLeakage  a        rdf:Property ;
+        rdfs:seeAlso        :p5a8d9a80d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FluidFlowLeakage .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSegmentPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_DuctSegmentPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct segment performance history common attributes." ;
+        rdfs:label                    "Pset_DuctSegmentPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctSegment" ;
+        IFC4-PSD:definition           "Duct segment performance history common attributes." ;
+        IFC4-PSD:definitionAlias      "ダクト直管性能履歴共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctSegmentPHistory" ;
+        IFC4-PSD:propertyDef          :p5a8d9a80d1de11e1800000215ad4efdf , :p4f3a6f00d1de11e1800000215ad4efdf , :p52cdf600d1de11e1800000215ad4efdf , :p4ba6e800d1de11e1800000215ad4efdf .
+
+:LossCoefficient  a         rdf:Property ;
+        rdfs:seeAlso        :p4ba6e800d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LossCoefficient .
+
+:p5a8d9a80d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volumetric leakage flow rate." ;
+        rdfs:label                "FluidFlowLeakage" ;
+        IFC4-PSD:definition       "Volumetric leakage flow rate." ;
+        IFC4-PSD:definitionAlias  "体積漏れ流量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5a8d9a80d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FluidFlowLeakage" ;
+        IFC4-PSD:nameAlias        "漏れ量"@ja-JP , "Fluid Flow Leakage"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p4f3a6f00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient atmospheric pressure." ;
+        rdfs:label                "AtmosphericPressure" ;
+        IFC4-PSD:definition       "Ambient atmospheric pressure." ;
+        IFC4-PSD:definitionAlias  ""@en , "周囲の大気圧"@ja-JP ;
+        IFC4-PSD:ifdguid          "4f3a6f00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AtmosphericPressure" ;
+        IFC4-PSD:nameAlias        "Atmospheric Pressure"@en , "大気圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AtmosphericPressure  a     rdf:Property ;
+        rdfs:seeAlso        :p4f3a6f00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AtmosphericPressure .
+
+:LeakageCurve  a            rdf:Property ;
+        rdfs:seeAlso        :p52cdf600d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeakageCurve .

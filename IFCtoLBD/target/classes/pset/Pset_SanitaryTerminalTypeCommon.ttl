@@ -1,0 +1,115 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1b1c71bc34194116982bbacb563822d6
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "1b1c71bc34194116982bbacb563822d6" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :paeaa7600d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Color  a                   rdf:Property ;
+        rdfs:seeAlso        :p93112095298e44d29aea7995d82eb202 ;
+        rdfs:subPropertyOf  IFC4-PSD:Color .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p6cf48d3d336e4eb0acdf9bdf68db0d60 ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
+
+:p36bde0df4e7b4ff4a9b7b5191c5e82f7
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Nominal or quoted length of the object." ;
+        rdfs:label             "NominalLength" ;
+        IFC4-PSD:definition    "Nominal or quoted length of the object." ;
+        IFC4-PSD:ifdguid       "36bde0df4e7b4ff4a9b7b5191c5e82f7" ;
+        IFC4-PSD:name          "NominalLength" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                               ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p1b1c71bc34194116982bbacb563822d6 ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:NominalDepth  a            rdf:Property ;
+        rdfs:seeAlso        :pbb516e7b73f84dcd85b953f3b61f0f22 ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDepth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pbb516e7b73f84dcd85b953f3b61f0f22
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Nominal or quoted depth of the object." ;
+        rdfs:label             "NominalDepth" ;
+        IFC4-PSD:definition    "Nominal or quoted depth of the object." ;
+        IFC4-PSD:ifdguid       "bb516e7b73f84dcd85b953f3b61f0f22" ;
+        IFC4-PSD:name          "NominalDepth" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                               ] .
+
+:paeaa7600d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "使用される認識分類システムで分類基準がない場合、プロジェクトで指定された型（タイプ'Ａ-1'など）で提供されるレファレンスID。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "aeaa7600d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_SanitaryTerminalTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common properties for sanitary terminals." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSanitaryTerminal ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal" ;
+        IFC4-PSD:definition           "Common properties for sanitary terminals." ;
+        IFC4-PSD:definitionAlias      "衛生器具の共通プロパティを設定。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeCommon" ;
+        IFC4-PSD:propertyDef          :p1b1c71bc34194116982bbacb563822d6 , :p6cf48d3d336e4eb0acdf9bdf68db0d60 , :p93112095298e44d29aea7995d82eb202 , :paeaa7600d20211e1800000215ad4efdf , :p36bde0df4e7b4ff4a9b7b5191c5e82f7 , :pbb516e7b73f84dcd85b953f3b61f0f22 .
+
+:p93112095298e44d29aea7995d82eb202
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Color selection for this object." ;
+        rdfs:label             "Color" ;
+        IFC4-PSD:definition    "Color selection for this object." ;
+        IFC4-PSD:ifdguid       "93112095298e44d29aea7995d82eb202" ;
+        IFC4-PSD:name          "Color" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcLabel
+                               ] .
+
+:NominalLength  a           rdf:Property ;
+        rdfs:seeAlso        :p36bde0df4e7b4ff4a9b7b5191c5e82f7 ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalLength .
+
+:p6cf48d3d336e4eb0acdf9bdf68db0d60
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "Nominal or quoted width of the object." ;
+        rdfs:label             "NominalWidth" ;
+        IFC4-PSD:definition    "Nominal or quoted width of the object." ;
+        IFC4-PSD:ifdguid       "6cf48d3d336e4eb0acdf9bdf68db0d60" ;
+        IFC4-PSD:name          "NominalWidth" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                 IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                               ] .

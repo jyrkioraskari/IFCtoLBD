@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeShower#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p3bedca80d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A description of the shower head(s) that emit the spray of water." ;
+        rdfs:label                "ShowerHeadDescription" ;
+        IFC4-PSD:definition       "A description of the shower head(s) that emit the spray of water." ;
+        IFC4-PSD:definitionAlias  "シャワーヘッドが排出する水の放射の表現。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "3bedca80d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShowerHeadDescription" ;
+        IFC4-PSD:nameAlias        "シャワーヘッド表現"@ja-JP , "Shower Head Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ShowerType  a              rdf:Property ;
+        rdfs:seeAlso        :p06e17800d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShowerType .
+
+:Pset_SanitaryTerminalTypeShower
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Installation or waste water appliance that emits a spray of water to wash the human body (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeShower" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SHOWER> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SHOWER" ;
+        IFC4-PSD:definition           "Installation or waste water appliance that emits a spray of water to wash the human body (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
+        IFC4-PSD:definitionAlias      ""@en , "人体を洗うために水をスプレー状に放射する廃水器具(BS6100)\n背景: IFC4において、要素と要素厚さのプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeShower" ;
+        IFC4-PSD:propertyDef          :p3bedca80d20311e1800000215ad4efdf , :p427c4200d20311e1800000215ad4efdf , :p06e17800d20311e1800000215ad4efdf , :p15c82a80d20311e1800000215ad4efdf .
+
+:p15c82a80d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the shower has a separate receptacle that catches the water in a shower and directs it to a waste outlet." ;
+        rdfs:label                "HasTray" ;
+        IFC4-PSD:definition       "Indicates whether the shower has a separate receptacle that catches the water in a shower and directs it to a waste outlet." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "15c82a80d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasTray" ;
+        IFC4-PSD:nameAlias        "Has Tray"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:HasTray  a                 rdf:Property ;
+        rdfs:seeAlso        :p15c82a80d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasTray .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :p427c4200d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:ShowerHeadDescription
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3bedca80d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShowerHeadDescription .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeShower>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p06e17800d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the type of shower from the enumerated list of types where:-\n\nDrench:  \tShower that rapidly gives a thorough soaking in an emergency.\nIndividual: \tShower unit that is typically enclosed and is for the use of one person at a time.\nTunnel: \tShower that has a succession of shower heads or spreaders that operate simultaneously along its length." ;
+        rdfs:label                "ShowerType" ;
+        IFC4-PSD:definition       "Selection of the type of shower from the enumerated list of types where:-\n\nDrench:  \tShower that rapidly gives a thorough soaking in an emergency.\nIndividual: \tShower unit that is typically enclosed and is for the use of one person at a time.\nTunnel: \tShower that has a succession of shower heads or spreaders that operate simultaneously along its length." ;
+        IFC4-PSD:definitionAlias  ""@en , "場所からのシャワータイプの選択：\n\n・水浸性：緊急時には素早く水に浸れるシャワー\n・独立性：一度に一人が使え、区切られているシャワーユニット\n・トンネル：シャワーヘッドの連続で設置されているか長さ方向に同時操作となる水散布機型のシャワー"@ja-JP ;
+        IFC4-PSD:ifdguid          "06e17800d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShowerType" ;
+        IFC4-PSD:nameAlias        "シャワータイプ"@ja-JP , "Shower Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DRENCH" , "INDIVIDUAL" , "TUNNEL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p427c4200d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the drain outlet connection from the object." ;
+        rdfs:label                "DrainSize" ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素の排水口接続口サイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "427c4200d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "Drain Size"@en , "管口径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

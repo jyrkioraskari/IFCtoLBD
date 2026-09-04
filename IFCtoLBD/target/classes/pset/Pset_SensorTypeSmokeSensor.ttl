@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeSmokeSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SensorTypeSmokeSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects smoke. HISTORY: PressureSensorSensorSetPoint (error in previous release) changed to SetPointConcentration. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeSmokeSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/SMOKESENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/SMOKESENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects smoke. HISTORY: PressureSensorSensorSetPoint (error in previous release) changed to SetPointConcentration. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en , "煙を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeSmokeSensor" ;
+        IFC4-PSD:propertyDef          :p58d7cd00d20611e1800000215ad4efdf , :p5f664480d20611e1800000215ad4efdf , :p68571600d20611e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeSmokeSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CoverageArea  a            rdf:Property ;
+        rdfs:seeAlso        :p58d7cd00d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverageArea .
+
+:p5f664480d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The smoke concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointConcentration" ;
+        IFC4-PSD:definition       "The smoke concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知される煙濃度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , ""@en , "감지되는 연기 농도. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR ;
+        IFC4-PSD:ifdguid          "5f664480d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointConcentration" ;
+        IFC4-PSD:nameAlias        "연기 농도 설정"@ko-KR , "Set Point Concentration"@en , "煙濃度設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:SetPointConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5f664480d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
+
+:p58d7cd00d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The floor area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        rdfs:label                "CoverageArea" ;
+        IFC4-PSD:definition       "The floor area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        IFC4-PSD:definitionAlias  "センサでカバーされている床面積。(通常、センターがセンサの位置にある円として測定される)"@ja-JP , "센서 커버되는 바닥 면적. (일반적으로 센터 센서의 위치에있는 원형으로 측정되는)"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "58d7cd00d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverageArea" ;
+        IFC4-PSD:nameAlias        "측정 범위"@ko-KR , "Coverage Area"@en , "測定範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:HasBuiltInAlarm  a         rdf:Property ;
+        rdfs:seeAlso        :p68571600d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasBuiltInAlarm .
+
+:p68571600d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the smoke sensor is included as an element within a smoke alarm/sensor unit (TRUE) or not (FALSE)." ;
+        rdfs:label                "HasBuiltInAlarm" ;
+        IFC4-PSD:definition       "Indicates whether the smoke sensor is included as an element within a smoke alarm/sensor unit (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "연기 센서가 화재 경보 센서 유닛의 요소로 포함되어 있는지 (TRUE) 여부 (FALSE)를 확인한다."@ko-KR , "煙センサーが煙警報センサユニットの中に要素として含まれているか(TRUE)、否か(FALSE)を識別する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "68571600d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasBuiltInAlarm" ;
+        IFC4-PSD:nameAlias        "煙警報器に含まれているか"@ja-JP , "연기 경보기에 포함여부"@ko-KR , "Has Built In Alarm"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

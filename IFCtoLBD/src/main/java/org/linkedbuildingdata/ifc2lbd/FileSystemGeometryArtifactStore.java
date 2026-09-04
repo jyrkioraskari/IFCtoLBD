@@ -24,6 +24,7 @@ public final class FileSystemGeometryArtifactStore implements GeometryArtifactSt
 	}
 
 	@Override public String id() { return "filesystem-content-addressed-v1"; }
+	@Override public String configurationId() { return id() + "@" + version() + "|" + publicBaseUri; }
 
 	@Override public synchronized Optional<GeometryArtifact> store(byte[] content, String mediaType, String extension,
 			String levelOfDetail, String coordinateReferenceSystem) {

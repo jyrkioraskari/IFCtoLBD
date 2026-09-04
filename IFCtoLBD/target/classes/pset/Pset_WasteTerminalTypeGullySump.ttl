@@ -1,0 +1,197 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeGullySump#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NominalSumpDepth  a        rdf:Property ;
+        rdfs:seeAlso        :p38643e80d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSumpDepth .
+
+:p503bc280d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of trap from which the type required may be set." ;
+        rdfs:label                "TrapType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of trap from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "必要とされるタイプがセットされる防臭弁の定義されたタイプを確認してください。"@ja-JP ;
+        IFC4-PSD:ifdguid          "503bc280d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TrapType" ;
+        IFC4-PSD:nameAlias        "防臭弁種類"@ja-JP , "Trap Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "P_TRAP" , "Q_TRAP" , "S_TRAP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeGullySump>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CoverWidth  a              rdf:Property ;
+        rdfs:seeAlso        :p9abd3f00d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverWidth .
+
+:BackInletPatternType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p69dd0a00d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BackInletPatternType .
+
+:GullyType  a               rdf:Property ;
+        rdfs:seeAlso        :p431ed380d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GullyType .
+
+:InletConnectionSize  a     rdf:Property ;
+        rdfs:seeAlso        :p87aa6f00d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletConnectionSize .
+
+:p26829b80d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the sump." ;
+        rdfs:label                "NominalSumpLength" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the sump." ;
+        IFC4-PSD:definitionAlias  ""@en , "局所座標系のX軸に沿うか半径（円状の形の場合）で測定された、汚水槽の長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "26829b80d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSumpLength" ;
+        IFC4-PSD:nameAlias        "Nominal Sump Length"@en , "汚水槽長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p909b4080d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the gully trap." ;
+        rdfs:label                "CoverLength" ;
+        IFC4-PSD:definition       "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the gully trap." ;
+        IFC4-PSD:definitionAlias  "局所座標系のX軸に沿うか、半径（円状の形の場合）で測定された溝防臭弁カバーの長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "909b4080d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverLength" ;
+        IFC4-PSD:nameAlias        "Cover Length"@en , "カバーの長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p9abd3f00d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the y-axis in the local coordinate system of the cover of the gully trap." ;
+        rdfs:label                "CoverWidth" ;
+        IFC4-PSD:definition       "The length measured along the y-axis in the local coordinate system of the cover of the gully trap." ;
+        IFC4-PSD:definitionAlias  ""@en , "局所座標系のY軸で測定された溝防臭弁カバーの長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "9abd3f00d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverWidth" ;
+        IFC4-PSD:nameAlias        "Cover Width"@en , "カバーの幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6053a200d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:p69dd0a00d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the pattern of inlet connections to a gully trap.\n\nA gulley trap may have 0,1,2,3 or 4 inlet connections and the pattern of their arrangement may vary. The enumeration makes the convention that an outlet is either vertical or is placed at the bottom (south side) of the gully trap (when viewed in plan). Position 1 is to the left (west), position 2 is to the top (north), position 3 is to the right (east) and position 4 is to the bottom (south).\n\n               2\n               |\n   ----------------\n   !                       |\n1-|                       |-3\n   !                       |\n   ----------------\n               |\n              4" ;
+        rdfs:label                "BackInletPatternType" ;
+        IFC4-PSD:definition       "Identifies the pattern of inlet connections to a gully trap.\n\nA gulley trap may have 0,1,2,3 or 4 inlet connections and the pattern of their arrangement may vary. The enumeration makes the convention that an outlet is either vertical or is placed at the bottom (south side) of the gully trap (when viewed in plan). Position 1 is to the left (west), position 2 is to the top (north), position 3 is to the right (east) and position 4 is to the bottom (south).\n\n               2\n               |\n   ----------------\n   !                       |\n1-|                       |-3\n   !                       |\n   ----------------\n               |\n              4" ;
+        IFC4-PSD:definitionAlias  "溝防臭弁の吸気口パターンを確認してください。\n\n一つの溝防臭弁に0.1.2.3.4.の吸気口接続口とパターンがあるときは変化する可能性があります。表記されるときは、接続口が垂直である様子か、防臭弁の底（南）におかれます。位置1は左(西)に、位置2は上方(北)に、位置3は右(東)に、位置4は下方(南）になります。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "69dd0a00d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BackInletPatternType" ;
+        IFC4-PSD:nameAlias        "Back Inlet Pattern Type"@en , "背部接続口種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "1234" , "124" , "3" , "14" , "123" , "2" , "13" , "NONE" , "4" , "1" , "24" , "234" , "34" , "23" , "134" , "12"
+                                  ] .
+
+:NominalSumpLength  a       rdf:Property ;
+        rdfs:seeAlso        :p26829b80d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSumpLength .
+
+:TrapType  a                rdf:Property ;
+        rdfs:seeAlso        :p503bc280d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TrapType .
+
+:p431ed380d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of gully from which the type required may be set." ;
+        rdfs:label                "GullyType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of gully from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "必要とされるタイプがセットされる溝の定義されたタイプを確認してください。"@ja-JP ;
+        IFC4-PSD:ifdguid          "431ed380d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GullyType" ;
+        IFC4-PSD:nameAlias        "Gully Type"@en , "溝種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "VERTICAL" , "BACKINLET" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p87aa6f00d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        rdfs:label                "InletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        IFC4-PSD:definitionAlias  "吸気口接続口のサイズ。\n\n注意：同サイズの吸気口接続口がないものとします。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "87aa6f00d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletConnectionSize" ;
+        IFC4-PSD:nameAlias        "Inlet Connection Size"@en , "吸気口接続口サイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p6053a200d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the object." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素からの排気口接続口のサイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6053a200d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "Outlet Connection Size"@en , "排気口接続口"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverLength  a             rdf:Property ;
+        rdfs:seeAlso        :p909b4080d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverLength .
+
+:p38643e80d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the z-axis in the local coordinate system of the sump." ;
+        rdfs:label                "NominalSumpDepth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the z-axis in the local coordinate system of the sump." ;
+        IFC4-PSD:definitionAlias  ""@en , "局所座標系のZ軸に沿う形で測定され汚水槽の長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "38643e80d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSumpDepth" ;
+        IFC4-PSD:nameAlias        "汚水槽深さ"@ja-JP , "Nominal Sump Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_WasteTerminalTypeGullySump
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting or assembly of fittings to receive surface water or waste water, fitted with a grating or sealed cover." ;
+        rdfs:label                    "Pset_WasteTerminalTypeGullySump" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/GULLYSUMP> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/GULLYSUMP" ;
+        IFC4-PSD:definition           "Pipe fitting or assembly of fittings to receive surface water or waste water, fitted with a grating or sealed cover." ;
+        IFC4-PSD:definitionAlias      "地表水や廃水を受けるためのグレーチングシールカバーに取り付けられる、取付器具や配管。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeGullySump" ;
+        IFC4-PSD:propertyDef          :p9abd3f00d21711e1800000215ad4efdf , :p6053a200d21711e1800000215ad4efdf , :p26829b80d21711e1800000215ad4efdf , :p87aa6f00d21711e1800000215ad4efdf , :p300c0380d21711e1800000215ad4efdf , :p69dd0a00d21711e1800000215ad4efdf , :p909b4080d21711e1800000215ad4efdf , :p503bc280d21711e1800000215ad4efdf , :p38643e80d21711e1800000215ad4efdf , :p431ed380d21711e1800000215ad4efdf .
+
+:p300c0380d21711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the y-axis in the local coordinate system of the sump." ;
+        rdfs:label                "NominalSumpWidth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the y-axis in the local coordinate system of the sump." ;
+        IFC4-PSD:definitionAlias  "局所座標系のY軸に沿う形で測定され汚水槽の長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "300c0380d21711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSumpWidth" ;
+        IFC4-PSD:nameAlias        "汚水槽幅"@ja-JP , "Nominal Sump Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalSumpWidth  a        rdf:Property ;
+        rdfs:seeAlso        :p300c0380d21711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSumpWidth .

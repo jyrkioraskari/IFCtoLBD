@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeMultiPosition#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Labels  a                  rdf:Property ;
+        rdfs:seeAlso        :p89e7db80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Labels .
+
+:Value  a                   rdf:Property ;
+        rdfs:seeAlso        :p95d39d80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Value .
+
+:Range  a                   rdf:Property ;
+        rdfs:seeAlso        :p910ee980d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Range .
+
+:Pset_ControllerTypeMultiPosition
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for discrete inputs, outputs, and values within a programmable logic controller. HISTORY: New in IFC4, replaces Pset_MultiStateInput and Pset_MultiStateOutput." ;
+        rdfs:label                    "Pset_ControllerTypeMultiPosition" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/MULTIPOSITION> ;
+        IFC4-PSD:applicableTypeValue  "IfcController/MULTIPOSITION" ;
+        IFC4-PSD:definition           "Properties for discrete inputs, outputs, and values within a programmable logic controller. HISTORY: New in IFC4, replaces Pset_MultiStateInput and Pset_MultiStateOutput." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ControllerTypeMultiPosition" ;
+        IFC4-PSD:propertyDef          :p89e7db80d1cd11e1800000215ad4efdf , :p7e94b000d1cd11e1800000215ad4efdf , :p910ee980d1cd11e1800000215ad4efdf , :p95d39d80d1cd11e1800000215ad4efdf .
+
+:p910ee980d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical range of values supported by the device." ;
+        rdfs:label                "Range" ;
+        IFC4-PSD:definition       "The physical range of values supported by the device." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "910ee980d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Range" ;
+        IFC4-PSD:nameAlias        "Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeMultiPosition>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p7e94b000d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of signal modification effected and applicable ports:\n\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        rdfs:label                "ControlType" ;
+        IFC4-PSD:definition       "The type of signal modification effected and applicable ports:\n\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7e94b000d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlType" ;
+        IFC4-PSD:nameAlias        "Control Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "INPUT" , "OUTPUT" , "VARIABLE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :p7e94b000d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+
+:p89e7db80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table mapping values to labels, where each entry corresponds to an integer within the ValueRange." ;
+        rdfs:label                "Labels" ;
+        IFC4-PSD:definition       "Table mapping values to labels, where each entry corresponds to an integer within the ValueRange." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "89e7db80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Labels" ;
+        IFC4-PSD:nameAlias        "Labels"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcInteger
+                                  ] .
+
+:p95d39d80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The expected range and default value.  The LowerLimitValue and UpperLimitValue must fall within the physical Range." ;
+        rdfs:label                "Value" ;
+        IFC4-PSD:definition       "The expected range and default value.  The LowerLimitValue and UpperLimitValue must fall within the physical Range." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "95d39d80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Value" ;
+        IFC4-PSD:nameAlias        "Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .

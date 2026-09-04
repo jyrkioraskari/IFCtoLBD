@@ -1,0 +1,41 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_CoilOccurrence  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Coil occurrence attributes attached to an instance of IfcCoil." ;
+        rdfs:label                    "Pset_CoilOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCoil ;
+        IFC4-PSD:applicableTypeValue  "IfcCoil" ;
+        IFC4-PSD:definition           "Coil occurrence attributes attached to an instance of IfcCoil." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoilOccurrence" ;
+        IFC4-PSD:propertyDef          :p789cd000d1c911e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p789cd000d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "TRUE if the coil has sound attenuation, FALSE if it does not." ;
+        rdfs:label                "HasSoundAttenuation" ;
+        IFC4-PSD:definition       "TRUE if the coil has sound attenuation, FALSE if it does not." ;
+        IFC4-PSD:definitionAlias  ""@en , "VRAI si la batterie possède une correction acoustique, FAUX si ce n'est pas le cas."@fr-FR ;
+        IFC4-PSD:ifdguid          "789cd000d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasSoundAttenuation" ;
+        IFC4-PSD:nameAlias        "PossedeCorrectionAcoustique"@fr-FR , "Has Sound Attenuation"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:HasSoundAttenuation  a     rdf:Property ;
+        rdfs:seeAlso        :p789cd000d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasSoundAttenuation .

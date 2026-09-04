@@ -1,0 +1,78 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p83546680d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates audio sound modes and corresponding labels, if applicable." ;
+        rdfs:label                "AudioMode" ;
+        IFC4-PSD:definition       "Indicates audio sound modes and corresponding labels, if applicable." ;
+        IFC4-PSD:definitionAlias  "オーディオサウンドモードの設定。"@ja-JP , "오디오 사운드 모드 설정."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "83546680d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioMode" ;
+        IFC4-PSD:nameAlias        "Audio Mode"@en , "오디오 모드"@ko-KR , "オーディオモード"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:p7a639500d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates audio amplification frequency ranges." ;
+        rdfs:label                "AudioAmplification" ;
+        IFC4-PSD:definition       "Indicates audio amplification frequency ranges." ;
+        IFC4-PSD:definitionAlias  "再生周波数帯域を示す。"@ja-JP , "재생 주파수 대역을 나타낸다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "7a639500d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AudioAmplification" ;
+        IFC4-PSD:nameAlias        "Audio Amplification"@en , "오디오 앰프"@ko-KR , "オーディオアンプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:AudioAmplification  a      rdf:Property ;
+        rdfs:seeAlso        :p7a639500d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioAmplification .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeReceiver>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:AudioMode  a               rdf:Property ;
+        rdfs:seeAlso        :p83546680d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AudioMode .
+
+:p6a4bb580d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of receiver." ;
+        rdfs:label                "ReceiverType" ;
+        IFC4-PSD:definition       "Indicates the type of receiver." ;
+        IFC4-PSD:definitionAlias  ""@en , "수신기의 형식을 보여준다."@ko-KR , "受信機の形式を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "6a4bb580d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReceiverType" ;
+        IFC4-PSD:nameAlias        "수신기 형식"@ko-KR , "受信機形式"@ja-JP , "Receiver Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "AUDIO" , "AUDIOVIDEO" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:Pset_AudioVisualApplianceTypeReceiver
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual receiver is a device that switches audio and/or video from multiple sources, including external sources connected from ports and internal aggregated sources.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeReceiver" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/RECEIVER> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/RECEIVER" ;
+        IFC4-PSD:definition           "An audio-visual receiver is a device that switches audio and/or video from multiple sources, including external sources connected from ports and internal aggregated sources.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "内部や外部に接続された音源を含む複数の情報から、音響と映像信号を切り替える装置。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeReceiver" ;
+        IFC4-PSD:propertyDef          :p6a4bb580d1c311e1800000215ad4efdf , :p7a639500d1c311e1800000215ad4efdf , :p83546680d1c311e1800000215ad4efdf .
+
+:ReceiverType  a            rdf:Property ;
+        rdfs:seeAlso        :p6a4bb580d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReceiverType .

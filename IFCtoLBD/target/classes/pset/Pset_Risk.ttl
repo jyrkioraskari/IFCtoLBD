@@ -1,0 +1,211 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Risk#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p88d0a180d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies preventive measures to be taken to mitigate risk." ;
+        rdfs:label                "PreventiveMeassures" ;
+        IFC4-PSD:definition       "Identifies preventive measures to be taken to mitigate risk." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "88d0a180d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PreventiveMeassures" ;
+        IFC4-PSD:nameAlias        "Preventive Meassures"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:PreventiveMeassures  a     rdf:Property ;
+        rdfs:seeAlso        :p88d0a180d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PreventiveMeassures .
+
+:p0516b500d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of risk from which the type required may be set." ;
+        rdfs:label                "RiskType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of risk from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0516b500d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiskType" ;
+        IFC4-PSD:nameAlias        "Risk Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BUSINESS" , "HAZARD" , "HEALTHANDSAFETY" , "INSURANCE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p44dd9c80d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the level of severity of the consequences that the risk would have in case it happens." ;
+        rdfs:label                "RiskConsequence" ;
+        IFC4-PSD:definition       "Indicates the level of severity of the consequences that the risk would have in case it happens." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "44dd9c80d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiskConsequence" ;
+        IFC4-PSD:nameAlias        "Risk Consequence"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CATASTROPHIC" , "SOME" , "MINOR" , "UNSET" , "VERYLOW" , "INSIGNIFICANT" , "OTHER" , "NOTKNOWN" , "SEVERE" , "MODERATE" , "MAJOR" , "CONSIDERABLE"
+                                  ] .
+
+:p5aeb5d00d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A general rating of the risk that may be determined from a combination of the risk assessment and risk consequence." ;
+        rdfs:label                "RiskRating" ;
+        IFC4-PSD:definition       "A general rating of the risk that may be determined from a combination of the risk assessment and risk consequence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5aeb5d00d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiskRating" ;
+        IFC4-PSD:nameAlias        "Risk Rating"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OTHER" , "LOW" , "SOME" , "CRITICAL" , "NOTKNOWN" , "VERYHIGH" , "INSIGNIFICANT" , "HIGH" , "MODERATE" , "VERYLOW" , "CONSIDERABLE" , "UNSET"
+                                  ] .
+
+:p81a99380d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates wether the risk affects only to the person assigned to that task (FALSE) or if it can also affect to the people in the surroundings (TRUE).\n\nFor example, the process of painting would affect all the people in the vicinity of the process." ;
+        rdfs:label                "AffectsSurroundings" ;
+        IFC4-PSD:definition       "Indicates wether the risk affects only to the person assigned to that task (FALSE) or if it can also affect to the people in the surroundings (TRUE).\n\nFor example, the process of painting would affect all the people in the vicinity of the process." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "81a99380d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AffectsSurroundings" ;
+        IFC4-PSD:nameAlias        "Affects Surroundings"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p1bbd0c00d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A first subsidiary value that might be assigned to designate a more specific type of risk.\n\nNOTE: Nature of risk may be identified in various ways depending upon the place where risk assessment takes place and according to local agreement. This property set allows for a generic nature of risk and up to two subsidiary natures. An example might be 'causing injury and damage'." ;
+        rdfs:label                "SubNatureOfRisk1" ;
+        IFC4-PSD:definition       "A first subsidiary value that might be assigned to designate a more specific type of risk.\n\nNOTE: Nature of risk may be identified in various ways depending upon the place where risk assessment takes place and according to local agreement. This property set allows for a generic nature of risk and up to two subsidiary natures. An example might be 'causing injury and damage'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1bbd0c00d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SubNatureOfRisk1" ;
+        IFC4-PSD:nameAlias        "Sub Nature Of Risk1"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p1495fe00d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication of the generic nature of the risk that might be encountered. \n\nNOTE: It is anticipated that there will be a local agreement that constrains the values that might be assigned to this property. An example might be 'Fall'  or 'Fall of grille unit' causing injury and damage to person and property." ;
+        rdfs:label                "NatureOfRisk" ;
+        IFC4-PSD:definition       "An indication of the generic nature of the risk that might be encountered. \n\nNOTE: It is anticipated that there will be a local agreement that constrains the values that might be assigned to this property. An example might be 'Fall'  or 'Fall of grille unit' causing injury and damage to person and property." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1495fe00d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NatureOfRisk" ;
+        IFC4-PSD:nameAlias        "Nature Of Risk"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:RiskType  a                rdf:Property ;
+        rdfs:seeAlso        :p0516b500d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiskType .
+
+:NatureOfRisk  a            rdf:Property ;
+        rdfs:seeAlso        :p1495fe00d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NatureOfRisk .
+
+:AssessmentOfRisk  a        rdf:Property ;
+        rdfs:seeAlso        :p30010900d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssessmentOfRisk .
+
+:p29729180d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A value that may be assigned to capture the cause or trigger for the risk. An example might be 'poor fixing'." ;
+        rdfs:label                "RiskCause" ;
+        IFC4-PSD:definition       "A value that may be assigned to capture the cause or trigger for the risk. An example might be 'poor fixing'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "29729180d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiskCause" ;
+        IFC4-PSD:nameAlias        "Risk Cause"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:RiskOwner  a               rdf:Property ;
+        rdfs:seeAlso        :p7191b400d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiskOwner .
+
+:RiskCause  a               rdf:Property ;
+        rdfs:seeAlso        :p29729180d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiskCause .
+
+:RiskConsequence  a         rdf:Property ;
+        rdfs:seeAlso        :p44dd9c80d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiskConsequence .
+
+:p7191b400d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A determination of who is the owner of the risk by reference to principal roles of organizations within a project. Determination of the specific organization should be by reference to instances of IfcActorRole assigned to instances of IfcOrganization (if assigned)." ;
+        rdfs:label                "RiskOwner" ;
+        IFC4-PSD:definition       "A determination of who is the owner of the risk by reference to principal roles of organizations within a project. Determination of the specific organization should be by reference to instances of IfcActorRole assigned to instances of IfcOrganization (if assigned)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7191b400d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RiskOwner" ;
+        IFC4-PSD:nameAlias        "Risk Owner"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DESIGNER" , "SPECIFIER" , "CONSTRUCTOR" , "INSTALLER" , "MAINTAINER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p30010900d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Likelihood of risk event occurring.\n\nNote  that assessment of risk may frequently be associated with the physical location of the object for which the risk is assessed." ;
+        rdfs:label                "AssessmentOfRisk" ;
+        IFC4-PSD:definition       "Likelihood of risk event occurring.\n\nNote  that assessment of risk may frequently be associated with the physical location of the object for which the risk is assessed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "30010900d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssessmentOfRisk" ;
+        IFC4-PSD:nameAlias        "Assessment Of Risk"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "VERYPOSSIBLE" , "LIKELY" , "VERYLIKELY" , "VERYUNLIKELY" , "UNSET" , "NOTKNOWN" , "RARE" , "SOMEWHATPOSSIBLE" , "POSSIBLE" , "UNLIKELY" , "ALMOSTCERTAIN" , "OTHER"
+                                  ] .
+
+:SubNatureOfRisk2  a        rdf:Property ;
+        rdfs:seeAlso        :p224b8380d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SubNatureOfRisk2 .
+
+:RiskRating  a              rdf:Property ;
+        rdfs:seeAlso        :p5aeb5d00d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RiskRating .
+
+:p224b8380d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A second subsidiary value that might be assigned to designate a more specific type of risk. An example might be 'o person and property'." ;
+        rdfs:label                "SubNatureOfRisk2" ;
+        IFC4-PSD:definition       "A second subsidiary value that might be assigned to designate a more specific type of risk. An example might be 'o person and property'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "224b8380d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SubNatureOfRisk2" ;
+        IFC4-PSD:nameAlias        "Sub Nature Of Risk2"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_Risk  a                         IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An indication of exposure to mischance, peril, menace, hazard or loss. \n\nHISTORY: Extended in IFC2x3\n\nThere are various types of risk that may be encountered and there may be several instances of Pset_Risk associated in an instance of an IfcProcess.\nSpecification of this property set incorporates the values of the Incom risk analysis matrix (satisfying AS/NZS 4360) together with additional identified requirements." ;
+        rdfs:label                    "Pset_Risk" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProcess ;
+        IFC4-PSD:applicableTypeValue  "IfcProcess" ;
+        IFC4-PSD:definition           "An indication of exposure to mischance, peril, menace, hazard or loss. \n\nHISTORY: Extended in IFC2x3\n\nThere are various types of risk that may be encountered and there may be several instances of Pset_Risk associated in an instance of an IfcProcess.\nSpecification of this property set incorporates the values of the Incom risk analysis matrix (satisfying AS/NZS 4360) together with additional identified requirements." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_Risk" ;
+        IFC4-PSD:propertyDef          :p44dd9c80d20111e1800000215ad4efdf , :p224b8380d20111e1800000215ad4efdf , :p5aeb5d00d20111e1800000215ad4efdf , :p7191b400d20111e1800000215ad4efdf , :p29729180d20111e1800000215ad4efdf , :p88d0a180d20111e1800000215ad4efdf , :p1bbd0c00d20111e1800000215ad4efdf , :p0516b500d20111e1800000215ad4efdf , :p30010900d20111e1800000215ad4efdf , :p81a99380d20111e1800000215ad4efdf , :p1495fe00d20111e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Risk>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:AffectsSurroundings  a     rdf:Property ;
+        rdfs:seeAlso        :p81a99380d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AffectsSurroundings .
+
+:SubNatureOfRisk1  a        rdf:Property ;
+        rdfs:seeAlso        :p1bbd0c00d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SubNatureOfRisk1 .

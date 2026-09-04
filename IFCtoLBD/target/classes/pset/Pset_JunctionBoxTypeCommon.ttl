@@ -1,0 +1,178 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_JunctionBoxTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p87e04580d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "해당 프로젝트에 정의된 형식의 참조 ID (예 : A-1) 승인된 분류에 존재하지 않을 때 사용된다."@ko-KR , "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "87e04580d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照"@ja-JP , "Reference"@en , "참조"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:NumberOfGangs  a           rdf:Property ;
+        rdfs:seeAlso        :p9dee0600d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfGangs .
+
+:pe60d2880d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "IEC 60529 (1989) Classification of degrees of protection provided by enclosures (IP Code)." ;
+        rdfs:label                "IP_Code" ;
+        IFC4-PSD:definition       "IEC 60529 (1989) Classification of degrees of protection provided by enclosures (IP Code)." ;
+        IFC4-PSD:definitionAlias  ""@en , "인클로저에 의한 국제 보호 등급 (IP 코드)."@ko-KR , "エンクロージャによる国際保護等級（IPコード）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e60d2880d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IP_Code" ;
+        IFC4-PSD:nameAlias        "IP_ Code"@en , "기밀성 인클로저 등급"@ko-KR , "機密性エンクロージャ等級"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p9dee0600d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of slots available for switches/outlets (most commonly 1, 2, 3, or 4)." ;
+        rdfs:label                "NumberOfGangs" ;
+        IFC4-PSD:definition       "Number of slots available for switches/outlets (most commonly 1, 2, 3, or 4)." ;
+        IFC4-PSD:definitionAlias  "スロットスイッチ/コンセント（最も一般的に1、2、3、または4）で使用可能な数。"@ja-JP , ""@en , "슬롯 스위치 / 콘센트 (가장 일반적으로 1,2,3 또는 4)에서 사용할 수있는 수."@ko-KR ;
+        IFC4-PSD:ifdguid          "9dee0600d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfGangs" ;
+        IFC4-PSD:nameAlias        "Number Of Gangs"@en , "분기의 수"@ko-KR , "分岐の数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:ShapeType  a               rdf:Property ;
+        rdfs:seeAlso        :pae9e7c00d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShapeType .
+
+:ClearDepth  a              rdf:Property ;
+        rdfs:seeAlso        :pa34b5080d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClearDepth .
+
+:PlacingType  a             rdf:Property ;
+        rdfs:seeAlso        :pbeb65b80d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlacingType .
+
+:Pset_JunctionBoxTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A junction box is an enclosure within which cables are connected.\n\nHistory: New in IFC4" ;
+        rdfs:label                    "Pset_JunctionBoxTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcJunctionBox ;
+        IFC4-PSD:applicableTypeValue  "IfcJunctionBox" ;
+        IFC4-PSD:definition           "A junction box is an enclosure within which cables are connected.\n\nHistory: New in IFC4" ;
+        IFC4-PSD:definitionAlias      "ジャンクションボックスは中にケーブルが接続されているケース。\n IFC4にて新規。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_JunctionBoxTypeCommon" ;
+        IFC4-PSD:propertyDef          :pae9e7c00d1ea11e1800000215ad4efdf , :p9dee0600d1ea11e1800000215ad4efdf , :pe60d2880d1ea11e1800000215ad4efdf , :pbeb65b80d1ea11e1800000215ad4efdf , :p8dd62680d1ea11e1800000215ad4efdf , :p87e04580d1ea11e1800000215ad4efdf , :pcece3b00d1ea11e1800000215ad4efdf , :pa34b5080d1ea11e1800000215ad4efdf , :pdf7eb100d1ea11e1800000215ad4efdf .
+
+:pcece3b00d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Method of mounting to be adopted for the type of junction box." ;
+        rdfs:label                "MountingType" ;
+        IFC4-PSD:definition       "Method of mounting to be adopted for the type of junction box." ;
+        IFC4-PSD:definitionAlias  ""@en , "지얀 섹션 보트 상자 설치 방법."@ko-KR , "ジヤンクションボツクスの取り付け方法。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cece3b00d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MountingType" ;
+        IFC4-PSD:nameAlias        "설치"@ko-KR , "取り付け"@ja-JP , "Mounting Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FACENAIL" , "SIDENAIL" , "CUT_IN" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p87e04580d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pdf7eb100d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the junction box type is allowed for exposure to outdoor elements (set TRUE where external exposure is allowed)." ;
+        rdfs:label                "IsExternal" ;
+        IFC4-PSD:definition       "Indication of whether the junction box type is allowed for exposure to outdoor elements (set TRUE where external exposure is allowed)." ;
+        IFC4-PSD:definitionAlias  "ジャンクションボックスが外部露出の許可がされているかどうかを表示（外部露出が許可されている場合は設定）。"@ja-JP , "정션 박스 외부 노출의 허가가되어 있는지 여부를 표시 (외부 노출이 허용되는 경우 설정)."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "df7eb100d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsExternal" ;
+        IFC4-PSD:nameAlias        "外部露出"@ja-JP , "외부노출"@ko-KR , "Is External"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p8dd62680d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8dd62680d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:IsExternal  a              rdf:Property ;
+        rdfs:seeAlso        :pdf7eb100d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsExternal .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_JunctionBoxTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa34b5080d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Clear unobstructed depth available for cable inclusion within the junction box." ;
+        rdfs:label                "ClearDepth" ;
+        IFC4-PSD:definition       "Clear unobstructed depth available for cable inclusion within the junction box." ;
+        IFC4-PSD:definitionAlias  "지얀 섹션 상자에 케이블을 거둘 깊이."@ko-KR , ""@en , "ジヤンクションボックスにケーブルを収められる深さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a34b5080d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClearDepth" ;
+        IFC4-PSD:nameAlias        "Clear Depth"@en , "명확한 깊이"@ko-KR , "明確な深さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:MountingType  a            rdf:Property ;
+        rdfs:seeAlso        :pcece3b00d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MountingType .
+
+:pbeb65b80d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location at which the type of junction box can be located." ;
+        rdfs:label                "PlacingType" ;
+        IFC4-PSD:definition       "Location at which the type of junction box can be located." ;
+        IFC4-PSD:definitionAlias  ""@en , "지얀 섹션 보트 상자 설치 방법."@ko-KR , "ジヤンクションボックスの配置場所。"@ja-JP ;
+        IFC4-PSD:ifdguid          "beb65b80d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlacingType" ;
+        IFC4-PSD:nameAlias        "위치"@ko-KR , "Placing Type"@en , "位置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CEILING" , "FLOOR" , "WALL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:IP_Code  a                 rdf:Property ;
+        rdfs:seeAlso        :pe60d2880d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IP_Code .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p8dd62680d1ea11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pae9e7c00d1ea11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Shape of the junction box." ;
+        rdfs:label                "ShapeType" ;
+        IFC4-PSD:definition       "Shape of the junction box." ;
+        IFC4-PSD:definitionAlias  "ジヤンクションボックスの形状。"@ja-JP , "지얀 섹션 상자 모양."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "ae9e7c00d1ea11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShapeType" ;
+        IFC4-PSD:nameAlias        "形状"@ja-JP , "형상"@ko-KR , "Shape Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "RECTANGULAR" , "ROUND" , "SLOT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

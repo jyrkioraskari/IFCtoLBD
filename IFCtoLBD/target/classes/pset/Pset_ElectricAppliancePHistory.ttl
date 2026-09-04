@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricAppliancePHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricAppliancePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:PowerState  a              rdf:Property ;
+        rdfs:seeAlso        :p7180bc80d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerState .
+
+:p7180bc80d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the power state of the device where True is on and False is off." ;
+        rdfs:label                "PowerState" ;
+        IFC4-PSD:definition       "Indicates the power state of the device where True is on and False is off." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7180bc80d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PowerState" ;
+        IFC4-PSD:nameAlias        "Power State"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_ElectricAppliancePHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Captures realtime information for electric appliances, such as for energy usage.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_ElectricAppliancePHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElectricAppliance ;
+        IFC4-PSD:applicableTypeValue  "IfcElectricAppliance" ;
+        IFC4-PSD:definition           "Captures realtime information for electric appliances, such as for energy usage.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricAppliancePHistory" ;
+        IFC4-PSD:propertyDef          :p7180bc80d1df11e1800000215ad4efdf .

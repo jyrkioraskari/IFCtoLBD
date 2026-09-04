@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoveringCeiling#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pfebc1500d1cf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the permeability of the ceiling.\nThe ration can be used to indicate an open ceiling (that enables identification of whether ceiling construction should be considered as impeding distribution of sprinkler water, light etc. from installations within the ceiling area)." ;
+        rdfs:label                "Permeability" ;
+        IFC4-PSD:definition       "Ratio of the permeability of the ceiling.\nThe ration can be used to indicate an open ceiling (that enables identification of whether ceiling construction should be considered as impeding distribution of sprinkler water, light etc. from installations within the ceiling area)." ;
+        IFC4-PSD:definitionAlias  "Durchlässigkeit der Unterdecke als Faktor zwischen 0 Undurchlässig und 1 völlig durchlässig. Der Faktor kann zur Abschätzung genutzt werden, ob die Unterdecke zur Decke hin offen und durchlässig (für Licht, Wasser und Sicht) ist."@de-DE , "Ratio de perméabilité du plafond. Ce ratio peut être utilisé pour désigner un plafond ouvert (cela permet de savoir si la pose du plafond empêche la distribution de fluides à partir d'installations situées dans le faux plafond)."@fr-FR , "天花板的渗透比率。\n该比率可用以表示开敞式天花板（表示天花板能否阻隔其内侧的喷淋水、光线等的）。"@zh-CN , ""@en ;
+        IFC4-PSD:ifdguid          "febc1500d1cf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Permeability" ;
+        IFC4-PSD:nameAlias        "Perméabilité"@fr-FR , "渗透率"@zh-CN , "Durchlässigkeit"@de-DE , "Permeability"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:Permeability  a            rdf:Property ;
+        rdfs:seeAlso        :pfebc1500d1cf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Permeability .
+
+:Pset_CoveringCeiling
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to CEILING." ;
+        rdfs:label                    "Pset_CoveringCeiling" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCovering/CEILING> ;
+        IFC4-PSD:applicableTypeValue  "IfcCovering/CEILING" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to CEILING." ;
+        IFC4-PSD:definitionAlias      ""@en , "所有PredefinedType设置为CEILING的IfcCovering实例的定义中通用的属性。"@zh-CN ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoveringCeiling" ;
+        IFC4-PSD:propertyDef          :pfebc1500d1cf11e1800000215ad4efdf , :p04195f80d1d011e1800000215ad4efdf , :p0976aa00d1d011e1800000215ad4efdf .
+
+:TileWidth  a               rdf:Property ;
+        rdfs:seeAlso        :p0976aa00d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TileWidth .
+
+:TileLength  a              rdf:Property ;
+        rdfs:seeAlso        :p04195f80d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TileLength .
+
+:p0976aa00d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Width of ceiling tiles. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "TileWidth" ;
+        IFC4-PSD:definition       "Width of ceiling tiles. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Largeur des carreaux de plafond. Cette propriété est donnée en complément de la représentation de la forme et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "Breite der Unterdeckenplatten, oder -panele, die zur Verkleidung verwendet werden."@de-DE , "天花板面砖的宽度。\n该属性所提供的尺寸信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的尺寸属性不符，应以几何参数为准。"@zh-CN , ""@en ;
+        IFC4-PSD:ifdguid          "0976aa00d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TileWidth" ;
+        IFC4-PSD:nameAlias        "Tile Width"@en , "面砖宽度"@zh-CN , "Largeur des carreaux"@fr-FR , "Deckenplattenbreite"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p04195f80d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of ceiling tiles. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "TileLength" ;
+        IFC4-PSD:definition       "Length of ceiling tiles. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Länge der Unterdeckenplatten, oder -panele, die zur Verkleidung verwendet werden."@de-DE , "Longueur des carreaux de plafond. Cette propriété est donnée en complément de la représentation de la forme et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , ""@en , "天花板面砖的长度。\n该属性所提供的尺寸信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的尺寸属性不符，应以几何参数为准。"@zh-CN ;
+        IFC4-PSD:ifdguid          "04195f80d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TileLength" ;
+        IFC4-PSD:nameAlias        "Deckenplattenlänge"@de-DE , "Tile Length"@en , "Longueur des carreaux"@fr-FR , "面砖长度"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoveringCeiling>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

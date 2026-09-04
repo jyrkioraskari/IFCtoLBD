@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeMovementSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SensorTypeMovementSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects movement. HISTORY: In IFC4, time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeMovementSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/MOVEMENTSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/MOVEMENTSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects movement. HISTORY: In IFC4, time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeMovementSensor" ;
+        IFC4-PSD:propertyDef          :p09919c80d20611e1800000215ad4efdf , :pfd0d4400d20511e1800000215ad4efdf .
+
+:SetPointMovement  a        rdf:Property ;
+        rdfs:seeAlso        :p09919c80d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointMovement .
+
+:MovementSensingType  a     rdf:Property ;
+        rdfs:seeAlso        :pfd0d4400d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MovementSensingType .
+
+:pfd0d4400d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies the type of movement sensing mechanism." ;
+        rdfs:label                "MovementSensingType" ;
+        IFC4-PSD:definition       "Enumeration that identifies the type of movement sensing mechanism." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fd0d4400d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MovementSensingType" ;
+        IFC4-PSD:nameAlias        "Movement Sensing Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PHOTOELECTRICCELL" , "PRESSUREPAD" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p09919c80d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The movement to be sensed." ;
+        rdfs:label                "SetPointMovement" ;
+        IFC4-PSD:definition       "The movement to be sensed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "09919c80d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointMovement" ;
+        IFC4-PSD:nameAlias        "Set Point Movement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeMovementSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

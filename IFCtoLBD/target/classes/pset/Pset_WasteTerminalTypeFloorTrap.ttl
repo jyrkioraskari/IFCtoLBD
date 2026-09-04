@@ -1,0 +1,247 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeFloorTrap#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p5aa98c80d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the chamber of the trap." ;
+        rdfs:label                "NominalBodyLength" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the chamber of the trap." ;
+        IFC4-PSD:definitionAlias  "防臭弁の区画の半径か局所座標系のＸ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5aa98c80d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyLength" ;
+        IFC4-PSD:nameAlias        "呼称躯体長"@ja-JP , "Nominal Body Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverMaterial  a           rdf:Property ;
+        rdfs:seeAlso        :pdf94a600d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverMaterial .
+
+:SpilloverLevel  a          rdf:Property ;
+        rdfs:seeAlso        :p7ca30f00d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpilloverLevel .
+
+:pcdb30300d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the trap." ;
+        rdfs:label                "CoverLength" ;
+        IFC4-PSD:definition       "The length measured along the x-axis in the local coordinate system or the radius (in the case of a circular shape in plan) of the cover of the trap." ;
+        IFC4-PSD:definitionAlias  ""@en , "局所座標系のX軸に沿うか、半径（円状の形の場合）で測定された防臭弁カバーの長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cdb30300d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverLength" ;
+        IFC4-PSD:nameAlias        "カバー長さ"@ja-JP , "Cover Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p95132980d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the gully trap has a strainer (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "HasStrainer" ;
+        IFC4-PSD:definition       "Indicates whether the gully trap has a strainer (= TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "溝の防臭弁がろ過装置を備えているかどうか指示する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "95132980d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasStrainer" ;
+        IFC4-PSD:nameAlias        "ろ過装置"@ja-JP , "Has Strainer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p6bf29900d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the z-axis in the local coordinate system of the chamber of the  trap." ;
+        rdfs:label                "NominalBodyDepth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the z-axis in the local coordinate system of the chamber of the  trap." ;
+        IFC4-PSD:definitionAlias  "防臭弁の区画の半径か局所座標系のZ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6bf29900d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyDepth" ;
+        IFC4-PSD:nameAlias        "呼称躯体深さ"@ja-JP , "Nominal Body Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverWidth  a              rdf:Property ;
+        rdfs:seeAlso        :pd6a3d480d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverWidth .
+
+:InletConnectionSize  a     rdf:Property ;
+        rdfs:seeAlso        :pc4299b00d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletConnectionSize .
+
+:pc4299b00d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        rdfs:label                "InletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the inlet connection(s), where used, of the inlet connections.\n\nNote that all inlet connections are assumed to be the same size." ;
+        IFC4-PSD:definitionAlias  ""@en , "吸気口接続口のサイズ\n\n注意：同サイズの吸気口接続口がないものとする。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c4299b00d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletConnectionSize" ;
+        IFC4-PSD:nameAlias        "吸気口サイズ"@ja-JP , "Inlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CoverLength  a             rdf:Property ;
+        rdfs:seeAlso        :pcdb30300d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverLength .
+
+:pd6a3d480d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length measured along the y-axis in the local coordinate system of the cover of the  trap." ;
+        rdfs:label                "CoverWidth" ;
+        IFC4-PSD:definition       "The length measured along the y-axis in the local coordinate system of the cover of the  trap." ;
+        IFC4-PSD:definitionAlias  ""@en , "局所座標系のY軸で測定された防臭弁カバーの長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d6a3d480d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverWidth" ;
+        IFC4-PSD:nameAlias        "カバー幅"@ja-JP , "Cover Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:TrapType  a                rdf:Property ;
+        rdfs:seeAlso        :p8593e080d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TrapType .
+
+:p639a5e00d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted length measured along the y-axis in the local coordinate system of the chamber of the trap." ;
+        rdfs:label                "NominalBodyWidth" ;
+        IFC4-PSD:definition       "Nominal or quoted length measured along the y-axis in the local coordinate system of the chamber of the trap." ;
+        IFC4-PSD:definitionAlias  "防臭弁の区画の半径か局所座標系のＹ軸に沿って測定された呼称もしくは積算された長さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "639a5e00d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalBodyWidth" ;
+        IFC4-PSD:nameAlias        "呼称躯体幅"@ja-JP , "Nominal Body Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeFloorTrap>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NominalBodyDepth  a        rdf:Property ;
+        rdfs:seeAlso        :p6bf29900d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyDepth .
+
+:HasStrainer  a             rdf:Property ;
+        rdfs:seeAlso        :p95132980d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasStrainer .
+
+:p757c0100d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates if the purpose of the floor trap is to receive sullage water, or if that is amongst its purposes (= TRUE), or not (= FALSE). Note that if TRUE, it is expected that an upstand or kerb will be placed around the floor trap to prevent the ingress of surface water runoff; the provision of the upstand or kerb is not dealt with in this property set." ;
+        rdfs:label                "IsForSullageWater" ;
+        IFC4-PSD:definition       "Indicates if the purpose of the floor trap is to receive sullage water, or if that is amongst its purposes (= TRUE), or not (= FALSE). Note that if TRUE, it is expected that an upstand or kerb will be placed around the floor trap to prevent the ingress of surface water runoff; the provision of the upstand or kerb is not dealt with in this property set." ;
+        IFC4-PSD:definitionAlias  ""@en , "床排水防臭弁の目的が、汚水を受けることの可（=true)否(=false)を示す。\n注意：TRUEの場合、水の流入を防ぐための床防臭弁の周りに直立壁か縁石が配置され、このプロパティセットにおいては直立壁や縁石の提供は処理されない。"@ja-JP ;
+        IFC4-PSD:ifdguid          "757c0100d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsForSullageWater" ;
+        IFC4-PSD:nameAlias        "汚水用"@ja-JP , "Is For Sullage Water"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_WasteTerminalTypeFloorTrap
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting, set into the floor, that retains liquid to prevent the passage of foul air." ;
+        rdfs:label                    "Pset_WasteTerminalTypeFloorTrap" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/FLOORTRAP> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/FLOORTRAP" ;
+        IFC4-PSD:definition           "Pipe fitting, set into the floor, that retains liquid to prevent the passage of foul air." ;
+        IFC4-PSD:definitionAlias      ""@en , "液体を溜めて汚れた空気の通過を防ぐために床に据えられる配管。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeFloorTrap" ;
+        IFC4-PSD:propertyDef          :pcdb30300d21611e1800000215ad4efdf , :p7ca30f00d21611e1800000215ad4efdf , :p757c0100d21611e1800000215ad4efdf , :p95132980d21611e1800000215ad4efdf , :pc4299b00d21611e1800000215ad4efdf , :p9c3a3780d21611e1800000215ad4efdf , :p5aa98c80d21611e1800000215ad4efdf , :p639a5e00d21611e1800000215ad4efdf , :p6bf29900d21611e1800000215ad4efdf , :pa65c3600d21611e1800000215ad4efdf , :p8593e080d21611e1800000215ad4efdf , :pdf94a600d21611e1800000215ad4efdf , :pd6a3d480d21611e1800000215ad4efdf .
+
+:p9c3a3780d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the object." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "要素からの接続口口径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9c3a3780d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "接続口口径"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8593e080d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of waste trap used in combination with the floor trap from which the type required may be set." ;
+        rdfs:label                "TrapType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of waste trap used in combination with the floor trap from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  "セットされる予定の床の防臭弁と組み合わせて使われる廃棄物の防臭弁のあらかじめ定義されたタイプの識別情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8593e080d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TrapType" ;
+        IFC4-PSD:nameAlias        "Trap Type"@en , "防臭弁の種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "P_TRAP" , "Q_TRAP" , "S_TRAP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:IsForSullageWater  a       rdf:Property ;
+        rdfs:seeAlso        :p757c0100d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsForSullageWater .
+
+:InletPatternType  a        rdf:Property ;
+        rdfs:seeAlso        :pa65c3600d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletPatternType .
+
+:NominalBodyWidth  a        rdf:Property ;
+        rdfs:seeAlso        :p639a5e00d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyWidth .
+
+:pdf94a600d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Material from which the cover or grating is constructed." ;
+        rdfs:label                "CoverMaterial" ;
+        IFC4-PSD:definition       "Material from which the cover or grating is constructed." ;
+        IFC4-PSD:definitionAlias  ""@en , "カバーか格子の材質。"@ja-JP ;
+        IFC4-PSD:ifdguid          "df94a600d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverMaterial" ;
+        IFC4-PSD:nameAlias        "Cover Material"@en , "カバー材質"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9c3a3780d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:pa65c3600d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the pattern of inlet connections to a trap.\n\nA trap may have 0,1,2,3 or 4 inlet connections and the pattern of their arrangement may vary. The enumeration makes the convention that an outlet is either vertical or is placed at the bottom (south side) of the trap (when viewed in plan). Position 1 is to the left (west), position 2 is to the top (north), position 3 is to the right (east) and position 4 is to the bottom (south)." ;
+        rdfs:label                "InletPatternType" ;
+        IFC4-PSD:definition       "Identifies the pattern of inlet connections to a trap.\n\nA trap may have 0,1,2,3 or 4 inlet connections and the pattern of their arrangement may vary. The enumeration makes the convention that an outlet is either vertical or is placed at the bottom (south side) of the trap (when viewed in plan). Position 1 is to the left (west), position 2 is to the top (north), position 3 is to the right (east) and position 4 is to the bottom (south)." ;
+        IFC4-PSD:definitionAlias  ""@en , "防臭弁の吸気口接続口の識別情報。\n\n一つの防臭弁に0.1.2.3.4.の吸気口接続口とパターンがあるときは変化する可能性があります。羅列されるとき、接続口が垂直である様子か、防臭弁の底（南）におかれます。位置1は左(西)に、位置2は上方(北)に、位置3は右(東)に、位置4は下方(南）になる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a65c3600d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletPatternType" ;
+        IFC4-PSD:nameAlias        "Inlet Pattern Type"@en , "吸気口種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "124" , "13" , "134" , "2" , "234" , "14" , "3" , "23" , "4" , "24" , "1234" , "NONE" , "12" , "123" , "34" , "1"
+                                  ] .
+
+:p7ca30f00d21611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The level at which water spills out of the terminal." ;
+        rdfs:label                "SpilloverLevel" ;
+        IFC4-PSD:definition       "The level at which water spills out of the terminal." ;
+        IFC4-PSD:definitionAlias  "継手からの水位。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7ca30f00d21611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpilloverLevel" ;
+        IFC4-PSD:nameAlias        "Spillover Level"@en , "水位"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalBodyLength  a       rdf:Property ;
+        rdfs:seeAlso        :p5aa98c80d21611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalBodyLength .

@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderChangeOrder#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderChangeOrder>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ProjectOrderChangeOrder
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A change order is an instruction to make a change to a product or work being undertake. Note that the change order status is defined in the same way as a work order status since a change order implies a work requirement." ;
+        rdfs:label                    "Pset_ProjectOrderChangeOrder" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/CHANGEORDER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProjectOrder/CHANGEORDER" ;
+        IFC4-PSD:definition           "A change order is an instruction to make a change to a product or work being undertake. Note that the change order status is defined in the same way as a work order status since a change order implies a work requirement." ;
+        IFC4-PSD:definitionAlias      "変更指示は、製品または引き受けている作業に変化を生じさせる指示。変更指示状態は、作業指示状態と同様な手段で定義される。変更指示は作業要求を必要とするからである。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProjectOrderChangeOrder" ;
+        IFC4-PSD:propertyDef          :p38ecdd00d1f711e1800000215ad4efdf , :p42764500d1f711e1800000215ad4efdf .
+
+:p38ecdd00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A description of the problem for why a change is needed." ;
+        rdfs:label                "ReasonForChange" ;
+        IFC4-PSD:definition       "A description of the problem for why a change is needed." ;
+        IFC4-PSD:definitionAlias  ""@en , "変更が必要となる問題の記述。"@ja-JP ;
+        IFC4-PSD:ifdguid          "38ecdd00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReasonForChange" ;
+        IFC4-PSD:nameAlias        "Reason For Change"@en , "変更理由"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ReasonForChange  a         rdf:Property ;
+        rdfs:seeAlso        :p38ecdd00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReasonForChange .
+
+:p42764500d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The budget source requested." ;
+        rdfs:label                "BudgetSource" ;
+        IFC4-PSD:definition       "The budget source requested." ;
+        IFC4-PSD:definitionAlias  ""@en , "要求された予算の出所・源。"@ja-JP ;
+        IFC4-PSD:ifdguid          "42764500d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BudgetSource" ;
+        IFC4-PSD:nameAlias        "Budget Source"@en , "予算源"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:BudgetSource  a            rdf:Property ;
+        rdfs:seeAlso        :p42764500d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BudgetSource .

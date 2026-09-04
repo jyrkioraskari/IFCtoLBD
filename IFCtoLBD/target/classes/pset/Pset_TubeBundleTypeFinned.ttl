@@ -1,0 +1,161 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TubeBundleTypeFinned#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Spacing  a                 rdf:Property ;
+        rdfs:seeAlso        :pc8ec5000d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Spacing .
+
+:pe9b4a580d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of the fin as measured perpendicular to the direction of airflow." ;
+        rdfs:label                "Height" ;
+        IFC4-PSD:definition       "Length of the fin as measured perpendicular to the direction of airflow." ;
+        IFC4-PSD:definitionAlias  ""@en , "気流方向に垂直に計られたフィンの長さ"@ja-JP ;
+        IFC4-PSD:ifdguid          "e9b4a580d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Height" ;
+        IFC4-PSD:nameAlias        "Height"@en , "高さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Diameter  a                rdf:Property ;
+        rdfs:seeAlso        :pf33e0d80d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Diameter .
+
+:Thickness  a               rdf:Property ;
+        rdfs:seeAlso        :pd1dd2180d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Thickness .
+
+:pe15c6a80d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of the fin as measured parallel to the direction of airflow." ;
+        rdfs:label                "Length" ;
+        IFC4-PSD:definition       "Length of the fin as measured parallel to the direction of airflow." ;
+        IFC4-PSD:definitionAlias  "気流方向に平行に計られたフィンの長さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e15c6a80d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Length" ;
+        IFC4-PSD:nameAlias        "長さ"@ja-JP , "Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Height  a                  rdf:Property ;
+        rdfs:seeAlso        :pe9b4a580d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Height .
+
+:Pset_TubeBundleTypeFinned
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Finned tube bundle type attributes.\nContains the attributes related to the fins attached to a tube in a finned tube bundle such as is commonly found in coils." ;
+        rdfs:label                    "Pset_TubeBundleTypeFinned" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTubeBundle/FINNED> ;
+        IFC4-PSD:applicableTypeValue  "IfcTubeBundle/FINNED" ;
+        IFC4-PSD:definition           "Finned tube bundle type attributes.\nContains the attributes related to the fins attached to a tube in a finned tube bundle such as is commonly found in coils." ;
+        IFC4-PSD:definitionAlias      "フィンタイプチューブ束属性.一般にコイルに見られるように、フィンチューブ束内のチューブに付いているフィンに関する属性を含む"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TubeBundleTypeFinned" ;
+        IFC4-PSD:propertyDef          :p0355ed00d21311e1800000215ad4efdf , :pe15c6a80d21211e1800000215ad4efdf , :pc8ec5000d21211e1800000215ad4efdf , :pfc2edf00d21211e1800000215ad4efdf , :pe9b4a580d21211e1800000215ad4efdf , :pd1dd2180d21211e1800000215ad4efdf , :pdb668980d21211e1800000215ad4efdf , :pf33e0d80d21211e1800000215ad4efdf .
+
+:p0355ed00d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "TRUE if the fin has a coating, FALSE if it does not." ;
+        rdfs:label                "HasCoating" ;
+        IFC4-PSD:definition       "TRUE if the fin has a coating, FALSE if it does not." ;
+        IFC4-PSD:definitionAlias  ""@en , "フィンがコーティング有りの場合 TRUE、無しの場合FALSE"@ja-JP ;
+        IFC4-PSD:ifdguid          "0355ed00d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasCoating" ;
+        IFC4-PSD:nameAlias        "Has Coating"@en , "コーティング有り"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pf33e0d80d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual diameter of a fin for circular fins only." ;
+        rdfs:label                "Diameter" ;
+        IFC4-PSD:definition       "Actual diameter of a fin for circular fins only." ;
+        IFC4-PSD:definitionAlias  "円形フィンのみ、フィンの実直径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f33e0d80d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Diameter" ;
+        IFC4-PSD:nameAlias        "Diameter"@en , "直径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Length  a                  rdf:Property ;
+        rdfs:seeAlso        :pe15c6a80d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Length .
+
+:HasCoating  a              rdf:Property ;
+        rdfs:seeAlso        :p0355ed00d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasCoating .
+
+:FinCorrugatedType  a       rdf:Property ;
+        rdfs:seeAlso        :pfc2edf00d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FinCorrugatedType .
+
+:pd1dd2180d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thickness of the fin." ;
+        rdfs:label                "Thickness" ;
+        IFC4-PSD:definition       "Thickness of the fin." ;
+        IFC4-PSD:definitionAlias  ""@en , "フィンの厚さ"@ja-JP ;
+        IFC4-PSD:ifdguid          "d1dd2180d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Thickness" ;
+        IFC4-PSD:nameAlias        "Thickness"@en , "厚さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pc8ec5000d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Distance between fins on a tube in the tube bundle." ;
+        rdfs:label                "Spacing" ;
+        IFC4-PSD:definition       "Distance between fins on a tube in the tube bundle." ;
+        IFC4-PSD:definitionAlias  "チューブ束内のフィン間の距離"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c8ec5000d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Spacing" ;
+        IFC4-PSD:nameAlias        "間隔"@ja-JP , "Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pdb668980d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thermal conductivity of the fin." ;
+        rdfs:label                "ThermalConductivity" ;
+        IFC4-PSD:definition       "The thermal conductivity of the fin." ;
+        IFC4-PSD:definitionAlias  "フィンの熱伝導率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "db668980d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalConductivity" ;
+        IFC4-PSD:nameAlias        "Thermal Conductivity"@en , "熱伝導率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalConductivityMeasure
+                                  ] .
+
+:pfc2edf00d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of a fin corrugated type." ;
+        rdfs:label                "FinCorrugatedType" ;
+        IFC4-PSD:definition       "Description of a fin corrugated type." ;
+        IFC4-PSD:definitionAlias  ""@en , "コルゲートタイプフィンの実直径"@ja-JP ;
+        IFC4-PSD:ifdguid          "fc2edf00d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FinCorrugatedType" ;
+        IFC4-PSD:nameAlias        "Fin Corrugated Type"@en , "コルゲートタイプフィン"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TubeBundleTypeFinned>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ThermalConductivity  a     rdf:Property ;
+        rdfs:seeAlso        :pdb668980d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalConductivity .

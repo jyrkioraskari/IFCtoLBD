@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeIdentifierSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p51b07040b89147dda5f701b8e246bf62
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The detected tag value." ;
+        rdfs:label                "SetPointIdentifier" ;
+        IFC4-PSD:definition       "The detected tag value." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "51b07040b89147dda5f701b8e246bf62" ;
+        IFC4-PSD:name             "SetPointIdentifier" ;
+        IFC4-PSD:nameAlias        "Set Point Identifier"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:SetPointIdentifier  a      rdf:Property ;
+        rdfs:seeAlso        :p51b07040b89147dda5f701b8e246bf62 ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointIdentifier .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeIdentifierSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypeIdentifierSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses identification tags." ;
+        rdfs:label                    "Pset_SensorTypeIdentifierSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/IDENTIFIERSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/IDENTIFIERSENSOR" ;
+        IFC4-PSD:definition           "A device that senses identification tags." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeIdentifierSensor" ;
+        IFC4-PSD:propertyDef          :p51b07040b89147dda5f701b8e246bf62 .

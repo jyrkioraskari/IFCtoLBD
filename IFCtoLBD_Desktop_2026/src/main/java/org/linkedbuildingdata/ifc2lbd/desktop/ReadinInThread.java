@@ -35,7 +35,7 @@ import com.google.common.eventbus.EventBus;
 public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(ReadinInThread.class.getName());
-	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getDefaultEventBus();
 	final private String ifc_filename;
 	final private String uriBase;
 	final private String target_file;

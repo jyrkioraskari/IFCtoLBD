@@ -1,0 +1,257 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HeatingWaterFlowRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p493c9200d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingWaterFlowRate .
+
+:p59ed0800d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Return water temperature in cooling mode." ;
+        rdfs:label                "ReturnWaterTemperatureCooling" ;
+        IFC4-PSD:definition       "Return water temperature in cooling mode." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "59ed0800d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReturnWaterTemperatureCooling" ;
+        IFC4-PSD:nameAlias        "Return Water Temperature Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SupplyWaterTemperatureHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5ce7f880d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupplyWaterTemperatureHeating .
+
+:p39bd4900d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total cooling capacity. This includes cooling capacity of beam and cooling capacity of supply air." ;
+        rdfs:label                "TotalCoolingCapacity" ;
+        IFC4-PSD:definition       "Total cooling capacity. This includes cooling capacity of beam and cooling capacity of supply air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "39bd4900d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalCoolingCapacity" ;
+        IFC4-PSD:nameAlias        "Total Cooling Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p5063a000d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Correction factor k as a function of water flow rate (used to calculate heating capacity)." ;
+        rdfs:label                "CorrectionFactorForHeating" ;
+        IFC4-PSD:definition       "Correction factor k as a function of water flow rate (used to calculate heating capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5063a000d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CorrectionFactorForHeating" ;
+        IFC4-PSD:nameAlias        "Correction Factor For Heating"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_CooledBeamPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common performance history attributes for a cooled beam." ;
+        rdfs:label                    "Pset_CooledBeamPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCooledBeam ;
+        IFC4-PSD:applicableTypeValue  "IfcCooledBeam" ;
+        IFC4-PSD:definition           "Common performance history attributes for a cooled beam." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CooledBeamPHistory" ;
+        IFC4-PSD:propertyDef          :p4641a180d1ce11e1800000215ad4efdf , :p3cb83980d1ce11e1800000215ad4efdf , :p4cd01900d1ce11e1800000215ad4efdf , :p578aae00d1ce11e1800000215ad4efdf , :p53f72700d1ce11e1800000215ad4efdf , :p59ed0800d1ce11e1800000215ad4efdf , :p5063a000d1ce11e1800000215ad4efdf , :p404bc080d1ce11e1800000215ad4efdf , :p39bd4900d1ce11e1800000215ad4efdf , :p4346b100d1ce11e1800000215ad4efdf , :p493c9200d1ce11e1800000215ad4efdf , :p5ce7f880d1ce11e1800000215ad4efdf , :p607b7f80d1ce11e1800000215ad4efdf .
+
+:ReturnWaterTemperatureCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p59ed0800d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReturnWaterTemperatureCooling .
+
+:CoolingWaterFlowRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4641a180d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingWaterFlowRate .
+
+:p53f72700d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water pressure drop as function of water flow rate." ;
+        rdfs:label                "WaterPressureDropCurves" ;
+        IFC4-PSD:definition       "Water pressure drop as function of water flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "53f72700d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterPressureDropCurves" ;
+        IFC4-PSD:nameAlias        "Water Pressure Drop Curves"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p493c9200d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water flow rate for heating." ;
+        rdfs:label                "HeatingWaterFlowRate" ;
+        IFC4-PSD:definition       "Water flow rate for heating." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "493c9200d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingWaterFlowRate" ;
+        IFC4-PSD:nameAlias        "Heating Water Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p404bc080d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Cooling capacity of beam. This excludes cooling capacity of supply air." ;
+        rdfs:label                "BeamCoolingCapacity" ;
+        IFC4-PSD:definition       "Cooling capacity of beam. This excludes cooling capacity of supply air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "404bc080d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BeamCoolingCapacity" ;
+        IFC4-PSD:nameAlias        "Beam Cooling Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p5ce7f880d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Supply water temperature in heating mode." ;
+        rdfs:label                "SupplyWaterTemperatureHeating" ;
+        IFC4-PSD:definition       "Supply water temperature in heating mode." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5ce7f880d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupplyWaterTemperatureHeating" ;
+        IFC4-PSD:nameAlias        "Supply Water Temperature Heating"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CorrectionFactorForCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4cd01900d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CorrectionFactorForCooling .
+
+:ReturnWaterTemperatureHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p607b7f80d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReturnWaterTemperatureHeating .
+
+:p4346b100d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heating capacity of beam. This excludes heating capacity of supply air." ;
+        rdfs:label                "BeamHeatingCapacity" ;
+        IFC4-PSD:definition       "Heating capacity of beam. This excludes heating capacity of supply air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4346b100d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BeamHeatingCapacity" ;
+        IFC4-PSD:nameAlias        "Beam Heating Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p4cd01900d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Correction factor k as a function of water flow rate (used to calculate cooling capacity)." ;
+        rdfs:label                "CorrectionFactorForCooling" ;
+        IFC4-PSD:definition       "Correction factor k as a function of water flow rate (used to calculate cooling capacity)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4cd01900d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CorrectionFactorForCooling" ;
+        IFC4-PSD:nameAlias        "Correction Factor For Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p4641a180d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water flow rate for cooling." ;
+        rdfs:label                "CoolingWaterFlowRate" ;
+        IFC4-PSD:definition       "Water flow rate for cooling." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4641a180d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingWaterFlowRate" ;
+        IFC4-PSD:nameAlias        "Cooling Water Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:WaterPressureDropCurves
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p53f72700d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterPressureDropCurves .
+
+:CorrectionFactorForHeating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5063a000d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CorrectionFactorForHeating .
+
+:TotalCoolingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p39bd4900d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalCoolingCapacity .
+
+:p607b7f80d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Return water temperature in heating mode." ;
+        rdfs:label                "ReturnWaterTemperatureHeating" ;
+        IFC4-PSD:definition       "Return water temperature in heating mode." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "607b7f80d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReturnWaterTemperatureHeating" ;
+        IFC4-PSD:nameAlias        "Return Water Temperature Heating"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:TotalHeatingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3cb83980d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatingCapacity .
+
+:p578aae00d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Supply water temperature in cooling mode." ;
+        rdfs:label                "SupplyWaterTemperatureCooling" ;
+        IFC4-PSD:definition       "Supply water temperature in cooling mode." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "578aae00d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SupplyWaterTemperatureCooling" ;
+        IFC4-PSD:nameAlias        "Supply Water Temperature Cooling"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:BeamCoolingCapacity  a     rdf:Property ;
+        rdfs:seeAlso        :p404bc080d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BeamCoolingCapacity .
+
+:BeamHeatingCapacity  a     rdf:Property ;
+        rdfs:seeAlso        :p4346b100d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BeamHeatingCapacity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p3cb83980d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heating capacity. This includes heating capacity of beam and heating capacity of supply air." ;
+        rdfs:label                "TotalHeatingCapacity" ;
+        IFC4-PSD:definition       "Total heating capacity. This includes heating capacity of beam and heating capacity of supply air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3cb83980d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatingCapacity" ;
+        IFC4-PSD:nameAlias        "Total Heating Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SupplyWaterTemperatureCooling
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p578aae00d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SupplyWaterTemperatureCooling .

@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeToggleSwitch>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SwitchUsage  a             rdf:Property ;
+        rdfs:seeAlso        :peddec400d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SwitchUsage .
+
+:peddec400d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available usages for toggle switches from which that required may be selected." ;
+        rdfs:label                "SwitchUsage" ;
+        IFC4-PSD:definition       "A list of the available usages for toggle switches from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en , "선택이 필요한 토글 스위치 사용목록"@ko-KR , "選択が必要となる、トグルスイッチの使用法の一覧リスト。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eddec400d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SwitchUsage" ;
+        IFC4-PSD:nameAlias        "Switch Usage"@en , "스위치 사용"@ko-KR , "スイッチの使用法"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "EMERGENCY" , "GUARD" , "LIMIT" , "START" , "STOP" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ToggleSwitchType  a        rdf:Property ;
+        rdfs:seeAlso        :pd9023080d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ToggleSwitchType .
+
+:Pset_SwitchingDeviceTypeToggleSwitch
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A toggle switch is a switch that enables or isolates electrical power through a two position on/off action.  HISTORY: SetPoint added in IFC4." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeToggleSwitch" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/TOGGLESWITCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/TOGGLESWITCH" ;
+        IFC4-PSD:definition           "A toggle switch is a switch that enables or isolates electrical power through a two position on/off action.  HISTORY: SetPoint added in IFC4." ;
+        IFC4-PSD:definitionAlias      "トグルスイッチとはON、OFFの２つのポジションの動作で、電力を接続したり遮断したりするスイッチである。 \n履歴： IFC4 に SetPoint を追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeToggleSwitch" ;
+        IFC4-PSD:propertyDef          :peddec400d20e11e1800000215ad4efdf , :pfdf6a380d20e11e1800000215ad4efdf , :pd9023080d20e11e1800000215ad4efdf .
+
+:pd9023080d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of toggle switch from which that required may be selected." ;
+        rdfs:label                "ToggleSwitchType" ;
+        IFC4-PSD:definition       "A list of the available types of toggle switch from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、トグルスイッチの一覧リスト。"@ja-JP , ""@en , "선택이 필요한 토글 스위치 목록"@ko-KR ;
+        IFC4-PSD:ifdguid          "d9023080d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ToggleSwitchType" ;
+        IFC4-PSD:nameAlias        "레버스위치 유형"@ko-KR , "Toggle Switch Type"@en , "レバースイッチタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SELECTOR" , "CHANGEOVER" , "MANUALPULL" , "PULLCORD" , "ROCKER" , "KEYOPERATED" , "UNSET" , "OTHER" , "NOTKNOWN" , "PUSHBUTTON" , "BREAKGLASS" , "TWIST"
+                                  ] .
+
+:pfdf6a380d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available activations for toggle switches from which that required may be selected." ;
+        rdfs:label                "SwitchActivation" ;
+        IFC4-PSD:definition       "A list of the available activations for toggle switches from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、トグルスイッチの起動方式の一覧リスト。"@ja-JP , "선택이 필요한 토글 스위치 부팅 방식의 목록"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "fdf6a380d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SwitchActivation" ;
+        IFC4-PSD:nameAlias        "기동 방식"@ko-KR , "Switch Activation"@en , "起動方式"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PROXIMITY" , "HAND" , "WIRE" , "ACTUATOR" , "UNSET" , "FOOT" , "NOTKNOWN" , "TWOHAND" , "OTHER" , "SOUND"
+                                  ] .
+
+:SwitchActivation  a        rdf:Property ;
+        rdfs:seeAlso        :pfdf6a380d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SwitchActivation .

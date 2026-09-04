@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterTypeRadiator#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9179a580d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of radiator." ;
+        rdfs:label                "RadiatorType" ;
+        IFC4-PSD:definition       "Indicates the type of radiator." ;
+        IFC4-PSD:definitionAlias  ""@en , "ラジエーターの種類"@ja-JP ;
+        IFC4-PSD:ifdguid          "9179a580d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RadiatorType" ;
+        IFC4-PSD:nameAlias        "Radiator Type"@en , "ラジエータータイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FINNEDTUBE" , "PANEL" , "SECTIONAL" , "TUBULAR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterTypeRadiator>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa9512980d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Weight of water content within the heater." ;
+        rdfs:label                "WaterContent" ;
+        IFC4-PSD:definition       "Weight of water content within the heater." ;
+        IFC4-PSD:definitionAlias  "ヒーター内部の水分の重み"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a9512980d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterContent" ;
+        IFC4-PSD:nameAlias        "水含量"@ja-JP , "Water Content"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:TubingLength  a            rdf:Property ;
+        rdfs:seeAlso        :pa0f8ee80d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TubingLength .
+
+:pa0f8ee80d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water tube length inside the component." ;
+        rdfs:label                "TubingLength" ;
+        IFC4-PSD:definition       "Water tube length inside the component." ;
+        IFC4-PSD:definitionAlias  "構成要素における水管の長さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a0f8ee80d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TubingLength" ;
+        IFC4-PSD:nameAlias        "Tubing Length"@en , "チューブの長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WaterContent  a            rdf:Property ;
+        rdfs:seeAlso        :pa9512980d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterContent .
+
+:Pset_SpaceHeaterTypeRadiator
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Space heater type radiator attributes." ;
+        rdfs:label                    "Pset_SpaceHeaterTypeRadiator" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSpaceHeater/RADIATOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSpaceHeater/RADIATOR" ;
+        IFC4-PSD:definition           "Space heater type radiator attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "暖房用ヒーターラジエーター属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceHeaterTypeRadiator" ;
+        IFC4-PSD:propertyDef          :pa0f8ee80d20a11e1800000215ad4efdf , :p9179a580d20a11e1800000215ad4efdf , :pa9512980d20a11e1800000215ad4efdf .
+
+:RadiatorType  a            rdf:Property ;
+        rdfs:seeAlso        :p9179a580d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RadiatorType .

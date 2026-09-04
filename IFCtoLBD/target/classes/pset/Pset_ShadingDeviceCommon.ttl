@@ -1,0 +1,232 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ShadingDeviceCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9c7f0680d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the visible light that is reflected by the glazing at normal incidence. It is a value without unit." ;
+        rdfs:label                "VisibleLightReflectance" ;
+        IFC4-PSD:definition       "Fraction of the visible light that is reflected by the glazing at normal incidence. It is a value without unit." ;
+        IFC4-PSD:definitionAlias  "Fraction du rayonnement visible qui est réfléchi par la protection solaire sous incidence normale. Valeur sans unité."@fr-FR , "通常の入射における日除け装置により反射される可視光の比率。単位の無い数値。"@ja-JP , ""@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "9c7f0680d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleLightReflectance" ;
+        IFC4-PSD:nameAlias        "Reflexion du rayonnement visible"@fr-FR , "Reflektionsgrad für sichtbares Licht"@de-DE , "可視光反射率"@ja-JP , "Visible Light Reflectance"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p69d50e00d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        rdfs:label                "IsExternal" ;
+        IFC4-PSD:definition       "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        IFC4-PSD:definitionAlias  "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR , "Angabe, ob dieses Bauteil ein Aussenbauteil ist (JA) oder ein Innenbauteil (NEIN). Als Aussenbauteil grenzt es an den Aussenraum (oder Erdreich, oder Wasser)."@de-DE , ""@en , "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP ;
+        IFC4-PSD:ifdguid          "69d50e00d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsExternal" ;
+        IFC4-PSD:nameAlias        "Außenbauteil"@de-DE , "外部区分"@ja-JP , "Is External"@en , "Est extérieur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p6f325880d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the element is operated machanically (TRUE) or not, i.e. manually  (FALSE)." ;
+        rdfs:label                "MechanicalOperated" ;
+        IFC4-PSD:definition       "Indication whether the element is operated machanically (TRUE) or not, i.e. manually  (FALSE)." ;
+        IFC4-PSD:definitionAlias  "機械的操作が可能かどうかを示すブーリアン値。可能な場合TRUE、手動の場合FALSE。"@ja-JP , "Angabe, ob dieses Bauteil  mechanisch bewegt oder angetrieben wird (JA) oder manuell (NEIN). Diese Eigenschaft wird nur für beweglichen Sonnenschutz angegeben."@de-DE , ""@en , "Indique si l'élément est actionné mécaniquement (VRAI) ou manuellement (FAUX)."@fr-FR ;
+        IFC4-PSD:ifdguid          "6f325880d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MechanicalOperated" ;
+        IFC4-PSD:nameAlias        "機械的操作"@ja-JP , "Mechanisch"@de-DE , "Mechanical Operated"@en , "Actionné mécaniquement"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p47db8b80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "Bemusterungstyp, wird als Attribute angegeben, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE , ""@en , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). A fournir s'il n'y a pas de référence à une classification en usage."@fr-FR ;
+        IFC4-PSD:ifdguid          "47db8b80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Bemusterungstyp"@de-DE , "Référence"@fr-FR , "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p47db8b80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:IsExternal  a              rdf:Property ;
+        rdfs:seeAlso        :p69d50e00d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsExternal .
+
+:VisibleLightTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7f4a3800d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleLightTransmittance .
+
+:p7f4a3800d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the visible light that passes the shading system  at normal incidence. It is a value without unit." ;
+        rdfs:label                "VisibleLightTransmittance" ;
+        IFC4-PSD:definition       "Fraction of the visible light that passes the shading system  at normal incidence. It is a value without unit." ;
+        IFC4-PSD:definitionAlias  "通常の入射における日除け装置を通過する可視光の比率。単位の無い数値。"@ja-JP , "Fraction du rayonnement visible qui est transmise par la protection solaire sous incidence normale. Valeur sans unité."@fr-FR , ""@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "7f4a3800d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleLightTransmittance" ;
+        IFC4-PSD:nameAlias        "Transmittance du rayonnement visible"@fr-FR , "可視光透過率"@ja-JP , "Visible Light Transmittance"@en , "Transmissionsgrad für sichtbares Licht"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p4e6a0300d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "4e6a0300d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@de-DE , "Statut"@fr-FR , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p85401900d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(Rsol): The ratio of incident solar radiation that is reflected by a shading system (also named ρe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        rdfs:label                "SolarReflectance" ;
+        IFC4-PSD:definition       "(Rsol): The ratio of incident solar radiation that is reflected by a shading system (also named ρe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        IFC4-PSD:definitionAlias  "(Rsol)：日除けシステムにより反射される日射の率。注： Asol + Rsol + Tsol = 1　という方程式が成り立つ。"@ja-JP , ""@de-DE , ""@en , "(Rsol). Ratio du rayonnement solaire incident qui est réfléchi par la protection solaire. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR ;
+        IFC4-PSD:ifdguid          "85401900d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarReflectance" ;
+        IFC4-PSD:nameAlias        "Solar Reflectance"@en , "Reflexion du rayonnement solaire"@fr-FR , "Strahlungsreflectionsgrad"@de-DE , "日射反射率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:ShadingDeviceType  a       rdf:Property ;
+        rdfs:seeAlso        :p5de94c00d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShadingDeviceType .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p4e6a0300d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:SolarTransmittance  a      rdf:Property ;
+        rdfs:seeAlso        :p79eced80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarTransmittance .
+
+:p5de94c00d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Specifies the type of shading device." ;
+        rdfs:label                "ShadingDeviceType" ;
+        IFC4-PSD:definition       "Specifies the type of shading device." ;
+        IFC4-PSD:definitionAlias  "日除け装置の種別を設定する。"@ja-JP , ""@de-DE , ""@en , "Spécifies le type de protection solaire."@fr-FR ;
+        IFC4-PSD:ifdguid          "5de94c00d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShadingDeviceType" ;
+        IFC4-PSD:nameAlias        "Type de protection solaire"@fr-FR , "Shading Device Type"@en , "Sonnenschutztyp"@de-DE , "日除け装置種別"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FIXED" , "MOVABLE" , "OVERHANG" , "SIDEFIN" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SolarReflectance  a        rdf:Property ;
+        rdfs:seeAlso        :p85401900d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarReflectance .
+
+:p75283980d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal transmittance coefficient (U-Value) of a material of a certain thickness for this element." ;
+        rdfs:label                "ThermalTransmittance" ;
+        IFC4-PSD:definition       "Thermal transmittance coefficient (U-Value) of a material of a certain thickness for this element." ;
+        IFC4-PSD:definitionAlias  ""@en , "Coefficient de transmission thermique surfacique (U) d'un métériau d'une certaine épaisseur pour cet élément"@fr-FR , "熱貫流率U値。\nここでは（すべての材料を含む）梁を通した熱移動の方向における全体の熱還流率を示す。\n注：IFC2x4の新しいプロパティ"@ja-JP , "Wärmedurchgangskoeffizient (U-Wert) der Materialschichten.\nHier der Gesamtwärmedurchgangskoeffizient der Tür."@de-DE ;
+        IFC4-PSD:ifdguid          "75283980d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalTransmittance" ;
+        IFC4-PSD:nameAlias        "U-Wert"@de-DE , "Thermal Transmittance"@en , "Transmission thermique surfacique"@fr-FR , "熱貫流率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalTransmittanceMeasure
+                                  ] .
+
+:pa86ac880d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The color of the surface." ;
+        rdfs:label                "SurfaceColor" ;
+        IFC4-PSD:definition       "The color of the surface." ;
+        IFC4-PSD:definitionAlias  "表面の色を示す文字列情報。"@ja-JP , "La couleur de la surface"@fr-FR , ""@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "a86ac880d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SurfaceColor" ;
+        IFC4-PSD:nameAlias        "Oberflächenfarbe"@de-DE , "表面色"@ja-JP , "Couleur surface"@fr-FR , "Surface Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:SurfaceColor  a            rdf:Property ;
+        rdfs:seeAlso        :pa86ac880d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SurfaceColor .
+
+:Roughness  a               rdf:Property ;
+        rdfs:seeAlso        :pa1dc5100d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Roughness .
+
+:ThermalTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p75283980d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalTransmittance .
+
+:pa1dc5100d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the vertical deviations of the surface." ;
+        rdfs:label                "Roughness" ;
+        IFC4-PSD:definition       "A measure of the vertical deviations of the surface." ;
+        IFC4-PSD:definitionAlias  ""@de-DE , ""@en , "表面の垂直方向の偏差。"@ja-JP , "Une mesure des déviations verticales de la surface."@fr-FR ;
+        IFC4-PSD:ifdguid          "a1dc5100d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Roughness" ;
+        IFC4-PSD:nameAlias        "Rauheit der Oberfläche"@de-DE , "表面粗さ"@ja-JP , "Roughness"@en , "Rugosité"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_ShadingDeviceCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shading device properties associated with an element that represents a shading device" ;
+        rdfs:label                    "Pset_ShadingDeviceCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcShadingDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcShadingDevice" ;
+        IFC4-PSD:definition           "Shading device properties associated with an element that represents a shading device" ;
+        IFC4-PSD:definitionAlias      ""@en , "日除け装置(IfcShadingDeviceオブジェクト)に関する共通プロパティセット定義。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ShadingDeviceCommon" ;
+        IFC4-PSD:propertyDef          :p4e6a0300d20711e1800000215ad4efdf , :pa86ac880d20711e1800000215ad4efdf , :p5de94c00d20711e1800000215ad4efdf , :p47db8b80d20711e1800000215ad4efdf , :p69d50e00d20711e1800000215ad4efdf , :p6f325880d20711e1800000215ad4efdf , :p7f4a3800d20711e1800000215ad4efdf , :p79eced80d20711e1800000215ad4efdf , :pa1dc5100d20711e1800000215ad4efdf , :p85401900d20711e1800000215ad4efdf , :p9c7f0680d20711e1800000215ad4efdf , :p75283980d20711e1800000215ad4efdf .
+
+:p79eced80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "(Tsol): The ratio of incident solar radiation that directly passes through a shading system (also named τe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        rdfs:label                "SolarTransmittance" ;
+        IFC4-PSD:definition       "(Tsol): The ratio of incident solar radiation that directly passes through a shading system (also named τe). Note the following equation Asol + Rsol + Tsol = 1" ;
+        IFC4-PSD:definitionAlias  "(Tsol). Ratio du rayonnement solaire incident qui est transmis directement par la protection solaire. Noter l'équation suivante : Asol + Rsol + Tsol = 1."@fr-FR , ""@de-DE , ""@en , "(Tsol)：日除けシステムを直接透過する日射の率。注： Asol + Rsol + Tsol = 1　という方程式が成り立つ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "79eced80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarTransmittance" ;
+        IFC4-PSD:nameAlias        "Strahlungstransmissionsgrad"@de-DE , "日射透過率"@ja-JP , "Solar Transmittance"@en , "Transmission du rayonnement solaire"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:VisibleLightReflectance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9c7f0680d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleLightReflectance .
+
+:MechanicalOperated  a      rdf:Property ;
+        rdfs:seeAlso        :p6f325880d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MechanicalOperated .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ShadingDeviceCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

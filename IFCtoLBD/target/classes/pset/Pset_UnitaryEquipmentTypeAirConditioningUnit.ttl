@@ -1,0 +1,182 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryEquipmentTypeAirConditioningUnit#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HeatingEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p88410680d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingEfficiency .
+
+:p88410680d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heating efficiency under full load heating conditions." ;
+        rdfs:label                "HeatingEfficiency" ;
+        IFC4-PSD:definition       "Heating efficiency under full load heating conditions." ;
+        IFC4-PSD:definitionAlias  "全負荷加熱状態での熱効率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "88410680d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingEfficiency" ;
+        IFC4-PSD:nameAlias        "加熱効率"@ja-JP , "Heating Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:CondenserLeavingTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9b53d680d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CondenserLeavingTemperature .
+
+:HeatingCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :p824b2580d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingCapacity .
+
+:CondenserEnteringTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p93943200d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CondenserEnteringTemperature .
+
+:p7bbcae00d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Coefficient of Performance: Ratio of cooling energy output to energy input under full load operating conditions." ;
+        rdfs:label                "CoolingEfficiency" ;
+        IFC4-PSD:definition       "Coefficient of Performance: Ratio of cooling energy output to energy input under full load operating conditions." ;
+        IFC4-PSD:definitionAlias  ""@en , "性能係数全負荷運転状態でのエネルギー入力に対する冷却エネルギー出力の割合"@ja-JP ;
+        IFC4-PSD:ifdguid          "7bbcae00d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingEfficiency" ;
+        IFC4-PSD:nameAlias        "冷却効率"@ja-JP , "Cooling Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_UnitaryEquipmentTypeAirConditioningUnit
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air conditioning unit equipment type attributes.\nNote that these attributes were formely Pset_PackagedACUnit prior to IFC2x2.\nHeatingEnergySource attribute deleted in IFC2x2 Pset Addendum: Use IfcEnergyProperties, IfcFuelProperties, etc. instead." ;
+        rdfs:label                    "Pset_UnitaryEquipmentTypeAirConditioningUnit" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryEquipment/AIRCONDITIONINGUNIT> ;
+        IFC4-PSD:applicableTypeValue  "IfcUnitaryEquipment/AIRCONDITIONINGUNIT" ;
+        IFC4-PSD:definition           "Air conditioning unit equipment type attributes.\nNote that these attributes were formely Pset_PackagedACUnit prior to IFC2x2.\nHeatingEnergySource attribute deleted in IFC2x2 Pset Addendum: Use IfcEnergyProperties, IfcFuelProperties, etc. instead." ;
+        IFC4-PSD:definitionAlias      ""@en , "エアコンユニット"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UnitaryEquipmentTypeAirConditioningUnit" ;
+        IFC4-PSD:propertyDef          :p5a5bc200d21311e1800000215ad4efdf , :p7bbcae00d21311e1800000215ad4efdf , :p9b53d680d21311e1800000215ad4efdf , :pa149b780d21311e1800000215ad4efdf , :p88410680d21311e1800000215ad4efdf , :p93943200d21311e1800000215ad4efdf , :p75c6cd00d21311e1800000215ad4efdf , :p824b2580d21311e1800000215ad4efdf , :p8d9e5100d21311e1800000215ad4efdf .
+
+:p8d9e5100d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flow rate of fluid through the condenser." ;
+        rdfs:label                "CondenserFlowrate" ;
+        IFC4-PSD:definition       "Flow rate of fluid through the condenser." ;
+        IFC4-PSD:definitionAlias  "凝縮器を通る流体の流量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8d9e5100d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CondenserFlowrate" ;
+        IFC4-PSD:nameAlias        "凝縮器流量"@ja-JP , "Condenser Flowrate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:CondenserFlowrate  a       rdf:Property ;
+        rdfs:seeAlso        :p8d9e5100d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CondenserFlowrate .
+
+:p5a5bc200d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sensible cooling capacity." ;
+        rdfs:label                "SensibleCoolingCapacity" ;
+        IFC4-PSD:definition       "Sensible cooling capacity." ;
+        IFC4-PSD:definitionAlias  ""@en , "顕熱冷却能力"@ja-JP ;
+        IFC4-PSD:ifdguid          "5a5bc200d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleCoolingCapacity" ;
+        IFC4-PSD:nameAlias        "Sensible Cooling Capacity"@en , "顕熱冷却能力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:SensibleCoolingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5a5bc200d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleCoolingCapacity .
+
+:pa149b780d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flow rate of outside air entering the unit." ;
+        rdfs:label                "OutsideAirFlowrate" ;
+        IFC4-PSD:definition       "Flow rate of outside air entering the unit." ;
+        IFC4-PSD:definitionAlias  ""@en , "ユニットに入る外気流量"@ja-JP ;
+        IFC4-PSD:ifdguid          "a149b780d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutsideAirFlowrate" ;
+        IFC4-PSD:nameAlias        "外気流量"@ja-JP , "Outside Air Flowrate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:LatentCoolingCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p75c6cd00d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LatentCoolingCapacity .
+
+:CoolingEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p7bbcae00d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingEfficiency .
+
+:p75c6cd00d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Latent cooling capacity." ;
+        rdfs:label                "LatentCoolingCapacity" ;
+        IFC4-PSD:definition       "Latent cooling capacity." ;
+        IFC4-PSD:definitionAlias  "潜熱冷却能力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "75c6cd00d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LatentCoolingCapacity" ;
+        IFC4-PSD:nameAlias        "潜熱冷却能力"@ja-JP , "Latent Cooling Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p9b53d680d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Termperature of fluid leaving condenser." ;
+        rdfs:label                "CondenserLeavingTemperature" ;
+        IFC4-PSD:definition       "Termperature of fluid leaving condenser." ;
+        IFC4-PSD:definitionAlias  "凝縮器出口流体温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9b53d680d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CondenserLeavingTemperature" ;
+        IFC4-PSD:nameAlias        "Condenser Leaving Temperature"@en , "凝縮器出口温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p824b2580d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heating capacity." ;
+        rdfs:label                "HeatingCapacity" ;
+        IFC4-PSD:definition       "Heating capacity." ;
+        IFC4-PSD:definitionAlias  "加熱容量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "824b2580d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingCapacity" ;
+        IFC4-PSD:nameAlias        "Heating Capacity"@en , "加熱容量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p93943200d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature of fluid entering condenser." ;
+        rdfs:label                "CondenserEnteringTemperature" ;
+        IFC4-PSD:definition       "Temperature of fluid entering condenser." ;
+        IFC4-PSD:definitionAlias  "凝縮器入口流体温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "93943200d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CondenserEnteringTemperature" ;
+        IFC4-PSD:nameAlias        "凝縮器入口温度"@ja-JP , "Condenser Entering Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryEquipmentTypeAirConditioningUnit>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:OutsideAirFlowrate  a      rdf:Property ;
+        rdfs:seeAlso        :pa149b780d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutsideAirFlowrate .

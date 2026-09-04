@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceOccupancyRequirements#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe0bfd600d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Design occupancy loading for this type of usage assigned to this space." ;
+        rdfs:label                "AreaPerOccupant" ;
+        IFC4-PSD:definition       "Design occupancy loading for this type of usage assigned to this space." ;
+        IFC4-PSD:definitionAlias  "Anteil der Raumfläche pro Benutzer für Nutzung des Raums."@de-DE , "Taux de remplissage de l'espace pour l'usage type"@fr-FR , ""@en , "この空間に割り当てられた用途に対する想定利用負荷。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e0bfd600d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AreaPerOccupant" ;
+        IFC4-PSD:nameAlias        "Fläche pro Nutzer"@de-DE , "利用者毎面積"@ja-JP , "SurfaceParOccupant"@fr-FR , "Area Per Occupant"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:OccupancyNumber  a         rdf:Property ;
+        rdfs:seeAlso        :pcf76c980d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OccupancyNumber .
+
+:Pset_SpaceOccupancyRequirements
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties concerning work activities occurring or expected to occur within one or a set of similar spatial structure elements." ;
+        rdfs:label                    "Pset_SpaceOccupancyRequirements" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpace , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcSpatialZone> , <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#%20IfcZone> ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace, IfcSpatialZone, IfcZone" ;
+        IFC4-PSD:definition           "Properties concerning work activities occurring or expected to occur within one or a set of similar spatial structure elements." ;
+        IFC4-PSD:definitionAlias      "Property Set Definition in German"@de-DE , "一つの、あるいは複数の類似した空間構成要素で起きる、あるいは起こるであろう業務活動に関する属性。"@ja-JP , "Définition de l'IAI : propriétés relatives à l'usage attendu ou effectif d'un élément de structure spatial ou d'un ensemble d'éléments de struture spatiale similaires."@fr-FR , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceOccupancyRequirements" ;
+        IFC4-PSD:propertyDef          :pc84fbb80d20a11e1800000215ad4efdf , :pe0bfd600d20a11e1800000215ad4efdf , :pdac9f500d20a11e1800000215ad4efdf , :peae1d480d20a11e1800000215ad4efdf , :pd4d41400d20a11e1800000215ad4efdf , :pe61d2080d20a11e1800000215ad4efdf , :pcf76c980d20a11e1800000215ad4efdf .
+
+:OccupancyNumberPeak  a     rdf:Property ;
+        rdfs:seeAlso        :pd4d41400d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OccupancyNumberPeak .
+
+:OccupancyTimePerDay  a     rdf:Property ;
+        rdfs:seeAlso        :pdac9f500d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OccupancyTimePerDay .
+
+:MinimumHeadroom  a         rdf:Property ;
+        rdfs:seeAlso        :pe61d2080d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumHeadroom .
+
+:pdac9f500d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of time during the day that the activity is required within this space." ;
+        rdfs:label                "OccupancyTimePerDay" ;
+        IFC4-PSD:definition       "The amount of time during the day that the activity is required within this space." ;
+        IFC4-PSD:definitionAlias  "Durée journalière de l'activité dans cet espace"@fr-FR , ""@en , "Durchschnittliche Belegungszeit des Raums pro Tag."@de-DE , "この空間での活動をするために必要な日中の時間。"@ja-JP ;
+        IFC4-PSD:ifdguid          "dac9f500d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OccupancyTimePerDay" ;
+        IFC4-PSD:nameAlias        "Occupancy Time Per Day"@en , "日毎利用時間"@ja-JP , "DureeOccupationJour"@fr-FR , "Belegungszeit pro Tag"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:pe61d2080d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Headroom required for the activity assigned to this space." ;
+        rdfs:label                "MinimumHeadroom" ;
+        IFC4-PSD:definition       "Headroom required for the activity assigned to this space." ;
+        IFC4-PSD:definitionAlias  "この空間に割り当てられた用途に必要な頭上あき高。"@ja-JP , ""@en , "Hauteur de passage requise pour l'usage assigné à l'espace"@fr-FR , "Minumal geforderte lichte Höhe für diesen Raum."@de-DE ;
+        IFC4-PSD:ifdguid          "e61d2080d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumHeadroom" ;
+        IFC4-PSD:nameAlias        "Minimum Headroom"@en , "HauteurPassageMinimale"@fr-FR , "最小頭上あき高"@ja-JP , "Lichte Höhe"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:AreaPerOccupant  a         rdf:Property ;
+        rdfs:seeAlso        :pe0bfd600d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AreaPerOccupant .
+
+:pcf76c980d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of people required for the activity assigned to this space." ;
+        rdfs:label                "OccupancyNumber" ;
+        IFC4-PSD:definition       "Number of people required for the activity assigned to this space." ;
+        IFC4-PSD:definitionAlias  ""@en , "Nombre d'occupants concernés par l'activité dans cet espace."@fr-FR , "Durchschnittliche Anzahl der Personen für deren  Aktivitäten der Raum vorgesehen ist."@de-DE , "この空間に割り当てられた活動を遂行するために必要な人数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cf76c980d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OccupancyNumber" ;
+        IFC4-PSD:nameAlias        "Occupancy Number"@en , "Belegung"@de-DE , "利用人数"@ja-JP , "NombreOccupants"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:IsOutlookDesirable  a      rdf:Property ;
+        rdfs:seeAlso        :peae1d480d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsOutlookDesirable .
+
+:OccupancyType  a           rdf:Property ;
+        rdfs:seeAlso        :pc84fbb80d20a11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OccupancyType .
+
+:peae1d480d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication of whether the outlook is desirable (set TRUE) or not (set FALSE)" ;
+        rdfs:label                "IsOutlookDesirable" ;
+        IFC4-PSD:definition       "An indication of whether the outlook is desirable (set TRUE) or not (set FALSE)" ;
+        IFC4-PSD:definitionAlias  "外の眺望が望ましいかどうか。"@ja-JP , "Angabe, ob dieser Raum einen natürlichen Ausblick nach draussen gewähren soll (WAHR) oder dies nicht gefordert ist (FALSCH)."@de-DE , "Indique si la vue sur l'extérieur est souhaitable (VRAI) ou non (FAUX)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "eae1d480d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsOutlookDesirable" ;
+        IFC4-PSD:nameAlias        "Ausblick erwünscht"@de-DE , "VueExterieurSouhaitable"@fr-FR , "眺望の善し悪し"@ja-JP , "Is Outlook Desirable"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pd4d41400d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximal number of people required for the activity assigned to this space in peak time." ;
+        rdfs:label                "OccupancyNumberPeak" ;
+        IFC4-PSD:definition       "Maximal number of people required for the activity assigned to this space in peak time." ;
+        IFC4-PSD:definitionAlias  "この空間に割り当てられた活動を遂行するために必要な最大人数。"@ja-JP , ""@en , "Maximale Anzahl der Personen für deren  Aktivitäten der Raum vorgesehen ist."@de-DE , "Nombre maximum d'occupants simultanés concernés par l'activité dans cet espace à l'heure de pointe."@fr-FR ;
+        IFC4-PSD:ifdguid          "d4d41400d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OccupancyNumberPeak" ;
+        IFC4-PSD:nameAlias        "Maximale Belegung"@de-DE , "利用人数ピーク"@ja-JP , "Occupancy Number Peak"@en , "NombreOccupantsMax"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:pc84fbb80d20a11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Occupancy type for this object. It is defined according to the presiding national building code." ;
+        rdfs:label                "OccupancyType" ;
+        IFC4-PSD:definition       "Occupancy type for this object. It is defined according to the presiding national building code." ;
+        IFC4-PSD:definitionAlias  "Usage type de cet espace. Est défini selon le Code national en vigueur."@fr-FR , "このオブジェクトの用途。統括する国の建築法規により定義される。"@ja-JP , ""@en , "Nutzungsart des Raums gemäß der gültigen Raumnutzungstabelle des Raumprogramms."@de-DE ;
+        IFC4-PSD:ifdguid          "c84fbb80d20a11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OccupancyType" ;
+        IFC4-PSD:nameAlias        "Nutzungsart"@de-DE , "Occupancy Type"@en , "TypeOccupation"@fr-FR , "用途"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceOccupancyRequirements>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

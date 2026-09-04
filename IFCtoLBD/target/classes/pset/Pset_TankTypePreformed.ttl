@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypePreformed#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FirstCurvatureRadius
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p89246900d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FirstCurvatureRadius .
+
+:EndShapeType  a            rdf:Property ;
+        rdfs:seeAlso        :p7873f300d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EndShapeType .
+
+:PatternType  a             rdf:Property ;
+        rdfs:seeAlso        :p6b570400d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PatternType .
+
+:Pset_TankTypePreformed
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fixed vessel manufactured as a single unit with one or more compartments for storing a liquid.\n\nPset renamed from Pset_TankTypePreformedTank to Pset_TankTypePreformed in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_TankTypePreformed" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/PREFORMED> ;
+        IFC4-PSD:applicableTypeValue  "IfcTank/PREFORMED" ;
+        IFC4-PSD:definition           "Fixed vessel manufactured as a single unit with one or more compartments for storing a liquid.\n\nPset renamed from Pset_TankTypePreformedTank to Pset_TankTypePreformed in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      "液体を貯蔵するために一つ以上の区画を持ち単体として製造された固定された容器　　　　　　　　　　　　　　　　　　　　　　　　　　　PsetはIFC2x2 Pset AddendumでPset_TankTypePreformedTankからPsetまで_をTankTypePreformedに改名しました。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankTypePreformed" ;
+        IFC4-PSD:propertyDef          :p7873f300d21011e1800000215ad4efdf , :p92add100d21011e1800000215ad4efdf , :p6b570400d21011e1800000215ad4efdf , :p89246900d21011e1800000215ad4efdf .
+
+:p6b570400d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of pattern (or shape of a tank that may be specified." ;
+        rdfs:label                "PatternType" ;
+        IFC4-PSD:definition       "Defines the types of pattern (or shape of a tank that may be specified." ;
+        IFC4-PSD:definitionAlias  "定義　パターンのタイプ（又はタンクの形状）が明示される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6b570400d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PatternType" ;
+        IFC4-PSD:nameAlias        "パターンタイプ"@ja-JP , "Pattern Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HORIZONTALCYLINDER" , "VERTICALCYLINDER" , "RECTANGULAR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p89246900d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "FirstCurvatureRadius should be defined as the base or left side radius of curvature value." ;
+        rdfs:label                "FirstCurvatureRadius" ;
+        IFC4-PSD:definition       "FirstCurvatureRadius should be defined as the base or left side radius of curvature value." ;
+        IFC4-PSD:definitionAlias  ""@en , "最初の曲率半径は、基本又は曲率の値の左側の半径として定義する必要があります。"@ja-JP ;
+        IFC4-PSD:ifdguid          "89246900d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FirstCurvatureRadius" ;
+        IFC4-PSD:nameAlias        "First Curvature Radius"@en , "最初の曲率半径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p7873f300d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of end shapes that can be used for preformed tanks. The convention for reading these enumerated values is that for a vertical cylinder, the first value is the base and the second is the top; for a horizontal cylinder, the order of reading should be left to right. For a speherical tank, the value UNSET should be used." ;
+        rdfs:label                "EndShapeType" ;
+        IFC4-PSD:definition       "Defines the types of end shapes that can be used for preformed tanks. The convention for reading these enumerated values is that for a vertical cylinder, the first value is the base and the second is the top; for a horizontal cylinder, the order of reading should be left to right. For a speherical tank, the value UNSET should be used." ;
+        IFC4-PSD:definitionAlias  ""@en , "定義　予めタンクに使用することができる端形状の種類を示す。これらの列挙された値を読み取るための規則は、垂直円筒に関しては、最初の値はベースです、そして、2番目は先端です。水平円筒に関しては、値は左から右に読む必要があります。球形タンクの場合、値はUNSETを使用する必要があります。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7873f300d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EndShapeType" ;
+        IFC4-PSD:nameAlias        "末端形状タイプ"@ja-JP , "End Shape Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONCAVECONVEX" , "FLATCONVEX" , "CONVEXCONVEX" , "CONCAVEFLAT" , "FLATFLAT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p92add100d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "SecondCurvatureRadius should be defined as the top or right side radius of curvature value." ;
+        rdfs:label                "SecondCurvatureRadius" ;
+        IFC4-PSD:definition       "SecondCurvatureRadius should be defined as the top or right side radius of curvature value." ;
+        IFC4-PSD:definitionAlias  ""@en , "2番目の曲率半径は、曲率の値の先頭又は右側の半径として定義する必要があります。"@ja-JP ;
+        IFC4-PSD:ifdguid          "92add100d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondCurvatureRadius" ;
+        IFC4-PSD:nameAlias        "2番目の曲率半径"@ja-JP , "Second Curvature Radius"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:SecondCurvatureRadius
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p92add100d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondCurvatureRadius .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypePreformed>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

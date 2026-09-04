@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamPHistoryActive#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p6c674180d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air flow rate." ;
+        rdfs:label                "AirFlowRate" ;
+        IFC4-PSD:definition       "Air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6c674180d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowRate" ;
+        IFC4-PSD:nameAlias        "Air Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_CooledBeamPHistoryActive
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Performance history attributes for an active cooled beam." ;
+        rdfs:label                    "Pset_CooledBeamPHistoryActive" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCooledBeam/ACTIVE> ;
+        IFC4-PSD:applicableTypeValue  "IfcCooledBeam/ACTIVE" ;
+        IFC4-PSD:definition           "Performance history attributes for an active cooled beam." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CooledBeamPHistoryActive" ;
+        IFC4-PSD:propertyDef          :p72f5b900d1ce11e1800000215ad4efdf , :p6ffac880d1ce11e1800000215ad4efdf , :p6c674180d1ce11e1800000215ad4efdf .
+
+:Throw  a                   rdf:Property ;
+        rdfs:seeAlso        :p6ffac880d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Throw .
+
+:AirPressureDropCurves
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p72f5b900d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurves .
+
+:AirFlowRate  a             rdf:Property ;
+        rdfs:seeAlso        :p6c674180d1ce11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowRate .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CooledBeamPHistoryActive>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p6ffac880d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Distance cooled beam throws the air." ;
+        rdfs:label                "Throw" ;
+        IFC4-PSD:definition       "Distance cooled beam throws the air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6ffac880d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Throw" ;
+        IFC4-PSD:nameAlias        "Throw"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p72f5b900d1ce11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop as function of air flow rate." ;
+        rdfs:label                "AirPressureDropCurves" ;
+        IFC4-PSD:definition       "Air pressure drop as function of air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "72f5b900d1ce11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurves" ;
+        IFC4-PSD:nameAlias        "Air Pressure Drop Curves"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 
 import org.apache.jena.atlas.json.JsonArray;
@@ -44,7 +45,6 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 import org.bimserver.plugins.renderengine.RenderEngineException;
-import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.ConversionSession;
 import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
 import org.linkedbuildingdata.ifc2lbd.GeometryResult;
@@ -111,9 +111,10 @@ public abstract class IFCtoLBDConverterCore {
 	private static final int MAX_COMPLEX_PROPERTY_DEPTH = 100;
 	private static final int MAX_COMPLEX_QUANTITY_DEPTH = 100;
 
-	public final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+	public final EventBus eventBus;
 
 	private Set<String> selected_types; // The element types that are included in the output
+	private Set<String> selected_psets = Set.of();
 
 	// public Model ifcowl_model;
 	protected Model ontology_model = null;
@@ -165,6 +166,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected final ConversionSession conversionSession;
 	private UriPolicy uriPolicy;
 	private final boolean ownsConversionSession;
+	private boolean eventBusRegistered;
 
 	public IFCtoLBDConverterCore() {
 		this(new ConversionSession(), true);
@@ -176,9 +178,11 @@ public abstract class IFCtoLBDConverterCore {
 
 	private IFCtoLBDConverterCore(ConversionSession conversionSession, boolean ownsConversionSession) {
 		this.conversionSession = Objects.requireNonNull(conversionSession, "conversionSession");
+		this.eventBus = conversionSession.getEventBus();
 		this.uriPolicy = conversionSession.getUriPolicy();
 		this.ownsConversionSession = ownsConversionSession;
 		this.eventBus.register(this);
+		this.eventBusRegistered = true;
 	}
 
 	protected final void setUriPolicy(UriPolicy uriPolicy) {
@@ -190,6 +194,8 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private Resource createLbdResource(Resource source, Model output, String productType) {
+		Resource existing = lbdResourceByIfcResource.get(source);
+		if (existing != null) return existing;
 		Resource created;
 		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
 			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL,
@@ -202,6 +208,8 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private Resource createLbdResource(Resource source, Model output, String productType, Resource parent) {
+		Resource existing = lbdResourceByIfcResource.get(source);
+		if (existing != null) return existing;
 		Resource created;
 		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
 			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL, parent,
@@ -220,6 +228,13 @@ public abstract class IFCtoLBDConverterCore {
 	protected final void closeOwnedConversionSession() {
 		if (this.ownsConversionSession) {
 			this.conversionSession.close();
+		}
+	}
+
+	protected final void unregisterEventHandlers() {
+		if (eventBusRegistered) {
+			eventBus.unregister(this);
+			eventBusRegistered = false;
 		}
 	}
 
@@ -297,7 +312,7 @@ public abstract class IFCtoLBDConverterCore {
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Geo location is calculated."));
 				try {
 					this.ontURI.ifPresent(s -> IfcOWL_GeolocationUtil.addGeolocation2BOT(ifcowl_model, this.ifcOWL,
-							this.lbd_general_output_model, this.uriBase.get(), s, this.uriPolicy));
+							this.lbd_general_output_model, this.uriBase.get(), s, this.uriPolicy, this.eventBus));
 				} catch (Exception e) {
 					e.printStackTrace();
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Info : No geolocation"));
@@ -450,14 +465,11 @@ public abstract class IFCtoLBDConverterCore {
 				addGeometry(spo, guid_space);
 				spo.addProperty(RDF.type, BOT.space);
 
-				final ChangeableOptonal<Boolean> isExternal = new ChangeableOptonal<>();
 				IfcOWLUtils.listPropertysets(space.asResource(), this.ifcOWL).stream().map(RDFNode::asResource)
 						.forEach(propertyset -> {
 							PropertySet p_set = this.propertysets.get(propertyset.getURI());
 							if (p_set != null) {
 								p_set.connect(spo, uncompressed_guid_space);
-								if (!isExternal.isPresent())
-									isExternal.overwriteIfPresent(p_set.isExternal());
 							}
 						});
 
@@ -471,7 +483,8 @@ public abstract class IFCtoLBDConverterCore {
 				IfcOWLUtils.listAdjacent_SpaceElements(space.asResource(), this.ifcOWL).stream()
 						.map(RDFNode::asResource).forEach(element -> {
 							Resource lbd_element = connectElement(spo, BOT.adjacentElement, element);
-							if (isExternal.isPresent() && isExternal.get()) {
+							Optional<Boolean> elementExternal = getIsExternal(element);
+							if (elementExternal.isPresent() && elementExternal.get()) {
 								if (lbd_element != null)
 									lbd_storey.addProperty(BOT.adjacentElement, lbd_element);
 
@@ -484,6 +497,17 @@ public abstract class IFCtoLBDConverterCore {
 
 			});
 		});
+	}
+
+	private Optional<Boolean> getIsExternal(Resource element) {
+		for (RDFNode node : IfcOWLUtils.listPropertysets(element, this.ifcOWL)) {
+			PropertySet propertySet = this.propertysets.get(node.asResource().getURI());
+			if (propertySet != null) {
+				Optional<Boolean> value = propertySet.isExternal();
+				if (value.isPresent()) return value;
+			}
+		}
+		return Optional.empty();
 	}
 
 	private static boolean isIfcElement(Resource s) {
@@ -531,8 +555,6 @@ public abstract class IFCtoLBDConverterCore {
 				Resource sp_geometry = null;
 				if (bb != null || (wireframeWKT != null && !wireframeWKT.isBlank())) {
 					sp_geometry = getOrCreateGeometryResource(lbd_resource);
-				} else {
-					System.err.println("The elemenet has no geometry: " + lbd_resource.getURI());
 				}
 				if (sp_geometry != null && wireframeWKT != null && !wireframeWKT.isBlank()) {
 					Literal wktLiteral = this.lbd_general_output_model
@@ -697,11 +719,20 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private String toLocalIfcCrsWkt(BoundingBox boundingBox) {
-		return "<" + this.uriBase.get() + "ifc-local> " + boundingBox.toLiteral();
+		String value = !coordinateReferenceSystem.hasMapConversion() ? boundingBox.toLiteral()
+				: coordinateReferenceSystem.transform(boundingBox);
+		return "<" + localCrsIdentifier() + "> " + value;
 	}
 
 	private String toLocalIfcCrsWkt(String wkt) {
-		return "<" + this.uriBase.get() + "ifc-local> " + wkt;
+		String value = !coordinateReferenceSystem.hasMapConversion() ? wkt
+				: coordinateReferenceSystem.transformWkt(wkt);
+		return "<" + localCrsIdentifier() + "> " + value;
+	}
+
+	private String localCrsIdentifier() {
+		return !coordinateReferenceSystem.hasMapConversion()
+				? uriBase.get() + "ifc-local" : coordinateReferenceSystem.identifier();
 	}
 
 	private String toBoundingBoxObjBase64(BoundingBox boundingBox) {
@@ -937,6 +968,7 @@ public abstract class IFCtoLBDConverterCore {
 										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
 										hasUnits);
 							this.propertysets.put(propertyset.getURI(), ps);
+							ps.setActive(selected_psets.isEmpty() || selected_psets.contains(ps.getPropertyset_name()));
 						}
 
 						PropertySet finalPs = ps;
@@ -969,6 +1001,8 @@ public abstract class IFCtoLBDConverterCore {
 										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
 										hasUnits);
 							this.propertysets.put(quantityset.getURI(), quantity_set);
+							quantity_set.setActive(selected_psets.isEmpty()
+									|| selected_psets.contains(quantity_set.getPropertyset_name()));
 
 							final PropertySet final_quantity_set = quantity_set;
 							RDFStep[] path = { new RDFStep(this.ifcOWL.getQuantities_IfcElementQuantity()) };
@@ -1256,7 +1290,7 @@ public abstract class IFCtoLBDConverterCore {
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
 			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
-			if (predefined_type.isPresent()) {
+			if (predefined_type.filter(this::isDefinedPredefinedType).isPresent()) {
 				Resource product = this.lbd_product_output_model
 						.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
@@ -1311,7 +1345,7 @@ public abstract class IFCtoLBDConverterCore {
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
 			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
-			if (predefined_type.isPresent()) {
+			if (predefined_type.filter(this::isDefinedPredefinedType).isPresent()) {
 				Resource product = this.lbd_product_output_model
 						.createResource(bot_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
@@ -1342,7 +1376,7 @@ public abstract class IFCtoLBDConverterCore {
 			String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 			addGeometry(lbd_element, guid);
 			Resource lbd_property_object = this.lbd_product_output_model.createResource(lbd_element.getURI());
-			if (predefined_type.isPresent()) {
+			if (predefined_type.filter(this::isDefinedPredefinedType).isPresent()) {
 				Resource product = this.lbd_product_output_model
 						.createResource(ifcowl_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
@@ -1403,7 +1437,7 @@ public abstract class IFCtoLBDConverterCore {
 			String guid = IfcOWLUtils.getGUID(ifcOWL_element, this.ifcOWL);
 			addGeometry(lbd_element, guid);
 
-			if (predefined_type.isPresent()) {
+			if (predefined_type.filter(this::isDefinedPredefinedType).isPresent()) {
 				Resource product = this.lbd_product_output_model
 						.createResource(lbd_product_type.get().getURI() + "-" + predefined_type.get());
 				lbd_property_object.addProperty(RDF.type, product);
@@ -1504,6 +1538,10 @@ public abstract class IFCtoLBDConverterCore {
 			return Optional.empty();
 	}
 
+	private boolean isDefinedPredefinedType(String value) {
+		return value != null && !value.equalsIgnoreCase("NOTDEFINED");
+	}
+
 	/**
 	 * Fills in the ifcowl_product_map map using the see also ontology statemets at
 	 * the Apache Jena RDF ontology model on the memory.
@@ -1597,7 +1635,7 @@ public abstract class IFCtoLBDConverterCore {
 			boolean hasPerformanceBoost) {
 		try {
 			this.hasPerformanceBoost = hasPerformanceBoost;
-			IFCtoRDF rj = new IFCtoRDF();
+			IFCtoRDF rj = new IFCtoRDF(this.eventBus);
 				File outputFile = null;
 			boolean loadedExistingIfcOWL = false;
 
@@ -1700,8 +1738,19 @@ public abstract class IFCtoLBDConverterCore {
 	 * @param ifc_file the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
 	 *                 the IFC file
 	 */
+	private boolean loadProductOntologies = true;
+	private boolean loadPropertySetOntologies = true;
+
+	protected void setOntologyLoading(boolean productOntologies, boolean propertySetOntologies) {
+		this.loadProductOntologies = productOntologies;
+		this.loadPropertySetOntologies = propertySetOntologies;
+	}
+
 	protected void readInOntologies(String ifc_file) {
 		try {
+			this.ontology_model.removeAll();
+			this.ifcowl_product_map.clear();
+			this.propertysets.clear();
 			IfcOWLUtils.readIfcOWLOntology(ifc_file, this.ontology_model);
 			Dataset dataset = getStagingDataset();
 
@@ -1713,19 +1762,21 @@ public abstract class IFCtoLBDConverterCore {
 			} finally {
 				dataset.end();
 			}
-			RDFUtils.readInOntologyTTL(this.ontology_model, "prod.ttl", this.eventBus);
-			RDFUtils.readInOntologyTTL(this.ontology_model, "prod_furnishing.ttl", this.eventBus);
-			RDFUtils.readInOntologyTTL(this.ontology_model, "beo_ontology.ttl", this.eventBus);
+			if (loadProductOntologies) {
+				RDFUtils.readInOntologyTTL(this.ontology_model, "prod.ttl", this.eventBus);
+				RDFUtils.readInOntologyTTL(this.ontology_model, "prod_furnishing.ttl", this.eventBus);
+				RDFUtils.readInOntologyTTL(this.ontology_model, "beo_ontology.ttl", this.eventBus);
+				RDFUtils.readInOntologyTTL(this.ontology_model, "mep_ontology.ttl", this.eventBus);
+			}
 
-			RDFUtils.readInOntologyTTL(this.ontology_model, "mep_ontology.ttl", this.eventBus);
-
-			RDFUtils.readInOntologyTTL(this.ontology_model, "psetdef.ttl", this.eventBus);
-			List<String> files = FileUtils.getListofFiles("pset", ".ttl");
-			for (String file : files) {
-				file = file.substring(file.indexOf("pset"));
-				file = file.replaceAll("\\\\", "/");
-				RDFUtils.readInOntologyTTL(this.ontology_model, file, this.eventBus);
-				// System.out.println("read ontology file : " + file);
+			if (loadPropertySetOntologies) {
+				RDFUtils.readInOntologyTTL(this.ontology_model, "psetdef.ttl", this.eventBus);
+				List<String> files = FileUtils.getListofFiles("pset", ".ttl");
+				for (String file : files) {
+					file = file.substring(file.indexOf("pset"));
+					file = file.replaceAll("\\\\", "/");
+					RDFUtils.readInOntologyTTL(this.ontology_model, file, this.eventBus);
+				}
 			}
 
 		} catch (Exception e) {
@@ -1797,21 +1848,37 @@ public abstract class IFCtoLBDConverterCore {
 		return types;
 	}
 
+	/** Returns the number of IFC elements for each exported LBD type. */
+	public Map<String, Integer> getElementTypeCounts() {
+		Map<String, Integer> counts = new TreeMap<>();
+		Dataset dataset = getStagingDataset();
+		dataset.begin(ReadWrite.READ);
+		try {
+			Model model = dataset.getDefaultModel();
+			model.listStatements().forEachRemaining(st -> {
+				if (st.getPredicate().getLocalName().toLowerCase().contains("globalid_ifcroot") && isIfcElement(st.getSubject())) {
+					RDFUtils.getType(st.getSubject()).map(Resource::getLocalName).flatMap(this::getLBDProductType)
+							.map(Resource::getLocalName)
+							.ifPresent(type -> counts.merge(type, 1, Integer::sum));
+				}
+			});
+		} finally { dataset.end(); }
+		return counts;
+	}
+
 	/**
 	 * Sets the element types that are included in the output
 	 * 
 	 * @param selected_types list of types
 	 */
 	public void setSelected_types(Set<String> selected_types) {
-		System.out.println(selected_types);
-		this.selected_types = selected_types;
+		this.selected_types = Set.copyOf(selected_types);
 	}
 
 	public void setSelected_types(String selected_types_json) {
 		try {
-			Set<String> selected_psets = new ObjectMapper().readValue(selected_types_json, HashSet.class);
-
-			this.selected_types = selected_types;
+			Set<String> selectedTypes = new ObjectMapper().readValue(selected_types_json, HashSet.class);
+			this.selected_types = Set.copyOf(selectedTypes);
 		} catch (JsonProcessingException e) {
 			e.printStackTrace();
 		}
@@ -1823,8 +1890,9 @@ public abstract class IFCtoLBDConverterCore {
 	 * @param selected_types list of types
 	 */
 	public void setSelected_psets(Set<String> selected_psets) {
+		this.selected_psets = Set.copyOf(selected_psets);
 		for (PropertySet pset : this.propertysets.values()) {
-			if (selected_psets.contains(pset.getPropertyset_name())) {
+			if (selected_psets.isEmpty() || selected_psets.contains(pset.getPropertyset_name())) {
 				pset.setActive(true);
 			} else {
 				pset.setActive(false);
@@ -1869,13 +1937,7 @@ public abstract class IFCtoLBDConverterCore {
 		if (this.ifc_geometry != null)
 			this.ifc_geometry.close();
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Stopped"));
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// Just do it
-		}
 		closeGeometryEngine();
-		System.exit(0);
 
 	}
 
@@ -2007,6 +2069,20 @@ public abstract class IFCtoLBDConverterCore {
 		this.property_replace_map = property_replace_map;
 	}
 
+	/** Applies declarative property mappings to the predicate replacement layer. */
+	public void setPropertyMappings(java.util.List<org.linkedbuildingdata.ifc2lbd.PropertyMappingRule> mappings) {
+		Map<String, String> replacements = new HashMap<>(this.property_replace_map);
+		for (var mapping : mappings) {
+			if (mapping.enabled()) {
+				String name = mapping.propertyName();
+				replacements.put(name, mapping.predicate());
+				replacements.put(PROPS.ns + org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations.toCamelCase(name), mapping.predicate());
+				replacements.put(PROPS.ns + org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations.toCamelCase(name) + "_property_simple", mapping.predicate());
+			}
+		}
+		setProperty_replace_map(replacements);
+	}
+
 	public void setProperty_replace_map(String property_replace_map_json) {
 		try {
 			Map<String, String> mapping = new ObjectMapper().readValue(property_replace_map_json, HashMap.class);
@@ -2023,7 +2099,7 @@ public abstract class IFCtoLBDConverterCore {
 
 	// Should be done only when the app is closing
 	public void closeJava() {
-		System.exit(0);
+		closeGeometryEngine();
 	}
 
 	public void setHasNonLBDElement(boolean hasNonLBDElement) {

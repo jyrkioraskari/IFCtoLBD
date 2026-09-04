@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Sensitivity  a             rdf:Property ;
+        rdfs:seeAlso        :pe6fb8580d1fd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Sensitivity .
+
+:Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An earth failure device acts to protect people and equipment from the effects of current leakage." ;
+        rdfs:label                    "Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/EARTHLEAKAGECIRCUITBREAKER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/EARTHLEAKAGECIRCUITBREAKER" ;
+        IFC4-PSD:definition           "An earth failure device acts to protect people and equipment from the effects of current leakage." ;
+        IFC4-PSD:definitionAlias      ""@en , "漏電回路遮断機は、人々と器材を漏電電流の影響から保護する動作を行います。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker" ;
+        IFC4-PSD:propertyDef          :pd0552e80d1fd11e1800000215ad4efdf , :pe6fb8580d1fd11e1800000215ad4efdf .
+
+:pd0552e80d1fd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of circuit breaker from which that required may be selected where:\n\nStandard: Device that operates without a time delay.\nTimeDelayed: Device that operates after a time delay." ;
+        rdfs:label                "EarthFailureDeviceType" ;
+        IFC4-PSD:definition       "A list of the available types of circuit breaker from which that required may be selected where:\n\nStandard: Device that operates without a time delay.\nTimeDelayed: Device that operates after a time delay." ;
+        IFC4-PSD:definitionAlias  "다음 중 선택이 필요한 경우 차단기 유형 목록 : 스탠다드 : 지연없이 동작하는 기기 지연 : 일정 시간이 지난 후에 동작하는 기기 \""@ko-KR , ""@en , "以下の中から選択が必要となる場合の遮断機タイプのリスト：\n\nスタンダード：遅延無しで動作する機器\n遅延：一定時間を経た後で動作する機器"@ja-JP ;
+        IFC4-PSD:ifdguid          "d0552e80d1fd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EarthFailureDeviceType" ;
+        IFC4-PSD:nameAlias        "누전 회로 차단기의 유형"@ko-KR , "漏電回路遮断機のタイプ"@ja-JP , "Earth Failure Device Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "STANDARD" , "TIMEDELAYED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeEarthLeakageCircuitBreaker>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe6fb8580d1fd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The rated rms value of the vector sum of the instantaneous currents flowing in the main circuits of the device which causes the device to operate under specified conditions. (IEC 61008-1)." ;
+        rdfs:label                "Sensitivity" ;
+        IFC4-PSD:definition       "The rated rms value of the vector sum of the instantaneous currents flowing in the main circuits of the device which causes the device to operate under specified conditions. (IEC 61008-1)." ;
+        IFC4-PSD:definitionAlias  ""@en , "장치의 기본 회로를 흐르는 순간 전류의 합계 벡터 관련 rms 값이 특정 조건이되면 장치가 작동하게된다 (IEC 61008-1)."@ko-KR , "装置のメイン回路を流れる瞬時電流の合計ベクトルの関連する rms 値、特定の条件になると機器が動作するようになる（IEC 61008-1)。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e6fb8580d1fd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Sensitivity" ;
+        IFC4-PSD:nameAlias        "感度"@ja-JP , "Sensitivity"@en , "감도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:EarthFailureDeviceType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd0552e80d1fd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EarthFailureDeviceType .

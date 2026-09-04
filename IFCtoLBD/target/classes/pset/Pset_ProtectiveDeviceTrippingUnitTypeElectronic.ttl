@@ -1,0 +1,128 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectronic#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:N_Protection_50  a         rdf:Property ;
+        rdfs:seeAlso        :pb0713b00d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:N_Protection_50 .
+
+:Pset_ProtectiveDeviceTrippingUnitTypeElectronic
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Information on tripping units that are electronically tripped." ;
+        rdfs:label                    "Pset_ProtectiveDeviceTrippingUnitTypeElectronic" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDeviceTrippingUnit/ELECTRONIC> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDeviceTrippingUnit/ELECTRONIC" ;
+        IFC4-PSD:definition           "Information on tripping units that are electronically tripped." ;
+        IFC4-PSD:definitionAlias      "電気で遮断するトリップ装置の情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTrippingUnitTypeElectronic" ;
+        IFC4-PSD:propertyDef          :pa94a2d00d1fc11e1800000215ad4efdf , :pb0713b00d1fc11e1800000215ad4efdf , :pa2231f00d1fc11e1800000215ad4efdf , :pb8c97600d1fc11e1800000215ad4efdf , :p92a3d600d1fc11e1800000215ad4efdf , :pbebf5700d1fc11e1800000215ad4efdf .
+
+:p92a3d600d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of electronic tripping unit  from which that required may be selected." ;
+        rdfs:label                "ElectronicTrippingUnitType" ;
+        IFC4-PSD:definition       "A list of the available types of electronic tripping unit  from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "電磁式の装置タイプをリストから選択。"@ja-JP , "전자식 장치 유형을 목록에서 선택합니다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "92a3d600d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ElectronicTrippingUnitType" ;
+        IFC4-PSD:nameAlias        "Electronic Tripping Unit Type"@en , "전자식 장치 유형"@ko-KR , "電磁式の装置タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "EP_BM" , "EP_MP" , "EP_SC" , "EP_STD" , "EP_TIMEDELAYED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:N_Protection  a            rdf:Property ;
+        rdfs:seeAlso        :pa94a2d00d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:N_Protection .
+
+:pa94a2d00d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the electronic tripping unit has separate protection for the N conductor, or not." ;
+        rdfs:label                "N_Protection" ;
+        IFC4-PSD:definition       "An indication whether the electronic tripping unit has separate protection for the N conductor, or not." ;
+        IFC4-PSD:definitionAlias  "電磁式トリップ装置がN個の導体を保護するか否かの設定。"@ja-JP , "전자식 트립 장치가 N 개의 도체를 보호 여부 설정."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "a94a2d00d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "N_Protection" ;
+        IFC4-PSD:nameAlias        "N_Protection"@ko-KR , "N_Protection"@ja-JP , "N_ Protection"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:N_Protection_Select  a     rdf:Property ;
+        rdfs:seeAlso        :pbebf5700d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:N_Protection_Select .
+
+:pb0713b00d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the electronic tripping unit is tripping if the current in the N conductor is more than 50% of that of the phase conductors. The property is only asserted if the property N_Protection is asserted." ;
+        rdfs:label                "N_Protection_50" ;
+        IFC4-PSD:definition       "An indication whether the electronic tripping unit is tripping if the current in the N conductor is more than 50% of that of the phase conductors. The property is only asserted if the property N_Protection is asserted." ;
+        IFC4-PSD:definitionAlias  "전자식 트립 장치가 N 도체의 50 % 이상으로 보호 여부 설정."@ko-KR , ""@en , "電磁式トリップ装置がN導体の50％以上で保護するか否かの設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b0713b00d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "N_Protection_50" ;
+        IFC4-PSD:nameAlias        "N_Protection_50"@ja-JP , "N_Protection_50"@ko-KR , "N_ Protection_50"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pb8c97600d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the electronic tripping unit is tripping if the current in the N conductor is more than 100% of that of the phase conductors. The property is only asserted if the property N_Protection is asserted." ;
+        rdfs:label                "N_Protection_100" ;
+        IFC4-PSD:definition       "An indication whether the electronic tripping unit is tripping if the current in the N conductor is more than 100% of that of the phase conductors. The property is only asserted if the property N_Protection is asserted." ;
+        IFC4-PSD:definitionAlias  ""@en , "전자식 트립 장치가 N 도체의 100 % 이상으로 보호 여부 설정."@ko-KR , "電磁式トリップ装置がN導体の100％以上で保護するか否かの設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b8c97600d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "N_Protection_100" ;
+        IFC4-PSD:nameAlias        "N_Protection_100"@ja-JP , "N_Protection_100"@ko-KR , "N_ Protection_100"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:N_Protection_100  a        rdf:Property ;
+        rdfs:seeAlso        :pb8c97600d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:N_Protection_100 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTrippingUnitTypeElectronic>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa2231f00d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A set of values providing information on available modules (chips) for setting the nominal current of the protective device. If\nthe set is empty, no nominal current modules are available for the tripping unit." ;
+        rdfs:label                "NominalCurrents" ;
+        IFC4-PSD:definition       "A set of values providing information on available modules (chips) for setting the nominal current of the protective device. If\nthe set is empty, no nominal current modules are available for the tripping unit." ;
+        IFC4-PSD:definitionAlias  ""@en , "トリップ装置が対応する定格電流。"@ja-JP , "트립 장치가 지원하는 정격 전류."@ko-KR ;
+        IFC4-PSD:ifdguid          "a2231f00d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCurrents" ;
+        IFC4-PSD:nameAlias        "定格電流"@ja-JP , "정격전류"@ko-KR , "Nominal Currents"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:pbebf5700d1fc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication whether the use of the N_Protection can be selected by the user or not. If both the properties N_Protection_50 and N_Protection_100 are asserted, the value of N_Protection_Select property is set to TRUE. The property is only asserted if the property N_Protection is asserted." ;
+        rdfs:label                "N_Protection_Select" ;
+        IFC4-PSD:definition       "An indication whether the use of the N_Protection can be selected by the user or not. If both the properties N_Protection_50 and N_Protection_100 are asserted, the value of N_Protection_Select property is set to TRUE. The property is only asserted if the property N_Protection is asserted." ;
+        IFC4-PSD:definitionAlias  ""@en , "どのN_Protectionを使うかユーザが設定できるかどうかを指定する。\nN_Protection_50とN_Protection_100の両方が有効な場合は、TRUEにします。"@ja-JP , "어떤 N_Protection를 사용하거나 사용자가 설정할 수 있는지 여부를 지정합니다. N_Protection_50하면 N_Protection_100를 모두 사용할 경우에는 TRUE합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "bebf5700d1fc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "N_Protection_Select" ;
+        IFC4-PSD:nameAlias        "N_Protectionの選択"@ja-JP , "N_ Protection_ Select"@en , "N_Protection 선택"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:ElectronicTrippingUnitType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p92a3d600d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ElectronicTrippingUnitType .
+
+:NominalCurrents  a         rdf:Property ;
+        rdfs:seeAlso        :pa2231f00d1fc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCurrents .

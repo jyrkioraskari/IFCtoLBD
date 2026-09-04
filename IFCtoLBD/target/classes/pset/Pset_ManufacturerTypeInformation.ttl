@@ -1,0 +1,145 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ManufacturerTypeInformation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9f203280d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining where the assembly is intended to take place, either in a factory or on the building site." ;
+        rdfs:label                "AssemblyPlace" ;
+        IFC4-PSD:definition       "Enumeration defining where the assembly is intended to take place, either in a factory or on the building site." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9f203280d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssemblyPlace" ;
+        IFC4-PSD:nameAlias        "Assembly Place"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FACTORY" , "OFFSITE" , "SITE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ModelLabel  a              rdf:Property ;
+        rdfs:seeAlso        :p8c0d6280d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ModelLabel .
+
+:ArticleNumber  a           rdf:Property ;
+        rdfs:seeAlso        :p7e57dd00d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ArticleNumber .
+
+:ProductionYear  a          rdf:Property ;
+        rdfs:seeAlso        :p9891bb00d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProductionYear .
+
+:p78fa9280d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The Global Trade Item Number (GTIN) is an identifier for trade items developed by GS1 (www.gs1.org)." ;
+        rdfs:label                "GlobalTradeItemNumber" ;
+        IFC4-PSD:definition       "The Global Trade Item Number (GTIN) is an identifier for trade items developed by GS1 (www.gs1.org)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "78fa9280d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GlobalTradeItemNumber" ;
+        IFC4-PSD:nameAlias        "Global Trade Item Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p8c0d6280d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The descriptive model name of the product model (or product line) as assigned by the manufacturer of the manufactured item." ;
+        rdfs:label                "ModelLabel" ;
+        IFC4-PSD:definition       "The descriptive model name of the product model (or product line) as assigned by the manufacturer of the manufactured item." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8c0d6280d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ModelLabel" ;
+        IFC4-PSD:nameAlias        "Model Label"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_ManufacturerTypeInformation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Defines characteristics of types (ranges) of manufactured products that may be given by the manufacturer. Note that the term 'manufactured' may also be used to refer to products that are supplied and identified by the supplier or that are assembled off site by a third party provider. \nHISTORY: This property set replaces the entity IfcManufacturerInformation from previous IFC releases. IFC 2x4: AssemblyPlace property added." ;
+        rdfs:label                    "Pset_ManufacturerTypeInformation" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElement ;
+        IFC4-PSD:applicableTypeValue  "IfcElement" ;
+        IFC4-PSD:definition           "Defines characteristics of types (ranges) of manufactured products that may be given by the manufacturer. Note that the term 'manufactured' may also be used to refer to products that are supplied and identified by the supplier or that are assembled off site by a third party provider. \nHISTORY: This property set replaces the entity IfcManufacturerInformation from previous IFC releases. IFC 2x4: AssemblyPlace property added." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ManufacturerTypeInformation" ;
+        IFC4-PSD:propertyDef          :p9f203280d1ec11e1800000215ad4efdf , :p9891bb00d1ec11e1800000215ad4efdf , :p78fa9280d1ec11e1800000215ad4efdf , :p8c0d6280d1ec11e1800000215ad4efdf , :p929bda00d1ec11e1800000215ad4efdf , :p84e65480d1ec11e1800000215ad4efdf , :p7e57dd00d1ec11e1800000215ad4efdf .
+
+:ModelReference  a          rdf:Property ;
+        rdfs:seeAlso        :p84e65480d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ModelReference .
+
+:p929bda00d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The organization that manufactured and/or assembled the item." ;
+        rdfs:label                "Manufacturer" ;
+        IFC4-PSD:definition       "The organization that manufactured and/or assembled the item." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "929bda00d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Manufacturer" ;
+        IFC4-PSD:nameAlias        "Manufacturer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p84e65480d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The model number or designator of the product model (or product line) as assigned by the manufacturer of the manufactured item." ;
+        rdfs:label                "ModelReference" ;
+        IFC4-PSD:definition       "The model number or designator of the product model (or product line) as assigned by the manufacturer of the manufactured item." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "84e65480d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ModelReference" ;
+        IFC4-PSD:nameAlias        "Model Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:AssemblyPlace  a           rdf:Property ;
+        rdfs:seeAlso        :p9f203280d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssemblyPlace .
+
+:GlobalTradeItemNumber
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p78fa9280d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GlobalTradeItemNumber .
+
+:p9891bb00d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The year of production of the manufactured item." ;
+        rdfs:label                "ProductionYear" ;
+        IFC4-PSD:definition       "The year of production of the manufactured item." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9891bb00d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProductionYear" ;
+        IFC4-PSD:nameAlias        "Production Year"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p7e57dd00d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Article number or reference that is be applied to a configured product according to a standard scheme for article number definition as defined by the manufacturer. It is often used as the purchasing number." ;
+        rdfs:label                "ArticleNumber" ;
+        IFC4-PSD:definition       "Article number or reference that is be applied to a configured product according to a standard scheme for article number definition as defined by the manufacturer. It is often used as the purchasing number." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7e57dd00d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ArticleNumber" ;
+        IFC4-PSD:nameAlias        "Article Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Manufacturer  a            rdf:Property ;
+        rdfs:seeAlso        :p929bda00d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Manufacturer .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ManufacturerTypeInformation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

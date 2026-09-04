@@ -1,0 +1,280 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProfileArbitraryDoubleT#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:OverallWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p69337c00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallWidth .
+
+:OverallDepth  a            rdf:Property ;
+        rdfs:seeAlso        :p7e100f80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallDepth .
+
+:FlangeTopFillet  a         rdf:Property ;
+        rdfs:seeAlso        :p9e3fce80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeTopFillet .
+
+:LeftFlangeWidth  a         rdf:Property ;
+        rdfs:seeAlso        :p705a8a00d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LeftFlangeWidth .
+
+:p69337c00d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall width of the profile." ;
+        rdfs:label                "OverallWidth" ;
+        IFC4-PSD:definition       "Overall width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "69337c00d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallWidth" ;
+        IFC4-PSD:nameAlias        "Overall Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pb6175280d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem top chamfer of the profile." ;
+        rdfs:label                "StemTopChamfer" ;
+        IFC4-PSD:definition       "Stem top chamfer of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b6175280d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemTopChamfer" ;
+        IFC4-PSD:nameAlias        "Stem Top Chamfer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:p77819800d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Right flange width of the profile." ;
+        rdfs:label                "RightFlangeWidth" ;
+        IFC4-PSD:definition       "Right flange width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "77819800d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RightFlangeWidth" ;
+        IFC4-PSD:nameAlias        "Right Flange Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:RightFlangeWidth  a        rdf:Property ;
+        rdfs:seeAlso        :p77819800d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RightFlangeWidth .
+
+:p849e8700d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flange depth of the profile." ;
+        rdfs:label                "FlangeDepth" ;
+        IFC4-PSD:definition       "Flange depth of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "849e8700d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeDepth" ;
+        IFC4-PSD:nameAlias        "Flange Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p98e28400d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flange base fillet of the profile." ;
+        rdfs:label                "FlangeBaseFillet" ;
+        IFC4-PSD:definition       "Flange base fillet of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "98e28400d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeBaseFillet" ;
+        IFC4-PSD:nameAlias        "Flange Base Fillet"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:p7e100f80d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall depth of the profile." ;
+        rdfs:label                "OverallDepth" ;
+        IFC4-PSD:definition       "Overall depth of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7e100f80d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallDepth" ;
+        IFC4-PSD:nameAlias        "Overall Depth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p9e3fce80d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flange top fillet of the profile." ;
+        rdfs:label                "FlangeTopFillet" ;
+        IFC4-PSD:definition       "Flange top fillet of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9e3fce80d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeTopFillet" ;
+        IFC4-PSD:nameAlias        "Flange Top Fillet"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:StemBaseFillet  a          rdf:Property ;
+        rdfs:seeAlso        :pbc0d3380d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemBaseFillet .
+
+:pa39d1900d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem base width of the profile." ;
+        rdfs:label                "StemBaseWidth" ;
+        IFC4-PSD:definition       "Stem base width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a39d1900d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemBaseWidth" ;
+        IFC4-PSD:nameAlias        "Stem Base Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8cf6c200d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flange draft of the profile." ;
+        rdfs:label                "FlangeDraft" ;
+        IFC4-PSD:definition       "Flange draft of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8cf6c200d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeDraft" ;
+        IFC4-PSD:nameAlias        "Flange Draft"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:FlangeDraft  a             rdf:Property ;
+        rdfs:seeAlso        :p8cf6c200d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeDraft .
+
+:StemBaseWidth  a           rdf:Property ;
+        rdfs:seeAlso        :pa39d1900d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemBaseWidth .
+
+:pb0ba0800d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem base chamfer of the profile." ;
+        rdfs:label                "StemBaseChamfer" ;
+        IFC4-PSD:definition       "Stem base chamfer of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b0ba0800d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemBaseChamfer" ;
+        IFC4-PSD:nameAlias        "Stem Base Chamfer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:p92540c80d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flange chamfer of the profile." ;
+        rdfs:label                "FlangeChamfer" ;
+        IFC4-PSD:definition       "Flange chamfer of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "92540c80d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlangeChamfer" ;
+        IFC4-PSD:nameAlias        "Flange Chamfer"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:paa2b9080d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem top width of the profile." ;
+        rdfs:label                "StemTopWidth" ;
+        IFC4-PSD:definition       "Stem top width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "aa2b9080d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemTopWidth" ;
+        IFC4-PSD:nameAlias        "Stem Top Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:StemTopChamfer  a          rdf:Property ;
+        rdfs:seeAlso        :pb6175280d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemTopChamfer .
+
+:Pset_ProfileArbitraryDoubleT
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "This is a collection of geometric properties of double-T section profiles of precast concrete elements, to be used in conjunction with IfcArbitraryProfileDef when profile designation alone does not fulfill the information requirements." ;
+        rdfs:label                    "Pset_ProfileArbitraryDoubleT" ;
+        IFC4-PSD:applicableClass      IFC4:IfcArbitraryClosedProfileDef ;
+        IFC4-PSD:applicableTypeValue  "IfcArbitraryClosedProfileDef" ;
+        IFC4-PSD:definition           "This is a collection of geometric properties of double-T section profiles of precast concrete elements, to be used in conjunction with IfcArbitraryProfileDef when profile designation alone does not fulfill the information requirements." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProfileArbitraryDoubleT" ;
+        IFC4-PSD:propertyDef          :pc0d1e780d1f511e1800000215ad4efdf , :paa2b9080d1f511e1800000215ad4efdf , :pb6175280d1f511e1800000215ad4efdf , :pbc0d3380d1f511e1800000215ad4efdf , :p849e8700d1f511e1800000215ad4efdf , :pb0ba0800d1f511e1800000215ad4efdf , :pa39d1900d1f511e1800000215ad4efdf , :p9e3fce80d1f511e1800000215ad4efdf , :p8cf6c200d1f511e1800000215ad4efdf , :p7e100f80d1f511e1800000215ad4efdf , :p705a8a00d1f511e1800000215ad4efdf , :p92540c80d1f511e1800000215ad4efdf , :p98e28400d1f511e1800000215ad4efdf , :p77819800d1f511e1800000215ad4efdf , :p69337c00d1f511e1800000215ad4efdf .
+
+:pc0d1e780d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem top fillet of the profile." ;
+        rdfs:label                "StemTopFillet" ;
+        IFC4-PSD:definition       "Stem top fillet of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c0d1e780d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemTopFillet" ;
+        IFC4-PSD:nameAlias        "Stem Top Fillet"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:FlangeChamfer  a           rdf:Property ;
+        rdfs:seeAlso        :p92540c80d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeChamfer .
+
+:p705a8a00d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Left flange width of the profile." ;
+        rdfs:label                "LeftFlangeWidth" ;
+        IFC4-PSD:definition       "Left flange width of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "705a8a00d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LeftFlangeWidth" ;
+        IFC4-PSD:nameAlias        "Left Flange Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:StemBaseChamfer  a         rdf:Property ;
+        rdfs:seeAlso        :pb0ba0800d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemBaseChamfer .
+
+:pbc0d3380d1f511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Stem base fillet of the profile." ;
+        rdfs:label                "StemBaseFillet" ;
+        IFC4-PSD:definition       "Stem base fillet of the profile." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bc0d3380d1f511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StemBaseFillet" ;
+        IFC4-PSD:nameAlias        "Stem Base Fillet"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNonNegativeLengthMeasure
+                                  ] .
+
+:StemTopWidth  a            rdf:Property ;
+        rdfs:seeAlso        :paa2b9080d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemTopWidth .
+
+:StemTopFillet  a           rdf:Property ;
+        rdfs:seeAlso        :pc0d1e780d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StemTopFillet .
+
+:FlangeDepth  a             rdf:Property ;
+        rdfs:seeAlso        :p849e8700d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeDepth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProfileArbitraryDoubleT>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FlangeBaseFillet  a        rdf:Property ;
+        rdfs:seeAlso        :p98e28400d1f511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlangeBaseFillet .

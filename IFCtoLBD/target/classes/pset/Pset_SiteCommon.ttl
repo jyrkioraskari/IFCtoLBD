@@ -1,0 +1,126 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SiteCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:BuildingHeightLimit  a     rdf:Property ;
+        rdfs:seeAlso        :pe2d46580d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BuildingHeightLimit .
+
+:Pset_SiteCommon  a                   IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrences of IfcSite. Please note that several site attributes are handled directly at the IfcSite instance, the site number (or short name) by IfcSite.Name, the site name (or long name) by IfcSite.LongName, and the description (or comments) by IfcSite.Description. The land title number is also given as an explicit attribute IfcSite.LandTitleNumber. Actual site quantities, like site perimeter, site area and site volume are provided by IfcElementQuantity, and site classification according to national building code by IfcClassificationReference. The global positioning of the site in terms of Northing and Easting and height above sea level datum is given by IfcSite.RefLongitude, IfcSite.RefLatitude, IfcSite.RefElevation and the postal address by IfcSite.SiteAddress." ;
+        rdfs:label                    "Pset_SiteCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSite ;
+        IFC4-PSD:applicableTypeValue  "IfcSite" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcSite. Please note that several site attributes are handled directly at the IfcSite instance, the site number (or short name) by IfcSite.Name, the site name (or long name) by IfcSite.LongName, and the description (or comments) by IfcSite.Description. The land title number is also given as an explicit attribute IfcSite.LandTitleNumber. Actual site quantities, like site perimeter, site area and site volume are provided by IfcElementQuantity, and site classification according to national building code by IfcClassificationReference. The global positioning of the site in terms of Northing and Easting and height above sea level datum is given by IfcSite.RefLongitude, IfcSite.RefLatitude, IfcSite.RefElevation and the postal address by IfcSite.SiteAddress." ;
+        IFC4-PSD:definitionAlias      "Définition de l'IAI : propriétés communes à la définition de toutes les instances de IfcSite. Veuillez noter que plusieurs attributs sont portés par l'instance IfcSite : le numéro du site ou nom court (IfcSite.Name), le nom ou nom long (IfcSite.LongName), et la description ou des commentaires (IfcSite.Description). Le numéro de référence du foncier est donné par l'attribut IfcSite.LandTitleNumber. Les quantités du site comme le périmètre et la superficie sont fournis par des instances de IfcElementQuantity et la référence à une classification nationale par IfcClassificationReference. La position du site en termes de longitude, latitude et altitude est donnée par IfcSite.RefLongitude, IfcSite.RefLatitude, IfcSite.RefElevation et l'adresse postale par IfcSite.SiteAddress."@fr-FR , ""@en , "IfcSiteに関する共通プロパティセット定義。以下の属性値に関しては、IfcSiteオブジェクトの属性に設定する。敷地番号はIfcSite.Name、敷地名称はIfcSite.LongName、敷地に関する記述はIfcSite.Description。敷地に関する周囲長、面積、体積などの数量値は、IfcElementQuantityによって設定する。地理情報に関する緯度・経度・標高値はＩfcSite.RefLongitude, IfcSite.RefLatitude, IfcSite.RefElevationによって設定し、郵便住所はIfcSite.SiteAddressによって設定する。"@ja-JP , "Property Set Definition in German"@de-DE ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SiteCommon" ;
+        IFC4-PSD:propertyDef          :pea940a00d20711e1800000215ad4efdf , :pe2d46580d20711e1800000215ad4efdf , :pdd771b00d20711e1800000215ad4efdf , :pd819d080d20711e1800000215ad4efdf , :pd3551c80d20711e1800000215ad4efdf , :pcd5f3b80d20711e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SiteCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd819d080d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio of the utilization,  TotalArea / BuildableArea, expressed as a maximum value. The ratio value may be used to derive BuildableArea." ;
+        rdfs:label                "SiteCoverageRatio" ;
+        IFC4-PSD:definition       "The ratio of the utilization,  TotalArea / BuildableArea, expressed as a maximum value. The ratio value may be used to derive BuildableArea." ;
+        IFC4-PSD:definitionAlias  "建築基準により最大となる、敷地面積(IfcElementQuantity)と建築面積(IfcBuildingのIfcElementQuantity)の比率。"@ja-JP , "Grundflächenzahl als Verhältnis der bebaubaren Fläche zur Bruttogrundstücksfläche."@de-DE , "TotalArea / BuildableArea로 표시되는 이용 가능한 비율의 최대값입니다."@ko-KR , "Valeur maximale de la surface constructible exprimée en ratio. La valeur du ratio peut être utilisée pour déterminer la surface constructible."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "d819d080d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SiteCoverageRatio" ;
+        IFC4-PSD:nameAlias        "建蔽率"@ja-JP , "Grundflächenzahl"@de-DE , "Site Coverage Ratio"@en , "RatioSurfaceConstructible"@fr-FR , "건폐율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:pd3551c80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The area of site utilization expressed as a maximum value according to local building codes." ;
+        rdfs:label                "BuildableArea" ;
+        IFC4-PSD:definition       "The area of site utilization expressed as a maximum value according to local building codes." ;
+        IFC4-PSD:definitionAlias  "bebaubare Fläche als maximale überbaubare Fläche des Grundstücks."@de-DE , "Surface constructible maximale en fonction des contraintes d'urbanisme."@fr-FR , "속성정의"@ko-KR , "建築基準により建築可能な最大の面積。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d3551c80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BuildableArea" ;
+        IFC4-PSD:nameAlias        "建築可能面積"@ja-JP , "건축 가능 면적"@ko-KR , "bebaubare Fläche"@de-DE , "ValeurSurfaceConstructible"@fr-FR , "Buildable Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:pdd771b00d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio of all floor areas to the buildable area as the maximum floor area utilization of the site as a maximum value according to local building codes." ;
+        rdfs:label                "FloorAreaRatio" ;
+        IFC4-PSD:definition       "The ratio of all floor areas to the buildable area as the maximum floor area utilization of the site as a maximum value according to local building codes." ;
+        IFC4-PSD:definitionAlias  "Geschossflächenzahl als Verhältnis der gesamten Geschossfläche aller Vollgeschosse der baulichen Anlagen auf einem Baugrundstück zu der Fläche des Baugrundstücks."@de-DE , ""@en , "Ratio de la surface totale de planchers à la surface constructible, indication de la valeur maximale de la surface de planchers selon la règlementation locale (coefficient d'occupation des sols, N.d.T.)"@fr-FR , "建築基準により最大となる床面積と敷地面積(IfcElementQuantities)の比率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "dd771b00d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FloorAreaRatio" ;
+        IFC4-PSD:nameAlias        "ratio de surface de planchers"@fr-FR , "Floor Area Ratio"@en , "容積率"@ja-JP , "Geschossflächenzahl"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:FloorAreaRatio  a          rdf:Property ;
+        rdfs:seeAlso        :pdd771b00d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FloorAreaRatio .
+
+:pe2d46580d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowed maximum height of buildings on this site - according to local building codes." ;
+        rdfs:label                "BuildingHeightLimit" ;
+        IFC4-PSD:definition       "Allowed maximum height of buildings on this site - according to local building codes." ;
+        IFC4-PSD:definitionAlias  "Maximale Bebauungshöhe die auf diesem Grundstück zulässig ist."@de-DE , "Hauteur maximale des bâtiments autorisée sur ce site."@fr-FR , "各地域の建築基準により許可される建物の高さの最大値。"@ja-JP , "TotalArea / BuildableArea로 표시되는 이용 가능한 비율의 최대값입니다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "e2d46580d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BuildingHeightLimit" ;
+        IFC4-PSD:nameAlias        "건물 높이 제한"@ko-KR , "Building Height Limit"@en , "HauteurMaximale"@fr-FR , "maximale Bebauungshöhe"@de-DE , "建物高さ制限"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:SiteCoverageRatio  a       rdf:Property ;
+        rdfs:seeAlso        :pd819d080d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SiteCoverageRatio .
+
+:BuildableArea  a           rdf:Property ;
+        rdfs:seeAlso        :pd3551c80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BuildableArea .
+
+:TotalArea  a               rdf:Property ;
+        rdfs:seeAlso        :pea940a00d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalArea .
+
+:pcd5f3b80d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'). Used to store the non-classification driven internal project type." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en , "이 프로젝트의 참조 ID (예 : A-1). 분류 코드가 아닌 내부에서 사용되는 프로젝트 형식으로 사용됩니다."@ko-KR , "Identifikator der projektinternen Referenz für dieses Grundstück, z.B. nach der Grundstückklassifizierung des Bauherrn. Wird verwendet, wenn keine allgemein anerkanntes Klassifizierungssystem angewandt wird."@de-DE , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\"). Utilisé pour enregistrer un type sans recourir à une classification."@fr-FR ;
+        IFC4-PSD:ifdguid          "cd5f3b80d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Reference"@en , "Reference"@fr-FR , "参照記号"@ja-JP , "Referenz ID"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:pea940a00d20711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total planned area for the site. Used for programming the site space." ;
+        rdfs:label                "TotalArea" ;
+        IFC4-PSD:definition       "Total planned area for the site. Used for programming the site space." ;
+        IFC4-PSD:definitionAlias  "부지에 대한 총 계획 면적. 호텔 공간 계획에 사용됩니다."@ko-KR , "敷地にたいする延べ計画面積。敷地空間の計画に使用。"@ja-JP , "Surface totale brute. Définie en phase de programmation."@fr-FR , "Gesamte Grundstücksfläche für diese Bauaufgabe."@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "ea940a00d20711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalArea" ;
+        IFC4-PSD:nameAlias        "Bruttogrundstücksfläche"@de-DE , "Total Area"@en , "연면적"@ko-KR , "SurfaceBruteProgrammee"@fr-FR , "延べ面積"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pcd5f3b80d20711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .

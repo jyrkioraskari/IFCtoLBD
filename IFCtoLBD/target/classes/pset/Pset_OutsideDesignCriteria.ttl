@@ -1,0 +1,215 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_OutsideDesignCriteria#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HeatingWetBulb  a          rdf:Property ;
+        rdfs:seeAlso        :pf8d72b80d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingWetBulb .
+
+:HeatingDryBulb  a          rdf:Property ;
+        rdfs:seeAlso        :pf2e14a80d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingDryBulb .
+
+:pf8d72b80d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Outside wet bulb temperature for heating design." ;
+        rdfs:label                "HeatingWetBulb" ;
+        IFC4-PSD:definition       "Outside wet bulb temperature for heating design." ;
+        IFC4-PSD:definitionAlias  "暖房用設計用外気湿球温度。"@ja-JP , ""@en , "난방 설계 외기 습구온도"@ko-KR ;
+        IFC4-PSD:ifdguid          "f8d72b80d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingWetBulb" ;
+        IFC4-PSD:nameAlias        "Heating Wet Bulb"@en , "暖房用設計外気湿球温度"@ja-JP , "난방 설계 외기 습구온도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:CoolingWetBulb  a          rdf:Property ;
+        rdfs:seeAlso        :p08ef0b00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingWetBulb .
+
+:p186e5400d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The date for which the weather data was gathered." ;
+        rdfs:label                "WeatherDataDate" ;
+        IFC4-PSD:definition       "The date for which the weather data was gathered." ;
+        IFC4-PSD:definitionAlias  "気象台所在地の気象データ。"@ja-JP , "기상대 지역의 기상 데이터입니다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "186e5400d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WeatherDataDate" ;
+        IFC4-PSD:nameAlias        "Weather Data Date"@en , "気象データ"@ja-JP , "기상데이터"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:p13110980d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The site weather data station description or reference to the data source from which weather data was obtained for use in calculations." ;
+        rdfs:label                "WeatherDataStation" ;
+        IFC4-PSD:definition       "The site weather data station description or reference to the data source from which weather data was obtained for use in calculations." ;
+        IFC4-PSD:definitionAlias  "공조 부하 계산시 사용하는 기상 데이터 기상대 위치."@ko-KR , ""@en , "空調負荷計算時使用する気象データの気象台所在地。"@ja-JP ;
+        IFC4-PSD:ifdguid          "13110980d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WeatherDataStation" ;
+        IFC4-PSD:nameAlias        "기상대 위치"@ko-KR , "Weather Data Station"@en , "気象台所在地"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p0e4c5580d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The month, day  and time that has been selected for the cooling design calculations." ;
+        rdfs:label                "CoolingDesignDay" ;
+        IFC4-PSD:definition       "The month, day  and time that has been selected for the cooling design calculations." ;
+        IFC4-PSD:definitionAlias  "冷房設計用気象データの日時（月、日、時刻）。"@ja-JP , "냉방 설계 기상 데이터의 시간 (월, 일, 시간)."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "0e4c5580d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingDesignDay" ;
+        IFC4-PSD:nameAlias        "냉방설계 기준일"@ko-KR , "冷房設計基準日"@ja-JP , "Cooling Design Day"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:HeatingDesignDay  a        rdf:Property ;
+        rdfs:seeAlso        :pfecd0c80d1f111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingDesignDay .
+
+:p08ef0b00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Outside wet bulb temperature for cooling design." ;
+        rdfs:label                "CoolingWetBulb" ;
+        IFC4-PSD:definition       "Outside wet bulb temperature for cooling design." ;
+        IFC4-PSD:definitionAlias  "냉방용 설계외기 습구온도"@ko-KR , "冷房用設計用外気湿球温度。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "08ef0b00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingWetBulb" ;
+        IFC4-PSD:nameAlias        "냉방용 설계외기 습구온도"@ko-KR , "Cooling Wet Bulb"@en , "冷房用設計外気湿球温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:CoolingDesignDay  a        rdf:Property ;
+        rdfs:seeAlso        :p0e4c5580d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingDesignDay .
+
+:pfecd0c80d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The month, day and time that has been selected for the heating design calculations." ;
+        rdfs:label                "HeatingDesignDay" ;
+        IFC4-PSD:definition       "The month, day and time that has been selected for the heating design calculations." ;
+        IFC4-PSD:definitionAlias  "난방 설계 기상 데이터의 날짜"@ko-KR , ""@en , "暖房設計用気象データの日付。"@ja-JP ;
+        IFC4-PSD:ifdguid          "fecd0c80d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingDesignDay" ;
+        IFC4-PSD:nameAlias        "난방 설계 기준일"@ko-KR , "Heating Design Day"@en , "暖房設計基準日"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDateTime
+                                  ] .
+
+:WeatherDataDate  a         rdf:Property ;
+        rdfs:seeAlso        :p186e5400d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WeatherDataDate .
+
+:WeatherDataStation  a      rdf:Property ;
+        rdfs:seeAlso        :p13110980d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WeatherDataStation .
+
+:BuildingThermalExposure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1c9a7180d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BuildingThermalExposure .
+
+:pf2e14a80d1f111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Outside dry bulb temperature for heating design." ;
+        rdfs:label                "HeatingDryBulb" ;
+        IFC4-PSD:definition       "Outside dry bulb temperature for heating design." ;
+        IFC4-PSD:definitionAlias  "暖房用設計用外気乾球温度。"@ja-JP , ""@en , "난방 설계 외기 건구 온도"@ko-KR ;
+        IFC4-PSD:ifdguid          "f2e14a80d1f111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingDryBulb" ;
+        IFC4-PSD:nameAlias        "난방 설계 외기 건구 온도"@ko-KR , "暖房用設計外気乾球温度"@ja-JP , "Heating Dry Bulb"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p1c9a7180d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thermal exposure expected by the building based on surrounding site conditions." ;
+        rdfs:label                "BuildingThermalExposure" ;
+        IFC4-PSD:definition       "The thermal exposure expected by the building based on surrounding site conditions." ;
+        IFC4-PSD:definitionAlias  "주위 환경​​에서 건물의 열 방사 강도."@ko-KR , ""@en , "周囲環境から建物への熱放射強度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1c9a7180d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BuildingThermalExposure" ;
+        IFC4-PSD:nameAlias        "周囲環境からの熱放射強度"@ja-JP , "Building Thermal Exposure"@en , "주위환경에서 열의 방사강도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LIGHT" , "MEDIUM" , "HEAVY" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p2d4ae780d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The design wind velocity coming from the direction specified by the PrevailingWindDirection attribute." ;
+        rdfs:label                "PrevailingWindVelocity" ;
+        IFC4-PSD:definition       "The design wind velocity coming from the direction specified by the PrevailingWindDirection attribute." ;
+        IFC4-PSD:definitionAlias  ""@en , "PrevailingWindDirection 속성에 지정된 풍향 온 탁월한 바람 바람."@ko-KR , "PrevailingWindDirection 属性に示された風向から来た卓越風の風速。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2d4ae780d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrevailingWindVelocity" ;
+        IFC4-PSD:nameAlias        "Prevailing Wind Velocity"@en , "卓越風の風速"@ja-JP , "탁월한 바람의 풍속"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLinearVelocityMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_OutsideDesignCriteria>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CoolingDryBulb  a          rdf:Property ;
+        rdfs:seeAlso        :p0391c080d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingDryBulb .
+
+:p27ed9d00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The prevailing wind angle direction measured from True North (0 degrees) in a clockwise direction." ;
+        rdfs:label                "PrevailingWindDirection" ;
+        IFC4-PSD:definition       "The prevailing wind angle direction measured from True North (0 degrees) in a clockwise direction." ;
+        IFC4-PSD:definitionAlias  ""@en , "卓越風の風向、真北は0°、時計回り。"@ja-JP , "탁월한 바람의 풍향, 북쪽은 0 ° 시계 방향."@ko-KR ;
+        IFC4-PSD:ifdguid          "27ed9d00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrevailingWindDirection" ;
+        IFC4-PSD:nameAlias        "Prevailing Wind Direction"@en , "卓越風の風向"@ja-JP , "탁월한 방람의 풍향"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:Pset_OutsideDesignCriteria
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Outside air conditions used as the basis for calculating thermal loads at peak conditions, as well as the weather data location from which these conditions were obtained. HISTORY: New property set in IFC Release 1.0." ;
+        rdfs:label                    "Pset_OutsideDesignCriteria" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuilding ;
+        IFC4-PSD:applicableTypeValue  "IfcBuilding" ;
+        IFC4-PSD:definition           "Outside air conditions used as the basis for calculating thermal loads at peak conditions, as well as the weather data location from which these conditions were obtained. HISTORY: New property set in IFC Release 1.0." ;
+        IFC4-PSD:definitionAlias      "ピーク時熱負荷を計算するために使用する所在地の外気条件。履歴：IFC1.0に定義された新属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_OutsideDesignCriteria" ;
+        IFC4-PSD:propertyDef          :p13110980d1f211e1800000215ad4efdf , :pfecd0c80d1f111e1800000215ad4efdf , :p0e4c5580d1f211e1800000215ad4efdf , :p1c9a7180d1f211e1800000215ad4efdf , :p08ef0b00d1f211e1800000215ad4efdf , :pf8d72b80d1f111e1800000215ad4efdf , :pf2e14a80d1f111e1800000215ad4efdf , :p186e5400d1f211e1800000215ad4efdf , :p2d4ae780d1f211e1800000215ad4efdf , :p0391c080d1f211e1800000215ad4efdf , :p27ed9d00d1f211e1800000215ad4efdf .
+
+:PrevailingWindVelocity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2d4ae780d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrevailingWindVelocity .
+
+:PrevailingWindDirection
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p27ed9d00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrevailingWindDirection .
+
+:p0391c080d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Outside dry bulb temperature for cooling design." ;
+        rdfs:label                "CoolingDryBulb" ;
+        IFC4-PSD:definition       "Outside dry bulb temperature for cooling design." ;
+        IFC4-PSD:definitionAlias  "냉방용 설계 외기건구 온도"@ko-KR , ""@en , "冷房用設計用外気乾球温度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "0391c080d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingDryBulb" ;
+        IFC4-PSD:nameAlias        "냉방용 설계 외기건구 온도"@ko-KR , "Cooling Dry Bulb"@en , "冷房用設計外気乾球温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .

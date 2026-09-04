@@ -1,0 +1,79 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerTypeSteam#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_BoilerTypeSteam
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Steam boiler type common attributes." ;
+        rdfs:label                    "Pset_BoilerTypeSteam" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcBoiler/STEAM> ;
+        IFC4-PSD:applicableTypeValue  "IfcBoiler/STEAM" ;
+        IFC4-PSD:definition           "Steam boiler type common attributes." ;
+        IFC4-PSD:definitionAlias      "蒸気ボイラタイプ共通属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BoilerTypeSteam" ;
+        IFC4-PSD:propertyDef          :pd2e76200d1c411e1800000215ad4efdf , :pcc58ea80d1c411e1800000215ad4efdf , :pc82ccd00d1c411e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BoilerTypeSteam>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pc82ccd00d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum steam outlet pressure." ;
+        rdfs:label                "MaximumOutletPressure" ;
+        IFC4-PSD:definition       "Maximum steam outlet pressure." ;
+        IFC4-PSD:definitionAlias  ""@en , "Pression vapeur en sortie maximale"@fr-FR , "最大出口蒸気圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "c82ccd00d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumOutletPressure" ;
+        IFC4-PSD:nameAlias        "Maximum Outlet Pressure"@en , "PressionSortieAdmissible"@fr-FR , "最大出口圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:MaximumOutletPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc82ccd00d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumOutletPressure .
+
+:pcc58ea80d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal efficiency of the boiler as defined by the manufacturer. For steam boilers, a function of inlet temperature versus steam pressure.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: InletTemperature(IfcThermodynamicTemperatureMeasure) and OutletTemperature(IfcThermodynamicTemperatureMeasure) in DefiningValues, and NominalEfficiency(IfcNormalisedRatioMeasure) in DefinedValues. For example, DefininfValues(InletTemp, OutletTemp), DefinedValues(null, NominalEfficiency).  The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        rdfs:label                "NominalEfficiency" ;
+        IFC4-PSD:definition       "The nominal efficiency of the boiler as defined by the manufacturer. For steam boilers, a function of inlet temperature versus steam pressure.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: InletTemperature(IfcThermodynamicTemperatureMeasure) and OutletTemperature(IfcThermodynamicTemperatureMeasure) in DefiningValues, and NominalEfficiency(IfcNormalisedRatioMeasure) in DefinedValues. For example, DefininfValues(InletTemp, OutletTemp), DefinedValues(null, NominalEfficiency).  The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        IFC4-PSD:definitionAlias  "Efficacité nominale de la chaudière tel que définie par le constructeur.\nPour les chaudières à vapeur, une fonction de la température en entrée par rapport à la pression de vapeur.\nRemarque: Comme deux variables sont utilisées ValeurDefinir et ValeursDefinies sont nulles, et les valeurs sont enregistrées dans IfcTable dans l'ordre suivant:\n- TempératureEntrée (IfcThermodynamicTemperatureMeasure) et TempératureSortie (IfcThermodynamicTemperatureMeasure) dans ValeursDefinir , et EfficacitéNominale (IfcNormalisedRatioMeasure) dansValeursDefinies.\nPar exemple, ValeursDefinir (TempératureEntrée, TempératureSortie), ValeursDefinies (nul, RendementNominal).\nIfcTable est lié à IfcPropertyTableValue qui utilise IfcMetric et IfcPropertyConstraintRelationship."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "cc58ea80d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalEfficiency" ;
+        IFC4-PSD:nameAlias        "EfficacitéNominale"@fr-FR , "Nominal Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcNormalisedRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pd2e76200d1c411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total nominal heat output as listed by the Boiler manufacturer. For steam boilers, it is a function of inlet temperature versus steam pressure.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: InletTemperature(IfcThermodynamicTemperatureMeasure) and OutletTemperature(IfcThermodynamicTemperatureMeasure) in DefiningValues, and HeatOutput(IfcEnergyMeasure) in DefinedValues. For example, DefiningValues(InletTemp, OutletTemp), DefinedValues(null, HeatOutput). The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        rdfs:label                "HeatOutput" ;
+        IFC4-PSD:definition       "Total nominal heat output as listed by the Boiler manufacturer. For steam boilers, it is a function of inlet temperature versus steam pressure.  Note: as two variables are used, DefiningValues and DefinedValues are null, and values are stored in IfcTable in the following order: InletTemperature(IfcThermodynamicTemperatureMeasure) and OutletTemperature(IfcThermodynamicTemperatureMeasure) in DefiningValues, and HeatOutput(IfcEnergyMeasure) in DefinedValues. For example, DefiningValues(InletTemp, OutletTemp), DefinedValues(null, HeatOutput). The IfcTable is related to IfcPropertyTableValue using IfcMetric and IfcPropertyConstraintRelationship." ;
+        IFC4-PSD:definitionAlias  "Rendement total nominal tel que défini par le constructeur de chaudière.\nPour les chaudières à vapeur, une fonction de la température en entrée par rapport à la pression de vapeur.\nRemarque: Comme deux variables sont utilisées ValeurDefinir et ValeursDefinies sont nulles, et les valeurs sont enregistrées dans IfcTable dans l'ordre suivant:\n- TempératureEntrée (IfcThermodynamicTemperatureMeasure) et TempératureSortie (IfcThermodynamicTemperatureMeasure) dans ValeursDefinir , et Rendement de chaleur (IfcEnergyMeasure) dansValeursDefinies.\nPar exemple, ValeursDefinir (TempératureEntrée, TempératureSortie), ValeursDefinies (nul, RendementChaleur).\nIfcPropertyTable est lié à IfcMetric qui utilise IfcMetric et IfcPropertyConstraintRelationship."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "d2e76200d1c411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatOutput" ;
+        IFC4-PSD:nameAlias        "RendementChaleur"@fr-FR , "Heat Output"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcEnergyMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:HeatOutput  a              rdf:Property ;
+        rdfs:seeAlso        :pd2e76200d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatOutput .
+
+:NominalEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :pcc58ea80d1c411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalEfficiency .

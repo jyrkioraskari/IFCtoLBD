@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:DimmerType  a              rdf:Property ;
+        rdfs:seeAlso        :p11edd580d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DimmerType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeDimmerSwitch>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p11edd580d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of dimmer switch from which that required may be selected." ;
+        rdfs:label                "DimmerType" ;
+        IFC4-PSD:definition       "A list of the available types of dimmer switch from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "選択が必要となる、ディマースイッチの一覧リスト。"@ja-JP , "선택이 필요한 조광기 스위치 목록"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "11edd580d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DimmerType" ;
+        IFC4-PSD:nameAlias        "Dimmer Type"@en , "ディマータイプ"@ja-JP , "조광기 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ROCKER" , "SELECTOR" , "TWIST" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_SwitchingDeviceTypeDimmerSwitch
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A dimmer switch is a switch that adjusts electrical power through a variable position level action.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeDimmerSwitch" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/DIMMERSWITCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/DIMMERSWITCH" ;
+        IFC4-PSD:definition           "A dimmer switch is a switch that adjusts electrical power through a variable position level action.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "各レベルの動作で電力を調整するディマースイッチ。\n履歴：IFC2ｘ４へ追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeDimmerSwitch" ;
+        IFC4-PSD:propertyDef          :p11edd580d20e11e1800000215ad4efdf .

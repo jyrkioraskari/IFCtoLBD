@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeGasSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SetPointConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5163f400d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointConcentration .
+
+:p5163f400d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The gas concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointConcentration" ;
+        IFC4-PSD:definition       "The gas concentration value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  ""@en , "感知されるガス濃度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5163f400d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointConcentration" ;
+        IFC4-PSD:nameAlias        "ガス濃度設定値"@ja-JP , "Set Point Concentration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:CoverageArea  a            rdf:Property ;
+        rdfs:seeAlso        :p6a6ca500d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverageArea .
+
+:p6a6ca500d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The floor area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        rdfs:label                "CoverageArea" ;
+        IFC4-PSD:definition       "The floor area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        IFC4-PSD:definitionAlias  ""@en , "センサでカバーされている床面積。(通常、センターがセンサの位置にある円として測定される)"@ja-JP ;
+        IFC4-PSD:ifdguid          "6a6ca500d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverageArea" ;
+        IFC4-PSD:nameAlias        "測定範囲"@ja-JP , "Coverage Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeGasSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:GasDetected  a             rdf:Property ;
+        rdfs:seeAlso        :p490bb900d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GasDetected .
+
+:Pset_SensorTypeGasSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects gas. HISTORY: Changed in IFC4. Gas detected made into enumeration, set point concentration and coverage area added. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypeGasSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/GASSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/GASSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects gas. HISTORY: Changed in IFC4. Gas detected made into enumeration, set point concentration and coverage area added. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      ""@en , "ガスを感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeGasSensor" ;
+        IFC4-PSD:propertyDef          :p490bb900d20511e1800000215ad4efdf , :p5163f400d20511e1800000215ad4efdf , :p6a6ca500d20511e1800000215ad4efdf .
+
+:p490bb900d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identification of the gas that is being detected, according to chemical formula.  For example, carbon monoxide is 'CO', carbon dioxide is 'CO2', oxygen is 'O2'." ;
+        rdfs:label                "GasDetected" ;
+        IFC4-PSD:definition       "Identification of the gas that is being detected, according to chemical formula.  For example, carbon monoxide is 'CO', carbon dioxide is 'CO2', oxygen is 'O2'." ;
+        IFC4-PSD:definitionAlias  ""@en , "検出されているガスの識別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "490bb900d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GasDetected" ;
+        IFC4-PSD:nameAlias        "対象ガス"@ja-JP , "Gas Detected"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .

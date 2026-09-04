@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeMoistureSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeMoistureSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SetPointMoisture  a        rdf:Property ;
+        rdfs:seeAlso        :pee269180d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointMoisture .
+
+:Pset_SensorTypeMoistureSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects moisture. HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SensorTypeMoistureSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/MOISTURESENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/MOISTURESENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects moisture. HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "水分を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeMoistureSensor" ;
+        IFC4-PSD:propertyDef          :pee269180d20511e1800000215ad4efdf .
+
+:pee269180d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The moisture value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointMoisture" ;
+        IFC4-PSD:definition       "The moisture value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  ""@en , "感知される水分。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , "감지되는 수분. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR ;
+        IFC4-PSD:ifdguid          "ee269180d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointMoisture" ;
+        IFC4-PSD:nameAlias        "水分設定値"@ja-JP , "Set Point Moisture"@en , "수분 설정"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .

@@ -1,0 +1,131 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ThermalLoadDesignCriteria#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:LightingLoadIntensity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p313a3200d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightingLoadIntensity .
+
+:p24b5d980d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Average power use intensity of appliances and other non-HVAC equipment in the space per unit area.(PowerMeasure/IfcAreaMeasure)." ;
+        rdfs:label                "ReceptacleLoadIntensity" ;
+        IFC4-PSD:definition       "Average power use intensity of appliances and other non-HVAC equipment in the space per unit area.(PowerMeasure/IfcAreaMeasure)." ;
+        IFC4-PSD:definitionAlias  "단위 면적 당 사무 기기 등 비 공조 설비의 평균 전력 소비. (PowerMeasure / IfcAreaMeasure)"@ko-KR , ""@en , "単位面積あたり事務機器など非空調設備の平均電力消費量。\n（PowerMeasure/IfcAreaMeasure）"@ja-JP ;
+        IFC4-PSD:ifdguid          "24b5d980d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReceptacleLoadIntensity" ;
+        IFC4-PSD:nameAlias        "단위면적 당 사무기기 평균 전력 소비량"@ko-KR , "単位面積あたり事務機器の平均電力消費量"@ja-JP , "Receptacle Load Intensity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p2aabba80d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Percent of sensible load to radiant heat." ;
+        rdfs:label                "AppliancePercentLoadToRadiant" ;
+        IFC4-PSD:definition       "Percent of sensible load to radiant heat." ;
+        IFC4-PSD:definitionAlias  "복사열 중 현열 분 부하의 비율."@ko-KR , ""@en , "放射熱のうち顕熱分負荷の割合。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2aabba80d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AppliancePercentLoadToRadiant" ;
+        IFC4-PSD:nameAlias        "복사열 중 현열 분의 비율"@ko-KR , "Appliance Percent Load To Radiant"@en , "放射熱のうち顕熱分の割合"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p18ca1780d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diversity factor that may be applied to the number of people in the space." ;
+        rdfs:label                "OccupancyDiversity" ;
+        IFC4-PSD:definition       "Diversity factor that may be applied to the number of people in the space." ;
+        IFC4-PSD:definitionAlias  ""@en , "室内居住者の在室率。"@ja-JP , "실내 거주자의 재실 비율."@ko-KR ;
+        IFC4-PSD:ifdguid          "18ca1780d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OccupancyDiversity" ;
+        IFC4-PSD:nameAlias        "居住者の在室率"@ja-JP , "Occupancy Diversity"@en , "거주자의 재실 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:ReceptacleLoadIntensity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p24b5d980d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReceptacleLoadIntensity .
+
+:OutsideAirPerPerson  a     rdf:Property ;
+        rdfs:seeAlso        :p1ebff880d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutsideAirPerPerson .
+
+:AppliancePercentLoadToRadiant
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2aabba80d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AppliancePercentLoadToRadiant .
+
+:LightingPercentLoadToReturnAir
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p37c8a980d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightingPercentLoadToReturnAir .
+
+:OccupancyDiversity  a      rdf:Property ;
+        rdfs:seeAlso        :p18ca1780d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OccupancyDiversity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ThermalLoadDesignCriteria>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p1ebff880d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Design quantity of outside air to be provided per person in the space." ;
+        rdfs:label                "OutsideAirPerPerson" ;
+        IFC4-PSD:definition       "Design quantity of outside air to be provided per person in the space." ;
+        IFC4-PSD:definitionAlias  "１人あたりの外気量の設計値。"@ja-JP , ""@en , "당 외기 량의 설계 값."@ko-KR ;
+        IFC4-PSD:ifdguid          "1ebff880d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutsideAirPerPerson" ;
+        IFC4-PSD:nameAlias        "１人あたりの外気量"@ja-JP , "Outside Air Per Person"@en , "당 외기량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:Pset_ThermalLoadDesignCriteria
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Building thermal load design data that are used for calculating thermal loads in a space or building. HISTORY: New property set in IFC Release 1.0 (Pset_LoadDesignCriteria); renamed Pset_ThermalLoadDesignCriteria in IFC2x2." ;
+        rdfs:label                    "Pset_ThermalLoadDesignCriteria" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpatialElement ;
+        IFC4-PSD:applicableTypeValue  "IfcSpatialElement" ;
+        IFC4-PSD:definition           "Building thermal load design data that are used for calculating thermal loads in a space or building. HISTORY: New property set in IFC Release 1.0 (Pset_LoadDesignCriteria); renamed Pset_ThermalLoadDesignCriteria in IFC2x2." ;
+        IFC4-PSD:definitionAlias      "部屋や建物の熱負荷の計算のために使用される建物の熱負荷設計データ。履歴：IFC1.0の新PropertySet（Pset_LoadDesignCriteria)、：IFC2ｘ2に新たにPset_ThermalLoadDesignCriteriaと定義された。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ThermalLoadDesignCriteria" ;
+        IFC4-PSD:propertyDef          :p313a3200d21111e1800000215ad4efdf , :p18ca1780d21111e1800000215ad4efdf , :p24b5d980d21111e1800000215ad4efdf , :p2aabba80d21111e1800000215ad4efdf , :p1ebff880d21111e1800000215ad4efdf , :p37c8a980d21111e1800000215ad4efdf .
+
+:p313a3200d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Average lighting load intensity in the space per unit area (PowerMeasure/IfcAreaMeasure)." ;
+        rdfs:label                "LightingLoadIntensity" ;
+        IFC4-PSD:definition       "Average lighting load intensity in the space per unit area (PowerMeasure/IfcAreaMeasure)." ;
+        IFC4-PSD:definitionAlias  "単位面積あたり照明機器の平均電力消費量。\n（PowerMeasure/IfcAreaMeasure）"@ja-JP , "단위 면적 당 조명의 평균 전력 소비. (PowerMeasure / IfcAreaMeasure)"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "313a3200d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightingLoadIntensity" ;
+        IFC4-PSD:nameAlias        "照明負荷率"@ja-JP , "조명 부하율"@ko-KR , "Lighting Load Intensity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p37c8a980d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Percent of lighting load to the return air plenum." ;
+        rdfs:label                "LightingPercentLoadToReturnAir" ;
+        IFC4-PSD:definition       "Percent of lighting load to the return air plenum." ;
+        IFC4-PSD:definitionAlias  "조명 기기에서 폴리탄 공기 (천장)의 방열 속도."@ko-KR , ""@en , "照明機器からリタン空気（天井裏）への放熱率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "37c8a980d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightingPercentLoadToReturnAir" ;
+        IFC4-PSD:nameAlias        "리탄 공기에 조명 기기의 방열 비율"@ko-KR , "リタン空気への照明機器の放熱率"@ja-JP , "Lighting Percent Load To Return Air"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .

@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p596f6400d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The level at which water spills out of the object." ;
+        rdfs:label                "SpilloverLevel" ;
+        IFC4-PSD:definition       "The level at which water spills out of the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "継手からの水位。"@ja-JP ;
+        IFC4-PSD:ifdguid          "596f6400d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpilloverLevel" ;
+        IFC4-PSD:nameAlias        "水位"@ja-JP , "Spillover Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:UrinalType  a              rdf:Property ;
+        rdfs:seeAlso        :p35138780d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UrinalType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeUrinal>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SanitaryTerminalTypeUrinal
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Soil appliance that receives urine and directs it to a waste outlet (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value).  Mounting property added." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeUrinal" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/URINAL> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/URINAL" ;
+        IFC4-PSD:definition           "Soil appliance that receives urine and directs it to a waste outlet (BS6100). HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Prefix for color property removed. Datatype of color changed to IfcLabel (still a string value).  Mounting property added." ;
+        IFC4-PSD:definitionAlias      "小便を受けたり直接排水溝に流すための機器(BS6100)。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色の設定は取り除かれています。色のデータ形式は文字列としてIfcLabelに変更されています。また、「設置」のプロパティーが加えられました。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeUrinal" ;
+        IFC4-PSD:propertyDef          :p596f6400d20411e1800000215ad4efdf , :p4361a380d20411e1800000215ad4efdf , :p35138780d20411e1800000215ad4efdf .
+
+:p4361a380d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the form of mounting from the enumerated list of mountings where:-\n\nBackToWall =\tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections\nPedestal =\tA floor mounted sanitary terminal that has an integral base\nCounterTop =\tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung =\tA sanitary terminal cantilevered clear of the floor\n.\n\nNote that BackToWall, Pedestal and WallHung are allowable values for a urinal." ;
+        rdfs:label                "Mounting" ;
+        IFC4-PSD:definition       "Selection of the form of mounting from the enumerated list of mountings where:-\n\nBackToWall =\tA pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections\nPedestal =\tA floor mounted sanitary terminal that has an integral base\nCounterTop =\tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung =\tA sanitary terminal cantilevered clear of the floor\n.\n\nNote that BackToWall, Pedestal and WallHung are allowable values for a urinal." ;
+        IFC4-PSD:definitionAlias  ""@en , "下記の設置方法より選択\n\n\n・床置き壁排出：接続口の後部に出水口を合わせること。\n・台：床置きの衛生器具には基礎があること。\n・カウンター：衛生器具の表層が水平に設置されていること。※手洗い台として設置された場合「化粧台」として扱うこと。また、洗面台種類の規格表を参照のこと。\n・壁掛け型：衛生器具は片側固定がされ床から離れていること。\n\n床置き壁排出型・台座と壁掛け型は便器と同等とされます。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4361a380d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mounting" ;
+        IFC4-PSD:nameAlias        "設置"@ja-JP , "Mounting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BACKTOWALL" , "PEDESTAL" , "COUNTERTOP" , "WALLHUNG" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p35138780d20411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the type of urinal from the enumerated list of types where:-\n\nBowl: Individual wall mounted urinal.\nSlab: Urinal that consists of a slab or sheet fixed to a wall and down which urinal flows into a floor channel.\nStall: Floor mounted urinal that consists of an elliptically shaped sanitary stall fixed to a wall and down which urine flows into a floor channel.\nTrough: Wall mounted urinal of elongated rectangular shape on plan, that can be used by more than one person at a time." ;
+        rdfs:label                "UrinalType" ;
+        IFC4-PSD:definition       "Selection of the type of urinal from the enumerated list of types where:-\n\nBowl: Individual wall mounted urinal.\nSlab: Urinal that consists of a slab or sheet fixed to a wall and down which urinal flows into a floor channel.\nStall: Floor mounted urinal that consists of an elliptically shaped sanitary stall fixed to a wall and down which urine flows into a floor channel.\nTrough: Wall mounted urinal of elongated rectangular shape on plan, that can be used by more than one person at a time." ;
+        IFC4-PSD:definitionAlias  "下記のリストより小便器タイプを選択\n\n便器：壁に設置された独立した小便器\n床：壁や床の溝へ流れるように固定されている\n個室：衛生個室の床や壁に楕円形に設置されたフロア\n溝：一人以上の人数が同時に使用できるよう、壁に直角に長く引き伸ばした形"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "35138780d20411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UrinalType" ;
+        IFC4-PSD:nameAlias        "Urinal Type"@en , "小便器タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BOWL" , "SLAB" , "STALL" , "TROUGH" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Mounting  a                rdf:Property ;
+        rdfs:seeAlso        :p4361a380d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mounting .
+
+:SpilloverLevel  a          rdf:Property ;
+        rdfs:seeAlso        :p596f6400d20411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpilloverLevel .

@@ -1,0 +1,231 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PropertyAgreement#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:TerminationDate  a         rdf:Property ;
+        rdfs:seeAlso        :p7736cc00d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TerminationDate .
+
+:Restrictions  a            rdf:Property ;
+        rdfs:seeAlso        :p9a617b80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Restrictions .
+
+:Identifier  a              rdf:Property ;
+        rdfs:seeAlso        :p46569700d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Identifier .
+
+:Version  a                 rdf:Property ;
+        rdfs:seeAlso        :p50789580d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Version .
+
+:Duration  a                rdf:Property ;
+        rdfs:seeAlso        :p80279d80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Duration .
+
+:p87e74200d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A statement of the options available in the agreement." ;
+        rdfs:label                "Options" ;
+        IFC4-PSD:definition       "A statement of the options available in the agreement." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "87e74200d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Options" ;
+        IFC4-PSD:nameAlias        "Options"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p46569700d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The identifier assigned to the agreement for the purposes of tracking." ;
+        rdfs:label                "Identifier" ;
+        IFC4-PSD:definition       "The identifier assigned to the agreement for the purposes of tracking." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "46569700d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Identifier" ;
+        IFC4-PSD:nameAlias        "Identifier"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p80279d80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The period of time for the lease." ;
+        rdfs:label                "Duration" ;
+        IFC4-PSD:definition       "The period of time for the lease." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "80279d80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Duration" ;
+        IFC4-PSD:nameAlias        "Duration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDuration
+                                  ] .
+
+:p7736cc00d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Date on which the agreement terminates." ;
+        rdfs:label                "TerminationDate" ;
+        IFC4-PSD:definition       "Date on which the agreement terminates." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7736cc00d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TerminationDate" ;
+        IFC4-PSD:nameAlias        "Termination Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PropertyAgreement>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_PropertyAgreement
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A property agreement is an agreement that enables the occupation of a property for a period of time.\n\nThe objective is to capture the information within an  agreement that is relevant to a facilities manager. Design and construction information associated with the property is not considered. A property agreement may be applied to an instance of IfcSpatialStructureElement including to compositions defined through the IfcSpatialStructureElement.Element.CompositionEnum.\n\nNote that the associated actors are captured by the IfcOccupant class." ;
+        rdfs:label                    "Pset_PropertyAgreement" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpatialStructureElement ;
+        IFC4-PSD:applicableTypeValue  "IfcSpatialStructureElement" ;
+        IFC4-PSD:definition           "A property agreement is an agreement that enables the occupation of a property for a period of time.\n\nThe objective is to capture the information within an  agreement that is relevant to a facilities manager. Design and construction information associated with the property is not considered. A property agreement may be applied to an instance of IfcSpatialStructureElement including to compositions defined through the IfcSpatialStructureElement.Element.CompositionEnum.\n\nNote that the associated actors are captured by the IfcOccupant class." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PropertyAgreement" ;
+        IFC4-PSD:propertyDef          :p80279d80d1f811e1800000215ad4efdf , :p6e45fa80d1f811e1800000215ad4efdf , :p638b6580d1f811e1800000215ad4efdf , :p46569700d1f811e1800000215ad4efdf , :p50789580d1f811e1800000215ad4efdf , :p2c1cb900d1f811e1800000215ad4efdf , :p90d81380d1f811e1800000215ad4efdf , :p87e74200d1f811e1800000215ad4efdf , :p9a617b80d1f811e1800000215ad4efdf , :p5b332a80d1f811e1800000215ad4efdf , :p7736cc00d1f811e1800000215ad4efdf , :pa0575c80d1f811e1800000215ad4efdf .
+
+:p2c1cb900d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of property agreement from which the type required may be set." ;
+        rdfs:label                "AgreementType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of property agreement from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2c1cb900d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AgreementType" ;
+        IFC4-PSD:nameAlias        "Agreement Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ASSIGNMENT" , "LEASE" , "TENANT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ConditionTermination
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa0575c80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConditionTermination .
+
+:pa0575c80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Condition of property required on termination of the agreement e.g. cold shell, warm lit shell, broom clean, turn-key." ;
+        rdfs:label                "ConditionTermination" ;
+        IFC4-PSD:definition       "Condition of property required on termination of the agreement e.g. cold shell, warm lit shell, broom clean, turn-key." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a0575c80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConditionTermination" ;
+        IFC4-PSD:nameAlias        "Condition Termination"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:VersionDate  a             rdf:Property ;
+        rdfs:seeAlso        :p5b332a80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VersionDate .
+
+:AgreementType  a           rdf:Property ;
+        rdfs:seeAlso        :p2c1cb900d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AgreementType .
+
+:Options  a                 rdf:Property ;
+        rdfs:seeAlso        :p87e74200d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Options .
+
+:p90d81380d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Condition of property provided on commencement of the agreement e.g. cold shell, warm lit shell, broom clean, turn-key." ;
+        rdfs:label                "ConditionCommencement" ;
+        IFC4-PSD:definition       "Condition of property provided on commencement of the agreement e.g. cold shell, warm lit shell, broom clean, turn-key." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "90d81380d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConditionCommencement" ;
+        IFC4-PSD:nameAlias        "Condition Commencement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p9a617b80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Restrictions that may be placed by a  competent authority." ;
+        rdfs:label                "Restrictions" ;
+        IFC4-PSD:definition       "Restrictions that may be placed by a  competent authority." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9a617b80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Restrictions" ;
+        IFC4-PSD:nameAlias        "Restrictions"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p50789580d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The version number of the agreement that is identified." ;
+        rdfs:label                "Version" ;
+        IFC4-PSD:definition       "The version number of the agreement that is identified." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "50789580d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Version" ;
+        IFC4-PSD:nameAlias        "Version"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p6e45fa80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Date on which the agreement commences." ;
+        rdfs:label                "CommencementDate" ;
+        IFC4-PSD:definition       "Date on which the agreement commences." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6e45fa80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CommencementDate" ;
+        IFC4-PSD:nameAlias        "Commencement Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .
+
+:PropertyName  a            rdf:Property ;
+        rdfs:seeAlso        :p638b6580d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PropertyName .
+
+:CommencementDate  a        rdf:Property ;
+        rdfs:seeAlso        :p6e45fa80d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CommencementDate .
+
+:ConditionCommencement
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p90d81380d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConditionCommencement .
+
+:p638b6580d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Addressing details of the property as stated within the agreement." ;
+        rdfs:label                "PropertyName" ;
+        IFC4-PSD:definition       "Addressing details of the property as stated within the agreement." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "638b6580d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PropertyName" ;
+        IFC4-PSD:nameAlias        "Property Name"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p5b332a80d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The date on which the version of the agreement became applicable." ;
+        rdfs:label                "VersionDate" ;
+        IFC4-PSD:definition       "The date on which the version of the agreement became applicable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5b332a80d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VersionDate" ;
+        IFC4-PSD:nameAlias        "Version Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .

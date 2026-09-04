@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pc0752480d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The port index for logically ordering the port within the containing element or element type." ;
+        rdfs:label                "PortNumber" ;
+        IFC4-PSD:definition       "The port index for logically ordering the port within the containing element or element type." ;
+        IFC4-PSD:definitionAlias  "포트에 포함되는 요소 유형을 나타내는 숫자"@ko-KR , ""@en , "ポートに含まれる要素、種類を示す番号。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c0752480d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PortNumber" ;
+        IFC4-PSD:nameAlias        "Port Number"@en , "포트 번호"@ko-KR , "ポート番号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:ColorCode  a               rdf:Property ;
+        rdfs:seeAlso        :pc79c3280d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColorCode .
+
+:pc79c3280d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Name of a color for identifying the connector, if applicable." ;
+        rdfs:label                "ColorCode" ;
+        IFC4-PSD:definition       "Name of a color for identifying the connector, if applicable." ;
+        IFC4-PSD:definitionAlias  "コネクタの色。"@ja-JP , "커넥터 고유 이름"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "c79c3280d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColorCode" ;
+        IFC4-PSD:nameAlias        "色番号"@ja-JP , "Color Code"@en , "색상번호"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_DistributionPortCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes attached to an instance of IfcDistributionPort." ;
+        rdfs:label                    "Pset_DistributionPortCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDistributionPort ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort" ;
+        IFC4-PSD:definition           "Common attributes attached to an instance of IfcDistributionPort." ;
+        IFC4-PSD:definitionAlias      ""@en , "IfcDistributionPortオブジェクトに関する基本属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortCommon" ;
+        IFC4-PSD:propertyDef          :pc0752480d1d411e1800000215ad4efdf , :pc79c3280d1d411e1800000215ad4efdf .
+
+:PortNumber  a              rdf:Property ;
+        rdfs:seeAlso        :pc0752480d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PortNumber .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialThermal#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ThermalConductivity  a     rdf:Property ;
+        rdfs:seeAlso        :p17d3be80d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalConductivity .
+
+:p11dddd80d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The freezing point of the material (fluid)." ;
+        rdfs:label                "FreezingPoint" ;
+        IFC4-PSD:definition       "The freezing point of the material (fluid)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "11dddd80d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FreezingPoint" ;
+        IFC4-PSD:nameAlias        "Freezing Point"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p07234880d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the specific heat of the material: heat energy absorbed per temperature unit." ;
+        rdfs:label                "SpecificHeatCapacity" ;
+        IFC4-PSD:definition       "Defines the specific heat of the material: heat energy absorbed per temperature unit." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "07234880d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpecificHeatCapacity" ;
+        IFC4-PSD:nameAlias        "Specific Heat Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcSpecificHeatCapacityMeasure
+                                  ] .
+
+:p0be7fc80d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The boiling point of the material (fluid)." ;
+        rdfs:label                "BoilingPoint" ;
+        IFC4-PSD:definition       "The boiling point of the material (fluid)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0be7fc80d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BoilingPoint" ;
+        IFC4-PSD:nameAlias        "Boiling Point"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialThermal>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:BoilingPoint  a            rdf:Property ;
+        rdfs:seeAlso        :p0be7fc80d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BoilingPoint .
+
+:FreezingPoint  a           rdf:Property ;
+        rdfs:seeAlso        :p11dddd80d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FreezingPoint .
+
+:p17d3be80d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The rate at which thermal energy is transmitted through the material." ;
+        rdfs:label                "ThermalConductivity" ;
+        IFC4-PSD:definition       "The rate at which thermal energy is transmitted through the material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "17d3be80d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalConductivity" ;
+        IFC4-PSD:nameAlias        "Thermal Conductivity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalConductivityMeasure
+                                  ] .
+
+:SpecificHeatCapacity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p07234880d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpecificHeatCapacity .
+
+:Pset_MaterialThermal
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of thermal material properties." ;
+        rdfs:label                    "Pset_MaterialThermal" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of thermal material properties." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialThermal" ;
+        IFC4-PSD:propertyDef          :p0be7fc80d1ee11e1800000215ad4efdf , :p07234880d1ee11e1800000215ad4efdf , :p11dddd80d1ee11e1800000215ad4efdf , :p17d3be80d1ee11e1800000215ad4efdf .

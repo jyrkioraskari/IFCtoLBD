@@ -12,6 +12,14 @@ public class WktLiteral extends BaseDatatype {
 
     public static final RDFDatatype wktLiteralType = new WktLiteral();
 
+    /** Returns a GeoSPARQL WKT lexical form with the explicit WGS84 longitude/latitude CRS. */
+    public static String withCrs84(String wkt) {
+        if (wkt == null || wkt.isBlank() || wkt.startsWith(CRS84 + " ")) {
+            return wkt;
+        }
+        return CRS84 + " " + wkt;
+    }
+
     private WktLiteral() {
         super(TypeURI);
     }
@@ -30,7 +38,11 @@ public class WktLiteral extends BaseDatatype {
      */
     @Override
 	public Object parse(String lexicalForm) {
-        return new TypedValue(String.format("%s %s", WktLiteral.CRS84, lexicalForm), this.getURI());
+        String value = lexicalForm == null ? "" : lexicalForm.trim();
+        if (!value.startsWith(CRS84 + " ")) {
+            value = CRS84 + " " + value;
+        }
+        return new TypedValue(value, this.getURI());
     }
 
     /**

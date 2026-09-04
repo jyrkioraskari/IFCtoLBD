@@ -23,9 +23,15 @@ import com.google.common.eventbus.EventBus;
 
 
 public class IFC2LBD_ApplicationEventBusService {
-	private static final EventBus eventBus = new EventBus();
+	private static final EventBus DEFAULT_EVENT_BUS = new EventBus();
 
+	/** Returns the application-wide bus for legacy clients. Prefer ConversionSession for new code. */
+	public static EventBus getDefaultEventBus() {
+		return DEFAULT_EVENT_BUS;
+	}
+	/** @deprecated Use {@code ConversionSession.getEventBus()} for lifecycle isolation. */
+	@Deprecated(forRemoval = true)
 	public static EventBus getEventBus() {
-		return eventBus;
+		return DEFAULT_EVENT_BUS;
 	}
 }

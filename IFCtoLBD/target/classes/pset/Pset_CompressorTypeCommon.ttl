@@ -1,0 +1,231 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CompressorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p278ddb80d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of power driving the compressor." ;
+        rdfs:label                "PowerSource" ;
+        IFC4-PSD:definition       "Type of power driving the compressor." ;
+        IFC4-PSD:definitionAlias  "Type de puissance fournie au compresseur"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "278ddb80d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PowerSource" ;
+        IFC4-PSD:nameAlias        "SourcePuissance"@fr-FR , "Power Source"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MOTORDRIVEN" , "ENGINEDRIVEN" , "GASTURBINE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p5310c600d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum part load ratio as a fraction of nominal capacity." ;
+        rdfs:label                "MaximumPartLoadRatio" ;
+        IFC4-PSD:definition       "Maximum part load ratio as a fraction of nominal capacity." ;
+        IFC4-PSD:definitionAlias  "Coefficient maximal de charge partielle en tant que fraction de la puissance nominale."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "5310c600d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPartLoadRatio" ;
+        IFC4-PSD:nameAlias        "CoefficientMaximalChargePartielle"@fr-FR , "Maximum Part Load Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_CompressorTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Compressor type common attributes." ;
+        rdfs:label                    "Pset_CompressorTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCompressor ;
+        IFC4-PSD:applicableTypeValue  "IfcCompressor" ;
+        IFC4-PSD:definition           "Compressor type common attributes." ;
+        IFC4-PSD:definitionAlias      "コンプレッサー型の共通プロパティ属性設定。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CompressorTypeCommon" ;
+        IFC4-PSD:propertyDef          :p5dcb5b00d1cb11e1800000215ad4efdf , :p36748e00d1cb11e1800000215ad4efdf , :p6b80e080d1cb11e1800000215ad4efdf , :p70de2b00d1cb11e1800000215ad4efdf , :p4db37b80d1cb11e1800000215ad4efdf , :p0fb65780d1cb11e1800000215ad4efdf , :p1513a200d1cb11e1800000215ad4efdf , :p278ddb80d1cb11e1800000215ad4efdf , :p6459d280d1cb11e1800000215ad4efdf , :p76d40c00d1cb11e1800000215ad4efdf , :p5310c600d1cb11e1800000215ad4efdf , :p57d57a00d1cb11e1800000215ad4efdf .
+
+:p76d40c00d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diameter of compressor impeller - used to scale performance of geometrically similar compressors." ;
+        rdfs:label                "ImpellerDiameter" ;
+        IFC4-PSD:definition       "Diameter of compressor impeller - used to scale performance of geometrically similar compressors." ;
+        IFC4-PSD:definitionAlias  ""@en , "Diamètre du rotor du compresseur - utilisé pour dimensionner les performances des compresseurs géométriquement similaires."@fr-FR ;
+        IFC4-PSD:ifdguid          "76d40c00d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ImpellerDiameter" ;
+        IFC4-PSD:nameAlias        "DiametreRotor"@fr-FR , "Impeller Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0fb65780d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR ;
+        IFC4-PSD:ifdguid          "0fb65780d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP , "Référence"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:RefrigerantClass  a        rdf:Property ;
+        rdfs:seeAlso        :p36748e00d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RefrigerantClass .
+
+:IdealCapacity  a           rdf:Property ;
+        rdfs:seeAlso        :p6459d280d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IdealCapacity .
+
+:p36748e00d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Refrigerant class used by the compressor.\n\nCFC: Chlorofluorocarbons.\nHCFC: Hydrochlorofluorocarbons.\nHFC: Hydrofluorocarbons." ;
+        rdfs:label                "RefrigerantClass" ;
+        IFC4-PSD:definition       "Refrigerant class used by the compressor.\n\nCFC: Chlorofluorocarbons.\nHCFC: Hydrochlorofluorocarbons.\nHFC: Hydrofluorocarbons." ;
+        IFC4-PSD:definitionAlias  "Classe de réfrigérant utilisé par le compresseur.\n\nCFC\nHCFC\nHFC"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "36748e00d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RefrigerantClass" ;
+        IFC4-PSD:nameAlias        "ClasseRéfrigérant"@fr-FR , "Refrigerant Class"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "AMMONIA" , "HFC" , "HYDROCARBONS" , "CO2" , "UNSET" , "CFC" , "H2O" , "OTHER" , "HCFC" , "NOTKNOWN"
+                                  ] .
+
+:MaximumPartLoadRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5310c600d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPartLoadRatio .
+
+:p57d57a00d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Compressor speed." ;
+        rdfs:label                "CompressorSpeed" ;
+        IFC4-PSD:definition       "Compressor speed." ;
+        IFC4-PSD:definitionAlias  "Vitesse du compresseur"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "57d57a00d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorSpeed" ;
+        IFC4-PSD:nameAlias        "Compressor Speed"@en , "VitesseCompresseur"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRotationalFrequencyMeasure
+                                  ] .
+
+:IdealShaftPower  a         rdf:Property ;
+        rdfs:seeAlso        :p6b80e080d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IdealShaftPower .
+
+:CompressorSpeed  a         rdf:Property ;
+        rdfs:seeAlso        :p57d57a00d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorSpeed .
+
+:ImpellerDiameter  a        rdf:Property ;
+        rdfs:seeAlso        :p76d40c00d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ImpellerDiameter .
+
+:NominalCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :p5dcb5b00d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCapacity .
+
+:p6459d280d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Compressor capacity under ideal conditions." ;
+        rdfs:label                "IdealCapacity" ;
+        IFC4-PSD:definition       "Compressor capacity under ideal conditions." ;
+        IFC4-PSD:definitionAlias  "Puissance maximale sous des conditions idéales"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "6459d280d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IdealCapacity" ;
+        IFC4-PSD:nameAlias        "Ideal Capacity"@en , "PuissanceMaximale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p4db37b80d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum part load ratio as a fraction of nominal capacity." ;
+        rdfs:label                "MinimumPartLoadRatio" ;
+        IFC4-PSD:definition       "Minimum part load ratio as a fraction of nominal capacity." ;
+        IFC4-PSD:definitionAlias  "Coefficient minimum de charge partielle en tant que fraction de la puissance nominale."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "4db37b80d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MinimumPartLoadRatio" ;
+        IFC4-PSD:nameAlias        "CoefficientMinimalChargePartielle"@fr-FR , "Minimum Part Load Ratio"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:MinimumPartLoadRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4db37b80d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MinimumPartLoadRatio .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p1513a200d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p6b80e080d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Compressor shaft power under ideal conditions." ;
+        rdfs:label                "IdealShaftPower" ;
+        IFC4-PSD:definition       "Compressor shaft power under ideal conditions." ;
+        IFC4-PSD:definitionAlias  "Puissance au niveau de l'arbre du compresseur sous conditions idéales."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "6b80e080d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IdealShaftPower" ;
+        IFC4-PSD:nameAlias        "PuissanceArbreMaximale"@fr-FR , "Ideal Shaft Power"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:HasHotGasBypass  a         rdf:Property ;
+        rdfs:seeAlso        :p70de2b00d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasHotGasBypass .
+
+:p1513a200d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1513a200d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "Etat"@fr-FR , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CompressorTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5dcb5b00d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Compressor nameplate capacity." ;
+        rdfs:label                "NominalCapacity" ;
+        IFC4-PSD:definition       "Compressor nameplate capacity." ;
+        IFC4-PSD:definitionAlias  ""@en , "Puissance du compresseur au niveau de sa plaque."@fr-FR ;
+        IFC4-PSD:ifdguid          "5dcb5b00d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCapacity" ;
+        IFC4-PSD:nameAlias        "PuissanceCompresseur"@fr-FR , "Nominal Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p70de2b00d1cb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Whether or not hot gas bypass is provided for the compressor. TRUE = Yes, FALSE = No." ;
+        rdfs:label                "HasHotGasBypass" ;
+        IFC4-PSD:definition       "Whether or not hot gas bypass is provided for the compressor. TRUE = Yes, FALSE = No." ;
+        IFC4-PSD:definitionAlias  "Qu'il y ait ou non un bypass du gaz chaud fourni au niveau du compresseur, VRAI= oui, FAUX= Non."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "70de2b00d1cb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasHotGasBypass" ;
+        IFC4-PSD:nameAlias        "Has Hot Gas Bypass"@en , "PossedeBypassGazChaud"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p0fb65780d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:PowerSource  a             rdf:Property ;
+        rdfs:seeAlso        :p278ddb80d1cb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerSource .

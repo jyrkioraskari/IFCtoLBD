@@ -1,0 +1,152 @@
+[
+  {
+    "name": "com.github.benmanes.caffeine.cache.PDMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSAW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSMW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSAMW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSAWMW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSWMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.PSWMW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SILMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSAW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSLA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSLMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSMSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSMSAW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSMSW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SILSMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSLSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSLSMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMS",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMSA",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMSW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSMSAW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  },
+  {
+    "name": "com.github.benmanes.caffeine.cache.SSSAW",
+    "allDeclaredConstructors": true,
+    "fields": [{ "name": "FACTORY" }]
+  }
+]

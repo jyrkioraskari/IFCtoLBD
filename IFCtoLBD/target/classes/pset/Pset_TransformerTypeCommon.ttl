@@ -1,0 +1,339 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TransformerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p95580b0800334fb180f4ce1d5048a707
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "List of the possible vector groups for the transformer from which that required may be set. Values in the enumeration list follow a standard international code where the first letter  describes how the primary windings are connected,\nthe second letter describes how the secondary windings are connected, and the numbers describe the rotation of voltages and currents from the primary to the secondary side in multiples of 30 degrees.\n\nD: means that the windings are delta-connected.\nY: means that the windings are star-connected. \nZ: means that the windings are zig-zag connected (a special start-connected providing low reactance of the transformer); \nThe connectivity is only relevant for three-phase transformers." ;
+        rdfs:label                "TransformerVectorGroup" ;
+        IFC4-PSD:definition       "List of the possible vector groups for the transformer from which that required may be set. Values in the enumeration list follow a standard international code where the first letter  describes how the primary windings are connected,\nthe second letter describes how the secondary windings are connected, and the numbers describe the rotation of voltages and currents from the primary to the secondary side in multiples of 30 degrees.\n\nD: means that the windings are delta-connected.\nY: means that the windings are star-connected. \nZ: means that the windings are zig-zag connected (a special start-connected providing low reactance of the transformer); \nThe connectivity is only relevant for three-phase transformers." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "95580b0800334fb180f4ce1d5048a707" ;
+        IFC4-PSD:name             "TransformerVectorGroup" ;
+        IFC4-PSD:nameAlias        "Transformer Vector Group"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "YY0" , "YZ11" , "DD0" , "DY11" , "YD5" , "YY6" , "DD6" , "DZ0" , "DZ6" , "OTHER" , "UNSET" , "YD11" , "DY5" , "NOTKNOWN" , "YZ5"
+                                  ] .
+
+:ShortCircuitVoltage  a     rdf:Property ;
+        rdfs:seeAlso        :pa0b02180d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuitVoltage .
+
+:PrimaryFrequency  a        rdf:Property ;
+        rdfs:seeAlso        :p778f9100d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimaryFrequency .
+
+:p7e1e0880d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The frequency that has been transformed and is running out of the transformer on the secondary side." ;
+        rdfs:label                "SecondaryFrequency" ;
+        IFC4-PSD:definition       "The frequency that has been transformed and is running out of the transformer on the secondary side." ;
+        IFC4-PSD:definitionAlias  "変圧器の2次側に出力される周波数。"@ja-JP , ""@en , "변압기 2 차 측에 전송되는 주파수."@ko-KR ;
+        IFC4-PSD:ifdguid          "7e1e0880d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondaryFrequency" ;
+        IFC4-PSD:nameAlias        "第2周波数"@ja-JP , "Secondary Frequency"@en , "제 2 주파수"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:SecondaryApparentPower
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p89713400d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondaryApparentPower .
+
+:PrimaryApparentPower
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p837b5300d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimaryApparentPower .
+
+:p837b5300d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The power in VA (volt ampere) that has been transformed and that runs into the transformer on the primary side." ;
+        rdfs:label                "PrimaryApparentPower" ;
+        IFC4-PSD:definition       "The power in VA (volt ampere) that has been transformed and that runs into the transformer on the primary side." ;
+        IFC4-PSD:definitionAlias  "변압기 1 차 측에 전송되는 전력 (VA : 암페어)."@ko-KR , "変圧器の1次側に伝送される電力（VA: アンペア）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "837b5300d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimaryApparentPower" ;
+        IFC4-PSD:nameAlias        "Primary Apparent Power"@en , "제 1 전력"@ko-KR , "第1電力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:IsNeutralSecondaryTerminalAvailable
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd94ffb00d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsNeutralSecondaryTerminalAvailable .
+
+:PrimaryCurrent  a          rdf:Property ;
+        rdfs:seeAlso        :p6a72a200d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimaryCurrent .
+
+:MaximumApparentPower
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8f671500d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumApparentPower .
+
+:p6a72a200d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The current that is going to be transformed and that runs into the transformer on the primary side." ;
+        rdfs:label                "PrimaryCurrent" ;
+        IFC4-PSD:definition       "The current that is going to be transformed and that runs into the transformer on the primary side." ;
+        IFC4-PSD:definitionAlias  "변압기 1 차 측에 전송되는 전류."@ko-KR , "変圧器の1次側に伝送される電流。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6a72a200d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimaryCurrent" ;
+        IFC4-PSD:nameAlias        "제 1 전류"@ko-KR , "第1電流"@ja-JP , "Primary Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:pa0b02180d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A complex number that specifies the real and imaginary parts of the short-circuit voltage at rated current of a transformer given in %." ;
+        rdfs:label                "ShortCircuitVoltage" ;
+        IFC4-PSD:definition       "A complex number that specifies the real and imaginary parts of the short-circuit voltage at rated current of a transformer given in %." ;
+        IFC4-PSD:definitionAlias  "%에서 주어진 변압기 정격 전류의 단락 전압의 실수와 허수를 정의하는 복소수."@ko-KR , ""@en , "%で与えられる変圧器の定格電流における短絡電圧の実数と虚数を定義する複素数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a0b02180d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuitVoltage" ;
+        IFC4-PSD:nameAlias        "단락 전압"@ko-KR , "Short Circuit Voltage"@en , "短絡電圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcComplexNumber
+                                  ] .
+
+:PrimaryVoltage  a          rdf:Property ;
+        rdfs:seeAlso        :p5dee4980d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PrimaryVoltage .
+
+:p634b9400d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage that has been transformed and is running out of the transformer on the secondary side." ;
+        rdfs:label                "SecondaryVoltage" ;
+        IFC4-PSD:definition       "The voltage that has been transformed and is running out of the transformer on the secondary side." ;
+        IFC4-PSD:definitionAlias  "変圧器の2次側へ出力される電圧。"@ja-JP , "변압기 2 차 측에 전송되는 전압."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "634b9400d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondaryVoltage" ;
+        IFC4-PSD:nameAlias        "Secondary Voltage"@en , "第2電圧"@ja-JP , "두번째 전압"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:p94c45f80d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the secondary current types that can result from transformer output." ;
+        rdfs:label                "SecondaryCurrentType" ;
+        IFC4-PSD:definition       "A list of the secondary current types that can result from transformer output." ;
+        IFC4-PSD:definitionAlias  "변압기에서 출력되는 제 2 전류의 종류 목록입니다."@ko-KR , "変圧器より出力される第2電流の種類の一覧。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "94c45f80d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondaryCurrentType" ;
+        IFC4-PSD:nameAlias        "第2電流タイプ"@ja-JP , "제 2 전류 타입"@ko-KR , "Secondary Current Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "AC" , "DC" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p89713400d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The power in VA (volt ampere) that has been transformed and is running out of the transformer on the secondary side." ;
+        rdfs:label                "SecondaryApparentPower" ;
+        IFC4-PSD:definition       "The power in VA (volt ampere) that has been transformed and is running out of the transformer on the secondary side." ;
+        IFC4-PSD:definitionAlias  "변압기 2 차측으로 출력되는 전력 (VA : 암페어)."@ko-KR , "変圧器の2次側へ出力される電力（VA: アンペア）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "89713400d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondaryApparentPower" ;
+        IFC4-PSD:nameAlias        "Secondary Apparent Power"@en , "第2電力"@ja-JP , "제 2 전원"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p444d0200d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:SecondaryFrequency  a      rdf:Property ;
+        rdfs:seeAlso        :p7e1e0880d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondaryFrequency .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p4b741000d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:IsNeutralPrimaryTerminalAvailable
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd228ed00d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsNeutralPrimaryTerminalAvailable .
+
+:pd94ffb00d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication of whether the neutral point of the secondary winding is available as a terminal (=TRUE) or not (= FALSE)." ;
+        rdfs:label                "IsNeutralSecondaryTerminalAvailable" ;
+        IFC4-PSD:definition       "An indication of whether the neutral point of the secondary winding is available as a terminal (=TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  "2 차 코일의 중성점 터미널의 경우 (= TRUE), 다른 경우는 (= FALSE)로 표시"@ko-KR , ""@en , "二次巻線の中性点がターミナルの場合は（=TRUE）、違う場合は（= FALSE）として表示する"@ja-JP ;
+        IFC4-PSD:ifdguid          "d94ffb00d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsNeutralSecondaryTerminalAvailable" ;
+        IFC4-PSD:nameAlias        "Is Neutral Secondary Terminal Available"@en , "중성점 제 2 터미널 여부"@ko-KR , "中性点第2ターミナルがあるかどうか"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TransformerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SecondaryCurrentType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p94c45f80d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondaryCurrentType .
+
+:p444d0200d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "이 프로젝트 (예 : 'A-1'유형 등) 지정된 참조 ID. 인정 분류 체계의 분류 참조가없는 경우에 적용된다."@ko-KR , "このプロジェクト (例． 'A-1'　タイプなど)で指定された参照ID。認められた分類体系の分類参照が存在しない場合に適用される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "444d0200d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조"@ko-KR , "参照"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:RealImpedanceRatio  a      rdf:Property ;
+        rdfs:seeAlso        :pa6a60280d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RealImpedanceRatio .
+
+:SecondaryCurrent  a        rdf:Property ;
+        rdfs:seeAlso        :p71011980d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondaryCurrent .
+
+:p778f9100d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The frequency that is going to be transformed and that runs into the transformer on the primary side." ;
+        rdfs:label                "PrimaryFrequency" ;
+        IFC4-PSD:definition       "The frequency that is going to be transformed and that runs into the transformer on the primary side." ;
+        IFC4-PSD:definitionAlias  "변압기 1 차 측에 전송되는 주파수."@ko-KR , "変圧器の1次側に伝送される周波数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "778f9100d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimaryFrequency" ;
+        IFC4-PSD:nameAlias        "第１周波数"@ja-JP , "제 1 주파수"@ko-KR , "Primary Frequency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:pac9be380d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio between the imaginary part of the zero sequence impedance and the imaginary part of the positive impedance (i.e. imaginary part of the short-circuit voltage) of the transformer.\nUsed for three-phase transformer which includes a N-conductor." ;
+        rdfs:label                "ImaginaryImpedanceRatio" ;
+        IFC4-PSD:definition       "The ratio between the imaginary part of the zero sequence impedance and the imaginary part of the positive impedance (i.e. imaginary part of the short-circuit voltage) of the transformer.\nUsed for three-phase transformer which includes a N-conductor." ;
+        IFC4-PSD:definitionAlias  "영 상 임피던스와 양의 상 임피던스 (예 : 단락 전압 국소 부) 사이의 비율. N-지휘자를 포함 삼상 변압기에 사용됩니다."@ko-KR , ""@en , "零相インピーダンスと正相インピーダンス（例．短絡電圧の虚部）の間の比率。N-コンダクターを含む三相トランスのために使用。"@ja-JP ;
+        IFC4-PSD:ifdguid          "ac9be380d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ImaginaryImpedanceRatio" ;
+        IFC4-PSD:nameAlias        "Imaginary Impedance Ratio"@en , "インピーダンス虚部比率"@ja-JP , "임피던스 허수 부 비율"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:p5dee4980d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage that is going to be transformed and that runs into the transformer on the primary side." ;
+        rdfs:label                "PrimaryVoltage" ;
+        IFC4-PSD:definition       "The voltage that is going to be transformed and that runs into the transformer on the primary side." ;
+        IFC4-PSD:definitionAlias  ""@en , "変圧器の1次側に伝送される電圧。"@ja-JP , "변압기 1 차 측에 전송되는 전압."@ko-KR ;
+        IFC4-PSD:ifdguid          "5dee4980d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PrimaryVoltage" ;
+        IFC4-PSD:nameAlias        "제 1 전압"@ko-KR , "第1電圧"@ja-JP , "Primary Voltage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:p4b741000d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4b741000d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SecondaryVoltage  a        rdf:Property ;
+        rdfs:seeAlso        :p634b9400d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondaryVoltage .
+
+:ImaginaryImpedanceRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pac9be380d21111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ImaginaryImpedanceRatio .
+
+:TransformerVectorGroup
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p95580b0800334fb180f4ce1d5048a707 ;
+        rdfs:subPropertyOf  IFC4-PSD:TransformerVectorGroup .
+
+:pd228ed00d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An indication of whether the neutral point of the primary winding is available as a terminal (=TRUE) or not (= FALSE)." ;
+        rdfs:label                "IsNeutralPrimaryTerminalAvailable" ;
+        IFC4-PSD:definition       "An indication of whether the neutral point of the primary winding is available as a terminal (=TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "一次巻線の中性点がターミナルの場合は（=TRUE）、違う場合は（= FALSE）として表示する"@ja-JP , "1차 권선의 중성점 터미널의 경우 (= TRUE), 다른 경우는 (= FALSE)로 표시"@ko-KR ;
+        IFC4-PSD:ifdguid          "d228ed00d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsNeutralPrimaryTerminalAvailable" ;
+        IFC4-PSD:nameAlias        "中性点第1ターミナルがあるかどうか"@ja-JP , "Is Neutral Primary Terminal Available"@en , "중성점 제 1 터미널 여부"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pa6a60280d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio between the real part of the zero sequence impedance and the real part of the positive impedance (i.e. real part of the short-circuit voltage) of the transformer.\nUsed for three-phase transformer which includes a N-conductor." ;
+        rdfs:label                "RealImpedanceRatio" ;
+        IFC4-PSD:definition       "The ratio between the real part of the zero sequence impedance and the real part of the positive impedance (i.e. real part of the short-circuit voltage) of the transformer.\nUsed for three-phase transformer which includes a N-conductor." ;
+        IFC4-PSD:definitionAlias  ""@en , "零相インピーダンスと正相インピーダンス（例．短絡電圧の実部）の間の比率。N-コンダクターを含む三相トランスのために使用。"@ja-JP , "영 상 임피던스와 양의 상 임피던스 (예 : 단락 전압의 실제 부분) 사이의 비율. N-지휘자를 포함 삼상 변압기에 사용됩니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "a6a60280d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RealImpedanceRatio" ;
+        IFC4-PSD:nameAlias        "Real Impedance Ratio"@en , "임피던스 실수 부 비율"@ko-KR , "インピーダンス実部比率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:p71011980d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The current that has been transformed and is running out of the transformer on the secondary side." ;
+        rdfs:label                "SecondaryCurrent" ;
+        IFC4-PSD:definition       "The current that has been transformed and is running out of the transformer on the secondary side." ;
+        IFC4-PSD:definitionAlias  "変圧器の2次側へ出力される電流。"@ja-JP , ""@en , "변압기 2 차 측에 전송되는 전류."@ko-KR ;
+        IFC4-PSD:ifdguid          "71011980d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondaryCurrent" ;
+        IFC4-PSD:nameAlias        "第2電流"@ja-JP , "제 2 전류"@ko-KR , "Secondary Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:Pset_TransformerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An inductive stationary device that transfers electrical energy from one circuit to another." ;
+        rdfs:label                    "Pset_TransformerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcTransformer ;
+        IFC4-PSD:applicableTypeValue  "IfcTransformer" ;
+        IFC4-PSD:definition           "An inductive stationary device that transfers electrical energy from one circuit to another." ;
+        IFC4-PSD:definitionAlias      ""@en , "1つの回路からもう一つへ電気エネルギーを移す電磁誘導装置。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TransformerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p444d0200d21111e1800000215ad4efdf , :pac9be380d21111e1800000215ad4efdf , :pd228ed00d21111e1800000215ad4efdf , :p8f671500d21111e1800000215ad4efdf , :p89713400d21111e1800000215ad4efdf , :p4b741000d21111e1800000215ad4efdf , :p5dee4980d21111e1800000215ad4efdf , :p94c45f80d21111e1800000215ad4efdf , :pd94ffb00d21111e1800000215ad4efdf , :p95580b0800334fb180f4ce1d5048a707 , :p837b5300d21111e1800000215ad4efdf , :pa0b02180d21111e1800000215ad4efdf , :p634b9400d21111e1800000215ad4efdf , :pa6a60280d21111e1800000215ad4efdf , :p71011980d21111e1800000215ad4efdf , :p7e1e0880d21111e1800000215ad4efdf , :p6a72a200d21111e1800000215ad4efdf , :p778f9100d21111e1800000215ad4efdf .
+
+:p8f671500d21111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum apparent power/capacity in VA (volt ampere)." ;
+        rdfs:label                "MaximumApparentPower" ;
+        IFC4-PSD:definition       "Maximum apparent power/capacity in VA (volt ampere)." ;
+        IFC4-PSD:definitionAlias  "皮相電力/容量 の最大値　（VA:アンペア）。"@ja-JP , "피상 전력 / 용량 최대 (VA : 암페어)."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "8f671500d21111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumApparentPower" ;
+        IFC4-PSD:nameAlias        "Maximum Apparent Power"@en , "최대 전력"@ko-KR , "最大電力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .

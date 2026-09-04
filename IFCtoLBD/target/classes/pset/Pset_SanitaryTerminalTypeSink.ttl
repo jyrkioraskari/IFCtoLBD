@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeSink#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p532cb800d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the type of sink from the enumerated list of types where:-\n\nBelfast: \tDeep sink that has a plain edge and a weir overflow\n.\nBucket: \tSink at low level, with protected front edge, that facilitates filling and emptying buckets, usually with a hinged grid on which to stand them.\nCleaners:\t Sink, usually fixed at normal height (900mm), with protected front edge.\nCombination_Left:\t Sink with integral drainer on left hand side\n.\nCombination_Right: Sink with integral drainer on right hand side\n.\nCombination_Double: \tSink with integral drainer on both sides\n.\nDrip: Small sink that catches drips or flow from a faucet\n.\nLaboratory: Sink, of acid resisting material, with a top edge shaped to facilitate fixing to the underside of a desktop\n.\nLondon: Deep sink that has a plain edge and no overflow\n.\nPlaster: Sink with sediment receiver to prevent waste plaster passing into drains\n.\nPot: Large metal sink, with a standing waste, for washing cooking utensils\n.\nRinsing: Metal sink in which water can be heated and culinary utensils and tableware immersed at high temperature that destroys most harmful bacteria and allows subsequent self drying.\n.\nShelf: Ceramic sink with an integral back shelf through which water fittings are mounted\n.\nVegetablePreparation: \tLarge metal sink, with a standing waste, for washing and preparing vegetables\n." ;
+        rdfs:label                "SinkType" ;
+        IFC4-PSD:definition       "Selection of the type of sink from the enumerated list of types where:-\n\nBelfast: \tDeep sink that has a plain edge and a weir overflow\n.\nBucket: \tSink at low level, with protected front edge, that facilitates filling and emptying buckets, usually with a hinged grid on which to stand them.\nCleaners:\t Sink, usually fixed at normal height (900mm), with protected front edge.\nCombination_Left:\t Sink with integral drainer on left hand side\n.\nCombination_Right: Sink with integral drainer on right hand side\n.\nCombination_Double: \tSink with integral drainer on both sides\n.\nDrip: Small sink that catches drips or flow from a faucet\n.\nLaboratory: Sink, of acid resisting material, with a top edge shaped to facilitate fixing to the underside of a desktop\n.\nLondon: Deep sink that has a plain edge and no overflow\n.\nPlaster: Sink with sediment receiver to prevent waste plaster passing into drains\n.\nPot: Large metal sink, with a standing waste, for washing cooking utensils\n.\nRinsing: Metal sink in which water can be heated and culinary utensils and tableware immersed at high temperature that destroys most harmful bacteria and allows subsequent self drying.\n.\nShelf: Ceramic sink with an integral back shelf through which water fittings are mounted\n.\nVegetablePreparation: \tLarge metal sink, with a standing waste, for washing and preparing vegetables\n." ;
+        IFC4-PSD:definitionAlias  ""@en , "シンクタイプの選択\n\n・深流し：エッジが平らであふれにくい深いシンク\n• 下流し：先端が保護され、低水位用のシンク\n・掃除流し：先端が保護されたシンク（通常は900mm高さに調整されたもの）\n・左水切り：左側に水切りが付いているシンク\n・右水切り流し：右側に水切りが付いているシンク\n・両水切り流し：両側に水切りが付いているタイプ\n・点滴：蛇口からの流れや滴を捕まえる小さめのシンク\n・実験流し：デスク天板下が簡易的に固定された他耐酸性の材料を使ったシンク\n・ロンドン：オーバーフローなしのエッジが平らの深いシンク\n・石膏流し：廃石膏が排水管中に入ってしまうのをを防ぐため、沈殿物レシーバーが付いているシンク。\n・料理流し：ゴミの廃棄もできる調理用具を洗うためのシンク\n・すすぎ用の流し：高温滅菌ができる乾いた状態を保持できる鉄製のシンク\n・棚付き流し：金具の接続や設置ができる棚を後ろに持つセラミック製のシンク\n・野菜流し：ゴミの廃棄もできる、洗浄や調理の準備をする大きめの鉄製のシンク"@ja-JP ;
+        IFC4-PSD:ifdguid          "532cb800d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SinkType" ;
+        IFC4-PSD:nameAlias        "シンクの種類"@ja-JP , "Sink Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "DRIP" , "RINSING" , "CLEANERS" , "POT" , "BUCKET" , "OTHER" , "COMBINATION_RIGHT" , "PLASTER" , "COMBINATION_LEFT" , "NOTKNOWN" , "LONDON" , "VEGETABLEPREPARATION" , "SHELF" , "COMBINATION_DOUBLE" , "LABORATORY" , "BELFAST"
+                                  ] .
+
+:pbc143000d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the drain outlet connection from the object." ;
+        rdfs:label                "DrainSize" ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  "要素への接続口径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bc143000d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "Drain Size"@en , "管径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:SinkType  a                rdf:Property ;
+        rdfs:seeAlso        :p532cb800d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SinkType .
+
+:MountingOffset  a          rdf:Property ;
+        rdfs:seeAlso        :pc5050180d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MountingOffset .
+
+:Mounting  a                rdf:Property ;
+        rdfs:seeAlso        :p7192b380d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mounting .
+
+:p7192b380d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Selection of the form of mounting of the sink from the enumerated list of mountings where:-\n\nBackToWall: A pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        rdfs:label                "Mounting" ;
+        IFC4-PSD:definition       "Selection of the form of mounting of the sink from the enumerated list of mountings where:-\n\nBackToWall: A pedestal mounted sanitary terminal that fits flush to the wall at the rear to cover its service connections.\nPedestal: \tA floor mounted sanitary terminal that has an integral base.\nCounterTop: \tA sanitary terminal that is installed into a horizontal surface that is installed into a horizontal surface. Note: When applied to a wash hand basin, the term more normally used is ‘vanity’. See also Wash Hand Basin Type specification.\nWallHung: \tA sanitary terminal cantilevered clear of the floor." ;
+        IFC4-PSD:definitionAlias  "設置場所の選択\n\n・床置き壁排出：接続口の後部に出水口を合わせること。\n・台：床置きの衛生器具には基礎があること。\n・調理台：衛生器具の表層が水平に設置されていること。※手洗い台として設置された場合「化粧台」として扱うこと。また、洗面台種類の規格表を参照のこと。\n・壁掛け型：衛生器具は片側固定がされ床から離れていること。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7192b380d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mounting" ;
+        IFC4-PSD:nameAlias        "Mounting"@en , "設置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BACKTOWALL" , "PEDESTAL" , "COUNTERTOP" , "WALLHUNG" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pa141bb80d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Color selection for this object." ;
+        rdfs:label                "Color" ;
+        IFC4-PSD:definition       "Color selection for this object." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素の色。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a141bb80d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Color" ;
+        IFC4-PSD:nameAlias        "色"@ja-JP , "Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeSink>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Color  a                   rdf:Property ;
+        rdfs:seeAlso        :pa141bb80d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Color .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :pbc143000d20311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:Pset_SanitaryTerminalTypeSink
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Waste water appliance for receiving, retaining or disposing of domestic, culinary, laboratory or industrial process liquids. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). SinkMounting changed to Mounting." ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeSink" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/SINK> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/SINK" ;
+        IFC4-PSD:definition           "Waste water appliance for receiving, retaining or disposing of domestic, culinary, laboratory or industrial process liquids. HISTORY: In IFC4, Material property removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value). SinkMounting changed to Mounting." ;
+        IFC4-PSD:definitionAlias      "受信側の廃水機器。\n家庭内の処理や保持、台所や便所もしくは工業用途の液体処理を行います。\n背景：IFC4において、要素のプロパティーは排除されています 。IfcMaterialsResourceのタイプを使ってください。 色のデータ形式は文字列としてIfcLabelに変更されています。「SinkMounting」は「Mounting」に変更されています。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeSink" ;
+        IFC4-PSD:propertyDef          :pa141bb80d20311e1800000215ad4efdf , :p532cb800d20311e1800000215ad4efdf , :p7192b380d20311e1800000215ad4efdf , :pbc143000d20311e1800000215ad4efdf , :pc5050180d20311e1800000215ad4efdf .
+
+:pc5050180d20311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For cunter top maounted sinks, the vertical offset between the top of the sink and the counter top." ;
+        rdfs:label                "MountingOffset" ;
+        IFC4-PSD:definition       "For cunter top maounted sinks, the vertical offset between the top of the sink and the counter top." ;
+        IFC4-PSD:definitionAlias  "調理台に設置されたシンクに、上端と調理台間で垂直に補正されること。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c5050180d20311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MountingOffset" ;
+        IFC4-PSD:nameAlias        "据付補正"@ja-JP , "Mounting Offset"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .

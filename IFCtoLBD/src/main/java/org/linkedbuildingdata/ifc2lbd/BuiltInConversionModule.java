@@ -9,17 +9,29 @@ public enum BuiltInConversionModule implements ConversionModule {
 	},
 	PRODUCT_ONTOLOGY("product-ontology") {
 		@Override public void configure(ConversionProperties p) { p.setHasBuildingElements(true); }
+		@Override public void configure(ConversionContext context) {
+			configure(context.properties());
+			context.requireProductOntologies();
+		}
 	},
 	SIMPLE_PROPERTIES("simple-properties") {
 		@Override public void configure(ConversionProperties p) {
 			p.setHasBuildingProperties(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
 		}
+		@Override public void configure(ConversionContext context) {
+			configure(context.properties());
+			context.requirePropertySetOntologies();
+		}
 	},
 	OPM_PROPERTIES("opm-properties") {
 		@Override public void configure(ConversionProperties p) {
 			p.setHasBuildingProperties(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.OPM);
+		}
+		@Override public void configure(ConversionContext context) {
+			configure(context.properties());
+			context.requirePropertySetOntologies();
 		}
 	},
 	GEOMETRY_ENVELOPE("geometry-envelope") {
@@ -53,6 +65,10 @@ public enum BuiltInConversionModule implements ConversionModule {
 			p.setHasBuildingProperties(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
 		}
+		@Override public void enrich(ConversionContext context) {
+			SupplyChainStage.enrichSupplyChain(context.ifcModel(), context.ifcOntology(), context.generalModel(),
+					context.mappedResources(), context.classificationResolver());
+		}
 	},
 	SUSTAINABILITY("sustainability") {
 		@Override public void configure(ConversionProperties p) {
@@ -60,6 +76,10 @@ public enum BuiltInConversionModule implements ConversionModule {
 			p.setHasBuildingProperties(true);
 			p.setHasUnits(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
+		}
+		@Override public void enrich(ConversionContext context) {
+			SustainabilityStage.enrich(context.ifcModel(), context.ifcOntology(), context.generalModel(),
+					context.mappedResources());
 		}
 	};
 

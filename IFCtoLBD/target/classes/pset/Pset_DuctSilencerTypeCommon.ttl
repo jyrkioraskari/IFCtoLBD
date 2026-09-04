@@ -1,0 +1,180 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSilencerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HydraulicDiameter  a       rdf:Property ;
+        rdfs:seeAlso        :pef909380d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HydraulicDiameter .
+
+:p0636ea80d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable minimum and maximum  working pressure (relative to ambient pressure)." ;
+        rdfs:label                "WorkingPressureRange" ;
+        IFC4-PSD:definition       "Allowable minimum and maximum  working pressure (relative to ambient pressure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容最小・最大作動圧力（周囲圧との相対値）"@ja-JP ;
+        IFC4-PSD:ifdguid          "0636ea80d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkingPressureRange" ;
+        IFC4-PSD:nameAlias        "Working Pressure Range"@en , "作動圧力範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:AirFlowrateRange  a        rdf:Property ;
+        rdfs:seeAlso        :pfe774600d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowrateRange .
+
+:pf919fb80d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The weight of the silencer." ;
+        rdfs:label                "Weight" ;
+        IFC4-PSD:definition       "The weight of the silencer." ;
+        IFC4-PSD:definitionAlias  ""@en , "サイレンサ重量"@ja-JP ;
+        IFC4-PSD:ifdguid          "f919fb80d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Weight" ;
+        IFC4-PSD:nameAlias        "Weight"@en , "重さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:pd7b90f80d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d7b90f80d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p0f27bc00d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:Weight  a                  rdf:Property ;
+        rdfs:seeAlso        :pf919fb80d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Weight .
+
+:Length  a                  rdf:Property ;
+        rdfs:seeAlso        :pf4554780d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Length .
+
+:pdd165a00d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "dd165a00d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p0f27bc00d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable minimum and maximum temperature." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Allowable minimum and maximum temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容最低・最高温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "0f27bc00d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "温度範囲"@ja-JP , "Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:Pset_DuctSilencerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct silencer type common attributes.\nInsertionLoss and RegeneratedSound attributes deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_DuctSilencerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctSilencer ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctSilencer" ;
+        IFC4-PSD:definition           "Duct silencer type common attributes.\nInsertionLoss and RegeneratedSound attributes deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en , "ダクト消音器共通属性\n\nInsertionLossとRegeneratedSoundはIFC2x2 psetの付録で削除された属性：IfcSoundPropertiesを代わりに使用します。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctSilencerTypeCommon" ;
+        IFC4-PSD:propertyDef          :pf919fb80d1de11e1800000215ad4efdf , :p177ff700d1df11e1800000215ad4efdf , :p0f27bc00d1df11e1800000215ad4efdf , :pfe774600d1de11e1800000215ad4efdf , :pdd165a00d1de11e1800000215ad4efdf , :p0636ea80d1df11e1800000215ad4efdf , :pd7b90f80d1de11e1800000215ad4efdf , :pf4554780d1de11e1800000215ad4efdf , :pef909380d1de11e1800000215ad4efdf .
+
+:pef909380d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Hydraulic diameter." ;
+        rdfs:label                "HydraulicDiameter" ;
+        IFC4-PSD:definition       "Hydraulic diameter." ;
+        IFC4-PSD:definitionAlias  "水力直径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ef909380d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HydraulicDiameter" ;
+        IFC4-PSD:nameAlias        "Hydraulic Diameter"@en , "水力直径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pd7b90f80d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:HasExteriorInsulation
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p177ff700d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasExteriorInsulation .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctSilencerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pdd165a00d1de11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p177ff700d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "TRUE if the silencer has exterior insulation. FALSE if it does not." ;
+        rdfs:label                "HasExteriorInsulation" ;
+        IFC4-PSD:definition       "TRUE if the silencer has exterior insulation. FALSE if it does not." ;
+        IFC4-PSD:definitionAlias  "サイレンサに外部保温があるときTRUE"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "177ff700d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasExteriorInsulation" ;
+        IFC4-PSD:nameAlias        "Has Exterior Insulation"@en , "外部保温"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pf4554780d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The finished length of the silencer." ;
+        rdfs:label                "Length" ;
+        IFC4-PSD:definition       "The finished length of the silencer." ;
+        IFC4-PSD:definitionAlias  ""@en , "サイレンサの仕上げ長さ"@ja-JP ;
+        IFC4-PSD:ifdguid          "f4554780d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Length" ;
+        IFC4-PSD:nameAlias        "Length"@en , "長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:pfe774600d1de11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Possible range of airflow that can be delivered." ;
+        rdfs:label                "AirFlowrateRange" ;
+        IFC4-PSD:definition       "Possible range of airflow that can be delivered." ;
+        IFC4-PSD:definitionAlias  ""@en , "送風可能な風量範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "fe774600d1de11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowrateRange" ;
+        IFC4-PSD:nameAlias        "Air Flowrate Range"@en , "流量範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:WorkingPressureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0636ea80d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkingPressureRange .

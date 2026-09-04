@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AirFlowRate  a             rdf:Property ;
+        rdfs:seeAlso        :p89dd48d1b3184f2599c12f06ce904666 ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowRate .
+
+:AirflowType  a             rdf:Property ;
+        rdfs:seeAlso        :p00311180d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirflowType .
+
+:Location  a                rdf:Property ;
+        rdfs:seeAlso        :p0fb05a80d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Location .
+
+:p89dd48d1b3184f2599c12f06ce904666
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual airflow rate as designed." ;
+        rdfs:label                "AirFlowRate" ;
+        IFC4-PSD:definition       "The actual airflow rate as designed." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "89dd48d1b3184f2599c12f06ce904666" ;
+        IFC4-PSD:name             "AirFlowRate" ;
+        IFC4-PSD:nameAlias        "Air Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p0fb05a80d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Location  (a single type of diffuser can be used for multiple locations); high means close to ceiling." ;
+        rdfs:label                "Location" ;
+        IFC4-PSD:definition       "Location  (a single type of diffuser can be used for multiple locations); high means close to ceiling." ;
+        IFC4-PSD:definitionAlias  ""@en , "Emplacement (un seul type de diffuseur peut être utilisé pour des emplaments multiples); Haut signifie proche du plafond."@fr-FR , "制気口の取り付け位置（壁面高所・低部、天井ぺり、天井中央、床、床下他）"@ja-JP ;
+        IFC4-PSD:ifdguid          "0fb05a80d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Location" ;
+        IFC4-PSD:nameAlias        "位置"@ja-JP , "Location"@en , "Emplacement"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NOTKNOWN" , "CEILINGINTERIOR" , "CEILINGPERIMETER" , "SILL" , "SIDEWALLLOW" , "SIDEWALLHIGH" , "OTHER" , "UNSET" , "FLOOR"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p00311180d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the functional type of air flow through the terminal." ;
+        rdfs:label                "AirflowType" ;
+        IFC4-PSD:definition       "Enumeration defining the functional type of air flow through the terminal." ;
+        IFC4-PSD:definitionAlias  "ターミナルを通過する気流の機能タイプ（給気、還気、排気他）"@ja-JP , ""@en , "Enumération définissant le type fonctionnel de débit à travers le terminal"@fr-FR ;
+        IFC4-PSD:ifdguid          "00311180d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirflowType" ;
+        IFC4-PSD:nameAlias        "Type de débit d'air"@fr-FR , "エアフロータイプ"@ja-JP , "Airflow Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SUPPLYAIR" , "RETURNAIR" , "EXHAUSTAIR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_AirTerminalOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air terminal occurrence attributes attached to an instance of IfcAirTerminal." ;
+        rdfs:label                    "Pset_AirTerminalOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAirTerminal ;
+        IFC4-PSD:applicableTypeValue  "IfcAirTerminal" ;
+        IFC4-PSD:definition           "Air terminal occurrence attributes attached to an instance of IfcAirTerminal." ;
+        IFC4-PSD:definitionAlias      ""@en , "IfcAirTerminalのインスタンスの属性を設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirTerminalOccurrence" ;
+        IFC4-PSD:propertyDef          :p00311180d1bf11e1800000215ad4efdf , :p0fb05a80d1bf11e1800000215ad4efdf , :p89dd48d1b3184f2599c12f06ce904666 .

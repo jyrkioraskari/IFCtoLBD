@@ -1,0 +1,131 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarCountOfIndependentFooting#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:paac92480d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with X direction lower bar." ;
+        rdfs:label                "XDirectionLowerBarCount" ;
+        IFC4-PSD:definition       "The number of bars with X direction lower bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "X方向の下端筋本数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "aac92480d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "XDirectionLowerBarCount" ;
+        IFC4-PSD:nameAlias        "X方向下端筋本数"@ja-JP , "XDirection Lower Bar Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pb9174080d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with Y direction upper bar." ;
+        rdfs:label                "YDirectionUpperBarCount" ;
+        IFC4-PSD:definition       "The number of bars with Y direction upper bar." ;
+        IFC4-PSD:definitionAlias  "Y方向の上端筋本数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b9174080d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "YDirectionUpperBarCount" ;
+        IFC4-PSD:nameAlias        "Y方向上端筋本数"@ja-JP , "YDirection Upper Bar Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:YDirectionUpperBarCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb9174080d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:YDirectionUpperBarCount .
+
+:YDirectionLowerBarCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :paf8dd880d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:YDirectionLowerBarCount .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pa4d34380d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Pset_ReinforcementBarCountOfIndependentFooting
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Reinforcement Concrete parameter [ST-2]: The amount number information of reinforcement  bar with the independent footing. The X and Y direction are based on the local coordinate system of building storey. The X and Y direction of the reinforcement bar are parallel to the X and Y axis of the IfcBuildingStorey's local coordinate system, respectively." ;
+        rdfs:label                    "Pset_ReinforcementBarCountOfIndependentFooting" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFooting ;
+        IFC4-PSD:applicableTypeValue  "IfcFooting" ;
+        IFC4-PSD:definition           "Reinforcement Concrete parameter [ST-2]: The amount number information of reinforcement  bar with the independent footing. The X and Y direction are based on the local coordinate system of building storey. The X and Y direction of the reinforcement bar are parallel to the X and Y axis of the IfcBuildingStorey's local coordinate system, respectively." ;
+        IFC4-PSD:definitionAlias      ""@en , "鉄筋コンクリートパラメータ[ST-2]：独立基礎の鉄筋本数情報。\nX方向とY方向は建物のローカル座標系に基づいている。X方向とY方向の鉄筋はIｆｃBuildingStoreyのローカル座標系のX軸、Y軸にそれぞれ平行である。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarCountOfIndependentFooting" ;
+        IFC4-PSD:propertyDef          :paf8dd880d1ff11e1800000215ad4efdf , :pb9174080d1ff11e1800000215ad4efdf , :pa00e8f80d1ff11e1800000215ad4efdf , :paac92480d1ff11e1800000215ad4efdf , :pb4528c80d1ff11e1800000215ad4efdf , :pa4d34380d1ff11e1800000215ad4efdf .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :pa00e8f80d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:pa4d34380d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  ""@en , "一般的な鉄筋タイプの説明ラベル。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a4d34380d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarCountOfIndependentFooting>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:XDirectionUpperBarCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb4528c80d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:XDirectionUpperBarCount .
+
+:pa00e8f80d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  ""@en , "鉄筋の説明。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a00e8f80d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "説明"@ja-JP , "Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:paf8dd880d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with Y direction lower bar." ;
+        rdfs:label                "YDirectionLowerBarCount" ;
+        IFC4-PSD:definition       "The number of bars with Y direction lower bar." ;
+        IFC4-PSD:definitionAlias  "Y方向の下端筋本数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "af8dd880d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "YDirectionLowerBarCount" ;
+        IFC4-PSD:nameAlias        "Y方向下端筋本数"@ja-JP , "YDirection Lower Bar Count"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:XDirectionLowerBarCount
+        a                   rdf:Property ;
+        rdfs:seeAlso        :paac92480d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:XDirectionLowerBarCount .
+
+:pb4528c80d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of bars with X direction upper bar." ;
+        rdfs:label                "XDirectionUpperBarCount" ;
+        IFC4-PSD:definition       "The number of bars with X direction upper bar." ;
+        IFC4-PSD:definitionAlias  "X方向の上端筋本数。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b4528c80d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "XDirectionUpperBarCount" ;
+        IFC4-PSD:nameAlias        "XDirection Upper Bar Count"@en , "X方向上端筋本数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .

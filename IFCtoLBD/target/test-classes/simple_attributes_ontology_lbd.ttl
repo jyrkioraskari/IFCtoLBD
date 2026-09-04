@@ -1,0 +1,2982 @@
+@prefix lbd:  <https://linkebuildingdata.org/LBD#> .
+@prefix owl:  <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+lbd:actionID  rdf:type  rdf:Property .
+
+lbd:resultValues  rdf:type  rdf:Property .
+
+lbd:widths  rdf:type  rdf:Property .
+
+lbd:forceX  rdf:type  rdf:Property .
+
+lbd:boxHeight  rdf:type  rdf:Property .
+
+lbd:initialStress  rdf:type  rdf:Property .
+
+lbd:identifier  rdf:type  rdf:Property .
+
+lbd:parameterTakesPrecedence
+        rdf:type  rdf:Property .
+
+lbd:visibleTransmittance
+        rdf:type  rdf:Property .
+
+lbd:relatingLibrary  rdf:type  rdf:Property .
+
+lbd:coordinateSpaceDimension
+        rdf:type  rdf:Property .
+
+lbd:fluid  rdf:type  rdf:Property .
+
+lbd:nContent  rdf:type  rdf:Property .
+
+lbd:completion  rdf:type  rdf:Property .
+
+lbd:relatingAppliedValue
+        rdf:type  rdf:Property .
+
+lbd:isClassifiedItemIn
+        rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessX
+        rdf:type  rdf:Property .
+
+lbd:relatedFeatureElement
+        rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByAreaY
+        rdf:type  rdf:Property .
+
+lbd:colourIndex  rdf:type  rdf:Property .
+
+lbd:objectType  rdf:type  rdf:Property .
+
+lbd:distanceAttenuation
+        rdf:type  rdf:Property .
+
+lbd:precision  rdf:type  rdf:Property .
+
+lbd:definesType  rdf:type  rdf:Property .
+
+lbd:relates  rdf:type  rdf:Property .
+
+lbd:relatingConstraint
+        rdf:type  rdf:Property .
+
+lbd:literal  rdf:type  rdf:Property .
+
+lbd:offsetVertical  rdf:type  rdf:Property .
+
+lbd:maximumSectionModulusY
+        rdf:type  rdf:Property .
+
+lbd:version  rdf:type  rdf:Property .
+
+lbd:liningToPanelOffsetY
+        rdf:type  rdf:Property .
+
+lbd:minuteComponent  rdf:type  rdf:Property .
+
+lbd:contents  rdf:type  rdf:Property .
+
+lbd:sbsmBoundary  rdf:type  rdf:Property .
+
+lbd:engagedIn  rdf:type  rdf:Property .
+
+lbd:thermalLoadType  rdf:type  rdf:Property .
+
+lbd:locations  rdf:type  rdf:Property .
+
+lbd:fillStyleTarget  rdf:type  rdf:Property .
+
+lbd:loopVertex  rdf:type  rdf:Property .
+
+lbd:unitComponent  rdf:type  rdf:Property .
+
+lbd:directionSense  rdf:type  rdf:Property .
+
+lbd:amountOfSubstanceExponent
+        rdf:type  rdf:Property .
+
+lbd:fileExtension  rdf:type  rdf:Property .
+
+lbd:unitType  rdf:type  rdf:Property .
+
+lbd:webEdgeRadius  rdf:type  rdf:Property .
+
+lbd:userDefinedFunction
+        rdf:type  rdf:Property .
+
+lbd:ratedPowerInput  rdf:type  rdf:Property .
+
+lbd:isPointedTo  rdf:type  rdf:Property .
+
+lbd:materials  rdf:type  rdf:Property .
+
+lbd:interiorOrExteriorSpace
+        rdf:type  rdf:Property .
+
+lbd:relatingPriorities
+        rdf:type  rdf:Property .
+
+lbd:dateComponent  rdf:type  rdf:Property .
+
+lbd:electricCurrentExponent
+        rdf:type  rdf:Property .
+
+lbd:toLinearAxis  rdf:type  rdf:Property .
+
+lbd:relatingPort  rdf:type  rdf:Property .
+
+lbd:hasLibraryReferences
+        rdf:type  rdf:Property .
+
+lbd:materialProfiles  rdf:type  rdf:Property .
+
+lbd:procedureType  rdf:type  rdf:Property .
+
+lbd:coversElements  rdf:type  rdf:Property .
+
+lbd:responsiblePerson
+        rdf:type  rdf:Property .
+
+lbd:textIndent  rdf:type  rdf:Property .
+
+lbd:assetID  rdf:type  rdf:Property .
+
+lbd:actionType  rdf:type  rdf:Property .
+
+lbd:edition  rdf:type  rdf:Property .
+
+lbd:centreOfGravityInX
+        rdf:type  rdf:Property .
+
+lbd:transversePosition
+        rdf:type  rdf:Property .
+
+lbd:contextOfItems  rdf:type  rdf:Property .
+
+lbd:electronicFormat  rdf:type  rdf:Property .
+
+lbd:baseWidth  rdf:type  rdf:Property .
+
+lbd:telephoneNumbers  rdf:type  rdf:Property .
+
+lbd:incorporationDate
+        rdf:type  rdf:Property .
+
+lbd:endProfile  rdf:type  rdf:Property .
+
+lbd:discrimination  rdf:type  rdf:Property .
+
+lbd:relatedObjects  rdf:type  rdf:Property .
+
+lbd:processType  rdf:type  rdf:Property .
+
+lbd:values  rdf:type  rdf:Property .
+
+lbd:innerCoordIndices
+        rdf:type  rdf:Property .
+
+lbd:paramLength  rdf:type  rdf:Property .
+
+lbd:lifeCyclePhase  rdf:type  rdf:Property .
+
+lbd:endParam  rdf:type  rdf:Property .
+
+lbd:relatedControlElements
+        rdf:type  rdf:Property .
+
+lbd:soundScale  rdf:type  rdf:Property .
+
+lbd:tilingScale  rdf:type  rdf:Property .
+
+lbd:approvedProperties
+        rdf:type  rdf:Property .
+
+lbd:town  rdf:type  rdf:Property .
+
+lbd:projectedOrTrue  rdf:type  rdf:Property .
+
+lbd:firstOperand  rdf:type  rdf:Property .
+
+lbd:pointParameter  rdf:type  rdf:Property .
+
+lbd:surfaceForm  rdf:type  rdf:Property .
+
+lbd:relatingProduct  rdf:type  rdf:Property .
+
+lbd:shearDeformationAreaY
+        rdf:type  rdf:Property .
+
+lbd:components  rdf:type  rdf:Property .
+
+lbd:rasterCode  rdf:type  rdf:Property .
+
+lbd:interval  rdf:type  rdf:Property .
+
+lbd:constraintSource  rdf:type  rdf:Property .
+
+lbd:axisPosition  rdf:type  rdf:Property .
+
+lbd:modelOrDraughting
+        rdf:type  rdf:Property .
+
+lbd:hasColours  rdf:type  rdf:Property .
+
+lbd:diffuseColour  rdf:type  rdf:Property .
+
+lbd:relatingDraughtingCallout
+        rdf:type  rdf:Property .
+
+lbd:partOfComplex  rdf:type  rdf:Property .
+
+lbd:symbol  rdf:type  rdf:Property .
+
+lbd:transverseBarSpacing
+        rdf:type  rdf:Property .
+
+lbd:cartesianPosition
+        rdf:type  rdf:Property .
+
+lbd:vertices  rdf:type  rdf:Property .
+
+lbd:barRole  rdf:type  rdf:Property .
+
+lbd:isVentilated  rdf:type  rdf:Property .
+
+lbd:mappingSource  rdf:type  rdf:Property .
+
+lbd:decomposes  rdf:type  rdf:Property .
+
+lbd:taskTime  rdf:type  rdf:Property .
+
+lbd:linearStiffnessZ  rdf:type  rdf:Property .
+
+lbd:uMultiplicities  rdf:type  rdf:Property .
+
+lbd:rotationalDisplacementRZ
+        rdf:type  rdf:Property .
+
+lbd:torsionalConstantX
+        rdf:type  rdf:Property .
+
+lbd:elevation  rdf:type  rdf:Property .
+
+lbd:maxAggregateSize  rdf:type  rdf:Property .
+
+lbd:relatedProducts  rdf:type  rdf:Property .
+
+lbd:eventOccurenceTime
+        rdf:type  rdf:Property .
+
+lbd:relatedProcess  rdf:type  rdf:Property .
+
+lbd:relatingClassification
+        rdf:type  rdf:Property .
+
+lbd:ultimateStrain  rdf:type  rdf:Property .
+
+lbd:applicableValueRatio
+        rdf:type  rdf:Property .
+
+lbd:worldCoordinateSystem
+        rdf:type  rdf:Property .
+
+lbd:givenName  rdf:type  rdf:Property .
+
+lbd:backgroundColour  rdf:type  rdf:Property .
+
+lbd:specularHighlight
+        rdf:type  rdf:Property .
+
+lbd:unitsInContext  rdf:type  rdf:Property .
+
+lbd:countValue  rdf:type  rdf:Property .
+
+lbd:ambientIntensity  rdf:type  rdf:Property .
+
+lbd:thickness  rdf:type  rdf:Property .
+
+lbd:relatingApproval  rdf:type  rdf:Property .
+
+lbd:topFlangeEdgeRadius
+        rdf:type  rdf:Property .
+
+lbd:isPotable  rdf:type  rdf:Property .
+
+lbd:proxyType  rdf:type  rdf:Property .
+
+lbd:anchorageSlip  rdf:type  rdf:Property .
+
+lbd:usage  rdf:type  rdf:Property .
+
+lbd:pointOfReferenceHatchLine
+        rdf:type  rdf:Property .
+
+lbd:edgeElement  rdf:type  rdf:Property .
+
+lbd:applicationFullName
+        rdf:type  rdf:Property .
+
+lbd:relatedObjectsType
+        rdf:type  rdf:Property .
+
+lbd:controlElementId  rdf:type  rdf:Property .
+
+lbd:axisCurve  rdf:type  rdf:Property .
+
+lbd:timeStep  rdf:type  rdf:Property .
+
+lbd:level  rdf:type  rdf:Property .
+
+lbd:valueSource  rdf:type  rdf:Property .
+
+lbd:relatingTemplate  rdf:type  rdf:Property .
+
+lbd:lightColour  rdf:type  rdf:Property .
+
+lbd:temperatureTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:referencedInStructures
+        rdf:type  rdf:Property .
+
+lbd:horizontalWidths  rdf:type  rdf:Property .
+
+lbd:isDeclaredBy  rdf:type  rdf:Property .
+
+lbd:transmissionColour
+        rdf:type  rdf:Property .
+
+lbd:criterion  rdf:type  rdf:Property .
+
+lbd:lowerBoundValue  rdf:type  rdf:Property .
+
+lbd:vsense  rdf:type  rdf:Property .
+
+lbd:innerFilletRadius
+        rdf:type  rdf:Property .
+
+lbd:textTransform  rdf:type  rdf:Property .
+
+lbd:dynamicViscosity  rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessByLengthZ
+        rdf:type  rdf:Property .
+
+lbd:mainPlaneAngle  rdf:type  rdf:Property .
+
+lbd:vertical  rdf:type  rdf:Property .
+
+lbd:actors  rdf:type  rdf:Property .
+
+lbd:editors  rdf:type  rdf:Property .
+
+lbd:isPredecessorTo  rdf:type  rdf:Property .
+
+lbd:alkalinityConcentration
+        rdf:type  rdf:Property .
+
+lbd:thermalLoadSource
+        rdf:type  rdf:Property .
+
+lbd:displacementZ  rdf:type  rdf:Property .
+
+lbd:assignedToFlowElement
+        rdf:type  rdf:Property .
+
+lbd:user  rdf:type  rdf:Property .
+
+lbd:coefficient  rdf:type  rdf:Property .
+
+lbd:isTypedBy  rdf:type  rdf:Property .
+
+lbd:unitBasis  rdf:type  rdf:Property .
+
+lbd:lowerHeatingValue
+        rdf:type  rdf:Property .
+
+lbd:suffixTitles  rdf:type  rdf:Property .
+
+lbd:plasticShapeFactorZ
+        rdf:type  rdf:Property .
+
+lbd:materialClassifications
+        rdf:type  rdf:Property .
+
+lbd:position  rdf:type  rdf:Property .
+
+lbd:definingValues  rdf:type  rdf:Property .
+
+lbd:tiles  rdf:type  rdf:Property .
+
+lbd:startParam  rdf:type  rdf:Property .
+
+lbd:compressionFailureX
+        rdf:type  rdf:Property .
+
+lbd:flowDirection  rdf:type  rdf:Property .
+
+lbd:longitudinalEndPosition
+        rdf:type  rdf:Property .
+
+lbd:distanceAlong  rdf:type  rdf:Property .
+
+lbd:elevationOfRefHeight
+        rdf:type  rdf:Property .
+
+lbd:sourceOfResultGroup
+        rdf:type  rdf:Property .
+
+lbd:profileDefinition
+        rdf:type  rdf:Property .
+
+lbd:corner  rdf:type  rdf:Property .
+
+lbd:objectPlacement  rdf:type  rdf:Property .
+
+lbd:scheduleTimeControlAssigned
+        rdf:type  rdf:Property .
+
+lbd:hasResults  rdf:type  rdf:Property .
+
+lbd:uKnots  rdf:type  rdf:Property .
+
+lbd:secondaryPlaneAngle
+        rdf:type  rdf:Property .
+
+lbd:isComponentIn  rdf:type  rdf:Property .
+
+lbd:parabolaConstant  rdf:type  rdf:Property .
+
+lbd:startDirection  rdf:type  rdf:Property .
+
+lbd:dir  rdf:type  rdf:Property .
+
+lbd:roundingRadius  rdf:type  rdf:Property .
+
+lbd:faceSurface  rdf:type  rdf:Property .
+
+lbd:innerCurves  rdf:type  rdf:Property .
+
+lbd:lastRevisionTime  rdf:type  rdf:Property .
+
+lbd:hasInteractionReqsTo
+        rdf:type  rdf:Property .
+
+lbd:hatchLineAppearance
+        rdf:type  rdf:Property .
+
+lbd:condition  rdf:type  rdf:Property .
+
+lbd:quantityInProcess
+        rdf:type  rdf:Property .
+
+lbd:slippageZ  rdf:type  rdf:Property .
+
+lbd:inclinating  rdf:type  rdf:Property .
+
+lbd:referencingValues
+        rdf:type  rdf:Property .
+
+lbd:sizeable  rdf:type  rdf:Property .
+
+lbd:capacityByWeight  rdf:type  rdf:Property .
+
+lbd:servicesBuildings
+        rdf:type  rdf:Property .
+
+lbd:resultGroupFor  rdf:type  rdf:Property .
+
+lbd:timeForTask  rdf:type  rdf:Property .
+
+lbd:fixedUntilDate  rdf:type  rdf:Property .
+
+lbd:tangentialContinuity
+        rdf:type  rdf:Property .
+
+lbd:lightEmissionSource
+        rdf:type  rdf:Property .
+
+lbd:panelOperation  rdf:type  rdf:Property .
+
+lbd:intensity  rdf:type  rdf:Property .
+
+lbd:language  rdf:type  rdf:Property .
+
+lbd:treeRootExpression
+        rdf:type  rdf:Property .
+
+lbd:userDefinedSequenceType
+        rdf:type  rdf:Property .
+
+lbd:benchmark  rdf:type  rdf:Property .
+
+lbd:hasRepresentation
+        rdf:type  rdf:Property .
+
+lbd:cfsFaces  rdf:type  rdf:Property .
+
+lbd:coordinates  rdf:type  rdf:Property .
+
+lbd:resultForLoadGroup
+        rdf:type  rdf:Property .
+
+lbd:headDepth  rdf:type  rdf:Property .
+
+lbd:red  rdf:type  rdf:Property .
+
+lbd:vertexGeometry  rdf:type  rdf:Property .
+
+lbd:linearStiffnessByLengthX
+        rdf:type  rdf:Property .
+
+lbd:relationshipType  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessZ
+        rdf:type  rdf:Property .
+
+lbd:isCCW  rdf:type  rdf:Property .
+
+lbd:referencedTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:relatedResourceObjects
+        rdf:type  rdf:Property .
+
+lbd:relatingSpace  rdf:type  rdf:Property .
+
+lbd:bottomXDim  rdf:type  rdf:Property .
+
+lbd:aggregates  rdf:type  rdf:Property .
+
+lbd:thermalIrEmissivityFront
+        rdf:type  rdf:Property .
+
+lbd:exceptionTimes  rdf:type  rdf:Property .
+
+lbd:dimensions  rdf:type  rdf:Property .
+
+lbd:styledByItem  rdf:type  rdf:Property .
+
+lbd:u   rdf:type  rdf:Property .
+
+lbd:impliedOrder  rdf:type  rdf:Property .
+
+lbd:accessState  rdf:type  rdf:Property .
+
+lbd:rateDateTime  rdf:type  rdf:Property .
+
+lbd:pagerNumber  rdf:type  rdf:Property .
+
+lbd:lightDistributionCurve
+        rdf:type  rdf:Property .
+
+lbd:velocitySingleValue
+        rdf:type  rdf:Property .
+
+lbd:shapeOfProduct  rdf:type  rdf:Property .
+
+lbd:coordList  rdf:type  rdf:Property .
+
+lbd:applicableDates  rdf:type  rdf:Property .
+
+lbd:userDefinedQualifier
+        rdf:type  rdf:Property .
+
+lbd:linearMomentY  rdf:type  rdf:Property .
+
+lbd:upperBoundValue  rdf:type  rdf:Property .
+
+lbd:pressureTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:timeComponent  rdf:type  rdf:Property .
+
+lbd:flowrateSingleValue
+        rdf:type  rdf:Property .
+
+lbd:relatingDocument  rdf:type  rdf:Property .
+
+lbd:forceY  rdf:type  rdf:Property .
+
+lbd:typeIdentifier  rdf:type  rdf:Property .
+
+lbd:longName  rdf:type  rdf:Property .
+
+lbd:flowConditionTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:textCharacterAppearance
+        rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessY
+        rdf:type  rdf:Property .
+
+lbd:intendedUse  rdf:type  rdf:Property .
+
+lbd:wetBulbTemperatureTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:spaceProgramIdentifier
+        rdf:type  rdf:Property .
+
+lbd:enumerationValues
+        rdf:type  rdf:Property .
+
+lbd:xLength  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByAreaZ
+        rdf:type  rdf:Property .
+
+lbd:planarForceX  rdf:type  rdf:Property .
+
+lbd:classifiedMaterial
+        rdf:type  rdf:Property .
+
+lbd:state  rdf:type  rdf:Property .
+
+lbd:hasPropertyTemplates
+        rdf:type  rdf:Property .
+
+lbd:deltaTY  rdf:type  rdf:Property .
+
+lbd:primaryUnit  rdf:type  rdf:Property .
+
+lbd:userDefinedPropertySource
+        rdf:type  rdf:Property .
+
+lbd:effectiveDepth  rdf:type  rdf:Property .
+
+lbd:itemOf  rdf:type  rdf:Property .
+
+lbd:maximumSectionModulusZ
+        rdf:type  rdf:Property .
+
+lbd:conversionFactor  rdf:type  rdf:Property .
+
+lbd:owner  rdf:type  rdf:Property .
+
+lbd:listValues  rdf:type  rdf:Property .
+
+lbd:connectedBy  rdf:type  rdf:Property .
+
+lbd:uDegree  rdf:type  rdf:Property .
+
+lbd:warpingStiffness  rdf:type  rdf:Property .
+
+lbd:approvalLevel  rdf:type  rdf:Property .
+
+lbd:documentReferences
+        rdf:type  rdf:Property .
+
+lbd:youngModulus  rdf:type  rdf:Property .
+
+lbd:reflectionColour  rdf:type  rdf:Property .
+
+lbd:magnitude  rdf:type  rdf:Property .
+
+lbd:userDefinedThermalLoadSource
+        rdf:type  rdf:Property .
+
+lbd:electronicMailAddresses
+        rdf:type  rdf:Property .
+
+lbd:isHeading  rdf:type  rdf:Property .
+
+lbd:relatingGroup  rdf:type  rdf:Property .
+
+lbd:surfaceColour  rdf:type  rdf:Property .
+
+lbd:isGroupedBy  rdf:type  rdf:Property .
+
+lbd:approvalStatus  rdf:type  rdf:Property .
+
+lbd:propertyReference
+        rdf:type  rdf:Property .
+
+lbd:hasPorts  rdf:type  rdf:Property .
+
+lbd:rowCells  rdf:type  rdf:Property .
+
+lbd:properties  rdf:type  rdf:Property .
+
+lbd:priority  rdf:type  rdf:Property .
+
+lbd:earlyFinish  rdf:type  rdf:Property .
+
+lbd:boxSlantAngle  rdf:type  rdf:Property .
+
+lbd:horizontal  rdf:type  rdf:Property .
+
+lbd:definition  rdf:type  rdf:Property .
+
+lbd:semiAxis  rdf:type  rdf:Property .
+
+lbd:bottomFlangeSlope
+        rdf:type  rdf:Property .
+
+lbd:relatingOpeningElement
+        rdf:type  rdf:Property .
+
+lbd:relatedDraughtingCallout
+        rdf:type  rdf:Property .
+
+lbd:knotMultiplicities
+        rdf:type  rdf:Property .
+
+lbd:soundValues  rdf:type  rdf:Property .
+
+lbd:mimeContentType  rdf:type  rdf:Property .
+
+lbd:lastUpdateDate  rdf:type  rdf:Property .
+
+lbd:tensionForce  rdf:type  rdf:Property .
+
+lbd:globalOrLocal  rdf:type  rdf:Property .
+
+lbd:partOfComplexTemplate
+        rdf:type  rdf:Property .
+
+lbd:slopes  rdf:type  rdf:Property .
+
+lbd:causes  rdf:type  rdf:Property .
+
+lbd:controls  rdf:type  rdf:Property .
+
+lbd:offsetLateral  rdf:type  rdf:Property .
+
+lbd:treadLength  rdf:type  rdf:Property .
+
+lbd:workability  rdf:type  rdf:Property .
+
+lbd:resourceConsumption
+        rdf:type  rdf:Property .
+
+lbd:appliedCondition  rdf:type  rdf:Property .
+
+lbd:relatingPositioningElement
+        rdf:type  rdf:Property .
+
+lbd:centreOfGravityInY
+        rdf:type  rdf:Property .
+
+lbd:correspondingBoundary
+        rdf:type  rdf:Property .
+
+lbd:productDefinitional
+        rdf:type  rdf:Property .
+
+lbd:applicableEntity  rdf:type  rdf:Property .
+
+lbd:texCoordsList  rdf:type  rdf:Property .
+
+lbd:layerSetName  rdf:type  rdf:Property .
+
+lbd:flangeThickness  rdf:type  rdf:Property .
+
+lbd:sweptArea  rdf:type  rdf:Property .
+
+lbd:relaxationValue  rdf:type  rdf:Property .
+
+lbd:definitionType  rdf:type  rdf:Property .
+
+lbd:hasProjections  rdf:type  rdf:Property .
+
+lbd:timeLag  rdf:type  rdf:Property .
+
+lbd:lightDistributionDataSource
+        rdf:type  rdf:Property .
+
+lbd:constructionType  rdf:type  rdf:Property .
+
+lbd:numberOfRisers  rdf:type  rdf:Property .
+
+lbd:luminousFlux  rdf:type  rdf:Property .
+
+lbd:placesObject  rdf:type  rdf:Property .
+
+lbd:referencedDocument
+        rdf:type  rdf:Property .
+
+lbd:overallDepth  rdf:type  rdf:Property .
+
+lbd:refractionIndex  rdf:type  rdf:Property .
+
+lbd:maxRequiredArea  rdf:type  rdf:Property .
+
+lbd:webThickness  rdf:type  rdf:Property .
+
+lbd:fbsmFaces  rdf:type  rdf:Property .
+
+lbd:landTitleNumber  rdf:type  rdf:Property .
+
+lbd:associatedGeometry
+        rdf:type  rdf:Property .
+
+lbd:lowerValue  rdf:type  rdf:Property .
+
+lbd:closedCurve  rdf:type  rdf:Property .
+
+lbd:serviceLifeType  rdf:type  rdf:Property .
+
+lbd:endCantLeft  rdf:type  rdf:Property .
+
+lbd:shearDeformationAreaZ
+        rdf:type  rdf:Property .
+
+lbd:sense  rdf:type  rdf:Property .
+
+lbd:id  rdf:type  rdf:Property .
+
+lbd:constraintGrade  rdf:type  rdf:Property .
+
+lbd:ribWidth  rdf:type  rdf:Property .
+
+lbd:quadricAttenuation
+        rdf:type  rdf:Property .
+
+lbd:topXOffset  rdf:type  rdf:Property .
+
+lbd:warpingMoment  rdf:type  rdf:Property .
+
+lbd:boilingPoint  rdf:type  rdf:Property .
+
+lbd:senseAgreement  rdf:type  rdf:Property .
+
+lbd:crossSectionPositions
+        rdf:type  rdf:Property .
+
+lbd:shearModulus  rdf:type  rdf:Property .
+
+lbd:pixel  rdf:type  rdf:Property .
+
+lbd:workingTimes  rdf:type  rdf:Property .
+
+lbd:userDefinedPurpose
+        rdf:type  rdf:Property .
+
+lbd:bottomFlangeEdgeRadius
+        rdf:type  rdf:Property .
+
+lbd:luminousIntensity
+        rdf:type  rdf:Property .
+
+lbd:currency  rdf:type  rdf:Property .
+
+lbd:originalValue  rdf:type  rdf:Property .
+
+lbd:rasterFormat  rdf:type  rdf:Property .
+
+lbd:timeSeriesReferences
+        rdf:type  rdf:Property .
+
+lbd:libraryReference  rdf:type  rdf:Property .
+
+lbd:pointParameterU  rdf:type  rdf:Property .
+
+lbd:blue  rdf:type  rdf:Property .
+
+lbd:topXDim  rdf:type  rdf:Property .
+
+lbd:transverseBarCrossSectionArea
+        rdf:type  rdf:Property .
+
+lbd:poissonRatio  rdf:type  rdf:Property .
+
+lbd:textureMaps  rdf:type  rdf:Property .
+
+lbd:ribHeight  rdf:type  rdf:Property .
+
+lbd:actualStart  rdf:type  rdf:Property .
+
+lbd:extendedProperties
+        rdf:type  rdf:Property .
+
+lbd:shapeAspectStyle  rdf:type  rdf:Property .
+
+lbd:pointOnRelatedElement
+        rdf:type  rdf:Property .
+
+lbd:contextType  rdf:type  rdf:Property .
+
+lbd:webSlope  rdf:type  rdf:Property .
+
+lbd:isRelatedWith  rdf:type  rdf:Property .
+
+lbd:predefinedType  rdf:type  rdf:Property .
+
+lbd:dependingProperty
+        rdf:type  rdf:Property .
+
+lbd:providesBoundaries
+        rdf:type  rdf:Property .
+
+lbd:frequency  rdf:type  rdf:Property .
+
+lbd:startHeight  rdf:type  rdf:Property .
+
+lbd:distributionPointFunction
+        rdf:type  rdf:Property .
+
+lbd:scheduleStart  rdf:type  rdf:Property .
+
+lbd:layerThickness  rdf:type  rdf:Property .
+
+lbd:verticalDatum  rdf:type  rdf:Property .
+
+lbd:lagValue  rdf:type  rdf:Property .
+
+lbd:frameDepth  rdf:type  rdf:Property .
+
+lbd:xDim  rdf:type  rdf:Property .
+
+lbd:templateType  rdf:type  rdf:Property .
+
+lbd:fillStyles  rdf:type  rdf:Property .
+
+lbd:transitionCurveType
+        rdf:type  rdf:Property .
+
+lbd:refDirection  rdf:type  rdf:Property .
+
+lbd:userDefinedRole  rdf:type  rdf:Property .
+
+lbd:intent  rdf:type  rdf:Property .
+
+lbd:placement  rdf:type  rdf:Property .
+
+lbd:curveOnRelatedElement
+        rdf:type  rdf:Property .
+
+lbd:bottomFlangeThickness
+        rdf:type  rdf:Property .
+
+lbd:primaryMeasureType
+        rdf:type  rdf:Property .
+
+lbd:startCantLeft  rdf:type  rdf:Property .
+
+lbd:shearReinforcement
+        rdf:type  rdf:Property .
+
+lbd:sort  rdf:type  rdf:Property .
+
+lbd:deltaTConstant  rdf:type  rdf:Property .
+
+lbd:skillSet  rdf:type  rdf:Property .
+
+lbd:minRequiredArea  rdf:type  rdf:Property .
+
+lbd:areaValue  rdf:type  rdf:Property .
+
+lbd:occurrences  rdf:type  rdf:Property .
+
+lbd:moistureDiffusivity
+        rdf:type  rdf:Property .
+
+lbd:fixedReference  rdf:type  rdf:Property .
+
+lbd:relatingProfileDef
+        rdf:type  rdf:Property .
+
+lbd:dissolvedSolidsContent
+        rdf:type  rdf:Property .
+
+lbd:refLatitude  rdf:type  rdf:Property .
+
+lbd:lineHeight  rdf:type  rdf:Property .
+
+lbd:relatingConnectionType
+        rdf:type  rdf:Property .
+
+lbd:solarTransmittance
+        rdf:type  rdf:Property .
+
+lbd:timeSeriesDataType
+        rdf:type  rdf:Property .
+
+lbd:target  rdf:type  rdf:Property .
+
+lbd:energySequence  rdf:type  rdf:Property .
+
+lbd:baseDepth  rdf:type  rdf:Property .
+
+lbd:curveWidth  rdf:type  rdf:Property .
+
+lbd:compositionType  rdf:type  rdf:Property .
+
+lbd:unit  rdf:type  rdf:Property .
+
+lbd:propertyDefinitionOf
+        rdf:type  rdf:Property .
+
+lbd:dayComponent  rdf:type  rdf:Property .
+
+lbd:hasDocumentReferences
+        rdf:type  rdf:Property .
+
+lbd:subsequentThickness
+        rdf:type  rdf:Property .
+
+lbd:axisTag  rdf:type  rdf:Property .
+
+lbd:vAxes  rdf:type  rdf:Property .
+
+lbd:thermalExpansionCoefficient
+        rdf:type  rdf:Property .
+
+lbd:relatedCoverings  rdf:type  rdf:Property .
+
+lbd:category  rdf:type  rdf:Property .
+
+lbd:siteAddress  rdf:type  rdf:Property .
+
+lbd:textureTransform  rdf:type  rdf:Property .
+
+lbd:relatedStructuralConnection
+        rdf:type  rdf:Property .
+
+lbd:locationOfInteraction
+        rdf:type  rdf:Property .
+
+lbd:legSlope  rdf:type  rdf:Property .
+
+lbd:wAxes  rdf:type  rdf:Property .
+
+lbd:wetBulbTemperatureSingleValue
+        rdf:type  rdf:Property .
+
+lbd:frameThickness  rdf:type  rdf:Property .
+
+lbd:compressionFailureY
+        rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByLengthX
+        rdf:type  rdf:Property .
+
+lbd:actualWork  rdf:type  rdf:Property .
+
+lbd:colourTemperature
+        rdf:type  rdf:Property .
+
+lbd:costType  rdf:type  rdf:Property .
+
+lbd:frictionCoefficient
+        rdf:type  rdf:Property .
+
+lbd:curveColour  rdf:type  rdf:Property .
+
+lbd:relatedMaterials  rdf:type  rdf:Property .
+
+lbd:admixturesDescription
+        rdf:type  rdf:Property .
+
+lbd:requestingApproval
+        rdf:type  rdf:Property .
+
+lbd:owningUser  rdf:type  rdf:Property .
+
+lbd:referencedLibrary
+        rdf:type  rdf:Property .
+
+lbd:pHLevel  rdf:type  rdf:Property .
+
+lbd:momentX  rdf:type  rdf:Property .
+
+lbd:sectionDefinition
+        rdf:type  rdf:Property .
+
+lbd:nominalLength  rdf:type  rdf:Property .
+
+lbd:carbonContent  rdf:type  rdf:Property .
+
+lbd:offsetDistances  rdf:type  rdf:Property .
+
+lbd:jobDescription  rdf:type  rdf:Property .
+
+lbd:higherHeatingValue
+        rdf:type  rdf:Property .
+
+lbd:duration  rdf:type  rdf:Property .
+
+lbd:conditionCoordinateSystem
+        rdf:type  rdf:Property .
+
+lbd:alongHorizontal  rdf:type  rdf:Property .
+
+lbd:barCount  rdf:type  rdf:Property .
+
+lbd:relatingItem  rdf:type  rdf:Property .
+
+lbd:isStartRadiusCCW  rdf:type  rdf:Property .
+
+lbd:approvalQualifier
+        rdf:type  rdf:Property .
+
+lbd:relatingStructuralMember
+        rdf:type  rdf:Property .
+
+lbd:middleNames  rdf:type  rdf:Property .
+
+lbd:userDefinedDataOrigin
+        rdf:type  rdf:Property .
+
+lbd:hasSubContexts  rdf:type  rdf:Property .
+
+lbd:linearForceX  rdf:type  rdf:Property .
+
+lbd:specificHeatCapacity
+        rdf:type  rdf:Property .
+
+lbd:patternStart  rdf:type  rdf:Property .
+
+lbd:yLength  rdf:type  rdf:Property .
+
+lbd:propertiesForConstraint
+        rdf:type  rdf:Property .
+
+lbd:pressureSingleValue
+        rdf:type  rdf:Property .
+
+lbd:linearStiffnessByLengthY
+        rdf:type  rdf:Property .
+
+lbd:offsetLongitudinal
+        rdf:type  rdf:Property .
+
+lbd:hasApprovals  rdf:type  rdf:Property .
+
+lbd:isDecomposedBy  rdf:type  rdf:Property .
+
+lbd:propertyDependsOn
+        rdf:type  rdf:Property .
+
+lbd:vMultiplicities  rdf:type  rdf:Property .
+
+lbd:connectionGeometry
+        rdf:type  rdf:Property .
+
+lbd:secondComponent  rdf:type  rdf:Property .
+
+lbd:relatedClassifications
+        rdf:type  rdf:Property .
+
+lbd:span  rdf:type  rdf:Property .
+
+lbd:pnt  rdf:type  rdf:Property .
+
+lbd:orthogonalHeight  rdf:type  rdf:Property .
+
+lbd:momentOfInertiaY  rdf:type  rdf:Property .
+
+lbd:hasFillings  rdf:type  rdf:Property .
+
+lbd:yDim  rdf:type  rdf:Property .
+
+lbd:updateDate  rdf:type  rdf:Property .
+
+lbd:mapZone  rdf:type  rdf:Property .
+
+lbd:userDefinedGrade  rdf:type  rdf:Property .
+
+lbd:submittedOn  rdf:type  rdf:Property .
+
+lbd:extrudedDirection
+        rdf:type  rdf:Property .
+
+lbd:additionalConditions
+        rdf:type  rdf:Property .
+
+lbd:costQuantities  rdf:type  rdf:Property .
+
+lbd:modelorDraughting
+        rdf:type  rdf:Property .
+
+lbd:v   rdf:type  rdf:Property .
+
+lbd:referenceTokens  rdf:type  rdf:Property .
+
+lbd:polygon  rdf:type  rdf:Property .
+
+lbd:vDegree  rdf:type  rdf:Property .
+
+lbd:annotatedCurve  rdf:type  rdf:Property .
+
+lbd:forLayerSet  rdf:type  rdf:Property .
+
+lbd:usageRatio  rdf:type  rdf:Property .
+
+lbd:orientationOfDPlane
+        rdf:type  rdf:Property .
+
+lbd:liningThickness  rdf:type  rdf:Property .
+
+lbd:linearMomentZ  rdf:type  rdf:Property .
+
+lbd:baseSurface  rdf:type  rdf:Property .
+
+lbd:relatingControl  rdf:type  rdf:Property .
+
+lbd:relatedDefinitions
+        rdf:type  rdf:Property .
+
+lbd:secondOperand  rdf:type  rdf:Property .
+
+lbd:vaporPermeability
+        rdf:type  rdf:Property .
+
+lbd:forceZ  rdf:type  rdf:Property .
+
+lbd:startPoint  rdf:type  rdf:Property .
+
+lbd:description  rdf:type  rdf:Property .
+
+lbd:concentrationExponent
+        rdf:type  rdf:Property .
+
+lbd:secondRepeatFactor
+        rdf:type  rdf:Property .
+
+lbd:torsionalSectionModulus
+        rdf:type  rdf:Property .
+
+lbd:endRadius  rdf:type  rdf:Property .
+
+lbd:actualUsage  rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessZ
+        rdf:type  rdf:Property .
+
+lbd:shapeType  rdf:type  rdf:Property .
+
+lbd:planarForceY  rdf:type  rdf:Property .
+
+lbd:approvedObjects  rdf:type  rdf:Property .
+
+lbd:purpose  rdf:type  rdf:Property .
+
+lbd:hasConstraints  rdf:type  rdf:Property .
+
+lbd:objectiveQualifier
+        rdf:type  rdf:Property .
+
+lbd:loadGroupFor  rdf:type  rdf:Property .
+
+lbd:linearStiffnessByAreaX
+        rdf:type  rdf:Property .
+
+lbd:verticalAxisDirection
+        rdf:type  rdf:Property .
+
+lbd:massDensity  rdf:type  rdf:Property .
+
+lbd:eccentricityInX  rdf:type  rdf:Property .
+
+lbd:deltaTZ  rdf:type  rdf:Property .
+
+lbd:inputPhase  rdf:type  rdf:Property .
+
+lbd:placementLocation
+        rdf:type  rdf:Property .
+
+lbd:globalId  rdf:type  rdf:Property .
+
+lbd:scheduleUsage  rdf:type  rdf:Property .
+
+lbd:thresholdOffset  rdf:type  rdf:Property .
+
+lbd:creationDate  rdf:type  rdf:Property .
+
+lbd:relatedPort  rdf:type  rdf:Property .
+
+lbd:yearComponent  rdf:type  rdf:Property .
+
+lbd:mapUnit  rdf:type  rdf:Property .
+
+lbd:xAxisAbscissa  rdf:type  rdf:Property .
+
+lbd:visibleReflectanceBack
+        rdf:type  rdf:Property .
+
+lbd:relatingResource  rdf:type  rdf:Property .
+
+lbd:profiles  rdf:type  rdf:Property .
+
+lbd:connectionConstraint
+        rdf:type  rdf:Property .
+
+lbd:conversionOffset  rdf:type  rdf:Property .
+
+lbd:compositeProfile  rdf:type  rdf:Property .
+
+lbd:totalCrossSectionArea
+        rdf:type  rdf:Property .
+
+lbd:longitudinalStartPosition
+        rdf:type  rdf:Property .
+
+lbd:mode  rdf:type  rdf:Property .
+
+lbd:actualDate  rdf:type  rdf:Property .
+
+lbd:relaxations  rdf:type  rdf:Property .
+
+lbd:maps  rdf:type  rdf:Property .
+
+lbd:flags  rdf:type  rdf:Property .
+
+lbd:hardeningModule  rdf:type  rdf:Property .
+
+lbd:maximumPowerInput
+        rdf:type  rdf:Property .
+
+lbd:bottomFlangeFilletRadius
+        rdf:type  rdf:Property .
+
+lbd:bendingParameters
+        rdf:type  rdf:Property .
+
+lbd:controlPointsList
+        rdf:type  rdf:Property .
+
+lbd:userDefinedType  rdf:type  rdf:Property .
+
+lbd:types  rdf:type  rdf:Property .
+
+lbd:relatedDocuments  rdf:type  rdf:Property .
+
+lbd:relatedConstraints
+        rdf:type  rdf:Property .
+
+lbd:curveD  rdf:type  rdf:Property .
+
+lbd:relatedSpaceProgram
+        rdf:type  rdf:Property .
+
+lbd:applicationIdentifier
+        rdf:type  rdf:Property .
+
+lbd:direction  rdf:type  rdf:Property .
+
+lbd:impactType  rdf:type  rdf:Property .
+
+lbd:transparency  rdf:type  rdf:Property .
+
+lbd:units  rdf:type  rdf:Property .
+
+lbd:messagingIDs  rdf:type  rdf:Property .
+
+lbd:warpingConstant  rdf:type  rdf:Property .
+
+lbd:requestID  rdf:type  rdf:Property .
+
+lbd:colour  rdf:type  rdf:Property .
+
+lbd:parentProfile  rdf:type  rdf:Property .
+
+lbd:electricCurrentType
+        rdf:type  rdf:Property .
+
+lbd:listPositions  rdf:type  rdf:Property .
+
+lbd:colours  rdf:type  rdf:Property .
+
+lbd:shearCentreY  rdf:type  rdf:Property .
+
+lbd:points  rdf:type  rdf:Property .
+
+lbd:layerStyles  rdf:type  rdf:Property .
+
+lbd:side  rdf:type  rdf:Property .
+
+lbd:startDistance  rdf:type  rdf:Property .
+
+lbd:hasTextureMaps  rdf:type  rdf:Property .
+
+lbd:daylightSavingOffset
+        rdf:type  rdf:Property .
+
+lbd:horizontalLength  rdf:type  rdf:Property .
+
+lbd:userDefinedCategory
+        rdf:type  rdf:Property .
+
+lbd:containedIn  rdf:type  rdf:Property .
+
+lbd:usageType  rdf:type  rdf:Property .
+
+lbd:remainingWork  rdf:type  rdf:Property .
+
+lbd:mappingTarget  rdf:type  rdf:Property .
+
+lbd:changeAction  rdf:type  rdf:Property .
+
+lbd:relatedBuildingElement
+        rdf:type  rdf:Property .
+
+lbd:sequenceType  rdf:type  rdf:Property .
+
+lbd:serviceLifeDuration
+        rdf:type  rdf:Property .
+
+lbd:transomThickness  rdf:type  rdf:Property .
+
+lbd:capacityByNumber  rdf:type  rdf:Property .
+
+lbd:colourList  rdf:type  rdf:Property .
+
+lbd:sheathDiameter  rdf:type  rdf:Property .
+
+lbd:hasProperties  rdf:type  rdf:Property .
+
+lbd:finish  rdf:type  rdf:Property .
+
+lbd:zDim  rdf:type  rdf:Property .
+
+lbd:axis  rdf:type  rdf:Property .
+
+lbd:knotSpec  rdf:type  rdf:Property .
+
+lbd:forProfileSet  rdf:type  rdf:Property .
+
+lbd:shapeRepresentations
+        rdf:type  rdf:Property .
+
+lbd:relatingSpaceProgram
+        rdf:type  rdf:Property .
+
+lbd:voids  rdf:type  rdf:Property .
+
+lbd:hasOpenings  rdf:type  rdf:Property .
+
+lbd:elements  rdf:type  rdf:Property .
+
+lbd:textureCoordinates
+        rdf:type  rdf:Property .
+
+lbd:representation  rdf:type  rdf:Property .
+
+lbd:columns  rdf:type  rdf:Property .
+
+lbd:hardness  rdf:type  rdf:Property .
+
+lbd:isActingUpon  rdf:type  rdf:Property .
+
+lbd:isClassifyingItemIn
+        rdf:type  rdf:Property .
+
+lbd:hasQuantities  rdf:type  rdf:Property .
+
+lbd:relatedBuildings  rdf:type  rdf:Property .
+
+lbd:distributionData  rdf:type  rdf:Property .
+
+lbd:recurrencePattern
+        rdf:type  rdf:Property .
+
+lbd:relatingMaterial  rdf:type  rdf:Property .
+
+lbd:textures  rdf:type  rdf:Property .
+
+lbd:taskId  rdf:type  rdf:Property .
+
+lbd:jurisdiction  rdf:type  rdf:Property .
+
+lbd:weekdayComponent  rdf:type  rdf:Property .
+
+lbd:layerSetDirection
+        rdf:type  rdf:Property .
+
+lbd:connectsStructuralMembers
+        rdf:type  rdf:Property .
+
+lbd:pointParameterV  rdf:type  rdf:Property .
+
+lbd:combustionTemperature
+        rdf:type  rdf:Property .
+
+lbd:fillsVoids  rdf:type  rdf:Property .
+
+lbd:nominalValue  rdf:type  rdf:Property .
+
+lbd:innerReference  rdf:type  rdf:Property .
+
+lbd:creationTime  rdf:type  rdf:Property .
+
+lbd:lowerVaporResistanceFactor
+        rdf:type  rdf:Property .
+
+lbd:relatingObject  rdf:type  rdf:Property .
+
+lbd:longitudinalBarCrossSectionArea
+        rdf:type  rdf:Property .
+
+lbd:source  rdf:type  rdf:Property .
+
+lbd:representations  rdf:type  rdf:Property .
+
+lbd:exchangeRate  rdf:type  rdf:Property .
+
+lbd:implicitOuter  rdf:type  rdf:Property .
+
+lbd:relatedStructuralMember
+        rdf:type  rdf:Property .
+
+lbd:name  rdf:type  rdf:Property .
+
+lbd:documentedBy  rdf:type  rdf:Property .
+
+lbd:refElevation  rdf:type  rdf:Property .
+
+lbd:coversSpaces  rdf:type  rdf:Property .
+
+lbd:toAlignmentCurve  rdf:type  rdf:Property .
+
+lbd:lateralAxisDirection
+        rdf:type  rdf:Property .
+
+lbd:width  rdf:type  rdf:Property .
+
+lbd:tensionFailureX  rdf:type  rdf:Property .
+
+lbd:acidityConcentration
+        rdf:type  rdf:Property .
+
+lbd:casingThickness  rdf:type  rdf:Property .
+
+lbd:referenceIntoLibrary
+        rdf:type  rdf:Property .
+
+lbd:suppliers  rdf:type  rdf:Property .
+
+lbd:longitudinalBarNominalDiameter
+        rdf:type  rdf:Property .
+
+lbd:railHeadDistance  rdf:type  rdf:Property .
+
+lbd:thermodynamicTemperatureExponent
+        rdf:type  rdf:Property .
+
+lbd:startDistAlong  rdf:type  rdf:Property .
+
+lbd:resourceOf  rdf:type  rdf:Property .
+
+lbd:impuritiesContent
+        rdf:type  rdf:Property .
+
+lbd:targetView  rdf:type  rdf:Property .
+
+lbd:plasticStrain  rdf:type  rdf:Property .
+
+lbd:defines  rdf:type  rdf:Property .
+
+lbd:resourceType  rdf:type  rdf:Property .
+
+lbd:colourAppearance  rdf:type  rdf:Property .
+
+lbd:isCritical  rdf:type  rdf:Property .
+
+lbd:outer  rdf:type  rdf:Property .
+
+lbd:porosity  rdf:type  rdf:Property .
+
+lbd:directionRatios  rdf:type  rdf:Property .
+
+lbd:startRadius  rdf:type  rdf:Property .
+
+lbd:relatingProfileProperties
+        rdf:type  rdf:Property .
+
+lbd:versionDate  rdf:type  rdf:Property .
+
+lbd:timeOfApproval  rdf:type  rdf:Property .
+
+lbd:endCantRight  rdf:type  rdf:Property .
+
+lbd:standardRequiredArea
+        rdf:type  rdf:Property .
+
+lbd:thermalIrTransmittance
+        rdf:type  rdf:Property .
+
+lbd:isRelatedBy  rdf:type  rdf:Property .
+
+lbd:loadedBy  rdf:type  rdf:Property .
+
+lbd:isMilestone  rdf:type  rdf:Property .
+
+lbd:assignedStructuralActivity
+        rdf:type  rdf:Property .
+
+lbd:textAlign  rdf:type  rdf:Property .
+
+lbd:startFloat  rdf:type  rdf:Property .
+
+lbd:numberOfTreads  rdf:type  rdf:Property .
+
+lbd:overallWidth  rdf:type  rdf:Property .
+
+lbd:secondaryUnit  rdf:type  rdf:Property .
+
+lbd:curveInterpolation
+        rdf:type  rdf:Property .
+
+lbd:minimumCircuitCurrent
+        rdf:type  rdf:Property .
+
+lbd:valueComponent  rdf:type  rdf:Property .
+
+lbd:editionDate  rdf:type  rdf:Property .
+
+lbd:distortion  rdf:type  rdf:Property .
+
+lbd:start  rdf:type  rdf:Property .
+
+lbd:secondaryMeasureType
+        rdf:type  rdf:Property .
+
+lbd:boundedBy  rdf:type  rdf:Property .
+
+lbd:fontSize  rdf:type  rdf:Property .
+
+lbd:referencedSource  rdf:type  rdf:Property .
+
+lbd:preStress  rdf:type  rdf:Property .
+
+lbd:totalReplacementCost
+        rdf:type  rdf:Property .
+
+lbd:workMethod  rdf:type  rdf:Property .
+
+lbd:coordIndex  rdf:type  rdf:Property .
+
+lbd:minimumValue  rdf:type  rdf:Property .
+
+lbd:inputVoltage  rdf:type  rdf:Property .
+
+lbd:connectedFrom  rdf:type  rdf:Property .
+
+lbd:engages  rdf:type  rdf:Property .
+
+lbd:timeSeries  rdf:type  rdf:Property .
+
+lbd:boxWidth  rdf:type  rdf:Property .
+
+lbd:elementType  rdf:type  rdf:Property .
+
+lbd:timeExponent  rdf:type  rdf:Property .
+
+lbd:sectionType  rdf:type  rdf:Property .
+
+lbd:compressionFailureZ
+        rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByLengthY
+        rdf:type  rdf:Property .
+
+lbd:styleOfSymbol  rdf:type  rdf:Property .
+
+lbd:thresholdDepth  rdf:type  rdf:Property .
+
+lbd:sweptCurve  rdf:type  rdf:Property .
+
+lbd:currentValue  rdf:type  rdf:Property .
+
+lbd:zLength  rdf:type  rdf:Property .
+
+lbd:totalFloat  rdf:type  rdf:Property .
+
+lbd:attributeIdentifier
+        rdf:type  rdf:Property .
+
+lbd:annotatedBySymbols
+        rdf:type  rdf:Property .
+
+lbd:levelingDelay  rdf:type  rdf:Property .
+
+lbd:givingApproval  rdf:type  rdf:Property .
+
+lbd:boxRotateAngle  rdf:type  rdf:Property .
+
+lbd:cardinalEndPoint  rdf:type  rdf:Property .
+
+lbd:isAttenuating  rdf:type  rdf:Property .
+
+lbd:addresses  rdf:type  rdf:Property .
+
+lbd:curveFontScaling  rdf:type  rdf:Property .
+
+lbd:remainingUsage  rdf:type  rdf:Property .
+
+lbd:liningOffset  rdf:type  rdf:Property .
+
+lbd:momentY  rdf:type  rdf:Property .
+
+lbd:objectTypeOf  rdf:type  rdf:Property .
+
+lbd:basisCurve  rdf:type  rdf:Property .
+
+lbd:cOContent  rdf:type  rdf:Property .
+
+lbd:lateFinish  rdf:type  rdf:Property .
+
+lbd:targetScale  rdf:type  rdf:Property .
+
+lbd:secondMullionOffset
+        rdf:type  rdf:Property .
+
+lbd:startTag  rdf:type  rdf:Property .
+
+lbd:upperValue  rdf:type  rdf:Property .
+
+lbd:destabilizingLoad
+        rdf:type  rdf:Property .
+
+lbd:hasStructuralMember
+        rdf:type  rdf:Property .
+
+lbd:green  rdf:type  rdf:Property .
+
+lbd:criterionDateTime
+        rdf:type  rdf:Property .
+
+lbd:validFrom  rdf:type  rdf:Property .
+
+lbd:benchmarkValues  rdf:type  rdf:Property .
+
+lbd:weightValue  rdf:type  rdf:Property .
+
+lbd:isConvex  rdf:type  rdf:Property .
+
+lbd:theoryType  rdf:type  rdf:Property .
+
+lbd:edgeRadius  rdf:type  rdf:Property .
+
+lbd:arithmeticOperator
+        rdf:type  rdf:Property .
+
+lbd:internalFilletRadius
+        rdf:type  rdf:Property .
+
+lbd:relatingPropertyDefinition
+        rdf:type  rdf:Property .
+
+lbd:reflectanceMethod
+        rdf:type  rdf:Property .
+
+lbd:country  rdf:type  rdf:Property .
+
+lbd:propertySource  rdf:type  rdf:Property .
+
+lbd:panelWidth  rdf:type  rdf:Property .
+
+lbd:topFlangeSlope  rdf:type  rdf:Property .
+
+lbd:records  rdf:type  rdf:Property .
+
+lbd:reinforcementSectionDefinitions
+        rdf:type  rdf:Property .
+
+lbd:textStyle  rdf:type  rdf:Property .
+
+lbd:linearForceY  rdf:type  rdf:Property .
+
+lbd:factor  rdf:type  rdf:Property .
+
+lbd:filletRadius  rdf:type  rdf:Property .
+
+lbd:linearStiffnessByLengthZ
+        rdf:type  rdf:Property .
+
+lbd:extent  rdf:type  rdf:Property .
+
+lbd:lateDate  rdf:type  rdf:Property .
+
+lbd:mappingOrigin  rdf:type  rdf:Property .
+
+lbd:reinforcementRole
+        rdf:type  rdf:Property .
+
+lbd:offsetValues  rdf:type  rdf:Property .
+
+lbd:volumeValue  rdf:type  rdf:Property .
+
+lbd:componentOfTotal  rdf:type  rdf:Property .
+
+lbd:momentOfInertiaZ  rdf:type  rdf:Property .
+
+lbd:baseQuantity  rdf:type  rdf:Property .
+
+lbd:validUntil  rdf:type  rdf:Property .
+
+lbd:patternList  rdf:type  rdf:Property .
+
+lbd:hasCoverings  rdf:type  rdf:Property .
+
+lbd:applicableOccurrence
+        rdf:type  rdf:Property .
+
+lbd:restartDistance  rdf:type  rdf:Property .
+
+lbd:applicationDeveloper
+        rdf:type  rdf:Property .
+
+lbd:scheduleWork  rdf:type  rdf:Property .
+
+lbd:textureVertices  rdf:type  rdf:Property .
+
+lbd:actionSource  rdf:type  rdf:Property .
+
+lbd:creators  rdf:type  rdf:Property .
+
+lbd:relatingActor  rdf:type  rdf:Property .
+
+lbd:offsetFromReferenceLine
+        rdf:type  rdf:Property .
+
+lbd:tags  rdf:type  rdf:Property .
+
+lbd:exponent  rdf:type  rdf:Property .
+
+lbd:varyingThicknessLocation
+        rdf:type  rdf:Property .
+
+lbd:cardinalPoint  rdf:type  rdf:Property .
+
+lbd:thermalIrEmissivityBack
+        rdf:type  rdf:Property .
+
+lbd:interferenceGeometry
+        rdf:type  rdf:Property .
+
+lbd:polygonalBoundary
+        rdf:type  rdf:Property .
+
+lbd:surfaceReinforcement
+        rdf:type  rdf:Property .
+
+lbd:referencedBy  rdf:type  rdf:Property .
+
+lbd:repeatFactor  rdf:type  rdf:Property .
+
+lbd:usense  rdf:type  rdf:Property .
+
+lbd:permitID  rdf:type  rdf:Property .
+
+lbd:identification  rdf:type  rdf:Property .
+
+lbd:voidsElements  rdf:type  rdf:Property .
+
+lbd:parentContext  rdf:type  rdf:Property .
+
+lbd:relatingBuildingElement
+        rdf:type  rdf:Property .
+
+lbd:remainingTime  rdf:type  rdf:Property .
+
+lbd:planarForceZ  rdf:type  rdf:Property .
+
+lbd:dispersionFactor  rdf:type  rdf:Property .
+
+lbd:relatedElements  rdf:type  rdf:Property .
+
+lbd:itemReference  rdf:type  rdf:Property .
+
+lbd:sharedPlacement  rdf:type  rdf:Property .
+
+lbd:linearStiffnessByAreaY
+        rdf:type  rdf:Property .
+
+lbd:profileType  rdf:type  rdf:Property .
+
+lbd:eccentricityInY  rdf:type  rdf:Property .
+
+lbd:fixedAxisVertical
+        rdf:type  rdf:Property .
+
+lbd:selfWeightCoefficients
+        rdf:type  rdf:Property .
+
+lbd:riserHeight  rdf:type  rdf:Property .
+
+lbd:layerOn  rdf:type  rdf:Property .
+
+lbd:minorRadius  rdf:type  rdf:Property .
+
+lbd:xAxisOrdinate  rdf:type  rdf:Property .
+
+lbd:radius  rdf:type  rdf:Property .
+
+lbd:postalCode  rdf:type  rdf:Property .
+
+lbd:nominalDiameter  rdf:type  rdf:Property .
+
+lbd:topFlangeWidth  rdf:type  rdf:Property .
+
+lbd:texCoordIndex  rdf:type  rdf:Property .
+
+lbd:declares  rdf:type  rdf:Property .
+
+lbd:hasControlElements
+        rdf:type  rdf:Property .
+
+lbd:timeSeriesScheduleType
+        rdf:type  rdf:Property .
+
+lbd:instanceName  rdf:type  rdf:Property .
+
+lbd:molecularWeight  rdf:type  rdf:Property .
+
+lbd:representationMap
+        rdf:type  rdf:Property .
+
+lbd:isLinear  rdf:type  rdf:Property .
+
+lbd:systemType  rdf:type  rdf:Property .
+
+lbd:documentId  rdf:type  rdf:Property .
+
+lbd:relatedOrganizations
+        rdf:type  rdf:Property .
+
+lbd:representationIdentifier
+        rdf:type  rdf:Property .
+
+lbd:applicableDate  rdf:type  rdf:Property .
+
+lbd:casingDepth  rdf:type  rdf:Property .
+
+lbd:upperVaporResistanceFactor
+        rdf:type  rdf:Property .
+
+lbd:massExponent  rdf:type  rdf:Property .
+
+lbd:featureLength  rdf:type  rdf:Property .
+
+lbd:repeatS  rdf:type  rdf:Property .
+
+lbd:representedMaterial
+        rdf:type  rdf:Property .
+
+lbd:isothermalMoistureCapacity
+        rdf:type  rdf:Property .
+
+lbd:formula  rdf:type  rdf:Property .
+
+lbd:vKnots  rdf:type  rdf:Property .
+
+lbd:baseCosts  rdf:type  rdf:Property .
+
+lbd:crossSectionReinforcementDefinitions
+        rdf:type  rdf:Property .
+
+lbd:innerBoundaries  rdf:type  rdf:Property .
+
+lbd:thresholdThickness
+        rdf:type  rdf:Property .
+
+lbd:operator  rdf:type  rdf:Property .
+
+lbd:flangeSlope  rdf:type  rdf:Property .
+
+lbd:relatedPriorities
+        rdf:type  rdf:Property .
+
+lbd:diffuseTransmissionColour
+        rdf:type  rdf:Property .
+
+lbd:basisSurface  rdf:type  rdf:Property .
+
+lbd:edgeGeometry  rdf:type  rdf:Property .
+
+lbd:relatingElement  rdf:type  rdf:Property .
+
+lbd:toMaterialConstituentSet
+        rdf:type  rdf:Property .
+
+lbd:representationsInContext
+        rdf:type  rdf:Property .
+
+lbd:refLongitude  rdf:type  rdf:Property .
+
+lbd:innerRadius  rdf:type  rdf:Property .
+
+lbd:fullLoadCurrent  rdf:type  rdf:Property .
+
+lbd:diffuseReflectionColour
+        rdf:type  rdf:Property .
+
+lbd:lastModifyingUser
+        rdf:type  rdf:Property .
+
+lbd:edgeEnd  rdf:type  rdf:Property .
+
+lbd:isRelatedFromCallout
+        rdf:type  rdf:Property .
+
+lbd:shearCentreZ  rdf:type  rdf:Property .
+
+lbd:isInterferedByElements
+        rdf:type  rdf:Property .
+
+lbd:overridingProperties
+        rdf:type  rdf:Property .
+
+lbd:segmentLength  rdf:type  rdf:Property .
+
+lbd:workControlType  rdf:type  rdf:Property .
+
+lbd:sourceDescription
+        rdf:type  rdf:Property .
+
+lbd:linearStiffnessX  rdf:type  rdf:Property .
+
+lbd:localOrigin  rdf:type  rdf:Property .
+
+lbd:texCoords  rdf:type  rdf:Property .
+
+lbd:rotationalDisplacementRX
+        rdf:type  rdf:Property .
+
+lbd:subContractor  rdf:type  rdf:Property .
+
+lbd:beamWidthAngle  rdf:type  rdf:Property .
+
+lbd:tilingPattern  rdf:type  rdf:Property .
+
+lbd:setPointValue  rdf:type  rdf:Property .
+
+lbd:profileName  rdf:type  rdf:Property .
+
+lbd:volumeOnRelatingElement
+        rdf:type  rdf:Property .
+
+lbd:profileOrientation
+        rdf:type  rdf:Property .
+
+lbd:relatedSpace  rdf:type  rdf:Property .
+
+lbd:parentCurve  rdf:type  rdf:Property .
+
+lbd:timePeriods  rdf:type  rdf:Property .
+
+lbd:steelGrade  rdf:type  rdf:Property .
+
+lbd:materialLayers  rdf:type  rdf:Property .
+
+lbd:relatedApprovals  rdf:type  rdf:Property .
+
+lbd:resourceIdentifier
+        rdf:type  rdf:Property .
+
+lbd:scheduleDate  rdf:type  rdf:Property .
+
+lbd:agreementFlag  rdf:type  rdf:Property .
+
+lbd:firstMullionOffset
+        rdf:type  rdf:Property .
+
+lbd:contains  rdf:type  rdf:Property .
+
+lbd:iD  rdf:type  rdf:Property .
+
+lbd:realizingElement  rdf:type  rdf:Property .
+
+lbd:transition  rdf:type  rdf:Property .
+
+lbd:intersectingAxes  rdf:type  rdf:Property .
+
+lbd:letterSpacing  rdf:type  rdf:Property .
+
+lbd:earlyDate  rdf:type  rdf:Property .
+
+lbd:fontFamily  rdf:type  rdf:Property .
+
+lbd:freeFloat  rdf:type  rdf:Property .
+
+lbd:rateSource  rdf:type  rdf:Property .
+
+lbd:endSweptArea  rdf:type  rdf:Property .
+
+lbd:isEndRadiusCCW  rdf:type  rdf:Property .
+
+lbd:scheduleFinish  rdf:type  rdf:Property .
+
+lbd:varyingAppliedLoadLocation
+        rdf:type  rdf:Property .
+
+lbd:items  rdf:type  rdf:Property .
+
+lbd:invisibleSegmentLength
+        rdf:type  rdf:Property .
+
+lbd:containsElements  rdf:type  rdf:Property .
+
+lbd:enclosure  rdf:type  rdf:Property .
+
+lbd:definesOccurrence
+        rdf:type  rdf:Property .
+
+lbd:flangeWidth  rdf:type  rdf:Property .
+
+lbd:momentOfInertiaYZ
+        rdf:type  rdf:Property .
+
+lbd:constantAttenuation
+        rdf:type  rdf:Property .
+
+lbd:realizingElements
+        rdf:type  rdf:Property .
+
+lbd:valueOfComponents
+        rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessByLengthX
+        rdf:type  rdf:Property .
+
+lbd:corresponds  rdf:type  rdf:Property .
+
+lbd:perimeter  rdf:type  rdf:Property .
+
+lbd:representationContexts
+        rdf:type  rdf:Property .
+
+lbd:meshWidth  rdf:type  rdf:Property .
+
+lbd:curveFont  rdf:type  rdf:Property .
+
+lbd:displacementX  rdf:type  rdf:Property .
+
+lbd:actingRole  rdf:type  rdf:Property .
+
+lbd:mountable  rdf:type  rdf:Property .
+
+lbd:tensionFailureY  rdf:type  rdf:Property .
+
+lbd:curveOnRelatingElement
+        rdf:type  rdf:Property .
+
+lbd:scope  rdf:type  rdf:Property .
+
+lbd:lastModifyingApplication
+        rdf:type  rdf:Property .
+
+lbd:relatedOpeningElement
+        rdf:type  rdf:Property .
+
+lbd:edgeStart  rdf:type  rdf:Property .
+
+lbd:userDefinedOperationType
+        rdf:type  rdf:Property .
+
+lbd:bounds  rdf:type  rdf:Property .
+
+lbd:connectionType  rdf:type  rdf:Property .
+
+lbd:pnIndex  rdf:type  rdf:Property .
+
+lbd:parentEdge  rdf:type  rdf:Property .
+
+lbd:mostUsedValue  rdf:type  rdf:Property .
+
+lbd:angle  rdf:type  rdf:Property .
+
+lbd:minimumSectionModulusY
+        rdf:type  rdf:Property .
+
+lbd:subsequentAppliedLoads
+        rdf:type  rdf:Property .
+
+lbd:layerBlocked  rdf:type  rdf:Property .
+
+lbd:minuteOffset  rdf:type  rdf:Property .
+
+lbd:flangeEdgeRadius  rdf:type  rdf:Property .
+
+lbd:overallHeight  rdf:type  rdf:Property .
+
+lbd:shearAreaY  rdf:type  rdf:Property .
+
+lbd:sourceCRS  rdf:type  rdf:Property .
+
+lbd:submittedBy  rdf:type  rdf:Property .
+
+lbd:profile  rdf:type  rdf:Property .
+
+lbd:placementRelTo  rdf:type  rdf:Property .
+
+lbd:isNestedBy  rdf:type  rdf:Property .
+
+lbd:timeValue  rdf:type  rdf:Property .
+
+lbd:curve  rdf:type  rdf:Property .
+
+lbd:uClosed  rdf:type  rdf:Property .
+
+lbd:referenceCurve  rdf:type  rdf:Property .
+
+lbd:roles  rdf:type  rdf:Property .
+
+lbd:zone  rdf:type  rdf:Property .
+
+lbd:secondTransomOffset
+        rdf:type  rdf:Property .
+
+lbd:outerFilletRadius
+        rdf:type  rdf:Property .
+
+lbd:slippageX  rdf:type  rdf:Property .
+
+lbd:fontWeight  rdf:type  rdf:Property .
+
+lbd:material  rdf:type  rdf:Property .
+
+lbd:specularColour  rdf:type  rdf:Property .
+
+lbd:moveFrom  rdf:type  rdf:Property .
+
+lbd:visibleReflectanceFront
+        rdf:type  rdf:Property .
+
+lbd:parentBoundary  rdf:type  rdf:Property .
+
+lbd:monthComponent  rdf:type  rdf:Property .
+
+lbd:recurrence  rdf:type  rdf:Property .
+
+lbd:crossSectionArea  rdf:type  rdf:Property .
+
+lbd:enumerators  rdf:type  rdf:Property .
+
+lbd:fontVariant  rdf:type  rdf:Property .
+
+lbd:interferenceType  rdf:type  rdf:Property .
+
+lbd:documentOwner  rdf:type  rdf:Property .
+
+lbd:knots  rdf:type  rdf:Property .
+
+lbd:masterRepresentation
+        rdf:type  rdf:Property .
+
+lbd:offsetDirection  rdf:type  rdf:Property .
+
+lbd:ownerHistory  rdf:type  rdf:Property .
+
+lbd:sizeInX  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByLengthZ
+        rdf:type  rdf:Property .
+
+lbd:barLength  rdf:type  rdf:Property .
+
+lbd:waterImpermeability
+        rdf:type  rdf:Property .
+
+lbd:resourceGroup  rdf:type  rdf:Property .
+
+lbd:deltaT  rdf:type  rdf:Property .
+
+lbd:wallThickness  rdf:type  rdf:Property .
+
+lbd:userDefinedControlType
+        rdf:type  rdf:Property .
+
+lbd:mimeSubtype  rdf:type  rdf:Property .
+
+lbd:endTime  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessX
+        rdf:type  rdf:Property .
+
+lbd:tag  rdf:type  rdf:Property .
+
+lbd:partOfProductDefinitionShape
+        rdf:type  rdf:Property .
+
+lbd:fraction  rdf:type  rdf:Property .
+
+lbd:maximumValue  rdf:type  rdf:Property .
+
+lbd:representationMaps
+        rdf:type  rdf:Property .
+
+lbd:internalLocation  rdf:type  rdf:Property .
+
+lbd:referencedByPlacements
+        rdf:type  rdf:Property .
+
+lbd:wordSpacing  rdf:type  rdf:Property .
+
+lbd:curveGeometry  rdf:type  rdf:Property .
+
+lbd:majorRadius  rdf:type  rdf:Property .
+
+lbd:momentZ  rdf:type  rdf:Property .
+
+lbd:scale  rdf:type  rdf:Property .
+
+lbd:profileSectionLocation
+        rdf:type  rdf:Property .
+
+lbd:relatesTo  rdf:type  rdf:Property .
+
+lbd:hasInteractionReqsFrom
+        rdf:type  rdf:Property .
+
+lbd:valuesReferenced  rdf:type  rdf:Property .
+
+lbd:fontStyle  rdf:type  rdf:Property .
+
+lbd:inputFrequency  rdf:type  rdf:Property .
+
+lbd:elevationWithFlooring
+        rdf:type  rdf:Property .
+
+lbd:relatingContext  rdf:type  rdf:Property .
+
+lbd:relatesConstraints
+        rdf:type  rdf:Property .
+
+lbd:representationType
+        rdf:type  rdf:Property .
+
+lbd:responsiblePersons
+        rdf:type  rdf:Property .
+
+lbd:startCantRight  rdf:type  rdf:Property .
+
+lbd:reflectanceColour
+        rdf:type  rdf:Property .
+
+lbd:transomOffset  rdf:type  rdf:Property .
+
+lbd:finishTime  rdf:type  rdf:Property .
+
+lbd:meshLength  rdf:type  rdf:Property .
+
+lbd:curveForm  rdf:type  rdf:Property .
+
+lbd:trim  rdf:type  rdf:Property .
+
+lbd:proportionalStress
+        rdf:type  rdf:Property .
+
+lbd:projectsElements  rdf:type  rdf:Property .
+
+lbd:bound  rdf:type  rdf:Property .
+
+lbd:physicalOrVirtualBoundary
+        rdf:type  rdf:Property .
+
+lbd:hourOffset  rdf:type  rdf:Property .
+
+lbd:depth  rdf:type  rdf:Property .
+
+lbd:linearForceZ  rdf:type  rdf:Property .
+
+lbd:volumeOnRelatedElement
+        rdf:type  rdf:Property .
+
+lbd:relatingOrganization
+        rdf:type  rdf:Property .
+
+lbd:placementMeasuredAlong
+        rdf:type  rdf:Property .
+
+lbd:revision  rdf:type  rdf:Property .
+
+lbd:approval  rdf:type  rdf:Property .
+
+lbd:finishFloat  rdf:type  rdf:Property .
+
+lbd:profileOfPort  rdf:type  rdf:Property .
+
+lbd:propertyForDependance
+        rdf:type  rdf:Property .
+
+lbd:wWWHomePageURL  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessByAreaX
+        rdf:type  rdf:Property .
+
+lbd:enumerationReference
+        rdf:type  rdf:Property .
+
+lbd:procedureID  rdf:type  rdf:Property .
+
+lbd:relatedConnectionType
+        rdf:type  rdf:Property .
+
+lbd:tagList  rdf:type  rdf:Property .
+
+lbd:styles  rdf:type  rdf:Property .
+
+lbd:liningToPanelOffsetX
+        rdf:type  rdf:Property .
+
+lbd:definedUnit  rdf:type  rdf:Property .
+
+lbd:quantities  rdf:type  rdf:Property .
+
+lbd:actualFinish  rdf:type  rdf:Property .
+
+lbd:theActor  rdf:type  rdf:Property .
+
+lbd:faces  rdf:type  rdf:Property .
+
+lbd:hatchLineAngle  rdf:type  rdf:Property .
+
+lbd:materialConstituents
+        rdf:type  rdf:Property .
+
+lbd:location  rdf:type  rdf:Property .
+
+lbd:operatesOn  rdf:type  rdf:Property .
+
+lbd:causedBy  rdf:type  rdf:Property .
+
+lbd:texturePoints  rdf:type  rdf:Property .
+
+lbd:relatedElement  rdf:type  rdf:Property .
+
+lbd:servicedBySystems
+        rdf:type  rdf:Property .
+
+lbd:assignedItems  rdf:type  rdf:Property .
+
+lbd:isSuccessorFrom  rdf:type  rdf:Property .
+
+lbd:positioningElement
+        rdf:type  rdf:Property .
+
+lbd:appliedValue  rdf:type  rdf:Property .
+
+lbd:linearStiffnessByAreaZ
+        rdf:type  rdf:Property .
+
+lbd:eccentricityInZ  rdf:type  rdf:Property .
+
+lbd:startOfNextHatchLine
+        rdf:type  rdf:Property .
+
+lbd:nominalBarDiameter
+        rdf:type  rdf:Property .
+
+lbd:partOfPsetTemplate
+        rdf:type  rdf:Property .
+
+lbd:closed  rdf:type  rdf:Property .
+
+lbd:uRLReference  rdf:type  rdf:Property .
+
+lbd:orientation  rdf:type  rdf:Property .
+
+lbd:referenceSurface  rdf:type  rdf:Property .
+
+lbd:importanceRating  rdf:type  rdf:Property .
+
+lbd:placementRefDirection
+        rdf:type  rdf:Property .
+
+lbd:mapUsage  rdf:type  rdf:Property .
+
+lbd:qualifier  rdf:type  rdf:Property .
+
+lbd:freezingPoint  rdf:type  rdf:Property .
+
+lbd:referenceToDocument
+        rdf:type  rdf:Property .
+
+lbd:preparedBy  rdf:type  rdf:Property .
+
+lbd:crossSections  rdf:type  rdf:Property .
+
+lbd:forProfileEndSet  rdf:type  rdf:Property .
+
+lbd:flexible  rdf:type  rdf:Property .
+
+lbd:segments  rdf:type  rdf:Property .
+
+lbd:assignedToStructuralItem
+        rdf:type  rdf:Property .
+
+lbd:endTag  rdf:type  rdf:Property .
+
+lbd:buildingAddress  rdf:type  rdf:Property .
+
+lbd:normals  rdf:type  rdf:Property .
+
+lbd:sameSense  rdf:type  rdf:Property .
+
+lbd:startProfile  rdf:type  rdf:Property .
+
+lbd:yieldStress  rdf:type  rdf:Property .
+
+lbd:notation  rdf:type  rdf:Property .
+
+lbd:bottomFlangeWidth
+        rdf:type  rdf:Property .
+
+lbd:publisher  rdf:type  rdf:Property .
+
+lbd:classifiedAs  rdf:type  rdf:Property .
+
+lbd:item  rdf:type  rdf:Property .
+
+lbd:selfIntersect  rdf:type  rdf:Property .
+
+lbd:repeatT  rdf:type  rdf:Property .
+
+lbd:scheduleContour  rdf:type  rdf:Property .
+
+lbd:relativePlacement
+        rdf:type  rdf:Property .
+
+lbd:expression  rdf:type  rdf:Property .
+
+lbd:approvedResources
+        rdf:type  rdf:Property .
+
+lbd:spineCurve  rdf:type  rdf:Property .
+
+lbd:relatingSystem  rdf:type  rdf:Property .
+
+lbd:dependantProperty
+        rdf:type  rdf:Property .
+
+lbd:longitudinalBarSpacing
+        rdf:type  rdf:Property .
+
+lbd:referencesElement
+        rdf:type  rdf:Property .
+
+lbd:isConnectionRealization
+        rdf:type  rdf:Property .
+
+lbd:liningDepth  rdf:type  rdf:Property .
+
+lbd:firstTransomOffset
+        rdf:type  rdf:Property .
+
+lbd:addressLines  rdf:type  rdf:Property .
+
+lbd:temperatureSingleValue
+        rdf:type  rdf:Property .
+
+lbd:thePerson  rdf:type  rdf:Property .
+
+lbd:endDistance  rdf:type  rdf:Property .
+
+lbd:textureType  rdf:type  rdf:Property .
+
+lbd:quality  rdf:type  rdf:Property .
+
+lbd:surfaceOnRelatingElement
+        rdf:type  rdf:Property .
+
+lbd:operationType  rdf:type  rdf:Property .
+
+lbd:approvalDateTime  rdf:type  rdf:Property .
+
+lbd:actor  rdf:type  rdf:Property .
+
+lbd:hasTextures  rdf:type  rdf:Property .
+
+lbd:mullionThickness  rdf:type  rdf:Property .
+
+lbd:isRelatedToCallout
+        rdf:type  rdf:Property .
+
+lbd:panelDepth  rdf:type  rdf:Property .
+
+lbd:characterSpacing  rdf:type  rdf:Property .
+
+lbd:soundLevelTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:isDefinedBy  rdf:type  rdf:Property .
+
+lbd:title  rdf:type  rdf:Property .
+
+lbd:barSurface  rdf:type  rdf:Property .
+
+lbd:isPointer  rdf:type  rdf:Property .
+
+lbd:owningApplication
+        rdf:type  rdf:Property .
+
+lbd:hasPropertySets  rdf:type  rdf:Property .
+
+lbd:surfaceOnRelatedElement
+        rdf:type  rdf:Property .
+
+lbd:supportedLength  rdf:type  rdf:Property .
+
+lbd:lastModifiedDate  rdf:type  rdf:Property .
+
+lbd:linearStiffnessY  rdf:type  rdf:Property .
+
+lbd:parameter  rdf:type  rdf:Property .
+
+lbd:degree  rdf:type  rdf:Property .
+
+lbd:rotationalDisplacementRY
+        rdf:type  rdf:Property .
+
+lbd:role  rdf:type  rdf:Property .
+
+lbd:partitioningType  rdf:type  rdf:Property .
+
+lbd:postalBox  rdf:type  rdf:Property .
+
+lbd:spreadAngle  rdf:type  rdf:Property .
+
+lbd:maximumPlateThickness
+        rdf:type  rdf:Property .
+
+lbd:bendingShapeCode  rdf:type  rdf:Property .
+
+lbd:logicalAggregator
+        rdf:type  rdf:Property .
+
+lbd:prefixTitles  rdf:type  rdf:Property .
+
+lbd:label  rdf:type  rdf:Property .
+
+lbd:positions  rdf:type  rdf:Property .
+
+lbd:colourComponents  rdf:type  rdf:Property .
+
+lbd:classifiedConstraint
+        rdf:type  rdf:Property .
+
+lbd:ultimateStress  rdf:type  rdf:Property .
+
+lbd:timeStamp  rdf:type  rdf:Property .
+
+lbd:referenceExtent  rdf:type  rdf:Property .
+
+lbd:locationAtRelatedElement
+        rdf:type  rdf:Property .
+
+lbd:physicalWeight  rdf:type  rdf:Property .
+
+lbd:uAxes  rdf:type  rdf:Property .
+
+lbd:relatingFlowElement
+        rdf:type  rdf:Property .
+
+lbd:pointOnRelatingElement
+        rdf:type  rdf:Property .
+
+lbd:thermalLoadTimeSeriesValues
+        rdf:type  rdf:Property .
+
+lbd:headWidth  rdf:type  rdf:Property .
+
+lbd:definingUnit  rdf:type  rdf:Property .
+
+lbd:solarReflectanceBack
+        rdf:type  rdf:Property .
+
+lbd:durationType  rdf:type  rdf:Property .
+
+lbd:userDefinedProcedureType
+        rdf:type  rdf:Property .
+
+lbd:topFlangeThickness
+        rdf:type  rdf:Property .
+
+lbd:luminousIntensityExponent
+        rdf:type  rdf:Property .
+
+lbd:notationFacets  rdf:type  rdf:Property .
+
+lbd:thermalConductivity
+        rdf:type  rdf:Property .
+
+lbd:covers  rdf:type  rdf:Property .
+
+lbd:userDefinedTargetView
+        rdf:type  rdf:Property .
+
+lbd:notationValue  rdf:type  rdf:Property .
+
+lbd:numberOfRiser  rdf:type  rdf:Property .
+
+lbd:methodOfMeasurement
+        rdf:type  rdf:Property .
+
+lbd:positionedRelativeTo
+        rdf:type  rdf:Property .
+
+lbd:eastings  rdf:type  rdf:Property .
+
+lbd:vClosed  rdf:type  rdf:Property .
+
+lbd:depreciatedValue  rdf:type  rdf:Property .
+
+lbd:solarReflectanceFront
+        rdf:type  rdf:Property .
+
+lbd:rotationalStiffnessByLengthY
+        rdf:type  rdf:Property .
+
+lbd:userDefinedPartitioningType
+        rdf:type  rdf:Property .
+
+lbd:actualDuration  rdf:type  rdf:Property .
+
+lbd:scheduleDuration  rdf:type  rdf:Property .
+
+lbd:relatedMonetaryUnit
+        rdf:type  rdf:Property .
+
+lbd:lengthExponent  rdf:type  rdf:Property .
+
+lbd:theOrganization  rdf:type  rdf:Property .
+
+lbd:relatedPropertySets
+        rdf:type  rdf:Property .
+
+lbd:displacementY  rdf:type  rdf:Property .
+
+lbd:mappedTo  rdf:type  rdf:Property .
+
+lbd:tensionFailureZ  rdf:type  rdf:Property .
+
+lbd:partOfPset  rdf:type  rdf:Property .
+
+lbd:boundaries  rdf:type  rdf:Property .
+
+lbd:elevationOfTerrain
+        rdf:type  rdf:Property .
+
+lbd:familyName  rdf:type  rdf:Property .
+
+lbd:externalReferenceForResources
+        rdf:type  rdf:Property .
+
+lbd:targetUsers  rdf:type  rdf:Property .
+
+lbd:relatingProcess  rdf:type  rdf:Property .
+
+lbd:eventTriggerType  rdf:type  rdf:Property .
+
+lbd:plasticShapeFactorY
+        rdf:type  rdf:Property .
+
+lbd:boxAlignment  rdf:type  rdf:Property .
+
+lbd:rows  rdf:type  rdf:Property .
+
+lbd:definedValues  rdf:type  rdf:Property .
+
+lbd:mapProjection  rdf:type  rdf:Property .
+
+lbd:region  rdf:type  rdf:Property .
+
+lbd:textDecoration  rdf:type  rdf:Property .
+
+lbd:outerBoundary  rdf:type  rdf:Property .
+
+lbd:minimumSectionModulusZ
+        rdf:type  rdf:Property .
+
+lbd:topFlangeFilletRadius
+        rdf:type  rdf:Property .
+
+lbd:dataValue  rdf:type  rdf:Property .
+
+lbd:referencesElements
+        rdf:type  rdf:Property .
+
+lbd:urlReference  rdf:type  rdf:Property .
+
+lbd:startGradient  rdf:type  rdf:Property .
+
+lbd:opacity  rdf:type  rdf:Property .
+
+lbd:shearAreaZ  rdf:type  rdf:Property .
+
+lbd:path  rdf:type  rdf:Property .
+
+lbd:relatedApproval  rdf:type  rdf:Property .
+
+lbd:phase  rdf:type  rdf:Property .
+
+lbd:facsimileNumbers  rdf:type  rdf:Property .
+
+lbd:relatedItems  rdf:type  rdf:Property .
+
+lbd:isOverAllocated  rdf:type  rdf:Property .
+
+lbd:startTime  rdf:type  rdf:Property .
+
+lbd:prefix  rdf:type  rdf:Property .
+
+lbd:directrix  rdf:type  rdf:Property .
+
+lbd:hourComponent  rdf:type  rdf:Property .
+
+lbd:moveTo  rdf:type  rdf:Property .
+
+lbd:visibleSegmentLength
+        rdf:type  rdf:Property .
+
+lbd:mappedRepresentation
+        rdf:type  rdf:Property .
+
+lbd:velocityTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:relatingMonetaryUnit
+        rdf:type  rdf:Property .
+
+lbd:weightsData  rdf:type  rdf:Property .
+
+lbd:textFontStyle  rdf:type  rdf:Property .
+
+lbd:minimumPlateThickness
+        rdf:type  rdf:Property .
+
+lbd:minCurvatureRadius
+        rdf:type  rdf:Property .
+
+lbd:ribSpacing  rdf:type  rdf:Property .
+
+lbd:slippageY  rdf:type  rdf:Property .
+
+lbd:outerCurve  rdf:type  rdf:Property .
+
+lbd:status  rdf:type  rdf:Property .
+
+lbd:relatedProperties
+        rdf:type  rdf:Property .
+
+lbd:appliedLoad  rdf:type  rdf:Property .
+
+lbd:compressiveStrength
+        rdf:type  rdf:Property .
+
+lbd:hasAssignments  rdf:type  rdf:Property .
+
+lbd:transverseBarNominalDiameter
+        rdf:type  rdf:Property .
+
+lbd:soundLevelSingleValue
+        rdf:type  rdf:Property .
+
+lbd:geodeticDatum  rdf:type  rdf:Property .
+
+lbd:relatingReference
+        rdf:type  rdf:Property .
+
+lbd:girth  rdf:type  rdf:Property .
+
+lbd:earlyStart  rdf:type  rdf:Property .
+
+lbd:userDefinedEventTriggerType
+        rdf:type  rdf:Property .
+
+lbd:internalOrExternalBoundary
+        rdf:type  rdf:Property .
+
+lbd:usageName  rdf:type  rdf:Property .
+
+lbd:layerFrozen  rdf:type  rdf:Property .
+
+lbd:hasShapeAspects  rdf:type  rdf:Property .
+
+lbd:height  rdf:type  rdf:Property .
+
+lbd:userDefinedEnergySequence
+        rdf:type  rdf:Property .
+
+lbd:sizeInY  rdf:type  rdf:Property .
+
+lbd:relatingType  rdf:type  rdf:Property .
+
+lbd:bottomRadius  rdf:type  rdf:Property .
+
+lbd:annotatedSurface  rdf:type  rdf:Property .
+
+lbd:statusTime  rdf:type  rdf:Property .
+
+lbd:interferesElements
+        rdf:type  rdf:Property .
+
+lbd:assemblyPlace  rdf:type  rdf:Property .
+
+lbd:translationalStiffnessY
+        rdf:type  rdf:Property .
+
+lbd:confidentiality  rdf:type  rdf:Property .
+
+lbd:inventoryType  rdf:type  rdf:Property .
+
+lbd:creatingActor  rdf:type  rdf:Property .
+
+lbd:distance  rdf:type  rdf:Property .
+
+lbd:trueNorth  rdf:type  rdf:Property .
+
+lbd:recurrenceType  rdf:type  rdf:Property .
+
+lbd:lateStart  rdf:type  rdf:Property .
+
+lbd:requestedLocation
+        rdf:type  rdf:Property .
+
+lbd:relatedStructuralActivity
+        rdf:type  rdf:Property .
+
+lbd:flowConditionSingleValue
+        rdf:type  rdf:Property .
+
+lbd:edgeList  rdf:type  rdf:Property .
+
+lbd:contextIdentifier
+        rdf:type  rdf:Property .
+
+lbd:dailyInteraction  rdf:type  rdf:Property .
+
+lbd:lengthValue  rdf:type  rdf:Property .
+
+lbd:relatingStructure
+        rdf:type  rdf:Property .
+
+lbd:connectedTo  rdf:type  rdf:Property .
+
+lbd:locationAtRelatingElement
+        rdf:type  rdf:Property .
+
+lbd:costValues  rdf:type  rdf:Property .
+
+lbd:panelPosition  rdf:type  rdf:Property .
+
+lbd:northings  rdf:type  rdf:Property .
+
+lbd:dataOrigin  rdf:type  rdf:Property .
+
+lbd:flowrateTimeSeries
+        rdf:type  rdf:Property .
+
+lbd:targetCRS  rdf:type  rdf:Property .
+
+lbd:linearMomentX  rdf:type  rdf:Property .
+
+lbd:referencePath  rdf:type  rdf:Property .
+
+lbd:protectivePoreRatio
+        rdf:type  rdf:Property .
+
+lbd:longDescription  rdf:type  rdf:Property .
+
+lbd:punchList  rdf:type  rdf:Property .

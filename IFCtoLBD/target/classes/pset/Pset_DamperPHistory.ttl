@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:PressureDrop  a            rdf:Property ;
+        rdfs:seeAlso        :pc9fc8d80d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureDrop .
+
+:pc7019d00d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air leakage rate." ;
+        rdfs:label                "Leakage" ;
+        IFC4-PSD:definition       "Air leakage rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c7019d00d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Leakage" ;
+        IFC4-PSD:nameAlias        "Leakage"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pd2ed5f00d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure loss coefficient." ;
+        rdfs:label                "PressureLossCoefficient" ;
+        IFC4-PSD:definition       "Pressure loss coefficient." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d2ed5f00d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureLossCoefficient" ;
+        IFC4-PSD:nameAlias        "Pressure Loss Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:BladePositionAngle  a      rdf:Property ;
+        rdfs:seeAlso        :pcc5ee780d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BladePositionAngle .
+
+:pc9fc8d80d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure drop." ;
+        rdfs:label                "PressureDrop" ;
+        IFC4-PSD:definition       "Pressure drop." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c9fc8d80d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureDrop" ;
+        IFC4-PSD:nameAlias        "Pressure Drop"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pcc5ee780d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Blade position angle; angle between the blade and flow direction ( 0 - 90)." ;
+        rdfs:label                "BladePositionAngle" ;
+        IFC4-PSD:definition       "Blade position angle; angle between the blade and flow direction ( 0 - 90)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cc5ee780d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BladePositionAngle" ;
+        IFC4-PSD:nameAlias        "Blade Position Angle"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_DamperPHistory  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Damper performance history attributes." ;
+        rdfs:label                    "Pset_DamperPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDamper ;
+        IFC4-PSD:applicableTypeValue  "IfcDamper" ;
+        IFC4-PSD:definition           "Damper performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DamperPHistory" ;
+        IFC4-PSD:propertyDef          :pc36e1600d1d011e1800000215ad4efdf , :pcc5ee780d1d011e1800000215ad4efdf , :pd2ed5f00d1d011e1800000215ad4efdf , :pcff26e80d1d011e1800000215ad4efdf , :pc9fc8d80d1d011e1800000215ad4efdf , :pc7019d00d1d011e1800000215ad4efdf .
+
+:Leakage  a                 rdf:Property ;
+        rdfs:seeAlso        :pc7019d00d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Leakage .
+
+:pcff26e80d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Damper position (0-1); damper position ( 0=closed=90deg position angle, 1=open=0deg position angle." ;
+        rdfs:label                "DamperPosition" ;
+        IFC4-PSD:definition       "Damper position (0-1); damper position ( 0=closed=90deg position angle, 1=open=0deg position angle." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cff26e80d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DamperPosition" ;
+        IFC4-PSD:nameAlias        "Damper Position"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:DamperPosition  a          rdf:Property ;
+        rdfs:seeAlso        :pcff26e80d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DamperPosition .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DamperPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:PressureLossCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd2ed5f00d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureLossCoefficient .
+
+:pc36e1600d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air flow rate." ;
+        rdfs:label                "AirFlowRate" ;
+        IFC4-PSD:definition       "Air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c36e1600d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowRate" ;
+        IFC4-PSD:nameAlias        "Air Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AirFlowRate  a             rdf:Property ;
+        rdfs:seeAlso        :pc36e1600d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowRate .

@@ -4,7 +4,6 @@ import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.datatypes.TypeMapper;
 import org.apache.jena.rdf.model.*;
 import org.apache.jena.vocabulary.RDF;
-import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.UriPolicy;
 import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -18,7 +17,7 @@ import com.openifctools.guidcompressor.GuidCompressor;
 public class IfcOWL_GeolocationUtil {
 	public static void addGeolocation2BOT(Model ifcowlModel, IfcOWL ifcOWL, Model output, String uriBase,
 			String ontologyUri) {
-		addGeolocation2BOT(ifcowlModel, ifcOWL, output, uriBase, ontologyUri, LegacyUriPolicy.INSTANCE);
+		addGeolocation2BOT(ifcowlModel, ifcOWL, output, uriBase, ontologyUri, LegacyUriPolicy.INSTANCE, new EventBus());
 	}
 
     /**
@@ -32,6 +31,12 @@ public class IfcOWL_GeolocationUtil {
      */
     public static void addGeolocation2BOT(Model ifcowl_model, IfcOWL ifcOWL_ns, Model lbd_general_output_model,
             String uriBase, String ontoURI, UriPolicy uriPolicy) {
+		addGeolocation2BOT(ifcowl_model, ifcOWL_ns, lbd_general_output_model, uriBase, ontoURI, uriPolicy,
+				new EventBus());
+	}
+
+    public static void addGeolocation2BOT(Model ifcowl_model, IfcOWL ifcOWL_ns, Model lbd_general_output_model,
+            String uriBase, String ontoURI, UriPolicy uriPolicy, EventBus eventBus) {
 
         IFC_Geolocation c = new IFC_Geolocation(ontoURI);
         String wkt_point;
@@ -81,12 +86,11 @@ public class IfcOWL_GeolocationUtil {
             RDFDatatype rtype = WktLiteral.wktLiteralType;
             TypeMapper.getInstance().registerDatatype(rtype);
             // add a typed wkt literal
-            Literal l = lbd_general_output_model.createTypedLiteral(wkt_point, rtype);
+            Literal l = lbd_general_output_model.createTypedLiteral(WktLiteral.withCrs84(wkt_point), rtype);
 
             rr.addProperty(geo_asWKT, l);
 
         });
-        EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
         eventBus.post(new IFCtoLBD_SystemStatusEvent("LDB geom read"));
 
     }

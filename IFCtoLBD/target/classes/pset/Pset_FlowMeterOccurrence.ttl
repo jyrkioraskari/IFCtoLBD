@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_FlowMeterOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Flow meter occurrence common attributes." ;
+        rdfs:label                    "Pset_FlowMeterOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFlowMeter ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter" ;
+        IFC4-PSD:definition           "Flow meter occurrence common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterOccurrence" ;
+        IFC4-PSD:propertyDef          :pf374e380d1e711e1800000215ad4efdf .
+
+:Purpose  a                 rdf:Property ;
+        rdfs:seeAlso        :pf374e380d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Purpose .
+
+:pf374e380d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining the purpose of the flow meter occurrence." ;
+        rdfs:label                "Purpose" ;
+        IFC4-PSD:definition       "Enumeration defining the purpose of the flow meter occurrence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f374e380d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Purpose" ;
+        IFC4-PSD:nameAlias        "Purpose"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MASTER" , "SUBMASTER" , "SUBMETER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

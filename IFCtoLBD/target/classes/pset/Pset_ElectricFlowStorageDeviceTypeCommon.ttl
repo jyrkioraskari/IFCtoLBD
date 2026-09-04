@@ -1,0 +1,346 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricFlowStorageDeviceTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p3df26200d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Function of the conductors to which the load is connected." ;
+        rdfs:label                "ConnectedConductorFunction" ;
+        IFC4-PSD:definition       "Function of the conductors to which the load is connected." ;
+        IFC4-PSD:definitionAlias  "도체의 기능은 부하가 연결된 상태."@ko-KR , ""@en , "導体の機能は負荷が接続された状態。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3df26200d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectedConductorFunction" ;
+        IFC4-PSD:nameAlias        "接続導体機能"@ja-JP , "연결 도체 기능"@ko-KR , "Connected Conductor Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PHASE_L3" , "PHASE_L2" , "OTHER" , "UNSET" , "NOTKNOWN" , "PHASE_L1" , "PROTECTIVEEARTHNEUTRAL" , "PROTECTIVEEARTH" , "NEUTRAL"
+                                  ] .
+
+:EarthFault1PolePowerFactorMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9d507200d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EarthFault1PolePowerFactorMinimumState .
+
+:ShortCircuit2PoleMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5c585d80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit2PoleMinimumState .
+
+:ShortCircuit3PolePowerFactorMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p56fb1300d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit3PolePowerFactorMaximumState .
+
+:Pset_ElectricFlowStorageDeviceTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "The characteristics of the supply associated with an electrical device occurrence acting as a source of supply to an electrical distribution system NOTE: Properties within this property set should ONLY be used in circumstances when an electrical supply is applied. The property set, the properties contained and their values are not applicable to a circumstance where the sypply  is not being applied to the eletrical system or is temporarily disconnected. All properties within this property set are considered to represent a steady state situation." ;
+        rdfs:label                    "Pset_ElectricFlowStorageDeviceTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElectricFlowStorageDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcElectricFlowStorageDevice" ;
+        IFC4-PSD:definition           "The characteristics of the supply associated with an electrical device occurrence acting as a source of supply to an electrical distribution system NOTE: Properties within this property set should ONLY be used in circumstances when an electrical supply is applied. The property set, the properties contained and their values are not applicable to a circumstance where the sypply  is not being applied to the eletrical system or is temporarily disconnected. All properties within this property set are considered to represent a steady state situation." ;
+        IFC4-PSD:definitionAlias      ""@en , "配電システムから電気機器への供給源として機能するために関連する電源の特性。電気供給が適用されるときのみ使用する必要がある場合このプロパティを設定する。プロパティセット、プロパティが含まれているそれらの値は電源、または電気システムに適用されていない一時的に切断されている状況には適用されない。このプロパティセットは定常状態の状況を表す。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricFlowStorageDeviceTypeCommon" ;
+        IFC4-PSD:propertyDef          :p17342b80d1e011e1800000215ad4efdf , :p5c585d80d1e011e1800000215ad4efdf , :p359a2700d1e011e1800000215ad4efdf , :p2915ce80d1e011e1800000215ad4efdf , :p10a5b400d1e011e1800000215ad4efdf , :p890c7500d1e011e1800000215ad4efdf , :p51053200d1e011e1800000215ad4efdf , :p8dd12900d1e011e1800000215ad4efdf , :p76923b80d1e011e1800000215ad4efdf , :p932e7380d1e011e1800000215ad4efdf , :p56fb1300d1e011e1800000215ad4efdf , :p2e731900d1e011e1800000215ad4efdf , :p7db94980d1e011e1800000215ad4efdf , :p83af2a80d1e011e1800000215ad4efdf , :p9d507200d1e011e1800000215ad4efdf , :p3df26200d1e011e1800000215ad4efdf , :p64b09880d1e011e1800000215ad4efdf , :p97f32780d1e011e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p10a5b400d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:ShortCircuit1PolePowerFactorMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p890c7500d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit1PolePowerFactorMinimumState .
+
+:NominalSupplyVoltage
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2915ce80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyVoltage .
+
+:p932e7380d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the maximum 1 pole earth fault  current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        rdfs:label                "EarthFault1PolePowerFactorMaximumState" ;
+        IFC4-PSD:definition       "Power factor of the maximum 1 pole earth fault  current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        IFC4-PSD:definitionAlias  "전원 공급 시점 점 1 상 및 PE / PEN 사이의 1 극 최대 지락 전류 역률."@ko-KR , ""@en , "電源供給時点の点1相とPE/PEN間の1極最大地絡電流力率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "932e7380d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EarthFault1PolePowerFactorMaximumState" ;
+        IFC4-PSD:nameAlias        "1 극 최대 지락 전류 역률"@ko-KR , "Earth Fault1 Pole Power Factor Maximum State"@en , "1極最大地絡電流力率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p7db94980d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the maximum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        rdfs:label                "ShortCircuit1PolePowerFactorMaximumState" ;
+        IFC4-PSD:definition       "Power factor of the maximum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        IFC4-PSD:definitionAlias  ""@en , "전원 공급 시점 점 1 단계와 N 사이의 1 극 최대 단락 전류 역률."@ko-KR , "電源供給時点の点1相とN間の1極最大短絡電流力率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7db94980d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit1PolePowerFactorMaximumState" ;
+        IFC4-PSD:nameAlias        "Short Circuit1 Pole Power Factor Maximum State"@en , "1 극 최대 단락 전류 역률"@ko-KR , "1極最大短絡電流力率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p10a5b400d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP , "해당 프로젝트에 정의된 형식의 참조 ID (예 : A-1) 승인된 분류에 존재하지 않을 때 사용된다."@ko-KR ;
+        IFC4-PSD:ifdguid          "10a5b400d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조"@ko-KR , "Reference"@en , "参照"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p2e731900d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum and minimum allowed voltage of the supply e.g. boundaries of 380V/440V may be applied for a nominal voltage of 400V." ;
+        rdfs:label                "NominalSupplyVoltageOffset" ;
+        IFC4-PSD:definition       "The maximum and minimum allowed voltage of the supply e.g. boundaries of 380V/440V may be applied for a nominal voltage of 400V." ;
+        IFC4-PSD:definitionAlias  "電源の最大値と最小許容電圧。たとえば380V/440Vの境界は400Vの公称電圧に適用される。"@ja-JP , "전원 최대 및 최소 허용 전압 예 : 380V/440V 경계는 400V의 정격 전압에 적용된다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "2e731900d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSupplyVoltageOffset" ;
+        IFC4-PSD:nameAlias        "Nominal Supply Voltage Offset"@en , "옵셋 공칭 전압"@ko-KR , "オフセット公称電圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:EarthFault1PoleMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8dd12900d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EarthFault1PoleMaximumState .
+
+:ShortCircuit1PolePowerFactorMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7db94980d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit1PolePowerFactorMaximumState .
+
+:p64b09880d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the minimum 2 pole short circuit current provided at the point of supply." ;
+        rdfs:label                "ShortCircuit2PolePowerFactorMinimumState" ;
+        IFC4-PSD:definition       "Power factor of the minimum 2 pole short circuit current provided at the point of supply." ;
+        IFC4-PSD:definitionAlias  "전원 공급 시점의 양극 최소 단락 전류 역률."@ko-KR , "電源供給時点の2極最小短絡電流力率。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "64b09880d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit2PolePowerFactorMinimumState" ;
+        IFC4-PSD:nameAlias        "2 극 최소 단락 전류 역률"@ko-KR , "Short Circuit2 Pole Power Factor Minimum State"@en , "2極最小短絡電流力率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:ConnectedConductorFunction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3df26200d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectedConductorFunction .
+
+:p2915ce80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal voltage of the supply." ;
+        rdfs:label                "NominalSupplyVoltage" ;
+        IFC4-PSD:definition       "The nominal voltage of the supply." ;
+        IFC4-PSD:definitionAlias  ""@en , "전원 공칭 주파수"@ko-KR , "電源の公称電圧。"@ja-JP ;
+        IFC4-PSD:ifdguid          "2915ce80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalSupplyVoltage" ;
+        IFC4-PSD:nameAlias        "Nominal Supply Voltage"@en , "공칭 주파수"@ko-KR , "公称電圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:p9d507200d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the minimum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        rdfs:label                "EarthFault1PolePowerFactorMinimumState" ;
+        IFC4-PSD:definition       "Power factor of the minimum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        IFC4-PSD:definitionAlias  "電源供給時点の点1相とPE/PEN間の1極最小地絡電流力率。"@ja-JP , "전원 공급 시점 점 1 상 및 PE / PEN 사이의 1 극 최소 지락 전류 역률."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "9d507200d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EarthFault1PolePowerFactorMinimumState" ;
+        IFC4-PSD:nameAlias        "1극  최소 지락 전류 역률"@ko-KR , "Earth Fault1 Pole Power Factor Minimum State"@en , "1極最小地絡電流力率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p97f32780d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        rdfs:label                "EarthFault1PoleMinimumState" ;
+        IFC4-PSD:definition       "Minimum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        IFC4-PSD:definitionAlias  ""@en , "전원 공급 시점 점 1 상 및 PE / PEN 사이의 1 극 최소 지락 전류"@ko-KR , "電源供給時点の点1相とPE/PEN間の1極最小地絡電流。"@ja-JP ;
+        IFC4-PSD:ifdguid          "97f32780d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EarthFault1PoleMinimumState" ;
+        IFC4-PSD:nameAlias        "Earth Fault1 Pole Minimum State"@en , "1 극 최소 지락 전류"@ko-KR , "1極最小地絡電流"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p17342b80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "17342b80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p83af2a80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        rdfs:label                "ShortCircuit1PoleMinimumState" ;
+        IFC4-PSD:definition       "Minimum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        IFC4-PSD:definitionAlias  "전원 공급 시점 점 1 단계와 N 사이의 1 극 최소 단락 전류."@ko-KR , "電源供給時点の点1相とN間の1極最小短絡電流。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "83af2a80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit1PoleMinimumState" ;
+        IFC4-PSD:nameAlias        "1極最小短絡電流"@ja-JP , "Short Circuit1 Pole Minimum State"@en , "1 극 최소 단락 전류"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:EarthFault1PolePowerFactorMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p932e7380d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EarthFault1PolePowerFactorMaximumState .
+
+:ShortCircuit2PolePowerFactorMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p64b09880d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit2PolePowerFactorMinimumState .
+
+:ShortCircuit3PoleMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p51053200d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit3PoleMaximumState .
+
+:p890c7500d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the minimum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        rdfs:label                "ShortCircuit1PolePowerFactorMinimumState" ;
+        IFC4-PSD:definition       "Power factor of the minimum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        IFC4-PSD:definitionAlias  "電源供給時点の点1相とN間の1極最小短絡電流力率。"@ja-JP , "전원 공급 시점 점 1 단계와 N 사이의 1 극 최소 단락 전류 역률."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "890c7500d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit1PolePowerFactorMinimumState" ;
+        IFC4-PSD:nameAlias        "1 극 최소 단락 전류 역률"@ko-KR , "Short Circuit1 Pole Power Factor Minimum State"@en , "1極最小短絡電流力率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p17342b80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p5c585d80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Minimum 2 pole short circuit current provided at the point of supply." ;
+        rdfs:label                "ShortCircuit2PoleMinimumState" ;
+        IFC4-PSD:definition       "Minimum 2 pole short circuit current provided at the point of supply." ;
+        IFC4-PSD:definitionAlias  "전원 공급 시점의 양극 최소 단락 전류."@ko-KR , ""@en , "電源供給時点の2極最小短絡電流。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5c585d80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit2PoleMinimumState" ;
+        IFC4-PSD:nameAlias        "2 극 최소 단락 전류"@ko-KR , "2極最小短絡電流"@ja-JP , "Short Circuit2 Pole Minimum State"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p359a2700d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal frequency of the supply." ;
+        rdfs:label                "NominalFrequency" ;
+        IFC4-PSD:definition       "The nominal frequency of the supply." ;
+        IFC4-PSD:definitionAlias  ""@en , "전원 공칭 주파수."@ko-KR , "電源の公称周波数。"@ja-JP ;
+        IFC4-PSD:ifdguid          "359a2700d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalFrequency" ;
+        IFC4-PSD:nameAlias        "공칭 주파수"@ko-KR , "公称周波数"@ja-JP , "Nominal Frequency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:p51053200d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum 3 pole short circuit current provided at the point of supply." ;
+        rdfs:label                "ShortCircuit3PoleMaximumState" ;
+        IFC4-PSD:definition       "Maximum 3 pole short circuit current provided at the point of supply." ;
+        IFC4-PSD:definitionAlias  "電源供給時点の3極最大短絡電流。"@ja-JP , ""@en , "전원 공급 시점의 3 극 최대 단락 전류."@ko-KR ;
+        IFC4-PSD:ifdguid          "51053200d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit3PoleMaximumState" ;
+        IFC4-PSD:nameAlias        "3極最大短絡電流"@ja-JP , "3 극 최대 단락 전류"@ko-KR , "Short Circuit3 Pole Maximum State"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:ShortCircuit1PoleMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p83af2a80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit1PoleMinimumState .
+
+:EarthFault1PoleMinimumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p97f32780d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EarthFault1PoleMinimumState .
+
+:p56fb1300d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Power factor of the maximum 3 pole short circuit current provided at the point of supply." ;
+        rdfs:label                "ShortCircuit3PolePowerFactorMaximumState" ;
+        IFC4-PSD:definition       "Power factor of the maximum 3 pole short circuit current provided at the point of supply." ;
+        IFC4-PSD:definitionAlias  "전원 공급 시점의 3 극 최대 단락 전류 역률."@ko-KR , "電源供給時点の3極最大短絡電流力率。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "56fb1300d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit3PolePowerFactorMaximumState" ;
+        IFC4-PSD:nameAlias        "3極最大短絡電流力率"@ja-JP , "3 극 최대 단락 전류 역률"@ko-KR , "Short Circuit3 Pole Power Factor Maximum State"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p8dd12900d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        rdfs:label                "EarthFault1PoleMaximumState" ;
+        IFC4-PSD:definition       "Maximum 1 pole earth fault current provided at the point of supply i.e. the fault between 1 phase and PE/PEN." ;
+        IFC4-PSD:definitionAlias  "電源供給時点の点1相とPE/PEN間の1極最大地絡電流。"@ja-JP , ""@en , "전원 공급 시점 점 1 상 및 PE / PEN 사이의 1 극 최대 지락 전류."@ko-KR ;
+        IFC4-PSD:ifdguid          "8dd12900d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EarthFault1PoleMaximumState" ;
+        IFC4-PSD:nameAlias        "1 극 최대 지락 전류"@ko-KR , "1極最大地絡電流"@ja-JP , "Earth Fault1 Pole Maximum State"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:NominalSupplyVoltageOffset
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2e731900d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalSupplyVoltageOffset .
+
+:ShortCircuit1PoleMaximumState
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p76923b80d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortCircuit1PoleMaximumState .
+
+:NominalFrequency  a        rdf:Property ;
+        rdfs:seeAlso        :p359a2700d1e011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalFrequency .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricFlowStorageDeviceTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p76923b80d1e011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        rdfs:label                "ShortCircuit1PoleMaximumState" ;
+        IFC4-PSD:definition       "Maximum 1 pole short circuit current provided at the point of supply i.e. the fault between 1 phase and N." ;
+        IFC4-PSD:definitionAlias  ""@en , "전원 공급 시점 점 1 단계와 N 사이의 1 극 최대 단락 전류 역률."@ko-KR , "電源供給時点の点1相とN間の1極最大短絡電流。"@ja-JP ;
+        IFC4-PSD:ifdguid          "76923b80d1e011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShortCircuit1PoleMaximumState" ;
+        IFC4-PSD:nameAlias        "1 극 최대 단락 전류"@ko-KR , "1極最大短絡電流"@ja-JP , "Short Circuit1 Pole Maximum State"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .

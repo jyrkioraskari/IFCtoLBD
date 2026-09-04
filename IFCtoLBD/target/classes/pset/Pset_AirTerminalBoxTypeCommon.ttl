@@ -1,0 +1,284 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalBoxTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:peabbe780d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable operational range of the ambient air temperature." ;
+        rdfs:label                "OperationTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable operational range of the ambient air temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容周囲温度範囲"@ja-JP , "Plage opérationnelle possible de la température de l'air ambiant"@fr-FR ;
+        IFC4-PSD:ifdguid          "eabbe780d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationTemperatureRange" ;
+        IFC4-PSD:nameAlias        "Plage de température d'exploitation"@fr-FR , "Operation Temperature Range"@en , "動作温度範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pf1e2f580d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable return air fraction range as a fraction of discharge airflow." ;
+        rdfs:label                "ReturnAirFractionRange" ;
+        IFC4-PSD:definition       "Allowable return air fraction range as a fraction of discharge airflow." ;
+        IFC4-PSD:definitionAlias  "Plage possiblede la fraction d'air repris en tant que fraction de l'air rejeté"@fr-FR , "送風量の一部としての許容還気風量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f1e2f580d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReturnAirFractionRange" ;
+        IFC4-PSD:nameAlias        "Return Air Fraction Range"@en , "Plage pour la fraction d'air repris"@fr-FR , "還気風量比"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:OperationTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peabbe780d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationTemperatureRange .
+
+:HasSoundAttenuator  a      rdf:Property ;
+        rdfs:seeAlso        :pc829ce80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasSoundAttenuator .
+
+:p8c8f0480d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Range of airflow that can be delivered." ;
+        rdfs:label                "AirflowRateRange" ;
+        IFC4-PSD:definition       "Range of airflow that can be delivered." ;
+        IFC4-PSD:definitionAlias  "Plage de débit d'air pouvant être fourni."@fr-FR , ""@en , "送風できる風量の範囲"@ja-JP ;
+        IFC4-PSD:ifdguid          "8c8f0480d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirflowRateRange" ;
+        IFC4-PSD:nameAlias        "Domaine de débit d'air"@fr-FR , "Airflow Rate Range"@en , "風量範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:NominalInletAirPressure
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd972db00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalInletAirPressure .
+
+:pd37cfa00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Terminal box has a fan inside (fan powered box)." ;
+        rdfs:label                "HasFan" ;
+        IFC4-PSD:definition       "Terminal box has a fan inside (fan powered box)." ;
+        IFC4-PSD:definitionAlias  "内部に送風機を持つ時にTRUE"@ja-JP , "Le registre terminal possède dans son  intérieur un ventilateur (registre motorisé)"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "d37cfa00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasFan" ;
+        IFC4-PSD:nameAlias        "送風機有無"@ja-JP , "Possède ventilateur"@fr-FR , "Has Fan"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pb5af9500d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Terminal box reheat type." ;
+        rdfs:label                "ReheatType" ;
+        IFC4-PSD:definition       "Terminal box reheat type." ;
+        IFC4-PSD:definitionAlias  "Type de réchauffage d'un registre terminal de ventilation"@fr-FR , "ターミナルの再熱方式\n（電気、水コイル、蒸気コイル、ガス加熱．．．）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b5af9500d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReheatType" ;
+        IFC4-PSD:nameAlias        "Reheat Type"@en , "Type de réchauffage"@fr-FR , "再熱形式"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ELECTRICALREHEAT" , "WATERCOILREHEAT" , "STEAMCOILREHEAT" , "GASREHEAT" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:NominalAirFlowRate  a      rdf:Property ;
+        rdfs:seeAlso        :pa16b9800d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalAirFlowRate .
+
+:pc829ce80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Terminal box has a sound attenuator." ;
+        rdfs:label                "HasSoundAttenuator" ;
+        IFC4-PSD:definition       "Terminal box has a sound attenuator." ;
+        IFC4-PSD:definitionAlias  "ターミナルに消音があるか否か　（あればTRUE)"@ja-JP , "Le registre terminal possède une correction acoustique"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "c829ce80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasSoundAttenuator" ;
+        IFC4-PSD:nameAlias        "Has Sound Attenuator"@en , "消音有無"@ja-JP , "Possède correction acoustique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p99135d00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable air static pressure range at the entrance of the air terminal box." ;
+        rdfs:label                "AirPressureRange" ;
+        IFC4-PSD:definition       "Allowable air static pressure range at the entrance of the air terminal box." ;
+        IFC4-PSD:definitionAlias  "ターミナル入り口での許容静圧範囲"@ja-JP , "Plage admise de la pression statique de l'air à l'entrée du registre terminal de ventilation"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "99135d00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureRange" ;
+        IFC4-PSD:nameAlias        "空気圧範囲"@ja-JP , "Plage de pression d'air"@fr-FR , "Air Pressure Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:Pset_AirTerminalBoxTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air terminal box type common attributes." ;
+        rdfs:label                    "Pset_AirTerminalBoxTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAirTerminalBox ;
+        IFC4-PSD:applicableTypeValue  "IfcAirTerminalBox" ;
+        IFC4-PSD:definition           "Air terminal box type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "ターミナルボックスタイプの共通属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirTerminalBoxTypeCommon" ;
+        IFC4-PSD:propertyDef          :pa16b9800d1be11e1800000215ad4efdf , :p7d0fbb80d1be11e1800000215ad4efdf , :pd972db00d1be11e1800000215ad4efdf , :p99135d00d1be11e1800000215ad4efdf , :pf1e2f580d1be11e1800000215ad4efdf , :pcd871900d1be11e1800000215ad4efdf , :pb5af9500d1be11e1800000215ad4efdf , :pe4c60680d1be11e1800000215ad4efdf , :p76814400d1be11e1800000215ad4efdf , :pd37cfa00d1be11e1800000215ad4efdf , :p8c8f0480d1be11e1800000215ad4efdf , :pa7617900d1be11e1800000215ad4efdf , :pdf68bc00d1be11e1800000215ad4efdf , :peabbe780d1be11e1800000215ad4efdf , :pc829ce80d1be11e1800000215ad4efdf .
+
+:pd972db00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal airflow inlet static pressure." ;
+        rdfs:label                "NominalInletAirPressure" ;
+        IFC4-PSD:definition       "Nominal airflow inlet static pressure." ;
+        IFC4-PSD:definitionAlias  "入口静圧の設計値"@ja-JP , ""@en , "Pression statique en débit d'air nominal à l'entrée"@fr-FR ;
+        IFC4-PSD:ifdguid          "d972db00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalInletAirPressure" ;
+        IFC4-PSD:nameAlias        "Pression nominale à l'entrée d'air"@fr-FR , "Nominal Inlet Air Pressure"@en , "設計入口空気圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pcd871900d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Terminal box has return air mixed with supply air from duct work." ;
+        rdfs:label                "HasReturnAir" ;
+        IFC4-PSD:definition       "Terminal box has return air mixed with supply air from duct work." ;
+        IFC4-PSD:definitionAlias  "ターミナルで還気を混合しているか否か（していればTRUE)"@ja-JP , ""@en , "Le registre terminal a son air de reprise mélangé avec une amenée d'air issu du réseau de ventilation"@fr-FR ;
+        IFC4-PSD:ifdguid          "cd871900d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasReturnAir" ;
+        IFC4-PSD:nameAlias        "Has Return Air"@en , "Possède air  repris"@fr-FR , "還気有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p76814400d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "76814400d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Référence"@fr-FR , "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:ReturnAirFractionRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf1e2f580d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReturnAirFractionRange .
+
+:NominalDamperDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdf68bc00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDamperDiameter .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p76814400d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:HasFan  a                  rdf:Property ;
+        rdfs:seeAlso        :pd37cfa00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasFan .
+
+:ReheatType  a              rdf:Property ;
+        rdfs:seeAlso        :pb5af9500d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReheatType .
+
+:AirflowRateRange  a        rdf:Property ;
+        rdfs:seeAlso        :p8c8f0480d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirflowRateRange .
+
+:HousingThickness  a        rdf:Property ;
+        rdfs:seeAlso        :pe4c60680d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HousingThickness .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalBoxTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p7d0fbb80d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7d0fbb80d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP , "Etat"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p7d0fbb80d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pa16b9800d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal airflow rate." ;
+        rdfs:label                "NominalAirFlowRate" ;
+        IFC4-PSD:definition       "Nominal airflow rate." ;
+        IFC4-PSD:definitionAlias  "Débit d'air nominal"@fr-FR , "設計風量範囲"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a16b9800d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalAirFlowRate" ;
+        IFC4-PSD:nameAlias        "設計風量範囲"@ja-JP , "Nominal Air Flow Rate"@en , "Débit d'air nominal"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:AirPressureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p99135d00d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureRange .
+
+:pe4c60680d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air terminal box housing material thickness." ;
+        rdfs:label                "HousingThickness" ;
+        IFC4-PSD:definition       "Air terminal box housing material thickness." ;
+        IFC4-PSD:definitionAlias  ""@en , "ターミナルのハウジング材の板厚"@ja-JP , "Epaisseur du matériau réalisant l'enveloppe du registre terminal de ventilation"@fr-FR ;
+        IFC4-PSD:ifdguid          "e4c60680d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HousingThickness" ;
+        IFC4-PSD:nameAlias        "Epaisseur de l'enveloppe"@fr-FR , "Housing Thickness"@en , "ハウジング板厚"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:ArrangementType  a         rdf:Property ;
+        rdfs:seeAlso        :pa7617900d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ArrangementType .
+
+:HasReturnAir  a            rdf:Property ;
+        rdfs:seeAlso        :pcd871900d1be11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasReturnAir .
+
+:pdf68bc00d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal damper diameter." ;
+        rdfs:label                "NominalDamperDiameter" ;
+        IFC4-PSD:definition       "Nominal damper diameter." ;
+        IFC4-PSD:definitionAlias  "ダンパ直径の設計値"@ja-JP , ""@en , "Diamètre nominal clapet"@fr-FR ;
+        IFC4-PSD:ifdguid          "df68bc00d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDamperDiameter" ;
+        IFC4-PSD:nameAlias        "設計ダンパ直径"@ja-JP , "Nominal Damper Diameter"@en , "Diamètre nominal clapet"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pa7617900d1be11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Terminal box arrangement.\nSingleDuct: Terminal box receives warm or cold air from a single air supply duct.\nDualDuct: Terminal box receives warm and cold air from separate air supply ducts." ;
+        rdfs:label                "ArrangementType" ;
+        IFC4-PSD:definition       "Terminal box arrangement.\nSingleDuct: Terminal box receives warm or cold air from a single air supply duct.\nDualDuct: Terminal box receives warm and cold air from separate air supply ducts." ;
+        IFC4-PSD:definitionAlias  "ターミナルボックスの形式。\n単一ダクト：単一のダクトから、温風または冷風を受け取る\nデュアルダクト：温風、冷風を分離されたダクトから受け取る"@ja-JP , ""@en , "Configuration du registre terminal.\nConduit unique: le registre terminal reçoit de l'air chaud ou froid depuis un conduit unique d'amenée d'air"@fr-FR ;
+        IFC4-PSD:ifdguid          "a7617900d1be11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ArrangementType" ;
+        IFC4-PSD:nameAlias        "Arrangement Type"@en , "ターミナル形式"@ja-JP , "Type de configuration"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SINGLEDUCT" , "DUALDUCT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

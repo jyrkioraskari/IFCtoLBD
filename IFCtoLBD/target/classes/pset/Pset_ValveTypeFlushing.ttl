@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeFlushing#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:IsHighPressure  a          rdf:Property ;
+        rdfs:seeAlso        :pf89c5780d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsHighPressure .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeFlushing>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HasIntegralShutOffDevice
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf20de000d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasIntegralShutOffDevice .
+
+:Pset_ValveTypeFlushing
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve that flushes a predetermined quantity of water to cleanse a WC, urinal or slop hopper.\nNote that a flushing valve is constrained to have a 2 port  pattern." ;
+        rdfs:label                    "Pset_ValveTypeFlushing" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/FLUSHING> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/FLUSHING" ;
+        IFC4-PSD:definition           "Valve that flushes a predetermined quantity of water to cleanse a WC, urinal or slop hopper.\nNote that a flushing valve is constrained to have a 2 port  pattern." ;
+        IFC4-PSD:definitionAlias      "弁タイプフラッシュ"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeFlushing" ;
+        IFC4-PSD:propertyDef          :pf20de000d21411e1800000215ad4efdf , :pec17ff00d21411e1800000215ad4efdf , :pf89c5780d21411e1800000215ad4efdf .
+
+:FlushingRate  a            rdf:Property ;
+        rdfs:seeAlso        :pec17ff00d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlushingRate .
+
+:pf89c5780d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the flushing valve is suitable for use on a high pressure water main (set TRUE) or not (set FALSE)." ;
+        rdfs:label                "IsHighPressure" ;
+        IFC4-PSD:definition       "Indication of whether the flushing valve is suitable for use on a high pressure water main (set TRUE) or not (set FALSE)." ;
+        IFC4-PSD:definitionAlias  "フラッシュ弁の高圧給水主管への使用が適当かどうかの表示（適 TRUE）又は（不適 FALSE）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f89c5780d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsHighPressure" ;
+        IFC4-PSD:nameAlias        "高圧給水の有無"@ja-JP , "Is High Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pec17ff00d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The predetermined quantity of water to be flushed." ;
+        rdfs:label                "FlushingRate" ;
+        IFC4-PSD:definition       "The predetermined quantity of water to be flushed." ;
+        IFC4-PSD:definitionAlias  "予め決められた流される水量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ec17ff00d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlushingRate" ;
+        IFC4-PSD:nameAlias        "Flushing Rate"@en , "フラッシュ率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:pf20de000d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the flushing valve has an integral shut off device fitted (set TRUE) or not (set FALSE)." ;
+        rdfs:label                "HasIntegralShutOffDevice" ;
+        IFC4-PSD:definition       "Indication of whether the flushing valve has an integral shut off device fitted (set TRUE) or not (set FALSE)." ;
+        IFC4-PSD:definitionAlias  "フラッシュ弁に全体閉止装置がついているかどうかの表示（付きTRUE）又は（無しFALSE）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "f20de000d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasIntegralShutOffDevice" ;
+        IFC4-PSD:nameAlias        "全体閉止装置がついているかどうか"@ja-JP , "Has Integral Shut Off Device"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

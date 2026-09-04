@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:TunerType  a               rdf:Property ;
+        rdfs:seeAlso        :pd3cbc400d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TunerType .
+
+:pe219e000d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the tuner modes (or bands).  For example, 'AnalogCable', 'DigitalAir', 'AM', 'FM'." ;
+        rdfs:label                "TunerMode" ;
+        IFC4-PSD:definition       "Indicates the tuner modes (or bands).  For example, 'AnalogCable', 'DigitalAir', 'AM', 'FM'." ;
+        IFC4-PSD:definitionAlias  "受信可能な放送モードを示す。"@ja-JP , ""@en , "수신 가능한 방송 모드를 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "e219e000d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TunerMode" ;
+        IFC4-PSD:nameAlias        "チューナーモード"@ja-JP , "Tuner Mode"@en , "튜너 모드"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:TunerMode  a               rdf:Property ;
+        rdfs:seeAlso        :pe219e000d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TunerMode .
+
+:Pset_AudioVisualApplianceTypeTuner
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual tuner is a device that demodulates a signal into a stream of audio and/or video.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeTuner" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/TUNER> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/TUNER" ;
+        IFC4-PSD:definition           "An audio-visual tuner is a device that demodulates a signal into a stream of audio and/or video.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "音響と映像の信号を変換する装置。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeTuner" ;
+        IFC4-PSD:propertyDef          :pea721b00d1c311e1800000215ad4efdf , :pe219e000d1c311e1800000215ad4efdf , :pf231bf80d1c311e1800000215ad4efdf , :pd3cbc400d1c311e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeTuner>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf231bf80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the tuner frequencies, if applicable." ;
+        rdfs:label                "TunerFrequency" ;
+        IFC4-PSD:definition       "Indicates the tuner frequencies, if applicable." ;
+        IFC4-PSD:definitionAlias  "対応周波数帯を示す。"@ja-JP , "주파수 대역을 나타낸다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "f231bf80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TunerFrequency" ;
+        IFC4-PSD:nameAlias        "Tuner Frequency"@en , "주파수 대응"@ko-KR , "周波数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:pd3cbc400d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the tuner type." ;
+        rdfs:label                "TunerType" ;
+        IFC4-PSD:definition       "Indicates the tuner type." ;
+        IFC4-PSD:definitionAlias  "チューナータイプを示す。"@ja-JP , ""@en , "튜너 타입을 나타낸다"@ko-KR ;
+        IFC4-PSD:ifdguid          "d3cbc400d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TunerType" ;
+        IFC4-PSD:nameAlias        "튜너 타입"@ko-KR , "チューナータイプ"@ja-JP , "Tuner Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "AUDIO" , "VIDEO" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:pea721b00d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the tuner channels, if applicable." ;
+        rdfs:label                "TunerChannel" ;
+        IFC4-PSD:definition       "Indicates the tuner channels, if applicable." ;
+        IFC4-PSD:definitionAlias  "가능한 채널을 보여준다."@ko-KR , ""@en , "設定可能なチャンネルを示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "ea721b00d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TunerChannel" ;
+        IFC4-PSD:nameAlias        "チューナーチャンネル"@ja-JP , "튜너 채널 선택"@ko-KR , "Tuner Channel"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:TunerChannel  a            rdf:Property ;
+        rdfs:seeAlso        :pea721b00d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TunerChannel .
+
+:TunerFrequency  a          rdf:Property ;
+        rdfs:seeAlso        :pf231bf80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TunerFrequency .

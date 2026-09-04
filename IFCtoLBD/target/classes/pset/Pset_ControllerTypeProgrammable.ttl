@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeProgrammable#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SoftwareVersion  a         rdf:Property ;
+        rdfs:seeAlso        :pb0a61200d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SoftwareVersion .
+
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :pa126c900d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+
+:Application  a             rdf:Property ;
+        rdfs:seeAlso        :p5a95c146e11d4ab09a7b5dbaa356881c ;
+        rdfs:subPropertyOf  IFC4-PSD:Application .
+
+:pa126c900d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of discrete digital controller: \n\nPRIMARY: Controller has built-in communication interface for PC connection, may manage secondary controllers.\nSECONDARY: Controller communicates with primary controller and its own managed devices." ;
+        rdfs:label                "ControlType" ;
+        IFC4-PSD:definition       "The type of discrete digital controller: \n\nPRIMARY: Controller has built-in communication interface for PC connection, may manage secondary controllers.\nSECONDARY: Controller communicates with primary controller and its own managed devices." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a126c900d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlType" ;
+        IFC4-PSD:nameAlias        "Control Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PRIMARY" , "SECONDARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_ControllerTypeProgrammable
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for Discrete Digital Control (DDC) or programmable logic controllers.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_ControllerTypeProgrammable" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/PROGRAMMABLE> ;
+        IFC4-PSD:applicableTypeValue  "IfcController/PROGRAMMABLE" ;
+        IFC4-PSD:definition           "Properties for Discrete Digital Control (DDC) or programmable logic controllers.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ControllerTypeProgrammable" ;
+        IFC4-PSD:propertyDef          :pb0a61200d1cd11e1800000215ad4efdf , :p5a95c146e11d4ab09a7b5dbaa356881c , :pa126c900d1cd11e1800000215ad4efdf , :pab48c780d1cd11e1800000215ad4efdf .
+
+:pab48c780d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates version of device firmware according to device manufacturer." ;
+        rdfs:label                "FirmwareVersion" ;
+        IFC4-PSD:definition       "Indicates version of device firmware according to device manufacturer." ;
+        IFC4-PSD:definitionAlias  "컨트롤러 펌웨어 버전"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "ab48c780d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FirmwareVersion" ;
+        IFC4-PSD:nameAlias        "펌웨어 버전"@ko-KR , "Firmware Version"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pb0a61200d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates version of application software according to systems integrator." ;
+        rdfs:label                "SoftwareVersion" ;
+        IFC4-PSD:definition       "Indicates version of application software according to systems integrator." ;
+        IFC4-PSD:definitionAlias  ""@en , "컨트롤러 소프트웨어 버전"@ko-KR ;
+        IFC4-PSD:ifdguid          "b0a61200d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SoftwareVersion" ;
+        IFC4-PSD:nameAlias        "소프트웨어 버전"@ko-KR , "Software Version"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeProgrammable>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FirmwareVersion  a         rdf:Property ;
+        rdfs:seeAlso        :pab48c780d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FirmwareVersion .
+
+:p5a95c146e11d4ab09a7b5dbaa356881c
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates application of controller." ;
+        rdfs:label                "Application" ;
+        IFC4-PSD:definition       "Indicates application of controller." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5a95c146e11d4ab09a7b5dbaa356881c" ;
+        IFC4-PSD:name             "Application" ;
+        IFC4-PSD:nameAlias        "Application"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONSTANTLIGHTCONTROLLER" , "REALTIMEBASEDSCHEDULER" , "FANCOILUNITCONTROLLER" , "UNSET" , "OCCUPANCYCONTROLLER" , "PARTITIONWALLCONTROLLER" , "UNITVENTILATORCONTROLLER" , "SUNBLINDCONTROLLER" , "BOILERCONTROLLER" , "NOTKNOWN" , "PUMPCONTROLLER" , "ROOFTOPUNITCONTROLLER" , "REALTIMEKEEPER" , "MODEMCONTROLLER" , "DISCHARGEAIRCONTROLLER" , "TELEPHONEDIRECTORY" , "SCENECONTROLLER" , "VAV" , "LIGHTINGPANELCONTROLLER" , "OTHER" , "SPACECONFORTCONTROLLER"
+                                  ] .

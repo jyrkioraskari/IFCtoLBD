@@ -1,0 +1,109 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RailingCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p06df7900d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en , "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN , "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR ;
+        IFC4-PSD:ifdguid          "06df7900d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en , "参考号"@zh-CN , "Reference"@fr-FR , "Bauteiltyp"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p0d6df080d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RailingCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsExternal  a              rdf:Property ;
+        rdfs:seeAlso        :p270f3800d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsExternal .
+
+:Height  a                  rdf:Property ;
+        rdfs:seeAlso        :p1959b280d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Height .
+
+:p270f3800d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        rdfs:label                "IsExternal" ;
+        IFC4-PSD:definition       "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        IFC4-PSD:definitionAlias  ""@en , "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP , "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR , "表示该构件是否设计为外部构件。若是，则该构件为外部构件，朝向建筑物的外侧。"@zh-CN , "Angabe, ob dieses Bauteil ein Aussenbauteil ist (JA) oder ein Innenbauteil (NEIN). Als Aussenbauteil grenzt es an den Aussenraum (oder Erdreich, oder Wasser)."@de-DE ;
+        IFC4-PSD:ifdguid          "270f3800d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsExternal" ;
+        IFC4-PSD:nameAlias        "EstExterieur"@fr-FR , "是否外部构件"@zh-CN , "Außenbauteil"@de-DE , "外部区分"@ja-JP , "Is External"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_RailingCommon  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrences of IfcRailing." ;
+        rdfs:label                    "Pset_RailingCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcRailing ;
+        IFC4-PSD:applicableTypeValue  "IfcRailing" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcRailing." ;
+        IFC4-PSD:definitionAlias      "IfcRaling(手すり)オブジェクトに関する共通プロパティセット定義。"@ja-JP , "所有IfcRailing实例的定义中通用的属性。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcRailing"@fr-FR , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_RailingCommon" ;
+        IFC4-PSD:propertyDef          :p1fe82a00d1ff11e1800000215ad4efdf , :p0d6df080d1ff11e1800000215ad4efdf , :p06df7900d1ff11e1800000215ad4efdf , :p270f3800d1ff11e1800000215ad4efdf , :p1959b280d1ff11e1800000215ad4efdf .
+
+:p1fe82a00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diameter of the object. It is the diameter of the handrail of the railing.\nThe size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence.\nHere the diameter of the hand or guardrail within the railing." ;
+        rdfs:label                "Diameter" ;
+        IFC4-PSD:definition       "Diameter of the object. It is the diameter of the handrail of the railing.\nThe size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence.\nHere the diameter of the hand or guardrail within the railing." ;
+        IFC4-PSD:definitionAlias  ""@en , "German-description-3"@de-DE , "Diamètre de la rampe du garde-corps. Cette propriété est donnée en complément de la représentation de la forme et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "构件的直径。栏杆扶手的直径。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。\n此处为栏杆内侧扶手或护栏的直径。"@zh-CN , "オブジェクトの直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1fe82a00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Diameter" ;
+        IFC4-PSD:nameAlias        "Diameter"@en , "Handlaufdurchmesser"@de-DE , "直径"@ja-JP , "直径"@zh-CN , "Diametre"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Diameter  a                rdf:Property ;
+        rdfs:seeAlso        :p1fe82a00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Diameter .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p06df7900d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p1959b280d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Height of the object. It is the upper hight of the railing above the floor or stair.\nThe size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "Height" ;
+        IFC4-PSD:definition       "Height of the object. It is the upper hight of the railing above the floor or stair.\nThe size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "German-description-2"@de-DE , "构件的高度。该属性为栏杆在地板或楼梯以上部分的高度。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN , "Hauteur du garde-corps. C'est la plus grande hauteur du garde-corps relativement au plancher ou à l'escalier. Cette propriété est donnée en complément de la représentation de la forme et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , ""@en , "オブジェクトの高さ。床または会談から手すりの上部までの高さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1959b280d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Height" ;
+        IFC4-PSD:nameAlias        "Hauteur"@fr-FR , "Höhe"@de-DE , "Height"@en , "高さ"@ja-JP , "高度"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0d6df080d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en , "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE ;
+        IFC4-PSD:ifdguid          "0d6df080d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Statut"@fr-FR , "Status"@en , "Status"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

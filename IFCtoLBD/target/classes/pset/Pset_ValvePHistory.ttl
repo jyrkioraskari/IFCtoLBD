@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValvePHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:PercentageOpen  a          rdf:Property ;
+        rdfs:seeAlso        :p03a2b800d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PercentageOpen .
+
+:Pset_ValvePHistory  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve performance history common attributes of a typical 2 port pattern type valve." ;
+        rdfs:label                    "Pset_ValvePHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcValve ;
+        IFC4-PSD:applicableTypeValue  "IfcValve" ;
+        IFC4-PSD:definition           "Valve performance history common attributes of a typical 2 port pattern type valve." ;
+        IFC4-PSD:definitionAlias      "バルブの履歴"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValvePHistory" ;
+        IFC4-PSD:propertyDef          :p0ac9c600d21411e1800000215ad4efdf , :p03a2b800d21411e1800000215ad4efdf , :p069da880d21411e1800000215ad4efdf .
+
+:MeasuredFlowRate  a        rdf:Property ;
+        rdfs:seeAlso        :p069da880d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MeasuredFlowRate .
+
+:MeasuredPressureDrop
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0ac9c600d21411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MeasuredPressureDrop .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValvePHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0ac9c600d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual pressure drop in the fluid measured across the valve." ;
+        rdfs:label                "MeasuredPressureDrop" ;
+        IFC4-PSD:definition       "The actual pressure drop in the fluid measured across the valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "バルブを通過する際の計測された圧力降下"@ja-JP ;
+        IFC4-PSD:ifdguid          "0ac9c600d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MeasuredPressureDrop" ;
+        IFC4-PSD:nameAlias        "計測圧力降下"@ja-JP , "Measured Pressure Drop"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p069da880d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The rate of flow of a fluid measured across the valve." ;
+        rdfs:label                "MeasuredFlowRate" ;
+        IFC4-PSD:definition       "The rate of flow of a fluid measured across the valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "バルブを通過する流体の計測された流量"@ja-JP ;
+        IFC4-PSD:ifdguid          "069da880d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MeasuredFlowRate" ;
+        IFC4-PSD:nameAlias        "Measured Flow Rate"@en , "計測流量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p03a2b800d21411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio between the amount that the valve is open to the full open position of the valve." ;
+        rdfs:label                "PercentageOpen" ;
+        IFC4-PSD:definition       "The ratio between the amount that the valve is open to the full open position of the valve." ;
+        IFC4-PSD:definitionAlias  ""@en , "全開時に対する開度量の比率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "03a2b800d21411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PercentageOpen" ;
+        IFC4-PSD:nameAlias        "パーセント開度"@ja-JP , "Percentage Open"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

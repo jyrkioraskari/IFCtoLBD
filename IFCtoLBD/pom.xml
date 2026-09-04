@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc-to-lbd</artifactId>
-	<version>2.51.0</version>
+	<version>2.51.1</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -47,8 +47,7 @@
 	</developers>
 
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -126,7 +125,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
 			<artifactId>ifc_to_lbd_geometry</artifactId>
-			<version>2.51.0</version>
+			<version>2.51.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -206,7 +205,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>2.51.0</version>
+			<version>2.51.1</version>
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
@@ -486,32 +485,38 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
-			<!-- Maven Assembly Plugin -->
+			<!-- One deterministic MCP distribution. Service descriptors must be merged
+				so Jena can discover its RDF language implementations. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<!-- get all project dependencies -->
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<!-- MainClass in mainfest make a executable jar -->
-					<archive>
-						<manifest>
-							<mainClass>
-								org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.6.1</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
-						<!-- bind to the packaging phase -->
+						<id>mcp-distribution</id>
 						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
+						<goals><goal>shade</goal></goals>
+						<configuration>
+							<outputFile>${project.basedir}/../IFCtoLBD_MCP/lib/ifctolbd-converter.jar</outputFile>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter</mainClass>
+									<manifestEntries><Implementation-Version>${project.version}</Implementation-Version></manifestEntries>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

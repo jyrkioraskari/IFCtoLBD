@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_Asset#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AssetAccountingType  a     rdf:Property ;
+        rdfs:seeAlso        :p8a7a7500d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssetAccountingType .
+
+:p99f9be00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of taxation group from which the type required may be set." ;
+        rdfs:label                "AssetTaxType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of taxation group from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "税の定義済み種別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "99f9be00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssetTaxType" ;
+        IFC4-PSD:nameAlias        "資産税種別"@ja-JP , "Asset Tax Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "OTHER" , "NOTKNOWN" , "EXPENSED" , "CAPITALISED"
+                                  ] .
+
+<http://lbd.arch.rwth-aachen.de/ifcOWL/IFC-PSD/Pset_Asset>
+        a            owl:Ontology ;
+        owl:imports  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> .
+
+:AssetInsuranceType  a      rdf:Property ;
+        rdfs:seeAlso        :pa847da00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssetInsuranceType .
+
+:Pset_Asset  a                        IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An asset is a uniquely identifiable element which has a financial value and against which maintenance actions are recorded." ;
+        rdfs:label                    "Pset_Asset" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAsset ;
+        IFC4-PSD:applicableTypeValue  "IfcAsset" ;
+        IFC4-PSD:definition           "An asset is a uniquely identifiable element which has a financial value and against which maintenance actions are recorded." ;
+        IFC4-PSD:definitionAlias      ""@en , "資産とは、維持管理活動が記録されている会計上の価値を持つ、単独に識別できる要素。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_Asset" ;
+        IFC4-PSD:propertyDef          :p8a7a7500d1c111e1800000215ad4efdf , :p99f9be00d1c111e1800000215ad4efdf , :pa847da00d1c111e1800000215ad4efdf .
+
+:p8a7a7500d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of risk from which the type required may be set." ;
+        rdfs:label                "AssetAccountingType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of risk from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "会計の定義済み種別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8a7a7500d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssetAccountingType" ;
+        IFC4-PSD:nameAlias        "Asset Accounting Type"@en , "資産会計種別"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "OTHER" , "NOTKNOWN" , "NONFIXED" , "FIXED"
+                                  ] .
+
+:AssetTaxType  a            rdf:Property ;
+        rdfs:seeAlso        :p99f9be00d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssetTaxType .
+
+:pa847da00d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of insurance rating from which the type required may be set." ;
+        rdfs:label                "AssetInsuranceType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of insurance rating from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  "保険の定義済み種別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a847da00d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssetInsuranceType" ;
+        IFC4-PSD:nameAlias        "資産保険種別"@ja-JP , "Asset Insurance Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "REAL" , "PERSONAL" , "OTHER" , "NOTKNOWN"
+                                  ] .

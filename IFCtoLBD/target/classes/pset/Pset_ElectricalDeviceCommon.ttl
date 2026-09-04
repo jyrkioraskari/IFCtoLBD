@@ -1,0 +1,193 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricalDeviceCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HasProtectiveEarth  a      rdf:Property ;
+        rdfs:seeAlso        :p50b86700d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasProtectiveEarth .
+
+:NumberOfPoles  a           rdf:Property ;
+        rdfs:seeAlso        :p4b5b1c80d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfPoles .
+
+:p4b5b1c80d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The number of live lines that is intended to be handled by the device." ;
+        rdfs:label                "NumberOfPoles" ;
+        IFC4-PSD:definition       "The number of live lines that is intended to be handled by the device." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4b5b1c80d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfPoles" ;
+        IFC4-PSD:nameAlias        "Number Of Poles"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:IK_Code  a                 rdf:Property ;
+        rdfs:seeAlso        :paecd027ed5424357a5fd13331a99bc51 ;
+        rdfs:subPropertyOf  IFC4-PSD:IK_Code .
+
+:pcf5234358315441fa6c17c9b65bf62a0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio between the rated electrical power and the product of the rated current and rated voltage" ;
+        rdfs:label                "PowerFactor" ;
+        IFC4-PSD:definition       "The ratio between the rated electrical power and the product of the rated current and rated voltage" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cf5234358315441fa6c17c9b65bf62a0" ;
+        IFC4-PSD:name             "PowerFactor" ;
+        IFC4-PSD:nameAlias        "Power Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p50b86700d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the electrical device has a protective earth connection (=TRUE) or not (= FALSE)." ;
+        rdfs:label                "HasProtectiveEarth" ;
+        IFC4-PSD:definition       "Indicates whether the electrical device has a protective earth connection (=TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "50b86700d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasProtectiveEarth" ;
+        IFC4-PSD:nameAlias        "Has Protective Earth"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pf936102bd4824b7eb989a5571e353770
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Function of a line conductor to which a device  is intended to be connected where L1, L2 and L3 represent the phase lines according to IEC 60446 notation (sometimes phase lines may be referenced by color [Red, Blue, Yellow] or by number [1, 2, 3] etc). Protective Earth is sometimes also known as CPC or common protective conductor. Note that for an electrical device, a set of line conductor functions may be applied." ;
+        rdfs:label                "ConductorFunction" ;
+        IFC4-PSD:definition       "Function of a line conductor to which a device  is intended to be connected where L1, L2 and L3 represent the phase lines according to IEC 60446 notation (sometimes phase lines may be referenced by color [Red, Blue, Yellow] or by number [1, 2, 3] etc). Protective Earth is sometimes also known as CPC or common protective conductor. Note that for an electrical device, a set of line conductor functions may be applied." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f936102bd4824b7eb989a5571e353770" ;
+        IFC4-PSD:name             "ConductorFunction" ;
+        IFC4-PSD:nameAlias        "Conductor Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "UNSET" , "PHASE_L3" , "OTHER" , "NEUTRAL" , "PROTECTIVEEARTH" , "PHASE_L1" , "PROTECTIVEEARTHNEUTRAL" , "NOTKNOWN" , "PHASE_L2"
+                                  ] .
+
+:pa2e15fb5e52e49e3b86731401fe07f86
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage that a device is designed to handle." ;
+        rdfs:label                "RatedVoltage" ;
+        IFC4-PSD:definition       "The voltage that a device is designed to handle." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a2e15fb5e52e49e3b86731401fe07f86" ;
+        IFC4-PSD:name             "RatedVoltage" ;
+        IFC4-PSD:nameAlias        "Rated Voltage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:p5d3cbf80d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Insulation standard classes provides basic protection information against electric shock. Defines levels of insulation required in terms of constructional requirements (creepage and clearance distances) and electrical requirements (compliance with electric strength tests). Basic insulation is considered to be shorted under single fault conditions. The actual values required depend on the working voltage to which the insulation is subjected, as well as other factors. Also indicates whether the electrical device has a protective earth connection." ;
+        rdfs:label                "InsulationStandardClass" ;
+        IFC4-PSD:definition       "Insulation standard classes provides basic protection information against electric shock. Defines levels of insulation required in terms of constructional requirements (creepage and clearance distances) and electrical requirements (compliance with electric strength tests). Basic insulation is considered to be shorted under single fault conditions. The actual values required depend on the working voltage to which the insulation is subjected, as well as other factors. Also indicates whether the electrical device has a protective earth connection." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5d3cbf80d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InsulationStandardClass" ;
+        IFC4-PSD:nameAlias        "Insulation Standard Class"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CLASS0APPLIANCE" , "CLASS0IAPPLIANCE" , "CLASSIAPPLIANCE" , "CLASSIIAPPLIANCE" , "CLASSIIIAPPLIANCE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:RatedCurrent  a            rdf:Property ;
+        rdfs:seeAlso        :p784d9d2144d440b5b30e2ad107609548 ;
+        rdfs:subPropertyOf  IFC4-PSD:RatedCurrent .
+
+:p784d9d2144d440b5b30e2ad107609548
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The current that a device is designed to handle." ;
+        rdfs:label                "RatedCurrent" ;
+        IFC4-PSD:definition       "The current that a device is designed to handle." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "784d9d2144d440b5b30e2ad107609548" ;
+        IFC4-PSD:name             "RatedCurrent" ;
+        IFC4-PSD:nameAlias        "Rated Current"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:ConductorFunction  a       rdf:Property ;
+        rdfs:seeAlso        :pf936102bd4824b7eb989a5571e353770 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConductorFunction .
+
+:RatedVoltage  a            rdf:Property ;
+        rdfs:seeAlso        :pa2e15fb5e52e49e3b86731401fe07f86 ;
+        rdfs:subPropertyOf  IFC4-PSD:RatedVoltage .
+
+:Pset_ElectricalDeviceCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A collection of properties that are commonly used by electrical device types." ;
+        rdfs:label                    "Pset_ElectricalDeviceCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDistributionElement ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionElement" ;
+        IFC4-PSD:definition           "A collection of properties that are commonly used by electrical device types." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ElectricalDeviceCommon" ;
+        IFC4-PSD:propertyDef          :p5d3cbf80d1df11e1800000215ad4efdf , :pcf5234358315441fa6c17c9b65bf62a0 , :paecd027ed5424357a5fd13331a99bc51 , :p784d9d2144d440b5b30e2ad107609548 , :p56ae4800d1df11e1800000215ad4efdf , :p50b86700d1df11e1800000215ad4efdf , :pf936102bd4824b7eb989a5571e353770 , :p4b5b1c80d1df11e1800000215ad4efdf , :pf69a795455c74842825a54711d3b5abc , :pa2e15fb5e52e49e3b86731401fe07f86 .
+
+:p56ae4800d1df11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "IP Code, the International Protection Marking, IEC 60529), classifies and rates the degree of protection provided against intrusion." ;
+        rdfs:label                "IP_Code" ;
+        IFC4-PSD:definition       "IP Code, the International Protection Marking, IEC 60529), classifies and rates the degree of protection provided against intrusion." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "56ae4800d1df11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IP_Code" ;
+        IFC4-PSD:nameAlias        "IP_ Code"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:InsulationStandardClass
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5d3cbf80d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InsulationStandardClass .
+
+:PowerFactor  a             rdf:Property ;
+        rdfs:seeAlso        :pcf5234358315441fa6c17c9b65bf62a0 ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerFactor .
+
+:pf69a795455c74842825a54711d3b5abc
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The upper and lower limits of frequency for which the operation of the device is certified." ;
+        rdfs:label                "NominalFrequencyRange" ;
+        IFC4-PSD:definition       "The upper and lower limits of frequency for which the operation of the device is certified." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f69a795455c74842825a54711d3b5abc" ;
+        IFC4-PSD:name             "NominalFrequencyRange" ;
+        IFC4-PSD:nameAlias        "Nominal Frequency Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:paecd027ed5424357a5fd13331a99bc51
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:comment           "IK Code according to IEC 62262 (2002) is a numeric classification for the degree of protection provided by enclosures for electrical equipment against external mechanical impacts.\n<blockquote class=\"note\">NOTE&nbsp; In earlier labeling, the third numeral (1..) had been occasionally added to the closely related IP Code on ingress protection, to indicate the level of impact protection.</blockquote>" ;
+        rdfs:label             "IK_Code" ;
+        IFC4-PSD:definition    "IK Code according to IEC 62262 (2002) is a numeric classification for the degree of protection provided by enclosures for electrical equipment against external mechanical impacts.\n<blockquote class=\"note\">NOTE&nbsp; In earlier labeling, the third numeral (1..) had been occasionally added to the closely related IP Code on ingress protection, to indicate the level of impact protection.</blockquote>" ;
+        IFC4-PSD:ifdguid       "aecd027ed5424357a5fd13331a99bc51" ;
+        IFC4-PSD:name          "IK_Code" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .
+
+:IP_Code  a                 rdf:Property ;
+        rdfs:seeAlso        :p56ae4800d1df11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IP_Code .
+
+:NominalFrequencyRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf69a795455c74842825a54711d3b5abc ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalFrequencyRange .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElectricalDeviceCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

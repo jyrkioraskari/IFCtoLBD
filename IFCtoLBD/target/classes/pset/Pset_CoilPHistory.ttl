@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_CoilPHistory  a                 IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Coil performance history common attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_CoilPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCoil ;
+        IFC4-PSD:applicableTypeValue  "IfcCoil" ;
+        IFC4-PSD:definition           "Coil performance history common attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoilPHistory" ;
+        IFC4-PSD:propertyDef          :p87838280d1c911e1800000215ad4efdf , :p8b170980d1c911e1800000215ad4efdf , :p84889200d1c911e1800000215ad4efdf , :p8e11fa00d1c911e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoilPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FaceVelocity  a            rdf:Property ;
+        rdfs:seeAlso        :p8e11fa00d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaceVelocity .
+
+:AtmosphericPressure  a     rdf:Property ;
+        rdfs:seeAlso        :p84889200d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AtmosphericPressure .
+
+:AirPressureDropCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p87838280d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurve .
+
+:p8b170980d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Regenerated sound versus air-flow rate." ;
+        rdfs:label                "SoundCurve" ;
+        IFC4-PSD:definition       "Regenerated sound versus air-flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "Son généré par rapport au débit aéraulique."@fr-FR ;
+        IFC4-PSD:ifdguid          "8b170980d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SoundCurve" ;
+        IFC4-PSD:nameAlias        "Sound Curve"@en , "CourbeSon"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p87838280d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop curve, pressure drop – flow rate curve, AirPressureDrop = f (AirflowRate)." ;
+        rdfs:label                "AirPressureDropCurve" ;
+        IFC4-PSD:definition       "Air pressure drop curve, pressure drop – flow rate curve, AirPressureDrop = f (AirflowRate)." ;
+        IFC4-PSD:definitionAlias  "Courbe de perte de charge aéraulique, courbe perte de charge/débit."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "87838280d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurve" ;
+        IFC4-PSD:nameAlias        "Air Pressure Drop Curve"@en , "CourbePerteDeChargeAir"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SoundCurve  a              rdf:Property ;
+        rdfs:seeAlso        :p8b170980d1c911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SoundCurve .
+
+:p8e11fa00d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air velocity through the coil." ;
+        rdfs:label                "FaceVelocity" ;
+        IFC4-PSD:definition       "Air velocity through the coil." ;
+        IFC4-PSD:definitionAlias  ""@en , "Vitesse de l'air à travers la batterie."@fr-FR ;
+        IFC4-PSD:ifdguid          "8e11fa00d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaceVelocity" ;
+        IFC4-PSD:nameAlias        "VitesseFace"@fr-FR , "Face Velocity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p84889200d1c911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient atmospheric pressure." ;
+        rdfs:label                "AtmosphericPressure" ;
+        IFC4-PSD:definition       "Ambient atmospheric pressure." ;
+        IFC4-PSD:definitionAlias  ""@en , "Pression atmosphérique ambiante."@fr-FR ;
+        IFC4-PSD:ifdguid          "84889200d1c911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AtmosphericPressure" ;
+        IFC4-PSD:nameAlias        "Pression atmosphérique"@fr-FR , "Atmospheric Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

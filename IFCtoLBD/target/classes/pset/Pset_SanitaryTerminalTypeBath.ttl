@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeBath#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p0f857e80d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The size of the drain outlet connection from the object." ;
+        rdfs:label                "DrainSize" ;
+        IFC4-PSD:definition       "The size of the drain outlet connection from the object." ;
+        IFC4-PSD:definitionAlias  ""@en , "排水口の接続のサイズ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "0f857e80d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainSize" ;
+        IFC4-PSD:nameAlias        "ドレインサイズ"@ja-JP , "Drain Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DrainSize  a               rdf:Property ;
+        rdfs:seeAlso        :p0f857e80d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainSize .
+
+:BathType  a                rdf:Property ;
+        rdfs:seeAlso        :pd0572d80d20111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BathType .
+
+:Pset_SanitaryTerminalTypeBath
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Sanitary appliance for immersion of the human body or parts of it (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
+        rdfs:label                    "Pset_SanitaryTerminalTypeBath" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSanitaryTerminal/BATH> ;
+        IFC4-PSD:applicableTypeValue  "IfcSanitaryTerminal/BATH" ;
+        IFC4-PSD:definition           "Sanitary appliance for immersion of the human body or parts of it (BS6100). HISTORY: In IFC4, Material and MaterialThickness properties removed. Use materials capabilities from IfcMaterialsResource schema. Datatype of color changed to IfcLabel (still a string value)" ;
+        IFC4-PSD:definitionAlias      "人体の全体かその一部を浸す衛生器具（BS6100）。履歴：IFC4では材料および材料厚さ属性削除。使用材料の機能は IfcMaterialsResourceスキーマを使用。色のデータ型は、（まだ文字列値）IfcLabelに変更。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SanitaryTerminalTypeBath" ;
+        IFC4-PSD:propertyDef          :pd0572d80d20111e1800000215ad4efdf , :p17452300d20211e1800000215ad4efdf , :p0f857e80d20211e1800000215ad4efdf .
+
+:p17452300d20211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the bath is fitted with handles that provide assistance to a bather in entering or leaving the bath." ;
+        rdfs:label                "HasGrabHandles" ;
+        IFC4-PSD:definition       "Indicates whether the bath is fitted with handles that provide assistance to a bather in entering or leaving the bath." ;
+        IFC4-PSD:definitionAlias  ""@en , "風呂の出入りを補助する手すりが取り付けられているかどうかを示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "17452300d20211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasGrabHandles" ;
+        IFC4-PSD:nameAlias        "Has Grab Handles"@en , "手すりの有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SanitaryTerminalTypeBath>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HasGrabHandles  a          rdf:Property ;
+        rdfs:seeAlso        :p17452300d20211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasGrabHandles .
+
+:pd0572d80d20111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The property enumeration defines the types of bath that may be specified within the property set." ;
+        rdfs:label                "BathType" ;
+        IFC4-PSD:definition       "The property enumeration defines the types of bath that may be specified within the property set." ;
+        IFC4-PSD:definitionAlias  "列挙するプロパティは、プロパティセット内で指定することができるバスの種類の定義：\n\n家庭用：全身を簡単に浸漬することができる一度に1人の人間が入るバス。\n\n家庭用Corner：浸漬トラフが傾いていて、全身を簡単に浸漬することができる一度に1人の人間が入るバス。\n\nフットバス：足を洗う浅いバス。\n\nジャグジー：複数の人のための渦のバス\n\nプランジバス：通常は全身を簡単に浸漬することができまる一度に複数の人の入るバス。\n\n座バス：水浴を椅子のように座って行うバス。\n\n治療バス：水浴セラピーの目的に使用されるバス。\n\n渦バス：ポンプによる水の循環や、水や空気の誘引により水を攪拌する統合された装置としてのバス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d0572d80d20111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BathType" ;
+        IFC4-PSD:nameAlias        "Bath Type"@en , "バスタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FOOT" , "POOL" , "SITZ" , "DOMESTIC" , "UNSET" , "SPA" , "OTHER" , "NOTKNOWN" , "PLUNGE" , "TREATMENT"
+                                  ] .

@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderWorkOrder#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p18715280d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Comments if the job is not accomplished." ;
+        rdfs:label                "IfNotAccomplished" ;
+        IFC4-PSD:definition       "Comments if the job is not accomplished." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "18715280d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IfNotAccomplished" ;
+        IFC4-PSD:nameAlias        "If Not Accomplished"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ContractualType  a         rdf:Property ;
+        rdfs:seeAlso        :p0f808100d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ContractualType .
+
+:Pset_ProjectOrderWorkOrder
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Defines the requirements for purchase orders in a project." ;
+        rdfs:label                    "Pset_ProjectOrderWorkOrder" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/WORKORDER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProjectOrder/WORKORDER" ;
+        IFC4-PSD:definition           "Defines the requirements for purchase orders in a project." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProjectOrderWorkOrder" ;
+        IFC4-PSD:propertyDef          :p07284600d1f811e1800000215ad4efdf , :pfe377480d1f711e1800000215ad4efdf , :p18715280d1f811e1800000215ad4efdf , :p0f808100d1f811e1800000215ad4efdf .
+
+:pfe377480d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A textual description of the products that require the work." ;
+        rdfs:label                "ProductDescription" ;
+        IFC4-PSD:definition       "A textual description of the products that require the work." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "fe377480d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProductDescription" ;
+        IFC4-PSD:nameAlias        "Product Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p07284600d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Work type requested in circumstances where there are categorizations of types of work task. It could be used to identify a remedial task, minor work task, electrical task etc." ;
+        rdfs:label                "WorkTypeRequested" ;
+        IFC4-PSD:definition       "Work type requested in circumstances where there are categorizations of types of work task. It could be used to identify a remedial task, minor work task, electrical task etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "07284600d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkTypeRequested" ;
+        IFC4-PSD:nameAlias        "Work Type Requested"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:WorkTypeRequested  a       rdf:Property ;
+        rdfs:seeAlso        :p07284600d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkTypeRequested .
+
+:IfNotAccomplished  a       rdf:Property ;
+        rdfs:seeAlso        :p18715280d1f811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IfNotAccomplished .
+
+:ProductDescription  a      rdf:Property ;
+        rdfs:seeAlso        :pfe377480d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProductDescription .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderWorkOrder>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0f808100d1f811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The contractual type of the work." ;
+        rdfs:label                "ContractualType" ;
+        IFC4-PSD:definition       "The contractual type of the work." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0f808100d1f811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ContractualType" ;
+        IFC4-PSD:nameAlias        "Contractual Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .

@@ -1,0 +1,111 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeWaterMeter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:MaximumPressureLoss  a     rdf:Property ;
+        rdfs:seeAlso        :p9fb6ca00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPressureLoss .
+
+:pa47b7e00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the type of backflow preventer installed to prevent the backflow of contaminated or polluted water from an irrigation/reticulation system to a potable water supply." ;
+        rdfs:label                "BackflowPreventerType" ;
+        IFC4-PSD:definition       "Identifies the type of backflow preventer installed to prevent the backflow of contaminated or polluted water from an irrigation/reticulation system to a potable water supply." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a47b7e00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BackflowPreventerType" ;
+        IFC4-PSD:nameAlias        "Backflow Preventer Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "NOTKNOWN" , "ATMOSPHERICVACUUMBREAKER" , "PRESSUREVACUUMBREAKER" , "ANTISIPHONVALVE" , "DOUBLECHECKBACKFLOWPREVENTER" , "OTHER" , "REDUCEDPRESSUREBACKFLOWPREVENTER" , "UNSET"
+                                  ] .
+
+:BackflowPreventerType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa47b7e00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BackflowPreventerType .
+
+:MaximumFlowRate  a         rdf:Property ;
+        rdfs:seeAlso        :p99c0e900d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumFlowRate .
+
+:Type   a                   rdf:Property ;
+        rdfs:seeAlso        :p87df4600d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Type .
+
+:p93327180d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the size of inlet and outlet pipe connections to the meter." ;
+        rdfs:label                "ConnectionSize" ;
+        IFC4-PSD:definition       "Defines the size of inlet and outlet pipe connections to the meter." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "93327180d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConnectionSize" ;
+        IFC4-PSD:nameAlias        "Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_FlowMeterTypeWaterMeter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Device that measures, indicates and sometimes records, the volume of water that passes through it without interrupting the flow." ;
+        rdfs:label                    "Pset_FlowMeterTypeWaterMeter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowMeter/WATERMETER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowMeter/WATERMETER" ;
+        IFC4-PSD:definition           "Device that measures, indicates and sometimes records, the volume of water that passes through it without interrupting the flow." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowMeterTypeWaterMeter" ;
+        IFC4-PSD:propertyDef          :p87df4600d1e811e1800000215ad4efdf , :pa47b7e00d1e811e1800000215ad4efdf , :p99c0e900d1e811e1800000215ad4efdf , :p93327180d1e811e1800000215ad4efdf , :p9fb6ca00d1e811e1800000215ad4efdf .
+
+:p87df4600d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the allowed values for selection of the flow meter operation type." ;
+        rdfs:label                "Type" ;
+        IFC4-PSD:definition       "Defines the allowed values for selection of the flow meter operation type." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "87df4600d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Type" ;
+        IFC4-PSD:nameAlias        "Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COMPOUND" , "INFERENTIAL" , "PISTON" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p9fb6ca00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure loss expected across the meter under conditions of maximum flow." ;
+        rdfs:label                "MaximumPressureLoss" ;
+        IFC4-PSD:definition       "Pressure loss expected across the meter under conditions of maximum flow." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9fb6ca00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPressureLoss" ;
+        IFC4-PSD:nameAlias        "Maximum Pressure Loss"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ConnectionSize  a          rdf:Property ;
+        rdfs:seeAlso        :p93327180d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSize .
+
+:p99c0e900d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum rate of flow which the meter is expected to pass." ;
+        rdfs:label                "MaximumFlowRate" ;
+        IFC4-PSD:definition       "Maximum rate of flow which the meter is expected to pass." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "99c0e900d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumFlowRate" ;
+        IFC4-PSD:nameAlias        "Maximum Flow Rate"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowMeterTypeWaterMeter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SetPoint  a                rdf:Property ;
+        rdfs:seeAlso        :p1a94da80d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPoint .
+
+:Mode   a                   rdf:Property ;
+        rdfs:seeAlso        :p136dcc80d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Mode .
+
+:Temperature  a             rdf:Property ;
+        rdfs:seeAlso        :p1072dc00d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Temperature .
+
+:p1a94da80d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the temperature setpoint.  For thermostats with setbacks or separate high and low setpoints, then the time series may contain a pair of values at each entry where the first value is the heating setpoint (low) and the second value is the cooling setpoint (high)." ;
+        rdfs:label                "SetPoint" ;
+        IFC4-PSD:definition       "Indicates the temperature setpoint.  For thermostats with setbacks or separate high and low setpoints, then the time series may contain a pair of values at each entry where the first value is the heating setpoint (low) and the second value is the cooling setpoint (high)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1a94da80d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPoint" ;
+        IFC4-PSD:nameAlias        "Set Point"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p17015380d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates fan operation where True is on, False is off, and Unknown is automatic." ;
+        rdfs:label                "Fan" ;
+        IFC4-PSD:definition       "Indicates fan operation where True is on, False is off, and Unknown is automatic." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "17015380d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Fan" ;
+        IFC4-PSD:nameAlias        "Fan"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_UnitaryControlElementPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for history and operating schedules of thermostats.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_UnitaryControlElementPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcUnitaryControlElement ;
+        IFC4-PSD:applicableTypeValue  "IfcUnitaryControlElement" ;
+        IFC4-PSD:definition           "Properties for history and operating schedules of thermostats.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UnitaryControlElementPHistory" ;
+        IFC4-PSD:propertyDef          :p17015380d21311e1800000215ad4efdf , :p1a94da80d21311e1800000215ad4efdf , :p1072dc00d21311e1800000215ad4efdf , :p136dcc80d21311e1800000215ad4efdf .
+
+:p1072dc00d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the current measured temperature." ;
+        rdfs:label                "Temperature" ;
+        IFC4-PSD:definition       "Indicates the current measured temperature." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1072dc00d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Temperature" ;
+        IFC4-PSD:nameAlias        "Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p136dcc80d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates operation mode corresponding to Pset_UnitaryControlTypeCommon.Mode.  For example, 'HEAT', 'COOL', 'AUTO'." ;
+        rdfs:label                "Mode" ;
+        IFC4-PSD:definition       "Indicates operation mode corresponding to Pset_UnitaryControlTypeCommon.Mode.  For example, 'HEAT', 'COOL', 'AUTO'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "136dcc80d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Mode" ;
+        IFC4-PSD:nameAlias        "Mode"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Fan    a                   rdf:Property ;
+        rdfs:seeAlso        :p17015380d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Fan .

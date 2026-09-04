@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeDesk#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2cfa1e80d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The value of the work surface area of the desk." ;
+        rdfs:label                "WorksurfaceArea" ;
+        IFC4-PSD:definition       "The value of the work surface area of the desk." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2cfa1e80d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorksurfaceArea" ;
+        IFC4-PSD:nameAlias        "Worksurface Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:WorksurfaceArea  a         rdf:Property ;
+        rdfs:seeAlso        :p2cfa1e80d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorksurfaceArea .
+
+:Pset_FurnitureTypeDesk
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of specific properties for furniture type desk. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Desk" ;
+        rdfs:label                    "Pset_FurnitureTypeDesk" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFurniture/DESK> ;
+        IFC4-PSD:applicableTypeValue  "IfcFurniture/DESK" ;
+        IFC4-PSD:definition           "A set of specific properties for furniture type desk. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Desk" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FurnitureTypeDesk" ;
+        IFC4-PSD:propertyDef          :p2cfa1e80d1e911e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeDesk>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

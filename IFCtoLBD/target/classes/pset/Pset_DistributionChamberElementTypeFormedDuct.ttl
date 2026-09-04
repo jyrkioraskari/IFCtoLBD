@@ -1,0 +1,111 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeFormedDuct#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AccessCoverLoadRating
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p88b9ad00d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccessCoverLoadRating .
+
+:ClearWidth  a              rdf:Property ;
+        rdfs:seeAlso        :p73448300d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClearWidth .
+
+:p88b9ad00d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The load rating of the access cover (which may be a value or an alphanumerically defined class rating)." ;
+        rdfs:label                "AccessCoverLoadRating" ;
+        IFC4-PSD:definition       "The load rating of the access cover (which may be a value or an alphanumerically defined class rating)." ;
+        IFC4-PSD:definitionAlias  ""@en , "アクセス（点検）カバーの耐荷重（数字或いはアルファベットで定義する）。"@ja-JP , "사용 (체크) 커버 하중 (숫자 혹은 알파벳에서 정의됨)"@ko-KR ;
+        IFC4-PSD:ifdguid          "88b9ad00d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccessCoverLoadRating" ;
+        IFC4-PSD:nameAlias        "사용(체크)커버 하중"@ko-KR , "Access Cover Load Rating"@en , "アクセス（点検）カバーの耐荷重"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ClearDepth  a              rdf:Property ;
+        rdfs:seeAlso        :p78a1cd80d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClearDepth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeFormedDuct>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p78a1cd80d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The depth of the formed space in the duct." ;
+        rdfs:label                "ClearDepth" ;
+        IFC4-PSD:definition       "The depth of the formed space in the duct." ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクトスペースの深さ。"@ja-JP , "덕트 공간의 깊이"@ko-KR ;
+        IFC4-PSD:ifdguid          "78a1cd80d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClearDepth" ;
+        IFC4-PSD:nameAlias        "Clear Depth"@en , "深さ"@ja-JP , "깊이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WallThickness  a           rdf:Property ;
+        rdfs:seeAlso        :p7e97ae80d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WallThickness .
+
+:Pset_DistributionChamberElementTypeFormedDuct
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Space formed in the ground for the passage of pipes, cables, ducts." ;
+        rdfs:label                    "Pset_DistributionChamberElementTypeFormedDuct" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/FORMEDDUCT> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/FORMEDDUCT" ;
+        IFC4-PSD:definition           "Space formed in the ground for the passage of pipes, cables, ducts." ;
+        IFC4-PSD:definitionAlias      "BS6100 100 3410より定義：　地中に配管、配線、ダクトを設置するためのダクトスペース。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionChamberElementTypeFormedDuct" ;
+        IFC4-PSD:propertyDef          :p88b9ad00d1d311e1800000215ad4efdf , :p7e97ae80d1d311e1800000215ad4efdf , :p78a1cd80d1d311e1800000215ad4efdf , :p73448300d1d311e1800000215ad4efdf , :p835c6280d1d311e1800000215ad4efdf .
+
+:BaseThickness  a           rdf:Property ;
+        rdfs:seeAlso        :p835c6280d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BaseThickness .
+
+:p7e97ae80d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the duct wall construction\nNOTE: It is assumed that chamber walls will be constructed at a single thickness." ;
+        rdfs:label                "WallThickness" ;
+        IFC4-PSD:definition       "The thickness of the duct wall construction\nNOTE: It is assumed that chamber walls will be constructed at a single thickness." ;
+        IFC4-PSD:definitionAlias  ""@en , "덕트 공간 벽 두께 참고 : 덕트 공간의 벽은 단층 가정"@ko-KR , "ダクトスペース壁の厚さ。\n注：ダクトスペースの壁は単層と仮定する"@ja-JP ;
+        IFC4-PSD:ifdguid          "7e97ae80d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WallThickness" ;
+        IFC4-PSD:nameAlias        "Wall Thickness"@en , "壁の厚さ"@ja-JP , "벽 두께"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p835c6280d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the duct base construction\nNOTE: It is assumed that duct base will be constructed at a single thickness." ;
+        rdfs:label                "BaseThickness" ;
+        IFC4-PSD:definition       "The thickness of the duct base construction\nNOTE: It is assumed that duct base will be constructed at a single thickness." ;
+        IFC4-PSD:definitionAlias  "덕트 공간 바닥의 두께 참고 : 덕트 공간의 바닥은 단층 가정"@ko-KR , ""@en , "ダクトスペース床面の厚さ。\n注：ダクトスペースの床は単層と仮定する"@ja-JP ;
+        IFC4-PSD:ifdguid          "835c6280d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BaseThickness" ;
+        IFC4-PSD:nameAlias        "基部の厚さ"@ja-JP , "바닥두께"@ko-KR , "Base Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p73448300d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the formed space in the duct." ;
+        rdfs:label                "ClearWidth" ;
+        IFC4-PSD:definition       "The width of the formed space in the duct." ;
+        IFC4-PSD:definitionAlias  "ダクトスペースの幅。"@ja-JP , ""@en , "덕트 공간 폭"@ko-KR ;
+        IFC4-PSD:ifdguid          "73448300d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClearWidth" ;
+        IFC4-PSD:nameAlias        "Clear Width"@en , "폭"@ko-KR , "幅員"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

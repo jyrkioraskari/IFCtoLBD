@@ -1,0 +1,272 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pab1a66c09b664bc39faba566d40fc3f6
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Applying short time i2t function. A flag indicating that the I2t short time function of the device is used. The value should be set to TRUE only if the I2t function  is explicitly selected for the device." ;
+        rdfs:label                "ShortTimei2tFunction" ;
+        IFC4-PSD:definition       "Applying short time i2t function. A flag indicating that the I2t short time function of the device is used. The value should be set to TRUE only if the I2t function  is explicitly selected for the device." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ab1a66c09b664bc39faba566d40fc3f6" ;
+        IFC4-PSD:name             "ShortTimei2tFunction" ;
+        IFC4-PSD:nameAlias        "Short Timei2t Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p74cb82eed6ff4aae9f88fe5222059167
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Short time tripping time. The set value of the short time tripping time if adjustable." ;
+        rdfs:label                "ShortTimeTrippingTime" ;
+        IFC4-PSD:definition       "Short time tripping time. The set value of the short time tripping time if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "74cb82eed6ff4aae9f88fe5222059167" ;
+        IFC4-PSD:name             "ShortTimeTrippingTime" ;
+        IFC4-PSD:nameAlias        "Short Time Tripping Time"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:ShortTimeCurrentSetValue
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p70aaff9161f949eeb5bc5517d4044d3e ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortTimeCurrentSetValue .
+
+:GroundFaulti2tFunction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p011510087b3e484aa631627e3ef99db0 ;
+        rdfs:subPropertyOf  IFC4-PSD:GroundFaulti2tFunction .
+
+:ShortTimei2tFunction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pab1a66c09b664bc39faba566d40fc3f6 ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortTimei2tFunction .
+
+:p011510087b3e484aa631627e3ef99db0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Applying ground fault i2t function. A flag indicating that the I2t ground fault function of the device is used. The value should be set to TRUE only if the I2t function is explicitly selected for the device." ;
+        rdfs:label                "GroundFaulti2tFunction" ;
+        IFC4-PSD:definition       "Applying ground fault i2t function. A flag indicating that the I2t ground fault function of the device is used. The value should be set to TRUE only if the I2t function is explicitly selected for the device." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "011510087b3e484aa631627e3ef99db0" ;
+        IFC4-PSD:name             "GroundFaulti2tFunction" ;
+        IFC4-PSD:nameAlias        "Ground Faulti2t Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p4bc3d7215dac42f8ad3e069dc2559ee2
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Long time current set value. The set value of the long time tripping current if adjustable." ;
+        rdfs:label                "LongTimeCurrentSetValue" ;
+        IFC4-PSD:definition       "Long time current set value. The set value of the long time tripping current if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4bc3d7215dac42f8ad3e069dc2559ee2" ;
+        IFC4-PSD:name             "LongTimeCurrentSetValue" ;
+        IFC4-PSD:nameAlias        "Long Time Current Set Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:pf9250bdd70df4cbfaf6ad72d26170202
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Applying long time function\nA flag indicating that the long time function (i.e. the thermal tripping) of the device is used. The value should be set to TRUE for all devices except those that allows the Long time function of the device not to be used." ;
+        rdfs:label                "LongTimeFunction" ;
+        IFC4-PSD:definition       "Applying long time function\nA flag indicating that the long time function (i.e. the thermal tripping) of the device is used. The value should be set to TRUE for all devices except those that allows the Long time function of the device not to be used." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f9250bdd70df4cbfaf6ad72d26170202" ;
+        IFC4-PSD:name             "LongTimeFunction" ;
+        IFC4-PSD:nameAlias        "Long Time Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p976a795614174914adcd03a1ce7bdf3e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Instantaneous tripping time. The set value of the instantaneous tripping time if adjustable." ;
+        rdfs:label                "InstantaneousTrippingTime" ;
+        IFC4-PSD:definition       "Instantaneous tripping time. The set value of the instantaneous tripping time if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "976a795614174914adcd03a1ce7bdf3e" ;
+        IFC4-PSD:name             "InstantaneousTrippingTime" ;
+        IFC4-PSD:nameAlias        "Instantaneous Tripping Time"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:InstantaneousTrippingTime
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p976a795614174914adcd03a1ce7bdf3e ;
+        rdfs:subPropertyOf  IFC4-PSD:InstantaneousTrippingTime .
+
+:LongTimeDelay  a           rdf:Property ;
+        rdfs:seeAlso        :pf0250a29337f4364acb3be5daa02add0 ;
+        rdfs:subPropertyOf  IFC4-PSD:LongTimeDelay .
+
+:LongTimeCurrentSetValue
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4bc3d7215dac42f8ad3e069dc2559ee2 ;
+        rdfs:subPropertyOf  IFC4-PSD:LongTimeCurrentSetValue .
+
+:ShortTimeTrippingTime
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p74cb82eed6ff4aae9f88fe5222059167 ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortTimeTrippingTime .
+
+:pf0250a29337f4364acb3be5daa02add0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Long time delay. The set value of the long time time-delay if adjustable." ;
+        rdfs:label                "LongTimeDelay" ;
+        IFC4-PSD:definition       "Long time delay. The set value of the long time time-delay if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f0250a29337f4364acb3be5daa02add0" ;
+        IFC4-PSD:name             "LongTimeDelay" ;
+        IFC4-PSD:nameAlias        "Long Time Delay"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:InstantaneousCurrentSetValue
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3be6cdde984242b0a0d64478bc12607e ;
+        rdfs:subPropertyOf  IFC4-PSD:InstantaneousCurrentSetValue .
+
+:GroundFaultFunction  a     rdf:Property ;
+        rdfs:seeAlso        :p8a30c27174694aa78319e83f13deaf14 ;
+        rdfs:subPropertyOf  IFC4-PSD:GroundFaultFunction .
+
+:pf0e1b9943900433a8bb2e462694b55d1
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ground fault current set value. The set value of the ground tripping current if adjustable." ;
+        rdfs:label                "GroundFaultCurrentSetValue" ;
+        IFC4-PSD:definition       "Ground fault current set value. The set value of the ground tripping current if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f0e1b9943900433a8bb2e462694b55d1" ;
+        IFC4-PSD:name             "GroundFaultCurrentSetValue" ;
+        IFC4-PSD:nameAlias        "Ground Fault Current Set Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p337c40a498c54e4baa54a444cf4790ea
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Applying short time function A flag indicating that the short time function of the device is used. The value should be set to FALSE for devices not having a short time function, or if the short time function is not selected to be used." ;
+        rdfs:label                "ShortTimeFunction" ;
+        IFC4-PSD:definition       "Applying short time function A flag indicating that the short time function of the device is used. The value should be set to FALSE for devices not having a short time function, or if the short time function is not selected to be used." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "337c40a498c54e4baa54a444cf4790ea" ;
+        IFC4-PSD:name             "ShortTimeFunction" ;
+        IFC4-PSD:nameAlias        "Short Time Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:GroundFaultTrippingTime
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5a52482a0258465fa47cc512a46703f1 ;
+        rdfs:subPropertyOf  IFC4-PSD:GroundFaultTrippingTime .
+
+:p3be6cdde984242b0a0d64478bc12607e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Instantaneous current set value. The set value of the instantaneous tripping current if adjustable." ;
+        rdfs:label                "InstantaneousCurrentSetValue" ;
+        IFC4-PSD:definition       "Instantaneous current set value. The set value of the instantaneous tripping current if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3be6cdde984242b0a0d64478bc12607e" ;
+        IFC4-PSD:name             "InstantaneousCurrentSetValue" ;
+        IFC4-PSD:nameAlias        "Instantaneous Current Set Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p5a52482a0258465fa47cc512a46703f1
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ground fault tripping time. The set value of the ground fault tripping current if adjustable." ;
+        rdfs:label                "GroundFaultTrippingTime" ;
+        IFC4-PSD:definition       "Ground fault tripping time. The set value of the ground fault tripping current if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5a52482a0258465fa47cc512a46703f1" ;
+        IFC4-PSD:name             "GroundFaultTrippingTime" ;
+        IFC4-PSD:nameAlias        "Ground Fault Tripping Time"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:p70aaff9161f949eeb5bc5517d4044d3e
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Short time current set value. The set value of the long time tripping current if adjustable." ;
+        rdfs:label                "ShortTimeCurrentSetValue" ;
+        IFC4-PSD:definition       "Short time current set value. The set value of the long time tripping current if adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "70aaff9161f949eeb5bc5517d4044d3e" ;
+        IFC4-PSD:name             "ShortTimeCurrentSetValue" ;
+        IFC4-PSD:nameAlias        "Short Time Current Set Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:pa4234ac09e044d25883b1529e5898574
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pole usage." ;
+        rdfs:label                "PoleUsage" ;
+        IFC4-PSD:definition       "Pole usage." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a4234ac09e044d25883b1529e5898574" ;
+        IFC4-PSD:name             "PoleUsage" ;
+        IFC4-PSD:nameAlias        "Pole Usage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "1P" , "UNSET" , "2P" , "OTHER" , "1PN" , "3P" , "4P" , "NOTKNOWN" , "3PN"
+                                  ] .
+
+:PoleUsage  a               rdf:Property ;
+        rdfs:seeAlso        :pa4234ac09e044d25883b1529e5898574 ;
+        rdfs:subPropertyOf  IFC4-PSD:PoleUsage .
+
+:Pset_ProtectiveDeviceOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties that are applied to an occurrence of a protective device." ;
+        rdfs:label                    "Pset_ProtectiveDeviceOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProtectiveDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice" ;
+        IFC4-PSD:definition           "Properties that are applied to an occurrence of a protective device." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceOccurrence" ;
+        IFC4-PSD:propertyDef          :p3be6cdde984242b0a0d64478bc12607e , :pf0250a29337f4364acb3be5daa02add0 , :p976a795614174914adcd03a1ce7bdf3e , :p5a52482a0258465fa47cc512a46703f1 , :p8a30c27174694aa78319e83f13deaf14 , :pa4234ac09e044d25883b1529e5898574 , :p4bc3d7215dac42f8ad3e069dc2559ee2 , :pf9250bdd70df4cbfaf6ad72d26170202 , :p337c40a498c54e4baa54a444cf4790ea , :pf0e1b9943900433a8bb2e462694b55d1 , :p70aaff9161f949eeb5bc5517d4044d3e , :pab1a66c09b664bc39faba566d40fc3f6 , :p74cb82eed6ff4aae9f88fe5222059167 , :p011510087b3e484aa631627e3ef99db0 .
+
+:LongTimeFunction  a        rdf:Property ;
+        rdfs:seeAlso        :pf9250bdd70df4cbfaf6ad72d26170202 ;
+        rdfs:subPropertyOf  IFC4-PSD:LongTimeFunction .
+
+:ShortTimeFunction  a       rdf:Property ;
+        rdfs:seeAlso        :p337c40a498c54e4baa54a444cf4790ea ;
+        rdfs:subPropertyOf  IFC4-PSD:ShortTimeFunction .
+
+:p8a30c27174694aa78319e83f13deaf14
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Applying ground fault function. A flag indicating that the ground fault function of the device is used. The value should be set to FALSE for devices not having a ground fault function, or if the ground fault function is not selected to be used." ;
+        rdfs:label                "GroundFaultFunction" ;
+        IFC4-PSD:definition       "Applying ground fault function. A flag indicating that the ground fault function of the device is used. The value should be set to FALSE for devices not having a ground fault function, or if the ground fault function is not selected to be used." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8a30c27174694aa78319e83f13deaf14" ;
+        IFC4-PSD:name             "GroundFaultFunction" ;
+        IFC4-PSD:nameAlias        "Ground Fault Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:GroundFaultCurrentSetValue
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf0e1b9943900433a8bb2e462694b55d1 ;
+        rdfs:subPropertyOf  IFC4-PSD:GroundFaultCurrentSetValue .

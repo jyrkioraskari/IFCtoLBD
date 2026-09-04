@@ -1,0 +1,78 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ChillerPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe0065000d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The Coefficient of performance (COP) is the ratio of heat removed to energy input. \nThe energy input may be obtained by multiplying \nPset_DistributionPortPHistoryGas.FlowRate on the 'Fuel' port of the IfcChiller by Pset_MaterialFuel.LowerHeatingValue.  \nThe IfcDistributionPort for fuel has an associated IfcMaterial with fuel properties and is assigned to an IfcPerformanceHistory object nested within this IfcPerformanceHistory object." ;
+        rdfs:label                "CoefficientOfPerformance" ;
+        IFC4-PSD:definition       "The Coefficient of performance (COP) is the ratio of heat removed to energy input. \nThe energy input may be obtained by multiplying \nPset_DistributionPortPHistoryGas.FlowRate on the 'Fuel' port of the IfcChiller by Pset_MaterialFuel.LowerHeatingValue.  \nThe IfcDistributionPort for fuel has an associated IfcMaterial with fuel properties and is assigned to an IfcPerformanceHistory object nested within this IfcPerformanceHistory object." ;
+        IFC4-PSD:definitionAlias  ""@en , "Le coefficient de performance (COP) est le rapport entre l'énergie calorifique fournie sur l'énergie abosrbée.\nL'énergie fournie peut être obtenue en multipliant Pset_DistributionPortHistoryGas.flowRate depuis le port du IfcChiller par Pset_MaterialFuel.LowerHeatingValue.\nLe IfcDistributionPort pour combustible est associé à IfcMaterial pour les propriétés du combustible et est atrribué à l'objet IfcPerformanceHistory situé à l'intérieur même de cet objet IfcPerformanceHistory."@fr-FR ;
+        IFC4-PSD:ifdguid          "e0065000d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoefficientOfPerformance" ;
+        IFC4-PSD:nameAlias        "Coefficient Of Performance"@en , "CoefficientDePerformance"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_ChillerPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Chiller performance history attributes." ;
+        rdfs:label                    "Pset_ChillerPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcChiller ;
+        IFC4-PSD:applicableTypeValue  "IfcChiller" ;
+        IFC4-PSD:definition           "Chiller performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ChillerPHistory" ;
+        IFC4-PSD:propertyDef          :pe0065000d1c811e1800000215ad4efdf , :pdbda3280d1c811e1800000215ad4efdf , :pd8df4200d1c811e1800000215ad4efdf .
+
+:EnergyEfficiencyRatio
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdbda3280d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EnergyEfficiencyRatio .
+
+:Capacity  a                rdf:Property ;
+        rdfs:seeAlso        :pd8df4200d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Capacity .
+
+:CoefficientOfPerformance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe0065000d1c811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoefficientOfPerformance .
+
+:pd8df4200d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The product of the  ideal capacity and the overall volumetric efficiency of the compressor." ;
+        rdfs:label                "Capacity" ;
+        IFC4-PSD:definition       "The product of the  ideal capacity and the overall volumetric efficiency of the compressor." ;
+        IFC4-PSD:definitionAlias  ""@en , "Le produit de la puissance optimale par le rendement global du compresseur."@fr-FR ;
+        IFC4-PSD:ifdguid          "d8df4200d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Capacity" ;
+        IFC4-PSD:nameAlias        "Capacity"@en , "Puissance"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pdbda3280d1c811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The Energy efficiency ratio (EER) is the ratio of net cooling capacity to the total input rate of electric power applied.  By definition, the units are BTU/hour per Watt.\nThe input electric power may be obtained from Pset_DistributionPortPHistoryElectrical.RealPower on the 'Power' port of the IfcChiller." ;
+        rdfs:label                "EnergyEfficiencyRatio" ;
+        IFC4-PSD:definition       "The Energy efficiency ratio (EER) is the ratio of net cooling capacity to the total input rate of electric power applied.  By definition, the units are BTU/hour per Watt.\nThe input electric power may be obtained from Pset_DistributionPortPHistoryElectrical.RealPower on the 'Power' port of the IfcChiller." ;
+        IFC4-PSD:definitionAlias  "L'EER ou Energy Efficiency Ratio est le coefficient d'efficacité frigorifique, rapport entre entre l'énergie utile frigorifique divisée parénergie absorbée au compresseur.\nPar définition, l'unité est le BTU/hour par Watt.\nLa puissance électrique fournie peut être obtenue depuis Pset_DistributionPortHistoryElectrical.RealPower sur le port \"Power\"  du IfcChiller."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "dbda3280d1c811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EnergyEfficiencyRatio" ;
+        IFC4-PSD:nameAlias        "Energy Efficiency Ratio"@en , "CoefficientEfficacitéEnergétique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

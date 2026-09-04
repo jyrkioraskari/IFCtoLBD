@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentSwitch#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p5f624680d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Current leakage to an unwanted leading path during normal operation (IEC 151-14-49)." ;
+        rdfs:label                "Sensitivity" ;
+        IFC4-PSD:definition       "Current leakage to an unwanted leading path during normal operation (IEC 151-14-49)." ;
+        IFC4-PSD:definitionAlias  "정상 작동의 원치 않는 철회 경로와 전류 사슬 교환 (IEC 151-14-49)."@ko-KR , "通常操作における望ましくない引き込みパスとの電流鎖交 (IEC 151-14-49)。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5f624680d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Sensitivity" ;
+        IFC4-PSD:nameAlias        "Sensitivity"@en , "감도"@ko-KR , "感度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:Sensitivity  a             rdf:Property ;
+        rdfs:seeAlso        :p5f624680d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Sensitivity .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceTypeResidualCurrentSwitch>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ProtectiveDeviceTypeResidualCurrentSwitch
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A residual current switch opens, closes or isolates a circuit and has no short circuit or overload protection." ;
+        rdfs:label                    "Pset_ProtectiveDeviceTypeResidualCurrentSwitch" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/RESIDUALCURRENTSWITCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/RESIDUALCURRENTSWITCH" ;
+        IFC4-PSD:definition           "A residual current switch opens, closes or isolates a circuit and has no short circuit or overload protection." ;
+        IFC4-PSD:definitionAlias      "残留電流遮断回路が 開いているか、 閉じているか、または　回路から独立しているか、また短絡（ショートサーキット）を保有し、過負荷保護継電方式であるか。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceTypeResidualCurrentSwitch" ;
+        IFC4-PSD:propertyDef          :p5f624680d1fe11e1800000215ad4efdf .

@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeTrench#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeTrench>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:InvertLevel  a             rdf:Property ;
+        rdfs:seeAlso        :p899f0e80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InvertLevel .
+
+:Pset_DistributionChamberElementTypeTrench
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Excavation, the length of which greatly exceeds the width." ;
+        rdfs:label                    "Pset_DistributionChamberElementTypeTrench" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/TRENCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/TRENCH" ;
+        IFC4-PSD:definition           "Excavation, the length of which greatly exceeds the width." ;
+        IFC4-PSD:definitionAlias      ""@en , "チャンバーの溝（長さは幅より長い）に関する属性情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionChamberElementTypeTrench" ;
+        IFC4-PSD:propertyDef          :p7d1ab600d1d411e1800000215ad4efdf , :p899f0e80d1d411e1800000215ad4efdf , :p83a92d80d1d411e1800000215ad4efdf .
+
+:Width  a                   rdf:Property ;
+        rdfs:seeAlso        :p7d1ab600d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Width .
+
+:p899f0e80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Level of the lowest part of the cross section as measured from ground level." ;
+        rdfs:label                "InvertLevel" ;
+        IFC4-PSD:definition       "Level of the lowest part of the cross section as measured from ground level." ;
+        IFC4-PSD:definitionAlias  "단면의 가장 낮은 부분의 깊이 (지상)"@ko-KR , "断面の最も低い部分の深さ（地面から）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "899f0e80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InvertLevel" ;
+        IFC4-PSD:nameAlias        "Invert Level"@en , "最大深さ"@ja-JP , "최대 깊이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p7d1ab600d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the trench." ;
+        rdfs:label                "Width" ;
+        IFC4-PSD:definition       "The width of the trench." ;
+        IFC4-PSD:definitionAlias  "溝の長さ。"@ja-JP , "홈의 길이"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "7d1ab600d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Width" ;
+        IFC4-PSD:nameAlias        "長さ"@ja-JP , "Width"@en , "길이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p83a92d80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The depth of the trench." ;
+        rdfs:label                "Depth" ;
+        IFC4-PSD:definition       "The depth of the trench." ;
+        IFC4-PSD:definitionAlias  "溝の幅。"@ja-JP , ""@en , "홈의 폭"@ko-KR ;
+        IFC4-PSD:ifdguid          "83a92d80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Depth" ;
+        IFC4-PSD:nameAlias        "Depth"@en , "幅"@ja-JP , "폭"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Depth  a                   rdf:Property ;
+        rdfs:seeAlso        :p83a92d80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Depth .

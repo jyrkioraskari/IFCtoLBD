@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p16f15b80d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The test or rated pressure classification of the fitting." ;
+        rdfs:label                "PressureClass" ;
+        IFC4-PSD:definition       "The test or rated pressure classification of the fitting." ;
+        IFC4-PSD:definitionAlias  "継ぎ手接合部の圧力等級？"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "16f15b80d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureClass" ;
+        IFC4-PSD:nameAlias        "Pressure Class"@en , "圧力分類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:Pset_PipeFittingTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pipe fitting type common attributes." ;
+        rdfs:label                    "Pset_PipeFittingTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPipeFitting ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeFitting" ;
+        IFC4-PSD:definition           "Pipe fitting type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeFittingTypeCommon" ;
+        IFC4-PSD:propertyDef          :p05a84f00d1f311e1800000215ad4efdf , :p25d80e00d1f311e1800000215ad4efdf , :pffb26e00d1f211e1800000215ad4efdf , :p16f15b80d1f311e1800000215ad4efdf , :p1c4ea600d1f311e1800000215ad4efdf , :p2d97b280d1f311e1800000215ad4efdf .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p05a84f00d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p1c4ea600d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        rdfs:label                "PressureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum working pressure (relative to ambient pressure)." ;
+        IFC4-PSD:definitionAlias  "許容できる最大/最小管内圧力(周囲圧力に比較して)"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1c4ea600d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRange" ;
+        IFC4-PSD:nameAlias        "Pressure Range"@en , "圧力範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:p2d97b280d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A factor that determines the pressure loss due to friction through the fitting." ;
+        rdfs:label                "FittingLossFactor" ;
+        IFC4-PSD:definition       "A factor that determines the pressure loss due to friction through the fitting." ;
+        IFC4-PSD:definitionAlias  "接合部を通過する際の摩擦による圧力損失を決める係数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2d97b280d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FittingLossFactor" ;
+        IFC4-PSD:nameAlias        "継ぎ手接合部損失係数"@ja-JP , "Fitting Loss Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeFittingTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p25d80e00d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable maximum and minimum temperature." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Allowable maximum and minimum temperature." ;
+        IFC4-PSD:definitionAlias  ""@en , "許容できる最大/最小温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "25d80e00d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "Temperature Range"@en , "温度範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:PressureClass  a           rdf:Property ;
+        rdfs:seeAlso        :p16f15b80d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureClass .
+
+:PressureRange  a           rdf:Property ;
+        rdfs:seeAlso        :p1c4ea600d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRange .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pffb26e00d1f211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:FittingLossFactor  a       rdf:Property ;
+        rdfs:seeAlso        :p2d97b280d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FittingLossFactor .
+
+:pffb26e00d1f211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ffb26e00d1f211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :p25d80e00d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:p05a84f00d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "05a84f00d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

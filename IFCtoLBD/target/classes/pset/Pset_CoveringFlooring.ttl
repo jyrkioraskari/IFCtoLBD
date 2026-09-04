@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoveringFlooring#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HasAntiStaticSurface
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p683c2380d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasAntiStaticSurface .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CoveringFlooring>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HasNonSkidSurface  a       rdf:Property ;
+        rdfs:seeAlso        :p62ded900d1d011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasNonSkidSurface .
+
+:p62ded900d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the surface finish is designed to prevent slippery (TRUE) or not (FALSE)." ;
+        rdfs:label                "HasNonSkidSurface" ;
+        IFC4-PSD:definition       "Indication whether the surface finish is designed to prevent slippery (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "表示表面处理是否设计为防滑的。"@zh-CN , "Angabe, ob der Bodenbelag eine nichtrutschende Oberfläche hat (JA), oder nicht (NEIN)."@de-DE , ""@en , "Indique si la finition est conçue pour être anti dérapante (VRAI) ou non (FAUX)."@fr-FR ;
+        IFC4-PSD:ifdguid          "62ded900d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasNonSkidSurface" ;
+        IFC4-PSD:nameAlias        "Anti dérapant"@fr-FR , "Has Non Skid Surface"@en , "表面是否防滑"@zh-CN , "Nichtrutschende Oberfläche"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_CoveringFlooring
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to FLOORING." ;
+        rdfs:label                    "Pset_CoveringFlooring" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCovering/FLOORING> , IFC4: ;
+        IFC4-PSD:applicableTypeValue  "IfcCovering/FLOORING," ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrence and type objects of covering with the predefined type set to FLOORING." ;
+        IFC4-PSD:definitionAlias      ""@en , "所有PredefinedType设置为FLOORING的IfcCovering实例的定义中通用的属性。"@zh-CN ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CoveringFlooring" ;
+        IFC4-PSD:propertyDef          :p62ded900d1d011e1800000215ad4efdf , :p683c2380d1d011e1800000215ad4efdf .
+
+:p683c2380d1d011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the surface finish is designed to prevent electrostatic charge (TRUE) or not (FALSE)." ;
+        rdfs:label                "HasAntiStaticSurface" ;
+        IFC4-PSD:definition       "Indication whether the surface finish is designed to prevent electrostatic charge (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "Indique si la finition est conçue pour être anti statique (VRAI) ou non (FAUX)."@fr-FR , ""@en , "表示表面处理是否设计为防静电的。"@zh-CN , "Angabe, ob der Bodenbelag eine antistatische Oberfläche hat (JA), oder nicht (NEIN)."@de-DE ;
+        IFC4-PSD:ifdguid          "683c2380d1d011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasAntiStaticSurface" ;
+        IFC4-PSD:nameAlias        "Has Anti Static Surface"@en , "Antistatische Oberfläche"@de-DE , "表面是否防静电"@zh-CN , "Anti statique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

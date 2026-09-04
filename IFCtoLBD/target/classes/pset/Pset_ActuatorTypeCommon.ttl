@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p42595380d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Specifies the required fail-safe position of the actuator." ;
+        rdfs:label                "FailPosition" ;
+        IFC4-PSD:definition       "Specifies the required fail-safe position of the actuator." ;
+        IFC4-PSD:definitionAlias  "要求されたアクチュエータのフェールセーフタイプを示す。"@ja-JP , "대체 기능으로 수동 조작이 제공되는지 (= TRUE) 여부 (= FALSE)를 확인한다. 수동으로 조작하는 액츄에이터의 경우는이 값을 기본값으로 FALSE로 설정해야하므로주의한다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "42595380d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FailPosition" ;
+        IFC4-PSD:nameAlias        "Fail Position"@en , "フェールセーフタイプ"@ja-JP , "재정 기능의 유무"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FAILOPEN" , "FAILCLOSED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Application  a             rdf:Property ;
+        rdfs:seeAlso        :p3469a24941934603a1c9c402d5623291 ;
+        rdfs:subPropertyOf  IFC4-PSD:Application .
+
+:ManualOverride  a          rdf:Property ;
+        rdfs:seeAlso        :p4dac7f00d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ManualOverride .
+
+:p2a81cf80d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  "해당 프로젝트에서 사용이 유형에 대한 참조 ID (예 : 'A-1') ※ 기본이있는 경우 그 기호를 사용"@ko-KR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2a81cf80d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "참조 ID"@ko-KR , "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p2f468380d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:FailPosition  a            rdf:Property ;
+        rdfs:seeAlso        :p42595380d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FailPosition .
+
+:Pset_ActuatorTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Actuator type common attributes." ;
+        rdfs:label                    "Pset_ActuatorTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcActuator ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator" ;
+        IFC4-PSD:definition           "Actuator type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "アクチュエータタイプの共通属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorTypeCommon" ;
+        IFC4-PSD:propertyDef          :p2a81cf80d1bd11e1800000215ad4efdf , :p42595380d1bd11e1800000215ad4efdf , :p3469a24941934603a1c9c402d5623291 , :p4dac7f00d1bd11e1800000215ad4efdf , :p2f468380d1bd11e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p4dac7f00d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies whether hand-operated operation is provided as an override (= TRUE) or not (= FALSE). Note that this value should be set to FALSE by default in the case of a Hand Operated Actuator." ;
+        rdfs:label                "ManualOverride" ;
+        IFC4-PSD:definition       "Identifies whether hand-operated operation is provided as an override (= TRUE) or not (= FALSE). Note that this value should be set to FALSE by default in the case of a Hand Operated Actuator." ;
+        IFC4-PSD:definitionAlias  ""@en , "オーバーライド機能として手動操作が提供されるか (= TRUE) 、否か （= FALSE)を識別する。手動で操作するアクチュエータの場合は、この値をデフォルトとしてFALSEに設定する必要があるので注意すること。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4dac7f00d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ManualOverride" ;
+        IFC4-PSD:nameAlias        "Manual Override"@en , "オーバーライド機能の有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p2f468380d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "요청한 액츄에이터의 안전 장치 유형을 표시"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "2f468380d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en , "페일 세이프 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p3469a24941934603a1c9c402d5623291
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates application of actuator." ;
+        rdfs:label                "Application" ;
+        IFC4-PSD:definition       "Indicates application of actuator." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3469a24941934603a1c9c402d5623291" ;
+        IFC4-PSD:name             "Application" ;
+        IFC4-PSD:nameAlias        "Application"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OTHER" , "ENTRYEXITDEVICE" , "NOTKNOWN" , "FIRESMOKEDAMPERACTUATOR" , "UNSET" , "SUNBLINDACTUATOR" , "LAMPACTUATOR" , "DAMPERACTUATOR" , "VALVEPOSITIONER"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p2a81cf80d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .

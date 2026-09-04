@@ -1,0 +1,146 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialWater#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p3fc32200d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum water PH in a range from 0-14." ;
+        rdfs:label                "PHLevel" ;
+        IFC4-PSD:definition       "Maximum water PH in a range from 0-14." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3fc32200d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PHLevel" ;
+        IFC4-PSD:nameAlias        "PHLevel"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPHMeasure
+                                  ] .
+
+:p27530780d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water hardness as positive, multivalent ion concentration in the water (usually concentrations of calcium and magnesium ions in terms of calcium carbonate)." ;
+        rdfs:label                "Hardness" ;
+        IFC4-PSD:definition       "Water hardness as positive, multivalent ion concentration in the water (usually concentrations of calcium and magnesium ions in terms of calcium carbonate)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "27530780d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Hardness" ;
+        IFC4-PSD:nameAlias        "Hardness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIonConcentrationMeasure
+                                  ] .
+
+:p2cb05200d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum alkalinity concentration (maximum sum of concentrations of each of the negative ions substances measured as CaCO3)." ;
+        rdfs:label                "AlkalinityConcentration" ;
+        IFC4-PSD:definition       "Maximum alkalinity concentration (maximum sum of concentrations of each of the negative ions substances measured as CaCO3)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2cb05200d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AlkalinityConcentration" ;
+        IFC4-PSD:nameAlias        "Alkalinity Concentration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIonConcentrationMeasure
+                                  ] .
+
+:PHLevel  a                 rdf:Property ;
+        rdfs:seeAlso        :p3fc32200d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PHLevel .
+
+:Hardness  a                rdf:Property ;
+        rdfs:seeAlso        :p27530780d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Hardness .
+
+:p3afe6e00d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the dissolved solids to the total amount of water. This is measured in weight of dissolved solids per weight of water and is therefore unitless." ;
+        rdfs:label                "DissolvedSolidsContent" ;
+        IFC4-PSD:definition       "Fraction of the dissolved solids to the total amount of water. This is measured in weight of dissolved solids per weight of water and is therefore unitless." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3afe6e00d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DissolvedSolidsContent" ;
+        IFC4-PSD:nameAlias        "Dissolved Solids Content"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:AcidityConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p320d9c80d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AcidityConcentration .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialWater>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsPotable  a               rdf:Property ;
+        rdfs:seeAlso        :p215d2680d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsPotable .
+
+:AlkalinityConcentration
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2cb05200d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AlkalinityConcentration .
+
+:p3639ba00d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of impurities such as dust to the total amount of water. This is measured in weight of impurities per weight of water and is therefore unitless." ;
+        rdfs:label                "ImpuritiesContent" ;
+        IFC4-PSD:definition       "Fraction of impurities such as dust to the total amount of water. This is measured in weight of impurities per weight of water and is therefore unitless." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "3639ba00d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ImpuritiesContent" ;
+        IFC4-PSD:nameAlias        "Impurities Content"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:p320d9c80d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum CaCO3 equivalent that would neutralize the acid." ;
+        rdfs:label                "AcidityConcentration" ;
+        IFC4-PSD:definition       "Maximum CaCO3 equivalent that would neutralize the acid." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "320d9c80d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AcidityConcentration" ;
+        IFC4-PSD:nameAlias        "Acidity Concentration"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIonConcentrationMeasure
+                                  ] .
+
+:DissolvedSolidsContent
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3afe6e00d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DissolvedSolidsContent .
+
+:ImpuritiesContent  a       rdf:Property ;
+        rdfs:seeAlso        :p3639ba00d1ee11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ImpuritiesContent .
+
+:Pset_MaterialWater  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of extended material properties for of water typically used within the context of building services and flow distribution systems." ;
+        rdfs:label                    "Pset_MaterialWater" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of extended material properties for of water typically used within the context of building services and flow distribution systems." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialWater" ;
+        IFC4-PSD:propertyDef          :p3fc32200d1ee11e1800000215ad4efdf , :p2cb05200d1ee11e1800000215ad4efdf , :p320d9c80d1ee11e1800000215ad4efdf , :p3afe6e00d1ee11e1800000215ad4efdf , :p3639ba00d1ee11e1800000215ad4efdf , :p27530780d1ee11e1800000215ad4efdf , :p215d2680d1ee11e1800000215ad4efdf .
+
+:p215d2680d1ee11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If TRUE, then the water is considered potable." ;
+        rdfs:label                "IsPotable" ;
+        IFC4-PSD:definition       "If TRUE, then the water is considered potable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "215d2680d1ee11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsPotable" ;
+        IFC4-PSD:nameAlias        "Is Potable"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .

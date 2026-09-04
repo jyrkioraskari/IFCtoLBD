@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMotorProtection#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1a3c1580d1fa11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The making capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        rdfs:label                "ICM60947" ;
+        IFC4-PSD:definition       "The making capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        IFC4-PSD:definitionAlias  "IEC의 60947 시리즈를 기반으로 테스트 배선 차단기 또는 모터 보호 장치를위한 만드는 능력 [A]. \""@ko-KR , ""@en , "IECの60947シリーズに基づいてテストした配線遮断機またはモータ保護装置のためので作る能力[A]。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1a3c1580d1fa11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICM60947" ;
+        IFC4-PSD:nameAlias        "ICM60947"@en , "ICM60947"@ja-JP , "ICM60947"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:PerformanceClasses  a      rdf:Property ;
+        rdfs:seeAlso        :pe365ff80d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PerformanceClasses .
+
+:p14decb00d1fa11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thermal withstand current in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series. The value shall be related to 1 s." ;
+        rdfs:label                "ICW60947" ;
+        IFC4-PSD:definition       "The thermal withstand current in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series. The value shall be related to 1 s." ;
+        IFC4-PSD:definitionAlias  "IEC60947 시리즈를 기반으로 테스트 배선 차단기 또는 모터 보호 장치를위한 전류 [A]에 견디는 온도  값은 1s 주어진다."@ko-KR , ""@en , "IEC60947シリーズに基づいてテストした配線遮断機またはモータ保護装置のための電流[A]に耐える温度。\n 値は、1sで与えられる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "14decb00d1fa11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICW60947" ;
+        IFC4-PSD:nameAlias        "ICW60947"@en , "ICW60947"@ja-JP , "ICW60947"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:ICS60947  a                rdf:Property ;
+        rdfs:seeAlso        :p0f818080d1fa11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICS60947 .
+
+:ICW60947  a                rdf:Property ;
+        rdfs:seeAlso        :p14decb00d1fa11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICW60947 .
+
+:pecef6780d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        rdfs:label                "VoltageLevel" ;
+        IFC4-PSD:definition       "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        IFC4-PSD:definitionAlias  "電圧レベルを選択。"@ja-JP , "전압 레벨을 선택합니다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "ecef6780d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VoltageLevel" ;
+        IFC4-PSD:nameAlias        "전압레벨"@ko-KR , "電圧レベル"@ja-JP , "Voltage Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "U400" , "UNSET" , "U1000" , "U690" , "OTHER" , "NOTKNOWN" , "U525" , "U440" , "U230"
+                                  ] .
+
+:p0f818080d1fa11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The service breaking capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        rdfs:label                "ICS60947" ;
+        IFC4-PSD:definition       "The service breaking capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        IFC4-PSD:definitionAlias  "IECの60947シリーズに基づいてテスト配線用遮断機またはモータ保護装置のための遮断容量サービスを[A]で設定。"@ja-JP , ""@en , "IEC의 60947 시리즈를 기반으로 테스트 배선용 차단기 또는 모터 보호 장치를위한 차단 용량 서비스를 [A]로 설정."@ko-KR ;
+        IFC4-PSD:ifdguid          "0f818080d1fa11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICS60947" ;
+        IFC4-PSD:nameAlias        "ICS60947"@ja-JP , "ICS60947"@ko-KR , "ICS60947"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMotorProtection>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:VoltageLevel  a            rdf:Property ;
+        rdfs:seeAlso        :pecef6780d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VoltageLevel .
+
+:Pset_ProtectiveDeviceBreakerUnitTypeMotorProtection
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A coherent set of attributes representing different capacities of a a motor protection device, defined in accordance with IEC 60947. Note - A protective device may be associated with different instances of this Pset." ;
+        rdfs:label                    "Pset_ProtectiveDeviceBreakerUnitTypeMotorProtection" ;
+        IFC4-PSD:applicableClass      IFC4:IfcProtectiveDevice ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice" ;
+        IFC4-PSD:definition           "A coherent set of attributes representing different capacities of a a motor protection device, defined in accordance with IEC 60947. Note - A protective device may be associated with different instances of this Pset." ;
+        IFC4-PSD:definitionAlias      ""@en , "AAのモータ保護装置の異なる容量を表す属性の一貫したセットは、IEC60947に基づいて定義されています。\n 注-保護装置は、このプロセッサセットの別のインスタンスに関連付けられている可能性があります。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceBreakerUnitTypeMotorProtection" ;
+        IFC4-PSD:propertyDef          :pe365ff80d1f911e1800000215ad4efdf , :pecef6780d1f911e1800000215ad4efdf , :p14decb00d1fa11e1800000215ad4efdf , :p0f818080d1fa11e1800000215ad4efdf , :p098b9f80d1fa11e1800000215ad4efdf , :p1a3c1580d1fa11e1800000215ad4efdf .
+
+:pe365ff80d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A set of designations of performance classes for the breaker unit for which the data of this instance is valid. A breaker unit being a motor protection device may be\nconstructed for different levels of breaking capacities. A maximum of 7 different\nperformance classes may be provided. Examples of performance classes that may be specified include B, C, N, S, H, L, V." ;
+        rdfs:label                "PerformanceClasses" ;
+        IFC4-PSD:definition       "A set of designations of performance classes for the breaker unit for which the data of this instance is valid. A breaker unit being a motor protection device may be\nconstructed for different levels of breaking capacities. A maximum of 7 different\nperformance classes may be provided. Examples of performance classes that may be specified include B, C, N, S, H, L, V." ;
+        IFC4-PSD:definitionAlias  "모터 보호하는 개폐 장치는 능력이 다른 최대 7 종류가있다. 이름의 예로는, B, C, N, S, H, L, V가 포함된다."@ko-KR , ""@en , "モータ保護を行う開閉装置は、能力が違う最大7種類がある。名称の例として、B, C, N, S, H, L, Vが含まれる。"@ja-JP ;
+        IFC4-PSD:ifdguid          "e365ff80d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PerformanceClasses" ;
+        IFC4-PSD:nameAlias        "능력클래스"@ko-KR , "Performance Classes"@en , "能力クラス"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:ICM60947  a                rdf:Property ;
+        rdfs:seeAlso        :p1a3c1580d1fa11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICM60947 .
+
+:ICU60947  a                rdf:Property ;
+        rdfs:seeAlso        :p098b9f80d1fa11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICU60947 .
+
+:p098b9f80d1fa11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ultimate breaking capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        rdfs:label                "ICU60947" ;
+        IFC4-PSD:definition       "The ultimate breaking capacity in [A] for a circuit breaker or motor protection device tested in accordance with the IEC 60947 series." ;
+        IFC4-PSD:definitionAlias  ""@en , "IEC의 60947 시리즈를 기반으로 테스트 배선용 차단기 또는 모터 보호 장치를위한 차단 용량 [A]로 설정."@ko-KR , "IECの60947シリーズに基づいてテスト配線用遮断機またはモータ保護装置のための遮断容量を[A]で設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "098b9f80d1fa11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICU60947" ;
+        IFC4-PSD:nameAlias        "ICU60947"@en , "ICU60947"@ja-JP , "ICU60947"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .

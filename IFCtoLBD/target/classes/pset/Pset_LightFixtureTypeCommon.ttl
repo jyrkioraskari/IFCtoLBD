@@ -1,0 +1,200 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9549ff80d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9549ff80d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pa4c94880d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of sources ." ;
+        rdfs:label                "NumberOfSources" ;
+        IFC4-PSD:definition       "Number of sources ." ;
+        IFC4-PSD:definitionAlias  ""@en , "電球数。"@ja-JP , "전구수"@ko-KR ;
+        IFC4-PSD:ifdguid          "a4c94880d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfSources" ;
+        IFC4-PSD:nameAlias        "Number Of Sources"@en , "전구수"@ko-KR , "電球数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:p8ebb8800d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "当該プロジェクトで定義する形式の参照ID（例：A-1)、承認された分類に存在しないときに使用される。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8ebb8800d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:pd80bd780d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The arithmetical allowance made for depreciation of lamps and reflective equipment from their initial values due to dirt, fumes, or age." ;
+        rdfs:label                "MaintenanceFactor" ;
+        IFC4-PSD:definition       "The arithmetical allowance made for depreciation of lamps and reflective equipment from their initial values due to dirt, fumes, or age." ;
+        IFC4-PSD:definitionAlias  ""@en , "汚れ、煙、年数による初期からのランプや反射装置の低減許容計算。"@ja-JP , "먼지, 연기, 연수의 초기부터 램프와 반사 장치의 저감 허용 계산."@ko-KR ;
+        IFC4-PSD:ifdguid          "d80bd780d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaintenanceFactor" ;
+        IFC4-PSD:nameAlias        "보수 비율"@ko-KR , "Maintenance Factor"@en , "保守率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p8ebb8800d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:MaximumSpaceSensibleLoad
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe528c680d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumSpaceSensibleLoad .
+
+:paa269300d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Wattage on whole lightfitting device with all sources intact." ;
+        rdfs:label                "TotalWattage" ;
+        IFC4-PSD:definition       "Wattage on whole lightfitting device with all sources intact." ;
+        IFC4-PSD:definitionAlias  ""@en , "全ての照明器具のワット数。"@ja-JP , "모든 조명기구 와트."@ko-KR ;
+        IFC4-PSD:ifdguid          "aa269300d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalWattage" ;
+        IFC4-PSD:nameAlias        "総ワット数"@ja-JP , "총 와트"@ko-KR , "Total Wattage"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:pde01b880d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum or Peak sensible thermal load contributed to return air plenum by the light fixture." ;
+        rdfs:label                "MaximumPlenumSensibleLoad" ;
+        IFC4-PSD:definition       "Maximum or Peak sensible thermal load contributed to return air plenum by the light fixture." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "de01b880d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumPlenumSensibleLoad" ;
+        IFC4-PSD:nameAlias        "Maximum Plenum Sensible Load"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:LightFixturePlacingType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc5919e00d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightFixturePlacingType .
+
+:pc5919e00d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of placing specification for light fixtures from which that required may be selected." ;
+        rdfs:label                "LightFixturePlacingType" ;
+        IFC4-PSD:definition       "A list of the available types of placing specification for light fixtures from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  "照明器具の取付場所をリストから選択。"@ja-JP , ""@en , "조명기구의 설치 장소를 목록에서 선택합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "c5919e00d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightFixturePlacingType" ;
+        IFC4-PSD:nameAlias        "Light Fixture Placing Type"@en , "조명기구 설치 장소"@ko-KR , "照明器具取付場所"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CEILING" , "FLOOR" , "FURNITURE" , "POLE" , "WALL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MaximumPlenumSensibleLoad
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pde01b880d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumPlenumSensibleLoad .
+
+:SensibleLoadToRadiant
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pea861100d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleLoadToRadiant .
+
+:NumberOfSources  a         rdf:Property ;
+        rdfs:seeAlso        :pa4c94880d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfSources .
+
+:pe528c680d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum or Peak sensible thermal load contributed to the conditioned space by the light fixture." ;
+        rdfs:label                "MaximumSpaceSensibleLoad" ;
+        IFC4-PSD:definition       "Maximum or Peak sensible thermal load contributed to the conditioned space by the light fixture." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e528c680d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumSpaceSensibleLoad" ;
+        IFC4-PSD:nameAlias        "Maximum Space Sensible Load"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:paf83dd80d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of mounting for light fixtures from which that required may be selected." ;
+        rdfs:label                "LightFixtureMountingType" ;
+        IFC4-PSD:definition       "A list of the available types of mounting for light fixtures from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en , "照明器具の取付方法をリストから選択。"@ja-JP , "조명기구의 설치 방법을 목록에서 선택합니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "af83dd80d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LightFixtureMountingType" ;
+        IFC4-PSD:nameAlias        "조명기구 설치방법"@ko-KR , "照明器具取付方法"@ja-JP , "Light Fixture Mounting Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "POLE_TOP" , "TRACKMOUNTED" , "POLE_SIDE" , "CABLESPANNED" , "RECESSED" , "UNSET" , "SUSPENDED" , "FREESTANDING" , "NOTKNOWN" , "SURFACE" , "OTHER"
+                                  ] .
+
+:Pset_LightFixtureTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common data for light fixtures.\nHistory: IFC4 - Article number and manufacturer specific information deleted. Use Pset_ManufacturerTypeInformation. ArticleNumber instead.   Load properties moved from Pset_LightFixtureTypeThermal (deleted)." ;
+        rdfs:label                    "Pset_LightFixtureTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcLightFixture ;
+        IFC4-PSD:applicableTypeValue  "IfcLightFixture" ;
+        IFC4-PSD:definition           "Common data for light fixtures.\nHistory: IFC4 - Article number and manufacturer specific information deleted. Use Pset_ManufacturerTypeInformation. ArticleNumber instead.   Load properties moved from Pset_LightFixtureTypeThermal (deleted)." ;
+        IFC4-PSD:definitionAlias      ""@en , "照明器具の共通データ。\nIFC4でArticleNumberは削除されました。代わりにPset_ManufacturerTypeInformationを使用してください。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_LightFixtureTypeCommon" ;
+        IFC4-PSD:propertyDef          :pde01b880d1eb11e1800000215ad4efdf , :pd80bd780d1eb11e1800000215ad4efdf , :pe528c680d1eb11e1800000215ad4efdf , :paf83dd80d1eb11e1800000215ad4efdf , :pea861100d1eb11e1800000215ad4efdf , :p9549ff80d1eb11e1800000215ad4efdf , :p8ebb8800d1eb11e1800000215ad4efdf , :paa269300d1eb11e1800000215ad4efdf , :pc5919e00d1eb11e1800000215ad4efdf , :pa4c94880d1eb11e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LightFixtureTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:TotalWattage  a            rdf:Property ;
+        rdfs:seeAlso        :paa269300d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalWattage .
+
+:MaintenanceFactor  a       rdf:Property ;
+        rdfs:seeAlso        :pd80bd780d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaintenanceFactor .
+
+:LightFixtureMountingType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :paf83dd80d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LightFixtureMountingType .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p9549ff80d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pea861100d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Percent of sensible thermal load to radiant heat." ;
+        rdfs:label                "SensibleLoadToRadiant" ;
+        IFC4-PSD:definition       "Percent of sensible thermal load to radiant heat." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ea861100d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleLoadToRadiant" ;
+        IFC4-PSD:nameAlias        "Sensible Load To Radiant"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .

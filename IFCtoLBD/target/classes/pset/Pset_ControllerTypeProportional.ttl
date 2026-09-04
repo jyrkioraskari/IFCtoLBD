@@ -1,0 +1,180 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeProportional#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe1864700d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The proportional gain factor of the controller (usually referred to as Kp)." ;
+        rdfs:label                "ProportionalConstant" ;
+        IFC4-PSD:definition       "The proportional gain factor of the controller (usually referred to as Kp)." ;
+        IFC4-PSD:definitionAlias  ""@en , "비례 게인 (Kp)"@ko-KR ;
+        IFC4-PSD:ifdguid          "e1864700d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProportionalConstant" ;
+        IFC4-PSD:nameAlias        "Proportional Constant"@en , "비례 게인 (Kp)"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:peba84580d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The derivative gain factor of the controller (usually referred to as Kd).  Asserted where ControlType is PROPORTIONALINTEGRALDERIVATIVE." ;
+        rdfs:label                "DerivativeConstant" ;
+        IFC4-PSD:definition       "The derivative gain factor of the controller (usually referred to as Kd).  Asserted where ControlType is PROPORTIONALINTEGRALDERIVATIVE." ;
+        IFC4-PSD:definitionAlias  ""@en , "미분 게인 (Kd)"@ko-KR ;
+        IFC4-PSD:ifdguid          "eba84580d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DerivativeConstant" ;
+        IFC4-PSD:nameAlias        "Derivative Constant"@en , "미분 게인 (Kd)"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:DerivativeConstant  a      rdf:Property ;
+        rdfs:seeAlso        :peba84580d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DerivativeConstant .
+
+:pda5f3900d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The expected range and default value.  While the property data type is IfcReal (to support all cases including when the units are unknown), a unit may optionally be provided to indicate the measure and unit." ;
+        rdfs:label                "Value" ;
+        IFC4-PSD:definition       "The expected range and default value.  While the property data type is IfcReal (to support all cases including when the units are unknown), a unit may optionally be provided to indicate the measure and unit." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "da5f3900d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Value" ;
+        IFC4-PSD:nameAlias        "Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:pe6e39180d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The integral gain factor of the controller (usually referred to as Ki).  Asserted where ControlType is PROPORTIONALINTEGRAL or PROPORTIONALINTEGRALDERIVATIVE." ;
+        rdfs:label                "IntegralConstant" ;
+        IFC4-PSD:definition       "The integral gain factor of the controller (usually referred to as Ki).  Asserted where ControlType is PROPORTIONALINTEGRAL or PROPORTIONALINTEGRALDERIVATIVE." ;
+        IFC4-PSD:definitionAlias  "적분 게인 (Ki)"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "e6e39180d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IntegralConstant" ;
+        IFC4-PSD:nameAlias        "적분 게인 (Ki)"@ko-KR , "Integral Constant"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:pbd2a6a80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of signal modification.\nPROPORTIONAL: Output is proportional to the control error. The gain of a proportional control (Kp) will have the effect of reducing the rise time and reducing , but never eliminating, the steady-state error of the variable controlled. \nPROPORTIONALINTEGRAL: Part of the output is proportional to the control error and part is proportional to the time integral of the control error. Adding the gain of an integral control (Ki) will have the effect of eliminating the steady-state error of the variable controlled, but it may make the transient response worse. \nPROPORTIONALINTEGRALDERIVATIVE: Part of the output is proportional to the control error, part is proportional to the time integral of the control error and part is proportional to the time derivative of the control error. Adding the gain of a derivative control (Kd) will have the effect of increasing the stability of the system, reducing the overshoot, and improving the transient response of the variable controlled." ;
+        rdfs:label                "ControlType" ;
+        IFC4-PSD:definition       "The type of signal modification.\nPROPORTIONAL: Output is proportional to the control error. The gain of a proportional control (Kp) will have the effect of reducing the rise time and reducing , but never eliminating, the steady-state error of the variable controlled. \nPROPORTIONALINTEGRAL: Part of the output is proportional to the control error and part is proportional to the time integral of the control error. Adding the gain of an integral control (Ki) will have the effect of eliminating the steady-state error of the variable controlled, but it may make the transient response worse. \nPROPORTIONALINTEGRALDERIVATIVE: Part of the output is proportional to the control error, part is proportional to the time integral of the control error and part is proportional to the time derivative of the control error. Adding the gain of a derivative control (Kd) will have the effect of increasing the stability of the system, reducing the overshoot, and improving the transient response of the variable controlled." ;
+        IFC4-PSD:definitionAlias  "신호 변경 유형   P (비례), I (적분), D (미분)의 조합 PROPORTIONAL :   P (비례) 제어 PROPORTIONALINTEGRAL :   PI (비례 적분) 제어 PROPORTIONALINTEGRALDERIVATIVE :   PID (비례 적분 미분) 제어"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "bd2a6a80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlType" ;
+        IFC4-PSD:nameAlias        "Control Type"@en , "PROPORTIONAL 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PROPORTIONAL" , "PROPORTIONALINTEGRAL" , "PROPORTIONALINTEGRALDERIVATIVE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pcc111d00d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table mapping values to labels, where such labels indicate transition points such as 'Hi', 'Lo', 'HiHi', or 'LoLo'." ;
+        rdfs:label                "Labels" ;
+        IFC4-PSD:definition       "Table mapping values to labels, where such labels indicate transition points such as 'Hi', 'Lo', 'HiHi', or 'LoLo'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cc111d00d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Labels" ;
+        IFC4-PSD:nameAlias        "Labels"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcReal
+                                  ] .
+
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :pbd2a6a80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeProportional>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Labels  a                  rdf:Property ;
+        rdfs:seeAlso        :pcc111d00d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Labels .
+
+:pf236bd00d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Time factor used for exponential increase." ;
+        rdfs:label                "SignalTimeIncrease" ;
+        IFC4-PSD:definition       "Time factor used for exponential increase." ;
+        IFC4-PSD:definitionAlias  ""@en , "적분 시간 (Ti)"@ko-KR ;
+        IFC4-PSD:ifdguid          "f236bd00d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SignalTimeIncrease" ;
+        IFC4-PSD:nameAlias        "적분 시간 (Ti)"@ko-KR , "Signal Time Increase"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:Value  a                   rdf:Property ;
+        rdfs:seeAlso        :pda5f3900d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Value .
+
+:SignalTimeDecrease  a      rdf:Property ;
+        rdfs:seeAlso        :pf7940780d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SignalTimeDecrease .
+
+:SignalTimeIncrease  a      rdf:Property ;
+        rdfs:seeAlso        :pf236bd00d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SignalTimeIncrease .
+
+:Pset_ControllerTypeProportional
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for signal handling for an proportional controller taking setpoint and feedback inputs and creating a single valued output. HISTORY: In IFC4, SignalFactor1, SignalFactor2 and SignalFactor3 changed to ProportionalConstant, IntegralConstant and DerivativeConstant.  SignalTime1 and SignalTime2 changed to SignalTimeIncrease and SignalTimeDecrease." ;
+        rdfs:label                    "Pset_ControllerTypeProportional" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/PROPORTIONAL> ;
+        IFC4-PSD:applicableTypeValue  "IfcController/PROPORTIONAL" ;
+        IFC4-PSD:definition           "Properties for signal handling for an proportional controller taking setpoint and feedback inputs and creating a single valued output. HISTORY: In IFC4, SignalFactor1, SignalFactor2 and SignalFactor3 changed to ProportionalConstant, IntegralConstant and DerivativeConstant.  SignalTime1 and SignalTime2 changed to SignalTimeIncrease and SignalTimeDecrease." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ControllerTypeProportional" ;
+        IFC4-PSD:propertyDef          :pcc111d00d1cd11e1800000215ad4efdf , :pe1864700d1cd11e1800000215ad4efdf , :pbd2a6a80d1cd11e1800000215ad4efdf , :pf236bd00d1cd11e1800000215ad4efdf , :pd4695800d1cd11e1800000215ad4efdf , :pda5f3900d1cd11e1800000215ad4efdf , :pf7940780d1cd11e1800000215ad4efdf , :peba84580d1cd11e1800000215ad4efdf , :pe6e39180d1cd11e1800000215ad4efdf .
+
+:IntegralConstant  a        rdf:Property ;
+        rdfs:seeAlso        :pe6e39180d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IntegralConstant .
+
+:ProportionalConstant
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe1864700d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProportionalConstant .
+
+:pd4695800d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical range of values." ;
+        rdfs:label                "Range" ;
+        IFC4-PSD:definition       "The physical range of values." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d4695800d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Range" ;
+        IFC4-PSD:nameAlias        "Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:Range  a                   rdf:Property ;
+        rdfs:seeAlso        :pd4695800d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Range .
+
+:pf7940780d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Time factor used for exponential decrease." ;
+        rdfs:label                "SignalTimeDecrease" ;
+        IFC4-PSD:definition       "Time factor used for exponential decrease." ;
+        IFC4-PSD:definitionAlias  "미분 시간 (Td)"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "f7940780d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SignalTimeDecrease" ;
+        IFC4-PSD:nameAlias        "미분 시간 (Td)"@ko-KR , "Signal Time Decrease"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .

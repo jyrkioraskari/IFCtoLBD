@@ -1,0 +1,220 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeAirParticleFilter#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FaceSurfaceArea  a         rdf:Property ;
+        rdfs:seeAlso        :p79435f80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaceSurfaceArea .
+
+:CountedEfficiencyCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9a0bb500d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CountedEfficiencyCurve .
+
+:p8a8c6c00d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal filter efficiency based the particle weight concentration before and after the filter against particles with a certain size distribution." ;
+        rdfs:label                "NominalWeightedEfficiency" ;
+        IFC4-PSD:definition       "Nominal filter efficiency based the particle weight concentration before and after the filter against particles with a certain size distribution." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8a8c6c00d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWeightedEfficiency" ;
+        IFC4-PSD:nameAlias        "Nominal Weighted Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p852f2180d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal filter efficiency based the particle count concentration before and after the filter against particles with a certain size distribution." ;
+        rdfs:label                "NominalCountedEfficiency" ;
+        IFC4-PSD:definition       "Nominal filter efficiency based the particle count concentration before and after the filter against particles with a certain size distribution." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "852f2180d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCountedEfficiency" ;
+        IFC4-PSD:nameAlias        "Nominal Counted Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FilterTypeAirParticleFilter>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:DustHoldingCapacity  a     rdf:Property ;
+        rdfs:seeAlso        :p747eab80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DustHoldingCapacity .
+
+:pa5f77700d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Weighted efficiency curve as a function of dust holding weight, efficiency = f (dust holding weight)." ;
+        rdfs:label                "WeightedEfficiencyCurve" ;
+        IFC4-PSD:definition       "Weighted efficiency curve as a function of dust holding weight, efficiency = f (dust holding weight)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a5f77700d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WeightedEfficiencyCurve" ;
+        IFC4-PSD:nameAlias        "Weighted Efficiency Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcMassMeasure
+                                  ] .
+
+:WeightedEfficiencyCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa5f77700d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WeightedEfficiencyCurve .
+
+:NominalCountedEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p852f2180d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCountedEfficiency .
+
+:PressureDropCurve  a       rdf:Property ;
+        rdfs:seeAlso        :p8fe9b680d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureDropCurve .
+
+:p8fe9b680d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Under certain dust holding weight, DelPressure = f (fluidflowRate)" ;
+        rdfs:label                "PressureDropCurve" ;
+        IFC4-PSD:definition       "Under certain dust holding weight, DelPressure = f (fluidflowRate)" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8fe9b680d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureDropCurve" ;
+        IFC4-PSD:nameAlias        "Pressure Drop Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:FrameMaterial  a           rdf:Property ;
+        rdfs:seeAlso        :p63359f00d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrameMaterial .
+
+:SeparationType  a          rdf:Property ;
+        rdfs:seeAlso        :p66308f80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SeparationType .
+
+:p747eab80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum filter dust holding capacity." ;
+        rdfs:label                "DustHoldingCapacity" ;
+        IFC4-PSD:definition       "Maximum filter dust holding capacity." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "747eab80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DustHoldingCapacity" ;
+        IFC4-PSD:nameAlias        "Dust Holding Capacity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:NominalWeightedEfficiency
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8a8c6c00d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWeightedEfficiency .
+
+:p7fd1d700d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total extended media area." ;
+        rdfs:label                "MediaExtendedArea" ;
+        IFC4-PSD:definition       "Total extended media area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7fd1d700d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MediaExtendedArea" ;
+        IFC4-PSD:nameAlias        "Media Extended Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p4731fd80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A panel dry type extended surface filter is a dry-type air filter with random fiber mats or blankets in the forms of pockets, V-shaped or radial pleats, and include the following:\n\nCoarseFilter: Filter with a efficiency lower than 30% for atmosphere dust-spot.\nCoarseMetalScreen: Filter made of metal screen.\nCoarseCellFoams: Filter made of cell foams.\nCoarseSpunGlass: Filter made of spun glass.\nMediumFilter: Filter with an efficiency between 30-98% for atmosphere dust-spot.\nMediumElectretFilter: Filter with fine electret synthetic fibers.\nMediumNaturalFiberFilter: Filter with natural fibers.\nHEPAFilter: High efficiency particulate air filter.\nULPAFilter: Ultra low penetration air filter.\nMembraneFilters: Filter made of membrane for certain pore diameters in flat sheet and pleated form.\nA renewable media with a moving curtain viscous filter are random-fiber media coated with viscous substance in roll form or curtain where fresh media is fed across the face of the filter and the dirty media is rewound onto a roll at the bottom or to into a reservoir:\nRollForm: Viscous filter used in roll form.\nAdhesiveReservoir: Viscous filter used in moving curtain form.\nA renewable moving curtain dry media filter is a random-fiber dry media of relatively high porosity used in moving-curtain(roll) filters.\nAn electrical filter uses electrostatic precipitation to remove and collect particulate contaminants." ;
+        rdfs:label                "AirParticleFilterType" ;
+        IFC4-PSD:definition       "A panel dry type extended surface filter is a dry-type air filter with random fiber mats or blankets in the forms of pockets, V-shaped or radial pleats, and include the following:\n\nCoarseFilter: Filter with a efficiency lower than 30% for atmosphere dust-spot.\nCoarseMetalScreen: Filter made of metal screen.\nCoarseCellFoams: Filter made of cell foams.\nCoarseSpunGlass: Filter made of spun glass.\nMediumFilter: Filter with an efficiency between 30-98% for atmosphere dust-spot.\nMediumElectretFilter: Filter with fine electret synthetic fibers.\nMediumNaturalFiberFilter: Filter with natural fibers.\nHEPAFilter: High efficiency particulate air filter.\nULPAFilter: Ultra low penetration air filter.\nMembraneFilters: Filter made of membrane for certain pore diameters in flat sheet and pleated form.\nA renewable media with a moving curtain viscous filter are random-fiber media coated with viscous substance in roll form or curtain where fresh media is fed across the face of the filter and the dirty media is rewound onto a roll at the bottom or to into a reservoir:\nRollForm: Viscous filter used in roll form.\nAdhesiveReservoir: Viscous filter used in moving curtain form.\nA renewable moving curtain dry media filter is a random-fiber dry media of relatively high porosity used in moving-curtain(roll) filters.\nAn electrical filter uses electrostatic precipitation to remove and collect particulate contaminants." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4731fd80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirParticleFilterType" ;
+        IFC4-PSD:nameAlias        "Air Particle Filter Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OTHER" , "COARSECELLFOAMS" , "ULPAFILTER" , "ROLLFORM" , "COARSEMETALSCREEN" , "NOTKNOWN" , "MEMBRANEFILTERS" , "UNSET" , "HEPAFILTER" , "RENEWABLEMOVINGCURTIANDRYMEDIAFILTER" , "ADHESIVERESERVOIR" , "ELECTRICALFILTER" , "MEDIUMNATURALFIBERFILTER" , "COARSESPUNGLASS" , "MEDIUMELECTRETFILTER"
+                                  ] .
+
+:p79435f80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Face area of filter frame." ;
+        rdfs:label                "FaceSurfaceArea" ;
+        IFC4-PSD:definition       "Face area of filter frame." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "79435f80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaceSurfaceArea" ;
+        IFC4-PSD:nameAlias        "Face Surface Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:Pset_FilterTypeAirParticleFilter
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air particle filter type attributes." ;
+        rdfs:label                    "Pset_FilterTypeAirParticleFilter" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFilter/AIRPARTICLEFILTER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFilter/AIRPARTICLEFILTER" ;
+        IFC4-PSD:definition           "Air particle filter type attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FilterTypeAirParticleFilter" ;
+        IFC4-PSD:propertyDef          :p7fd1d700d1e511e1800000215ad4efdf , :p8fe9b680d1e511e1800000215ad4efdf , :p4731fd80d1e511e1800000215ad4efdf , :pa5f77700d1e511e1800000215ad4efdf , :p79435f80d1e511e1800000215ad4efdf , :p747eab80d1e511e1800000215ad4efdf , :p66308f80d1e511e1800000215ad4efdf , :p9a0bb500d1e511e1800000215ad4efdf , :p63359f00d1e511e1800000215ad4efdf , :p8a8c6c00d1e511e1800000215ad4efdf , :p852f2180d1e511e1800000215ad4efdf .
+
+:AirParticleFilterType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4731fd80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirParticleFilterType .
+
+:MediaExtendedArea  a       rdf:Property ;
+        rdfs:seeAlso        :p7fd1d700d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MediaExtendedArea .
+
+:p63359f00d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Filter frame material." ;
+        rdfs:label                "FrameMaterial" ;
+        IFC4-PSD:definition       "Filter frame material." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "63359f00d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrameMaterial" ;
+        IFC4-PSD:nameAlias        "Frame Material"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:p9a0bb500d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Counted efficiency curve as a function of dust holding weight, efficiency = f (dust holding weight)." ;
+        rdfs:label                "CountedEfficiencyCurve" ;
+        IFC4-PSD:definition       "Counted efficiency curve as a function of dust holding weight, efficiency = f (dust holding weight)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "9a0bb500d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CountedEfficiencyCurve" ;
+        IFC4-PSD:nameAlias        "Counted Efficiency Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcMassMeasure
+                                  ] .
+
+:p66308f80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air particulate filter media separation type." ;
+        rdfs:label                "SeparationType" ;
+        IFC4-PSD:definition       "Air particulate filter media separation type." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "66308f80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SeparationType" ;
+        IFC4-PSD:nameAlias        "Separation Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BAG" , "PLEAT" , "TREADSEPARATION" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

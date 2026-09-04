@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SoundAttenuation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SoundPressure  a           rdf:Property ;
+        rdfs:seeAlso        :p858ce400d20811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SoundPressure .
+
+:p858ce400d20811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A time series of sound pressure values measured in decibels at a reference pressure of 20 microPascals for the referenced octave band frequency.  Each value in IfcTimeSeries.ListValues is correlated to the sound frequency at the same position within SoundFrequencies." ;
+        rdfs:label                "SoundPressure" ;
+        IFC4-PSD:definition       "A time series of sound pressure values measured in decibels at a reference pressure of 20 microPascals for the referenced octave band frequency.  Each value in IfcTimeSeries.ListValues is correlated to the sound frequency at the same position within SoundFrequencies." ;
+        IFC4-PSD:definitionAlias  ""@en , "시계열의 음압 단위는 dB. 옥타브 밴드 소리의 강도 20mPa을 기준한다. IfcTimeSeries에 나열된 각 값은 같은 장소에서 같은 주파수 번트에서 온도의 주파수와 관련."@ko-KR , "時系列の音圧、単位はデシベル。オクターブバンドの音の強さ20mPaを基準する。IfcTimeSeriesにリストされた各値は同じ場所で、同じ周波数バントでの温の周波数と関連する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "858ce400d20811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SoundPressure" ;
+        IFC4-PSD:nameAlias        "音圧"@ja-JP , "음압"@ko-KR , "Sound Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SoundScale  a              rdf:Property ;
+        rdfs:seeAlso        :p7443d780d20811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SoundScale .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SoundAttenuation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p80c83000d20811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "List of nominal sound frequencies, correlated to the SoundPressure time series values (IfcTimeSeries.ListValues)" ;
+        rdfs:label                "SoundFrequency" ;
+        IFC4-PSD:definition       "List of nominal sound frequencies, correlated to the SoundPressure time series values (IfcTimeSeries.ListValues)" ;
+        IFC4-PSD:definitionAlias  ""@en , "대표적인 주파수 목록 시계열 소리 圧値과 관련된다. (IfcTimeSeries에 나열된 값)"@ko-KR , "代表的な周波数リスト、時系列音圧値と関連する。（IfcTimeSeriesにリストされた値）"@ja-JP ;
+        IFC4-PSD:ifdguid          "80c83000d20811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SoundFrequency" ;
+        IFC4-PSD:nameAlias        "Sound Frequency"@en , "音の周波数"@ja-JP , "소리의 주파수"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:Pset_SoundAttenuation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common definition to capture sound pressure at a point on behalf of a device typically used within the context of building services and flow distribution systems.   To indicate sound values from an instance of IfcDistributionFlowElement at a particular location, IfcAnnotation instance(s) should be assigned to the IfcDistributionFlowElement through the IfcRelAssignsToProduct relationship. The IfcAnnotation should specify ObjectType of 'Sound' and geometric representation of 'Annotation Point' consisting of a single IfcPoint subtype as described at IfcAnnotation.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
+        rdfs:label                    "Pset_SoundAttenuation" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAnnotation/SOUND> ;
+        IFC4-PSD:applicableTypeValue  "IfcAnnotation/SOUND" ;
+        IFC4-PSD:definition           "Common definition to capture sound pressure at a point on behalf of a device typically used within the context of building services and flow distribution systems.   To indicate sound values from an instance of IfcDistributionFlowElement at a particular location, IfcAnnotation instance(s) should be assigned to the IfcDistributionFlowElement through the IfcRelAssignsToProduct relationship. The IfcAnnotation should specify ObjectType of 'Sound' and geometric representation of 'Annotation Point' consisting of a single IfcPoint subtype as described at IfcAnnotation.  This property set is instantiated multiple times on an object for each frequency band.  HISTORY: New property set in IFC Release 2x4." ;
+        IFC4-PSD:definitionAlias      "建物管理・空気の搬送システムに関連する設備の音圧の性能指標。特定位置からあるIfcDistributionFlowElement設備の音性能値を表すために、IfcRelAssignsToProduct を通してIfcDistributionFlowElementに IfcAnnotation注釈属性値を付ける。 IfcAnnotation属性値は音の種別（ObjectType） と幾何的な代表位置注釈ポイントで構成され、注釈ポイントは IfcAnnotation注釈を入れたIfcPoint一点とする。このPsetは周波数バンド（帯域幅）１HZにおけるある音の強さの倍数で表示する。履歴：IFC２ｘ４に新たに定義された。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SoundAttenuation" ;
+        IFC4-PSD:propertyDef          :p858ce400d20811e1800000215ad4efdf , :p7443d780d20811e1800000215ad4efdf , :p80c83000d20811e1800000215ad4efdf .
+
+:SoundFrequency  a          rdf:Property ;
+        rdfs:seeAlso        :p80c83000d20811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SoundFrequency .
+
+:p7443d780d20811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The reference sound scale.  \n\nDBA: Decibels in an A-weighted scale\nDBB: Decibels in an B-weighted scale\nDBC: Decibels in an C-weighted scale\nNC: Noise criteria\nNR: Noise rating" ;
+        rdfs:label                "SoundScale" ;
+        IFC4-PSD:definition       "The reference sound scale.  \n\nDBA: Decibels in an A-weighted scale\nDBB: Decibels in an B-weighted scale\nDBC: Decibels in an C-weighted scale\nNC: Noise criteria\nNR: Noise rating" ;
+        IFC4-PSD:definitionAlias  ""@en , "소음 단위. DBA : dB (A) DBB : dB (B) DBC : dB (C) NC : 소음 기준 NR : 소음 평가"@ko-KR , "騒音の単位：\n\n- DBA: dB(A)\n- DBB: dB(B)\n- DBC:dB(C)\n- NC:騒音基準\n- NR:騒音評価"@ja-JP ;
+        IFC4-PSD:ifdguid          "7443d780d20811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SoundScale" ;
+        IFC4-PSD:nameAlias        "騒音の単位"@ja-JP , "소음단위"@ko-KR , "Sound Scale"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DBA" , "DBB" , "DBC" , "NC" , "NR"
+                                  ] .

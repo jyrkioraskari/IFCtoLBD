@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_VibrationIsolatorTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p9132d780d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Height of the vibration isolator before the application of load." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "Height of the vibration isolator before the application of load." ;
+        IFC4-PSD:definitionAlias  ""@en , "負荷を掛ける前の振動絶縁材の高さ"@ja-JP ;
+        IFC4-PSD:ifdguid          "9132d780d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "高さ"@ja-JP , "Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:IsolatorCompressibility
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8b3cf680d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsolatorCompressibility .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p1a989eee042c4402833bb2453e382388 ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p998b1280d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The maximum weight that can be carried by the vibration isolator." ;
+        rdfs:label                "MaximumSupportedWeight" ;
+        IFC4-PSD:definition       "The maximum weight that can be carried by the vibration isolator." ;
+        IFC4-PSD:definitionAlias  ""@en , "振動絶縁材で支えられる最高重量"@ja-JP ;
+        IFC4-PSD:ifdguid          "998b1280d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaximumSupportedWeight" ;
+        IFC4-PSD:nameAlias        "Maximum Supported Weight"@en , "最高支持重量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:p1a989eee042c4402833bb2453e382388
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "1a989eee042c4402833bb2453e382388" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_VibrationIsolatorTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:MaximumSupportedWeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p998b1280d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumSupportedWeight .
+
+:Pset_VibrationIsolatorTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Vibration isolator type common attributes." ;
+        rdfs:label                    "Pset_VibrationIsolatorTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcVibrationIsolator ;
+        IFC4-PSD:applicableTypeValue  "IfcVibrationIsolator" ;
+        IFC4-PSD:definition           "Vibration isolator type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "振動絶縁体の共通属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_VibrationIsolatorTypeCommon" ;
+        IFC4-PSD:propertyDef          :p795b5380d21511e1800000215ad4efdf , :p7f513480d21511e1800000215ad4efdf , :p998b1280d21511e1800000215ad4efdf , :p9132d780d21511e1800000215ad4efdf , :p1a989eee042c4402833bb2453e382388 , :p85dfac00d21511e1800000215ad4efdf , :p8b3cf680d21511e1800000215ad4efdf .
+
+:p7f513480d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The vibration transmissibility percentage." ;
+        rdfs:label                "VibrationTransmissibility" ;
+        IFC4-PSD:definition       "The vibration transmissibility percentage." ;
+        IFC4-PSD:definitionAlias  ""@en , "振動伝達割合"@ja-JP ;
+        IFC4-PSD:ifdguid          "7f513480d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VibrationTransmissibility" ;
+        IFC4-PSD:nameAlias        "振動伝達"@ja-JP , "Vibration Transmissibility"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p8b3cf680d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The compressibility of the vibration isolator." ;
+        rdfs:label                "IsolatorCompressibility" ;
+        IFC4-PSD:definition       "The compressibility of the vibration isolator." ;
+        IFC4-PSD:definitionAlias  ""@en , "振動絶縁材の圧縮率の圧縮率"@ja-JP ;
+        IFC4-PSD:ifdguid          "8b3cf680d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsolatorCompressibility" ;
+        IFC4-PSD:nameAlias        "振動絶縁材の圧縮率"@ja-JP , "Isolator Compressibility"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p9132d780d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:VibrationTransmissibility
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7f513480d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VibrationTransmissibility .
+
+:p85dfac00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Static deflection of the vibration isolator." ;
+        rdfs:label                "IsolatorStaticDeflection" ;
+        IFC4-PSD:definition       "Static deflection of the vibration isolator." ;
+        IFC4-PSD:definitionAlias  ""@en , "振動絶縁材の静的たわみ"@ja-JP ;
+        IFC4-PSD:ifdguid          "85dfac00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsolatorStaticDeflection" ;
+        IFC4-PSD:nameAlias        "振動絶縁材静的たわみ"@ja-JP , "Isolator Static Deflection"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p795b5380d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p795b5380d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "795b5380d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:IsolatorStaticDeflection
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p85dfac00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsolatorStaticDeflection .

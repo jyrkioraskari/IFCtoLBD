@@ -1,0 +1,133 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryColumnShoe#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p2613e180d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the column shoe base plate." ;
+        rdfs:label                "ColumnShoeBasePlateThickness" ;
+        IFC4-PSD:definition       "The thickness of the column shoe base plate." ;
+        IFC4-PSD:definitionAlias  "柱脚ベースプレートの板厚。"@ja-JP , "기둥 다리베이스 플레이트의 두께"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "2613e180d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeBasePlateThickness" ;
+        IFC4-PSD:nameAlias        "베이스 플레이트 두께"@ko-KR , "Column Shoe Base Plate Thickness"@en , "ベースプレート厚"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DiscreteAccessoryColumnShoe
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shape properties common to column shoes." ;
+        rdfs:label                    "Pset_DiscreteAccessoryColumnShoe" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/SHOE> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/SHOE" ;
+        IFC4-PSD:definition           "Shape properties common to column shoes." ;
+        IFC4-PSD:definitionAlias      "柱脚の共通形状特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryColumnShoe" ;
+        IFC4-PSD:propertyDef          :p30ce7680d1d211e1800000215ad4efdf , :p362bc100d1d211e1800000215ad4efdf , :p2c09c280d1d211e1800000215ad4efdf , :p2613e180d1d211e1800000215ad4efdf , :p404dbf80d1d211e1800000215ad4efdf , :p3af07500d1d211e1800000215ad4efdf .
+
+:ColumnShoeCasingHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p362bc100d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeCasingHeight .
+
+:p3af07500d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the column shoe casing." ;
+        rdfs:label                "ColumnShoeCasingWidth" ;
+        IFC4-PSD:definition       "The width of the column shoe casing." ;
+        IFC4-PSD:definitionAlias  "기둥 다리 케이스의 폭"@ko-KR , ""@en , "柱脚ケーシングの幅。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3af07500d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeCasingWidth" ;
+        IFC4-PSD:nameAlias        "케이스 폭"@ko-KR , "Column Shoe Casing Width"@en , "ケーシング幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p30ce7680d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The depth of the column shoe base plate." ;
+        rdfs:label                "ColumnShoeBasePlateDepth" ;
+        IFC4-PSD:definition       "The depth of the column shoe base plate." ;
+        IFC4-PSD:definitionAlias  "기둥 다리 받침판 구성"@ko-KR , ""@en , "柱脚ベースプレートの成。"@ja-JP ;
+        IFC4-PSD:ifdguid          "30ce7680d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeBasePlateDepth" ;
+        IFC4-PSD:nameAlias        "Column Shoe Base Plate Depth"@en , "베이스 플레이트 구성"@ko-KR , "ベースプレート成"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p2c09c280d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the column shoe base plate." ;
+        rdfs:label                "ColumnShoeBasePlateWidth" ;
+        IFC4-PSD:definition       "The width of the column shoe base plate." ;
+        IFC4-PSD:definitionAlias  "柱脚ベースプレートの幅。"@ja-JP , ""@en , "기둥 다리 받침판 폭"@ko-KR ;
+        IFC4-PSD:ifdguid          "2c09c280d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeBasePlateWidth" ;
+        IFC4-PSD:nameAlias        "ベースプレート幅"@ja-JP , "베이스 플레이트 폭"@ko-KR , "Column Shoe Base Plate Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ColumnShoeCasingWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3af07500d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeCasingWidth .
+
+:ColumnShoeCasingDepth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p404dbf80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeCasingDepth .
+
+:ColumnShoeBasePlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2613e180d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeBasePlateThickness .
+
+:p362bc100d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The height of the column shoe casing." ;
+        rdfs:label                "ColumnShoeCasingHeight" ;
+        IFC4-PSD:definition       "The height of the column shoe casing." ;
+        IFC4-PSD:definitionAlias  "기둥 다리 케이스의 두께"@ko-KR , ""@en , "柱脚ケーシングの板厚。"@ja-JP ;
+        IFC4-PSD:ifdguid          "362bc100d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeCasingHeight" ;
+        IFC4-PSD:nameAlias        "케이스 두께"@ko-KR , "ケーシング厚"@ja-JP , "Column Shoe Casing Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ColumnShoeBasePlateWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2c09c280d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeBasePlateWidth .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryColumnShoe>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ColumnShoeBasePlateDepth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p30ce7680d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ColumnShoeBasePlateDepth .
+
+:p404dbf80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The depth of the column shoe casing." ;
+        rdfs:label                "ColumnShoeCasingDepth" ;
+        IFC4-PSD:definition       "The depth of the column shoe casing." ;
+        IFC4-PSD:definitionAlias  "기둥 다리 케이스의 구성"@ko-KR , ""@en , "柱脚ケーシングの成。"@ja-JP ;
+        IFC4-PSD:ifdguid          "404dbf80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ColumnShoeCasingDepth" ;
+        IFC4-PSD:nameAlias        "ケーシング成"@ja-JP , "Column Shoe Casing Depth"@en , "케이스 구성"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

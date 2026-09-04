@@ -1,0 +1,253 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalDesign#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:TotalHeatLoss  a           rdf:Property ;
+        rdfs:seeAlso        :p31373380d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatLoss .
+
+:HeatingDryBulb  a          rdf:Property ;
+        rdfs:seeAlso        :p43b16d00d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingDryBulb .
+
+:p3dbb8c00d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Inside relative humidity for cooling design." ;
+        rdfs:label                "CoolingRelativeHumidity" ;
+        IFC4-PSD:definition       "Inside relative humidity for cooling design." ;
+        IFC4-PSD:definitionAlias  ""@en , "냉방 설계의 실내 디자인 상대 습도."@ko-KR , "冷房設計における室内設計相対湿度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3dbb8c00d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingRelativeHumidity" ;
+        IFC4-PSD:nameAlias        "冷房設計相対湿度"@ja-JP , "Cooling Relative Humidity"@en , "냉방 설계 상대습도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:HeatingRelativeHumidity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p490eb780d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingRelativeHumidity .
+
+:p43b16d00d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Inside dry bulb temperature for heating design." ;
+        rdfs:label                "HeatingDryBulb" ;
+        IFC4-PSD:definition       "Inside dry bulb temperature for heating design." ;
+        IFC4-PSD:definitionAlias  ""@en , "暖房設計における室内設計乾球温度。"@ja-JP , "난방 설계의 실내 디자인 건구 온도"@ko-KR ;
+        IFC4-PSD:ifdguid          "43b16d00d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingDryBulb" ;
+        IFC4-PSD:nameAlias        "난방 설계온도"@ko-KR , "Heating Dry Bulb"@en , "暖房設計温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p4f9d2f00d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ventilation outside air requirement for the space." ;
+        rdfs:label                "VentilationAirFlowrate" ;
+        IFC4-PSD:definition       "Ventilation outside air requirement for the space." ;
+        IFC4-PSD:definitionAlias  "必要外気量。"@ja-JP , "필요 외기 량."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "4f9d2f00d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VentilationAirFlowrate" ;
+        IFC4-PSD:nameAlias        "Ventilation Air Flowrate"@en , "외기량"@ko-KR , "外気量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p490eb780d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Inside relative humidity for heating design." ;
+        rdfs:label                "HeatingRelativeHumidity" ;
+        IFC4-PSD:definition       "Inside relative humidity for heating design." ;
+        IFC4-PSD:definitionAlias  ""@en , "난방 설계의 실내 디자인 상대 습도."@ko-KR , "暖房設計における室内設計相対湿度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "490eb780d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingRelativeHumidity" ;
+        IFC4-PSD:nameAlias        "暖房設計相対湿度"@ja-JP , "난방 설계 상대습도"@ko-KR , "Heating Relative Humidity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:VentilationAirFlowrate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4f9d2f00d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VentilationAirFlowrate .
+
+:p19f84600d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The air flowrate required during the peak cooling conditions." ;
+        rdfs:label                "CoolingDesignAirflow" ;
+        IFC4-PSD:definition       "The air flowrate required during the peak cooling conditions." ;
+        IFC4-PSD:definitionAlias  ""@en , "ピーク時の冷房条件で要求される給気量。"@ja-JP ;
+        IFC4-PSD:ifdguid          "19f84600d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingDesignAirflow" ;
+        IFC4-PSD:nameAlias        "Cooling Design Airflow"@en , "冷房設計吸気量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:BoundaryAreaHeatLoss
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p617ed200d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BoundaryAreaHeatLoss .
+
+:HeatingDesignAirflow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1fee2700d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatingDesignAirflow .
+
+:CoolingDryBulb  a          rdf:Property ;
+        rdfs:seeAlso        :p385e4180d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingDryBulb .
+
+:p2c727f80d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total amount of heat or energy gained by the space at the time of the space's peak cooling conditions." ;
+        rdfs:label                "TotalHeatGain" ;
+        IFC4-PSD:definition       "The total amount of heat or energy gained by the space at the time of the space's peak cooling conditions." ;
+        IFC4-PSD:definitionAlias  "최대의 실내 최대 냉방 부하 취득한 현열 또는 에너지."@ko-KR , "ピーク時の室内最大冷房負荷時に取得した顕熱或いはエネルギー。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2c727f80d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatGain" ;
+        IFC4-PSD:nameAlias        "연 인수 금액"@ko-KR , "熱取得の合計"@ja-JP , "Total Heat Gain"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:TotalHeatGain  a           rdf:Property ;
+        rdfs:seeAlso        :p2c727f80d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatGain .
+
+:p25e40800d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total sensible heat or energy gained by the space during the peak cooling conditions." ;
+        rdfs:label                "TotalSensibleHeatGain" ;
+        IFC4-PSD:definition       "The total sensible heat or energy gained by the space during the peak cooling conditions." ;
+        IFC4-PSD:definitionAlias  "피크 냉방 조건에서 얻은 현열 또는 에너지."@ko-KR , "ピーク時の冷房条件で取得した顕熱或いはエネルギー。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "25e40800d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalSensibleHeatGain" ;
+        IFC4-PSD:nameAlias        "현열 부하의 합계"@ko-KR , "Total Sensible Heat Gain"@en , "顕熱負荷の合計"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p385e4180d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Inside dry bulb temperature for cooling design." ;
+        rdfs:label                "CoolingDryBulb" ;
+        IFC4-PSD:definition       "Inside dry bulb temperature for cooling design." ;
+        IFC4-PSD:definitionAlias  ""@en , "冷房設計における室内設計乾球温度。"@ja-JP , "냉방 설계의 실내 디자인 건구 온도"@ko-KR ;
+        IFC4-PSD:ifdguid          "385e4180d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoolingDryBulb" ;
+        IFC4-PSD:nameAlias        "냉방 설계온도"@ko-KR , "冷房設計温度"@ja-JP , "Cooling Dry Bulb"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceThermalDesign>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:CeilingRAPlenum  a         rdf:Property ;
+        rdfs:seeAlso        :p5a57c400d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CeilingRAPlenum .
+
+:p617ed200d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat loss per unit area for the boundary object. This is a design input value for use in the absence of calculated load data." ;
+        rdfs:label                "BoundaryAreaHeatLoss" ;
+        IFC4-PSD:definition       "Heat loss per unit area for the boundary object. This is a design input value for use in the absence of calculated load data." ;
+        IFC4-PSD:definitionAlias  ""@en , "단위 면적이 주변 관련 설비의 열 손실. 공조 부하 계산 이외의 디자인 설정."@ko-KR , "単位面積ありた周辺関連設備の熱ロス。空調負荷計算値以外の設計設定値。"@ja-JP ;
+        IFC4-PSD:ifdguid          "617ed200d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BoundaryAreaHeatLoss" ;
+        IFC4-PSD:nameAlias        "주변 관련 설비의 열 손실"@ko-KR , "周辺関連設備の熱ロス"@ja-JP , "Boundary Area Heat Loss"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcHeatFluxDensityMeasure
+                                  ] .
+
+:Pset_SpaceThermalDesign
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Space or zone HVAC design requirements. HISTORY: New property set in IFC Release 1.0 (Pset_SpaceHvacInformation); renamed to Pset_SpaceThermalDesign and revised in IFC2x2." ;
+        rdfs:label                    "Pset_SpaceThermalDesign" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpace ;
+        IFC4-PSD:applicableTypeValue  "IfcSpace" ;
+        IFC4-PSD:definition           "Space or zone HVAC design requirements. HISTORY: New property set in IFC Release 1.0 (Pset_SpaceHvacInformation); renamed to Pset_SpaceThermalDesign and revised in IFC2x2." ;
+        IFC4-PSD:definitionAlias      "室内或いはゾーンの空調設計要求。履歴：IFC1.0の新PropertySet（Pset_SpaceHvacInformation)、：IFC2ｘ２にPset_SpaceThermalDesignと再定義された。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceThermalDesign" ;
+        IFC4-PSD:propertyDef          :p617ed200d20b11e1800000215ad4efdf , :p19f84600d20b11e1800000215ad4efdf , :p385e4180d20b11e1800000215ad4efdf , :p54fa7980d20b11e1800000215ad4efdf , :p1fee2700d20b11e1800000215ad4efdf , :p25e40800d20b11e1800000215ad4efdf , :p3dbb8c00d20b11e1800000215ad4efdf , :p4f9d2f00d20b11e1800000215ad4efdf , :p5a57c400d20b11e1800000215ad4efdf , :p31373380d20b11e1800000215ad4efdf , :p490eb780d20b11e1800000215ad4efdf , :p2c727f80d20b11e1800000215ad4efdf , :p43b16d00d20b11e1800000215ad4efdf .
+
+:p54fa7980d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Design exhaust air flow rate for the space." ;
+        rdfs:label                "ExhaustAirFlowrate" ;
+        IFC4-PSD:definition       "Design exhaust air flow rate for the space." ;
+        IFC4-PSD:definitionAlias  "設計排気量。"@ja-JP , "설계 배기량."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "54fa7980d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ExhaustAirFlowrate" ;
+        IFC4-PSD:nameAlias        "Exhaust Air Flowrate"@en , "排気量"@ja-JP , "배기량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:TotalSensibleHeatGain
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p25e40800d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalSensibleHeatGain .
+
+:ExhaustAirFlowrate  a      rdf:Property ;
+        rdfs:seeAlso        :p54fa7980d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ExhaustAirFlowrate .
+
+:CoolingRelativeHumidity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3dbb8c00d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingRelativeHumidity .
+
+:p1fee2700d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The air flowrate required during the peak heating conditions, but could also be determined by minimum ventilation requirement or minimum air change requirements." ;
+        rdfs:label                "HeatingDesignAirflow" ;
+        IFC4-PSD:definition       "The air flowrate required during the peak heating conditions, but could also be determined by minimum ventilation requirement or minimum air change requirements." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1fee2700d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatingDesignAirflow" ;
+        IFC4-PSD:nameAlias        "Heating Design Airflow"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:CoolingDesignAirflow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p19f84600d20b11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoolingDesignAirflow .
+
+:p5a57c400d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ceiling plenum used for return air or not. TRUE = Yes, FALSE = No." ;
+        rdfs:label                "CeilingRAPlenum" ;
+        IFC4-PSD:definition       "Ceiling plenum used for return air or not. TRUE = Yes, FALSE = No." ;
+        IFC4-PSD:definitionAlias  "천장 환 기 (리탄있어 · 없음) TRUE = 있고 FALSE = 없음."@ko-KR , ""@en , "天井裏還気（リタンあり・なし）　TRUE=あり、FALSE=なし。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5a57c400d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CeilingRAPlenum" ;
+        IFC4-PSD:nameAlias        "Ceiling RAPlenum"@en , "天井裏還気"@ja-JP , "천장환원주의"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p31373380d20b11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total amount of heat or energy lost by the space at the time of the space's peak heating conditions." ;
+        rdfs:label                "TotalHeatLoss" ;
+        IFC4-PSD:definition       "The total amount of heat or energy lost by the space at the time of the space's peak heating conditions." ;
+        IFC4-PSD:definitionAlias  ""@en , "최대의 실내 최대 난방 부하에 취득 · 손실 열 또는 에너지."@ko-KR , "ピーク時の室内最大暖房負荷時に取得・損失した熱或いはエネルギー。"@ja-JP ;
+        IFC4-PSD:ifdguid          "31373380d20b11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatLoss" ;
+        IFC4-PSD:nameAlias        "Total Heat Loss"@en , "열 손실 합계"@ko-KR , "熱ロスの合計"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .

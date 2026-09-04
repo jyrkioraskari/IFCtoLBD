@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeChair#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:LowestSeatingHeight  a     rdf:Property ;
+        rdfs:seeAlso        :pe0164800d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LowestSeatingHeight .
+
+:pcaa11e00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The value of seating height if the chair height is not adjustable." ;
+        rdfs:label                "SeatingHeight" ;
+        IFC4-PSD:definition       "The value of seating height if the chair height is not adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "caa11e00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SeatingHeight" ;
+        IFC4-PSD:nameAlias        "Seating Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pe0164800d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The value of seating height of low level if the chair height is adjustable." ;
+        rdfs:label                "LowestSeatingHeight" ;
+        IFC4-PSD:definition       "The value of seating height of low level if the chair height is adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e0164800d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LowestSeatingHeight" ;
+        IFC4-PSD:nameAlias        "Lowest Seating Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:HighestSeatingHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd096ff00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HighestSeatingHeight .
+
+:Pset_FurnitureTypeChair
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of specific properties for furniture type chair. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Chair" ;
+        rdfs:label                    "Pset_FurnitureTypeChair" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFurniture/CHAIR> ;
+        IFC4-PSD:applicableTypeValue  "IfcFurniture/CHAIR" ;
+        IFC4-PSD:definition           "A set of specific properties for furniture type chair. HISTORY: First issued in IFC Release R1.5. Renamed from Pset_Chair" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FurnitureTypeChair" ;
+        IFC4-PSD:propertyDef          :pe0164800d1e811e1800000215ad4efdf , :pd096ff00d1e811e1800000215ad4efdf , :pcaa11e00d1e811e1800000215ad4efdf .
+
+:SeatingHeight  a           rdf:Property ;
+        rdfs:seeAlso        :pcaa11e00d1e811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SeatingHeight .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FurnitureTypeChair>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pd096ff00d1e811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The value of seating height of high level if the chair height is adjustable." ;
+        rdfs:label                "HighestSeatingHeight" ;
+        IFC4-PSD:definition       "The value of seating height of high level if the chair height is adjustable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d096ff00d1e811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HighestSeatingHeight" ;
+        IFC4-PSD:nameAlias        "Highest Seating Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

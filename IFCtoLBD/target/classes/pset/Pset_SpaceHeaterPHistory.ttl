@@ -1,0 +1,233 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FractionRadiantHeatTransfer
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9a1dac00d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FractionRadiantHeatTransfer .
+
+:AirResistanceCurve  a      rdf:Property ;
+        rdfs:seeAlso        :pb9b4d480d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirResistanceCurve .
+
+:UACurve  a                 rdf:Property ;
+        rdfs:seeAlso        :pb15c9980d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UACurve .
+
+:SpaceAirTemperature  a     rdf:Property ;
+        rdfs:seeAlso        :pa6096e00d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceAirTemperature .
+
+:p9a1dac00d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the total heat transfer rate as the radiant heat transfer." ;
+        rdfs:label                "FractionRadiantHeatTransfer" ;
+        IFC4-PSD:definition       "Fraction of the total heat transfer rate as the radiant heat transfer." ;
+        IFC4-PSD:definitionAlias  ""@en , "総合熱移動の内放射熱移動とみなされる部分"@ja-JP ;
+        IFC4-PSD:ifdguid          "9a1dac00d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FractionRadiantHeatTransfer" ;
+        IFC4-PSD:nameAlias        "放射熱移動フラクション"@ja-JP , "Fraction Radiant Heat Transfer"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pc1747900d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Overall heat transfer rate." ;
+        rdfs:label                "HeatOutputRate" ;
+        IFC4-PSD:definition       "Overall heat transfer rate." ;
+        IFC4-PSD:definitionAlias  "総合熱移動率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c1747900d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatOutputRate" ;
+        IFC4-PSD:nameAlias        "Heat Output Rate"@en , "熱出力比"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:FractionConvectiveHeatTransfer
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p9c800600d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FractionConvectiveHeatTransfer .
+
+:padc91280d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Auxiliary energy source consumption." ;
+        rdfs:label                "AuxiliaryEnergySourceConsumption" ;
+        IFC4-PSD:definition       "Auxiliary energy source consumption." ;
+        IFC4-PSD:definitionAlias  "補助エネルギー源使用量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "adc91280d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AuxiliaryEnergySourceConsumption" ;
+        IFC4-PSD:nameAlias        "補助エネルギー源使用量"@ja-JP , "Auxiliary Energy Source Consumption"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p9c800600d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the total heat transfer rate as the convective heat transfer." ;
+        rdfs:label                "FractionConvectiveHeatTransfer" ;
+        IFC4-PSD:definition       "Fraction of the total heat transfer rate as the convective heat transfer." ;
+        IFC4-PSD:definitionAlias  "総合熱移動の内対流射熱移動とみなされる部分"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "9c800600d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FractionConvectiveHeatTransfer" ;
+        IFC4-PSD:nameAlias        "Fraction Convective Heat Transfer"@en , "対流熱移動フラクション"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pa30e7d80d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Average surface temperature of the component." ;
+        rdfs:label                "SurfaceTemperature" ;
+        IFC4-PSD:definition       "Average surface temperature of the component." ;
+        IFC4-PSD:definitionAlias  ""@en , "構成要素の平均表面温度"@ja-JP ;
+        IFC4-PSD:ifdguid          "a30e7d80d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SurfaceTemperature" ;
+        IFC4-PSD:nameAlias        "Surface Temperature"@en , "表面温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Exponent  a                rdf:Property ;
+        rdfs:seeAlso        :pbde0f200d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Exponent .
+
+:SpaceMeanRadiantTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa99cf500d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpaceMeanRadiantTemperature .
+
+:pb15c9980d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "UA curve as function of ambient temperature and surface temperature; UA = f (Tambient, Tsurface)" ;
+        rdfs:label                "UACurve" ;
+        IFC4-PSD:definition       "UA curve as function of ambient temperature and surface temperature; UA = f (Tambient, Tsurface)" ;
+        IFC4-PSD:definitionAlias  "周囲温度と表面温度との関数のUA曲線"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b15c9980d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UACurve" ;
+        IFC4-PSD:nameAlias        "UA曲線"@ja-JP , "UACurve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:SurfaceTemperature  a      rdf:Property ;
+        rdfs:seeAlso        :pa30e7d80d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SurfaceTemperature .
+
+:pa0ac2380d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ratio of the real heat transfer rate to the maximum possible heat transfer rate." ;
+        rdfs:label                "Effectiveness" ;
+        IFC4-PSD:definition       "Ratio of the real heat transfer rate to the maximum possible heat transfer rate." ;
+        IFC4-PSD:definitionAlias  "最大可能熱移動量に対する実熱移動量の割合"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a0ac2380d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Effectiveness" ;
+        IFC4-PSD:nameAlias        "効率"@ja-JP , "Effectiveness"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pa6096e00d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Dry bulb temperature in the space." ;
+        rdfs:label                "SpaceAirTemperature" ;
+        IFC4-PSD:definition       "Dry bulb temperature in the space." ;
+        IFC4-PSD:definitionAlias  "部屋の乾球温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a6096e00d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceAirTemperature" ;
+        IFC4-PSD:nameAlias        "Space Air Temperature"@en , "室温"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SpaceHeaterPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pb6b9e400d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Partial output capacity curve (as a function of water temperature); Q = f (Twater)." ;
+        rdfs:label                "OutputCapacityCurve" ;
+        IFC4-PSD:definition       "Partial output capacity curve (as a function of water temperature); Q = f (Twater)." ;
+        IFC4-PSD:definitionAlias  ""@en , "部分的アウトプット能力曲線（水温の関数として）"@ja-JP ;
+        IFC4-PSD:ifdguid          "b6b9e400d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutputCapacityCurve" ;
+        IFC4-PSD:nameAlias        "部分的アウトプット能力曲線"@ja-JP , "Output Capacity Curve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Effectiveness  a           rdf:Property ;
+        rdfs:seeAlso        :pa0ac2380d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Effectiveness .
+
+:pb9b4d480d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air resistance curve (w/ fan only); Pressure = f ( flow rate)." ;
+        rdfs:label                "AirResistanceCurve" ;
+        IFC4-PSD:definition       "Air resistance curve (w/ fan only); Pressure = f ( flow rate)." ;
+        IFC4-PSD:definitionAlias  "空気抵抗曲線（送風機のみ）圧力＝ｆ（流速）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b9b4d480d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirResistanceCurve" ;
+        IFC4-PSD:nameAlias        "空気抵抗曲線"@ja-JP , "Air Resistance Curve"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AuxiliaryEnergySourceConsumption
+        a                   rdf:Property ;
+        rdfs:seeAlso        :padc91280d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AuxiliaryEnergySourceConsumption .
+
+:OutputCapacityCurve  a     rdf:Property ;
+        rdfs:seeAlso        :pb6b9e400d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutputCapacityCurve .
+
+:pbde0f200d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Characteristic exponent, slope of log(heat output) vs log (surface temperature minus environmental temperature)." ;
+        rdfs:label                "Exponent" ;
+        IFC4-PSD:definition       "Characteristic exponent, slope of log(heat output) vs log (surface temperature minus environmental temperature)." ;
+        IFC4-PSD:definitionAlias  "特徴的な指数、log(熱出力)log（表面温度マイナス周囲温度）の勾配"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "bde0f200d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Exponent" ;
+        IFC4-PSD:nameAlias        "Exponent"@en , "指数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pa99cf500d20911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mean radiant temperature in the space." ;
+        rdfs:label                "SpaceMeanRadiantTemperature" ;
+        IFC4-PSD:definition       "Mean radiant temperature in the space." ;
+        IFC4-PSD:definitionAlias  "部屋の平均放射温度"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a99cf500d20911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpaceMeanRadiantTemperature" ;
+        IFC4-PSD:nameAlias        "Space Mean Radiant Temperature"@en , "室平均放射温度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_SpaceHeaterPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Space heater performance history common attributes." ;
+        rdfs:label                    "Pset_SpaceHeaterPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSpaceHeater ;
+        IFC4-PSD:applicableTypeValue  "IfcSpaceHeater" ;
+        IFC4-PSD:definition           "Space heater performance history common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "暖房用ヒーター性能履歴共通属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SpaceHeaterPHistory" ;
+        IFC4-PSD:propertyDef          :pa99cf500d20911e1800000215ad4efdf , :pb9b4d480d20911e1800000215ad4efdf , :pb6b9e400d20911e1800000215ad4efdf , :pbde0f200d20911e1800000215ad4efdf , :padc91280d20911e1800000215ad4efdf , :pc1747900d20911e1800000215ad4efdf , :pa30e7d80d20911e1800000215ad4efdf , :p9c800600d20911e1800000215ad4efdf , :pb15c9980d20911e1800000215ad4efdf , :pa6096e00d20911e1800000215ad4efdf , :p9a1dac00d20911e1800000215ad4efdf , :pa0ac2380d20911e1800000215ad4efdf .
+
+:HeatOutputRate  a          rdf:Property ;
+        rdfs:seeAlso        :pc1747900d20911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatOutputRate .

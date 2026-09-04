@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ManufacturerOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p56687980d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The serial number assigned to an occurrence of a product." ;
+        rdfs:label                "SerialNumber" ;
+        IFC4-PSD:definition       "The serial number assigned to an occurrence of a product." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "56687980d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SerialNumber" ;
+        IFC4-PSD:nameAlias        "Serial Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p5c5e5a80d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The identity of the batch reference from which an occurrence of a product is taken." ;
+        rdfs:label                "BatchReference" ;
+        IFC4-PSD:definition       "The identity of the batch reference from which an occurrence of a product is taken." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5c5e5a80d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BatchReference" ;
+        IFC4-PSD:nameAlias        "Batch Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ManufacturerOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p4bade480d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The date that the manufactured item was purchased." ;
+        rdfs:label                "AcquisitionDate" ;
+        IFC4-PSD:definition       "The date that the manufactured item was purchased." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4bade480d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AcquisitionDate" ;
+        IFC4-PSD:nameAlias        "Acquisition Date"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcDate
+                                  ] .
+
+:SerialNumber  a            rdf:Property ;
+        rdfs:seeAlso        :p56687980d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SerialNumber .
+
+:AcquisitionDate  a         rdf:Property ;
+        rdfs:seeAlso        :p4bade480d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AcquisitionDate .
+
+:AssemblyPlace  a           rdf:Property ;
+        rdfs:seeAlso        :p62543b80d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AssemblyPlace .
+
+:BatchReference  a          rdf:Property ;
+        rdfs:seeAlso        :p5c5e5a80d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BatchReference .
+
+:p510b2f00d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The identity of the bar code given to an occurrence of the product." ;
+        rdfs:label                "BarCode" ;
+        IFC4-PSD:definition       "The identity of the bar code given to an occurrence of the product." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "510b2f00d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BarCode" ;
+        IFC4-PSD:nameAlias        "Bar Code"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p62543b80d1ec11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration defining where the assembly is intended to take place, either in a factory, other offsite location or on the building site." ;
+        rdfs:label                "AssemblyPlace" ;
+        IFC4-PSD:definition       "Enumeration defining where the assembly is intended to take place, either in a factory, other offsite location or on the building site." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "62543b80d1ec11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AssemblyPlace" ;
+        IFC4-PSD:nameAlias        "Assembly Place"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FACTORY" , "OFFSITE" , "SITE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_ManufacturerOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Defines properties of individual instances of manufactured products that may be given by the manufacturer.\nHISTORY: IFC 2x4: AssemblyPlace property added. This property does not need to be asserted if Pset_ManufacturerTypeInformation is allocated to the type and the AssemblyPlace property is asserted there." ;
+        rdfs:label                    "Pset_ManufacturerOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcElement ;
+        IFC4-PSD:applicableTypeValue  "IfcElement" ;
+        IFC4-PSD:definition           "Defines properties of individual instances of manufactured products that may be given by the manufacturer.\nHISTORY: IFC 2x4: AssemblyPlace property added. This property does not need to be asserted if Pset_ManufacturerTypeInformation is allocated to the type and the AssemblyPlace property is asserted there." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ManufacturerOccurrence" ;
+        IFC4-PSD:propertyDef          :p5c5e5a80d1ec11e1800000215ad4efdf , :p62543b80d1ec11e1800000215ad4efdf , :p510b2f00d1ec11e1800000215ad4efdf , :p56687980d1ec11e1800000215ad4efdf , :p4bade480d1ec11e1800000215ad4efdf .
+
+:BarCode  a                 rdf:Property ;
+        rdfs:seeAlso        :p510b2f00d1ec11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BarCode .

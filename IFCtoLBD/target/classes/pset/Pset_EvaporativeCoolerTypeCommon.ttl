@@ -1,0 +1,183 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporativeCoolerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FlowArrangement  a         rdf:Property ;
+        rdfs:seeAlso        :p86128400d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowArrangement .
+
+:EffectivenessTable  a      rdf:Property ;
+        rdfs:seeAlso        :pa7737000d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EffectivenessTable .
+
+:p7004c380d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7004c380d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_EvaporativeCoolerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:WaterPressDropCurve  a     rdf:Property ;
+        rdfs:seeAlso        :pbce89a00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterPressDropCurve .
+
+:pa2162580d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Make-up water requirement." ;
+        rdfs:label                "WaterRequirement" ;
+        IFC4-PSD:definition       "Make-up water requirement." ;
+        IFC4-PSD:definitionAlias  "水の要件"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a2162580d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterRequirement" ;
+        IFC4-PSD:nameAlias        "水要件"@ja-JP , "Water Requirement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p99255400d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Allowable operation ambient air temperature range." ;
+        rdfs:label                "OperationTemperatureRange" ;
+        IFC4-PSD:definition       "Allowable operation ambient air temperature range." ;
+        IFC4-PSD:definitionAlias  "許容作動周囲空気温度範囲"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "99255400d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperationTemperatureRange" ;
+        IFC4-PSD:nameAlias        "動作温度範囲"@ja-JP , "Operation Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:pbce89a00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Water pressure drop as function of water flow rate." ;
+        rdfs:label                "WaterPressDropCurve" ;
+        IFC4-PSD:definition       "Water pressure drop as function of water flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bce89a00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterPressDropCurve" ;
+        IFC4-PSD:nameAlias        "Water Press Drop Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p93c80980d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat exchange area." ;
+        rdfs:label                "HeatExchangeArea" ;
+        IFC4-PSD:definition       "Heat exchange area." ;
+        IFC4-PSD:definitionAlias  "熱交換面積"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "93c80980d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatExchangeArea" ;
+        IFC4-PSD:nameAlias        "熱交換面積"@ja-JP , "Heat Exchange Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:pa7737000d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer effectiveness curve as a function of the primary air flow rate." ;
+        rdfs:label                "EffectivenessTable" ;
+        IFC4-PSD:definition       "Total heat transfer effectiveness curve as a function of the primary air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a7737000d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EffectivenessTable" ;
+        IFC4-PSD:nameAlias        "Effectiveness Table"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcReal ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p76933b00d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "76933b00d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p86128400d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "CounterFlow: Air and water flow enter in different directions.\n\nCrossFlow: Air and water flow are perpendicular.\nParallelFlow: Air and water flow enter in same directions." ;
+        rdfs:label                "FlowArrangement" ;
+        IFC4-PSD:definition       "CounterFlow: Air and water flow enter in different directions.\n\nCrossFlow: Air and water flow are perpendicular.\nParallelFlow: Air and water flow enter in same directions." ;
+        IFC4-PSD:definitionAlias  "カウンタフロー：空気と水の流れが逆方向で入る\nクロスフロー：空気と「水の流れが垂直\n平行流：空気と水の流れが同じ方向で入る"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "86128400d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowArrangement" ;
+        IFC4-PSD:nameAlias        "Flow Arrangement"@en , "流れ種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COUNTERFLOW" , "CROSSFLOW" , "PARALLELFLOW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pb1956e80d1e211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop as function of air flow rate." ;
+        rdfs:label                "AirPressureDropCurve" ;
+        IFC4-PSD:definition       "Air pressure drop as function of air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b1956e80d1e211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurve" ;
+        IFC4-PSD:nameAlias        "Air Pressure Drop Curve"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPressureMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:Pset_EvaporativeCoolerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Evaporative cooler type common attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead. WaterRequirement attribute unit type modified in IFC2x2 Pset Addendum." ;
+        rdfs:label                    "Pset_EvaporativeCoolerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcEvaporativeCooler ;
+        IFC4-PSD:applicableTypeValue  "IfcEvaporativeCooler" ;
+        IFC4-PSD:definition           "Evaporative cooler type common attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead. WaterRequirement attribute unit type modified in IFC2x2 Pset Addendum." ;
+        IFC4-PSD:definitionAlias      ""@en , "蒸発冷却器共通属性を設定\nSound属性がIFC2x2 psetの付録で削除された：IfcSoundPropertiesを代わりに使用します。 WaterRequirement属性ユニットタイプはIFC2x2 psetの付録で変更された。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_EvaporativeCoolerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p93c80980d1e211e1800000215ad4efdf , :pbce89a00d1e211e1800000215ad4efdf , :p99255400d1e211e1800000215ad4efdf , :p76933b00d1e211e1800000215ad4efdf , :p7004c380d1e211e1800000215ad4efdf , :pa7737000d1e211e1800000215ad4efdf , :pa2162580d1e211e1800000215ad4efdf , :p86128400d1e211e1800000215ad4efdf , :pb1956e80d1e211e1800000215ad4efdf .
+
+:WaterRequirement  a        rdf:Property ;
+        rdfs:seeAlso        :pa2162580d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterRequirement .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p7004c380d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p76933b00d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:OperationTemperatureRange
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p99255400d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperationTemperatureRange .
+
+:HeatExchangeArea  a        rdf:Property ;
+        rdfs:seeAlso        :p93c80980d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatExchangeArea .
+
+:AirPressureDropCurve
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pb1956e80d1e211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurve .

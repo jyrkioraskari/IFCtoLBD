@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pb3c1f200d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the tank is provided with a visual indicator (set TRUE) that shows the water level in the tank. If no visual indicator is provided then value is set FALSE." ;
+        rdfs:label                "HasVisualIndicator" ;
+        IFC4-PSD:definition       "Indication of whether the tank is provided with a visual indicator (set TRUE) that shows the water level in the tank. If no visual indicator is provided then value is set FALSE." ;
+        IFC4-PSD:definitionAlias  "タンクの水位を示す目視型表示器（TRUEに設定)が備えつけられているかどうかの表示。もし目視型表示器が備えつけられていなければ、値はFALSEと設定される。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b3c1f200d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasVisualIndicator" ;
+        IFC4-PSD:nameAlias        "Has Visual Indicator"@en , "目視型表示器有り"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pa0af2200d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the level of element composition where.\n\nCOMPLEX: A set of elementary units aggregated together to fulfill the overall  required purpose.\nELEMENT: A single elementary unit that may exist of itself or as an aggregation of partial units..\nPARTIAL: A partial elementary unit." ;
+        rdfs:label                "TankComposition" ;
+        IFC4-PSD:definition       "Defines the level of element composition where.\n\nCOMPLEX: A set of elementary units aggregated together to fulfill the overall  required purpose.\nELEMENT: A single elementary unit that may exist of itself or as an aggregation of partial units..\nPARTIAL: A partial elementary unit." ;
+        IFC4-PSD:definitionAlias  "定義　構成要素のレベル　　　　　　　　　　　　　　　　　　　　　　　複合：A　全般的に要求された目的を達成するために集められた基本ユニットのセット　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　要素：A それ自身あるいは部分的ユニットの集まりとしてある単一基本ユニット　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　部分的：A 部分的な基本単位"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a0af2200d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TankComposition" ;
+        IFC4-PSD:nameAlias        "Tank Composition"@en , "水槽構成"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COMPLEX" , "ELEMENT" , "PARTIAL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pad337a80d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the tank is provided with a ladder (set TRUE) for access to the top. If no ladder is provided then value is set FALSE.\n\nNote: No indication is given of the type of ladder (gooseneck etc.)" ;
+        rdfs:label                "HasLadder" ;
+        IFC4-PSD:definition       "Indication of whether the tank is provided with a ladder (set TRUE) for access to the top. If no ladder is provided then value is set FALSE.\n\nNote: No indication is given of the type of ladder (gooseneck etc.)" ;
+        IFC4-PSD:definitionAlias  "上部を点検するための梯子(TRUEに設定）をタンクに備えているかどうかの表示　もし、梯子が備え付けられていなければ値はFALSEと設定される。　　注：表示がない場合は梯子のタイプが与えられる（グースネック他）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "ad337a80d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasLadder" ;
+        IFC4-PSD:nameAlias        "Has Ladder"@en , "梯子有り"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:TankComposition  a         rdf:Property ;
+        rdfs:seeAlso        :pa0af2200d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TankComposition .
+
+:HasLadder  a               rdf:Property ;
+        rdfs:seeAlso        :pad337a80d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasLadder .
+
+:HasVisualIndicator  a      rdf:Property ;
+        rdfs:seeAlso        :pb3c1f200d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasVisualIndicator .
+
+:Pset_TankOccurrence  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties that relate to a tank. Note that a partial tank may be considered as a compartment within a compartmentalized tank." ;
+        rdfs:label                    "Pset_TankOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcTank ;
+        IFC4-PSD:applicableTypeValue  "IfcTank" ;
+        IFC4-PSD:definition           "Properties that relate to a tank. Note that a partial tank may be considered as a compartment within a compartmentalized tank." ;
+        IFC4-PSD:definitionAlias      "水槽関連のプロパティ　　部分的な水槽は仕切られた水槽内の区分として考慮されることに注意"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankOccurrence" ;
+        IFC4-PSD:propertyDef          :pb3c1f200d20f11e1800000215ad4efdf , :pa0af2200d20f11e1800000215ad4efdf , :pad337a80d20f11e1800000215ad4efdf .

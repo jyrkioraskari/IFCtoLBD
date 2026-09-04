@@ -1,10 +1,18 @@
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConversionProperties {
 	public enum PropertyMode {
 		DEFAULT,
 		SIMPLE,
 		OPM
+	}
+	public enum NamingStrategy {
+		LEGACY,
+		HIERARCHICAL,
+		STABLE_GUID
 	}
 
 	private boolean hasBuildingElements = true;
@@ -24,6 +32,8 @@ public class ConversionProperties {
 	private PropertyMode propertyMode = PropertyMode.DEFAULT;
 	private boolean stableIdentity;
 	private boolean geometryArtifacts;
+	private NamingStrategy namingStrategy = NamingStrategy.LEGACY;
+	private List<PropertyMappingRule> propertyMappings = List.of();
 	
 	public ConversionProperties() {
 		
@@ -165,9 +175,19 @@ public class ConversionProperties {
 	}
 
 	public boolean hasStableIdentity() { return stableIdentity; }
-	public void setStableIdentity(boolean stableIdentity) { this.stableIdentity = stableIdentity; }
+	public void setStableIdentity(boolean stableIdentity) { this.stableIdentity = stableIdentity; if (stableIdentity) this.namingStrategy = NamingStrategy.STABLE_GUID; }
 	public boolean hasGeometryArtifacts() { return geometryArtifacts; }
 	public void setGeometryArtifacts(boolean geometryArtifacts) { this.geometryArtifacts = geometryArtifacts; }
+	public List<PropertyMappingRule> getPropertyMappings() { return propertyMappings; }
+	public void setPropertyMappings(List<PropertyMappingRule> mappings) {
+		this.propertyMappings = List.copyOf(mappings == null ? List.of() : new ArrayList<>(mappings));
+	}
+	public NamingStrategy getNamingStrategy() { return namingStrategy; }
+	public void setNamingStrategy(NamingStrategy strategy) {
+		this.namingStrategy = java.util.Objects.requireNonNull(strategy, "strategy");
+		this.hasHierarchicalNaming = strategy == NamingStrategy.HIERARCHICAL;
+		this.stableIdentity = strategy == NamingStrategy.STABLE_GUID;
+	}
 	
 	
 }

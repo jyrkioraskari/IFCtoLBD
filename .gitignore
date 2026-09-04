@@ -16,16 +16,19 @@
 *.ear
 *.tar.gz
 *.rar
-7
 
-/**/.settings/
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 *.db
 *.db
 /.metadata/
 IFCtoLBD_Geometry/.DS_Store
-*.DS_Store
+IFCtoLBD_Geometry/src/.DS_Store
+IFCtoLBD_Geometry/src/main/.DS_Store
+IFCtoLBD_Geometry/src/main/java/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/rwth_aachen/.DS_Store
+IFCtoLBD_Geometry/src/main/java/de/rwth_aachen/dc/.DS_Store
 IFCtoLBD_Python/venv/*
 .DS_Store
 Duplex_A_20110907.ifc
@@ -43,11 +46,3 @@ IFCtoLBD_NodeJS/node_modules/*
 /ifc-to-lbd-scala/target
 .codex
 /IFCtoLBD_MCP/.tools
-*.settings*
-/.prefs
-*.prefs
-/IFCProps2ExcelOnline/.settings
-*.bak
-/IFCtoLBD_OpenAPI/.settings
-
-*.jar

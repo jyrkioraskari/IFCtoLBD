@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UtilityConsumptionPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:peec62480d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of heat energy consumed during the period specified in the time series." ;
+        rdfs:label                "Heat" ;
+        IFC4-PSD:definition       "The amount of heat energy consumed during the period specified in the time series." ;
+        IFC4-PSD:definitionAlias  ""@en , "특정 기간 동안의 열 소비."@ko-KR ;
+        IFC4-PSD:ifdguid          "eec62480d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Heat" ;
+        IFC4-PSD:nameAlias        "Heat"@en , "열 소비량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Heat   a                   rdf:Property ;
+        rdfs:seeAlso        :peec62480d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Heat .
+
+:Steam  a                   rdf:Property ;
+        rdfs:seeAlso        :pfab1e680d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Steam .
+
+:Electricity  a             rdf:Property ;
+        rdfs:seeAlso        :pf1c11500d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Electricity .
+
+:Fuel   a                   rdf:Property ;
+        rdfs:seeAlso        :pf7b6f600d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Fuel .
+
+:pf1c11500d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of electricity consumed during the period specified in the time series." ;
+        rdfs:label                "Electricity" ;
+        IFC4-PSD:definition       "The amount of electricity consumed during the period specified in the time series." ;
+        IFC4-PSD:definitionAlias  ""@en , "특정 기간 동안의 전력 소비."@ko-KR ;
+        IFC4-PSD:ifdguid          "f1c11500d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Electricity" ;
+        IFC4-PSD:nameAlias        "전력 소비량"@ko-KR , "Electricity"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UtilityConsumptionPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf7b6f600d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of fuel consumed during the period specified in the time series." ;
+        rdfs:label                "Fuel" ;
+        IFC4-PSD:definition       "The amount of fuel consumed during the period specified in the time series." ;
+        IFC4-PSD:definitionAlias  ""@en , "특정 기간 동안의 연료 소비."@ko-KR ;
+        IFC4-PSD:ifdguid          "f7b6f600d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Fuel" ;
+        IFC4-PSD:nameAlias        "연료 소비량"@ko-KR , "Fuel"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:pf4bc0580d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of water consumed during the period specified in the time series." ;
+        rdfs:label                "Water" ;
+        IFC4-PSD:definition       "The amount of water consumed during the period specified in the time series." ;
+        IFC4-PSD:definitionAlias  "특정 기간 동안 물 소비."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "f4bc0580d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Water" ;
+        IFC4-PSD:nameAlias        "물소비"@ko-KR , "Water"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Water  a                   rdf:Property ;
+        rdfs:seeAlso        :pf4bc0580d21311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Water .
+
+:Pset_UtilityConsumptionPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Consumption of utility resources, typically applied to the IfcBuilding instance, used to identify how much was consumed on I.e., a monthly basis." ;
+        rdfs:label                    "Pset_UtilityConsumptionPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuilding ;
+        IFC4-PSD:applicableTypeValue  "IfcBuilding" ;
+        IFC4-PSD:definition           "Consumption of utility resources, typically applied to the IfcBuilding instance, used to identify how much was consumed on I.e., a monthly basis." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UtilityConsumptionPHistory" ;
+        IFC4-PSD:propertyDef          :pf7b6f600d21311e1800000215ad4efdf , :pfab1e680d21311e1800000215ad4efdf , :peec62480d21311e1800000215ad4efdf , :pf1c11500d21311e1800000215ad4efdf , :pf4bc0580d21311e1800000215ad4efdf .
+
+:pfab1e680d21311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The amount of steam consumed during the period specified in the time series." ;
+        rdfs:label                "Steam" ;
+        IFC4-PSD:definition       "The amount of steam consumed during the period specified in the time series." ;
+        IFC4-PSD:definitionAlias  ""@en , "특정 기간 동안 증기 소비."@ko-KR ;
+        IFC4-PSD:ifdguid          "fab1e680d21311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Steam" ;
+        IFC4-PSD:nameAlias        "증기소비량"@ko-KR , "Steam"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

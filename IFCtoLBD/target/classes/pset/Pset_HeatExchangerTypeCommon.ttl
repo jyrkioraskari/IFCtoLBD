@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HeatExchangerTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p70ed2380d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the basic flow arrangements for the heat exchanger:\n\nCOUNTERFLOW: Counterflow heat exchanger arrangement. \nCROSSFLOW: Crossflow heat exchanger arrangement. \nPARALLELFLOW: Parallel flow heat exchanger arrangement. \nMULTIPASS: Multipass flow heat exchanger arrangement. \nOTHER: Other type of heat exchanger flow arrangement not defined above." ;
+        rdfs:label                "Arrangement" ;
+        IFC4-PSD:definition       "Defines the basic flow arrangements for the heat exchanger:\n\nCOUNTERFLOW: Counterflow heat exchanger arrangement. \nCROSSFLOW: Crossflow heat exchanger arrangement. \nPARALLELFLOW: Parallel flow heat exchanger arrangement. \nMULTIPASS: Multipass flow heat exchanger arrangement. \nOTHER: Other type of heat exchanger flow arrangement not defined above." ;
+        IFC4-PSD:definitionAlias  ""@en , "熱交換器の流れの基本的配置(カウンターフロー、クロスフロー。パラレルフロー、マルチパス、その他)"@ja-JP ;
+        IFC4-PSD:ifdguid          "70ed2380d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Arrangement" ;
+        IFC4-PSD:nameAlias        "配置"@ja-JP , "Arrangement"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "COUNTERFLOW" , "CROSSFLOW" , "PARALLELFLOW" , "MULTIPASS" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p59ae3600d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p59ae3600d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "59ae3600d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HeatExchangerTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Arrangement  a             rdf:Property ;
+        rdfs:seeAlso        :p70ed2380d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Arrangement .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p5f0b8080d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p5f0b8080d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  ""@en , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5f0b8080d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "状態"@ja-JP , "Status"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_HeatExchangerTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Heat exchanger type common attributes." ;
+        rdfs:label                    "Pset_HeatExchangerTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcHeatExchanger ;
+        IFC4-PSD:applicableTypeValue  "IfcHeatExchanger" ;
+        IFC4-PSD:definition           "Heat exchanger type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_HeatExchangerTypeCommon" ;
+        IFC4-PSD:propertyDef          :p59ae3600d1e911e1800000215ad4efdf , :p5f0b8080d1e911e1800000215ad4efdf , :p70ed2380d1e911e1800000215ad4efdf .

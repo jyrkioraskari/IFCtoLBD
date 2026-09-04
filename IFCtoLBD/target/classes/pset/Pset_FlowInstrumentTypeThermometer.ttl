@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentTypeThermometer#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pe5bf5e00d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical size of the display. In the case of a stem thermometer, this will be the length of the stem. For a dial thermometer, it will be the diameter of the dial." ;
+        rdfs:label                "DisplaySize" ;
+        IFC4-PSD:definition       "The physical size of the display. In the case of a stem thermometer, this will be the length of the stem. For a dial thermometer, it will be the diameter of the dial." ;
+        IFC4-PSD:definitionAlias  ""@en , "表示のサイズ。 棒温度計の場合では、軸の長さになる。 ダイヤル温度計に関しては、ダイヤルの直径になる。"@ja-JP , "표시의 크기입니다. 막대 온도계의 경우, 축의 길이가된다. 다이얼 온도계에 대해서는 다이얼 직경된다."@ko-KR ;
+        IFC4-PSD:ifdguid          "e5bf5e00d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DisplaySize" ;
+        IFC4-PSD:nameAlias        "表示サイズ"@ja-JP , "디스플레이 크기"@ko-KR , "Display Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DisplaySize  a             rdf:Property ;
+        rdfs:seeAlso        :pe5bf5e00d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DisplaySize .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentTypeThermometer>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_FlowInstrumentTypeThermometer
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that reads and displays a temperature value at a point." ;
+        rdfs:label                    "Pset_FlowInstrumentTypeThermometer" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFlowInstrument/THERMOMETER> ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowInstrument/THERMOMETER" ;
+        IFC4-PSD:definition           "A device that reads and displays a temperature value at a point." ;
+        IFC4-PSD:definitionAlias      "温度を測定し表示するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowInstrumentTypeThermometer" ;
+        IFC4-PSD:propertyDef          :pe5bf5e00d1e711e1800000215ad4efdf , :pd7714200d1e711e1800000215ad4efdf .
+
+:pd7714200d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the means by which temperature is displayed." ;
+        rdfs:label                "ThermometerType" ;
+        IFC4-PSD:definition       "Identifies the means by which temperature is displayed." ;
+        IFC4-PSD:definitionAlias  ""@en , "온도가 표시되는 방법을 확인한다."@ko-KR , "温度が表示される手段を識別する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d7714200d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermometerType" ;
+        IFC4-PSD:nameAlias        "온도계 유형"@ko-KR , "Thermometer Type"@en , "温度計タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DIAL" , "DIGITAL" , "STEM" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ThermometerType  a         rdf:Property ;
+        rdfs:seeAlso        :pd7714200d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermometerType .

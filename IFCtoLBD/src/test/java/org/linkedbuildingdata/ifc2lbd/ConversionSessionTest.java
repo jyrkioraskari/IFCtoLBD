@@ -5,16 +5,37 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 import org.apache.jena.rdf.model.ModelFactory;
 
 class ConversionSessionTest {
+	@Test
+	void selectedTypesJsonSetterAssignsParsedTypes() throws Exception {
+		try (IFCtoLBDConverter converter = new IFCtoLBDConverter("https://example.com/")) {
+			converter.setSelected_types("[\"Wall\",\"Door\"]");
+			var field = org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore.class
+					.getDeclaredField("selected_types");
+			field.setAccessible(true);
+			assertEquals(Set.of("Wall", "Door"), field.get(converter));
+		}
+	}
+	@Test
+	void eventBusesAreSessionScopedAndExitEventsCannotTerminateTheHost() {
+		try (ConversionSession first = new ConversionSession(); ConversionSession second = new ConversionSession();
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(first, "https://example.com/")) {
+			assertNotEquals(first.getEventBus(), second.getEventBus());
+			assertDoesNotThrow(() -> first.getEventBus().post(
+					new org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit("test")));
+		}
+	}
 
 	@Test
 	void sessionsOwnSeparateDatasetsAndDeleteTheirWorkingDirectories() {
@@ -40,17 +61,22 @@ class ConversionSessionTest {
 	}
 
 	@Test
-	void resultIsAnIndependentSnapshot() {
+	void resultIsAZeroCopyViewWithNoMaterializedUnion() {
 		var general = ModelFactory.createDefaultModel();
 		var product = ModelFactory.createDefaultModel();
 		var property = ModelFactory.createDefaultModel();
 		general.createResource("urn:test:element").addProperty(general.createProperty("urn:test:name"), "Wall");
 
-		try (ConversionResult result = ConversionResult.copyOf(general, product, property)) {
-			general.removeAll();
+		String key = "0".repeat(64);
+		var names = ConversionGraphNames.forConversion(key);
+		try (ConversionResult result = ConversionResult.of(general, product, property,
+				ModelFactory.createDefaultModel(), ModelFactory.createDefaultModel(), names)) {
 			assertEquals(1, result.getModel().size());
+			general.createResource("urn:test:second").addProperty(general.createProperty("urn:test:name"), "Door");
+			assertEquals(2, result.getModel().size());
 			assertEquals(0, result.getProductModel().size());
 			assertEquals(0, result.getPropertyModel().size());
+			assertEquals(names, result.getGraphNames());
 		}
 	}
 

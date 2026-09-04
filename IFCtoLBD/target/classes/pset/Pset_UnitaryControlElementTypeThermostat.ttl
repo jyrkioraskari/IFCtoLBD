@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementTypeThermostat#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:TemperatureSetPoint  a     rdf:Property ;
+        rdfs:seeAlso        :p41d7fa5a1d4b4dbf9733687435d62493 ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureSetPoint .
+
+:p41d7fa5a1d4b4dbf9733687435d62493
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature setpoint range and default setpoint." ;
+        rdfs:label                "TemperatureSetPoint" ;
+        IFC4-PSD:definition       "The temperature setpoint range and default setpoint." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "41d7fa5a1d4b4dbf9733687435d62493" ;
+        IFC4-PSD:name             "TemperatureSetPoint" ;
+        IFC4-PSD:nameAlias        "Temperature Set Point"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_UnitaryControlElementTypeThermostat>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_UnitaryControlElementTypeThermostat
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Unitary control element type thermostat attributes.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_UnitaryControlElementTypeThermostat" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcUnitaryControlElement/THERMOSTAT> ;
+        IFC4-PSD:applicableTypeValue  "IfcUnitaryControlElement/THERMOSTAT" ;
+        IFC4-PSD:definition           "Unitary control element type thermostat attributes.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_UnitaryControlElementTypeThermostat" ;
+        IFC4-PSD:propertyDef          :p41d7fa5a1d4b4dbf9733687435d62493 .

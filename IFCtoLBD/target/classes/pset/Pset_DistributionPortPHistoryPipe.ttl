@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortPHistoryPipe#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p7a3f6bee58104037a997d1c2cbd68a4d
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The flowrate of the fuel." ;
+        rdfs:label                "Flowrate" ;
+        IFC4-PSD:definition       "The flowrate of the fuel." ;
+        IFC4-PSD:definitionAlias  ""@en , "燃料の流速。"@ja-JP ;
+        IFC4-PSD:ifdguid          "7a3f6bee58104037a997d1c2cbd68a4d" ;
+        IFC4-PSD:name             "Flowrate" ;
+        IFC4-PSD:nameAlias        "Flowrate"@en , "流量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortPHistoryPipe>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p36d77e7919364513b229f61c7632a638
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature of the fuel." ;
+        rdfs:label                "Temperature" ;
+        IFC4-PSD:definition       "The temperature of the fuel." ;
+        IFC4-PSD:definitionAlias  ""@en , "燃料の温度。"@ja-JP ;
+        IFC4-PSD:ifdguid          "36d77e7919364513b229f61c7632a638" ;
+        IFC4-PSD:name             "Temperature" ;
+        IFC4-PSD:nameAlias        "温度"@ja-JP , "Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pressure  a                rdf:Property ;
+        rdfs:seeAlso        :pd31964c0ab4f444aa3a526a72084e705 ;
+        rdfs:subPropertyOf  IFC4-PSD:Pressure .
+
+:pd31964c0ab4f444aa3a526a72084e705
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pressure of the fuel." ;
+        rdfs:label                "Pressure" ;
+        IFC4-PSD:definition       "The pressure of the fuel." ;
+        IFC4-PSD:definitionAlias  "燃料の圧力。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d31964c0ab4f444aa3a526a72084e705" ;
+        IFC4-PSD:name             "Pressure" ;
+        IFC4-PSD:nameAlias        "Pressure"@en , "圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Flowrate  a                rdf:Property ;
+        rdfs:seeAlso        :p7a3f6bee58104037a997d1c2cbd68a4d ;
+        rdfs:subPropertyOf  IFC4-PSD:Flowrate .
+
+:Temperature  a             rdf:Property ;
+        rdfs:seeAlso        :p36d77e7919364513b229f61c7632a638 ;
+        rdfs:subPropertyOf  IFC4-PSD:Temperature .
+
+:Pset_DistributionPortPHistoryPipe
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Log of substance usage attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type PIPE." ;
+        rdfs:label                    "Pset_DistributionPortPHistoryPipe" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/PIPE> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/PIPE" ;
+        IFC4-PSD:definition           "Log of substance usage attached to an instance of IfcPerformanceHistory having an assigned IfcDistributionPort of type PIPE." ;
+        IFC4-PSD:definitionAlias      "IfcDistributionPortオブジェクトがGAS型の際に関連するIfcPerformanceHistoryに設定される燃料使用のログ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortPHistoryPipe" ;
+        IFC4-PSD:propertyDef          :p7a3f6bee58104037a997d1c2cbd68a4d , :pd31964c0ab4f444aa3a526a72084e705 , :p36d77e7919364513b229f61c7632a638 .

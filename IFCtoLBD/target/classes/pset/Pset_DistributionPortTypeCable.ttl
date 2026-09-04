@@ -1,0 +1,179 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypeCable#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Power  a                   rdf:Property ;
+        rdfs:seeAlso        :p437e2945ded040998d45ae3d9d9770db ;
+        rdfs:subPropertyOf  IFC4-PSD:Power .
+
+:Voltage  a                 rdf:Property ;
+        rdfs:seeAlso        :p87b7f6b294b5447ab7edaa0e2b690e7d ;
+        rdfs:subPropertyOf  IFC4-PSD:Voltage .
+
+:p4a16661be73843fb99eb498a99015880
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "<p>The physical port connection subtype that further qualifies the ConnectionType.  The following values are recommended:</p>\n\n<ul>\n<li>ACPLUG: A, B, C, D, E, F, EF, G, H, I, J, K, L, M</li> \n<li>DIN: Mini3P, Mini4P, Mini5P, Mini6P, Mini7P, Mini8P, Mini9P</li>\n<li>DSub: DA15, DB25, DC37, DD50, DE9, DE15</li>\n<li>EIAJ: RC5720</li>\n\n<li>HDMI: A, B, C</li>\n<li>RADIO: IEEE802.11g, IEEE802.11n\n</li>\n<li>RJ: 4P4C, 6P2C, 8P8C</li>\n<li>SOCKET: E-11, E-12, E-14, E-17, E-26, E-27, E-39, E-40</li>\n<li>TRS: TS_Mini, TS_SubMini, TRS_Mini, TRS_SubMini</li>\n</ul>" ;
+        rdfs:label                "ConnectionSubtype" ;
+        IFC4-PSD:definition       "<p>The physical port connection subtype that further qualifies the ConnectionType.  The following values are recommended:</p>\n\n<ul>\n<li>ACPLUG: A, B, C, D, E, F, EF, G, H, I, J, K, L, M</li> \n<li>DIN: Mini3P, Mini4P, Mini5P, Mini6P, Mini7P, Mini8P, Mini9P</li>\n<li>DSub: DA15, DB25, DC37, DD50, DE9, DE15</li>\n<li>EIAJ: RC5720</li>\n\n<li>HDMI: A, B, C</li>\n<li>RADIO: IEEE802.11g, IEEE802.11n\n</li>\n<li>RJ: 4P4C, 6P2C, 8P8C</li>\n<li>SOCKET: E-11, E-12, E-14, E-17, E-26, E-27, E-39, E-40</li>\n<li>TRS: TS_Mini, TS_SubMini, TRS_Mini, TRS_SubMini</li>\n</ul>" ;
+        IFC4-PSD:definitionAlias  "物理ポート接続のサブタイプ。接続タイプ以外の情報を設定する場合に使用。下記の値を設定：\n\n- ACプラグ: A, B, C, D, E, F, EF, G, H, I, J, K, L, M"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "4a16661be73843fb99eb498a99015880" ;
+        IFC4-PSD:name             "ConnectionSubtype" ;
+        IFC4-PSD:nameAlias        "Connection Subtype"@en , "接続サブタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p87b7f6b294b5447ab7edaa0e2b690e7d
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual voltage and operable range." ;
+        rdfs:label                "Voltage" ;
+        IFC4-PSD:definition       "The actual voltage and operable range." ;
+        IFC4-PSD:definitionAlias  "実電圧と動作可能範囲。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "87b7f6b294b5447ab7edaa0e2b690e7d" ;
+        IFC4-PSD:name             "Voltage" ;
+        IFC4-PSD:nameAlias        "Voltage"@en , "電圧"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricVoltageMeasure
+                                  ] .
+
+:p1592daba2e144952a71949248bab50cc
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For data ports, identifies the protocols used as defined by the Open System Interconnection (OSI) Basic Reference Model (ISO 7498).  Layers include: 1. Physical; 2. DataLink; 3. Network; 4. Transport; 5. Session; 6. Presentation; 7. Application.  Example: 3:IP, 4:TCP, 5:HTTP" ;
+        rdfs:label                "Protocols" ;
+        IFC4-PSD:definition       "For data ports, identifies the protocols used as defined by the Open System Interconnection (OSI) Basic Reference Model (ISO 7498).  Layers include: 1. Physical; 2. DataLink; 3. Network; 4. Transport; 5. Session; 6. Presentation; 7. Application.  Example: 3:IP, 4:TCP, 5:HTTP" ;
+        IFC4-PSD:definitionAlias  "OSIのオープンシステム相互接続用基本プロトコル(ISO 7498)：\n1. 物理層; 2.データリンク層; 3. ネットワーク層; 4. トランスポート層; 5. セッション層; 6.プレゼンテーション層 ; 7. アプリケーション層. \n例: 3:IP, 4:TCP, 5:HTTP"@ja , ""@en ;
+        IFC4-PSD:ifdguid          "1592daba2e144952a71949248bab50cc" ;
+        IFC4-PSD:name             "Protocols" ;
+        IFC4-PSD:nameAlias        "プロトコル"@ja , "Protocols"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:ConnectionSubtype  a       rdf:Property ;
+        rdfs:seeAlso        :p4a16661be73843fb99eb498a99015880 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionSubtype .
+
+:ConductorFunction  a       rdf:Property ;
+        rdfs:seeAlso        :p03d981504bcf4f748b31dee8065d5959 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConductorFunction .
+
+:ConnectionGender  a        rdf:Property ;
+        rdfs:seeAlso        :p5a9b13be92d1458583634e056c138f30 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionGender .
+
+:Current  a                 rdf:Property ;
+        rdfs:seeAlso        :p5207092197274e99917bfdcae2efea80 ;
+        rdfs:subPropertyOf  IFC4-PSD:Current .
+
+:peaf80f92e6df4c29a18086e89bea20e9
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ratio between the third harmonic current and the phase current." ;
+        rdfs:label                "CurrentContent3rdHarmonic" ;
+        IFC4-PSD:definition       "The ratio between the third harmonic current and the phase current." ;
+        IFC4-PSD:definitionAlias  ""@en , "第３高調波電流と相電流の比率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eaf80f92e6df4c29a18086e89bea20e9" ;
+        IFC4-PSD:name             "CurrentContent3rdHarmonic" ;
+        IFC4-PSD:nameAlias        "第３高調波電流と相電流の比"@ja-JP , "Current Content3rd Harmonic"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:p5207092197274e99917bfdcae2efea80
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual current and operable range." ;
+        rdfs:label                "Current" ;
+        IFC4-PSD:definition       "The actual current and operable range." ;
+        IFC4-PSD:definitionAlias  ""@en , "実電流と動作可能範囲。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5207092197274e99917bfdcae2efea80" ;
+        IFC4-PSD:name             "Current" ;
+        IFC4-PSD:nameAlias        "Current"@en , "電流"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p437e2945ded040998d45ae3d9d9770db
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The actual power and operable range." ;
+        rdfs:label                "Power" ;
+        IFC4-PSD:definition       "The actual power and operable range." ;
+        IFC4-PSD:definitionAlias  ""@en , "実電力と動作可能範囲。"@ja-JP ;
+        IFC4-PSD:ifdguid          "437e2945ded040998d45ae3d9d9770db" ;
+        IFC4-PSD:name             "Power" ;
+        IFC4-PSD:nameAlias        "Power"@en , "電力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p03d981504bcf4f748b31dee8065d5959
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "For ports distributing power, indicates function of the conductors to which the load is connected." ;
+        rdfs:label                "ConductorFunction" ;
+        IFC4-PSD:definition       "For ports distributing power, indicates function of the conductors to which the load is connected." ;
+        IFC4-PSD:definitionAlias  ""@en , "電気負荷と連結する電線種類。"@ja-JP ;
+        IFC4-PSD:ifdguid          "03d981504bcf4f748b31dee8065d5959" ;
+        IFC4-PSD:name             "ConductorFunction" ;
+        IFC4-PSD:nameAlias        "電線種類"@ja-JP , "Conductor Function"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PHASE_L2" , "OTHER" , "PROTECTIVEEARTHNEUTRAL" , "PHASE_L3" , "NEUTRAL" , "UNSET" , "NOTKNOWN" , "PHASE_L1" , "PROTECTIVEEARTH"
+                                  ] .
+
+:ConnectionType  a          rdf:Property ;
+        rdfs:seeAlso        :p1b51a5433f934fa7a5031c877bb4b429 ;
+        rdfs:subPropertyOf  IFC4-PSD:ConnectionType .
+
+:Pset_DistributionPortTypeCable
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Cable port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        rdfs:label                    "Pset_DistributionPortTypeCable" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionPort/CABLE> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionPort/CABLE" ;
+        IFC4-PSD:definition           "Cable port occurrence attributes attached to an instance of IfcDistributionPort." ;
+        IFC4-PSD:definitionAlias      "IfcDistributionPortオブジェクトに設定される電力ポートに関する属性情報。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionPortTypeCable" ;
+        IFC4-PSD:propertyDef          :p03d981504bcf4f748b31dee8065d5959 , :peaf80f92e6df4c29a18086e89bea20e9 , :p5a9b13be92d1458583634e056c138f30 , :p5207092197274e99917bfdcae2efea80 , :p4a16661be73843fb99eb498a99015880 , :p437e2945ded040998d45ae3d9d9770db , :p1b51a5433f934fa7a5031c877bb4b429 , :p87b7f6b294b5447ab7edaa0e2b690e7d , :p1592daba2e144952a71949248bab50cc .
+
+:Protocols  a               rdf:Property ;
+        rdfs:seeAlso        :p1592daba2e144952a71949248bab50cc ;
+        rdfs:subPropertyOf  IFC4-PSD:Protocols .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionPortTypeCable>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5a9b13be92d1458583634e056c138f30
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical connection gender." ;
+        rdfs:label                "ConnectionGender" ;
+        IFC4-PSD:definition       "The physical connection gender." ;
+        IFC4-PSD:definitionAlias  ""@en , "形状的な接続ジェンダー（オス、メス、その他、未知、未設定）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5a9b13be92d1458583634e056c138f30" ;
+        IFC4-PSD:name             "ConnectionGender" ;
+        IFC4-PSD:nameAlias        "Connection Gender"@en , "接続ジェンダー"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MALE" , "FEMALE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p1b51a5433f934fa7a5031c877bb4b429
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical port connection:\n\nACPLUG: AC plug\nDCPLUG: DC plug\nCRIMP: bare wire" ;
+        rdfs:label                "ConnectionType" ;
+        IFC4-PSD:definition       "The physical port connection:\n\nACPLUG: AC plug\nDCPLUG: DC plug\nCRIMP: bare wire" ;
+        IFC4-PSD:definitionAlias  ""@en , "物理ポート接続：\n\n- ACPLUG: AC プラグ\n- DCPLUG: DC プラグ\n- CRIMP: 裸線"@ja-JP ;
+        IFC4-PSD:ifdguid          "1b51a5433f934fa7a5031c877bb4b429" ;
+        IFC4-PSD:name             "ConnectionType" ;
+        IFC4-PSD:nameAlias        "Connection Type"@en , "接続タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DSUB" , "RCA" , "DVI" , "CRIMP" , "SOCKET" , "UNSET" , "DIN" , "ACPLUG" , "TRS" , "EIAJ" , "XLR" , "OTHER" , "HDMI" , "DCPLUG" , "NOTKNOWN" , "RADIO" , "COAXIAL" , "RJ" , "USB"
+                                  ] .
+
+:CurrentContent3rdHarmonic
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peaf80f92e6df4c29a18086e89bea20e9 ;
+        rdfs:subPropertyOf  IFC4-PSD:CurrentContent3rdHarmonic .

@@ -1,0 +1,178 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:FanPowerRate  a            rdf:Property ;
+        rdfs:seeAlso        :p2cab5480d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FanPowerRate .
+
+:p303edb80d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan shaft power." ;
+        rdfs:label                "ShaftPowerRate" ;
+        IFC4-PSD:definition       "Fan shaft power." ;
+        IFC4-PSD:definitionAlias  ""@en , "ファン軸動力"@ja-JP ;
+        IFC4-PSD:ifdguid          "303edb80d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShaftPowerRate" ;
+        IFC4-PSD:nameAlias        "Shaft Power Rate"@en , "軸動力量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p33d26280d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The speed at which air discharges from the fan through the fan housing discharge opening." ;
+        rdfs:label                "DischargeVelocity" ;
+        IFC4-PSD:definition       "The speed at which air discharges from the fan through the fan housing discharge opening." ;
+        IFC4-PSD:definitionAlias  "ファン吐出口からの吐出風速"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "33d26280d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeVelocity" ;
+        IFC4-PSD:nameAlias        "Discharge Velocity"@en , "吐出速度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p2cab5480d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan power consumption." ;
+        rdfs:label                "FanPowerRate" ;
+        IFC4-PSD:definition       "Fan power consumption." ;
+        IFC4-PSD:definitionAlias  "ファン消費電力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2cab5480d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FanPowerRate" ;
+        IFC4-PSD:nameAlias        "Fan Power Rate"@en , "Fan効率動力量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ShaftPowerRate  a          rdf:Property ;
+        rdfs:seeAlso        :p303edb80d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShaftPowerRate .
+
+:DischargeVelocity  a       rdf:Property ;
+        rdfs:seeAlso        :p33d26280d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeVelocity .
+
+:FanEfficiency  a           rdf:Property ;
+        rdfs:seeAlso        :p26b57380d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FanEfficiency .
+
+:p2026fc00d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan rotation speed." ;
+        rdfs:label                "FanRotationSpeed" ;
+        IFC4-PSD:definition       "Fan rotation speed." ;
+        IFC4-PSD:definitionAlias  ""@en , "回転速度"@ja-JP ;
+        IFC4-PSD:ifdguid          "2026fc00d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FanRotationSpeed" ;
+        IFC4-PSD:nameAlias        "回転速度"@ja-JP , "Fan Rotation Speed"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:DischargePressureLoss
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p36cd5300d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargePressureLoss .
+
+:p36cd5300d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan discharge pressure loss associated with the discharge arrangement." ;
+        rdfs:label                "DischargePressureLoss" ;
+        IFC4-PSD:definition       "Fan discharge pressure loss associated with the discharge arrangement." ;
+        IFC4-PSD:definitionAlias  ""@en , "吐出部に関連した吐出圧力損失"@ja-JP ;
+        IFC4-PSD:ifdguid          "36cd5300d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargePressureLoss" ;
+        IFC4-PSD:nameAlias        "Discharge Pressure Loss"@en , "吐出圧力損失"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:WheelTipSpeed  a           rdf:Property ;
+        rdfs:seeAlso        :p23ba8300d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WheelTipSpeed .
+
+:OverallEfficiency  a       rdf:Property ;
+        rdfs:seeAlso        :p29b06400d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OverallEfficiency .
+
+:p23ba8300d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan blade tip speed, typically defined as the linear speed of the tip of the fan blade furthest from the shaft." ;
+        rdfs:label                "WheelTipSpeed" ;
+        IFC4-PSD:definition       "Fan blade tip speed, typically defined as the linear speed of the tip of the fan blade furthest from the shaft." ;
+        IFC4-PSD:definitionAlias  "ファンブレード先端速度\n通常、軸から最も遠いファンブレードの先端の直線速度として定義されている"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "23ba8300d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WheelTipSpeed" ;
+        IFC4-PSD:nameAlias        "ホイール先端速度"@ja-JP , "Wheel Tip Speed"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p26b57380d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan mechanical efficiency." ;
+        rdfs:label                "FanEfficiency" ;
+        IFC4-PSD:definition       "Fan mechanical efficiency." ;
+        IFC4-PSD:definitionAlias  ""@en , "ファン機械効率"@ja-JP ;
+        IFC4-PSD:ifdguid          "26b57380d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FanEfficiency" ;
+        IFC4-PSD:nameAlias        "Fan Efficiency"@en , "Fan効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_FanPHistory  a                  IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fan performance history attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_FanPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFan ;
+        IFC4-PSD:applicableTypeValue  "IfcFan" ;
+        IFC4-PSD:definition           "Fan performance history attributes.\nSound attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en , "Fan性能履歴属性\nSound属性はIFC2x2付録で削除された。： IfcSoundPropertiesを代わりに使う"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FanPHistory" ;
+        IFC4-PSD:propertyDef          :p3a60da00d1e411e1800000215ad4efdf , :p29b06400d1e411e1800000215ad4efdf , :p33d26280d1e411e1800000215ad4efdf , :p303edb80d1e411e1800000215ad4efdf , :p36cd5300d1e411e1800000215ad4efdf , :p2026fc00d1e411e1800000215ad4efdf , :p2cab5480d1e411e1800000215ad4efdf , :p26b57380d1e411e1800000215ad4efdf , :p23ba8300d1e411e1800000215ad4efdf .
+
+:p29b06400d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total efficiency of motor and fan." ;
+        rdfs:label                "OverallEfficiency" ;
+        IFC4-PSD:definition       "Total efficiency of motor and fan." ;
+        IFC4-PSD:definitionAlias  "モーターとファンの全体効率"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "29b06400d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OverallEfficiency" ;
+        IFC4-PSD:nameAlias        "全体効率"@ja-JP , "Overall Efficiency"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:FanRotationSpeed  a        rdf:Property ;
+        rdfs:seeAlso        :p2026fc00d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FanRotationSpeed .
+
+:p3a60da00d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fan drive power losses associated with the type of connection between the motor and the fan wheel." ;
+        rdfs:label                "DrivePowerLoss" ;
+        IFC4-PSD:definition       "Fan drive power losses associated with the type of connection between the motor and the fan wheel." ;
+        IFC4-PSD:definitionAlias  ""@en , "ファン駆動力損失は、モータとファンホイールとの間の接続の種類に関連付けられている。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3a60da00d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrivePowerLoss" ;
+        IFC4-PSD:nameAlias        "Drive Power Loss"@en , "駆動電力損失"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:DrivePowerLoss  a          rdf:Property ;
+        rdfs:seeAlso        :p3a60da00d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrivePowerLoss .

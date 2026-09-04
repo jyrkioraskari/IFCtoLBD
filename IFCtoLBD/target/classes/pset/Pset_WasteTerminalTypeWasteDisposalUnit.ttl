@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeWasteDisposalUnit#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_WasteTerminalTypeWasteDisposalUnit
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Electrically operated device that reduces kitchen or other waste into fragments small enough to be flushed into a drainage system." ;
+        rdfs:label                    "Pset_WasteTerminalTypeWasteDisposalUnit" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcWasteTerminal/WASTEDISPOSALUNIT> ;
+        IFC4-PSD:applicableTypeValue  "IfcWasteTerminal/WASTEDISPOSALUNIT" ;
+        IFC4-PSD:definition           "Electrically operated device that reduces kitchen or other waste into fragments small enough to be flushed into a drainage system." ;
+        IFC4-PSD:definitionAlias      ""@en , "キッチンや他の廃棄において、破片を排水システムで処理されるのに十分な大きさに粉砕するよう、電気的に動作する機器。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_WasteTerminalTypeWasteDisposalUnit" ;
+        IFC4-PSD:propertyDef          :p65fdb780d21811e1800000215ad4efdf , :p6e55f280d21811e1800000215ad4efdf , :p76ae2d80d21811e1800000215ad4efdf .
+
+:p6e55f280d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the outlet connection from the waste disposal unit." ;
+        rdfs:label                "OutletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the outlet connection from the waste disposal unit." ;
+        IFC4-PSD:definitionAlias  "ゴミ処理装置の排出口接続口サイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6e55f280d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutletConnectionSize" ;
+        IFC4-PSD:nameAlias        "排出口接続口サイズ"@ja-JP , "Outlet Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_WasteTerminalTypeWasteDisposalUnit>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:NominalDepth  a            rdf:Property ;
+        rdfs:seeAlso        :p76ae2d80d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDepth .
+
+:p76ae2d80d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or quoted depth of the object measured from the inlet drain connection to the base of the unit." ;
+        rdfs:label                "NominalDepth" ;
+        IFC4-PSD:definition       "Nominal or quoted depth of the object measured from the inlet drain connection to the base of the unit." ;
+        IFC4-PSD:definitionAlias  "装置の基礎に配管吸入口から測定した深さ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "76ae2d80d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDepth" ;
+        IFC4-PSD:nameAlias        "Nominal Depth"@en , "深さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OutletConnectionSize
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6e55f280d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutletConnectionSize .
+
+:p65fdb780d21811e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the drain connection inlet to the waste disposal unit." ;
+        rdfs:label                "DrainConnectionSize" ;
+        IFC4-PSD:definition       "Size of the drain connection inlet to the waste disposal unit." ;
+        IFC4-PSD:definitionAlias  "ゴミ処理装置の吸入口配管接続口サイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "65fdb780d21811e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DrainConnectionSize" ;
+        IFC4-PSD:nameAlias        "配管接続口サイズ"@ja-JP , "Drain Connection Size"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DrainConnectionSize  a     rdf:Property ;
+        rdfs:seeAlso        :p65fdb780d21811e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DrainConnectionSize .

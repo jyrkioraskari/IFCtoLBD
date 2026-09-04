@@ -1,0 +1,95 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfContinuousFooting#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:CrossingUpperBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p32169800d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CrossingUpperBarPitch .
+
+:Description  a             rdf:Property ;
+        rdfs:seeAlso        :p25923f80d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Description .
+
+:p39d63c80d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the crossing lower bar." ;
+        rdfs:label                "CrossingLowerBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the crossing lower bar." ;
+        IFC4-PSD:definitionAlias  "交差する下端筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "39d63c80d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CrossingLowerBarPitch" ;
+        IFC4-PSD:nameAlias        "下端筋間隔"@ja-JP , "Crossing Lower Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p25923f80d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Description of the reinforcement." ;
+        rdfs:label                "Description" ;
+        IFC4-PSD:definition       "Description of the reinforcement." ;
+        IFC4-PSD:definitionAlias  "鉄筋の説明。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "25923f80d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Description" ;
+        IFC4-PSD:nameAlias        "説明"@ja-JP , "Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ReinforcementBarPitchOfContinuousFooting>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p32169800d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pitch length of the crossing upper bar." ;
+        rdfs:label                "CrossingUpperBarPitch" ;
+        IFC4-PSD:definition       "The pitch length of the crossing upper bar." ;
+        IFC4-PSD:definitionAlias  "交差する上端筋間隔。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "32169800d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CrossingUpperBarPitch" ;
+        IFC4-PSD:nameAlias        "上端筋間隔"@ja-JP , "Crossing Upper Bar Pitch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:CrossingLowerBarPitch
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p39d63c80d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CrossingLowerBarPitch .
+
+:Pset_ReinforcementBarPitchOfContinuousFooting
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Reinforcement Concrete parameter [ST-2]: The pitch length information of reinforcement  bar with the continuous footing." ;
+        rdfs:label                    "Pset_ReinforcementBarPitchOfContinuousFooting" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFooting ;
+        IFC4-PSD:applicableTypeValue  "IfcFooting" ;
+        IFC4-PSD:definition           "Reinforcement Concrete parameter [ST-2]: The pitch length information of reinforcement  bar with the continuous footing." ;
+        IFC4-PSD:definitionAlias      ""@en , "鉄筋コンクリートパラメータ［ST-2］：布基礎の補強筋間隔情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ReinforcementBarPitchOfContinuousFooting" ;
+        IFC4-PSD:propertyDef          :p39d63c80d20011e1800000215ad4efdf , :p32169800d20011e1800000215ad4efdf , :p25923f80d20011e1800000215ad4efdf , :p2b882080d20011e1800000215ad4efdf .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p2b882080d20011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p2b882080d20011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A descriptive label for the general reinforcement type." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "A descriptive label for the general reinforcement type." ;
+        IFC4-PSD:definitionAlias  "一般的な鉄筋タイプの説明ラベル。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2b882080d20011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .

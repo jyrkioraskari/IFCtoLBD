@@ -1,0 +1,110 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1d8dcc00d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "e.g. panels, worksurfaces, storage, etc." ;
+        rdfs:label                "GroupCode" ;
+        IFC4-PSD:definition       "e.g. panels, worksurfaces, storage, etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1d8dcc00d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GroupCode" ;
+        IFC4-PSD:nameAlias        "Group Code"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p2d0d1500d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the system furniture elements of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the system furniture elements of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2d0d1500d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "Nominal Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p24b4da00d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
+
+:p24b4da00d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width of the system furniture elements of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width of the system furniture elements of this type. The size information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the size properties, provided in the attached property set, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "24b4da00d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "Nominal Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:GroupCode  a               rdf:Property ;
+        rdfs:seeAlso        :p1d8dcc00d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GroupCode .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SystemFurnitureElementTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SystemFurnitureElementTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common properties for all systems furniture (I.e. modular furniture) element types (e.g. vertical panels, work surfaces, and storage). HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FurnitureElementCommon" ;
+        rdfs:label                    "Pset_SystemFurnitureElementTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSystemFurnitureElement ;
+        IFC4-PSD:applicableTypeValue  "IfcSystemFurnitureElement" ;
+        IFC4-PSD:definition           "Common properties for all systems furniture (I.e. modular furniture) element types (e.g. vertical panels, work surfaces, and storage). HISTORY: First issued in IFC Release R1.5. Renamed from Pset_FurnitureElementCommon" ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SystemFurnitureElementTypeCommon" ;
+        IFC4-PSD:propertyDef          :p16ff5480d20f11e1800000215ad4efdf , :p1d8dcc00d20f11e1800000215ad4efdf , :p24b4da00d20f11e1800000215ad4efdf , :p35655000d20f11e1800000215ad4efdf , :p2d0d1500d20f11e1800000215ad4efdf .
+
+:Finishing  a               rdf:Property ;
+        rdfs:seeAlso        :p35655000d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Finishing .
+
+:p35655000d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The finishing applied to system furniture elements of this type e.g. walnut, fabric." ;
+        rdfs:label                "Finishing" ;
+        IFC4-PSD:definition       "The finishing applied to system furniture elements of this type e.g. walnut, fabric." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "35655000d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Finishing" ;
+        IFC4-PSD:nameAlias        "Finishing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p16ff5480d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the element is being used in a workstation (= TRUE) or not.(= FALSE)." ;
+        rdfs:label                "IsUsed" ;
+        IFC4-PSD:definition       "Indicates whether the element is being used in a workstation (= TRUE) or not.(= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "16ff5480d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsUsed" ;
+        IFC4-PSD:nameAlias        "Is Used"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:IsUsed  a                  rdf:Property ;
+        rdfs:seeAlso        :p16ff5480d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsUsed .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :p2d0d1500d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .

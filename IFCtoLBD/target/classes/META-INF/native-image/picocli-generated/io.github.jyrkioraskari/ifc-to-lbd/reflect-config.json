@@ -1,0 +1,81 @@
+[
+  {
+    "name" : "java.util.Collections$UnmodifiableRandomAccessList",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true
+  },
+  {
+    "name" : "java.util.Optional",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true
+  },
+  {
+    "name" : "org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "fields" : [
+      { "name" : "exportIfcOWL" },
+      { "name" : "exportJSON" },
+      { "name" : "hasBoundingBoxWKT" },
+      { "name" : "hasBuildingElements" },
+      { "name" : "hasBuildingProperties" },
+      { "name" : "hasGeolocation" },
+      { "name" : "hasGeometry" },
+      { "name" : "hasHierarchicalNaming" },
+      { "name" : "hasIfc_based_elements" },
+      { "name" : "hasInterfaces" },
+      { "name" : "hasPerformanceBoost" },
+      { "name" : "hasPropertiesBlankNodes" },
+      { "name" : "hasSeparateBuildingElementsModel" },
+      { "name" : "hasSeparatePropertiesModel" },
+      { "name" : "hasSimpleProperties" },
+      { "name" : "hasUnits" },
+      { "name" : "hasWireframe" },
+      { "name" : "ifc_filename" },
+      { "name" : "modelScope" },
+      { "name" : "namedGraphs" },
+      { "name" : "namingStrategy" },
+      { "name" : "profile" },
+      { "name" : "propertiesAsPropertySets" },
+      { "name" : "propertyMappings" },
+      { "name" : "props_level" },
+      { "name" : "selectedPropertySets" },
+      { "name" : "selectedTypes" },
+      { "name" : "target_file" },
+      { "name" : "uriBase" },
+      { "name" : "validate" },
+      { "name" : "validationPacks" }
+    ]
+  },
+  {
+    "name" : "org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI$ManifestVersionProvider",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true
+  },
+  {
+    "name" : "org.linkedbuildingdata.ifc2lbd.ValidationShapePack",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true
+  },
+  {
+    "name" : "picocli.CommandLine$AutoHelpMixin",
+    "allDeclaredConstructors" : true,
+    "allPublicConstructors" : true,
+    "allDeclaredMethods" : true,
+    "allPublicMethods" : true,
+    "fields" : [
+      { "name" : "helpRequested" },
+      { "name" : "versionRequested" }
+    ]
+  }
+]

@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeGasTap#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p0651dd00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the gas tap is fitted with a hose union connection (= TRUE) or not (= FALSE)." ;
+        rdfs:label                "HasHoseUnion" ;
+        IFC4-PSD:definition       "Indicates whether the gas tap is fitted with a hose union connection (= TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , "排水コックにホースユニオン継手が付いているかの表示．付き\n(= TRUE)無し (= FALSE)"@ja-JP ;
+        IFC4-PSD:ifdguid          "0651dd00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasHoseUnion" ;
+        IFC4-PSD:nameAlias        "ホースユニオン付き"@ja-JP , "Has Hose Union"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Pset_ValveTypeGasTap
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A small diameter valve, used to discharge gas from a system." ;
+        rdfs:label                    "Pset_ValveTypeGasTap" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/GASTAP> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/GASTAP" ;
+        IFC4-PSD:definition           "A small diameter valve, used to discharge gas from a system." ;
+        IFC4-PSD:definitionAlias      "弁タイプ排水コック"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeGasTap" ;
+        IFC4-PSD:propertyDef          :p0651dd00d21511e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeGasTap>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HasHoseUnion  a            rdf:Property ;
+        rdfs:seeAlso        :p0651dd00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasHoseUnion .

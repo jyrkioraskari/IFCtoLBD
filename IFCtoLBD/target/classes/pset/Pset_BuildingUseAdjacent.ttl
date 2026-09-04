@@ -1,0 +1,94 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingUseAdjacent#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p1098ba80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Subset of category of use e.g. multi-family, 2 bedroom, low rise." ;
+        rdfs:label                "MarketSubCategory" ;
+        IFC4-PSD:definition       "Subset of category of use e.g. multi-family, 2 bedroom, low rise." ;
+        IFC4-PSD:definitionAlias  ""@en , "Sous catégorie d'usage."@fr-FR ;
+        IFC4-PSD:ifdguid          "1098ba80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketSubCategory" ;
+        IFC4-PSD:nameAlias        "Market Sub Category"@en , "SousCategorieUsage"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:MarketCategory  a          rdf:Property ;
+        rdfs:seeAlso        :p0b3b7000d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketCategory .
+
+:NarrativeText  a           rdf:Property ;
+        rdfs:seeAlso        :p1c847c80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NarrativeText .
+
+:MarketSubCategory  a       rdf:Property ;
+        rdfs:seeAlso        :p1098ba80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketSubCategory .
+
+:PlanningControlStatus
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p168e9b80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlanningControlStatus .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingUseAdjacent>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p1c847c80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Added information relating to the adjacent building use that is not appropriate to the general descriptive text associated with an entity through the inherited IfcRoot.Description." ;
+        rdfs:label                "NarrativeText" ;
+        IFC4-PSD:definition       "Added information relating to the adjacent building use that is not appropriate to the general descriptive text associated with an entity through the inherited IfcRoot.Description." ;
+        IFC4-PSD:definitionAlias  ""@en , "Information sur l'usage des bâtiments voisins"@fr-FR ;
+        IFC4-PSD:ifdguid          "1c847c80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NarrativeText" ;
+        IFC4-PSD:nameAlias        "Narrative Text"@en , "CommentaireUsage"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p0b3b7000d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Category of use e.g. residential, commercial, recreation etc." ;
+        rdfs:label                "MarketCategory" ;
+        IFC4-PSD:definition       "Category of use e.g. residential, commercial, recreation etc." ;
+        IFC4-PSD:definitionAlias  ""@en , "Catégorie d'usage (résidentiel, commercial, loisir,…)"@fr-FR ;
+        IFC4-PSD:ifdguid          "0b3b7000d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketCategory" ;
+        IFC4-PSD:nameAlias        "Market Category"@en , "CategorieUsage"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p168e9b80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label of zoning category or class, or planning control category for the site or facility." ;
+        rdfs:label                "PlanningControlStatus" ;
+        IFC4-PSD:definition       "Label of zoning category or class, or planning control category for the site or facility." ;
+        IFC4-PSD:definitionAlias  "Catégorie de zone ou classe, ou catégorie relativement à un planning de contrôle pour le site ou l'ensemble immobilier."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "168e9b80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlanningControlStatus" ;
+        IFC4-PSD:nameAlias        "Planning Control Status"@en , "EtatPlanningControle"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:Pset_BuildingUseAdjacent
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Provides information on adjacent buildings and their uses to enable their impact on the building of interest to be determined. Note that for each instance of the property set used, where there is an existence of risk, there will be an instance of the property set Pset_Risk (q.v)." ;
+        rdfs:label                    "Pset_BuildingUseAdjacent" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuilding ;
+        IFC4-PSD:applicableTypeValue  "IfcBuilding" ;
+        IFC4-PSD:definition           "Provides information on adjacent buildings and their uses to enable their impact on the building of interest to be determined. Note that for each instance of the property set used, where there is an existence of risk, there will be an instance of the property set Pset_Risk (q.v)." ;
+        IFC4-PSD:definitionAlias      ""@en , "Définition de l'IAI : information sur les bâtiments voisins et sur leur usage pour apprécier leur impact sur le bâtiment auquel on s'intéresse. Veuillez noter que pour chaque instance de ce jeu de propriétés,  dès lors qu'un risque existe, il doit exister une instance du jeu de propriétés Pset_Risk (q.v)."@fr-FR ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BuildingUseAdjacent" ;
+        IFC4-PSD:propertyDef          :p1c847c80d1c611e1800000215ad4efdf , :p168e9b80d1c611e1800000215ad4efdf , :p0b3b7000d1c611e1800000215ad4efdf , :p1098ba80d1c611e1800000215ad4efdf .

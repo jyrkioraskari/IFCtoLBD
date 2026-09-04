@@ -1,0 +1,46 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElementAssemblyCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p20e74f79d075407a92f93d6788281332
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Status" ;
+        IFC4-PSD:ifdguid       "20e74f79d075407a92f93d6788281332" ;
+        IFC4-PSD:name          "Status" ;
+        IFC4-PSD:propertyType  [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                 IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                               ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p943159a93c8d4316a7a01b4382c6ea80 ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ElementAssemblyCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_ElementAssemblyCommon
+        a                     IFC4-PSD:PropertySetDef ;
+        rdfs:comment          "Properties common to the definition of all occurrence and type objects of element assembly." ;
+        rdfs:label            "Pset_ElementAssemblyCommon" ;
+        IFC4-PSD:definition   "Properties common to the definition of all occurrence and type objects of element assembly." ;
+        IFC4-PSD:ifcVersion   [ a                 IFC4-PSD:IfcVersion ;
+                                IFC4-PSD:version  "IFC4"
+                              ] ;
+        IFC4-PSD:name         "Pset_ElementAssemblyCommon" ;
+        IFC4-PSD:propertyDef  :p943159a93c8d4316a7a01b4382c6ea80 , :p20e74f79d075407a92f93d6788281332 .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p20e74f79d075407a92f93d6788281332 ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:p943159a93c8d4316a7a01b4382c6ea80
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "Reference" ;
+        IFC4-PSD:ifdguid       "943159a93c8d4316a7a01b4382c6ea80" ;
+        IFC4-PSD:name          "Reference" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .

@@ -1,0 +1,200 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RampCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p38f0db00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RampCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p38f0db00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE , ""@en , "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR ;
+        IFC4-PSD:ifdguid          "38f0db00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Statut"@fr-FR , "Status"@de-DE , "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_RampCommon  a                   IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrences of IfcRamp." ;
+        rdfs:label                    "Pset_RampCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcRamp ;
+        IFC4-PSD:applicableTypeValue  "IfcRamp" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcRamp." ;
+        IFC4-PSD:definitionAlias      "IfcRamp(ランプ)オブジェクトに関する共通プロパティセット定義。"@ja-JP , ""@en , "所有IfcRamp实例的定义中通用的属性。"@zh-CN , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcRamp"@fr-FR ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_RampCommon" ;
+        IFC4-PSD:propertyDef          :p502fc880d1ff11e1800000215ad4efdf , :p663d8900d1ff11e1800000215ad4efdf , :p33939080d1ff11e1800000215ad4efdf , :pd656025ed2cd424598c8b1b57aa9e3a0 , :p761e9ee4c87544849c2a57a17935596e , :p45753380d1ff11e1800000215ad4efdf , :p4c03ab00d1ff11e1800000215ad4efdf , :p558d1300d1ff11e1800000215ad4efdf , :p5b82f400d1ff11e1800000215ad4efdf , :p60e03e80d1ff11e1800000215ad4efdf , :p38f0db00d1ff11e1800000215ad4efdf .
+
+:p5b82f400d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether this object is designed to serve as an exit in the case of fire (TRUE) or not (FALSE).\nHere it defines an exit ramp in accordance to the national building code." ;
+        rdfs:label                "FireExit" ;
+        IFC4-PSD:definition       "Indication whether this object is designed to serve as an exit in the case of fire (TRUE) or not (FALSE).\nHere it defines an exit ramp in accordance to the national building code." ;
+        IFC4-PSD:definitionAlias  "German-description-6"@de-DE , "このオブジェクトが火災時の非常口として設計されているかどうかを示すブーリアン値。ここでは関連する建築基準法における出口ドアとして定義している。"@ja-JP , ""@en , "Indique si cet objet est conçu pour servir de sortie en cas d'incendie (VRAI) ou non (FAUX). Définition de la sortie de secours selon le Code National."@fr-FR , "表示该构件是否设计为火灾时的紧急出口。\n该属性的依据为国家建筑规范。"@zh-CN ;
+        IFC4-PSD:ifdguid          "5b82f400d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireExit" ;
+        IFC4-PSD:nameAlias        "SortieSecours"@fr-FR , "Fire Exit"@en , "非常口区分"@ja-JP , "是否为紧急出口"@zh-CN , "Fluchtweg"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:ThermalTransmittance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd656025ed2cd424598c8b1b57aa9e3a0 ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalTransmittance .
+
+:p4c03ab00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Required sloping angle of the object  - relative to horizontal (0.0 degrees).\nRequired maximum slope for the passageway according to the applicable building code or additional requirements." ;
+        rdfs:label                "RequiredSlope" ;
+        IFC4-PSD:definition       "Required sloping angle of the object  - relative to horizontal (0.0 degrees).\nRequired maximum slope for the passageway according to the applicable building code or additional requirements." ;
+        IFC4-PSD:definitionAlias  "Inclinaison de la rampe par rapport à l'horizontal (0 degrés). Valeur maximale de l'inclinaison du passage selon le code applicable ou pour respecter des contraintes additionnelles."@fr-FR , "要求される傾斜角度。水平を０度とする。"@ja-JP , "German-description-3"@de-DE , "构件所需的相对于水平（0.0度）方向的坡度角。\n建筑规范或其他规定要求的通道的最大坡度。"@zh-CN , ""@en ;
+        IFC4-PSD:ifdguid          "4c03ab00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RequiredSlope" ;
+        IFC4-PSD:nameAlias        "要求傾斜"@ja-JP , "erforderliche Neigung"@de-DE , "所需坡度"@zh-CN , "Required Slope"@en , "InclinaisonRequise"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:p45753380d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Required headroom clearance for the passageway according to the applicable building code or additional requirements." ;
+        rdfs:label                "RequiredHeadroom" ;
+        IFC4-PSD:definition       "Required headroom clearance for the passageway according to the applicable building code or additional requirements." ;
+        IFC4-PSD:definitionAlias  "建筑规范或其他规定要求的通道净空高度。"@zh-CN , "German-description-2"@de-DE , "Hauteur de passage (échappée) requise selon la réglementation en vigueur ou des spécifications additionnelles."@fr-FR , "要求される頭高余裕。関連する建築基準法を参照。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "45753380d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RequiredHeadroom" ;
+        IFC4-PSD:nameAlias        "Required Headroom"@en , "erforderliche Durchgangshöhe"@de-DE , "所需净空"@zh-CN , "HauteurPassageRequise"@fr-FR , "要求頭高余裕"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:RequiredSlope  a           rdf:Property ;
+        rdfs:seeAlso        :p4c03ab00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RequiredSlope .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p33939080d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:LoadBearing  a             rdf:Property ;
+        rdfs:seeAlso        :p761e9ee4c87544849c2a57a17935596e ;
+        rdfs:subPropertyOf  IFC4-PSD:LoadBearing .
+
+:IsExternal  a              rdf:Property ;
+        rdfs:seeAlso        :p502fc880d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsExternal .
+
+:p663d8900d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the surface finish is designed to prevent slippery (TRUE) or not (FALSE)." ;
+        rdfs:label                "HasNonSkidSurface" ;
+        IFC4-PSD:definition       "Indication whether the surface finish is designed to prevent slippery (TRUE) or not (FALSE)." ;
+        IFC4-PSD:definitionAlias  "Indique si le revêtement de surface est anti dérapant (VRAI) ou non (FAUX)"@fr-FR , "スリップ防止のための表面仕上げをしているかどうかのブーリアン値。"@ja-JP , "表示表面处理是否设计为防滑的。"@zh-CN , "German-description-8"@de-DE , ""@en ;
+        IFC4-PSD:ifdguid          "663d8900d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasNonSkidSurface" ;
+        IFC4-PSD:nameAlias        "Has Non Skid Surface"@en , "AntiDerapant"@fr-FR , "表面是否防滑"@zh-CN , "Nichtrutschende Oberfläche"@de-DE , "滑り止め表面加工区分"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FireRating  a              rdf:Property ;
+        rdfs:seeAlso        :p558d1300d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireRating .
+
+:p33939080d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        IFC4-PSD:definitionAlias  "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE , "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR , ""@en , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "33939080d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参考号"@zh-CN , "参照記号"@ja-JP , "Reference"@en , "Reference"@fr-FR , "Bauteiltyp"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p558d1300d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fire rating for this object.\nIt is given according to the national fire safety classification." ;
+        rdfs:label                "FireRating" ;
+        IFC4-PSD:definition       "Fire rating for this object.\nIt is given according to the national fire safety classification." ;
+        IFC4-PSD:definitionAlias  "Feuerwiderstandasklasse gemäß der nationalen oder regionalen Brandschutzverordnung."@de-DE , "主要な耐火等級。関連する建築基準法、消防法などの国家基準を参照。"@ja-JP , "该构件的防火等级。\n该属性的依据为国家防火安全分级。"@zh-CN , ""@en , "Classement au feu de l'élément donné selon la classification nationale de sécurité incendie."@fr-FR ;
+        IFC4-PSD:ifdguid          "558d1300d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FireRating" ;
+        IFC4-PSD:nameAlias        "ResistanceAuFeu"@fr-FR , "耐火等級"@ja-JP , "防火等级"@zh-CN , "Fire Rating"@en , "Feuerwiderstandsklasse"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:HandicapAccessible  a      rdf:Property ;
+        rdfs:seeAlso        :p60e03e80d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HandicapAccessible .
+
+:p60e03e80d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication that this object is designed to be accessible by the handicapped. \nSet to (TRUE) if this ramp is rated as handicap accessible  according the local building codes, otherwise (FALSE)." ;
+        rdfs:label                "HandicapAccessible" ;
+        IFC4-PSD:definition       "Indication that this object is designed to be accessible by the handicapped. \nSet to (TRUE) if this ramp is rated as handicap accessible  according the local building codes, otherwise (FALSE)." ;
+        IFC4-PSD:definitionAlias  "表示该构件是否设计为可供残疾人使用的无障碍设施。\n该属性的根据为国家建筑规范。"@zh-CN , "Indique que cet objet est conçu pour être accessible aux handicapés. Indication donnée selon le Code National."@fr-FR , "German-description-7"@de-DE , ""@en , "この空間がハンディキャップ者向けの空間かどうかを示すブーリアン値。"@ja-JP ;
+        IFC4-PSD:ifdguid          "60e03e80d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HandicapAccessible" ;
+        IFC4-PSD:nameAlias        "Behindertengerecht"@de-DE , "Handicap Accessible"@en , "AccessibleHandicapes"@fr-FR , "是否为无障碍设施"@zh-CN , "ハンディキャップアクセス可能性"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pd656025ed2cd424598c8b1b57aa9e3a0
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "ThermalTransmittance" ;
+        IFC4-PSD:ifdguid       "d656025ed2cd424598c8b1b57aa9e3a0" ;
+        IFC4-PSD:name          "ThermalTransmittance" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .
+
+:HasNonSkidSurface  a       rdf:Property ;
+        rdfs:seeAlso        :p663d8900d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasNonSkidSurface .
+
+:p502fc880d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        rdfs:label                "IsExternal" ;
+        IFC4-PSD:definition       "Indication whether the element is designed for use in the exterior (TRUE) or not (FALSE). If (TRUE) it is an external element and faces the outside of the building." ;
+        IFC4-PSD:definitionAlias  "Indique si l'élément est conçu pour être utilisé à l'extérieur (VRAI) ou non (FAUX). Si VRAI, c'est un élément extérieur qui donne sur l'extérieur du bâtiment."@fr-FR , ""@en , "Angabe, ob dieses Bauteil ein Aussenbauteil ist (JA) oder ein Innenbauteil (NEIN). Als Aussenbauteil grenzt es an den Aussenraum (oder Erdreich, oder Wasser)."@de-DE , "表示该构件是否设计为外部构件。若是，则该构件为外部构件，朝向建筑物的外侧。"@zh-CN , "外部の部材かどうかを示すブーリアン値。もしTRUEの場合、外部の部材で建物の外側に面している。"@ja-JP ;
+        IFC4-PSD:ifdguid          "502fc880d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsExternal" ;
+        IFC4-PSD:nameAlias        "EstExterieur"@fr-FR , "Is External"@en , "是否外部构件"@zh-CN , "外部区分"@ja-JP , "Außenbauteil"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FireExit  a                rdf:Property ;
+        rdfs:seeAlso        :p5b82f400d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FireExit .
+
+:RequiredHeadroom  a        rdf:Property ;
+        rdfs:seeAlso        :p45753380d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RequiredHeadroom .
+
+:p761e9ee4c87544849c2a57a17935596e
+        a                      IFC4-PSD:PropertyDef ;
+        rdfs:label             "LoadBearing" ;
+        IFC4-PSD:ifdguid       "761e9ee4c87544849c2a57a17935596e" ;
+        IFC4-PSD:name          "LoadBearing" ;
+        IFC4-PSD:propertyType  [ a  IFC4-PSD:TypePropertySingleValue ] .

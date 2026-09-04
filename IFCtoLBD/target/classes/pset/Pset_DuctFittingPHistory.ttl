@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:AtmosphericPressure  a     rdf:Property ;
+        rdfs:seeAlso        :pf8cd3080d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AtmosphericPressure .
+
+:pf66ad680d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Dimensionless loss coefficient used for calculating fluid resistance representing the ratio of total pressure loss to velocity pressure at a referenced cross-section." ;
+        rdfs:label                "LossCoefficient" ;
+        IFC4-PSD:definition       "Dimensionless loss coefficient used for calculating fluid resistance representing the ratio of total pressure loss to velocity pressure at a referenced cross-section." ;
+        IFC4-PSD:definitionAlias  ""@en , "参照された断面での動圧に対する全圧損失の比を表わす流体抵抗の計算に使用される無次元の損失係数"@ja-JP ;
+        IFC4-PSD:ifdguid          "f66ad680d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LossCoefficient" ;
+        IFC4-PSD:nameAlias        "Loss Coefficient"@en , "損失係数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AirFlowLeakage  a          rdf:Property ;
+        rdfs:seeAlso        :pfb2f8a80d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowLeakage .
+
+:Pset_DuctFittingPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Duct fitting performance history common attributes." ;
+        rdfs:label                    "Pset_DuctFittingPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcDuctFitting ;
+        IFC4-PSD:applicableTypeValue  "IfcDuctFitting" ;
+        IFC4-PSD:definition           "Duct fitting performance history common attributes." ;
+        IFC4-PSD:definitionAlias      "ダクト継手の性能履歴共通属性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DuctFittingPHistory" ;
+        IFC4-PSD:propertyDef          :pf66ad680d1dd11e1800000215ad4efdf , :pfb2f8a80d1dd11e1800000215ad4efdf , :pf8cd3080d1dd11e1800000215ad4efdf .
+
+:pfb2f8a80d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Volumetric leakage flow rate." ;
+        rdfs:label                "AirFlowLeakage" ;
+        IFC4-PSD:definition       "Volumetric leakage flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "体積漏れ流量"@ja-JP ;
+        IFC4-PSD:ifdguid          "fb2f8a80d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowLeakage" ;
+        IFC4-PSD:nameAlias        "Air Flow Leakage"@en , "漏れ量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:LossCoefficient  a         rdf:Property ;
+        rdfs:seeAlso        :pf66ad680d1dd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LossCoefficient .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DuctFittingPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pf8cd3080d1dd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Ambient atmospheric pressure." ;
+        rdfs:label                "AtmosphericPressure" ;
+        IFC4-PSD:definition       "Ambient atmospheric pressure." ;
+        IFC4-PSD:definitionAlias  ""@en , "周囲の大気圧"@ja-JP ;
+        IFC4-PSD:ifdguid          "f8cd3080d1dd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AtmosphericPressure" ;
+        IFC4-PSD:nameAlias        "大気圧"@ja-JP , "Atmospheric Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

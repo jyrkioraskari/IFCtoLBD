@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeMomentarySwitch#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_SwitchingDeviceTypeMomentarySwitch
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A momentary switch is a switch that does not hold state.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeMomentarySwitch" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/MOMENTARYSWITCH> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/MOMENTARYSWITCH" ;
+        IFC4-PSD:definition           "A momentary switch is a switch that does not hold state.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      "瞬時スイッチ（モーメンタリスイッチ）は状態を保持しないタイプのスイッチ。\n履歴： IFC4に追加。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeMomentarySwitch" ;
+        IFC4-PSD:propertyDef          :p4c577280d20e11e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeMomentarySwitch>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p4c577280d20e11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of momentary switch from which that required may be selected." ;
+        rdfs:label                "MomentaryType" ;
+        IFC4-PSD:definition       "A list of the available types of momentary switch from which that required may be selected." ;
+        IFC4-PSD:definitionAlias  ""@en , "선택이 필요한 자동 복귀 스위치 목록"@ko-KR , "選択が必要となる、自動復帰スイッチの一覧リスト。"@ja-JP ;
+        IFC4-PSD:ifdguid          "4c577280d20e11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MomentaryType" ;
+        IFC4-PSD:nameAlias        "Momentary Type"@en , "瞬時スイッチタイプ"@ja-JP , "순간스위치 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "BUTTON" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MomentaryType  a           rdf:Property ;
+        rdfs:seeAlso        :p4c577280d20e11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MomentaryType .

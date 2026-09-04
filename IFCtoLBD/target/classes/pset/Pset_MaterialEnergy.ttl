@@ -1,0 +1,149 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialEnergy#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_MaterialEnergy>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ThermalConductivityTemperatureDerivative
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1e156b00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalConductivityTemperatureDerivative .
+
+:SpecificHeatTemperatureDerivative
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p22da1f00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpecificHeatTemperatureDerivative .
+
+:p181f8a00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal gradient coefficient for moisture capacity. Based on water vapor density." ;
+        rdfs:label                "MoistureCapacityThermalGradient" ;
+        IFC4-PSD:definition       "Thermal gradient coefficient for moisture capacity. Based on water vapor density." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "181f8a00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MoistureCapacityThermalGradient" ;
+        IFC4-PSD:nameAlias        "Moisture Capacity Thermal Gradient"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:MoistureCapacityThermalGradient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p181f8a00d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MoistureCapacityThermalGradient .
+
+:p34bbc200d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fill pressure (e.g. for between-pane gas fills): the pressure exerted by a mass of gas confined in a constant volume." ;
+        rdfs:label                "GasPressure" ;
+        IFC4-PSD:definition       "Fill pressure (e.g. for between-pane gas fills): the pressure exerted by a mass of gas confined in a constant volume." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "34bbc200d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "GasPressure" ;
+        IFC4-PSD:nameAlias        "Gas Pressure"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ViscosityTemperatureDerivative
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p1229a900d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ViscosityTemperatureDerivative .
+
+:VisibleRefractionIndex
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p28d00000d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VisibleRefractionIndex .
+
+:p1e156b00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal conductivity temperature derivative." ;
+        rdfs:label                "ThermalConductivityTemperatureDerivative" ;
+        IFC4-PSD:definition       "Thermal conductivity temperature derivative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1e156b00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalConductivityTemperatureDerivative" ;
+        IFC4-PSD:nameAlias        "Thermal Conductivity Temperature Derivative"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p2f5e7780d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Index of refraction (solar) defines the \"bending\" of the solar ray when it passes from one medium into another." ;
+        rdfs:label                "SolarRefractionIndex" ;
+        IFC4-PSD:definition       "Index of refraction (solar) defines the \"bending\" of the solar ray when it passes from one medium into another." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2f5e7780d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SolarRefractionIndex" ;
+        IFC4-PSD:nameAlias        "Solar Refraction Index"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p1229a900d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Viscosity temperature derivative." ;
+        rdfs:label                "ViscosityTemperatureDerivative" ;
+        IFC4-PSD:definition       "Viscosity temperature derivative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1229a900d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ViscosityTemperatureDerivative" ;
+        IFC4-PSD:nameAlias        "Viscosity Temperature Derivative"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:SolarRefractionIndex
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2f5e7780d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SolarRefractionIndex .
+
+:Pset_MaterialEnergy  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A set of extended material properties for energy calculation purposes." ;
+        rdfs:label                    "Pset_MaterialEnergy" ;
+        IFC4-PSD:applicableClass      IFC4:IfcMaterial ;
+        IFC4-PSD:applicableTypeValue  "IfcMaterial" ;
+        IFC4-PSD:definition           "A set of extended material properties for energy calculation purposes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_MaterialEnergy" ;
+        IFC4-PSD:propertyDef          :p34bbc200d1ed11e1800000215ad4efdf , :p28d00000d1ed11e1800000215ad4efdf , :p1229a900d1ed11e1800000215ad4efdf , :p1e156b00d1ed11e1800000215ad4efdf , :p181f8a00d1ed11e1800000215ad4efdf , :p2f5e7780d1ed11e1800000215ad4efdf , :p22da1f00d1ed11e1800000215ad4efdf .
+
+:p22da1f00d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Specific heat temperature derivative." ;
+        rdfs:label                "SpecificHeatTemperatureDerivative" ;
+        IFC4-PSD:definition       "Specific heat temperature derivative." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "22da1f00d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpecificHeatTemperatureDerivative" ;
+        IFC4-PSD:nameAlias        "Specific Heat Temperature Derivative"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p28d00000d1ed11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Index of refraction (visible) defines the \"bending\" of the sola! r ray in the visible spectrum when it passes from one medium into another." ;
+        rdfs:label                "VisibleRefractionIndex" ;
+        IFC4-PSD:definition       "Index of refraction (visible) defines the \"bending\" of the sola! r ray in the visible spectrum when it passes from one medium into another." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "28d00000d1ed11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VisibleRefractionIndex" ;
+        IFC4-PSD:nameAlias        "Visible Refraction Index"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:GasPressure  a             rdf:Property ;
+        rdfs:seeAlso        :p34bbc200d1ed11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:GasPressure .

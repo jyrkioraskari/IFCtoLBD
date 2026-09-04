@@ -1,0 +1,145 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeFloating#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SignalFactor  a            rdf:Property ;
+        rdfs:seeAlso        :p6de43a00d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SignalFactor .
+
+:p2eb5e900d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of signal modification effected and applicable ports: \n\nCONSTANT: No inputs; SignalOffset is written to the output value.\nMODIFIER: Single analog input is read, added to SignalOffset, multiplied by SignalFactor, and written to the output value.\nABSOLUTE: Single analog input is read and absolute value is written to the output value.\nINVERSE: Single analog input is read, 1.0 is divided by the input value and written to the output value.\nHYSTERISIS: Single analog input is read, delayed according to SignalTime, and written to the output value.\nRUNNINGAVERAGE: Single analog input is read, averaged over SignalTime, and written to the output value.\nDERIVATIVE: Single analog input is read and the rate of change during the SignalTime is written to the output value.\nINTEGRAL: Single analog input is read and the average value during the SignalTime is written to the output value.\nBINARY: Single binary input is read and SignalOffset is written to the output value if True.\nACCUMULATOR: Single binary input is read, and for each pulse the SignalOffset is added to the accumulator, and while the accumulator is greater than the SignalFactor, the accumulator is decremented by SignalFactor and the integer result is incremented by one.\nPULSECONVERTER: Single integer input is read, and for each increment the SignalMultiplier is added and written to the output value.\nSUM: Two analog inputs are read, added, and written to the output value.\nSUBTRACT: Two analog inputs are read, subtracted, and written to the output value.\nPRODUCT: Two analog inputs are read, multiplied, and written to the output value.\nDIVIDE: Two analog inputs are read, divided, and written to the output value.\nAVERAGE: Two analog inputs are read and the average is written to the output value.\nMAXIMUM: Two analog inputs are read and the maximum is written to the output value.\nMINIMUM: Two analog inputs are read and the minimum is written to the output value..\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        rdfs:label                "ControlType" ;
+        IFC4-PSD:definition       "The type of signal modification effected and applicable ports: \n\nCONSTANT: No inputs; SignalOffset is written to the output value.\nMODIFIER: Single analog input is read, added to SignalOffset, multiplied by SignalFactor, and written to the output value.\nABSOLUTE: Single analog input is read and absolute value is written to the output value.\nINVERSE: Single analog input is read, 1.0 is divided by the input value and written to the output value.\nHYSTERISIS: Single analog input is read, delayed according to SignalTime, and written to the output value.\nRUNNINGAVERAGE: Single analog input is read, averaged over SignalTime, and written to the output value.\nDERIVATIVE: Single analog input is read and the rate of change during the SignalTime is written to the output value.\nINTEGRAL: Single analog input is read and the average value during the SignalTime is written to the output value.\nBINARY: Single binary input is read and SignalOffset is written to the output value if True.\nACCUMULATOR: Single binary input is read, and for each pulse the SignalOffset is added to the accumulator, and while the accumulator is greater than the SignalFactor, the accumulator is decremented by SignalFactor and the integer result is incremented by one.\nPULSECONVERTER: Single integer input is read, and for each increment the SignalMultiplier is added and written to the output value.\nSUM: Two analog inputs are read, added, and written to the output value.\nSUBTRACT: Two analog inputs are read, subtracted, and written to the output value.\nPRODUCT: Two analog inputs are read, multiplied, and written to the output value.\nDIVIDE: Two analog inputs are read, divided, and written to the output value.\nAVERAGE: Two analog inputs are read and the average is written to the output value.\nMAXIMUM: Two analog inputs are read and the maximum is written to the output value.\nMINIMUM: Two analog inputs are read and the minimum is written to the output value..\nINPUT: Controller element is a dedicated input.\nOUTPUT: Controller element is a dedicated output.\nVARIABLE: Controller element is an in-memory variable." ;
+        IFC4-PSD:definitionAlias  "컨트롤러는 항상 하나의 출력 포트와 가변 입력 포트 유형에 따라있는 한결 : output = SignalOffset 수정자 : output = input * SignalFactor + SignalOffset 절대치 : output = | input | 역수 : output = 1.0 / input 지연 : output = 지연 (input, SignalTime 후) 이동 평균 : output = 평균 (inputN, SignalTime 사이) 미분 : output = 미분 (inputN, SignalTime 사이) 적분 : output = 적분 (inputN, SignalTime 사이) 바이너리 : output = SignalOffset ※ input = TRUE의 경우 누적 : output = accumulator       ※ accumulator = 펄스 카운트 * SignalOffset       ※ if (accumulator> SignalFactor) accumulator - = SignalFactor       ??? 펄스 카운터 : output = input * SignalMultiplier       ※ input 펄스 카운트, SignalMultiplier은 원인 불명       ??? 총 : output = input1 + input2 뺄셈 : output = input1 - input2 적립 : output = input1 * input2 나누기 : output = input1 / input2 평균 : output = (input1 + input2) / 2 최대 : output = input1 or input2 ※보다 큰 최소 : output = input1 or input2 ※보다 작은"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "2eb5e900d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ControlType" ;
+        IFC4-PSD:nameAlias        "Control Type"@en , "FLOATING 유형"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SUBTRACT" , "HYSTERESIS" , "SPLIT" , "OTHER" , "DIVIDE" , "MINIMUM" , "AVERAGE" , "LOWERLIMITCONTROL" , "ACCUMULATOR" , "REPORT" , "INTEGRAL" , "VARIABLE" , "INVERSE" , "NOTKNOWN" , "BINARY" , "ABSOLUTE" , "SUM" , "PULSECONVERTER" , "OUTPUT" , "UNSET" , "DERIVATIVE" , "RUNNINGAVERAGE" , "PRODUCT" , "INPUT" , "UPPERLIMITCONTROL" , "CONSTANT" , "MODIFIER" , "MAXIMUM"
+                                  ] .
+
+:Range  a                   rdf:Property ;
+        rdfs:seeAlso        :p5efd8780d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Range .
+
+:p63c23b80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The expected range and default value.  While the property data type is IfcReal (to support all cases including when the units are unknown), a unit may optionally be provided to indicate the measure and unit.  The LowerLimitValue and UpperLimitValue must fall within the physical Range and may be used to determine extents when charting Pset_ControllerPHistory.Value." ;
+        rdfs:label                "Value" ;
+        IFC4-PSD:definition       "The expected range and default value.  While the property data type is IfcReal (to support all cases including when the units are unknown), a unit may optionally be provided to indicate the measure and unit.  The LowerLimitValue and UpperLimitValue must fall within the physical Range and may be used to determine extents when charting Pset_ControllerPHistory.Value." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "63c23b80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Value" ;
+        IFC4-PSD:nameAlias        "Value"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p6de43a00d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Factor multiplied onto offset signal." ;
+        rdfs:label                "SignalFactor" ;
+        IFC4-PSD:definition       "Factor multiplied onto offset signal." ;
+        IFC4-PSD:definitionAlias  "인자는 오프셋 신호 곱셈"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "6de43a00d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SignalFactor" ;
+        IFC4-PSD:nameAlias        "요소"@ko-KR , "Signal Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:p72a8ee00d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Time factor used for integral and running average controllers." ;
+        rdfs:label                "SignalTime" ;
+        IFC4-PSD:definition       "Time factor used for integral and running average controllers." ;
+        IFC4-PSD:definitionAlias  "시간 요소는 INTEGRAL (적분)과 AVERAGE ((이동) 평균) 컨트롤러에 사용됨"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "72a8ee00d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SignalTime" ;
+        IFC4-PSD:nameAlias        "시간 요소"@ko-KR , "Signal Time"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:p69b81c80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Offset constant added to modfied signal." ;
+        rdfs:label                "SignalOffset" ;
+        IFC4-PSD:definition       "Offset constant added to modfied signal." ;
+        IFC4-PSD:definitionAlias  ""@en , "오프셋 상수 변경 신호에 추가됨"@ko-KR ;
+        IFC4-PSD:ifdguid          "69b81c80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SignalOffset" ;
+        IFC4-PSD:nameAlias        "Signal Offset"@en , "옵셋"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:Value  a                   rdf:Property ;
+        rdfs:seeAlso        :p63c23b80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Value .
+
+:SignalOffset  a            rdf:Property ;
+        rdfs:seeAlso        :p69b81c80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SignalOffset .
+
+:p5efd8780d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The physical range of values supported by the device." ;
+        rdfs:label                "Range" ;
+        IFC4-PSD:definition       "The physical range of values supported by the device." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5efd8780d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Range" ;
+        IFC4-PSD:nameAlias        "Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:Pset_ControllerTypeFloating
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued output.  HISTORY: IFC4 adapted from Pset_ControllerTypeCommon and applicable predefined type made specific to FLOATING; ACCUMULATOR and PULSECONVERTER types added; additional properties added to replace Pset_AnalogInput and Pset_AnalogOutput." ;
+        rdfs:label                    "Pset_ControllerTypeFloating" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcController/FLOATING> ;
+        IFC4-PSD:applicableTypeValue  "IfcController/FLOATING" ;
+        IFC4-PSD:definition           "Properties for signal handling for an analog controller taking disparate valued multiple inputs and creating a single valued output.  HISTORY: IFC4 adapted from Pset_ControllerTypeCommon and applicable predefined type made specific to FLOATING; ACCUMULATOR and PULSECONVERTER types added; additional properties added to replace Pset_AnalogInput and Pset_AnalogOutput." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ControllerTypeFloating" ;
+        IFC4-PSD:propertyDef          :p2eb5e900d1cd11e1800000215ad4efdf , :p63c23b80d1cd11e1800000215ad4efdf , :p56a54c80d1cd11e1800000215ad4efdf , :p5efd8780d1cd11e1800000215ad4efdf , :p6de43a00d1cd11e1800000215ad4efdf , :p72a8ee00d1cd11e1800000215ad4efdf , :p69b81c80d1cd11e1800000215ad4efdf .
+
+:Labels  a                  rdf:Property ;
+        rdfs:seeAlso        :p56a54c80d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Labels .
+
+:p56a54c80d1cd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Table mapping values to labels, where such labels indicate transition points such as 'Hi', 'Lo', 'HiHi', or 'LoLo'." ;
+        rdfs:label                "Labels" ;
+        IFC4-PSD:definition       "Table mapping values to labels, where such labels indicate transition points such as 'Hi', 'Lo', 'HiHi', or 'LoLo'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "56a54c80d1cd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Labels" ;
+        IFC4-PSD:nameAlias        "Labels"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcReal
+                                  ] .
+
+:ControlType  a             rdf:Property ;
+        rdfs:seeAlso        :p2eb5e900d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ControlType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ControllerTypeFloating>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:SignalTime  a              rdf:Property ;
+        rdfs:seeAlso        :p72a8ee00d1cd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SignalTime .

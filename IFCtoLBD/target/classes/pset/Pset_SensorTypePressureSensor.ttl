@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypePressureSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypePressureSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_SensorTypePressureSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects pressure. HISTORY: PressureSensorSensorSetPoint changed to SetPointPressure. Range, accuracy and time constant deleted." ;
+        rdfs:label                    "Pset_SensorTypePressureSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/PRESSURESENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/PRESSURESENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects pressure. HISTORY: PressureSensorSensorSetPoint changed to SetPointPressure. Range, accuracy and time constant deleted." ;
+        IFC4-PSD:definitionAlias      "圧力を感知または検出するデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypePressureSensor" ;
+        IFC4-PSD:propertyDef          :p262dd480d20611e1800000215ad4efdf , :p30e86980d20611e1800000215ad4efdf .
+
+:IsSwitch  a                rdf:Property ;
+        rdfs:seeAlso        :p30e86980d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsSwitch .
+
+:p30e86980d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies if the sensor also functions as a switch at the set point (=TRUE) or not (= FALSE)." ;
+        rdfs:label                "IsSwitch" ;
+        IFC4-PSD:definition       "Identifies if the sensor also functions as a switch at the set point (=TRUE) or not (= FALSE)." ;
+        IFC4-PSD:definitionAlias  "센서 설정에서 스위치 역할 (TRUE) 또는 여부 (FALSE)를 확인한다."@ko-KR , "センサーが設定値でスイッチとして機能する（TRUE)か、否か（FALSE)を識別する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "30e86980d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsSwitch" ;
+        IFC4-PSD:nameAlias        "スイッチ機能の有無"@ja-JP , "스위치 기능의 유무"@ko-KR , "Is Switch"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p262dd480d20611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The pressure value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointPressure" ;
+        IFC4-PSD:definition       "The pressure value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "감지되는 압력. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en , "感知される圧力。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP ;
+        IFC4-PSD:ifdguid          "262dd480d20611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointPressure" ;
+        IFC4-PSD:nameAlias        "Set Point Pressure"@en , "압력 설정"@ko-KR , "圧力設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:SetPointPressure  a        rdf:Property ;
+        rdfs:seeAlso        :p262dd480d20611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointPressure .

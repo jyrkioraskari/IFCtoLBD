@@ -1,0 +1,30 @@
+@prefix bot: <https://w3id.org/bot#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix lbdtest: <https://linkedbuildingdata.org/test/duplex-patterns#> .
+
+lbdtest:InterfaceGraphPatterns
+    a sh:NodeShape ;
+    sh:targetNode lbdtest:Graph ;
+    sh:sparql [
+        sh:message "The graph must contain BOT interfaces that connect at least two resources." ;
+        sh:select """
+            PREFIX bot: <https://w3id.org/bot#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?interface a bot:Interface ;
+                        bot:interfaceOf ?first ;
+                        bot:interfaceOf ?second .
+                    FILTER (?first != ?second)
+                }
+            }
+        """
+    ] .
+
+lbdtest:InterfaceShape
+    a sh:NodeShape ;
+    sh:targetClass bot:Interface ;
+    sh:property [
+        sh:path bot:interfaceOf ;
+        sh:minCount 2
+    ] .
+

@@ -1,0 +1,296 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FastenerWeld#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pcc68e280d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "See Type1." ;
+        rdfs:label                "Type2" ;
+        IFC4-PSD:definition       "See Type1." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cc68e280d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Type2" ;
+        IFC4-PSD:nameAlias        "Type2"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:z      a                   rdf:Property ;
+        rdfs:seeAlso        :p1a7de600d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:z .
+
+:c      a                   rdf:Property ;
+        rdfs:seeAlso        :pf3271900d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:c .
+
+:Intermittent  a            rdf:Property ;
+        rdfs:seeAlso        :p21a4f400d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Intermittent .
+
+:n      a                   rdf:Property ;
+        rdfs:seeAlso        :p0e922400d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:n .
+
+:Process  a                 rdf:Property ;
+        rdfs:seeAlso        :pdf7bb280d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Process .
+
+:p28336b80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If intermittent weld, staggered or not" ;
+        rdfs:label                "Staggered" ;
+        IFC4-PSD:definition       "If intermittent weld, staggered or not" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "28336b80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Staggered" ;
+        IFC4-PSD:nameAlias        "Staggered"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pdf7bb280d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference number of the welding process according to ISO 4063, an up to three digits long code" ;
+        rdfs:label                "Process" ;
+        IFC4-PSD:definition       "Reference number of the welding process according to ISO 4063, an up to three digits long code" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "df7bb280d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Process" ;
+        IFC4-PSD:nameAlias        "Process"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:peacede00d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure a according to ISO 2553" ;
+        rdfs:label                "a" ;
+        IFC4-PSD:definition       "Measure a according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "eacede00d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "a" ;
+        IFC4-PSD:nameAlias        "a"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pf9b59080d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure d according to ISO 2553" ;
+        rdfs:label                "d" ;
+        IFC4-PSD:definition       "Measure d according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f9b59080d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "d" ;
+        IFC4-PSD:nameAlias        "d"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:s      a                   rdf:Property ;
+        rdfs:seeAlso        :p1356d800d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:s .
+
+:p00dc9e80d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure e according to ISO 2553" ;
+        rdfs:label                "e" ;
+        IFC4-PSD:definition       "Measure e according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "00dc9e80d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "e" ;
+        IFC4-PSD:nameAlias        "e"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Surface2  a                rdf:Property ;
+        rdfs:seeAlso        :pd854a480d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Surface2 .
+
+:Staggered  a               rdf:Property ;
+        rdfs:seeAlso        :p28336b80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Staggered .
+
+:pc541d480d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of weld seam according to ISO 2553.  Note, combined welds are given by two corresponding symbols in the direction of the normal axis of the coordinate system.  For example, an X weld is specified by Type1 = 'V' and Type2 = 'V'." ;
+        rdfs:label                "Type1" ;
+        IFC4-PSD:definition       "Type of weld seam according to ISO 2553.  Note, combined welds are given by two corresponding symbols in the direction of the normal axis of the coordinate system.  For example, an X weld is specified by Type1 = 'V' and Type2 = 'V'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "c541d480d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Type1" ;
+        IFC4-PSD:nameAlias        "Type1"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p1a7de600d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure z according to ISO 2553" ;
+        rdfs:label                "z" ;
+        IFC4-PSD:definition       "Measure z according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1a7de600d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "z" ;
+        IFC4-PSD:nameAlias        "z"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:a      a                   rdf:Property ;
+        rdfs:seeAlso        :peacede00d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:a .
+
+:ProcessName  a             rdf:Property ;
+        rdfs:seeAlso        :pe4d8fd00d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProcessName .
+
+:pd25ec380d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Aspect of weld seam surface, i.e. 'plane', 'curved' or 'hollow'.  Combined welds are given by two corresponding symbols analogous to Type1 and Type2." ;
+        rdfs:label                "Surface1" ;
+        IFC4-PSD:definition       "Aspect of weld seam surface, i.e. 'plane', 'curved' or 'hollow'.  Combined welds are given by two corresponding symbols analogous to Type1 and Type2." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d25ec380d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Surface1" ;
+        IFC4-PSD:nameAlias        "Surface1"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:l      a                   rdf:Property ;
+        rdfs:seeAlso        :p076b1600d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:l .
+
+:Type2  a                   rdf:Property ;
+        rdfs:seeAlso        :pcc68e280d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Type2 .
+
+:Surface1  a                rdf:Property ;
+        rdfs:seeAlso        :pd25ec380d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Surface1 .
+
+:Pset_FastenerWeld  a                 IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties related to welded connections." ;
+        rdfs:label                    "Pset_FastenerWeld" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFastener/WELD> ;
+        IFC4-PSD:applicableTypeValue  "IfcFastener/WELD" ;
+        IFC4-PSD:definition           "Properties related to welded connections." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FastenerWeld" ;
+        IFC4-PSD:propertyDef          :pc541d480d1e411e1800000215ad4efdf , :pdf7bb280d1e411e1800000215ad4efdf , :pd854a480d1e411e1800000215ad4efdf , :pd25ec380d1e411e1800000215ad4efdf , :peacede00d1e411e1800000215ad4efdf , :pcc68e280d1e411e1800000215ad4efdf , :pe4d8fd00d1e411e1800000215ad4efdf , :pf9b59080d1e411e1800000215ad4efdf , :p00dc9e80d1e511e1800000215ad4efdf , :p0e922400d1e511e1800000215ad4efdf , :p1356d800d1e511e1800000215ad4efdf , :pf3271900d1e411e1800000215ad4efdf , :p076b1600d1e511e1800000215ad4efdf , :p1a7de600d1e511e1800000215ad4efdf , :p21a4f400d1e511e1800000215ad4efdf , :p28336b80d1e511e1800000215ad4efdf .
+
+:pf3271900d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure c according to ISO 2553" ;
+        rdfs:label                "c" ;
+        IFC4-PSD:definition       "Measure c according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "f3271900d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "c" ;
+        IFC4-PSD:nameAlias        "c"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pd854a480d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "See Surface1." ;
+        rdfs:label                "Surface2" ;
+        IFC4-PSD:definition       "See Surface1." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d854a480d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Surface2" ;
+        IFC4-PSD:nameAlias        "Surface2"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:p21a4f400d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If fillet weld, intermittent or not" ;
+        rdfs:label                "Intermittent" ;
+        IFC4-PSD:definition       "If fillet weld, intermittent or not" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "21a4f400d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Intermittent" ;
+        IFC4-PSD:nameAlias        "Intermittent"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:Type1  a                   rdf:Property ;
+        rdfs:seeAlso        :pc541d480d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Type1 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FastenerWeld>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p0e922400d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Count n according to ISO 2553" ;
+        rdfs:label                "n" ;
+        IFC4-PSD:definition       "Count n according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "0e922400d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "n" ;
+        IFC4-PSD:nameAlias        "n"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcCountMeasure
+                                  ] .
+
+:pe4d8fd00d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Name of the welding process.  Alternative to the numeric Process property." ;
+        rdfs:label                "ProcessName" ;
+        IFC4-PSD:definition       "Name of the welding process.  Alternative to the numeric Process property." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e4d8fd00d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProcessName" ;
+        IFC4-PSD:nameAlias        "Process Name"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:e      a                   rdf:Property ;
+        rdfs:seeAlso        :p00dc9e80d1e511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:e .
+
+:p076b1600d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure l according to ISO 2553" ;
+        rdfs:label                "l" ;
+        IFC4-PSD:definition       "Measure l according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "076b1600d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "l" ;
+        IFC4-PSD:nameAlias        "l"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p1356d800d1e511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Measure s according to ISO 2553" ;
+        rdfs:label                "s" ;
+        IFC4-PSD:definition       "Measure s according to ISO 2553" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1356d800d1e511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "s" ;
+        IFC4-PSD:nameAlias        "s"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:d      a                   rdf:Property ;
+        rdfs:seeAlso        :pf9b59080d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:d .

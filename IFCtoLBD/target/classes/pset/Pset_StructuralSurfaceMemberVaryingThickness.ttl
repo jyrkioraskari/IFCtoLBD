@@ -1,0 +1,178 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Location1Local  a          rdf:Property ;
+        rdfs:seeAlso        :pbd40a90463654cfb9cd64f425f027504 ;
+        rdfs:subPropertyOf  IFC4-PSD:Location1Local .
+
+:Location1Global  a         rdf:Property ;
+        rdfs:seeAlso        :p1f2c5ae6f4a44733969aeffb41892a77 ;
+        rdfs:subPropertyOf  IFC4-PSD:Location1Global .
+
+:Thickness3  a              rdf:Property ;
+        rdfs:seeAlso        :p27d5c5a613ac4c96a769fb075fde8178 ;
+        rdfs:subPropertyOf  IFC4-PSD:Thickness3 .
+
+:Location2Local  a          rdf:Property ;
+        rdfs:seeAlso        :p058e4602830c41f4862b1d1c7338a7b0 ;
+        rdfs:subPropertyOf  IFC4-PSD:Location2Local .
+
+:p054660e647994621a6bdad29616d79b0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Second thickness parameter of a surface member with varying thickness" ;
+        rdfs:label                "Thickness2" ;
+        IFC4-PSD:definition       "Second thickness parameter of a surface member with varying thickness" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "054660e647994621a6bdad29616d79b0" ;
+        IFC4-PSD:name             "Thickness2" ;
+        IFC4-PSD:nameAlias        "Thickness2"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Location3Global  a         rdf:Property ;
+        rdfs:seeAlso        :p8fa1dfe751894b6a96e071431b39e282 ;
+        rdfs:subPropertyOf  IFC4-PSD:Location3Global .
+
+:Thickness2  a              rdf:Property ;
+        rdfs:seeAlso        :p054660e647994621a6bdad29616d79b0 ;
+        rdfs:subPropertyOf  IFC4-PSD:Thickness2 .
+
+:pb96886be793e4099b0a28924bfd23b83
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "First thickness parameter of a surface member with varying thickness" ;
+        rdfs:label                "Thickness1" ;
+        IFC4-PSD:definition       "First thickness parameter of a surface member with varying thickness" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "b96886be793e4099b0a28924bfd23b83" ;
+        IFC4-PSD:name             "Thickness1" ;
+        IFC4-PSD:nameAlias        "Thickness1"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Thickness1  a              rdf:Property ;
+        rdfs:seeAlso        :pb96886be793e4099b0a28924bfd23b83 ;
+        rdfs:subPropertyOf  IFC4-PSD:Thickness1 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_StructuralSurfaceMemberVaryingThickness>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pbd40a90463654cfb9cd64f425f027504
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Local x,y coordinates of the point in which Thickness1 is given" ;
+        rdfs:label                "Location1Local" ;
+        IFC4-PSD:definition       "Local x,y coordinates of the point in which Thickness1 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bd40a90463654cfb9cd64f425f027504" ;
+        IFC4-PSD:name             "Location1Local" ;
+        IFC4-PSD:nameAlias        "Location1 Local"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:Location3Local  a          rdf:Property ;
+        rdfs:seeAlso        :p441117ba47724c3e946eac44f07c39da ;
+        rdfs:subPropertyOf  IFC4-PSD:Location3Local .
+
+:p058e4602830c41f4862b1d1c7338a7b0
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Local x,y coordinates of the point in which Thickness2 is given" ;
+        rdfs:label                "Location2Local" ;
+        IFC4-PSD:definition       "Local x,y coordinates of the point in which Thickness2 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "058e4602830c41f4862b1d1c7338a7b0" ;
+        IFC4-PSD:name             "Location2Local" ;
+        IFC4-PSD:nameAlias        "Location2 Local"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p27d5c5a613ac4c96a769fb075fde8178
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Third thickness parameter of a surface member with varying thickness" ;
+        rdfs:label                "Thickness3" ;
+        IFC4-PSD:definition       "Third thickness parameter of a surface member with varying thickness" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "27d5c5a613ac4c96a769fb075fde8178" ;
+        IFC4-PSD:name             "Thickness3" ;
+        IFC4-PSD:nameAlias        "Thickness3"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8fa1dfe751894b6a96e071431b39e282
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Global X,Y,Z coordinates of the point in which Thickness3 is given" ;
+        rdfs:label                "Location3Global" ;
+        IFC4-PSD:definition       "Global X,Y,Z coordinates of the point in which Thickness3 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8fa1dfe751894b6a96e071431b39e282" ;
+        IFC4-PSD:name             "Location3Global" ;
+        IFC4-PSD:nameAlias        "Location3 Global"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p441117ba47724c3e946eac44f07c39da
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Local x,y coordinates of the point in which Thickness3 is given" ;
+        rdfs:label                "Location3Local" ;
+        IFC4-PSD:definition       "Local x,y coordinates of the point in which Thickness3 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "441117ba47724c3e946eac44f07c39da" ;
+        IFC4-PSD:name             "Location3Local" ;
+        IFC4-PSD:nameAlias        "Location3 Local"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:pcffbd577c8ae4ae3b9c7f17891e8b4d8
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Global X,Y,Z coordinates of the point in which Thickness2 is given" ;
+        rdfs:label                "Location2Global" ;
+        IFC4-PSD:definition       "Global X,Y,Z coordinates of the point in which Thickness2 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "cffbd577c8ae4ae3b9c7f17891e8b4d8" ;
+        IFC4-PSD:name             "Location2Global" ;
+        IFC4-PSD:nameAlias        "Location2 Global"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:Location2Global  a         rdf:Property ;
+        rdfs:seeAlso        :pcffbd577c8ae4ae3b9c7f17891e8b4d8 ;
+        rdfs:subPropertyOf  IFC4-PSD:Location2Global .
+
+:Pset_StructuralSurfaceMemberVaryingThickness
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Thickness parameters of a surface member (structural analysis item) with varying thickness, particularly with linearly varying thickness.  The thickness is interpolated/ extrapolated from three points.  The locations of these points are given either in local x,y coordinates of the surface member or in global X,Y,Z coordinates.  Either way, these points are required to be located within the face or at the bounds of the face  of the surface member, and they must not be located on a common line.  Local and global coordinates shall not be mixed within the same property set instance." ;
+        rdfs:label                    "Pset_StructuralSurfaceMemberVaryingThickness" ;
+        IFC4-PSD:applicableClass      IFC4:IfcStructuralSurfaceMemberVarying ;
+        IFC4-PSD:applicableTypeValue  "IfcStructuralSurfaceMemberVarying" ;
+        IFC4-PSD:definition           "Thickness parameters of a surface member (structural analysis item) with varying thickness, particularly with linearly varying thickness.  The thickness is interpolated/ extrapolated from three points.  The locations of these points are given either in local x,y coordinates of the surface member or in global X,Y,Z coordinates.  Either way, these points are required to be located within the face or at the bounds of the face  of the surface member, and they must not be located on a common line.  Local and global coordinates shall not be mixed within the same property set instance." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_StructuralSurfaceMemberVaryingThickness" ;
+        IFC4-PSD:propertyDef          :p8fa1dfe751894b6a96e071431b39e282 , :p27d5c5a613ac4c96a769fb075fde8178 , :pbd40a90463654cfb9cd64f425f027504 , :p054660e647994621a6bdad29616d79b0 , :p441117ba47724c3e946eac44f07c39da , :pcffbd577c8ae4ae3b9c7f17891e8b4d8 , :p058e4602830c41f4862b1d1c7338a7b0 , :p1f2c5ae6f4a44733969aeffb41892a77 , :pb96886be793e4099b0a28924bfd23b83 .
+
+:p1f2c5ae6f4a44733969aeffb41892a77
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Global X,Y,Z coordinates of the point in which Thickness1 is given" ;
+        rdfs:label                "Location1Global" ;
+        IFC4-PSD:definition       "Global X,Y,Z coordinates of the point in which Thickness1 is given" ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "1f2c5ae6f4a44733969aeffb41892a77" ;
+        IFC4-PSD:name             "Location1Global" ;
+        IFC4-PSD:nameAlias        "Location1 Global"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .

@@ -25,6 +25,7 @@ process.stdin.on("end", () => {
   assert(toolNames.includes("load_ifc"));
   assert(toolNames.includes("describe_model"));
   assert(toolNames.includes("close_model"));
+  assert(toolNames.includes("compare_revisions"));
   assert(byId.get(3).result.content[0].text.includes('"triples"'));
   const firstLoad = byId.get(4).result.structuredContent;
   const secondLoad = byId.get(5).result.structuredContent;
@@ -42,5 +43,7 @@ process.stdin.on("end", () => {
   assert.strictEqual(typeof byId.get(10).result.structuredContent.conforms, "boolean");
   assert(Array.isArray(byId.get(11).result.structuredContent.violations));
   assert(byId.get(12).result.contents[0].text.includes("ValidationReport"));
-  assert.strictEqual(byId.get(13).result.structuredContent.closed, true);
+  assert(byId.get(13).result.contents[0].text.includes("Conversion"));
+  assert.strictEqual(byId.get(14).result.contents[0].mimeType, "text/turtle");
+  assert.strictEqual(byId.get(15).result.structuredContent.closed, true);
 });

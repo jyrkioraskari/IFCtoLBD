@@ -1,0 +1,237 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingUse#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:PlanningControlStatus
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pc9122e80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PlanningControlStatus .
+
+:NarrativeText  a           rdf:Property ;
+        rdfs:seeAlso        :pcf080f80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NarrativeText .
+
+:pc31c4d80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Subset of category of use e.g. multi-family, 2 bedroom, low rise." ;
+        rdfs:label                "MarketSubCategory" ;
+        IFC4-PSD:definition       "Subset of category of use e.g. multi-family, 2 bedroom, low rise." ;
+        IFC4-PSD:definitionAlias  "Sous catégorie d'usage (exemple : collectif, deux pièces,…)"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "c31c4d80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketSubCategory" ;
+        IFC4-PSD:nameAlias        "Market Sub Category"@en , "SousCategorieMarche"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:TenureModesAvailableFuture
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf1019200d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TenureModesAvailableFuture .
+
+:pdfb88580d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the sub categories of property that are currently available expressed in terms of IfcLabel." ;
+        rdfs:label                "MarketSubCategoriesAvailableNow" ;
+        IFC4-PSD:definition       "A list of the sub categories of property that are currently available expressed in terms of IfcLabel." ;
+        IFC4-PSD:definitionAlias  ""@en , "Liste de sous catégories actuellement disponibles"@fr-FR ;
+        IFC4-PSD:ifdguid          "dfb88580d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketSubCategoriesAvailableNow" ;
+        IFC4-PSD:nameAlias        "Market Sub Categories Available Now"@en , "DisponibilitesActuellesParSousCategories"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pd3ccc380d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Percentage of vacancy found in the particular category currently." ;
+        rdfs:label                "VacancyRateInCategoryNow" ;
+        IFC4-PSD:definition       "Percentage of vacancy found in the particular category currently." ;
+        IFC4-PSD:definitionAlias  ""@en , "Taux actuel de vacance pour la catégorie."@fr-FR ;
+        IFC4-PSD:ifdguid          "d3ccc380d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VacancyRateInCategoryNow" ;
+        IFC4-PSD:nameAlias        "TauxVacanceActuelParCategorie"@fr-FR , "Vacancy Rate In Category Now"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:MarketCategory  a          rdf:Property ;
+        rdfs:seeAlso        :pbd266c80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketCategory .
+
+:MarketSubCategoriesAvailableNow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pdfb88580d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketSubCategoriesAvailableNow .
+
+:pc9122e80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Label of zoning category or class, or planning control category for the site or facility." ;
+        rdfs:label                "PlanningControlStatus" ;
+        IFC4-PSD:definition       "Label of zoning category or class, or planning control category for the site or facility." ;
+        IFC4-PSD:definitionAlias  ""@en , "Catégorie de zone ou classe, ou catégorie relativement à un planning de contrôle pour le site ou l'ensemble immobilier."@fr-FR ;
+        IFC4-PSD:ifdguid          "c9122e80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PlanningControlStatus" ;
+        IFC4-PSD:nameAlias        "Planning Control Status"@en , "EtatPlanningControle"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:MarketSubCategoriesAvailableFuture
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf6f77300d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketSubCategoriesAvailableFuture .
+
+:pf6f77300d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the sub categories of property that are expected to be available in the future expressed in terms of IfcLabel." ;
+        rdfs:label                "MarketSubCategoriesAvailableFuture" ;
+        IFC4-PSD:definition       "A list of the sub categories of property that are expected to be available in the future expressed in terms of IfcLabel." ;
+        IFC4-PSD:definitionAlias  ""@en , "Liste de sous catégories disponibles dans le futur."@fr-FR ;
+        IFC4-PSD:ifdguid          "f6f77300d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketSubCategoriesAvailableFuture" ;
+        IFC4-PSD:nameAlias        "Market Sub Categories Available Future"@en , "DisponibilitesFuturesParSousCategories"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:RentalRatesInCategoryNow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pe5ae6680d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RentalRatesInCategoryNow .
+
+:pd92a0e00d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the tenure modes that are currently available expressed in terms of IfcLabel." ;
+        rdfs:label                "TenureModesAvailableNow" ;
+        IFC4-PSD:definition       "A list of the tenure modes that are currently available expressed in terms of IfcLabel." ;
+        IFC4-PSD:definitionAlias  "Liste des possibilités d'occupation actuelles."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "d92a0e00d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TenureModesAvailableNow" ;
+        IFC4-PSD:nameAlias        "Tenure Modes Available Now"@en , "PossibilitesOccupationActuelles"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:VacancyRateInCategoryNow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd3ccc380d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VacancyRateInCategoryNow .
+
+:pf1019200d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the tenure modes that are expected to be available in the future expressed in terms of IfcLabel." ;
+        rdfs:label                "TenureModesAvailableFuture" ;
+        IFC4-PSD:definition       "A list of the tenure modes that are expected to be available in the future expressed in terms of IfcLabel." ;
+        IFC4-PSD:definitionAlias  ""@en , "Liste des possibilités d'occupation futures."@fr-FR ;
+        IFC4-PSD:ifdguid          "f1019200d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TenureModesAvailableFuture" ;
+        IFC4-PSD:nameAlias        "Tenure Modes Available Future"@en , "PossibilitesOccupationFutures"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pff4fae00d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Range of the cost rates for property expected to be available in the future in the required category." ;
+        rdfs:label                "RentalRatesInCategoryFuture" ;
+        IFC4-PSD:definition       "Range of the cost rates for property expected to be available in the future in the required category." ;
+        IFC4-PSD:definitionAlias  "Prix futur des loyers pour la catégorie considérée."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "ff4fae00d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RentalRatesInCategoryFuture" ;
+        IFC4-PSD:nameAlias        "PrixFuturLoyerParCategorie"@fr-FR , "Rental Rates In Category Future"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMonetaryMeasure
+                                  ] .
+
+:VacancyRateInCategoryFuture
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peba44780d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VacancyRateInCategoryFuture .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_BuildingUse>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe5ae6680d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Range of the cost rates for property currently available in the required category." ;
+        rdfs:label                "RentalRatesInCategoryNow" ;
+        IFC4-PSD:definition       "Range of the cost rates for property currently available in the required category." ;
+        IFC4-PSD:definitionAlias  ""@en , "Prix actuel des loyers pour la catégorie considérée."@fr-FR ;
+        IFC4-PSD:ifdguid          "e5ae6680d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RentalRatesInCategoryNow" ;
+        IFC4-PSD:nameAlias        "Rental Rates In Category Now"@en , "PrixActuelLoyerParCategorie"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMonetaryMeasure
+                                  ] .
+
+:RentalRatesInCategoryFuture
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pff4fae00d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RentalRatesInCategoryFuture .
+
+:pbd266c80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Category of use e.g. residential, commercial, recreation etc." ;
+        rdfs:label                "MarketCategory" ;
+        IFC4-PSD:definition       "Category of use e.g. residential, commercial, recreation etc." ;
+        IFC4-PSD:definitionAlias  "Catégorie d'usage (résidentiel, commercial, loisir,…)"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "bd266c80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MarketCategory" ;
+        IFC4-PSD:nameAlias        "Market Category"@en , "CategorieMarche"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:peba44780d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Percentage of vacancy found in the particular category expected in the future." ;
+        rdfs:label                "VacancyRateInCategoryFuture" ;
+        IFC4-PSD:definition       "Percentage of vacancy found in the particular category expected in the future." ;
+        IFC4-PSD:definitionAlias  ""@en , "Taux de vacance attendu dans le futur pour la catégorie."@fr-FR ;
+        IFC4-PSD:ifdguid          "eba44780d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VacancyRateInCategoryFuture" ;
+        IFC4-PSD:nameAlias        "TauxVacanceFuturParCategorie"@fr-FR , "Vacancy Rate In Category Future"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveRatioMeasure
+                                  ] .
+
+:Pset_BuildingUse  a                  IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Provides information on on the real estate context of the building of interest both current and anticipated." ;
+        rdfs:label                    "Pset_BuildingUse" ;
+        IFC4-PSD:applicableClass      IFC4:IfcBuilding ;
+        IFC4-PSD:applicableTypeValue  "IfcBuilding" ;
+        IFC4-PSD:definition           "Provides information on on the real estate context of the building of interest both current and anticipated." ;
+        IFC4-PSD:definitionAlias      "Définition de l'IAI :  information sur le contexte immobilier actuel et futur du bâtiment considéré."@fr-FR , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_BuildingUse" ;
+        IFC4-PSD:propertyDef          :pcf080f80d1c511e1800000215ad4efdf , :pc31c4d80d1c511e1800000215ad4efdf , :pc9122e80d1c511e1800000215ad4efdf , :pf1019200d1c511e1800000215ad4efdf , :pff4fae00d1c511e1800000215ad4efdf , :peba44780d1c511e1800000215ad4efdf , :pdfb88580d1c511e1800000215ad4efdf , :pf6f77300d1c511e1800000215ad4efdf , :pe5ae6680d1c511e1800000215ad4efdf , :pd3ccc380d1c511e1800000215ad4efdf , :pd92a0e00d1c511e1800000215ad4efdf , :pbd266c80d1c511e1800000215ad4efdf .
+
+:MarketSubCategory  a       rdf:Property ;
+        rdfs:seeAlso        :pc31c4d80d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MarketSubCategory .
+
+:TenureModesAvailableNow
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd92a0e00d1c511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TenureModesAvailableNow .
+
+:pcf080f80d1c511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Added information relating to the adjacent building use that is not appropriate to the general descriptive text associated with an entity through the inherited IfcRoot.Description." ;
+        rdfs:label                "NarrativeText" ;
+        IFC4-PSD:definition       "Added information relating to the adjacent building use that is not appropriate to the general descriptive text associated with an entity through the inherited IfcRoot.Description." ;
+        IFC4-PSD:definitionAlias  ""@en , "Information relative aux bâtiments voisins qui n'est pas appropriée au texte d'ordre général que l'on peut saisir dans l'attribut hérité IfcRoot.Description."@fr-FR ;
+        IFC4-PSD:ifdguid          "cf080f80d1c511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NarrativeText" ;
+        IFC4-PSD:nameAlias        "Narrative Text"@en , "TexteLibre"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .

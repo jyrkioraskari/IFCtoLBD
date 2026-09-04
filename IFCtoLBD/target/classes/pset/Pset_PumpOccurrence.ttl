@@ -1,0 +1,75 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PumpOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_PumpOccurrence  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Pump occurrence attributes attached to an instance of IfcPump." ;
+        rdfs:label                    "Pset_PumpOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcPump ;
+        IFC4-PSD:applicableTypeValue  "IfcPump" ;
+        IFC4-PSD:definition           "Pump occurrence attributes attached to an instance of IfcPump." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PumpOccurrence" ;
+        IFC4-PSD:propertyDef          :p8587e680d1fe11e1800000215ad4efdf , :p92a4d580d1fe11e1800000215ad4efdf , :p7dc84200d1fe11e1800000215ad4efdf .
+
+:DriveConnectionType  a     rdf:Property ;
+        rdfs:seeAlso        :p92a4d580d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DriveConnectionType .
+
+:ImpellerDiameter  a        rdf:Property ;
+        rdfs:seeAlso        :p7dc84200d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ImpellerDiameter .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PumpOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p8587e680d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines general types of pump bases.\n\nFRAME: Frame. \nBASE: Base. \nNONE: There is no pump base, such as an inline pump. \nOTHER: Other type of pump base." ;
+        rdfs:label                "BaseType" ;
+        IFC4-PSD:definition       "Defines general types of pump bases.\n\nFRAME: Frame. \nBASE: Base. \nNONE: There is no pump base, such as an inline pump. \nOTHER: Other type of pump base." ;
+        IFC4-PSD:definitionAlias  ""@en , "ポンプ基礎の一般的な型を定義する(フレーム、(コンクリ)基礎、なし、その他)"@ja-JP ;
+        IFC4-PSD:ifdguid          "8587e680d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BaseType" ;
+        IFC4-PSD:nameAlias        "基礎タイプ"@ja-JP , "Base Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FRAME" , "BASE" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p92a4d580d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The way the pump drive mechanism is connected to the pump.\n\nDIRECTDRIVE: Direct drive. \nBELTDRIVE: Belt drive. \nCOUPLING: Coupling. \nOTHER: Other type of drive connection." ;
+        rdfs:label                "DriveConnectionType" ;
+        IFC4-PSD:definition       "The way the pump drive mechanism is connected to the pump.\n\nDIRECTDRIVE: Direct drive. \nBELTDRIVE: Belt drive. \nCOUPLING: Coupling. \nOTHER: Other type of drive connection." ;
+        IFC4-PSD:definitionAlias  "ポンプの動力機械がポンプに接続される方法(直動、ベルト、カップリング、その他)"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "92a4d580d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DriveConnectionType" ;
+        IFC4-PSD:nameAlias        "駆動接続タイプ"@ja-JP , "Drive Connection Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DIRECTDRIVE" , "BELTDRIVE" , "COUPLING" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p7dc84200d1fe11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diameter of pump impeller - used to scale performance of geometrically similar pumps." ;
+        rdfs:label                "ImpellerDiameter" ;
+        IFC4-PSD:definition       "Diameter of pump impeller - used to scale performance of geometrically similar pumps." ;
+        IFC4-PSD:definitionAlias  "幾何学的に似たポンプの性能を予測するのに使われる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7dc84200d1fe11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ImpellerDiameter" ;
+        IFC4-PSD:nameAlias        "羽根直径"@ja-JP , "Impeller Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:BaseType  a                rdf:Property ;
+        rdfs:seeAlso        :p8587e680d1fe11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BaseType .

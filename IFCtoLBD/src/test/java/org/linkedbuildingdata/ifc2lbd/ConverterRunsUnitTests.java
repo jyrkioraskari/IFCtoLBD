@@ -310,9 +310,9 @@ public class ConverterRunsUnitTests {
 			 * } }
 			 */
 
-			if (subjectList51.size() != 13594) {
-				System.out.println("Converted subject count should  be 13594. Was: " + subjectList51.size());
-				fail("Converted subject count  should be 13594. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13587) {
+				System.out.println("Converted subject count should  be 13587. Was: " + subjectList51.size());
+				fail("Converted subject count  should be 13587. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
@@ -329,9 +329,9 @@ public class ConverterRunsUnitTests {
 				fail("Two comparison and different results. Was: ");
 			}
 
-			if (subjectList52.size() != 13594) {
-				System.out.println("Converted subject count should  be 13594. Was: " + subjectList52.size());
-				fail("Converted subject count  should  be 13594. Was: " + subjectList52.size());
+			if (subjectList52.size() != 13587) {
+				System.out.println("Converted subject count should  be 13587. Was: " + subjectList52.size());
+				fail("Converted subject count  should  be 13587. Was: " + subjectList52.size());
 			}
 
 			IFCtoLBDConverter c3wb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true,
@@ -370,9 +370,9 @@ public class ConverterRunsUnitTests {
 			}
 			ImmutableList<Resource> subjectList51 = ImmutableList.copyOf(m3nb1.listSubjects());
 
-			if (subjectList51.size() != 13594) {
-				System.out.println("Converted subject count should  be 13594. Was: " + subjectList51.size());
-				fail("Converted subject count  should not be 13594. Was: " + subjectList51.size());
+			if (subjectList51.size() != 13587) {
+				System.out.println("Converted subject count should  be 13587. Was: " + subjectList51.size());
+				fail("Converted subject count  should not be 13587. Was: " + subjectList51.size());
 			}
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);

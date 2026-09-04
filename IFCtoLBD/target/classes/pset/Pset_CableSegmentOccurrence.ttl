@@ -1,0 +1,269 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p366428fd19e54457a10ad655640758e7
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Thermal conductivity of soil. Generally, within standards such as IEC 60364-5-52, table 52A-16, the resistivity of soil is required (measured in [SI] units of degK.m /W). This is the reciprocal of the conductivity value and needs to be calculated accordingly." ;
+        rdfs:label                "SoilConductivity" ;
+        IFC4-PSD:definition       "Thermal conductivity of soil. Generally, within standards such as IEC 60364-5-52, table 52A-16, the resistivity of soil is required (measured in [SI] units of degK.m /W). This is the reciprocal of the conductivity value and needs to be calculated accordingly." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "366428fd19e54457a10ad655640758e7" ;
+        IFC4-PSD:name             "SoilConductivity" ;
+        IFC4-PSD:nameAlias        "Soil Conductivity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalConductivityMeasure
+                                  ] .
+
+:IsMountedFlatCable  a      rdf:Property ;
+        rdfs:seeAlso        :p2632b74803d346c0aafd3f7cff1f8d99 ;
+        rdfs:subPropertyOf  IFC4-PSD:IsMountedFlatCable .
+
+:pbe5fd0db9e234a84b4e07762a0e065e1
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Special installation conditions relating to particular types of installation based on IEC60364-5-52:2001 reference installation methods C and D." ;
+        rdfs:label                "InstallationMethodFlagEnum" ;
+        IFC4-PSD:definition       "Special installation conditions relating to particular types of installation based on IEC60364-5-52:2001 reference installation methods C and D." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "be5fd0db9e234a84b4e07762a0e065e1" ;
+        IFC4-PSD:name             "InstallationMethodFlagEnum" ;
+        IFC4-PSD:nameAlias        "Installation Method Flag Enum"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "INDUCT" , "INSOIL" , "ONWALL" , "BELOWCEILING" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:InstallationMethod  a      rdf:Property ;
+        rdfs:seeAlso        :p7c0ce24f9d034d9b83da2ac5e4a0634c ;
+        rdfs:subPropertyOf  IFC4-PSD:InstallationMethod .
+
+:DistanceBetweenParallelCircuits
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p977d1cc9f8f548dcaa23820a3e9d0774 ;
+        rdfs:subPropertyOf  IFC4-PSD:DistanceBetweenParallelCircuits .
+
+:p977d1cc9f8f548dcaa23820a3e9d0774
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Distance measured between parallel circuits." ;
+        rdfs:label                "DistanceBetweenParallelCircuits" ;
+        IFC4-PSD:definition       "Distance measured between parallel circuits." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "977d1cc9f8f548dcaa23820a3e9d0774" ;
+        IFC4-PSD:name             "DistanceBetweenParallelCircuits" ;
+        IFC4-PSD:nameAlias        "Distance Between Parallel Circuits"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:p55fbb56361a24104a0e4b53d8e4cffd5
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The highest and lowest local ambient temperature likely to be encountered." ;
+        rdfs:label                "DesignAmbientTemperature" ;
+        IFC4-PSD:definition       "The highest and lowest local ambient temperature likely to be encountered." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "55fbb56361a24104a0e4b53d8e4cffd5" ;
+        IFC4-PSD:name             "DesignAmbientTemperature" ;
+        IFC4-PSD:nameAlias        "Design Ambient Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p47d6edba8d714af2b05f07d968909ff6
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total loss of power across this cable." ;
+        rdfs:label                "PowerLoss" ;
+        IFC4-PSD:definition       "Total loss of power across this cable." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "47d6edba8d714af2b05f07d968909ff6" ;
+        IFC4-PSD:name             "PowerLoss" ;
+        IFC4-PSD:nameAlias        "Power Loss"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:CurrentCarryingCapasity
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa56d336272784003b1418d8169f8652f ;
+        rdfs:subPropertyOf  IFC4-PSD:CurrentCarryingCapasity .
+
+:SoilConductivity  a        rdf:Property ;
+        rdfs:seeAlso        :p366428fd19e54457a10ad655640758e7 ;
+        rdfs:subPropertyOf  IFC4-PSD:SoilConductivity .
+
+:pa008e02d7f54483383e4f8069dde0f37
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum cable length based on voltagedrop. NOTE: This value may also be specified as a constraint within an IFC model if required but is included within the property set at this stage pending implementation of the required capabilities within software applications." ;
+        rdfs:label                "MaximumCableLength" ;
+        IFC4-PSD:definition       "Maximum cable length based on voltagedrop. NOTE: This value may also be specified as a constraint within an IFC model if required but is included within the property set at this stage pending implementation of the required capabilities within software applications." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a008e02d7f54483383e4f8069dde0f37" ;
+        IFC4-PSD:name             "MaximumCableLength" ;
+        IFC4-PSD:nameAlias        "Maximum Cable Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:InstallationMethodFlagEnum
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pbe5fd0db9e234a84b4e07762a0e065e1 ;
+        rdfs:subPropertyOf  IFC4-PSD:InstallationMethodFlagEnum .
+
+:MaximumCableLength  a      rdf:Property ;
+        rdfs:seeAlso        :pa008e02d7f54483383e4f8069dde0f37 ;
+        rdfs:subPropertyOf  IFC4-PSD:MaximumCableLength .
+
+:MountingMethod  a          rdf:Property ;
+        rdfs:seeAlso        :p12584689253640919491fb29d755ac82 ;
+        rdfs:subPropertyOf  IFC4-PSD:MountingMethod .
+
+:Pset_CableSegmentOccurrence
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for the occurrence of an electrical cable, core or conductor that conforms to a type as specified by an appropriate type definition within IFC. NOTE: Maximum allowed voltage drop should be derived from the property within Pset_ElectricalCircuit." ;
+        rdfs:label                    "Pset_CableSegmentOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCableSegment ;
+        IFC4-PSD:applicableTypeValue  "IfcCableSegment" ;
+        IFC4-PSD:definition           "Properties for the occurrence of an electrical cable, core or conductor that conforms to a type as specified by an appropriate type definition within IFC. NOTE: Maximum allowed voltage drop should be derived from the property within Pset_ElectricalCircuit." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableSegmentOccurrence" ;
+        IFC4-PSD:propertyDef          :pd4ec271863334e1ea8cdd1a1d63c7708 , :pd9a5be4540394d228b6c573471e71f22 , :p7a917ce35e224ad58d1e87bc3656c1b8 , :pa008e02d7f54483383e4f8069dde0f37 , :pa56d336272784003b1418d8169f8652f , :p12584689253640919491fb29d755ac82 , :pbe5fd0db9e234a84b4e07762a0e065e1 , :p2632b74803d346c0aafd3f7cff1f8d99 , :p4a80a2ecf3504fc6ba3f2235e2f25f04 , :p47d6edba8d714af2b05f07d968909ff6 , :p55fbb56361a24104a0e4b53d8e4cffd5 , :p7c0ce24f9d034d9b83da2ac5e4a0634c , :p977d1cc9f8f548dcaa23820a3e9d0774 , :p366428fd19e54457a10ad655640758e7 .
+
+:p2632b74803d346c0aafd3f7cff1f8d99
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the cable occurrences are mounted flat (= TRUE) or in a trefoil pattern (= FALSE)." ;
+        rdfs:label                "IsMountedFlatCable" ;
+        IFC4-PSD:definition       "Indication of whether the cable occurrences are mounted flat (= TRUE) or in a trefoil pattern (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "2632b74803d346c0aafd3f7cff1f8d99" ;
+        IFC4-PSD:name             "IsMountedFlatCable" ;
+        IFC4-PSD:nameAlias        "Is Mounted Flat Cable"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:NumberOfParallelCircuits
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p4a80a2ecf3504fc6ba3f2235e2f25f04 ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfParallelCircuits .
+
+:p12584689253640919491fb29d755ac82
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The method of mounting cable segment occurrences on a cable carrier occurrence from which the method required can be selected. This is for the purpose of carrying out 'worst case' cable sizing calculations and may be a conceptual requirement rather than a statement of the physical occurrences of cable and carrier segments." ;
+        rdfs:label                "MountingMethod" ;
+        IFC4-PSD:definition       "The method of mounting cable segment occurrences on a cable carrier occurrence from which the method required can be selected. This is for the purpose of carrying out 'worst case' cable sizing calculations and may be a conceptual requirement rather than a statement of the physical occurrences of cable and carrier segments." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "12584689253640919491fb29d755ac82" ;
+        IFC4-PSD:name             "MountingMethod" ;
+        IFC4-PSD:nameAlias        "Mounting Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PERFORATEDTRAY" , "LADDER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p4a80a2ecf3504fc6ba3f2235e2f25f04
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of parallel circuits." ;
+        rdfs:label                "NumberOfParallelCircuits" ;
+        IFC4-PSD:definition       "Number of parallel circuits." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "4a80a2ecf3504fc6ba3f2235e2f25f04" ;
+        IFC4-PSD:name             "NumberOfParallelCircuits" ;
+        IFC4-PSD:nameAlias        "Number Of Parallel Circuits"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:PowerLoss  a               rdf:Property ;
+        rdfs:seeAlso        :p47d6edba8d714af2b05f07d968909ff6 ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerLoss .
+
+:p7a917ce35e224ad58d1e87bc3656c1b8
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of carrier segments (tray, ladder etc.) that are vertically stacked (vertical is measured as the z-axis of the local coordinate system of the carrier segment)." ;
+        rdfs:label                "CarrierStackNumber" ;
+        IFC4-PSD:definition       "Number of carrier segments (tray, ladder etc.) that are vertically stacked (vertical is measured as the z-axis of the local coordinate system of the carrier segment)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7a917ce35e224ad58d1e87bc3656c1b8" ;
+        IFC4-PSD:name             "CarrierStackNumber" ;
+        IFC4-PSD:nameAlias        "Carrier Stack Number"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:pd9a5be4540394d228b6c573471e71f22
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "An arbitrary correction factor that may be applied by the user." ;
+        rdfs:label                "UserCorrectionFactor" ;
+        IFC4-PSD:definition       "An arbitrary correction factor that may be applied by the user." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d9a5be4540394d228b6c573471e71f22" ;
+        IFC4-PSD:name             "UserCorrectionFactor" ;
+        IFC4-PSD:nameAlias        "User Correction Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableSegmentOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:DesignAmbientTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p55fbb56361a24104a0e4b53d8e4cffd5 ;
+        rdfs:subPropertyOf  IFC4-PSD:DesignAmbientTemperature .
+
+:pd4ec271863334e1ea8cdd1a1d63c7708
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the cable occurrences are mounted horizontally (= TRUE) or vertically (= FALSE)." ;
+        rdfs:label                "IsHorizontalCable" ;
+        IFC4-PSD:definition       "Indication of whether the cable occurrences are mounted horizontally (= TRUE) or vertically (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "d4ec271863334e1ea8cdd1a1d63c7708" ;
+        IFC4-PSD:name             "IsHorizontalCable" ;
+        IFC4-PSD:nameAlias        "Is Horizontal Cable"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pa56d336272784003b1418d8169f8652f
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum value of electric current which can be carried continuously by a conductor, a device or an apparatus, under specified conditions without its steady-state temperature exceeding a  specified value. Based on IEC60826-11-13. NOTE: The temperature specified value is maximum Design Ambient Temperature." ;
+        rdfs:label                "CurrentCarryingCapasity" ;
+        IFC4-PSD:definition       "Maximum value of electric current which can be carried continuously by a conductor, a device or an apparatus, under specified conditions without its steady-state temperature exceeding a  specified value. Based on IEC60826-11-13. NOTE: The temperature specified value is maximum Design Ambient Temperature." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a56d336272784003b1418d8169f8652f" ;
+        IFC4-PSD:name             "CurrentCarryingCapasity" ;
+        IFC4-PSD:nameAlias        "Current Carrying Capasity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:CarrierStackNumber  a      rdf:Property ;
+        rdfs:seeAlso        :p7a917ce35e224ad58d1e87bc3656c1b8 ;
+        rdfs:subPropertyOf  IFC4-PSD:CarrierStackNumber .
+
+:p7c0ce24f9d034d9b83da2ac5e4a0634c
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Method of installation of cable/conductor. Installation methods are typically defined by reference in standards such as IEC 60364-5-52, table 52A-1 or BS7671 Appendix 4 Table 4A1 etc. Selection of the value to be used should be determined from such a standard according to local usage." ;
+        rdfs:label                "InstallationMethod" ;
+        IFC4-PSD:definition       "Method of installation of cable/conductor. Installation methods are typically defined by reference in standards such as IEC 60364-5-52, table 52A-1 or BS7671 Appendix 4 Table 4A1 etc. Selection of the value to be used should be determined from such a standard according to local usage." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7c0ce24f9d034d9b83da2ac5e4a0634c" ;
+        IFC4-PSD:name             "InstallationMethod" ;
+        IFC4-PSD:nameAlias        "Installation Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:IsHorizontalCable  a       rdf:Property ;
+        rdfs:seeAlso        :pd4ec271863334e1ea8cdd1a1d63c7708 ;
+        rdfs:subPropertyOf  IFC4-PSD:IsHorizontalCable .
+
+:UserCorrectionFactor
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd9a5be4540394d228b6c573471e71f22 ;
+        rdfs:subPropertyOf  IFC4-PSD:UserCorrectionFactor .

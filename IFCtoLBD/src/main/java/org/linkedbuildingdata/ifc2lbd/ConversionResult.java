@@ -2,67 +2,79 @@ package org.linkedbuildingdata.ifc2lbd;
 
 import org.apache.jena.query.Dataset;
 import org.apache.jena.query.DatasetFactory;
+import org.apache.jena.graph.NodeFactory;
+import org.apache.jena.sparql.core.DatasetGraphMapLink;
 import org.apache.jena.rdf.model.Model;
-import org.apache.jena.rdf.model.ModelFactory;
+import java.util.Objects;
 
-/** An independently owned snapshot of a completed conversion. */
+/**
+ * A zero-copy dataset view of a completed conversion.
+ *
+ * <p>The result and its converter/session have the same lifetime. Callers must
+ * close the result before closing the converter. The default graph contains
+ * general/topology data only; {@link #getModel()} is a lazy compatibility union
+ * of the three data graphs and does not materialize duplicate statements.</p>
+ */
 public final class ConversionResult implements AutoCloseable {
-
-	public static final String PRODUCT_GRAPH = "urn:ifctolbd:graph:product";
-	public static final String PROPERTY_GRAPH = "urn:ifctolbd:graph:property";
-	public static final String MANIFEST_GRAPH = "urn:ifctolbd:graph:manifest";
-	public static final String VALIDATION_GRAPH = "urn:ifctolbd:graph:validation";
-
 	private final Dataset dataset;
+	private final ConversionGraphNames graphNames;
+	private final Model unionModel;
+	private boolean closed;
 
-	private ConversionResult(Dataset dataset) {
-		this.dataset = dataset;
+	private ConversionResult(Dataset dataset, ConversionGraphNames graphNames) {
+		this.dataset = Objects.requireNonNull(dataset, "dataset");
+		this.graphNames = Objects.requireNonNull(graphNames, "graphNames");
+		this.unionModel = org.apache.jena.rdf.model.ModelFactory.createUnion(dataset.getDefaultModel(),
+				org.apache.jena.rdf.model.ModelFactory.createUnion(getProductModel(), getPropertyModel()));
 	}
 
-	static ConversionResult copyOf(Model general, Model product, Model property) {
-		return copyOf(general, product, property, ModelFactory.createDefaultModel(), ModelFactory.createDefaultModel());
-	}
-
-	static ConversionResult copyOf(Model general, Model product, Model property, Model manifest, Model validation) {
-		Dataset result = DatasetFactory.createTxnMem();
-		result.setDefaultModel(copy(general));
-		result.addNamedModel(PRODUCT_GRAPH, copy(product));
-		result.addNamedModel(PROPERTY_GRAPH, copy(property));
-		result.addNamedModel(MANIFEST_GRAPH, copy(manifest));
-		result.addNamedModel(VALIDATION_GRAPH, copy(validation));
-		return new ConversionResult(result);
-	}
-
-	private static Model copy(Model source) {
-		return ModelFactory.createDefaultModel().add(source).setNsPrefixes(source.getNsPrefixMap());
+	static ConversionResult of(Model general, Model product, Model property, Model manifest, Model validation,
+			ConversionGraphNames graphNames) {
+		DatasetGraphMapLink linked = new DatasetGraphMapLink(general.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.product()), product.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.property()), property.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.manifest()), manifest.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.validation()), validation.getGraph());
+		Dataset result = DatasetFactory.wrap(linked);
+		return new ConversionResult(result, graphNames);
 	}
 
 	public Dataset getDataset() {
+		requireOpen();
 		return dataset;
 	}
 
+	/** Lazy union of the general, product, and property graphs. */
 	public Model getModel() {
-		return dataset.getDefaultModel();
+		requireOpen();
+		return unionModel;
 	}
 
+	public Model getGeneralModel() { requireOpen(); return dataset.getDefaultModel(); }
+	public ConversionGraphNames getGraphNames() { return graphNames; }
+
 	public Model getProductModel() {
-		return dataset.getNamedModel(PRODUCT_GRAPH);
+		requireOpen(); return dataset.getNamedModel(graphNames.product());
 	}
 
 	public Model getPropertyModel() {
-		return dataset.getNamedModel(PROPERTY_GRAPH);
+		requireOpen(); return dataset.getNamedModel(graphNames.property());
 	}
 
 	public Model getManifestModel() {
-		return dataset.getNamedModel(MANIFEST_GRAPH);
+		requireOpen(); return dataset.getNamedModel(graphNames.manifest());
 	}
 
 	public Model getValidationModel() {
-		return dataset.getNamedModel(VALIDATION_GRAPH);
+		requireOpen(); return dataset.getNamedModel(graphNames.validation());
 	}
 
 	@Override
 	public void close() {
-		dataset.close();
+		if (!closed) { closed = true; dataset.close(); }
+	}
+
+	private void requireOpen() {
+		if (closed) throw new IllegalStateException("ConversionResult is closed");
 	}
 }

@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeContactor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pf7b3f780d20d11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A list of the available types of contactor from which that required may be selected where:\n\nCapacitorSwitching: for switching 3 phase single or multi-step capacitor banks.\nLowCurrent: requires the use of low resistance contacts.\nMagneticLatching: enables the contactor to remain in the on position when the coil is no longer energized.\nMechanicalLatching: requires that the contactor is mechanically retained in the on position.\nModular: are totally enclosed and self contained.\nReversing: has a double set of contactors that are prewired.\nStandard: is a generic device that controls the flow of power in a circuit on or off." ;
+        rdfs:label                "ContactorType" ;
+        IFC4-PSD:definition       "A list of the available types of contactor from which that required may be selected where:\n\nCapacitorSwitching: for switching 3 phase single or multi-step capacitor banks.\nLowCurrent: requires the use of low resistance contacts.\nMagneticLatching: enables the contactor to remain in the on position when the coil is no longer energized.\nMechanicalLatching: requires that the contactor is mechanically retained in the on position.\nModular: are totally enclosed and self contained.\nReversing: has a double set of contactors that are prewired.\nStandard: is a generic device that controls the flow of power in a circuit on or off." ;
+        IFC4-PSD:definitionAlias  ""@en , "以下より選択が必要となる、接触器の一覧リスト：\n\nコンデンサスイッチ：3つのシングルフェーズまたは複数のコンデンサバンクで切り替える。\n低流：低い抵抗接触の使用が必要\nマグネット式：コイルのエネルギーが無くなった時に切替をONポジションにして有効にする\nMechanicalLatching：切替器がONポジションを維持するために機械的な仕組みが必要。\nモジュール式：閉鎖されている自働型切替器。\nリバース：2つの切替器をワイヤーで接続したもの。\n標準：回路で電力潮流をオンまたはオフでコントロールする一般的な装置。"@ja-JP , "다음에서 선택이 필요하다, 접촉기  목록 : 콘덴서 스위치 : 3 개의 단일 위상 이상의 커패시터 뱅크를 전환합니다. 낮은여 : 낮은 저항 접촉 사용해야 마그네틱 : 코일의 에너지가 분실된 때 전환을 ON 위치로하여 사용 MechanicalLatching : 판을 ON 위치를 유지하기 위해 기계적인 구조가 필요합니다. 모듈형 : 폐쇄되어있는 자신 동형 판. 리버스 : 두 판을 와이어로 연결한 것. 표준 : 회로에서 전력 조류를 켜지거나 꺼지지 컨트롤하는 일반적인 장치"@ko-KR ;
+        IFC4-PSD:ifdguid          "f7b3f780d20d11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ContactorType" ;
+        IFC4-PSD:nameAlias        "접촉기 유형"@ko-KR , "Contactor Type"@en , "接触器タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CAPACITORSWITCHING" , "MODULAR" , "MAGNETICLATCHING" , "REVERSING" , "MECHANICALLATCHING" , "OTHER" , "UNSET" , "LOWCURRENT" , "NOTKNOWN" , "STANDARD"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SwitchingDeviceTypeContactor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ContactorType  a           rdf:Property ;
+        rdfs:seeAlso        :pf7b3f780d20d11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ContactorType .
+
+:Pset_SwitchingDeviceTypeContactor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An electrical device used to control the flow of power in a circuit on or off." ;
+        rdfs:label                    "Pset_SwitchingDeviceTypeContactor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSwitchingDevice/CONTACTOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSwitchingDevice/CONTACTOR" ;
+        IFC4-PSD:definition           "An electrical device used to control the flow of power in a circuit on or off." ;
+        IFC4-PSD:definitionAlias      ""@en , "電力機器の起動・停止のために、電力回路を開閉する電力機器。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SwitchingDeviceTypeContactor" ;
+        IFC4-PSD:propertyDef          :pf7b3f780d20d11e1800000215ad4efdf .

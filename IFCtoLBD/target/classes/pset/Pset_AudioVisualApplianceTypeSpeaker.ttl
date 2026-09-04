@@ -1,0 +1,112 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeSpeaker#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pa717ac80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates how the speaker is designed to be mounted." ;
+        rdfs:label                "SpeakerMounting" ;
+        IFC4-PSD:definition       "Indicates how the speaker is designed to be mounted." ;
+        IFC4-PSD:definitionAlias  ""@en , "붙일 수있는 방법을 보여준다."@ko-KR , "取付可能な方法を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "a717ac80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpeakerMounting" ;
+        IFC4-PSD:nameAlias        "설치 가능 방법"@ko-KR , "取付可能方法"@ja-JP , "Speaker Mounting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FREESTANDING" , "CEILING" , "WALL" , "OUTDOOR" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeSpeaker>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pc7e00200d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the speaker impedence." ;
+        rdfs:label                "Impedence" ;
+        IFC4-PSD:definition       "Indicates the speaker impedence." ;
+        IFC4-PSD:definitionAlias  ""@en , "インピーダンス値を示す。"@ja-JP , "임피던스 값을 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "c7e00200d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Impedence" ;
+        IFC4-PSD:nameAlias        "Impedence"@en , "インピーダンス値"@ja-JP , "임피던스"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcFrequencyMeasure
+                                  ] .
+
+:SpeakerMounting  a         rdf:Property ;
+        rdfs:seeAlso        :pa717ac80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpeakerMounting .
+
+:Impedence  a               rdf:Property ;
+        rdfs:seeAlso        :pc7e00200d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Impedence .
+
+:p949d7300d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of speaker." ;
+        rdfs:label                "SpeakerType" ;
+        IFC4-PSD:definition       "Indicates the type of speaker." ;
+        IFC4-PSD:definitionAlias  "スピーカーのタイプを示す。"@ja-JP , ""@en , "스피커의 타입을 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "949d7300d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpeakerType" ;
+        IFC4-PSD:nameAlias        "스피커 타입"@ko-KR , "Speaker Type"@en , "スピーカータイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FULLRANGE" , "MIDRANGE" , "WOOFER" , "TWEETER" , "COAXIAL" , "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:FrequencyResponse  a       rdf:Property ;
+        rdfs:seeAlso        :pc0b8f400d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FrequencyResponse .
+
+:SpeakerDriverSize  a       rdf:Property ;
+        rdfs:seeAlso        :pb860b900d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpeakerDriverSize .
+
+:SpeakerType  a             rdf:Property ;
+        rdfs:seeAlso        :p949d7300d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SpeakerType .
+
+:Pset_AudioVisualApplianceTypeSpeaker
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual speaker is a device that converts amplified audio signals into sound waves.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeSpeaker" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/SPEAKER> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/SPEAKER" ;
+        IFC4-PSD:definition           "An audio-visual speaker is a device that converts amplified audio signals into sound waves.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "音響信号を音波に変換する装置。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeSpeaker" ;
+        IFC4-PSD:propertyDef          :pb860b900d1c311e1800000215ad4efdf , :pa717ac80d1c311e1800000215ad4efdf , :pc7e00200d1c311e1800000215ad4efdf , :p949d7300d1c311e1800000215ad4efdf , :pc0b8f400d1c311e1800000215ad4efdf .
+
+:pb860b900d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the number of drivers and their sizes." ;
+        rdfs:label                "SpeakerDriverSize" ;
+        IFC4-PSD:definition       "Indicates the number of drivers and their sizes." ;
+        IFC4-PSD:definitionAlias  ""@en , "ドライバユニットと数を示す。"@ja-JP , "드라이버 유닛과 수를 나타낸다"@ko-KR ;
+        IFC4-PSD:ifdguid          "b860b900d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SpeakerDriverSize" ;
+        IFC4-PSD:nameAlias        "스피커 드라이버"@ko-KR , "Speaker Driver Size"@en , "スピーカードライバサイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPositiveLengthMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:pc0b8f400d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the output over a specified range of frequencies." ;
+        rdfs:label                "FrequencyResponse" ;
+        IFC4-PSD:definition       "Indicates the output over a specified range of frequencies." ;
+        IFC4-PSD:definitionAlias  ""@en , "周波数範囲での出力を示す。"@ja-JP , "주파수 범위에서 출력을 보여준다."@ko-KR ;
+        IFC4-PSD:ifdguid          "c0b8f400d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FrequencyResponse" ;
+        IFC4-PSD:nameAlias        "주파수 응답"@ko-KR , "Frequency Response"@en , "周波数応答"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcSoundPowerMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcFrequencyMeasure
+                                  ] .

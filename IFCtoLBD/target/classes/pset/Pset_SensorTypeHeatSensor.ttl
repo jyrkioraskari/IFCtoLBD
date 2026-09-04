@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeHeatSensor#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p7f493880d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        rdfs:label                "CoverageArea" ;
+        IFC4-PSD:definition       "The area that is covered by the sensor (typically measured as a circle whose center is at the location of the sensor)." ;
+        IFC4-PSD:definitionAlias  ""@en , "センサでカバーされている範囲。(通常、センターがセンサの位置にある円として測定される)"@ja-JP , "센서 커버하는 범위. (일반적으로 센터 센서의 위치에있는 원형으로 측정되는)"@ko-KR ;
+        IFC4-PSD:ifdguid          "7f493880d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoverageArea" ;
+        IFC4-PSD:nameAlias        "Coverage Area"@en , "測定範囲"@ja-JP , "측정 범위"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:p84a68300d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The temperature value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        rdfs:label                "SetPointTemperature" ;
+        IFC4-PSD:definition       "The temperature value to be sensed. Use IfcPropertyBoundedValue.SetPointValue to set the set point value." ;
+        IFC4-PSD:definitionAlias  "感知される温度。\nセットポイント値を置くために、IfcPropertyBoundedValue.SetPointValueを使用する。"@ja-JP , "감지되는 온도. 세트 포인트 값을 넣으려면, IfcPropertyBoundedValue.SetPointValue를 사용하십시오."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "84a68300d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SetPointTemperature" ;
+        IFC4-PSD:nameAlias        "Set Point Temperature"@en , "온도 설정"@ko-KR , "温度設定値"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:SetPointTemperature  a     rdf:Property ;
+        rdfs:seeAlso        :p84a68300d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SetPointTemperature .
+
+:CoverageArea  a            rdf:Property ;
+        rdfs:seeAlso        :p7f493880d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoverageArea .
+
+:p8cfebe00d20511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The rate of temperature rise that is to be sensed as being hazardous." ;
+        rdfs:label                "RateOfTemperatureRise" ;
+        IFC4-PSD:definition       "The rate of temperature rise that is to be sensed as being hazardous." ;
+        IFC4-PSD:definitionAlias  ""@en , "위험 것으로 느껴지게하는 온도 상승률."@ko-KR , "危険であるとして感じられることになっている温度上昇率。"@ja-JP ;
+        IFC4-PSD:ifdguid          "8cfebe00d20511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RateOfTemperatureRise" ;
+        IFC4-PSD:nameAlias        "温度上昇率"@ja-JP , "Rate Of Temperature Rise"@en , "온도 상승률"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTemperatureRateOfChangeMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_SensorTypeHeatSensor>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:RateOfTemperatureRise
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8cfebe00d20511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RateOfTemperatureRise .
+
+:Pset_SensorTypeHeatSensor
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that senses or detects heat. HISTORY: In IFC4, incorporates Fire Sensor. HeatSensorSetPoint changed to SetPointTemperature" ;
+        rdfs:label                    "Pset_SensorTypeHeatSensor" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcSensor/HEATSENSOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcSensor/HEATSENSOR" ;
+        IFC4-PSD:definition           "A device that senses or detects heat. HISTORY: In IFC4, incorporates Fire Sensor. HeatSensorSetPoint changed to SetPointTemperature" ;
+        IFC4-PSD:definitionAlias      ""@en , "熱を感知または検出するデバイス。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_SensorTypeHeatSensor" ;
+        IFC4-PSD:propertyDef          :p8cfebe00d20511e1800000215ad4efdf , :p7f493880d20511e1800000215ad4efdf , :p84a68300d20511e1800000215ad4efdf .

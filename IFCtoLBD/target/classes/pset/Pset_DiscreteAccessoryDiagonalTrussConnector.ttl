@@ -1,0 +1,131 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryDiagonalTrussConnector#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p6d01d700d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The overall length of the truss connector." ;
+        rdfs:label                "DiagonalTrussLength" ;
+        IFC4-PSD:definition       "The overall length of the truss connector." ;
+        IFC4-PSD:definitionAlias  "トラス接続部材の全体の長さ。"@ja-JP , "트러스 연결 부재의 전체 길이"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "6d01d700d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussLength" ;
+        IFC4-PSD:nameAlias        "전체 길이"@ko-KR , "Diagonal Truss Length"@en , "全体長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p71c68b00d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The spacing between diagonal cross-bar sections." ;
+        rdfs:label                "DiagonalTrussCrossBarSpacing" ;
+        IFC4-PSD:definition       "The spacing between diagonal cross-bar sections." ;
+        IFC4-PSD:definitionAlias  ""@en , "대각선 크로스바 간격"@ko-KR , "斜めのクロスバーの間隔。"@ja-JP ;
+        IFC4-PSD:ifdguid          "71c68b00d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussCrossBarSpacing" ;
+        IFC4-PSD:nameAlias        "クロスバー間隔"@ja-JP , "Diagonal Truss Cross Bar Spacing"@en , "크로스바 간격"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DiagonalTrussCrossBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p81de6a80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussCrossBarDiameter .
+
+:p7c812000d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the secondary bar." ;
+        rdfs:label                "DiagonalTrussSecondaryBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the secondary bar." ;
+        IFC4-PSD:definitionAlias  "二次バーの公称直径。"@ja-JP , ""@en , "보조 막대의 공칭 지름"@ko-KR ;
+        IFC4-PSD:ifdguid          "7c812000d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussSecondaryBarDiameter" ;
+        IFC4-PSD:nameAlias        "二次バー径"@ja-JP , "Diagonal Truss Secondary Bar Diameter"@en , "보조 막대 지름"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_DiscreteAccessoryDiagonalTrussConnector
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shape properties specific to connecting accessories in truss form with diagonal cross-bars." ;
+        rdfs:label                    "Pset_DiscreteAccessoryDiagonalTrussConnector" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/Diagonal%20truss%20connector> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Diagonal truss connector" ;
+        IFC4-PSD:definition           "Shape properties specific to connecting accessories in truss form with diagonal cross-bars." ;
+        IFC4-PSD:definitionAlias      "斜めのクロスバーを使って接続したトラスの形状定義。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryDiagonalTrussConnector" ;
+        IFC4-PSD:propertyDef          :p67a48c80d1d211e1800000215ad4efdf , :p71c68b00d1d211e1800000215ad4efdf , :p6d01d700d1d211e1800000215ad4efdf , :p7723d580d1d211e1800000215ad4efdf , :p81de6a80d1d211e1800000215ad4efdf , :p7c812000d1d211e1800000215ad4efdf .
+
+:p7723d580d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the base bar." ;
+        rdfs:label                "DiagonalTrussBaseBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the base bar." ;
+        IFC4-PSD:definitionAlias  ""@en , "ベースバーの公称直径。"@ja-JP , "기반 막대의 공칭 지름"@ko-KR ;
+        IFC4-PSD:ifdguid          "7723d580d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussBaseBarDiameter" ;
+        IFC4-PSD:nameAlias        "ベースバー径"@ja-JP , "Diagonal Truss Base Bar Diameter"@en , "기반 막대 지름"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DiagonalTrussBaseBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7723d580d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussBaseBarDiameter .
+
+:DiagonalTrussCrossBarSpacing
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p71c68b00d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussCrossBarSpacing .
+
+:DiagonalTrussSecondaryBarDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7c812000d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussSecondaryBarDiameter .
+
+:DiagonalTrussHeight  a     rdf:Property ;
+        rdfs:seeAlso        :p67a48c80d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussHeight .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryDiagonalTrussConnector>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p67a48c80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The overall height of the truss connector." ;
+        rdfs:label                "DiagonalTrussHeight" ;
+        IFC4-PSD:definition       "The overall height of the truss connector." ;
+        IFC4-PSD:definitionAlias  "トラス接続部材の全体の高さ。"@ja-JP , ""@en , "트러스 연결 부재의 전체 높이"@ko-KR ;
+        IFC4-PSD:ifdguid          "67a48c80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussHeight" ;
+        IFC4-PSD:nameAlias        "Diagonal Truss Height"@en , "全体高さ"@ja-JP , "전체 높이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p81de6a80d1d211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the diagonal cross-bars." ;
+        rdfs:label                "DiagonalTrussCrossBarDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the diagonal cross-bars." ;
+        IFC4-PSD:definitionAlias  "대각선 크로스바 공칭 지름"@ko-KR , "斜めクロスバーの公称直径。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "81de6a80d1d211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DiagonalTrussCrossBarDiameter" ;
+        IFC4-PSD:nameAlias        "크로스바 지름"@ko-KR , "Diagonal Truss Cross Bar Diameter"@en , "クロスバー径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:DiagonalTrussLength  a     rdf:Property ;
+        rdfs:seeAlso        :p6d01d700d1d211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DiagonalTrussLength .

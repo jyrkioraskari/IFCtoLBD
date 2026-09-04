@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LandRegistration#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p6c296f00d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identification number assigned by the statutory registration authority to a land parcel." ;
+        rdfs:label                "LandID" ;
+        IFC4-PSD:definition       "Identification number assigned by the statutory registration authority to a land parcel." ;
+        IFC4-PSD:definitionAlias  "登記における識別番号。"@ja-JP , ""@en , "등기의 ID입니다."@ko-KR , "Identifiant numérique de la parcelle attribué par une autorité [NDT : exemple : DGI]"@fr-FR ;
+        IFC4-PSD:ifdguid          "6c296f00d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LandID" ;
+        IFC4-PSD:nameAlias        "敷地ID"@ja-JP , "Land ID"@en , "부지 ID"@ko-KR , "IdParcelle"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_LandRegistration>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p73e91380d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates whether the identity assigned to a land parcel is permanent (= TRUE) or temporary (=FALSE)." ;
+        rdfs:label                "IsPermanentID" ;
+        IFC4-PSD:definition       "Indicates whether the identity assigned to a land parcel is permanent (= TRUE) or temporary (=FALSE)." ;
+        IFC4-PSD:definitionAlias  "Indique si l'identifiant est permanent (VRAI) ou non (FAUX)"@fr-FR , ""@en , "敷地IDが恒久的なものかどうかを示すブーリアン値。"@ja-JP , "부지 ID가 영구적인 것인지 여부를 나타내는  값입니다."@ko-KR ;
+        IFC4-PSD:ifdguid          "73e91380d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsPermanentID" ;
+        IFC4-PSD:nameAlias        "Is Permanent ID"@en , "IdPermanent"@fr-FR , "영구 ID 구분"@ko-KR , "恒久ID区分"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:LandTitleID  a             rdf:Property ;
+        rdfs:seeAlso        :p7b102180d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LandTitleID .
+
+:Pset_LandRegistration
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Specifies the identity of land within a statutory registration system. NOTE: The property LandTitleID is to be used in preference to deprecated attribute LandTitleNumber in IfcSite." ;
+        rdfs:label                    "Pset_LandRegistration" ;
+        IFC4-PSD:applicableClass      IFC4:IfcSite ;
+        IFC4-PSD:applicableTypeValue  "IfcSite" ;
+        IFC4-PSD:definition           "Specifies the identity of land within a statutory registration system. NOTE: The property LandTitleID is to be used in preference to deprecated attribute LandTitleNumber in IfcSite." ;
+        IFC4-PSD:definitionAlias      ""@en , "敷地の登記システム上の識別情報に関するプロパティセット定義。備考：LandTitileIDプロパティは、IfcSite.LandTitleNumber属性が廃止されるのに伴い、優先的に使用される。"@ja-JP , "Définition de l'IAI : spécifie l'identité de l'entité foncière attribué par une autorité. Nota : La propriété LandTitleID doit être utilisée de préférence à l'attribut LandTitleNumber de la classe IfcSite."@fr-FR ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_LandRegistration" ;
+        IFC4-PSD:propertyDef          :p6c296f00d1eb11e1800000215ad4efdf , :p73e91380d1eb11e1800000215ad4efdf , :p7b102180d1eb11e1800000215ad4efdf .
+
+:IsPermanentID  a           rdf:Property ;
+        rdfs:seeAlso        :p73e91380d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsPermanentID .
+
+:p7b102180d1eb11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identification number assigned by the statutory registration authority to the title to a land parcel." ;
+        rdfs:label                "LandTitleID" ;
+        IFC4-PSD:definition       "Identification number assigned by the statutory registration authority to the title to a land parcel." ;
+        IFC4-PSD:definitionAlias  "Identifiant numérique du titre de la parcelle attribué par une autorité."@fr-FR , "등기소의 ID입니다."@ko-KR , "登記所による識別番号。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "7b102180d1eb11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LandTitleID" ;
+        IFC4-PSD:nameAlias        "Land Title ID"@en , "IdTitreParcelle"@fr-FR , "부지 번호 ID"@ko-KR , "敷地番号ID"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:LandID  a                  rdf:Property ;
+        rdfs:seeAlso        :p6c296f00d1eb11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LandID .

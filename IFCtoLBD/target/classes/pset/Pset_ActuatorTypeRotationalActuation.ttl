@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeRotationalActuation#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Torque  a                  rdf:Property ;
+        rdfs:seeAlso        :pb1cf4300d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Torque .
+
+:RangeAngle  a              rdf:Property ;
+        rdfs:seeAlso        :pb8f65100d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RangeAngle .
+
+:pb8f65100d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the maximum rotation the actuator must traverse." ;
+        rdfs:label                "RangeAngle" ;
+        IFC4-PSD:definition       "Indicates the maximum rotation the actuator must traverse." ;
+        IFC4-PSD:definitionAlias  ""@en , "액츄에이터가 움직이는 최대 회전각을 나타낸다."@ko-KR , "アクチュエータが動く最大回転角を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b8f65100d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RangeAngle" ;
+        IFC4-PSD:nameAlias        "최대 회전각"@ko-KR , "Range Angle"@en , "最大回転角"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeRotationalActuation>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pb1cf4300d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the maximum close-off torque for the actuator." ;
+        rdfs:label                "Torque" ;
+        IFC4-PSD:definition       "Indicates the maximum close-off torque for the actuator." ;
+        IFC4-PSD:definitionAlias  ""@en , "액츄에이터의 최대 마감 토크를 나타낸다."@ko-KR , "アクチュエータの最大締め切りトルクを示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b1cf4300d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Torque" ;
+        IFC4-PSD:nameAlias        "Torque"@en , "최대 토크"@ko-KR , "最大トルク"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTorqueMeasure
+                                  ] .
+
+:Pset_ActuatorTypeRotationalActuation
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Characteristics of rotational actuation of an actuator\nHistory: Replaces Pset_RotationalActuator" ;
+        rdfs:label                    "Pset_ActuatorTypeRotationalActuation" ;
+        IFC4-PSD:applicableClass      IFC4:IfcActuator ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator" ;
+        IFC4-PSD:definition           "Characteristics of rotational actuation of an actuator\nHistory: Replaces Pset_RotationalActuator" ;
+        IFC4-PSD:definitionAlias      "アクチュエータの回転動作の特性。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorTypeRotationalActuation" ;
+        IFC4-PSD:propertyDef          :pb8f65100d1bd11e1800000215ad4efdf , :pb1cf4300d1bd11e1800000215ad4efdf .

@@ -1,0 +1,283 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NumberOfSections  a        rdf:Property ;
+        rdfs:seeAlso        :p3cd92900d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfSections .
+
+:NominalLengthOrDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :peff55280d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalLengthOrDiameter .
+
+:pd2c08400d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of access (or cover) to a tank that may be specified.\n\nNote that covers are generally specified for rectangular tanks. For cylindrical tanks, access will normally be via a manhole." ;
+        rdfs:label                "AccessType" ;
+        IFC4-PSD:definition       "Defines the types of access (or cover) to a tank that may be specified.\n\nNote that covers are generally specified for rectangular tanks. For cylindrical tanks, access will normally be via a manhole." ;
+        IFC4-PSD:definitionAlias  "タンクの点検口（又はカバー)のタイプの定義は明示される。カバーは一般的に矩形タンクについて明示されていることに注意。円筒形タンクの点検は通常のマンホールを通る"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "d2c08400d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccessType" ;
+        IFC4-PSD:nameAlias        "点検タイプ"@ja-JP , "Access Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NONE" , "LOOSECOVER" , "MANHOLE" , "SECUREDCOVER" , "SECUREDCOVERWITHMANHOLE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_TankTypeCommon  a               IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes of a tank type." ;
+        rdfs:label                    "Pset_TankTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcTank ;
+        IFC4-PSD:applicableTypeValue  "IfcTank" ;
+        IFC4-PSD:definition           "Common attributes of a tank type." ;
+        IFC4-PSD:definitionAlias      ""@en , "水槽タイプ共通属性"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankTypeCommon" ;
+        IFC4-PSD:propertyDef          :p069ba980d21011e1800000215ad4efdf , :pf7b4f700d20f11e1800000215ad4efdf , :p0ac7c700d21011e1800000215ad4efdf , :p0f8c7b00d21011e1800000215ad4efdf , :pc0464a80d20f11e1800000215ad4efdf , :pe0760980d20f11e1800000215ad4efdf , :p14512f00d21011e1800000215ad4efdf , :pfedc0500d20f11e1800000215ad4efdf , :pc5a39500d20f11e1800000215ad4efdf , :peff55280d20f11e1800000215ad4efdf , :p3480ee00d21011e1800000215ad4efdf , :pd2c08400d20f11e1800000215ad4efdf , :p1f0bc400d21011e1800000215ad4efdf , :p2cc14980d21011e1800000215ad4efdf , :p3cd92900d21011e1800000215ad4efdf .
+
+:pfedc0500d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal depth of the tank.\n\nNote: Not required for a horizontal cylindrical tank." ;
+        rdfs:label                "NominalDepth" ;
+        IFC4-PSD:definition       "The nominal depth of the tank.\n\nNote: Not required for a horizontal cylindrical tank." ;
+        IFC4-PSD:definitionAlias  ""@en , "タンクの公称深さ　　注：水平円筒形タンクに対しては必須ではない"@ja-JP ;
+        IFC4-PSD:ifdguid          "fedc0500d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDepth" ;
+        IFC4-PSD:nameAlias        "Nominal Depth"@en , "公称深さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p14512f00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of pattern (or shape of a tank that may be specified." ;
+        rdfs:label                "PatternType" ;
+        IFC4-PSD:definition       "Defines the types of pattern (or shape of a tank that may be specified." ;
+        IFC4-PSD:definitionAlias  ""@en , "定義　パターンのタイプ（又はタンクの形状)が明示される"@ja-JP ;
+        IFC4-PSD:ifdguid          "14512f00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PatternType" ;
+        IFC4-PSD:nameAlias        "パターンタイプ"@ja-JP , "Pattern Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HORIZONTALCYLINDER" , "VERTICALCYLINDER" , "RECTANGULAR" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:SecondCurvatureRadius
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3480ee00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SecondCurvatureRadius .
+
+:p3cd92900d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of sections used in the construction of the tank. Default is 1.\n\nNote: All sections assumed to be the same size." ;
+        rdfs:label                "NumberOfSections" ;
+        IFC4-PSD:definition       "Number of sections used in the construction of the tank. Default is 1.\n\nNote: All sections assumed to be the same size." ;
+        IFC4-PSD:definitionAlias  "タンクの製作に使用されているセクションの数　既定は1つ　　注：全てのセクションは同サイズと考える"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "3cd92900d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfSections" ;
+        IFC4-PSD:nameAlias        "Number Of Sections"@en , "セクションの数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:FirstCurvatureRadius
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p2cc14980d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FirstCurvatureRadius .
+
+:p0f8c7b00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Operating weight of the tank including all of its contents." ;
+        rdfs:label                "OperatingWeight" ;
+        IFC4-PSD:definition       "Operating weight of the tank including all of its contents." ;
+        IFC4-PSD:definitionAlias  "中身全部を含んだタンクの運転重量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0f8c7b00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OperatingWeight" ;
+        IFC4-PSD:nameAlias        "運転重量"@ja-JP , "Operating Weight"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcMassMeasure
+                                  ] .
+
+:pc5a39500d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c5a39500d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:NominalDepth  a            rdf:Property ;
+        rdfs:seeAlso        :pfedc0500d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDepth .
+
+:PatternType  a             rdf:Property ;
+        rdfs:seeAlso        :p14512f00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PatternType .
+
+:p069ba980d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total nominal or design volumetric capacity of the tank." ;
+        rdfs:label                "NominalCapacity" ;
+        IFC4-PSD:definition       "The total nominal or design volumetric capacity of the tank." ;
+        IFC4-PSD:definitionAlias  ""@en , "タンクの総公称又は設計容量"@ja-JP ;
+        IFC4-PSD:ifdguid          "069ba980d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCapacity" ;
+        IFC4-PSD:nameAlias        "Nominal Capacity"@en , "公称容量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:pe0760980d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the general material category intended to be stored." ;
+        rdfs:label                "StorageType" ;
+        IFC4-PSD:definition       "Defines the general material category intended to be stored." ;
+        IFC4-PSD:definitionAlias  ""@en , "一般的な材料種別が格納される"@ja-JP ;
+        IFC4-PSD:ifdguid          "e0760980d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StorageType" ;
+        IFC4-PSD:nameAlias        "Storage Type"@en , "貯蔵タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "RAINWATER" , "NOTKNOWN" , "OTHER" , "POTABLEWATER" , "FUEL" , "UNSET" , "ICE" , "OIL" , "WATER" , "WASTEWATER"
+                                  ] .
+
+:StorageType  a             rdf:Property ;
+        rdfs:seeAlso        :pe0760980d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StorageType .
+
+:pc0464a80d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "c0464a80d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p3480ee00d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "SecondCurvatureRadius should be defined as the top or right side radius of curvature value." ;
+        rdfs:label                "SecondCurvatureRadius" ;
+        IFC4-PSD:definition       "SecondCurvatureRadius should be defined as the top or right side radius of curvature value." ;
+        IFC4-PSD:definitionAlias  ""@en , "2番目の曲率半径は、曲率の値の先頭又は右側の半径として定義する必要があります。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3480ee00d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SecondCurvatureRadius" ;
+        IFC4-PSD:nameAlias        "2番目の曲率半径"@ja-JP , "Second Curvature Radius"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p1f0bc400d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the types of end shapes that can be used for preformed tanks. The convention for reading these enumerated values is that for a vertical cylinder, the first value is the base and the second is the top; for a horizontal cylinder, the order of reading should be left to right. For a speherical tank, the value UNSET should be used." ;
+        rdfs:label                "EndShapeType" ;
+        IFC4-PSD:definition       "Defines the types of end shapes that can be used for preformed tanks. The convention for reading these enumerated values is that for a vertical cylinder, the first value is the base and the second is the top; for a horizontal cylinder, the order of reading should be left to right. For a speherical tank, the value UNSET should be used." ;
+        IFC4-PSD:definitionAlias  "定義　予めタンクに使用することができる端形状の種類を示す。これらの列挙された値を読み取るための規則は、垂直円筒に関しては、最初の値はベースです、そして、2番目は先端です。水平円筒に関しては、値は左から右に読む必要があります。球形タンクの場合、値はUNSETを使用する必要があります。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "1f0bc400d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EndShapeType" ;
+        IFC4-PSD:nameAlias        "End Shape Type"@en , "末端形状タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONCAVECONVEX" , "FLATCONVEX" , "CONVEXCONVEX" , "CONCAVEFLAT" , "FLATFLAT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:OperatingWeight  a         rdf:Property ;
+        rdfs:seeAlso        :p0f8c7b00d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OperatingWeight .
+
+:EffectiveCapacity  a       rdf:Property ;
+        rdfs:seeAlso        :p0ac7c700d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EffectiveCapacity .
+
+:NominalWidthOrDiameter
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pf7b4f700d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidthOrDiameter .
+
+:EndShapeType  a            rdf:Property ;
+        rdfs:seeAlso        :p1f0bc400d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EndShapeType .
+
+:p0ac7c700d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The total effective or actual volumetric capacity of the tank." ;
+        rdfs:label                "EffectiveCapacity" ;
+        IFC4-PSD:definition       "The total effective or actual volumetric capacity of the tank." ;
+        IFC4-PSD:definitionAlias  "タンクの総有効又は実容量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0ac7c700d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EffectiveCapacity" ;
+        IFC4-PSD:nameAlias        "Effective Capacity"@en , "有効容量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:NominalCapacity  a         rdf:Property ;
+        rdfs:seeAlso        :p069ba980d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCapacity .
+
+:pf7b4f700d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width or, in the case of a horizontal cylindrical tank, the nominal diameter of the tank.\n\nNote: Not required for a vertical cylindrical tank." ;
+        rdfs:label                "NominalWidthOrDiameter" ;
+        IFC4-PSD:definition       "The nominal width or, in the case of a horizontal cylindrical tank, the nominal diameter of the tank.\n\nNote: Not required for a vertical cylindrical tank." ;
+        IFC4-PSD:definitionAlias  ""@en , "公称幅又は水平円筒形タンクの場合、タンクの公称直径　　　　　注：垂直円筒形タンクに対しては必須ではない"@ja-JP ;
+        IFC4-PSD:ifdguid          "f7b4f700d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidthOrDiameter" ;
+        IFC4-PSD:nameAlias        "Nominal Width Or Diameter"@en , "公称幅又は直径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:AccessType  a              rdf:Property ;
+        rdfs:seeAlso        :pd2c08400d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccessType .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :pc0464a80d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:peff55280d20f11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal length or, in the case of a vertical cylindrical tank, the nominal diameter of the tank." ;
+        rdfs:label                "NominalLengthOrDiameter" ;
+        IFC4-PSD:definition       "The nominal length or, in the case of a vertical cylindrical tank, the nominal diameter of the tank." ;
+        IFC4-PSD:definitionAlias  "公称長さ又は垂直円筒形タンクの場合、タンクの公称直径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "eff55280d20f11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalLengthOrDiameter" ;
+        IFC4-PSD:nameAlias        "Nominal Length Or Diameter"@en , "公称長さ又は直径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p2cc14980d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "FirstCurvatureRadius should be defined as the base or left side radius of curvature value." ;
+        rdfs:label                "FirstCurvatureRadius" ;
+        IFC4-PSD:definition       "FirstCurvatureRadius should be defined as the base or left side radius of curvature value." ;
+        IFC4-PSD:definitionAlias  "最初の曲率半径は、基本又は曲率の値の左側の半径として定義する必要があります。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "2cc14980d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FirstCurvatureRadius" ;
+        IFC4-PSD:nameAlias        "最初の曲率半径"@ja-JP , "First Curvature Radius"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :pc5a39500d20f11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .

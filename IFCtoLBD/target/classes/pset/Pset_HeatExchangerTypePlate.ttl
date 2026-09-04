@@ -1,0 +1,42 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HeatExchangerTypePlate#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_HeatExchangerTypePlate>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_HeatExchangerTypePlate
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Plate heat exchanger type common attributes." ;
+        rdfs:label                    "Pset_HeatExchangerTypePlate" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcHeatExchanger/PLATE> ;
+        IFC4-PSD:applicableTypeValue  "IfcHeatExchanger/PLATE" ;
+        IFC4-PSD:definition           "Plate heat exchanger type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_HeatExchangerTypePlate" ;
+        IFC4-PSD:propertyDef          :p8a8e6b00d1e911e1800000215ad4efdf .
+
+:NumberOfPlates  a          rdf:Property ;
+        rdfs:seeAlso        :p8a8e6b00d1e911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfPlates .
+
+:p8a8e6b00d1e911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of plates used by the plate heat exchanger." ;
+        rdfs:label                "NumberOfPlates" ;
+        IFC4-PSD:definition       "Number of plates used by the plate heat exchanger." ;
+        IFC4-PSD:definitionAlias  "プレート式熱交換器に使われているプレート数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8a8e6b00d1e911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfPlates" ;
+        IFC4-PSD:nameAlias        "プレート数"@ja-JP , "Number Of Plates"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .

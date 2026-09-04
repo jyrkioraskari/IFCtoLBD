@@ -1,0 +1,162 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p781b2e00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of maintenance that can be done from which the type that generates the maintenance work order may be set where:\n\nConditionBased: generated as a result of the condition of an asset or artefact being less than a determined value.\nCorrective: generated as a result of an immediate and urgent need for maintenance action.\nPlannedCorrective: generated as a result of immediate corrective action being needed but with sufficient time available for the work order to be included in maintenance planning.\nScheduled: generated as a result of a fixed, periodic maintenance requirement." ;
+        rdfs:label                "MaintenaceType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of maintenance that can be done from which the type that generates the maintenance work order may be set where:\n\nConditionBased: generated as a result of the condition of an asset or artefact being less than a determined value.\nCorrective: generated as a result of an immediate and urgent need for maintenance action.\nPlannedCorrective: generated as a result of immediate corrective action being needed but with sufficient time available for the work order to be included in maintenance planning.\nScheduled: generated as a result of a fixed, periodic maintenance requirement." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "781b2e00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MaintenaceType" ;
+        IFC4-PSD:nameAlias        "Maintenace Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CONDITIONBASED" , "CORRECTIVE" , "PLANNEDCORRECTIVE" , "SCHEDULED" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p65085e00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The contractual type of the work." ;
+        rdfs:label                "ContractualType" ;
+        IFC4-PSD:definition       "The contractual type of the work." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "65085e00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ContractualType" ;
+        IFC4-PSD:nameAlias        "Contractual Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:p53bf5180d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A textual description of the products that require the work." ;
+        rdfs:label                "ProductDescription" ;
+        IFC4-PSD:definition       "A textual description of the products that require the work." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "53bf5180d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProductDescription" ;
+        IFC4-PSD:nameAlias        "Product Description"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:FaultPriorityType  a       rdf:Property ;
+        rdfs:seeAlso        :p93863900d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaultPriorityType .
+
+:pbfa1ba00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The period of time between expected instantiations of a work order that may have been predefined." ;
+        rdfs:label                "ScheduledFrequency" ;
+        IFC4-PSD:definition       "The period of time between expected instantiations of a work order that may have been predefined." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "bfa1ba00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ScheduledFrequency" ;
+        IFC4-PSD:nameAlias        "Scheduled Frequency"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcTimeMeasure
+                                  ] .
+
+:WorkTypeRequested  a       rdf:Property ;
+        rdfs:seeAlso        :p5c178c80d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WorkTypeRequested .
+
+:p5c178c80d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Work type requested in circumstances where there are categorizations of types of work task. It could be used to identify a remedial task, minor work task, electrical task etc." ;
+        rdfs:label                "WorkTypeRequested" ;
+        IFC4-PSD:definition       "Work type requested in circumstances where there are categorizations of types of work task. It could be used to identify a remedial task, minor work task, electrical task etc." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5c178c80d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WorkTypeRequested" ;
+        IFC4-PSD:nameAlias        "Work Type Requested"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ProductDescription  a      rdf:Property ;
+        rdfs:seeAlso        :p53bf5180d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProductDescription .
+
+:LocationPriorityType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa8fb6300d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LocationPriorityType .
+
+:Pset_ProjectOrderMaintenanceWorkOrder
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A MaintenanceWorkOrder is a detailed description of maintenance work that is to be performed. Note that the Scheduled Frequency property of the maintenance work order is used when the order is required as an instance of a scheduled work order." ;
+        rdfs:label                    "Pset_ProjectOrderMaintenanceWorkOrder" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/MAINTENANCEWORKORDER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProjectOrder/MAINTENANCEWORKORDER" ;
+        IFC4-PSD:definition           "A MaintenanceWorkOrder is a detailed description of maintenance work that is to be performed. Note that the Scheduled Frequency property of the maintenance work order is used when the order is required as an instance of a scheduled work order." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProjectOrderMaintenanceWorkOrder" ;
+        IFC4-PSD:propertyDef          :p53bf5180d1f711e1800000215ad4efdf , :p6e91c600d1f711e1800000215ad4efdf , :p93863900d1f711e1800000215ad4efdf , :pa8fb6300d1f711e1800000215ad4efdf , :p5c178c80d1f711e1800000215ad4efdf , :p781b2e00d1f711e1800000215ad4efdf , :p65085e00d1f711e1800000215ad4efdf , :pbfa1ba00d1f711e1800000215ad4efdf .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderMaintenanceWorkOrder>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p6e91c600d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Comments if the job is not accomplished." ;
+        rdfs:label                "IfNotAccomplished" ;
+        IFC4-PSD:definition       "Comments if the job is not accomplished." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6e91c600d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IfNotAccomplished" ;
+        IFC4-PSD:nameAlias        "If Not Accomplished"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+:ScheduledFrequency  a      rdf:Property ;
+        rdfs:seeAlso        :pbfa1ba00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ScheduledFrequency .
+
+:ContractualType  a         rdf:Property ;
+        rdfs:seeAlso        :p65085e00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ContractualType .
+
+:pa8fb6300d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of priority that can be assigned from which the type may be set where:\n\nHigh: action is required urgently.\nMedium: action can occur within a reasonable period of time.\nLow: action can occur when convenient." ;
+        rdfs:label                "LocationPriorityType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of priority that can be assigned from which the type may be set where:\n\nHigh: action is required urgently.\nMedium: action can occur within a reasonable period of time.\nLow: action can occur when convenient." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "a8fb6300d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LocationPriorityType" ;
+        IFC4-PSD:nameAlias        "Location Priority Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HIGH" , "MEDIUM" , "LOW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:IfNotAccomplished  a       rdf:Property ;
+        rdfs:seeAlso        :p6e91c600d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IfNotAccomplished .
+
+:MaintenaceType  a          rdf:Property ;
+        rdfs:seeAlso        :p781b2e00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MaintenaceType .
+
+:p93863900d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of priority that can be assigned from which the type may be set where:\n\nHigh: action is required urgently.\nMedium: action can occur within a reasonable period of time.\nLow: action can occur when convenient." ;
+        rdfs:label                "FaultPriorityType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of priority that can be assigned from which the type may be set where:\n\nHigh: action is required urgently.\nMedium: action can occur within a reasonable period of time.\nLow: action can occur when convenient." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "93863900d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaultPriorityType" ;
+        IFC4-PSD:nameAlias        "Fault Priority Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "HIGH" , "MEDIUM" , "LOW" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .

@@ -13,7 +13,6 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.system.StreamRDF;
-import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,11 +22,17 @@ import com.google.common.eventbus.EventBus;
 import be.ugent.IfcSpfReader;
 
 public class IFCtoRDF extends IfcSpfReader {
-    protected final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+    protected final EventBus eventBus;
     private static final Logger LOG = LoggerFactory.getLogger(IFCtoRDF.class);
     private static final Object ONTOLOGY_IMPORT_LOCK = new Object();
     private static boolean localOntologyImportsRegistered;
     private int counter = 0;
+
+    public IFCtoRDF() { this(new EventBus()); }
+
+    public IFCtoRDF(EventBus eventBus) {
+        this.eventBus = java.util.Objects.requireNonNull(eventBus, "eventBus");
+    }
 
     /**
      * Converts IFC file into RDF format.

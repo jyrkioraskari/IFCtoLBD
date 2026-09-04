@@ -1,0 +1,471 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:HasIntegralControl  a      rdf:Property ;
+        rdfs:seeAlso        :p25724f80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasIntegralControl .
+
+:pf6f47480d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The way the air terminal is mounted to the ceiling, wall, etc.\n\nSurface: mounted to the surface of something (e.g., wall, duct, etc.).\nFlat flush: mounted flat and flush with a surface.\nLay-in: mounted in a lay-in type ceiling (e.g., a dropped ceiling grid)." ;
+        rdfs:label                "MountingType" ;
+        IFC4-PSD:definition       "The way the air terminal is mounted to the ceiling, wall, etc.\n\nSurface: mounted to the surface of something (e.g., wall, duct, etc.).\nFlat flush: mounted flat and flush with a surface.\nLay-in: mounted in a lay-in type ceiling (e.g., a dropped ceiling grid)." ;
+        IFC4-PSD:definitionAlias  ""@en , "La façon d'être fixé pour le terminal de ventilation au plafond, mur, etc.\n\nSurface: Fixé sur la surface de quelque chose (Ex: mur, conduit, etc.)\nAlignement plat: Fixé plat et dans l'alignement d'une surface.\nInsertion: Fixé dans un type de plafond avec capacité d'insertion (Ex: faux-plafondsuspendu)"@fr-FR , "ターミナルが天井や壁などに取り付けられる方法。\n表面、水平、LAYIN他\n表面：何か（壁・ダクト等）の表面に取り付け\nFLATFLUSH：表面に水平・Flushni取り付け\nLAYIN：天井にlay-in形式での取り付け（下がり天井格子など）"@ja-JP ;
+        IFC4-PSD:ifdguid          "f6f47480d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MountingType" ;
+        IFC4-PSD:nameAlias        "Mounting Type"@en , "ModeFixation"@fr-FR , "取り付け形式"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SURFACE" , "FLATFLUSH" , "LAYIN" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_AirTerminalTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air terminal type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        rdfs:label                    "Pset_AirTerminalTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAirTerminal ;
+        IFC4-PSD:applicableTypeValue  "IfcAirTerminal" ;
+        IFC4-PSD:definition           "Air terminal type common attributes.\nSoundLevel attribute deleted in IFC2x2 Pset Addendum: Use IfcSoundProperties instead." ;
+        IFC4-PSD:definitionAlias      ""@en , "エアターミナル型共通属性設定。\nSoundLevel属性はIFC2x2 psetの付録で削除された：IfcSoundPropertiesを代わりに使用します。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirTerminalTypeCommon" ;
+        IFC4-PSD:propertyDef          :p505ca380d1c011e1800000215ad4efdf , :pa250f980d1bf11e1800000215ad4efdf , :p9c5b1880d1bf11e1800000215ad4efdf , :p2a370380d1c011e1800000215ad4efdf , :p6b7ae380d1bf11e1800000215ad4efdf , :p5605b980d1bf11e1800000215ad4efdf , :pddebc380d1bf11e1800000215ad4efdf , :p96653780d1bf11e1800000215ad4efdf , :p25724f80d1c011e1800000215ad4efdf , :p7b92c300d1bf11e1800000215ad4efdf , :pf6f47480d1bf11e1800000215ad4efdf , :p39b64c80d1c011e1800000215ad4efdf , :p5c943100d1bf11e1800000215ad4efdf , :pd4faf200d1bf11e1800000215ad4efdf , :p3f139700d1c011e1800000215ad4efdf , :p49ce2c00d1c011e1800000215ad4efdf , :p1ab7ba80d1c011e1800000215ad4efdf , :p070c5400d1c011e1800000215ad4efdf , :p9107ed00d1bf11e1800000215ad4efdf , :pf065fd00d1bf11e1800000215ad4efdf , :pc6acd600d1bf11e1800000215ad4efdf , :pbe549b00d1bf11e1800000215ad4efdf , :pb72d8d00d1bf11e1800000215ad4efdf , :p4470e180d1c011e1800000215ad4efdf , :p1f7c6e80d1c011e1800000215ad4efdf , :pe3490e00d1bf11e1800000215ad4efdf .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p5c943100d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pbe549b00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature range within which the air terminal is designed to operate." ;
+        rdfs:label                "TemperatureRange" ;
+        IFC4-PSD:definition       "Temperature range within which the air terminal is designed to operate." ;
+        IFC4-PSD:definitionAlias  "Plage de température dans laquelle le terminal de ventilation est prévu de fonctionner."@fr-FR , "操作されるターミナルの温度範囲"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "be549b00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureRange" ;
+        IFC4-PSD:nameAlias        "PlageTemperature"@fr-FR , "温度範囲"@ja-JP , "Temperature Range"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermodynamicTemperatureMeasure
+                                  ] .
+
+:p2a370380d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Type of flow control element that may be included as a part of the construction of the air terminal." ;
+        rdfs:label                "FlowControlType" ;
+        IFC4-PSD:definition       "Type of flow control element that may be included as a part of the construction of the air terminal." ;
+        IFC4-PSD:definitionAlias  "Nature de la commande de flux d'un élément qui pourrait être inclus en tant que tel dans le terminal de ventilation."@fr-FR , ""@en , "ターミナルの構成の一部として含まれる流量制御の形式\n（ダンパー、ベローズ、無し…）"@ja-JP ;
+        IFC4-PSD:ifdguid          "2a370380d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowControlType" ;
+        IFC4-PSD:nameAlias        "流量制御形式"@ja-JP , "NatureCommandeFlux"@fr-FR , "Flow Control Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DAMPER" , "BELLOWS" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p4470e180d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Neck area of the air terminal." ;
+        rdfs:label                "NeckArea" ;
+        IFC4-PSD:definition       "Neck area of the air terminal." ;
+        IFC4-PSD:definitionAlias  "ターミナルのネック面積"@ja-JP , "Partie la plus étroite du terminal de ventilation."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "4470e180d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NeckArea" ;
+        IFC4-PSD:nameAlias        "ネック面積"@ja-JP , "Neck Area"@en , "ZoneReduction"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:Shape  a                   rdf:Property ;
+        rdfs:seeAlso        :p6b7ae380d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Shape .
+
+:HasSoundAttenuator  a      rdf:Property ;
+        rdfs:seeAlso        :p39b64c80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasSoundAttenuator .
+
+:p505ca380d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air flowrate versus flow control element position at nominal pressure drop." ;
+        rdfs:label                "AirFlowrateVersusFlowControlElement" ;
+        IFC4-PSD:definition       "Air flowrate versus flow control element position at nominal pressure drop." ;
+        IFC4-PSD:definitionAlias  "Débit d'air par rapport à la position de l'élément de contrôle du flux en perte de charge nominale"@fr-FR , "標準の圧力低下における流量制御装置の位置に対する流量"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "505ca380d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowrateVersusFlowControlElement" ;
+        IFC4-PSD:nameAlias        "Air Flowrate Versus Flow Control Element"@en , "DébitAirContreElementControleFlux"@fr-FR , "流量制御特性"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcPositiveRatioMeasure ;
+                                    IFC4-PSD:definingValue  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:p1ab7ba80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Degree of horizontal (in the X-axis of the LocalPlacement) blade set from the centerline." ;
+        rdfs:label                "CoreSetHorizontal" ;
+        IFC4-PSD:definition       "Degree of horizontal (in the X-axis of the LocalPlacement) blade set from the centerline." ;
+        IFC4-PSD:definitionAlias  "Degré d'inclinaison horizontale (selon l'axe X par rapport au positionnement local) de la lame mesuré depuis la ligne médiane."@fr-FR , ""@en , "水平翼の中心線からの水平（ローカル座標のＸ軸）面の羽根角度"@ja-JP ;
+        IFC4-PSD:ifdguid          "1ab7ba80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreSetHorizontal" ;
+        IFC4-PSD:nameAlias        "水平羽根角度"@ja-JP , "PositionHorizontaleCentre"@fr-FR , "Core Set Horizontal"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:AirDiffusionPerformanceIndex
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pddebc380d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirDiffusionPerformanceIndex .
+
+:p5c943100d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "Etat de l'élément, utilisé avant tout pour les projets de rénovation et réaménagement. L'état assigné peut être \"Nouveau\" - l'élément prévu pour du neuf, \"Existant\" - l'élément existait et est maintenu, \"Démoli\" - l'élément existait mais doit être démoli/supprimé, \"Provisoire\" - l'élément existera à titre provisoire seulement (comme un support structurel par exemple)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "5c943100d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "Etat"@fr-FR , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:AirFlowrateVersusFlowControlElement
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p505ca380d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowrateVersusFlowControlElement .
+
+:pddebc380d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The Air Diffusion Performance Index (ADPI) is used for cooling mode conditions. If several measurements of air velocity and air temperature are made throughout the occupied zone of a space, the ADPI is the percentage of locations where measurements were taken that meet the specifications for effective draft temperature and air velocity." ;
+        rdfs:label                "AirDiffusionPerformanceIndex" ;
+        IFC4-PSD:definition       "The Air Diffusion Performance Index (ADPI) is used for cooling mode conditions. If several measurements of air velocity and air temperature are made throughout the occupied zone of a space, the ADPI is the percentage of locations where measurements were taken that meet the specifications for effective draft temperature and air velocity." ;
+        IFC4-PSD:definitionAlias  ""@en , "空気拡散性能指標（ADPI)は冷房時に使用される。\n空気速度および気温のいくつかの測定が空間の居住域の隅々でなされる場合、ADPIは有効な草案の温度および空気速度のための仕様に遭遇する測定が得られた位置の割合である。"@ja-JP , "L'Indice de Performance de Diffusion d'Air (ADPI) est utilisé pour des conditions en mode rafraîchissement. Si plusieurs mesures de vitesses et températures de l'air sont réalisées à travers toute une zone occupée d'un espace,  l'ADPI est le pourcentage des emplacements où les mesures ont été réalisées et qui vérifient les caractéristiques pour une température de courant d'air et de vitesse d'air effectives."@fr-FR ;
+        IFC4-PSD:ifdguid          "ddebc380d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirDiffusionPerformanceIndex" ;
+        IFC4-PSD:nameAlias        "空気拡散性能指標"@ja-JP , "Air Diffusion Performance Index"@en , "Indice de performance de diffusion de l'air"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcReal
+                                  ] .
+
+:CoreSetHorizontal  a       rdf:Property ;
+        rdfs:seeAlso        :p1ab7ba80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreSetHorizontal .
+
+:p9c5b1880d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of slots." ;
+        rdfs:label                "NumberOfSlots" ;
+        IFC4-PSD:definition       "Number of slots." ;
+        IFC4-PSD:definitionAlias  "スロット数"@ja-JP , "Nombre de fentes"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "9c5b1880d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfSlots" ;
+        IFC4-PSD:nameAlias        "NombreDeFentes"@fr-FR , "Number Of Slots"@en , "スロット数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:ThrowLength  a             rdf:Property ;
+        rdfs:seeAlso        :pd4faf200d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThrowLength .
+
+:pa250f980d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Flow pattern." ;
+        rdfs:label                "FlowPattern" ;
+        IFC4-PSD:definition       "Flow pattern." ;
+        IFC4-PSD:definitionAlias  ""@en , "Forme du flux"@fr-FR , "流れ種類（単一直線、腹式直線、４方向、放射状、SWIRL、DISPLACEMENT、COMPACT他）"@ja-JP ;
+        IFC4-PSD:ifdguid          "a250f980d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FlowPattern" ;
+        IFC4-PSD:nameAlias        "Flow Pattern"@en , "FormeFlux"@fr-FR , "流れ種類"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DISPLACMENT" , "RADIAL" , "OTHER" , "LINEARFOURWAY" , "UNSET" , "NOTKNOWN" , "SWIRL" , "LINEARSINGLE" , "COMPACTJET" , "LINEARDOUBLE"
+                                  ] .
+
+:EffectiveArea  a           rdf:Property ;
+        rdfs:seeAlso        :p49ce2c00d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:EffectiveArea .
+
+:FaceType  a                rdf:Property ;
+        rdfs:seeAlso        :p7b92c300d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FaceType .
+
+:p3f139700d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If TRUE, the air terminal has thermal insulation." ;
+        rdfs:label                "HasThermalInsulation" ;
+        IFC4-PSD:definition       "If TRUE, the air terminal has thermal insulation." ;
+        IFC4-PSD:definitionAlias  ""@en , "ターミナルに断熱がある場合に真"@ja-JP , "Si VRAI, le terminal de ventilation possède une isolation thermique."@fr-FR ;
+        IFC4-PSD:ifdguid          "3f139700d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasThermalInsulation" ;
+        IFC4-PSD:nameAlias        "Has Thermal Insulation"@en , "PossèdeIsolationThermique"@fr-FR , "断熱有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pe3490e00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The type of finish for the air terminal." ;
+        rdfs:label                "FinishType" ;
+        IFC4-PSD:definition       "The type of finish for the air terminal." ;
+        IFC4-PSD:definitionAlias  "Le type de finition du terminal de ventilation."@fr-FR , "ターミナルの仕上げの形式（ANNODIZED,塗装他）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e3490e00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FinishType" ;
+        IFC4-PSD:nameAlias        "Finish Type"@en , "仕上げ形式"@ja-JP , "TypeFinition"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ANNODIZED" , "PAINTED" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p5605b980d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:p5605b980d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), provided, if there is no classification reference to a recognized classification system used." ;
+        IFC4-PSD:definitionAlias  ""@en , "Identification de référence pour ce type spécifique à ce projet, c'est-à-dire type'A-1', fourni à partir du moment où, s'il n'y a pas de référence de classification par rapport à un système de classification reconnu et en usage."@fr-FR , "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP ;
+        IFC4-PSD:ifdguid          "5605b980d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "Référence"@fr-FR , "Reference"@en , "参照記号"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:p7b92c300d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies how the terminal face of an AirTerminal is constructed." ;
+        rdfs:label                "FaceType" ;
+        IFC4-PSD:definition       "Identifies how the terminal face of an AirTerminal is constructed." ;
+        IFC4-PSD:definitionAlias  "ターミナル表面の形式定義"@ja-JP , "Caractérise comment le côté du terminal d'un terminal de ventilation est fabriqué."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "7b92c300d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FaceType" ;
+        IFC4-PSD:nameAlias        "表面タイプ"@ja-JP , "TypeCôté"@fr-FR , "Face Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FOURWAYPATTERN" , "EGGCRATE" , "OTHER" , "SIGHTPROOF" , "NOTKNOWN" , "DOUBLEDEFLECTION" , "PERFORATED" , "SINGLEDEFLECTION" , "LOUVERED" , "UNSET"
+                                  ] .
+
+:HasThermalInsulation
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3f139700d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasThermalInsulation .
+
+:NeckArea  a                rdf:Property ;
+        rdfs:seeAlso        :p4470e180d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NeckArea .
+
+:p070c5400d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the way the core of the AirTerminal is constructed." ;
+        rdfs:label                "CoreType" ;
+        IFC4-PSD:definition       "Identifies the way the core of the AirTerminal is constructed." ;
+        IFC4-PSD:definitionAlias  ""@en , "Caractérise comment la partie centrale du terminal de ventilation est fabriquée."@fr-FR , "取り付けられたターミナルのコアの定義方法（SHUTTERBLADE, CURVEDBLADE, REMOVABLE, REVERSIBLEなど）"@ja-JP ;
+        IFC4-PSD:ifdguid          "070c5400d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreType" ;
+        IFC4-PSD:nameAlias        "TypePartieCentrale"@fr-FR , "コア形式"@ja-JP , "Core Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SHUTTERBLADE" , "CURVEDBLADE" , "REMOVABLE" , "REVERSIBLE" , "NONE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:FlowControlType  a         rdf:Property ;
+        rdfs:seeAlso        :p2a370380d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowControlType .
+
+:CoreSetVertical  a         rdf:Property ;
+        rdfs:seeAlso        :p1f7c6e80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreSetVertical .
+
+:MountingType  a            rdf:Property ;
+        rdfs:seeAlso        :pf6f47480d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MountingType .
+
+:p39b64c80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If TRUE, the air terminal has sound attenuation." ;
+        rdfs:label                "HasSoundAttenuator" ;
+        IFC4-PSD:definition       "If TRUE, the air terminal has sound attenuation." ;
+        IFC4-PSD:definitionAlias  "Si VRAI, le terminal de ventilation possède une correction acoustique."@fr-FR , ""@en , "ターミナルに消音が付いている場合に真"@ja-JP ;
+        IFC4-PSD:ifdguid          "39b64c80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasSoundAttenuator" ;
+        IFC4-PSD:nameAlias        "PossèdeCorrectionAcoustique"@fr-FR , "Has Sound Attenuator"@en , "消音有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:pd4faf200d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The horizontal or vertical axial distance an airstream travels after leaving an AirTerminal before the maximum stream velocity is reduced to a specified terminal velocity under isothermal conditions at the upper value of the AirFlowrateRange." ;
+        rdfs:label                "ThrowLength" ;
+        IFC4-PSD:definition       "The horizontal or vertical axial distance an airstream travels after leaving an AirTerminal before the maximum stream velocity is reduced to a specified terminal velocity under isothermal conditions at the upper value of the AirFlowrateRange." ;
+        IFC4-PSD:definitionAlias  ""@en , "ターミナルからの水平または垂直の到達距離\n流量範囲の最大値での吐き出し速度が設定された流速に減速するまでの上限値"@ja-JP , "La distance axiale horizontale ou verticale un jet d'air parcourt après avoir quitté un terminal de ventilation avant que la vittesse d'éjection maximale est réduite à une vitessedu terminal spécifique dans des conditions isothermes pour la valeur la plus élevée de la plage de débit d'air."@fr-FR ;
+        IFC4-PSD:ifdguid          "d4faf200d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThrowLength" ;
+        IFC4-PSD:nameAlias        "到達距離"@ja-JP , "Longueur de jet"@fr-FR , "Throw Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:FinishColor  a             rdf:Property ;
+        rdfs:seeAlso        :pf065fd00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FinishColor .
+
+:p9107ed00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Slot width." ;
+        rdfs:label                "SlotWidth" ;
+        IFC4-PSD:definition       "Slot width." ;
+        IFC4-PSD:definitionAlias  "スロット巾"@ja-JP , "Epaisseur de la fente"@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "9107ed00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SlotWidth" ;
+        IFC4-PSD:nameAlias        "スロット巾"@ja-JP , "Slot Width"@en , "EpaisseurFente"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:SlotWidth  a               rdf:Property ;
+        rdfs:seeAlso        :p9107ed00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SlotWidth .
+
+:pf065fd00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The finish color for the air terminal." ;
+        rdfs:label                "FinishColor" ;
+        IFC4-PSD:definition       "The finish color for the air terminal." ;
+        IFC4-PSD:definitionAlias  ""@en , "La couleur de finition du terminal de ventilation."@fr-FR , "ターミナルの仕上げ色"@ja-JP ;
+        IFC4-PSD:ifdguid          "f065fd00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FinishColor" ;
+        IFC4-PSD:nameAlias        "CouleurFinition"@fr-FR , "仕上げ色"@ja-JP , "Finish Color"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:TemperatureRange  a        rdf:Property ;
+        rdfs:seeAlso        :pbe549b00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureRange .
+
+:p96653780d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Slot length." ;
+        rdfs:label                "SlotLength" ;
+        IFC4-PSD:definition       "Slot length." ;
+        IFC4-PSD:definitionAlias  "スロット長"@ja-JP , ""@en , "Longueur de la fente"@fr-FR ;
+        IFC4-PSD:ifdguid          "96653780d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SlotLength" ;
+        IFC4-PSD:nameAlias        "スロット長"@ja-JP , "Slot Length"@en , "ElongueurFente"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p6b7ae380d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Shape of the air terminal. Slot is typically a long narrow supply device with an aspect ratio generally greater than 10 to 1." ;
+        rdfs:label                "Shape" ;
+        IFC4-PSD:definition       "Shape of the air terminal. Slot is typically a long narrow supply device with an aspect ratio generally greater than 10 to 1." ;
+        IFC4-PSD:definitionAlias  "Forme du terminal de ventilation. La fente est généralement un long et étroit appareil d'apport avec un rapport de forme généralement supérieur à 10 pour 1."@fr-FR , "ターミナルの形状（円状、四角形、正方形、スロット他）。　スロット（溝状）は一般的にアスペクト比１０以上が典型的である。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "6b7ae380d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Shape" ;
+        IFC4-PSD:nameAlias        "Shape"@en , "Forme"@fr-FR , "形状"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "ROUND" , "RECTANGULAR" , "SQUARE" , "SLOT" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p49ce2c00d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Effective discharge area of the air terminal." ;
+        rdfs:label                "EffectiveArea" ;
+        IFC4-PSD:definition       "Effective discharge area of the air terminal." ;
+        IFC4-PSD:definitionAlias  "ターミナルの有効吹き出し範囲"@ja-JP , ""@en , "Zone d'émission efficace du terminal de ventilation."@fr-FR ;
+        IFC4-PSD:ifdguid          "49ce2c00d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "EffectiveArea" ;
+        IFC4-PSD:nameAlias        "有効面積"@ja-JP , "ZoneEfficace"@fr-FR , "Effective Area"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcAreaMeasure
+                                  ] .
+
+:AirFlowrateRange  a        rdf:Property ;
+        rdfs:seeAlso        :pb72d8d00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirFlowrateRange .
+
+:SlotLength  a              rdf:Property ;
+        rdfs:seeAlso        :p96653780d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SlotLength .
+
+:p1f7c6e80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Degree of vertical (in the Y-axis of the LocalPlacement) blade set from the centerline." ;
+        rdfs:label                "CoreSetVertical" ;
+        IFC4-PSD:definition       "Degree of vertical (in the Y-axis of the LocalPlacement) blade set from the centerline." ;
+        IFC4-PSD:definitionAlias  "垂直翼の中心線からの垂直（ローカル座標のＹ軸）方向の羽根角度"@ja-JP , "Degré d'inclinaison verticale (selon l'axe Y par rapport au positionnement local) de la lame mesuré depuis la ligne médiane."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "1f7c6e80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoreSetVertical" ;
+        IFC4-PSD:nameAlias        "Core Set Vertical"@en , "垂直羽根角度"@ja-JP , "PositionVerticalCentre"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:CoreType  a                rdf:Property ;
+        rdfs:seeAlso        :p070c5400d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoreType .
+
+:p25724f80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If TRUE, a self powered temperature control is included in the AirTerminal." ;
+        rdfs:label                "HasIntegralControl" ;
+        IFC4-PSD:definition       "If TRUE, a self powered temperature control is included in the AirTerminal." ;
+        IFC4-PSD:definitionAlias  "Si VRAI, une commande interne de la température est incluse dans le terminal de ventilation."@fr-FR , ""@en , "もし真なら、ターミナルに自身による温度制御が含まれる"@ja-JP ;
+        IFC4-PSD:ifdguid          "25724f80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasIntegralControl" ;
+        IFC4-PSD:nameAlias        "PossèdeContrôleTotal"@fr-FR , "Has Integral Control"@en , "自己制御有無"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:FlowPattern  a             rdf:Property ;
+        rdfs:seeAlso        :pa250f980d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FlowPattern .
+
+:NumberOfSlots  a           rdf:Property ;
+        rdfs:seeAlso        :p9c5b1880d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfSlots .
+
+:DischargeDirection  a      rdf:Property ;
+        rdfs:seeAlso        :pc6acd600d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeDirection .
+
+:pb72d8d00d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air flowrate range within which the air terminal is designed to operate." ;
+        rdfs:label                "AirFlowrateRange" ;
+        IFC4-PSD:definition       "Air flowrate range within which the air terminal is designed to operate." ;
+        IFC4-PSD:definitionAlias  "操作されるターミナル内の空気流の範囲"@ja-JP , ""@en , "Plage de débit de ventilation dans laquelle le terminal de ventilation est prévu de fonctionner."@fr-FR ;
+        IFC4-PSD:ifdguid          "b72d8d00d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirFlowrateRange" ;
+        IFC4-PSD:nameAlias        "Air Flowrate Range"@en , "PlageDébitVentilation"@fr-FR , "流量範囲"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyBoundedValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumetricFlowRateMeasure
+                                  ] .
+
+:pc6acd600d1bf11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Discharge direction of the air terminal.\n\nParallel: discharges parallel to mounting surface designed so that flow attaches to the surface.\nPerpendicular:  discharges away from mounting surface.\nAdjustable: both parallel and perpendicular discharge." ;
+        rdfs:label                "DischargeDirection" ;
+        IFC4-PSD:definition       "Discharge direction of the air terminal.\n\nParallel: discharges parallel to mounting surface designed so that flow attaches to the surface.\nPerpendicular:  discharges away from mounting surface.\nAdjustable: both parallel and perpendicular discharge." ;
+        IFC4-PSD:definitionAlias  "Direction d'émission du terminal de ventilation.\n\nParallèle: émission parallèle à la surface de fixation conçu de façon à ce que le flux se colle à la surface.\nPerpendiculaire: émission s'éloignant de la surface de fixation.\nRéglable: émission parallèle et aussi s'éloignant de la surface de fixation."@fr-FR , ""@en , "ターミナルの吐き出し方向\n水平：取り付け面と水平に吐き出し\n垂直：取り付け面から離れた方向に吐き出し\n調節可能：水平・垂直方向両方に調整"@ja-JP ;
+        IFC4-PSD:ifdguid          "c6acd600d1bf11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeDirection" ;
+        IFC4-PSD:nameAlias        "Discharge Direction"@en , "吐き出し方向"@ja-JP , "DirectionEmission"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "PARALLEL" , "PERPENDICULAR" , "ADJUSTABLE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirTerminalTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:FinishType  a              rdf:Property ;
+        rdfs:seeAlso        :pe3490e00d1bf11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FinishType .

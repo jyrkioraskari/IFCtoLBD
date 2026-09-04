@@ -20,9 +20,12 @@ final class ValidationStage {
 	private ValidationStage() { }
 
 	static Result validate(ConversionRequest request, Model... dataModels) {
+		return validate(request, java.util.Set.of(), dataModels);
+	}
+
+	static Result validate(ConversionRequest request, java.util.Set<String> moduleResources, Model... dataModels) {
 		List<String> resources = java.util.stream.Stream.concat(
-				request.getProfile().stream().flatMap(value -> value.modules().stream())
-						.flatMap(module -> module.shapeResources().stream()),
+				moduleResources.stream(),
 				request.getValidationShapePacks().stream().map(ValidationShapePack::resource))
 				.distinct().sorted().toList();
 		return validateResources(resources, dataModels);

@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeCulvert#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pdba35c80d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The internal width of the culvert." ;
+        rdfs:label                "InternalWidth" ;
+        IFC4-PSD:definition       "The internal width of the culvert." ;
+        IFC4-PSD:definitionAlias  ""@en , "暗渠管の内幅"@ja-JP ;
+        IFC4-PSD:ifdguid          "dba35c80d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InternalWidth" ;
+        IFC4-PSD:nameAlias        "Internal Width"@en , "内幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_PipeSegmentTypeCulvert>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_PipeSegmentTypeCulvert
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Covered channel or large pipe that forms a watercourse below ground level, usually under a road or railway (BS6100)." ;
+        rdfs:label                    "Pset_PipeSegmentTypeCulvert" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcPipeSegment/CULVERT> ;
+        IFC4-PSD:applicableTypeValue  "IfcPipeSegment/CULVERT" ;
+        IFC4-PSD:definition           "Covered channel or large pipe that forms a watercourse below ground level, usually under a road or railway (BS6100)." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_PipeSegmentTypeCulvert" ;
+        IFC4-PSD:propertyDef          :pdba35c80d1f311e1800000215ad4efdf , :pe2ca6a80d1f311e1800000215ad4efdf .
+
+:pe2ca6a80d1f311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The clear depth of the culvert." ;
+        rdfs:label                "ClearDepth" ;
+        IFC4-PSD:definition       "The clear depth of the culvert." ;
+        IFC4-PSD:definitionAlias  "暗渠管の許容(安全)深さ"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e2ca6a80d1f311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClearDepth" ;
+        IFC4-PSD:nameAlias        "Clear Depth"@en , "許容深さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLengthMeasure
+                                  ] .
+
+:ClearDepth  a              rdf:Property ;
+        rdfs:seeAlso        :pe2ca6a80d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClearDepth .
+
+:InternalWidth  a           rdf:Property ;
+        rdfs:seeAlso        :pdba35c80d1f311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InternalWidth .

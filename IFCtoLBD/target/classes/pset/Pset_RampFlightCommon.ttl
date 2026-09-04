@@ -1,0 +1,127 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RampFlightCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Headroom  a                rdf:Property ;
+        rdfs:seeAlso        :p853c1b00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Headroom .
+
+:p78b7c280d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "Status bzw. Phase des Bauteils insbesondere beim Bauen im Bestand. \"Neu\" (new) neues Bauteil als Ergänzung, \"Bestand\" (existing) bestehendes Bauteil, dass erhalten bleibt, \"Abbruch\" (demolish) Bauteil, das abgebrochen wird, \"Temporär\" (temporary) Bauteil und andere Bauelemente, die vorübergehend eingebaut werden (wie Abstützungen, etc.)"@de-DE , "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , "Statut de l'élément, principalement utilisé dans les projets de rénovation et de réhabilitation. Le statut a pour valeur NOUVEAU pour un nouvel élément, EXISTANT pour un élément existant qui est conservé, DEMOLI pour un élément existant à démolir et TEMPORAIRE pour un élément temporaire (comme une structure support provisoire)."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "78b7c280d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Statut"@fr-FR , "Status"@de-DE , "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p853c1b00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual headroom clearance for the passageway according to the current design. \nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        rdfs:label                "Headroom" ;
+        IFC4-PSD:definition       "Actual headroom clearance for the passageway according to the current design. \nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "当前设计方案确定的通道实际净空高度。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN , "Hauteur de passage (échappée) actuellement projetée. Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "German-description-2"@de-DE , "現状の設計に一致した斜路の実際の頭上スペース高\n形状の情報は、内側は使用される形表現および幾何パラメータ学的媒介変数に加えて提供されます。\n幾何パラメータと形状プロパティが矛盾する場合は、付属のプロパティで提供されている、幾何パラメータを優先する。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "853c1b00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Headroom" ;
+        IFC4-PSD:nameAlias        "净空"@zh-CN , "Headroom"@en , "HauteurPassage"@fr-FR , "頭上スペース"@ja-JP , "Durchgangshöhe"@de-DE ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Pset_RampFlightCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties common to the definition of all occurrences of IfcRampFlight." ;
+        rdfs:label                    "Pset_RampFlightCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcRampFlight ;
+        IFC4-PSD:applicableTypeValue  "IfcRampFlight" ;
+        IFC4-PSD:definition           "Properties common to the definition of all occurrences of IfcRampFlight." ;
+        IFC4-PSD:definitionAlias      "IfcRampFlight(斜路)オブジェクトに関する共通プロパティセット定義。"@ja-JP , "Définition de l'IAI : propriétés communes à la définition de toutes les instances de la classe IfcRampFlight"@fr-FR , "所有IfcRampFlight实例的定义中通用的属性。"@zh-CN , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_RampFlightCommon" ;
+        IFC4-PSD:propertyDef          :p853c1b00d1ff11e1800000215ad4efdf , :p8bca9280d1ff11e1800000215ad4efdf , :p78b7c280d1ff11e1800000215ad4efdf , :p971dbe00d1ff11e1800000215ad4efdf , :p735a7800d1ff11e1800000215ad4efdf , :p92590a00d1ff11e1800000215ad4efdf .
+
+:p735a7800d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1'), Also referred to as \"construction type\". It should be provided as an alternative to the name of the \"object type\", if the software does not support object types." ;
+        IFC4-PSD:definitionAlias  "参照記号でプロジェクトでのタイプとして使用されるもの。"@ja-JP , ""@en , "Référence à l'identifiant d'un type spécifié dans le contexte du projet (exemple : \"type A1\") pour désigner un \"type de construction\". Une alternative au nom d'un objet type lorsque les objets types ne sont pas gérés par le logiciel."@fr-FR , "Bezeichnung zur Zusammenfassung gleichartiger Bauteile zu einem Bauteiltyp (auch Konstruktionstyp genannt). Alternativ zum Namen des \"Typobjekts\", insbesondere wenn die Software keine Typen unterstützt."@de-DE , "若未采用已知的分类系统，则该属性为该项目中该类型构件的参考编号（例如，类型A-1）。"@zh-CN ;
+        IFC4-PSD:ifdguid          "735a7800d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en , "Reference"@fr-FR , "Bauteiltyp"@de-DE , "参考号"@zh-CN ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Slope  a                   rdf:Property ;
+        rdfs:seeAlso        :p92590a00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Slope .
+
+:CounterSlope  a            rdf:Property ;
+        rdfs:seeAlso        :p971dbe00d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CounterSlope .
+
+:p8bca9280d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual clear width measured as the clear space for accessibility and egress; it is a measured distance betwen the two handrails or the wall and a handrail on a ramp.\nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        rdfs:label                "ClearWidth" ;
+        IFC4-PSD:definition       "Actual clear width measured as the clear space for accessibility and egress; it is a measured distance betwen the two handrails or the wall and a handrail on a ramp.\nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "通道入口和出口实际测量的净宽度，以两侧扶手之间或墙与坡道扶手之间的距离为准。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN , "Largeur du passage. Mesure de la distance entre les deux rampes ou entre le mur et la rampe. Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , ""@en , "German-description-3"@de-DE , "実際の通路の有効幅\n形情報は、内側は使用される形表現および幾何学的媒介変数に加えて提供されます。幾何学的媒介変数と形特性の間の矛盾の場合では、付属の特性の中で提供されて、幾何学的媒介変数は先行をとります。\""@ja-JP ;
+        IFC4-PSD:ifdguid          "8bca9280d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClearWidth" ;
+        IFC4-PSD:nameAlias        "净宽"@zh-CN , "Lichte Breite"@de-DE , "通路有効寸法"@ja-JP , "LargeurPassage"@fr-FR , "Clear Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p92590a00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sloping angle of the object  - relative to horizontal (0.0 degrees). \nActual maximum slope for the passageway according to the current design.\nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        rdfs:label                "Slope" ;
+        IFC4-PSD:definition       "Sloping angle of the object  - relative to horizontal (0.0 degrees). \nActual maximum slope for the passageway according to the current design.\nThe shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence." ;
+        IFC4-PSD:definitionAlias  "Angle d'inclinaison relativement à l'horizontale correspondant à la valeur 0 degrés. Valeur maximale de l'inclinaison actuellement projetée. Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment."@fr-FR , "オブジェクト傾斜角度（水平が0.0度)\n現在の設計による通路のための実際の最大の傾斜。形情報は、内側は使用される形表現および幾何学的媒介変数に加えて提供されます。幾何学的媒介変数と形特性の間の矛盾の場合では、付属の特性の中で提供されて、幾何学的媒介変数は先行をとります。\""@ja-JP , ""@en , "German-description-4"@de-DE , "构件相对于水平（0.0度）方向的实际坡度角。\n当前设计方案确定的通道的最大坡度。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN ;
+        IFC4-PSD:ifdguid          "92590a00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Slope" ;
+        IFC4-PSD:nameAlias        "坡度"@zh-CN , "Pente"@fr-FR , "Neigung"@de-DE , "通路の傾斜角度(水平からの角度）"@ja-JP , "Slope"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_RampFlightCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p971dbe00d1ff11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sloping angle of the object, measured perpendicular to the slope  - relative to horizontal (0.0 degrees). \nActual maximum slope for the passageway measured perpendicular to the direction of travel according to the current design. The shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence. \nNote: new property in IFC4." ;
+        rdfs:label                "CounterSlope" ;
+        IFC4-PSD:definition       "Sloping angle of the object, measured perpendicular to the slope  - relative to horizontal (0.0 degrees). \nActual maximum slope for the passageway measured perpendicular to the direction of travel according to the current design. The shape information is provided in addition to the shape representation and the geometric parameters used within. In cases of inconsistency between the geometric parameters and the shape properties, provided in the attached property, the geometric parameters take precedence. \nNote: new property in IFC4." ;
+        IFC4-PSD:definitionAlias  ""@en , "构件的垂线相对于水平（0.0度）方向的坡度角。\n当前设计方案确定的通道行走方向的垂线方向的最大坡度。\n该属性所提供的形状信息是对内部形状描述和几何参数的补充。如果几何参数与该属性所提供的形状属性不符，应以几何参数为准。"@zh-CN , "オブジェクトの傾斜角度（垂直との角度）\n通路のための実際の最大の傾斜は、現在の設計による旅行の方向への垂直を測定しました。形情報は、内側は使用される形表現および幾何学的媒介変数に加えて提供されます。幾何学的媒介変数と形特性の間の矛盾の場合では、付属の特性の中で提供されて、幾何学的媒介変数は先行をとります。\n注:IFC2x4の中の新しいプロパティ"@ja-JP , "Angle d'inclinaison de l'objet, mesuré perpendiculairement à la pente. L'horizontale correspond à la valeur 0 degrés. Valeur maximale de la pente de la rampe actuellement projetée, mesurée perpendiculairement à la direction du passage. Cette propriété est donnée en complément de la représentation de la forme de l'élément et des paramètres géométriques qui la déterminent. En cas d'incohérence entre ces paramètres géométriques et cette propriété, ce sont les paramètres géométriques qui priment. Note : nouvelle propriété de la version IFC2x4."@fr-FR , "German-description-5"@de-DE ;
+        IFC4-PSD:ifdguid          "971dbe00d1ff11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CounterSlope" ;
+        IFC4-PSD:nameAlias        "Counter Slope"@en , "反向坡度"@zh-CN , "通路の傾斜角度(垂直との角度）"@ja-JP , "Gegenneigung"@de-DE , "ContrePente"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPlaneAngleMeasure
+                                  ] .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p735a7800d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:ClearWidth  a              rdf:Property ;
+        rdfs:seeAlso        :p8bca9280d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClearWidth .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p78b7c280d1ff11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .

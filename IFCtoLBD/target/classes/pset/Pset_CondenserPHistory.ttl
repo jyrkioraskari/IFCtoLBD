@@ -1,0 +1,221 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CondenserPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:WaterFoulingResistance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p84d65c80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WaterFoulingResistance .
+
+:p640e0700d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Exterior heat transfer coefficient associated with exterior surface area." ;
+        rdfs:label                "ExteriorHeatTransferCoefficient" ;
+        IFC4-PSD:definition       "Exterior heat transfer coefficient associated with exterior surface area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "640e0700d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ExteriorHeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "Exterior Heat Transfer Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CompressorCondenserHeatGain
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7a1bc780d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorCondenserHeatGain .
+
+:UAcurves  a                rdf:Property ;
+        rdfs:seeAlso        :p76884080d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:UAcurves .
+
+:Pset_CondenserPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Condenser performance history attributes." ;
+        rdfs:label                    "Pset_CondenserPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcCondenser ;
+        IFC4-PSD:applicableTypeValue  "IfcCondenser" ;
+        IFC4-PSD:definition           "Condenser performance history attributes." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CondenserPHistory" ;
+        IFC4-PSD:propertyDef          :p6ec89c00d1cc11e1800000215ad4efdf , :p5fe1e980d1cc11e1800000215ad4efdf , :p7a1bc780d1cc11e1800000215ad4efdf , :p67a18e00d1cc11e1800000215ad4efdf , :p7daf4e80d1cc11e1800000215ad4efdf , :p6bcdab80d1cc11e1800000215ad4efdf , :p8142d580d1cc11e1800000215ad4efdf , :p84d65c80d1cc11e1800000215ad4efdf , :p76884080d1cc11e1800000215ad4efdf , :p72f4b980d1cc11e1800000215ad4efdf , :p640e0700d1cc11e1800000215ad4efdf .
+
+:p76884080d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "UV = f (VExterior, VInterior), UV as a function of interior and exterior fluid flow velocity at the entrance." ;
+        rdfs:label                "UAcurves" ;
+        IFC4-PSD:definition       "UV = f (VExterior, VInterior), UV as a function of interior and exterior fluid flow velocity at the entrance." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "76884080d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "UAcurves" ;
+        IFC4-PSD:nameAlias        "UAcurves"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p6ec89c00d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Refrigerant condensing temperature." ;
+        rdfs:label                "CondensingTemperature" ;
+        IFC4-PSD:definition       "Refrigerant condensing temperature." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6ec89c00d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CondensingTemperature" ;
+        IFC4-PSD:nameAlias        "Condensing Temperature"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CondenserPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p6bcdab80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fouling resistance on the refrigerant side." ;
+        rdfs:label                "RefrigerantFoulingResistance" ;
+        IFC4-PSD:definition       "Fouling resistance on the refrigerant side." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "6bcdab80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "RefrigerantFoulingResistance" ;
+        IFC4-PSD:nameAlias        "Refrigerant Fouling Resistance"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p67a18e00d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Interior heat transfer coefficient associated with interior surface area." ;
+        rdfs:label                "InteriorHeatTransferCoefficient" ;
+        IFC4-PSD:definition       "Interior heat transfer coefficient associated with interior surface area." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "67a18e00d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InteriorHeatTransferCoefficient" ;
+        IFC4-PSD:nameAlias        "Interior Heat Transfer Coefficient"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:InteriorHeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p67a18e00d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InteriorHeatTransferCoefficient .
+
+:p7daf4e80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure drop between condenser inlet and compressor outlet." ;
+        rdfs:label                "CompressorCondenserPressureDrop" ;
+        IFC4-PSD:definition       "Pressure drop between condenser inlet and compressor outlet." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7daf4e80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorCondenserPressureDrop" ;
+        IFC4-PSD:nameAlias        "Compressor Condenser Pressure Drop"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p84d65c80d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fouling resistance on water/air side." ;
+        rdfs:label                "WaterFoulingResistance" ;
+        IFC4-PSD:definition       "Fouling resistance on water/air side." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "84d65c80d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WaterFoulingResistance" ;
+        IFC4-PSD:nameAlias        "Water Fouling Resistance"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:HeatRejectionRate  a       rdf:Property ;
+        rdfs:seeAlso        :p5fe1e980d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HeatRejectionRate .
+
+:CondenserMeanVoidFraction
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p8142d580d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CondenserMeanVoidFraction .
+
+:p5fe1e980d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        rdfs:label                "HeatRejectionRate" ;
+        IFC4-PSD:definition       "Sum of the refrigeration effect and the heat equivalent of the power input to the compressor." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "5fe1e980d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HeatRejectionRate" ;
+        IFC4-PSD:nameAlias        "Heat Rejection Rate"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:CompressorCondenserPressureDrop
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7daf4e80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CompressorCondenserPressureDrop .
+
+:p72f4b980d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Logarithmic mean temperature difference between refrigerant and water or air." ;
+        rdfs:label                "LogarithmicMeanTemperatureDifference" ;
+        IFC4-PSD:definition       "Logarithmic mean temperature difference between refrigerant and water or air." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "72f4b980d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LogarithmicMeanTemperatureDifference" ;
+        IFC4-PSD:nameAlias        "Logarithmic Mean Temperature Difference"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:ExteriorHeatTransferCoefficient
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p640e0700d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ExteriorHeatTransferCoefficient .
+
+:CondensingTemperature
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6ec89c00d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CondensingTemperature .
+
+:p8142d580d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Mean void fraction in condenser." ;
+        rdfs:label                "CondenserMeanVoidFraction" ;
+        IFC4-PSD:definition       "Mean void fraction in condenser." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "8142d580d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CondenserMeanVoidFraction" ;
+        IFC4-PSD:nameAlias        "Condenser Mean Void Fraction"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p7a1bc780d1cc11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Heat gain between condenser inlet to compressor outlet." ;
+        rdfs:label                "CompressorCondenserHeatGain" ;
+        IFC4-PSD:definition       "Heat gain between condenser inlet to compressor outlet." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "7a1bc780d1cc11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CompressorCondenserHeatGain" ;
+        IFC4-PSD:nameAlias        "Compressor Condenser Heat Gain"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:LogarithmicMeanTemperatureDifference
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p72f4b980d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LogarithmicMeanTemperatureDifference .
+
+:RefrigerantFoulingResistance
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6bcdab80d1cc11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:RefrigerantFoulingResistance .

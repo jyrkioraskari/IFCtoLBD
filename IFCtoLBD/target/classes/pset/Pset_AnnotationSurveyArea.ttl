@@ -1,0 +1,78 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AnnotationSurveyArea#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p7cc4ef80d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the accuracy quality of survey points as expected expressed in percentage terms." ;
+        rdfs:label                "AccuracyQualityExpected" ;
+        IFC4-PSD:definition       "A measure of the accuracy quality of survey points as expected expressed in percentage terms." ;
+        IFC4-PSD:definitionAlias  ""@en , "Mesure de la précision attendue des points de relevé, exprimée en pourcentage."@fr-FR ;
+        IFC4-PSD:ifdguid          "7cc4ef80d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccuracyQualityExpected" ;
+        IFC4-PSD:nameAlias        "Accuracy Quality Expected"@en , "PrecisionAttendue"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:AccuracyQualityObtained
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p76cf0e80d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccuracyQualityObtained .
+
+:AccuracyQualityExpected
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7cc4ef80d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccuracyQualityExpected .
+
+:AcquisitionMethod  a       rdf:Property ;
+        rdfs:seeAlso        :p63bc3e80d1c111e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AcquisitionMethod .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AnnotationSurveyArea>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p76cf0e80d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A measure of the accuracy quality of survey points as obtained expressed in percentage terms." ;
+        rdfs:label                "AccuracyQualityObtained" ;
+        IFC4-PSD:definition       "A measure of the accuracy quality of survey points as obtained expressed in percentage terms." ;
+        IFC4-PSD:definitionAlias  ""@en , "Mesure de la précision obtenue des points de relevé, exprimée en pourcentage."@fr-FR ;
+        IFC4-PSD:ifdguid          "76cf0e80d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccuracyQualityObtained" ;
+        IFC4-PSD:nameAlias        "Accuracy Quality Obtained"@en , "PrecisionObtenue"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcRatioMeasure
+                                  ] .
+
+:Pset_AnnotationSurveyArea
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Specifies particular properties of survey methods to be assigned to survey point set or resulting surface patches" ;
+        rdfs:label                    "Pset_AnnotationSurveyArea" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAnnotation/SurveyArea> ;
+        IFC4-PSD:applicableTypeValue  "IfcAnnotation/SurveyArea" ;
+        IFC4-PSD:definition           "Specifies particular properties of survey methods to be assigned to survey point set or resulting surface patches" ;
+        IFC4-PSD:definitionAlias      ""@en , "Définition de l'IAI : spécifie des propriétés particulières de méthodes de relevé à relier à des ensembles de points de relevé ou aux surfaces résultant de ce relevé."@fr-FR ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AnnotationSurveyArea" ;
+        IFC4-PSD:propertyDef          :p7cc4ef80d1c111e1800000215ad4efdf , :p76cf0e80d1c111e1800000215ad4efdf , :p63bc3e80d1c111e1800000215ad4efdf .
+
+:p63bc3e80d1c111e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The means by which survey data was acquired." ;
+        rdfs:label                "AcquisitionMethod" ;
+        IFC4-PSD:definition       "The means by which survey data was acquired." ;
+        IFC4-PSD:definitionAlias  "La méthode utilisée pour effectuer le relevé."@fr-FR , ""@en ;
+        IFC4-PSD:ifdguid          "63bc3e80d1c111e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AcquisitionMethod" ;
+        IFC4-PSD:nameAlias        "MethodeAcquisition"@fr-FR , "Acquisition Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "GPS" , "LASERSCAN_AIRBORNE" , "LASERSCAN_GROUND" , "SONAR" , "THEODOLITE" , "USERDEFINED" , "NOTKNOWN" , "UNSET"
+                                  ] .

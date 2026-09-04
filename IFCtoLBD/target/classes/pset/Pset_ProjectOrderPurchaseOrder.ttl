@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderPurchaseOrder#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:Pset_ProjectOrderPurchaseOrder
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Defines the requirements for purchase orders in a project." ;
+        rdfs:label                    "Pset_ProjectOrderPurchaseOrder" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProjectOrder/PURCHASEORDER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProjectOrder/PURCHASEORDER" ;
+        IFC4-PSD:definition           "Defines the requirements for purchase orders in a project." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProjectOrderPurchaseOrder" ;
+        IFC4-PSD:propertyDef          :pe3650000d1f711e1800000215ad4efdf , :pebbd3b00d1f711e1800000215ad4efdf .
+
+:ShipMethod  a              rdf:Property ;
+        rdfs:seeAlso        :pebbd3b00d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ShipMethod .
+
+:pebbd3b00d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Method of shipping that will be used for goods or services." ;
+        rdfs:label                "ShipMethod" ;
+        IFC4-PSD:definition       "Method of shipping that will be used for goods or services." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "ebbd3b00d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ShipMethod" ;
+        IFC4-PSD:nameAlias        "Ship Method"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcText
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProjectOrderPurchaseOrder>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pe3650000d1f711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether contents of the purchase order are delivered 'Free on Board' (= True) or not (= False). FOB is a shipping term which indicates that the supplier pays the shipping costs (and usually also the insurance costs) from the point of manufacture to a specified destination, at which point the buyer takes responsibility." ;
+        rdfs:label                "IsFOB" ;
+        IFC4-PSD:definition       "Indication of whether contents of the purchase order are delivered 'Free on Board' (= True) or not (= False). FOB is a shipping term which indicates that the supplier pays the shipping costs (and usually also the insurance costs) from the point of manufacture to a specified destination, at which point the buyer takes responsibility." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "e3650000d1f711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsFOB" ;
+        IFC4-PSD:nameAlias        "Is FOB"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:IsFOB  a                   rdf:Property ;
+        rdfs:seeAlso        :pe3650000d1f711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsFOB .

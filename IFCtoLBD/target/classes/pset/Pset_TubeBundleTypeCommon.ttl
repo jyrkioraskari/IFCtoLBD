@@ -1,0 +1,297 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TubeBundleTypeCommon#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:NominalDiameter  a         rdf:Property ;
+        rdfs:seeAlso        :p8e82b300d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalDiameter .
+
+:InsideDiameter  a          rdf:Property ;
+        rdfs:seeAlso        :p9f332900d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InsideDiameter .
+
+:p672be600d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "In-line tube row spacing." ;
+        rdfs:label                "InLineRowSpacing" ;
+        IFC4-PSD:definition       "In-line tube row spacing." ;
+        IFC4-PSD:definitionAlias  "インラインチューブ列間隔"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "672be600d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InLineRowSpacing" ;
+        IFC4-PSD:nameAlias        "インライン列間隔"@ja-JP , "In Line Row Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p96daee00d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual outside diameter of the tube in the tube bundle." ;
+        rdfs:label                "OutsideDiameter" ;
+        IFC4-PSD:definition       "Actual outside diameter of the tube in the tube bundle." ;
+        IFC4-PSD:definitionAlias  "チューブ束内のチューブ実外径"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "96daee00d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "OutsideDiameter" ;
+        IFC4-PSD:nameAlias        "外径"@ja-JP , "Outside Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pb07c3580d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Vertical spacing between tubes in the tube bundle." ;
+        rdfs:label                "VerticalSpacing" ;
+        IFC4-PSD:definition       "Vertical spacing between tubes in the tube bundle." ;
+        IFC4-PSD:definitionAlias  "チューブ束内のチューブ間垂直間隔"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b07c3580d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VerticalSpacing" ;
+        IFC4-PSD:nameAlias        "Vertical Spacing"@en , "垂直間隔"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p8e82b300d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal diameter or width of the tubes in the tube bundle." ;
+        rdfs:label                "NominalDiameter" ;
+        IFC4-PSD:definition       "Nominal diameter or width of the tubes in the tube bundle." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブ束内のチューブ公称直径又は幅"@ja-JP ;
+        IFC4-PSD:ifdguid          "8e82b300d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalDiameter" ;
+        IFC4-PSD:nameAlias        "公称直径"@ja-JP , "Nominal Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:OutsideDiameter  a         rdf:Property ;
+        rdfs:seeAlso        :p96daee00d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:OutsideDiameter .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TubeBundleTypeCommon>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p42377300d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        rdfs:label                "Reference" ;
+        IFC4-PSD:definition       "Reference ID for this specified type in this project (e.g. type 'A-1')." ;
+        IFC4-PSD:definitionAlias  "このプロジェクトにおける参照記号(例：A-1)。分類コードではなく内部で使用されるプロジェクトタイプとして使用されるもの。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "42377300d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Reference" ;
+        IFC4-PSD:nameAlias        "参照記号"@ja-JP , "Reference"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcIdentifier
+                                  ] .
+
+:Pset_TubeBundleTypeCommon
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Tube bundle type common attributes." ;
+        rdfs:label                    "Pset_TubeBundleTypeCommon" ;
+        IFC4-PSD:applicableClass      IFC4:IfcTubeBundle ;
+        IFC4-PSD:applicableTypeValue  "IfcTubeBundle" ;
+        IFC4-PSD:definition           "Tube bundle type common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "チューブ束タイプ共通プロパティ属性設定。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TubeBundleTypeCommon" ;
+        IFC4-PSD:propertyDef          :p7ad74c80d21211e1800000215ad4efdf , :p96daee00d21211e1800000215ad4efdf , :p48c5ea80d21211e1800000215ad4efdf , :p672be600d21211e1800000215ad4efdf , :p42377300d21211e1800000215ad4efdf , :pb07c3580d21211e1800000215ad4efdf , :pb8d47080d21211e1800000215ad4efdf , :p58453380d21211e1800000215ad4efdf , :p89256880d21211e1800000215ad4efdf , :p5ed3ab00d21211e1800000215ad4efdf , :pa78b6400d21211e1800000215ad4efdf , :p757a0200d21211e1800000215ad4efdf , :p701cb780d21211e1800000215ad4efdf , :p9f332900d21211e1800000215ad4efdf , :p80349700d21211e1800000215ad4efdf , :p8e82b300d21211e1800000215ad4efdf .
+
+:p48c5ea80d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Status of the element, predominately used in renovation or retrofitting projects. The status can be assigned to as \"New\" - element designed as new addition, \"Existing\" - element exists and remains, \"Demolish\" - element existed but is to be demolished,  \"Temporary\" - element will exists only temporary (like a temporary support structure)." ;
+        IFC4-PSD:definitionAlias  "要素（主にリノベーションまたは改修プロジェクトにおいて）の状態。 状態は、「新規(New)」－新しく追加される要素。「既存」－要素は存在し、かつ残りもの。「破壊」－要素は存在したが、廃棄されるもの。「一時的」－一時的に存在する要素（一時的にサポートしている構造のようなもの）。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "48c5ea80d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en , "状態"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "NEW" , "EXISTING" , "DEMOLISH" , "TEMPORARY" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:p757a0200d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fouling factor of the tubes in the tube bundle." ;
+        rdfs:label                "FoulingFactor" ;
+        IFC4-PSD:definition       "Fouling factor of the tubes in the tube bundle." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブ束のチューブ汚れ係数"@ja-JP ;
+        IFC4-PSD:ifdguid          "757a0200d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FoulingFactor" ;
+        IFC4-PSD:nameAlias        "汚れ係数"@ja-JP , "Fouling Factor"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalResistanceMeasure
+                                  ] .
+
+:ThermalConductivity  a     rdf:Property ;
+        rdfs:seeAlso        :p7ad74c80d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ThermalConductivity .
+
+:p89256880d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total volume of fluid in the tubes and their headers." ;
+        rdfs:label                "Volume" ;
+        IFC4-PSD:definition       "Total volume of fluid in the tubes and their headers." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブとヘッダー内の総流量"@ja-JP ;
+        IFC4-PSD:ifdguid          "89256880d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Volume" ;
+        IFC4-PSD:nameAlias        "流量"@ja-JP , "Volume"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcVolumeMeasure
+                                  ] .
+
+:VerticalSpacing  a         rdf:Property ;
+        rdfs:seeAlso        :pb07c3580d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VerticalSpacing .
+
+:p58453380d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of tube rows in the tube bundle assembly." ;
+        rdfs:label                "NumberOfRows" ;
+        IFC4-PSD:definition       "Number of tube rows in the tube bundle assembly." ;
+        IFC4-PSD:definitionAlias  "チューブの集合の組立におけるチューブ列数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "58453380d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfRows" ;
+        IFC4-PSD:nameAlias        "Number Of Rows"@en , "列数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:p9f332900d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Actual inner diameter of the tube in the tube bundle." ;
+        rdfs:label                "InsideDiameter" ;
+        IFC4-PSD:definition       "Actual inner diameter of the tube in the tube bundle." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブ束内のチューブ実内径"@ja-JP ;
+        IFC4-PSD:ifdguid          "9f332900d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InsideDiameter" ;
+        IFC4-PSD:nameAlias        "Inside Diameter"@en , "内径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:NumberOfRows  a            rdf:Property ;
+        rdfs:seeAlso        :p58453380d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfRows .
+
+:p701cb780d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Number of parallel fluid tube circuits." ;
+        rdfs:label                "NumberOfCircuits" ;
+        IFC4-PSD:definition       "Number of parallel fluid tube circuits." ;
+        IFC4-PSD:definitionAlias  "平行流チューブ回路数"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "701cb780d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NumberOfCircuits" ;
+        IFC4-PSD:nameAlias        "Number Of Circuits"@en , "平行流回路数"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:InLineRowSpacing  a        rdf:Property ;
+        rdfs:seeAlso        :p672be600d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InLineRowSpacing .
+
+:p5ed3ab00d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Staggered tube row spacing." ;
+        rdfs:label                "StaggeredRowSpacing" ;
+        IFC4-PSD:definition       "Staggered tube row spacing." ;
+        IFC4-PSD:definitionAlias  "互い違いのチューブ列間隔"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "5ed3ab00d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "StaggeredRowSpacing" ;
+        IFC4-PSD:nameAlias        "互い違いの列間隔"@ja-JP , "Staggered Row Spacing"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p48c5ea80d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:pa78b6400d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Horizontal spacing between tubes in the tube bundle." ;
+        rdfs:label                "HorizontalSpacing" ;
+        IFC4-PSD:definition       "Horizontal spacing between tubes in the tube bundle." ;
+        IFC4-PSD:definitionAlias  "チューブ束内のチューブ間水平間隔"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "a78b6400d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HorizontalSpacing" ;
+        IFC4-PSD:nameAlias        "Horizontal Spacing"@en , "水平間隔"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:Length  a                  rdf:Property ;
+        rdfs:seeAlso        :p80349700d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Length .
+
+:NumberOfCircuits  a        rdf:Property ;
+        rdfs:seeAlso        :p701cb780d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NumberOfCircuits .
+
+:HorizontalSpacing  a       rdf:Property ;
+        rdfs:seeAlso        :pa78b6400d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HorizontalSpacing .
+
+:StaggeredRowSpacing  a     rdf:Property ;
+        rdfs:seeAlso        :p5ed3ab00d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:StaggeredRowSpacing .
+
+:FoulingFactor  a           rdf:Property ;
+        rdfs:seeAlso        :p757a0200d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FoulingFactor .
+
+:p80349700d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length of the tubes in the tube bundle." ;
+        rdfs:label                "Length" ;
+        IFC4-PSD:definition       "Length of the tubes in the tube bundle." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブ束のチューブ長さ"@ja-JP ;
+        IFC4-PSD:ifdguid          "80349700d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Length" ;
+        IFC4-PSD:nameAlias        "長さ"@ja-JP , "Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:HasTurbulator  a           rdf:Property ;
+        rdfs:seeAlso        :pb8d47080d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HasTurbulator .
+
+:Reference  a               rdf:Property ;
+        rdfs:seeAlso        :p42377300d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Reference .
+
+:pb8d47080d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "TRUE if the tube has a turbulator, FALSE if it does not." ;
+        rdfs:label                "HasTurbulator" ;
+        IFC4-PSD:definition       "TRUE if the tube has a turbulator, FALSE if it does not." ;
+        IFC4-PSD:definitionAlias  ""@en , "かくはん器有りの時 TRUE、無しの時 FALSE"@ja-JP ;
+        IFC4-PSD:ifdguid          "b8d47080d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HasTurbulator" ;
+        IFC4-PSD:nameAlias        "Has Turbulator"@en , "かくはん器有り"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:p7ad74c80d21211e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thermal conductivity of the tube." ;
+        rdfs:label                "ThermalConductivity" ;
+        IFC4-PSD:definition       "The thermal conductivity of the tube." ;
+        IFC4-PSD:definitionAlias  ""@en , "チューブの熱伝導率"@ja-JP ;
+        IFC4-PSD:ifdguid          "7ad74c80d21211e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ThermalConductivity" ;
+        IFC4-PSD:nameAlias        "熱伝導率"@ja-JP , "Thermal Conductivity"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcThermalConductivityMeasure
+                                  ] .
+
+:Volume  a                  rdf:Property ;
+        rdfs:seeAlso        :p89256880d21211e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Volume .

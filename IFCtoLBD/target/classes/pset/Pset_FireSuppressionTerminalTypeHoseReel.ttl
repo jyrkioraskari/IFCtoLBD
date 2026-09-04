@@ -1,0 +1,163 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ClassOfService  a          rdf:Property ;
+        rdfs:seeAlso        :p0935d900d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClassOfService .
+
+:HoseLength  a              rdf:Property ;
+        rdfs:seeAlso        :pf58a7280d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseLength .
+
+:HoseReelMountingType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pd986d100d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseReelMountingType .
+
+:p10f57d80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The name of the authority that applies the classification of service to the hose reel (e.g. NFPA/FEMA)." ;
+        rdfs:label                "ClassificationAuthority" ;
+        IFC4-PSD:definition       "The name of the authority that applies the classification of service to the hose reel (e.g. NFPA/FEMA)." ;
+        IFC4-PSD:definitionAlias  "ホースリールの分類認証機関の名称。（例　NFPA/ FEMA）"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "10f57d80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClassificationAuthority" ;
+        IFC4-PSD:nameAlias        "分類認証機関"@ja-JP , "Classification Authority"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:pfc18ea00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of nozzle (in terms of spray pattern) fitted to the end of the hose from which the type required may be set." ;
+        rdfs:label                "HoseNozzleType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of nozzle (in terms of spray pattern) fitted to the end of the hose from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  "あらかじめ定義済みのホースの先端に取り付けられるノズルの型（放出パターンの観点から）から必要な型を設定する識別。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fc18ea00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseNozzleType" ;
+        IFC4-PSD:nameAlias        "Hose Nozzle Type"@en , "ホースノズルタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "FOG" , "STRAIGHTSTREAM" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_FireSuppressionTerminalTypeHoseReel
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A supporting framework on which a hose may be wound (BS6100 155 8201).\n\nNote that the service provided by the hose (water/foam) is determined by the context of the system onto which the hose reel is connected." ;
+        rdfs:label                    "Pset_FireSuppressionTerminalTypeHoseReel" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcFireSuppressionTerminal/HOSEREEL> ;
+        IFC4-PSD:applicableTypeValue  "IfcFireSuppressionTerminal/HOSEREEL" ;
+        IFC4-PSD:definition           "A supporting framework on which a hose may be wound (BS6100 155 8201).\n\nNote that the service provided by the hose (water/foam) is determined by the context of the system onto which the hose reel is connected." ;
+        IFC4-PSD:definitionAlias      "ホースが損傷したときのサポートの仕組み。（BS61001558201）\n\nホースに供給されるサービスが水か泡かは、そのホースリールが接続されているシステムによる。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FireSuppressionTerminalTypeHoseReel" ;
+        IFC4-PSD:propertyDef          :pfc18ea00d1e611e1800000215ad4efdf , :p10f57d80d1e711e1800000215ad4efdf , :p0935d900d1e711e1800000215ad4efdf , :pd986d100d1e611e1800000215ad4efdf , :pe9061a00d1e611e1800000215ad4efdf , :pf58a7280d1e611e1800000215ad4efdf , :peefbfb00d1e611e1800000215ad4efdf , :pcc69e200d1e611e1800000215ad4efdf .
+
+:pf58a7280d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Notional length of the hose fitted to the hose reel when fully extended." ;
+        rdfs:label                "HoseLength" ;
+        IFC4-PSD:definition       "Notional length of the hose fitted to the hose reel when fully extended." ;
+        IFC4-PSD:definitionAlias  ""@en , "ホースホースリールに装着されたホースの公称長さ（全て伸ばされたときの）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f58a7280d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseLength" ;
+        IFC4-PSD:nameAlias        "Hose Length"@en , "ホースの長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pcc69e200d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of hose arrangement from which the type required may be set." ;
+        rdfs:label                "HoseReelType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of hose arrangement from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "あらかじめ定義済みのホース構成の型から必要な型を設定する識別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "cc69e200d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseReelType" ;
+        IFC4-PSD:nameAlias        "Hose Reel Type"@en , "ホースリールタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "RACK" , "REEL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pe9061a00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Size of the inlet connection to the hose reel." ;
+        rdfs:label                "InletConnectionSize" ;
+        IFC4-PSD:definition       "Size of the inlet connection to the hose reel." ;
+        IFC4-PSD:definitionAlias  "ホースリールへの入口接続のサイズ。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "e9061a00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "InletConnectionSize" ;
+        IFC4-PSD:nameAlias        "Inlet Connection Size"@en , "インレット接続サイズ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FireSuppressionTerminalTypeHoseReel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:HoseNozzleType  a          rdf:Property ;
+        rdfs:seeAlso        :pfc18ea00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseNozzleType .
+
+:HoseReelType  a            rdf:Property ;
+        rdfs:seeAlso        :pcc69e200d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseReelType .
+
+:p0935d900d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A classification of usage of the hose reel that may be applied." ;
+        rdfs:label                "ClassOfService" ;
+        IFC4-PSD:definition       "A classification of usage of the hose reel that may be applied." ;
+        IFC4-PSD:definitionAlias  "適用されるホースリールの使用方法の分類。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0935d900d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ClassOfService" ;
+        IFC4-PSD:nameAlias        "Class Of Service"@en , "サービスクラス"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcLabel
+                                  ] .
+
+:peefbfb00d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Notional diameter (bore) of the hose." ;
+        rdfs:label                "HoseDiameter" ;
+        IFC4-PSD:definition       "Notional diameter (bore) of the hose." ;
+        IFC4-PSD:definitionAlias  ""@en , "ホースの公称口径（内径）。"@ja-JP ;
+        IFC4-PSD:ifdguid          "eefbfb00d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseDiameter" ;
+        IFC4-PSD:nameAlias        "ホース径"@ja-JP , "Hose Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:HoseDiameter  a            rdf:Property ;
+        rdfs:seeAlso        :peefbfb00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HoseDiameter .
+
+:pd986d100d1e611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Identifies the predefined types of hose reel mounting from which the type required may be set." ;
+        rdfs:label                "HoseReelMountingType" ;
+        IFC4-PSD:definition       "Identifies the predefined types of hose reel mounting from which the type required may be set." ;
+        IFC4-PSD:definitionAlias  ""@en , "あらかじめ定義済みの取り付けホースリールの型から必要な型を設定する識別。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d986d100d1e611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HoseReelMountingType" ;
+        IFC4-PSD:nameAlias        "Hose Reel Mounting Type"@en , "ホースリール装着タイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CABINET_RECESSED" , "CABINET_SEMIRECESSED" , "SURFACE" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ClassificationAuthority
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p10f57d80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ClassificationAuthority .
+
+:InletConnectionSize  a     rdf:Property ;
+        rdfs:seeAlso        :pe9061a00d1e611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:InletConnectionSize .

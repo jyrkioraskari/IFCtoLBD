@@ -1,0 +1,130 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryWireLoop#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p32e50500d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of the fastening loop part of the wire." ;
+        rdfs:label                "WireLoopLength" ;
+        IFC4-PSD:definition       "The length of the fastening loop part of the wire." ;
+        IFC4-PSD:definitionAlias  "ワイヤーの留め具部分の長さ。"@ja-JP , ""@en , "와이어 클램프 부분의 길이"@ko-KR ;
+        IFC4-PSD:ifdguid          "32e50500d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireLoopLength" ;
+        IFC4-PSD:nameAlias        "留め具長さ"@ja-JP , "클램프 길이"@ko-KR , "Wire Loop Length"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p05985700d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The width of the base plate." ;
+        rdfs:label                "WireLoopBasePlateWidth" ;
+        IFC4-PSD:definition       "The width of the base plate." ;
+        IFC4-PSD:definitionAlias  "ベースプレートの幅。"@ja-JP , "베이스 플레이트 폭"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "05985700d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireLoopBasePlateWidth" ;
+        IFC4-PSD:nameAlias        "베이스 플레이트 폭"@ko-KR , "ベースプレート幅"@ja-JP , "Wire Loop Base Plate Width"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WireLoopBasePlateThickness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p003b0c80d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireLoopBasePlateThickness .
+
+:WireLoopBasePlateLength
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0e892880d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireLoopBasePlateLength .
+
+:p1648cd00d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal diameter of the wire." ;
+        rdfs:label                "WireDiameter" ;
+        IFC4-PSD:definition       "The nominal diameter of the wire." ;
+        IFC4-PSD:definitionAlias  "와이어의 공칭 지름"@ko-KR , ""@en , "ワイヤーの公称直径。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1648cd00d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireDiameter" ;
+        IFC4-PSD:nameAlias        "Wire Diameter"@en , "와이어 지름"@ko-KR , "ワイヤー径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p252f7f80d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of the part of wire which is embedded in the precast concrete element." ;
+        rdfs:label                "WireEmbeddingLength" ;
+        IFC4-PSD:definition       "The length of the part of wire which is embedded in the precast concrete element." ;
+        IFC4-PSD:definitionAlias  "プレキャストコンクリート部材の中に埋め込まれたワイヤーの長さ。"@ja-JP , ""@en , "프리 캐스트 콘크리트 부재속에 묻힌 철사의 길이"@ko-KR ;
+        IFC4-PSD:ifdguid          "252f7f80d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireEmbeddingLength" ;
+        IFC4-PSD:nameAlias        "포함 길이"@ko-KR , "Wire Embedding Length"@en , "埋め込み長さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DiscreteAccessoryWireLoop>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:Pset_DiscreteAccessoryWireLoop
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Shape properties common to wire loop joint connectors." ;
+        rdfs:label                    "Pset_DiscreteAccessoryWireLoop" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDiscreteAccessory/Wire%20loop> ;
+        IFC4-PSD:applicableTypeValue  "IfcDiscreteAccessory/Wire loop" ;
+        IFC4-PSD:definition           "Shape properties common to wire loop joint connectors." ;
+        IFC4-PSD:definitionAlias      ""@en , "ワイヤー留め具による接続部の形状特性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DiscreteAccessoryWireLoop" ;
+        IFC4-PSD:propertyDef          :p1648cd00d1d311e1800000215ad4efdf , :p32e50500d1d311e1800000215ad4efdf , :p003b0c80d1d311e1800000215ad4efdf , :p05985700d1d311e1800000215ad4efdf , :p0e892880d1d311e1800000215ad4efdf , :p252f7f80d1d311e1800000215ad4efdf .
+
+:p003b0c80d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the base plate." ;
+        rdfs:label                "WireLoopBasePlateThickness" ;
+        IFC4-PSD:definition       "The thickness of the base plate." ;
+        IFC4-PSD:definitionAlias  "베이스 플레이트 두께"@ko-KR , "ベースプレートの板厚。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "003b0c80d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireLoopBasePlateThickness" ;
+        IFC4-PSD:nameAlias        "베이스 플레이트 두께"@ko-KR , "ベースプレート厚"@ja-JP , "Wire Loop Base Plate Thickness"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0e892880d1d311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The length of the base plate." ;
+        rdfs:label                "WireLoopBasePlateLength" ;
+        IFC4-PSD:definition       "The length of the base plate." ;
+        IFC4-PSD:definitionAlias  "플레이트 길이"@ko-KR , ""@en , "ベースプレートの長さ。"@ja-JP ;
+        IFC4-PSD:ifdguid          "0e892880d1d311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WireLoopBasePlateLength" ;
+        IFC4-PSD:nameAlias        "ベースプレート長さ"@ja-JP , "Wire Loop Base Plate Length"@en , "플레이트 길이"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:WireEmbeddingLength  a     rdf:Property ;
+        rdfs:seeAlso        :p252f7f80d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireEmbeddingLength .
+
+:WireLoopLength  a          rdf:Property ;
+        rdfs:seeAlso        :p32e50500d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireLoopLength .
+
+:WireLoopBasePlateWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p05985700d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireLoopBasePlateWidth .
+
+:WireDiameter  a            rdf:Property ;
+        rdfs:seeAlso        :p1648cd00d1d311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WireDiameter .

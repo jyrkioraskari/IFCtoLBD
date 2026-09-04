@@ -1,0 +1,77 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypePressureVessel#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pa9ecbe80d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure that is automatically maintained in the tank." ;
+        rdfs:label                "PressureRegulatorSetting" ;
+        IFC4-PSD:definition       "Pressure that is automatically maintained in the tank." ;
+        IFC4-PSD:definitionAlias  ""@en , "タンク内で自動的に維持される圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "a9ecbe80d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PressureRegulatorSetting" ;
+        IFC4-PSD:nameAlias        "圧力調整設定"@ja-JP , "Pressure Regulator Setting"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ReliefValveSetting  a      rdf:Property ;
+        rdfs:seeAlso        :pb07b3600d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ReliefValveSetting .
+
+:PressureRegulatorSetting
+        a                   rdf:Property ;
+        rdfs:seeAlso        :pa9ecbe80d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PressureRegulatorSetting .
+
+:Pset_TankTypePressureVessel
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Common attributes of a pressure vessel." ;
+        rdfs:label                    "Pset_TankTypePressureVessel" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcTank/PRESSUREVESSEL> ;
+        IFC4-PSD:applicableTypeValue  "IfcTank/PRESSUREVESSEL" ;
+        IFC4-PSD:definition           "Common attributes of a pressure vessel." ;
+        IFC4-PSD:definitionAlias      "圧力容器の共通属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_TankTypePressureVessel" ;
+        IFC4-PSD:propertyDef          :pa2c5b080d21011e1800000215ad4efdf , :pa9ecbe80d21011e1800000215ad4efdf , :pb07b3600d21011e1800000215ad4efdf .
+
+:pa2c5b080d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Nominal or design operating pressure of the tank." ;
+        rdfs:label                "ChargePressure" ;
+        IFC4-PSD:definition       "Nominal or design operating pressure of the tank." ;
+        IFC4-PSD:definitionAlias  ""@en , "タンクの公称又は設計運転圧力"@ja-JP ;
+        IFC4-PSD:ifdguid          "a2c5b080d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ChargePressure" ;
+        IFC4-PSD:nameAlias        "Charge Pressure"@en , "加圧力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:pb07b3600d21011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Pressure at which the relief valve activates." ;
+        rdfs:label                "ReliefValveSetting" ;
+        IFC4-PSD:definition       "Pressure at which the relief valve activates." ;
+        IFC4-PSD:definitionAlias  "安全弁が作動する圧力"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "b07b3600d21011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ReliefValveSetting" ;
+        IFC4-PSD:nameAlias        "Relief Valve Setting"@en , "安全弁設定"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPressureMeasure
+                                  ] .
+
+:ChargePressure  a          rdf:Property ;
+        rdfs:seeAlso        :pa2c5b080d21011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ChargePressure .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_TankTypePressureVessel>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

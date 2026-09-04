@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:pd2b58980d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The service breaking capacity in [A] for an MCB tested in accordance with the IEC 60898 series." ;
+        rdfs:label                "ICS60898" ;
+        IFC4-PSD:definition       "The service breaking capacity in [A] for an MCB tested in accordance with the IEC 60898 series." ;
+        IFC4-PSD:definitionAlias  "IEC의 60898 시리즈를 기반으로 시험한 MCB 차단 사용 용량 [A]로 설정."@ko-KR , ""@en , "IECの60898シリーズに基づいてテストされたMCBの遮断使用容量を[A]で設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "d2b58980d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICS60898" ;
+        IFC4-PSD:nameAlias        "ICS60898"@en , "ICS60898"@ja-JP , "ICS60898"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:VoltageLevel  a            rdf:Property ;
+        rdfs:seeAlso        :p8ec28480d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VoltageLevel .
+
+:ICN60898  a                rdf:Property ;
+        rdfs:seeAlso        :pc9c4b800d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICN60898 .
+
+:ICS60947  a                rdf:Property ;
+        rdfs:seeAlso        :pc0d3e680d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICS60947 .
+
+:pae59ad00d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "A set of nominal currents in [A] for which the data of this instance is valid. At least one value shall be provided. Any value in the set shall not exceed the value of the \nUltimateRatedCurrent associated with the same breaker unit." ;
+        rdfs:label                "NominalCurrents" ;
+        IFC4-PSD:definition       "A set of nominal currents in [A] for which the data of this instance is valid. At least one value shall be provided. Any value in the set shall not exceed the value of the \nUltimateRatedCurrent associated with the same breaker unit." ;
+        IFC4-PSD:definitionAlias  "定格電流[A]を少なくても1つ値をセットしなければならない。\n セット内の任意の値の値を超えてはならない。\n 定格電流は、同じブレーカ部に関連付けられている。"@ja-JP , "정격 전류 [A]를 적어도 2 개의 값을 설정해야한다.   동일한 차단기부와 연결된 정격전류는세트 내의 임의의 값은 초과할 수 없다."@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "ae59ad00d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalCurrents" ;
+        IFC4-PSD:nameAlias        "정격 전류"@ko-KR , "定格電流"@ja-JP , "Nominal Currents"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyListValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:pc9c4b800d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal breaking capacity in [A] for an MCB tested in accordance with the IEC 60898 series." ;
+        rdfs:label                "ICN60898" ;
+        IFC4-PSD:definition       "The nominal breaking capacity in [A] for an MCB tested in accordance with the IEC 60898 series." ;
+        IFC4-PSD:definitionAlias  "IEC의 60898 시리즈를 기반으로 시험한 MCB의 정격 차단 용량 [A]로 설정."@ko-KR , ""@en , "IECの60898シリーズに基づいてテストされたMCBの定格遮断容量を[A]で設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "c9c4b800d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICN60898" ;
+        IFC4-PSD:nameAlias        "ICN60898"@ja-JP , "ICN60898"@ko-KR , "ICN60898"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:Pset_ProtectiveDeviceBreakerUnitTypeMCB
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A coherent set of attributes representing the breaking capacities of an MCB. Note - A protective device may be associated with different instances of this property set providing information related to different  basic characteristics." ;
+        rdfs:label                    "Pset_ProtectiveDeviceBreakerUnitTypeMCB" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcProtectiveDevice/CIRCUITBREAKER> ;
+        IFC4-PSD:applicableTypeValue  "IfcProtectiveDevice/CIRCUITBREAKER" ;
+        IFC4-PSD:definition           "A coherent set of attributes representing the breaking capacities of an MCB. Note - A protective device may be associated with different instances of this property set providing information related to different  basic characteristics." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ProtectiveDeviceBreakerUnitTypeMCB" ;
+        IFC4-PSD:propertyDef          :pae59ad00d1f911e1800000215ad4efdf , :pd2b58980d1f911e1800000215ad4efdf , :pb6b1e800d1f911e1800000215ad4efdf , :pc9c4b800d1f911e1800000215ad4efdf , :pc0d3e680d1f911e1800000215ad4efdf , :p84a08600d1f911e1800000215ad4efdf , :p8ec28480d1f911e1800000215ad4efdf .
+
+:pb6b1e800d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The ultimate breaking capacity in [A] for an MCB tested in accordance with the IEC 60947 series." ;
+        rdfs:label                "ICU60947" ;
+        IFC4-PSD:definition       "The ultimate breaking capacity in [A] for an MCB tested in accordance with the IEC 60947 series." ;
+        IFC4-PSD:definitionAlias  "IEC의 60948 시리즈를 기반으로 시험한 MCB의 정격 한계 단락 차단 용량 [A]로 설정."@ko-KR , ""@en , "IECの60947シリーズに基づいてテストされたMCBの定格限界短絡遮断容量を[A]で設定。"@ja-JP ;
+        IFC4-PSD:ifdguid          "b6b1e800d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICU60947" ;
+        IFC4-PSD:nameAlias        "ICU60947"@en , "定格限界短絡遮断容量"@ja-JP , "정격 한계 단락 차단 용량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:PowerLoss  a               rdf:Property ;
+        rdfs:seeAlso        :p84a08600d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:PowerLoss .
+
+:NominalCurrents  a         rdf:Property ;
+        rdfs:seeAlso        :pae59ad00d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalCurrents .
+
+:ICS60898  a                rdf:Property ;
+        rdfs:seeAlso        :pd2b58980d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICS60898 .
+
+:ICU60947  a                rdf:Property ;
+        rdfs:seeAlso        :pb6b1e800d1f911e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ICU60947 .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ProtectiveDeviceBreakerUnitTypeMCB>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pc0d3e680d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The service breaking capacity in [A] for an MCB tested in accordance with the IEC 60947 series." ;
+        rdfs:label                "ICS60947" ;
+        IFC4-PSD:definition       "The service breaking capacity in [A] for an MCB tested in accordance with the IEC 60947 series." ;
+        IFC4-PSD:definitionAlias  "IECの60947シリーズに基づいてテストされたMCBの定格使用短絡遮断容量を[A]で設定。"@ja-JP , ""@en , "IEC의 60947 시리즈를 기반으로 시험한 MCB의 정격 사용 단락 차단 용량 [A]로 설정."@ko-KR ;
+        IFC4-PSD:ifdguid          "c0d3e680d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ICS60947" ;
+        IFC4-PSD:nameAlias        "定格使用短絡遮断容量"@ja-JP , "ICS60947"@en , "정격 사용 단락 차단 용량"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcElectricCurrentMeasure
+                                  ] .
+
+:p84a08600d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The power loss in [W] per pole of the MCB  when the nominal current is flowing through the MCB." ;
+        rdfs:label                "PowerLoss" ;
+        IFC4-PSD:definition       "The power loss in [W] per pole of the MCB  when the nominal current is flowing through the MCB." ;
+        IFC4-PSD:definitionAlias  "定格電流がMCBに流れている時のMCBの極当たりの電力損失[W]。"@ja-JP , ""@en , "정격 전류가 MCB 흐르고있을 때의 MCB 극 당 전력 손실 [W]."@ko-KR ;
+        IFC4-PSD:ifdguid          "84a08600d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "PowerLoss" ;
+        IFC4-PSD:nameAlias        "Power Loss"@en , "전력 손실"@ko-KR , "電力損失"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:p8ec28480d1f911e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        rdfs:label                "VoltageLevel" ;
+        IFC4-PSD:definition       "The voltage levels for which the data of the instance is valid. More than one value may be selected in the enumeration." ;
+        IFC4-PSD:definitionAlias  "전압레벨을 선택합니다."@ko-KR , "電圧レベルを選択。"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "8ec28480d1f911e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VoltageLevel" ;
+        IFC4-PSD:nameAlias        "전압 레벨"@ko-KR , "電圧レベル"@ja-JP , "Voltage Level"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "U400" , "U1000" , "U440" , "UNSET" , "U230" , "NOTKNOWN" , "U690" , "U525" , "OTHER"
+                                  ] .

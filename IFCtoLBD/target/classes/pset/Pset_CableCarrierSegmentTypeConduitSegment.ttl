@@ -1,0 +1,93 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeConduitSegment#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:IsRigid  a                 rdf:Property ;
+        rdfs:seeAlso        :pf4494d80d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsRigid .
+
+:Pset_CableCarrierSegmentTypeConduitSegment
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An enclosed tubular carrier segment through which cables are pulled.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
+        rdfs:label                    "Pset_CableCarrierSegmentTypeConduitSegment" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcCableCarrierSegment/CONDUITSEGMENT> ;
+        IFC4-PSD:applicableTypeValue  "IfcCableCarrierSegment/CONDUITSEGMENT" ;
+        IFC4-PSD:definition           "An enclosed tubular carrier segment through which cables are pulled.\nHISTORY: IFC4 - NominalLength deleted. To be handled as a quantity measure." ;
+        IFC4-PSD:definitionAlias      "電線管のプロパティを設定。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_CableCarrierSegmentTypeConduitSegment" ;
+        IFC4-PSD:propertyDef          :pd976d900d1c611e1800000215ad4efdf , :pf4494d80d1c611e1800000215ad4efdf , :pdf6cba00d1c611e1800000215ad4efdf , :pe5fb3180d1c611e1800000215ad4efdf .
+
+:pe5fb3180d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The shape of the conduit segment." ;
+        rdfs:label                "ConduitShapeType" ;
+        IFC4-PSD:definition       "The shape of the conduit segment." ;
+        IFC4-PSD:definitionAlias  "電線管の形状タイプ。\n（円筒形,卵形,その他,不明,なし）"@ja-JP , ""@en , "전선관의 형상 타입. (원통형, 계란 모양, 기타 알 수 없음) \""@ko-KR ;
+        IFC4-PSD:ifdguid          "e5fb3180d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ConduitShapeType" ;
+        IFC4-PSD:nameAlias        "전선관의 유형"@ko-KR , "電線管のタイプ"@ja-JP , "Conduit Shape Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "CIRCULAR" , "OVAL" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ConduitShapeType  a        rdf:Property ;
+        rdfs:seeAlso        :pe5fb3180d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ConduitShapeType .
+
+:NominalHeight  a           rdf:Property ;
+        rdfs:seeAlso        :pdf6cba00d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalHeight .
+
+:NominalWidth  a            rdf:Property ;
+        rdfs:seeAlso        :pd976d900d1c611e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:NominalWidth .
+
+:pd976d900d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal width of the segment." ;
+        rdfs:label                "NominalWidth" ;
+        IFC4-PSD:definition       "The nominal width of the segment." ;
+        IFC4-PSD:definitionAlias  ""@en , "呼び幅寸法。"@ja-JP , "폭 치수"@ko-KR ;
+        IFC4-PSD:ifdguid          "d976d900d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalWidth" ;
+        IFC4-PSD:nameAlias        "Nominal Width"@en , "공칭 폭"@ko-KR , "公称幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:pf4494d80d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indication of whether the conduit is rigid (= TRUE) or flexible (= FALSE)." ;
+        rdfs:label                "IsRigid" ;
+        IFC4-PSD:definition       "Indication of whether the conduit is rigid (= TRUE) or flexible (= FALSE)." ;
+        IFC4-PSD:definitionAlias  ""@en , ""@ko-KR , "鋼管か否か。"@ja-JP ;
+        IFC4-PSD:ifdguid          "f4494d80d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsRigid" ;
+        IFC4-PSD:nameAlias        "강관"@ko-KR , "鋼管"@ja-JP , "Is Rigid"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_CableCarrierSegmentTypeConduitSegment>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:pdf6cba00d1c611e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The nominal height of the segment." ;
+        rdfs:label                "NominalHeight" ;
+        IFC4-PSD:definition       "The nominal height of the segment." ;
+        IFC4-PSD:definitionAlias  ""@en , "呼び高寸法。"@ja-JP , "고 치수"@ko-KR ;
+        IFC4-PSD:ifdguid          "df6cba00d1c611e1800000215ad4efdf" ;
+        IFC4-PSD:name             "NominalHeight" ;
+        IFC4-PSD:nameAlias        "公称高"@ja-JP , "공칭 높이"@ko-KR , "Nominal Height"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .

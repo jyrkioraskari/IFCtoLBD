@@ -203,7 +203,7 @@ public class IfcSpfReader {
     }
 
     public static String getExpressSchema(String ifcFile) {
-	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
+	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile)), StandardCharsets.UTF_8))) {
 	        String strLine;
 	        while ((strLine = br.readLine()) != null) {
 	            final String trimmedLine = strLine.trim();

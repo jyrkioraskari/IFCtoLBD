@@ -1,0 +1,59 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeIsolating#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p12d63580d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "If TRUE, the valve is normally open. If FALSE is is normally closed." ;
+        rdfs:label                "IsNormallyOpen" ;
+        IFC4-PSD:definition       "If TRUE, the valve is normally open. If FALSE is is normally closed." ;
+        IFC4-PSD:definitionAlias  ""@en , "もし、TRUEなら弁はノーマルオープン、もし、FALSEならノーマルクローズ"@ja-JP ;
+        IFC4-PSD:ifdguid          "12d63580d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsNormallyOpen" ;
+        IFC4-PSD:nameAlias        "ノーマルオープン"@ja-JP , "Is Normally Open"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcBoolean
+                                  ] .
+
+:IsNormallyOpen  a          rdf:Property ;
+        rdfs:seeAlso        :p12d63580d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsNormallyOpen .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ValveTypeIsolating>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:IsolatingPurpose  a        rdf:Property ;
+        rdfs:seeAlso        :p1a95da00d21511e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:IsolatingPurpose .
+
+:p1a95da00d21511e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the purpose for which the isolating valve is used since the way in which the valve is identified as an isolating valve may be in the context of its use. Note that unless there is a contextual name for the isolating valve (as in the case of a Landing Valve on a rising fire main), then the value assigned shoulkd be UNSET." ;
+        rdfs:label                "IsolatingPurpose" ;
+        IFC4-PSD:definition       "Defines the purpose for which the isolating valve is used since the way in which the valve is identified as an isolating valve may be in the context of its use. Note that unless there is a contextual name for the isolating valve (as in the case of a Landing Valve on a rising fire main), then the value assigned shoulkd be UNSET." ;
+        IFC4-PSD:definitionAlias  ""@en , "その使用の前後関係から遮断弁として使われる弁があるようであれば、遮断弁が使われている理由を定義します。\n注：燃え上がる火の上のランディング弁のように、遮断弁に前後関係から別な名前がつく場合は別です。このようなとき値は定まらない。"@ja-JP ;
+        IFC4-PSD:ifdguid          "1a95da00d21511e1800000215ad4efdf" ;
+        IFC4-PSD:name             "IsolatingPurpose" ;
+        IFC4-PSD:nameAlias        "Isolating Purpose"@en , "遮断目的"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "LANDING" , "LANDINGWITHPRESSUREREGULATION" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:Pset_ValveTypeIsolating
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Valve that is used to isolate system components.\nNote that an isolating valve is constrained to have a 2 port  pattern." ;
+        rdfs:label                    "Pset_ValveTypeIsolating" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcValve/ISOLATING> ;
+        IFC4-PSD:applicableTypeValue  "IfcValve/ISOLATING" ;
+        IFC4-PSD:definition           "Valve that is used to isolate system components.\nNote that an isolating valve is constrained to have a 2 port  pattern." ;
+        IFC4-PSD:definitionAlias      ""@en , "弁タイプ遮断弁"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ValveTypeIsolating" ;
+        IFC4-PSD:propertyDef          :p12d63580d21511e1800000215ad4efdf , :p1a95da00d21511e1800000215ad4efdf .

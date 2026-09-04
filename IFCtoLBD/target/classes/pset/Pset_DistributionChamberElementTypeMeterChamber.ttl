@@ -1,0 +1,145 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:WallThickness  a           rdf:Property ;
+        rdfs:seeAlso        :p4c3a8100d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WallThickness .
+
+:Pset_DistributionChamberElementTypeMeterChamber
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Chamber that houses a meter(s) (definition modified from BS6100 250 6224)." ;
+        rdfs:label                    "Pset_DistributionChamberElementTypeMeterChamber" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcDistributionChamberElement/METERCHAMBER> ;
+        IFC4-PSD:applicableTypeValue  "IfcDistributionChamberElement/METERCHAMBER" ;
+        IFC4-PSD:definition           "Chamber that houses a meter(s) (definition modified from BS6100 250 6224)." ;
+        IFC4-PSD:definitionAlias      ""@en , "メーター室に関する属性情報。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_DistributionChamberElementTypeMeterChamber" ;
+        IFC4-PSD:propertyDef          :p5b213380d1d411e1800000215ad4efdf , :p52306200d1d411e1800000215ad4efdf , :p48a6fa00d1d411e1800000215ad4efdf , :p4c3a8100d1d411e1800000215ad4efdf , :p3d53ce80d1d411e1800000215ad4efdf , :p55c3e900d1d411e1800000215ad4efdf , :p42b11900d1d411e1800000215ad4efdf .
+
+:BaseThickness  a           rdf:Property ;
+        rdfs:seeAlso        :p55c3e900d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BaseThickness .
+
+:ChamberLengthOrRadius
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3d53ce80d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ChamberLengthOrRadius .
+
+:p52306200d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The material from which the base of the chamber is constructed.\nNOTE: It is assumed that chamber base will be constructed of a single material." ;
+        rdfs:label                "BaseMaterial" ;
+        IFC4-PSD:definition       "The material from which the base of the chamber is constructed.\nNOTE: It is assumed that chamber base will be constructed of a single material." ;
+        IFC4-PSD:definitionAlias  "ダクトスペース床面の材質。\n注：ダクトスペースの床は単層と仮定する"@ja-JP , ""@en , "덕트 공간 바닥의 재질 참고 : 덕트 공간의 바닥은 단층 가정"@ko-KR ;
+        IFC4-PSD:ifdguid          "52306200d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BaseMaterial" ;
+        IFC4-PSD:nameAlias        "Base Material"@en , "바닥의 ​​재질"@ko-KR , "床の材質"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:BaseMaterial  a            rdf:Property ;
+        rdfs:seeAlso        :p52306200d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:BaseMaterial .
+
+:p48a6fa00d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The material from which the wall of the chamber is constructed.\nNOTE: It is assumed that chamber walls will be constructed of a single material." ;
+        rdfs:label                "WallMaterial" ;
+        IFC4-PSD:definition       "The material from which the wall of the chamber is constructed.\nNOTE: It is assumed that chamber walls will be constructed of a single material." ;
+        IFC4-PSD:definitionAlias  "덕트 공간 벽의 재질 참고 : 덕트 공간의 벽은 단층 가정"@ko-KR , "ダクトスペース壁の材質。\n注：ダクトスペースの壁は単層と仮定する"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "48a6fa00d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WallMaterial" ;
+        IFC4-PSD:nameAlias        "Wall Material"@en , "벽의 재질"@ko-KR , "壁の材質"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:WallMaterial  a            rdf:Property ;
+        rdfs:seeAlso        :p48a6fa00d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:WallMaterial .
+
+:p42b11900d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Width, in the event of the shape being non circular in plan." ;
+        rdfs:label                "ChamberWidth" ;
+        IFC4-PSD:definition       "Width, in the event of the shape being non circular in plan." ;
+        IFC4-PSD:definitionAlias  "非円形チャンバーの幅。"@ja-JP , ""@en , "비원 챔버의 폭"@ko-KR ;
+        IFC4-PSD:ifdguid          "42b11900d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ChamberWidth" ;
+        IFC4-PSD:nameAlias        "챔버의 폭"@ko-KR , "Chamber Width"@en , "チャンバーの幅"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:ChamberWidth  a            rdf:Property ;
+        rdfs:seeAlso        :p42b11900d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ChamberWidth .
+
+:p55c3e900d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the chamber base construction.\nNOTE: It is assumed that chamber base will be constructed at a single thickness." ;
+        rdfs:label                "BaseThickness" ;
+        IFC4-PSD:definition       "The thickness of the chamber base construction.\nNOTE: It is assumed that chamber base will be constructed at a single thickness." ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクトスペース床面の厚さ。\n注：ダクトスペースの床は単層と仮定する"@ja-JP , "덕트 공간 바닥의 두께 참고 : 덕트 공간의 바닥은 단층 가정"@ko-KR ;
+        IFC4-PSD:ifdguid          "55c3e900d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "BaseThickness" ;
+        IFC4-PSD:nameAlias        "Base Thickness"@en , "바닥의 두께"@ko-KR , "床の厚さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p3d53ce80d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Length or, in the event of the shape being circular in plan, the radius of the chamber." ;
+        rdfs:label                "ChamberLengthOrRadius" ;
+        IFC4-PSD:definition       "Length or, in the event of the shape being circular in plan, the radius of the chamber." ;
+        IFC4-PSD:definitionAlias  "チャンバーの長さあるいは円形チャンバーの半径。"@ja-JP , "챔버의 길이 또는 원형 챔버의 반경"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "3d53ce80d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ChamberLengthOrRadius" ;
+        IFC4-PSD:nameAlias        "Chamber Length Or Radius"@en , "챔버의 길이 또는 반경"@ko-KR , "チャンバーの長さあるいは半径"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p4c3a8100d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The thickness of the chamber wall construction\n.\nNOTE: It is assumed that chamber walls will be constructed at a single thickness." ;
+        rdfs:label                "WallThickness" ;
+        IFC4-PSD:definition       "The thickness of the chamber wall construction\n.\nNOTE: It is assumed that chamber walls will be constructed at a single thickness." ;
+        IFC4-PSD:definitionAlias  ""@en , "ダクトスペース壁の厚さ。\n注：ダクトスペースの壁は単層と仮定する"@ja-JP , "덕트 공간 벽 두께 참고 : 덕트 공간의 벽은 단층 가정"@ko-KR ;
+        IFC4-PSD:ifdguid          "4c3a8100d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "WallThickness" ;
+        IFC4-PSD:nameAlias        "Wall Thickness"@en , "벽 두께"@ko-KR , "壁厚さ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_DistributionChamberElementTypeMeterChamber>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p5b213380d1d411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The material from which the access cover to the chamber is constructed.\nNOTE: It is assumed that chamber walls will be constructed of a single material." ;
+        rdfs:label                "AccessCoverMaterial" ;
+        IFC4-PSD:definition       "The material from which the access cover to the chamber is constructed.\nNOTE: It is assumed that chamber walls will be constructed of a single material." ;
+        IFC4-PSD:definitionAlias  ""@en , "アクセス（点検）カバーの材質。\n注：バイブスペースの壁は単層と仮定する"@ja-JP , "액세스 (체크) 커버의 재질 주 : 바이브 공간의 벽은 단층 가정"@ko-KR ;
+        IFC4-PSD:ifdguid          "5b213380d1d411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AccessCoverMaterial" ;
+        IFC4-PSD:nameAlias        "アクセス（点検）カバーの材質"@ja-JP , "사용 (체크) 커버의 재질"@ko-KR , "Access Cover Material"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcMaterialDefinition
+                                  ] .
+
+:AccessCoverMaterial  a     rdf:Property ;
+        rdfs:seeAlso        :p5b213380d1d411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AccessCoverMaterial .

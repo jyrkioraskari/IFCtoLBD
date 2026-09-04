@@ -1,0 +1,46 @@
+@prefix fog: <https://w3id.org/fog#> .
+@prefix geo: <http://www.opengis.net/ont/geosparql#> .
+@prefix omg: <https://w3id.org/omg#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix lbdtest: <https://linkedbuildingdata.org/test/duplex-patterns#> .
+
+lbdtest:GeometryGraphPatterns
+    a sh:NodeShape ;
+    sh:targetNode lbdtest:Graph ;
+    sh:sparql [
+        sh:message "The graph must contain elements linked to GeoSPARQL geometry nodes." ;
+        sh:select """
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            PREFIX omg: <https://w3id.org/omg#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?element omg:hasGeometry ?geometry .
+                    ?geometry a geo:Geometry .
+                }
+            }
+        """
+    ] ;
+    sh:sparql [
+        sh:message "The graph must contain geometry encoded as both WKT and OBJ." ;
+        sh:select """
+            PREFIX fog: <https://w3id.org/fog#>
+            PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+            SELECT $this WHERE {
+                FILTER NOT EXISTS {
+                    ?geometry a geo:Geometry ;
+                        geo:asWKT ?wkt ;
+                        fog:asObj_v3.0-obj ?obj .
+                }
+            }
+        """
+    ] .
+
+lbdtest:GeometryShape
+    a sh:NodeShape ;
+    sh:targetSubjectsOf geo:asWKT ;
+    sh:property [
+        sh:path geo:asWKT ;
+        sh:minCount 1 ;
+        sh:datatype geo:wktLiteral
+    ] .

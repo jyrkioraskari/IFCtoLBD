@@ -1,0 +1,144 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanOccurrence#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FanOccurrence>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p12717680d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Diameter of fan wheel - used to scale performance of geometrically similar fans." ;
+        rdfs:label                "ImpellerDiameter" ;
+        IFC4-PSD:definition       "Diameter of fan wheel - used to scale performance of geometrically similar fans." ;
+        IFC4-PSD:definitionAlias  ""@en , "ファンホイールの直径　-　幾何学的に類似したファンの性能を基準化するために使用。"@ja-JP ;
+        IFC4-PSD:ifdguid          "12717680d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ImpellerDiameter" ;
+        IFC4-PSD:nameAlias        "羽根径"@ja-JP , "Impeller Diameter"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPositiveLengthMeasure
+                                  ] .
+
+:p0d142c00d1e411e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Fraction of the motor heat released into the fluid flow." ;
+        rdfs:label                "FractionOfMotorHeatToAirStream" ;
+        IFC4-PSD:definition       "Fraction of the motor heat released into the fluid flow." ;
+        IFC4-PSD:definitionAlias  "流体中にモーター発熱が放出される場合にTRUE"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "0d142c00d1e411e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FractionOfMotorHeatToAirStream" ;
+        IFC4-PSD:nameAlias        "モーター排熱"@ja-JP , "Fraction Of Motor Heat To Air Stream"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcNormalisedRatioMeasure
+                                  ] .
+
+:ApplicationOfFan  a        rdf:Property ;
+        rdfs:seeAlso        :pcfaf9e80d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ApplicationOfFan .
+
+:pe0601480d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the relationship between a fan and a coil.\n\nDrawThrough: Fan located downstream of the coil.\nBlowThrough: Fan located upstream of the coil." ;
+        rdfs:label                "CoilPosition" ;
+        IFC4-PSD:definition       "Defines the relationship between a fan and a coil.\n\nDrawThrough: Fan located downstream of the coil.\nBlowThrough: Fan located upstream of the coil." ;
+        IFC4-PSD:definitionAlias  ""@en , "Fanとコイル間の関係定義\nDwawThrough:ファンはコイルの下流に位置\nBlowThrough:ファンはコイルの上流に位置"@ja-JP ;
+        IFC4-PSD:ifdguid          "e0601480d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "CoilPosition" ;
+        IFC4-PSD:nameAlias        "コイル位置"@ja-JP , "Coil Position"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DRAWTHROUGH" , "BLOWTHROUGH" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:pcfaf9e80d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "The functional application of the fan.\n\nSupplyAir: Supply air fan. \nReturnAir: Return air fan. \nExhaustAir: Exhaust air fan. \nOther: Other type of application not defined above." ;
+        rdfs:label                "ApplicationOfFan" ;
+        IFC4-PSD:definition       "The functional application of the fan.\n\nSupplyAir: Supply air fan. \nReturnAir: Return air fan. \nExhaustAir: Exhaust air fan. \nOther: Other type of application not defined above." ;
+        IFC4-PSD:definitionAlias  "Fanの系統\nSUPPLYAIR, RETURNAIR, EXHAUSTAIR, COOLINGTOWER, OTHER"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "cfaf9e80d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ApplicationOfFan" ;
+        IFC4-PSD:nameAlias        "Application Of Fan"@en , "Fan用途"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "SUPPLYAIR" , "RETURNAIR" , "EXHAUSTAIR" , "COOLINGTOWER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:FractionOfMotorHeatToAirStream
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p0d142c00d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FractionOfMotorHeatToAirStream .
+
+:pece46d00d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the location of the motor relative to the air stream.\n\nInAirStream: Fan motor is in the air stream.\nOutOfAirStream: Fan motor is out of the air stream." ;
+        rdfs:label                "MotorPosition" ;
+        IFC4-PSD:definition       "Defines the location of the motor relative to the air stream.\n\nInAirStream: Fan motor is in the air stream.\nOutOfAirStream: Fan motor is out of the air stream." ;
+        IFC4-PSD:definitionAlias  ""@en , "空気流路と相対的なモーターの位置定義\n流路内、流路外　その他"@ja-JP ;
+        IFC4-PSD:ifdguid          "ece46d00d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "MotorPosition" ;
+        IFC4-PSD:nameAlias        "Motor Position"@en , "モーター位置"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "INAIRSTREAM" , "OUTOFAIRSTREAM" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:ImpellerDiameter  a        rdf:Property ;
+        rdfs:seeAlso        :p12717680d1e411e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ImpellerDiameter .
+
+:CoilPosition  a            rdf:Property ;
+        rdfs:seeAlso        :pe0601480d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:CoilPosition .
+
+:pbeff2880d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the type of connection at the fan discharge.\n\nDuct: Discharge into ductwork.\nScreen: Discharge into screen outlet.\nLouver: Discharge into a louver.\nDamper: Discharge into a damper." ;
+        rdfs:label                "DischargeType" ;
+        IFC4-PSD:definition       "Defines the type of connection at the fan discharge.\n\nDuct: Discharge into ductwork.\nScreen: Discharge into screen outlet.\nLouver: Discharge into a louver.\nDamper: Discharge into a damper." ;
+        IFC4-PSD:definitionAlias  "送風機出口の接続形式定義\nDuct：ダクトへの吐き出し\nScreen:SCREEN内への吐き出し\nLouver:ルーバーへの吐き出し"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "beff2880d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DischargeType" ;
+        IFC4-PSD:nameAlias        "吐出形式"@ja-JP , "Discharge Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "DUCT" , "SCREEN" , "LOUVER" , "DAMPER" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
+
+:MotorPosition  a           rdf:Property ;
+        rdfs:seeAlso        :pece46d00d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:MotorPosition .
+
+:DischargeType  a           rdf:Property ;
+        rdfs:seeAlso        :pbeff2880d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DischargeType .
+
+:pfa015c00d1e311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Defines the method of mounting the fan in the building." ;
+        rdfs:label                "FanMountingType" ;
+        IFC4-PSD:definition       "Defines the method of mounting the fan in the building." ;
+        IFC4-PSD:definitionAlias  "建物へのFan設置方法定義\nMANUFACTUREDCURB, FIELDERECTEDCURB, CONCRETEPAD, SUSPENDED, WALLMOUNTED, DUCTMOUNTED"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "fa015c00d1e311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "FanMountingType" ;
+        IFC4-PSD:nameAlias        "Fan設置タイプ"@ja-JP , "Fan Mounting Type"@en ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "WALLMOUNTED" , "CONCRETEPAD" , "OTHER" , "UNSET" , "MANUFACTUREDCURB" , "NOTKNOWN" , "FIELDERECTEDCURB" , "DUCTMOUNTED" , "SUSPENDED"
+                                  ] .
+
+:FanMountingType  a         rdf:Property ;
+        rdfs:seeAlso        :pfa015c00d1e311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:FanMountingType .
+
+:Pset_FanOccurrence  a                IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Fan occurrence attributes attached to an instance of IfcFan." ;
+        rdfs:label                    "Pset_FanOccurrence" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFan ;
+        IFC4-PSD:applicableTypeValue  "IfcFan" ;
+        IFC4-PSD:definition           "Fan occurrence attributes attached to an instance of IfcFan." ;
+        IFC4-PSD:definitionAlias      "IfcFanの値に付け加えられたFan属性"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FanOccurrence" ;
+        IFC4-PSD:propertyDef          :p0d142c00d1e411e1800000215ad4efdf , :pe0601480d1e311e1800000215ad4efdf , :p12717680d1e411e1800000215ad4efdf , :pfa015c00d1e311e1800000215ad4efdf , :pbeff2880d1e311e1800000215ad4efdf , :pece46d00d1e311e1800000215ad4efdf , :pcfaf9e80d1e311e1800000215ad4efdf .

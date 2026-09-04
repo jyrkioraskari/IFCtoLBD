@@ -1,0 +1,76 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p90834c80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates measured values over time which may be recorded continuously or only when changed beyond a particular deadband." ;
+        rdfs:label                "Value" ;
+        IFC4-PSD:definition       "Indicates measured values over time which may be recorded continuously or only when changed beyond a particular deadband." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "90834c80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Value" ;
+        IFC4-PSD:nameAlias        "Value"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Quality  a                 rdf:Property ;
+        rdfs:seeAlso        :p94af6a00d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Quality .
+
+:p97aa5a80d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates an error code or identifier, whose meaning is specific to the particular automation system.  Example values include: 'ConfigurationError', 'NotConnected', 'DeviceFailure', 'SensorFailure', 'LastKnown, 'CommunicationsFailure', 'OutOfService'." ;
+        rdfs:label                "Status" ;
+        IFC4-PSD:definition       "Indicates an error code or identifier, whose meaning is specific to the particular automation system.  Example values include: 'ConfigurationError', 'NotConnected', 'DeviceFailure', 'SensorFailure', 'LastKnown, 'CommunicationsFailure', 'OutOfService'." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "97aa5a80d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Status" ;
+        IFC4-PSD:nameAlias        "Status"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p94af6a00d1e711e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the quality of measurement or failure condition, which may be further qualified by the Status.  True: measured values are considered reliable; False: measured values are considered not reliable (i.e. a fault has been detected); Unknown: reliability of values is uncertain." ;
+        rdfs:label                "Quality" ;
+        IFC4-PSD:definition       "Indicates the quality of measurement or failure condition, which may be further qualified by the Status.  True: measured values are considered reliable; False: measured values are considered not reliable (i.e. a fault has been detected); Unknown: reliability of values is uncertain." ;
+        IFC4-PSD:definitionAlias  ""@en ;
+        IFC4-PSD:ifdguid          "94af6a00d1e711e1800000215ad4efdf" ;
+        IFC4-PSD:name             "Quality" ;
+        IFC4-PSD:nameAlias        "Quality"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Status  a                  rdf:Property ;
+        rdfs:seeAlso        :p97aa5a80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Status .
+
+:Pset_FlowInstrumentPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Properties for history of flow instrument values.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_FlowInstrumentPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcFlowInstrument ;
+        IFC4-PSD:applicableTypeValue  "IfcFlowInstrument" ;
+        IFC4-PSD:definition           "Properties for history of flow instrument values.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_FlowInstrumentPHistory" ;
+        IFC4-PSD:propertyDef          :p90834c80d1e711e1800000215ad4efdf , :p97aa5a80d1e711e1800000215ad4efdf , :p94af6a00d1e711e1800000215ad4efdf .
+
+:Value  a                   rdf:Property ;
+        rdfs:seeAlso        :p90834c80d1e711e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:Value .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_FlowInstrumentPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

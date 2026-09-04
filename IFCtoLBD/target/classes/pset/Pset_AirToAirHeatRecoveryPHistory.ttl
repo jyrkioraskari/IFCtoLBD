@@ -1,0 +1,222 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirToAirHeatRecoveryPHistory#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:SensibleEffectivenessTable
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7eda7e80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleEffectivenessTable .
+
+:p60748300d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sensible heat transfer effectiveness, where effectiveness is defined as the ratio of heat transfer to maximum possible heat transfer." ;
+        rdfs:label                "SensibleEffectiveness" ;
+        IFC4-PSD:definition       "Sensible heat transfer effectiveness, where effectiveness is defined as the ratio of heat transfer to maximum possible heat transfer." ;
+        IFC4-PSD:definitionAlias  ""@en , "顕熱効率\n効率は、最大可能熱交換に対する熱交換の比率で定義される"@ja-JP , "Efficacité d'échange de chaleur sensible, où l'efficacité est définie par le rapport entre l'échange de chaleur effectif et l'échange maximum possible."@fr-FR ;
+        IFC4-PSD:ifdguid          "60748300d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleEffectiveness" ;
+        IFC4-PSD:nameAlias        "Sensible Effectiveness"@en , "顕熱効率"@ja-JP , "EfficacitéSensible"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p826e0580d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer effectiveness curve as a function of the primary and secondary air flow rate." ;
+        rdfs:label                "TotalEffectivenessTable" ;
+        IFC4-PSD:definition       "Total heat transfer effectiveness curve as a function of the primary and secondary air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "Courbe d'efficacité d'échange thermique total en tant que fonction du débit d'air au primaire et débit d'air au secondaire"@fr-FR , "一次と二次空気量の関数としての全熱交換効率曲線"@ja-JP ;
+        IFC4-PSD:ifdguid          "826e0580d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalEffectivenessTable" ;
+        IFC4-PSD:nameAlias        "全熱効率テーブル"@ja-JP , "DiagrammeEfficacitéTotale"@fr-FR , "Total Effectiveness Table"@en ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:LatentHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p77b37080d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:LatentHeatTransferRate .
+
+:DefrostTemperatureEffectiveness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6c604500d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:DefrostTemperatureEffectiveness .
+
+:p77b37080d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Latent heat transfer rate." ;
+        rdfs:label                "LatentHeatTransferRate" ;
+        IFC4-PSD:definition       "Latent heat transfer rate." ;
+        IFC4-PSD:definitionAlias  "Puissance thermique latente"@fr-FR , ""@en , "潜熱交換量"@ja-JP ;
+        IFC4-PSD:ifdguid          "77b37080d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "LatentHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "Latent Heat Transfer Rate"@en , "PuissanceThermiqueLatente"@fr-FR , "潜熱交換量"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AirToAirHeatRecoveryPHistory>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:p7eda7e80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sensible heat transfer effectiveness curve as a function of the primary and secondary air flow rate." ;
+        rdfs:label                "SensibleEffectivenessTable" ;
+        IFC4-PSD:definition       "Sensible heat transfer effectiveness curve as a function of the primary and secondary air flow rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "Courbe d'efficacité d'échange thermique sensible, en tant que fonction du débit d'air au primaire et débit d'air au secondaire"@fr-FR , "一次と二次空気量の関数としての顕熱交換効率曲線"@ja-JP ;
+        IFC4-PSD:ifdguid          "7eda7e80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleEffectivenessTable" ;
+        IFC4-PSD:nameAlias        "DiagrammeEfficacitéSensible"@fr-FR , "Sensible Effectiveness Table"@en , "顕熱効率テーブル"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:Pset_AirToAirHeatRecoveryPHistory
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "Air to Air Heat Recovery performance history common attributes." ;
+        rdfs:label                    "Pset_AirToAirHeatRecoveryPHistory" ;
+        IFC4-PSD:applicableClass      IFC4:IfcAirToAirHeatRecovery ;
+        IFC4-PSD:applicableTypeValue  "IfcAirToAirHeatRecovery" ;
+        IFC4-PSD:definition           "Air to Air Heat Recovery performance history common attributes." ;
+        IFC4-PSD:definitionAlias      ""@en , "空気熱回収装置性能履歴共通属性。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AirToAirHeatRecoveryPHistory" ;
+        IFC4-PSD:propertyDef          :p826e0580d1c011e1800000215ad4efdf , :p86018c80d1c011e1800000215ad4efdf , :p7b46f780d1c011e1800000215ad4efdf , :p77b37080d1c011e1800000215ad4efdf , :p6c604500d1c011e1800000215ad4efdf , :p7eda7e80d1c011e1800000215ad4efdf , :p73875300d1c011e1800000215ad4efdf , :p679b9100d1c011e1800000215ad4efdf , :p64080a00d1c011e1800000215ad4efdf , :p6f5b3580d1c011e1800000215ad4efdf , :p60748300d1c011e1800000215ad4efdf .
+
+:TotalEffectivenessTable
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p826e0580d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalEffectivenessTable .
+
+:p86018c80d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Air pressure drop as function of air flow rate." ;
+        rdfs:label                "AirPressureDropCurves" ;
+        IFC4-PSD:definition       "Air pressure drop as function of air flow rate." ;
+        IFC4-PSD:definitionAlias  "Perte de charge aéraulique fonction du débit d'air"@fr-FR , "風量の関数としての空気圧力降下"@ja-JP , ""@en ;
+        IFC4-PSD:ifdguid          "86018c80d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "AirPressureDropCurves" ;
+        IFC4-PSD:nameAlias        "Air Pressure Drop Curves"@en , "CourbesPerteChargeAir"@fr-FR , "空気圧力降下曲線"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:TemperatureEffectiveness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p679b9100d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TemperatureEffectiveness .
+
+:p679b9100d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature heat transfer effectiveness: The ratio of primary airflow temperature changes to maximum possible temperature changes." ;
+        rdfs:label                "TemperatureEffectiveness" ;
+        IFC4-PSD:definition       "Temperature heat transfer effectiveness: The ratio of primary airflow temperature changes to maximum possible temperature changes." ;
+        IFC4-PSD:definitionAlias  ""@en , "Efficacité thermique sensible: rapport entre la différence de températures pour le flux primaire sur la différence maximale d'échange possible."@fr-FR , "温度熱交換効率：\n最大可能温度変化に対する一次側温度変化の比"@ja-JP ;
+        IFC4-PSD:ifdguid          "679b9100d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TemperatureEffectiveness" ;
+        IFC4-PSD:nameAlias        "Temperature Effectiveness"@en , "EfficacitéTempérature"@fr-FR , "温度効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:HumidityEffectiveness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p6f5b3580d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:HumidityEffectiveness .
+
+:p6c604500d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Temperature heat transfer effectiveness when defrosting is active." ;
+        rdfs:label                "DefrostTemperatureEffectiveness" ;
+        IFC4-PSD:definition       "Temperature heat transfer effectiveness when defrosting is active." ;
+        IFC4-PSD:definitionAlias  ""@en , "デフロスト作動時の温度熱交換効率"@ja-JP , "Efficacité thermique sensible lorsque le mode dégel est actif"@fr-FR ;
+        IFC4-PSD:ifdguid          "6c604500d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "DefrostTemperatureEffectiveness" ;
+        IFC4-PSD:nameAlias        "EfficacitéTemperatureDégel"@fr-FR , "Defrost Temperature Effectiveness"@en , "デフロスト温度効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:AirPressureDropCurves
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p86018c80d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:AirPressureDropCurves .
+
+:p7b46f780d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer rate." ;
+        rdfs:label                "TotalHeatTransferRate" ;
+        IFC4-PSD:definition       "Total heat transfer rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "全熱交換量"@ja-JP , "Puissance thermique totale"@fr-FR ;
+        IFC4-PSD:ifdguid          "7b46f780d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "全熱交換量"@ja-JP , "Total Heat Transfer Rate"@en , "PuissanceThermiqueTotale"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:TotalEffectiveness  a      rdf:Property ;
+        rdfs:seeAlso        :p64080a00d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalEffectiveness .
+
+:SensibleEffectiveness
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p60748300d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleEffectiveness .
+
+:TotalHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p7b46f780d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:TotalHeatTransferRate .
+
+:SensibleHeatTransferRate
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p73875300d1c011e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:SensibleHeatTransferRate .
+
+:p73875300d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Sensible heat transfer rate." ;
+        rdfs:label                "SensibleHeatTransferRate" ;
+        IFC4-PSD:definition       "Sensible heat transfer rate." ;
+        IFC4-PSD:definitionAlias  ""@en , "顕熱交換量"@ja-JP , "Puissance thermique sensible"@fr-FR ;
+        IFC4-PSD:ifdguid          "73875300d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "SensibleHeatTransferRate" ;
+        IFC4-PSD:nameAlias        "顕熱交換量"@ja-JP , "Sensible Heat Transfer Rate"@en , "PuissanceThermiqueSensible"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p6f5b3580d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Humidity heat transfer effectiveness: The ratio of primary airflow absolute humidity changes to maximum possible absolute humidity changes." ;
+        rdfs:label                "HumidityEffectiveness" ;
+        IFC4-PSD:definition       "Humidity heat transfer effectiveness: The ratio of primary airflow absolute humidity changes to maximum possible absolute humidity changes." ;
+        IFC4-PSD:definitionAlias  "湿度熱交換効率：\n最大可能絶対湿度変化に対する一次側絶対湿度変化の比"@ja-JP , ""@en , "Efficacité sur transfert de chaleur latente: rapport entre difference de températures"@fr-FR ;
+        IFC4-PSD:ifdguid          "6f5b3580d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "HumidityEffectiveness" ;
+        IFC4-PSD:nameAlias        "Humidity Effectiveness"@en , "EfficacitéLatente"@fr-FR , "湿度効率"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .
+
+:p64080a00d1c011e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Total heat transfer effectiveness: The ratio of heat transfer to the maximum possible heat transfer." ;
+        rdfs:label                "TotalEffectiveness" ;
+        IFC4-PSD:definition       "Total heat transfer effectiveness: The ratio of heat transfer to the maximum possible heat transfer." ;
+        IFC4-PSD:definitionAlias  "全熱効率\n最大可能熱交換に対する熱交換の比率"@ja-JP , ""@en , "Rendement thermique: rapport entre la chaleur effective échangée et l'échange maximum possible."@fr-FR ;
+        IFC4-PSD:ifdguid          "64080a00d1c011e1800000215ad4efdf" ;
+        IFC4-PSD:name             "TotalEffectiveness" ;
+        IFC4-PSD:nameAlias        "Total Effectiveness"@en , "全熱効率"@ja-JP , "Rendement thermique"@fr-FR ;
+        IFC4-PSD:propertyType     [ a                 IFC4-PSD:TypePropertyReferenceValue ;
+                                    IFC4-PSD:reftype  IFC4:IfcTimeSeries
+                                  ] .

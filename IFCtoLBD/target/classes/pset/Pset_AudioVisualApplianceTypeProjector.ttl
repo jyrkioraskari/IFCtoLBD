@@ -1,0 +1,132 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:ProjectorType  a           rdf:Property ;
+        rdfs:seeAlso        :p28bb0a80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ProjectorType .
+
+:VideoScaleMode  a          rdf:Property ;
+        rdfs:seeAlso        :p4b4d2380d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoScaleMode .
+
+:p34a6cc80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the number of horizontal pixels (the largest native video resolution width)." ;
+        rdfs:label                "VideoResolutionWidth" ;
+        IFC4-PSD:definition       "Indicates the number of horizontal pixels (the largest native video resolution width)." ;
+        IFC4-PSD:definitionAlias  "水平方向のピクセル数を示す。"@ja-JP , ""@en , "가로 픽셀 수를 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "34a6cc80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionWidth" ;
+        IFC4-PSD:nameAlias        "Video Resolution Width"@en , "水平解像度"@ja-JP , "수평 해상도"@ko-KR ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+:p4b4d2380d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates video scaling modes." ;
+        rdfs:label                "VideoScaleMode" ;
+        IFC4-PSD:definition       "Indicates video scaling modes." ;
+        IFC4-PSD:definitionAlias  ""@en , "ビデオスケーリングモードを示す。"@ja-JP , "비디오 크기 조정모드를 나타낸다."@ko-KR ;
+        IFC4-PSD:ifdguid          "4b4d2380d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoScaleMode" ;
+        IFC4-PSD:nameAlias        "ビデオスケールモード"@ja-JP , "비디오 스케일"@ko-KR , "Video Scale Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:p412b2500d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates video resolution modes." ;
+        rdfs:label                "VideoResolutionMode" ;
+        IFC4-PSD:definition       "Indicates video resolution modes." ;
+        IFC4-PSD:definitionAlias  "解像度モードを示す。"@ja-JP , "모드해상도를 보여준다"@ko-KR , ""@en ;
+        IFC4-PSD:ifdguid          "412b2500d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionMode" ;
+        IFC4-PSD:nameAlias        "디스플레이 모드"@ko-KR , "解像度モード"@ja-JP , "Video Resolution Mode"@en ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:p28bb0a80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the type of projector." ;
+        rdfs:label                "ProjectorType" ;
+        IFC4-PSD:definition       "Indicates the type of projector." ;
+        IFC4-PSD:definitionAlias  "プロジェクタの形式を示す。"@ja-JP , ""@en , "프로젝터의 형식을 보여준다."@ko-KR ;
+        IFC4-PSD:ifdguid          "28bb0a80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ProjectorType" ;
+        IFC4-PSD:nameAlias        "Projector Type"@en , "프로젝터 형식"@ko-KR , "プロジェクター形式"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "OTHER" , "NOTKNOWN" , "UNSET."
+                                  ] .
+
+:p54d68b80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates closed captioning modes." ;
+        rdfs:label                "VideoCaptionMode" ;
+        IFC4-PSD:definition       "Indicates closed captioning modes." ;
+        IFC4-PSD:definitionAlias  ""@en , "クローズドキャプションモードを示す。(字幕機能）"@ja-JP , "자막 모드를 나타낸다.(자막 기능)"@ko-KR ;
+        IFC4-PSD:ifdguid          "54d68b80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoCaptionMode" ;
+        IFC4-PSD:nameAlias        "비디오 캡쳐모드"@ko-KR , "Video Caption Mode"@en , "ビデオキャプションモード"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                       IFC4-PSD:TypePropertyTableValue ;
+                                    IFC4-PSD:definedValue   IFC4:IfcLabel ;
+                                    IFC4-PSD:definingValue  IFC4:IfcIdentifier
+                                  ] .
+
+:VideoResolutionHeight
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p3a9cad80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionHeight .
+
+:VideoResolutionMode  a     rdf:Property ;
+        rdfs:seeAlso        :p412b2500d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionMode .
+
+:VideoResolutionWidth
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p34a6cc80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoResolutionWidth .
+
+:VideoCaptionMode  a        rdf:Property ;
+        rdfs:seeAlso        :p54d68b80d1c311e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:VideoCaptionMode .
+
+:Pset_AudioVisualApplianceTypeProjector
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "An audio-visual projector is a device that projects video to a surface.  HISTORY: Added in IFC4." ;
+        rdfs:label                    "Pset_AudioVisualApplianceTypeProjector" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcAudioVisualAppliance/PROJECTOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcAudioVisualAppliance/PROJECTOR" ;
+        IFC4-PSD:definition           "An audio-visual projector is a device that projects video to a surface.  HISTORY: Added in IFC4." ;
+        IFC4-PSD:definitionAlias      ""@en , "画面にビデオ映像を投影する装置。"@ja-JP ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_AudioVisualApplianceTypeProjector" ;
+        IFC4-PSD:propertyDef          :p34a6cc80d1c311e1800000215ad4efdf , :p412b2500d1c311e1800000215ad4efdf , :p54d68b80d1c311e1800000215ad4efdf , :p4b4d2380d1c311e1800000215ad4efdf , :p28bb0a80d1c311e1800000215ad4efdf , :p3a9cad80d1c311e1800000215ad4efdf .
+
+:p3a9cad80d1c311e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Indicates the number of vertical pixels (the largest native video resolution height)." ;
+        rdfs:label                "VideoResolutionHeight" ;
+        IFC4-PSD:definition       "Indicates the number of vertical pixels (the largest native video resolution height)." ;
+        IFC4-PSD:definitionAlias  ""@en , "세로 픽셀 수를 나타낸다."@ko-KR , "垂直方向のピクセル数を示す。"@ja-JP ;
+        IFC4-PSD:ifdguid          "3a9cad80d1c311e1800000215ad4efdf" ;
+        IFC4-PSD:name             "VideoResolutionHeight" ;
+        IFC4-PSD:nameAlias        "Video Resolution Height"@en , "수직 해상도"@ko-KR , "垂直解像度"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcInteger
+                                  ] .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_AudioVisualApplianceTypeProjector>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .

@@ -1,0 +1,60 @@
+@prefix :      <https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeElectricActuator#> .
+@prefix IFC4-PSD: <https://www.linkedbuildingdata.net/IFC4-PSD#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix IFC4:  <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#> .
+
+:p58ffaa80d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Maximum input power requirement." ;
+        rdfs:label                "ActuatorInputPower" ;
+        IFC4-PSD:definition       "Maximum input power requirement." ;
+        IFC4-PSD:definitionAlias  "최대 입력 전력"@ko-KR , ""@en , "最大入力電力。"@ja-JP ;
+        IFC4-PSD:ifdguid          "58ffaa80d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ActuatorInputPower" ;
+        IFC4-PSD:nameAlias        "Actuator Input Power"@en , "입력 전력"@ko-KR , "入力電力"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertySingleValue ;
+                                    IFC4-PSD:dataType  IFC4:IfcPowerMeasure
+                                  ] .
+
+:ElectricActuatorType
+        a                   rdf:Property ;
+        rdfs:seeAlso        :p5ef58b80d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ElectricActuatorType .
+
+<https://www.linkedbuildingdata.net/IFC4-PSD/Pset_ActuatorTypeElectricActuator>
+        a                owl:Ontology ;
+        owl:imports      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4-PSD> ;
+        owl:versionInfo  "Created with BIM-Bots PSD Repository" .
+
+:ActuatorInputPower  a      rdf:Property ;
+        rdfs:seeAlso        :p58ffaa80d1bd11e1800000215ad4efdf ;
+        rdfs:subPropertyOf  IFC4-PSD:ActuatorInputPower .
+
+:Pset_ActuatorTypeElectricActuator
+        a                             IFC4-PSD:PropertySetDef ;
+        rdfs:comment                  "A device that electrically actuates a control element." ;
+        rdfs:label                    "Pset_ActuatorTypeElectricActuator" ;
+        IFC4-PSD:applicableClass      <http://lbd.arch.rwth-aachen.de/ifcOWL/IFC4#IfcActuator/ELECTRICACTUATOR> ;
+        IFC4-PSD:applicableTypeValue  "IfcActuator/ELECTRICACTUATOR" ;
+        IFC4-PSD:definition           "A device that electrically actuates a control element." ;
+        IFC4-PSD:definitionAlias      "制御要素を電気的に作動させるデバイス。"@ja-JP , ""@en ;
+        IFC4-PSD:ifcVersion           [ a                 IFC4-PSD:IfcVersion ;
+                                        IFC4-PSD:version  "IFC4"
+                                      ] ;
+        IFC4-PSD:name                 "Pset_ActuatorTypeElectricActuator" ;
+        IFC4-PSD:propertyDef          :p58ffaa80d1bd11e1800000215ad4efdf , :p5ef58b80d1bd11e1800000215ad4efdf .
+
+:p5ef58b80d1bd11e1800000215ad4efdf
+        a                         IFC4-PSD:PropertyDef ;
+        rdfs:comment              "Enumeration that identifies electric actuator as defined by its operational principle." ;
+        rdfs:label                "ElectricActuatorType" ;
+        IFC4-PSD:definition       "Enumeration that identifies electric actuator as defined by its operational principle." ;
+        IFC4-PSD:definitionAlias  "作動原理によって定義された電気式アクチュエータを識別する一覧。"@ja-JP , ""@en , "작동 원리에 의해 정의된 전기식 액츄에이터를 식별하는 목록"@ko-KR ;
+        IFC4-PSD:ifdguid          "5ef58b80d1bd11e1800000215ad4efdf" ;
+        IFC4-PSD:name             "ElectricActuatorType" ;
+        IFC4-PSD:nameAlias        "Electric Actuator Type"@en , "전기식 액추에이터 유형"@ko-KR , "電気式アクチュエータタイプ"@ja-JP ;
+        IFC4-PSD:propertyType     [ a                  IFC4-PSD:TypePropertyEnumeratedValue ;
+                                    IFC4-PSD:enumItem  "MOTORDRIVE" , "MAGNETIC" , "OTHER" , "NOTKNOWN" , "UNSET"
+                                  ] .
