@@ -9,7 +9,7 @@ process.stdin.on("end", () => {
   const runtime = responses.find(response => response.id === 2);
   assert(runtime && !runtime.error, runtime && runtime.error && runtime.error.message);
   const info = JSON.parse(runtime.result.content[0].text);
-  assert.strictEqual(info.converterVersion, "2.51.1",
+  assert.strictEqual(info.converterVersion, "2.52.0",
     "MCP must report the version loaded from the Java distribution manifest");
   assert.match(info.converterJar, /ifctolbd-converter\.jar$/);
   console.log(`MCP loaded IFCtoLBD ${info.converterVersion} from its distribution manifest.`);

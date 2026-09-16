@@ -1,9 +1,9 @@
 # IFCtoLBD
 
-Version 2.51.1
+Version 2.52.0
 Free for all of us, forever.
 
-The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
+The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP, IFC/XML, and IFC/JSON format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
 
 Full documentation can be found
 [here](https://jyrkioraskari.github.io/IFCtoLBD/#/).
@@ -44,13 +44,13 @@ Build the executable converter JAR and run it with an IFC file and output path:
 
 ```sh
 mvn -pl IFCtoLBD -am package -DskipTests
-java -jar IFCtoLBD/target/ifc-to-lbd-2.51.1-jar-with-dependencies.jar \
+java -jar IFCtoLBD/target/ifc-to-lbd-2.52.0-jar-with-dependencies.jar \
   --url https://example.com/ \
   --target_file output.ttl \
   model.ifc
 ```
 
-Run `java -jar IFCtoLBD/target/ifc-to-lbd-2.51.1-jar-with-dependencies.jar --help`
+Run `java -jar IFCtoLBD/target/ifc-to-lbd-2.52.0-jar-with-dependencies.jar --help`
 to see all options. Java 21 or newer is required.
 
 ### Desktop application
@@ -114,11 +114,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.51.1}},
+  title        = {{IFCtoLBD v 2.52.0}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.51.1},
+  version      = {2.52.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
@@ -127,6 +127,10 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 ## Blog
+
+### Sep 15, 2026
+ Support for IFC formats as .ifcxml, .xml, .ifcjson, and .json.
+
 ### July 10, 2026
 IFCProps2ExcelOnline  was ported to support Apache Tomcat 11.
 

@@ -52,11 +52,11 @@ Lists of 193 third-party dependencies.
      (Apache-2.0) Apache Commons IO (commons-io:commons-io:2.16.1 - https://commons.apache.org/proper/commons-io/)
      (The Apache Software License, Version 2.0) Commons Lang (commons-lang:commons-lang:2.6 - http://commons.apache.org/lang/)
      (The Apache Software License, Version 2.0) Apache Commons Logging (commons-logging:commons-logging:1.2 - http://commons.apache.org/proper/commons-logging/)
-     (GNU Affero General Public License) IFCtoLBD_Geometry (de.rwth-aachen.lbd:ifc_to_lbd_geometry:2.51.1 - no url defined)
+     (GNU Affero General Public License) IFCtoLBD_Geometry (de.rwth-aachen.lbd:ifc_to_lbd_geometry:2.52.0 - no url defined)
      (Unknown license) Java port of GNU getopt (gnu.getopt:java-getopt:1.0.13 - no url defined)
      (The Apache Software License, version 2.0) picocli (info.picocli:picocli:4.7.7 - https://picocli.info)
      (The Apache Software License, Version
-							2.0) IFC 2 RDF (io.github.jyrkioraskari:ifc2rdf:2.51.1 - no url defined)
+							2.0) IFC 2 RDF (io.github.jyrkioraskari:ifc2rdf:2.52.0 - no url defined)
      (Indiana University Extreme! Lab Software License) MXParser (io.github.x-stream:mxparser:1.2.2 - http://x-stream.github.io/mxparser)
      (The Apache Software License, Version
 							2.0) fastutil (it.unimi.dsi:fastutil:8.2.2 - http://fastutil.di.unimi.it/)

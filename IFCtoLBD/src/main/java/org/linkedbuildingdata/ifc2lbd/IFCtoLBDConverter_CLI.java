@@ -174,7 +174,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			return 1;
 		}
 
-		String outputFile = target_file.orElseGet(() -> ifc_filename.replaceFirst("(?i)\\.ifc(?:zip)?$", "")
+		String outputFile = target_file.orElseGet(() -> ifc_filename.replaceFirst("(?i)\\.(?:ifc(?:zip|xml|json)?|xml|json)$", "")
 				+ (namedGraphs.orElse(false) ? ".trig" : exportJSON.orElse(false) ? ".jsonld" : ".ttl"));
 		ConversionRequest request;
 		if (profile.isPresent()) {

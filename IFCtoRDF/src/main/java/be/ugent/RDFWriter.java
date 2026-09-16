@@ -449,7 +449,10 @@ public class RDFWriter {
 								+ typerange.getLocalName().substring(0, typerange.getLocalName().length() - 5);
 						OntResource listrange = getOntResource(listvaluepropURI);
 
-						if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
+						// Some valid IFC schemas omit an explicit ontology resource for the
+						// list item range. Treat that case as a regular EXPRESS list rather
+						// than failing the complete conversion with a null-resource error.
+						if (listrange != null && listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 							LOG.error(
 									"*ERROR 22*: Found supposedly unhandled ListOfList, but this should not be possible.");
 						} else {
@@ -577,19 +580,23 @@ public class RDFWriter {
 							String listvaluepropURI = typerange.getLocalName().substring(0,
 									typerange.getLocalName().length() - 5);
 							OntResource listrange = getOntResource(ontNS + listvaluepropURI);
-							Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
-							idCounter++;
-							List<Object> objects = new ArrayList<>();
-							if (!ifcVOs.isEmpty()) {
-								objects.addAll(ifcVOs);
-								OntResource listcontentrange = getListContentType(listrange.asClass());
-								addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 1);
-							} else if (!literals.isEmpty()) {
-								objects.addAll(literals);
-								OntResource listcontentrange = getListContentType(listrange.asClass());
-								addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 0);
+							if (listrange != null) {
+								Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
+								idCounter++;
+								List<Object> objects = new ArrayList<>();
+								if (!ifcVOs.isEmpty()) {
+									objects.addAll(ifcVOs);
+									OntResource listcontentrange = getListContentType(listrange.asClass());
+									addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 1);
+								} else if (!literals.isEmpty()) {
+									objects.addAll(literals);
+									OntResource listcontentrange = getListContentType(listrange.asClass());
+									addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 0);
+								}
+								listRemembranceResources.add(r1);
+							} else {
+								LOG.warn("No ontology range found for EXPRESS list {}", listvaluepropURI);
 							}
-							listRemembranceResources.add(r1);
 						} else {
 							LOG.error("*ERROR 23*: Impossible: found a list that is actually not a list.");
 						}
@@ -812,7 +819,7 @@ public class RDFWriter {
 	private void addDirectRegularListProperty(Resource r, OntResource range, OntResource listrange, List<Object> el,
 			int mySwitch)  {
 
-		if (range.isClass()) {
+		if (range.isClass() && listrange != null) {
 			if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 				LOG.warn("*WARNING 27*: Found unhandled ListOfList");
 			} else {

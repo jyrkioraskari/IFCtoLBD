@@ -91,7 +91,7 @@ SPARQL is parsed by Jena and limited to `SELECT`; `SERVICE` is disabled, queries
 
 The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `digital-twin-sensors`, `fire-accessibility`, `supply-chain-identifiers`, and `sustainability-declarations`, currently at version 1.0.0. Reports are available as `ifctolbd://models/{modelId}/validation/{reportId}` resources.
 
-`load_ifc` accepts the named 2.51 profiles, including `revision-ready`, `compliance`, and
+`load_ifc` accepts the named 2.52 profiles, including `revision-ready`, `compliance`, and
 `geometry-external`. Its `ConversionResult` graphs are resources at
 `ifctolbd://models/{modelId}/manifest` and `ifctolbd://models/{modelId}/validation`.
 External geometry is available at the artifact URI recorded in the RDF manifest. Set

@@ -107,6 +107,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
@@ -225,7 +226,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Button selectTargetFileButton;
 
 	@FXML
-	private Label labelTargetFile;
+	private TextField labelTargetFile;
 
 	@FXML
 	private Button convert2RDFButton;
@@ -373,9 +374,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private final Rotate geometryRotateY = new Rotate(-35, Rotate.Y_AXIS);
 	private final Translate geometryCameraDistance = new Translate(0, 0, -760);
 	private PreviewMesh currentPreviewMesh;
-	private Model sparqlModel;
-	private File sparqlModelFile;
-	private long sparqlModelLastModified;
+	private boolean queryDataAvailable;
+	private long outputRevision;
+	private long validationRevision;
 	private boolean sparqlCardPositioned;
 	private final List<LoadedShapes> loadedShapes = new ArrayList<>();
 	private final ObservableList<ShapeValidationItem> shapeValidationItems = FXCollections.observableArrayList();
@@ -424,6 +425,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			""";
 
 	private record LoadedShapes(File file, String name, Shapes shapes, List<ShapeValidationItem> items) {
+	}
+
+	private record ShapeValidationResult(ShapeValidationItem item, Boolean conforms, String message) {
 	}
 
 	private static final class ShapeValidationItem {
@@ -539,15 +543,27 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		this.runSparqlQueryButton.setDisable(true);
 		this.sparqlResultsTxt.setText("Running query...");
+		long revision = this.outputRevision;
+		File outputFile = new File(this.lastSuccessfulConversionRequest.settings().rdfTargetName());
 		this.executor.submit(() -> {
+			Model model = null;
 			try {
-				Model model = loadSparqlModel();
+				model = readOutputModel(outputFile);
 				String output = executeSparqlQuery(model, queryText);
-				Platform.runLater(() -> this.sparqlResultsTxt.setText(output));
+				Platform.runLater(() -> {
+					if (revision == this.outputRevision) this.sparqlResultsTxt.setText(output);
+				});
 			} catch (Exception e) {
-				Platform.runLater(() -> this.sparqlResultsTxt.setText("SPARQL query failed: " + e.getMessage()));
+				Platform.runLater(() -> {
+					if (revision == this.outputRevision)
+						this.sparqlResultsTxt.setText("SPARQL query failed: " + e.getMessage());
+				});
 			} finally {
-				Platform.runLater(() -> this.runSparqlQueryButton.setDisable(!isSparqlQueryAvailable()));
+				if (model != null) model.close();
+				Platform.runLater(() -> {
+					if (revision == this.outputRevision)
+						this.runSparqlQueryButton.setDisable(!isSparqlQueryAvailable());
+				});
 			}
 		});
 	}
@@ -600,8 +616,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	}
 
-	final Tooltip openExpressFileButton_tooltip = new Tooltip();
-	final Tooltip saveIfcOWLButton_tooltip = new Tooltip();
 
 	private String ifcFileName = null;
 	private String rdfTargetName = null;
@@ -623,7 +637,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 		}
 		FileChooser.ExtensionFilter ef1;
-		ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc)", "*.ifc");
+		ef1 = new FileChooser.ExtensionFilter("IFC documents (*.ifc, *.ifcxml, *.ifcjson)", "*.ifc", "*.ifcxml", "*.ifcjson", "*.xml", "*.json");
 		FileChooser.ExtensionFilter ef2;
 		ef2 = new FileChooser.ExtensionFilter("IFC zip documents (*.ifczip)", "*.ifczip");
 		FileChooser.ExtensionFilter ef3;
@@ -934,21 +948,24 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void readInIFC() {
 		ConversionSettings settings = currentSettings();
-		this.readInSettings = settings;
 		readInIFCExecute(settings);
 	}
 
 	private void readInIFCExecute(ConversionSettings settings) {
+		if ((this.running_read_in != null && !this.running_read_in.isDone())
+				|| (this.running_conversion != null && !this.running_conversion.isDone())) {
+			this.conversionTxt.appendText("The previous read-in or conversion is still running.\n");
+			return;
+		}
 		persistSettings(settings);
+		this.readInSettings = settings;
 		setRunReady(false);
-		setWorkflowDataAvailable(false, false, false);
+		resetConversionOutput();
+		this.element_types_checkbox.setRoot(null);
+		this.propertysets_checkbox.setRoot(null);
 		this.conversionTxt.setText("");
 		clearGeometryPreview("Convert with geometry enabled to preview the model.");
 		try {
-				if (this.running_read_in != null && !this.running_read_in.isDone()) {
-					this.conversionTxt.appendText("\nThe last conversion is still running. \n");
-					return;
-				}
 			this.running_read_in = this.executor
 					.submit(new ReadinInThread(settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
 							settings.propsLevel(), settings.hasBuildingElements(),
@@ -1135,7 +1152,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private boolean isSparqlQueryAvailable() {
-		if (this.lastSuccessfulConversionRequest == null) {
+		if (!this.queryDataAvailable || this.lastSuccessfulConversionRequest == null) {
 			return false;
 		}
 		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
@@ -1148,6 +1165,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void setSparqlQueryAvailable(boolean available) {
+		this.queryDataAvailable = available;
 		if (this.queryWorkflowButton != null) {
 			this.queryWorkflowButton.setDisable(!available);
 			setUnavailableStyle(this.queryWorkflowButton, !available);
@@ -1159,9 +1177,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			setUnavailableStyle(this.sparqlQueryCard, !available);
 		}
 		if (!available) {
-			this.sparqlModel = null;
-			this.sparqlModelFile = null;
-			this.sparqlModelLastModified = 0L;
 			if (this.sparqlResultsTxt != null) {
 				this.sparqlResultsTxt.setText("Generate a Turtle LBD output to run SPARQL queries.");
 			}
@@ -1180,6 +1195,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			setUnavailableStyle(this.validateCard, !available);
 		}
 		if (!available) {
+			this.outputRevision++;
+			this.validationRevision++;
 			for (ShapeValidationItem item : this.shapeValidationItems) {
 				item.conforms = null;
 				item.message = "Generate a Turtle LBD output to validate shapes.";
@@ -1198,6 +1215,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setGeometryPreviewAvailable(geometryAvailable);
 		setSparqlQueryAvailable(sparqlAvailable);
 		setValidationAvailable(sparqlAvailable);
+	}
+
+	private void resetConversionOutput() {
+		this.lastSuccessfulConversionRequest = null;
+		this.pendingConversionRequest = null;
+		setWorkflowDataAvailable(false, false, false);
 	}
 
 	private static void setUnavailableStyle(Node node, boolean unavailable) {
@@ -1275,6 +1298,22 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (this.labelTargetFile != null) {
 			this.labelTargetFile.setText(text);
 		}
+	}
+
+	/** Keeps the editable advanced-workflow output field as the conversion target. */
+	private void setupTargetFileEditor() {
+		this.labelTargetFile.textProperty().addListener((observable, oldValue, newValue) -> {
+			String target = newValue == null ? "" : newValue.trim();
+			if (target.isEmpty() || "Target path will be generated after input selection".equals(target)) {
+				this.rdfTargetName = null;
+				return;
+			}
+			this.rdfTargetName = target;
+			File parent = new File(target).getAbsoluteFile().getParentFile();
+			if (parent != null && parent.isDirectory()) {
+				this.prefs.put("ifc_target_directory", parent.getAbsolutePath());
+			}
+		});
 	}
 
 	private void setupOutputFormatChoices() {
@@ -1779,6 +1818,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void validateLoadedShapesAsync() {
+		long revision = ++this.validationRevision;
 		if (!isValidationAvailable()) {
 			setValidationAvailable(false);
 			return;
@@ -1788,26 +1828,51 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.validateStatusLabel.setText("Load SHACL shapes before validating.");
 			return;
 		}
+		File outputFile = new File(this.lastSuccessfulConversionRequest.settings().rdfTargetName());
+		for (ShapeValidationItem item : this.shapeValidationItems) {
+			item.conforms = null;
+			item.message = "Validation pending.";
+		}
+		this.shaclShapesList.refresh();
 		this.validateStatusLabel.setText("Validating " + this.shapeValidationItems.size() + " shapes...");
 		this.executor.submit(() -> {
+			Model dataModel = null;
 			try {
-				Model dataModel = loadSparqlModel();
-				List<ShapeValidationItem> updated = new ArrayList<>();
+				dataModel = readOutputModel(outputFile);
+				List<ShapeValidationResult> updated = new ArrayList<>();
 				for (LoadedShapes loaded : shapesToValidate) {
 					ValidationReport report = ShaclValidator.get().validate(loaded.shapes(), dataModel.getGraph());
-					applyValidationReport(loaded.items(), report);
-					updated.addAll(loaded.items());
+					List<ShapeValidationItem> copies = loaded.items().stream().map(item -> new ShapeValidationItem(
+							item.sourceName, item.displayName, item.shapeNode, item.constraintNodes)).toList();
+					applyValidationReport(copies, report);
+					for (int i = 0; i < copies.size(); i++) {
+						ShapeValidationItem copy = copies.get(i);
+						updated.add(new ShapeValidationResult(loaded.items().get(i), copy.conforms, copy.message));
+					}
 				}
-				long failureCount = updated.stream().filter(item -> Boolean.FALSE.equals(item.conforms)).count();
-				Platform.runLater(() -> {
-					this.shaclShapesList.refresh();
-					this.validateStatusLabel.setText("Validated " + updated.size() + " shapes against "
-							+ this.sparqlModelFile.getName() + ". Failed: " + failureCount + ".");
-				});
+				Platform.runLater(() -> publishValidationResults(revision, updated, outputFile.getName()));
 			} catch (Exception e) {
-				Platform.runLater(() -> this.validateStatusLabel.setText("Validation failed: " + e.getMessage()));
+				Platform.runLater(() -> {
+					if (revision == this.validationRevision)
+						this.validateStatusLabel.setText("Validation failed: " + e.getMessage());
+				});
+			} finally {
+				if (dataModel != null) dataModel.close();
 			}
 		});
+	}
+
+	private void publishValidationResults(long revision, List<ShapeValidationResult> updated, String outputName) {
+		if (revision != this.validationRevision) return;
+		for (ShapeValidationResult result : updated) {
+			result.item().conforms = result.conforms();
+			result.item().message = result.message();
+		}
+		long failureCount = updated.stream().filter(result -> Boolean.FALSE.equals(result.conforms())).count();
+		if (this.shaclShapesList != null) this.shaclShapesList.refresh();
+		if (this.validateStatusLabel != null)
+			this.validateStatusLabel.setText("Validated " + updated.size() + " shapes against "
+					+ outputName + ". Failed: " + failureCount + ".");
 	}
 
 	private void applyValidationReport(List<ShapeValidationItem> items, ValidationReport report) {
@@ -1872,22 +1937,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return tempFile;
 	}
 
-	private Model loadSparqlModel() {
-		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
-		File outputFile = new File(settings.rdfTargetName());
-		long lastModified = outputFile.lastModified();
-		if (this.sparqlModel != null && outputFile.equals(this.sparqlModelFile)
-				&& lastModified == this.sparqlModelLastModified) {
-			return this.sparqlModel;
-		}
+	private static Model readOutputModel(File outputFile) {
 		Model model = ModelFactory.createDefaultModel();
-		RDFDataMgr.read(model, outputFile.getAbsolutePath(), Lang.TURTLE);
-		this.sparqlModel = model;
-		this.sparqlModelFile = outputFile;
-		this.sparqlModelLastModified = lastModified;
-		Platform.runLater(() -> this.conversionTxt
-				.appendText("SPARQL Query: loaded " + model.size() + " triples from " + outputFile.getName() + ".\n"));
-		return model;
+		try {
+			RDFDataMgr.read(model, outputFile.getAbsolutePath(), Lang.TURTLE);
+			return model;
+		} catch (RuntimeException e) {
+			model.close();
+			throw e;
+		}
 	}
 
 	private String executeSparqlQuery(Model model, String queryText) {
@@ -2371,7 +2429,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				return;
 			}
 			this.conversionTxt.appendText("Re-running initial read due to changed settings.\n");
-			this.readInSettings = currentSettings;
 			readInIFCExecute(currentSettings);
 			this.conversionTxt.appendText("Start conversion after read-in finishes.\n");
 			return;
@@ -2579,6 +2636,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		
 		
+		setupTargetFileEditor();
 		setupOutputFormatChoices();
         
         
@@ -2720,23 +2778,30 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			});
 		}
 		if (event.getPhase() == ProcessReadyEvent.CONVERT) {
-			ConversionRequest successfulRequest = this.pendingConversionRequest;
-			this.lastSuccessfulConversionRequest = successfulRequest;
-			if (successfulRequest != null) {
-				scheduleGeometryPreview(successfulRequest.settings());
-				Platform.runLater(() -> {
-					boolean queryAvailable = isSparqlQueryAvailable();
+			Platform.runLater(() -> {
+				ConversionRequest successfulRequest = this.pendingConversionRequest;
+				this.lastSuccessfulConversionRequest = successfulRequest;
+				this.pendingConversionRequest = null;
+				if (successfulRequest != null) {
+					scheduleGeometryPreview(successfulRequest.settings());
+					String outputPath = new File(successfulRequest.settings().rdfTargetName()).getAbsolutePath();
+					this.conversionTxt.appendText("LBD file written to: " + outputPath + "\n");
+					boolean queryAvailable = !successfulRequest.settings().exportAsJsonLd()
+							&& new File(successfulRequest.settings().rdfTargetName()).isFile();
 					setWorkflowDataAvailable(isFiltersAvailable(), true, queryAvailable);
 					if (queryAvailable) {
 						this.sparqlResultsTxt.setText("Ready. Run a SPARQL query against "
 								+ new File(successfulRequest.settings().rdfTargetName()).getName() + ".");
 						validateLoadedShapesAsync();
 					}
-				});
-			}
+				}
+			});
 		}
 		if (event.getPhase() == ProcessReadyEvent.ERROR) {
-			this.pendingConversionRequest = null;
+			Platform.runLater(() -> {
+				this.pendingConversionRequest = null;
+				this.lastSuccessfulConversionRequest = null;
+			});
 			Platform.runLater(() -> setRunReady(false));
 			Platform.runLater(() -> setWorkflowDataAvailable(isFiltersAvailable(), false, false));
 			Platform.runLater(() -> clearGeometryPreview("Geometry preview unavailable because conversion failed."));

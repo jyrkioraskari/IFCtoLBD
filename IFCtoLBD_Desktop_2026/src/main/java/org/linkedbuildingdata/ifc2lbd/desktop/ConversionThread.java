@@ -1,5 +1,6 @@
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
+import java.io.File;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
@@ -63,12 +64,14 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasInterfaces;
     final boolean hasElementWireframe;
     final boolean createTrig;
-    final boolean export_as_JSON_LD;
+	final boolean export_as_JSON_LD;
     final boolean propertiesAsPropertySets;
+    private final String target_file;
     
 	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean hasElementWireframe, boolean propertiesAsPropertySets) {
 		super();
 		this.converter=converter;
+		this.target_file=target_file;
 		this.selected_types=selected_types;
 		this.selected_psets=selected_psets;
 	
@@ -101,10 +104,20 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_psets(selected_psets);
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
-				converter.convert_LBD_phase(hasBuildingElements,
+					converter.convert_LBD_phase(hasBuildingElements,
 						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
 						hasGeolocation, hasGeometry || hasElementWireframe, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
-						hasHierarchicalNaming, hasInterfaces, createTrig, export_as_JSON_LD, hasElementWireframe);
+							hasHierarchicalNaming, hasInterfaces, createTrig, export_as_JSON_LD, hasElementWireframe);
+				String outputPath = target_file;
+				if (export_as_JSON_LD && outputPath != null)
+					outputPath = outputPath.replaceFirst("(?i)\\.ttl$", ".json");
+				if (outputPath == null || !new File(outputPath).isFile()) {
+					String message = "Conversion failed: output RDF file was not created"
+							+ (outputPath == null ? "." : ": " + new File(outputPath).getAbsolutePath());
+					eventBus.post(new IFCtoLBD_SystemStatusEvent(message));
+					eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+					return -1;
+				}
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

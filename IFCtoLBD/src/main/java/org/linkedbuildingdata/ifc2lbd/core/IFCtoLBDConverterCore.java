@@ -250,6 +250,8 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			dataset.begin(ReadWrite.READ); // Just bulky one
 			Model ifcowl_model = dataset.getDefaultModel();
+			if (this.ifcOWL == null)
+				throw new IllegalStateException("IFC ontology is unavailable; the read-in phase did not complete.");
 			this.coordinateReferenceSystem = IfcCoordinateReferenceSystemExtractor.extract(ifcowl_model, this.ifcOWL);
 
 			this.handledAttributes4resource.clear(); // less performant but more dynamic

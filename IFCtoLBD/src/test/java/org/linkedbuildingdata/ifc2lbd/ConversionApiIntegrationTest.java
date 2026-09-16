@@ -51,6 +51,37 @@ class ConversionApiIntegrationTest {
 	}
 
 	@Test
+	void coreProfileReadsIfcJson(@TempDir Path temporaryDirectory) throws Exception {
+		Path input = temporaryDirectory.resolve("wall.ifcjson");
+		Files.writeString(input, """
+				{"type":"ifcJSON","schemaIdentifier":"IFC4","data":[
+				  {"type":"IfcWall","globalId":"1hOSvn6df7F8_7GcBWlN4K","name":"JSON wall","predefinedType":"STANDARD"}
+				]}
+				""");
+		assertStructuredIfcConverts(input);
+	}
+
+	@Test
+	void coreProfileReadsIfcXml(@TempDir Path temporaryDirectory) throws Exception {
+		Path input = temporaryDirectory.resolve("wall.ifcxml");
+		Files.writeString(input, """
+				<?xml version="1.0" encoding="UTF-8"?>
+				<IfcWall xmlns="https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2/XML/IFC4_ADD2.xsd"
+				    type="IfcWall" globalId="1hOSvn6df7F8_7GcBWlN4K" name="XML wall" predefinedType="STANDARD"/>
+				""");
+		assertStructuredIfcConverts(input);
+	}
+
+	private void assertStructuredIfcConverts(Path input) throws Exception {
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/");
+				ConversionResult result = converter.convert(new ConversionRequest(input.toString(), ConversionProfiles.CORE))) {
+			assertFalse(result.getModel().isEmpty());
+			assertEquals("IFC4_ADD2", manifestValue(result, "ifcSchema"));
+		}
+	}
+
+	@Test
 	void coreProfileDoesNotRunSupplyChainOrSustainabilityAndSkipsPsetOntologies() throws Exception {
 		File ifcFile = new File(getClass().getResource("/TWO WALLS.ifc").toURI());
 		try (ConversionSession session = new ConversionSession();
@@ -77,7 +108,7 @@ class ConversionApiIntegrationTest {
 			assertFalse(manifest.isEmpty());
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "profile"), "core"));
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "converterVersion"),
-					"2.51.1"));
+					"2.52.0"));
 			assertTrue(manifest.contains(null, manifest.createProperty("http://www.w3.org/ns/prov#generatedAtTime")));
 		}
 	}

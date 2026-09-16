@@ -28,7 +28,7 @@ import be.ugent.IfcSpfReader;
 final class ConversionManifest {
 
 	static final String NS = "https://w3id.org/ifctolbd/manifest#";
-	static final String CONVERTER_VERSION = "2.51.1";
+	static final String CONVERTER_VERSION = "2.52.0";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
 
 	private ConversionManifest() { }

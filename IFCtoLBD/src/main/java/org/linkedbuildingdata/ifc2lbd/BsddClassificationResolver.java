@@ -62,7 +62,7 @@ public final class BsddClassificationResolver implements ClassificationResolver 
 		String query = "api/Dictionary/v1/Classes?Uri=" + encode(dictionaryUri) + "&SearchText="
 				+ encode(request.code()) + "&Limit=100";
 		HttpRequest httpRequest = HttpRequest.newBuilder(endpoint.resolve(query)).timeout(Duration.ofSeconds(15))
-				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.51.1").GET().build();
+				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.52.0").GET().build();
 		try {
 			RegistryResponse response = transport == null
 					? fromHttp(client.send(httpRequest, HttpResponse.BodyHandlers.ofString()))

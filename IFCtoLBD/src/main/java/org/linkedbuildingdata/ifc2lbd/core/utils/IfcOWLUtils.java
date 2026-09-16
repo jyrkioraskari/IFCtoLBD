@@ -2,21 +2,16 @@ package org.linkedbuildingdata.ifc2lbd.core.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.DataInputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
@@ -30,6 +25,8 @@ import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.InvRDFStep;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
+
+import be.ugent.IfcSpfReader;
 
 /*
  *  Copyright (c) 2020, 2021, 2025 Jyrki Oraskari (Jyrki.Oraskari@gmail.fi), Simon Steyskal, Pieter Pauwels 
@@ -365,7 +362,7 @@ public abstract class IfcOWLUtils {
 	 */
 	public static void readIfcOWLOntology(String ifc_file, Model model) {
 		String exp = IfcOWLUtils.getExpressSchema(ifc_file); // TODO clean
-		if (exp == null)
+		if (exp == null || exp.isBlank())
 			return;
 		InputStream in = null;
 		try {
@@ -395,49 +392,17 @@ public abstract class IfcOWLUtils {
 
 	/**
 	 * 
-	 * This is a direct copy from the IFCtoRDF https://github.com/pipauwel/IFCtoRDF
-	 * 
-	 * The idea is to make sure that we are using exactly the same ontology files
-	 * that the IFCtoRDF is using for the associated Abox output.
+	 * Uses IFCtoRDF's shared schema detector so SPF, IFC/XML, and IFC/JSON select
+	 * exactly the same ontology as the generated instance data.
 	 * 
 	 * @param ifcFile the absolute path (For example: c:\ifcfiles\ifc_file.ifc) for
 	 *                the IFC file
-	 * @return the IFC Express chema of the IFC file.
+	 * @return the IFC EXPRESS schema of the IFC file.
 	 */
 	
 	
 	public static String getExpressSchema(String ifcFile) {
-	    Map<String, String> schemaMapping = Map.of(
-	        "IFC2X3", "IFC2X3_TC1",
-	        "IFC4x2", "IFC4x3_RC1",
-	        "IFC4X2", "IFC4x3_RC1",
-	        "IFC4x3", "IFC4x3_RC1",
-	        "IFC4X3", "IFC4x3_RC1",
-	        "IFC4x3_RC1", "IFC4x3_RC1",
-	        "IFC4X3_RC1", "IFC4x3_RC1",
-	        "IFC4X1", "IFC4x1",
-	        "IFC4x1", "IFC4x1",
-	        "IFC4", "IFC4_ADD2"    // Should do also IFC4X2, //JO 2020  to enable IFCPOLYGONALFACESET that was found in an IFC4 model
-	    );
-
-	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile))))) {
-	        String strLine;
-	        while ((strLine = br.readLine()) != null) {
-	            String trimmedLine = strLine.trim();
-	            if (!trimmedLine.isEmpty() && trimmedLine.toUpperCase(Locale.ROOT).startsWith("FILE_SCHEMA")) {
-	                String schemaLineUpper = trimmedLine.toUpperCase(Locale.ROOT);
-	                for (Map.Entry<String, String> entry : schemaMapping.entrySet()) {
-	                    if (schemaLineUpper.contains(entry.getKey().toUpperCase(Locale.ROOT))) {
-	                        return entry.getValue();
-	                    }
-	                }
-	                return "";
-	            }
-	        }
-	    } catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return "";
+		return IfcSpfReader.getExpressSchema(ifcFile);
 	}
 
 

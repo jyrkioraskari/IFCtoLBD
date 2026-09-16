@@ -29,12 +29,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -136,6 +140,7 @@ public class IfcSpfReader {
                 baseURI = DEFAULT_PATH;
                 inputFiles = showFiles(argsList.get(0));
             }
+            inputFiles = selectDirectoryInputs(inputFiles);
         } else {
             if (optionValues[FLAG_BASEURI].booleanValue()) {
                 baseURI = argsList.get(0);
@@ -151,9 +156,9 @@ public class IfcSpfReader {
         for (int i = 0; i < inputFiles.size(); ++i) {
             final String inputFile = inputFiles.get(i);
             final String outputFile;
-            if (inputFile.endsWith(".ifc")) {
+            if (isIfcInputFile(inputFile)) {
                 if (outputFiles == null) {
-                    outputFile = inputFile.substring(0, inputFile.length() - 4) + ".ttl";
+                    outputFile = stripIfcExtension(inputFile) + ".ttl";
                 } else {
                     outputFile = outputFiles.get(i);
                 }
@@ -169,6 +174,52 @@ public class IfcSpfReader {
             }
         }
 
+    }
+
+    private static boolean isIfcInputFile(String path) {
+        String lower = path.toLowerCase(Locale.ROOT);
+        return lower.endsWith(".ifc") || lower.endsWith(".ifcxml") || lower.endsWith(".xml")
+                || lower.endsWith(".ifcjson") || lower.endsWith(".json");
+    }
+
+    private static String stripIfcExtension(String path) {
+        String lower = path.toLowerCase(Locale.ROOT);
+        for (String extension : List.of(".ifcjson", ".ifcxml", ".json", ".xml", ".ifc"))
+            if (lower.endsWith(extension)) return path.substring(0, path.length() - extension.length());
+        return path;
+    }
+
+    /**
+     * Selects one usable serialization per model in a directory conversion.
+     * Native SPF is preferred, followed by JSON and XML. Git LFS pointer files
+     * are placeholders rather than IFC input and are ignored when a structured
+     * variant of the same model is available.
+     */
+    static List<String> selectDirectoryInputs(List<String> files) throws IOException {
+        Map<String, String> selected = new LinkedHashMap<>();
+        List<String> sorted = new ArrayList<>(files);
+        sorted.sort(String::compareTo);
+        for (String file : sorted) {
+            if (!isIfcInputFile(file)) continue;
+            Path path = Path.of(file);
+            if (IfcInputReader.isGitLfsPointer(path)) {
+                LOG.warn("Skipping Git LFS pointer without payload: {}", file);
+                continue;
+            }
+            String model = stripIfcExtension(file);
+            String previous = selected.get(model);
+            if (previous == null || inputPreference(path) < inputPreference(Path.of(previous)))
+                selected.put(model, file);
+        }
+        return new ArrayList<>(selected.values());
+    }
+
+    private static int inputPreference(Path path) throws IOException {
+        return switch (IfcInputReader.detect(path)) {
+            case SPF -> 0;
+            case JSON -> 1;
+            case XML -> 2;
+        };
     }
 
     /**
@@ -202,18 +253,36 @@ public class IfcSpfReader {
         return goodFiles;
     }
 
+    /**
+     * Determines the EXPRESS schema used to interpret an IFC input. Structured
+     * inputs expose it through their document metadata; IFC-SPF declares it in
+     * the {@code FILE_SCHEMA} header record.
+     *
+     * @param ifcFile path to an IFC-SPF, IFC/XML, or IFC/JSON document
+     * @return the normalized schema identifier, or an empty string when it cannot
+     *         be detected
+     */
     public static String getExpressSchema(String ifcFile) {
+	    try {
+	        String structuredSchema = IfcInputReader.schema(Path.of(ifcFile));
+	        if (structuredSchema != null) {
+	            String upper = structuredSchema.toUpperCase(Locale.ROOT);
+	            String mapped = mapExpressSchema(upper);
+	            if (mapped != null) return mapped;
+	            return structuredSchema;
+	        }
+	    } catch (IOException e) {
+	        LOG.error("Failed reading IFC schema from file: {}", ifcFile, e);
+	        return "";
+	    }
 	    try (BufferedReader br = new BufferedReader(new InputStreamReader(new DataInputStream(new FileInputStream(ifcFile)), StandardCharsets.UTF_8))) {
 	        String strLine;
 	        while ((strLine = br.readLine()) != null) {
 	            final String trimmedLine = strLine.trim();
 	            if (!trimmedLine.isEmpty() && trimmedLine.toUpperCase(Locale.ROOT).startsWith("FILE_SCHEMA")) {
 	                final String schemaLineUpper = trimmedLine.toUpperCase(Locale.ROOT);
-	                for (Map.Entry<String, String> entry : EXPRESS_SCHEMA_MAPPING.entrySet()) {
-	                    if (schemaLineUpper.contains(entry.getKey())) {
-	                        return entry.getValue();
-	                    }
-	                }
+	                String mapped = mapExpressSchema(schemaLineUpper);
+	                if (mapped != null) return mapped;
 	                return "";
 	            }
 	        }
@@ -222,6 +291,15 @@ public class IfcSpfReader {
 	    }
 	    return "";
 	}
+
+    private static String mapExpressSchema(String text) {
+        // Check longer identifiers first; IFC4 is a prefix of every IFC4x variant.
+        for (String identifier : List.of("IFC4X3_RC1", "IFC4X3", "IFC4X2", "IFC4X1", "IFC4_ADD2",
+                "IFC4_ADD1", "IFC2X3_FINAL", "IFC2X3_TC1", "IFC2X3", "IFC20_LONGFORM", "IFC4")) {
+            if (text.contains(identifier)) return EXPRESS_SCHEMA_MAPPING.getOrDefault(identifier, identifier);
+        }
+        return null;
+    }
 
     public static boolean isSupportedExpressSchema(String expressSchema) {
         return expressSchema != null && SUPPORTED_SCHEMAS.contains(expressSchema.toUpperCase(Locale.ROOT));
@@ -240,21 +318,17 @@ public class IfcSpfReader {
      * based on the provided IFC file. It also sets the ontology URI for the conversion process.
      * </p>
      *
-     * @param ifcFileIn The input IFC file name. If the file name does not end with ".ifc", the extension is added.
+     * @param ifcFileIn The IFC-SPF, IFC/XML, or IFC/JSON input file name.
      * @throws IOException If an I/O error occurs during the setup process.
      */
     @SuppressWarnings("unchecked")
     public void setup(String ifcFileIn) throws IOException {
-        // used in conversion
         String ifcFile = ifcFileIn;
-        if (!ifcFile.endsWith(".ifc")) {
-            ifcFile += ".ifc";
-        }
 
         this.exp = getExpressSchema(ifcFile);
-        //System.out.println("express schema: "+this.exp);
 
-        // check if we are able to convert this: only four schemas are supported
+        // Fail before loading schema resources so callers receive a useful input
+        // error instead of a missing-resource or deserialization exception.
         if (this.exp.isBlank()) {
             throw new IOException("Could not detect IFC EXPRESS schema from file: " + ifcFile);
         }
@@ -328,7 +402,7 @@ public class IfcSpfReader {
 
         //conv.setRemoveDuplicates(this.removeDuplicates);
         // JO 2024: performance
-        try (FileInputStream input = new FileInputStream(ifcFile);
+        try (InputStream input = IfcInputReader.openSpf(Path.of(ifcFile), this.ent, this.typ, this.exp);
              FileOutputStream out = new FileOutputStream(outputFile);
              BufferedOutputStream bout = new BufferedOutputStream(out)) {
             RDFWriter conv = new RDFWriter(om, input, baseURI, this.ent, this.typ, this.ontURI,hasPerformanceBoost);
@@ -356,7 +430,7 @@ public class IfcSpfReader {
             om.read(inList, null, "TTL");
         }
         try (InputStream inExpress = getResourceStream("/express.ttl", "/resources/express.ttl");
-             InputStream input = new FileInputStream(ifcFile)) {
+             InputStream input = IfcInputReader.openSpf(Path.of(ifcFile), this.ent, this.typ, this.exp)) {
             om.read(inExpress, null, "TTL");
             RDFWriter conv = new RDFWriter(om, input, baseURI, this.ent, this.typ, this.ontURI,
                     hasPerformanceBoost);
@@ -364,6 +438,23 @@ public class IfcSpfReader {
             conv.parseModel(destination);
             LOG.info("Finished!!");
         }
+    }
+
+    /**
+     * Materializes any supported IFC serialization as a standards-compliant
+     * IFC-SPF file suitable for consumers such as IfcOpenShell.
+     */
+    public static void materializeSpf(Path inputFile, Path outputFile) throws IOException {
+        IfcSpfReader reader = new IfcSpfReader();
+        reader.setup(inputFile.toString());
+        try (InputStream input = IfcInputReader.openSpf(inputFile, reader.ent, reader.typ, reader.exp)) {
+            Files.copy(input, outputFile, StandardCopyOption.REPLACE_EXISTING);
+        }
+    }
+
+    /** Returns whether an input needs conversion before an IFC-SPF-only consumer can read it. */
+    public static boolean isStructuredInput(Path inputFile) throws IOException {
+        return IfcInputReader.detect(inputFile) != IfcInputReader.Format.SPF;
     }
 
     @SuppressWarnings("unchecked")

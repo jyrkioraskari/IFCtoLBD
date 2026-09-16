@@ -82,7 +82,8 @@ public abstract class RDFUtils {
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
        
     	// JO 2024: performance
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
+	        File target = prepareTargetFile(target_file);
+	        try (FileOutputStream fo = new FileOutputStream(target);BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
            
             StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
@@ -100,7 +101,7 @@ public abstract class RDFUtils {
         System.out.println("Write RDF target file is: "+target_file);
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
-        	  try (FileOutputStream fo = new FileOutputStream(target_file)){
+	        	  try (FileOutputStream fo = new FileOutputStream(prepareTargetFile(target_file))){
         		  RDFDataMgr.write(fo, m, RDFFormat.JSONLD11_PRETTY);
               } catch (IOException e1) {
       			e1.printStackTrace();
@@ -111,7 +112,8 @@ public abstract class RDFUtils {
         
     	// JO 2024: performance
         System.out.println("Model print RDF");
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
+	        File target = prepareTargetFile(target_file);
+	        try (FileOutputStream fo = new FileOutputStream(target);BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
         	
             StreamRDFWriter.write(bfo, m.getGraph(), rdf_serlialization_format) ;           
@@ -120,6 +122,15 @@ public abstract class RDFUtils {
 			e1.printStackTrace();
 		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
 		} 
+    }
+
+    /** Ensures an editable output path can be used even when its directory is new. */
+    private static File prepareTargetFile(String target_file) {
+        File target = new File(target_file);
+        File parent = target.getParentFile();
+        if (parent != null && !parent.isDirectory())
+            parent.mkdirs();
+        return target;
     }
     
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {

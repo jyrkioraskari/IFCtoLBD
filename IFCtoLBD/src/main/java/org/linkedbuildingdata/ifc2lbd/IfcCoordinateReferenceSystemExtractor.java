@@ -12,6 +12,10 @@ public final class IfcCoordinateReferenceSystemExtractor {
 	private IfcCoordinateReferenceSystemExtractor() { }
 
 	public static IfcCoordinateReferenceSystemInfo extract(Model model, IfcOWL ifc) {
+		if (ifc == null) {
+			// A failed read-in phase must not turn into an unrelated CRS NPE.
+			return new IfcCoordinateReferenceSystemInfo(null, new LinkedHashMap<>());
+		}
 		String ns = ifc.getIfcURI();
 		Resource projectedType = model.createResource(ns + "IfcProjectedCRS");
 		Resource conversionType = model.createResource(ns + "IfcMapConversion");
