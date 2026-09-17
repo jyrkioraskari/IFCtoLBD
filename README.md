@@ -39,18 +39,21 @@ IFC specifications. You can skip this introduction if you already use IFC.
 You need an IFC model and the desktop application.
 
 1. Open [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases), expand
-   **Assets**:
-   - **Using a Java `.jar`** on Windows, macOS, or Linux: first
-     [check or install Java 21](docs/quick-start.md#install-java-21-for-the-jar-route),
-     then launch the desktop JAR. Keep the complete distribution together.
-   Check the chosen release’s requirements and select the desktop application;
-   a command-line executable has a different workflow.
+   **Assets**, and download the **desktop JAR distribution** for your platform.
+   On Windows, macOS, or Linux,
+   [check or install Java 21](docs/quick-start.md#install-java-21-for-the-jar-route),
+   then launch the desktop JAR. Keep the complete distribution together and
+   check the chosen release’s requirements.
 2. Start the desktop application. Click **Read IFC**, choose your model, and
    wait for it to finish reading. The application proposes an output path.
 3. Check that output path, then click **Run**. For your first conversion, keep
    the existing settings and filters. Wait for the conversion log to report completion.
 4. Open the generated `.ttl` file in a text editor. It contains RDF in Turtle
    format. You have converted your first IFC model to Linked Building Data.
+
+**Windows command-line alternative:** the Windows `.exe` is a command-line
+converter, not a desktop application. Use it from PowerShell or Command Prompt;
+[see the Windows CLI instructions](docs/quick-start.md#windows-alternative-use-the-command-line-exe).
 
 [Follow the desktop quick start](docs/quick-start.md) for launch commands,
 output choices, and help if the application does not start. Features and button

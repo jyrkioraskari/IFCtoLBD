@@ -19,11 +19,13 @@ releases may have different requirements or features.
 
 | Step | What you will learn | Guide |
 | --- | --- | --- |
-| 1 | Learn about IFC if needed, choose Windows `.exe` or Java JAR, then **Read IFC** and **Run** | [Your first conversion](quick-start.md) |
+| 1 | Learn about IFC if needed, launch the desktop JAR with Java, then **Read IFC** and **Run** | [Your first conversion](quick-start.md) |
 | 2 | Read Turtle and ask questions with SPARQL | [Using the triples](using-triples.md) |
 | 3 | Work with RDFLib and call the converter from Python | [Python](python_examples.md) |
 | 4 | Use the Java library and Apache Jena | [Java](java_examples.md) |
 | 5 | Build the source, find the right module, and extend it | [Development](development.md) |
+
+Windows users can alternatively use the [command-line `.exe`](quick-start.md#windows-alternative-use-the-command-line-exe).
 
 You can stop after any step and use what you have learned. Python and Java are
 alternative programming routes; neither requires learning the other first.

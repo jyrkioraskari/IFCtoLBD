@@ -25,19 +25,6 @@ Go to [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases) and expand
 for your operating system. GitHub’s “Source code” archives are for building the
 project. Read the release notes and any instructions included with the package.
 
-### Windows: use the desktop .exe
-
-Choose the Windows **desktop `.exe` package** from the release assets. If it
-comes in a ZIP, extract the entire ZIP first and keep its folders together.
-If it is an installer, run it and follow its instructions; otherwise double-click
-the desktop `.exe` in the extracted folder. Once the application opens,
-continue to **Read IFC** below.
-
-A package with a bundled Java runtime needs no separate Java installation.
-If the launcher asks for Java, follow the Java 21 instructions below.
-Choose the desktop package for this walkthrough: releases may also provide a
-native command-line `.exe`, which is intended for terminal commands.
-
 ### Windows, macOS, or Linux: use the Java .jar
 
 Choose the desktop JAR distribution and extract it completely. This route needs
@@ -104,6 +91,33 @@ Turtle (`.ttl`) is a convenient first format because it is readable. JSON-LD
 (`.jsonld`) is another RDF representation available in the current desktop.
 It is different from IFC/JSON, which is an input format.
 
+## Windows alternative: use the command-line .exe
+
+The Windows `.exe` offered in releases is a **command-line converter**. There
+is no Windows desktop `.exe`. For the **Read IFC → Run** interface, use the
+Java desktop JAR described above.
+
+If you prefer terminal commands, download the Windows command-line `.exe`
+from [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases). Extract the
+complete package if zipped, open PowerShell in its directory, and run its help
+command. Replace `converter.exe` with the actual downloaded filename:
+
+```powershell
+.\converter.exe --help
+```
+
+For a native executable, no separate Java installation is needed. Follow the
+release’s instructions and use its help output to check supported options.
+For releases supporting the current CLI options, a conversion looks like this:
+
+```powershell
+.\converter.exe --url https://example.com/building/ --target_file output.ttl model.ifc
+```
+
+Replace `model.ifc` with your input path. The command reads and converts the
+model; there are no **Read IFC** or **Run** buttons. Continue with
+[using the generated triples](using-triples.md) once conversion finishes.
+
 ## Explore after the first success
 
 The current desktop offers a basic workflow and an advanced workflow. Numbered
@@ -122,7 +136,6 @@ repeat the desktop settings in automated conversions.
 
 | Symptom | What to try |
 | --- | --- |
-| The Windows desktop .exe asks for Java | Install Java 21 using the instructions above, unless the package includes its own runtime. |
 | Double-clicking the JAR does nothing | Run `java -jar` in a terminal to see the error. Check `java -version` against the release requirements. |
 | JavaFX or another library is missing | Extract the whole distribution and keep the library folder next to the JAR. |
 | Run stays disabled | Wait for reading to finish; inspect the conversion log for an input or schema error. |
