@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.linkedbuildingdata.ifc2lbd.GeometryArtifactStoreTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in org.linkedbuildingdata.ifc2lbd.GeometryArtifactStoreTest

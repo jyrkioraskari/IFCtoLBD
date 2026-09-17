@@ -1,94 +1,85 @@
 # IFCtoLBD
 
-Version 2.52.0
-Free for all of us, forever.
+Version 2.52.0 · Free for all of us, forever.
 
-The IFCtoLBD converter transforms Industry Foundation Classes (IFC) files in STEP, IFC/XML, and IFC/JSON format into Resource Description Framework (RDF) triples. These RDF triples adhere to the ontologies created by the World Wide Web Consortium (W3C) Linked Building Data Community Group (W3C LBD-CG: https://github.com/w3c-lbd-cg/).
+IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: RDF
+triples that describe buildings, spaces, elements, and their properties. You can
+query these triples and connect them to other data, such as asset records,
+products, or sensors. The current source supports IFC STEP, IFC/XML, and IFC/JSON.
 
-Full documentation can be found
-[here](https://jyrkioraskari.github.io/IFCtoLBD/#/).
+## What can you do with IFCtoLBD?
 
-## Building from source
+- **Convert an IFC model into linked data** with the desktop app and save it as
+  Turtle or JSON-LD.
+- **Choose what to export:** select element types, property sets, and options
+  for properties, units, and geometry.
+- **Explore your building:** query the data with SPARQL, validate it with SHACL,
+  and preview exported geometry in the desktop app.
+- **Connect building information** to asset records, products, sensors, and
+  other datasets using the generated resource identifiers.
+- **Automate your work** with the command-line converter, Python examples, or
+  the Java library.
+- **Build your own tools and extensions** from the source: add mappings,
+  vocabularies, validation rules, geometry backends, or domain-specific enrichment.
 
-Install JDK 21 and Maven, then run Maven from the repository root. The build
-compiles IFCtoRDF, IFCtoLBD_Geometry, IFCtoLBD, IFCProps2ExcelOnline, and
-IFCtoLBD_Desktop_2026 in dependency order, so the modules do not need to be
-installed separately.
+The guides below show you where to start. Available features depend on the
+release and export settings you choose.
 
-To compile and install all five artifacts into the local Maven repository:
+## New to IFC? Start with the standard
 
-```sh
-mvn install
-```
+**Industry Foundation Classes (IFC)** is an open, vendor-neutral standard from
+buildingSMART for exchanging building and infrastructure information. An IFC
+model can describe geometry, elements, spaces, properties, and relationships.
+Read [buildingSMART’s introduction to IFC](https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/)
+if you need the background. For technical definitions, follow its links to the
+IFC specifications. You can skip this introduction if you already use IFC.
 
-To verify all five modules without installing the artifacts:
+## Start here: convert your IFC without programming
 
-```sh
-mvn verify
-```
+You need an IFC model and the desktop application.
 
-The default build runs the fast unit tests. Use the integration profile for
-converter and SHACL tests, or the full profile for every test including slow
-property-based tests:
+1. Open [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases), expand
+   **Assets**, and choose how to start:
+   - **Windows:** download the Windows **desktop `.exe` package**, extract it
+     if zipped, and launch the `.exe`. Follow any installation instructions
+     included with the package.
+   - **Using a Java `.jar`** on Windows, macOS, or Linux: first
+     [check or install Java 21](docs/quick-start.md#install-java-21-for-the-jar-route),
+     then launch the desktop JAR. Keep the complete distribution together.
+   Check the chosen release’s requirements and select the desktop application;
+   a command-line executable has a different workflow.
+2. Start the desktop application. Click **Read IFC**, choose your model, and
+   wait for it to finish reading. The application proposes an output path.
+3. Check that output path, then click **Run**. For your first conversion, keep
+   the existing settings and filters. Wait for the conversion log to report completion.
+4. Open the generated `.ttl` file in a text editor. It contains RDF in Turtle
+   format. You have converted your first IFC model to Linked Building Data.
 
-```sh
-mvn verify -Pintegration
-mvn verify -Pfull
-```
+[Follow the desktop quick start](docs/quick-start.md) for launch commands,
+output choices, and help if the application does not start. Features and button
+layout can differ between released versions and this source checkout.
 
-## Running the applications
+<img src="Screen.png" alt="IFCtoLBD desktop application" width="800">
 
-### Command-line converter
+## What would you like to do next?
 
-Build the executable converter JAR and run it with an IFC file and output path:
+| Your goal | Guide |
+| --- | --- |
+| Understand LBD and use the generated triples | [LBD, RDF, and your first queries](docs/using-triples.md) |
+| Read the output or automate conversion in Python | [Python guide](docs/python_examples.md) |
+| Embed the converter and query its output in Java | [Java guide](docs/java_examples.md) |
+| Compile the converter, understand the subprojects, or extend it | [Build and development guide](docs/development.md) |
+| Explore classification, product identity, GS1, or EPD output | [Supply-chain and sustainability](docs/supply-chain-and-sustainability.md) |
 
-```sh
-mvn -pl IFCtoLBD -am package -DskipTests
-java -jar IFCtoLBD/target/ifc-to-lbd-2.52.0-jar-with-dependencies.jar \
-  --url https://example.com/ \
-  --target_file output.ttl \
-  model.ifc
-```
+Start with the output you have just created; programming and compiling can come
+later. LBD uses shared vocabularies such as the
+[Building Topology Ontology (BOT)](https://w3c-lbd-cg.github.io/bot/).
+The [W3C Linked Building Data Community Group](https://www.w3.org/community/lbd/)
+provides further background and community resources.
 
-Run `java -jar IFCtoLBD/target/ifc-to-lbd-2.52.0-jar-with-dependencies.jar --help`
-to see all options. Java 21 or newer is required.
-
-### Desktop application
-
-Build the desktop distribution, then start it from the directory containing the
-JAR and its copied libraries:
-
-```sh
-mvn -pl IFCtoLBD_Desktop_2026 -am package -DskipTests
-java -jar IFCtoLBD_Desktop_2026/target/IFCtoLBD-Desktop_Java_21.jar
-```
-
-On Windows, double-click the same JAR or run the command from PowerShell. If
-JavaFX cannot be found, keep the generated `IFCtoLBD-Desktop_Java_21_lib`
-directory next to the JAR.
-
-### Node.js wrapper
-
-```sh
-cd IFCtoLBD_NodeJS
-npm install
-npm start
-```
-
-The Node.js examples use the converter libraries in `java_libraries/`; copy the
-built converter and its runtime dependencies there before running them.
-
-### About `lbd:batid`
-
-The `lbd:batid` value is copied from the IFC object's `IfcRoot.Tag` attribute
-(the IFC-OWL predicate is typically named `tag_IfcRoot`). The converter maps
-that attribute to the LBD `batid` name for compatibility with building
-asset-identification workflows. It is not generated from the IFC GlobalId:
-`lbd:globalId` remains the stable IFC identifier, while `lbd:batid` is the
-author- or application-assigned tag and may be absent or reused in a model.
-
-
-<img src="Screen.png" alt="IFCtoLBD Desctop screenshot" width="800">
+Browse the [documentation website](https://jyrkioraskari.github.io/IFCtoLBD/#/)
+or the [documentation index](docs/README.md). Earlier announcements are in
+[project history](docs/history.md).
 
 ## Contributors
 
@@ -126,264 +117,7 @@ This project is released under the open source [Apache License, Version 2.0](htt
 
 
 
-## Blog
+## Acknowledgements
 
-### Sep 15, 2026
- Support for IFC formats as .ifcxml, .xml, .ifcjson, and .json.
-
-### July 10, 2026
-IFCProps2ExcelOnline  was ported to support Apache Tomcat 11.
-
-### July 1, 2026
-New projects
-- **[LBD_Change_Inspector](https://github.com/jyrkioraskari/LBD_Change_Inspector)**
-- **[LBD_OBJ_Exporter](https://github.com/jyrkioraskari/LBD_OBJ_Exporter)**
-
-
-
-### June 25, 2026
-
-When the geometry is exported, the material information as MTL is now included.
-
-```
-inst:wall_9808fd7f-dc48-478e-9217-628e833d7d12_geometry
-        <https://lbd.org/#asMTL_alpha>  "1.0"^^<http://www.w3.org/2001/XMLSchema#double>;
-        <https://lbd.org/#asMTL_ks>     "#000000";
-        <https://lbd.org/#asMTL_kd>     "#808080";
-        <https://lbd.org/#asMTL_ka>     "#808080";
-        <https://lbd.org/#asMTL>        "newmtl material_0\nKa 0.501961 0.501961 0.501961\nKd 0.501961 0.501961 0.501961\nKs 0.000000 0.000000 0.000000\nd 1.000000\nillum 2\n\n";
-        lbd:hasBoundingBox              inst:wall_9808fd7f-dc48-478e-9217-628e833d7d12_geometry_bb;
-        rdf:type                        geo:Geometry .
-```
-### June 16, 2026
-
-First version of recursive IfcComplexProperty and IfcPhysicalComplexQuantity.
-
-### May 13, 2026
-
-GraalVM compilation for the IFCtoLBD command line for Windows 11.
-- first compile IFCtoLBD projects, then:
-
-* Install GraalVM for JDK 21 and set GRAALVM\_HOME to point to that directory
-	https://www.graalvm.org/release-notes/JDK_21/
-
-* Install Visual Studio Build Tools 2026 with the setting of Desktop development with C++.
-    Visual Studio Community
-* install Maven and add that to the system path.
-	https://maven.apache.org/download.cgi
-
-	
-At the project folder:
-
-
-```
-cd ./IFCtiLBD
-mvn clean -Pnative -DskipTests package
-```
-
-
-
-### May 8, 2026
-
-Support for the new Apache Jena version 6.0.0. This means also that the oldest supported Java version is now 21.
-
-### October 10, 2025
-
-The new version introduces a significant change: the converter now relies on a TDB database. While this makes it slightly slower, it enables the conversion of substantially larger IFC models.
-
-* If you have a pretty large IFC model, the new version used disk space to convert it. There should be a proper error message about it now.
-
-### April 9, 2025
-
-Added a small example in the Scala language. It depends on the maven compilation of the Java code shown above.
-
-
-
-### February 20, 2025
-
-A small LLM example was added in Python.
-
-### January 10, 2025
-
-A short example to list properties by elements was added.
-[here ](/IFCtoLBD_Python/examples.md).
-
-### September 20, 2024
-
-I wrote a Python program to demonstrate how the interfaces can be used to infer which door to use to
-enter a space.
-![Screen](IFCtoLBD_Python/door_interface.png)
-
-The short example code can be found [here](/IFCtoLBD_Python/IFCtoLBD_SPARQL_Open3D_Interface.py).
-
-
-
-### September 19, 2024
-
-While it’s still in the preliminary stages and requires thorough testing, a source code for our bounding box-based interface generation is now available.
-The code quality is being tested, and we are gearing up for the next pre-compiled release soon. If you encounter any bugs, please let me know.
-
-### March 14, 2024
-
-Just in case you have a path problem in a MacBook when writing Python:
--- It is recommended yo use absolute path names for the Java library files (macOS). You can use a text editor Search\&Replace to fix there ysour configuration at the line of code:
-jpype.startJVM(classpath = \['...<the JAR files in your configuration>']).
-
-A short example code of relative names can be found [here](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
-
-
-
-### March 11, 2024
-
-The Python examples were rewritten so that the import error in some JPype versions should not appear.
-Also, instructions to copy the jars folder was added.
-
-### February 21, 2024
-
-2D linegraph splits from the model
-![Screen](IFCtoLBD/Split_Demo.png)
-The short example code can be found [here](/IFCtoLBD/examples.md).
-
-The same with doors and windows, and, finally, spaces.
-
-![Screen](IFCtoLBD/Split_DemoSpaces3.png)
-
-### January 30, 2024
-
-Simple graph plot with Python.  Source code is [here ](/IFCtoLBD_Python/examples.md).
-![Screen](IFCtoLBD_Python/graph_plot.png)
-
-### January 26, 2024
-
-Python visualization demo code available [here ](/IFCtoLBD_Python/examples.md).
-![Screen](IFCtoLBD_Python/Python3DDemo.png)
-
-### January 02, 2024
-
-The recommendations was changed to encourage to use one of the last two performant Long-Term Support version of Java (17 or 21).
-
-### November 13, 2023
-
-The new user Java 17 (and above) compatible OpenAPI is now in the source code. Earlier Java versions are not supported as the current Enuciate package
-has that limitation.
-
-### June 21, 2023
-
-The new user interface is in the testing phase. This is not the final version yet. I still test how the filtering can be made smarter.
-
-![Screen](docs/screen2.PNG) (updated 21st Feb, 2024).
-
-### March 1, 2023
-
-Tested and update the Python interface.
-
-### February 13, 2023
-
-The geometry tests are finished. The converter now exports OBJ formatted geometry for the building elements. The ifcZip format support is implemented but needs still some more testing.
-
-### June 07, 2022
-
-Support for xsd:decimal.
-
-### May 16, 2022
-
-Support for multi-character Unicode sequences.
-
-### April 19, 2022
-
-Added unlinked elements and those that have no LBD type. It allows using the converter when there are no BOT elements connected to the
-interested in elements.
-
-### March 18, 2022  "This application requires a Java Runtime Environment"
-
-The Windows executable bundle for the Open JDK was fixed to contain the Java version.
-
-### December 15, 2021  Log4J
-
-Last Sunday the software was patched to contain Log4J version 2.15 and today version 2.16 was added.
-The OpenAPI installation was shortly tested under Apache Tomcat 9.0.54 and updated to the current IFCtoLBD
-release. The Docker image is also updated.
-
-### December 9, 2021  Command line converter tool
-
-Example usage:
-java -jar IFCtoLBD\_Java\_15.jar  http://lbd.example.com/ c:\\IFC\\Duplex\_A\_20110505.ifc c:\\IFC\\Duplex\_A\_20110505.ttl
-
-### December 7, 2021,  The degree sign character
-
-The Unicode notation of the degree sign character caused Jena to stop reading the raw ifcOWL output. This is fixed now.
-
-### September 6, 2021,  Java 15
-
-Java 8 is more than seven years old now, which means that not all libraries are supporting that old Java variant anymore.  To keep the software secure, it is preferred to deprecate the version of the code in the long run. Currently, a separate Java 8 branch is kept in case only Java 8 can be used.
-
-### April 6, 2021  Support for European languages
-
-The program code was modified so that the default backslash notation for UTF-8 characters is removed. äÄöÖåÅßüÜáÁàÀâÂ should be human-readable.
-
-### October 13, 2020,  Testing the software
-
-The software was tested to function with https://jdk.java.net/15/
-
-### October 5, 2020,  Testing the software
-
-Testing the correctness of the created bounding boxes.
-
-![The bounding boxes](docs/bounding_boxes.PNG)
-
-## Frequently asked questions
-
-1. What does it mean when IFCtoLBD says “Java heap space”?
-
-   * This error typically occurs when converting a large file. It indicates the program has run out of memory allocated for the Java heap. To resolve this, try starting the program using run.bat
-
-
-
-1. Why does the program say: *"Error: Cannot determine which IFC version the model it is: \[IFC2X2\_FINAL]"*
-
-   * IFC 2x2 Final was published as early as 2003, 14 years ago. There are still some test files that are generated using this version. Support for this may be added.  Currently, the supported IFC versions are  IFC2x3TC1, FC2x3FINAL, IFC4, IFC4 ADD1, and  IFC4 ADD2.
-2. Nothing happens when I start the program.
-
-   * Check that Java 15 is installed, open a command prompt, from the releases list, and download the precompiled
-binaries, then at the directory where IFCtoLBD-Desktop\_Java\_15.ja is located. Run the following command:
-`java -jar IFCtoLBD-Desktop\_Java\_15.jar`
-   * If any further problems, under the Windows 10 operating system, you can also try to use the
-the bundled version of the converter: IFCtoLBD\_Java15.exe
-3. I have a problem running the OpenAPI interface under Apache Tomcat 9:
-
-   * Check that the JAVA\_HOME environmental variable at your computer points to Java version 15 or newer.
-The older versions of Java are not supported anymore (If you must use it for some reason, an older
-release of the converter can be used), since the used libraries don't support them anymore.
-4. In Windows, I cannot open the program by double-clicking the file
-
-   * Open a command prompt as admin
-   * Run the following commands:
-
-```
-   assoc .jar=jarfile
-   type jarfile="your java installation directory\\bin\\javaw.exe" -jar "%1" %\*
-   ```
-
-   where *your java installation directory* is the base directory where your Java runtime is installed.
-
-5. How to disable the missing project natures in Eclipse prompt
-* open Eclipse.
-* go to Window > Preferences.
-* navigate to General > Project Natures.
-There, you can disable the option for discovering missing project natures and marketplace entries.
-7. Eclipse build takes forever to complete
-
-   * Disable Project/Build Automatically, and build the all with Maven Install. Enable the option after.
-   * eclipse -clean -clearPersistedState  // It resets Eclipse perspectives, too.
-
-   ## Acknowledgements
-
-   The research was partly funded by the EU through the H2020 project BIM4REN.
-
-   https://dc.rwth-aachen.de/de/forschung/bim4ren
-
-## Supply-chain and sustainability profiles
-
-The structured conversion API can emit normalized classification, product identity, GS1 and EPD
-resources with provenance and QUDT units. See
-[the supply-chain and sustainability guide](docs/supply-chain-and-sustainability.md).
+The research was partly funded by the EU through the H2020 project
+[BIM4REN](https://dc.rwth-aachen.de/de/forschung/bim4ren).

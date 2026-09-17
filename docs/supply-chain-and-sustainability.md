@@ -1,5 +1,7 @@
 # Supply-chain and sustainability output
 
+[Documentation home](README.md) · [Java guide](java_examples.md) · [Development](development.md)
+
 The structured conversion API provides `ConversionProfiles.SUPPLY_CHAIN` and
 `ConversionProfiles.SUSTAINABILITY`. Both preserve IFC property values while adding normalized
 resources; the sustainability profile also enables unit output.

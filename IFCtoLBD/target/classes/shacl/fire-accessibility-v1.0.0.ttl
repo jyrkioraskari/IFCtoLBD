@@ -1,9 +1,0 @@
-@prefix rules: <https://w3id.org/ifctolbd/rules/fire-accessibility#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix shapes: <https://w3id.org/ifctolbd/shapes/fire-accessibility/v1.0.0#> .
-
-shapes:FireRatingShape a sh:NodeShape ; sh:targetSubjectsOf rules:fireRatingMinutes ;
-    sh:property [ sh:path rules:fireRatingMinutes ; sh:datatype xsd:decimal ; sh:minInclusive 0 ; sh:maxCount 1 ] .
-shapes:AccessibleShape a sh:NodeShape ; sh:targetSubjectsOf rules:accessible ;
-    sh:property [ sh:path rules:accessible ; sh:datatype xsd:boolean ; sh:maxCount 1 ] .

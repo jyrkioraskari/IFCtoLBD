@@ -46,3 +46,6 @@ IFCtoLBD_NodeJS/node_modules/*
 /ifc-to-lbd-scala/target
 .codex
 /IFCtoLBD_MCP/.tools
+*/target
+/IFCtoLBD/target
+/IFCtoLBD/target

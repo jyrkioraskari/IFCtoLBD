@@ -1,9 +1,0 @@
-@prefix geo: <http://www.opengis.net/ont/geosparql#> .
-@prefix omg: <https://w3id.org/omg#> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix shapes: <https://w3id.org/ifctolbd/shapes/geometry-crs/v1.0.0#> .
-
-shapes:GeometryLinkShape a sh:NodeShape ; sh:targetSubjectsOf omg:hasGeometry ;
-    sh:property [ sh:path omg:hasGeometry ; sh:minCount 1 ; sh:nodeKind sh:IRI ] .
-shapes:WktShape a sh:NodeShape ; sh:targetSubjectsOf geo:asWKT ;
-    sh:property [ sh:path geo:asWKT ; sh:minCount 1 ; sh:datatype geo:wktLiteral ] .

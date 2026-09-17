@@ -1,8 +1,0 @@
-@prefix sosa: <http://www.w3.org/ns/sosa/> .
-@prefix sh: <http://www.w3.org/ns/shacl#> .
-@prefix shapes: <https://w3id.org/ifctolbd/shapes/digital-twin-sensors/v1.0.0#> .
-
-shapes:SensorShape a sh:NodeShape ; sh:targetClass sosa:Sensor ;
-    sh:property [ sh:path sosa:observes ; sh:minCount 1 ; sh:nodeKind sh:IRI ] .
-shapes:ObservationShape a sh:NodeShape ; sh:targetClass sosa:Observation ;
-    sh:property [ sh:path sosa:madeBySensor ; sh:minCount 1 ; sh:class sosa:Sensor ] .

@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: org.linkedbuildingdata.ifc2lbd.IfcOpenShellStructuredGeometryTest
--------------------------------------------------------------------------------
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0.013 s -- in org.linkedbuildingdata.ifc2lbd.IfcOpenShellStructuredGeometryTest
