@@ -53,8 +53,9 @@ You need an IFC model and the desktop application.
    format. You have converted your first IFC model to Linked Building Data.
 
 **Windows command-line alternative:** `IFCtoLBDConverter_CLI.exe` is the Windows
-command-line converter, not a desktop application. Use it from PowerShell or Command Prompt;
+command-line converter. Use it from PowerShell or Command Prompt;
 [see the Windows CLI instructions](docs/quick-start.md#windows-alternative-use-the-command-line-exe).
+- The same fuctionality is available as a Java app for Linux and macOS users.
 
 [Follow the desktop quick start](docs/quick-start.md) for launch commands,
 output choices, and help if the application does not start. Features and button
