@@ -8,8 +8,9 @@ releases may have different requirements or features.
 
 - **Use the desktop app** to convert IFC to Turtle or JSON-LD, select export
   content, query and validate the output, and preview exported geometry.
-- **Use the triples** to explore building information and connect it to assets,
-  products, sensors, or other datasets.
+- **Use the triples** to explore building information. In your own applications,
+  you can use LBD identifiers to link it to assets, products, sensors, or other
+  datasets; creating those external links is a separate step from conversion.
 - **Use Python, Java, or the command line** to automate conversion and build
   applications around the output.
 - **Extend the source code** with new mappings, vocabularies, validation rules,

@@ -111,7 +111,8 @@ same dataset. Loading a graph into a store and configuring access are separate
 steps from converting an IFC file.
 
 To connect external information, refer to the element’s full IRI in your own
-triples. For example, your application can associate a maintenance record with
+triples. You create these links in your application after conversion; the
+converter does not connect your external datasets. For example, your application can associate a maintenance record with
 that element. Use a namespace you control and keep the model’s identity strategy
 consistent across conversions. Changing the base URI can change resource IRIs.
 

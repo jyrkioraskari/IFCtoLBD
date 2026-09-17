@@ -4,8 +4,8 @@ Version 2.52.0 · Free for all of us, forever.
 
 IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: RDF
 triples that describe buildings, spaces, elements, and their properties. You can
-query these triples and connect them to other data, such as asset records,
-products, or sensors. The current source supports IFC STEP, IFC/XML, and IFC/JSON.
+query these triples and use LBD in your own applications to link building
+information to other data. The current source supports IFC STEP, IFC/XML, and IFC/JSON.
 
 ## What can you do with IFCtoLBD?
 
@@ -15,8 +15,9 @@ products, or sensors. The current source supports IFC STEP, IFC/XML, and IFC/JSO
   for properties, units, and geometry.
 - **Explore your building:** query the data with SPARQL, validate it with SHACL,
   and preview exported geometry in the desktop app.
-- **Connect building information** to asset records, products, sensors, and
-  other datasets using the generated resource identifiers.
+- **Prepare building data for linking:** the generated LBD identifiers let you
+  create links to asset records, products, sensors, and other datasets in your
+  own applications. The converter does not create those external links for you.
 - **Automate your work** with the command-line converter, Python examples, or
   the Java library.
 - **Build your own tools and extensions** from the source: add mappings,
