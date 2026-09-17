@@ -39,10 +39,7 @@ IFC specifications. You can skip this introduction if you already use IFC.
 You need an IFC model and the desktop application.
 
 1. Open [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases), expand
-   **Assets**, and choose how to start:
-   - **Windows:** download the Windows **desktop `.exe` package**, extract it
-     if zipped, and launch the `.exe`. Follow any installation instructions
-     included with the package.
+   **Assets**:
    - **Using a Java `.jar`** on Windows, macOS, or Linux: first
      [check or install Java 21](docs/quick-start.md#install-java-21-for-the-jar-route),
      then launch the desktop JAR. Keep the complete distribution together.
