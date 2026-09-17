@@ -91,7 +91,7 @@ Turtle (`.ttl`) is a convenient first format because it is readable. JSON-LD
 (`.jsonld`) is another RDF representation available in the current desktop.
 It is different from IFC/JSON, which is an input format.
 
-## Windows alternative: use the command-line .exe
+## Windows alternative: IFCtoLBDConverter_CLI.exe
 
 The Windows `.exe` offered in releases is a **command-line converter**. There
 is no Windows desktop `.exe`. For the **Read IFC → Run** interface, use the

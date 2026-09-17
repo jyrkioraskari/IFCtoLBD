@@ -26,7 +26,7 @@ releases may have different requirements or features.
 | 4 | Use the Java library and Apache Jena | [Java](java_examples.md) |
 | 5 | Build the source, find the right module, and extend it | [Development](development.md) |
 
-Windows users can alternatively use the [command-line `.exe`](quick-start.md#windows-alternative-use-the-command-line-exe).
+Windows users can alternatively use the [`IFCtoLBDConverter_CLI.exe`](quick-start.md#windows-alternative-ifctolbdconverter_cliexe).
 
 You can stop after any step and use what you have learned. Python and Java are
 alternative programming routes; neither requires learning the other first.
