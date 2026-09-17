@@ -97,13 +97,13 @@ The Windows `.exe` offered in releases is a **command-line converter**. There
 is no Windows desktop `.exe`. For the **Read IFC → Run** interface, use the
 Java desktop JAR described above.
 
-If you prefer terminal commands, download the Windows command-line `.exe`
+If you prefer terminal commands, download the Windows command-line `IFCtoLBDConverter_CLI.exe`
 from [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases). Extract the
 complete package if zipped, open PowerShell in its directory, and run its help
-command. Replace `converter.exe` with the actual downloaded filename:
+command:
 
 ```powershell
-.\converter.exe --help
+.\IFCtoLBDConverter_CLI.exe --help
 ```
 
 For a native executable, no separate Java installation is needed. Follow the
@@ -111,7 +111,7 @@ release’s instructions and use its help output to check supported options.
 For releases supporting the current CLI options, a conversion looks like this:
 
 ```powershell
-.\converter.exe --url https://example.com/building/ --target_file output.ttl model.ifc
+.\IFCtoLBDConverter_CLI.exe --url https://example.com/building/ --target_file output.ttl model.ifc
 ```
 
 Replace `model.ifc` with your input path. The command reads and converts the

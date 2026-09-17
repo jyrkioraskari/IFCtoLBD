@@ -51,8 +51,8 @@ You need an IFC model and the desktop application.
 4. Open the generated `.ttl` file in a text editor. It contains RDF in Turtle
    format. You have converted your first IFC model to Linked Building Data.
 
-**Windows command-line alternative:** the Windows `.exe` is a command-line
-converter, not a desktop application. Use it from PowerShell or Command Prompt;
+**Windows command-line alternative:** `IFCtoLBDConverter_CLI.exe` is the Windows
+command-line converter, not a desktop application. Use it from PowerShell or Command Prompt;
 [see the Windows CLI instructions](docs/quick-start.md#windows-alternative-use-the-command-line-exe).
 
 [Follow the desktop quick start](docs/quick-start.md) for launch commands,
