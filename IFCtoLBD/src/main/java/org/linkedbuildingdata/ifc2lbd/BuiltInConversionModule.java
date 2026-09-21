@@ -19,20 +19,14 @@ public enum BuiltInConversionModule implements ConversionModule {
 			p.setHasBuildingProperties(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
 		}
-		@Override public void configure(ConversionContext context) {
-			configure(context.properties());
-			context.requirePropertySetOntologies();
-		}
+		@Override public void configure(ConversionContext context) { configure(context.properties()); }
 	},
 	OPM_PROPERTIES("opm-properties") {
 		@Override public void configure(ConversionProperties p) {
 			p.setHasBuildingProperties(true);
 			p.setPropertyMode(ConversionProperties.PropertyMode.OPM);
 		}
-		@Override public void configure(ConversionContext context) {
-			configure(context.properties());
-			context.requirePropertySetOntologies();
-		}
+		@Override public void configure(ConversionContext context) { configure(context.properties()); }
 	},
 	GEOMETRY_ENVELOPE("geometry-envelope") {
 		@Override public void configure(ConversionProperties p) {

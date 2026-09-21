@@ -1,7 +1,7 @@
 # Learn IFCtoLBD step by step
 
 IFCtoLBD converts IFC models into RDF triples using Linked Building Data
-vocabularies. These guides describe the current 2.52.0 source; downloaded
+vocabularies. These guides describe the current 2.53.0 source; downloaded
 releases may have different requirements or features.
 
 ## What can you do?

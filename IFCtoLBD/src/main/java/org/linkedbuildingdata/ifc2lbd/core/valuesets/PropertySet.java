@@ -1,7 +1,6 @@
 	package org.linkedbuildingdata.ifc2lbd.core.valuesets;
 
 import java.nio.charset.StandardCharsets;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
@@ -20,7 +19,6 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
@@ -82,10 +80,6 @@ public class PropertySet {
 	private final Map<String, String> originalPropertyNames = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameType = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameUnit = new HashMap<>();
-	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
-
-	private boolean is_bSDD_pset = false;
-	private Resource psetDef = null;
 	private final boolean hasUnits;
 	private static long pset_counter = 0;
 	private long pset_inx = 0;
@@ -100,13 +94,6 @@ public class PropertySet {
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 		this.hasUnits = hasUnits;
-		// System.out.println("pset name: " + this.propertyset_name);
-		StmtIterator iter = ontology_model.listStatements(null, PROPS.namePset, this.propertyset_name);
-		if (iter.hasNext()) {
-			// System.out.println("Pset bsdd match!");
-			is_bSDD_pset = true;
-			psetDef = iter.next().getSubject();
-		}
 		this.hasSimplified_properties = false;
 		this.propertiesAsPropertySets = false;
 		PropertySet.pset_counter++;
@@ -141,36 +128,6 @@ public class PropertySet {
 		mapPnameUnit.put(StringOperations.toCamelCase(property_name), unit);
 	}
 
-	public void putPsetPropertyRef(RDFNode property) {
-		String pname = property.asLiteral().getString();
-		putPsetPropertyRef(pname, StringOperations.toCamelCase(property.toString()));
-	}
-
-	public void putPsetPropertyRef(String pname) {
-		putPsetPropertyRef(pname, StringOperations.toCamelCase(pname));
-	}
-
-	private void putPsetPropertyRef(String pname, String bsddKey) {
-		pname = StringOperations.toCamelCase(pname);
-		if (is_bSDD_pset) {
-			StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
-			while (iter.hasNext()) {
-				Resource prop = iter.next().getResource();
-				StmtIterator iterProp = prop.listProperties(PROPS.namePset);
-				while (iterProp.hasNext()) {
-					Literal psetPropName = iterProp.next().getLiteral();
-					if (psetPropName.getString().equals(pname)) {
-						mapBSDD.put(bsddKey, prop);
-					} else {
-						if (psetPropName.getString().toUpperCase().equals(pname.toUpperCase())) {
-							mapBSDD.put(pname, prop);
-						}
-					}
-				}
-			}
-		}
-	}
-
 	/**
 	 * Adds property value property for an resource.
 	 * 
@@ -187,13 +144,9 @@ public class PropertySet {
 		if (pksetclasses) {
 			to_connect = this.lbd_model
 					.createResource(this.uriBase + "pset_" + this.propertyset_name + "_" + this.pset_inx);
-			if (this.propertyset_name.contains("Common")) {
-				Resource bsdd_class = this.lbd_model
-						.createResource("https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/"
-								+ this.propertyset_name);
-				to_connect.addProperty(RDF.type, bsdd_class);
-
-			}
+			Resource bsddClass = BSDD.propertySet(this.lbd_model, this.propertyset_name).orElse(null);
+			if (bsddClass != null)
+				to_connect.addProperty(RDF.type, bsddClass);
 			Property property = this.lbd_model.createProperty(LBD.ns + "has" + this.propertyset_name.replace(" ", "_"));
 			lbd_resource.addProperty(property, to_connect);
 			if (this.done) {
@@ -258,7 +211,8 @@ public class PropertySet {
 		if (!this.hashes.add(longGuid))
 			return;
 		psetResource.addProperty(RDF.type, BSDD.propertySet);
-		psetResource.addProperty(RDF.type, this.lbd_model.createResource(BSDD.class_ns + uriSegment(this.propertyset_name)));
+		BSDD.propertySet(this.lbd_model, this.propertyset_name)
+				.ifPresent(bsddClass -> psetResource.addProperty(RDF.type, bsddClass));
 		psetResource.addProperty(RDFS.label, this.propertyset_name);
 
 		Instant generatedAt = Instant.now();
@@ -269,8 +223,8 @@ public class PropertySet {
 			Resource stateResource = this.lbd_model.createResource(this.uriBase + "cs_" + propertyId);
 
 			psetResource.addProperty(BSDD.containsProperty, propertyResource);
-			propertyResource.addProperty(RDF.type,
-					this.lbd_model.createResource(BSDD.property_ns + uriSegment(originalPname)));
+			BSDD.property(this.lbd_model, this.propertyset_name, originalPname)
+					.ifPresent(bsddProperty -> propertyResource.addProperty(RDF.type, bsddProperty));
 			propertyResource.addProperty(RDF.type, OPM.property);
 			propertyResource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
 			propertyResource.addProperty(OPM.hasPropertyState, stateResource);
@@ -297,10 +251,6 @@ public class PropertySet {
 		}
 	}
 
-	private static String uriSegment(String value) {
-		return URLEncoder.encode(value, StandardCharsets.UTF_8).replace("+", "%20");
-	}
-
 	private List<PsetProperty> writeOPM_Set(String long_guid) {
 		List<PsetProperty> properties = new ArrayList<>();
 		LocalDateTime datetime = LocalDateTime.now();
@@ -313,8 +263,9 @@ public class PropertySet {
 				property_resource.addProperty(RDF.type, OPM.property);
 			}
 
-			if (this.mapBSDD.get(pname) != null)
-				property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
+			String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
+			BSDD.property(this.lbd_model, this.propertyset_name, originalPname)
+					.ifPresent(reference -> property_resource.addProperty(RDFS.seeAlso, reference));
 
 			// Just the complete name
 			property_resource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);

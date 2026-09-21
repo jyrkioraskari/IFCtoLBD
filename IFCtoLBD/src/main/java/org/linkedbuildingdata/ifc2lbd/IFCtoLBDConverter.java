@@ -355,8 +355,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		List<ConversionModule> modules = request.getProfile().map(ConversionProfile::modules).orElse(List.of());
 		ConversionContext context = new ConversionContext(request);
 		modules.forEach(module -> module.configure(context));
-		setOntologyLoading(request.getProfile().isEmpty() || context.usesProductOntologies(),
-				request.getProfile().isEmpty() || context.usesPropertySetOntologies());
+		setOntologyLoading(request.getProfile().isEmpty() || context.usesProductOntologies());
 		setSelected_types(request.getSelectedTypes());
 		setSelected_psets(request.getSelectedPropertySets());
 		setProperty_replace_map(request.getPropertyReplacements());
@@ -389,8 +388,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				this.lbd_product_output_model, this.lbd_property_output_model);
 		ConversionManifest.Created manifest = ConversionManifest.create(request, conversionSession.now(), validation, getUriPolicy(),
 				conversionSession.getGeometryProvider(), conversionSession.getGeometryArtifactStore(),
-				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies(),
-				context.usesPropertySetOntologies());
+				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies());
 		// Legacy output builds a materialized union in the general graph. Structured
 		// results keep each statement in exactly one physical graph.
 		this.lbd_general_output_model.remove(this.lbd_product_output_model);
@@ -452,6 +450,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits, false)) {
 			if (this.hasSimplified_properties)
 				setHasSimplified_properties(true); // for the read property sets
+			if (this.propertiesAsPropertySets)
+				setPropertiesAsPropertySets(true); // for the read property sets
 
 			return convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
@@ -483,6 +483,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits, false)) {
 			if (this.hasSimplified_properties)
 				setHasSimplified_properties(true); // for the read property sets
+			if (this.propertiesAsPropertySets)
+				setPropertiesAsPropertySets(true); // for the read property sets
 			return convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, geometryRequired, exportIfcOWL, hasUnits,
 					hasBoundingBoxWKT, hasHierarchicalNaming, hasInterfaces, hasWireframe);
@@ -500,6 +502,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasBuildingElements, hasBuildingProperties, hasBoundingBoxWKT, hasUnits, false)) {
 			if (this.hasSimplified_properties)
 				setHasSimplified_properties(true); // for the read property sets
+			if (this.propertiesAsPropertySets)
+				setPropertiesAsPropertySets(true); // for the read property sets
 			return convert_LBD_phase(hasBuildingElements, hasSeparateBuildingElementsModel, hasBuildingProperties,
 					hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
 					hasHierarchicalNaming, false);

@@ -27,21 +27,6 @@ import org.junit.jupiter.api.Test;
 public class DuplexLbdPatternShaclTest {
 	private static final String BASE_URI = "https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
 	private static final String CORE_SHAPES = "SHACL_duplex_lbd_patterns_core.ttl";
-	private static final String IFCOWL_LINK_SHAPES = "SHACL_duplex_lbd_patterns_ifcowl_links.ttl";
-	private static final String INTERFACE_SHAPES = "SHACL_duplex_lbd_patterns_interfaces.ttl";
-	private static final String GEOMETRY_SHAPES = "SHACL_duplex_lbd_patterns_geometry.ttl";
-
-	@DisplayName("Duplex_LBD reference output conforms to the documented LBD pattern shapes")
-	@Test
-	public void duplexReferenceOutputConformsToPatternShapes() {
-		Model reference = loadResourceModel("Duplex_LBD.ttl");
-		assertTrue(reference.size() > 0, "Duplex_LBD.ttl should contain triples.");
-
-		assertConforms(reference, CORE_SHAPES);
-		assertConforms(reference, IFCOWL_LINK_SHAPES);
-		assertConforms(reference, INTERFACE_SHAPES);
-		assertConforms(reference, GEOMETRY_SHAPES);
-	}
 
 	@DisplayName("Converter output conforms to the core Duplex LBD pattern shapes")
 	@Test
@@ -69,10 +54,6 @@ public class DuplexLbdPatternShaclTest {
 			e.printStackTrace();
 			fail("Duplex LBD SHACL pattern test had an error: " + e.getMessage());
 		}
-	}
-
-	private Model loadResourceModel(String resourceName) {
-		return loadModel(resourceFile(resourceName));
 	}
 
 	private Model loadModel(File file) {

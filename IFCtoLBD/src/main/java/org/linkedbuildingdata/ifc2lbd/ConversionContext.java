@@ -15,7 +15,6 @@ public final class ConversionContext {
 	private final ConversionProperties properties;
 	private final Set<String> validationResources = new LinkedHashSet<>();
 	private boolean productOntologies;
-	private boolean propertySetOntologies;
 	private Model ifcModel;
 	private IfcOWL ifcOntology;
 	private Model generalModel;
@@ -31,9 +30,7 @@ public final class ConversionContext {
 	public ConversionRequest request() { return request; }
 	public ConversionProperties properties() { return properties; }
 	public void requireProductOntologies() { productOntologies = true; }
-	public void requirePropertySetOntologies() { propertySetOntologies = true; }
 	boolean usesProductOntologies() { return productOntologies; }
-	boolean usesPropertySetOntologies() { return propertySetOntologies; }
 	public void addValidationResource(String resource) { validationResources.add(resource); }
 	Set<String> validationResources() { return Set.copyOf(validationResources); }
 

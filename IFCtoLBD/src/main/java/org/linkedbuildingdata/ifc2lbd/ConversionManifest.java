@@ -21,6 +21,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.linkedbuildingdata.ifc2lbd.namespace.IfcBsddDictionary;
 
 import be.ugent.IfcSpfReader;
 
@@ -28,7 +29,7 @@ import be.ugent.IfcSpfReader;
 final class ConversionManifest {
 
 	static final String NS = "https://w3id.org/ifctolbd/manifest#";
-	static final String CONVERTER_VERSION = "2.52.0";
+	static final String CONVERTER_VERSION = "2.53.0";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
 
 	private ConversionManifest() { }
@@ -36,8 +37,7 @@ final class ConversionManifest {
 
 	static Created create(ConversionRequest request, Instant convertedAt, ValidationStage.Result validation,
 			UriPolicy uriPolicy, GeometryProvider geometryProvider, GeometryArtifactStore artifactStore,
-			List<GeometryArtifact> geometryArtifacts, String baseUri, boolean productOntologies,
-			boolean propertySetOntologies) {
+			List<GeometryArtifact> geometryArtifacts, String baseUri, boolean productOntologies) {
 		Path source = Path.of(request.getIfcFilename()).toAbsolutePath();
 		String sourceChecksum = sha256(source);
 		ConversionProfile profile = request.getProfile().orElse(null);
@@ -47,7 +47,7 @@ final class ConversionManifest {
 		String artifactSignature = geometryArtifacts.stream().map(GeometryArtifact::sha256).sorted()
 				.reduce("", (a, b) -> a + "|" + b);
 		String ontologySignature = "ifc-schema@source|product@1:" + productOntologies
-				+ "|property-sets@1:" + propertySetOntologies;
+				+ "|ifc-bsdd@" + IfcBsddDictionary.get().version();
 		String requestConfiguration = canonicalRequest(request, baseUri, profileId, moduleSignature, uriPolicy,
 				geometryProvider, artifactStore, ontologySignature);
 		String requestFingerprint = sha256(requestConfiguration);

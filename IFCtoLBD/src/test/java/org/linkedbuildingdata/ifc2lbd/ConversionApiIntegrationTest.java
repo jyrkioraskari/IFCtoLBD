@@ -18,9 +18,25 @@ import java.util.HashSet;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 
 @Tag("integration")
 class ConversionApiIntegrationTest {
+
+	@Test
+	void propertiesOpmProfileReachesResolvedBsddWriter() throws Exception {
+		File ifcFile = new File(getClass().getResource("/TWO WALLS.ifc").toURI());
+		try (ConversionSession session = new ConversionSession();
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(ifcFile.getAbsolutePath(), ConversionProfiles.PROPERTIES_OPM))) {
+			assertTrue(result.getModel().contains(null, BSDD.hasPropertySet));
+			assertTrue(result.getModel().contains(null, org.apache.jena.vocabulary.RDF.type,
+					result.getModel().createResource(BSDD.class_ns + "Pset_WallCommon")));
+			assertTrue(result.getModel().contains(null, org.apache.jena.vocabulary.RDF.type,
+					result.getModel().createResource(BSDD.property_ns + "LoadBearing")));
+		}
+	}
 
 	@Test
 	void requestProducesAZeroCopyNonDuplicatedResult() throws Exception {
@@ -108,7 +124,7 @@ class ConversionApiIntegrationTest {
 			assertFalse(manifest.isEmpty());
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "profile"), "core"));
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "converterVersion"),
-					"2.52.0"));
+					"2.53.0"));
 			assertTrue(manifest.contains(null, manifest.createProperty("http://www.w3.org/ns/prov#generatedAtTime")));
 		}
 	}

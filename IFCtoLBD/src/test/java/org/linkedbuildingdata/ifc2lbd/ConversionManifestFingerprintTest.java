@@ -69,7 +69,7 @@ class ConversionManifestFingerprintTest {
 				.orElse(LegacyUriPolicy.INSTANCE);
 		return ConversionManifest.create(request, Instant.EPOCH,
 				new ValidationStage.Result("not-run", ModelFactory.createDefaultModel(), List.of()), policy,
-				NoGeometryProvider.INSTANCE, store, List.of(), baseUri, true, false);
+				NoGeometryProvider.INSTANCE, store, List.of(), baseUri, true);
 	}
 
 	private static GeometryArtifactStore store(String id) {

@@ -56,7 +56,6 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_Syst
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.ChangeableOptonal;
-import org.linkedbuildingdata.ifc2lbd.core.utils.FileUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.LBD_RDF_Utils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
@@ -1111,13 +1110,11 @@ public abstract class IFCtoLBDConverterCore {
 							return;
 					}
 					ps.putPnameValue(pname, pvalue);
-					ps.putPsetPropertyRef(pname);
+					}
 				}
-			}
-		} else {
-			ps.putPnameValue(pname, propertySingleValue);
-			ps.putPsetPropertyRef(pname);
-			RDFUtils.copyTriples(0, propertySingleValue, this.lbd_property_output_model);
+			} else {
+				ps.putPnameValue(pname, propertySingleValue);
+				RDFUtils.copyTriples(0, propertySingleValue, this.lbd_property_output_model);
 		}
 		if (!property_type.isEmpty()) {
 			RDFNode ptype = property_type.get(0);
@@ -1741,11 +1738,8 @@ public abstract class IFCtoLBDConverterCore {
 	 *                 the IFC file
 	 */
 	private boolean loadProductOntologies = true;
-	private boolean loadPropertySetOntologies = true;
-
-	protected void setOntologyLoading(boolean productOntologies, boolean propertySetOntologies) {
+	protected void setOntologyLoading(boolean productOntologies) {
 		this.loadProductOntologies = productOntologies;
-		this.loadPropertySetOntologies = propertySetOntologies;
 	}
 
 	protected void readInOntologies(String ifc_file) {
@@ -1769,16 +1763,6 @@ public abstract class IFCtoLBDConverterCore {
 				RDFUtils.readInOntologyTTL(this.ontology_model, "prod_furnishing.ttl", this.eventBus);
 				RDFUtils.readInOntologyTTL(this.ontology_model, "beo_ontology.ttl", this.eventBus);
 				RDFUtils.readInOntologyTTL(this.ontology_model, "mep_ontology.ttl", this.eventBus);
-			}
-
-			if (loadPropertySetOntologies) {
-				RDFUtils.readInOntologyTTL(this.ontology_model, "psetdef.ttl", this.eventBus);
-				List<String> files = FileUtils.getListofFiles("pset", ".ttl");
-				for (String file : files) {
-					file = file.substring(file.indexOf("pset"));
-					file = file.replaceAll("\\\\", "/");
-					RDFUtils.readInOntologyTTL(this.ontology_model, file, this.eventBus);
-				}
 			}
 
 		} catch (Exception e) {
