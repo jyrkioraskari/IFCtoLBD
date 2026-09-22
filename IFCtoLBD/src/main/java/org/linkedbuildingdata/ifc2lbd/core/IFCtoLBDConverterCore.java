@@ -52,6 +52,7 @@ import org.linkedbuildingdata.ifc2lbd.GeometryArtifact;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemExtractor;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemInfo;
 import org.linkedbuildingdata.ifc2lbd.UriPolicy;
+import org.linkedbuildingdata.ifc2lbd.UnitResolver;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -72,7 +73,6 @@ import org.linkedbuildingdata.ifc2lbd.namespace.OMG;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.linkedbuildingdata.ifc2lbd.namespace.Product;
-import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -891,7 +891,7 @@ public abstract class IFCtoLBDConverterCore {
 		return targetFile + extension;
 	}
 
-	private final Map<String, String> unitmap = new HashMap<>();
+	private UnitResolver unitResolver = UnitResolver.empty();
 
 	/**
 	 * Collects the PropertySet data from the ifcOWL model and creates a separate
@@ -909,46 +909,7 @@ public abstract class IFCtoLBDConverterCore {
 		try {
 			dataset.begin(ReadWrite.READ); // Just bulky one
 			Model ifcowl_model = dataset.getDefaultModel();
-			Resource ifcproject = IfcOWLUtils.getIfcProject(this.ifcOWL, ifcowl_model);
-
-			if (hasUnits) {
-				RDFStep[] project_units_path = { new RDFStep(this.ifcOWL.getUnitsInContext_IfcProject()),
-						new RDFStep(this.ifcOWL.getUnits_IfcUnitAssignment()) };
-
-				if (ifcproject != null) {
-					List<RDFNode> units = RDFUtils.pathQuery(ifcproject, project_units_path);
-					for (RDFNode ru : units) {
-						RDFStep[] namedUnit_path = { new RDFStep(this.ifcOWL.getUnitType_IfcNamedUnit()) };
-						List<RDFNode> r1 = RDFUtils.pathQuery(ru.asResource(), namedUnit_path);
-
-						String named_unit = null;
-						for (RDFNode l1 : r1)
-							named_unit = l1.asResource().getLocalName().substring(0,
-									l1.asResource().getLocalName().length() - 4);
-
-						RDFStep[] siUnit_prefix_path = { new RDFStep(this.ifcOWL.getPrefix_IfcSIUnit()) };
-						List<RDFNode> runit_pref = RDFUtils.pathQuery(ru.asResource(), siUnit_prefix_path);
-
-						String si_prefix = null;
-						for (RDFNode lpref : runit_pref)
-							si_prefix = lpref.asResource().getLocalName();
-
-						RDFStep[] siUnit_path = { new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
-						List<RDFNode> runit_name = RDFUtils.pathQuery(ru.asResource(), siUnit_path);
-						String si_unit = null;
-						for (RDFNode lname : runit_name)
-							si_unit = lname.asResource().getLocalName();
-
-						if (si_prefix != null)
-							si_unit = si_prefix + " " + si_unit;
-
-						if (named_unit != null && si_unit != null) {
-							// System.out.println("SI UNIT: " + named_unit + " - " + si_unit);
-							this.unitmap.put(named_unit.toLowerCase(), si_unit);
-						}
-					}
-				}
-			}
+			this.unitResolver = hasUnits ? UnitResolver.fromProject(ifcowl_model, this.ifcOWL) : UnitResolver.empty();
 
 			IfcOWLUtils.listPropertysets(this.ifcOWL, ifcowl_model).stream().map(RDFNode::asResource)
 					.forEach(propertyset -> {
@@ -963,10 +924,10 @@ public abstract class IFCtoLBDConverterCore {
 							if (!propertyset_name.isEmpty())
 								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
 										this.ontology_model, propertyset_name.get(0).toString(), props_level,
-										hasPropertiesBlankNodes, this.unitmap, hasUnits);
+										hasPropertiesBlankNodes, this.unitResolver, hasUnits);
 							else
 								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
+										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
 										hasUnits);
 							this.propertysets.put(propertyset.getURI(), ps);
 							ps.setActive(selected_psets.isEmpty() || selected_psets.contains(ps.getPropertyset_name()));
@@ -996,10 +957,10 @@ public abstract class IFCtoLBDConverterCore {
 							if (!quantityset_name.isEmpty())
 								quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
 										this.ontology_model, quantityset_name.get(0).toString(), props_level,
-										hasPropertiesBlankNodes, this.unitmap, hasUnits);
+										hasPropertiesBlankNodes, this.unitResolver, hasUnits);
 							else
 								quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitmap,
+										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
 										hasUnits);
 							this.propertysets.put(quantityset.getURI(), quantity_set);
 							quantity_set.setActive(selected_psets.isEmpty()
@@ -1066,8 +1027,8 @@ public abstract class IFCtoLBDConverterCore {
 
 		String pname = propertyPrefix + property_name.get(0).toString();
 
-		RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()),
-				new RDFStep(this.ifcOWL.getName_IfcSIUnit()) };
+		// Keep the unit resource: its prefix, name and any non-SI identity are all significant.
+		RDFStep[] unit_path = { new RDFStep(this.ifcOWL.getUnit_IfcPropertySingleValue()) };
 		final List<RDFNode> property_unit = new ArrayList<>(RDFUtils.pathQuery(propertySingleValue, unit_path));
 		// if this optional property exists, it has the priority
 
@@ -1119,6 +1080,13 @@ public abstract class IFCtoLBDConverterCore {
 		if (!property_type.isEmpty()) {
 			RDFNode ptype = property_type.get(0);
 			ps.putPnameType(pname, ptype);
+		}
+		RDFNode nominal = propertySingleValue.getPropertyResourceValue(
+				this.ifcOWL.getNominalValue_IfcPropertySingleValue());
+		if (nominal != null && nominal.isResource()) {
+			nominal.asResource().listProperties().filterKeep(statement ->
+					"IfcDataType".equalsIgnoreCase(statement.getPredicate().getLocalName()))
+					.forEachRemaining(statement -> ps.putPnameIfcDataType(pname, statement.getObject()));
 		}
 		if (!property_unit.isEmpty()) {
 			RDFNode punit = property_unit.get(0);
@@ -1179,6 +1147,8 @@ public abstract class IFCtoLBDConverterCore {
 
 		quantity.listProperties().forEach(property_value -> {
 			if (!name.isEmpty() && property_value.getPredicate().getLocalName().contains("Value_")) {
+				Resource valueResource = property_value.getObject().isResource()
+						? property_value.getResource() : null;
 				RDFStep[] value_pathS = { new RDFStep(IfcOWL.Express.getHasString()) };
 				final List<RDFNode> q_value = new ArrayList<>(
 						RDFUtils.pathQuery(property_value.getObject().asResource(), value_pathS));
@@ -1203,6 +1173,18 @@ public abstract class IFCtoLBDConverterCore {
 				if (!q_value.isEmpty()) {
 					RDFNode qvalue = q_value.get(0);
 					quantitySet.putPnameValue(name.get(0), qvalue);
+					if (valueResource != null) {
+						var valueType = valueResource.getProperty(RDF.type);
+						if (valueType != null) quantitySet.putPnameType(name.get(0), valueType.getObject());
+						valueResource.listProperties().filterKeep(statement ->
+								"IfcDataType".equalsIgnoreCase(statement.getPredicate().getLocalName()))
+								.forEachRemaining(statement -> quantitySet.putPnameIfcDataType(name.get(0),
+										statement.getObject()));
+					}
+					quantity.listProperties().filterKeep(statement ->
+							statement.getPredicate().getLocalName().startsWith("unit_"))
+							.mapWith(statement -> statement.getObject()).filterKeep(RDFNode::isResource)
+							.forEachRemaining(unit -> quantitySet.putPnameUnit(name.get(0), unit));
 				} else
 					System.err.println("qval empty " + q_value + " for: " + property_value.getObject());
 			}
@@ -1221,7 +1203,8 @@ public abstract class IFCtoLBDConverterCore {
 	 */
 	protected void addNamespaces(String uriBase, int props_level, boolean hasBuildingElements,
 			boolean hasBuildingProperties) {
-		SMLS.addNameSpace(this.lbd_general_output_model);
+		this.lbd_general_output_model.setNsPrefix("qudt", UnitResolver.QUDT_SCHEMA);
+		this.lbd_general_output_model.setNsPrefix("unitmeta", UnitResolver.META);
 		UNIT.addNameSpace(this.lbd_general_output_model);
 		GEO.addNameSpace(this.lbd_general_output_model);
 		OMG.addNameSpace(this.lbd_general_output_model);
@@ -1479,7 +1462,7 @@ public abstract class IFCtoLBDConverterCore {
 		addGeometry(bot_r, guid);
 		String uncompressed_guid = GuidCompressor.uncompressGuidString(guid);
 		final AttributeSet connected_attributes = new AttributeSet(this.uriBase.get(), output_model, this.props_level,
-				this.hasPropertiesBlankNodes, this.unitmap, this.hasSimplified_properties, this.property_replace_map);
+				this.hasPropertiesBlankNodes, this.unitResolver, this.hasSimplified_properties, this.property_replace_map);
 		r.listProperties().forEachRemaining(s -> {
 			String ps = s.getPredicate().getLocalName();
 			Resource attr = s.getObject().asResource();

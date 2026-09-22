@@ -23,9 +23,23 @@ final class NormalizedValueWriter {
 					.addProperty(model.createProperty(QUDT + "numericValue"), normalized.value());
 		if (normalized.unitUri() != null && !normalized.unitUri().isBlank())
 			value.addProperty(model.createProperty(QUDT + "unit"), model.createResource(normalized.unitUri()));
+		if (normalized.originalUnitCode() != null && !normalized.originalUnitCode().isBlank())
+			value.addLiteral(model.createProperty(UnitResolver.META + "originalUnitCode"),
+					normalized.originalUnitCode());
+		if (normalized.sourceIfcType() != null && !normalized.sourceIfcType().isBlank())
+			addIdentifier(model, value, UnitResolver.META + "sourceIFCType", normalized.sourceIfcType());
+		if (normalized.ifcDataType() != null && !normalized.ifcDataType().isBlank())
+			addIdentifier(model, value, UnitResolver.META + "ifcDataType", normalized.ifcDataType());
 		if (normalized.sourcePropertyUri() != null && !normalized.sourcePropertyUri().isBlank())
 			value.addProperty(model.createProperty(PROV + "wasDerivedFrom"), model.createResource(normalized.sourcePropertyUri()));
 		owner.addProperty(model.createProperty(SupplyChainStage.NS + propertyName + "Value"), value);
 		return value;
+	}
+
+	private static void addIdentifier(Model model, Resource owner, String predicate, String identifier) {
+		if (identifier.startsWith("http://") || identifier.startsWith("https://") || identifier.startsWith("urn:"))
+			owner.addProperty(model.createProperty(predicate), model.createResource(identifier));
+		else
+			owner.addLiteral(model.createProperty(predicate), identifier);
 	}
 }

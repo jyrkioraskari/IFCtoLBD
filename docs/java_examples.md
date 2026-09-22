@@ -17,7 +17,7 @@ Then add this dependency to your own Maven project:
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
   <artifactId>ifc-to-lbd</artifactId>
-  <version>2.53.0</version>
+  <version>2.53.1</version>
 </dependency>
 ```
 

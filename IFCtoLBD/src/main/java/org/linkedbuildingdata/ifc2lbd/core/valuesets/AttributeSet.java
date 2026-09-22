@@ -18,12 +18,11 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
+import org.linkedbuildingdata.ifc2lbd.UnitResolver;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
-import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
-import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -47,7 +46,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
  *
  */
 public class AttributeSet {
-    private final Map<String, String> unitmap;
+	private final UnitResolver unitResolver;
     private final Map<String, String> property_replace_map;  // allows users to replace default properties
     private String default_property_namespace;
 
@@ -72,7 +71,13 @@ public class AttributeSet {
     private final Map<String, RDFNode> mapPnameType = new HashMap<>();
 
     public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap,boolean hasSimplified_properties,Map<String, String> property_replace_map) {
-        this.unitmap = unitmap;
+		this(uriBase, lbd_model, props_level, hasBlank_nodes, UnitResolver.fromLegacyProjectUnits(unitmap),
+				hasSimplified_properties, property_replace_map);
+	}
+
+	public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes,
+			UnitResolver unitResolver, boolean hasSimplified_properties, Map<String, String> property_replace_map) {
+		this.unitResolver = unitResolver;
         this.uriBase = uriBase;
         this.lbd_model = lbd_model;
         this.props_level = props_level;
@@ -86,7 +91,14 @@ public class AttributeSet {
     }
     
     public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes, Map<String, String> unitmap,boolean hasSimplified_properties,Map<String, String> property_replace_map,String default_property_namebase) {
-        this.unitmap = unitmap;
+		this(uriBase, lbd_model, props_level, hasBlank_nodes, UnitResolver.fromLegacyProjectUnits(unitmap),
+				hasSimplified_properties, property_replace_map, default_property_namebase);
+	}
+
+	public AttributeSet(String uriBase, Model lbd_model, int props_level, boolean hasBlank_nodes,
+			UnitResolver unitResolver, boolean hasSimplified_properties, Map<String, String> property_replace_map,
+			String default_property_namebase) {
+		this.unitResolver = unitResolver;
         this.uriBase = uriBase;
         this.lbd_model = lbd_model;
         this.props_level = props_level;
@@ -145,6 +157,7 @@ public class AttributeSet {
                        property = this.lbd_model.createProperty(property_replace(this.default_property_namespace + StringOperations.toCamelCase(pname) + "_attribute_simple"));
                 	this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
                     this.lbd_model.add(property, RDFS.comment, "IFC standard attribute "+pname);
+					addIfcDatatype(property, pname);
 
                 }
                 // No blank node etc is created, so no units expressed here
@@ -190,11 +203,13 @@ public class AttributeSet {
                 state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
                 state_resourse.addLiteral(OPM.generatedAtTime, time_string);
                 state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
+				addIfcDatatype(state_resourse, pname);
                 addUnit(state_resourse, pname);
 
                 
             } else {
                 property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
+				addIfcDatatype(property_resource, pname);
                 addUnit(property_resource, pname);
             }
 
@@ -216,55 +231,15 @@ public class AttributeSet {
     }
 
     private void addUnit(Resource lbd_resource, String pname) {
-
-        RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
-        if (ifc_measurement_type != null) {
-            String unit = ifc_measurement_type.asResource().getLocalName().toLowerCase();
-            if (unit.startsWith("ifc"))
-                unit = unit.substring(3);
-            if (unit.startsWith("positive"))
-                unit = unit.substring("positive".length());
-            if (unit.endsWith("measure"))
-                unit = unit.substring(0, unit.length() - "measure".length());
-            String si_unit = this.unitmap.get(unit);
-            if (si_unit != null) {
-                if (si_unit.equals("METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-                } else if (si_unit.equals("SQUARE_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-                } else if (si_unit.equals("CUBIC_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-                } else if (si_unit.equals("MILLI METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-                } else if (si_unit.equals("MILLI SQUARE_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-                } else if (si_unit.equals("MILLI CUBIC_METRE")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-                } else if (si_unit.equals("RADIAN")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
-                }
-            } else {
-                if (unit.equals("length")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
-                                                                           // named
-                                                                           // in:
-                    // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
-                } else if (unit.equals("area")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
-                                                                            // named
-                                                                            // in:
-                    // https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
-                } else if (unit.equals("volume")) {
-                    lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
-                                                                           // named
-                                                                           // in:
-                    // https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
-                }
-
-            }
-        }
-
+		UnitResolver.write(this.lbd_model, lbd_resource,
+				this.unitResolver.resolve(null, this.mapPnameType.get(pname)));
     }
+
+	private void addIfcDatatype(Resource owner, String pname) {
+		RDFNode sourceType = this.mapPnameType.get(pname);
+		if (sourceType != null)
+			owner.addProperty(this.lbd_model.createProperty(UnitResolver.META + "sourceIFCType"), sourceType);
+	}
 
     private String property_replace(String property)
     {    	

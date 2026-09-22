@@ -124,7 +124,7 @@ class ConversionApiIntegrationTest {
 			assertFalse(manifest.isEmpty());
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "profile"), "core"));
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "converterVersion"),
-					"2.53.0"));
+					"2.53.1"));
 			assertTrue(manifest.contains(null, manifest.createProperty("http://www.w3.org/ns/prov#generatedAtTime")));
 		}
 	}

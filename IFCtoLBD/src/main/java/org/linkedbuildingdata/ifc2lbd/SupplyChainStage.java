@@ -20,7 +20,6 @@ public final class SupplyChainStage {
 	static final String NS = "https://w3id.org/ifctolbd/supply-chain#";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
 	private static final String QUDT = "http://qudt.org/schema/qudt/";
-	private static final String QUDT_UNIT = "http://qudt.org/vocab/unit/";
 	private static final String SUSTAINABILITY = "https://w3id.org/ifctolbd/sustainability#";
 	private static final Map<String, String> NORMALIZED_PROPERTIES = Map.ofEntries(
 			Map.entry("globaltradeitemnumber", "gtin"), Map.entry("manufacturer", "manufacturer"),
@@ -69,6 +68,7 @@ public final class SupplyChainStage {
 	private static Set<String> extractPropertySets(Model ifcModel, IfcOWL ifc, Model output,
 			Map<Resource, Resource> resources, boolean sustainability) {
 		Set<String> extracted = new HashSet<>();
+		UnitResolver unitResolver = UnitResolver.fromProject(ifcModel, ifc);
 		Resource relationType = ifcModel.createResource(ifc.getIfcURI() + "IfcRelDefinesByProperties");
 		ifcModel.listResourcesWithProperty(RDF.type, relationType).forEachRemaining(relation -> {
 			Resource pset = resourceObject(relation, ifc.getRelatingPropertyDefinition_IfcRelDefinesByProperties());
@@ -88,9 +88,16 @@ public final class SupplyChainStage {
 				for (RDFNode targetNode : targets) {
 					Resource target = targetNode.isResource() ? resources.get(targetNode.asResource()) : null;
 					if (target == null) continue;
-					String unitUri = declaredUnitUri(ifcModel, ifc, pset);
+					Resource explicitUnit = resourceObject(property, ifc.getUnit_IfcPropertySingleValue());
+					RDFNode measurementType = propertyValueResource(property,
+							ifc.getNominalValue_IfcPropertySingleValue());
+					RDFNode sourceType = measurementType != null && measurementType.isResource()
+							? measurementType.asResource().getPropertyResourceValue(RDF.type) : null;
+					UnitResolver.Resolution unit = unitResolver.resolve(explicitUnit, sourceType, ifc);
+					if (!unit.isResolved() && unit.originalCode() == null)
+						unit = declaredUnit(ifcModel, ifc, pset);
 					if (epdProperty != null) normalizeEpdProperty(output, target, value,
-							property.getURI(), epdProperty, unitUri);
+							property.getURI(), epdProperty, unit, uri(sourceType), futureIfcDataType(measurementType));
 					if (normalized != null) addNormalizedProperty(output, target, value, property.getURI(),
 							normalized, psetName, "exact-ifc-pset-property");
 					extracted.add(target.getURI() + "\u0000" + normalizeName(propertyName));
@@ -159,7 +166,7 @@ public final class SupplyChainStage {
 			if (!statement.getSubject().isURIResource()) return;
 			if (directlyExtracted.contains(statement.getSubject().getURI() + "\u0000" + key)) return;
 			if (epdProperty != null) normalizeEpdProperty(output, statement.getSubject(), statement.getObject(),
-					statement.getPredicate().getURI(), epdProperty, declaredUnitUri(output, statement.getSubject()));
+					statement.getPredicate().getURI(), epdProperty, declaredUnit(output, statement.getSubject()), null, null);
 			if (normalized == null) return;
 			addNormalizedProperty(output, statement.getSubject(), statement.getObject(), statement.getPredicate().getURI(),
 					normalized, null, "exact-ifc-property-name");
@@ -185,7 +192,7 @@ public final class SupplyChainStage {
 	}
 
 	private static void normalizeEpdProperty(Model output, Resource product, RDFNode value, String sourceProperty,
-			String property, String unitUri) {
+			String property, UnitResolver.Resolution unit, String sourceIfcType, String ifcDataType) {
 		Resource declaration = output.createResource("urn:ifctolbd:epd:" + shortHash(product.getURI()))
 				.addProperty(RDF.type, output.createResource(SUSTAINABILITY + "EnvironmentalProductDeclaration"));
 		product.addProperty(output.createProperty(SUSTAINABILITY + "hasDeclaration"), declaration);
@@ -194,43 +201,39 @@ public final class SupplyChainStage {
 					+ shortHash(product.getURI() + property));
 			indicator.addProperty(RDF.type, output.createResource(SUSTAINABILITY + "EmbodiedCarbonIndicator"))
 					.addLiteral(output.createProperty(SUSTAINABILITY + "lifeCycleModule"), property);
-			NormalizedValueWriter.write(output, indicator, "indicator", new NormalizedValue(value, unitUri,
-					sourceProperty, "exact-ifc-property-name", 1.0), shortHash(product.getURI() + property + value));
+			RDFNode normalizedValue = UnitResolver.normalizeValue(output, value, unit);
+			NormalizedValueWriter.write(output, indicator, "indicator", new NormalizedValue(normalizedValue,
+					unit == null ? null : unit.qudtUri(), sourceProperty, "exact-ifc-property-name", 1.0,
+					unit == null ? null : unit.originalCode(), sourceIfcType, ifcDataType),
+					shortHash(product.getURI() + property + value));
 			declaration.addProperty(output.createProperty(SUSTAINABILITY + "hasIndicator"), indicator);
 		} else {
 			declaration.addProperty(output.createProperty(SUSTAINABILITY + property), value);
 		}
 	}
 
-	private static String declaredUnitUri(Model output, Resource product) {
+	private static UnitResolver.Resolution declaredUnit(Model output, Resource product) {
 		var statements = product.listProperties().toList();
 		for (var statement : statements) {
 			String key = statement.getPredicate().getLocalName().replaceAll("_(property|attribute)_simple$", "")
 					.replaceAll("[^A-Za-z0-9]", "").toLowerCase();
 			if (!"declaredunit".equals(key)) continue;
 			RDFNode unit = statement.getObject();
-			if (unit.isURIResource()) return unit.asResource().getURI();
+			if (unit.isURIResource()) return new UnitResolver.Resolution(unit.asResource().getURI(),
+					unit.asResource().getURI(), java.math.BigDecimal.ONE);
 			if (!unit.isLiteral()) return null;
-			return switch (unit.asLiteral().getString().replace("²", "2").replace("³", "3")
-					.replaceAll("\\s", "").toLowerCase()) {
-			case "kg", "kilogram", "kilograms" -> QUDT_UNIT + "KiloGM";
-			case "m2", "sqm" -> QUDT_UNIT + "M2";
-			case "m3", "cbm" -> QUDT_UNIT + "M3";
-			case "m", "metre", "meter" -> QUDT_UNIT + "M";
-			case "piece", "pieces", "item", "each" -> QUDT_UNIT + "Each";
-			default -> null;
-			};
+			return UnitResolver.fromText(unit.asLiteral().getString());
 		}
 		return null;
 	}
 
-	private static String declaredUnitUri(Model ifcModel, IfcOWL ifc, Resource pset) {
+	private static UnitResolver.Resolution declaredUnit(Model ifcModel, IfcOWL ifc, Resource pset) {
 		var properties = ifcModel.listObjectsOfProperty(pset, ifc.getHasProperties_IfcPropertySet()).toList();
 		for (RDFNode node : properties) {
 			if (!node.isResource() || !"declaredunit".equals(normalizeName(firstText(node.asResource(), ifc,
 					"name_IfcProperty")))) continue;
 			RDFNode value = propertyValue(node.asResource(), ifc.getNominalValue_IfcPropertySingleValue());
-			if (value != null && value.isLiteral()) return unitUri(value.asLiteral().getString());
+			if (value != null && value.isLiteral()) return UnitResolver.fromText(value.asLiteral().getString());
 		}
 		return null;
 	}
@@ -246,16 +249,28 @@ public final class SupplyChainStage {
 		finally { literals.close(); }
 	}
 
-	private static String unitUri(String unit) {
-		if (unit == null) return null;
-		return switch (unit.replace("²", "2").replace("³", "3").replaceAll("\\s", "").toLowerCase()) {
-		case "kg", "kilogram", "kilograms" -> QUDT_UNIT + "KiloGM";
-		case "m2", "sqm" -> QUDT_UNIT + "M2";
-		case "m3", "cbm" -> QUDT_UNIT + "M3";
-		case "m", "metre", "meter" -> QUDT_UNIT + "M";
-		case "piece", "pieces", "item", "each" -> QUDT_UNIT + "Each";
-		default -> null;
-		};
+	private static RDFNode propertyValueResource(Resource property,
+			org.apache.jena.rdf.model.Property predicate) {
+		var statement = property.getProperty(predicate);
+		return statement == null ? null : statement.getObject();
+	}
+
+	private static String futureIfcDataType(RDFNode valueResource) {
+		if (valueResource == null || !valueResource.isResource()) return null;
+		var statements = valueResource.asResource().listProperties();
+		try {
+			while (statements.hasNext()) {
+				var statement = statements.next();
+				if (!"IfcDataType".equalsIgnoreCase(statement.getPredicate().getLocalName())) continue;
+				RDFNode value = statement.getObject();
+				return value.isURIResource() ? value.asResource().getURI() : value.toString();
+			}
+			return null;
+		} finally { statements.close(); }
+	}
+
+	private static String uri(RDFNode node) {
+		return node != null && node.isURIResource() ? node.asResource().getURI() : null;
 	}
 
 	private static String normalizeName(String name) {

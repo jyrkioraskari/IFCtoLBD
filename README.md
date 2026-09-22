@@ -1,6 +1,6 @@
 # IFCtoLBD
 
-Version 2.53.0 · Free for all of us, forever.
+Version 2.53.1 · Free for all of us, forever.
 
 IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: RDF
 triples that describe buildings, spaces, elements, and their properties. You can
@@ -109,11 +109,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.53.0}},
+  title        = {{IFCtoLBD v 2.53.1}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.53.0},
+  version      = {2.53.1},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 
