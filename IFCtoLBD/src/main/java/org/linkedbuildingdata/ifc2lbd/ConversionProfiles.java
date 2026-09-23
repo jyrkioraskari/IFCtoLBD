@@ -10,6 +10,8 @@ public final class ConversionProfiles {
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, SIMPLE_PROPERTIES);
 	public static final ConversionProfile PROPERTIES_OPM = ConversionProfile.of("properties-opm",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, OPM_PROPERTIES);
+	public static final ConversionProfile EVIDENCE = ConversionProfile.of("evidence",
+			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, BuiltInConversionModule.EVIDENCE);
 	public static final ConversionProfile GEOMETRY_ENVELOPE = ConversionProfile.of("geometry-envelope",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, BuiltInConversionModule.GEOMETRY_ENVELOPE);
 	public static final ConversionProfile GEOMETRY_FULL = ConversionProfile.of("geometry-full",
@@ -34,6 +36,7 @@ public final class ConversionProfiles {
 		case "core" -> CORE;
 		case "properties-simple" -> PROPERTIES_SIMPLE;
 		case "properties-opm" -> PROPERTIES_OPM;
+		case "evidence" -> EVIDENCE;
 		case "geometry-envelope" -> GEOMETRY_ENVELOPE;
 		case "geometry-full" -> GEOMETRY_FULL;
 		case "bim-gis" -> BIM_GIS;

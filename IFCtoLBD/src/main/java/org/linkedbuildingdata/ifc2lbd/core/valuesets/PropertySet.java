@@ -51,6 +51,8 @@ import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
  *
  */
 public class PropertySet {
+	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
+	private static final String PROV = "http://www.w3.org/ns/prov#";
 	private boolean isActive = true;
 	private final UnitResolver unitResolver;
 	private Map<String, String> property_replace_map; // allows users to replace default properties
@@ -80,6 +82,10 @@ public class PropertySet {
 	private final Map<String, RDFNode> mapPnameType = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameIfcDataType = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameUnit = new HashMap<>();
+	private final Map<String, Resource> sourceResources = new HashMap<>();
+	private final Map<String, String> sourcePaths = new HashMap<>();
+	private final String sourceSetUri;
+	private final String sourceKind;
 	private final boolean hasUnits;
 	private static long pset_counter = 0;
 	private long pset_inx = 0;
@@ -93,7 +99,16 @@ public class PropertySet {
 
 	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
 			boolean hasBlank_nodes, UnitResolver unitResolver, boolean hasUnits) {
+		this(uriBase, lbd_model, ontology_model, propertyset_name, props_level, hasBlank_nodes,
+				unitResolver, hasUnits, null, "property");
+	}
+
+	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
+			boolean hasBlank_nodes, UnitResolver unitResolver, boolean hasUnits, String sourceSetUri,
+			String sourceKind) {
 		this.unitResolver = unitResolver;
+		this.sourceSetUri = sourceSetUri;
+		this.sourceKind = sourceKind == null ? "property" : sourceKind;
 		this.uriBase = uriBase;
 		this.lbd_model = lbd_model;
 		this.propertyset_name = propertyset_name;
@@ -132,6 +147,12 @@ public class PropertySet {
 
 	public void putPnameUnit(String property_name, RDFNode unit) {
 		mapPnameUnit.put(StringOperations.toCamelCase(property_name), unit);
+	}
+
+	public void putPnameSource(String propertyName, Resource source, String sourcePath) {
+		String normalizedName = StringOperations.toCamelCase(propertyName);
+		if (source != null) sourceResources.put(normalizedName, source);
+		if (sourcePath != null && !sourcePath.isBlank()) sourcePaths.put(normalizedName, sourcePath);
 	}
 
 	/** Stores a future IfcDataType annotation without replacing the source RDF/IFC type. */
@@ -239,7 +260,8 @@ public class PropertySet {
 					.ifPresent(bsddProperty -> propertyResource.addProperty(RDF.type, bsddProperty));
 			propertyResource.addProperty(RDF.type, OPM.property);
 			propertyResource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
-			propertyResource.addProperty(OPM.hasPropertyState, stateResource);
+				propertyResource.addProperty(OPM.hasPropertyState, stateResource);
+				addEvidence(propertyResource, pname);
 
 			stateResource.addProperty(RDF.type, OPM.currentPropertyState);
 			stateResource.addLiteral(OPM.generatedAtTime,
@@ -276,12 +298,13 @@ public class PropertySet {
 				property_resource.addProperty(RDF.type, OPM.property);
 			}
 
-			String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
+				String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
 			BSDD.property(this.lbd_model, this.propertyset_name, originalPname)
 					.ifPresent(reference -> property_resource.addProperty(RDFS.seeAlso, reference));
 
 			// Just the complete name
-			property_resource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
+				property_resource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
+				addEvidence(property_resource, pname);
 
 			if (this.props_level == 3) {
 				Resource state_resourse;
@@ -328,8 +351,13 @@ public class PropertySet {
 	private void addUnit(Resource lbd_resource, String pname) {
 		RDFNode explicit = this.mapPnameUnit.get(pname);
 		Resource explicitResource = explicit != null && explicit.isResource() ? explicit.asResource() : null;
-		UnitResolver.write(this.lbd_model, lbd_resource,
-				this.unitResolver.resolve(explicitResource, this.mapPnameType.get(pname)));
+		UnitResolver.Resolution resolution = this.unitResolver.resolve(explicitResource, this.mapPnameType.get(pname));
+		UnitResolver.write(this.lbd_model, lbd_resource, resolution);
+		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolutionMethod"),
+				explicitResource != null ? "IFC_EXPLICIT_UNIT"
+						: resolution.isResolved() ? "IFC_PROJECT_UNIT" : "UNRESOLVED");
+		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolverVersion"),
+				UnitResolver.ALIAS_TABLE_VERSION);
 	}
 
 	private void addIfcDatatype(Resource owner, String pname) {
@@ -339,6 +367,21 @@ public class PropertySet {
 		RDFNode futureType = this.mapPnameIfcDataType.get(pname);
 		if (futureType != null)
 			owner.addProperty(this.lbd_model.createProperty(UnitResolver.META + "ifcDataType"), futureType);
+	}
+
+	private void addEvidence(Resource owner, String pname) {
+		owner.addLiteral(this.lbd_model.createProperty(EVIDENCE + "sourceKind"), sourceKind);
+		if (sourceSetUri != null && !sourceSetUri.isBlank())
+			owner.addProperty(this.lbd_model.createProperty(EVIDENCE + "sourceSet"),
+					this.lbd_model.createResource(sourceSetUri));
+		Resource source = sourceResources.get(pname);
+		if (source != null)
+			owner.addProperty(this.lbd_model.createProperty(PROV + "wasDerivedFrom"), source);
+		String sourcePath = sourcePaths.get(pname);
+		if (sourcePath != null)
+			owner.addLiteral(this.lbd_model.createProperty(EVIDENCE + "sourcePath"), sourcePath);
+		this.lbd_model.setNsPrefix("evidence", EVIDENCE);
+		this.lbd_model.setNsPrefix("prov", PROV);
 	}
 
 

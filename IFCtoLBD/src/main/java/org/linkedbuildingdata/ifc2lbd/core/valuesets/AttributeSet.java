@@ -46,6 +46,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
  *
  */
 public class AttributeSet {
+	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
 	private final UnitResolver unitResolver;
     private final Map<String, String> property_replace_map;  // allows users to replace default properties
     private String default_property_namespace;
@@ -230,10 +231,14 @@ public class AttributeSet {
         return Integer.toUnsignedString(java.util.Objects.toString(value, "").hashCode(), 36);
     }
 
-    private void addUnit(Resource lbd_resource, String pname) {
-		UnitResolver.write(this.lbd_model, lbd_resource,
-				this.unitResolver.resolve(null, this.mapPnameType.get(pname)));
-    }
+	    private void addUnit(Resource lbd_resource, String pname) {
+			UnitResolver.Resolution resolution = this.unitResolver.resolve(null, this.mapPnameType.get(pname));
+			UnitResolver.write(this.lbd_model, lbd_resource, resolution);
+			lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolutionMethod"),
+					resolution.isResolved() ? "IFC_PROJECT_UNIT" : "UNRESOLVED");
+			lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolverVersion"),
+					UnitResolver.ALIAS_TABLE_VERSION);
+	    }
 
 	private void addIfcDatatype(Resource owner, String pname) {
 		RDFNode sourceType = this.mapPnameType.get(pname);

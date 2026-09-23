@@ -55,6 +55,7 @@ public final class McpConversionBridge implements AutoCloseable {
 		case "core" -> ConversionProfiles.CORE;
 		case "properties-simple" -> ConversionProfiles.PROPERTIES_SIMPLE;
 		case "properties-opm" -> ConversionProfiles.PROPERTIES_OPM;
+		case "evidence" -> ConversionProfiles.EVIDENCE;
 		case "geometry-envelope" -> ConversionProfiles.GEOMETRY_ENVELOPE;
 		case "geometry-full" -> ConversionProfiles.GEOMETRY_FULL;
 		case "bim-gis" -> ConversionProfiles.BIM_GIS;

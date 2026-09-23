@@ -28,6 +28,15 @@ public enum BuiltInConversionModule implements ConversionModule {
 		}
 		@Override public void configure(ConversionContext context) { configure(context.properties()); }
 	},
+	EVIDENCE("evidence") {
+		@Override public void configure(ConversionProperties p) {
+			p.setHasBuildingProperties(true);
+			p.setPropertyMode(ConversionProperties.PropertyMode.OPM);
+			p.setHasUnits(true);
+			p.setExportIfcOWL(true);
+		}
+		@Override public void configure(ConversionContext context) { configure(context.properties()); }
+	},
 	GEOMETRY_ENVELOPE("geometry-envelope") {
 		@Override public void configure(ConversionProperties p) {
 			p.setHasGeometry(true);

@@ -18,6 +18,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 
 class PropertiesAsPropertySetsTest {
+	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
 
 	@Test
 	void writesResolvedBsddReferenceInClassicOpmOutput() {
@@ -86,5 +87,28 @@ class PropertiesAsPropertySetsTest {
 		assertFalse(model.contains(property, RDF.type,
 				model.createResource(BSDD.property_ns + "NumberOfStoreys")));
 		assertTrue(model.contains(property, RDF.type, OPM.property));
+	}
+
+	@Test
+	void retainsIfcSourceEvidenceForPropertyClaims() {
+		String base = "https://example.com/inst#";
+		Model model = ModelFactory.createDefaultModel();
+		Resource sourceProperty = model.createResource("https://example.com/ifc#IfcPropertySingleValue_42");
+		PropertySet propertySet = new PropertySet(base, model, ModelFactory.createDefaultModel(),
+				"Pset_DoorCommon", 3, false, UnitResolver.empty(), true,
+				"https://example.com/ifc#IfcPropertySet_10", "property");
+		propertySet.putPnameValue("Width", model.createTypedLiteral("900", XSDDatatype.XSDdecimal));
+		propertySet.putPnameSource("Width", sourceProperty, "Pset_DoorCommon.Width");
+		propertySet.setPropertiesAsPropertySets(true);
+
+		Resource door = model.createResource(base + "door_1");
+		propertySet.connect(door, "1xS3BCk291UvhgP2a6eflK");
+		Resource property = door.getPropertyResourceValue(BSDD.hasPropertySet)
+				.getPropertyResourceValue(BSDD.containsProperty);
+
+		assertEquals(sourceProperty, property.getPropertyResourceValue(
+				model.createProperty("http://www.w3.org/ns/prov#wasDerivedFrom")));
+		assertEquals("Pset_DoorCommon.Width", property.getProperty(model.createProperty(EVIDENCE + "sourcePath")).getString());
+		assertEquals("property", property.getProperty(model.createProperty(EVIDENCE + "sourceKind")).getString());
 	}
 }

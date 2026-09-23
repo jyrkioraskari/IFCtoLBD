@@ -922,13 +922,13 @@ public abstract class IFCtoLBDConverterCore {
 						PropertySet ps = this.propertysets.get(propertyset.getURI());
 						if (ps == null) {
 							if (!propertyset_name.isEmpty())
-								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, propertyset_name.get(0).toString(), props_level,
-										hasPropertiesBlankNodes, this.unitResolver, hasUnits);
+									ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+											this.ontology_model, propertyset_name.get(0).toString(), props_level,
+											hasPropertiesBlankNodes, this.unitResolver, hasUnits, propertyset.getURI(), "property");
 							else
-								ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
-										hasUnits);
+									ps = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+											this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
+											hasUnits, propertyset.getURI(), "property");
 							this.propertysets.put(propertyset.getURI(), ps);
 							ps.setActive(selected_psets.isEmpty() || selected_psets.contains(ps.getPropertyset_name()));
 						}
@@ -955,13 +955,13 @@ public abstract class IFCtoLBDConverterCore {
 						PropertySet quantity_set = this.propertysets.get(quantityset.getURI());
 						if (quantity_set == null) {
 							if (!quantityset_name.isEmpty())
-								quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, quantityset_name.get(0).toString(), props_level,
-										hasPropertiesBlankNodes, this.unitResolver, hasUnits);
+									quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+											this.ontology_model, quantityset_name.get(0).toString(), props_level,
+											hasPropertiesBlankNodes, this.unitResolver, hasUnits, quantityset.getURI(), "quantity");
 							else
-								quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
-										this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
-										hasUnits);
+									quantity_set = new PropertySet(this.uriBase.get(), this.lbd_property_output_model,
+											this.ontology_model, "", props_level, hasPropertiesBlankNodes, this.unitResolver,
+											hasUnits, quantityset.getURI(), "quantity");
 							this.propertysets.put(quantityset.getURI(), quantity_set);
 							quantity_set.setActive(selected_psets.isEmpty()
 									|| selected_psets.contains(quantity_set.getPropertyset_name()));
@@ -1070,11 +1070,15 @@ public abstract class IFCtoLBDConverterCore {
 						if (val.equals("-1.#IND"))
 							return;
 					}
-					ps.putPnameValue(pname, pvalue);
+						ps.putPnameValue(pname, pvalue);
+						ps.putPnameSource(pname, propertySingleValue,
+								ps.getPropertyset_name() + "." + pname);
 					}
 				}
 			} else {
-				ps.putPnameValue(pname, propertySingleValue);
+					ps.putPnameValue(pname, propertySingleValue);
+					ps.putPnameSource(pname, propertySingleValue,
+							ps.getPropertyset_name() + "." + pname);
 				RDFUtils.copyTriples(0, propertySingleValue, this.lbd_property_output_model);
 		}
 		if (!property_type.isEmpty()) {
@@ -1172,7 +1176,9 @@ public abstract class IFCtoLBDConverterCore {
 
 				if (!q_value.isEmpty()) {
 					RDFNode qvalue = q_value.get(0);
-					quantitySet.putPnameValue(name.get(0), qvalue);
+						quantitySet.putPnameValue(name.get(0), qvalue);
+						quantitySet.putPnameSource(name.get(0), quantity,
+								quantitySet.getPropertyset_name() + "." + name.get(0));
 					if (valueResource != null) {
 						var valueType = valueResource.getProperty(RDF.type);
 						if (valueType != null) quantitySet.putPnameType(name.get(0), valueType.getObject());

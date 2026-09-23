@@ -43,6 +43,10 @@ class ConversionProfileTest {
 				ConversionProfiles.PROPERTIES_SIMPLE.toConversionProperties().getPropertyMode());
 		assertEquals(ConversionProperties.PropertyMode.OPM,
 				ConversionProfiles.PROPERTIES_OPM.toConversionProperties().getPropertyMode());
+		ConversionProperties evidence = ConversionProfiles.EVIDENCE.toConversionProperties();
+		assertEquals(ConversionProperties.PropertyMode.OPM, evidence.getPropertyMode());
+		assertTrue(evidence.isHasUnits());
+		assertTrue(evidence.isExportIfcOWL());
 	}
 
 	@Test

@@ -1,0 +1,4 @@
+{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2024-11-05"}}
+{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"load_ifc","arguments":{"profile":"evidence"}}}
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"get_property_evidence","arguments":{"modelId":"ifc-d93cdf562c630a1d","element":{"ifcGuid":"1hOSvn6df7F8_7GcBWlS8Z"},"property":"OverallWidth","normalizeTo":"http://qudt.org/vocab/unit/M"}}}
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"close_model","arguments":{"modelId":"ifc-d93cdf562c630a1d"}}}
