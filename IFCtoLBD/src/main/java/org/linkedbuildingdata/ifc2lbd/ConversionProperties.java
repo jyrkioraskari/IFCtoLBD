@@ -27,7 +27,9 @@ public class ConversionProperties {
 	private boolean hasHierarchicalNaming=false;
 	private boolean hasPerformanceBoost=true;
 	private boolean hasNonLBDElement=true;
-	private boolean hasInterfaces=false;
+	private boolean hasGeometryInferredInterfaces=false;
+	private boolean hasIfcSpaceBoundaries=true;
+	private boolean hasIfcZones=false;
 	private boolean hasWireframe=false;
 	private PropertyMode propertyMode = PropertyMode.DEFAULT;
 	private boolean stableIdentity;
@@ -150,13 +152,31 @@ public class ConversionProperties {
 		this.hasNonLBDElement = hasNonLBDElement;
 	}
 
-	public boolean isHasInterfaces() {
-		return hasInterfaces;
-	}
+	/**
+	 * Legacy name for geometry-inferred interfaces.
+	 *
+	 * @deprecated use {@link #hasGeometryInferredInterfaces()}.
+	 */
+	@Deprecated
+	public boolean isHasInterfaces() { return hasGeometryInferredInterfaces; }
 
-	public void setHasInterfaces(boolean hasInterfaces) {
-		this.hasInterfaces = hasInterfaces;
+	/**
+	 * Legacy name for geometry-inferred interfaces.
+	 *
+	 * @deprecated use {@link #setGeometryInferredInterfaces(boolean)}.
+	 */
+	@Deprecated
+	public void setHasInterfaces(boolean hasInterfaces) { setGeometryInferredInterfaces(hasInterfaces); }
+
+	public boolean hasGeometryInferredInterfaces() { return hasGeometryInferredInterfaces; }
+	public void setGeometryInferredInterfaces(boolean value) {
+		this.hasGeometryInferredInterfaces = value;
+		if (value) this.hasGeometry = true;
 	}
+	public boolean hasIfcSpaceBoundaries() { return hasIfcSpaceBoundaries; }
+	public void setIfcSpaceBoundaries(boolean value) { this.hasIfcSpaceBoundaries = value; }
+	public boolean hasIfcZones() { return hasIfcZones; }
+	public void setIfcZones(boolean value) { this.hasIfcZones = value; }
 
 	public boolean hasWireframe() {
 		return hasWireframe;

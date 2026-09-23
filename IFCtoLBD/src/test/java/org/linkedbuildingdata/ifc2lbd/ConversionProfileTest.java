@@ -23,6 +23,8 @@ class ConversionProfileTest {
 		assertTrue(properties.isHasBuildingElements());
 		assertFalse(properties.isHasBuildingProperties());
 		assertFalse(properties.isHasGeometry());
+		assertTrue(properties.hasIfcSpaceBoundaries());
+		assertFalse(properties.hasGeometryInferredInterfaces());
 		assertFalse(properties.isHasGeolocation());
 		assertFalse(properties.isExportIfcOWL());
 	}
@@ -59,5 +61,13 @@ class ConversionProfileTest {
 	void stableIdentityIsOptIn() {
 		assertFalse(ConversionProfiles.CORE.toConversionProperties().hasStableIdentity());
 		assertTrue(ConversionProfiles.REVISION_READY.toConversionProperties().hasStableIdentity());
+	}
+
+	@Test
+	void geometryInterfaceInferenceEnablesItsGeometryPrerequisite() {
+		ConversionProperties properties = new ConversionProperties();
+		properties.setGeometryInferredInterfaces(true);
+		assertTrue(properties.hasGeometryInferredInterfaces());
+		assertTrue(properties.isHasGeometry());
 	}
 }

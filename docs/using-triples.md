@@ -85,6 +85,40 @@ into separate files. Load those files into the same graph for queries that
 combine them. A plain RDF query does not automatically infer every relationship
 implied by an ontology.
 
+## Query boundaries and zones
+
+Explicit IFC space boundaries are exported by default as distinct
+`bot:Interface` resources. They retain their IFC identity, classifications,
+connection-geometry reference when present, and source provenance. Interfaces
+inferred from bounding-box proximity are opt-in and are additionally typed as
+`ifctolbd:CandidateInterface`; they record the AABB method and tolerance and
+should not be treated as verified surface contact.
+
+```sparql
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX ifctolbd: <https://w3id.org/ifctolbd/mapping#>
+SELECT ?interface ?origin ?thing ?physicalOrVirtual ?internalOrExternal WHERE {
+  ?interface a bot:Interface ;
+             bot:interfaceOf ?thing ;
+             ifctolbd:interfaceOrigin ?origin .
+  OPTIONAL { ?interface ifctolbd:physicalOrVirtualBoundary ?physicalOrVirtual }
+  OPTIONAL { ?interface ifctolbd:internalOrExternalBoundary ?internalOrExternal }
+}
+```
+
+When IFC zone export is selected, `IfcRelAssignsToGroup` becomes
+`bot:containsZone`. A space can therefore occur in several zones without one
+membership replacing another:
+
+```sparql
+PREFIX bot: <https://w3id.org/bot#>
+SELECT ?space ?zone WHERE {
+  ?zone a bot:Zone ; bot:containsZone ?space .
+  ?space a bot:Space .
+}
+ORDER BY ?space ?zone
+```
+
 ## Work with properties and identifiers
 
 Property levels 1, 2, and 3 offer different representations of property values.

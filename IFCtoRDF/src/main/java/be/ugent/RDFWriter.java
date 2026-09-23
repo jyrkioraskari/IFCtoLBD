@@ -85,7 +85,6 @@ public class RDFWriter {
             "IFCCONNECTIONSURFACEGEOMETRY",
             "IFCFACEOUTERBOUND",
             "IFCSURFACEOFLINEAREXTRUSION",
-            "IFCRELSPACEBOUNDARY",
             "IFCLINE",
             "IFCTRIMMEDCURVE",
             "IFCVERTEXPOINT",

@@ -50,6 +50,10 @@ public class ConvertModel {
         }
         var properties = new ConversionProperties();
         properties.setHasGeometry(false);
+        // Explicit IFC boundaries are on by default and need no geometry.
+        properties.setIfcSpaceBoundaries(true);
+        properties.setGeometryInferredInterfaces(false);
+        properties.setIfcZones(true); // Optional zone/group membership export.
         // Base URI, use blank nodes for properties, property level.
         try (var converter = new IFCtoLBDConverter(
                 "https://example.com/building/", false, 1)) {

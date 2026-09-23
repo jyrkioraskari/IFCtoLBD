@@ -113,7 +113,7 @@ final class ConversionManifest {
 			GeometryArtifactStore artifactStore, String ontologies) {
 		ConversionProperties p = request.getProperties();
 		List<String> values = new ArrayList<>();
-		values.add("format=ifctolbd-request-v1"); values.add("baseUri=" + baseUri); values.add("profile=" + profileId);
+		values.add("format=ifctolbd-request-v2"); values.add("baseUri=" + baseUri); values.add("profile=" + profileId);
 		values.add("modules=" + modules); values.add("uriPolicy=" + uriPolicy.configurationId());
 		values.add("geometryProvider=" + geometryProvider.id() + "@" + geometryProvider.version());
 		values.add("artifactStore=" + artifactStore.configurationId());
@@ -125,7 +125,8 @@ final class ConversionManifest {
 				Boolean.toString(p.isHasGeometry()), Boolean.toString(p.isExportIfcOWL()), Boolean.toString(p.isHasUnits()),
 				Boolean.toString(p.hasBoundingBoxWKT()), Boolean.toString(p.hasHierarchicalNaming()),
 				Boolean.toString(p.hasPerformanceBoost()), Boolean.toString(p.hasNonLBDElement()),
-				Boolean.toString(p.isHasInterfaces()), Boolean.toString(p.hasWireframe()), p.getPropertyMode().name(),
+				Boolean.toString(p.hasGeometryInferredInterfaces()), Boolean.toString(p.hasIfcSpaceBoundaries()),
+				Boolean.toString(p.hasIfcZones()), Boolean.toString(p.hasWireframe()), p.getPropertyMode().name(),
 				Boolean.toString(p.hasStableIdentity()), Boolean.toString(p.hasGeometryArtifacts())));
 		request.getSelectedTypes().stream().sorted().forEach(v -> values.add("type=" + v));
 		request.getSelectedPropertySets().stream().sorted().forEach(v -> values.add("pset=" + v));

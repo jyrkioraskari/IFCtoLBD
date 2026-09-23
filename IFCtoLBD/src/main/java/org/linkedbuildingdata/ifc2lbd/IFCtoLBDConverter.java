@@ -76,6 +76,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	private int ios = 0;
 	private String lastReadInPhaseSignature;
 	private boolean readInPhaseReusable = false;
+	private boolean exportIfcSpaceBoundaries = true;
+	private boolean exportIfcZones = false;
+
+	@Override
+	protected boolean exportsIfcSpaceBoundaries() {
+		return exportIfcSpaceBoundaries;
+	}
 	private final ExecutorService geometryExecutor = Executors.newSingleThreadExecutor(runnable -> {
 		Thread thread = new Thread(runnable, "ifctolbd-geometry");
 		thread.setDaemon(true);
@@ -308,6 +315,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		setHasSimplified_properties(props.getPropertyMode() == ConversionProperties.PropertyMode.SIMPLE);
 		setPropertiesAsPropertySets(props.getPropertyMode() == ConversionProperties.PropertyMode.OPM);
 		setGeometryArtifactsEnabled(props.hasGeometryArtifacts());
+		this.exportIfcSpaceBoundaries = props.hasIfcSpaceBoundaries();
+		this.exportIfcZones = props.hasIfcZones();
 
 		boolean hasBuildingElements = props.isHasBuildingElements();
 		boolean hasSeparateBuildingElementsModel = props.isHasSeparateBuildingElementsModel();
@@ -320,7 +329,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		boolean hasBoundingBoxWKT = props.hasBoundingBoxWKT();
 		boolean hasHierarchicalNaming = props.hasHierarchicalNaming();
 		boolean hasPerformanceBoost = props.hasPerformanceBoost();
-		boolean hasInterfaces = props.isHasInterfaces();
+		boolean hasInterfaces = props.hasGeometryInferredInterfaces();
 		boolean hasWireframe = props.hasWireframe();
 
 		this.hasNonLBDElement = props.hasNonLBDElement();
@@ -333,6 +342,17 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits, hasPerformanceBoost,
 				hasBoundingBoxWKT, hasHierarchicalNaming, hasInterfaces, hasWireframe);
 		return this.lbd_general_output_model;
+	}
+
+	@Override
+	protected void mapAdditionalIfcStructures(Model ifcModel) {
+		if (!exportIfcSpaceBoundaries && !exportIfcZones) return;
+		if (exportIfcSpaceBoundaries)
+			IfcSpaceBoundaryStage.map(ifcModel, this.ifcOWL, this.lbd_general_output_model,
+					this.lbdResourceByIfcResource, this::mapIfcResource, this::mapIfcMetadata);
+		if (exportIfcZones)
+			IfcZoneStage.map(ifcModel, this.ifcOWL, this.lbd_general_output_model,
+					this.lbdResourceByIfcResource, this::mapIfcResource, this::mapIfcMetadata);
 	}
 
 	/** Convert using a named, immutable module profile. */

@@ -68,6 +68,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.BOT;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.GEO;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
+import org.linkedbuildingdata.ifc2lbd.namespace.IFCtoLBDMapping;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OMG;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
@@ -143,6 +144,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected RTree<Resource, Geometry> rtree_walls;
 	protected final Map<Rectangle, Resource> rtree_map = new HashMap<>();
 	private static final double BOUNDING_BOX_EPSILON = 1.0e-6;
+	private static final double INTERFACE_INFERENCE_TOLERANCE = 0.05;
 
 	private boolean exportIfcOWL_setting = false;
 	protected boolean hasBoundingBoxWKT = false;
@@ -192,6 +194,10 @@ public abstract class IFCtoLBDConverterCore {
 		return uriPolicy;
 	}
 
+	protected boolean exportsIfcSpaceBoundaries() {
+		return false;
+	}
+
 	private Resource createLbdResource(Resource source, Model output, String productType) {
 		Resource existing = lbdResourceByIfcResource.get(source);
 		if (existing != null) return existing;
@@ -204,6 +210,23 @@ public abstract class IFCtoLBDConverterCore {
 		}
 		lbdResourceByIfcResource.put(source, created);
 		return created;
+	}
+
+	/** Creates a mapped resource using the conversion's active identity policy. */
+	protected final Resource mapIfcResource(Resource source, String productType) {
+		return createLbdResource(source, this.lbd_general_output_model, productType);
+	}
+
+	/** Applies the converter's normal attributes and property-set mapping to a resource. */
+	protected final void mapIfcMetadata(Resource source, Resource target) {
+		addAttrributes(this.lbd_property_output_model, source, target);
+		String guid = IfcOWLUtils.getGUID(source, this.ifcOWL);
+		if (guid == null) return;
+		String uncompressedGuid = GuidCompressor.uncompressGuidString(guid);
+		IfcOWLUtils.listPropertysets(source, this.ifcOWL).stream().map(RDFNode::asResource).forEach(propertyset -> {
+			PropertySet mapped = this.propertysets.get(propertyset.getURI());
+			if (mapped != null) mapped.connect(target, uncompressedGuid);
+		});
 	}
 
 	private Resource createLbdResource(Resource source, Model output, String productType, Resource parent) {
@@ -342,6 +365,8 @@ public abstract class IFCtoLBDConverterCore {
 				finish_geometry(hasInterfaces);
 			}
 
+			mapAdditionalIfcStructures(ifcowl_model);
+
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 
 			if (hasBuildingProperties) {
@@ -390,6 +415,14 @@ public abstract class IFCtoLBDConverterCore {
 		} finally {
 			dataset.end();
 		}
+	}
+
+	/**
+	 * Extension point for mappings that need the complete source IFC graph but must
+	 * be added before legacy file outputs are serialized.
+	 */
+	protected void mapAdditionalIfcStructures(Model ifcowlModel) {
+		// Default core conversion has no additional IFC structure mappings.
 	}
 
 	private void handle_building(Resource ifcowl_building) {
@@ -771,6 +804,8 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private void finish_geometry(boolean hasInterfaces) {
+		if (hasInterfaces) IFCtoLBDMapping.addNameSpace(this.lbd_general_output_model);
+		Set<String> inferredPairs = new HashSet<>();
 		for (java.util.Map.Entry<Rectangle, Resource> entry : rtree_map.entrySet()) {
 			Resource lbd_resource = entry.getValue();
 			Rectangle rect_geometry = entry.getKey();
@@ -798,21 +833,33 @@ public abstract class IFCtoLBDConverterCore {
 			if (lbd_resource.toString().toLowerCase().contains("member"))
 				continue;
 			// Interfaces for the bounding boxes
-			// TODO 0.05 use model scale
-			Iterable<Entry<Resource, Geometry>> w_results = this.rtree_walls.search(rect_geometry, 0.05);
+			// Candidate generation only. AABB proximity does not establish surface contact.
+			Iterable<Entry<Resource, Geometry>> w_results = this.rtree_walls.search(rect_geometry,
+					INTERFACE_INFERENCE_TOLERANCE);
 			for (Entry<Resource, Geometry> e : w_results) {
 				Resource e_uri = e.value();
 
 				if (e_uri != lbd_resource) {
-					String interfaceSeed = lbd_resource.getURI() + "|" + e_uri.getURI();
+					String first = lbd_resource.getURI().compareTo(e_uri.getURI()) <= 0
+							? lbd_resource.getURI() : e_uri.getURI();
+					String second = first.equals(lbd_resource.getURI()) ? e_uri.getURI() : lbd_resource.getURI();
+					String interfaceSeed = first + "|" + second;
+					if (!inferredPairs.add(interfaceSeed)) continue;
 					String interfaceId = UUID
 							.nameUUIDFromBytes(interfaceSeed.getBytes(StandardCharsets.UTF_8))
 							.toString();
 					Resource bot_interface = this.lbd_general_output_model
-							.createResource(lbd_resource.getURI() + "_interface_" + interfaceId);
+							.createResource(this.uriBase.get() + "candidate-interface_" + interfaceId);
 					bot_interface.addProperty(RDF.type, BOT.bot_interface);
+					bot_interface.addProperty(RDF.type, IFCtoLBDMapping.candidateInterface);
 					bot_interface.addProperty(BOT.bot_interfaceOf, e_uri);
 					bot_interface.addProperty(BOT.bot_interfaceOf, lbd_resource); // Duplicates does not matter
+					bot_interface.addProperty(IFCtoLBDMapping.interfaceOrigin,
+							IFCtoLBDMapping.geometryInferenceOrigin);
+					bot_interface.addProperty(IFCtoLBDMapping.inferenceMethod,
+							IFCtoLBDMapping.axisAlignedBoundingBoxProximity);
+					bot_interface.addLiteral(IFCtoLBDMapping.inferenceTolerance,
+							INTERFACE_INFERENCE_TOLERANCE);
 
 				}
 			}
@@ -1636,7 +1683,8 @@ public abstract class IFCtoLBDConverterCore {
 				String ifcowlfilename;
 				ifcowlfilename = targetFile.substring(0, targetFile.lastIndexOf(".")) + "_ifcOWL.ttl";
 				outputFile = new File(ifcowlfilename);
-				if (outputFile.exists() && outputFile.length() > 1000 && hasPerformanceBoost) { // Only when the
+					if (outputFile.exists() && outputFile.length() > 1000 && hasPerformanceBoost
+							&& !exportsIfcSpaceBoundaries()) { // Only when the
 																								// performance boost
 																								// selected
 					System.out.println("Using existing ifcOWL file");

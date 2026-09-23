@@ -118,6 +118,19 @@ Replace `model.ifc` with your input path. The command reads and converts the
 model; there are no **Read IFC** or **Run** buttons. Continue with
 [using the generated triples](using-triples.md) once conversion finishes.
 
+Explicit `IfcRelSpaceBoundary` relationships are exported as BOT interfaces by
+default and do not require geometry. Use `--ifc-space-boundaries=false` to
+disable them. Bounding-box interface inference is a separate, opt-in feature:
+
+```powershell
+.\IFCtoLBDConverter_CLI.exe --infer-geometry-interfaces model.ifc
+```
+
+Enabling inference also enables its geometry prerequisite. Those results are
+marked as candidate interfaces. Use `--ifc-zones` to export
+`IfcZone` resources and their `IfcRelAssignsToGroup` memberships. The legacy
+`--hasInterfaces` option remains an alias for bounding-box inference.
+
 ## Explore after the first success
 
 The current desktop offers a basic workflow and an advanced workflow. Numbered

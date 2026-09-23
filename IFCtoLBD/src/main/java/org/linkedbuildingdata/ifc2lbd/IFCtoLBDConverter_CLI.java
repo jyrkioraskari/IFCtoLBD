@@ -141,8 +141,17 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--hasPerformanceBoost" }, arity = "0..1", fallbackValue = "true", description = "PerformanceBoost is used.")
 	private Optional<Boolean> hasPerformanceBoost;
 
-	@Option(names = { "--hasInterfaces" }, arity = "0..1", fallbackValue = "true", description = "Export BoundinBox style BOT interfaces.")
+	@Option(names = { "--infer-geometry-interfaces", "--hasInterfaces" }, arity = "0..1", fallbackValue = "true",
+			description = "Export candidate BOT interfaces inferred from bounding-box proximity.")
 	private Optional<Boolean> hasInterfaces;
+
+	@Option(names = { "--ifc-space-boundaries" }, arity = "0..1", fallbackValue = "true",
+			description = "Export explicit IfcRelSpaceBoundary relationships as BOT interfaces (default: true).")
+	private Optional<Boolean> ifcSpaceBoundaries;
+
+	@Option(names = { "--ifc-zones" }, arity = "0..1", fallbackValue = "true",
+			description = "Export IfcZone resources and IfcRelAssignsToGroup membership.")
+	private Optional<Boolean> ifcZones;
 
 
 	
@@ -183,6 +192,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			ConversionProperties properties = legacyProperties();
 			request = new ConversionRequest(ifcFile.getAbsolutePath(), properties);
 		}
+		applyTopologyOptions(request.getProperties());
 		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
 		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
 		if (validate.orElse(false)) request = request.withStandardValidation();
@@ -218,7 +228,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		if (namingStrategy.isPresent()) properties.setNamingStrategy(namingStrategy.get());
 		properties.setHasPerformanceBoost(hasPerformanceBoost.orElse(false));
 		properties.setHasNonLBDElement(hasIfc_based_elements.orElse(false));
-		properties.setHasInterfaces(hasInterfaces.orElse(false));
+		applyTopologyOptions(properties);
 		if (propertiesAsPropertySets.orElse(false)) properties.setPropertyMode(ConversionProperties.PropertyMode.OPM);
 		else if (hasSimpleProperties.orElse(false)) properties.setPropertyMode(ConversionProperties.PropertyMode.SIMPLE);
 		propertyMappings.ifPresent(json -> {
@@ -226,6 +236,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			catch (Exception e) { throw new IllegalArgumentException("Invalid --property-mappings JSON", e); }
 		});
 		return properties;
+	}
+
+	private void applyTopologyOptions(ConversionProperties properties) {
+		hasInterfaces.ifPresent(properties::setGeometryInferredInterfaces);
+		ifcSpaceBoundaries.ifPresent(properties::setIfcSpaceBoundaries);
+		ifcZones.ifPresent(properties::setIfcZones);
 	}
 
 	public static void main(String[] args) {

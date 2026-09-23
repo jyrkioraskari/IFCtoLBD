@@ -300,6 +300,12 @@ public abstract class IfcOWLUtils {
 				new RDFStep(ifcOWL.getProperty("hasPropertySets_IfcTypeObject")) };
 	}
 
+	/** Returns the objectified IFC space-boundary relationships for a space. */
+	public static List<RDFNode> listSpaceBoundaries(Resource space, IfcOWL ifcOWL) {
+		RDFStep[] path = { new InvRDFStep(ifcOWL.getProperty("relatingSpace_IfcRelSpaceBoundary")) };
+		return RDFUtils.pathQuery(space, path);
+	}
+
 	public static List<RDFNode> getProjectSIUnits(IfcOWL ifcOWL, Model ifcowl_model) {
 		RDFStep[] path = { new InvRDFStep(RDF.type) };
 		return RDFUtils.pathQuery(ifcowl_model.getResource(ifcOWL.getIfcSIUnit()), path);
@@ -595,7 +601,7 @@ public abstract class IfcOWLUtils {
 	    Set<String> keywords = new HashSet<>(Set.of(
 	        "=IFCCARTESIANPOINT(", "=IFCPOLYLINE(", "= IFCEDGECURVE(", "=IFCAXIS2PLACEMENT3D(",
 	        "=IFCPLANE(", "=IFCFACEOUTERBOUND(", "=IFCFACE(", "=IFCORIENTEDEDGE(",
-	        "=IFCCONNECTIONSURFACEGEOMETRY(", "=IFCSURFACEOFLINEAREXTRUSION(", "=IFCRELSPACEBOUNDARY(",
+	        "=IFCCONNECTIONSURFACEGEOMETRY(", "=IFCSURFACEOFLINEAREXTRUSION(",
 	        "=IFCPOLYLOOP(", "=IFCLINE(", "=IFCTRIMMEDCURVE(", "=IFCVERTEXPOINT(",
 	        "=IFCEDGELOOP(", "=IFCADVANCEDFACE(", "=IFCSHAPEREPRESENTATION(", "=IFCEXTRUDEDAREASOLID(", "=IFCINDEXEDPOLYCURVE(", "=IFCINDEXEDPOLYGONALFACE(","=IFCCARTESIANPOINTLIST2D(", "=IFCCARTESIANTRANSFORMATIONOPERATOR3D","=IFCPOLYGONALFACESET(" 
 	    ));
