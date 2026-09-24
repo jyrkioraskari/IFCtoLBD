@@ -21,7 +21,6 @@ public final class IFCtoLBDMapping extends abstract_NS {
 
 	public static final Resource ifcSpaceBoundaryOrigin = resource(ns, "IfcSpaceBoundary");
 	public static final Resource geometryInferenceOrigin = resource(ns, "GeometryInference");
-	public static final Resource candidateInterface = resource(ns, "CandidateInterface");
 	public static final Resource axisAlignedBoundingBoxProximity = resource(ns, "AxisAlignedBoundingBoxProximity");
 
 	public static void addNameSpace(Model model) {

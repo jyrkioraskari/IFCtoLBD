@@ -90,9 +90,9 @@ implied by an ontology.
 Explicit IFC space boundaries are exported by default as distinct
 `bot:Interface` resources. They retain their IFC identity, classifications,
 connection-geometry reference when present, and source provenance. Interfaces
-inferred from bounding-box proximity are opt-in and are additionally typed as
-`ifctolbd:CandidateInterface`; they record the AABB method and tolerance and
-should not be treated as verified surface contact.
+inferred from bounding-box proximity are opt-in. They record the AABB method,
+tolerance, and geometry-inference origin and should not be treated as verified
+surface contact.
 
 ```sparql
 PREFIX bot: <https://w3id.org/bot#>

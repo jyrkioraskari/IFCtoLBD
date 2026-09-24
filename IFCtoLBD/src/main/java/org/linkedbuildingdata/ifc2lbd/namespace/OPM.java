@@ -29,13 +29,14 @@ public class OPM extends abstract_NS{
 
 	public static void addNameSpacesL2(Model model)
 	{
+		model.setNsPrefix("opm", ns);
 		model.setNsPrefix("schema", schema_ns);
 	}
 	
 	public static void addNameSpacesL3(Model model)
 	{
-		model.setNsPrefix("opm", ns);
-		model.setNsPrefix("schema", schema_ns);
+		addNameSpacesL2(model);
+		model.setNsPrefix("prov", prov_ns);
 		model.setNsPrefix("seas", seas_ns);
 	}
 

@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.Optional;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -13,6 +15,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.XSD;
 import org.junit.jupiter.api.Test;
+import org.linkedbuildingdata.ifc2lbd.core.valuesets.AttributeSet;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
@@ -20,6 +23,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
 
 class UnitResolverTest {
 	private static final String IFC = "https://example.test/ifc#";
+	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
 
 	@Test
 	void explicitIfcPrefixWinsOverProjectUnit() {
@@ -97,7 +101,54 @@ class UnitResolverTest {
 		assertEquals(sourceType, state.getPropertyResourceValue(model.createProperty(UnitResolver.META + "sourceIFCType")));
 		assertEquals(futureType, state.getPropertyResourceValue(model.createProperty(UnitResolver.META + "ifcDataType")));
 		assertNotNull(state.getProperty(model.createProperty(UnitResolver.META + "originalUnitCode")));
+		assertEquals("IFC_EXPLICIT_UNIT",
+				state.getProperty(model.createProperty(EVIDENCE + "unitResolutionMethod")).getString());
+		assertEquals(UnitResolver.ALIAS_TABLE_VERSION,
+				state.getProperty(model.createProperty(EVIDENCE + "unitResolverVersion")).getString());
 		assertTrue(model.getNsPrefixURI("qudt").equals(UnitResolver.QUDT_SCHEMA));
+	}
+
+	@Test
+	void stringPropertiesAndAttributesDoNotEmitUnitResolutionEvidence() {
+		Model model = ModelFactory.createDefaultModel();
+		Resource labelType = model.createResource(IFC + "IfcLabel");
+		PropertySet properties = new PropertySet("https://example.test/", model,
+				ModelFactory.createDefaultModel(), "Pset_Test", 3, false, UnitResolver.empty(), true);
+		properties.putPnameValue("Description", model.createLiteral("unquantified text"));
+		properties.putPnameType("Description", labelType);
+		properties.connect(model.createResource("urn:property-owner"), "property-guid");
+
+		AttributeSet attributes = new AttributeSet("https://example.test/", model, 3, false,
+				UnitResolver.empty(), false, Map.of());
+		attributes.putAnameValue("name_IfcRoot", model.createLiteral("Wall name"), Optional.of(labelType));
+		attributes.connect(model.createResource("urn:attribute-owner"), "attribute-guid");
+
+		assertTrue(model.contains(null, OPM.value, "unquantified text"));
+		assertTrue(model.contains(null, OPM.value, "Wall name"));
+		assertFalse(model.contains(null, model.createProperty(EVIDENCE + "unitResolutionMethod")));
+		assertFalse(model.contains(null, model.createProperty(EVIDENCE + "unitResolverVersion")));
+	}
+
+	@Test
+	void unresolvedNumericUnitsDoNotEmitResolutionEvidence() {
+		Model model = ModelFactory.createDefaultModel();
+		Resource lengthType = model.createResource(IFC + "IfcLengthMeasure");
+		PropertySet properties = new PropertySet("https://example.test/", model,
+				ModelFactory.createDefaultModel(), "Qto_Test", 3, false, UnitResolver.empty(), true);
+		properties.putPnameValue("Length", model.createTypedLiteral("12", XSD.decimal.getURI()));
+		properties.putPnameType("Length", lengthType);
+		properties.connect(model.createResource("urn:property-owner"), "property-guid");
+
+		AttributeSet attributes = new AttributeSet("https://example.test/", model, 3, false,
+				UnitResolver.empty(), false, Map.of());
+		attributes.putAnameValue("length_IfcThing", model.createTypedLiteral("3", XSD.decimal.getURI()),
+				Optional.of(lengthType));
+		attributes.connect(model.createResource("urn:attribute-owner"), "attribute-guid");
+
+		assertTrue(model.contains(null, OPM.value, model.createTypedLiteral("12", XSD.decimal.getURI())));
+		assertTrue(model.contains(null, OPM.value, model.createTypedLiteral("3", XSD.decimal.getURI())));
+		assertFalse(model.contains(null, model.createProperty(EVIDENCE + "unitResolutionMethod")));
+		assertFalse(model.contains(null, model.createProperty(EVIDENCE + "unitResolverVersion")));
 	}
 
 	private static Resource siUnit(Model model, IfcOWL ifc, String uri, String kind, String prefix, String name) {

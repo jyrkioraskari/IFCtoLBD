@@ -91,6 +91,26 @@ Turtle (`.ttl`) is a convenient first format because it is readable. JSON-LD
 (`.jsonld`) is another RDF representation available in the current desktop.
 It is different from IFC/JSON, which is an input format.
 
+ICDD (`.icdd`) creates an ISO 21597-1 ZIP container. It includes the original
+IFC file and separate Turtle documents for BOT topology (including the IFC
+attributes of spatial resources), Product/BEO building elements (including their
+IFC attributes), geometry, and PROPS/OPM property and quantity sets. Geometry
+representations and the links from elements to those representations are assigned
+to `lbd/geometry.ttl`; the properties document contains only property-set and
+quantity-set content. The four RDF payload documents are physically disjoint: a
+triple is written to only one of them. `Index.rdf`
+describes each document. `Ontology resources/bot.ttl` is a bundled offline copy
+of BOT 0.3.2, while `Ontology resources/props.ttl` contains the generated
+ontology declarations for the property predicates actually used in the payload;
+the standard `Ontology resources`, `Payload documents`, and `Payload triples`
+folders are present in the package.
+
+Selecting separate building-element and property files for an ordinary Turtle
+export uses the topology, product, and property partitions: the main file contains topology,
+`_building_elements.ttl` contains product data, and `_element_properties.ttl`
+contains property and quantity-set data, without triples repeated across files.
+The dedicated `geometry.ttl` document is specific to ICDD packaging.
+
 ## Windows alternative: IFCtoLBDConverter_CLI.exe
 
 The Windows `.exe` offered in releases is a **command-line converter**. There

@@ -45,6 +45,7 @@ import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.apache.jena.vocabulary.XSD;
 import org.bimserver.plugins.renderengine.RenderEngineException;
+import org.linkedbuildingdata.ifc2lbd.ConversionGraphPartition;
 import org.linkedbuildingdata.ifc2lbd.ConversionSession;
 import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
 import org.linkedbuildingdata.ifc2lbd.GeometryResult;
@@ -110,6 +111,7 @@ import de.rwth_aachen.dc.lbd.ObjDescription;
 public abstract class IFCtoLBDConverterCore {
 	private static final int MAX_COMPLEX_PROPERTY_DEPTH = 100;
 	private static final int MAX_COMPLEX_QUANTITY_DEPTH = 100;
+	private static final String EVIDENCE_NS = "https://w3id.org/ifctolbd/evidence#";
 
 	public final EventBus eventBus;
 
@@ -219,7 +221,10 @@ public abstract class IFCtoLBDConverterCore {
 
 	/** Applies the converter's normal attributes and property-set mapping to a resource. */
 	protected final void mapIfcMetadata(Resource source, Resource target) {
-		addAttrributes(this.lbd_property_output_model, source, target);
+		Model attributeModel = this.lbd_product_output_model.containsResource(target)
+				? this.lbd_product_output_model
+				: this.lbd_general_output_model;
+		addAttrributes(attributeModel, source, target);
 		String guid = IfcOWLUtils.getGUID(source, this.ifcOWL);
 		if (guid == null) return;
 		String uncompressedGuid = GuidCompressor.uncompressGuidString(guid);
@@ -300,7 +305,7 @@ public abstract class IFCtoLBDConverterCore {
 					Resource lbd_site = createLbdResource(site, this.lbd_general_output_model, "Site");
 					String guid_site = IfcOWLUtils.getGUID(site, this.ifcOWL);
 					String uncompressed_guid_site = GuidCompressor.uncompressGuidString(guid_site);
-					addAttrributes(this.lbd_property_output_model, site.asResource(), lbd_site);
+					addAttrributes(this.lbd_general_output_model, site.asResource(), lbd_site);
 
 					lbd_site.addProperty(RDF.type, BOT.site);
 					addGeometry(lbd_site, guid_site);
@@ -344,20 +349,7 @@ public abstract class IFCtoLBDConverterCore {
 			}
 
 			if (hasBuildingElements) {
-				if (hasSeparateBuildingElementsModel) {
-					if (target_file != null) {
-						String out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
-								+ "_building_elements.ttl";
-						if (export_as_JSON_LD)
-							out_products_filename = target_file.substring(0, target_file.lastIndexOf("."))
-									+ "_building_elements.json";
-						System.out.println("WM");
-						RDFUtils.writeModelRDFStream(ifcowl_model, out_products_filename, this.eventBus,
-								default_serialization_format);
-						this.eventBus.post(
-								new IFCtoLBD_SystemStatusEvent("Building elements file is: " + out_products_filename));
-					}
-				} else
+				if (!hasSeparateBuildingElementsModel)
 					this.lbd_general_output_model.add(this.lbd_product_output_model);
 			}
 
@@ -370,45 +362,12 @@ public abstract class IFCtoLBDConverterCore {
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 
 			if (hasBuildingProperties) {
-				if (hasSeparatePropertiesModel) {
-					System.out.println("Separate properties model");
-					if (target_file != null) {
-						String out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
-								+ "_element_properties.ttl";
-						if (export_as_JSON_LD)
-							out_properties_filename = target_file.substring(0, target_file.lastIndexOf("."))
-									+ "_element_properties.json";
-
-						RDFUtils.writeModelRDFStream(this.lbd_property_output_model, out_properties_filename,
-								this.eventBus, default_serialization_format);
-						this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
-								"Building elements properties file is: " + out_properties_filename));
-					} else
-						this.lbd_general_output_model.add(this.lbd_property_output_model);
-				} else
+				if (!hasSeparatePropertiesModel)
 					this.lbd_general_output_model.add(this.lbd_property_output_model);
 			}
-			if (target_file != null)
-				RDFUtils.writeModelRDFStream(this.lbd_general_output_model, target_file, this.eventBus,
-						default_serialization_format);
-
 			if (target_file != null) {
-				if (!hasSeparatePropertiesModel || !hasSeparateBuildingElementsModel) {
-					System.out.println("!Separate properties model");
-					String target_trig = replaceOutputExtension(target_file, ".trig");
-					if (this.uriBase.isPresent() && this.lbd_dataset != null) {
-						this.lbd_dataset.getDefaultModel().add(this.lbd_general_output_model);
-						this.lbd_dataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
-						this.lbd_dataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
-					}
-
-						if (this.createTrig) {
-							System.out.println("Create Trigs model");
-							RDFUtils.writeDataset(this.lbd_dataset, target_trig, this.eventBus);
-							this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
-									"Done. Linked Building Data graphs file is: " + target_trig));
-						}
-					}
+				writePartitionedOutputFiles(target_file, hasBuildingElements, hasSeparateBuildingElementsModel,
+						hasBuildingProperties, hasSeparatePropertiesModel);
 				this.eventBus
 						.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data file is: " + target_file));
 			}
@@ -442,7 +401,7 @@ public abstract class IFCtoLBDConverterCore {
 
 		String guid_building = IfcOWLUtils.getGUID(building, this.ifcOWL);
 		String uncompressed_guid_building = GuidCompressor.uncompressGuidString(guid_building);
-		addAttrributes(this.lbd_property_output_model, building, lbd_building);
+		addAttrributes(this.lbd_general_output_model, building, lbd_building);
 
 		lbd_building.addProperty(RDF.type, BOT.building);
 		addGeometry(lbd_building, guid_building);
@@ -467,7 +426,7 @@ public abstract class IFCtoLBDConverterCore {
 			lbd_storey = createLbdResource(storey, this.lbd_general_output_model, "Storey", lbd_building);
 			String guid_storey = IfcOWLUtils.getGUID(storey, this.ifcOWL);
 			String uncompressed_guid_storey = GuidCompressor.uncompressGuidString(guid_storey);
-			addAttrributes(this.lbd_property_output_model, storey, lbd_storey);
+			addAttrributes(this.lbd_general_output_model, storey, lbd_storey);
 
 			lbd_building.addProperty(BOT.hasStorey, lbd_storey);
 			addGeometry(lbd_storey, guid_storey);
@@ -493,7 +452,7 @@ public abstract class IFCtoLBDConverterCore {
 				spo = createLbdResource(space.asResource(), this.lbd_general_output_model, "Space", lbd_storey);
 				String guid_space = IfcOWLUtils.getGUID(space.asResource(), this.ifcOWL);
 				String uncompressed_guid_space = GuidCompressor.uncompressGuidString(guid_space);
-				addAttrributes(this.lbd_property_output_model, space.asResource(), spo);
+				addAttrributes(this.lbd_general_output_model, space.asResource(), spo);
 
 				lbd_storey.addProperty(BOT.hasSpace, spo);
 				addGeometry(spo, guid_space);
@@ -849,9 +808,8 @@ public abstract class IFCtoLBDConverterCore {
 							.nameUUIDFromBytes(interfaceSeed.getBytes(StandardCharsets.UTF_8))
 							.toString();
 					Resource bot_interface = this.lbd_general_output_model
-							.createResource(this.uriBase.get() + "candidate-interface_" + interfaceId);
+							.createResource(this.uriBase.get() + "interface_" + interfaceId);
 					bot_interface.addProperty(RDF.type, BOT.bot_interface);
-					bot_interface.addProperty(RDF.type, IFCtoLBDMapping.candidateInterface);
 					bot_interface.addProperty(BOT.bot_interfaceOf, e_uri);
 					bot_interface.addProperty(BOT.bot_interfaceOf, lbd_resource); // Duplicates does not matter
 					bot_interface.addProperty(IFCtoLBDMapping.interfaceOrigin,
@@ -902,31 +860,61 @@ public abstract class IFCtoLBDConverterCore {
 			outputTarget = outputTarget.substring(0, outputTarget.length() - ".ttl".length()) + ".json";
 
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
-		if (hasSeparatePropertiesModel) {
-			String out_properties_filename = outputTarget.substring(0, outputTarget.lastIndexOf("."))
-					+ (this.export_as_JSON_LD ? "_element_properties.json" : "_element_properties.ttl");
-			RDFUtils.writeModelRDFStream(this.lbd_property_output_model, out_properties_filename, this.eventBus,
-					this.default_serialization_format);
-			this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
-					"Building elements properties file is: " + out_properties_filename));
-		}
-
-		RDFUtils.writeModelRDFStream(this.lbd_general_output_model, outputTarget, this.eventBus,
-				this.default_serialization_format);
-
-		String target_trig = replaceOutputExtension(outputTarget, ".trig");
-		if (this.createTrig) {
-			Dataset outputDataset = DatasetFactory.create();
-			outputDataset.setDefaultModel(this.lbd_general_output_model);
-			if (this.uriBase.isPresent()) {
-				outputDataset.addNamedModel(this.uriBase.get() + "product", this.lbd_product_output_model);
-				outputDataset.addNamedModel(this.uriBase.get() + "property", this.lbd_property_output_model);
-			}
-			RDFUtils.writeDataset(outputDataset, target_trig, this.eventBus);
-			this.eventBus
-					.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data graphs file is: " + target_trig));
-		}
+		writePartitionedOutputFiles(outputTarget, true, false, true, hasSeparatePropertiesModel);
 		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. Linked Building Data file is: " + outputTarget));
+	}
+
+	private void writePartitionedOutputFiles(String outputTarget, boolean hasBuildingElements,
+			boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
+			boolean hasSeparatePropertiesModel) {
+		try (ConversionGraphPartition.Partition partition = ConversionGraphPartition.copyOf(
+				this.lbd_general_output_model, this.lbd_product_output_model, this.lbd_property_output_model)) {
+			Model main = ModelFactory.createDefaultModel();
+			try {
+				main.setNsPrefixes(partition.general().getNsPrefixMap());
+				main.add(partition.general());
+				if (hasBuildingElements && !hasSeparateBuildingElementsModel)
+					main.add(partition.products());
+				if (hasBuildingProperties && !hasSeparatePropertiesModel)
+					main.add(partition.properties());
+
+				if (hasBuildingElements && hasSeparateBuildingElementsModel) {
+					String productTarget = outputTarget.substring(0, outputTarget.lastIndexOf("."))
+							+ (this.export_as_JSON_LD ? "_building_elements.json" : "_building_elements.ttl");
+					RDFUtils.writeModelRDFStream(partition.products(), productTarget, this.eventBus,
+							this.default_serialization_format);
+					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements file is: " + productTarget));
+				}
+				if (hasBuildingProperties && hasSeparatePropertiesModel) {
+					String propertyTarget = outputTarget.substring(0, outputTarget.lastIndexOf("."))
+							+ (this.export_as_JSON_LD ? "_element_properties.json" : "_element_properties.ttl");
+					RDFUtils.writeModelRDFStream(partition.properties(), propertyTarget, this.eventBus,
+							this.default_serialization_format);
+					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
+							"Building elements properties file is: " + propertyTarget));
+				}
+
+				RDFUtils.writeModelRDFStream(main, outputTarget, this.eventBus, this.default_serialization_format);
+				if (this.createTrig) {
+					String targetTrig = replaceOutputExtension(outputTarget, ".trig");
+					Dataset outputDataset = DatasetFactory.create();
+					try {
+						outputDataset.setDefaultModel(partition.general());
+						if (this.uriBase.isPresent()) {
+							outputDataset.addNamedModel(this.uriBase.get() + "product", partition.products());
+							outputDataset.addNamedModel(this.uriBase.get() + "property", partition.properties());
+						}
+						RDFUtils.writeDataset(outputDataset, targetTrig, this.eventBus);
+					} finally {
+						outputDataset.close();
+					}
+					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
+							"Done. Linked Building Data graphs file is: " + targetTrig));
+				}
+			} finally {
+				main.close();
+			}
+		}
 	}
 
 	private String replaceOutputExtension(String targetFile, String extension) {
@@ -1274,13 +1262,6 @@ public abstract class IFCtoLBDConverterCore {
 				BSDD.addNameSpaces(this.lbd_general_output_model);
 			}
 
-			if (props_level != 1)
-				this.lbd_property_output_model.setNsPrefix("prov", OPM.prov_ns);
-
-			if (props_level == 2)
-				OPM.addNameSpacesL2(this.lbd_property_output_model);
-			if (props_level == 3)
-				OPM.addNameSpacesL3(this.lbd_property_output_model);
 		}
 		Model[] ms = { this.lbd_general_output_model, this.lbd_product_output_model, this.lbd_property_output_model };
 		for (Model model : ms) {
@@ -1292,6 +1273,13 @@ public abstract class IFCtoLBDConverterCore {
 			model.setNsPrefix("geo", "http://www.opengis.net/ont/geosparql#");
 			model.setNsPrefix("props", "http://lbd.arch.rwth-aachen.de/props#");
 			model.setNsPrefix("fog", "https://w3id.org/fog#");
+			if (props_level == 2) {
+				OPM.addNameSpacesL2(model);
+				model.setNsPrefix("evidence", EVIDENCE_NS);
+			} else if (props_level == 3) {
+				OPM.addNameSpacesL3(model);
+				model.setNsPrefix("evidence", EVIDENCE_NS);
+			}
 
 			if (this.ontURI.isPresent()) {
 				String uri = this.ontURI.get();
@@ -1341,7 +1329,7 @@ public abstract class IFCtoLBDConverterCore {
 						if (p_set != null)
 							p_set.connect(lbd_element, uncompressed_guid);
 					});
-			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
+			addAttrributes(this.lbd_product_output_model, ifcOWL_element, lbd_element);
 
 			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
 					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));
@@ -1394,7 +1382,7 @@ public abstract class IFCtoLBDConverterCore {
 						if (p_set != null)
 							p_set.connect(lbd_element, uncompressed_guid);
 					});
-			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
+			addAttrributes(this.lbd_product_output_model, ifcOWL_element, lbd_element);
 
 			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
 					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));
@@ -1425,7 +1413,7 @@ public abstract class IFCtoLBDConverterCore {
 						if (p_set != null)
 							p_set.connect(lbd_element, uncompressed_guid);
 					});
-			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
+			addAttrributes(this.lbd_product_output_model, ifcOWL_element, lbd_element);
 
 			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
 					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));
@@ -1481,7 +1469,7 @@ public abstract class IFCtoLBDConverterCore {
 			lbd_property_object.addProperty(RDF.type, lbd_product_type.get());
 			lbd_element.addProperty(RDF.type, BOT.element);
 
-			addAttrributes(this.lbd_property_output_model, ifcOWL_element, lbd_element);
+			addAttrributes(this.lbd_product_output_model, ifcOWL_element, lbd_element);
 			bot_resource.addProperty(bot_property, lbd_element);
 			IfcOWLUtils.listHosted_Elements(ifcOWL_element, this.ifcOWL).stream().map(RDFNode::asResource)
 					.forEach(ifc_element2 -> connectElement(lbd_element, BOT.hasSubElement, ifc_element2));

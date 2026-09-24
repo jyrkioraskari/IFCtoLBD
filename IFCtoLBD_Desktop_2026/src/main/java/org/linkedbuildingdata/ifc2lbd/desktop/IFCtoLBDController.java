@@ -358,7 +358,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
 			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
 			boolean hasSimpleProperties, boolean propertiesAsPropertySets, boolean hasIfcBasedElements,
-			boolean createTrig, boolean exportAsJsonLd) {
+			boolean createTrig, boolean exportAsJsonLd, boolean exportAsIcdd) {
 	}
 
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
@@ -718,9 +718,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		FileChooser.ExtensionFilter ttlFilter = new FileChooser.ExtensionFilter("Turtle files (*.ttl)", "*.ttl");
 		FileChooser.ExtensionFilter jsonLdFilter = new FileChooser.ExtensionFilter("JSON-LD files (*.jsonld)", "*.jsonld");
+		FileChooser.ExtensionFilter icddFilter = new FileChooser.ExtensionFilter("ICDD packages (*.icdd)", "*.icdd");
 		this.fc_target.getExtensionFilters().clear();
-		this.fc_target.getExtensionFilters().addAll(ttlFilter, jsonLdFilter);
-		this.fc_target.setSelectedExtensionFilter(isJsonLdOutputSelected() ? jsonLdFilter : ttlFilter);
+		this.fc_target.getExtensionFilters().addAll(ttlFilter, jsonLdFilter, icddFilter);
+		this.fc_target.setSelectedExtensionFilter(
+				isIcddOutputSelected() ? icddFilter : isJsonLdOutputSelected() ? jsonLdFilter : ttlFilter);
 
 		try {
 			file = this.fc_target.showSaveDialog(stage);
@@ -759,7 +761,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return outputFormat != null && outputFormat.toLowerCase(Locale.ROOT).contains("json");
 	}
 
+	private boolean isIcddOutputSelected() {
+		String outputFormat = this.outputJSONorTTL.getValue();
+		return outputFormat != null && outputFormat.toUpperCase(Locale.ROOT).contains("ICDD");
+	}
+
 	private String selectedOutputExtension() {
+		if (isIcddOutputSelected()) return ".icdd";
 		return isJsonLdOutputSelected() ? ".jsonld" : ".ttl";
 	}
 
@@ -793,7 +801,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.geometry_interfaces.isSelected(), this.hasElementWireframe.isSelected(), this.createUnits.isSelected(),
 				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
 				this.propertiesAsPropertySets.isSelected(), this.ifc_based_elements.isSelected(),
-				this.createTrig.isSelected(), isJsonLdOutputSelected());
+				this.createTrig.isSelected(), isJsonLdOutputSelected(), isIcddOutputSelected());
 	}
 
 	private boolean hasReadInSettingsChanged(ConversionSettings previous, ConversionSettings current) {
@@ -829,6 +837,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				|| previousSettings.hasSimpleProperties() != currentSettings.hasSimpleProperties()
 				|| previousSettings.propertiesAsPropertySets() != currentSettings.propertiesAsPropertySets()
 				|| previousSettings.hasIfcBasedElements() != currentSettings.hasIfcBasedElements()
+				|| previousSettings.exportAsJsonLd() != currentSettings.exportAsJsonLd()
+				|| previousSettings.exportAsIcdd() != currentSettings.exportAsIcdd()
 				|| !Objects.equals(previous.selectedTypes(), current.selectedTypes())
 				|| !Objects.equals(previous.selectedPsets(), current.selectedPsets());
 	}
@@ -865,6 +875,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private String createCommandLine(ConversionSettings settings) {
+		if (settings.exportAsIcdd()) {
+			return "# ICDD package export is available in the IFCtoLBD desktop application.";
+		}
 		List<String> arguments = new ArrayList<>();
 		arguments.add("IFCtoLBDConverter_CLI");
 		arguments.add(shellQuote(settings.ifcFileName()));
@@ -943,6 +956,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("ifc_based_elements", settings.hasIfcBasedElements());
 		this.prefs.putBoolean("createTrig", settings.createTrig());
 		this.prefs.putBoolean("export_as_jsonld", settings.exportAsJsonLd());
+		this.prefs.put("desktop_output_format",
+				settings.exportAsIcdd() ? "ICDD" : settings.exportAsJsonLd() ? "JSON-LD" : "Turtle TTL");
 		this.prefs.putInt("lbd_props_level", settings.propsLevel());
 	}
 
@@ -986,7 +1001,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.geometryCard.setMaxWidth(GEOMETRY_CARD_WIDTH);
 		this.geometryViewport.setMinWidth(GEOMETRY_VIEWPORT_WIDTH);
 		this.geometryViewport.setPrefWidth(GEOMETRY_VIEWPORT_WIDTH);
-		this.geometryViewport.setMaxWidth(GEOMETRY_VIEWPORT_WIDTH);
+		this.geometryViewport.setMaxWidth(Double.MAX_VALUE);
 
 		this.geometryModelRoot = new Group();
 		this.geometryModelRoot.setDepthTest(DepthTest.ENABLE);
@@ -1059,6 +1074,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setupFloatingCard(this.geometryCard, "Geometry Preview");
 		setupFloatingCard(this.sparqlQueryCard, "SPARQL Query");
 		setupFloatingCard(this.validateCard, "Validate");
+		matchFloatingCardWidthsToSettings();
 		setupFloatingWindowButtonRouting();
 		this.floatingWorkspace.widthProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
 		this.floatingWorkspace.heightProperty().addListener((observable, oldValue, newValue) -> clampFloatingCardsToWorkspace());
@@ -1066,6 +1082,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			alignFloatingCardsIfNeeded();
 			clampFloatingCardsToWorkspace();
 		});
+	}
+
+	private void matchFloatingCardWidthsToSettings() {
+		if (this.options_panel == null) {
+			return;
+		}
+		for (TitledPane card : new TitledPane[] {
+				this.filtersCard, this.geometryCard, this.sparqlQueryCard, this.validateCard }) {
+			if (card == null) {
+				continue;
+			}
+			card.minWidthProperty().bind(this.options_panel.widthProperty());
+			card.prefWidthProperty().bind(this.options_panel.widthProperty());
+			card.maxWidthProperty().bind(this.options_panel.widthProperty());
+		}
 	}
 
 	private void setupSparqlQueryWindow() {
@@ -1156,7 +1187,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return false;
 		}
 		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
-		return settings != null && !settings.exportAsJsonLd() && settings.rdfTargetName() != null
+		return settings != null && !settings.exportAsJsonLd() && !settings.exportAsIcdd()
+				&& settings.rdfTargetName() != null
 				&& new File(settings.rdfTargetName()).isFile();
 	}
 
@@ -1317,9 +1349,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void setupOutputFormatChoices() {
-		String initialValue = this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL";
-		this.outputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD");
-		this.basicOutputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD");
+		String fallback = this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL";
+		String initialValue = this.prefs.get("desktop_output_format", fallback);
+		if (!List.of("Turtle TTL", "JSON-LD", "ICDD package").contains(initialValue)) {
+			initialValue = "ICDD".equals(initialValue) ? "ICDD package" : fallback;
+		}
+		this.outputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "ICDD package");
+		this.basicOutputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "ICDD package");
 		this.outputJSONorTTL.setValue(initialValue);
 		this.basicOutputJSONorTTL.setValue(initialValue);
 		this.outputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -2461,9 +2497,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						&& !hasConversionRequestChanged(this.lastSuccessfulConversionRequest, conversionRequest)) {
 					this.running_conversion = this.executor.submit(() -> {
 						try {
-							converter.exportExistingOutput(currentSettings.rdfTargetName(),
-									currentSettings.hasSeparatePropertiesModel(), currentSettings.createTrig(),
-									currentSettings.exportAsJsonLd());
+							if (currentSettings.exportAsIcdd()) {
+								converter.exportExistingOutputAsIcdd(currentSettings.rdfTargetName(),
+										currentSettings.ifcFileName());
+							} else {
+								converter.exportExistingOutput(currentSettings.rdfTargetName(),
+										currentSettings.hasSeparatePropertiesModel(), currentSettings.createTrig(),
+										currentSettings.exportAsJsonLd());
+							}
 							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.CONVERT));
 						} catch (Exception e) {
 							this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
@@ -2482,7 +2523,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasUnits(), currentSettings.hasPerformanceBoost(),
 					currentSettings.hasBoundingBoxWkt(), currentSettings.hasHierarchicalNaming(),
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
-					currentSettings.exportAsJsonLd(), currentSettings.hasElementWireframe(),
+					currentSettings.exportAsJsonLd(), currentSettings.exportAsIcdd(),
+					currentSettings.hasElementWireframe(),
 					currentSettings.propertiesAsPropertySets()));
 		} catch (Exception e) {
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
@@ -2783,12 +2825,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.lastSuccessfulConversionRequest = successfulRequest;
 				this.pendingConversionRequest = null;
 				if (successfulRequest != null) {
-					scheduleGeometryPreview(successfulRequest.settings());
+					if (successfulRequest.settings().exportAsIcdd()) {
+						clearGeometryPreview("Geometry preview is unavailable for packaged ICDD output.");
+					} else {
+						scheduleGeometryPreview(successfulRequest.settings());
+					}
 					String outputPath = new File(successfulRequest.settings().rdfTargetName()).getAbsolutePath();
-					this.conversionTxt.appendText("LBD file written to: " + outputPath + "\n");
+					this.conversionTxt.appendText((successfulRequest.settings().exportAsIcdd()
+							? "ICDD package written to: " : "LBD file written to: ") + outputPath + "\n");
 					boolean queryAvailable = !successfulRequest.settings().exportAsJsonLd()
+							&& !successfulRequest.settings().exportAsIcdd()
 							&& new File(successfulRequest.settings().rdfTargetName()).isFile();
-					setWorkflowDataAvailable(isFiltersAvailable(), true, queryAvailable);
+					setWorkflowDataAvailable(isFiltersAvailable(),
+							!successfulRequest.settings().exportAsIcdd(), queryAvailable);
 					if (queryAvailable) {
 						this.sparqlResultsTxt.setText("Ready. Run a SPARQL query against "
 								+ new File(successfulRequest.settings().rdfTargetName()).getName() + ".");

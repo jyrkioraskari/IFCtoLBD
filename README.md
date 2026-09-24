@@ -1,6 +1,6 @@
 # IFCtoLBD
 
-Version 2.53.1 · Free for all of us, forever.
+Version 2.54.0 · Free for all of us, forever.
 
 IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: RDF
 triples that describe buildings, spaces, elements, and their properties. You can
@@ -10,7 +10,8 @@ information to other data. The current source supports IFC STEP, IFC/XML, and IF
 ## What can you do with IFCtoLBD?
 
 - **Convert an IFC model into linked data** with the desktop app and save it as
-  Turtle or JSON-LD.
+  Turtle, JSON-LD, or an ICDD package containing the original IFC and separate
+  Linked Building Data submodels.
 - **Choose what to export:** select element types, property sets, and options
   for properties, units, and geometry.
 - **Explore your building:** query the data with SPARQL, validate it with SHACL,
@@ -109,11 +110,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois },
-  title        = {{IFCtoLBD v 2.53.1}},
+  title        = {{IFCtoLBD v 2.54.0}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.53.1},
+  version      = {2.54.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 

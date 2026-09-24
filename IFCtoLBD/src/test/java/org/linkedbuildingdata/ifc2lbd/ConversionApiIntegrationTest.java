@@ -19,9 +19,40 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
+import org.apache.jena.rdf.model.Property;
+import org.apache.jena.vocabulary.RDFS;
 
 @Tag("integration")
 class ConversionApiIntegrationTest {
+	private static final String ATTRIBUTE_COMMENT = "IFC standard attribute ";
+	private static final String PROPERTY_SET_COMMENT = "IFC property set ";
+
+	@Test
+	void partitionsGraphsByOntologyAndKeepsIfcAttributesWithTheirResources() throws Exception {
+		File ifcFile = new File(getClass().getResource("/SampleHouse.ifc").toURI());
+		try (ConversionSession session = new ConversionSession();
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(ifcFile.getAbsolutePath(), ConversionProfiles.PROPERTIES_SIMPLE))) {
+			var general = result.getGeneralModel();
+			var elements = result.getProductModel();
+			var properties = result.getPropertyModel();
+
+			assertTrue(general.contains(null, RDFS.label));
+			assertTrue(elements.contains(null, RDFS.label));
+
+			Set<Property> attributePredicates = describedPredicates(elements, ATTRIBUTE_COMMENT);
+			Set<Property> propertySetPredicates = describedPredicates(properties, PROPERTY_SET_COMMENT);
+			assertFalse(attributePredicates.isEmpty());
+			assertFalse(propertySetPredicates.isEmpty());
+			assertFalse(properties.listStatements().toList().stream()
+					.anyMatch(statement -> attributePredicates.contains(statement.getPredicate())));
+			assertFalse(general.listStatements().toList().stream()
+					.anyMatch(statement -> propertySetPredicates.contains(statement.getPredicate())));
+			assertFalse(elements.listStatements().toList().stream()
+					.anyMatch(statement -> propertySetPredicates.contains(statement.getPredicate())));
+		}
+	}
 
 	@Test
 	void propertiesOpmProfileReachesResolvedBsddWriter() throws Exception {
@@ -36,6 +67,15 @@ class ConversionApiIntegrationTest {
 			assertTrue(result.getModel().contains(null, org.apache.jena.vocabulary.RDF.type,
 					result.getModel().createResource(BSDD.property_ns + "LoadBearing")));
 		}
+	}
+
+	private static Set<Property> describedPredicates(org.apache.jena.rdf.model.Model model, String commentPrefix) {
+		Set<Property> predicates = new HashSet<>();
+		model.listStatements(null, RDFS.comment, (org.apache.jena.rdf.model.RDFNode) null)
+				.filterKeep(statement -> statement.getObject().isLiteral()
+						&& statement.getString().startsWith(commentPrefix))
+				.forEachRemaining(statement -> predicates.add(model.createProperty(statement.getSubject().getURI())));
+		return predicates;
 	}
 
 	@Test
@@ -124,7 +164,7 @@ class ConversionApiIntegrationTest {
 			assertFalse(manifest.isEmpty());
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "profile"), "core"));
 			assertTrue(manifest.contains(null, manifest.createProperty(ConversionManifest.NS + "converterVersion"),
-					"2.53.1"));
+					"2.54.0"));
 			assertTrue(manifest.contains(null, manifest.createProperty("http://www.w3.org/ns/prov#generatedAtTime")));
 		}
 	}

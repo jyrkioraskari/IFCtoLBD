@@ -544,6 +544,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		super.exportExistingOutput(target_file, hasSeparatePropertiesModel, createTrig, export_as_JSON_LD);
 	}
 
+	/** Packages the current distinct output models and original IFC as an ICDD file. */
+	public void exportExistingOutputAsIcdd(String targetFile, String sourceIfcFile) throws java.io.IOException {
+		IcddPackageWriter.write(java.nio.file.Path.of(targetFile), java.nio.file.Path.of(sourceIfcFile),
+				this.lbd_general_output_model, this.lbd_product_output_model, this.lbd_property_output_model);
+		this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Done. ICDD package is: " + targetFile));
+	}
+
 	public boolean convert_read_in_phase(String ifc_filename, String target_file, boolean hasGeometry,
 			boolean hasPerformanceBoost, boolean exportIfcOWL, boolean hasBuildingElements,
 			boolean hasBuildingProperties, boolean hasBoundingBoxWKT, boolean hasUnits) {

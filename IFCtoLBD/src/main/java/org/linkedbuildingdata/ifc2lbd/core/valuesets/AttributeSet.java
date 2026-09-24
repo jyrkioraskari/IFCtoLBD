@@ -142,6 +142,10 @@ public class AttributeSet {
     Set<String> hashes = new HashSet<>();
 
     public void connect(Resource lbd_resource, String long_guid) {
+		// A Resource keeps the model in which it was created. Rebind it here so the
+		// attribute assertion and its supporting triples stay in the selected output
+		// model instead of leaking into the general model.
+		lbd_resource = lbd_resource.inModel(this.lbd_model);
         switch (this.props_level) {
             case 1:
             default:
@@ -232,10 +236,15 @@ public class AttributeSet {
     }
 
 	    private void addUnit(Resource lbd_resource, String pname) {
+			RDFNode value = this.mapPnameValue.get(pname);
+			if (value == null || !value.isLiteral() || !(value.asLiteral().getValue() instanceof Number))
+				return;
 			UnitResolver.Resolution resolution = this.unitResolver.resolve(null, this.mapPnameType.get(pname));
 			UnitResolver.write(this.lbd_model, lbd_resource, resolution);
+			if (!resolution.isResolved())
+				return;
 			lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolutionMethod"),
-					resolution.isResolved() ? "IFC_PROJECT_UNIT" : "UNRESOLVED");
+					"IFC_PROJECT_UNIT");
 			lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolverVersion"),
 					UnitResolver.ALIAS_TABLE_VERSION);
 	    }

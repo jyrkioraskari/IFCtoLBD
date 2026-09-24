@@ -170,6 +170,10 @@ public class PropertySet {
 	private boolean pksetclasses = false;
 
 	public void connect(Resource lbd_resource, String long_guid) {
+		// Keep the complete property/quantity-set graph in the property model. The
+		// mapped resource commonly originates in the general BOT model, and adding a
+		// property through that Resource would otherwise put the root link there.
+		lbd_resource = lbd_resource.inModel(this.lbd_model);
 		// System.out.println("connect: "+this.getPropertyset_name()+" -
 		// "+lbd_resource.getLocalName());
 		Resource to_connect = lbd_resource;
@@ -349,13 +353,17 @@ public class PropertySet {
 	}
 
 	private void addUnit(Resource lbd_resource, String pname) {
+		RDFNode value = this.mapPnameValue.get(pname);
+		if (value == null || !value.isLiteral() || !(value.asLiteral().getValue() instanceof Number))
+			return;
 		RDFNode explicit = this.mapPnameUnit.get(pname);
 		Resource explicitResource = explicit != null && explicit.isResource() ? explicit.asResource() : null;
 		UnitResolver.Resolution resolution = this.unitResolver.resolve(explicitResource, this.mapPnameType.get(pname));
 		UnitResolver.write(this.lbd_model, lbd_resource, resolution);
+		if (!resolution.isResolved())
+			return;
 		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolutionMethod"),
-				explicitResource != null ? "IFC_EXPLICIT_UNIT"
-						: resolution.isResolved() ? "IFC_PROJECT_UNIT" : "UNRESOLVED");
+				explicitResource != null ? "IFC_EXPLICIT_UNIT" : "IFC_PROJECT_UNIT");
 		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolverVersion"),
 				UnitResolver.ALIAS_TABLE_VERSION);
 	}

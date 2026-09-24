@@ -42,7 +42,6 @@ class IfcSpaceBoundaryIntegrationTest {
 			assertTrue(model.contains(null, IFCtoLBDMapping.physicalOrVirtualBoundary, "PHYSICAL"));
 			assertTrue(model.contains(null, IFCtoLBDMapping.internalOrExternalBoundary, "EXTERNAL"));
 			assertTrue(model.contains(null, IFCtoLBDMapping.connectionGeometry));
-			assertFalse(model.contains(null, RDF.type, IFCtoLBDMapping.candidateInterface));
 			Resource boundary = model.listResourcesWithProperty(IFCtoLBDMapping.ifcGlobalId,
 					"36tIOu57f4IPSzVKH7isUP").nextResource();
 			assertTrue(boundary.getURI().contains("/model/duplex-boundary-test/element/"));
