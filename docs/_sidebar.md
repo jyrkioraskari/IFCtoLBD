@@ -4,5 +4,9 @@
 - [3. Python](python_examples.md)
 - [4. Java](java_examples.md)
 - [5. Build and extend](development.md)
-- [Supply-chain and sustainability](supply-chain-and-sustainability.md)
+
+- Advanced topics
+  - [Supply-chain and sustainability](supply-chain-and-sustainability.md)
+  - [Compatible projects](compatible-projects.md)
+
 - [Project history](history.md)

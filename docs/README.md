@@ -31,6 +31,10 @@ Windows users can alternatively use the [`IFCtoLBDConverter_CLI.exe`](quick-star
 You can stop after any step and use what you have learned. Python and Java are
 alternative programming routes; neither requires learning the other first.
 
-Additional resources: [supply-chain and sustainability output](supply-chain-and-sustainability.md),
-[project history](history.md), and the
+## Advanced topics
+
+- [Supply-chain and sustainability output](supply-chain-and-sustainability.md)
+- [Compatible projects](compatible-projects.md)
+
+Additional resources: [project history](history.md) and the
 [repository](https://github.com/jyrkioraskari/IFCtoLBD).
