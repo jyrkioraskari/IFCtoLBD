@@ -4,6 +4,8 @@ This folder contains a Model Context Protocol (MCP) stdio server that exposes th
 
 The server uses `java-bridge` with one shaded converter distribution. It does not scan loose JAR directories.
 
+For an end-to-end guide covering setup, AI client configuration, prompts, conversion profiles, evidence, validation, revision comparison, geometry, and troubleshooting, see the [MCP tutorial](../docs/mcp.md).
+
 ## Requirements
 
 - Node.js 18 or newer

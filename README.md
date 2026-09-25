@@ -73,6 +73,7 @@ command-line converter. Use it from PowerShell or Command Prompt;
 | Understand LBD and use the generated triples | [LBD, RDF, and your first queries](docs/using-triples.md) |
 | Read the output or automate conversion in Python | [Python guide](docs/python_examples.md) |
 | Embed the converter and query its output in Java | [Java guide](docs/java_examples.md) |
+| Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) |
 | Compile the converter, understand the subprojects, or extend it | [Build and development guide](docs/development.md) |
 | Explore classification, product identity, GS1, or EPD output | [Supply-chain and sustainability](docs/supply-chain-and-sustainability.md) |
 

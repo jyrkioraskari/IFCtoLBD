@@ -24,7 +24,8 @@ releases may have different requirements or features.
 | 2 | Read Turtle and ask questions with SPARQL | [Using the triples](using-triples.md) |
 | 3 | Work with RDFLib and call the converter from Python | [Python](python_examples.md) |
 | 4 | Use the Java library and Apache Jena | [Java](java_examples.md) |
-| 5 | Build the source, find the right module, and extend it | [Development](development.md) |
+| 5 | Connect an AI assistant through MCP | [MCP tutorial](mcp.md) |
+| 6 | Build the source, find the right module, and extend it | [Development](development.md) |
 
 Windows users can alternatively use the [`IFCtoLBDConverter_CLI.exe`](quick-start.md#windows-alternative-ifctolbdconverter_cliexe).
 

@@ -3,7 +3,8 @@
 - [2. Using the triples](using-triples.md)
 - [3. Python](python_examples.md)
 - [4. Java](java_examples.md)
-- [5. Build and extend](development.md)
+- [5. AI assistant with MCP](mcp.md)
+- [6. Build and extend](development.md)
 
 - Advanced topics
   - [Supply-chain and sustainability](supply-chain-and-sustainability.md)
