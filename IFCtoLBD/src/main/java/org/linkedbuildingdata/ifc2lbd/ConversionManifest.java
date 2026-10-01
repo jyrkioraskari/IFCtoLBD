@@ -29,13 +29,21 @@ import be.ugent.IfcSpfReader;
 final class ConversionManifest {
 
 	static final String NS = "https://w3id.org/ifctolbd/manifest#";
-	static final String CONVERTER_VERSION = "2.54.0";
+	static final String CONVERTER_VERSION = "2.54.1";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
 
 	private ConversionManifest() { }
 	record Created(Model model, ConversionGraphNames graphNames) { }
 
 	static Created create(ConversionRequest request, Instant convertedAt, ValidationStage.Result validation,
+			UriPolicy uriPolicy, GeometryProvider geometryProvider, GeometryArtifactStore artifactStore,
+			List<GeometryArtifact> geometryArtifacts, String baseUri, boolean productOntologies) {
+		return create(request, convertedAt, validation, SemanticOutputAudit.audit(), uriPolicy, geometryProvider,
+				artifactStore, geometryArtifacts, baseUri, productOntologies);
+	}
+
+	static Created create(ConversionRequest request, Instant convertedAt, ValidationStage.Result validation,
+			SemanticOutputAudit.Result audit,
 			UriPolicy uriPolicy, GeometryProvider geometryProvider, GeometryArtifactStore artifactStore,
 			List<GeometryArtifact> geometryArtifacts, String baseUri, boolean productOntologies) {
 		Path source = Path.of(request.getIfcFilename()).toAbsolutePath();
@@ -80,6 +88,9 @@ final class ConversionManifest {
 				.addLiteral(property(model, "classificationResolverConfiguration"), request.getClassificationResolver().configurationId())
 				.addLiteral(property(model, "ontologyConfiguration"), ontologySignature)
 				.addLiteral(property(model, "validationStatus"), validation.status())
+				.addLiteral(property(model, "semanticAuditStatus"), audit.status())
+				.addLiteral(property(model, "semanticAuditWarningCount"), audit.warningCount())
+				.addLiteral(property(model, "semanticAuditErrorCount"), audit.errorCount())
 				.addLiteral(model.createProperty(PROV + "generatedAtTime"),
 						model.createTypedLiteral(convertedAt.toString(), XSDDatatype.XSDdateTime));
 		request.getModelScope().ifPresent(scope -> conversion.addLiteral(property(model, "modelScope"), scope));

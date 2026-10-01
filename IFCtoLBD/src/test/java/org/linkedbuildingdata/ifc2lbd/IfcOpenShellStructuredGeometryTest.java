@@ -26,6 +26,10 @@ class IfcOpenShellStructuredGeometryTest {
 			var obj = result.getOBJ(guid);
 			assertNotNull(obj);
 			assertTrue(obj.toString().length() > 100);
+			var mesh = result.getTessellatedMesh(guid);
+			assertNotNull(mesh);
+			assertTrue(mesh.vertexCount() > 0);
+			assertTrue(mesh.triangleCount() > 0);
 		}
 	}
 

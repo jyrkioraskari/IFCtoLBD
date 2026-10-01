@@ -406,15 +406,19 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		ValidationStage.Result validation = ValidationStage.validate(request, context.validationResources(),
 				this.lbd_general_output_model,
 				this.lbd_product_output_model, this.lbd_property_output_model);
-		ConversionManifest.Created manifest = ConversionManifest.create(request, conversionSession.now(), validation, getUriPolicy(),
+		SemanticOutputAudit.Result audit = SemanticOutputAudit.audit(this.lbd_general_output_model,
+				this.lbd_product_output_model, this.lbd_property_output_model);
+		ConversionManifest.Created manifest = ConversionManifest.create(request, conversionSession.now(), validation, audit, getUriPolicy(),
 				conversionSession.getGeometryProvider(), conversionSession.getGeometryArtifactStore(),
 				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies());
+		Model validationAndAudit = org.apache.jena.rdf.model.ModelFactory.createDefaultModel()
+				.add(validation.report()).add(audit.report());
 		// Legacy output builds a materialized union in the general graph. Structured
 		// results keep each statement in exactly one physical graph.
 		this.lbd_general_output_model.remove(this.lbd_product_output_model);
 		this.lbd_general_output_model.remove(this.lbd_property_output_model);
 		return ConversionResult.of(this.lbd_general_output_model, this.lbd_product_output_model,
-				this.lbd_property_output_model, manifest.model(), validation.report(), manifest.graphNames());
+				this.lbd_property_output_model, manifest.model(), validationAndAudit, manifest.graphNames());
 	}
 
 	/**

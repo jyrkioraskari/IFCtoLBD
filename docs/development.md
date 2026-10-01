@@ -179,6 +179,21 @@ java -Difctolbd.ifcopenshell.python=/absolute/path/to/python \
 objects may legitimately have no mesh geometry. Geometry export is optional
 for learning RDF or querying topology.
 
+Structured callers can obtain backend-neutral triangle data through
+`GeometryResult.getTessellatedMesh(guid)`. The returned `TessellatedMesh`
+contains immutable positions, optional normals, triangle indices, materials,
+per-triangle material indices, and a local-to-world transform. The Python
+iterator currently emits world-space positions and therefore uses the identity
+transform; the legacy backend preserves its separate placement transform.
+
+Every structured conversion also runs `SemanticOutputAudit`. Its RDF findings
+are included in the validation named graph, while status and warning/error
+counts are recorded in the conversion manifest. The audit detects generated
+predicates without declarations, conflicting or misused object/datatype
+properties, malformed and non-finite numeric literals, multiple simple values,
+and multiple current OPM states. Findings are diagnostic and do not prevent
+legacy conversions from completing.
+
 ## Optional native CLI
 
 The converter POM also has a `native` profile for GraalVM. After installing the

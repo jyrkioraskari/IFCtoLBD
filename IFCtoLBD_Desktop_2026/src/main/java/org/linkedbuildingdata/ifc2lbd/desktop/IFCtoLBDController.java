@@ -23,7 +23,6 @@
 
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -61,10 +60,13 @@ import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFLanguages;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
@@ -404,12 +406,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final double FLOATING_CARD_INITIAL_GAP = 12.0;
 	private static final double GEOMETRY_CARD_WIDTH = 560.0;
 	private static final double GEOMETRY_VIEWPORT_WIDTH = 540.0;
-	private static final Pattern GEOMETRY_OBJ_LITERAL_PATTERN = Pattern.compile(
-			"(?:fog:asObj_v3\\.0-obj|<https://w3id\\.org/fog#asObj_v3\\.0-obj>|\"(?:fog:)?asObj_v3\\.0-obj\"|\"https://w3id\\.org/fog#asObj_v3\\.0-obj\")\\s*:?\\s*\"([A-Za-z0-9+/=]+)\"");
-	private static final Pattern GEOMETRY_MTL_KD_PATTERN = Pattern.compile(
-			"(?:lbd:asMTL_kd|<https://lbd\\.org/#asMTL_kd>|\"(?:lbd:)?asMTL_kd\"|\"https://lbd\\.org/#asMTL_kd\")\\s*:?\\s*\"(#[0-9a-fA-F]{6})\"");
-	private static final Pattern GEOMETRY_MTL_PATTERN = Pattern.compile(
-			"(?:lbd:asMTL|<https://lbd\\.org/#asMTL>|\"(?:lbd:)?asMTL\"|\"https://lbd\\.org/#asMTL\")\\s*:?\\s*\"((?:[^\"\\\\]|\\\\.)*)\"");
+	private static final String GEOMETRY_OBJ_PROPERTY = "https://w3id.org/fog#asObj_v3.0-obj";
+	private static final String GEOMETRY_MTL_PROPERTY = "https://lbd.org/#asMTL";
+	private static final String GEOMETRY_MTL_KD_PROPERTY = "https://lbd.org/#asMTL_kd";
 	private static final Pattern MTL_KD_LINE_PATTERN = Pattern.compile(
 			"(?m)^\\s*Kd\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*$");
 	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
@@ -487,7 +486,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private void validateWorkflow() {
 		if (!isValidationAvailable()) {
-			this.conversionTxt.appendText("Generate a Turtle LBD output before opening Validate.\n");
+			this.conversionTxt.appendText("Generate an RDF output before opening Validate.\n");
 			return;
 		}
 		alignFloatingCardsIfNeeded();
@@ -523,7 +522,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private void queryWorkflow() {
 		if (!isSparqlQueryAvailable()) {
-			this.conversionTxt.appendText("Generate a Turtle LBD output before opening SPARQL Query.\n");
+			this.conversionTxt.appendText("Generate an RDF output before opening SPARQL Query.\n");
 			return;
 		}
 		alignFloatingCardsIfNeeded();
@@ -533,7 +532,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private void runSparqlQuery() {
 		if (!isSparqlQueryAvailable()) {
-			this.sparqlResultsTxt.setText("Generate a Turtle LBD output before running a SPARQL query.");
+			this.sparqlResultsTxt.setText("Generate an RDF output before running a SPARQL query.");
 			return;
 		}
 		String queryText = this.sparqlEditorTxt.getText();
@@ -1187,7 +1186,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return false;
 		}
 		ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
-		return settings != null && !settings.exportAsJsonLd() && !settings.exportAsIcdd()
+		return settings != null && !settings.exportAsIcdd()
 				&& settings.rdfTargetName() != null
 				&& new File(settings.rdfTargetName()).isFile();
 	}
@@ -1210,7 +1209,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (!available) {
 			if (this.sparqlResultsTxt != null) {
-				this.sparqlResultsTxt.setText("Generate a Turtle LBD output to run SPARQL queries.");
+				this.sparqlResultsTxt.setText("Generate an RDF output to run SPARQL queries.");
 			}
 		}
 	}
@@ -1231,13 +1230,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.validationRevision++;
 			for (ShapeValidationItem item : this.shapeValidationItems) {
 				item.conforms = null;
-				item.message = "Generate a Turtle LBD output to validate shapes.";
+				item.message = "Generate an RDF output to validate shapes.";
 			}
 			if (this.shaclShapesList != null) {
 				this.shaclShapesList.refresh();
 			}
 			if (this.validateStatusLabel != null) {
-				this.validateStatusLabel.setText("Generate a Turtle LBD output to validate loaded SHACL shapes.");
+				this.validateStatusLabel.setText("Generate an RDF output to validate loaded SHACL shapes.");
 			}
 		}
 	}
@@ -1976,7 +1975,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static Model readOutputModel(File outputFile) {
 		Model model = ModelFactory.createDefaultModel();
 		try {
-			RDFDataMgr.read(model, outputFile.getAbsolutePath(), Lang.TURTLE);
+			Lang language = RDFLanguages.filenameToLang(outputFile.getName(), Lang.TURTLE);
+			RDFDataMgr.read(model, outputFile.getAbsolutePath(), language);
 			return model;
 		} catch (RuntimeException e) {
 			model.close();
@@ -2109,48 +2109,40 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private PreviewMesh loadPreviewMesh(File rdfFile) throws IOException {
 		ObjMeshBuilder builder = new ObjMeshBuilder(MAX_PREVIEW_POINTS, MAX_PREVIEW_TRIANGLES);
-		try (BufferedReader reader = Files.newBufferedReader(rdfFile.toPath(), StandardCharsets.UTF_8)) {
-			String line;
-			String pendingObj = null;
-			int pendingColor = DEFAULT_PREVIEW_COLOR;
-			while ((line = reader.readLine()) != null && !builder.clipped()) {
-				if (pendingObj != null && startsNewRdfSubject(line)) {
-					builder.addObj(pendingObj, pendingColor);
-					pendingObj = null;
-					pendingColor = DEFAULT_PREVIEW_COLOR;
-				}
-				Matcher objMatcher = GEOMETRY_OBJ_LITERAL_PATTERN.matcher(line);
-				while (objMatcher.find() && !builder.clipped()) {
-					if (pendingObj != null) {
-						builder.addObj(pendingObj, pendingColor);
-						pendingColor = DEFAULT_PREVIEW_COLOR;
-					}
-					try {
-						pendingObj = new String(Base64.getDecoder().decode(objMatcher.group(1)), StandardCharsets.UTF_8);
-					} catch (IllegalArgumentException ignored) {
-						// Ignore malformed geometry literals and continue scanning the output.
-						pendingObj = null;
-					}
-				}
-				Matcher colorMatcher = GEOMETRY_MTL_KD_PATTERN.matcher(line);
-				if (colorMatcher.find()) {
-					pendingColor = parseHexColor(colorMatcher.group(1));
-				} else {
-					Matcher materialMatcher = GEOMETRY_MTL_PATTERN.matcher(line);
-					if (materialMatcher.find()) {
-						pendingColor = parseMtlDiffuseColor(materialMatcher.group(1), pendingColor);
-					}
+		Model model = readOutputModel(rdfFile);
+		try {
+			Property objProperty = model.createProperty(GEOMETRY_OBJ_PROPERTY);
+			Property materialColorProperty = model.createProperty(GEOMETRY_MTL_KD_PROPERTY);
+			Property materialProperty = model.createProperty(GEOMETRY_MTL_PROPERTY);
+			var geometries = model.listStatements(null, objProperty, (RDFNode) null);
+			while (geometries.hasNext() && !builder.clipped()) {
+				Statement geometry = geometries.next();
+				if (!geometry.getObject().isLiteral()) continue;
+				int color = geometryColor(geometry.getSubject(), materialColorProperty, materialProperty);
+				try {
+					String obj = new String(Base64.getDecoder().decode(
+							geometry.getString()), StandardCharsets.UTF_8);
+					builder.addObj(obj, color);
+				} catch (IllegalArgumentException ignored) {
+					// Ignore malformed geometry literals and continue with the remaining geometry.
 				}
 			}
-			if (pendingObj != null && !builder.clipped()) {
-				builder.addObj(pendingObj, pendingColor);
-			}
+		} finally {
+			model.close();
 		}
 		return builder.toPreviewMesh();
 	}
 
-	private static boolean startsNewRdfSubject(String line) {
-		return !line.isBlank() && !Character.isWhitespace(line.charAt(0));
+	private static int geometryColor(Resource geometry, Property materialColorProperty, Property materialProperty) {
+		Statement color = geometry.getProperty(materialColorProperty);
+		if (color != null && color.getObject().isLiteral()) {
+			return parseHexColor(color.getString());
+		}
+		Statement material = geometry.getProperty(materialProperty);
+		if (material != null && material.getObject().isLiteral()) {
+			return parseMtlDiffuseColor(material.getString(), DEFAULT_PREVIEW_COLOR);
+		}
+		return DEFAULT_PREVIEW_COLOR;
 	}
 
 	private void showPreviewMesh(PreviewMesh previewMesh) {
@@ -2833,8 +2825,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					String outputPath = new File(successfulRequest.settings().rdfTargetName()).getAbsolutePath();
 					this.conversionTxt.appendText((successfulRequest.settings().exportAsIcdd()
 							? "ICDD package written to: " : "LBD file written to: ") + outputPath + "\n");
-					boolean queryAvailable = !successfulRequest.settings().exportAsJsonLd()
-							&& !successfulRequest.settings().exportAsIcdd()
+					boolean queryAvailable = !successfulRequest.settings().exportAsIcdd()
 							&& new File(successfulRequest.settings().rdfTargetName()).isFile();
 					setWorkflowDataAvailable(isFiltersAvailable(),
 							!successfulRequest.settings().exportAsIcdd(), queryAvailable);

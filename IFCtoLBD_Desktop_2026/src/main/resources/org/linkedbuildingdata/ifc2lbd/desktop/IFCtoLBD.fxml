@@ -286,7 +286,7 @@
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                               <children>
                                 <Button fx:id="runSparqlQueryButton" mnemonicParsing="false" onAction="#runSparqlQuery" styleClass="primary-button" text="Run query" />
-                                <Label styleClass="query-status-label" text="Runs against the latest generated Turtle output." />
+                                <Label styleClass="query-status-label" text="Runs against the latest generated RDF output." />
                               </children>
                             </HBox>
                             <Label styleClass="section-title" text="Results" />
@@ -303,7 +303,7 @@
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                               <children>
                                 <Button fx:id="loadShaclButton" mnemonicParsing="false" onAction="#loadShaclShapes" styleClass="primary-button" text="Load SHACL" />
-                                <Label fx:id="validateStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="Loaded SHACL shapes are tested against the latest generated Turtle output." wrapText="true" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="validateStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="Loaded SHACL shapes are tested against the latest generated RDF output." wrapText="true" HBox.hgrow="ALWAYS" />
                               </children>
                             </HBox>
                             <Label styleClass="section-title" text="Shapes" />

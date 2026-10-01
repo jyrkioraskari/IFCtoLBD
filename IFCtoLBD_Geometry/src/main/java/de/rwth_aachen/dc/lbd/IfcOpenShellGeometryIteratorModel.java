@@ -80,6 +80,11 @@ class IfcOpenShellGeometryIteratorModel {
 		return geometry.getMTL();
 	}
 
+	TessellatedMesh getTessellatedMesh(String guid) {
+		GeometryData geometry = this.geometryByGuid.get(guid);
+		return geometry == null ? null : geometry.getTessellatedMesh(guid);
+	}
+
 	private static Path copyScriptToTempFile() throws IOException {
 		try (InputStream input = IfcOpenShellGeometryIteratorModel.class.getResourceAsStream(SCRIPT_RESOURCE)) {
 			if (input == null) {
@@ -296,6 +301,7 @@ class IfcOpenShellGeometryIteratorModel {
 		private ObjDescription obj;
 		private MTLDescription mtl;
 		private String wireframeWKT;
+		private TessellatedMesh tessellatedMesh;
 		private boolean boundingBoxComputed;
 		private boolean objComputed;
 		private boolean mtlComputed;
@@ -353,6 +359,18 @@ class IfcOpenShellGeometryIteratorModel {
 				}
 			}
 			return this.wireframeWKT;
+		}
+
+		private synchronized TessellatedMesh getTessellatedMesh(String guid) {
+			if (this.tessellatedMesh == null && this.vertices.length > 0 && this.faces.length > 0) {
+				List<TessellatedMesh.Material> meshMaterials = new ArrayList<>(this.materials.length);
+				for (MaterialData material : this.materials) {
+					meshMaterials.add(new TessellatedMesh.Material(material.name, material.diffuse, material.alpha));
+				}
+				this.tessellatedMesh = new TessellatedMesh(guid, this.vertices, null, this.faces,
+						meshMaterials, null, TessellatedMesh.identityTransform());
+			}
+			return this.tessellatedMesh;
 		}
 	}
 

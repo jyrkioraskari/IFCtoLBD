@@ -9,6 +9,7 @@ import de.rwth_aachen.dc.lbd.BoundingBox;
 import de.rwth_aachen.dc.lbd.IFCGeometry;
 import de.rwth_aachen.dc.lbd.MTLDescription;
 import de.rwth_aachen.dc.lbd.ObjDescription;
+import de.rwth_aachen.dc.lbd.TessellatedMesh;
 
 /** Geometry loaded by a provider, including an explicit unavailable result. */
 public final class GeometryResult implements AutoCloseable {
@@ -31,6 +32,10 @@ public final class GeometryResult implements AutoCloseable {
 	public ObjDescription getOBJ(String guid) { return geometry == null ? null : geometry.getOBJ(guid); }
 	public MTLDescription getMTL(String guid) { return geometry == null ? null : geometry.getMTL(guid); }
 	public String getWireframeWKT(String guid) { return geometry == null ? null : geometry.getWireframeWKT(guid); }
+	/** Returns backend-neutral triangle data for the IFC product, when available. */
+	public TessellatedMesh getTessellatedMesh(String guid) {
+		return geometry == null ? null : geometry.getTessellatedMesh(guid);
+	}
 	IFCGeometry unwrap() { return geometry; }
 	@Override public void close() {
 		try {

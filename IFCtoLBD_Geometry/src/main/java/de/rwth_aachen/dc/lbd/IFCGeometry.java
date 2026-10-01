@@ -268,6 +268,66 @@ public class IFCGeometry {
 		return WireframeWKT.fromObj(getOBJ(guid));
 	}
 
+	/** Returns structured triangle data without changing the legacy OBJ/WKT APIs. */
+	public TessellatedMesh getTessellatedMesh(String guid) {
+		if (this.geometryIteratorModel != null) {
+			return this.geometryIteratorModel.getTessellatedMesh(guid);
+		}
+		if (this.renderEngineModel == null) return null;
+		IfcOpenShellEntityInstance instance = this.renderEngineModel.getInstanceFromGUID(guid);
+		if (instance == null) return null;
+		try {
+			RenderEngineGeometry geometry = instance.generateGeometry();
+			if (geometry == null || geometry.getIndices().limit() == 0) return null;
+			return new TessellatedMesh(guid, readDoubles(geometry.getVertices()), readFloats(geometry.getNormals()),
+					readInts(geometry.getIndices()), meshMaterials(geometry), readInts(geometry.getMaterialIndices()),
+					instance.getTransformationMatrix());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private static double[] readDoubles(ByteBuffer source) {
+		if (source == null) return new double[0];
+		ByteBuffer values = source.duplicate().order(ByteOrder.nativeOrder()).position(0);
+		double[] result = new double[values.remaining() / Double.BYTES];
+		for (int i = 0; i < result.length; i++) result[i] = values.getDouble();
+		return result;
+	}
+
+	private static int[] readInts(ByteBuffer source) {
+		if (source == null) return new int[0];
+		ByteBuffer values = source.duplicate().order(ByteOrder.nativeOrder()).position(0);
+		int[] result = new int[values.remaining() / Integer.BYTES];
+		for (int i = 0; i < result.length; i++) result[i] = values.getInt();
+		return result;
+	}
+
+	private static double[] readFloats(ByteBuffer source) {
+		if (source == null) return new double[0];
+		ByteBuffer values = source.duplicate().order(ByteOrder.nativeOrder()).position(0);
+		double[] result = new double[values.remaining() / Float.BYTES];
+		for (int i = 0; i < result.length; i++) result[i] = values.getFloat();
+		return result;
+	}
+
+	private static List<TessellatedMesh.Material> meshMaterials(RenderEngineGeometry geometry) {
+		List<TessellatedMesh.Material> result = new ArrayList<>();
+		ByteBuffer values = geometry.getMaterials();
+		if (values == null) return result;
+		values = values.duplicate().order(ByteOrder.nativeOrder()).position(0);
+		int index = 0;
+		while (values.remaining() >= Float.BYTES * 4) {
+			double r = clampColor(values.getFloat());
+			double g = clampColor(values.getFloat());
+			double b = clampColor(values.getFloat());
+			double alpha = clampColor(values.getFloat());
+			result.add(new TessellatedMesh.Material("material_" + index++, new double[] { r, g, b }, alpha));
+		}
+		return result;
+	}
+
 	private Optional<MTLDescription.MTLMaterial> getVisualStyleMaterial(String guid) throws IOException {
 		Map<String, String> entities = getStepEntities();
 		Optional<String> productDefinitionShapeId = findProductDefinitionShapeId(entities, guid);
