@@ -1,0 +1,14 @@
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX props: <http://lbd.arch.rwth-aachen.de/props#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?elementName (GROUP_CONCAT(?propertyName; separator=", ") AS ?missing) WHERE {
+  ?element a bot:Element ; rdfs:label ?elementName .
+  VALUES (?property ?propertyName) {
+    (props:loadBearing "LoadBearing")
+    (props:isExternal "IsExternal")
+  }
+  FILTER NOT EXISTS { ?element ?property ?value }
+}
+GROUP BY ?elementName
+ORDER BY ?elementName

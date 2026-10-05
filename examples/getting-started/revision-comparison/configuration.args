@@ -1,0 +1,8 @@
+examples/getting-started/revision-comparison/after.ifc
+--compare-to=examples/getting-started/revision-comparison/before.ifc
+--target_file=examples/getting-started/revision-comparison/changes.ttl
+--url=https://example.org/ifctolbd/tutorial/
+--profile=revision-ready
+--model-scope=training-building
+--query=examples/getting-started/revision-comparison/query.rq
+--query-result=examples/getting-started/revision-comparison/result.txt

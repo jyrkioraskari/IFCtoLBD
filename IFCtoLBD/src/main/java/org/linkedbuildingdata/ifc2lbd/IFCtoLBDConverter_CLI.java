@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -15,6 +16,12 @@ import java.util.concurrent.Callable;
 
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
+import org.apache.jena.query.Query;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
 
 import picocli.CommandLine;
@@ -170,6 +177,15 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = "--model-scope", description = "Stable model identity namespace required by revision-ready profiles.")
 	private Optional<String> modelScope;
 
+	@Option(names = "--query", description = "Run a saved SELECT, ASK, CONSTRUCT, or DESCRIBE query against the result.")
+	private Optional<Path> queryFile;
+
+	@Option(names = "--query-result", description = "Write the saved query result to this file instead of standard output.")
+	private Optional<Path> queryResultFile;
+
+	@Option(names = "--compare-to", description = "Compare the input with this earlier IFC revision. Requires --profile=revision-ready and --model-scope.")
+	private Optional<Path> previousIfc;
+
 	
 	
 	@Override
@@ -185,30 +201,84 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 		String outputFile = target_file.orElseGet(() -> ifc_filename.replaceFirst("(?i)\\.(?:ifc(?:zip|xml|json)?|xml|json)$", "")
 				+ (namedGraphs.orElse(false) ? ".trig" : exportJSON.orElse(false) ? ".jsonld" : ".ttl"));
-		ConversionRequest request;
-		if (profile.isPresent()) {
-			request = new ConversionRequest(ifcFile.getAbsolutePath(), ConversionProfiles.named(profile.get()));
-		} else {
-			ConversionProperties properties = legacyProperties();
-			request = new ConversionRequest(ifcFile.getAbsolutePath(), properties);
+		System.out.println("Target is: " + outputFile);
+		if (previousIfc.isPresent()) return compareRevisions(ifcFile, Path.of(outputFile));
+		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
+				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1))) {
+			try (ConversionResult result = converter.convert(createRequest(ifcFile));
+					OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
+				if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
+				else if (exportJSON.orElse(false)) RDFDataMgr.write(output, result.getModel(), RDFFormat.JSONLD);
+				else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
+				runSavedQuery(result.getModel());
+			}
 		}
+		return 0;
+	}
+
+	private ConversionRequest createRequest(File file) {
+		ConversionRequest request = profile.isPresent()
+				? new ConversionRequest(file.getAbsolutePath(), ConversionProfiles.named(profile.get()))
+				: new ConversionRequest(file.getAbsolutePath(), legacyProperties());
 		applyTopologyOptions(request.getProperties());
 		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
 		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
 		if (validate.orElse(false)) request = request.withStandardValidation();
 		else if (!validationPacks.isEmpty())
 			request = request.withValidation(validationPacks.toArray(ValidationShapePack[]::new));
+		return request;
+	}
 
-		System.out.println("Target is: " + outputFile);
-		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
-				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
-				ConversionResult result = converter.convert(request);
-				OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
-			if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
-			else if (exportJSON.orElse(false)) RDFDataMgr.write(output, result.getModel(), RDFFormat.JSONLD);
-			else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
+	private int compareRevisions(File currentIfc, Path outputFile) throws Exception {
+		if (profile.isEmpty() || !"revision-ready".equalsIgnoreCase(profile.get()) || modelScope.isEmpty()) {
+			throw new IllegalArgumentException("--compare-to requires --profile=revision-ready and --model-scope");
+		}
+		File previous = previousIfc.orElseThrow().toFile();
+		if (!previous.isFile()) throw new IllegalArgumentException("Cannot read earlier IFC file: " + previous);
+		try (IFCtoLBDConverter oldConverter = newConverter();
+				IFCtoLBDConverter newConverter = newConverter();
+				ConversionResult oldResult = oldConverter.convert(createRequest(previous));
+				ConversionResult newResult = newConverter.convert(createRequest(currentIfc));
+				ConversionDiff diff = new RevisionComparator().compare(oldResult, newResult);
+				OutputStream output = Files.newOutputStream(outputFile)) {
+			RDFDataMgr.write(output, diff.getChangeModel(), RDFFormat.TURTLE_PRETTY);
+			runSavedQuery(diff.getChangeModel());
+			System.out.println("Revision comparison: " + diff.getAddedCount() + " added and "
+					+ diff.getRemovedCount() + " removed statements.");
 		}
 		return 0;
+	}
+
+	private IFCtoLBDConverter newConverter() {
+		return new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
+				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
+	}
+
+	private void runSavedQuery(Model model) throws Exception {
+		if (queryFile.isEmpty()) return;
+		String queryText = Files.readString(queryFile.get(), StandardCharsets.UTF_8);
+		Query query = QueryFactory.create(queryText);
+		String result;
+		try (QueryExecution execution = QueryExecutionFactory.create(query, model)) {
+			if (query.isSelectType()) result = ResultSetFormatter.asText(execution.execSelect());
+			else if (query.isAskType()) result = "ASK result: " + execution.execAsk() + System.lineSeparator();
+			else if (query.isConstructType()) result = modelText(execution.execConstruct());
+			else if (query.isDescribeType()) result = modelText(execution.execDescribe());
+			else throw new IllegalArgumentException("Unsupported saved query type");
+		}
+		if (queryResultFile.isPresent()) Files.writeString(queryResultFile.get(), result, StandardCharsets.UTF_8);
+		else System.out.print(result);
+	}
+
+	private static String modelText(Model model) {
+		try (java.io.ByteArrayOutputStream output = new java.io.ByteArrayOutputStream()) {
+			RDFDataMgr.write(output, model, RDFFormat.TURTLE_PRETTY);
+			return output.toString(StandardCharsets.UTF_8);
+		} catch (java.io.IOException impossible) {
+			throw new IllegalStateException(impossible);
+		} finally {
+			model.close();
+		}
 	}
 
 	private ConversionProperties legacyProperties() {

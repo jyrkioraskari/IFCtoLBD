@@ -70,6 +70,20 @@ Keep `IFCtoLBD-Desktop_Java_21_lib` beside the desktop JAR. The distribution cop
 runtime dependencies into that folder. The desktop entry point is
 `org.linkedbuildingdata.ifc2lbd.desktop.Main`.
 
+To build a platform-specific application image with its own Java runtime, use a
+JDK that provides `jpackage` and run:
+
+```sh
+./mvnw clean verify -pl IFCtoLBD_Desktop_2026 -am -Pruntime-image -DskipTests
+```
+
+The result is under `IFCtoLBD_Desktop_2026/target/runtime-image`. Build it once
+on each target operating system and architecture; `jpackage` does not
+cross-package. The output also includes the three getting-started examples for
+release archives. Code signing and native installer formats remain release
+pipeline responsibilities; this profile deliberately creates a portable
+application image.
+
 Generate fresh converter Javadoc after installing its companion modules:
 
 ```sh

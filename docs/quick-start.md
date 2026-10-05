@@ -14,9 +14,9 @@ The specification version you read and the schemas supported by your converter
 release may differ; check the release notes for supported input versions.
 If you already work with IFC, continue below.
 
-You need an IFC model and the desktop application. For a small first model,
-download [Duplex_A.ifc](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD/src/main/resources/Duplex_A.ifc)
-using GitHub’s download button, or export an IFC model from your BIM application.
+You need an IFC model and the desktop application. For a small first model, use
+the bundled [two-wall model](../examples/getting-started/building-inventory/model.ifc),
+or export an IFC model from your BIM application.
 
 ## Download and choose your launch route
 
@@ -24,6 +24,12 @@ Go to [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases) and expand
 **Assets** for the release you choose. Select the packaged **desktop application**
 for your operating system. GitHub’s “Source code” archives are for building the
 project. Read the release notes and any instructions included with the package.
+
+When a bundled-runtime application is available, extract it and launch
+`IFCtoLBD` (`IFCtoLBD.exe` on Windows). It carries its own Java runtime; you do
+not need to install Java or keep a separate library directory. Keep the whole
+application folder together. Use the JAR route below only when no matching
+bundled-runtime package is available or when you specifically prefer it.
 
 ### Windows, macOS, or Linux: use the Java .jar
 
@@ -84,8 +90,12 @@ if you want to save somewhere else. Use a fresh filename to retain earlier expor
 
 For the first conversion, leave settings and filters as they are. Click **Run**
 and wait for completion in the conversion log. Locate the output at the displayed
-path. Open the `.ttl` file in a text editor: prefixes and statements describe
-your building as RDF triples.
+path. You now have RDF, but you can get a useful answer without reading Turtle.
+Open **Query**, paste the
+[building inventory query](../examples/getting-started/building-inventory/query.rq),
+and select **Run query**. For the bundled model the result groups two walls under
+`Level 04 - T.O. Fnd. Wall`; compare the complete table with
+[expected.txt](../examples/getting-started/building-inventory/expected.txt).
 
 Turtle (`.ttl`) is a convenient first format because it is readable. JSON-LD
 (`.jsonld`) is another RDF representation available in the current desktop.
@@ -180,3 +190,5 @@ If the error persists, report the release, operating system, Java version, and
 conversion log in a [GitHub issue](https://github.com/jyrkioraskari/IFCtoLBD/issues).
 
 Next, learn [what those triples mean and how to query them](using-triples.md).
+For two more complete workflows, run the
+[data-completeness and revision-comparison examples](../examples/getting-started/README.md).

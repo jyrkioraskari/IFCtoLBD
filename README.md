@@ -41,22 +41,31 @@ IFC specifications. You can skip this introduction if you already use IFC.
 You need an IFC model and the desktop application.
 
 1. Open [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases), expand
-   **Assets**, and download the **desktop JAR distribution** for your platform.
-   On Windows, macOS, or Linux,
-   [check or install Java 21](docs/quick-start.md#install-java-21-for-the-jar-route),
-   then launch the desktop JAR. Keep the complete distribution together and
-   check the chosen release’s requirements.
-2. Start the desktop application. Click **Read IFC**, choose your model, and
+   **Assets**, and choose a desktop package for your platform. Prefer a
+   **bundled-runtime application** when the release provides one: it includes
+   Java. The desktop JAR route instead needs
+   [Java 21](docs/quick-start.md#install-java-21-for-the-jar-route).
+2. Start the desktop application. For a result you can check, use the small
+   [two-wall example model](examples/getting-started/building-inventory/model.ifc).
+   Click **Read IFC**, choose the model, and
    wait for it to finish reading. The application proposes an output path.
 3. Check that output path, then click **Run**. For your first conversion, keep
    the existing settings and filters. Wait for the conversion log to report completion.
-4. Open the generated `.ttl` file in a text editor. It contains RDF in Turtle
-   format. You have converted your first IFC model to Linked Building Data.
+4. Open **Query**, paste the saved
+   [building inventory query](examples/getting-started/building-inventory/query.rq),
+   and click **Run query**. The useful result is immediate: the storey contains
+   two walls. Compare it with the
+   [expected result](examples/getting-started/building-inventory/expected.txt).
 
 
 [Follow the desktop quick start](docs/quick-start.md) for launch commands,
 output choices, and help if the application does not start. Features and button
 layout can differ between released versions and this source checkout.
+
+Want repeatable examples instead? The
+[ten-minute example bundle](examples/getting-started/README.md) provides saved
+configurations, bundled models, SPARQL questions, and checked answers for a
+building inventory, a data-completeness check, and a revision comparison.
 
 <img src="Screen.png" alt="IFCtoLBD desktop application" width="800">
 

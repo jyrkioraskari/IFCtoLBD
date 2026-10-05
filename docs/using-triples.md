@@ -85,6 +85,12 @@ into separate files. Load those files into the same graph for queries that
 combine them. A plain RDF query does not automatically infer every relationship
 implied by an ontology.
 
+For complete, reproducible queries rather than isolated snippets, use the
+[getting-started examples](../examples/getting-started/README.md). Their saved
+argument files can convert a bundled model, run the SPARQL, and write a result
+table in one command. The same query files can be pasted into the desktop Query
+tool.
+
 ## Query boundaries and zones
 
 Explicit IFC space boundaries are exported by default as distinct

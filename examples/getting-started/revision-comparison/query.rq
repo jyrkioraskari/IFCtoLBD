@@ -1,0 +1,16 @@
+PREFIX change: <https://w3id.org/ifctolbd/change#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?change ?element ?value WHERE {
+  ?comparison a change:RevisionComparison ; change:change ?statement .
+  ?statement a ?changeType ;
+             rdf:subject ?element ;
+             rdf:predicate rdfs:label ;
+             rdf:object ?value .
+  VALUES (?changeType ?change) {
+    (change:RemovedStatement "removed label")
+    (change:AddedStatement "added label")
+  }
+}
+ORDER BY ?change

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.BufferedInputStream;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -14,6 +15,8 @@ import java.io.PrintStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +35,7 @@ import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ReadWrite;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
@@ -42,6 +46,7 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.shacl.ShaclValidator;
 import org.apache.jena.shacl.Shapes;
 import org.apache.jena.shacl.ValidationReport;
@@ -57,7 +62,9 @@ import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.IFCtoLBDMapping;
+import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
+import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 import com.github.davidmoten.rtreemulti.Entry;
@@ -1265,5 +1272,127 @@ public class ConverterRunsUnitTests {
 		List<RDFNode> propertySets = IfcOWLUtils.listPropertysets(element, ifcOWL);
 		assertEquals(1, propertySets.size());
 		assertEquals(propertySet, propertySets.get(0));
+	}
+
+	@DisplayName("Documentation: building inventory example matches its expected result")
+	@Test
+	public void documentedBuildingInventoryExampleMatchesExpectedResult() throws Exception {
+		Path model = gettingStartedFile("building-inventory", "model.ifc");
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session,
+						"https://example.org/ifctolbd/tutorial/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(model.toString(), ConversionProfiles.CORE))) {
+			assertExampleResult("building-inventory", result.getModel());
+		}
+	}
+
+	@DisplayName("Documentation: data completeness example finds the deliberately missing property")
+	@Test
+	public void documentedDataCompletenessExampleMatchesExpectedResult() throws Exception {
+		Path model = gettingStartedFile("data-completeness", "model.ifc");
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session,
+						"https://example.org/ifctolbd/tutorial/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(model.toString(), ConversionProfiles.PROPERTIES_SIMPLE))) {
+			assertExampleResult("data-completeness", result.getModel());
+		}
+	}
+
+	@DisplayName("Documentation: revision comparison explains the renamed wall")
+	@Test
+	public void documentedRevisionComparisonExampleMatchesExpectedResult() throws Exception {
+		Path before = gettingStartedFile("revision-comparison", "before.ifc");
+		Path after = gettingStartedFile("revision-comparison", "after.ifc");
+		ConversionRequest previousRequest = new ConversionRequest(before.toString(), ConversionProfiles.REVISION_READY)
+				.withModelScope("training-building");
+		ConversionRequest currentRequest = new ConversionRequest(after.toString(), ConversionProfiles.REVISION_READY)
+				.withModelScope("training-building");
+
+		try (ConversionSession previousSession = new ConversionSession(NoGeometryProvider.INSTANCE);
+				ConversionSession currentSession = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter previousConverter = new IFCtoLBDConverter(previousSession,
+						"https://example.org/ifctolbd/tutorial/");
+				IFCtoLBDConverter currentConverter = new IFCtoLBDConverter(currentSession,
+						"https://example.org/ifctolbd/tutorial/");
+				ConversionResult previous = previousConverter.convert(previousRequest);
+				ConversionResult current = currentConverter.convert(currentRequest);
+				ConversionDiff diff = new RevisionComparator().compare(previous, current)) {
+			assertEquals(1, diff.getAddedCount());
+			assertEquals(1, diff.getRemovedCount());
+			assertExampleResult("revision-comparison", diff.getChangeModel());
+		}
+	}
+
+	@DisplayName("Documentation: OPM profile creates typed property sets and current states")
+	@Test
+	public void documentedOpmProfileCreatesPropertySetsAndStates() throws Exception {
+		Path model = gettingStartedFile("building-inventory", "model.ifc");
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.org/ifctolbd/tutorial/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(model.toString(), ConversionProfiles.PROPERTIES_OPM))) {
+			Model output = result.getModel();
+			assertTrue(output.contains(null, BSDD.hasPropertySet));
+			assertTrue(output.contains(null, RDF.type, OPM.property));
+			assertTrue(output.contains(null, OPM.hasPropertyState));
+			assertTrue(output.contains(null, RDF.type, OPM.currentPropertyState));
+		}
+	}
+
+	@DisplayName("Documentation: Turtle and JSON-LD preserve the same converted graph")
+	@Test
+	public void documentedTurtleAndJsonLdExportsPreserveGraph() throws Exception {
+		Path model = gettingStartedFile("building-inventory", "model.ifc");
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.org/ifctolbd/tutorial/");
+				ConversionResult result = converter.convert(
+						new ConversionRequest(model.toString(), ConversionProfiles.CORE))) {
+			Model turtle = roundTrip(result.getModel(), RDFFormat.TURTLE_PRETTY, Lang.TURTLE);
+			Model jsonLd = roundTrip(result.getModel(), RDFFormat.JSONLD, Lang.JSONLD);
+			try {
+				assertTrue(result.getModel().isIsomorphicWith(turtle));
+				assertTrue(result.getModel().isIsomorphicWith(jsonLd));
+				assertTrue(turtle.isIsomorphicWith(jsonLd));
+			} finally {
+				turtle.close();
+				jsonLd.close();
+			}
+		}
+	}
+
+	private static void assertExampleResult(String example, Model model) throws Exception {
+		String queryText = Files.readString(gettingStartedFile(example, "query.rq"), StandardCharsets.UTF_8);
+		String actual;
+		try (QueryExecution execution = QueryExecutionFactory.create(QueryFactory.create(queryText), model)) {
+			actual = ResultSetFormatter.asText(execution.execSelect());
+		}
+		String expected = Files.readString(gettingStartedFile(example, "expected.txt"), StandardCharsets.UTF_8);
+		assertEquals(normalizeLines(expected), normalizeLines(actual));
+	}
+
+	private static Model roundTrip(Model source, RDFFormat format, Lang language) {
+		ByteArrayOutputStream serialized = new ByteArrayOutputStream();
+		RDFDataMgr.write(serialized, source, format);
+		Model parsed = ModelFactory.createDefaultModel();
+		RDFDataMgr.read(parsed, new ByteArrayInputStream(serialized.toByteArray()), language);
+		return parsed;
+	}
+
+	private static Path gettingStartedFile(String example, String filename) {
+		List<Path> candidates = new ArrayList<>();
+		candidates.add(Path.of("examples", "getting-started", example, filename));
+		candidates.add(Path.of("..", "examples", "getting-started", example, filename));
+		String reactorRoot = System.getProperty("maven.multiModuleProjectDirectory");
+		if (reactorRoot != null && !reactorRoot.isBlank()) {
+			candidates.add(Path.of(reactorRoot, "examples", "getting-started", example, filename));
+		}
+		return candidates.stream().map(Path::toAbsolutePath).filter(Files::isRegularFile).findFirst()
+				.orElseThrow(() -> new AssertionError("Getting-started example file not found: " + example + "/" + filename));
+	}
+
+	private static String normalizeLines(String text) {
+		return text.replace("\r\n", "\n");
 	}
 }

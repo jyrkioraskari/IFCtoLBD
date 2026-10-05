@@ -271,6 +271,52 @@
 	</build>
 	<profiles>
 		<profile>
+			<id>runtime-image</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>3.1.0</version>
+						<executions>
+							<execution>
+								<id>build-bundled-runtime-image</id>
+								<phase>verify</phase>
+								<goals><goal>run</goal></goals>
+								<configuration>
+									<target>
+										<delete dir="${project.build.directory}/jpackage-input" />
+										<delete dir="${project.build.directory}/runtime-image" />
+										<mkdir dir="${project.build.directory}/jpackage-input/${project.build.finalName}_lib" />
+										<copy file="${project.build.directory}/${project.build.finalName}.jar"
+											tofile="${project.build.directory}/jpackage-input/${project.build.finalName}.jar" />
+										<copy todir="${project.build.directory}/jpackage-input/${project.build.finalName}_lib">
+											<fileset dir="${project.build.directory}/${project.build.finalName}_lib" />
+										</copy>
+										<exec executable="${java.home}/bin/jpackage" failonerror="true">
+											<arg value="--type" /><arg value="app-image" />
+											<arg value="--name" /><arg value="IFCtoLBD" />
+											<arg value="--input" /><arg value="${project.build.directory}/jpackage-input" />
+											<arg value="--main-jar" /><arg value="${project.build.finalName}.jar" />
+											<arg value="--main-class" /><arg value="${ifc2lbd.desktop.mainClass}" />
+											<arg value="--dest" /><arg value="${project.build.directory}/runtime-image" />
+										</exec>
+										<copy todir="${project.build.directory}/runtime-image/examples/getting-started">
+											<fileset dir="${maven.multiModuleProjectDirectory}/examples/getting-started">
+												<exclude name="**/output.ttl" />
+												<exclude name="**/changes.ttl" />
+												<exclude name="**/result.txt" />
+											</fileset>
+										</copy>
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
 			<id>native</id>
 	<build>
 		<plugins>
