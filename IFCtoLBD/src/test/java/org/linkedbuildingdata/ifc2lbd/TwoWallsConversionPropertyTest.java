@@ -7,6 +7,7 @@ import net.jqwik.api.*;
 import net.jqwik.api.constraints.*;
 
 class TwoWallsConversionPropertyTest {
+ @Tag("slow")
  @Property(seed = "123456789")
  void conversion_never_throws(
          @ForAll @IntRange(min = 0, max = 2) int level,

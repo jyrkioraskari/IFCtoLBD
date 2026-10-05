@@ -24,5 +24,8 @@
     "@comunica/query-sparql": "^5.2.4",
     "java-bridge": "^2.8.1",
     "n3": "^2.1.1"
+  },
+  "overrides": {
+    "undici": "^7.29.0"
   }
 }

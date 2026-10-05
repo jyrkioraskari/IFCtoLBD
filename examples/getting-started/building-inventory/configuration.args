@@ -1,0 +1,6 @@
+examples/getting-started/building-inventory/model.ifc
+--target_file=examples/getting-started/building-inventory/output.ttl
+--url=https://example.org/ifctolbd/tutorial/
+--profile=core
+--query=examples/getting-started/building-inventory/query.rq
+--query-result=examples/getting-started/building-inventory/result.txt

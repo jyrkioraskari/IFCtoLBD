@@ -67,7 +67,7 @@ public class IFCPropsTOExcelOnlineUI extends VerticalLayout {
 		MemoryBuffer buffer = new MemoryBuffer();
 		Upload upload = new Upload(buffer);
 		upload.setMaxFiles(1);
-		upload.setAcceptedFileTypes(".ifc", ".xml", ".mvdxml");
+		upload.setAcceptedFileTypes(".ifc", ".ifcxml", ".ifcjson", ".xml", ".json", ".mvdxml");
 		upload.setMaxFileSize(250 * 1024 * 1024);
 		upload.addSucceededListener(event -> {
 			try (InputStream inputStream = buffer.getInputStream()) {

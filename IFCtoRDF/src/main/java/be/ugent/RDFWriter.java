@@ -85,7 +85,6 @@ public class RDFWriter {
             "IFCCONNECTIONSURFACEGEOMETRY",
             "IFCFACEOUTERBOUND",
             "IFCSURFACEOFLINEAREXTRUSION",
-            "IFCRELSPACEBOUNDARY",
             "IFCLINE",
             "IFCTRIMMEDCURVE",
             "IFCVERTEXPOINT",
@@ -173,7 +172,18 @@ public class RDFWriter {
 	void parseModel2Stream(OutputStream out)  {
 		// N-Triples is intentionally used for the ifcOWL intermediate file.
 		// It is a Turtle subset and avoids Turtle block formatting/order work for large IFC models.
-		ttlWriter = StreamRDFWriter.getWriterStream(out, RDFFormat.NTRIPLES_UTF8, Context.emptyContext());
+		parseModel(StreamRDFWriter.getWriterStream(out, RDFFormat.NTRIPLES_UTF8, Context.emptyContext()));
+	}
+
+	/**
+	 * Parses the IFC model and sends the generated triples directly to a Jena
+	 * stream. This avoids serializing and parsing an intermediate RDF file when
+	 * the consumer is another Jena graph.
+	 *
+	 * @param destination destination for the generated ifcOWL triples
+	 */
+	public void parseModel(StreamRDF destination) {
+		ttlWriter = destination;
 		ttlWriter.base(baseURI);
 		ttlWriter.prefix("ifc", ontNS);
 		ttlWriter.prefix("inst", baseURI);
@@ -438,7 +448,10 @@ public class RDFWriter {
 								+ typerange.getLocalName().substring(0, typerange.getLocalName().length() - 5);
 						OntResource listrange = getOntResource(listvaluepropURI);
 
-						if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
+						// Some valid IFC schemas omit an explicit ontology resource for the
+						// list item range. Treat that case as a regular EXPRESS list rather
+						// than failing the complete conversion with a null-resource error.
+						if (listrange != null && listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 							LOG.error(
 									"*ERROR 22*: Found supposedly unhandled ListOfList, but this should not be possible.");
 						} else {
@@ -566,19 +579,23 @@ public class RDFWriter {
 							String listvaluepropURI = typerange.getLocalName().substring(0,
 									typerange.getLocalName().length() - 5);
 							OntResource listrange = getOntResource(ontNS + listvaluepropURI);
-							Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
-							idCounter++;
-							List<Object> objects = new ArrayList<>();
-							if (!ifcVOs.isEmpty()) {
-								objects.addAll(ifcVOs);
-								OntResource listcontentrange = getListContentType(listrange.asClass());
-								addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 1);
-							} else if (!literals.isEmpty()) {
-								objects.addAll(literals);
-								OntResource listcontentrange = getListContentType(listrange.asClass());
-								addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 0);
+							if (listrange != null) {
+								Resource r1 = getResource(baseURI + listvaluepropURI + "_" + idCounter, listrange);
+								idCounter++;
+								List<Object> objects = new ArrayList<>();
+								if (!ifcVOs.isEmpty()) {
+									objects.addAll(ifcVOs);
+									OntResource listcontentrange = getListContentType(listrange.asClass());
+									addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 1);
+								} else if (!literals.isEmpty()) {
+									objects.addAll(literals);
+									OntResource listcontentrange = getListContentType(listrange.asClass());
+									addDirectRegularListProperty(r1, listrange, listcontentrange, objects, 0);
+								}
+								listRemembranceResources.add(r1);
+							} else {
+								LOG.warn("No ontology range found for EXPRESS list {}", listvaluepropURI);
 							}
-							listRemembranceResources.add(r1);
 						} else {
 							LOG.error("*ERROR 23*: Impossible: found a list that is actually not a list.");
 						}
@@ -738,16 +755,24 @@ public class RDFWriter {
 	}
 
 	private void addEnumProperty(Resource r, Property p, OntResource range, String literalString)  {
+		String enumValue = normalizeEnumValue(literalString);
 		for (ExtendedIterator<? extends OntResource> instances = range.asClass().listInstances(); instances
 				.hasNext();) {
 			OntResource rangeInstance = instances.next();
-			if (rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(filterPoints(literalString))) {
+			if (rangeInstance.getProperty(RDFS.label) != null
+					&& rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(enumValue)) {
 				ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), rangeInstance.asNode()));
 				return;
 			}
 		}
-		LOG.error("*ERROR 9*: did not find ENUM individual for " + literalString
-				+ "\r\nQuitting the application without output!");
+		LOG.warn("*WARNING*: did not find ENUM individual for " + literalString + " (normalized: " + enumValue + ")");
+	}
+
+	private static String normalizeEnumValue(String value) {
+		if (value == null) return "";
+		String filtered = filterPoints(value).replace("\uFFFD", "").trim();
+		java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("([A-Za-z][A-Za-z0-9_]*)\\.?\\s*$").matcher(filtered);
+		return matcher.find() ? matcher.group(1) : filtered;
 	}
 
 	private void addLiteralToResource(Resource r1, OntProperty valueProp, String xsdType, String literalString) {
@@ -793,7 +818,7 @@ public class RDFWriter {
 	private void addDirectRegularListProperty(Resource r, OntResource range, OntResource listrange, List<Object> el,
 			int mySwitch)  {
 
-		if (range.isClass()) {
+		if (range.isClass() && listrange != null) {
 			if (listrange.asClass().hasSuperClass(getOntClass(Namespace.LIST + "OWLList"))) {
 				LOG.warn("*WARNING 27*: Found unhandled ListOfList");
 			} else {

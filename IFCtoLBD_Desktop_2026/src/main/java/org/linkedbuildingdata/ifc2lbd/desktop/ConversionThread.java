@@ -1,5 +1,6 @@
 package org.linkedbuildingdata.ifc2lbd.desktop;
 
+import java.io.File;
 import java.util.Set;
 import java.util.concurrent.Callable;
 import java.util.logging.Logger;
@@ -36,7 +37,7 @@ import com.google.common.eventbus.EventBus;
 public class ConversionThread implements Callable<Integer> {
 	@SuppressWarnings("unused")
 	private final static Logger logger = Logger.getLogger(ConversionThread.class.getName());
-	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getEventBus();
+	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getDefaultEventBus();
 	
 	final private IFCtoLBDConverter converter;
 	final private Set<String> selected_types;
@@ -62,13 +63,18 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasIfc_based_elements;
     final boolean hasInterfaces;
     final boolean hasElementWireframe;
-    final boolean createTrig;
-    final boolean export_as_JSON_LD;
+	final boolean createTrig;
+	final boolean export_as_JSON_LD;
+	final boolean export_as_ICDD;
     final boolean propertiesAsPropertySets;
+    private final String target_file;
+    private final String ifc_filename;
     
-	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, @SuppressWarnings("unused") String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean hasElementWireframe, boolean propertiesAsPropertySets) {
+	public ConversionThread(IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, boolean hasElementWireframe, boolean propertiesAsPropertySets) {
 		super();
 		this.converter=converter;
+		this.target_file=target_file;
+		this.ifc_filename=ifc_filename;
 		this.selected_types=selected_types;
 		this.selected_psets=selected_psets;
 	
@@ -90,6 +96,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasElementWireframe=hasElementWireframe;
 		this.createTrig=createTrig;
 		this.export_as_JSON_LD=export_as_JSON_LD;
+		this.export_as_ICDD=export_as_ICDD;
 		this.propertiesAsPropertySets=propertiesAsPropertySets;
 	}
 
@@ -101,10 +108,27 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_psets(selected_psets);
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
+				if (export_as_ICDD) {
+					converter.setTargetFile(null);
+				}
 				converter.convert_LBD_phase(hasBuildingElements,
-						hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
+						export_as_ICDD || hasSeparateBuildingElementsModel, hasBuildingProperties,
+						export_as_ICDD || hasSeparatePropertiesModel,
 						hasGeolocation, hasGeometry || hasElementWireframe, exportIfcOWL, hasUnits, hasBoundingBoxWKT,
-						hasHierarchicalNaming, hasInterfaces, createTrig, export_as_JSON_LD, hasElementWireframe);
+							hasHierarchicalNaming, hasInterfaces, createTrig, export_as_JSON_LD, hasElementWireframe);
+				if (export_as_ICDD) {
+					converter.exportExistingOutputAsIcdd(target_file, ifc_filename);
+				}
+				String outputPath = target_file;
+				if (export_as_JSON_LD && outputPath != null)
+					outputPath = outputPath.replaceFirst("(?i)\\.ttl$", ".json");
+				if (outputPath == null || !new File(outputPath).isFile()) {
+					String message = "Conversion failed: output file was not created"
+							+ (outputPath == null ? "." : ": " + new File(outputPath).getAbsolutePath());
+					eventBus.post(new IFCtoLBD_SystemStatusEvent(message));
+					eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+					return -1;
+				}
 			} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));

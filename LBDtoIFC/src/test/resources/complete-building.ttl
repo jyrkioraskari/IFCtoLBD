@@ -1,0 +1,46 @@
+@prefix inst: <https://example.org/building/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix lbd: <https://linkedbuildingdata.org/LBD#> .
+@prefix props: <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+inst:site a bot:Site ;
+    rdfs:label "Example site" ;
+    lbd:globalId "1xS3BCk291UvhgP2a6eflN" ;
+    bot:hasBuilding inst:building .
+
+inst:building a bot:Building ;
+    rdfs:label "Library" ;
+    lbd:globalId "2O2Fr$t4X7Zf8NOew3FKau" ;
+    bot:hasStorey inst:storey .
+
+inst:storey a bot:Storey ;
+    rdfs:label "Ground floor" ;
+    bot:hasSpace inst:space ;
+    bot:containsElement inst:wall .
+
+inst:space a bot:Space ;
+    rdfs:label "Reading room" ;
+    props:longNameIfcSpatialStructureElement_attribute_simple "Main reading room" ;
+    bot:containsElement inst:door .
+
+inst:wall a bot:Element, beo:Wall ;
+    rdfs:label "Exterior wall" ;
+    props:globalIdIfcRoot_attribute_simple "0BTBFw6f90Nfh9rP1dl_3C" ;
+    props:batid_attribute_simple "W-01" ;
+    props:isExternal_property_simple true ;
+    props:thermalTransmittance_property_simple "0.18"^^xsd:decimal ;
+    bot:hasSubElement inst:window .
+
+inst:window a bot:Element, beo:Window ;
+    rdfs:label "North window" ;
+    props:overallHeightIfcWindow_attribute_simple 1.5 ;
+    props:overallWidthIfcWindow_attribute_simple 1.2 .
+
+inst:door a bot:Element, beo:Door ;
+    rdfs:label "Entrance's door" ;
+    props:overallHeightIfcDoor_attribute_simple 2.1 ;
+    props:overallWidthIfcDoor_attribute_simple 0.9 .

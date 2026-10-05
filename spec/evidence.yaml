@@ -1,0 +1,105 @@
+spec_version: "0.1.0"
+evidence_revision:
+  kind: working-tree
+  base_commit: "21a9e8091073896fa73e994f5a39150c4e36756d"
+  note: >-
+    The identity implementation and several cited tests are uncommitted in the
+    inspected working tree. Re-pin this file to a commit when those changes are
+    committed.
+
+requirements:
+  SID-001:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/ConversionRequest.java
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/IFCtoLBDConverter.java
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/ConversionApiIntegrationTest.java
+  SID-002:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/ConversionApiIntegrationTest.java
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-003:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-004:
+    status: partial
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicyTest.java
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/ConversionApiIntegrationTest.java
+    note: Product-type and property-change cases are covered by separate tests.
+  SID-005:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-006:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-007:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicyTest.java
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-008:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-009:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-010:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/com/openifctools/guidcompressor/GuidCompressor.java
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicyTest.java
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-011:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/core/IFCtoLBDConverterCore.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/SoftwareIntentStableIdentityTest.java
+  SID-012:
+    status: verified
+    implementation:
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/ConversionManifest.java
+      - IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd/StableGuidUriPolicy.java
+    tests:
+      - IFCtoLBD/src/test/java/org/linkedbuildingdata/ifc2lbd/ConversionApiIntegrationTest.java
+
+open_questions:
+  SID-Q001:
+    status: conflicting
+    observation: >-
+      StableGuidUriPolicy currently delegates resources without a GlobalId to
+      LegacyUriPolicy, which does not provide the stated cross-revision guarantee.
+  SID-Q002:
+    status: conflicting
+    observation: >-
+      GuidCompressor currently ignores decode failure and formats the zero-valued
+      GUID; this is observable but is not accepted as intended behaviour.
+  SID-Q003:
+    status: unchecked

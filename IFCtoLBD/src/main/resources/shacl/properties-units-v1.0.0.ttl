@@ -1,0 +1,7 @@
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix shapes: <https://w3id.org/ifctolbd/shapes/properties-units/v1.0.0#> .
+
+shapes:QuantityValueShape a sh:NodeShape ; sh:targetClass qudt:QuantityValue ;
+    sh:property [ sh:path qudt:numericValue ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:Literal ] ;
+    sh:property [ sh:path qudt:unit ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] .

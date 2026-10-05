@@ -1,6 +1,20 @@
 package org.linkedbuildingdata.ifc2lbd;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ConversionProperties {
+	public enum PropertyMode {
+		DEFAULT,
+		SIMPLE,
+		OPM
+	}
+	public enum NamingStrategy {
+		LEGACY,
+		HIERARCHICAL,
+		STABLE_GUID
+	}
+
 	private boolean hasBuildingElements = true;
 	private boolean hasSeparateBuildingElementsModel = false;
 	private boolean hasBuildingProperties = true;
@@ -13,8 +27,15 @@ public class ConversionProperties {
 	private boolean hasHierarchicalNaming=false;
 	private boolean hasPerformanceBoost=true;
 	private boolean hasNonLBDElement=true;
-	private boolean hasInterfaces=false;
+	private boolean hasGeometryInferredInterfaces=false;
+	private boolean hasIfcSpaceBoundaries=true;
+	private boolean hasIfcZones=false;
 	private boolean hasWireframe=false;
+	private PropertyMode propertyMode = PropertyMode.DEFAULT;
+	private boolean stableIdentity;
+	private boolean geometryArtifacts;
+	private NamingStrategy namingStrategy = NamingStrategy.LEGACY;
+	private List<PropertyMappingRule> propertyMappings = List.of();
 	
 	public ConversionProperties() {
 		
@@ -131,13 +152,31 @@ public class ConversionProperties {
 		this.hasNonLBDElement = hasNonLBDElement;
 	}
 
-	public boolean isHasInterfaces() {
-		return hasInterfaces;
-	}
+	/**
+	 * Legacy name for geometry-inferred interfaces.
+	 *
+	 * @deprecated use {@link #hasGeometryInferredInterfaces()}.
+	 */
+	@Deprecated
+	public boolean isHasInterfaces() { return hasGeometryInferredInterfaces; }
 
-	public void setHasInterfaces(boolean hasInterfaces) {
-		this.hasInterfaces = hasInterfaces;
+	/**
+	 * Legacy name for geometry-inferred interfaces.
+	 *
+	 * @deprecated use {@link #setGeometryInferredInterfaces(boolean)}.
+	 */
+	@Deprecated
+	public void setHasInterfaces(boolean hasInterfaces) { setGeometryInferredInterfaces(hasInterfaces); }
+
+	public boolean hasGeometryInferredInterfaces() { return hasGeometryInferredInterfaces; }
+	public void setGeometryInferredInterfaces(boolean value) {
+		this.hasGeometryInferredInterfaces = value;
+		if (value) this.hasGeometry = true;
 	}
+	public boolean hasIfcSpaceBoundaries() { return hasIfcSpaceBoundaries; }
+	public void setIfcSpaceBoundaries(boolean value) { this.hasIfcSpaceBoundaries = value; }
+	public boolean hasIfcZones() { return hasIfcZones; }
+	public void setIfcZones(boolean value) { this.hasIfcZones = value; }
 
 	public boolean hasWireframe() {
 		return hasWireframe;
@@ -145,6 +184,29 @@ public class ConversionProperties {
 
 	public void setHasWireframe(boolean hasWireframe) {
 		this.hasWireframe = hasWireframe;
+	}
+
+	public PropertyMode getPropertyMode() {
+		return propertyMode;
+	}
+
+	public void setPropertyMode(PropertyMode propertyMode) {
+		this.propertyMode = java.util.Objects.requireNonNull(propertyMode, "propertyMode");
+	}
+
+	public boolean hasStableIdentity() { return stableIdentity; }
+	public void setStableIdentity(boolean stableIdentity) { this.stableIdentity = stableIdentity; if (stableIdentity) this.namingStrategy = NamingStrategy.STABLE_GUID; }
+	public boolean hasGeometryArtifacts() { return geometryArtifacts; }
+	public void setGeometryArtifacts(boolean geometryArtifacts) { this.geometryArtifacts = geometryArtifacts; }
+	public List<PropertyMappingRule> getPropertyMappings() { return propertyMappings; }
+	public void setPropertyMappings(List<PropertyMappingRule> mappings) {
+		this.propertyMappings = List.copyOf(mappings == null ? List.of() : new ArrayList<>(mappings));
+	}
+	public NamingStrategy getNamingStrategy() { return namingStrategy; }
+	public void setNamingStrategy(NamingStrategy strategy) {
+		this.namingStrategy = java.util.Objects.requireNonNull(strategy, "strategy");
+		this.hasHierarchicalNaming = strategy == NamingStrategy.HIERARCHICAL;
+		this.stableIdentity = strategy == NamingStrategy.STABLE_GUID;
 	}
 	
 	

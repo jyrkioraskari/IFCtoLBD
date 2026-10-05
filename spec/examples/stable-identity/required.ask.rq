@@ -1,0 +1,4 @@
+ASK {
+  <https://example.com/model/model%20a/element/9808fd7f-dc48-478e-9217-628e833d7d42>
+    ?predicate ?object .
+}

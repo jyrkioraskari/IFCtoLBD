@@ -1,0 +1,12 @@
+{
+  "type": "ifcJSON",
+  "schemaIdentifier": "IFC4",
+  "data": [
+    {
+      "type": "IfcWall",
+      "globalId": "2O2Fr$t4X7Zf8NOew3FNr2",
+      "name": "Stable identity example wall",
+      "predefinedType": "STANDARD"
+    }
+  ]
+}

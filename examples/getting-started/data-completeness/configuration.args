@@ -1,0 +1,6 @@
+examples/getting-started/data-completeness/model.ifc
+--target_file=examples/getting-started/data-completeness/output.ttl
+--url=https://example.org/ifctolbd/tutorial/
+--profile=properties-simple
+--query=examples/getting-started/data-completeness/query.rq
+--query-result=examples/getting-started/data-completeness/result.txt

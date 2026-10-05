@@ -1,0 +1,13 @@
+ASK {
+  VALUES ?forbidden {
+    <https://example.com/wall_9808fd7f-dc48-478e-9217-628e833d7d42>
+    <https://example.com/model/model+a/element/9808fd7f-dc48-478e-9217-628e833d7d42>
+  }
+  {
+    ?forbidden ?predicate ?object .
+  }
+  UNION
+  {
+    ?subject ?predicate ?forbidden .
+  }
+}

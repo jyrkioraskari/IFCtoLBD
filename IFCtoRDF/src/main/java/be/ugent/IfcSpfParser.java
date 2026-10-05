@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -59,7 +60,7 @@ class IfcSpfParser {
 	 */
 	void readModel() {
 		try (DataInputStream in = new DataInputStream(inputStream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in))) {
+				BufferedReader br = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
 			String strLine;
 			StringBuilder sb = new StringBuilder();
 			while ((strLine = br.readLine()) != null) {

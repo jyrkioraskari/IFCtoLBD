@@ -3,6 +3,7 @@ package de.rwth_aachen.dc.lbd;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.nio.charset.StandardCharsets;
 
 import javax.vecmath.Point3d;
 
@@ -29,39 +30,85 @@ public class ObjDescription {
 	
 	List<Point3d> vertices = new ArrayList<>();
 	List<ImmutableTriple<Integer, Integer, Integer>> faces = new ArrayList<>();
+	double[] meshVertices;
+	int[] meshFaces;
+	boolean meshFacesOneBased;
+	private String encoded;
 
     public ObjDescription() {
     }
 
+	static ObjDescription fromMesh(double[] vertices, int[] faces, boolean oneBasedFaces) {
+		ObjDescription description = new ObjDescription();
+		description.meshVertices = vertices;
+		description.meshFaces = faces;
+		description.meshFacesOneBased = oneBasedFaces;
+		return description;
+	}
+
     public void addVertex(Point3d point) {
+		materializeMesh();
     	this.vertices.add(point);
+		this.encoded = null;
     }
     
     public void addFace(ImmutableTriple<Integer, Integer, Integer> face) {
+		materializeMesh();
     	this.faces.add(face);
+		this.encoded = null;
      }
+
+	private void materializeMesh() {
+		if (this.meshVertices == null || this.meshFaces == null) {
+			return;
+		}
+		for (int i = 0; i + 2 < this.meshVertices.length; i += 3) {
+			this.vertices.add(new Point3d(this.meshVertices[i], this.meshVertices[i + 1], this.meshVertices[i + 2]));
+		}
+		int indexOffset = this.meshFacesOneBased ? 0 : 1;
+		for (int i = 0; i + 2 < this.meshFaces.length; i += 3) {
+			this.faces.add(new ImmutableTriple<>(this.meshFaces[i] + indexOffset,
+					this.meshFaces[i + 1] + indexOffset, this.meshFaces[i + 2] + indexOffset));
+		}
+		this.meshVertices = null;
+		this.meshFaces = null;
+	}
 
     @Override
     public String toString() {
+		if (this.encoded != null) {
+			return this.encoded;
+		}
     	
     	StringBuilder sb = new StringBuilder();
     	
     	
-    	for(Point3d v:this.vertices)
-    	{
-    		sb.append("v "+v.x+" "+v.y+" "+v.z+"\n");
-    		
-    	}
-		    
-    	
-		for(ImmutableTriple<Integer, Integer, Integer> f:this.faces)
-    		sb.append("f "+f.left+" "+f.middle+" "+f.right+"\n");
+		if (this.meshVertices != null && this.meshFaces != null) {
+			for (int i = 0; i + 2 < this.meshVertices.length; i += 3) {
+				sb.append("v ").append(this.meshVertices[i]).append(' ').append(this.meshVertices[i + 1]).append(' ')
+						.append(this.meshVertices[i + 2]).append('\n');
+			}
+			int indexOffset = this.meshFacesOneBased ? 0 : 1;
+			for (int i = 0; i + 2 < this.meshFaces.length; i += 3) {
+				sb.append("f ").append(this.meshFaces[i] + indexOffset).append(' ')
+						.append(this.meshFaces[i + 1] + indexOffset).append(' ')
+						.append(this.meshFaces[i + 2] + indexOffset).append('\n');
+			}
+		} else {
+			for (Point3d vertex : this.vertices) {
+				sb.append("v ").append(vertex.x).append(' ').append(vertex.y).append(' ').append(vertex.z).append('\n');
+			}
+			for (ImmutableTriple<Integer, Integer, Integer> face : this.faces) {
+				sb.append("f ").append(face.left).append(' ').append(face.middle).append(' ').append(face.right)
+						.append('\n');
+			}
+		}
 		String content=sb.toString();
 		//System.out.println("content"+content);
 		//System.out.println("org "+content.length());
-		String encodedString = Base64.getEncoder().encodeToString(content.getBytes());
+		this.encoded = Base64.getEncoder().encodeToString(content.getBytes(StandardCharsets.UTF_8));
 		
 		//System.out.println("encoded "+encodedString.length());
-        return encodedString;
+        return this.encoded;
     }
 }

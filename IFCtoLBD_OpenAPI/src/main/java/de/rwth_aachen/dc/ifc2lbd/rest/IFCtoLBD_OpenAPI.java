@@ -1,20 +1,21 @@
 package de.rwth_aachen.dc.ifc2lbd.rest;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
-import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+import org.linkedbuildingdata.ifc2lbd.ConversionProfiles;
+import org.linkedbuildingdata.ifc2lbd.ConversionRequest;
+import org.linkedbuildingdata.ifc2lbd.ConversionResult;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DefaultValue;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -22,96 +23,83 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.HttpHeaders;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-
-/*
- * Jyrki Oraskari, 2020
- */
+import jakarta.ws.rs.core.StreamingOutput;
 
 @Path("/")
 public class IFCtoLBD_OpenAPI {
+	@GET
+	@Path("/hello")
+	public Response hello() {
+		return Response.ok("OK!", MediaType.TEXT_PLAIN).build();
+	}
 
-
-    @Path("/hello")
-    public Response hello() {
-        return Response.ok("OK!", "text").build();
-    }
-
-    
-	/**
-     * General IFCtoLBD OPM Level 3  
-	 * Converts an IFC file into into the Linked Building Data  (BOT
-	 * https://w3c-lbd-cg.github.io/bot/)
-	 * 
-	 * @param ifcFile an IFC file
-	 * @return Returns RDF output. Formats are:  JSON-LD,  RDF/XML, and TTL
-	 */
 	@POST
 	@Path("/convertIFCtoLBD")
 	@Consumes(MediaType.MULTIPART_FORM_DATA)
-	@Produces({"text/turtle", "application/ld+json", "application/rdf+xml"})
-	public Response convertIFCtoLBD(@HeaderParam(HttpHeaders.ACCEPT) String accept_type,@FormDataParam("ifcFile") InputStream ifcFile) {
+	@Produces({ "text/turtle", "application/ld+json", "application/rdf+xml", "application/trig" })
+	public Response convertIFCtoLBD(@HeaderParam(HttpHeaders.ACCEPT) String accept,
+			@FormDataParam("ifcFile") InputStream ifcFile,
+			@DefaultValue("properties-opm") @FormDataParam("profile") String profile,
+			@DefaultValue("false") @FormDataParam("validate") boolean validate) {
+		if (ifcFile == null) {
+			return Response.status(Response.Status.BAD_REQUEST).entity("Missing multipart field: ifcFile")
+					.type(MediaType.TEXT_PLAIN).build();
+		}
+		java.nio.file.Path temporaryIfc = null;
+		IFCtoLBDConverter converter = null;
+		ConversionResult result = null;
 		try {
-			File tempIfcFile = File.createTempFile("ifc2lbd-", ".ifc");
-			tempIfcFile.deleteOnExit();
-
-			Files.copy(ifcFile, tempIfcFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			ifcFile.close();
-			if (accept_type.equals("application/ld+json")) {
-				StringBuilder result_string = new StringBuilder();
-				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.JSONLD);
-				return downloadResponse(result_string, "application/ld+json", "ifc2lbd.jsonld");
-			} else if (accept_type.equals("application/rdf+xml")) {
-				StringBuilder result_string = new StringBuilder();
-				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.RDFXML);
-				return downloadResponse(result_string, "application/rdf+xml", "ifc2lbd.rdf");
-			} else {
-				StringBuilder result_string = new StringBuilder();
-				extractIFCtoLBD(tempIfcFile, result_string, RDFFormat.TURTLE_PRETTY);
-				return downloadResponse(result_string, "text/turtle", "ifc2lbd.ttl");
-
+			temporaryIfc = Files.createTempFile("ifc2lbd-", ".ifc");
+			try (InputStream input = ifcFile) {
+				Files.copy(input, temporaryIfc, StandardCopyOption.REPLACE_EXISTING);
 			}
+			ConversionRequest request = new ConversionRequest(temporaryIfc.toString(), ConversionProfiles.named(profile));
+			if (validate) request = request.withStandardValidation();
+			converter = new IFCtoLBDConverter("https://lbd.example.com/", false, 3);
+			result = converter.convert(request);
+			Files.deleteIfExists(temporaryIfc);
+			temporaryIfc = null;
 
-
+			OutputSelection output = selectOutput(accept);
+			IFCtoLBDConverter ownedConverter = converter;
+			ConversionResult ownedResult = result;
+			StreamingOutput stream = outputStream -> {
+				try (ownedConverter; ownedResult) {
+					if (output.dataset()) RDFDataMgr.write(outputStream, ownedResult.getDataset(), output.format());
+					else RDFDataMgr.write(outputStream, ownedResult.getModel(), output.format());
+				}
+			};
+			return Response.ok(stream, output.mediaType())
+					.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + output.fileName() + "\"")
+					.build();
+		} catch (IllegalArgumentException | IllegalStateException e) {
+			close(result, converter);
+			return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).type(MediaType.TEXT_PLAIN).build();
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return Response.noContent().build();
-	}
-
-	private static Response downloadResponse(StringBuilder result_string, String mediaType, String fileName) {
-		return Response.ok(result_string.toString().getBytes(StandardCharsets.UTF_8), mediaType)
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + fileName + "\"")
-				.build();
-	}
-
-
-	private static void extractIFCtoLBD(File ifcFile, StringBuilder result_string, RDFFormat rdfformat) {
-		IFCtoLBDConverter lbdconverter = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset", false, 3);
-		Model m = lbdconverter.convert(ifcFile.getAbsolutePath());
-
-		if(m==null)
-		{
-		    result_string.append("Not a valid IFC version.");
-		    return;
-		}
-		OutputStream ttl_output = new OutputStream() {
-			private StringBuilder string = new StringBuilder();
-
-			@Override
-			public void write(int b) throws IOException {
-				this.string.append((char) b);
+			close(result, converter);
+			return Response.serverError().entity("IFC conversion failed").type(MediaType.TEXT_PLAIN).build();
+		} finally {
+			if (temporaryIfc != null) {
+				try { Files.deleteIfExists(temporaryIfc); } catch (IOException ignored) { }
 			}
-
-			@Override
-			public String toString() {
-				return this.string.toString();
-			}
-		};
-		RDFDataMgr.write(ttl_output, m, rdfformat);
-		result_string.append(ttl_output.toString());
+		}
 	}
 
-	
+	private static OutputSelection selectOutput(String accept) {
+		String requested = accept == null ? "" : accept.toLowerCase(java.util.Locale.ROOT);
+		if (requested.contains("application/trig"))
+			return new OutputSelection("application/trig", "ifc2lbd.trig", RDFFormat.TRIG_PRETTY, true);
+		if (requested.contains("application/ld+json"))
+			return new OutputSelection("application/ld+json", "ifc2lbd.jsonld", RDFFormat.JSONLD, false);
+		if (requested.contains("application/rdf+xml"))
+			return new OutputSelection("application/rdf+xml", "ifc2lbd.rdf", RDFFormat.RDFXML, false);
+		return new OutputSelection("text/turtle", "ifc2lbd.ttl", RDFFormat.TURTLE_PRETTY, false);
+	}
 
+	private static void close(ConversionResult result, IFCtoLBDConverter converter) {
+		if (result != null) result.close();
+		if (converter != null) converter.close();
+	}
+
+	private record OutputSelection(String mediaType, String fileName, RDFFormat format, boolean dataset) { }
 }

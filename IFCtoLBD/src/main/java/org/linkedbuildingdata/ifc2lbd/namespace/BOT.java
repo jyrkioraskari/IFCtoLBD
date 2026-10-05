@@ -14,12 +14,14 @@ public final class BOT extends abstract_NS{
 
     public static final Property hasSubElement =property(ns,"hasSubElement");
     public static final Property hasSpace =property(ns,"hasSpace");
+    public static final Property containsZone =property(ns,"containsZone");
     
     public static final Resource site=resource(ns,"Site");
     public static final Resource building=resource(ns,"Building");
     public static final Resource space =resource(ns,"Space");
     public static final Resource storey =resource(ns,"Storey");
     public static final Resource element  =resource(ns,"Element");
+    public static final Resource zone  =resource(ns,"Zone");
     
     // reserved word interface
     public static final Resource bot_interface=resource(ns,"Interface");

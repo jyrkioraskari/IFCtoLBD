@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.riot.Lang;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
-import org.apache.jena.riot.system.StreamRDFWriter;
+import org.apache.jena.riot.RDFWriter;
 import org.apache.jena.vocabulary.RDF;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -82,10 +83,11 @@ public abstract class RDFUtils {
     public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus) {
        
     	// JO 2024: performance
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
+	        File target = prepareTargetFile(target_file);
+	        try (FileOutputStream fo = new FileOutputStream(target);BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
            
-            StreamRDFWriter.write(bfo, m.getGraph(), RDFFormat.TURTLE_BLOCKS) ;            
+            writeRdf(bfo, m, RDFFormat.TURTLE_BLOCKS);
         } catch (IOException e1) {
 			e1.printStackTrace();
 		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
@@ -100,7 +102,7 @@ public abstract class RDFUtils {
         System.out.println("Write RDF target file is: "+target_file);
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
-        	  try (FileOutputStream fo = new FileOutputStream(target_file)){
+	        	  try (FileOutputStream fo = new FileOutputStream(prepareTargetFile(target_file))){
         		  RDFDataMgr.write(fo, m, RDFFormat.JSONLD11_PRETTY);
               } catch (IOException e1) {
       			e1.printStackTrace();
@@ -111,15 +113,38 @@ public abstract class RDFUtils {
         
     	// JO 2024: performance
         System.out.println("Model print RDF");
-        try (FileOutputStream fo = new FileOutputStream(new File(target_file));BufferedOutputStream bfo = new BufferedOutputStream(fo)
+	        File target = prepareTargetFile(target_file);
+	        try (FileOutputStream fo = new FileOutputStream(target);BufferedOutputStream bfo = new BufferedOutputStream(fo)
         ){
         	
-            StreamRDFWriter.write(bfo, m.getGraph(), rdf_serlialization_format) ;           
+            writeRdf(bfo, m, rdf_serlialization_format);
         } catch (IOException e1) {
         	System.out.println("target file here: "+(new File(target_file).exists()));
 			e1.printStackTrace();
 		    eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));
 		} 
+    }
+
+    /**
+     * Writes RDF while using the instance namespace as the Turtle base. This
+     * keeps percent-encoded instance identifiers readable without changing their
+     * absolute IRIs.
+     */
+    public static void writeRdf(OutputStream output, Model model, RDFFormat format) {
+        var writer = RDFWriter.create().source(model).format(format);
+        String instanceNamespace = model.getNsPrefixURI("inst");
+        if (Lang.TURTLE.equals(format.getLang()) && instanceNamespace != null && !instanceNamespace.isBlank())
+            writer.base(instanceNamespace);
+        writer.output(output);
+    }
+
+    /** Ensures an editable output path can be used even when its directory is new. */
+    private static File prepareTargetFile(String target_file) {
+        File target = new File(target_file);
+        File parent = target.getParentFile();
+        if (parent != null && !parent.isDirectory())
+            parent.mkdirs();
+        return target;
     }
     
     public static void writeDataset(Dataset ds, String target_file, EventBus eventBus) {

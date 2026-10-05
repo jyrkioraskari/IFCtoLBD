@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.github.jyrkioraskari</groupId>
 	<artifactId>ifc-to-lbd</artifactId>
-	<version>2.49.0</version>
+	<version>2.54.1</version>
 	<name>IFC to LBD Converter</name>
 	<licenses>
 		<license>
@@ -47,8 +47,7 @@
 	</developers>
 
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<!-- Maven Plugin Dependencies -->
 		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 		<maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
@@ -70,18 +69,29 @@
 		<javac.src.version>21</javac.src.version>
 		<javac.target.version>21</javac.target.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
-		<skipTests>true</skipTests>
+		<!-- The default build runs only fast tests. Heavier test groups are
+			enabled explicitly by the integration and full profiles below. -->
+		<skipTests>false</skipTests>
+		<test.excludedGroups>integration,shacl,slow</test.excludedGroups>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.api.version>3.0.0-beta2</log4j2.api.version>
 		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
-		<slf4j.version>2.1.0-alpha1</slf4j.version>
+		<slf4j.version>2.0.17</slf4j.version>
 		<picocli.version>4.7.7</picocli.version>
 		<junit.version>5.14.3</junit.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
+			<!-- Keep every SLF4J module on one release, including transitive bridges. -->
+			<dependency>
+				<groupId>org.slf4j</groupId>
+				<artifactId>slf4j-bom</artifactId>
+				<version>${slf4j.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 			<dependency>
 				<groupId>org.junit</groupId>
 				<artifactId>junit-bom</artifactId>
@@ -115,7 +125,7 @@
 		<dependency>
 			<groupId>de.rwth-aachen.lbd</groupId>
 			<artifactId>ifc_to_lbd_geometry</artifactId>
-			<version>2.49.0</version>
+			<version>2.54.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -195,7 +205,7 @@
 		<dependency>
 			<groupId>io.github.jyrkioraskari</groupId>
 			<artifactId>ifc2rdf</artifactId>
-			<version>2.49.0</version>
+			<version>2.54.1</version>
 		</dependency>
 
 		<!-- Dependency for RTree-Multi library -->
@@ -311,6 +321,20 @@
 		<tag>HEAD</tag>
 	</scm>
 	<profiles>
+		<profile>
+			<id>integration</id>
+			<properties>
+				<!-- Run unit, converter integration, and SHACL tests. -->
+				<test.excludedGroups>slow</test.excludedGroups>
+			</properties>
+		</profile>
+		<profile>
+			<id>full</id>
+			<properties>
+				<!-- No test currently uses this sentinel tag, so all tests run. -->
+				<test.excludedGroups>none</test.excludedGroups>
+			</properties>
+		</profile>
 		<profile>
 			<id>release</id>
 			<build>
@@ -434,6 +458,14 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>${maven-surefire-plugin.version}</version>
+				<configuration>
+					<excludedGroups>${test.excludedGroups}</excludedGroups>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>${maven-compiler-plugin.version}</version>
 				<configuration>
@@ -453,32 +485,38 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
-			<!-- Maven Assembly Plugin -->
+			<!-- One deterministic MCP distribution. Service descriptors must be merged
+				so Jena can discover its RDF language implementations. -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4.1</version>
-				<configuration>
-					<!-- get all project dependencies -->
-					<descriptorRefs>
-						<descriptorRef>jar-with-dependencies</descriptorRef>
-					</descriptorRefs>
-					<!-- MainClass in mainfest make a executable jar -->
-					<archive>
-						<manifest>
-							<mainClass>
-								org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>3.6.1</version>
 				<executions>
 					<execution>
-						<id>make-assembly</id>
-						<!-- bind to the packaging phase -->
+						<id>mcp-distribution</id>
 						<phase>package</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
+						<goals><goal>shade</goal></goals>
+						<configuration>
+							<outputFile>${project.basedir}/../IFCtoLBD_MCP/lib/ifctolbd-converter.jar</outputFile>
+							<createDependencyReducedPom>false</createDependencyReducedPom>
+							<filters>
+								<filter>
+									<artifact>*:*</artifact>
+									<excludes>
+										<exclude>META-INF/*.SF</exclude>
+										<exclude>META-INF/*.DSA</exclude>
+										<exclude>META-INF/*.RSA</exclude>
+									</excludes>
+								</filter>
+							</filters>
+							<transformers>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter</mainClass>
+									<manifestEntries><Implementation-Version>${project.version}</Implementation-Version></manifestEntries>
+								</transformer>
+							</transformers>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>

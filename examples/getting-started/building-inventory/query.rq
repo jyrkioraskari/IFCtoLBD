@@ -1,0 +1,12 @@
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT ?storeyName ?elementType (COUNT(DISTINCT ?element) AS ?count) WHERE {
+  ?storey a bot:Storey ;
+          rdfs:label ?storeyName ;
+          bot:containsElement ?element .
+  ?element a ?elementType .
+  FILTER (?elementType != bot:Element)
+}
+GROUP BY ?storeyName ?elementType
+ORDER BY ?storeyName ?elementType

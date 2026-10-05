@@ -1,0 +1,13 @@
+- [Documentation home](README.md)
+- [1. Your first conversion](quick-start.md)
+- [2. Using the triples](using-triples.md)
+- [3. Python](python_examples.md)
+- [4. Java](java_examples.md)
+- [5. AI assistant with MCP](mcp.md)
+- [6. Build and extend](development.md)
+
+- Advanced topics
+  - [Supply-chain and sustainability](supply-chain-and-sustainability.md)
+  - [Compatible projects](compatible-projects.md)
+
+- [Project history](history.md)

@@ -25,6 +25,7 @@ lbdtest:InterfaceShape
     sh:targetClass bot:Interface ;
     sh:property [
         sh:path bot:interfaceOf ;
-        sh:minCount 2
+        # An explicit IFC boundary can be logical or reference an element that
+        # was filtered from the selected output.
+        sh:minCount 1
     ] .
-

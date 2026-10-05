@@ -75,7 +75,13 @@ public class IFC_Geolocation {
         String s1 = compoundPlaneAngleToDecimalDegrees(latitude);
         String s2 = compoundPlaneAngleToDecimalDegrees(longitude);
         //Have to switch long and lat for WKT
-        String wkt_point = "POINT ("+s2+" "+s1+")";
+        double longitudeDegrees = Double.parseDouble(s2);
+        double latitudeDegrees = Double.parseDouble(s1);
+        if (longitudeDegrees < -180.0 || longitudeDegrees > 180.0
+                || latitudeDegrees < -90.0 || latitudeDegrees > 90.0) {
+            throw new IllegalStateException("IFC site geolocation is outside WGS84 bounds: " + s2 + ", " + s1);
+        }
+        String wkt_point = "POINT (" + s2 + " " + s1 + ")";
 
         return wkt_point;
     }

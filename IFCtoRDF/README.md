@@ -55,11 +55,18 @@ Through maven, this code depends primarily on:
 - jena-core v5.5.0
 - jena-arq v5.5.0
 
-You will need Java JDK 17 and Maven installed. After downloading the code from the GitHub repository, you need to run the following command to compile the code and download all necessary Maven dependencies:
+You will need JDK 21 and Maven to build the complete IFCtoLBD repository. From
+the repository root, use the multi-module build so IFCtoRDF, IFCtoLBD_Geometry, and
+IFCtoLBD are compiled before IFCProps2ExcelOnline and IFCtoLBD_Desktop_2026:
 
 ```
-mvn compile
+mvn install
 ```
+
+This compiles and installs all five artifacts into the local Maven repository.
+Use `mvn verify` from the repository root to verify all modules without
+installing them. To build only IFCtoRDF, run `mvn verify` from this directory;
+IFCtoRDF itself remains compatible with JDK 17.
 
 ## Issues
 Issues can be posted in https://github.com/pipauwel/IFCtoRDF/issues.

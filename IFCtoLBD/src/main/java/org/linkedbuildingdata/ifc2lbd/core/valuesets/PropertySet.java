@@ -1,7 +1,6 @@
 	package org.linkedbuildingdata.ifc2lbd.core.valuesets;
 
 import java.nio.charset.StandardCharsets;
-import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
@@ -20,17 +19,15 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
-import org.apache.jena.rdf.model.StmtIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
 import org.apache.jena.vocabulary.RDFS;
 import org.linkedbuildingdata.ifc2lbd.core.utils.StringOperations;
+import org.linkedbuildingdata.ifc2lbd.UnitResolver;
 import org.linkedbuildingdata.ifc2lbd.namespace.LBD;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
-import org.linkedbuildingdata.ifc2lbd.namespace.SMLS;
-import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
 
 /*
  *  Copyright (c) 2017,2018,2019.2020, 2024 Jyrki Oraskari (Jyrki.Oraskari@gmail.f)
@@ -54,8 +51,10 @@ import org.linkedbuildingdata.ifc2lbd.namespace.UNIT;
  *
  */
 public class PropertySet {
+	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
+	private static final String PROV = "http://www.w3.org/ns/prov#";
 	private boolean isActive = true;
-	private final Map<String, String> unitmap;
+	private final UnitResolver unitResolver;
 	private Map<String, String> property_replace_map; // allows users to replace default properties
 
 	private static class PsetProperty {
@@ -79,12 +78,14 @@ public class PropertySet {
 	private boolean propertiesAsPropertySets;
 
 	private final Map<String, RDFNode> mapPnameValue = new HashMap<>();
+	private final Map<String, String> originalPropertyNames = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameType = new HashMap<>();
+	private final Map<String, RDFNode> mapPnameIfcDataType = new HashMap<>();
 	private final Map<String, RDFNode> mapPnameUnit = new HashMap<>();
-	private final Map<String, RDFNode> mapBSDD = new HashMap<>();
-
-	private boolean is_bSDD_pset = false;
-	private Resource psetDef = null;
+	private final Map<String, Resource> sourceResources = new HashMap<>();
+	private final Map<String, String> sourcePaths = new HashMap<>();
+	private final String sourceSetUri;
+	private final String sourceKind;
 	private final boolean hasUnits;
 	private static long pset_counter = 0;
 	private long pset_inx = 0;
@@ -92,20 +93,28 @@ public class PropertySet {
 
 	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
 			boolean hasBlank_nodes, Map<String, String> unitmap, boolean hasUnits) {
-		this.unitmap = unitmap;
+		this(uriBase, lbd_model, ontology_model, propertyset_name, props_level, hasBlank_nodes,
+				UnitResolver.fromLegacyProjectUnits(unitmap), hasUnits);
+	}
+
+	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
+			boolean hasBlank_nodes, UnitResolver unitResolver, boolean hasUnits) {
+		this(uriBase, lbd_model, ontology_model, propertyset_name, props_level, hasBlank_nodes,
+				unitResolver, hasUnits, null, "property");
+	}
+
+	public PropertySet(String uriBase, Model lbd_model, Model ontology_model, String propertyset_name, int props_level,
+			boolean hasBlank_nodes, UnitResolver unitResolver, boolean hasUnits, String sourceSetUri,
+			String sourceKind) {
+		this.unitResolver = unitResolver;
+		this.sourceSetUri = sourceSetUri;
+		this.sourceKind = sourceKind == null ? "property" : sourceKind;
 		this.uriBase = uriBase;
 		this.lbd_model = lbd_model;
 		this.propertyset_name = propertyset_name;
 		this.props_level = props_level;
 		this.hasBlank_nodes = hasBlank_nodes;
 		this.hasUnits = hasUnits;
-		// System.out.println("pset name: " + this.propertyset_name);
-		StmtIterator iter = ontology_model.listStatements(null, PROPS.namePset, this.propertyset_name);
-		if (iter.hasNext()) {
-			// System.out.println("Pset bsdd match!");
-			is_bSDD_pset = true;
-			psetDef = iter.next().getSubject();
-		}
 		this.hasSimplified_properties = false;
 		this.propertiesAsPropertySets = false;
 		PropertySet.pset_counter++;
@@ -113,12 +122,13 @@ public class PropertySet {
 	}
 
 	public void putPnameValue(String property_name, RDFNode value) {
-
+		String normalizedName = StringOperations.toCamelCase(property_name);
+		originalPropertyNames.put(normalizedName, property_name);
 		if (value.isLiteral()) {
 			Literal literal_value = createLiteralPreservingMetadata(value.asLiteral());
-			mapPnameValue.put(StringOperations.toCamelCase(property_name), literal_value);
+			mapPnameValue.put(normalizedName, literal_value);
 		} else
-			mapPnameValue.put(StringOperations.toCamelCase(property_name), value);
+			mapPnameValue.put(normalizedName, value);
 	}
 
 	private Literal createLiteralPreservingMetadata(Literal original) {
@@ -139,34 +149,15 @@ public class PropertySet {
 		mapPnameUnit.put(StringOperations.toCamelCase(property_name), unit);
 	}
 
-	public void putPsetPropertyRef(RDFNode property) {
-		String pname = property.asLiteral().getString();
-		putPsetPropertyRef(pname, StringOperations.toCamelCase(property.toString()));
+	public void putPnameSource(String propertyName, Resource source, String sourcePath) {
+		String normalizedName = StringOperations.toCamelCase(propertyName);
+		if (source != null) sourceResources.put(normalizedName, source);
+		if (sourcePath != null && !sourcePath.isBlank()) sourcePaths.put(normalizedName, sourcePath);
 	}
 
-	public void putPsetPropertyRef(String pname) {
-		putPsetPropertyRef(pname, StringOperations.toCamelCase(pname));
-	}
-
-	private void putPsetPropertyRef(String pname, String bsddKey) {
-		pname = StringOperations.toCamelCase(pname);
-		if (is_bSDD_pset) {
-			StmtIterator iter = psetDef.listProperties(PROPS.propertyDef);
-			while (iter.hasNext()) {
-				Resource prop = iter.next().getResource();
-				StmtIterator iterProp = prop.listProperties(PROPS.namePset);
-				while (iterProp.hasNext()) {
-					Literal psetPropName = iterProp.next().getLiteral();
-					if (psetPropName.getString().equals(pname)) {
-						mapBSDD.put(bsddKey, prop);
-					} else {
-						if (psetPropName.getString().toUpperCase().equals(pname.toUpperCase())) {
-							mapBSDD.put(pname, prop);
-						}
-					}
-				}
-			}
-		}
+	/** Stores a future IfcDataType annotation without replacing the source RDF/IFC type. */
+	public void putPnameIfcDataType(String property_name, RDFNode ifcDataType) {
+		mapPnameIfcDataType.put(StringOperations.toCamelCase(property_name), ifcDataType);
 	}
 
 	/**
@@ -179,19 +170,19 @@ public class PropertySet {
 	private boolean pksetclasses = false;
 
 	public void connect(Resource lbd_resource, String long_guid) {
+		// Keep the complete property/quantity-set graph in the property model. The
+		// mapped resource commonly originates in the general BOT model, and adding a
+		// property through that Resource would otherwise put the root link there.
+		lbd_resource = lbd_resource.inModel(this.lbd_model);
 		// System.out.println("connect: "+this.getPropertyset_name()+" -
 		// "+lbd_resource.getLocalName());
 		Resource to_connect = lbd_resource;
 		if (pksetclasses) {
 			to_connect = this.lbd_model
 					.createResource(this.uriBase + "pset_" + this.propertyset_name + "_" + this.pset_inx);
-			if (this.propertyset_name.contains("Common")) {
-				Resource bsdd_class = this.lbd_model
-						.createResource("https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/"
-								+ this.propertyset_name);
-				to_connect.addProperty(RDF.type, bsdd_class);
-
-			}
+			Resource bsddClass = BSDD.propertySet(this.lbd_model, this.propertyset_name).orElse(null);
+			if (bsddClass != null)
+				to_connect.addProperty(RDF.type, bsddClass);
 			Property property = this.lbd_model.createProperty(LBD.ns + "has" + this.propertyset_name.replace(" ", "_"));
 			lbd_resource.addProperty(property, to_connect);
 			if (this.done) {
@@ -222,6 +213,7 @@ public class PropertySet {
 					this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
 					this.lbd_model.add(property, RDFS.comment,
 							"IFC property set " + this.propertyset_name + " property " + pname);
+					addIfcDatatype(property, pname);
 
 					if (!this.mapPnameValue.get(pname).toString().contains("IfcPropertySingleValue"))
 						to_connect.addProperty(property, this.mapPnameValue.get(pname));
@@ -256,27 +248,31 @@ public class PropertySet {
 		if (!this.hashes.add(longGuid))
 			return;
 		psetResource.addProperty(RDF.type, BSDD.propertySet);
-		psetResource.addProperty(RDF.type, this.lbd_model.createResource(BSDD.class_ns + uriSegment(this.propertyset_name)));
+		BSDD.propertySet(this.lbd_model, this.propertyset_name)
+				.ifPresent(bsddClass -> psetResource.addProperty(RDF.type, bsddClass));
 		psetResource.addProperty(RDFS.label, this.propertyset_name);
 
 		Instant generatedAt = Instant.now();
 		for (String pname : this.mapPnameValue.keySet()) {
+			String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
 			String propertyId = stableId(longGuid + "\u0000" + this.propertyset_name + "\u0000" + pname);
 			Resource propertyResource = this.lbd_model.createResource(this.uriBase + "cp_" + propertyId);
 			Resource stateResource = this.lbd_model.createResource(this.uriBase + "cs_" + propertyId);
 
 			psetResource.addProperty(BSDD.containsProperty, propertyResource);
-			propertyResource.addProperty(RDF.type,
-					this.lbd_model.createResource(BSDD.property_ns + uriSegment(pname)));
+			BSDD.property(this.lbd_model, this.propertyset_name, originalPname)
+					.ifPresent(bsddProperty -> propertyResource.addProperty(RDF.type, bsddProperty));
 			propertyResource.addProperty(RDF.type, OPM.property);
 			propertyResource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
-			propertyResource.addProperty(OPM.hasPropertyState, stateResource);
+				propertyResource.addProperty(OPM.hasPropertyState, stateResource);
+				addEvidence(propertyResource, pname);
 
 			stateResource.addProperty(RDF.type, OPM.currentPropertyState);
 			stateResource.addLiteral(OPM.generatedAtTime,
 					this.lbd_model.createTypedLiteral(generatedAt.toString(),
 							"http://www.w3.org/2001/XMLSchema#dateTime"));
 			stateResource.addProperty(OPM.value, this.mapPnameValue.get(pname));
+			addIfcDatatype(stateResource, pname);
 			if (this.hasUnits)
 				addUnit(stateResource, pname);
 		}
@@ -294,10 +290,6 @@ public class PropertySet {
 		}
 	}
 
-	private static String uriSegment(String value) {
-		return URLEncoder.encode(value, StandardCharsets.UTF_8).replace("+", "%20");
-	}
-
 	private List<PsetProperty> writeOPM_Set(String long_guid) {
 		List<PsetProperty> properties = new ArrayList<>();
 		LocalDateTime datetime = LocalDateTime.now();
@@ -310,11 +302,13 @@ public class PropertySet {
 				property_resource.addProperty(RDF.type, OPM.property);
 			}
 
-			if (this.mapBSDD.get(pname) != null)
-				property_resource.addProperty(RDFS.seeAlso, mapBSDD.get(pname));
+				String originalPname = this.originalPropertyNames.getOrDefault(pname, pname);
+			BSDD.property(this.lbd_model, this.propertyset_name, originalPname)
+					.ifPresent(reference -> property_resource.addProperty(RDFS.seeAlso, reference));
 
 			// Just the complete name
-			property_resource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
+				property_resource.addProperty(RDFS.label, this.propertyset_name + ":" + pname);
+				addEvidence(property_resource, pname);
 
 			if (this.props_level == 3) {
 				Resource state_resourse;
@@ -322,7 +316,7 @@ public class PropertySet {
 					state_resourse = this.lbd_model.createResource();
 				else
 					state_resourse = this.lbd_model.createResource(this.uriBase + "state_" + pname + "_" + long_guid
-							+ "_p" + PropertySet.state_resourse_counter++);
+							+ "_p" + stableValueId(this.mapPnameValue.get(pname)));
 				// https://w3c-lbd-cg.github.io/opm/assets/states.svg
 				property_resource.addProperty(OPM.hasPropertyState, state_resourse);
 
@@ -330,11 +324,13 @@ public class PropertySet {
 				state_resourse.addProperty(RDF.type, OPM.currentPropertyState);
 				state_resourse.addLiteral(OPM.generatedAtTime, time_string);
 				state_resourse.addProperty(OPM.value, this.mapPnameValue.get(pname));
+				addIfcDatatype(state_resourse, pname);
 				if (this.hasUnits)
 					addUnit(state_resourse, pname);
 
 			} else {
 				property_resource.addProperty(OPM.value, this.mapPnameValue.get(pname));
+				addIfcDatatype(property_resource, pname);
 				if (this.hasUnits)
 					addUnit(property_resource, pname);
 			}
@@ -357,83 +353,44 @@ public class PropertySet {
 	}
 
 	private void addUnit(Resource lbd_resource, String pname) {
-		RDFNode ifc_unit = this.mapPnameUnit.get(pname);
-		if (ifc_unit != null) {
-			String si_unit = ifc_unit.asResource().getLocalName();
-			if (si_unit != null) {
-				addSIUnit( lbd_resource,  si_unit);
-			}
-		} else {
-			RDFNode ifc_measurement_type = this.mapPnameType.get(pname);
-			if (ifc_measurement_type != null) {
-				String unit = ifc_measurement_type.asResource().getLocalName().toLowerCase();
-				if (unit.startsWith("ifc"))
-					unit = unit.substring(3);
-				if (unit.startsWith("positive"))
-					unit = unit.substring("positive".length());
-				if (unit.endsWith("measure"))
-					unit = unit.substring(0, unit.length() - "measure".length());
-				String si_unit = this.unitmap.get(unit);
-				if (si_unit != null) {
-					addSIUnit( lbd_resource,  si_unit);
-				} else {
-					addDefaultUnit( lbd_resource,  unit);
-
-				}
-			}
-		}
-
+		RDFNode value = this.mapPnameValue.get(pname);
+		if (value == null || !value.isLiteral() || !(value.asLiteral().getValue() instanceof Number))
+			return;
+		RDFNode explicit = this.mapPnameUnit.get(pname);
+		Resource explicitResource = explicit != null && explicit.isResource() ? explicit.asResource() : null;
+		UnitResolver.Resolution resolution = this.unitResolver.resolve(explicitResource, this.mapPnameType.get(pname));
+		UnitResolver.write(this.lbd_model, lbd_resource, resolution);
+		if (!resolution.isResolved())
+			return;
+		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolutionMethod"),
+				explicitResource != null ? "IFC_EXPLICIT_UNIT" : "IFC_PROJECT_UNIT");
+		lbd_resource.addLiteral(this.lbd_model.createProperty(EVIDENCE + "unitResolverVersion"),
+				UnitResolver.ALIAS_TABLE_VERSION);
 	}
-	
-	private void addSIUnit(Resource lbd_resource, String si_unit) {
-        switch (si_unit) {
-            case "METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.METER);
-                break;
-            case "SQUARE_METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE);
-                break;
-            case "CUBIC_METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE);
-                break;
-            case "MILLI METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER);
-                break;
-            case "MILLI SQUARE_METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_MILLI_METRE);
-                break;
-            case "MILLI CUBIC_METRE":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_MILLI_METER);
-                break;
-            case "RADIAN":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.RADIAN);
-                break;
-            default:
-                break;
-        }
-    }
-	
-    private void addDefaultUnit(Resource lbd_resource, String unit) {
-        switch (unit) {
-            case "length":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.MILLI_METER); // Default
-				// named
-				// in:  https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifclengthmeasure.htm
-                break;
-            case "area":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.SQUARE_METRE); // default
-				// named
-				// in: https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2_TC1/HTML/schema/ifcmeasureresource/lexical/ifcareameasure.htm
-                break;
-            case "volume":
-            	lbd_resource.addProperty(SMLS.unit, UNIT.CUBIC_METRE); // default
-				// named
-				// in:  https://standards.buildingsmart.org/IFC/RELEASE/IFC2x3/TC1/HTML/ifcmeasureresource/lexical/ifcvolumemeasure.htm
-                break;
-            default:
-                break;
-        }
-    }
+
+	private void addIfcDatatype(Resource owner, String pname) {
+		RDFNode sourceType = this.mapPnameType.get(pname);
+		if (sourceType != null)
+			owner.addProperty(this.lbd_model.createProperty(UnitResolver.META + "sourceIFCType"), sourceType);
+		RDFNode futureType = this.mapPnameIfcDataType.get(pname);
+		if (futureType != null)
+			owner.addProperty(this.lbd_model.createProperty(UnitResolver.META + "ifcDataType"), futureType);
+	}
+
+	private void addEvidence(Resource owner, String pname) {
+		owner.addLiteral(this.lbd_model.createProperty(EVIDENCE + "sourceKind"), sourceKind);
+		if (sourceSetUri != null && !sourceSetUri.isBlank())
+			owner.addProperty(this.lbd_model.createProperty(EVIDENCE + "sourceSet"),
+					this.lbd_model.createResource(sourceSetUri));
+		Resource source = sourceResources.get(pname);
+		if (source != null)
+			owner.addProperty(this.lbd_model.createProperty(PROV + "wasDerivedFrom"), source);
+		String sourcePath = sourcePaths.get(pname);
+		if (sourcePath != null)
+			owner.addLiteral(this.lbd_model.createProperty(EVIDENCE + "sourcePath"), sourcePath);
+		this.lbd_model.setNsPrefix("evidence", EVIDENCE);
+		this.lbd_model.setNsPrefix("prov", PROV);
+	}
 
 
 	public Optional<Boolean> isExternal() {
@@ -464,6 +421,10 @@ public class PropertySet {
 
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
 		this.hasSimplified_properties = hasSimplified_properties;
+	}
+
+	private static String stableValueId(RDFNode value) {
+		return Integer.toUnsignedString(java.util.Objects.toString(value, "").hashCode(), 36);
 	}
 
 	public void setPropertiesAsPropertySets(boolean propertiesAsPropertySets) {

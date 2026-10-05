@@ -75,6 +75,9 @@ public final class WireframeWKT {
 	}
 
 	public static String fromObj(ObjDescription obj) {
+		if (obj != null && obj.meshVertices != null && obj.meshFaces != null) {
+			return fromMesh(obj.meshVertices, obj.meshFaces, obj.meshFacesOneBased);
+		}
 		if (obj == null || obj.vertices.isEmpty() || obj.faces.isEmpty()) {
 			return null;
 		}
