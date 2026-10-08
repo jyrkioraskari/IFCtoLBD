@@ -2,8 +2,14 @@
 
 [Documentation home](README.md)
 
-These announcements describe earlier releases. For current setup, use the
-[desktop quick start](quick-start.md) or [build guide](development.md).
+> **Historical archive.** These announcements are preserved as a record, not as
+> current setup instructions. Commands below are non-runnable historical
+> examples. Use the [desktop quick start](quick-start.md) or
+> [build guide](development.md) for maintained commands.
+
+The generated `docs_old` tree is no longer carried on the main branch. Its last
+published copy remains in the
+[2.49.0 source archive](https://github.com/jyrkioraskari/IFCtoLBD/tree/2.49.0/docs_old).
 
 
 ### Sep 15, 2026
@@ -50,12 +56,12 @@ GraalVM compilation for the IFCtoLBD command line for Windows 11.
 * install Maven and add that to the system path.
 	https://maven.apache.org/download.cgi
 
-	
+
 At the project folder:
 
 
-```
-cd ./IFCtiLBD
+```text
+cd ./IFCtoLBD
 mvn clean -Pnative -DskipTests package
 ```
 
@@ -104,7 +110,7 @@ The code quality is being tested, and we are gearing up for the next pre-compile
 ### March 14, 2024
 
 Just in case you have a path problem in a MacBook when writing Python:
--- It is recommended yo use absolute path names for the Java library files (macOS). You can use a text editor Search\&Replace to fix there ysour configuration at the line of code:
+It is recommended to use absolute path names for the Java library files (macOS). You can use a text editor’s search and replace function to fix your configuration at this line of code:
 jpype.startJVM(classpath = \['...<the JAR files in your configuration>']).
 
 A short example code of relative names can be found [here](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_Python/IFCtoLBD_RDFLibTurtle.py).
@@ -208,4 +214,3 @@ The software was tested to function with https://jdk.java.net/15/
 Testing the correctness of the created bounding boxes.
 
 ![The bounding boxes](../docs/bounding_boxes.PNG)
-

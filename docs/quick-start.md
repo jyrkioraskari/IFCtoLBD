@@ -2,6 +2,12 @@
 
 [Documentation home](README.md) · Next: [use the triples](using-triples.md)
 
+> **Tested release:** This walkthrough is pinned to
+> [IFCtoLBD 2.49.0](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0).
+> Its Java distribution was checksum-verified and used to convert the bundled
+> two-wall model; the resulting graph contains the expected storey. Commands
+> and filenames below are for that release.
+
 ## Need to know what IFC is?
 
 **Industry Foundation Classes (IFC)** is buildingSMART’s open standard for
@@ -10,8 +16,6 @@ objects such as walls and spaces, their properties, geometry, and relationships.
 Start with [buildingSMART’s IFC introduction](https://www.buildingsmart.org/standards/bsi-standards/industry-foundation-classes/).
 For detailed entity definitions and examples, use the
 [IFC specification documentation](https://ifc43-docs.standards.buildingsmart.org/).
-The specification version you read and the schemas supported by your converter
-release may differ; check the release notes for supported input versions.
 If you already work with IFC, continue below.
 
 You need an IFC model and the desktop application. For a small first model, use
@@ -20,31 +24,25 @@ or export an IFC model from your BIM application.
 
 ## Download and choose your launch route
 
-Go to [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases) and expand
-**Assets** for the release you choose. Select the packaged **desktop application**
-for your operating system. GitHub’s “Source code” archives are for building the
-project. Read the release notes and any instructions included with the package.
+Open the [2.49.0 release](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0)
+and expand **Assets**. Use `IFCtoLBD-Desktop_for_Windows.zip` for the bundled
+Windows application, or `IFCtoLBD.zip` for the Java 21 distribution. GitHub’s
+automatically generated “Source code” archives are not application packages.
 
-When a bundled-runtime application is available, extract it and launch
-`IFCtoLBD` (`IFCtoLBD.exe` on Windows). It carries its own Java runtime; you do
-not need to install Java or keep a separate library directory. Keep the whole
-application folder together. Use the JAR route below only when no matching
-bundled-runtime package is available or when you specifically prefer it.
+For the bundled Windows application, extract the ZIP and launch `IFCtoLBD.exe`.
+It carries its own Java runtime. Keep the whole application folder together.
 
 ### Windows, macOS, or Linux: use the Java .jar
 
-Choose the desktop JAR distribution and extract it completely. This route needs
-Java installed on your computer. Check or install Java 21 as described below,
-then run the desktop JAR from the extracted application directory:
+Extract `IFCtoLBD.zip` completely. This route needs Java installed. Check or
+install Java 21 as described below, change into the extracted `IFCtoLBD`
+directory, then run:
 
 ```sh
 java -jar IFCtoLBD-Desktop_Java_21.jar
 ```
 
-Adapt the filename to the JAR you downloaded. Keep the accompanying library
-folder next to it; for the current source build this is
-`IFCtoLBD-Desktop_Java_21_lib`. Follow the chosen release’s requirements if its
-filenames or required Java version differ.
+Keep the accompanying `IFCtoLBD-Desktop_Java_21_lib` folder next to the JAR.
 
 ## Install Java 21 for the JAR route
 
@@ -54,7 +52,7 @@ First open a terminal (PowerShell or Command Prompt on Windows) and check:
 java -version
 ```
 
-If it reports Java 21 or a newer version compatible with your release, continue
+If it reports Java 21 or newer, continue
 to launching the JAR. If Java is missing or too old:
 
 1. Open [Eclipse Temurin downloads for Java 21](https://adoptium.net/temurin/releases/?version=21).
@@ -91,54 +89,35 @@ if you want to save somewhere else. Use a fresh filename to retain earlier expor
 For the first conversion, leave settings and filters as they are. Click **Run**
 and wait for completion in the conversion log. Locate the output at the displayed
 path. You now have RDF, but you can get a useful answer without reading Turtle.
-Open **Query**, paste the
+The following checked query step targets development version 2.54.1. Open
+**Query**, paste the
 [building inventory query](../examples/getting-started/building-inventory/query.rq),
 and select **Run query**. For the bundled model the result groups two walls under
 `Level 04 - T.O. Fnd. Wall`; compare the complete table with
 [expected.txt](../examples/getting-started/building-inventory/expected.txt).
 
 Turtle (`.ttl`) is a convenient first format because it is readable. JSON-LD
-(`.jsonld`) is another RDF representation available in the current desktop.
+(`.jsonld`) is another RDF representation available in the desktop.
 It is different from IFC/JSON, which is an input format.
 
-ICDD (`.icdd`) creates an ISO 21597-1 ZIP container. It includes the original
-IFC file and separate Turtle documents for BOT topology (including the IFC
-attributes of spatial resources), Product/BEO building elements (including their
-IFC attributes), geometry, and PROPS/OPM property and quantity sets. Geometry
-representations and the links from elements to those representations are assigned
-to `lbd/geometry.ttl`; the properties document contains only property-set and
-quantity-set content. The four RDF payload documents are physically disjoint: a
-triple is written to only one of them. `Index.rdf`
-describes each document. `Ontology resources/bot.ttl` is a bundled offline copy
-of BOT 0.3.2, while `Ontology resources/props.ttl` contains the generated
-ontology declarations for the property predicates actually used in the payload;
-the standard `Ontology resources`, `Payload documents`, and `Payload triples`
-folders are present in the package.
-
-Selecting separate building-element and property files for an ordinary Turtle
-export uses the topology, product, and property partitions: the main file contains topology,
-`_building_elements.ttl` contains product data, and `_element_properties.ttl`
-contains property and quantity-set data, without triples repeated across files.
-The dedicated `geometry.ttl` document is specific to ICDD packaging.
+For named graphs, split Turtle output, and ISO 21597 ICDD containers, continue
+with the advanced [export formats and ICDD guide](export-formats.md).
 
 ## Windows alternative: IFCtoLBDConverter_CLI.exe
 
-The Windows `.exe` offered in releases is a **command-line converter**. There
-is no Windows desktop `.exe`. For the **Read IFC → Run** interface, use the
-Java desktop JAR described above.
+`IFCtoLBDConverter_CLI.exe` is a **command-line converter**, not the desktop
+interface. For the **Read IFC → Run** interface, use one of the desktop packages
+described above.
 
-If you prefer terminal commands, download the Windows command-line `IFCtoLBDConverter_CLI.exe`
-from [Releases](https://github.com/jyrkioraskari/IFCtoLBD/releases). Extract the
-complete package if zipped, open PowerShell in its directory, and run its help
-command:
+If you prefer terminal commands, download `IFCtoLBDConverter_CLI.exe` from the
+[2.49.0 release](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0),
+open PowerShell in its directory, and run its help command:
 
 ```powershell
 .\IFCtoLBDConverter_CLI.exe --help
 ```
 
-For a native executable, no separate Java installation is needed. Follow the
-release’s instructions and use its help output to check supported options.
-For releases supporting the current CLI options, a conversion looks like this:
+The native executable needs no separate Java installation. A conversion is:
 
 ```powershell
 .\IFCtoLBDConverter_CLI.exe --url https://example.com/building/ --target_file output.ttl model.ifc
@@ -148,22 +127,9 @@ Replace `model.ifc` with your input path. The command reads and converts the
 model; there are no **Read IFC** or **Run** buttons. Continue with
 [using the generated triples](using-triples.md) once conversion finishes.
 
-Explicit `IfcRelSpaceBoundary` relationships are exported as BOT interfaces by
-default and do not require geometry. Use `--ifc-space-boundaries=false` to
-disable them. Bounding-box interface inference is a separate, opt-in feature:
-
-```powershell
-.\IFCtoLBDConverter_CLI.exe --infer-geometry-interfaces model.ifc
-```
-
-Enabling inference also enables its geometry prerequisite. Those results are
-marked as candidate interfaces. Use `--ifc-zones` to export
-`IfcZone` resources and their `IfcRelAssignsToGroup` memberships. The legacy
-`--hasInterfaces` option remains an alias for bounding-box inference.
-
 ## Explore after the first success
 
-The current desktop offers a basic workflow and an advanced workflow. Numbered
+The desktop offers a basic workflow and an advanced workflow. Numbered
 buttons describe the full workflow; the essential first actions are **Read IFC**
 and **Run**. In the advanced workflow, **Settings** controls export options,
 **Filters** selects element types and property sets, and **Output** chooses the

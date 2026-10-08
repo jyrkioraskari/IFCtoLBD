@@ -4,7 +4,7 @@
 
 ## Add the library
 
-Use JDK 21 or newer for the current source.
+Use JDK 21 or newer for source version 2.54.1.
 [Install Java 21 if needed](quick-start.md#install-java-21-for-the-jar-route). The converter returns Apache Jena
 models, so you can query and serialize RDF directly in your application.
 

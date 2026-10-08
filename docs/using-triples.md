@@ -133,7 +133,8 @@ query for a direct value may need to follow intermediate resources. Property
 mode, blank-node settings, and units also affect the graph. Inspect your export
 before assuming a fixed property path. The community’s
 [property modelling presentation](https://github.com/w3c-lbd-cg/lbd/blob/gh-pages/presentations/props/presentation_LBDcall_20180312_final.pdf)
-provides background on the levels.
+provides background. For maintained examples of the same IFC property at all
+three levels, use the [property levels guide](property-levels.md).
 
 The converter maps IFC Tag attributes to the compatibility name `batid`.
 A tag can be absent or reused; it is not the IFC GlobalId. Use the exported

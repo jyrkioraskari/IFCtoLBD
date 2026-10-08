@@ -4,7 +4,8 @@
 
 ## Compile from the repository root
 
-Install **JDK 21 or newer** and Maven.
+Install **JDK 21 or newer**. The repository includes a Maven wrapper, so a
+separate Maven installation is optional.
 [Follow the Java 21 installation guide](quick-start.md#install-java-21-for-the-jar-route)
 if you do not yet have a JDK. Point `JAVA_HOME` at the JDK, and check
 that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
@@ -13,19 +14,19 @@ that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
 git clone https://github.com/jyrkioraskari/IFCtoLBD.git
 cd IFCtoLBD
 java -version
-mvn -version
-mvn install
+./mvnw -version
+./mvnw install
 ```
 
 The root POM builds five modules in dependency order and installs their
 artifacts into your local Maven repository. You do not need to build each
 module manually. The first build needs access to dependency repositories.
-Use `mvn verify` if you want to build and check without installing artifacts.
+Use `./mvnw verify` if you want to build and check without installing artifacts.
 
 For only the converter and its required modules:
 
 ```sh
-mvn -pl IFCtoLBD -am install
+./mvnw -pl IFCtoLBD -am install
 ```
 
 `-pl` selects a project and `-am` also builds the modules it depends on.
@@ -33,8 +34,8 @@ The default converter test selection excludes the `integration`, `shacl`, and
 `slow` groups. Run broader checks when changing conversion behavior:
 
 ```sh
-mvn verify -Pintegration
-mvn verify -Pfull
+./mvnw verify -Pintegration
+./mvnw verify -Pfull
 ```
 
 The integration profile includes converter and SHACL tests while excluding slow
@@ -46,7 +47,7 @@ tests. The full profile includes the slow property-based tests as well.
 Package the converter and run the modern command-line entry point explicitly:
 
 ```sh
-mvn -pl IFCtoLBD -am package -DskipTests
+./mvnw -pl IFCtoLBD -am package -DskipTests
 java -cp IFCtoLBD_MCP/lib/ifctolbd-converter.jar \
   org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI \
   --url https://example.com/building/ --target_file output.ttl \
@@ -62,7 +63,7 @@ This is also a suitable bundled classpath for the [Python wrapper](python_exampl
 Package and start the desktop:
 
 ```sh
-mvn -pl IFCtoLBD_Desktop_2026 -am package -DskipTests
+./mvnw -pl IFCtoLBD_Desktop_2026 -am package -DskipTests
 java -jar IFCtoLBD_Desktop_2026/target/IFCtoLBD-Desktop_Java_21.jar
 ```
 
@@ -84,10 +85,35 @@ release archives. Code signing and native installer formats remain release
 pipeline responsibilities; this profile deliberately creates a portable
 application image.
 
+## Artifact names
+
+Use one name for each piece everywhere: build scripts, release assets, checksums,
+and documentation. `<version>` is the Maven project version; native packages also
+include `<os>-<arch>`.
+
+| Piece | Canonical release name |
+| --- | --- |
+| Java library | `ifc-to-lbd-<version>.jar` |
+| Java desktop distribution | `ifctolbd-desktop-<version>-java21.zip` |
+| Bundled desktop application | `ifctolbd-desktop-<version>-<os>-<arch>.zip` |
+| Native CLI | `ifctolbd-cli-<version>-<os>-<arch>` (`.exe` on Windows) |
+| MCP server | `ifctolbd-mcp-<version>.tgz` |
+
+The unversioned `IFCtoLBD-Desktop_Java_21.jar` and
+`IFCtoLBD-Desktop_Java_21_lib` names remain the internal launcher layout. The
+MCP runtime likewise expects its internal converter at
+`IFCtoLBD_MCP/lib/ifctolbd-converter.jar`. Do not publish those internal names
+as several different release products.
+
+Release 2.49.0 predates this policy and keeps its published names
+(`IFCtoLBD.zip`, `IFCtoLBD-Desktop_for_Windows.zip`, and
+`IFCtoLBDConverter_CLI.exe`) so existing links remain valid. Apply the canonical
+scheme to new release assets rather than renaming historical downloads.
+
 Generate fresh converter Javadoc after installing its companion modules:
 
 ```sh
-mvn -f IFCtoLBD/pom.xml javadoc:javadoc
+./mvnw -f IFCtoLBD/pom.xml javadoc:javadoc
 ```
 
 Open the generated `index.html` under `IFCtoLBD/target/site/apidocs` or

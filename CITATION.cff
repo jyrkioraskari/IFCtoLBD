@@ -15,18 +15,20 @@ authors:
     family-names: Bonduel
   - given-names: Kris
     family-names: McGlinn
-  - given-names: ' Pieter'
+  - given-names: Pieter
     family-names: Pauwels
   - given-names: Freddy
-    family-names: 'Priyatna '
+    family-names: Priyatna
   - given-names: Anna
-    family-names: 'Wagner '
+    family-names: Wagner
   - given-names: Ville
     family-names: Kukkonen
   - given-names: Simon
     family-names: Steyskaland
   - given-names: Joel
     family-names: Lehtonen
+  - given-names: Maxime
+    family-names: Lefrançois
 abstract: >-
   IFC to Linked Building Data converter. This repository
   presents the results of our ongoing work to create a
@@ -37,6 +39,7 @@ abstract: >-
   Building Data Community Group (W3C LBD-CG)
   (https://github.com/w3c-lbd-cg/).
 license: Apache-2.0
-commit: 613e9cd
-version: '2.43.4'
-date-released: '2024-01-24'
+repository-code: https://github.com/jyrkioraskari/IFCtoLBD
+url: https://github.com/jyrkioraskari/IFCtoLBD
+version: '2.54.1'
+date-released: '2026-07-24'
