@@ -9,6 +9,9 @@ providing another way to use the same workflows and outputs:
 - [IFCtoLBD Python](https://github.com/jyrkioraskari/IFCtoLBD_Python) is a
   native Python implementation of the IFC-to-LBD conversion workflow, built
   with IfcOpenShell and RDFLib.
+- [LBD Browser](https://github.com/jyrkioraskari/LBD-browser) is an interactive
+  graph browser for IFCtoLBD Turtle output, with focused navigation and lenses
+  for spatial topology, geometry, and properties.
 - [LBD OBJ Exporter](https://github.com/jyrkioraskari/LBD_OBJ_Exporter)
   exports Wavefront OBJ geometry from Linked Building Data.
 - [LBD Viewer](https://github.com/jyrkioraskari/LBD-Viewer) provides a viewer

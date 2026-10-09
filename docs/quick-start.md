@@ -129,6 +129,11 @@ model; there are no **Read IFC** or **Run** buttons. Continue with
 
 ## Explore after the first success
 
+To browse the generated Turtle as an interactive building graph, open it in
+[LBD Browser](https://github.com/jyrkioraskari/LBD-browser). The browser provides
+focused views of spatial topology, geometry, and properties and processes the
+selected file locally in your web browser.
+
 The desktop offers a basic workflow and an advanced workflow. Numbered
 buttons describe the full workflow; the essential first actions are **Read IFC**
 and **Run**. In the advanced workflow, **Settings** controls export options,

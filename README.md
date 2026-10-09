@@ -102,6 +102,7 @@ The same functionality is available as a Java app for Linux and macOS users.
 | Your goal | Guide |
 | --- | --- |
 | Understand LBD and use the generated triples | [Conceptual overview](docs/overview.md), then [your first queries](docs/using-triples.md) |
+| Browse the generated LBD as an interactive graph | [LBD Browser](https://github.com/jyrkioraskari/LBD-browser) |
 | Read the output or automate conversion in Python | [Python guide](docs/python_examples.md) |
 | Embed the converter and query its output in Java | [Java guide](docs/java_examples.md) |
 | Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) — build from source; release 2.49.0 has no prebuilt MCP package |

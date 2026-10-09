@@ -24,7 +24,7 @@ that are not in that release.
 | --- | --- | --- |
 | 1 | See how IFC becomes BOT and PROPS data | [Conceptual overview](overview.md) |
 | 2 | Launch the desktop app, then **Read IFC** and **Run** | [Your first conversion](quick-start.md) |
-| 3 | Read Turtle and ask questions with SPARQL | [Using the triples](using-triples.md) |
+| 3 | Browse Turtle visually and ask questions with SPARQL | [Using the triples](using-triples.md) |
 | 4 | Work with RDFLib and call the converter from Python | [Python](python_examples.md) |
 | 5 | Use the Java library and Apache Jena | [Java](java_examples.md) |
 | 6 | Connect an AI assistant through MCP | [MCP tutorial](mcp.md) |
