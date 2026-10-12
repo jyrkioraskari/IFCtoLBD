@@ -42,6 +42,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.jena.ontology.OntModel;
 import org.apache.jena.ontology.OntModelSpec;
@@ -60,6 +61,7 @@ import com.buildingsmart.tech.ifcowl.vo.TypeVO;
 public class IfcSpfReader {
 
     private static final Logger LOG = LoggerFactory.getLogger(IfcSpfReader.class);
+	private static final Map<String, OntModel> ONTOLOGY_MODELS = new ConcurrentHashMap<>();
 
     private static String DEFAULT_PATH = "";
 
@@ -379,26 +381,7 @@ public class IfcSpfReader {
      */
     
     public void convert(String ifcFile, String outputFile, String baseURI,boolean hasPerformanceBoost) throws IOException {
-        OntModel om;
-
-
-        //JO 2021/12/10 fix for: java.lang.NoClassDefFoundError: org/apache/jena/riot/web/HttpOp 
-        //HttpOp.setDefaultHttpClient(HttpClientBuilder.create().useSystemProperties().build());
-        om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
-
-        try (InputStream inSchema = getResourceStream("/" + this.exp + ".ttl", "/resources/" + this.exp + ".ttl")) {
-            om.read(inSchema, null, "TTL");
-        }
-
-        //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntResource.asClass()" because "listrange" is null if no internet 
-        try (InputStream inList = getResourceStream("/list.ttl", "/resources/list.ttl")) {
-            om.read(inList, null, "TTL");
-        }
-
-        //JO 2023/02/08 fix for: Cannot invoke "org.apache.jena.ontology.OntProperty.toString()" because "valueProp" is null if no internet
-        try (InputStream inExpress = getResourceStream("/express.ttl", "/resources/express.ttl")) {
-            om.read(inExpress, null, "TTL");
-        }
+		OntModel om = ontologyModel();
 
         //conv.setRemoveDuplicates(this.removeDuplicates);
         // JO 2024: performance
@@ -421,17 +404,9 @@ public class IfcSpfReader {
      */
     public void convert(String ifcFile, StreamRDF destination, String baseURI,
             boolean hasPerformanceBoost) throws IOException {
-        OntModel om = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
+		OntModel om = ontologyModel();
 
-        try (InputStream inSchema = getResourceStream("/" + this.exp + ".ttl", "/resources/" + this.exp + ".ttl")) {
-            om.read(inSchema, null, "TTL");
-        }
-        try (InputStream inList = getResourceStream("/list.ttl", "/resources/list.ttl")) {
-            om.read(inList, null, "TTL");
-        }
-        try (InputStream inExpress = getResourceStream("/express.ttl", "/resources/express.ttl");
-             InputStream input = IfcInputReader.openSpf(Path.of(ifcFile), this.ent, this.typ, this.exp)) {
-            om.read(inExpress, null, "TTL");
+		try (InputStream input = IfcInputReader.openSpf(Path.of(ifcFile), this.ent, this.typ, this.exp)) {
             RDFWriter conv = new RDFWriter(om, input, baseURI, this.ent, this.typ, this.ontURI,
                     hasPerformanceBoost);
             LOG.info("Started parsing directly into RDF stream");
@@ -439,6 +414,31 @@ public class IfcSpfReader {
             LOG.info("Finished!!");
         }
     }
+
+	/**
+	 * Returns the read-only ontology/reasoner model shared by conversions using the
+	 * same EXPRESS schema. RDF writers only query this model; generated instances
+	 * are emitted to their own {@link StreamRDF} destination.
+	 */
+	private OntModel ontologyModel() throws IOException {
+		OntModel cached = ONTOLOGY_MODELS.get(this.exp);
+		if (cached != null) return cached;
+		synchronized (ONTOLOGY_MODELS) {
+			cached = ONTOLOGY_MODELS.get(this.exp);
+			if (cached != null) return cached;
+			OntModel created = ModelFactory.createOntologyModel(OntModelSpec.OWL_DL_MEM_TRANS_INF);
+			try (InputStream inSchema = getResourceStream("/" + this.exp + ".ttl", "/resources/" + this.exp + ".ttl");
+					InputStream inList = getResourceStream("/list.ttl", "/resources/list.ttl");
+					InputStream inExpress = getResourceStream("/express.ttl", "/resources/express.ttl")) {
+				created.read(inSchema, null, "TTL");
+				created.read(inList, null, "TTL");
+				created.read(inExpress, null, "TTL");
+			}
+			created.prepare();
+			ONTOLOGY_MODELS.put(this.exp, created);
+			return created;
+		}
+	}
 
     /**
      * Materializes any supported IFC serialization as a standards-compliant

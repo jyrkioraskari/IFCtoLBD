@@ -54,6 +54,15 @@ class ConversionSessionTest {
 	}
 
 	@Test
+	void defaultsToMemoryStagingAndAllowsExplicitDiskStaging() {
+		try (ConversionSession memory = new ConversionSession();
+				ConversionSession disk = new ConversionSession(ConversionSession.Storage.TDB2)) {
+			assertEquals(ConversionSession.Storage.MEMORY, memory.getStorage());
+			assertEquals(ConversionSession.Storage.TDB2, disk.getStorage());
+		}
+	}
+
+	@Test
 	void closedSessionRejectsDatasetAccess() {
 		ConversionSession session = new ConversionSession();
 		session.close();

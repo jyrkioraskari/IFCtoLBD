@@ -419,6 +419,10 @@ public class PropertySet {
 		this.isActive = isActive;
 	}
 
+	public boolean isActive() {
+		return isActive;
+	}
+
 	public void setHasSimplified_properties(boolean hasSimplified_properties) {
 		this.hasSimplified_properties = hasSimplified_properties;
 	}

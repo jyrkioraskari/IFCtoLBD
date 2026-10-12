@@ -88,12 +88,14 @@ For profiles, separate graphs, validation, or enrichment, use `ConversionRequest
 and `ConversionResult` instead of adding long lists of boolean arguments:
 
 ```java
-try (var converter = new IFCtoLBDConverter("https://example.com/building/", false, 1)) {
+try (var session = new org.linkedbuildingdata.ifc2lbd.ConversionSession();
+     var converter = new IFCtoLBDConverter(session, "https://example.com/building/", false, 1)) {
     var request = new org.linkedbuildingdata.ifc2lbd.ConversionRequest(
         "/absolute/path/model.ifc", new ConversionProperties());
     try (var result = converter.convert(request)) {
         Model combined = result.getModel();
         System.out.println(combined.size());
+        System.out.println(converter.getLastTimings().orElseThrow());
         // Read or serialize the graphs here, before result and converter close.
     }
 }
@@ -104,6 +106,10 @@ exposes the dataset; other accessors expose the manifest and validation graphs.
 See [supply-chain and sustainability](supply-chain-and-sustainability.md) for
 profile and resolver examples, and [development](development.md) for sessions
 and identity policies.
+
+Sessions stage IFC triples in memory by default. For a model that does not fit
+comfortably in the JVM heap, construct the session with
+`new ConversionSession(ConversionSession.Storage.TDB2)` instead.
 
 ## Find more examples and API details
 

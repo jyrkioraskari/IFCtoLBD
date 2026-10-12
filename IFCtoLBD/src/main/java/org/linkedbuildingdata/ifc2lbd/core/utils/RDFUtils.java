@@ -10,10 +10,10 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import org.apache.jena.query.Dataset;
 import org.apache.jena.rdf.model.Model;
@@ -246,17 +246,29 @@ public abstract class RDFUtils {
      *            A Jena model where the triples are copied to
      */
     public static void copyTriples(int level, RDFNode r, Model output_model) {
+		copyTriples(level, r, output_model, new HashSet<>());
+	}
+
+	private static void copyTriples(int level, RDFNode r, Model output_model, Set<RDFNode> visited) {
         if (level > 4)
             return;
         if (!r.isResource())
             return;
-        r.asResource().listProperties().forEachRemaining(s -> {
-            // No ontology
-            if (!s.getPredicate().asResource().getURI().startsWith("http://www.w3.org/2000/01/rdf-schema#")) {
-                output_model.add(s);
-                copyTriples(level + 1, s.getObject(), output_model);
-            }
-        });
+		if (!visited.add(r))
+			return;
+		try {
+			r.asResource().listProperties().forEachRemaining(s -> {
+				// No ontology
+				if (!s.getPredicate().asResource().getURI().startsWith("http://www.w3.org/2000/01/rdf-schema#")) {
+					output_model.add(s);
+					copyTriples(level + 1, s.getObject(), output_model, visited);
+				}
+			});
+		} finally {
+			// Track only the active recursion path. Shared subgraphs must still be
+			// traversed from each branch to preserve the original depth semantics.
+			visited.remove(r);
+		}
     }
 
     /**
@@ -270,23 +282,19 @@ public abstract class RDFUtils {
      * @return the list of found noded at the RDF graoh
      */
     public static List<RDFNode> pathQuery(Resource r, RDFStep[] path) {
-        List<RDFStep> path_list = Arrays.asList(path);
         if (r.getModel() == null)
             return new ArrayList<>();
-        Optional<RDFStep> step = path_list.stream().findFirst();
-        if (step.isPresent()) {
-            List<RDFNode> step_result = step.get().next(r);
-            if (path.length > 1) {
-                final List<RDFNode> result = new ArrayList<>();
-                step_result.stream().filter(RDFNode::isResource).map(RDFNode::asResource).forEach(r1 -> {
-                    List<RDFStep> tail = path_list.stream().skip(1).collect(Collectors.toList());
-                    result.addAll(pathQuery(r1, tail.toArray(new RDFStep[tail.size()])));
-                });
-                return result;
-            }
-			return step_result;
-        }
-        return new ArrayList<>();
+		List<RDFNode> frontier = new ArrayList<>(1);
+		frontier.add(r);
+		for (RDFStep step : path) {
+			List<RDFNode> next = new ArrayList<>();
+			for (RDFNode node : frontier) {
+				if (node.isResource()) next.addAll(step.next(node.asResource()));
+			}
+			if (next.isEmpty()) return next;
+			frontier = next;
+		}
+		return frontier;
     }
 
     /**
@@ -301,8 +309,10 @@ public abstract class RDFUtils {
      *         at the graph.
      */
     public static Optional<Resource> getType(Resource r) {
-        RDFStep[] path = { new RDFStep(RDF.type) };
-        return RDFUtils.pathQuery(r, path).stream().map(RDFNode::asResource).findAny();
+		var statement = r.getProperty(RDF.type);
+		return statement != null && statement.getObject().isResource()
+				? Optional.of(statement.getResource())
+				: Optional.empty();
     }
 
     

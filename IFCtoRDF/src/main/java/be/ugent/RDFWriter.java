@@ -131,6 +131,8 @@ public class RDFWriter {
 	private final Map<String, OntResource> ontResourceCache = new HashMap<>(2048);
 	private final Map<String, String> xsdTypeCache = new HashMap<>(2048);
 	private final Map<String, OntResource> listContentTypeCache = new HashMap<>(2048);
+	private final Map<String, Map<String, OntResource>> enumIndividualsByLabel = new HashMap<>();
+	private final Map<String, Boolean> skippedTypeCache = new HashMap<>();
 
 	//private boolean removeDuplicates = false;
 	private final boolean hasPerformanceBoost;
@@ -756,16 +758,30 @@ public class RDFWriter {
 
 	private void addEnumProperty(Resource r, Property p, OntResource range, String literalString)  {
 		String enumValue = normalizeEnumValue(literalString);
-		for (ExtendedIterator<? extends OntResource> instances = range.asClass().listInstances(); instances
-				.hasNext();) {
-			OntResource rangeInstance = instances.next();
-			if (rangeInstance.getProperty(RDFS.label) != null
-					&& rangeInstance.getProperty(RDFS.label).getString().equalsIgnoreCase(enumValue)) {
-				ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), rangeInstance.asNode()));
-				return;
-			}
+		String rangeKey = range.getURI() == null ? range.toString() : range.getURI();
+		Map<String, OntResource> individuals = enumIndividualsByLabel.computeIfAbsent(rangeKey,
+				ignored -> enumIndividuals(range));
+		OntResource rangeInstance = individuals.get(enumValue.toLowerCase(Locale.ROOT));
+		if (rangeInstance != null) {
+			ttlWriter.triple(Triple.create(r.asNode(), p.asNode(), rangeInstance.asNode()));
+			return;
 		}
 		LOG.warn("*WARNING*: did not find ENUM individual for " + literalString + " (normalized: " + enumValue + ")");
+	}
+
+	private static Map<String, OntResource> enumIndividuals(OntResource range) {
+		Map<String, OntResource> result = new HashMap<>();
+		ExtendedIterator<? extends OntResource> instances = range.asClass().listInstances();
+		try {
+			while (instances.hasNext()) {
+				OntResource individual = instances.next();
+				var label = individual.getProperty(RDFS.label);
+				if (label != null) result.putIfAbsent(label.getString().toLowerCase(Locale.ROOT), individual);
+			}
+		} finally {
+			instances.close();
+		}
+		return result;
 	}
 
 	private static String normalizeEnumValue(String value) {
@@ -1056,6 +1072,7 @@ public class RDFWriter {
 
 	// HELPER METHODS
 	private static String filterExtras(String txt) {
+		if (txt.indexOf('\'') < 0 && txt.indexOf('=') < 0) return txt;
 		StringBuilder sb = new StringBuilder();
 		int length = txt.length();
 		for (int n = 0; n < length; n++) {
@@ -1071,6 +1088,7 @@ public class RDFWriter {
 	}
 
 	private static String filterPoints(String txt) {
+		if (txt.indexOf('.') < 0) return txt;
 		StringBuilder sb = new StringBuilder();
 		int length = txt.length();
 		for (int n = 0; n < length; n++) {
@@ -1203,13 +1221,10 @@ public class RDFWriter {
 	}
 
 	private boolean shouldSkipInstance(String typeName) {
-		if ("IFCOWNERHISTORY".equalsIgnoreCase(typeName)) {
-			return true;
-		}
-		if (!filterGeometry) {
-			return false;
-		}
-		return FILTERED_GEOMETRY_TYPES.contains(typeName.toUpperCase(Locale.ROOT));
+		return skippedTypeCache.computeIfAbsent(typeName, value -> {
+			if ("IFCOWNERHISTORY".equalsIgnoreCase(value)) return true;
+			return filterGeometry && FILTERED_GEOMETRY_TYPES.contains(value.toUpperCase(Locale.ROOT));
+		});
 	}
 
 	private boolean shouldSkipParsedEntry(IFCVO ifcLineEntry) {

@@ -123,6 +123,10 @@ The native executable needs no separate Java installation. A conversion is:
 .\IFCtoLBDConverter_CLI.exe --url https://example.com/building/ --target_file output.ttl model.ifc
 ```
 
+The converter uses fast in-memory staging by default. For an IFC model that is
+too large for the configured JVM heap, add `--staging=TDB2` to use a temporary
+disk-backed graph instead.
+
 Replace `model.ifc` with your input path. The command reads and converts the
 model; there are no **Read IFC** or **Run** buttons. Continue with
 [using the generated triples](using-triples.md) once conversion finishes.

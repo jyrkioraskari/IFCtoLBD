@@ -43,12 +43,10 @@ public final class SemanticOutputAudit {
 	private SemanticOutputAudit() { }
 
 	public static Result audit(Model... models) {
-		List<Statement> statements = new ArrayList<>();
 		Set<String> objectProperties = new HashSet<>();
 		Set<String> datatypeProperties = new HashSet<>();
 		for (Model model : models) {
 			model.listStatements().forEachRemaining(statement -> {
-				statements.add(statement);
 				if (statement.getPredicate().equals(RDF.type) && statement.getSubject().isURIResource()
 						&& statement.getObject().isResource()) {
 					String uri = statement.getSubject().getURI();
@@ -60,31 +58,38 @@ public final class SemanticOutputAudit {
 
 		List<Finding> findings = new ArrayList<>();
 		Set<String> usedPredicates = new LinkedHashSet<>();
+		Map<String, Statement> firstUseByPredicate = new HashMap<>();
 		Map<String, Set<String>> literalValues = new HashMap<>();
-		for (Statement statement : statements) {
-			String predicate = statement.getPredicate().getURI();
-			usedPredicates.add(predicate);
-			if (datatypeProperties.contains(predicate) && statement.getObject().isResource()) {
-				findings.add(finding(Severity.ERROR, "DATATYPE_PROPERTY_RESOURCE",
-						"Datatype property is used with a resource object", statement));
-			}
-			if (objectProperties.contains(predicate) && statement.getObject().isLiteral()) {
-				findings.add(finding(Severity.ERROR, "OBJECT_PROPERTY_LITERAL",
-						"Object property is used with a literal object", statement));
-			}
-			if (statement.getObject().isLiteral()) {
-				checkNumericLiteral(statement, findings);
-				if (isSingleValuePredicate(predicate)) {
-					String key = statement.getSubject().toString() + "\u0000" + predicate;
-					literalValues.computeIfAbsent(key, ignored -> new LinkedHashSet<>())
-							.add(statement.getLiteral().toString());
+		Set<Resource> currentStates = new HashSet<>();
+		for (Model model : models) {
+			model.listStatements().forEachRemaining(statement -> {
+				String predicate = statement.getPredicate().getURI();
+				usedPredicates.add(predicate);
+				firstUseByPredicate.putIfAbsent(predicate, statement);
+				if (datatypeProperties.contains(predicate) && statement.getObject().isResource()) {
+					findings.add(finding(Severity.ERROR, "DATATYPE_PROPERTY_RESOURCE",
+							"Datatype property is used with a resource object", statement));
 				}
-			}
+				if (objectProperties.contains(predicate) && statement.getObject().isLiteral()) {
+					findings.add(finding(Severity.ERROR, "OBJECT_PROPERTY_LITERAL",
+							"Object property is used with a literal object", statement));
+				}
+				if (statement.getObject().isLiteral()) {
+					checkNumericLiteral(statement, findings);
+					if (isSingleValuePredicate(predicate)) {
+						String key = statement.getSubject().toString() + "\u0000" + predicate;
+						literalValues.computeIfAbsent(key, ignored -> new LinkedHashSet<>())
+								.add(statement.getLiteral().toString());
+					}
+				}
+				if (statement.getPredicate().equals(RDF.type) && statement.getObject().equals(OPM.currentPropertyState))
+					currentStates.add(statement.getSubject());
+			});
 		}
 
 		for (String predicate : usedPredicates) {
 			if (isOwned(predicate) && !objectProperties.contains(predicate) && !datatypeProperties.contains(predicate)) {
-				Statement use = statements.stream().filter(s -> s.getPredicate().getURI().equals(predicate)).findFirst().orElse(null);
+				Statement use = firstUseByPredicate.get(predicate);
 				if (use != null) findings.add(finding(Severity.WARNING, "UNDECLARED_GENERATED_PREDICATE",
 						"Converter-owned predicate has no object/datatype property declaration", use));
 			}
@@ -104,7 +109,7 @@ public final class SemanticOutputAudit {
 						ResourceFactorySupport.property(key.substring(split + 1)), null));
 			}
 		});
-		checkCurrentStates(statements, findings);
+		checkCurrentStates(models, currentStates, findings);
 
 		Model report = report(findings);
 		int warnings = (int) findings.stream().filter(f -> f.severity() == Severity.WARNING).count();
@@ -130,19 +135,15 @@ public final class SemanticOutputAudit {
 		}
 	}
 
-	private static void checkCurrentStates(List<Statement> statements, List<Finding> findings) {
-		Set<Resource> currentStates = new HashSet<>();
-		for (Statement statement : statements) {
-			if (statement.getPredicate().equals(RDF.type) && statement.getObject().equals(OPM.currentPropertyState))
-				currentStates.add(statement.getSubject());
-		}
+	private static void checkCurrentStates(Model[] models, Set<Resource> currentStates, List<Finding> findings) {
 		Map<Resource, Set<Resource>> activeByProperty = new HashMap<>();
-		for (Statement statement : statements) {
-			if (statement.getPredicate().equals(OPM.hasPropertyState) && statement.getObject().isResource()
-					&& currentStates.contains(statement.getResource())) {
-				activeByProperty.computeIfAbsent(statement.getSubject(), ignored -> new HashSet<>())
-						.add(statement.getResource());
-			}
+		for (Model model : models) {
+			model.listStatements(null, OPM.hasPropertyState, (RDFNode) null).forEachRemaining(statement -> {
+				if (statement.getObject().isResource() && currentStates.contains(statement.getResource())) {
+					activeByProperty.computeIfAbsent(statement.getSubject(), ignored -> new HashSet<>())
+							.add(statement.getResource());
+				}
+			});
 		}
 		activeByProperty.forEach((property, states) -> {
 			if (states.size() > 1) findings.add(new Finding(Severity.WARNING, "MULTIPLE_CURRENT_STATES",

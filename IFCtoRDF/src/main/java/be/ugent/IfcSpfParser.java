@@ -124,7 +124,7 @@ class IfcSpfParser {
 					listStack.push(current);
 					List<Object> tmp = new ArrayList<>();
 					if (!sb.toString().trim().isEmpty())
-						current.add(sb.toString().trim());
+						current.add(IfcStepStringDecoder.decode(sb.toString().trim()));
 					sb.setLength(0);
 					current.add(tmp);
 					current = tmp;
@@ -132,19 +132,19 @@ class IfcSpfParser {
 				} else if (ch == ')') {
 					if (clCount == 0) {
 						if (!sb.toString().trim().isEmpty())
-							current.add(sb.toString().trim());
+							current.add(IfcStepStringDecoder.decode(sb.toString().trim()));
 						sb.setLength(0);
 						state = Integer.MAX_VALUE;
 					} else {
 						if (!sb.toString().trim().isEmpty())
-							current.add(sb.toString().trim());
+							current.add(IfcStepStringDecoder.decode(sb.toString().trim()));
 						sb.setLength(0);
 						clCount--;
 						current = listStack.pop();
 					}
 				} else if (ch == ',') {
 					if (!sb.toString().trim().isEmpty())
-						current.add(sb.toString().trim());
+						current.add(IfcStepStringDecoder.decode(sb.toString().trim()));
 					current.add(Character.valueOf(ch));
 					sb.setLength(0);
 				} else {

@@ -130,6 +130,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = "--naming-strategy", description = "IRI strategy: ${COMPLETION-CANDIDATES}")
 	private Optional<ConversionProperties.NamingStrategy> namingStrategy;
 
+	@Option(names = "--staging", description = "Intermediate graph store: ${COMPLETION-CANDIDATES}")
+	private Optional<ConversionSession.Storage> staging;
+
 	@Option(names = { "--hasSimpleProperties" }, arity = "0..1", fallbackValue = "true", description = "Simplified property predicates are used.")
 	private Optional<Boolean> hasSimpleProperties;
 
@@ -203,8 +206,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				+ (namedGraphs.orElse(false) ? ".trig" : exportJSON.orElse(false) ? ".jsonld" : ".ttl"));
 		System.out.println("Target is: " + outputFile);
 		if (previousIfc.isPresent()) return compareRevisions(ifcFile, Path.of(outputFile));
-		try (IFCtoLBDConverter converter = new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
-				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1))) {
+		try (ConversionSession session = new ConversionSession(staging.orElse(ConversionSession.Storage.MEMORY));
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, uriBase.orElse("https://lbd.example.com/"),
+						hasPropertiesBlankNodes.orElse(false), props_level.orElse(1))) {
 			try (ConversionResult result = converter.convert(createRequest(ifcFile));
 					OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
 				if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
@@ -235,8 +239,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		}
 		File previous = previousIfc.orElseThrow().toFile();
 		if (!previous.isFile()) throw new IllegalArgumentException("Cannot read earlier IFC file: " + previous);
-		try (IFCtoLBDConverter oldConverter = newConverter();
-				IFCtoLBDConverter newConverter = newConverter();
+		try (ConversionSession oldSession = new ConversionSession(staging.orElse(ConversionSession.Storage.MEMORY));
+				ConversionSession newSession = new ConversionSession(staging.orElse(ConversionSession.Storage.MEMORY));
+				IFCtoLBDConverter oldConverter = new IFCtoLBDConverter(oldSession,
+						uriBase.orElse("https://lbd.example.com/"), hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
+				IFCtoLBDConverter newConverter = new IFCtoLBDConverter(newSession,
+						uriBase.orElse("https://lbd.example.com/"), hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
 				ConversionResult oldResult = oldConverter.convert(createRequest(previous));
 				ConversionResult newResult = newConverter.convert(createRequest(currentIfc));
 				ConversionDiff diff = new RevisionComparator().compare(oldResult, newResult);
@@ -247,11 +255,6 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 					+ diff.getRemovedCount() + " removed statements.");
 		}
 		return 0;
-	}
-
-	private IFCtoLBDConverter newConverter() {
-		return new IFCtoLBDConverter(uriBase.orElse("https://lbd.example.com/"),
-				hasPropertiesBlankNodes.orElse(false), props_level.orElse(1));
 	}
 
 	private void runSavedQuery(Model model) throws Exception {

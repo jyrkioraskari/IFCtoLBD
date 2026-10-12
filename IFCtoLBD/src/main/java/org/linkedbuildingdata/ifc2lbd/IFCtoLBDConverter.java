@@ -69,6 +69,7 @@ import de.rwth_aachen.dc.lbd.IFCGeometry;
  */
 
 public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoCloseable {
+	private volatile ConversionTimings lastTimings;
 	public static final String DEFAULT_BASE_URI = "https://dot.dc.rwth-aachen.de/IFCtoLBDset#";
 	private static final String SUPPORTED_SCHEMA_MESSAGE =
 			"IFC2X3_FINAL, IFC2X3_TC1, IFC4_ADD1, IFC4_ADD2, IFC4, IFC4x1, IFC4x3_RC1";
@@ -370,6 +371,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	 * converter's mutable models.
 	 */
 	public ConversionResult convert(ConversionRequest request) {
+		long totalStarted = System.nanoTime();
 		Objects.requireNonNull(request, "request");
 		this.target_file = request.getTargetFile().orElse(null);
 		List<ConversionModule> modules = request.getProfile().map(ConversionProfile::modules).orElse(List.of());
@@ -388,10 +390,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		} else {
 			uriPolicy = conversionSession.getUriPolicy();
 		}
+		long phaseStarted = System.nanoTime();
 		Model model = convert(request.getIfcFilename(), request.getProperties(), uriPolicy);
+		long coreMillis = elapsedMillis(phaseStarted);
 		if (model == null) {
 			throw new IllegalStateException("IFC conversion failed for " + request.getIfcFilename());
 		}
+		phaseStarted = System.nanoTime();
 		var stagingDataset = getStagingDataset();
 		stagingDataset.begin(org.apache.jena.query.ReadWrite.READ);
 		try {
@@ -403,11 +408,17 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		} finally {
 			stagingDataset.end();
 		}
+		long modulesMillis = elapsedMillis(phaseStarted);
+		phaseStarted = System.nanoTime();
 		ValidationStage.Result validation = ValidationStage.validate(request, context.validationResources(),
 				this.lbd_general_output_model,
 				this.lbd_product_output_model, this.lbd_property_output_model);
+		long validationMillis = elapsedMillis(phaseStarted);
+		phaseStarted = System.nanoTime();
 		SemanticOutputAudit.Result audit = SemanticOutputAudit.audit(this.lbd_general_output_model,
 				this.lbd_product_output_model, this.lbd_property_output_model);
+		long auditMillis = elapsedMillis(phaseStarted);
+		phaseStarted = System.nanoTime();
 		ConversionManifest.Created manifest = ConversionManifest.create(request, conversionSession.now(), validation, audit, getUriPolicy(),
 				conversionSession.getGeometryProvider(), conversionSession.getGeometryArtifactStore(),
 				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies());
@@ -417,8 +428,20 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		// results keep each statement in exactly one physical graph.
 		this.lbd_general_output_model.remove(this.lbd_product_output_model);
 		this.lbd_general_output_model.remove(this.lbd_property_output_model);
-		return ConversionResult.of(this.lbd_general_output_model, this.lbd_product_output_model,
+		ConversionResult result = ConversionResult.of(this.lbd_general_output_model, this.lbd_product_output_model,
 				this.lbd_property_output_model, manifest.model(), validationAndAudit, manifest.graphNames());
+		lastTimings = new ConversionTimings(coreMillis, modulesMillis, validationMillis, auditMillis,
+				elapsedMillis(phaseStarted), elapsedMillis(totalStarted));
+		return result;
+	}
+
+	/** Timings for the last successfully completed structured conversion. */
+	public Optional<ConversionTimings> getLastTimings() {
+		return Optional.ofNullable(lastTimings);
+	}
+
+	private static long elapsedMillis(long startedNanos) {
+		return (System.nanoTime() - startedNanos) / 1_000_000;
 	}
 
 	/**

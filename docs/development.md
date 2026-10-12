@@ -166,6 +166,12 @@ Start in `IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2lbd`:
 geometry and resource identity. Close results, converters, and any sessions you
 own after use; copy or serialize data you need to retain first.
 
+Conversion sessions use a transactional in-memory staging graph by default. This
+avoids TDB2 index and memory-mapping overhead for ordinary models. Applications
+that convert models larger than their available JVM heap can select the
+disk-backed store explicitly with `new ConversionSession(ConversionSession.Storage.TDB2)`.
+Do not share either kind of session between concurrent conversions.
+
 ## Make your first extension
 
 Choose one concrete IFC example and state the triple or behavior you want to
