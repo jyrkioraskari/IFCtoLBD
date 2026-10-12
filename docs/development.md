@@ -23,6 +23,26 @@ artifacts into your local Maven repository. You do not need to build each
 module manually. The first build needs access to dependency repositories.
 Use `./mvnw verify` if you want to build and check without installing artifacts.
 
+Before tagging a source release, run the same gates used by CI:
+
+```sh
+node .github/scripts/check-version-consistency.cjs
+node .github/scripts/check-doc-links.cjs
+./mvnw install
+./mvnw verify -Pintegration
+./mvnw -pl IFCtoLBD -am -P release -DskipTests package
+npm --prefix IFCtoLBD_MCP ci
+npm --prefix IFCtoLBD_MCP run check
+npm --prefix IFCtoLBD_MCP run test:integration
+npm --prefix IFCtoLBD_MCP run smoke
+```
+
+The `release` profile builds the converter, source, and Javadoc artifacts for
+inspection; it does not publish them. Publishing is a separate credentialed
+operation. The configured Maven deployment target is GitHub Packages. Do not
+restore the retired `oss.sonatype.org` staging endpoint; Maven Central now uses
+the Central Publisher Portal.
+
 For only the converter and its required modules:
 
 ```sh

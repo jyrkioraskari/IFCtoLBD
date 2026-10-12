@@ -364,7 +364,6 @@ public class ConverterRunsUnitTests {
 
 			IFCtoLBDConverter c3nb2 = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", true, 3);
 			Model m3nb2 = c3nb2.convert(ifc_file.getAbsolutePath());
-			m3nb2.write(System.out, "TTL");
 			ImmutableList<Resource> subjectList52 = ImmutableList.copyOf(m3nb2.listSubjects());
 
 			assertFalse(subjectList52.isEmpty());
@@ -452,7 +451,6 @@ public class ConverterRunsUnitTests {
 					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
 			// m1nb.removeAll();
-			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
 
 			File rule1_file = new File(rule_file_url.toURI());
@@ -488,7 +486,6 @@ public class ConverterRunsUnitTests {
 			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
 					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
-			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
 
 			File rule1_file = new File(rule_file_url.toURI());
@@ -524,7 +521,6 @@ public class ConverterRunsUnitTests {
 			IFCtoLBDConverter c1nb = new IFCtoLBDConverter("https://dot.dc.rwth-aachen.de/IFCtoLBDset#", false,
 					Integer.valueOf(1));
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath());
-			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
 
 			File rule1_file = new File(rule_file_url.toURI());
@@ -617,7 +613,6 @@ public class ConverterRunsUnitTests {
 			ConversionProperties props = new ConversionProperties();
 			props.setHasGeometry(true);
 			Model m1nb = c1nb.convert(ifc_file.getAbsolutePath(), props);
-			m1nb.write(System.out, "TTL");
 			Graph graph_m1nb = m1nb.getGraph();
 
 			File rule1_file = new File(rule_file_url.toURI());

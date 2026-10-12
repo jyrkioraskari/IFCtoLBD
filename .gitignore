@@ -46,6 +46,9 @@ IFCtoLBD_NodeJS/node_modules/*
 /ifc-to-lbd-scala/target
 .codex
 /IFCtoLBD_MCP/.tools
-*/target
-/IFCtoLBD/target
-/IFCtoLBD/target
+/.m2/
+/.tools/
+**/target/
+**/__pycache__/
+*.py[cod]
+/IFCProps2ExcelOnline/src/main/frontend/generated/

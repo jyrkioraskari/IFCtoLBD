@@ -14,6 +14,13 @@ The source ZIP checksum is
 `40d941301828112b4cab778f22a87c0b25bd7a260b36af306159a534299c1ee7`
 (SHA-256). Of its 760 XML files, 645 are property/quantity-set definitions;
 the compact index contains those 645 class rows plus 3,642 set/property rows.
+
+The formal IFC4.3 publication is licensed under CC BY-ND 4.0. Copyright
+1996-2026 buildingSMART International Limited. The upstream notice permits use
+in software development and translation into another computer language with
+full attribution. See the repository-level `THIRD_PARTY_PROVENANCE.md` for the
+source, transformation, trademark notice, and licence links.
+
 Comment lines begin with `#`; data rows are:
 
 ```text

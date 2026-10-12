@@ -24,6 +24,8 @@
 		<log4j2.core.version>3.0.0-beta2</log4j2.core.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
 		<slf4j.version>2.0.17</slf4j.version>
+		<maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
+		<guava.version>33.7.2-jre</guava.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -105,7 +107,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>[30.0-jre,)</version>
+			<version>${guava.version}</version>
 			<!-- URL for the Google Guava project:
 			https://github.com/google/guava -->
 			<!-- Guava is a set of core Java libraries that include new
@@ -119,6 +121,15 @@
 			<groupId>org.opensourcebim</groupId>
 			<artifactId>ifcplugins</artifactId>
 			<version>0.0.102</version>
+			<exclusions>
+				<!-- pluginbase supplies the newer javax.annotation API used by the
+				     converter. Keeping both copies creates duplicate classes in the
+				     shaded distribution. -->
+				<exclusion>
+					<groupId>javax.annotation</groupId>
+					<artifactId>jsr250-api</artifactId>
+				</exclusion>
+			</exclusions>
 			<!-- URL for the IFC Plugins project:
 			https://github.com/opensourceBIM/IfcPlugins -->
 			<!-- IFC Plugins provide serialization and deserialization for IFC
@@ -132,6 +143,20 @@
 			<artifactId>pluginbase</artifactId>
 			<version>1.5.184</version>
 			<exclusions>
+				<!-- buildingsmartlibrary declares antlr-complete, an uber JAR that
+				     duplicates ANTLR 2/3, StringTemplate, gUnit, JUnit, and Hamcrest.
+				     Its generated EXPRESS parser only uses the ANTLR 2 runtime, which
+				     is declared explicitly below. -->
+				<exclusion>
+					<groupId>org.antlr</groupId>
+					<artifactId>antlr-complete</artifactId>
+				</exclusion>
+				<!-- Route Commons Logging through the existing SLF4J bridge instead
+				     of packaging two implementations of the same API. -->
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
         </exclusions>
 
 			<!-- URL for the PluginBase project:
@@ -139,6 +164,12 @@
 			<!-- PluginBase is a foundational library for developing BIMserver
 			plugins,  providing essential functionalities and structures for plugin 
 			development. -->
+		</dependency>
+
+		<dependency>
+			<groupId>antlr</groupId>
+			<artifactId>antlr</artifactId>
+			<version>2.7.7</version>
 		</dependency>
 
 		<!-- Dependency for Apache Commons Lang library -->
@@ -160,6 +191,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
 				<configuration><proc>none</proc></configuration>
 			</plugin>
 			<plugin>

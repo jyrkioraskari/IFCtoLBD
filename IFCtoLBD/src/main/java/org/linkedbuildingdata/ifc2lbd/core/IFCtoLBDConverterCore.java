@@ -1712,8 +1712,7 @@ public abstract class IFCtoLBDConverterCore {
 	 * @param isTmpFile  if the output is written to a temporary file.
 	 * @param targetFile if not a temporary file, the absolute filename of the
 	 *                   conversion result
-	 * @return the Jena Model that contains the ifcOWL attribute value (Abox)
-	 *         output.
+	 * @param hasPerformanceBoost whether to enable the faster streaming parser
 	 */
 	public void readAndConvertIFC2ifcOWL(String ifc_file, String uriBase, boolean isTmpFile, String targetFile,
 			boolean hasPerformanceBoost) {
@@ -1978,9 +1977,9 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	/**
-	 * Sets the element types that are included in the output
+	 * Sets the property sets that are included in the output
 	 * 
-	 * @param selected_types list of types
+	 * @param selected_psets list of property-set names
 	 */
 	public void setSelected_psets(Set<String> selected_psets) {
 		this.selected_psets = Set.copyOf(selected_psets);

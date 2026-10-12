@@ -1,0 +1,44 @@
+# Third-party source provenance
+
+This file records source material copied, extracted, or transformed into files
+distributed by this repository. Dependency licence reports remain in the
+module-specific `THIRD-PARTY` files.
+
+## Building Topology Ontology 0.3.2
+
+- Upstream project: W3C Linked Building Data Community Group, Building
+  Topology Ontology (BOT), <https://github.com/w3c-lbd-cg/bot>
+- Upstream version: 0.3.2, version IRI <https://w3id.org/bot-0.3.2>
+- Source file: `bot.ttl`
+- Destination: `IFCtoLBD/src/main/resources/bot.ttl`
+- Use: bundled unchanged as an ontology resource for ICDD exports
+- Licence and attribution: Creative Commons Attribution 1.0; the destination
+  file retains the upstream copyright, licence declaration, creators, and
+  contributors
+
+## buildingSMART IFC4X3_ADD2 property and quantity definitions
+
+- Upstream publisher: buildingSMART International
+- Upstream publication: IFC 4.3.2.0 (IFC4X3_ADD2), official property-set
+  definition archive,
+  <https://standards.buildingsmart.org/IFC/DEV/IFC4_3/HTML/annex-a-psd.zip>
+- Source archive SHA-256:
+  `40d941301828112b4cab778f22a87c0b25bd7a260b36af306159a534299c1ee7`
+- Source material: 645 property-set and quantity-set XML definitions from the
+  760-file archive
+- Destination: `IFCtoLBD/src/main/resources/ifc-bsdd/ifc-4.3-add2.tsv.gz`
+- Transformation: extracted set names, property names, and their canonical
+  buildingSMART identifier URIs into a compact, deterministic TSV index; no
+  descriptions or prose definitions are included
+- Use: offline resolution of official IFC property and quantity identifiers
+- Licence and attribution: the formal IFC4.3 release is published under
+  Creative Commons Attribution-NoDerivatives 4.0 International. The upstream
+  copyright notice explicitly permits use in software development and
+  translation into another computer language when full attribution is given.
+  Copyright 1996-2026 buildingSMART International Limited. IFC and Industry
+  Foundation Class are buildingSMART trademarks. See
+  <https://github.com/buildingSMART/IFC4.x-development/blob/ifc4.3-main/LICENSE.md>
+  and <https://creativecommons.org/licenses/by-nd/4.0/>.
+
+The extraction format and checksum are also documented in
+`IFCtoLBD/src/main/resources/ifc-bsdd/README.md`.

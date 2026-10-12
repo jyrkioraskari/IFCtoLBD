@@ -17,9 +17,6 @@
 		</developer>
 	</developers>
 
-	<prerequisites>
-		<maven>3</maven>
-	</prerequisites>
 	<properties>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -30,6 +27,26 @@
 	<build>
 		<finalName>IFCtoLBD_OpenAPI</finalName>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.6.3</version>
+				<executions>
+					<execution>
+						<id>enforce-maven-version</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>[3.6.3,)</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>

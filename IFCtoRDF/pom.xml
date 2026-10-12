@@ -137,11 +137,30 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.0.0</version>
+				<version>3.6.1</version>
 				<configuration>
 					<shadedArtifactAttached>true</shadedArtifactAttached>
 					<shadedClassifierName>shaded</shadedClassifierName>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<!-- An uber JAR is not a JPMS module. Retaining dependency
+								     descriptors produces duplicate classes and invalid module
+								     metadata. -->
+								<exclude>module-info.class</exclude>
+								<exclude>META-INF/versions/*/module-info.class</exclude>
+								<exclude>META-INF/MANIFEST.MF</exclude>
+								<exclude>META-INF/DEPENDENCIES</exclude>
+							</excludes>
+						</filter>
+					</filters>
 					<transformers>
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ApacheLicenseResourceTransformer" />
+						<transformer
+							implementation="org.apache.maven.plugins.shade.resource.ApacheNoticeResourceTransformer" />
 						<transformer
 							implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer" />
 					</transformers>

@@ -102,7 +102,7 @@ public abstract class RDFUtils {
         System.out.println("Write RDF target file is: "+target_file);
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
-	        	  try (FileOutputStream fo = new FileOutputStream(prepareTargetFile(target_file))){
+		try (FileOutputStream fo = new FileOutputStream(prepareTargetFile(target_file))){
         		  RDFDataMgr.write(fo, m, RDFFormat.JSONLD11_PRETTY);
               } catch (IOException e1) {
       			e1.printStackTrace();
