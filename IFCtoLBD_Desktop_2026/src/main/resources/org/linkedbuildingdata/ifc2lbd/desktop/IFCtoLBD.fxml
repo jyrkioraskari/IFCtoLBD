@@ -10,12 +10,16 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.TreeView?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -81,7 +85,7 @@
                   <items>
                     <VBox prefWidth="390.0" spacing="12.0" styleClass="left-rail">
                       <children>
-                        <TabPane styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
+                        <TabPane fx:id="workflowTabs" styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
                           <tabs>
                             <Tab text="Basic workflow">
                               <content>
@@ -116,14 +120,14 @@
                                     <TextField fx:id="labelTargetFile" editable="true" maxWidth="Infinity" promptText="Output LBD file path" styleClass="target-label" text="Target path will be generated after input selection" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="convert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                     <ChoiceBox fx:id="outputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label maxWidth="Infinity" styleClass="workflow-step-label" text="6  Test" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                                    <HBox alignment="CENTER_LEFT" spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <Label maxWidth="Infinity" styleClass="workflow-step-label, workflow-explore-label" text="6  Explore" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                    <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                       <children>
-                                        <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
-                                        <Button fx:id="validateWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
-                                        <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Geometry" />
+                                        <Button fx:id="validateWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Validate" />
+                                        <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Query" />
                                       </children>
-                                    </HBox>
+                                    </VBox>
                                     <Button fx:id="copyCommandLineButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#copyCommandLine" styleClass="workflow-button" text="7  Copy command line" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                                   </children>
                                 </GridPane>
@@ -131,24 +135,104 @@
                             </Tab>
                           </tabs>
                         </TabPane>
+                        <VBox spacing="5.0" styleClass="reactive-preview-card">
+                          <children>
+                            <Label fx:id="generatedResultsStatusLabel" managed="false" maxWidth="Infinity" styleClass="generated-results-status" text="Generated results are current." visible="false" wrapText="true" />
+                            <VBox fx:id="proposedOutputSection" spacing="5.0">
+                              <children>
+                                <Label styleClass="preview-heading" text="Proposed output" />
+                                <Label fx:id="proposedFilenamesLabel" maxWidth="Infinity" styleClass="preview-value" text="Select an IFC file and output path." wrapText="true" />
+                              </children>
+                            </VBox>
+                            <VBox fx:id="commandLinePreviewSection" spacing="5.0">
+                              <children>
+                                <Label styleClass="preview-heading" text="Command-line preview" />
+                                <TextArea fx:id="commandLinePreviewTxt" editable="false" focusTraversable="false" maxHeight="112.0" minHeight="72.0" prefHeight="97.0" promptText="The equivalent command appears here." wrapText="true" />
+                              </children>
+                            </VBox>
+                          </children>
+                        </VBox>
+                        <VBox fx:id="workflowStatusCard" managed="false" spacing="7.0" styleClass="workflow-status-card" visible="false">
+                          <children>
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+                                <Label fx:id="workflowStatusLabel" maxWidth="Infinity" styleClass="workflow-status-label" text="Ready" HBox.hgrow="ALWAYS" />
+                                <Label fx:id="workflowElapsedLabel" styleClass="workflow-elapsed-label" text="00:00" />
+                              </children>
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+                                <ProgressBar fx:id="workflowProgressBar" maxWidth="Infinity" progress="0.0" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="cancelWorkflowButton" disable="true" mnemonicParsing="false" onAction="#cancelWorkflow" styleClass="workflow-cancel-button" text="Cancel" />
+                              </children>
+                            </HBox>
+                          </children>
+                        </VBox>
+                        <TitledPane fx:id="modelSummaryCard" expanded="false" managed="false" maxWidth="Infinity" styleClass="model-summary-card" text="Model Summary" visible="false">
+                          <content>
+                            <VBox spacing="7.0">
+                              <children>
+                                <GridPane hgap="8.0" vgap="5.0" styleClass="model-summary-grid">
+                                  <columnConstraints>
+                                    <ColumnConstraints minWidth="58.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="92.0" />
+                                    <ColumnConstraints minWidth="54.0" />
+                                    <ColumnConstraints hgrow="ALWAYS" minWidth="70.0" />
+                                  </columnConstraints>
+                                  <children>
+                                    <Label styleClass="model-summary-key" text="Schema" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="summarySchemaLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label styleClass="model-summary-key" text="File" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                    <Label fx:id="summaryFileSizeLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="3" GridPane.rowIndex="0" />
+                                    <Label styleClass="model-summary-key" text="Elements" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                                    <Label fx:id="summaryElementsLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label styleClass="model-summary-key" text="Psets" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <Label fx:id="summaryPropertySetsLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                    <Label styleClass="model-summary-key" text="Storeys" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                    <Label fx:id="summaryStoreysLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <Label styleClass="model-summary-key" text="Spaces" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <Label fx:id="summarySpacesLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                    <Label styleClass="model-summary-key" text="Geometry" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                    <Label fx:id="summaryGeometryLabel" styleClass="model-summary-value" text="—" GridPane.columnIndex="1" GridPane.columnSpan="3" GridPane.rowIndex="3" />
+                                  </children>
+                                </GridPane>
+                                <Label styleClass="model-summary-key" text="Major element types" />
+                                <Label fx:id="summaryMajorTypesLabel" maxWidth="Infinity" styleClass="model-summary-detail" text="—" wrapText="true" />
+                                <Label fx:id="summaryWarningsLabel" maxWidth="Infinity" styleClass="model-summary-warning" text="No warnings." wrapText="true" />
+                              </children>
+                            </VBox>
+                          </content>
+                        </TitledPane>
                         <Label styleClass="section-title" text="Conversion Log" />
-                        <TextArea fx:id="conversionTxt" editable="false" minHeight="220.0" prefHeight="260.0" prefWidth="280.0" promptText="Read-in and conversion messages appear here." wrapText="true" VBox.vgrow="ALWAYS" />
+                        <TextArea fx:id="conversionTxt" editable="false" minHeight="90.0" prefHeight="141.0" prefWidth="280.0" promptText="Read-in and conversion messages appear here." wrapText="true" VBox.vgrow="ALWAYS" />
                       </children>
                     </VBox>
 
                     <AnchorPane fx:id="floatingWorkspace" styleClass="free-workspace">
                       <children>
-                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="315.0" prefWidth="560.0" styleClass="floating-card" text="Settings">
+                    <TitledPane fx:id="options_panel" expanded="false" layoutX="14.0" layoutY="14.0" prefHeight="430.0" prefWidth="560.0" styleClass="floating-card" text="Settings">
                           <content>
 		                            <VBox spacing="10.0" styleClass="module-grid">
 	                              <children>
+                                <Label styleClass="section-title" text="Conversion preset" />
+                                <ChoiceBox fx:id="presetChoice" maxWidth="Infinity" />
+                                <HBox spacing="6.0">
+                                  <children>
+                                    <Button mnemonicParsing="false" onAction="#savePreset" styleClass="secondary-button" text="Save" />
+                                    <Button mnemonicParsing="false" onAction="#duplicatePreset" styleClass="secondary-button" text="Duplicate" />
+                                    <Button mnemonicParsing="false" onAction="#importPreset" styleClass="secondary-button" text="Import" />
+                                    <Button mnemonicParsing="false" onAction="#exportPreset" styleClass="secondary-button" text="Export" />
+                                    <Button mnemonicParsing="false" onAction="#deletePreset" styleClass="secondary-button" text="Delete" />
+                                  </children>
+                                </HBox>
+                                <Label fx:id="presetStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="Choose a preset to apply it. Advanced settings remain editable." wrapText="true" />
                                 <GridPane hgap="12.0" vgap="8.0" styleClass="settings-input-row">
                                   <columnConstraints>
                                     <ColumnConstraints minWidth="90.0" prefWidth="110.0" />
                                     <ColumnConstraints hgrow="ALWAYS" minWidth="340.0" />
                                   </columnConstraints>
                                   <children>
-                                    <Label styleClass="field-label" text="Base URI" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <Label fx:id="baseUriLabel" styleClass="field-label" text="Base URI" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                     <CustomTextField fx:id="labelBaseURI" maxWidth="Infinity" promptText="https://example.org/building#" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                   </children>
                                 </GridPane>
@@ -182,7 +266,7 @@
                                         <ToggleSwitch fx:id="building_props" maxWidth="Infinity" selected="true" text="Properties" GridPane.columnIndex="0" GridPane.rowIndex="0" />
                                         <HBox alignment="CENTER_LEFT" spacing="16.0" GridPane.columnIndex="1" GridPane.rowIndex="0">
                                           <children>
-                                            <Label styleClass="field-label" text="Level" />
+                                            <Label fx:id="propertyLevelLabel" styleClass="field-label" text="Level" />
                                             <RadioButton fx:id="level1" mnemonicParsing="false" onMouseClicked="#selectPropertyLevel1" selected="true" text="1">
                                               <toggleGroup>
                                                 <ToggleGroup fx:id="PL" />
@@ -217,7 +301,7 @@
                                       </columnConstraints>
                                       <children>
                                         <ToggleSwitch fx:id="geometry_elements" maxWidth="Infinity" text="Geometry" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                        <ToggleSwitch fx:id="geometry_interfaces" maxWidth="Infinity" text="Candidate interfaces (bounding boxes)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                        <ToggleSwitch fx:id="geometry_interfaces" maxWidth="Infinity" text="Interfaces" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="hasBoundingBox_WKT" maxWidth="Infinity" text="Bounding boxes" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="hasElementWireframe" maxWidth="Infinity" text="Element wireframe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                       </children>
@@ -237,6 +321,7 @@
                                         <ToggleSwitch fx:id="hasPerformanceBoost" maxWidth="Infinity" text="Performance mode" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="ifc_based_elements" maxWidth="Infinity" text="IFC based elements" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="createTrig" maxWidth="Infinity" text="TriG file" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label fx:id="performanceConflictLabel" maxWidth="Infinity" styleClass="dependency-note" text="Performance mode uses a reduced streaming read to save memory. ifcOWL export needs the complete source graph, so selecting ifcOWL turns Performance mode off." wrapText="true" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
                                       </children>
                                     </GridPane>
                                   </content>
@@ -271,9 +356,29 @@
                       </content>
 	                    </TitledPane>
 
-                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="14.0" layoutY="114.0" prefHeight="450.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
+                    <TitledPane fx:id="geometryCard" expanded="false" layoutX="14.0" layoutY="114.0" prefHeight="570.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
-	                        <StackPane fx:id="geometryViewport" minHeight="240.0" prefHeight="320.0" prefWidth="540.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
+                          <VBox spacing="8.0">
+                            <children>
+	                          <StackPane fx:id="geometryViewport" minHeight="220.0" prefHeight="300.0" prefWidth="540.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
+                              <HBox alignment="CENTER_LEFT" spacing="9.0" styleClass="geometry-explode-controls">
+                                <children>
+                                  <Label text="Explode" />
+                                  <Slider fx:id="geometryExplodeSlider" max="100.0" value="0.0" HBox.hgrow="ALWAYS" />
+                                  <Label fx:id="geometryExplodeValueLabel" minWidth="38.0" text="0%" />
+                                </children>
+                              </HBox>
+                              <VBox spacing="3.0" styleClass="object-details-card">
+                                <children>
+                                  <Label fx:id="selectedObjectHeadingLabel" styleClass="object-details-heading" text="Select an object in 3D, SPARQL, validation, or Filters" />
+                                  <Label fx:id="selectedObjectTypeLabel" maxWidth="Infinity" styleClass="object-details-value" text="IFC type: —" wrapText="true" />
+                                  <Label fx:id="selectedObjectGuidLabel" maxWidth="Infinity" styleClass="object-details-value" text="GUID: —" wrapText="true" />
+                                  <Label fx:id="selectedObjectUriLabel" maxWidth="Infinity" styleClass="object-details-uri" text="RDF URI: —" wrapText="true" />
+                                  <TextArea fx:id="selectedObjectPropertiesTxt" editable="false" focusTraversable="false" prefHeight="92.0" promptText="RDF properties appear here." wrapText="true" />
+                                </children>
+                              </VBox>
+                            </children>
+                          </VBox>
 	                      </content>
 	                    </TitledPane>
 
@@ -281,38 +386,86 @@
                       <content>
                         <VBox spacing="9.0">
                           <children>
-                            <Label styleClass="section-title" text="SPARQL Editor" />
-                            <TextArea fx:id="sparqlEditorTxt" prefHeight="185.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                               <children>
-                                <Button fx:id="runSparqlQueryButton" mnemonicParsing="false" onAction="#runSparqlQuery" styleClass="primary-button" text="Run query" />
-                                <Label styleClass="query-status-label" text="Runs against the latest generated RDF output." />
+                                <Label styleClass="section-title" text="SPARQL Editor" />
+                                <ChoiceBox fx:id="sparqlTemplateChoice" prefWidth="205.0" />
                               </children>
                             </HBox>
-                            <Label styleClass="section-title" text="Results" />
-                            <TextArea fx:id="sparqlResultsTxt" editable="false" prefHeight="210.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                            <TextArea fx:id="sparqlEditorTxt" prefHeight="165.0" prefWidth="540.0" wrapText="false" VBox.vgrow="ALWAYS" />
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+								<Button fx:id="runSparqlQueryButton" minWidth="95.0" mnemonicParsing="false" onAction="#runSparqlQuery" styleClass="primary-button" text="Run query" />
+								<Label maxWidth="Infinity" styleClass="query-status-label" text="Click a resource URI or select a row to focus its object." wrapText="true" HBox.hgrow="ALWAYS" />
+                              </children>
+                            </HBox>
+                            <HBox alignment="CENTER_LEFT" spacing="8.0">
+                              <children>
+                                <Label styleClass="section-title" text="Results" />
+                                <Label fx:id="sparqlResultsStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="No query run yet." wrapText="true" HBox.hgrow="ALWAYS" />
+                                <Button fx:id="copySparqlResultsButton" minWidth="85.0" mnemonicParsing="false" onAction="#copySparqlResults" styleClass="secondary-button" text="Copy CSV" />
+                                <Button fx:id="exportSparqlResultsButton" minWidth="95.0" mnemonicParsing="false" onAction="#exportSparqlResults" styleClass="secondary-button" text="Export CSV" />
+                              </children>
+                            </HBox>
+                            <TableView fx:id="sparqlResultsTable" prefHeight="195.0" prefWidth="540.0" styleClass="sparql-results-table" VBox.vgrow="ALWAYS" />
+                            <TextArea fx:id="sparqlResultsTxt" editable="false" managed="false" prefHeight="195.0" prefWidth="540.0" visible="false" wrapText="false" VBox.vgrow="ALWAYS" />
                           </children>
                         </VBox>
                       </content>
                     </TitledPane>
 
-                    <TitledPane fx:id="validateCard" expanded="false" layoutX="14.0" layoutY="214.0" prefHeight="360.0" prefWidth="560.0" styleClass="floating-card" text="Validate">
+                    <TitledPane fx:id="validateCard" expanded="false" layoutX="14.0" layoutY="214.0" prefHeight="540.0" prefWidth="560.0" styleClass="floating-card" text="Validate">
                       <content>
-                        <VBox spacing="9.0">
+                        <VBox spacing="7.0">
                           <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
                               <children>
-                                <Button fx:id="loadShaclButton" mnemonicParsing="false" onAction="#loadShaclShapes" styleClass="primary-button" text="Load SHACL" />
+                                <Button fx:id="loadShaclButton" minWidth="100.0" mnemonicParsing="false" onAction="#loadShaclShapes" styleClass="primary-button" text="Load SHACL" />
                                 <Label fx:id="validateStatusLabel" maxWidth="Infinity" styleClass="query-status-label" text="Loaded SHACL shapes are tested against the latest generated RDF output." wrapText="true" HBox.hgrow="ALWAYS" />
                               </children>
                             </HBox>
-                            <Label styleClass="section-title" text="Shapes" />
-                            <ListView fx:id="shaclShapesList" prefHeight="225.0" prefWidth="540.0" VBox.vgrow="ALWAYS" />
-                            <HBox alignment="CENTER_RIGHT">
-                              <children>
-                                <Button mnemonicParsing="false" onAction="#restoreDefaultShaclShapes" styleClass="secondary-button" text="Restore defaults" />
-                              </children>
-                            </HBox>
+                            <TabPane prefHeight="390.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                              <tabs>
+                                <Tab text="Shapes">
+                                  <content>
+                                    <VBox spacing="7.0">
+                                      <children>
+                                        <ListView fx:id="shaclShapesList" prefHeight="300.0" prefWidth="540.0" VBox.vgrow="ALWAYS" />
+                                        <HBox alignment="CENTER_RIGHT">
+                                          <children>
+                                            <Button mnemonicParsing="false" onAction="#restoreDefaultShaclShapes" styleClass="secondary-button" text="Restore defaults" />
+                                          </children>
+                                        </HBox>
+                                      </children>
+                                    </VBox>
+                                  </content>
+                                </Tab>
+                                <Tab text="Findings">
+                                  <content>
+                                    <VBox spacing="7.0">
+                                      <children>
+                                        <Label fx:id="validationCountsLabel" styleClass="validation-counts" text="0 violations, 0 warnings, 0 info" />
+                                        <HBox alignment="CENTER_LEFT" spacing="7.0">
+                                          <children>
+                                            <ChoiceBox fx:id="validationSeverityFilter" prefWidth="115.0" />
+                                            <ChoiceBox fx:id="validationShapeFilter" prefWidth="170.0" />
+                                            <TextField fx:id="validationObjectFilter" promptText="Filter object / GUID" HBox.hgrow="ALWAYS" />
+                                          </children>
+                                        </HBox>
+                                        <TreeView fx:id="validationFindingsTree" prefHeight="175.0" prefWidth="540.0" VBox.vgrow="ALWAYS" />
+                                        <Label styleClass="section-title" text="Selected finding" />
+                                        <TextArea fx:id="validationInspectorTxt" editable="false" focusTraversable="false" prefHeight="80.0" promptText="Select a finding to inspect its focus node and value." wrapText="true" />
+                                        <HBox alignment="CENTER_RIGHT">
+                                          <children>
+                                            <Button fx:id="validationFocusButton" disable="true" mnemonicParsing="false" onAction="#focusSelectedValidationInGeometry" styleClass="secondary-button" text="Focus in 3D" />
+                                          </children>
+                                        </HBox>
+                                      </children>
+                                    </VBox>
+                                  </content>
+                                </Tab>
+                              </tabs>
+                            </TabPane>
                           </children>
                         </VBox>
                       </content>

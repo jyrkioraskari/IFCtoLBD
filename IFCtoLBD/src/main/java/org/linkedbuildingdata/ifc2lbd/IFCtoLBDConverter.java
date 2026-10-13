@@ -560,9 +560,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	}
 
 	private String target_file;
+	private String loadedExpressSchema;
 
 	public void setTargetFile(String target_file) {
 		this.target_file = target_file;
+	}
+
+	/** Returns the EXPRESS schema detected during the latest successful read-in. */
+	public String getLoadedExpressSchema() {
+		return this.loadedExpressSchema;
 	}
 
 	public void exportExistingOutput(String target_file, boolean hasSeparatePropertiesModel, boolean createTrig,
@@ -681,6 +687,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		if (hasBuildingProperties) {
 			handleUnitsAndPropertySetData(props_level, hasPropertiesBlankNodes, hasUnits);
 		}
+		this.loadedExpressSchema = expressSchema;
 		this.lastReadInPhaseSignature = readInPhaseSignature;
 		this.readInPhaseReusable = true;
 		}

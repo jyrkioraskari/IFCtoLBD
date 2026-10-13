@@ -25,16 +25,27 @@ public class ProcessReadyEvent {
 	static public int CONVERT=1;
 
 	int phase=READ_IN;
+	private final long operationId;
 	
 	public ProcessReadyEvent() {
+		this(READ_IN, -1);
 	}
 	
 	public ProcessReadyEvent(int phase) {
+		this(phase, -1);
+	}
+
+	public ProcessReadyEvent(int phase, long operationId) {
 		this.phase=phase;
+		this.operationId = operationId;
 	}
 
 	public int getPhase() {
 		return phase;
+	}
+
+	public long getOperationId() {
+		return operationId;
 	}
 
 

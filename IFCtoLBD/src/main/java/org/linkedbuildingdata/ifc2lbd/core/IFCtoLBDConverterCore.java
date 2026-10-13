@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.HexFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -1956,6 +1957,38 @@ public abstract class IFCtoLBDConverterCore {
 			});
 		} finally { dataset.end(); }
 		return counts;
+	}
+
+	/** Read-only statistics used by clients that summarize a loaded IFC model. */
+	public record IfcModelStatistics(Map<String, Integer> rootTypeCounts, int elementCount,
+			boolean geometryAvailable) {
+		public IfcModelStatistics {
+			rootTypeCounts = Map.copyOf(rootTypeCounts);
+		}
+	}
+
+	/** Returns spatial, element, and geometry statistics without changing conversion state. */
+	public IfcModelStatistics getIfcModelStatistics() {
+		Map<String, Integer> counts = new TreeMap<>();
+		int[] elementCount = { 0 };
+		Dataset dataset = getStagingDataset();
+		dataset.begin(ReadWrite.READ);
+		try {
+			Model model = dataset.getDefaultModel();
+			model.listStatements().forEachRemaining(st -> {
+				if (st.getPredicate().getLocalName().toLowerCase(Locale.ROOT).contains("globalid_ifcroot")) {
+					ifcType(st.getSubject()).map(Resource::getLocalName)
+							.ifPresent(type -> counts.merge(type, 1, Integer::sum));
+					if (isIfcElement(st.getSubject())) {
+						elementCount[0]++;
+					}
+				}
+			});
+		} finally {
+			dataset.end();
+		}
+		return new IfcModelStatistics(counts, elementCount[0],
+				this.ifc_geometry != null && this.ifc_geometry.isAvailable());
 	}
 
 	/**

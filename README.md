@@ -78,7 +78,9 @@ You need an IFC model and the desktop application.
 2. Start the desktop application. For a result you can check, use the small
    [two-wall example model](examples/getting-started/building-inventory/model.ifc).
    Click **Read IFC**, choose the model, and
-   wait for it to finish reading. The application proposes an output path.
+   wait for it to finish reading. Development version 2.54.1 also shows a model
+   summary with the detected schema, model contents, geometry availability, and
+   warnings. The application proposes an output path.
 3. Check that output path, then click **Run**. For your first conversion, keep
    the existing settings and filters. Wait for the conversion log to report completion.
 4. In development version 2.54.1, open **Query**, paste the saved

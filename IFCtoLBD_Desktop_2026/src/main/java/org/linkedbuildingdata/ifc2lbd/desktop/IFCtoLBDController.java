@@ -26,6 +26,8 @@ package org.linkedbuildingdata.ifc2lbd.desktop;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.StandardCopyOption;
@@ -33,7 +35,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ArrayDeque;
 import java.util.Base64;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
@@ -41,13 +45,17 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Deque;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.prefs.Preferences;
+import java.util.prefs.BackingStoreException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -80,7 +88,9 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationE
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
+import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore.IfcModelStatistics;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
+import org.linkedbuildingdata.ifc2lbd.messages.WorkflowProgressEvent;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -90,10 +100,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.geometry.Pos;
 import javafx.geometry.Point2D;
+import javafx.geometry.Point3D;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -104,15 +117,25 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeCell;
+import javafx.scene.control.TreeView;
 import javafx.scene.AmbientLight;
 import javafx.scene.DepthTest;
 import javafx.scene.DirectionalLight;
@@ -135,6 +158,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.CullFace;
 import javafx.scene.shape.DrawMode;
 import javafx.scene.shape.MeshView;
@@ -240,6 +264,55 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private TextArea conversionTxt;
 
 	@FXML
+	private TabPane workflowTabs;
+
+	@FXML
+	private Region workflowStatusCard;
+
+	@FXML
+	private Label workflowStatusLabel;
+
+	@FXML
+	private Label workflowElapsedLabel;
+
+	@FXML
+	private ProgressBar workflowProgressBar;
+
+	@FXML
+	private Button cancelWorkflowButton;
+
+	@FXML
+	private TitledPane modelSummaryCard;
+	private String collapsedModelSummaryTitle = "Model Summary";
+
+	@FXML
+	private Label summarySchemaLabel;
+
+	@FXML
+	private Label summaryFileSizeLabel;
+
+	@FXML
+	private Label summaryElementsLabel;
+
+	@FXML
+	private Label summaryPropertySetsLabel;
+
+	@FXML
+	private Label summaryStoreysLabel;
+
+	@FXML
+	private Label summarySpacesLabel;
+
+	@FXML
+	private Label summaryGeometryLabel;
+
+	@FXML
+	private Label summaryMajorTypesLabel;
+
+	@FXML
+	private Label summaryWarningsLabel;
+
+	@FXML
 	private Button filtersWorkflowButton;
 
 	@FXML
@@ -253,6 +326,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private Button copyCommandLineButton;
+
+	@FXML
+	private Label generatedResultsStatusLabel;
+
+	@FXML
+	private VBox proposedOutputSection;
+
+	@FXML
+	private Label proposedFilenamesLabel;
+
+	@FXML
+	private VBox commandLinePreviewSection;
+
+	@FXML
+	private TextArea commandLinePreviewTxt;
 
 	@FXML
 	private TitledPane sparqlQueryCard;
@@ -270,16 +358,73 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ListView<ShapeValidationItem> shaclShapesList;
 
 	@FXML
+	private TreeView<ValidationTreeEntry> validationFindingsTree;
+
+	@FXML
+	private Label validationCountsLabel;
+
+	@FXML
+	private ChoiceBox<String> validationSeverityFilter;
+
+	@FXML
+	private ChoiceBox<String> validationShapeFilter;
+
+	@FXML
+	private TextField validationObjectFilter;
+
+	@FXML
+	private TextArea validationInspectorTxt;
+
+	@FXML
+	private Button validationFocusButton;
+
+	@FXML
 	private TextArea sparqlEditorTxt;
 
 	@FXML
 	private TextArea sparqlResultsTxt;
 
 	@FXML
+	private TableView<SparqlRow> sparqlResultsTable;
+
+	@FXML
+	private Label sparqlResultsStatusLabel;
+
+	@FXML
+	private ChoiceBox<String> sparqlTemplateChoice;
+
+	@FXML
+	private Button copySparqlResultsButton;
+
+	@FXML
+	private Button exportSparqlResultsButton;
+
+	@FXML
 	private Button runSparqlQueryButton;
 
 	@FXML
 	private StackPane geometryViewport;
+
+	@FXML
+	private Slider geometryExplodeSlider;
+
+	@FXML
+	private Label geometryExplodeValueLabel;
+
+	@FXML
+	private Label selectedObjectHeadingLabel;
+
+	@FXML
+	private Label selectedObjectTypeLabel;
+
+	@FXML
+	private Label selectedObjectGuidLabel;
+
+	@FXML
+	private Label selectedObjectUriLabel;
+
+	@FXML
+	private TextArea selectedObjectPropertiesTxt;
 
 	@FXML
 	private AnchorPane floatingWorkspace;
@@ -292,6 +437,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private CustomTextField labelBaseURI;
+
+	@FXML
+	private Label baseUriLabel;
+
+	@FXML
+	private Label propertyLevelLabel;
+
+	@FXML
+	private Label performanceConflictLabel;
 
 	FileChooser fc_ifc;
 	FileChooser fc_target;
@@ -344,6 +498,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	
 	@FXML
 	private TitledPane options_panel;
+
+	@FXML
+	private ChoiceBox<ConversionPreset> presetChoice;
+
+	@FXML
+	private Label presetStatusLabel;
+
+	private final Map<String, ConversionPreset> userPresets = new LinkedHashMap<>();
+	private boolean updatingPresetChoice;
 	
 	
 	@FXML
@@ -366,8 +529,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
 	}
 
+	record ModelSummary(String schema, String fileSize, int elementCount, int mappedElementCount,
+			int propertySetTypeCount, int propertySetOccurrenceCount, int storeyCount, int spaceCount,
+			String geometryStatus, String majorTypes, List<String> warnings) {
+	}
+
 	private ConversionRequest lastSuccessfulConversionRequest;
 	private ConversionRequest pendingConversionRequest;
+	private boolean generatedResultsStale;
+	private boolean runAfterReadIn;
+	private Future<?> running_validation;
+	private long operationSequence;
+	private volatile long activeOperationId = -1;
+	private long workflowStartedNanos;
+	private Timeline workflowElapsedTimeline;
 	private SubScene geometryScene;
 	private Group geometrySceneRoot;
 	private Group geometryModelRoot;
@@ -376,12 +551,25 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private final Rotate geometryRotateY = new Rotate(-35, Rotate.Y_AXIS);
 	private final Translate geometryCameraDistance = new Translate(0, 0, -760);
 	private PreviewMesh currentPreviewMesh;
+	private final Map<String, List<MeshView>> geometryViewsByResource = new LinkedHashMap<>();
+	private final Map<String, Point3D> geometryExplosionVectors = new LinkedHashMap<>();
+	private final Map<String, GeometryBounds> geometryBoundsByResource = new LinkedHashMap<>();
+	private final Map<MeshView, PhongMaterial> geometryMaterials = new IdentityHashMap<>();
+	private String selectedResourceUri;
+	private String selectedPropertyPath;
+	private boolean sparqlSelectionHighlighted;
+	private String isolatedElementType;
 	private boolean queryDataAvailable;
 	private long outputRevision;
+	private final ExplorationModelCache explorationModelCache = new ExplorationModelCache(IFCtoLBDController::readExplorationModel);
+	private SelectResults currentSelectResults;
+	private String sparqlResultMetrics = "";
 	private long validationRevision;
 	private boolean sparqlCardPositioned;
 	private final List<LoadedShapes> loadedShapes = new ArrayList<>();
 	private final ObservableList<ShapeValidationItem> shapeValidationItems = FXCollections.observableArrayList();
+	private ValidationFindings.Finding selectedValidationFinding;
+	private boolean refreshingValidationFilters;
 	private double geometryMouseX;
 	private double geometryMouseY;
 	private double geometryZoom = 1.0;
@@ -409,6 +597,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final String GEOMETRY_OBJ_PROPERTY = "https://w3id.org/fog#asObj_v3.0-obj";
 	private static final String GEOMETRY_MTL_PROPERTY = "https://lbd.org/#asMTL";
 	private static final String GEOMETRY_MTL_KD_PROPERTY = "https://lbd.org/#asMTL_kd";
+	private static final String OMG_HAS_GEOMETRY = "https://w3id.org/omg#hasGeometry";
+	private static final String BOT_ELEMENT = "https://w3id.org/bot#Element";
+	private static final Pattern GUID_PATTERN = Pattern.compile(
+			"(?i)([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})");
 	private static final Pattern MTL_KD_LINE_PATTERN = Pattern.compile(
 			"(?m)^\\s*Kd\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s+([0-9]*\\.?[0-9]+)\\s*$");
 	private static final int DEFAULT_PREVIEW_COLOR = 0x9aa8b8;
@@ -417,34 +609,93 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final String DEFAULT_SPARQL_QUERY = """
 			PREFIX bot: <https://w3id.org/bot#>
 
+			SELECT DISTINCT ?element ?type WHERE {
+			  ?element a bot:Element .
+			  OPTIONAL {
+			    ?element a ?specificType .
+			    FILTER(?specificType != bot:Element)
+			  }
+			  BIND(COALESCE(?specificType, bot:Element) AS ?type)
+			}
+			ORDER BY ?type ?element
+			""";
+	private static final String SPACES_BY_STOREY_QUERY = """
+			PREFIX bot: <https://w3id.org/bot#>
+
+			SELECT ?storey ?space WHERE {
+			  ?storey bot:hasSpace ?space .
+			}
+			ORDER BY ?storey ?space
+			""";
+	private static final String ELEMENTS_MISSING_PROPERTIES_QUERY = """
+			PREFIX bot: <https://w3id.org/bot#>
+
 			SELECT ?element WHERE {
 			  ?element a bot:Element .
+			  FILTER NOT EXISTS {
+			    ?element ?property ?value .
+			    FILTER(STRSTARTS(STR(?property), "http://lbd.arch.rwth-aachen.de/props#") ||
+			           ?property = <https://w3id.org/ifc2lbd/bsdd-meta#hasPropertySet>)
+			  }
 			}
-			LIMIT 100
+			ORDER BY ?element
 			""";
 
-	private record LoadedShapes(File file, String name, Shapes shapes, List<ShapeValidationItem> items) {
+	static record SparqlCell(String text, String resourceUri) {
 	}
 
-	private record ShapeValidationResult(ShapeValidationItem item, Boolean conforms, String message) {
+	static record SparqlRow(Map<String, SparqlCell> cells) {
+	}
+
+	static record SelectResults(List<String> variables, List<SparqlRow> rows, boolean limited) {
+	}
+
+	private record SparqlOutput(SelectResults select, String text, long elapsedMillis) {
+	}
+
+	private record LoadedShapes(File file, String name, Shapes shapes, List<ShapeValidationItem> items,
+			boolean builtIn) {
+	}
+
+	private record ValidationTreeEntry(String label, ValidationFindings.Finding finding) {
+	}
+
+	private record ShapeValidationResult(ShapeValidationItem item, Boolean conforms, String message,
+			List<ValidationFindings.Finding> violations) {
 	}
 
 	private static final class ShapeValidationItem {
 		private final String sourceName;
 		private final String displayName;
 		private final org.apache.jena.graph.Node shapeNode;
+		private final String persistentKey;
 		private final Set<org.apache.jena.graph.Node> constraintNodes;
 		private Boolean conforms;
 		private String message;
+		private List<ValidationFindings.Finding> violations = List.of();
 
 		private ShapeValidationItem(String sourceName, String displayName, org.apache.jena.graph.Node shapeNode,
+				Set<org.apache.jena.graph.Node> constraintNodes) {
+			this(sourceName, displayName, shapeNode, shapeNode.toString(), constraintNodes);
+		}
+
+		private ShapeValidationItem(String sourceName, String displayName, org.apache.jena.graph.Node shapeNode,
+				String persistentKey,
 				Set<org.apache.jena.graph.Node> constraintNodes) {
 			this.sourceName = sourceName;
 			this.displayName = displayName;
 			this.shapeNode = shapeNode;
+			this.persistentKey = persistentKey;
 			this.constraintNodes = constraintNodes;
 			this.message = "Not tested yet";
 		}
+	}
+
+	private record ResourceDetails(String uri, String ifcType, Set<String> typeNames, String guid,
+			List<String> properties) {
+	}
+
+	private record GeometryRenderKey(String resourceUri, int color) {
 	}
 
 	@FXML
@@ -511,9 +762,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.loadedShapes.clear();
 		this.shapeValidationItems.clear();
 		loadDefaultShapes();
+		rememberAddedShapes();
 		if (this.shaclShapesList != null) {
 			this.shaclShapesList.refresh();
 		}
+		refreshValidationFindings();
 		if (isValidationAvailable()) {
 			validateLoadedShapesAsync();
 		}
@@ -532,39 +785,65 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@FXML
 	private void runSparqlQuery() {
 		if (!isSparqlQueryAvailable()) {
-			this.sparqlResultsTxt.setText("Generate an RDF output before running a SPARQL query.");
+			showSparqlMessage("Generate an RDF output before running a SPARQL query.");
 			return;
 		}
 		String queryText = this.sparqlEditorTxt.getText();
 		if (queryText == null || queryText.isBlank()) {
-			this.sparqlResultsTxt.setText("Enter a SPARQL query.");
+			showSparqlMessage("Enter a SPARQL query.");
 			return;
 		}
 		this.runSparqlQueryButton.setDisable(true);
-		this.sparqlResultsTxt.setText("Running query...");
+		showSparqlMessage("Running query...");
 		long revision = this.outputRevision;
 		File outputFile = new File(this.lastSuccessfulConversionRequest.settings().rdfTargetName());
 		this.executor.submit(() -> {
-			Model model = null;
-			try {
-				model = readOutputModel(outputFile);
-				String output = executeSparqlQuery(model, queryText);
+			long started = System.nanoTime();
+			try (ExplorationModelCache.Lease lease = this.explorationModelCache.acquire(outputFile, revision)) {
+				SparqlOutput result = executeSparqlQueryData(lease.model(), queryText, started);
 				Platform.runLater(() -> {
-					if (revision == this.outputRevision) this.sparqlResultsTxt.setText(output);
+					if (revision == this.outputRevision) showSparqlOutput(result);
 				});
 			} catch (Exception e) {
 				Platform.runLater(() -> {
 					if (revision == this.outputRevision)
-						this.sparqlResultsTxt.setText("SPARQL query failed: " + e.getMessage());
+						showSparqlMessage("SPARQL query failed: " + e.getMessage());
 				});
 			} finally {
-				if (model != null) model.close();
 				Platform.runLater(() -> {
 					if (revision == this.outputRevision)
 						this.runSparqlQueryButton.setDisable(!isSparqlQueryAvailable());
 				});
 			}
 		});
+	}
+
+	@FXML
+	private void copySparqlResults() {
+		if (this.currentSelectResults == null) return;
+		ClipboardContent content = new ClipboardContent();
+		content.putString(selectResultsAsCsv(this.currentSelectResults, this.sparqlResultsTable.getItems()));
+		Clipboard.getSystemClipboard().setContent(content);
+		this.sparqlResultsStatusLabel.setText(this.sparqlResultMetrics + " · Copied CSV");
+	}
+
+	@FXML
+	private void exportSparqlResults() {
+		if (this.currentSelectResults == null) return;
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Export SPARQL results");
+		chooser.setInitialFileName("sparql-results.csv");
+		chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+		File destination = chooser.showSaveDialog(this.root.getScene().getWindow());
+		if (destination == null) return;
+		try {
+			Files.writeString(destination.toPath(), selectResultsAsCsv(this.currentSelectResults,
+					this.sparqlResultsTable.getItems()), StandardCharsets.UTF_8);
+			this.sparqlResultsStatusLabel.setText(this.sparqlResultMetrics + " · Exported "
+					+ destination.getName());
+		} catch (IOException e) {
+			this.sparqlResultsStatusLabel.setText("CSV export failed: " + e.getMessage());
+		}
 	}
 
 	@FXML
@@ -606,13 +885,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	public void ifcOWLSelectionChange(MouseEvent event) {
-		if (this.ifcOWL_elements.isSelected()) {
-			this.hasPerformanceBoost.setSelected(false);
-			this.hasPerformanceBoost.setDisable(true);
-		} else {
-			this.hasPerformanceBoost.setDisable(false);
-		}
-
+		updatePerformanceModeDependency();
 	}
 
 
@@ -670,6 +943,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			readInIFC();
 		}
 		setSelectIfcDefault(false);
+		refreshReactiveSettings();
 	}
 
 	/*
@@ -740,6 +1014,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setTargetFileLabel(file.getAbsolutePath());
 
 		this.rdfTargetName = file.getAbsolutePath();
+		refreshReactiveSettings();
 	}
 
 	Future<IFCtoLBDConverter> running_read_in;
@@ -803,6 +1078,203 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.createTrig.isSelected(), isJsonLdOutputSelected(), isIcddOutputSelected());
 	}
 
+	private void setupPresets() {
+		Preferences stored = this.prefs.node("conversionPresets");
+		try {
+			for (String key : stored.keys()) {
+				try {
+					ConversionPreset preset = ConversionPreset.read(new StringReader(stored.get(key, "")));
+					if (ConversionPreset.builtIns().stream().noneMatch(builtin -> builtin.name().equalsIgnoreCase(preset.name()))) {
+						this.userPresets.put(preset.name().toLowerCase(Locale.ROOT), preset);
+					}
+				} catch (Exception ignored) {
+					// A damaged saved preset must not prevent the desktop from opening.
+				}
+			}
+		} catch (BackingStoreException e) {
+			this.presetStatusLabel.setText("Could not read saved presets: " + e.getMessage());
+		}
+		refreshPresetChoices(null);
+		this.presetChoice.valueProperty().addListener((observable, previous, selected) -> {
+			if (!this.updatingPresetChoice && selected != null) applyPreset(selected);
+		});
+	}
+
+	private void refreshPresetChoices(ConversionPreset selection) {
+		this.updatingPresetChoice = true;
+		try {
+			List<ConversionPreset> choices = new ArrayList<>(ConversionPreset.builtIns());
+			choices.addAll(this.userPresets.values().stream()
+					.sorted(Comparator.comparing(ConversionPreset::name, String.CASE_INSENSITIVE_ORDER)).toList());
+			this.presetChoice.getItems().setAll(choices);
+			this.presetChoice.setValue(selection);
+		} finally {
+			this.updatingPresetChoice = false;
+		}
+	}
+
+	private ToggleSwitch presetToggle(String key) {
+		return switch (key) {
+		case "buildingElements" -> this.building_elements;
+		case "separateElements" -> this.building_elements_separate_file;
+		case "properties" -> this.building_props;
+		case "separateProperties" -> this.building_props_separate_file;
+		case "blankNodes" -> this.building_props_blank_nodes;
+		case "geolocation" -> this.geolocation;
+		case "geometry" -> this.geometry_elements;
+		case "ifcOwl" -> this.ifcOWL_elements;
+		case "performance" -> this.hasPerformanceBoost;
+		case "boundingBoxWkt" -> this.hasBoundingBox_WKT;
+		case "interfaces" -> this.geometry_interfaces;
+		case "wireframe" -> this.hasElementWireframe;
+		case "units" -> this.createUnits;
+		case "hierarchicalNames" -> this.hasHierarchicalNaming;
+		case "simpleProperties" -> this.hasSimpleProperties;
+		case "propertySets" -> this.propertiesAsPropertySets;
+		case "ifcBasedElements" -> this.ifc_based_elements;
+		case "trig" -> this.createTrig;
+		default -> throw new IllegalArgumentException("Unknown preset setting: " + key);
+		};
+	}
+
+	private ConversionPreset capturePreset(String name) {
+		Map<String, String> settings = new LinkedHashMap<>();
+		for (String key : ConversionPreset.SWITCHES) {
+			settings.put(key, Boolean.toString(presetToggle(key).isSelected()));
+		}
+		settings.put(ConversionPreset.LEVEL, Integer.toString(selectedPropertyLevel()));
+		settings.put(ConversionPreset.FORMAT, this.outputJSONorTTL.getValue());
+		settings.put(ConversionPreset.BASE_URI, this.labelBaseURI.getText().trim());
+		return new ConversionPreset(name, settings, false);
+	}
+
+	private void applyPreset(ConversionPreset preset) {
+		for (String key : ConversionPreset.SWITCHES) {
+			presetToggle(key).setSelected(Boolean.parseBoolean(preset.settings().get(key)));
+		}
+		int level = Integer.parseInt(preset.settings().get(ConversionPreset.LEVEL));
+		this.level1.setSelected(level == 1);
+		this.level2.setSelected(level == 2);
+		this.level3.setSelected(level == 3);
+		if (preset.settings().containsKey(ConversionPreset.BASE_URI)) {
+			this.labelBaseURI.setText(preset.settings().get(ConversionPreset.BASE_URI));
+		}
+		this.outputJSONorTTL.setValue(preset.settings().get(ConversionPreset.FORMAT));
+		updatePerformanceModeDependency();
+		refreshReactiveSettings();
+		this.presetStatusLabel.setText("Applied " + preset.name() + ". Adjust advanced settings as needed.");
+	}
+
+	private String presetKey(String name) {
+		return UUID.nameUUIDFromBytes(name.toLowerCase(Locale.ROOT).getBytes(StandardCharsets.UTF_8)).toString();
+	}
+
+	private void storePreset(ConversionPreset preset) {
+		try {
+			StringWriter writer = new StringWriter();
+			preset.write(writer);
+			this.prefs.node("conversionPresets").put(presetKey(preset.name()), writer.toString());
+			this.userPresets.put(preset.name().toLowerCase(Locale.ROOT), preset);
+			refreshPresetChoices(preset);
+			applyPreset(preset);
+			this.presetStatusLabel.setText("Saved " + preset.name() + ".");
+		} catch (Exception e) {
+			this.presetStatusLabel.setText("Could not save preset: " + e.getMessage());
+		}
+	}
+
+	private void askPresetName(String suggested, java.util.function.Consumer<String> onName) {
+		TextInputDialog dialog = new TextInputDialog(suggested);
+		dialog.initOwner(this.myMenuBar.getScene().getWindow());
+		dialog.setTitle("Conversion preset");
+		dialog.setHeaderText("Name this preset");
+		dialog.showAndWait().ifPresent(raw -> {
+			String name = raw.trim();
+			if (name.isEmpty() || name.length() > 80) {
+				this.presetStatusLabel.setText("Use a preset name of 1–80 characters.");
+			} else if (ConversionPreset.builtIns().stream().anyMatch(p -> p.name().equalsIgnoreCase(name))
+					|| this.userPresets.containsKey(name.toLowerCase(Locale.ROOT))) {
+				this.presetStatusLabel.setText("A preset named " + name + " already exists.");
+			} else {
+				onName.accept(name);
+			}
+		});
+	}
+
+	@FXML
+	private void savePreset() {
+		ConversionPreset selected = this.presetChoice.getValue();
+		if (selected != null && !selected.builtIn()) {
+			storePreset(capturePreset(selected.name()));
+		} else {
+			askPresetName("My preset", name -> storePreset(capturePreset(name)));
+		}
+	}
+
+	@FXML
+	private void duplicatePreset() {
+		ConversionPreset selected = this.presetChoice.getValue();
+		if (selected == null) {
+			this.presetStatusLabel.setText("Choose a preset to duplicate.");
+			return;
+		}
+		askPresetName(selected.name() + " copy", name -> storePreset(selected.renamed(name)));
+	}
+
+	@FXML
+	private void importPreset() {
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Import conversion preset");
+		chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Preset files (*.properties)", "*.properties"));
+		File file = chooser.showOpenDialog(this.myMenuBar.getScene().getWindow());
+		if (file == null) return;
+		try (java.io.Reader reader = Files.newBufferedReader(file.toPath(), StandardCharsets.UTF_8)) {
+			ConversionPreset preset = ConversionPreset.read(reader);
+			if (ConversionPreset.builtIns().stream().anyMatch(p -> p.name().equalsIgnoreCase(preset.name()))
+					|| this.userPresets.containsKey(preset.name().toLowerCase(Locale.ROOT))) {
+				this.presetStatusLabel.setText("A preset named " + preset.name() + " already exists. Rename it before importing.");
+				return;
+			}
+			storePreset(preset);
+		} catch (Exception e) {
+			this.presetStatusLabel.setText("Could not import preset: " + e.getMessage());
+		}
+	}
+
+	@FXML
+	private void exportPreset() {
+		ConversionPreset preset = this.presetChoice.getValue();
+		if (preset == null) {
+			this.presetStatusLabel.setText("Choose a preset to export.");
+			return;
+		}
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Export conversion preset");
+		chooser.setInitialFileName(preset.name().toLowerCase(Locale.ROOT).replaceAll("[^a-z0-9]+", "-") + ".properties");
+		chooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Preset files (*.properties)", "*.properties"));
+		File file = chooser.showSaveDialog(this.myMenuBar.getScene().getWindow());
+		if (file == null) return;
+		try (java.io.Writer writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8)) {
+			preset.write(writer);
+			this.presetStatusLabel.setText("Exported " + preset.name() + ".");
+		} catch (Exception e) {
+			this.presetStatusLabel.setText("Could not export preset: " + e.getMessage());
+		}
+	}
+
+	@FXML
+	private void deletePreset() {
+		ConversionPreset preset = this.presetChoice.getValue();
+		if (preset == null || preset.builtIn()) {
+			this.presetStatusLabel.setText("Select a saved preset to delete.");
+			return;
+		}
+		this.prefs.node("conversionPresets").remove(presetKey(preset.name()));
+		this.userPresets.remove(preset.name().toLowerCase(Locale.ROOT));
+		refreshPresetChoices(null);
+		this.presetStatusLabel.setText("Deleted " + preset.name() + ". Current settings are unchanged.");
+	}
+
 	private boolean hasReadInSettingsChanged(ConversionSettings previous, ConversionSettings current) {
 		if (previous == null) {
 			return true;
@@ -830,12 +1302,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		ConversionSettings previousSettings = previous.settings();
 		ConversionSettings currentSettings = current.settings();
 		return hasReadInSettingsChanged(previousSettings, currentSettings)
+				|| !Objects.equals(previousSettings.rdfTargetName(), currentSettings.rdfTargetName())
 				|| previousSettings.hasSeparateBuildingElementsModel() != currentSettings.hasSeparateBuildingElementsModel()
 				|| previousSettings.hasSeparatePropertiesModel() != currentSettings.hasSeparatePropertiesModel()
 				|| previousSettings.hasHierarchicalNaming() != currentSettings.hasHierarchicalNaming()
 				|| previousSettings.hasSimpleProperties() != currentSettings.hasSimpleProperties()
 				|| previousSettings.propertiesAsPropertySets() != currentSettings.propertiesAsPropertySets()
 				|| previousSettings.hasIfcBasedElements() != currentSettings.hasIfcBasedElements()
+				|| previousSettings.createTrig() != currentSettings.createTrig()
 				|| previousSettings.exportAsJsonLd() != currentSettings.exportAsJsonLd()
 				|| previousSettings.exportAsIcdd() != currentSettings.exportAsIcdd()
 				|| !Objects.equals(previous.selectedTypes(), current.selectedTypes())
@@ -844,6 +1318,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private Set<String> selectedElementTypes() {
 		Set<String> selectedTypes = new HashSet<>();
+		if (this.element_types_checkbox.getCheckModel() == null) {
+			return selectedTypes;
+		}
 		for (TreeItem<String> item : this.element_types_checkbox.getCheckModel().getCheckedItems()) {
 			String value = item.getValue();
 			int suffix = value.lastIndexOf(" (");
@@ -854,6 +1331,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private Set<String> selectedPropertySets() {
 		Set<String> selectedPsets = new HashSet<>();
+		if (this.propertysets_checkbox.getCheckModel() == null) {
+			return selectedPsets;
+		}
 		for (TreeItem<String> item : this.propertysets_checkbox.getCheckModel().getCheckedItems()) {
 			selectedPsets.add(item.getValue());
 		}
@@ -916,6 +1396,59 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return String.join(" ", arguments);
 	}
 
+	static List<String> proposedOutputFiles(ConversionSettings settings) {
+		if (settings == null) {
+			return List.of();
+		}
+		return proposedOutputFiles(settings.rdfTargetName(), settings.exportAsJsonLd(), settings.exportAsIcdd(),
+				settings.hasBuildingElements(), settings.hasSeparateBuildingElementsModel(),
+				settings.hasBuildingProperties(), settings.hasSeparatePropertiesModel(), settings.createTrig());
+	}
+
+	static List<String> proposedOutputFiles(String target, boolean exportAsJsonLd, boolean exportAsIcdd,
+			boolean hasBuildingElements, boolean separateBuildingElements, boolean hasBuildingProperties,
+			boolean separateProperties, boolean createTrig) {
+		if (target == null || target.isBlank()) {
+			return List.of();
+		}
+		List<String> files = new ArrayList<>();
+		files.add(target);
+		if (exportAsIcdd) {
+			return List.copyOf(files);
+		}
+		int separatorIndex = Math.max(target.lastIndexOf(File.separatorChar), target.lastIndexOf('/'));
+		int dotIndex = target.lastIndexOf('.');
+		String stem = dotIndex > separatorIndex ? target.substring(0, dotIndex) : target;
+		String extension = exportAsJsonLd ? ".json" : ".ttl";
+		if (hasBuildingElements && separateBuildingElements) {
+			files.add(stem + "_building_elements" + extension);
+		}
+		if (hasBuildingProperties && separateProperties) {
+			files.add(stem + "_element_properties" + extension);
+		}
+		if (createTrig) {
+			files.add(stem + ".trig");
+		}
+		return List.copyOf(files);
+	}
+
+	private void updateLivePreviews() {
+		if (this.proposedFilenamesLabel == null || this.commandLinePreviewTxt == null) {
+			return;
+		}
+		ConversionSettings settings = currentSettings();
+		List<String> outputFiles = proposedOutputFiles(settings);
+		this.proposedFilenamesLabel.setText(outputFiles.isEmpty()
+				? "Select an IFC file and output path."
+				: outputFiles.stream().map(path -> new File(path).getName()).reduce((left, right) -> left + "  ·  " + right)
+						.orElse(""));
+		if (settings.ifcFileName() == null || settings.rdfTargetName() == null) {
+			this.commandLinePreviewTxt.setText("Select an IFC file and output path to preview the command.");
+		} else {
+			this.commandLinePreviewTxt.setText(createCommandLine(settings));
+		}
+	}
+
 	@FXML
 	private void copyCommandLine() {
 		ConversionSettings settings = currentSettings();
@@ -931,7 +1464,180 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void setupCommandLinePreview() {
-		this.copyCommandLineButton.setTooltip(new Tooltip("The command line command to the clipboard"));
+		this.copyCommandLineButton.setTooltip(new Tooltip("Copy the command-line preview to the clipboard."));
+		var advancedSelected = this.workflowTabs.getSelectionModel().selectedItemProperty()
+				.isEqualTo(this.workflowTabs.getTabs().get(1));
+		this.proposedOutputSection.visibleProperty().bind(advancedSelected.not());
+		this.proposedOutputSection.managedProperty().bind(this.proposedOutputSection.visibleProperty());
+		this.commandLinePreviewSection.visibleProperty().bind(advancedSelected);
+		this.commandLinePreviewSection.managedProperty().bind(this.commandLinePreviewSection.visibleProperty());
+	}
+
+	private void setupReactiveSettings() {
+		List<ToggleSwitch> settingsToggles = List.of(this.building_elements,
+				this.building_elements_separate_file, this.geolocation, this.building_props,
+				this.building_props_blank_nodes, this.building_props_separate_file, this.geometry_elements,
+				this.geometry_interfaces, this.hasBoundingBox_WKT, this.hasElementWireframe, this.ifcOWL_elements,
+				this.hasPerformanceBoost, this.createUnits, this.hasHierarchicalNaming, this.hasSimpleProperties,
+				this.propertiesAsPropertySets, this.ifc_based_elements, this.createTrig);
+		for (ToggleSwitch toggle : settingsToggles) {
+			toggle.selectedProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		}
+		this.ifcOWL_elements.selectedProperty().addListener((observable, oldValue, newValue) ->
+				updatePerformanceModeDependency());
+		this.level1.getToggleGroup().selectedToggleProperty().addListener((observable, oldValue, newValue) ->
+				refreshReactiveSettings());
+		this.labelBaseURI.textProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		this.element_types_checkbox.checkModelProperty().addListener((observable, oldModel, newModel) -> {
+			if (newModel != null) {
+				newModel.getCheckedItems().addListener(
+						(ListChangeListener<TreeItem<String>>) change -> refreshReactiveSettings());
+			}
+		});
+		this.propertysets_checkbox.checkModelProperty().addListener((observable, oldModel, newModel) -> {
+			if (newModel != null) {
+				newModel.getCheckedItems().addListener(
+						(ListChangeListener<TreeItem<String>>) change -> refreshReactiveSettings());
+			}
+		});
+		this.element_types_checkbox.getSelectionModel().selectedItemProperty().addListener(
+				(observable, oldValue, newValue) -> isolateSelectedElementType(newValue));
+		updatePerformanceModeDependency();
+		refreshReactiveSettings();
+	}
+
+	private void refreshReactiveSettings() {
+		if (this.building_props == null) {
+			return;
+		}
+		updatePropertyDependencies();
+		updateLivePreviews();
+		updateReadRequiredMarkers();
+		updateGeneratedResultsState();
+	}
+
+	private void updatePropertyDependencies() {
+		boolean disabled = !this.building_props.isSelected();
+		this.level1.setDisable(disabled);
+		this.level2.setDisable(disabled);
+		this.level3.setDisable(disabled);
+		this.propertiesAsPropertySets.setDisable(disabled);
+		this.building_props_separate_file.setDisable(disabled);
+		this.building_props_blank_nodes.setDisable(disabled);
+		this.createUnits.setDisable(disabled);
+		this.hasSimpleProperties.setDisable(disabled);
+		this.propertysets_checkbox.setDisable(disabled);
+	}
+
+	private void updatePerformanceModeDependency() {
+		if (this.ifcOWL_elements == null || this.hasPerformanceBoost == null) {
+			return;
+		}
+		boolean ifcOwlSelected = this.ifcOWL_elements.isSelected();
+		if (ifcOwlSelected && this.hasPerformanceBoost.isSelected()) {
+			this.hasPerformanceBoost.setSelected(false);
+		}
+		this.hasPerformanceBoost.setDisable(ifcOwlSelected);
+		String explanation = "Performance mode uses a reduced streaming read to save memory. "
+				+ "ifcOWL export needs the complete source graph, so selecting ifcOWL turns Performance mode off.";
+		this.hasPerformanceBoost.setTooltip(new Tooltip(explanation));
+		this.ifcOWL_elements.setTooltip(new Tooltip(explanation));
+		if (this.performanceConflictLabel != null) {
+			this.performanceConflictLabel.setText(explanation);
+		}
+	}
+
+	private void updateReadRequiredMarkers() {
+		ConversionSettings previous = this.readInSettings;
+		ConversionSettings current = currentSettings();
+		boolean modelLoaded = isFiltersAvailable() && previous != null;
+		setRereadMarker(this.baseUriLabel, "Base URI", modelLoaded
+				&& !Objects.equals(previous.baseUri(), current.baseUri()));
+		setRereadMarker(this.propertyLevelLabel, "Level", modelLoaded
+				&& previous.propsLevel() != current.propsLevel());
+		setRereadMarker(this.building_elements, "Building elements", modelLoaded
+				&& previous.hasBuildingElements() != current.hasBuildingElements());
+		setRereadMarker(this.building_props, "Properties", modelLoaded
+				&& previous.hasBuildingProperties() != current.hasBuildingProperties());
+		setRereadMarker(this.building_props_blank_nodes, "Blank nodes", modelLoaded
+				&& previous.hasPropertiesBlankNodes() != current.hasPropertiesBlankNodes());
+		setRereadMarker(this.geolocation, "Geolocation", modelLoaded
+				&& previous.hasGeolocation() != current.hasGeolocation());
+		setRereadMarker(this.geometry_elements, "Geometry", modelLoaded
+				&& previous.hasGeometry() != current.hasGeometry());
+		setRereadMarker(this.ifcOWL_elements, "ifcOWL links", modelLoaded
+				&& previous.exportIfcOwl() != current.exportIfcOwl());
+		setRereadMarker(this.hasPerformanceBoost, "Performance mode", modelLoaded
+				&& previous.hasPerformanceBoost() != current.hasPerformanceBoost());
+		setRereadMarker(this.hasBoundingBox_WKT, "Bounding boxes", modelLoaded
+				&& previous.hasBoundingBoxWkt() != current.hasBoundingBoxWkt());
+		setRereadMarker(this.geometry_interfaces, "Interfaces", modelLoaded
+				&& previous.hasInterfaces() != current.hasInterfaces());
+		setRereadMarker(this.hasElementWireframe, "Element wireframe", modelLoaded
+				&& previous.hasElementWireframe() != current.hasElementWireframe());
+		setRereadMarker(this.createUnits, "Units", modelLoaded
+				&& previous.hasUnits() != current.hasUnits());
+		boolean rereadRequired = modelLoaded && hasReadInSettingsChanged(previous, current);
+		String runTooltip = rereadRequired
+				? "Run will reread the IFC model with the changed settings, then convert automatically."
+				: "Start the conversion process.";
+		this.convert2RDFButton.setTooltip(new Tooltip(runTooltip));
+		this.basicConvert2RDFButton.setTooltip(new Tooltip(runTooltip));
+	}
+
+	private static void setRereadMarker(Labeled control, String label, boolean rereadRequired) {
+		control.setWrapText(true);
+		control.setText(rereadRequired ? label + "  · Requires model reread" : label);
+		if (rereadRequired) {
+			if (!control.getStyleClass().contains("requires-reread")) {
+				control.getStyleClass().add("requires-reread");
+			}
+		} else {
+			control.getStyleClass().remove("requires-reread");
+		}
+	}
+
+	private void updateGeneratedResultsState() {
+		if (this.lastSuccessfulConversionRequest == null) {
+			setGeneratedResultsStale(false);
+			return;
+		}
+		ConversionRequest current = new ConversionRequest(currentSettings(), selectedElementTypes(), selectedPropertySets());
+		setGeneratedResultsStale(hasConversionRequestChanged(this.lastSuccessfulConversionRequest, current));
+	}
+
+	private void setGeneratedResultsStale(boolean stale) {
+		if (this.generatedResultsStatusLabel == null) {
+			this.generatedResultsStale = stale;
+			return;
+		}
+		if (this.generatedResultsStale == stale && this.generatedResultsStatusLabel != null
+				&& this.generatedResultsStatusLabel.isVisible() == stale) {
+			return;
+		}
+		this.generatedResultsStale = stale;
+		this.generatedResultsStatusLabel.setManaged(stale);
+		this.generatedResultsStatusLabel.setVisible(stale);
+		if (stale) {
+			this.generatedResultsStatusLabel.setText("Generated results are stale — run again to apply the current settings and filters.");
+			setWorkflowDataAvailable(isFiltersAvailable(), this.currentPreviewMesh != null, false);
+			showSparqlMessage("Generated results are stale. Run the conversion again before querying.");
+			this.validateStatusLabel.setText("Generated results are stale. Run the conversion again before validation.");
+			appendGeometryPreviewMessage("Generated results are stale; the preview still shows the last conversion.");
+		} else if (this.lastSuccessfulConversionRequest != null) {
+			ConversionSettings settings = this.lastSuccessfulConversionRequest.settings();
+			boolean queryAvailable = !settings.exportAsIcdd() && settings.rdfTargetName() != null
+					&& new File(settings.rdfTargetName()).isFile();
+			setWorkflowDataAvailable(isFiltersAvailable(), !settings.exportAsIcdd(), queryAvailable);
+			if (!settings.exportAsIcdd()) {
+				scheduleGeometryPreview(settings);
+			}
+			if (queryAvailable) {
+				showSparqlMessage("Ready. Run a SPARQL query against "
+						+ new File(settings.rdfTargetName()).getName() + ".");
+				validateLoadedShapesAsync();
+			}
+		}
 	}
 
 	private void persistSettings(ConversionSettings settings) {
@@ -961,6 +1667,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void readInIFC() {
+		this.runAfterReadIn = false;
 		ConversionSettings settings = currentSettings();
 		readInIFCExecute(settings);
 	}
@@ -979,9 +1686,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.propertysets_checkbox.setRoot(null);
 		this.conversionTxt.setText("");
 		clearGeometryPreview("Convert with geometry enabled to preview the model.");
+		long operationId = beginWorkflow("Starting IFC read-in", ProgressBar.INDETERMINATE_PROGRESS);
 		try {
 			this.running_read_in = this.executor
-					.submit(new ReadinInThread(settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
+					.submit(new ReadinInThread(operationId, settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
 							settings.propsLevel(), settings.hasBuildingElements(),
 							settings.hasSeparateBuildingElementsModel(), settings.hasBuildingProperties(),
 							settings.hasSeparatePropertiesModel(), settings.hasPropertiesBlankNodes(),
@@ -990,6 +1698,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							settings.hasInterfaces()));
 		} catch (Exception e) {
 			this.options_panel.setDisable(false);
+			finishWorkflow(operationId, "Read-in failed", false);
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
 	}
@@ -1064,6 +1773,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		StackPane.setAlignment(fitButton, Pos.TOP_RIGHT);
 
 		this.geometryViewport.getChildren().setAll(this.geometryScene, fitButton);
+		this.geometryExplodeSlider.setDisable(true);
+		this.geometryExplodeSlider.setTooltip(new Tooltip("Move each object outward from the model center. Set to 0% to restore the model."));
+		this.geometryExplodeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+			this.geometryExplodeValueLabel.setText(Math.round(newValue.doubleValue()) + "%");
+			applyGeometryExplosion();
+		});
 		clearGeometryPreview("Select geometry and convert to preview the model.");
 	}
 
@@ -1102,7 +1817,43 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (this.sparqlEditorTxt != null && this.sparqlEditorTxt.getText().isBlank()) {
 			this.sparqlEditorTxt.setText(DEFAULT_SPARQL_QUERY);
 		}
+		this.sparqlTemplateChoice.getItems().setAll("Custom query", "Spaces by storey",
+				"Elements missing properties", "Element inventory");
+		this.sparqlTemplateChoice.setValue("Element inventory");
+		this.sparqlTemplateChoice.valueProperty().addListener((observable, oldValue, template) -> {
+			String query = queryForTemplate(template);
+			if (query != null) this.sparqlEditorTxt.setText(query);
+		});
+		this.sparqlEditorTxt.textProperty().addListener((observable, oldValue, newValue) -> {
+			if (this.sparqlTemplateChoice.getValue() != null
+					&& !"Custom query".equals(this.sparqlTemplateChoice.getValue())
+					&& !Objects.equals(newValue, queryForTemplate(this.sparqlTemplateChoice.getValue()))) {
+				this.sparqlTemplateChoice.setValue("Custom query");
+			}
+		});
+		this.sparqlResultsTable.setPlaceholder(new Label("Run a SELECT query to see results."));
+		this.sparqlResultsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, row) -> {
+			if (row == null) return;
+			for (SparqlCell cell : row.cells().values()) {
+				if (cell != null && cell.resourceUri() != null) {
+					highlightSparqlResource(cell.resourceUri());
+					break;
+				}
+			}
+		});
+		this.copySparqlResultsButton.setDisable(true);
+		this.exportSparqlResultsButton.setDisable(true);
 		setSparqlQueryAvailable(false);
+	}
+
+	static String queryForTemplate(String template) {
+		if (template == null) return null;
+		return switch (template) {
+		case "Spaces by storey" -> SPACES_BY_STOREY_QUERY;
+		case "Elements missing properties" -> ELEMENTS_MISSING_PROPERTIES_QUERY;
+		case "Element inventory" -> DEFAULT_SPARQL_QUERY;
+		default -> null;
+		};
 	}
 
 	private void setupValidateWindow() {
@@ -1115,6 +1866,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 				{
 					this.row.setAlignment(Pos.CENTER_LEFT);
+					this.shapeLabel.getStyleClass().add("shape-result-label");
 					this.shapeLabel.setMaxWidth(Double.MAX_VALUE);
 					this.shapeLabel.setWrapText(true);
 					HBox.setHgrow(this.shapeLabel, Priority.ALWAYS);
@@ -1126,7 +1878,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				@Override
 				protected void updateItem(ShapeValidationItem item, boolean empty) {
 					super.updateItem(item, empty);
-					getStyleClass().removeAll("shape-valid", "shape-invalid", "shape-pending");
+					getStyleClass().removeAll("shape-valid", "shape-invalid", "shape-warning", "shape-info", "shape-pending");
 					if (empty || item == null) {
 						setText(null);
 						setGraphic(null);
@@ -1134,22 +1886,247 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						return;
 					}
 					setText(null);
-					this.shapeLabel.setText(item.displayName + "\n" + item.sourceName);
+					ValidationFindings.Counts counts = ValidationFindings.count(item.violations);
+					this.shapeLabel.setText(item.displayName + "\n" + item.sourceName + " · " + counts.summary());
 					this.removeButton.setOnAction(event -> removeShapeItem(item));
 					setGraphic(this.row);
 					setTooltip(new Tooltip(item.message));
-					if (Boolean.TRUE.equals(item.conforms)) {
-						getStyleClass().add("shape-valid");
-					} else if (Boolean.FALSE.equals(item.conforms)) {
+					if (counts.violations() > 0) {
 						getStyleClass().add("shape-invalid");
+					} else if (counts.warnings() > 0) {
+						getStyleClass().add("shape-warning");
+					} else if (counts.infos() > 0) {
+						getStyleClass().add("shape-info");
+					} else if (Boolean.TRUE.equals(item.conforms)) {
+						getStyleClass().add("shape-valid");
 					} else {
 						getStyleClass().add("shape-pending");
 					}
 				}
 			});
+			this.shaclShapesList.getSelectionModel().selectedItemProperty().addListener(
+					(observable, oldValue, item) -> focusValidationItem(item));
 		}
+		this.validationSeverityFilter.getItems().setAll("All severities", "Violation", "Warning", "Info");
+		this.validationSeverityFilter.setValue("All severities");
+		this.validationSeverityFilter.valueProperty().addListener((observable, oldValue, newValue) -> refreshValidationFindings());
+		this.validationShapeFilter.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (!this.refreshingValidationFilters) refreshValidationFindings();
+		});
+		this.validationObjectFilter.textProperty().addListener((observable, oldValue, newValue) -> refreshValidationFindings());
+		this.validationFindingsTree.setShowRoot(false);
+		this.validationFindingsTree.setCellFactory(tree -> new TreeCell<>() {
+			@Override
+			protected void updateItem(ValidationTreeEntry entry, boolean empty) {
+				super.updateItem(entry, empty);
+				getStyleClass().removeAll("finding-violation", "finding-warning", "finding-info");
+				setText(empty || entry == null ? null : entry.label());
+				if (!empty && entry != null && entry.finding() != null) {
+					getStyleClass().add("finding-" + entry.finding().level().name().toLowerCase(Locale.ROOT));
+				}
+			}
+		});
+		this.validationFindingsTree.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, item) -> {
+			if (item != null && item.getValue() != null && item.getValue().finding() != null) {
+				inspectValidationFinding(item.getValue().finding());
+			}
+		});
+		refreshValidationFindings();
 		loadDefaultShapes();
+		restoreRememberedShapes();
 		setValidationAvailable(false);
+	}
+
+	private void focusValidationItem(ShapeValidationItem item) {
+		if (item == null || item.violations.isEmpty()) return;
+		inspectValidationFinding(item.violations.getFirst());
+	}
+
+	private void inspectValidationFinding(ValidationFindings.Finding finding) {
+		this.selectedValidationFinding = finding;
+		this.validationInspectorTxt.setText(ValidationFindings.inspection(finding));
+		this.validationFocusButton.setDisable(finding.objectUri() == null || finding.objectUri().isBlank());
+		focusResource(finding.objectUri(), finding.propertyPath(), "SHACL violation", false);
+	}
+
+	@FXML
+	private void focusSelectedValidationInGeometry() {
+		if (this.selectedValidationFinding == null) return;
+		focusResource(this.selectedValidationFinding.objectUri(), this.selectedValidationFinding.propertyPath(),
+				"SHACL violation", true);
+	}
+
+	private void refreshValidationFindings() {
+		if (this.validationFindingsTree == null) return;
+		List<ValidationFindings.Finding> all = this.shapeValidationItems.stream()
+				.flatMap(item -> item.violations.stream()).toList();
+		String selectedShape = this.validationShapeFilter.getValue();
+		List<String> shapeChoices = new ArrayList<>();
+		shapeChoices.add("All shapes");
+		this.shapeValidationItems.stream().map(item -> item.displayName + " (" + item.sourceName + ")")
+				.distinct().sorted(String.CASE_INSENSITIVE_ORDER).forEach(shapeChoices::add);
+		this.refreshingValidationFilters = true;
+		try {
+			this.validationShapeFilter.getItems().setAll(shapeChoices);
+			this.validationShapeFilter.setValue(shapeChoices.contains(selectedShape) ? selectedShape : "All shapes");
+		} finally {
+			this.refreshingValidationFilters = false;
+		}
+		ValidationFindings.Level level = switch (this.validationSeverityFilter.getValue() == null
+				? "" : this.validationSeverityFilter.getValue()) {
+		case "Violation" -> ValidationFindings.Level.VIOLATION;
+		case "Warning" -> ValidationFindings.Level.WARNING;
+		case "Info" -> ValidationFindings.Level.INFO;
+		default -> null;
+		};
+		String shapeKey = "All shapes".equals(this.validationShapeFilter.getValue())
+				? null : this.validationShapeFilter.getValue();
+		List<ValidationFindings.Finding> shown = ValidationFindings.filter(all, level, shapeKey,
+				this.validationObjectFilter.getText());
+		ValidationFindings.Counts counts = ValidationFindings.count(all);
+		this.validationCountsLabel.setText(counts.summary() + (shown.size() == all.size() ? "" : " · " + shown.size() + " shown"));
+
+		TreeItem<ValidationTreeEntry> root = new TreeItem<>(new ValidationTreeEntry("Findings", null));
+		for (ValidationFindings.Level severity : ValidationFindings.Level.values()) {
+			List<ValidationFindings.Finding> bySeverity = shown.stream()
+					.filter(finding -> finding.level() == severity).toList();
+			if (bySeverity.isEmpty()) continue;
+			TreeItem<ValidationTreeEntry> severityNode = new TreeItem<>(new ValidationTreeEntry(
+					severity.label() + " (" + bySeverity.size() + ")", null));
+			Map<String, List<ValidationFindings.Finding>> byShape = new LinkedHashMap<>();
+			bySeverity.stream().sorted(Comparator.comparing(ValidationFindings.Finding::shapeKey))
+					.forEach(finding -> byShape.computeIfAbsent(finding.shapeKey(), ignored -> new ArrayList<>()).add(finding));
+			for (Map.Entry<String, List<ValidationFindings.Finding>> shape : byShape.entrySet()) {
+				TreeItem<ValidationTreeEntry> shapeNode = new TreeItem<>(new ValidationTreeEntry(
+						shape.getKey() + " (" + shape.getValue().size() + ")", null));
+				Map<String, List<ValidationFindings.Finding>> byObject = new LinkedHashMap<>();
+				shape.getValue().stream().sorted(Comparator.comparing(ValidationFindings.Finding::objectKey))
+						.forEach(finding -> byObject.computeIfAbsent(finding.objectKey(), ignored -> new ArrayList<>())
+								.add(finding));
+				for (Map.Entry<String, List<ValidationFindings.Finding>> object : byObject.entrySet()) {
+					TreeItem<ValidationTreeEntry> objectNode = new TreeItem<>(new ValidationTreeEntry(
+							compactResourceName(object.getKey()) + " (" + object.getValue().size() + ")", null));
+					objectNode.setExpanded(false);
+					for (ValidationFindings.Finding finding : object.getValue()) {
+						String path = finding.propertyPath() == null ? "Object" : compactResourceName(finding.propertyPath());
+						String message = finding.message() == null || finding.message().isBlank() ? "Failed constraint"
+								: finding.message();
+						objectNode.getChildren().add(new TreeItem<>(new ValidationTreeEntry(
+								path + " · " + (message.length() > 90 ? message.substring(0, 87) + "..." : message), finding)));
+					}
+					shapeNode.getChildren().add(objectNode);
+				}
+				shapeNode.setExpanded(true);
+				severityNode.getChildren().add(shapeNode);
+			}
+			severityNode.setExpanded(true);
+			root.getChildren().add(severityNode);
+		}
+		this.validationFindingsTree.setRoot(root);
+		this.selectedValidationFinding = null;
+		this.validationInspectorTxt.clear();
+		this.validationFocusButton.setDisable(true);
+	}
+
+	private void isolateSelectedElementType(TreeItem<String> item) {
+		if (item == null || item == this.element_types_checkbox.getRoot()) {
+			this.isolatedElementType = null;
+		} else {
+			String value = item.getValue();
+			int suffix = value == null ? -1 : value.lastIndexOf(" (");
+			this.isolatedElementType = suffix > 0 && value.endsWith(")") ? value.substring(0, suffix) : value;
+		}
+		this.selectedResourceUri = null;
+		this.selectedPropertyPath = null;
+		this.sparqlSelectionHighlighted = false;
+		applyGeometrySelection();
+		if (this.isolatedElementType != null && this.selectedObjectHeadingLabel != null) {
+			this.selectedObjectHeadingLabel.setText("Isolated element type: " + this.isolatedElementType);
+			this.selectedObjectTypeLabel.setText("Select an object to inspect its details.");
+			this.selectedObjectGuidLabel.setText("GUID: —");
+			this.selectedObjectUriLabel.setText("RDF URI: —");
+			this.selectedObjectPropertiesTxt.setText("");
+		}
+	}
+
+	private void focusResource(String uri, String propertyPath, String source) {
+		focusResource(uri, propertyPath, source, true);
+	}
+
+	private void focusResource(String uri, String propertyPath, String source, boolean showGeometry) {
+		if (uri == null || uri.isBlank()) return;
+		this.selectedResourceUri = normalizeResourceUri(uri);
+		this.selectedPropertyPath = propertyPath;
+		this.sparqlSelectionHighlighted = false;
+		showSelectedResourceDetails(source);
+		applyGeometrySelection();
+		if (showGeometry) {
+			focusSelectedGeometry();
+			if (this.geometryCard != null) bringFloatingCardToFront(this.geometryCard);
+		}
+	}
+
+	private void highlightSparqlResource(String uri) {
+		if (uri == null || uri.isBlank()) return;
+		this.selectedResourceUri = normalizeResourceUri(uri);
+		this.selectedPropertyPath = null;
+		this.sparqlSelectionHighlighted = true;
+		showSelectedResourceDetails("SPARQL result");
+		applyGeometrySelection();
+	}
+
+	private String normalizeResourceUri(String uri) {
+		if (this.currentPreviewMesh == null || uri == null) return uri;
+		return this.currentPreviewMesh.resourceAliases().getOrDefault(uri, uri);
+	}
+
+	private void showSelectedResourceDetails(String source) {
+		if (this.selectedObjectHeadingLabel == null) return;
+		ResourceDetails details = this.currentPreviewMesh == null ? null
+				: this.currentPreviewMesh.resources().get(this.selectedResourceUri);
+		this.selectedObjectHeadingLabel.setText((source == null ? "Selected object" : source) + ": "
+				+ compactResourceName(this.selectedResourceUri));
+		this.selectedObjectTypeLabel.setText("IFC type: " + (details == null ? "Unknown" : details.ifcType()));
+		this.selectedObjectGuidLabel.setText("GUID: " + (details == null || details.guid() == null ? "—" : details.guid()));
+		this.selectedObjectUriLabel.setText("RDF URI: " + this.selectedResourceUri);
+		List<String> lines = new ArrayList<>();
+		if (this.selectedPropertyPath != null && !this.selectedPropertyPath.isBlank()) {
+			lines.add("Focused property: " + this.selectedPropertyPath);
+		}
+		if (details != null) lines.addAll(details.properties());
+		this.selectedObjectPropertiesTxt.setText(lines.isEmpty() ? "No additional RDF properties found."
+				: String.join("\n", lines));
+	}
+
+	private void applyGeometrySelection() {
+		for (Map.Entry<String, List<MeshView>> entry : this.geometryViewsByResource.entrySet()) {
+			ResourceDetails details = this.currentPreviewMesh == null ? null
+					: this.currentPreviewMesh.resources().get(entry.getKey());
+			boolean typeMatches = this.isolatedElementType == null
+					|| details != null && details.typeNames().contains(this.isolatedElementType);
+			boolean selected = Objects.equals(entry.getKey(), this.selectedResourceUri);
+			for (MeshView meshView : entry.getValue()) {
+				meshView.setVisible(typeMatches || selected);
+				meshView.setOpacity(this.sparqlSelectionHighlighted || this.selectedResourceUri == null || selected ? 1.0 : 0.16);
+				PhongMaterial original = this.geometryMaterials.get(meshView);
+				meshView.setMaterial(selected ? createPreviewMaterial(this.sparqlSelectionHighlighted ? 0xff2020 : 0xf59e0b) : original);
+			}
+		}
+	}
+
+	private void focusSelectedGeometry() {
+		List<MeshView> selectedViews = this.geometryViewsByResource.get(this.selectedResourceUri);
+		if (selectedViews == null || selectedViews.isEmpty() || this.geometryModelRoot == null) return;
+		GeometryBounds bounds = this.geometryBoundsByResource.get(this.selectedResourceUri);
+		if (bounds == null) return;
+		this.geometryModelRoot.setTranslateX(-bounds.center().getX() - selectedViews.getFirst().getTranslateX());
+		this.geometryModelRoot.setTranslateY(-bounds.center().getY() - selectedViews.getFirst().getTranslateY());
+	}
+
+	private static String compactResourceName(String uri) {
+		if (uri == null || uri.isBlank()) return "Unknown resource";
+		int split = Math.max(uri.lastIndexOf('#'), Math.max(uri.lastIndexOf('/'), uri.lastIndexOf(':')));
+		return split >= 0 && split + 1 < uri.length() ? uri.substring(split + 1) : uri;
 	}
 
 	private boolean isFiltersAvailable() {
@@ -1209,7 +2186,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (!available) {
 			if (this.sparqlResultsTxt != null) {
-				this.sparqlResultsTxt.setText("Generate an RDF output to run SPARQL queries.");
+				showSparqlMessage("Generate an RDF output to run SPARQL queries.");
 			}
 		}
 	}
@@ -1227,14 +2204,17 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (!available) {
 			this.outputRevision++;
+			this.explorationModelCache.invalidate();
 			this.validationRevision++;
 			for (ShapeValidationItem item : this.shapeValidationItems) {
 				item.conforms = null;
 				item.message = "Generate an RDF output to validate shapes.";
+				item.violations = List.of();
 			}
 			if (this.shaclShapesList != null) {
 				this.shaclShapesList.refresh();
 			}
+			refreshValidationFindings();
 			if (this.validateStatusLabel != null) {
 				this.validateStatusLabel.setText("Generate an RDF output to validate loaded SHACL shapes.");
 			}
@@ -1251,7 +2231,215 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void resetConversionOutput() {
 		this.lastSuccessfulConversionRequest = null;
 		this.pendingConversionRequest = null;
+		setGeneratedResultsStale(false);
 		setWorkflowDataAvailable(false, false, false);
+		resetModelSummary();
+	}
+
+	private void resetModelSummary() {
+		if (this.modelSummaryCard == null) {
+			return;
+		}
+		this.collapsedModelSummaryTitle = "Model Summary";
+		this.modelSummaryCard.setText(this.collapsedModelSummaryTitle);
+		this.modelSummaryCard.setExpanded(false);
+		this.modelSummaryCard.setVisible(false);
+		this.modelSummaryCard.setManaged(false);
+	}
+
+	private ModelSummary createModelSummary(IFCtoLBDConverter converter, Map<String, Integer> mappedTypeCounts,
+			Set<String> propertySetNames) {
+		IfcModelStatistics statistics = converter.getIfcModelStatistics();
+		ConversionSettings settings = this.readInSettings;
+		File inputFile = new File(settings.ifcFileName());
+		return createModelSummary(converter.getLoadedExpressSchema(), inputFile.length(), mappedTypeCounts,
+				statistics, propertySetNames.size(), converter.getPropertysets().size(),
+				settings.hasGeometry() || settings.hasElementWireframe(),
+				settings.hasBuildingProperties());
+	}
+
+	static ModelSummary createModelSummary(String schema, long fileSize, Map<String, Integer> mappedTypeCounts,
+			IfcModelStatistics statistics, int propertySetTypeCount, int propertySetOccurrenceCount,
+			boolean geometryRequested, boolean propertiesRequested) {
+		int mappedElementCount = mappedTypeCounts.values().stream().mapToInt(Integer::intValue).sum();
+		int storeyCount = statistics.rootTypeCounts().getOrDefault("IfcBuildingStorey", 0);
+		int spaceCount = statistics.rootTypeCounts().getOrDefault("IfcSpace", 0);
+		int unmappedElementCount = Math.max(0, statistics.elementCount() - mappedElementCount);
+		String geometryStatus = !geometryRequested ? "Not loaded (disabled)"
+				: statistics.geometryAvailable() ? "Available" : "Requested, unavailable";
+		String majorTypes = mappedTypeCounts.entrySet().stream()
+				.filter(entry -> entry.getValue() != null && entry.getValue() > 0)
+				.sorted(Map.Entry.<String, Integer>comparingByValue(Comparator.reverseOrder())
+						.thenComparing(Map.Entry.comparingByKey()))
+				.limit(5)
+				.map(entry -> entry.getKey() + " " + entry.getValue())
+				.reduce((left, right) -> left + "  ·  " + right)
+				.orElse("None detected");
+
+		List<String> warnings = new ArrayList<>();
+		if (schema == null || schema.isBlank()) {
+			warnings.add("The IFC schema could not be identified.");
+		}
+		if (statistics.elementCount() == 0) {
+			warnings.add("No IFC elements were detected.");
+		}
+		if (storeyCount == 0) {
+			warnings.add("No building storeys were detected.");
+		}
+		if (spaceCount == 0) {
+			warnings.add("No spaces were detected.");
+		}
+		if (unmappedElementCount > 0) {
+			warnings.add(unmappedElementCount + " IFC element" + (unmappedElementCount == 1 ? " has" : "s have")
+					+ " no mapped LBD product type.");
+		}
+		if (propertiesRequested && propertySetTypeCount == 0) {
+			warnings.add("No property sets were detected.");
+		}
+		if (geometryRequested && !statistics.geometryAvailable()) {
+			warnings.add("Geometry was requested but no geometry data was available.");
+		}
+
+		return new ModelSummary(schema == null || schema.isBlank() ? "Unknown" : schema, formatFileSize(fileSize),
+				statistics.elementCount(), mappedElementCount, propertySetTypeCount, propertySetOccurrenceCount,
+				storeyCount, spaceCount, geometryStatus, majorTypes, List.copyOf(warnings));
+	}
+
+	private void showModelSummary(ModelSummary summary) {
+		this.summarySchemaLabel.setText(summary.schema());
+		this.summaryFileSizeLabel.setText(summary.fileSize());
+		this.summaryElementsLabel.setText(summary.elementCount() == summary.mappedElementCount()
+				? Integer.toString(summary.elementCount())
+				: summary.elementCount() + " (" + summary.mappedElementCount() + " mapped)");
+		this.summaryPropertySetsLabel.setText(summary.propertySetTypeCount() + " types · "
+				+ summary.propertySetOccurrenceCount() + " uses");
+		this.summaryStoreysLabel.setText(Integer.toString(summary.storeyCount()));
+		this.summarySpacesLabel.setText(Integer.toString(summary.spaceCount()));
+		this.summaryGeometryLabel.setText(summary.geometryStatus());
+		this.summaryMajorTypesLabel.setText(summary.majorTypes());
+		this.summaryWarningsLabel.getStyleClass().remove("summary-ok");
+		if (summary.warnings().isEmpty()) {
+			this.summaryWarningsLabel.setText("No model warnings detected.");
+			this.summaryWarningsLabel.getStyleClass().add("summary-ok");
+		} else {
+			this.summaryWarningsLabel.setText(summary.warnings().stream()
+					.map(warning -> "• " + warning).reduce((left, right) -> left + "\n" + right).orElse(""));
+		}
+		this.collapsedModelSummaryTitle = collapsedModelSummaryTitle(summary);
+		this.modelSummaryCard.setManaged(true);
+		this.modelSummaryCard.setVisible(true);
+		this.modelSummaryCard.setExpanded(false);
+		updateModelSummaryTitle(false);
+	}
+
+	static String collapsedModelSummaryTitle(ModelSummary summary) {
+		return String.format(Locale.ROOT, "Model Summary  Storeys %d  Spaces %d",
+				summary.storeyCount(), summary.spaceCount());
+	}
+
+	private void updateModelSummaryTitle(boolean expanded) {
+		this.modelSummaryCard.setText(expanded ? "Model Summary" : this.collapsedModelSummaryTitle);
+	}
+
+	static String formatFileSize(long bytes) {
+		if (bytes < 1024) {
+			return bytes + " B";
+		}
+		String[] units = { "KiB", "MiB", "GiB", "TiB" };
+		double size = bytes;
+		int unit = -1;
+		do {
+			size /= 1024.0;
+			unit++;
+		} while (size >= 1024.0 && unit < units.length - 1);
+		return String.format(Locale.ROOT, size >= 10.0 ? "%.0f %s" : "%.1f %s", size, units[unit]);
+	}
+
+	private long beginWorkflow(String stage, double progress) {
+		long operationId = ++this.operationSequence;
+		this.activeOperationId = operationId;
+		this.workflowStartedNanos = System.nanoTime();
+		this.workflowStatusLabel.setText(stage);
+		this.workflowProgressBar.setProgress(progress);
+		this.workflowElapsedLabel.setText("00:00");
+		this.cancelWorkflowButton.setDisable(false);
+		setWorkflowStatusVisible(true);
+		if (this.workflowElapsedTimeline != null) {
+			this.workflowElapsedTimeline.stop();
+		}
+		this.workflowElapsedTimeline = new Timeline(
+				new KeyFrame(Duration.seconds(1), event -> updateWorkflowElapsed()));
+		this.workflowElapsedTimeline.setCycleCount(Timeline.INDEFINITE);
+		this.workflowElapsedTimeline.play();
+		return operationId;
+	}
+
+	private boolean isActiveOperation(long operationId) {
+		return operationId >= 0 && operationId == this.activeOperationId;
+	}
+
+	private void updateWorkflowStage(long operationId, String stage, double progress) {
+		if (!isActiveOperation(operationId)) {
+			return;
+		}
+		this.workflowStatusLabel.setText(stage);
+		this.workflowProgressBar.setProgress(progress);
+		updateWorkflowElapsed();
+	}
+
+	private void finishWorkflow(long operationId, String status, boolean successful) {
+		if (!isActiveOperation(operationId)) {
+			return;
+		}
+		updateWorkflowElapsed();
+		if (this.workflowElapsedTimeline != null) {
+			this.workflowElapsedTimeline.stop();
+		}
+		this.workflowStatusLabel.setText(status);
+		this.workflowProgressBar.setProgress(successful ? 1.0 : 0.0);
+		this.cancelWorkflowButton.setDisable(true);
+		this.activeOperationId = -1;
+		setWorkflowStatusVisible(false);
+	}
+
+	private void setWorkflowStatusVisible(boolean visible) {
+		this.workflowStatusCard.setManaged(visible);
+		this.workflowStatusCard.setVisible(visible);
+	}
+
+	private void updateWorkflowElapsed() {
+		long elapsedSeconds = Math.max(0L, (System.nanoTime() - this.workflowStartedNanos) / 1_000_000_000L);
+		this.workflowElapsedLabel.setText(String.format(Locale.ROOT, "%02d:%02d", elapsedSeconds / 60,
+				elapsedSeconds % 60));
+	}
+
+	@FXML
+	private void cancelWorkflow() {
+		long operationId = this.activeOperationId;
+		if (!isActiveOperation(operationId)) {
+			return;
+		}
+		if (this.running_read_in != null && !this.running_read_in.isDone()) {
+			this.running_read_in.cancel(true);
+		}
+		if (this.running_conversion != null && !this.running_conversion.isDone()) {
+			this.running_conversion.cancel(true);
+		}
+		if (this.running_validation != null && !this.running_validation.isDone()) {
+			this.running_validation.cancel(true);
+		}
+		finishWorkflow(operationId, "Cancelled — read IFC again to continue", false);
+		this.running_read_in = null;
+		this.running_conversion = null;
+		this.running_validation = null;
+		this.runAfterReadIn = false;
+		this.element_types_checkbox.setRoot(null);
+		this.propertysets_checkbox.setRoot(null);
+		resetConversionOutput();
+		setRunReady(false);
+		this.options_panel.setDisable(false);
+		clearGeometryPreview("Conversion cancelled.");
+		this.conversionTxt.appendText("Operation cancelled. Read the IFC model again before converting.\n");
 	}
 
 	private static void setUnavailableStyle(Node node, boolean unavailable) {
@@ -1337,6 +2525,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			String target = newValue == null ? "" : newValue.trim();
 			if (target.isEmpty() || "Target path will be generated after input selection".equals(target)) {
 				this.rdfTargetName = null;
+				refreshReactiveSettings();
 				return;
 			}
 			this.rdfTargetName = target;
@@ -1344,6 +2533,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			if (parent != null && parent.isDirectory()) {
 				this.prefs.put("ifc_target_directory", parent.getAbsolutePath());
 			}
+			refreshReactiveSettings();
 		});
 	}
 
@@ -1362,12 +2552,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.basicOutputJSONorTTL.setValue(newValue);
 			}
 			updateTargetFileExtension();
+			refreshReactiveSettings();
 		});
 		this.basicOutputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> {
 			if (newValue != null && !Objects.equals(this.outputJSONorTTL.getValue(), newValue)) {
 				this.outputJSONorTTL.setValue(newValue);
 			}
 			updateTargetFileExtension();
+			refreshReactiveSettings();
 		});
 	}
 
@@ -1775,8 +2967,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		try {
 			File defaultShapes = resourceFile(DEFAULT_SHACL_RESOURCE);
 			LoadedShapes loaded = loadShapesFile(defaultShapes, DEFAULT_SHACL_RESOURCE);
-			this.loadedShapes.add(loaded);
+			this.loadedShapes.add(new LoadedShapes(loaded.file(), loaded.name(), loaded.shapes(), loaded.items(), true));
 			this.shapeValidationItems.addAll(loaded.items());
+			refreshValidationFindings();
 			if (this.validateStatusLabel != null) {
 				this.validateStatusLabel.setText("Loaded " + DEFAULT_SHACL_RESOURCE + ".");
 			}
@@ -1785,6 +2978,45 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.validateStatusLabel.setText("Default SHACL load failed: " + e.getMessage());
 			}
 		}
+	}
+
+	private void rememberAddedShapes() {
+		List<RememberedShapes.Entry> entries = new ArrayList<>();
+		for (LoadedShapes loaded : this.loadedShapes) {
+			if (loaded.builtIn()) continue;
+			for (ShapeValidationItem item : loaded.items()) {
+				entries.add(new RememberedShapes.Entry(loaded.file().getAbsolutePath(), item.persistentKey));
+			}
+		}
+		RememberedShapes.write(this.prefs, entries);
+	}
+
+	private void restoreRememberedShapes() {
+		Map<String, Set<String>> selectedByFile = new LinkedHashMap<>();
+		for (RememberedShapes.Entry entry : RememberedShapes.read(this.prefs)) {
+			selectedByFile.computeIfAbsent(entry.filePath(), ignored -> new HashSet<>()).add(entry.shapeNode());
+		}
+		int restored = 0;
+		List<String> unavailable = new ArrayList<>();
+		for (Map.Entry<String, Set<String>> entry : selectedByFile.entrySet()) {
+			File file = new File(entry.getKey());
+			try {
+				LoadedShapes loaded = loadShapesFile(file, file.getName());
+				loaded.items().removeIf(item -> !entry.getValue().contains(item.persistentKey));
+				if (loaded.items().isEmpty()) continue;
+				this.loadedShapes.add(loaded);
+				this.shapeValidationItems.addAll(loaded.items());
+				restored += loaded.items().size();
+			} catch (Exception e) {
+				unavailable.add(file.getName());
+			}
+		}
+		if (!unavailable.isEmpty()) {
+			this.validateStatusLabel.setText("Could not reopen SHACL files: " + String.join(", ", unavailable));
+		} else if (restored > 0) {
+			this.validateStatusLabel.setText("Reopened " + restored + " saved SHACL shapes.");
+		}
+		refreshValidationFindings();
 	}
 
 	private void loadShapesFileAsync(File shapeFile, String sourceName) {
@@ -1800,9 +3032,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				Platform.runLater(() -> {
 					this.loadedShapes.add(loaded);
 					this.shapeValidationItems.addAll(loaded.items());
+					rememberAddedShapes();
 					this.validateStatusLabel.setText("Loaded " + loaded.items().size() + " shapes from " + sourceName
 							+ ".");
 					this.shaclShapesList.refresh();
+					refreshValidationFindings();
 					if (isValidationAvailable()) {
 						validateLoadedShapesAsync();
 					}
@@ -1824,9 +3058,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		this.loadedShapes.removeIf(loaded -> loaded.items().isEmpty());
 		this.shapeValidationItems.remove(item);
+		rememberAddedShapes();
 		if (this.shaclShapesList != null) {
 			this.shaclShapesList.refresh();
 		}
+		refreshValidationFindings();
 		if (this.validateStatusLabel != null) {
 			this.validateStatusLabel.setText("Removed " + item.displayName + ".");
 		}
@@ -1841,55 +3077,85 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		List<ShapeValidationItem> items = new ArrayList<>();
 		for (Shape shape : shapes.getTargetShapes()) {
 			items.add(new ShapeValidationItem(sourceName, formatShapeNode(shape.getShapeNode()), shape.getShapeNode(),
+					shapePersistenceKey(shape.getShapeNode(), items.size()),
 					collectConstraintNodes(shape)));
 		}
 		if (items.isEmpty()) {
 			for (Shape shape : shapes) {
 				items.add(new ShapeValidationItem(sourceName, formatShapeNode(shape.getShapeNode()), shape.getShapeNode(),
+						shapePersistenceKey(shape.getShapeNode(), items.size()),
 						collectConstraintNodes(shape)));
 			}
 		}
-		return new LoadedShapes(shapeFile, sourceName, shapes, items);
+		return new LoadedShapes(shapeFile, sourceName, shapes, items, false);
+	}
+
+	private static String shapePersistenceKey(org.apache.jena.graph.Node node, int index) {
+		return node.isURI() ? node.getURI() : "@index:" + index;
 	}
 
 	private void validateLoadedShapesAsync() {
+		validateLoadedShapesAsync(-1);
+	}
+
+	private void validateLoadedShapesAsync(long workflowOperationId) {
 		long revision = ++this.validationRevision;
 		if (!isValidationAvailable()) {
 			setValidationAvailable(false);
+			if (workflowOperationId >= 0) {
+				finishWorkflow(workflowOperationId, "Conversion complete", true);
+			}
 			return;
 		}
 		List<LoadedShapes> shapesToValidate = new ArrayList<>(this.loadedShapes);
 		if (shapesToValidate.isEmpty()) {
 			this.validateStatusLabel.setText("Load SHACL shapes before validating.");
+			if (workflowOperationId >= 0) {
+				finishWorkflow(workflowOperationId, "Conversion complete", true);
+			}
 			return;
+		}
+		if (workflowOperationId >= 0) {
+			updateWorkflowStage(workflowOperationId, "Validating generated RDF", 0.97);
 		}
 		File outputFile = new File(this.lastSuccessfulConversionRequest.settings().rdfTargetName());
 		for (ShapeValidationItem item : this.shapeValidationItems) {
 			item.conforms = null;
 			item.message = "Validation pending.";
+			item.violations = List.of();
 		}
 		this.shaclShapesList.refresh();
+		refreshValidationFindings();
 		this.validateStatusLabel.setText("Validating " + this.shapeValidationItems.size() + " shapes...");
-		this.executor.submit(() -> {
+		this.running_validation = this.executor.submit(() -> {
 			Model dataModel = null;
 			try {
-				dataModel = readOutputModel(outputFile);
+				dataModel = readExplorationModel(outputFile);
 				List<ShapeValidationResult> updated = new ArrayList<>();
 				for (LoadedShapes loaded : shapesToValidate) {
 					ValidationReport report = ShaclValidator.get().validate(loaded.shapes(), dataModel.getGraph());
 					List<ShapeValidationItem> copies = loaded.items().stream().map(item -> new ShapeValidationItem(
-							item.sourceName, item.displayName, item.shapeNode, item.constraintNodes)).toList();
-					applyValidationReport(copies, report);
+							item.sourceName, item.displayName, item.shapeNode, item.persistentKey, item.constraintNodes)).toList();
+					applyValidationReport(copies, report, dataModel);
 					for (int i = 0; i < copies.size(); i++) {
 						ShapeValidationItem copy = copies.get(i);
-						updated.add(new ShapeValidationResult(loaded.items().get(i), copy.conforms, copy.message));
+						updated.add(new ShapeValidationResult(loaded.items().get(i), copy.conforms, copy.message,
+								copy.violations));
 					}
 				}
-				Platform.runLater(() -> publishValidationResults(revision, updated, outputFile.getName()));
+				Platform.runLater(() -> {
+					publishValidationResults(revision, updated, outputFile.getName());
+					if (workflowOperationId >= 0) {
+						finishWorkflow(workflowOperationId, "Conversion and validation complete", true);
+					}
+				});
 			} catch (Exception e) {
 				Platform.runLater(() -> {
 					if (revision == this.validationRevision)
 						this.validateStatusLabel.setText("Validation failed: " + e.getMessage());
+					if (workflowOperationId >= 0) {
+						finishWorkflow(workflowOperationId, "Conversion complete; validation failed", true);
+					}
 				});
 			} finally {
 				if (dataModel != null) dataModel.close();
@@ -1902,20 +3168,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		for (ShapeValidationResult result : updated) {
 			result.item().conforms = result.conforms();
 			result.item().message = result.message();
+			result.item().violations = result.violations();
 		}
-		long failureCount = updated.stream().filter(result -> Boolean.FALSE.equals(result.conforms())).count();
 		if (this.shaclShapesList != null) this.shaclShapesList.refresh();
+		refreshValidationFindings();
 		if (this.validateStatusLabel != null)
 			this.validateStatusLabel.setText("Validated " + updated.size() + " shapes against "
-					+ outputName + ". Failed: " + failureCount + ".");
+					+ outputName + ".");
 	}
 
-	private void applyValidationReport(List<ShapeValidationItem> items, ValidationReport report) {
+	private void applyValidationReport(List<ShapeValidationItem> items, ValidationReport report, Model dataModel) {
 		for (ShapeValidationItem item : items) {
 			item.conforms = true;
 			item.message = "Validation passed.";
+			item.violations = List.of();
 		}
-		Set<org.apache.jena.graph.Node> matchedFailureSources = new HashSet<>();
 		for (ReportEntry entry : report.getEntries()) {
 			org.apache.jena.graph.Node source = entry.source();
 			for (ShapeValidationItem item : items) {
@@ -1923,10 +3190,42 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					item.conforms = false;
 					item.message = entry.message() == null || entry.message().isBlank() ? "Validation failed."
 							: entry.message();
-					matchedFailureSources.add(source);
+					List<ValidationFindings.Finding> violations = new ArrayList<>(item.violations);
+					violations.add(new ValidationFindings.Finding(item.displayName, item.sourceName,
+							ValidationFindings.nodeText(entry.focusNode()), resolveFocusResourceUri(dataModel, entry.focusNode()),
+							entry.resultPath() == null ? null : entry.resultPath().toString(),
+							ValidationFindings.nodeText(entry.value()), item.message,
+							ValidationFindings.levelOf(entry.severity())));
+					item.violations = List.copyOf(violations);
 				}
 			}
 		}
+	}
+
+	private static String resolveFocusResourceUri(Model model, org.apache.jena.graph.Node focusNode) {
+		if (model == null || focusNode == null || !focusNode.isURI()) {
+			return focusNode == null ? null : focusNode.toString();
+		}
+		Resource start = model.createResource(focusNode.getURI());
+		Deque<Resource> pending = new ArrayDeque<>();
+		Set<Resource> visited = new HashSet<>();
+		pending.add(start);
+		for (int depth = 0; depth < 4 && !pending.isEmpty(); depth++) {
+			int levelSize = pending.size();
+			for (int i = 0; i < levelSize; i++) {
+				Resource candidate = pending.removeFirst();
+				if (!visited.add(candidate)) continue;
+				if (candidate.isURIResource() && (model.contains(candidate, model.createProperty(OMG_HAS_GEOMETRY))
+						|| model.contains(candidate, org.apache.jena.vocabulary.RDF.type,
+								model.createResource(BOT_ELEMENT)))) {
+					return candidate.getURI();
+				}
+				model.listStatements(null, null, candidate).forEachRemaining(statement -> {
+					if (statement.getSubject().isResource()) pending.addLast(statement.getSubject());
+				});
+			}
+		}
+		return focusNode.getURI();
 	}
 
 	private static Set<org.apache.jena.graph.Node> collectConstraintNodes(Shape shape) {
@@ -1984,54 +3283,154 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 	}
 
-	private String executeSparqlQuery(Model model, String queryText) {
+	private static SparqlOutput executeSparqlQueryData(Model model, String queryText, long startedNanos) {
 		Query query = QueryFactory.create(queryText);
 		try (QueryExecution queryExecution = QueryExecutionFactory.create(query, model)) {
 			if (query.isSelectType()) {
-				return formatSelectResults(queryExecution.execSelect());
+				SelectResults results = collectSelectResults(queryExecution.execSelect());
+				return new SparqlOutput(results, null, elapsedMillis(startedNanos));
 			}
 			if (query.isAskType()) {
-				return "ASK result: " + queryExecution.execAsk();
+				return new SparqlOutput(null, "ASK result: " + queryExecution.execAsk(), elapsedMillis(startedNanos));
 			}
 			if (query.isConstructType()) {
-				return serializeQueryModel(queryExecution.execConstruct());
+				Model result = queryExecution.execConstruct();
+				try {
+					return new SparqlOutput(null, serializeQueryModel(result), elapsedMillis(startedNanos));
+				} finally {
+					result.close();
+				}
 			}
 			if (query.isDescribeType()) {
-				return serializeQueryModel(queryExecution.execDescribe());
+				Model result = queryExecution.execDescribe();
+				try {
+					return new SparqlOutput(null, serializeQueryModel(result), elapsedMillis(startedNanos));
+				} finally {
+					result.close();
+				}
 			}
 		}
-		return "Unsupported SPARQL query type.";
+		return new SparqlOutput(null, "Unsupported SPARQL query type.", elapsedMillis(startedNanos));
 	}
 
-	private String formatSelectResults(ResultSet resultSet) {
-		List<String> variables = resultSet.getResultVars();
-		StringBuilder output = new StringBuilder();
-		output.append(String.join("\t", variables)).append("\n");
-		int rowCount = 0;
-		while (resultSet.hasNext() && rowCount < MAX_SPARQL_RESULT_ROWS) {
+	private static long elapsedMillis(long startedNanos) {
+		return TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - startedNanos);
+	}
+
+	static SelectResults collectSelectResults(ResultSet resultSet) {
+		List<String> variables = List.copyOf(resultSet.getResultVars());
+		List<SparqlRow> rows = new ArrayList<>();
+		while (resultSet.hasNext() && rows.size() < MAX_SPARQL_RESULT_ROWS) {
 			QuerySolution solution = resultSet.nextSolution();
-			for (int i = 0; i < variables.size(); i++) {
-				if (i > 0) {
-					output.append('\t');
-				}
-				RDFNode node = solution.get(variables.get(i));
-				if (node != null) {
-					output.append(formatSparqlNode(node));
-				}
+			Map<String, SparqlCell> cells = new LinkedHashMap<>();
+			for (String variable : variables) {
+				RDFNode node = solution.get(variable);
+				String uri = node != null && node.isURIResource() ? node.asResource().getURI() : null;
+				cells.put(variable, new SparqlCell(node == null ? "" : formatSparqlNode(node), uri));
 			}
-			output.append('\n');
-			rowCount++;
+			rows.add(new SparqlRow(java.util.Collections.unmodifiableMap(cells)));
 		}
-		if (rowCount == 0) {
-			output.append("No results.\n");
+		return new SelectResults(variables, List.copyOf(rows), resultSet.hasNext());
+	}
+
+	private void showSparqlOutput(SparqlOutput output) {
+		this.sparqlResultMetrics = output.select() == null
+				? "Completed in " + output.elapsedMillis() + " ms"
+				: output.select().rows().size() + " rows"
+						+ (output.select().limited() ? " (first " + MAX_SPARQL_RESULT_ROWS + ")" : "")
+						+ " · " + output.elapsedMillis() + " ms";
+		this.sparqlResultsStatusLabel.setText(this.sparqlResultMetrics);
+		this.currentSelectResults = output.select();
+		boolean select = output.select() != null;
+		this.copySparqlResultsButton.setDisable(!select);
+		this.exportSparqlResultsButton.setDisable(!select);
+		this.sparqlResultsTable.setManaged(select);
+		this.sparqlResultsTable.setVisible(select);
+		this.sparqlResultsTxt.setManaged(!select);
+		this.sparqlResultsTxt.setVisible(!select);
+		if (select) {
+			showSelectResults(output.select());
 		} else {
-			output.append("\nRows: ").append(rowCount);
-			if (resultSet.hasNext()) {
-				output.append(" (limited to ").append(MAX_SPARQL_RESULT_ROWS).append(")");
-			}
-			output.append('\n');
+			this.sparqlResultsTable.getItems().clear();
+			this.sparqlResultsTable.getColumns().clear();
+			this.sparqlResultsTxt.setText(output.text());
 		}
-		return output.toString();
+	}
+
+	private void showSparqlMessage(String message) {
+		this.currentSelectResults = null;
+		this.sparqlResultMetrics = "";
+		this.copySparqlResultsButton.setDisable(true);
+		this.exportSparqlResultsButton.setDisable(true);
+		this.sparqlResultsTable.setManaged(false);
+		this.sparqlResultsTable.setVisible(false);
+		this.sparqlResultsTable.getItems().clear();
+		this.sparqlResultsTable.getColumns().clear();
+		this.sparqlResultsTxt.setManaged(true);
+		this.sparqlResultsTxt.setVisible(true);
+		this.sparqlResultsTxt.setText(message);
+		this.sparqlResultsStatusLabel.setText(message.startsWith("Running query") ? "Running..." : "No SELECT results");
+	}
+
+	private void showSelectResults(SelectResults results) {
+		this.sparqlResultsTable.setPlaceholder(new Label("No rows matched this query."));
+		this.sparqlResultsTable.getSortOrder().clear();
+		this.sparqlResultsTable.getColumns().clear();
+		for (String variable : results.variables()) {
+			TableColumn<SparqlRow, SparqlCell> column = new TableColumn<>(variable);
+			column.setMinWidth(90);
+			column.setPrefWidth(variable.toLowerCase(Locale.ROOT).contains("count") ? 105 : 220);
+			column.setCellValueFactory(data -> new ReadOnlyObjectWrapper<>(data.getValue().cells().get(variable)));
+			column.setComparator(Comparator.nullsFirst(Comparator.comparing(SparqlCell::text,
+					String.CASE_INSENSITIVE_ORDER)));
+			column.setCellFactory(ignored -> new TableCell<>() {
+				private final Hyperlink link = new Hyperlink();
+
+				@Override
+				protected void updateItem(SparqlCell cell, boolean empty) {
+					super.updateItem(cell, empty);
+					setText(null);
+					setGraphic(null);
+					setTooltip(null);
+					if (empty || cell == null) return;
+					if (cell.resourceUri() != null) {
+						this.link.setText(cell.text());
+						this.link.setTooltip(new Tooltip(cell.resourceUri()));
+						this.link.setOnAction(event -> highlightSparqlResource(cell.resourceUri()));
+						setGraphic(this.link);
+					} else {
+						setText(cell.text());
+					}
+				}
+			});
+			this.sparqlResultsTable.getColumns().add(column);
+		}
+		this.sparqlResultsTable.setItems(FXCollections.observableArrayList(results.rows()));
+	}
+
+	static String selectResultsAsCsv(SelectResults results, List<SparqlRow> rows) {
+		StringBuilder csv = new StringBuilder();
+		for (int i = 0; i < results.variables().size(); i++) {
+			if (i > 0) csv.append(',');
+			csv.append(escapeCsv(results.variables().get(i)));
+		}
+		csv.append('\n');
+		for (SparqlRow row : rows) {
+			for (int i = 0; i < results.variables().size(); i++) {
+				if (i > 0) csv.append(',');
+				SparqlCell cell = row.cells().get(results.variables().get(i));
+				csv.append(escapeCsv(cell == null ? "" : cell.text()));
+			}
+			csv.append('\n');
+		}
+		return csv.toString();
+	}
+
+	private static String escapeCsv(String value) {
+		if (value.indexOf(',') < 0 && value.indexOf('"') < 0 && value.indexOf('\n') < 0 && value.indexOf('\r') < 0) {
+			return value;
+		}
+		return '"' + value.replace("\"", "\"\"") + '"';
 	}
 
 	private static String formatSparqlNode(RDFNode node) {
@@ -2076,8 +3475,23 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void clearGeometryPreview(String message) {
 		this.currentPreviewMesh = null;
+		this.geometryExplodeSlider.setValue(0);
+		this.geometryExplodeSlider.setDisable(true);
+		this.selectedResourceUri = null;
+		this.selectedPropertyPath = null;
+		this.sparqlSelectionHighlighted = false;
 		renderGeometryScene();
+		clearSelectedResourceDetails();
 		appendGeometryPreviewMessage(message);
+	}
+
+	private void clearSelectedResourceDetails() {
+		if (this.selectedObjectHeadingLabel == null) return;
+		this.selectedObjectHeadingLabel.setText("Select an object in 3D, SPARQL, validation, or Filters");
+		this.selectedObjectTypeLabel.setText("IFC type: —");
+		this.selectedObjectGuidLabel.setText("GUID: —");
+		this.selectedObjectUriLabel.setText("RDF URI: —");
+		this.selectedObjectPropertiesTxt.setText("");
 	}
 
 	private void scheduleGeometryPreview(ConversionSettings settings) {
@@ -2109,7 +3523,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private PreviewMesh loadPreviewMesh(File rdfFile) throws IOException {
 		ObjMeshBuilder builder = new ObjMeshBuilder(MAX_PREVIEW_POINTS, MAX_PREVIEW_TRIANGLES);
-		Model model = readOutputModel(rdfFile);
+		Model model = readExplorationModel(rdfFile);
 		try {
 			Property objProperty = model.createProperty(GEOMETRY_OBJ_PROPERTY);
 			Property materialColorProperty = model.createProperty(GEOMETRY_MTL_KD_PROPERTY);
@@ -2119,10 +3533,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				Statement geometry = geometries.next();
 				if (!geometry.getObject().isLiteral()) continue;
 				int color = geometryColor(geometry.getSubject(), materialColorProperty, materialProperty);
+				Resource element = geometryOwner(model, geometry.getSubject());
+				ResourceDetails details = describeResource(model, element);
 				try {
 					String obj = new String(Base64.getDecoder().decode(
 							geometry.getString()), StandardCharsets.UTF_8);
-					builder.addObj(obj, color);
+					builder.addObj(obj, color, details, geometry.getSubject().isURIResource()
+							? geometry.getSubject().getURI() : geometry.getSubject().toString());
 				} catch (IllegalArgumentException ignored) {
 					// Ignore malformed geometry literals and continue with the remaining geometry.
 				}
@@ -2131,6 +3548,115 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			model.close();
 		}
 		return builder.toPreviewMesh();
+	}
+
+	private static Model readExplorationModel(File outputFile) {
+		Model model = readOutputModel(outputFile);
+		try {
+			String path = outputFile.getAbsolutePath();
+			int separatorIndex = Math.max(path.lastIndexOf(File.separatorChar), path.lastIndexOf('/'));
+			int dotIndex = path.lastIndexOf('.');
+			String stem = dotIndex > separatorIndex ? path.substring(0, dotIndex) : path;
+			String sidecarExtension = path.toLowerCase(Locale.ROOT).endsWith(".ttl") ? ".ttl" : ".json";
+			for (String suffix : List.of("_building_elements", "_element_properties")) {
+				File sidecar = new File(stem + suffix + sidecarExtension);
+				if (sidecar.isFile()) {
+					Lang language = RDFLanguages.filenameToLang(sidecar.getName(), Lang.TURTLE);
+					RDFDataMgr.read(model, sidecar.getAbsolutePath(), language);
+				}
+			}
+			return model;
+		} catch (RuntimeException e) {
+			model.close();
+			throw e;
+		}
+	}
+
+	private static Resource geometryOwner(Model model, Resource geometry) {
+		Property hasGeometry = model.createProperty(OMG_HAS_GEOMETRY);
+		var owners = model.listStatements(null, hasGeometry, geometry);
+		try {
+			return owners.hasNext() ? owners.nextStatement().getSubject() : geometry;
+		} finally {
+			owners.close();
+		}
+	}
+
+	private static ResourceDetails describeResource(Model model, Resource resource) {
+		String uri = resource.isURIResource() ? resource.getURI() : resource.toString();
+		Set<String> typeNames = new HashSet<>();
+		List<String> displayTypes = new ArrayList<>();
+		model.listStatements(resource, org.apache.jena.vocabulary.RDF.type, (RDFNode) null).forEachRemaining(statement -> {
+			if (!statement.getObject().isResource()) return;
+			Resource type = statement.getResource();
+			String name = type.getLocalName() == null ? compactResourceName(type.toString()) : type.getLocalName();
+			typeNames.add(name);
+			if (!BOT_ELEMENT.equals(type.getURI())) displayTypes.add(name);
+		});
+		if (displayTypes.isEmpty()) displayTypes.addAll(typeNames);
+		displayTypes.sort(String::compareToIgnoreCase);
+		String ifcType = displayTypes.isEmpty() ? "Unknown" : String.join(", ", displayTypes.stream().limit(3).toList());
+		String guid = guidForResource(model, resource, uri);
+		List<String> properties = new ArrayList<>();
+		model.listStatements(resource, null, (RDFNode) null).forEachRemaining(statement -> {
+			String predicate = statement.getPredicate().getURI();
+			if (org.apache.jena.vocabulary.RDF.type.getURI().equals(predicate) || OMG_HAS_GEOMETRY.equals(predicate)
+					|| GEOMETRY_OBJ_PROPERTY.equals(predicate) || predicate.startsWith("https://lbd.org/#asMTL")) return;
+			if (properties.size() >= 20) return;
+			String name = statement.getPredicate().getLocalName();
+			properties.add((name == null ? predicate : name) + " = "
+					+ summarizeRdfValue(model, statement.getObject()));
+		});
+		return new ResourceDetails(uri, ifcType, Set.copyOf(typeNames), guid, List.copyOf(properties));
+	}
+
+	private static String guidForResource(Model model, Resource resource, String uri) {
+		Matcher uriGuid = GUID_PATTERN.matcher(uri);
+		if (uriGuid.find()) return uriGuid.group(1);
+		var statements = model.listStatements(resource, null, (RDFNode) null);
+		while (statements.hasNext()) {
+			Statement statement = statements.next();
+			String name = statement.getPredicate().getLocalName();
+			if (name != null && name.toLowerCase(Locale.ROOT).contains("globalid")) {
+				String value = firstLiteralValue(model, statement.getObject(), 3, new HashSet<>());
+				if (value != null) return value;
+			}
+		}
+		return null;
+	}
+
+	private static String summarizeRdfValue(Model model, RDFNode value) {
+		if (value.isLiteral()) return abbreviate(value.asLiteral().getString(), 160);
+		String resolved = firstLiteralValue(model, value, 2, new HashSet<>());
+		if (resolved != null) return abbreviate(resolved, 160);
+		return value.isResource() && value.asResource().isURIResource()
+				? compactResourceName(value.asResource().getURI()) : value.toString();
+	}
+
+	private static String firstLiteralValue(Model model, RDFNode node, int depth, Set<Resource> visited) {
+		if (node == null) return null;
+		if (node.isLiteral()) return node.asLiteral().getString();
+		if (!node.isResource() || depth <= 0 || !visited.add(node.asResource())) return null;
+		var statements = model.listStatements(node.asResource(), null, (RDFNode) null);
+		while (statements.hasNext()) {
+			Statement statement = statements.next();
+			String local = statement.getPredicate().getLocalName();
+			if (statement.getObject().isLiteral() && local != null
+					&& (local.equalsIgnoreCase("value") || local.toLowerCase(Locale.ROOT).contains("value"))) {
+				return statement.getString();
+			}
+		}
+		statements = model.listStatements(node.asResource(), null, (RDFNode) null);
+		while (statements.hasNext()) {
+			String value = firstLiteralValue(model, statements.next().getObject(), depth - 1, visited);
+			if (value != null) return value;
+		}
+		return null;
+	}
+
+	private static String abbreviate(String value, int maxLength) {
+		if (value == null || value.length() <= maxLength) return value;
+		return value.substring(0, maxLength - 1) + "…";
 	}
 
 	private static int geometryColor(Resource geometry, Property materialColorProperty, Property materialProperty) {
@@ -2156,8 +3682,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 
 		this.currentPreviewMesh = previewMesh;
+		this.geometryExplodeSlider.setValue(0);
 		fitGeometryPreview();
 		renderGeometryScene();
+		this.geometryExplodeSlider.setDisable(false);
 		appendGeometryPreviewMessage(previewMesh.statusText());
 	}
 
@@ -2187,6 +3715,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		this.geometryModelRoot.getChildren().clear();
+		this.geometryViewsByResource.clear();
+		this.geometryExplosionVectors.clear();
+		this.geometryBoundsByResource.clear();
+		this.geometryMaterials.clear();
 		if (this.currentPreviewMesh == null || this.currentPreviewMesh.triangleCount() == 0) {
 			return;
 		}
@@ -2194,14 +3726,30 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		float[] points = this.currentPreviewMesh.points();
 		int[] faces = this.currentPreviewMesh.faces();
 		int[] triangleColors = this.currentPreviewMesh.triangleColors();
-		Map<Integer, List<Integer>> facesByColor = new LinkedHashMap<>();
+		String[] triangleResources = this.currentPreviewMesh.triangleResourceUris();
+		Map<GeometryRenderKey, List<Integer>> facesByResource = new LinkedHashMap<>();
+		GeometryBounds modelBounds = new GeometryBounds();
 		for (int faceOffset = 0; faceOffset + 5 < faces.length; faceOffset += 6) {
 			int colorIndex = faceOffset / 6;
 			int color = colorIndex < triangleColors.length ? triangleColors[colorIndex] : DEFAULT_PREVIEW_COLOR;
-			facesByColor.computeIfAbsent(color, ignored -> new ArrayList<>()).add(faceOffset);
+			String resourceUri = colorIndex < triangleResources.length ? triangleResources[colorIndex] : null;
+			facesByResource.computeIfAbsent(new GeometryRenderKey(resourceUri, color), ignored -> new ArrayList<>())
+					.add(faceOffset);
+			GeometryBounds resourceBounds = this.geometryBoundsByResource.computeIfAbsent(resourceUri,
+					ignored -> new GeometryBounds());
+			for (int vertexOffset = 0; vertexOffset < 6; vertexOffset += 2) {
+				int pointOffset = faces[faceOffset + vertexOffset] * 3;
+				if (pointOffset >= 0 && pointOffset + 2 < points.length) {
+					resourceBounds.include(points[pointOffset], points[pointOffset + 1], points[pointOffset + 2]);
+					modelBounds.include(points[pointOffset], points[pointOffset + 1], points[pointOffset + 2]);
+				}
+			}
+		}
+		for (Map.Entry<String, GeometryBounds> entry : this.geometryBoundsByResource.entrySet()) {
+			this.geometryExplosionVectors.put(entry.getKey(), explosionVector(modelBounds, entry.getValue(), entry.getKey()));
 		}
 
-		for (Map.Entry<Integer, List<Integer>> entry : facesByColor.entrySet()) {
+		for (Map.Entry<GeometryRenderKey, List<Integer>> entry : facesByResource.entrySet()) {
 			TriangleMesh mesh = new TriangleMesh();
 			mesh.getPoints().setAll(points);
 			mesh.getTexCoords().setAll(0, 0);
@@ -2221,8 +3769,68 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			MeshView meshView = new MeshView(mesh);
 			meshView.setCullFace(CullFace.NONE);
 			meshView.setDrawMode(DrawMode.FILL);
-			meshView.setMaterial(createPreviewMaterial(entry.getKey()));
+			PhongMaterial material = createPreviewMaterial(entry.getKey().color());
+			meshView.setMaterial(material);
+			meshView.setUserData(entry.getKey().resourceUri());
+			meshView.setOnMouseClicked(event -> {
+				if (event.getButton() == MouseButton.PRIMARY && entry.getKey().resourceUri() != null) {
+					focusResource(entry.getKey().resourceUri(), null, "3D selection");
+					event.consume();
+				}
+			});
+			this.geometryMaterials.put(meshView, material);
+			this.geometryViewsByResource.computeIfAbsent(entry.getKey().resourceUri(), ignored -> new ArrayList<>())
+					.add(meshView);
 			this.geometryModelRoot.getChildren().add(meshView);
+		}
+		applyGeometryExplosion();
+		applyGeometrySelection();
+	}
+
+	private void applyGeometryExplosion() {
+		double amount = this.geometryExplodeSlider.getValue() / this.geometryExplodeSlider.getMax();
+		for (Map.Entry<String, List<MeshView>> entry : this.geometryViewsByResource.entrySet()) {
+			Point3D displacement = this.geometryExplosionVectors.get(entry.getKey());
+			if (displacement == null) {
+				continue;
+			}
+			for (MeshView view : entry.getValue()) {
+				view.setTranslateX(displacement.getX() * amount);
+				view.setTranslateY(displacement.getY() * amount);
+				view.setTranslateZ(displacement.getZ() * amount);
+			}
+		}
+	}
+
+	static Point3D explosionVector(GeometryBounds model, GeometryBounds element, String resourceUri) {
+		Point3D direction = element.center().subtract(model.center());
+		if (direction.magnitude() < 0.000001) {
+			int hash = Objects.hashCode(resourceUri);
+			double angle = (Integer.toUnsignedLong(hash) / (double) (1L << 32)) * Math.PI * 2;
+			direction = new Point3D(Math.cos(angle), Math.sin(angle), 0.35);
+		}
+		return direction.normalize().multiply(model.maxSpan() * 0.18);
+	}
+
+	static final class GeometryBounds {
+		private double minX = Double.POSITIVE_INFINITY, minY = Double.POSITIVE_INFINITY, minZ = Double.POSITIVE_INFINITY;
+		private double maxX = Double.NEGATIVE_INFINITY, maxY = Double.NEGATIVE_INFINITY, maxZ = Double.NEGATIVE_INFINITY;
+
+		void include(double x, double y, double z) {
+			minX = Math.min(minX, x);
+			minY = Math.min(minY, y);
+			minZ = Math.min(minZ, z);
+			maxX = Math.max(maxX, x);
+			maxY = Math.max(maxY, y);
+			maxZ = Math.max(maxZ, z);
+		}
+
+		Point3D center() {
+			return new Point3D((minX + maxX) / 2, (minY + maxY) / 2, (minZ + maxZ) / 2);
+		}
+
+		double maxSpan() {
+			return Math.max(maxX - minX, Math.max(maxY - minY, maxZ - minZ));
 		}
 	}
 
@@ -2268,8 +3876,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return (int) Math.round(channel * 0.78 + 245 * 0.22);
 	}
 
-	private record PreviewMesh(float[] points, int[] faces, int[] triangleColors, int objectCount, int triangleCount,
-			boolean clipped) {
+	private record PreviewMesh(float[] points, int[] faces, int[] triangleColors, String[] triangleResourceUris,
+			Map<String, ResourceDetails> resources, Map<String, String> resourceAliases, int objectCount,
+			int triangleCount, boolean clipped) {
 		private String statusText() {
 			if (clipped) {
 				return "Preview clipped at " + triangleCount + " triangles from " + objectCount + " geometry objects.";
@@ -2284,6 +3893,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		private final List<double[]> rawPoints = new ArrayList<>();
 		private final List<int[]> triangles = new ArrayList<>();
 		private final List<Integer> triangleColors = new ArrayList<>();
+		private final List<String> triangleResourceUris = new ArrayList<>();
+		private final Map<String, ResourceDetails> resources = new LinkedHashMap<>();
+		private final Map<String, String> resourceAliases = new LinkedHashMap<>();
 		private int objectCount;
 		private boolean clipped;
 		private double minX = Double.POSITIVE_INFINITY;
@@ -2302,18 +3914,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return this.clipped;
 		}
 
-		private void addObj(String obj, int color) {
+		private void addObj(String obj, int color, ResourceDetails details, String geometryUri) {
 			if (this.clipped) {
 				return;
 			}
 			this.objectCount++;
+			this.resources.putIfAbsent(details.uri(), details);
+			if (geometryUri != null) this.resourceAliases.put(geometryUri, details.uri());
 			List<double[]> localVertices = new ArrayList<>();
 			for (String rawLine : obj.split("\\R")) {
 				String line = rawLine.strip();
 				if (line.startsWith("v ")) {
 					addLocalVertex(line, localVertices);
 				} else if (line.startsWith("f ")) {
-					addFace(line, localVertices, color);
+					addFace(line, localVertices, color, details.uri());
 				}
 				if (this.clipped) {
 					return;
@@ -2344,7 +3958,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.maxZ = Math.max(this.maxZ, z);
 		}
 
-		private void addFace(String line, List<double[]> localVertices, int color) {
+		private void addFace(String line, List<double[]> localVertices, int color, String resourceUri) {
 			String[] parts = line.split("\\s+");
 			if (parts.length < 4) {
 				return;
@@ -2364,12 +3978,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				}
 				this.triangles.add(new int[] { indexes.get(0), indexes.get(i), indexes.get(i + 1) });
 				this.triangleColors.add(color);
+				this.triangleResourceUris.add(resourceUri);
 			}
 		}
 
 		private PreviewMesh toPreviewMesh() {
 			if (this.rawPoints.isEmpty() || this.triangles.isEmpty()) {
-				return new PreviewMesh(new float[0], new int[0], new int[0], this.objectCount, 0, this.clipped);
+				return new PreviewMesh(new float[0], new int[0], new int[0], new String[0], Map.copyOf(this.resources),
+						Map.copyOf(this.resourceAliases), this.objectCount, 0, this.clipped);
 			}
 			double centerX = (this.minX + this.maxX) / 2.0;
 			double centerY = (this.minY + this.maxY) / 2.0;
@@ -2397,7 +4013,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				faces[i * 6 + 5] = 0;
 				colors[i] = this.triangleColors.get(i);
 			}
-			return new PreviewMesh(points, faces, colors, this.objectCount, this.triangles.size(), this.clipped);
+			return new PreviewMesh(points, faces, colors, this.triangleResourceUris.toArray(String[]::new),
+					Map.copyOf(this.resources), Map.copyOf(this.resourceAliases), this.objectCount,
+					this.triangles.size(), this.clipped);
 		}
 
 		private static int parseObjIndex(String token, int localVertexCount, int globalBase, int globalPointCount) {
@@ -2456,9 +4074,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.conversionTxt.appendText("Read-in failed: " + e.getMessage() + "\n");
 				return;
 			}
-			this.conversionTxt.appendText("Re-running initial read due to changed settings.\n");
+			this.runAfterReadIn = true;
+			this.conversionTxt.appendText("Re-reading the model to apply changed settings.\n");
 			readInIFCExecute(currentSettings);
-			this.conversionTxt.appendText("Start conversion after read-in finishes.\n");
+			this.conversionTxt.appendText("Conversion will start automatically when the model is ready.\n");
 			return;
 		}
 
@@ -2480,6 +4099,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						this.options_panel.setDisable(false);
 						return;
 					}
+				long operationId = beginWorkflow("Starting conversion", 0.0);
 				converter.setTargetFile(currentSettings.rdfTargetName());
 				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
 				converter.setPropertiesAsPropertySets(currentSettings.propertiesAsPropertySets());
@@ -2489,6 +4109,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 						&& !hasConversionRequestChanged(this.lastSuccessfulConversionRequest, conversionRequest)) {
 					this.running_conversion = this.executor.submit(() -> {
 						try {
+							this.eventBus.post(new WorkflowProgressEvent(operationId, "Writing RDF output", 0.82));
 							if (currentSettings.exportAsIcdd()) {
 								converter.exportExistingOutputAsIcdd(currentSettings.rdfTargetName(),
 										currentSettings.ifcFileName());
@@ -2497,16 +4118,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 										currentSettings.hasSeparatePropertiesModel(), currentSettings.createTrig(),
 										currentSettings.exportAsJsonLd());
 							}
-							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.CONVERT));
+							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.CONVERT, operationId));
 						} catch (Exception e) {
 							this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
-							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+							this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, operationId));
 						}
 						return 0;
 					});
 					return;
 				}
-			this.running_conversion = this.executor.submit(new ConversionThread(converter, selected_types, selected_psets,
+			this.running_conversion = this.executor.submit(new ConversionThread(operationId, converter, selected_types, selected_psets,
 					currentSettings.ifcFileName(), currentSettings.baseUri(), currentSettings.rdfTargetName(),
 					currentSettings.propsLevel(), currentSettings.hasBuildingElements(),
 					currentSettings.hasSeparateBuildingElementsModel(), currentSettings.hasBuildingProperties(),
@@ -2519,6 +4140,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasElementWireframe(),
 					currentSettings.propertiesAsPropertySets()));
 		} catch (Exception e) {
+			long operationId = this.activeOperationId;
+			if (isActiveOperation(operationId)) {
+				finishWorkflow(operationId, "Conversion failed", false);
+			}
+			this.options_panel.setDisable(false);
 			Platform.runLater(() -> this.conversionTxt.appendText(e.getMessage()));
 		}
 	}
@@ -2533,6 +4159,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setupSparqlQueryWindow();
 		setupValidateWindow();
 		setupFloatingCards();
+		this.workflowTabs.getSelectionModel().select(0);
+		this.modelSummaryCard.expandedProperty().addListener((observable, wasExpanded, isExpanded) ->
+				updateModelSummaryTitle(isExpanded));
+		setWorkflowStatusVisible(false);
 		setWorkflowDataAvailable(false, false, false);
 		// Accepts dropping
 		new EventHandler<DragEvent>() {
@@ -2672,6 +4302,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		
 		setupTargetFileEditor();
 		setupOutputFormatChoices();
+		setupPresets();
         
         
 		this.building_elements.setTooltip(new Tooltip(
@@ -2718,7 +4349,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		
 		this.createTrig.setTooltip(
 				new Tooltip("If selected, creates also a RDF 1.1. TriG file (https://www.w3.org/TR/trig/). "));
-	
+
+		setupReactiveSettings();
 	}
 
 	@Override
@@ -2727,13 +4359,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	public void shutdown() {
+		if (this.workflowElapsedTimeline != null) {
+			this.workflowElapsedTimeline.stop();
+		}
 		if (this.running_read_in != null && !this.running_read_in.isDone()) {
 			this.running_read_in.cancel(true);
 		}
 		if (this.running_conversion != null && !this.running_conversion.isDone()) {
 			this.running_conversion.cancel(true);
 		}
+		if (this.running_validation != null && !this.running_validation.isDone()) {
+			this.running_validation.cancel(true);
+		}
 		this.executor.shutdownNow();
+		this.explorationModelCache.close();
 		try {
 			this.eventBus.unregister(this);
 		} catch (IllegalArgumentException ignored) {
@@ -2755,13 +4394,30 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@Subscribe
-		public void handleEvent(final ProcessReadyEvent event) {
-			Platform.runLater(() -> {
+	public void handleEvent(final WorkflowProgressEvent event) {
+		if (!isActiveOperation(event.operationId())) {
+			return;
+		}
+		Platform.runLater(() -> updateWorkflowStage(event.operationId(), event.stage(), event.progress()));
+	}
+
+	@Subscribe
+	public void handleEvent(final ProcessReadyEvent event) {
+		long operationId = event.getOperationId();
+		if (!isActiveOperation(operationId)) {
+			return;
+		}
+		Platform.runLater(() -> {
+			if (isActiveOperation(operationId)) {
 				this.options_panel.setDisable(false);
-			});
+			}
+		});
 
 		if (event.getPhase() == ProcessReadyEvent.READ_IN) {
 			Platform.runLater(() -> {
+				if (!isActiveOperation(operationId)) {
+					return;
+				}
 				// prepare tree items
 				try {
 					IFCtoLBDConverter converter = this.running_read_in.get();
@@ -2781,6 +4437,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					types_checkbox_values.setExpanded(true);
 					
 					Set<String> pset_names = converter.getPropertySetNames();
+					ModelSummary modelSummary = null;
+					try {
+						modelSummary = createModelSummary(converter, element_type_counts, pset_names);
+					} catch (RuntimeException summaryError) {
+						this.conversionTxt.appendText("Model summary unavailable: " + summaryError.getMessage() + "\n");
+					}
 
 					this.element_types_checkbox.setRoot(types_checkbox_values);
 					this.element_types_checkbox.setShowRoot(true);
@@ -2800,21 +4462,45 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					
 					this.propertysets_checkbox.setRoot(psets_checkbox_values);
 					this.propertysets_checkbox.setShowRoot(true);
+					if (modelSummary != null) {
+						showModelSummary(modelSummary);
+					}
 					setWorkflowDataAvailable(true, false, false);
 					setRunReady(true);
+					finishWorkflow(operationId, "IFC model ready", true);
+					refreshReactiveSettings();
+					if (this.runAfterReadIn) {
+						this.runAfterReadIn = false;
+						Platform.runLater(this::convertIFCToRDF);
+					}
 				} catch (InterruptedException e) {
+					this.runAfterReadIn = false;
+					finishWorkflow(operationId, "Read-in interrupted", false);
 					e.printStackTrace();
 				} catch (ExecutionException e) {
+					this.runAfterReadIn = false;
 					setWorkflowDataAvailable(false, false, false);
 					setRunReady(false);
+					finishWorkflow(operationId, "Read-in failed", false);
 					e.printStackTrace();
+				} catch (RuntimeException e) {
+					this.runAfterReadIn = false;
+					resetModelSummary();
+					setWorkflowDataAvailable(false, false, false);
+					setRunReady(false);
+					finishWorkflow(operationId, "Could not summarize IFC model", false);
+					this.conversionTxt.appendText("Model summary failed: " + e.getMessage() + "\n");
 				}
 			});
 		}
 		if (event.getPhase() == ProcessReadyEvent.CONVERT) {
 			Platform.runLater(() -> {
+				if (!isActiveOperation(operationId)) {
+					return;
+				}
 				ConversionRequest successfulRequest = this.pendingConversionRequest;
 				this.lastSuccessfulConversionRequest = successfulRequest;
+				this.explorationModelCache.invalidate();
 				this.pendingConversionRequest = null;
 				if (successfulRequest != null) {
 					if (successfulRequest.settings().exportAsIcdd()) {
@@ -2829,22 +4515,32 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							&& new File(successfulRequest.settings().rdfTargetName()).isFile();
 					setWorkflowDataAvailable(isFiltersAvailable(),
 							!successfulRequest.settings().exportAsIcdd(), queryAvailable);
+					refreshReactiveSettings();
 					if (queryAvailable) {
-						this.sparqlResultsTxt.setText("Ready. Run a SPARQL query against "
+						showSparqlMessage("Ready. Run a SPARQL query against "
 								+ new File(successfulRequest.settings().rdfTargetName()).getName() + ".");
-						validateLoadedShapesAsync();
+						validateLoadedShapesAsync(operationId);
+					} else {
+						finishWorkflow(operationId, "Conversion complete", true);
 					}
+				} else {
+					finishWorkflow(operationId, "Conversion failed", false);
 				}
 			});
 		}
 		if (event.getPhase() == ProcessReadyEvent.ERROR) {
 			Platform.runLater(() -> {
+				if (!isActiveOperation(operationId)) {
+					return;
+				}
 				this.pendingConversionRequest = null;
+				this.runAfterReadIn = false;
 				this.lastSuccessfulConversionRequest = null;
+				finishWorkflow(operationId, "Operation failed", false);
+				setRunReady(false);
+				setWorkflowDataAvailable(isFiltersAvailable(), false, false);
+				clearGeometryPreview("Geometry preview unavailable because conversion failed.");
 			});
-			Platform.runLater(() -> setRunReady(false));
-			Platform.runLater(() -> setWorkflowDataAvailable(isFiltersAvailable(), false, false));
-			Platform.runLater(() -> clearGeometryPreview("Geometry preview unavailable because conversion failed."));
 		}
 	}
 }

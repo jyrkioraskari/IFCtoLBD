@@ -77,8 +77,11 @@ programming integration; it is not needed just to read exported Turtle in Python
 
 Click **Read IFC** and select your IFC model. Reading prepares the model and
 collects its element types and property sets. Wait for the conversion log to
-finish reading and for **Run** to become available. This step does not yet
-produce the final LBD export.
+finish reading and for **Run** to become available. In development version
+2.54.1, the **Model Summary** then shows the detected IFC schema, file size,
+element and property-set totals, storeys, spaces, geometry availability, major
+element types, and any model warnings. This step does not yet produce the final
+LBD export.
 
 The application proposes a filename such as `model_LBD.ttl`. Check the displayed
 path: a previously used output directory may be remembered. Choose **Output**
@@ -144,10 +147,23 @@ and **Run**. In the advanced workflow, **Settings** controls export options,
 **Filters** selects element types and property sets, and **Output** chooses the
 file location. Saved preferences can affect later conversions.
 
+In **Settings**, choose a conversion preset to fill the advanced options. The
+built-in presets are **Lightweight topology**, **Asset and properties**,
+**Geometry preview**, **Full preservation**, and **ICDD package**. You can edit
+the options after applying one. **Save** stores the current options under a
+name (or updates the selected saved preset); **Duplicate** copies the selected
+preset. **Import** and **Export** exchange `.properties` preset files. **Delete**
+removes a saved preset; built-in presets stay available. Presets include the
+output format and, for saved presets, the base URI. They do not include the IFC
+input path, output path, or model-specific element and property-set filters.
+
 Where available, **Query** opens SPARQL queries, **Validate** checks RDF against
 SHACL shapes, and **Geometry** previews exported geometry. Geometry must be
 enabled for a geometry preview. Validation reports on the selected RDF rules;
-it does not certify the original IFC model. **Copy command line** helps you
+it does not certify the original IFC model. SHACL shape files added with
+**Load SHACL** reopen when you restart the app. Removing an added shape or choosing
+**Restore defaults** updates that saved list. If a file has moved, load it again
+from its new location. **Copy command line** helps you
 repeat the desktop settings in automated conversions.
 
 ## If something stops you

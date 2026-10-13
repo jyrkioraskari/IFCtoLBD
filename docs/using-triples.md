@@ -85,6 +85,26 @@ GROUP BY ?type
 ORDER BY DESC(?count)
 ```
 
+In the development desktop app, the Query tool offers **Spaces by storey**,
+**Elements missing properties**, and **Element inventory** templates. SELECT
+results appear in a sortable table: click a resource URI to mark the matching
+geometry bright red without moving the 3D view. Clicking another URI restores
+the previous object's color, so only one object is highlighted at a time.
+You can also copy/export the displayed rows as CSV. The result header reports
+row count and elapsed time; at most the first 1,000 rows are displayed and
+exported. Repeated queries reuse a cached snapshot of the current RDF output,
+which is discarded when a new conversion replaces that output.
+
+The desktop's **Validate** card groups SHACL findings by severity, shape, and
+affected object. Its summary counts violations, warnings, and informational
+findings; use the severity, shape, and object filters to narrow the tree.
+Selecting a finding shows its focus node, property path, offending value, and
+message. **Focus in 3D** opens the affected element when geometry is available.
+
+The missing-properties template checks for the converter's standard `props:`
+predicates and bSDD property-set links. If your project substitutes custom
+property predicates, edit the template to include them.
+
 To inspect a particular element, copy its full IRI from the output or query
 results and replace the example below:
 

@@ -111,6 +111,13 @@ Sessions stage IFC triples in memory by default. For a model that does not fit
 comfortably in the JVM heap, construct the session with
 `new ConversionSession(ConversionSession.Storage.TDB2)` instead.
 
+Applications that use the two-phase `convert_read_in_phase` workflow can inspect
+the loaded model before exporting it. `getLoadedExpressSchema()` returns the
+detected IFC schema, while `getIfcModelStatistics()` returns immutable raw IFC
+root-type counts, the IFC element total, and geometry availability. Existing
+`getElementTypeCounts()` and `getPropertySetNames()` provide the mapped element
+and property-set summaries used by the desktop dashboard.
+
 ## Find more examples and API details
 
 The maintained source examples are in

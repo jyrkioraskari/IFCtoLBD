@@ -7,6 +7,7 @@ import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
+import org.linkedbuildingdata.ifc2lbd.messages.WorkflowProgressEvent;
 
 /* Copyright (C) Fractuscan - All Rights Reserved
  * Unauthorized copying of this file, via any medium is strictly prohibited
@@ -39,6 +40,7 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 	final private String ifc_filename;
 	final private String uriBase;
 	final private String target_file;
+	final private long operationId;
 	final private int props_level;
 	final private boolean hasBuildingElements;
 	final private boolean hasBuildingProperties;
@@ -58,8 +60,9 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
     final boolean hasInterfaces;
 
     //TODO Check this
-	public ReadinInThread(String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasInterfaces) {
+	public ReadinInThread(long operationId, String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasInterfaces) {
 		super();
+		this.operationId = operationId;
 		this.ifc_filename = ifc_filename;
 		this.uriBase = uriBase;
 		this.target_file = target_file;
@@ -82,22 +85,30 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 	@Override
 	public IFCtoLBDConverter call() throws Exception {
 		try {
+			this.eventBus.post(new WorkflowProgressEvent(this.operationId, "Reading IFC model",
+					WorkflowProgressEvent.INDETERMINATE));
 			IFCtoLBDConverter c1nb;
 			try {
 				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
-				c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits,this.hasInterfaces);
+				boolean loaded = c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits,this.hasInterfaces);
+				if (!loaded) {
+					c1nb.close();
+					this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, this.operationId));
+					return null;
+				}
 				
 				} catch (OutOfMemoryError e) {
 				e.printStackTrace();
 				this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
-				this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+				this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, this.operationId));
 				return null;
 			}
-			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN));
+			this.eventBus.post(new WorkflowProgressEvent(this.operationId, "Discovering element types and property sets", 0.9));
+			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN, this.operationId));
 			return c1nb;
 		} catch (Exception e) {
 			e.printStackTrace();
-			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR));
+			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, this.operationId));
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
 		}
 		return null;

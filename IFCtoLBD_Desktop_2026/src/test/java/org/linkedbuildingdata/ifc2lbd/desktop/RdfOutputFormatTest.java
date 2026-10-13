@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.util.Base64;
+import java.util.Map;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -19,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class RdfOutputFormatTest {
+	private static final String ELEMENT_URI = "urn:element:wall_12345678-1234-1234-1234-123456789abc";
+	private static final String GEOMETRY_URI = "urn:geometry:1";
 	private static final String OBJ_PROPERTY = "https://w3id.org/fog#asObj_v3.0-obj";
 	private static final String MTL_COLOR_PROPERTY = "https://lbd.org/#asMTL_kd";
 	private static final String OBJ = "v 0 0 0\nv 1 0 0\nv 0 1 0\nf 1 2 3\n";
@@ -45,6 +48,15 @@ class RdfOutputFormatTest {
 						writeGeometry(directory, format));
 				assertEquals(1, invokeRecordAccessor(preview, "objectCount"));
 				assertEquals(1, invokeRecordAccessor(preview, "triangleCount"));
+				assertEquals(ELEMENT_URI, ((String[]) invokeRecordAccessor(preview, "triangleResourceUris"))[0]);
+				@SuppressWarnings("unchecked")
+				Map<String, Object> resources = (Map<String, Object>) invokeRecordAccessor(preview, "resources");
+				Object details = resources.get(ELEMENT_URI);
+				assertEquals("Wall", invokeRecordAccessor(details, "ifcType"));
+				assertEquals("12345678-1234-1234-1234-123456789abc", invokeRecordAccessor(details, "guid"));
+				@SuppressWarnings("unchecked")
+				Map<String, String> aliases = (Map<String, String>) invokeRecordAccessor(preview, "resourceAliases");
+				assertEquals(ELEMENT_URI, aliases.get(GEOMETRY_URI));
 			}
 		} finally {
 			controller.shutdown();
@@ -56,10 +68,14 @@ class RdfOutputFormatTest {
 		File output = directory.resolve("geometry" + extension).toFile();
 		Model model = ModelFactory.createDefaultModel();
 		try {
-			model.createResource("urn:geometry:1")
+			var geometry = model.createResource(GEOMETRY_URI)
 					.addLiteral(model.createProperty(OBJ_PROPERTY),
 							Base64.getEncoder().encodeToString(OBJ.getBytes(StandardCharsets.UTF_8)))
 					.addLiteral(model.createProperty(MTL_COLOR_PROPERTY), "#336699");
+			model.createResource(ELEMENT_URI)
+					.addProperty(org.apache.jena.vocabulary.RDF.type, model.createResource("https://w3id.org/product#Wall"))
+					.addProperty(model.createProperty("https://w3id.org/omg#hasGeometry"), geometry)
+					.addLiteral(model.createProperty("urn:test:name"), "Exterior wall");
 			try (OutputStream stream = Files.newOutputStream(output.toPath())) {
 				RDFDataMgr.write(stream, model, format);
 			}

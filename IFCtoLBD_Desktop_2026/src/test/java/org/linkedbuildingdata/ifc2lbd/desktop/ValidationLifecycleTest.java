@@ -70,14 +70,14 @@ class ValidationLifecycleTest {
 		IFCtoLBDController controller = new IFCtoLBDController();
 		try {
 			Object item = nested("ShapeValidationItem", "rules.ttl", "Shape", NodeFactory.createURI("urn:test:shape"), Set.of());
-			Object oldResult = nested("ShapeValidationResult", item, false, "Previous model failure");
+			Object oldResult = nested("ShapeValidationResult", item, false, "Previous model failure", List.of());
 			long oldRevision = field(IFCtoLBDController.class, "validationRevision").getLong(controller);
 			invoke("resetConversionOutput", controller, new Class<?>[0]);
 			invoke("publishValidationResults", controller, new Class<?>[] {long.class, List.class, String.class},
 					oldRevision, List.of(oldResult), "old.ttl");
 			assertNull(field(item.getClass(), "conforms").get(item));
 			long currentRevision = field(IFCtoLBDController.class, "validationRevision").getLong(controller);
-			Object freshResult = nested("ShapeValidationResult", item, true, "Current model passed");
+			Object freshResult = nested("ShapeValidationResult", item, true, "Current model passed", List.of());
 			invoke("publishValidationResults", controller, new Class<?>[] {long.class, List.class, String.class},
 					currentRevision, List.of(freshResult), "new.ttl");
 			assertEquals(true, field(item.getClass(), "conforms").get(item));
