@@ -3,7 +3,7 @@
 IFCtoLBD converts IFC models into RDF triples using Linked Building Data
 vocabularies. The beginner workflow is tested against the published
 [2.49.0 release](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0).
-Developer and advanced pages describe the 2.54.1 source tree and label features
+Developer and advanced pages describe the 2.55.0 source tree and label features
 that are not in that release.
 
 ## What can you do?

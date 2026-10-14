@@ -101,8 +101,9 @@ findings; use the severity, shape, and object filters to narrow the tree.
 Selecting a finding shows its focus node, property path, offending value, and
 message. **Focus in 3D** opens the affected element when geometry is available.
 
-The missing-properties template checks for the converter's standard `props:`
-predicates and bSDD property-set links. If your project substitutes custom
+The missing-properties template checks for generated `props:` predicates and
+bSDD property-set links. Recognized IFC property-set members can also use bSDD
+property URIs directly as predicates. If your project substitutes custom
 property predicates, edit the template to include them.
 
 To inspect a particular element, copy its full IRI from the output or query

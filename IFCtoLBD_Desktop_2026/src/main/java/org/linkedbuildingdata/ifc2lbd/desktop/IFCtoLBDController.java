@@ -635,6 +635,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			  FILTER NOT EXISTS {
 			    ?element ?property ?value .
 			    FILTER(STRSTARTS(STR(?property), "http://lbd.arch.rwth-aachen.de/props#") ||
+				           STRSTARTS(STR(?property), "https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/prop/") ||
 			           ?property = <https://w3id.org/ifc2lbd/bsdd-meta#hasPropertySet>)
 			  }
 			}
@@ -1432,16 +1433,22 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return List.copyOf(files);
 	}
 
+	static String proposedOutputText(List<String> outputFiles) {
+		if (outputFiles.isEmpty()) {
+			return "Select an IFC file and output path.";
+		}
+		String paths = outputFiles.stream().map(path -> new File(path).getAbsolutePath())
+				.collect(java.util.stream.Collectors.joining("\n"));
+		return outputFiles.size() == 1 ? paths : outputFiles.size() + " output files:\n" + paths;
+	}
+
 	private void updateLivePreviews() {
 		if (this.proposedFilenamesLabel == null || this.commandLinePreviewTxt == null) {
 			return;
 		}
 		ConversionSettings settings = currentSettings();
 		List<String> outputFiles = proposedOutputFiles(settings);
-		this.proposedFilenamesLabel.setText(outputFiles.isEmpty()
-				? "Select an IFC file and output path."
-				: outputFiles.stream().map(path -> new File(path).getName()).reduce((left, right) -> left + "  ·  " + right)
-						.orElse(""));
+		this.proposedFilenamesLabel.setText(proposedOutputText(outputFiles));
 		if (settings.ifcFileName() == null || settings.rdfTargetName() == null) {
 			this.commandLinePreviewTxt.setText("Select an IFC file and output path to preview the command.");
 		} else {

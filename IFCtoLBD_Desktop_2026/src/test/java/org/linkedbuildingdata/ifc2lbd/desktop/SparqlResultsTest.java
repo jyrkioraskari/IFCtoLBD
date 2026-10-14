@@ -44,9 +44,12 @@ class SparqlResultsTest {
 			var elementType = model.createResource("https://w3id.org/bot#Element");
 			var a = model.createResource("urn:element:a");
 			var b = model.createResource("urn:element:b");
+			var c = model.createResource("urn:element:c");
 			a.addProperty(org.apache.jena.vocabulary.RDF.type, elementType);
 			b.addProperty(org.apache.jena.vocabulary.RDF.type, elementType)
 					.addLiteral(model.createProperty("http://lbd.arch.rwth-aachen.de/props#fireRating"), "60 min");
+			c.addProperty(org.apache.jena.vocabulary.RDF.type, elementType)
+					.addLiteral(model.createProperty("https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/prop/LoadBearing"), true);
 			try (QueryExecution execution = QueryExecutionFactory.create(
 					QueryFactory.create(IFCtoLBDController.queryForTemplate("Elements missing properties")), model)) {
 				IFCtoLBDController.SelectResults results = IFCtoLBDController.collectSelectResults(execution.execSelect());
@@ -55,7 +58,7 @@ class SparqlResultsTest {
 			}
 			try (QueryExecution execution = QueryExecutionFactory.create(
 					QueryFactory.create(IFCtoLBDController.queryForTemplate("Element inventory")), model)) {
-				assertEquals(2, IFCtoLBDController.collectSelectResults(execution.execSelect()).rows().size());
+				assertEquals(3, IFCtoLBDController.collectSelectResults(execution.execSelect()).rows().size());
 			}
 		} finally {
 			model.close();

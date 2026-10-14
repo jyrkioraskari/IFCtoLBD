@@ -78,7 +78,7 @@ programming integration; it is not needed just to read exported Turtle in Python
 Click **Read IFC** and select your IFC model. Reading prepares the model and
 collects its element types and property sets. Wait for the conversion log to
 finish reading and for **Run** to become available. In development version
-2.54.1, the **Model Summary** then shows the detected IFC schema, file size,
+2.55.0, the **Model Summary** then shows the detected IFC schema, file size,
 element and property-set totals, storeys, spaces, geometry availability, major
 element types, and any model warnings. This step does not yet produce the final
 LBD export.
@@ -86,13 +86,15 @@ LBD export.
 The application proposes a filename such as `model_LBD.ttl`. Check the displayed
 path: a previously used output directory may be remembered. Choose **Output**
 if you want to save somewhere else. Use a fresh filename to retain earlier exports.
+The **Proposed output** preview shows full paths. When settings produce multiple
+files, it lists every path and the number of output files.
 
 ## Run
 
 For the first conversion, leave settings and filters as they are. Click **Run**
 and wait for completion in the conversion log. Locate the output at the displayed
 path. You now have RDF, but you can get a useful answer without reading Turtle.
-The following checked query step targets development version 2.54.1. Open
+The following checked query step targets development version 2.55.0. Open
 **Query**, paste the
 [building inventory query](../examples/getting-started/building-inventory/query.rq),
 and select **Run query**. For the bundled model the result groups two walls under

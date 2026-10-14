@@ -41,5 +41,5 @@ abstract: >-
 license: Apache-2.0
 repository-code: https://github.com/jyrkioraskari/IFCtoLBD
 url: https://github.com/jyrkioraskari/IFCtoLBD
-version: '2.54.1'
+version: '2.55.0'
 date-released: '2026-07-24'

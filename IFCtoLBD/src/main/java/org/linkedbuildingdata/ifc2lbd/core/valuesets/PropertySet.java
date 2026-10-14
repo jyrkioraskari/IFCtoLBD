@@ -204,12 +204,7 @@ public class PropertySet {
 			default:
 				for (String pname : this.mapPnameValue.keySet()) {
 					Property property;
-					if (this.hasSimplified_properties)
-						property = this.lbd_model.createProperty(
-								property_replace(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0])));
-					else
-						property = this.lbd_model.createProperty(
-								property_replace(PROPS.ns + StringOperations.toCamelCase(pname) + "_property_simple"));
+					property = this.lbd_model.createProperty(propertyUri(pname, true));
 					this.lbd_model.add(property, RDF.type, OWL.DatatypeProperty);
 					this.lbd_model.add(property, RDFS.comment,
 							"IFC property set " + this.propertyset_name + " property " + pname);
@@ -335,13 +330,7 @@ public class PropertySet {
 					addUnit(property_resource, pname);
 			}
 
-			Property property;
-			if (this.hasSimplified_properties)
-				property = this.lbd_model
-						.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname.split(" ")[0])));
-			else
-				property = this.lbd_model
-						.createProperty(property_replace(PROPS.ns + StringOperations.toCamelCase(pname)));
+			Property property = this.lbd_model.createProperty(propertyUri(pname, false));
 			properties.add(new PsetProperty(property, property_resource));
 
 			this.lbd_model.add(property, RDF.type, OWL.ObjectProperty);
@@ -442,6 +431,23 @@ public class PropertySet {
 
 	public void setProperty_replace_map(Map<String, String> property_replace_map) {
 		this.property_replace_map = property_replace_map;
+	}
+
+	private String propertyUri(String pname, boolean simple) {
+		String localName = this.hasSimplified_properties
+				? StringOperations.toCamelCase(pname.split(" ")[0])
+				: StringOperations.toCamelCase(pname);
+		String fallback = PROPS.ns + localName + (simple && !this.hasSimplified_properties ? "_property_simple" : "");
+		String replacement = property_replace(fallback);
+		if (!replacement.equals(fallback))
+			return replacement;
+		String originalName = this.originalPropertyNames.getOrDefault(pname, pname);
+		Optional<Resource> bsddProperty = BSDD.property(this.lbd_model, this.propertyset_name, originalName);
+		if (bsddProperty.isPresent()) {
+			this.lbd_model.setNsPrefix("bsddp", BSDD.property_ns);
+			return bsddProperty.get().getURI();
+		}
+		return fallback;
 	}
 
 	private String property_replace(String property) {

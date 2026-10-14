@@ -4,7 +4,7 @@
 
 ## Add the library
 
-Use JDK 21 or newer for source version 2.54.1.
+Use JDK 21 or newer for source version 2.55.0.
 [Install Java 21 if needed](quick-start.md#install-java-21-for-the-jar-route). The converter returns Apache Jena
 models, so you can query and serialize RDF directly in your application.
 
@@ -17,7 +17,7 @@ Then add this dependency to your own Maven project:
 <dependency>
   <groupId>io.github.jyrkioraskari</groupId>
   <artifactId>ifc-to-lbd</artifactId>
-  <version>2.54.1</version>
+  <version>2.55.0</version>
 </dependency>
 ```
 

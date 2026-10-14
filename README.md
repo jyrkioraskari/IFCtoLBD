@@ -1,12 +1,12 @@
 # IFCtoLBD
 
-Development version 2.54.1 · Stable release used by the beginner guide: [2.49.0](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0) · Free for all of us, forever.
+Development version 2.55.0 · Stable release used by the beginner guide: [2.49.0](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0) · Free for all of us, forever.
 
 IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: small
 subject–relationship–value facts, called RDF triples, that describe buildings,
 spaces, elements, and their properties. You can query these facts and use LBD in
 your own applications to link building
-information to other data. Development version 2.54.1 supports IFC STEP,
+information to other data. Development version 2.55.0 supports IFC STEP,
 IFC/XML, and IFC/JSON.
 
 **Audience and prerequisites.** The desktop quick start is for BIM practitioners,
@@ -20,7 +20,7 @@ introduction below. **New to RDF or SPARQL?** Start with the
 > [checked example bundle](examples/getting-started/README.md) includes small IFC
 > models, saved configurations, SPARQL questions, and expected answers for a
 > building inventory, a completeness check, and a revision comparison. The
-> bundle targets development version 2.54.1.
+> bundle targets development version 2.55.0.
 
 ## What can you do with IFCtoLBD?
 
@@ -40,7 +40,7 @@ introduction below. **New to RDF or SPARQL?** Start with the
   vocabularies, validation rules, geometry backends, or domain-specific enrichment.
 
 The guides below show you where to start. The beginner workflow is pinned to
-release 2.49.0; source-only 2.54.1 features are identified separately.
+release 2.49.0; source-only 2.55.0 features are identified separately.
 
 ## The pieces of IFCtoLBD
 
@@ -78,12 +78,12 @@ You need an IFC model and the desktop application.
 2. Start the desktop application. For a result you can check, use the small
    [two-wall example model](examples/getting-started/building-inventory/model.ifc).
    Click **Read IFC**, choose the model, and
-   wait for it to finish reading. Development version 2.54.1 also shows a model
+   wait for it to finish reading. Development version 2.55.0 also shows a model
    summary with the detected schema, model contents, geometry availability, and
    warnings. The application proposes an output path.
 3. Check that output path, then click **Run**. For your first conversion, keep
    the existing settings and filters. Wait for the conversion log to report completion.
-4. In development version 2.54.1, open **Query**, paste the saved
+4. In development version 2.55.0, open **Query**, paste the saved
    [building inventory query](examples/getting-started/building-inventory/query.rq),
    and click **Run query**. The useful result is immediate: the storey contains
    two walls. Compare it with the
@@ -148,11 +148,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois},
-  title        = {{IFCtoLBD v 2.54.1}},
+  title        = {{IFCtoLBD v 2.55.0}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.54.1},
+  version      = {2.55.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 

@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.jena.datatypes.xsd.XSDDatatype;
 import org.apache.jena.rdf.model.Model;
@@ -16,6 +17,7 @@ import org.junit.jupiter.api.Test;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 class PropertiesAsPropertySetsTest {
 	private static final String EVIDENCE = "https://w3id.org/ifctolbd/evidence#";
@@ -35,7 +37,43 @@ class PropertiesAsPropertySetsTest {
 				&& statement.getResource().hasProperty(RDF.type, OPM.property)).next().getResource();
 		Resource reference = property.getPropertyResourceValue(RDFS.seeAlso);
 		assertEquals(BSDD.property_ns + "LoadBearing", reference.getURI());
+		assertTrue(model.contains(wall, model.createProperty(BSDD.property_ns + "LoadBearing"), property));
 		assertFalse(reference.getURI().contains("linkedbuildingdata.net/IFC4-PSD"));
+	}
+
+	@Test
+	void usesBsddPredicateForKnownSimplePropertyAndPropsForCustomSet() {
+		String base = "https://example.com/inst#";
+		Model model = ModelFactory.createDefaultModel();
+		Resource wall = model.createResource(base + "wall_1");
+		PropertySet known = new PropertySet(base, model, ModelFactory.createDefaultModel(),
+				"Pset_WallCommon", 1, false, new HashMap<>(), false);
+		known.putPnameValue("LoadBearing", model.createTypedLiteral(true));
+		known.connect(wall, "wall-guid");
+		assertTrue(model.contains(wall, model.createProperty(BSDD.property_ns + "LoadBearing"),
+				model.createTypedLiteral(true)));
+		assertFalse(model.contains(wall, model.createProperty(PROPS.ns + "loadBearing_property_simple")));
+
+		PropertySet custom = new PropertySet(base, model, ModelFactory.createDefaultModel(),
+				"Acme_Custom", 1, false, new HashMap<>(), false);
+		custom.putPnameValue("LoadBearing", model.createTypedLiteral(false));
+		custom.connect(wall, "wall-guid");
+		assertTrue(model.contains(wall, model.createProperty(PROPS.ns + "loadBearing_property_simple"),
+				model.createTypedLiteral(false)));
+	}
+
+	@Test
+	void explicitPropertyMappingOverridesBsddPredicate() {
+		String base = "https://example.com/inst#";
+		Model model = ModelFactory.createDefaultModel();
+		PropertySet propertySet = new PropertySet(base, model, ModelFactory.createDefaultModel(),
+				"Pset_WallCommon", 3, false, new HashMap<>(), false);
+		propertySet.putPnameValue("LoadBearing", model.createTypedLiteral(true));
+		propertySet.setProperty_replace_map(Map.of(PROPS.ns + "loadBearing", "https://example.com/vocab#bearing"));
+		Resource wall = model.createResource(base + "wall_1");
+		propertySet.connect(wall, "wall-guid");
+		assertTrue(model.contains(wall, model.createProperty("https://example.com/vocab#bearing")));
+		assertFalse(model.contains(wall, model.createProperty(BSDD.property_ns + "LoadBearing")));
 	}
 
 	@Test

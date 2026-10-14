@@ -14,7 +14,7 @@ import org.apache.jena.vocabulary.RDFS;
 import org.junit.jupiter.api.Test;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.AttributeSet;
 import org.linkedbuildingdata.ifc2lbd.core.valuesets.PropertySet;
-import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
+import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 
 class ModelOwnershipTest {
 
@@ -51,7 +51,7 @@ class ModelOwnershipTest {
 
 			propertySet.connect(wall, "guid");
 
-			Property loadBearing = properties.createProperty(PROPS.ns + "loadBearing_property_simple");
+			Property loadBearing = properties.createProperty(BSDD.property_ns + "LoadBearing");
 			assertTrue(properties.contains(properties.createResource(wall.getURI()), loadBearing));
 			assertFalse(general.contains(wall, loadBearing));
 		} finally {
