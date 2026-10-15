@@ -31,6 +31,7 @@ final class ConversionManifest {
 	static final String NS = "https://w3id.org/ifctolbd/manifest#";
 	static final String CONVERTER_VERSION = "2.55.0";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
+	private static final String DCTERMS = "http://purl.org/dc/terms/";
 
 	private ConversionManifest() { }
 	record Created(Model model, ConversionGraphNames graphNames) { }
@@ -66,6 +67,8 @@ final class ConversionManifest {
 		Model model = ModelFactory.createDefaultModel();
 		model.setNsPrefix("manifest", NS);
 		model.setNsPrefix("prov", PROV);
+		model.setNsPrefix("dcterms", DCTERMS);
+		model.setNsPrefix("supply", SupplyChainStage.NS);
 		Resource conversion = model.createResource("urn:ifctolbd:conversion:" + cacheKey)
 				.addProperty(RDF.type, model.createResource(NS + "Conversion"))
 				.addLiteral(property(model, "cacheKey"), cacheKey)
@@ -98,6 +101,9 @@ final class ConversionManifest {
 		request.getSelectedPropertySets().stream().sorted().forEach(value -> conversion.addLiteral(property(model, "selectedPropertySet"), value));
 		request.getPropertyReplacements().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
 				conversion.addLiteral(property(model, "propertyReplacement"), entry.getKey() + "=" + entry.getValue()));
+		request.getClassificationResolver().dictionaries().forEach(metadata -> conversion.addProperty(
+				property(model, "usesClassificationDictionary"),
+				SupplyChainStage.writeDictionaryMetadata(model, metadata)));
 		for (String graph : graphNames.all())
 			conversion.addProperty(property(model, "hasNamedGraph"), model.createResource(graph));
 		Resource sourceEntity = model.createResource("urn:sha256:" + sourceChecksum)

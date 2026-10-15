@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.RDFNode;
@@ -19,6 +20,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 public final class SupplyChainStage {
 	static final String NS = "https://w3id.org/ifctolbd/supply-chain#";
 	private static final String PROV = "http://www.w3.org/ns/prov#";
+	private static final String DCTERMS = "http://purl.org/dc/terms/";
 	private static final String QUDT = "http://qudt.org/schema/qudt/";
 	private static final String SUSTAINABILITY = "https://w3id.org/ifctolbd/sustainability#";
 	private static final Map<String, String> NORMALIZED_PROPERTIES = Map.ofEntries(
@@ -49,10 +51,30 @@ public final class SupplyChainStage {
 
 	public static void enrichSupplyChain(Model ifcModel, IfcOWL ifc, Model output,
 			Map<Resource, Resource> resources, ClassificationResolver resolver) {
+		enrichSupplyChain(ifcModel, ifc, output, output, resources, resolver, List.of());
+	}
+
+	public static void enrichSupplyChain(Model ifcModel, IfcOWL ifc, Model output, Model propertyOutput,
+			Map<Resource, Resource> resources, ClassificationResolver resolver,
+			List<EtimPropertyMapping> propertyMappings) {
+		enrichSupplyChain(ifcModel, ifc, output, propertyOutput, resources, resolver, propertyMappings, false,
+				List.of());
+	}
+
+	public static void enrichSupplyChain(Model ifcModel, IfcOWL ifc, Model output, Model propertyOutput,
+			Map<Resource, Resource> resources, ClassificationResolver resolver,
+			List<EtimPropertyMapping> propertyMappings, boolean suggestEtimClassifications,
+			List<EtimClassificationAcceptance> acceptedEtimClassifications) {
 		output.setNsPrefix("supply", NS);
 		output.setNsPrefix("prov", PROV);
+		output.setNsPrefix("dcterms", DCTERMS);
 		output.setNsPrefix("qudt", QUDT);
-		extractClassifications(ifcModel, ifc, output, resources, resolver);
+		resolver.dictionaries().forEach(value -> writeDictionaryMetadata(output, value));
+		Set<Resource> suppliedEtim = extractClassifications(ifcModel, ifc, output, propertyOutput, resources,
+				resolver, propertyMappings);
+		if (suggestEtimClassifications)
+			EtimClassificationSuggestionStage.suggest(ifcModel, ifc, output, propertyOutput, resources, resolver,
+					suppliedEtim, acceptedEtimClassifications, propertyMappings);
 		Set<String> directlyExtracted = extractPropertySets(ifcModel, ifc, output, resources, false);
 		normalizeExistingProperties(output, directlyExtracted, false);
 	}
@@ -75,18 +97,17 @@ public final class SupplyChainStage {
 			if (pset == null || !pset.hasProperty(RDF.type,
 					ifcModel.createResource(ifc.getIfcURI() + "IfcPropertySet"))) return;
 			String psetName = firstText(pset, ifc, "name_IfcRoot");
-			var targets = ifcModel.listObjectsOfProperty(relation, ifc.getRelatedObjects_IfcRelDefines()).toList();
-			ifcModel.listObjectsOfProperty(pset, ifc.getHasProperties_IfcPropertySet()).forEachRemaining(node -> {
-				if (!node.isResource()) return;
-				Resource property = node.asResource();
+			var targets = IfcMappingSupport.objectResources(relation, ifc, "relatedObjects_IfcRelDefines",
+					"relatedObjects_IfcRelDefinesByProperties");
+			IfcMappingSupport.objectResources(pset, ifc, "hasProperties_IfcPropertySet").forEach(property -> {
 				String propertyName = firstText(property, ifc, "name_IfcProperty");
 				RDFNode value = propertyValue(property, ifc.getNominalValue_IfcPropertySingleValue());
 				String normalized = (sustainability ? SUSTAINABILITY_PROPERTIES : NORMALIZED_PROPERTIES)
 						.get(normalizeName(propertyName));
 				String epdProperty = sustainability ? EPD_PROPERTIES.get(normalizeName(propertyName)) : null;
 				if (value == null || (normalized == null && epdProperty == null)) return;
-				for (RDFNode targetNode : targets) {
-					Resource target = targetNode.isResource() ? resources.get(targetNode.asResource()) : null;
+				for (Resource targetNode : targets) {
+					Resource target = resources.get(targetNode);
 					if (target == null) continue;
 					Resource explicitUnit = resourceObject(property, ifc.getUnit_IfcPropertySingleValue());
 					RDFNode measurementType = propertyValueResource(property,
@@ -107,8 +128,10 @@ public final class SupplyChainStage {
 		return extracted;
 	}
 
-	private static void extractClassifications(Model ifcModel, IfcOWL ifc, Model output,
-			Map<Resource, Resource> resources, ClassificationResolver resolver) {
+	private static Set<Resource> extractClassifications(Model ifcModel, IfcOWL ifc, Model output, Model propertyOutput,
+			Map<Resource, Resource> resources, ClassificationResolver resolver,
+			List<EtimPropertyMapping> propertyMappings) {
+		Set<Resource> suppliedEtim = new HashSet<>();
 		Resource relationType = ifcModel.createResource(ifc.getIfcURI() + "IfcRelAssociatesClassification");
 		ifcModel.listResourcesWithProperty(RDF.type, relationType).forEachRemaining(relation -> {
 			Resource classification = resourceObject(relation, ifc.getProperty("relatingClassification_IfcRelAssociatesClassification"));
@@ -120,27 +143,52 @@ public final class SupplyChainStage {
 			String system = firstText(source, ifc, "name_IfcClassification", "source_IfcClassification");
 			String edition = firstText(source, ifc, "edition_IfcClassification");
 			ClassificationResolver.Request request = new ClassificationResolver.Request(system, edition, code, label, location);
-			Optional<ClassificationResolver.Resolution> resolution = Optional.empty();
-			if (location != null && (location.startsWith("https://") || location.startsWith("http://"))) {
-				resolution = Optional.of(new ClassificationResolver.Resolution(location, "ifc-source-location", edition, 1.0));
-			} else {
-				resolution = resolver.resolve(request);
-			}
+			Optional<ClassificationResolver.Resolution> resolution = resolver.resolve(request);
+			if (resolution.isEmpty() && location != null
+					&& (location.startsWith("https://") || location.startsWith("http://")))
+				resolution = Optional.of(new ClassificationResolver.Resolution(location, "ifc-source-location", null, 0.0,
+						ClassificationResolver.IdentifierVerification.SUPPLIED_UNVERIFIED, edition, null,
+						ClassificationResolver.EditionCompatibility.CONFIGURED_UNSPECIFIED));
 			final Optional<ClassificationResolver.Resolution> resolved = resolution;
+			final Optional<ClassificationDefinition> definition = resolved
+					.filter(value -> value.isRegistryVerified() && !value.hasEditionConflict())
+					.flatMap(resolver::definition);
 			ifcModel.listObjectsOfProperty(relation, ifc.getProperty("relatedObjects_IfcRelAssociates")).forEachRemaining(node -> {
-				Resource target = node.isResource() ? resources.get(node.asResource()) : null;
-				if (target != null) addAssertion(output, target, relation, request, resolved);
+				Resource ifcTarget = node.isResource() ? node.asResource() : null;
+				Resource target = ifcTarget == null ? null : resources.get(ifcTarget);
+				if (target != null) {
+					addAssertion(output, target, relation, request, resolved, definition);
+					if (isEtimSystem(request)) suppliedEtim.add(ifcTarget);
+					definition.filter(value -> isEtim(request, value)).ifPresent(value -> {
+						suppliedEtim.add(ifcTarget);
+						EtimPropertyAnnotationStage.annotate(ifcModel, ifc, propertyOutput, ifcTarget,
+								target, value, propertyMappings);
+					});
+				}
 			});
 		});
+		return suppliedEtim;
+	}
+
+	private static boolean isEtim(ClassificationResolver.Request request, ClassificationDefinition definition) {
+		if (isEtimSystem(request)) return true;
+		String dictionary = safe(definition.dictionaryUri()).toLowerCase(java.util.Locale.ROOT);
+		return dictionary.contains("/etim/") || dictionary.endsWith("/etim");
+	}
+	private static boolean isEtimSystem(ClassificationResolver.Request request) {
+		return "etim".equals(normalizeName(request.system()));
 	}
 
 	private static void addAssertion(Model output, Resource target, Resource source,
-			ClassificationResolver.Request request, Optional<ClassificationResolver.Resolution> resolution) {
+			ClassificationResolver.Request request, Optional<ClassificationResolver.Resolution> resolution,
+			Optional<ClassificationDefinition> definition) {
 		String signature = String.join("|", safe(request.system()), safe(request.edition()), safe(request.code()), safe(request.label()));
 		String sourceUri = source.isURIResource() ? source.getURI() : "urn:ifctolbd:ifc-source:" + shortHash(source.toString());
 		Resource assertion = output.createResource("urn:ifctolbd:classification:" + shortHash(signature))
 				.addProperty(RDF.type, output.createResource(NS + "ClassificationAssertion"))
-				.addProperty(output.createProperty(PROV + "wasDerivedFrom"), output.createResource(sourceUri));
+				.addProperty(output.createProperty(PROV + "wasDerivedFrom"), output.createResource(sourceUri))
+				.addLiteral(output.createProperty(NS + "classificationStatus"), "supplied")
+				.addLiteral(output.createProperty(NS + "classificationCorrectness"), "not-assessed");
 		target.addProperty(output.createProperty(NS + "hasClassification"), assertion);
 		addLiteral(assertion, output, "system", request.system());
 		addLiteral(assertion, output, "edition", request.edition());
@@ -148,11 +196,117 @@ public final class SupplyChainStage {
 		addLiteral(assertion, output, "label", request.label());
 		addLiteral(assertion, output, "sourceLocation", request.sourceLocation());
 		resolution.ifPresent(value -> {
-			assertion.addProperty(output.createProperty(NS + "resolvedConcept"), output.createResource(value.conceptUri()));
+			if (value.verification() == ClassificationResolver.IdentifierVerification.SUPPLIED_UNVERIFIED)
+				assertion.addProperty(output.createProperty(NS + "suppliedIdentifier"),
+						output.createResource(value.conceptUri()));
+			else if (value.hasEditionConflict())
+				assertion.addProperty(output.createProperty(NS + "registryMatchedIdentifier"),
+						output.createResource(value.conceptUri()));
+			else assertion.addProperty(output.createProperty(NS + "resolvedConcept"),
+					output.createResource(value.conceptUri()));
 			addLiteral(assertion, output, "resolutionAuthority", value.authority());
 			addLiteral(assertion, output, "authorityVersion", value.authorityVersion());
-			assertion.addLiteral(output.createProperty(NS + "confidence"), value.confidence());
+			assertion.addLiteral(output.createProperty(NS + "identifierVerification"),
+					value.verification().name().toLowerCase(java.util.Locale.ROOT).replace('_', '-'));
+			assertion.addLiteral(output.createProperty(NS + "identifierResolutionConfidence"),
+					value.identifierResolutionConfidence());
+			// Preserve the established predicate while clarifying its scope for new consumers.
+			assertion.addLiteral(output.createProperty(NS + "confidence"), value.identifierResolutionConfidence());
+			addLiteral(assertion, output, "sourceEdition", value.sourceEdition());
+			addLiteral(assertion, output, "dictionaryEdition", value.dictionaryEdition());
+			assertion.addLiteral(output.createProperty(NS + "editionCompatibility"),
+					value.editionCompatibility().name().toLowerCase(java.util.Locale.ROOT).replace('_', '-'));
+			if (value.hasEditionConflict()) assertion.addLiteral(output.createProperty(NS + "editionConflict"), true);
 		});
+		definition.ifPresent(value -> writeDefinition(output, assertion, value));
+	}
+
+	static void writeDefinition(Model model, Resource assertion, ClassificationDefinition definition) {
+		Resource classificationClass = identified(model, definition.uri());
+		classificationClass.addProperty(RDF.type, model.createResource(NS + "ClassificationClass"));
+		assertion.addProperty(model.createProperty(NS + "resolvedDefinition"), classificationClass);
+		addLiteral(classificationClass, model, "code", definition.code());
+		addLiteral(classificationClass, model, "name", definition.name());
+		addLiteral(classificationClass, model, "description", definition.description());
+		if (definition.dictionaryUri() != null)
+			classificationClass.addProperty(model.createProperty(NS + "dictionary"),
+					model.createResource(definition.dictionaryUri()));
+		for (String ifcEntity : definition.relatedIfcEntities())
+			addLiteral(classificationClass, model, "relatedIfcEntityName", ifcEntity);
+		for (ClassificationDefinition.Relationship relationship : definition.relationships()) {
+			Resource relation = identified(model, relationship.uri())
+					.addProperty(RDF.type, model.createResource(NS + "ClassificationRelationship"));
+			addLiteral(relation, model, "relationshipType", relationship.type());
+			addLiteral(relation, model, "relatedClassName", relationship.relatedClassName());
+			if (relationship.relatedClassUri() != null)
+				relation.addProperty(model.createProperty(NS + "relatedClass"),
+						model.createResource(relationship.relatedClassUri()));
+			classificationClass.addProperty(model.createProperty(NS + "hasRelationship"), relation);
+		}
+		for (ClassificationDefinition.ClassProperty classProperty : definition.classProperties())
+			writeClassProperty(model, classificationClass, classProperty);
+	}
+
+	static Resource writeDictionaryMetadata(Model model, ClassificationResolver.DictionaryMetadata metadata) {
+		Resource dictionary = model.createResource(metadata.uri())
+				.addProperty(RDF.type, model.createResource(NS + "ClassificationDictionary"));
+		addLiteral(dictionary, model, "code", metadata.code());
+		addLiteral(dictionary, model, "name", metadata.name());
+		addLiteral(dictionary, model, "version", metadata.version());
+		addLiteral(dictionary, model, "status", metadata.status());
+		addLiteral(dictionary, model, "organizationCodeOwner", metadata.organizationCodeOwner());
+		addLiteral(dictionary, model, "organizationNameOwner", metadata.organizationNameOwner());
+		if (metadata.organizationNameOwner() != null && !metadata.organizationNameOwner().isBlank())
+			dictionary.addLiteral(model.createProperty(DCTERMS + "rightsHolder"),
+					metadata.organizationNameOwner());
+		if (metadata.license() != null && !metadata.license().isBlank())
+			dictionary.addLiteral(model.createProperty(DCTERMS + "rights"), metadata.license());
+		if (metadata.licenseUrl() != null && metadata.licenseUrl().startsWith("http"))
+			dictionary.addProperty(model.createProperty(DCTERMS + "license"),
+					model.createResource(metadata.licenseUrl()));
+		return dictionary;
+	}
+
+	private static void writeClassProperty(Model model, Resource classificationClass,
+			ClassificationDefinition.ClassProperty definition) {
+		String propertyUri = definition.property() == null ? null : definition.property().uri();
+		// Some list responses use "uri" for the reusable Property. Do not collapse
+		// that identifier into the class-specific assignment.
+		Resource classProperty = identified(model,
+				definition.uri() != null && !definition.uri().equals(propertyUri) ? definition.uri() : null)
+				.addProperty(RDF.type, model.createResource(NS + "ClassProperty"));
+		classificationClass.addProperty(model.createProperty(NS + "hasClassProperty"), classProperty);
+		addLiteral(classProperty, model, "propertySet", definition.propertySet());
+		addLiteral(classProperty, model, "dataType", definition.dataType());
+		addLiteral(classProperty, model, "description", definition.description());
+		addLiteral(classProperty, model, "predefinedValue", definition.predefinedValue());
+		if (definition.required() != null) classProperty.addLiteral(model.createProperty(NS + "required"), definition.required());
+		if (definition.writable() != null) classProperty.addLiteral(model.createProperty(NS + "writable"), definition.writable());
+		if (definition.property() != null) {
+			Resource property = identified(model, propertyUri)
+					.addProperty(RDF.type, model.createResource(NS + "Property"));
+			classProperty.addProperty(model.createProperty(NS + "property"), property);
+			addLiteral(property, model, "code", definition.property().code());
+			addLiteral(property, model, "name", definition.property().name());
+			addLiteral(property, model, "description", definition.property().description());
+		}
+		for (ClassificationDefinition.AllowedValue value : definition.allowedValues()) {
+			Resource allowedValue = identified(model, value.uri())
+					.addProperty(RDF.type, model.createResource(NS + "AllowedValue"));
+			addLiteral(allowedValue, model, "code", value.code());
+			addLiteral(allowedValue, model, "value", value.value());
+			addLiteral(allowedValue, model, "description", value.description());
+			classProperty.addProperty(model.createProperty(NS + "allowedValue"), allowedValue);
+		}
+		for (ClassificationDefinition.Unit unit : definition.units()) {
+			Resource unitAssignment = model.createResource().addProperty(RDF.type, model.createResource(NS + "UnitAssignment"));
+			UnitResolver.write(model, unitAssignment, UnitResolver.fromBsdd(unit.qudtCode(), unit.code()));
+			classProperty.addProperty(model.createProperty(NS + "unit"), unitAssignment);
+		}
+	}
+
+	private static Resource identified(Model model, String uri) {
+		return uri == null || uri.isBlank() ? model.createResource() : model.createResource(uri);
 	}
 
 	private static void normalizeExistingProperties(Model output, Set<String> directlyExtracted,
@@ -228,11 +382,11 @@ public final class SupplyChainStage {
 	}
 
 	private static UnitResolver.Resolution declaredUnit(Model ifcModel, IfcOWL ifc, Resource pset) {
-		var properties = ifcModel.listObjectsOfProperty(pset, ifc.getHasProperties_IfcPropertySet()).toList();
-		for (RDFNode node : properties) {
-			if (!node.isResource() || !"declaredunit".equals(normalizeName(firstText(node.asResource(), ifc,
+		var properties = IfcMappingSupport.objectResources(pset, ifc, "hasProperties_IfcPropertySet");
+		for (Resource node : properties) {
+			if (!"declaredunit".equals(normalizeName(firstText(node, ifc,
 					"name_IfcProperty")))) continue;
-			RDFNode value = propertyValue(node.asResource(), ifc.getNominalValue_IfcPropertySingleValue());
+			RDFNode value = propertyValue(node, ifc.getNominalValue_IfcPropertySingleValue());
 			if (value != null && value.isLiteral()) return UnitResolver.fromText(value.asLiteral().getString());
 		}
 		return null;

@@ -1,0 +1,120 @@
+ISO-10303-21;
+HEADER;
+/* ***************************************************************** */
+/* Sample IFC4 model with ETIM 9.0 classification content           */
+/* ETIM classes verified in the buildingSMART Data Dictionary:      */
+/*  EC002288 Small distribution board equipped (EG000023)           */
+/*  EC001957 Emergency luminaire (EG000027)                         */
+/*  EC000054 Incandescent lamp with ring head                       */
+/*  EC000247 Spiralized cable                                        */
+/* ETIM features referenced via bSDD property URIs (EF-codes)        */
+/* Mapping follows the bSDD-IFC documentation:                      */
+/*  github.com/buildingSMART/bSDD Documentation/bSDD-IFC docs       */
+/* ***************************************************************** */
+FILE_DESCRIPTION(('ViewDefinition [ReferenceView]'),'2;1');
+FILE_NAME('ETIM-Electrical-Sample.ifc','2026-10-15T10:30:00',('Tuure Oraskari'),('Vibe Work'),'Vibe','Vibe Work','IFC4 sample with ETIM 9.0 classification (bSDD referenced)');
+FILE_SCHEMA(('IFC4'));
+ENDSEC;
+DATA;
+
+/* ---- Owner history ---- */
+#1=IFCPERSON($,'Oraskari','Tuure',$,$,$,$,$);
+#2=IFCORGANIZATION($,'ETIM Sample Project',$,$,$);
+#3=IFCPERSONANDORGANIZATION(#1,#2,$);
+#4=IFCAPPLICATION(#2,'1.0','Vibe Work','Vibe');
+#5=IFCOWNERHISTORY(#3,#4,$,.ADDED.,$,$,$,1760520000);
+
+/* ---- Units ---- */
+#6=IFCSIUNIT(*,.LENGTHUNIT.,$,.METRE.);
+#7=IFCSIUNIT(*,.AREAUNIT.,$,.SQUARE_METRE.);
+#8=IFCSIUNIT(*,.VOLUMEUNIT.,$,.CUBIC_METRE.);
+#9=IFCSIUNIT(*,.PLANEANGLEUNIT.,$,.RADIAN.);
+#10=IFCUNITASSIGNMENT((#6,#7,#8,#9));
+
+/* ---- Geometric representation context ---- */
+#11=IFCCARTESIANPOINT((0.,0.,0.));
+#12=IFCDIRECTION((0.,0.,1.));
+#13=IFCDIRECTION((1.,0.,0.));
+#14=IFCAXIS2PLACEMENT3D(#11,#12,#13);
+#15=IFCGEOMETRICREPRESENTATIONCONTEXT($,'Model',3,1.E-05,#14,$);
+
+/* ---- Spatial structure ---- */
+#16=IFCPROJECT('3z6rJpzWPFVhYhcSYcDTX0',#5,'ETIM Sample Project','Sample project demonstrating ETIM 9.0 classification in IFC4',$,$,$,(#15),#10);
+#17=IFCLOCALPLACEMENT($,#14);
+#18=IFCSITE('3z6rJpzWPFVhYhcSYcDTX01',#5,'Sample Site',$,$,#17,$,$,.ELEMENT.,$,$,$,$,$);
+#19=IFCLOCALPLACEMENT(#17,#14);
+#20=IFCBUILDING('3z6rJpzWPFVhYhcSYcDTX02',#5,'Sample Building',$,$,#19,$,$,.ELEMENT.,$,$,$);
+#21=IFCLOCALPLACEMENT(#19,#14);
+#22=IFCBUILDINGSTOREY('3z6rJpzWPFVhYhcSYcDTX03',#5,'Ground Floor',$,$,#21,$,$,.ELEMENT.,0.);
+#23=IFCRELAGGREGATES('3z6rJpzWPFVhYhcSYcDTX04',#5,$,$,#16,(#18));
+#24=IFCRELAGGREGATES('3z6rJpzWPFVhYhcSYcDTX05',#5,$,$,#18,(#20));
+#25=IFCRELAGGREGATES('3z6rJpzWPFVhYhcSYcDTX06',#5,$,$,#20,(#22));
+
+/* ---- Element 1: Electric distribution board -> ETIM EC002288 ---- */
+#26=IFCLOCALPLACEMENT(#21,#14);
+#27=IFCBOUNDINGBOX(#11,0.4,0.3,0.6);
+#28=IFCSHAPEREPRESENTATION(#15,'Body','BoundingBox',(#27));
+#29=IFCPRODUCTDEFINITIONSHAPE($,$,(#28));
+#30=IFCELECTRICDISTRIBUTIONBOARD('3z6rJpzWPFVhYhcSYcDTX07',#5,'DB-001','Distribution board, flush mounted, 2 rows, MCB protection','Distribution board',#26,#29,'DB-A',.DISTRIBUTIONBOARD.);
+
+/* ---- Element 2: Emergency luminaire -> ETIM EC001957 ---- */
+#31=IFCLOCALPLACEMENT(#21,#14);
+#32=IFCCARTESIANPOINT((2.,0.,2.8));
+#33=IFCBOUNDINGBOX(#32,0.6,0.2,0.1);
+#34=IFCSHAPEREPRESENTATION(#15,'Body','BoundingBox',(#33));
+#35=IFCPRODUCTDEFINITIONSHAPE($,$,(#34));
+#36=IFCLIGHTFIXTURE('3z6rJpzWPFVhYhcSYcDTX08',#5,'EM-L-001','Emergency luminaire, ceiling surface mounted, escape route lighting','Luminaire',#31,#35,'LT-A',.SECURITYLIGHTING.);
+
+/* ---- Element 3: Lamp, nested in luminaire -> ETIM EC000054 ---- */
+#37=IFCLOCALPLACEMENT(#31,#14);
+#38=IFCCARTESIANPOINT((2.27,0.05,2.9));
+#39=IFCBOUNDINGBOX(#38,0.06,0.06,0.12);
+#40=IFCSHAPEREPRESENTATION(#15,'Body','BoundingBox',(#39));
+#41=IFCPRODUCTDEFINITIONSHAPE($,$,(#40));
+#42=IFCLAMP('3z6rJpzWPFVhYhcSYcDTX09',#5,'LMP-001','Incandescent lamp with ring head, E27, 60 W','Lamp',#37,#41,'LP-A',.TUNGSTENFILAMENT.);
+#43=IFCRELNESTS('3z6rJpzWPFVhYhcSYcDTX10',#5,$,$,#36,(#42));
+
+/* ---- Element 4: Cable segment -> ETIM EC000247 ---- */
+#44=IFCLOCALPLACEMENT(#21,#14);
+#45=IFCCARTESIANPOINT((0.1,0.1,3.));
+#46=IFCBOUNDINGBOX(#45,3.,0.02,0.02);
+#47=IFCSHAPEREPRESENTATION(#15,'Body','BoundingBox',(#46));
+#48=IFCPRODUCTDEFINITIONSHAPE($,$,(#47));
+#49=IFCCABLESEGMENT('3z6rJpzWPFVhYhcSYcDTX11',#5,'CBL-001','Spiralized power connection cable, 3G1.5','Cable',#44,#48,'CB-A',.CABLESEGMENT.);
+
+/* ---- Containment in storey ---- */
+#50=IFCRELCONTAINEDINSPATIALSTRUCTURE('3z6rJpzWPFVhYhcSYcDTX12',#5,$,$,(#30,#36,#49),#22);
+
+/* ---- ETIM 9.0 classification (bSDD referenced) ---- */
+#51=IFCCLASSIFICATION('ETIM International','9.0','2022-12-05','ETIM','International classification standard for technical products','https://identifier.buildingsmart.org/uri/etim/etim/9.0',$);
+#52=IFCCLASSIFICATIONREFERENCE('https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC002288','EC002288','Small distribution board equipped',#51,$,$);
+#53=IFCCLASSIFICATIONREFERENCE('https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC001957','EC001957','Emergency luminaire',#51,$,$);
+#54=IFCCLASSIFICATIONREFERENCE('https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000054','EC000054','Incandescent lamp with ring head',#51,$,$);
+#55=IFCCLASSIFICATIONREFERENCE('https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000247','EC000247','Spiralized cable',#51,$,$);
+#56=IFCRELASSOCIATESCLASSIFICATION('3z6rJpzWPFVhYhcSYcDTX13',#5,'ETIM class','EC002288 Small distribution board equipped',(#30),#52);
+#57=IFCRELASSOCIATESCLASSIFICATION('3z6rJpzWPFVhYhcSYcDTX14',#5,'ETIM class','EC001957 Emergency luminaire',(#36),#53);
+#58=IFCRELASSOCIATESCLASSIFICATION('3z6rJpzWPFVhYhcSYcDTX15',#5,'ETIM class','EC000054 Incandescent lamp with ring head',(#42),#54);
+#59=IFCRELASSOCIATESCLASSIFICATION('3z6rJpzWPFVhYhcSYcDTX16',#5,'ETIM class','EC000247 Spiralized cable',(#49),#55);
+
+/* ---- ETIM features as properties, bSDD property URIs in Description ---- */
+#60=IFCPROPERTYSINGLEVALUE('Mounting method','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000003',IFCLABEL('Flush mounted'),$);
+#61=IFCPROPERTYSINGLEVALUE('Number of rows','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000266',IFCINTEGER(2),$);
+#62=IFCPROPERTYSINGLEVALUE('Protection','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000781',IFCLABEL('Miniature circuit breaker/RCBO'),$);
+#63=IFCPROPERTYSET('3z6rJpzWPFVhYhcSYcDTX17',#5,'ETIM_E002288','ETIM features for class EC002288 Small distribution board equipped',(#60,#61,#62));
+#64=IFCRELDEFINESBYPROPERTIES('3z6rJpzWPFVhYhcSYcDTX18',#5,$,$,(#30),#63);
+
+#65=IFCPROPERTYSINGLEVALUE('Mounting method','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000003',IFCLABEL('Ceiling surface mounting'),$);
+#66=IFCPROPERTYSINGLEVALUE('Colour','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000007',IFCLABEL('White'),$);
+#67=IFCPROPERTYSET('3z6rJpzWPFVhYhcSYcDTX19',#5,'ETIM_E001957','ETIM features for class EC001957 Emergency luminaire',(#65,#66));
+#68=IFCRELDEFINESBYPROPERTIES('3z6rJpzWPFVhYhcSYcDTX20',#5,$,$,(#36),#67);
+
+#69=IFCPROPERTYSINGLEVALUE('Colour','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000007',IFCLABEL('Clear'),$);
+#70=IFCPROPERTYSET('3z6rJpzWPFVhYhcSYcDTX21',#5,'ETIM_E000054','ETIM features for class EC000054 Incandescent lamp with ring head',(#69));
+#71=IFCRELDEFINESBYPROPERTIES('3z6rJpzWPFVhYhcSYcDTX22',#5,$,$,(#42),#70);
+
+#72=IFCPROPERTYSINGLEVALUE('Core identification','https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000067',IFCLABEL('Green-yellow'),$);
+#73=IFCPROPERTYSET('3z6rJpzWPFVhYhcSYcDTX23',#5,'ETIM_E000247','ETIM features for class EC000247 Spiralized cable',(#72));
+#74=IFCRELDEFINESBYPROPERTIES('3z6rJpzWPFVhYhcSYcDTX24',#5,$,$,(#49),#73);
+
+ENDSEC;
+END-ISO-10303-21;

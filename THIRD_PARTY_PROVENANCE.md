@@ -42,3 +42,25 @@ module-specific `THIRD-PARTY` files.
 
 The extraction format and checksum are also documented in
 `IFCtoLBD/src/main/resources/ifc-bsdd/README.md`.
+
+## ETIM example class and feature identifiers
+
+- Upstream publisher: ETIM International
+- Upstream pages: ETIM class viewer entries for
+  [EC000005](https://viewer.etim-international.com/class/EC000005) and
+  [EC003535](https://viewer.etim-international.com/class/EC003535?lang=en-GB),
+  plus the buildingSMART bSDD v1 API, accessed 2026-10-15
+- Source material: class codes/names, a small selection of published feature
+  codes/names, and registry-supplied dictionary ownership, status, licence text,
+  and licence-information URL used by deterministic offline tests
+- Destination: `IFCtoLBD/src/test/resources/etim/etim-examples.json`
+- Transformation: reduced JSON test snapshot containing registry-returned ETIM
+  9.0 class, Property and ClassProperty identifiers; descriptions were shortened
+- Use: verifies property meaning, unit compatibility, ambiguous-class
+  abstention, separation of door-leaf, frame, and module widths, and faithful
+  propagation of dictionary rights into generated RDF metadata
+- Licence and attribution: bSDD reports the ETIM dictionary as "No license
+  (rights reserved)". Only minimal factual identifiers and names required for
+  interoperability tests are retained with publisher and source links in
+  `IFCtoLBD/src/test/resources/etim/README.md`; this snapshot is not a
+  redistribution of an ETIM dictionary or its full definitions

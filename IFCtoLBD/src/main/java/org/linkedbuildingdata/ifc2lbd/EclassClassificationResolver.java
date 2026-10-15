@@ -15,6 +15,7 @@ public final class EclassClassificationResolver implements ClassificationResolve
 	@Override public String id() { return "eclass"; }
 	@Override public String version() { return "1"; }
 	@Override public String configurationId() { return id() + "@" + version() + "|" + delegate.configurationId(); }
+	@Override public boolean allowsNetworkAccess() { return delegate.allowsNetworkAccess(); }
 
 	@Override public Optional<Resolution> resolve(Request request) {
 		if (request.system() == null || !request.system().replaceAll("[^A-Za-z0-9]", "")
@@ -22,4 +23,12 @@ public final class EclassClassificationResolver implements ClassificationResolve
 		return delegate.resolve(new Request("ECLASS", request.edition(), request.code(), request.label(),
 				request.sourceLocation()));
 	}
+
+	@Override public Optional<DictionaryMetadata> dictionary(String system) {
+		if (system == null || !system.replaceAll("[^A-Za-z0-9]", "").equalsIgnoreCase("ECLASS"))
+			return Optional.empty();
+		return delegate.dictionary("ECLASS");
+	}
+
+	@Override public java.util.List<DictionaryMetadata> dictionaries() { return delegate.dictionaries(); }
 }

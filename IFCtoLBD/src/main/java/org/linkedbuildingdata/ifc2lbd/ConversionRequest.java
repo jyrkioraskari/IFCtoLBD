@@ -19,27 +19,32 @@ public final class ConversionRequest {
 	private final Set<String> selectedTypes;
 	private final Set<String> selectedPropertySets;
 	private final Map<String, String> propertyReplacements;
+	private final List<EtimPropertyMapping> etimPropertyMappings;
+	private final boolean suggestEtimClassifications;
+	private final List<EtimClassificationAcceptance> acceptedEtimClassifications;
 
 	public ConversionRequest(String ifcFilename, ConversionProperties properties) {
-		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of());
+		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties) {
-		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of());
+		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, ConversionProfile profile) {
-		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of());
+		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProfile profile) {
-		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of());
+		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
 	}
 
 	private ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties,
 			ConversionProfile profile, List<ValidationShapePack> validationShapePacks,
 			ClassificationResolver classificationResolver, String modelScope, Set<String> selectedTypes,
-			Set<String> selectedPropertySets, Map<String, String> propertyReplacements) {
+			Set<String> selectedPropertySets, Map<String, String> propertyReplacements,
+			List<EtimPropertyMapping> etimPropertyMappings, boolean suggestEtimClassifications,
+			List<EtimClassificationAcceptance> acceptedEtimClassifications) {
 		this.ifcFilename = requireText(ifcFilename, "ifcFilename");
 		this.targetFile = targetFile;
 		this.properties = Objects.requireNonNull(properties, "properties");
@@ -50,12 +55,15 @@ public final class ConversionRequest {
 		this.selectedTypes = Set.copyOf(selectedTypes);
 		this.selectedPropertySets = Set.copyOf(selectedPropertySets);
 		this.propertyReplacements = Map.copyOf(propertyReplacements);
+		this.etimPropertyMappings = List.copyOf(etimPropertyMappings);
+		this.suggestEtimClassifications = suggestEtimClassifications;
+		this.acceptedEtimClassifications = List.copyOf(acceptedEtimClassifications);
 	}
 
 	/** Returns a request that validates the converted dataset without modifying it. */
 	public ConversionRequest withValidation(ValidationShapePack... shapePacks) {
 		Objects.requireNonNull(shapePacks, "shapePacks");
-		return copy(List.of(shapePacks), classificationResolver, modelScope, selectedTypes, selectedPropertySets, propertyReplacements);
+		return copy(List.of(shapePacks), classificationResolver, modelScope, selectedTypes, selectedPropertySets, propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
 	}
 
 	/** Returns a request using all standard validation packs. */
@@ -64,27 +72,49 @@ public final class ConversionRequest {
 	}
 
 	public ConversionRequest withClassificationResolver(ClassificationResolver resolver) {
-		return copy(validationShapePacks, resolver, modelScope, selectedTypes, selectedPropertySets, propertyReplacements);
+		Objects.requireNonNull(resolver, "resolver");
+		if (resolver.allowsNetworkAccess())
+			throw new IllegalArgumentException("Conversion classification resolvers must be offline; "
+					+ "refresh a VersionedClassificationResolverCache before conversion");
+		return copy(validationShapePacks, resolver, modelScope, selectedTypes, selectedPropertySets, propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
 	}
 
 	/** Returns a request using a persistent identity namespace shared by all revisions of one model. */
 	public ConversionRequest withModelScope(String modelScope) {
 		return copy(validationShapePacks, classificationResolver, requireText(modelScope, "modelScope"), selectedTypes,
-				selectedPropertySets, propertyReplacements);
+				selectedPropertySets, propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
 	}
 
 	public ConversionRequest withSelectedTypes(Set<String> values) {
-		return copy(validationShapePacks, classificationResolver, modelScope, Objects.requireNonNull(values), selectedPropertySets, propertyReplacements);
+		return copy(validationShapePacks, classificationResolver, modelScope, Objects.requireNonNull(values), selectedPropertySets, propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
 	}
 	public ConversionRequest withSelectedPropertySets(Set<String> values) {
-		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, Objects.requireNonNull(values), propertyReplacements);
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, Objects.requireNonNull(values), propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
 	}
 	public ConversionRequest withPropertyReplacements(Map<String, String> values) {
-		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets, Objects.requireNonNull(values));
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets, Objects.requireNonNull(values), etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
+	}
+	/** Returns a request with reviewed, context-specific IFC-to-ETIM property mappings. */
+	public ConversionRequest withEtimPropertyMappings(List<EtimPropertyMapping> values) {
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, Objects.requireNonNull(values), suggestEtimClassifications, acceptedEtimClassifications);
+	}
+	/** Enables deterministic ETIM candidate discovery for elements without a supplied ETIM class. */
+	public ConversionRequest withEtimClassificationSuggestions() {
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, etimPropertyMappings, true, acceptedEtimClassifications);
+	}
+	/** Enables suggestions and marks the listed candidate decisions as reviewed and accepted. */
+	public ConversionRequest withAcceptedEtimClassifications(List<EtimClassificationAcceptance> values) {
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, etimPropertyMappings, true, Objects.requireNonNull(values));
 	}
 	private ConversionRequest copy(List<ValidationShapePack> packs, ClassificationResolver resolver, String scope,
-			Set<String> types, Set<String> psets, Map<String, String> replacements) {
-		return new ConversionRequest(ifcFilename, targetFile, properties, profile, packs, resolver, scope, types, psets, replacements);
+			Set<String> types, Set<String> psets, Map<String, String> replacements,
+			List<EtimPropertyMapping> etimMappings, boolean suggestions,
+			List<EtimClassificationAcceptance> acceptances) {
+		return new ConversionRequest(ifcFilename, targetFile, properties, profile, packs, resolver, scope, types, psets,
+				replacements, etimMappings, suggestions, acceptances);
 	}
 
 	public String getIfcFilename() {
@@ -107,6 +137,11 @@ public final class ConversionRequest {
 	public Set<String> getSelectedTypes() { return selectedTypes; }
 	public Set<String> getSelectedPropertySets() { return selectedPropertySets; }
 	public Map<String, String> getPropertyReplacements() { return propertyReplacements; }
+	public List<EtimPropertyMapping> getEtimPropertyMappings() { return etimPropertyMappings; }
+	public boolean hasEtimClassificationSuggestions() { return suggestEtimClassifications; }
+	public List<EtimClassificationAcceptance> getAcceptedEtimClassifications() {
+		return acceptedEtimClassifications;
+	}
 
 	public List<ValidationShapePack> getValidationShapePacks() { return validationShapePacks; }
 	public ClassificationResolver getClassificationResolver() { return classificationResolver; }

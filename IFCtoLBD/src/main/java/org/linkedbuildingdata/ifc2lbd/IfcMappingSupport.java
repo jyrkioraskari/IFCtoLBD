@@ -39,6 +39,19 @@ final class IfcMappingSupport {
 		return values;
 	}
 
+	static List<Resource> objectResources(Resource subject, IfcOWL ifc, String... localNames) {
+		Set<Resource> values = new java.util.LinkedHashSet<>();
+		for (String localName : localNames) values.addAll(objectResources(subject, ifc, localName));
+		return List.copyOf(values);
+	}
+
+	static List<Resource> subjectsWithObject(Model model, IfcOWL ifc, Resource object, String... localNames) {
+		Set<Resource> values = new java.util.LinkedHashSet<>();
+		for (String localName : localNames)
+			model.listResourcesWithProperty(ifc.getProperty(localName), object).forEachRemaining(values::add);
+		return List.copyOf(values);
+	}
+
 	private static void addValue(RDFNode node, List<Resource> values, Set<Resource> visited) {
 		if (!node.isResource()) return;
 		Resource resource = node.asResource();

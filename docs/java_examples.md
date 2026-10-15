@@ -104,7 +104,8 @@ try (var session = new org.linkedbuildingdata.ifc2lbd.ConversionSession();
 `getModel()` combines general, product, and property graphs. `getDataset()`
 exposes the dataset; other accessors expose the manifest and validation graphs.
 See [supply-chain and sustainability](supply-chain-and-sustainability.md) for
-profile and resolver examples, and [development](development.md) for sessions
+profile and resolver examples, including the runnable `Example15` ETIM enrichment and SPARQL query,
+and [development](development.md) for sessions
 and identity policies.
 
 Sessions stage IFC triples in memory by default. For a model that does not fit

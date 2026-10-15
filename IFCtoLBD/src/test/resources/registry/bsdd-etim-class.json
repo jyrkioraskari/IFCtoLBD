@@ -1,0 +1,36 @@
+{
+  "uri": "https://identifier.example/etim/class/EC0001",
+  "dictionaryUri": "https://identifier.example/etim/10",
+  "code": "EC0001",
+  "name": "Mock ETIM class",
+  "description": "An offline test class",
+  "relatedIfcEntityNames": ["IfcPump"],
+  "classProperties": [
+    {
+      "uri": "https://identifier.example/etim/class-property/EC0001-EF0001",
+      "propertyUri": "https://identifier.example/etim/property/EF0001",
+      "propertyCode": "EF0001",
+      "name": "Nominal diameter",
+      "propertySet": "ETIM dimensions",
+      "dataType": "Real",
+      "isRequired": true,
+      "allowedValues": [
+        {
+          "uri": "https://identifier.example/etim/value/EV0001",
+          "code": "EV0001",
+          "value": "20"
+        }
+      ],
+      "units": ["mm"],
+      "qudtCodes": ["unit:MILLIMETER"]
+    }
+  ],
+  "classRelations": [
+    {
+      "uri": "https://identifier.example/etim/relation/1",
+      "relationType": "IsSimilarTo",
+      "relatedClassUri": "https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/class/IfcPump",
+      "relatedClassName": "IfcPump"
+    }
+  ]
+}

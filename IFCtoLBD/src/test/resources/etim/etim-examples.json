@@ -1,0 +1,67 @@
+[
+  {
+    "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000005",
+    "dictionaryUri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0",
+    "code": "EC000005",
+    "name": "Cable end sleeve",
+    "description": "Cable end sleeve",
+    "relatedIfcEntities": ["IfcCableFitting"],
+    "classProperties": [
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000005/prop/undefined_set/EF001335",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF001335", "code": "EF001335", "name": "Nominal cross section"},
+        "propertySet": "Cable end sleeve",
+        "dataType": "Numeric",
+        "required": true,
+        "units": [{"code": "mm²", "qudtCode": "unit:MilliM2"}]
+      },
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000005/prop/undefined_set/EF000014",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000014", "code": "EF000014", "name": "Sleeve length"},
+        "propertySet": "Cable end sleeve",
+        "dataType": "Numeric",
+        "units": [{"code": "mm", "qudtCode": "unit:MilliM"}]
+      },
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC000005/prop/undefined_set/EF000369",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF000369", "code": "EF000369", "name": "Total length"},
+        "propertySet": "Cable end sleeve",
+        "dataType": "Numeric",
+        "units": [{"code": "mm", "qudtCode": "unit:MilliM"}]
+      }
+    ],
+    "relationships": []
+  },
+  {
+    "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC003535",
+    "dictionaryUri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0",
+    "code": "EC003535",
+    "name": "Interior door (complete with frame)",
+    "description": "Interior door with door leaf and frame",
+    "relatedIfcEntities": ["IfcDoor"],
+    "classProperties": [
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC003535/prop/undefined_set/EF011812",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF011812", "code": "EF011812", "name": "Door leaf width"},
+        "propertySet": "Door",
+        "dataType": "Numeric",
+        "units": [{"code": "mm", "qudtCode": "unit:MilliM"}]
+      },
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC003535/prop/undefined_set/EF011817",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF011817", "code": "EF011817", "name": "Doorframe width"},
+        "propertySet": "Door frame",
+        "dataType": "Numeric",
+        "units": [{"code": "mm", "qudtCode": "unit:MilliM"}]
+      },
+      {
+        "uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC003535/prop/undefined_set/EF011815",
+        "property": {"uri": "https://identifier.buildingsmart.org/uri/etim/etim/9.0/prop/EF011815", "code": "EF011815", "name": "Doorframe module width"},
+        "propertySet": "Door frame",
+        "dataType": "Numeric",
+        "units": [{"code": "dm", "qudtCode": "unit:DeciM"}]
+      }
+    ],
+    "relationships": []
+  }
+]

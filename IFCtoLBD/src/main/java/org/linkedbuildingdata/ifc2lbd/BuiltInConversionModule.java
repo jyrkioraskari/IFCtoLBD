@@ -70,7 +70,10 @@ public enum BuiltInConversionModule implements ConversionModule {
 		}
 		@Override public void enrich(ConversionContext context) {
 			SupplyChainStage.enrichSupplyChain(context.ifcModel(), context.ifcOntology(), context.generalModel(),
-					context.mappedResources(), context.classificationResolver());
+					context.propertyModel(), context.mappedResources(), context.classificationResolver(),
+					context.request().getEtimPropertyMappings(),
+					context.request().hasEtimClassificationSuggestions(),
+					context.request().getAcceptedEtimClassifications());
 		}
 	},
 	SUSTAINABILITY("sustainability") {

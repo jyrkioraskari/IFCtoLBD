@@ -19,6 +19,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
+import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.vocabulary.RDFS;
 
@@ -66,6 +67,19 @@ class ConversionApiIntegrationTest {
 					result.getModel().createResource(BSDD.class_ns + "Pset_WallCommon")));
 			assertTrue(result.getModel().contains(null, org.apache.jena.vocabulary.RDF.type,
 					result.getModel().createResource(BSDD.property_ns + "LoadBearing")));
+		}
+	}
+
+	@Test
+	void classicLevelThreeUsesBsddPropertyPredicatesForKnownIfcProperties() throws Exception {
+		File ifcFile = new File(getClass().getResource("/TWO WALLS.ifc").toURI());
+		try (ConversionSession session = new ConversionSession();
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/", false, 3)) {
+			var model = converter.convert(ifcFile.getAbsolutePath());
+			var loadBearing = model.createProperty(BSDD.property_ns + "LoadBearing");
+			var legacyLoadBearing = model.createProperty(PROPS.ns + "loadBearing");
+			assertTrue(model.contains(null, loadBearing));
+			assertFalse(model.contains(null, legacyLoadBearing));
 		}
 	}
 

@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 class ConversionProfileTest {
@@ -69,5 +71,40 @@ class ConversionProfileTest {
 		properties.setGeometryInferredInterfaces(true);
 		assertTrue(properties.hasGeometryInferredInterfaces());
 		assertTrue(properties.isHasGeometry());
+	}
+
+	@Test
+	void etimSuggestionsAndAcceptancesAreExplicitAndSurviveRequestCopies() {
+		ConversionRequest defaults = new ConversionRequest("model.ifc", ConversionProfiles.SUPPLY_CHAIN);
+		assertFalse(defaults.hasEtimClassificationSuggestions());
+		assertTrue(defaults.getAcceptedEtimClassifications().isEmpty());
+
+		var acceptance = new EtimClassificationAcceptance("urn:lbd:pump",
+				"https://identifier.example/etim/class/EC0001", "review:42");
+		ConversionRequest configured = defaults.withAcceptedEtimClassifications(List.of(acceptance))
+				.withStandardValidation();
+		assertTrue(configured.hasEtimClassificationSuggestions());
+		assertEquals(List.of(acceptance), configured.getAcceptedEtimClassifications());
+	}
+
+	@Test
+	void conversionRequestTreatsUnknownResolverAsNetworkCapable() {
+		ClassificationResolver network = new ClassificationResolver() {
+			@Override public java.util.Optional<Resolution> resolve(Request request) {
+				return java.util.Optional.empty();
+			}
+		};
+		assertThrows(IllegalArgumentException.class, () -> new ConversionRequest("model.ifc",
+				ConversionProfiles.SUPPLY_CHAIN).withClassificationResolver(network));
+	}
+
+	@Test
+	void cliExposesExplicitEtimLoadingWithoutEnablingImplicitNetworkAccess() {
+		var command = new picocli.CommandLine(new IFCtoLBDConverter_CLI()).getCommandSpec();
+		assertTrue(command.findOption("--load-etim-metadata") != null);
+		assertTrue(command.findOption("--load-etim") != null);
+		assertTrue(command.findOption("--load-etim-candidates") != null);
+		assertTrue(command.findOption("--classification-cache") != null);
+		assertTrue(command.findOption("--etim-dictionary") != null);
 	}
 }

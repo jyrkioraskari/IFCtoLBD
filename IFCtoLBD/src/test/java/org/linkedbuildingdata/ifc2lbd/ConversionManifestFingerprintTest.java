@@ -54,6 +54,31 @@ class ConversionManifestFingerprintTest {
 					manifest.createResource(graph)));
 	}
 
+	@Test
+	void manifestRecordsRegistrySuppliedDictionaryRights() {
+		String dictionaryUri = "https://identifier.buildingsmart.org/uri/etim/etim/9.0";
+		ClassificationResolver offline = new ClassificationResolver() {
+			@Override public boolean allowsNetworkAccess() { return false; }
+			@Override public Optional<Resolution> resolve(Request request) { return Optional.empty(); }
+			@Override public List<DictionaryMetadata> dictionaries() {
+				return List.of(new DictionaryMetadata(dictionaryUri, "etim", "ETIM", "9.0", "Active",
+						"etim", "ETIM International", "No license (rights reserved)",
+						"https://technical.buildingsmart.org/services/bsdd/license/"));
+			}
+		};
+		Model manifest = manifest(new ConversionRequest(source.toString(), ConversionProfiles.SUPPLY_CHAIN)
+				.withClassificationResolver(offline), "https://example.com/", store("none"));
+		var dictionary = manifest.createResource(dictionaryUri);
+		assertTrue(manifest.contains(null,
+				manifest.createProperty(ConversionManifest.NS + "usesClassificationDictionary"), dictionary));
+		assertTrue(dictionary.hasLiteral(manifest.createProperty("http://purl.org/dc/terms/rights"),
+				"No license (rights reserved)"));
+		assertTrue(dictionary.hasLiteral(manifest.createProperty("http://purl.org/dc/terms/rightsHolder"),
+				"ETIM International"));
+		assertTrue(dictionary.hasProperty(manifest.createProperty("http://purl.org/dc/terms/license"),
+				manifest.createResource("https://technical.buildingsmart.org/services/bsdd/license/")));
+	}
+
 	private String fingerprint(ConversionRequest request, String baseUri, GeometryArtifactStore store) {
 		Model manifest = manifest(request, baseUri, store);
 		return manifest.listStatements(null, manifest.createProperty(ConversionManifest.NS + "requestFingerprint"),
