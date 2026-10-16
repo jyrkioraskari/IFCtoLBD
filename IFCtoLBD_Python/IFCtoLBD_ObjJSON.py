@@ -15,7 +15,7 @@ from IFCtoLBD_wrapper import ConversionProperties, IFCtoLBDConverter, shutdown_j
 #-------------------------------------------------------------------------------
 
 # Installation:
-# Install Java jdk-17.0.2
+# Install JDK 21 or newer
 # Set JAVA_HOME environment variable to point that
 # pip install jpype1
 

@@ -400,6 +400,8 @@ public abstract class IFCtoLBDConverterCore {
 				}
 			}
 
+			mapAdditionalIfcStructures(ifcowl_model);
+
 			if (hasBuildingElements) {
 				if (!hasSeparateBuildingElementsModel)
 					this.lbd_general_output_model.add(this.lbd_product_output_model);
@@ -408,8 +410,6 @@ public abstract class IFCtoLBDConverterCore {
 			if (hasGeometry) {
 				finish_geometry(hasInterfaces);
 			}
-
-			mapAdditionalIfcStructures(ifcowl_model);
 
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Writing out the results."));
 

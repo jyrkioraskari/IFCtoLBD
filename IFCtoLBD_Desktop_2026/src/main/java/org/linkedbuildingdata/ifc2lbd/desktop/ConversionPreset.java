@@ -19,11 +19,11 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 	static final String LEVEL = "propertyLevel";
 	static final String BASE_URI = "baseUri";
 	static final List<String> SWITCHES = List.of("buildingElements", "separateElements", "properties",
-			"separateProperties", "blankNodes", "geolocation", "geometry", "ifcOwl", "performance",
+			"separateProperties", "blankNodes", "geolocation", "materials", "geometry", "ifcOwl", "performance",
 			"boundingBoxWkt", "interfaces", "wireframe", "units", "hierarchicalNames",
 			"simpleProperties", "propertySets", "ifcBasedElements", "trig");
 	static final List<String> REQUIRED = List.of(FORMAT, LEVEL, "buildingElements", "separateElements",
-			"properties", "separateProperties", "blankNodes", "geolocation", "geometry", "ifcOwl",
+			"properties", "separateProperties", "blankNodes", "geolocation", "materials", "geometry", "ifcOwl",
 			"performance", "boundingBoxWkt", "interfaces", "wireframe", "units", "hierarchicalNames",
 			"simpleProperties", "propertySets", "ifcBasedElements", "trig");
 
@@ -47,8 +47,9 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 				throw new IllegalArgumentException("Invalid boolean setting: " + key);
 			}
 		}
-		if ("true".equals(settings.get("ifcOwl")) && "true".equals(settings.get("performance"))) {
-			throw new IllegalArgumentException("ifcOWL and performance mode cannot both be enabled.");
+		if ("true".equals(settings.get("performance"))
+				&& ("true".equals(settings.get("ifcOwl")) || "true".equals(settings.get("materials")))) {
+			throw new IllegalArgumentException("ifcOWL/material export and performance mode cannot both be enabled.");
 		}
 		for (String key : settings.keySet()) {
 			if (!REQUIRED.contains(key) && !BASE_URI.equals(key)) {
@@ -85,6 +86,8 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 			if ("presetVersion".equals(key) || "name".equals(key)) continue;
 			settings.put(key, properties.getProperty(key));
 		}
+		// Presets created before material export was added remain valid.
+		settings.putIfAbsent("materials", "false");
 		return new ConversionPreset(properties.getProperty("name"), settings, false);
 	}
 
@@ -98,6 +101,8 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 		return List.of(
 				builtin("Lightweight topology", base),
 				builtin("Asset and properties", base, "properties", "true", "units", "true", "geolocation", "true"),
+				builtin("Materials and properties", base, "properties", "true", "materials", "true",
+						"units", "true", "geolocation", "true"),
 				builtin("Geometry preview", base, "properties", "true", "units", "true", "geometry", "true"),
 				builtin("Full preservation", base, "properties", "true", "units", "true", "geolocation", "true",
 						"geometry", "true", "wireframe", "true", "ifcOwl", "true", "ifcBasedElements", "true",

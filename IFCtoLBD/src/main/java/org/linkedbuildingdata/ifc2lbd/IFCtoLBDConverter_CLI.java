@@ -168,7 +168,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--JSON" }, arity = "0..1", fallbackValue = "true", description = "Export as JSON-LD.")
 	private Optional<Boolean> exportJSON;
 
-	@Option(names = "--profile", description = "Named conversion profile (for example core, properties-opm, geometry-full).")
+	@Option(names = "--profile", description = "Named conversion profile (for example core, properties-opm, materials-bmo).")
 	private Optional<String> profile;
 
 	@Option(names = "--validate", arity = "0..1", fallbackValue = "true", description = "Run all standard SHACL validation packs.")

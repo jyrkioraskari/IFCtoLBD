@@ -65,8 +65,8 @@ mvn install
 
 This compiles and installs all five artifacts into the local Maven repository.
 Use `mvn verify` from the repository root to verify all modules without
-installing them. To build only IFCtoRDF, run `mvn verify` from this directory;
-IFCtoRDF itself remains compatible with JDK 17.
+installing them. To build only IFCtoRDF, run `mvn verify` from this directory.
+IFCtoRDF uses the same JDK 21 baseline as the complete repository.
 
 ## Issues
 Issues can be posted in https://github.com/pipauwel/IFCtoRDF/issues.

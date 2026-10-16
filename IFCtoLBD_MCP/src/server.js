@@ -77,7 +77,7 @@ const RDF_FORMATS = new Set([
 ]);
 const CONVERSION_PROFILES = [
   "core", "properties-simple", "properties-opm", "geometry-envelope", "geometry-full",
-  "bim-gis", "compliance", "revision-ready", "geometry-external", "supply-chain", "sustainability",
+  "bim-gis", "compliance", "revision-ready", "geometry-external", "materials-bmo", "supply-chain", "sustainability",
   "evidence"
 ];
 

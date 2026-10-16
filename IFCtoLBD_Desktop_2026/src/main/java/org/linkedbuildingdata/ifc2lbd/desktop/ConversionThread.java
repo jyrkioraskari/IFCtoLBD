@@ -65,6 +65,7 @@ public class ConversionThread implements Callable<Integer> {
     final boolean hasIfc_based_elements;
     final boolean hasInterfaces;
     final boolean hasElementWireframe;
+	final boolean hasMaterialsBmo;
 	final boolean createTrig;
 	final boolean export_as_JSON_LD;
 	final boolean export_as_ICDD;
@@ -72,7 +73,7 @@ public class ConversionThread implements Callable<Integer> {
     private final String target_file;
     private final String ifc_filename;
     
-	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, boolean hasElementWireframe, boolean propertiesAsPropertySets) {
+	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, boolean hasElementWireframe, boolean propertiesAsPropertySets, boolean hasMaterialsBmo) {
 		super();
 		this.operationId = operationId;
 		this.converter=converter;
@@ -97,6 +98,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.hasIfc_based_elements=hasIfc_based_elements;
 		this.hasInterfaces=hasInterfaces;
 		this.hasElementWireframe=hasElementWireframe;
+		this.hasMaterialsBmo=hasMaterialsBmo;
 		this.createTrig=createTrig;
 		this.export_as_JSON_LD=export_as_JSON_LD;
 		this.export_as_ICDD=export_as_ICDD;
@@ -112,6 +114,7 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_psets(selected_psets);
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
+				converter.setMaterialsBmoEnabled(hasMaterialsBmo);
 				if (export_as_ICDD) {
 					converter.setTargetFile(null);
 				}

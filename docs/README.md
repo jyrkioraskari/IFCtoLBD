@@ -40,6 +40,7 @@ alternative programming routes; neither requires learning the other first.
 - [Property output levels 1–3](property-levels.md)
 - [Export formats, split files, and ICDD](export-formats.md)
 - [Supply-chain and sustainability output](supply-chain-and-sustainability.md)
+- [IFC materials with BMO](materials-bmo.md)
 - [Compatible projects](compatible-projects.md)
 - [Glossary](glossary.md)
 

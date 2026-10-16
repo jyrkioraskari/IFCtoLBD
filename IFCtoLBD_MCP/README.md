@@ -9,7 +9,7 @@ For an end-to-end guide covering setup, AI client configuration, prompts, conver
 ## Requirements
 
 - Node.js 18 or newer
-- A Java runtime compatible with the IFCtoLBD jars
+- Java 21 or newer (the same baseline used by the converter build)
 - The MCP package dependencies installed on the target machine
 - Maven, when building the converter distribution from source
 
@@ -105,8 +105,8 @@ Tool failures use MCP `isError` results with stable codes such as `INVALID_ARGUM
 
 The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `digital-twin-sensors`, `fire-accessibility`, `supply-chain-identifiers`, and `sustainability-declarations`, currently at version 1.0.0. Reports are available as `ifctolbd://models/{modelId}/validation/{reportId}` resources.
 
-`load_ifc` accepts the named profiles, including `evidence`, `revision-ready`, `compliance`, and
-`geometry-external`. The `evidence` profile uses OPM property resources, preserves IFC source links, and enables unit resolution. Its `ConversionResult` graphs are resources at
+`load_ifc` accepts the named profiles, including `evidence`, `revision-ready`, `compliance`,
+`geometry-external`, and `materials-bmo`. The material profile maps direct materials and material layer sets into the product graph and material quantities into the property graph; unsupported IFC material structures are reported in the validation graph. The `evidence` profile uses OPM property resources, preserves IFC source links, and enables unit resolution. Its `ConversionResult` graphs are resources at
 `ifctolbd://models/{modelId}/manifest` and `ifctolbd://models/{modelId}/validation`.
 External geometry is available at the artifact URI recorded in the RDF manifest. Set
 `IFCTOLBD_CONVERTER_JAR` only to select another single shaded distribution; the reported

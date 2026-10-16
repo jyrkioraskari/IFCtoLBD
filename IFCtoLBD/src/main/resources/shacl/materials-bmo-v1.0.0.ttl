@@ -1,0 +1,125 @@
+@prefix bmo: <https://w3id.org/digitalconstruction/BuildingMaterials#> .
+@prefix ifctolbd: <https://w3id.org/ifctolbd/mapping#> .
+@prefix materialReport: <https://w3id.org/ifctolbd/material-report#> .
+@prefix qudt: <http://qudt.org/schema/qudt/> .
+@prefix unit: <http://qudt.org/vocab/unit/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix shapes: <https://w3id.org/ifctolbd/shapes/materials-bmo/v1.0.0#> .
+
+shapes:AssignmentShape a sh:NodeShape ;
+    sh:targetClass ifctolbd:MaterialAssignment ;
+    sh:property [
+        sh:path ifctolbd:assignedMaterialDefinition ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:or (
+            [ sh:class bmo:MaterialDefinition ]
+            [ sh:class bmo:LayerSet ]
+        )
+    ] ;
+    sh:property [
+        sh:path ifctolbd:assignedMaterial ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class bmo:Material
+    ] ;
+    sh:property [
+        sh:path ifctolbd:sourceIfcAssociation ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI
+    ] .
+
+shapes:LayerSetShape a sh:NodeShape ;
+    sh:targetClass bmo:LayerSet ;
+    sh:property [
+        sh:path bmo:hasLayers ;
+        sh:nodeKind sh:IRI ;
+        sh:class bmo:Layer
+    ] ;
+    sh:property [
+        sh:path ifctolbd:layerMembership ;
+        sh:nodeKind sh:IRI ;
+        sh:class ifctolbd:LayerMembership
+    ] ;
+    sh:sparql [
+        sh:message "Layer membership positions must be unique within a layer set." ;
+        sh:select """
+            SELECT $this WHERE {
+                $this <https://w3id.org/ifctolbd/mapping#layerMembership> ?first, ?second .
+                ?first <https://w3id.org/ifctolbd/mapping#position> ?position .
+                ?second <https://w3id.org/ifctolbd/mapping#position> ?position .
+                FILTER (?first != ?second)
+            }
+        """
+    ] .
+
+shapes:LayerMembershipShape a sh:NodeShape ;
+    sh:targetClass ifctolbd:LayerMembership ;
+    sh:property [
+        sh:path ifctolbd:position ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:long ;
+        sh:minInclusive 1
+    ] ;
+    sh:property [
+        sh:path ifctolbd:layer ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class bmo:Layer
+    ] .
+
+# A material reference is optional in IFC. When one is emitted, it must target
+# a BMO material; missing source references are represented by diagnostics.
+shapes:LayerShape a sh:NodeShape ;
+    sh:targetClass bmo:Layer ;
+    sh:property [
+        sh:path bmo:hasMaterial ;
+        sh:maxCount 1 ;
+        sh:nodeKind sh:IRI ;
+        sh:class bmo:Material
+    ] .
+
+shapes:NormalizedThicknessShape a sh:NodeShape ;
+    sh:targetObjectsOf ifctolbd:thicknessQuantity ;
+    sh:property [
+        sh:path qudt:numericValue ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:decimal
+    ] ;
+    sh:or (
+        [ sh:property [
+            sh:path qudt:unit ;
+            sh:minCount 1 ;
+            sh:maxCount 1 ;
+            sh:hasValue unit:M
+        ] ]
+        [ sh:property [
+            sh:path <https://w3id.org/ifctolbd/supply-chain#mappingMethod> ;
+            sh:hasValue "UNRESOLVED_IFC_PROJECT_LENGTH_UNIT"
+        ] ;
+          sh:property [ sh:path qudt:unit ; sh:maxCount 0 ]
+        ]
+    ) .
+
+shapes:DiagnosticShape a sh:NodeShape ;
+    sh:targetClass materialReport:MaterialConversionWarning ;
+    sh:property [
+        sh:path materialReport:code ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] ;
+    sh:property [
+        sh:path materialReport:message ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:datatype xsd:string ;
+        sh:minLength 1
+    ] .

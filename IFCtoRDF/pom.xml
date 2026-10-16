@@ -180,8 +180,7 @@
 				<version>${maven-compiler-plugin.version}</version>
 				<inherited>true</inherited>
 				<configuration>
-					<source>${javac.src.version}</source>
-					<target>${javac.target.version}</target>
+					<release>${maven.compiler.release}</release>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -232,7 +231,7 @@
 				<version>${maven-javadoc-plugin.version}</version>
 				<configuration>
 					<author>true</author>
-					<source>17</source>
+					<source>${maven.compiler.release}</source>
 					<excludePackageNames>com.*:fi.*</excludePackageNames>
 				</configuration>
 			</plugin>
@@ -267,9 +266,9 @@
 												${maven.build.timestamp}
 											</Implementation-Build-Date>
 											<X-Compile-Source-JDK>
-												${javac.src.version}</X-Compile-Source-JDK>
+												${maven.compiler.release}</X-Compile-Source-JDK>
 											<X-Compile-Target-JDK>
-												${javac.target.version}</X-Compile-Target-JDK>
+												${maven.compiler.release}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>
@@ -301,9 +300,9 @@
 												${maven.build.timestamp}
 											</Implementation-Build-Date>
 											<X-Compile-Source-JDK>
-												${javac.src.version}</X-Compile-Source-JDK>
+												${maven.compiler.release}</X-Compile-Source-JDK>
 											<X-Compile-Target-JDK>
-												${javac.target.version}</X-Compile-Target-JDK>
+												${maven.compiler.release}</X-Compile-Target-JDK>
 										</manifestEntries>
 									</archive>
 								</configuration>
@@ -355,9 +354,7 @@
 		<checksum-maven-plugin.version>1.4</checksum-maven-plugin.version>
 		<!-- General Properties -->
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
-		<javac.src.version>21</javac.src.version>
-		<javac.target.version>21</javac.target.version>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
 		<skipTests>false</skipTests>

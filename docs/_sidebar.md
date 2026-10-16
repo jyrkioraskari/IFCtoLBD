@@ -11,6 +11,7 @@
   - [Property levels 1–3](property-levels.md)
   - [Export formats and ICDD](export-formats.md)
   - [Supply-chain and sustainability](supply-chain-and-sustainability.md)
+  - [IFC materials with BMO](materials-bmo.md)
   - [Compatible projects](compatible-projects.md)
   - [Glossary](glossary.md)
 

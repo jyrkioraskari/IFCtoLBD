@@ -1,6 +1,7 @@
 package org.linkedbuildingdata.ifc2lbd;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
 
@@ -13,6 +14,12 @@ final class NormalizedValueWriter {
 	private NormalizedValueWriter() { }
 
 	static Resource write(Model model, Resource owner, String propertyName, NormalizedValue normalized, String id) {
+		return write(model, owner, model.createProperty(SupplyChainStage.NS + propertyName + "Value"),
+				normalized, id);
+	}
+
+	static Resource write(Model model, Resource owner, Property valueProperty,
+			NormalizedValue normalized, String id) {
 		Resource value = model.createResource("urn:ifctolbd:value:" + id)
 				.addProperty(RDF.type, model.createResource(SupplyChainStage.NS + "PropertyValue"))
 				.addProperty(model.createProperty(SCHEMA + "value"), normalized.value())
@@ -32,7 +39,7 @@ final class NormalizedValueWriter {
 			addIdentifier(model, value, UnitResolver.META + "ifcDataType", normalized.ifcDataType());
 		if (normalized.sourcePropertyUri() != null && !normalized.sourcePropertyUri().isBlank())
 			value.addProperty(model.createProperty(PROV + "wasDerivedFrom"), model.createResource(normalized.sourcePropertyUri()));
-		owner.addProperty(model.createProperty(SupplyChainStage.NS + propertyName + "Value"), value);
+		owner.addProperty(valueProperty, value);
 		return value;
 	}
 

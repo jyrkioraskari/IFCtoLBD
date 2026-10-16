@@ -24,6 +24,9 @@ public final class ConversionProfiles {
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, STABLE_IDENTITY);
 	public static final ConversionProfile GEOMETRY_EXTERNAL = ConversionProfile.of("geometry-external",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, GEOMETRY_ARTIFACTS);
+	public static final MaterialsBmoModule MATERIALS_BMO_MODULE = new MaterialsBmoModule();
+	public static final ConversionProfile MATERIALS_BMO = ConversionProfile.of("materials-bmo",
+			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, MATERIALS_BMO_MODULE);
 	public static final ConversionProfile SUPPLY_CHAIN = ConversionProfile.of("supply-chain",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, SIMPLE_PROPERTIES, BuiltInConversionModule.SUPPLY_CHAIN);
 	public static final ConversionProfile SUSTAINABILITY = ConversionProfile.of("sustainability",
@@ -43,6 +46,7 @@ public final class ConversionProfiles {
 		case "compliance" -> COMPLIANCE;
 		case "revision-ready" -> REVISION_READY;
 		case "geometry-external" -> GEOMETRY_EXTERNAL;
+		case "materials-bmo" -> MATERIALS_BMO;
 		case "supply-chain" -> SUPPLY_CHAIN;
 		case "sustainability" -> SUSTAINABILITY;
 		default -> throw new IllegalArgumentException("Unknown conversion profile: " + id);

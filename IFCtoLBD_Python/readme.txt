@@ -1,12 +1,12 @@
 To install this:
-Install https://www.openlogic.com/openjdk-downloads Java 17
+Install Java 21 or newer (for example, Eclipse Temurin 21)
 Install it under c:\Java
 
 at windows:
  search env
  start Ecit the system environment variables
  select Environment Variables
- From the variables Set JAVA_HOME to point to the Java 17 installation directory
+ From the variables Set JAVA_HOME to point to the Java 21 installation directory
  
 pip install jpype1
 pip install rdflib

@@ -20,6 +20,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
+import org.linkedbuildingdata.ifc2lbd.namespace.BMO;
+import org.linkedbuildingdata.ifc2lbd.namespace.IFCtoLBDMapping;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.vocabulary.RDFS;
 
@@ -117,6 +119,46 @@ class ConversionApiIntegrationTest {
 		try (ConversionSession session = new ConversionSession();
 				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/")) {
 			assertFalse(converter.convert(ifcFile.getAbsolutePath(), ConversionProfiles.CORE).isEmpty());
+		}
+	}
+
+	@Test
+	void materialsBmoProfileLinksLayeredMaterialsToExistingElements() throws Exception {
+		File ifcFile = new File(getClass().getResource("/TWO WALLS.ifc").toURI());
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/");
+				ConversionResult result = converter.convert(new ConversionRequest(ifcFile.getAbsolutePath(),
+						ConversionProfiles.MATERIALS_BMO))) {
+			var products = result.getProductModel();
+			var properties = result.getPropertyModel();
+			assertTrue(products.contains(null, IFCtoLBDMapping.materialAssignment));
+			assertTrue(products.contains(null, IFCtoLBDMapping.assignedMaterialDefinition));
+			assertTrue(products.contains(null, IFCtoLBDMapping.layerMembership));
+			assertTrue(products.contains(null, BMO.hasLayers));
+			assertTrue(products.contains(null, BMO.hasMaterial));
+			assertTrue(properties.contains(null, BMO.hasThickness));
+			assertTrue(properties.contains(null, IFCtoLBDMapping.thicknessQuantity));
+			assertFalse(result.getGeneralModel().contains(null, IFCtoLBDMapping.materialAssignment));
+			assertTrue(result.getModel().contains(null, IFCtoLBDMapping.materialAssignment));
+			assertTrue(result.getModel().contains(null, BMO.hasThickness));
+			assertTrue(products.intersection(properties).isEmpty());
+		}
+	}
+
+	@Test
+	void materialsBmoProfileReportsUnsupportedIfcMaterialStructures() throws Exception {
+		File ifcFile = new File(getClass().getResource("/SampleHouse.ifc").toURI());
+		try (ConversionSession session = new ConversionSession(NoGeometryProvider.INSTANCE);
+				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, "https://example.com/");
+				ConversionResult result = converter.convert(new ConversionRequest(ifcFile.getAbsolutePath(),
+						ConversionProfiles.MATERIALS_BMO))) {
+			var report = result.getValidationModel();
+			assertTrue(report.contains(null,
+					report.createProperty(MaterialConversionStage.REPORT_NS + "code"),
+					"UNSUPPORTED_MATERIAL_STRUCTURE"));
+			assertTrue(report.contains(null,
+					report.createProperty(MaterialConversionStage.REPORT_NS + "ifcStructureType"),
+					"IfcMaterialList"));
 		}
 	}
 

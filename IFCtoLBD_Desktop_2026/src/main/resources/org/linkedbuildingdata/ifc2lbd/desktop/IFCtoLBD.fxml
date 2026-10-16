@@ -249,7 +249,8 @@
                                         <ToggleSwitch fx:id="building_elements_separate_file" maxWidth="Infinity" text="Separate product file" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="geolocation" maxWidth="Infinity" selected="true" text="Geolocation" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="hasHierarchicalNaming" maxWidth="Infinity" selected="true" text="Hierarchical URI names" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                        <Hyperlink fx:id="elements_link" onAction="#hyperlink_product_handle" text="Read more" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                        <ToggleSwitch fx:id="materialsBmo" maxWidth="Infinity" text="IFC materials (BMO)" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
+                                        <Hyperlink fx:id="elements_link" onAction="#hyperlink_product_handle" text="Read more" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
                                       </children>
                                     </GridPane>
                                   </content>

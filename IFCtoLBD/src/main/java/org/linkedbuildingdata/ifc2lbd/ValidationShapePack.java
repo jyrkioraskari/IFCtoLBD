@@ -8,7 +8,8 @@ public enum ValidationShapePack {
 	DIGITAL_TWIN_SENSORS("digital-twin-sensors", "1.0.0"),
 	FIRE_ACCESSIBILITY("fire-accessibility", "1.0.0"),
 	SUPPLY_CHAIN_IDENTIFIERS("supply-chain-identifiers", "1.0.0"),
-	SUSTAINABILITY_DECLARATIONS("sustainability-declarations", "1.0.0");
+	SUSTAINABILITY_DECLARATIONS("sustainability-declarations", "1.0.0"),
+	MATERIALS_BMO("materials-bmo", "1.0.0");
 
 	private final String id;
 	private final String version;

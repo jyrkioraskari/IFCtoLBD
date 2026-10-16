@@ -1,6 +1,5 @@
-// Compiple the whole code  with Java 11. Newer JDK is not supported yet. (JDK 15 seems to work)
-// https://github.com/stoicflame/enunciate/issues/1087
-// https://github.com/stoicflame/enunciate/pull/1111
+// Build and run this project with JDK 21 or newer, matching the repository baseline.
+// Set JAVA_HOME to that JDK and confirm it with: mvn -version
 
 mvn enunciate:docs
 mvn install
@@ -15,7 +14,7 @@ The generated IFCtoLBD_OpenAPI.war  can be installed to Tomcat: https://tomcat.a
 
 More detail: Apache Tomcat Installation:
 1. **Install Java**
-   - Tomcat needs a Java runtime (JDK or JRE, often JDK 11+).
+   - Use Java 21 or newer for both Tomcat and this application.
    - Install from an official source (e.g., Eclipse Temurin, Oracle, or your OS package manager).
    - Ensure `java -version` works in a terminal/command prompt.
 

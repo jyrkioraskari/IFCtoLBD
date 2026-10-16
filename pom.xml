@@ -9,6 +9,11 @@
 	<version>2.55.0</version>
 	<packaging>pom</packaging>
 	<name>IFCtoLBD Converter</name>
+	<properties>
+		<!-- Canonical Java baseline for the complete reactor. Standalone module
+		     POMs repeat this release so they enforce the same baseline on their own. -->
+		<maven.compiler.release>21</maven.compiler.release>
+	</properties>
 
 	<!-- Maven sorts these modules by their declared dependencies, ensuring that
 		IFCtoRDF and geometry are built before the converter and its applications. -->

@@ -15,8 +15,7 @@
   </licenses>
 
   <properties>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+    <maven.compiler.release>21</maven.compiler.release>
     <encoding>UTF-8</encoding>
     <scala.version>2.12.21</scala.version>
     <scala.compat.version>2.12</scala.compat.version>

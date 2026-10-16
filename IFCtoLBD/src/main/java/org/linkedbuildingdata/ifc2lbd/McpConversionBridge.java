@@ -51,21 +51,7 @@ public final class McpConversionBridge implements AutoCloseable {
 	}
 
 	private static ConversionProfile profile(String id) {
-		return switch (id == null ? "properties-simple" : id) {
-		case "core" -> ConversionProfiles.CORE;
-		case "properties-simple" -> ConversionProfiles.PROPERTIES_SIMPLE;
-		case "properties-opm" -> ConversionProfiles.PROPERTIES_OPM;
-		case "evidence" -> ConversionProfiles.EVIDENCE;
-		case "geometry-envelope" -> ConversionProfiles.GEOMETRY_ENVELOPE;
-		case "geometry-full" -> ConversionProfiles.GEOMETRY_FULL;
-		case "bim-gis" -> ConversionProfiles.BIM_GIS;
-		case "compliance" -> ConversionProfiles.COMPLIANCE;
-		case "revision-ready" -> ConversionProfiles.REVISION_READY;
-		case "geometry-external" -> ConversionProfiles.GEOMETRY_EXTERNAL;
-		case "supply-chain" -> ConversionProfiles.SUPPLY_CHAIN;
-		case "sustainability" -> ConversionProfiles.SUSTAINABILITY;
-		default -> throw new IllegalArgumentException("Unknown conversion profile: " + id);
-		};
+		return ConversionProfiles.named(id == null ? "properties-simple" : id);
 	}
 
 	private static ValidationShapePack validationPack(String id) {

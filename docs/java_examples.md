@@ -103,6 +103,12 @@ try (var session = new org.linkedbuildingdata.ifc2lbd.ConversionSession();
 
 `getModel()` combines general, product, and property graphs. `getDataset()`
 exposes the dataset; other accessors expose the manifest and validation graphs.
+Use `ConversionProfiles.MATERIALS_BMO` to opt into IFC material conversion.
+Material assignments, materials, layer sets, memberships, and layers are added
+to `getProductModel()`. Thickness and other numeric material assertions are in
+`getPropertyModel()`. The lazy `getModel()` union includes both without
+materializing duplicate statements. Inspect `getValidationModel()` for
+unsupported material-structure or unresolved-unit warnings.
 See [supply-chain and sustainability](supply-chain-and-sustainability.md) for
 profile and resolver examples, including the runnable `Example15` ETIM enrichment and SPARQL query,
 and [development](development.md) for sessions

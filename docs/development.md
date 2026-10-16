@@ -10,6 +10,20 @@ separate Maven installation is optional.
 if you do not yet have a JDK. Point `JAVA_HOME` at the JDK, and check
 that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
 
+Java 21 is the single baseline for the root reactor and the separate Java,
+Scala, OpenAPI, MCP, Python/JPype, and Maven example integrations. Their POMs
+use `maven.compiler.release=21`, so a newer JDK still emits Java 21-compatible
+bytecode. Packaged runtime images already include their own Java runtime.
+
+GraalVM users should select a GraalVM distribution for JDK 21 when building the
+`native` profile. Production code must stay on non-preview Java 21 APIs: records,
+sealed types, pattern-matching `switch`, and sequenced collections are suitable,
+but preview APIs require flags that the JVM and native-image builds deliberately
+do not enable. IFC/XML input continues to use the standard JAXP APIs. JavaFX
+FXML controllers and resources require the native-image metadata already kept
+under each module's `META-INF/native-image` resources; update that metadata when
+adding reflectively loaded controllers, fields, methods, or resource types.
+
 ```sh
 git clone https://github.com/jyrkioraskari/IFCtoLBD.git
 cd IFCtoLBD
@@ -223,6 +237,150 @@ behavior. Document new vocabulary terms and add an example showing how users
 query them. Keep external registry access explicit; offline fixtures make
 conversion tests reproducible.
 
+### Convert IFC materials to BMO
+
+For CLI usage, a complete RDF example, and an end-user query, see
+[IFC materials with BMO](materials-bmo.md).
+
+The optional `materials-bmo` profile maps direct `IfcMaterial` assignments and
+`IfcMaterialLayerSet`/`IfcMaterialLayerSetUsage` assignments to the Digital
+Construction [BuildingMaterials 0.1 source ontology](https://github.com/digitalconstruction/BuildingMaterials/blob/b30a0a29e04c4f5d4a63e26a50987afce7d8492f/v/0.1/bm.ttl).
+The vocabulary namespace is
+`https://w3id.org/digitalconstruction/BuildingMaterials#`. The source is pinned
+to revision `b30a0a29e04c4f5d4a63e26a50987afce7d8492f`, and the SHA-256 of
+`v/0.1/bm.ttl` is
+`b8ed0e82828ccc2700cc1c30252e0c1383bb2149821e63b43ed85ad925da7ca9`.
+An unchanged verification copy is bundled at
+`IFCtoLBD/src/main/resources/ontology/bmo-0.1.ttl`, so vocabulary checks and
+conversion remain offline. The converter does not load the ontology during
+conversion, copy its axioms into output, or enable inference.
+
+The profile automatically runs the offline
+`shacl/materials-bmo-v1.0.0.ttl` application-profile checks. They validate
+assignment and material target types, one-based layer memberships and unique
+positions within a layer set, material links, metre-normalized thickness
+quantities, and the code/message content of material conversion diagnostics.
+
+Verified BMO terms express `LayerSet` membership through `bmo:hasLayers`, layer
+material through `bmo:hasMaterial`, and thickness through `bmo:hasThickness`.
+The BMO source defines no element-to-assignment or ordered-membership terms, so
+the profile uses this minimal extension in the project-controlled
+`https://w3id.org/ifctolbd/mapping#` namespace:
+
+| Term | Meaning |
+| --- | --- |
+| `materialAssignment` | Existing LBD element to selected assignment |
+| `assignedMaterialDefinition` | Assignment or usage to BMO material definition |
+| `assignedMaterial` | Assignment to directly selected BMO material |
+| `sourceIfcAssociation` | Assignment to source `IfcRelAssociatesMaterial` |
+| `sourceIfcTypeResource` | Inherited assignment to its source IFC type object |
+| `layerSetUsage` | Assignment to occurrence-specific layer-set usage |
+| `layerMembership` | BMO layer set to ordered membership |
+| `layer`, `position` | Membership to BMO layer and its 1-based list position |
+| `thicknessQuantity` | Layer to normalized QUDT thickness value and source-value provenance |
+| `layerSetDirection`, `directionSense`, `offsetFromReferenceLine` | Preserved IFC usage values |
+
+`ConversionProfiles.MATERIALS_BMO` composes the existing `bot-topology` and
+`product-ontology` modules with the dedicated `MaterialsBmoModule`. It is
+opt-in and does not enable geometry. The module reads the retained IFC graph
+through `ConversionContext.ifcModel()` and reuses the element identities in
+`mappedResources()`. Material structure is stored in the existing product
+graph; scalar thickness, its QUDT value, and numeric usage assertions are stored
+in the property graph. `ConversionResult.getModel()` supplies the combined lazy
+view, while the physical graphs contain no duplicate material statements.
+
+The membership resource is scoped beneath the layer-set identifier. Positions
+start at **1**, matching IFC list order, and do not attach position state to a
+reusable layer. The converter also emits `bmo:hasLayers` directly from the set
+to every layer. It does not infer interior/exterior orientation from list order.
+A direct `IfcMaterial` assignment gets a BMO `MaterialDefinition` node with
+`bmo:hasMaterial`, preserving that property's declared domain and range. The
+assignment also links to the directly selected material through
+`ifctolbd:assignedMaterial`. The converter does not use the invented
+`bmo:hasLayerSet` term and never places `bmo:hasMaterial` directly on an LBD
+element.
+
+Material traversal is extracted before RDF emission and uses the active ifcOWL
+namespace. Both the IFC4 `relatedObjects_IfcRelDefinesByType` spelling and the
+IFC2x3 `relatedObjects_IfcRelDefines` spelling are supported. An occurrence
+assignment takes precedence over an assignment inherited through its IFC type;
+the inherited assignment is considered only when the occurrence has no material
+association. This rule also applies when the occurrence selects an unsupported
+structure, so unsupported data is reported rather than silently replaced.
+
+Each selected IFC association has a deterministic `ifctolbd:MaterialAssignment`
+provenance resource. `ifctolbd:sourceIfcAssociation` and, for inherited
+assignments, `ifctolbd:sourceIfcTypeResource` retain the IFC sources, while
+`ifctolbd:materialAssignmentInherited` records whether the type supplied the
+assignment. A layer-set usage is kept separate from its shared layer-set
+definition, and preserves `LayerSetDirection`, `DirectionSense`, and
+`OffsetFromReferenceLine` when supplied. IFC material names are
+emitted as `rdfs:label`, descriptions as `dcterms:description`, and categories
+as literal `ifctolbd:materialCategory` values; categories are not treated as
+classifications.
+
+Materials, layers, layer sets, usages, and assignments are cached by their IFC
+source resource, never by display name. Their identifiers are generated from
+the active model/base identity policy and IFC source identity; membership IRIs
+are derived from the layer-set IRI and position. Non-root material structures
+normally rely on STEP entity identity, which is deterministic within a model
+conversion but is not claimed to remain stable across different IFC revisions.
+
+The source ontology's `bmo:hasUnit` has domain `opm:Property`, not `bmo:Layer`.
+Consequently, the profile never attaches `bmo:hasUnit` to a layer. In this
+application profile the scalar `bmo:hasThickness` is always a decimal measured
+in **metres**. The converter resolves the IFC project's length unit, including
+SI prefixes and linear `IfcConversionBasedUnit` conversion factors, before
+emitting that scalar. The layer also links through `ifctolbd:thicknessQuantity`
+to a `qudt:QuantityValue` whose `qudt:unit` is `unit:M`. The value node retains
+the IFC numeric lexical value as `unitmeta:originalValue`, its source unit as
+`unitmeta:sourceUnit` when that QUDT unit is known, the original IFC unit code,
+and mapping provenance.
+
+If the project length unit or its conversion factor cannot be resolved, the
+converter retains the source numeric value on the linked provenance/quantity
+node and emits an `UNRESOLVED_LAYER_THICKNESS_UNIT` warning in the diagnostics
+graph. It does not emit `bmo:hasThickness` or claim `unit:M` for that value.
+Material-name classification is also deferred: `bmo:hasMaterialName` points to
+a `MaterialType`, and values such as `bmo:Concrete` and `bmo:Steel` are named
+individuals rather than classes.
+
+Other IFC material-select structures, including material lists, constituents,
+and profiles, are intentionally not inferred in this first increment. Each is
+reported as a structured warning in the result's validation graph. Material
+classification, bSDD enrichment, EPD linking, constituents, and material
+profiles remain outside this profile.
+
+The pinned 0.1 ontology contains defects that consumers must not repair through
+unrestricted reasoning. `bmo:hasConstituents` is declared twice with different
+ranges (`bmo:Material` and `bmo:Constituent`), which gives both ranges effect in
+OWL. Several named individuals also have questionable material-type assertions:
+cement stone, ceramic, and glass are typed as `OrganicaMaterial`, while polymer
+and wood are typed as `InorganicNonMetallicMaterial`. IFCtoLBD neither imports
+these axioms nor infers classifications from material names.
+
+```sparql
+PREFIX bmo: <https://w3id.org/digitalconstruction/BuildingMaterials#>
+PREFIX ifctolbd: <https://w3id.org/ifctolbd/mapping#>
+PREFIX qudt: <http://qudt.org/schema/qudt/>
+PREFIX unit: <http://qudt.org/vocab/unit/>
+
+SELECT ?element ?position ?layer ?material ?thickness ?quantity
+WHERE {
+  ?element ifctolbd:materialAssignment ?assignment .
+  ?assignment ifctolbd:assignedMaterialDefinition ?set .
+  ?set ifctolbd:layerMembership ?membership ;
+       bmo:hasLayers ?layer .
+  ?membership ifctolbd:position ?position ;
+              ifctolbd:layer ?layer .
+  ?layer bmo:hasMaterial ?material ;
+         bmo:hasThickness ?thickness ;
+         ifctolbd:thicknessQuantity ?quantity .
+  ?quantity qudt:numericValue ?thickness ; qudt:unit unit:M .
+}
+ORDER BY ?element ?position
+```
+
 ## Optional geometry setup
 
 When geometry export is enabled, the geometry module first tries the Python
@@ -263,7 +421,7 @@ legacy conversions from completing.
 ## Optional native CLI
 
 The converter POM also has a `native` profile for GraalVM. After installing the
-core modules, use a compatible GraalVM JDK and native build tools:
+core modules, use GraalVM for JDK 21 and the native build tools:
 
 ```sh
 mvn -f IFCtoLBD/pom.xml -Pnative -DskipTests package

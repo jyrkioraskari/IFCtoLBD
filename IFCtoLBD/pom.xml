@@ -68,8 +68,6 @@
 		<ifc2lbd.cli.mainClass>
 			org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI</ifc2lbd.cli.mainClass>
 		<implementation.build>${scmBranch}@r${buildNumber}</implementation.build>
-		<javac.src.version>21</javac.src.version>
-		<javac.target.version>21</javac.target.version>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm:ssZ</maven.build.timestamp.format>
 		<!-- The default build runs only fast tests. Heavier test groups are
 			enabled explicitly by the integration and full profiles below. -->

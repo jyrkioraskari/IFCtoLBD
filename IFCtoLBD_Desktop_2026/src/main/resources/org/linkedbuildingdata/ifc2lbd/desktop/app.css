@@ -711,6 +711,14 @@
     -fx-effect: dropshadow(gaussian, rgba(15, 23, 42, 0.16), 18, 0.18, 0, 5);
 }
 
+.geometry-empty-state {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-text-fill: #667085;
+    -fx-font-size: 13px;
+    -fx-padding: 24px;
+}
+
 .geometry-explode-controls {
     -fx-padding: 2 4 0 4;
     -fx-text-fill: #344054;

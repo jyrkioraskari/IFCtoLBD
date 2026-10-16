@@ -12,8 +12,7 @@
 		<mvdxml_check_project.version>2.55.0</mvdxml_check_project.version>
 		<vaadin.version>25.0.0</vaadin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<maven.version>3.9.0</maven.version>
 	</properties>
 	<developers>
@@ -79,7 +78,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.13.0</version>
 				<configuration>
-					<release>${maven.compiler.source}</release>
+					<release>${maven.compiler.release}</release>
 				</configuration>
 			</plugin>
 			<plugin>

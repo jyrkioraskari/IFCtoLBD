@@ -17,9 +17,13 @@ class ConversionPresetTest {
 	void builtInsSelectDistinctConversionOutcomes() {
 		Map<String, ConversionPreset> presets = new LinkedHashMap<>();
 		ConversionPreset.builtIns().forEach(preset -> presets.put(preset.name(), preset));
-		assertEquals(5, presets.size());
+		assertEquals(6, presets.size());
 		assertFalse(Boolean.parseBoolean(presets.get("Lightweight topology").settings().get("properties")));
 		assertTrue(Boolean.parseBoolean(presets.get("Asset and properties").settings().get("properties")));
+		assertTrue(Boolean.parseBoolean(presets.get("Materials and properties").settings().get("materials")));
+		assertTrue(Boolean.parseBoolean(presets.get("Materials and properties").settings().get("properties")));
+		assertTrue(Boolean.parseBoolean(presets.get("Materials and properties").settings().get("units")));
+		assertFalse(Boolean.parseBoolean(presets.get("Materials and properties").settings().get("performance")));
 		assertTrue(Boolean.parseBoolean(presets.get("Geometry preview").settings().get("geometry")));
 		assertTrue(Boolean.parseBoolean(presets.get("Full preservation").settings().get("ifcOwl")));
 		assertFalse(Boolean.parseBoolean(presets.get("Full preservation").settings().get("performance")));
@@ -47,5 +51,14 @@ class ConversionPresetTest {
 		Map<String, String> settings = new LinkedHashMap<>(ConversionPreset.builtIns().getFirst().settings());
 		settings.put("geometry", "perhaps");
 		assertThrows(IllegalArgumentException.class, () -> new ConversionPreset("Bad", settings, false));
+	}
+
+	@Test
+	void importsOlderPresetWithMaterialsDisabled() throws Exception {
+		StringWriter writer = new StringWriter();
+		ConversionPreset.builtIns().getFirst().write(writer);
+		String legacy = writer.toString().replaceFirst("(?m)^materials=false\\R", "");
+		ConversionPreset imported = ConversionPreset.read(new StringReader(legacy));
+		assertFalse(Boolean.parseBoolean(imported.settings().get("materials")));
 	}
 }

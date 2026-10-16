@@ -214,6 +214,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private ToggleSwitch geolocation;
+	@FXML
+	private ToggleSwitch materialsBmo;
 
 	@FXML
 	private ToggleSwitch building_props;
@@ -518,7 +520,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private ConversionSettings readInSettings;
 
 	private record ConversionSettings(String ifcFileName, String rdfTargetName, String baseUri, int propsLevel,
-			boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
+			boolean hasBuildingElements, boolean hasMaterialsBmo, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,
 			boolean hasSeparatePropertiesModel, boolean hasPropertiesBlankNodes, boolean hasGeolocation,
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
 			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
@@ -547,6 +549,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private Group geometrySceneRoot;
 	private Group geometryModelRoot;
 	private PerspectiveCamera geometryCamera;
+	private Label geometryEmptyStateLabel;
+	private Button geometryFitButton;
 	private final Rotate geometryRotateX = new Rotate(-25, Rotate.X_AXIS);
 	private final Rotate geometryRotateY = new Rotate(-35, Rotate.Y_AXIS);
 	private final Translate geometryCameraDistance = new Translate(0, 0, -760);
@@ -1068,7 +1072,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			baseUri = IFCtoLBDConverter.DEFAULT_BASE_URI;
 		}
 		return new ConversionSettings(this.ifcFileName, this.rdfTargetName, baseUri,
-				selectedPropertyLevel(), this.building_elements.isSelected(),
+				selectedPropertyLevel(), this.building_elements.isSelected(), this.materialsBmo.isSelected(),
 				this.building_elements_separate_file.isSelected(), this.building_props.isSelected(),
 				this.building_props_separate_file.isSelected(), this.building_props_blank_nodes.isSelected(),
 				this.geolocation.isSelected(), this.geometry_elements.isSelected(), this.ifcOWL_elements.isSelected(),
@@ -1122,6 +1126,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		case "separateProperties" -> this.building_props_separate_file;
 		case "blankNodes" -> this.building_props_blank_nodes;
 		case "geolocation" -> this.geolocation;
+		case "materials" -> this.materialsBmo;
 		case "geometry" -> this.geometry_elements;
 		case "ifcOwl" -> this.ifcOWL_elements;
 		case "performance" -> this.hasPerformanceBoost;
@@ -1304,6 +1309,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		ConversionSettings currentSettings = current.settings();
 		return hasReadInSettingsChanged(previousSettings, currentSettings)
 				|| !Objects.equals(previousSettings.rdfTargetName(), currentSettings.rdfTargetName())
+				|| previousSettings.hasMaterialsBmo() != currentSettings.hasMaterialsBmo()
 				|| previousSettings.hasSeparateBuildingElementsModel() != currentSettings.hasSeparateBuildingElementsModel()
 				|| previousSettings.hasSeparatePropertiesModel() != currentSettings.hasSeparatePropertiesModel()
 				|| previousSettings.hasHierarchicalNaming() != currentSettings.hasHierarchicalNaming()
@@ -1483,6 +1489,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void setupReactiveSettings() {
 		List<ToggleSwitch> settingsToggles = List.of(this.building_elements,
 				this.building_elements_separate_file, this.geolocation, this.building_props,
+				this.materialsBmo,
 				this.building_props_blank_nodes, this.building_props_separate_file, this.geometry_elements,
 				this.geometry_interfaces, this.hasBoundingBox_WKT, this.hasElementWireframe, this.ifcOWL_elements,
 				this.hasPerformanceBoost, this.createUnits, this.hasHierarchicalNaming, this.hasSimpleProperties,
@@ -1491,6 +1498,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			toggle.selectedProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
 		}
 		this.ifcOWL_elements.selectedProperty().addListener((observable, oldValue, newValue) ->
+				updatePerformanceModeDependency());
+		this.materialsBmo.selectedProperty().addListener((observable, oldValue, newValue) ->
 				updatePerformanceModeDependency());
 		this.level1.getToggleGroup().selectedToggleProperty().addListener((observable, oldValue, newValue) ->
 				refreshReactiveSettings());
@@ -1517,10 +1526,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (this.building_props == null) {
 			return;
 		}
+		updateMaterialDependencies();
 		updatePropertyDependencies();
 		updateLivePreviews();
 		updateReadRequiredMarkers();
 		updateGeneratedResultsState();
+	}
+
+	private void updateMaterialDependencies() {
+		boolean selected = this.materialsBmo.isSelected();
+		if (selected) {
+			this.building_elements.setSelected(true);
+			this.building_props.setSelected(true);
+		}
+		this.building_elements.setDisable(selected);
+		this.building_props.setDisable(selected);
 	}
 
 	private void updatePropertyDependencies() {
@@ -1541,14 +1561,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		boolean ifcOwlSelected = this.ifcOWL_elements.isSelected();
-		if (ifcOwlSelected && this.hasPerformanceBoost.isSelected()) {
+		boolean materialsSelected = this.materialsBmo != null && this.materialsBmo.isSelected();
+		if ((ifcOwlSelected || materialsSelected) && this.hasPerformanceBoost.isSelected()) {
 			this.hasPerformanceBoost.setSelected(false);
 		}
-		this.hasPerformanceBoost.setDisable(ifcOwlSelected);
+		this.hasPerformanceBoost.setDisable(ifcOwlSelected || materialsSelected);
 		String explanation = "Performance mode uses a reduced streaming read to save memory. "
-				+ "ifcOWL export needs the complete source graph, so selecting ifcOWL turns Performance mode off.";
+				+ "ifcOWL and BMO material export need the complete source graph, so selecting either turns Performance mode off.";
 		this.hasPerformanceBoost.setTooltip(new Tooltip(explanation));
 		this.ifcOWL_elements.setTooltip(new Tooltip(explanation));
+		if (this.materialsBmo != null) this.materialsBmo.setTooltip(new Tooltip(explanation));
 		if (this.performanceConflictLabel != null) {
 			this.performanceConflictLabel.setText(explanation);
 		}
@@ -1649,6 +1671,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void persistSettings(ConversionSettings settings) {
 		this.prefs.putBoolean("lbd_building_elements", settings.hasBuildingElements());
+		this.prefs.putBoolean("lbd_materials_bmo", settings.hasMaterialsBmo());
 		this.prefs.putBoolean("lbd_building_elements_separate_file", settings.hasSeparateBuildingElementsModel());
 		this.prefs.putBoolean("lbd_building_props", settings.hasBuildingProperties());
 		this.prefs.putBoolean("lbd_building_props_blank_nodes", settings.hasPropertiesBlankNodes());
@@ -1770,16 +1793,23 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			event.consume();
 		});
 
-		Button fitButton = new Button("Fit");
-		fitButton.getStyleClass().add("geometry-tool-button");
-		fitButton.setFocusTraversable(false);
-		fitButton.setOnAction(event -> {
+		this.geometryEmptyStateLabel = new Label();
+		this.geometryEmptyStateLabel.getStyleClass().add("geometry-empty-state");
+		this.geometryEmptyStateLabel.setWrapText(true);
+		this.geometryEmptyStateLabel.setMaxWidth(360);
+		this.geometryEmptyStateLabel.setMouseTransparent(true);
+
+		this.geometryFitButton = new Button("Fit");
+		this.geometryFitButton.getStyleClass().add("geometry-tool-button");
+		this.geometryFitButton.setFocusTraversable(false);
+		this.geometryFitButton.setOnAction(event -> {
 			fitGeometryPreview();
 			event.consume();
 		});
-		StackPane.setAlignment(fitButton, Pos.TOP_RIGHT);
+		StackPane.setAlignment(this.geometryFitButton, Pos.TOP_RIGHT);
 
-		this.geometryViewport.getChildren().setAll(this.geometryScene, fitButton);
+		this.geometryViewport.getChildren().setAll(this.geometryScene, this.geometryEmptyStateLabel,
+				this.geometryFitButton);
 		this.geometryExplodeSlider.setDisable(true);
 		this.geometryExplodeSlider.setTooltip(new Tooltip("Move each object outward from the model center. Set to 0% to restore the model."));
 		this.geometryExplodeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -2638,6 +2668,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			if (event.getButton() != MouseButton.PRIMARY) {
 				return;
 			}
+			Button targetButton = buttonEventTarget(event.getTarget());
+			if (targetButton != null && !this.floatingWindowButtonActions.containsKey(targetButton)) {
+				// Content controls such as Geometry Fit own their events. Coordinate-based
+				// window-button routing must not activate a control on an overlapping card.
+				return;
+			}
 			Button button = findFloatingWindowButtonAt(event);
 			if (button != null) {
 				this.pressedFloatingWindowButton = button;
@@ -2645,6 +2681,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			}
 		});
 		this.floatingWorkspace.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
+			Button targetButton = buttonEventTarget(event.getTarget());
+			if (targetButton != null && !this.floatingWindowButtonActions.containsKey(targetButton)) {
+				this.pressedFloatingWindowButton = null;
+				return;
+			}
 			if (this.pressedFloatingWindowButton == null) {
 				return;
 			}
@@ -2807,16 +2848,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private boolean isButtonEventTarget(Object target) {
+		return buttonEventTarget(target) != null;
+	}
+
+	private static Button buttonEventTarget(Object target) {
 		if (!(target instanceof Node node)) {
-			return target instanceof Button;
+			return target instanceof Button button ? button : null;
 		}
 		while (node != null) {
-			if (node instanceof Button) {
-				return true;
+			if (node instanceof Button button) {
+				return button;
 			}
 			node = node.getParent();
 		}
-		return false;
+		return null;
 	}
 
 	private boolean isGeometrySceneEventTarget(Object target) {
@@ -3482,6 +3527,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void clearGeometryPreview(String message) {
 		this.currentPreviewMesh = null;
+		if (this.geometryEmptyStateLabel != null) {
+			this.geometryEmptyStateLabel.setText(message);
+			this.geometryEmptyStateLabel.setVisible(true);
+			this.geometryEmptyStateLabel.setManaged(true);
+		}
+		if (this.geometryFitButton != null) {
+			this.geometryFitButton.setVisible(false);
+			this.geometryFitButton.setManaged(false);
+		}
 		this.geometryExplodeSlider.setValue(0);
 		this.geometryExplodeSlider.setDisable(true);
 		this.selectedResourceUri = null;
@@ -3503,7 +3557,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private void scheduleGeometryPreview(ConversionSettings settings) {
 		if (settings == null || !settings.hasGeometry()) {
-			Platform.runLater(() -> clearGeometryPreview("Geometry was not selected for this conversion."));
+			Platform.runLater(() -> clearGeometryPreview(
+					"Geometry was not generated for this conversion. Enable Geometry and run again."));
 			return;
 		}
 		File rdfFile = new File(settings.rdfTargetName());
@@ -3689,6 +3744,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 
 		this.currentPreviewMesh = previewMesh;
+		if (this.geometryEmptyStateLabel != null) {
+			this.geometryEmptyStateLabel.setVisible(false);
+			this.geometryEmptyStateLabel.setManaged(false);
+		}
+		if (this.geometryFitButton != null) {
+			this.geometryFitButton.setVisible(true);
+			this.geometryFitButton.setManaged(true);
+		}
 		this.geometryExplodeSlider.setValue(0);
 		fitGeometryPreview();
 		renderGeometryScene();
@@ -4145,7 +4208,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
 					currentSettings.exportAsJsonLd(), currentSettings.exportAsIcdd(),
 					currentSettings.hasElementWireframe(),
-					currentSettings.propertiesAsPropertySets()));
+					currentSettings.propertiesAsPropertySets(), currentSettings.hasMaterialsBmo()));
 		} catch (Exception e) {
 			long operationId = this.activeOperationId;
 			if (isActiveOperation(operationId)) {
@@ -4249,6 +4312,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.labelBaseURI
 				.setText(this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
 		this.building_elements.setSelected(this.prefs.getBoolean("lbd_building_elements", true));
+		this.materialsBmo.setSelected(this.prefs.getBoolean("lbd_materials_bmo", false));
 		this.building_elements_separate_file
 				.setSelected(this.prefs.getBoolean("lbd_building_elements_separate_file", false));
 		this.building_props.setSelected(this.prefs.getBoolean("lbd_building_props", true));
@@ -4273,7 +4337,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.createTrig.setSelected(this.prefs.getBoolean("createTrig", false));
 		
 		this.hasPerformanceBoost.setSelected(this.prefs.getBoolean("lbd_performance", true));
-		if (this.ifcOWL_elements.isSelected()) {
+		if (this.ifcOWL_elements.isSelected() || this.materialsBmo.isSelected()) {
 			this.hasPerformanceBoost.setSelected(false);
 			this.hasPerformanceBoost.setDisable(true);
 		} else {

@@ -16,7 +16,24 @@ class ConversionProfileTest {
 	void resolvesProfilesByPublicName() {
 		assertSame(ConversionProfiles.PROPERTIES_OPM, ConversionProfiles.named("properties-opm"));
 		assertSame(ConversionProfiles.GEOMETRY_FULL, ConversionProfiles.named(" GEOMETRY-FULL "));
+		assertSame(ConversionProfiles.MATERIALS_BMO, ConversionProfiles.named("materials-bmo"));
 		assertThrows(IllegalArgumentException.class, () -> ConversionProfiles.named("missing"));
+	}
+
+	@Test
+	void materialProfileIsOptionalAndEnablesOnlyItsElementPrerequisite() {
+		ConversionProperties materials = ConversionProfiles.MATERIALS_BMO.toConversionProperties();
+		assertTrue(materials.isHasBuildingElements());
+		assertFalse(materials.isHasBuildingProperties());
+		assertFalse(materials.isHasGeometry());
+		assertFalse(materials.hasPerformanceBoost());
+		assertEquals(List.of(BuiltInConversionModule.BOT_TOPOLOGY,
+				BuiltInConversionModule.PRODUCT_ONTOLOGY, ConversionProfiles.MATERIALS_BMO_MODULE),
+				ConversionProfiles.MATERIALS_BMO.modules());
+		assertFalse(ConversionProfiles.CORE.modules().contains(ConversionProfiles.MATERIALS_BMO_MODULE));
+		assertTrue(ConversionProfiles.MATERIALS_BMO_MODULE instanceof ConversionModule);
+		assertEquals(List.of(ValidationShapePack.MATERIALS_BMO.resource()),
+				ConversionProfiles.MATERIALS_BMO_MODULE.shapeResources());
 	}
 
 	@Test
@@ -101,6 +118,7 @@ class ConversionProfileTest {
 	@Test
 	void cliExposesExplicitEtimLoadingWithoutEnablingImplicitNetworkAccess() {
 		var command = new picocli.CommandLine(new IFCtoLBDConverter_CLI()).getCommandSpec();
+		assertTrue(command.findOption("--profile").description()[0].contains("materials-bmo"));
 		assertTrue(command.findOption("--load-etim-metadata") != null);
 		assertTrue(command.findOption("--load-etim") != null);
 		assertTrue(command.findOption("--load-etim-candidates") != null);

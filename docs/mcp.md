@@ -196,6 +196,7 @@ root, output is limited to `IFCtoLBD_MCP/demo/output`.
 | `compliance` | A topology/product model prepared for validation workflows |
 | `revision-ready` | Stable element identity for comparing revisions |
 | `geometry-external` | Content-addressed geometry artifacts exposed as MCP resources |
+| `materials-bmo` | IFC direct materials and ordered material layers expressed with BMO |
 | `supply-chain` | Simple properties plus supply-chain identifiers and enrichment |
 | `sustainability` | Simple properties plus sustainability declarations and enrichment |
 

@@ -4,6 +4,26 @@ This file records source material copied, extracted, or transformed into files
 distributed by this repository. Dependency licence reports remain in the
 module-specific `THIRD-PARTY` files.
 
+## Digital Construction BuildingMaterials 0.1
+
+- Upstream project: Digital Construction BuildingMaterials,
+  <https://github.com/digitalconstruction/BuildingMaterials>
+- Upstream revision: `b30a0a29e04c4f5d4a63e26a50987afce7d8492f`
+  ("Snapshot 0.1", 2020-02-26)
+- Source file: `v/0.1/bm.ttl`, Git blob
+  `2099a67bd2025b86b7ca4fffacd79b58780b90f0`
+- Source SHA-256:
+  `b8ed0e82828ccc2700cc1c30252e0c1383bb2149821e63b43ed85ad925da7ca9`
+- Destination: `IFCtoLBD/src/main/resources/ontology/bmo-0.1.ttl`
+- Use: bundled unchanged for offline vocabulary verification; it is not loaded
+  into conversion output and no ontology reasoning is enabled
+- Authors: Janakiram Karlapudi and Prathap Valluru
+- Licence and attribution: Creative Commons Attribution 4.0 International,
+  as declared in the ontology; see
+  <https://creativecommons.org/licenses/by/4.0/>. The source ontology retains
+  its creator, licence, title, version, and namespace metadata. A distribution
+  notice is included at `IFCtoLBD/src/main/resources/META-INF/NOTICE-BMO.md`.
+
 ## Building Topology Ontology 0.3.2
 
 - Upstream project: W3C Linked Building Data Community Group, Building

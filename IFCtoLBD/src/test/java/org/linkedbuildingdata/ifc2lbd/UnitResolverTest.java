@@ -46,6 +46,44 @@ class UnitResolverTest {
 	}
 
 	@Test
+	void projectLengthConversionHandlesSiPrefixesWithoutChangingGenericResolution() {
+		Model model = ModelFactory.createDefaultModel();
+		IfcOWL ifc = new IfcOWL(IFC);
+		Resource project = model.createResource("urn:project").addProperty(RDF.type,
+				model.createResource(ifc.getIfcProject()));
+		Resource assignment = model.createResource("urn:assignment");
+		Resource millimetre = siUnit(model, ifc, "urn:mm", "LENGTHUNIT", "MILLI", "METRE");
+		project.addProperty(ifc.getUnitsInContext_IfcProject(), assignment);
+		assignment.addProperty(ifc.getUnits_IfcUnitAssignment(), millimetre);
+
+		UnitResolver resolver = UnitResolver.fromProject(model, ifc);
+		UnitResolver.LengthConversion conversion = resolver.projectLengthConversion();
+
+		assertTrue(conversion.isResolved());
+		assertEquals(new BigDecimal("0.100"), conversion.toMetres(new BigDecimal("100")));
+		assertEquals(UnitResolver.QUDT_UNIT + "MilliM", conversion.sourceUnit().qudtUri());
+		assertEquals(BigDecimal.ONE, conversion.sourceUnit().multiplier());
+	}
+
+	@Test
+	void followsTheIfc4InheritedUnitsInContextProperty() {
+		Model model = ModelFactory.createDefaultModel();
+		IfcOWL ifc = new IfcOWL(IFC);
+		Resource project = model.createResource("urn:project").addProperty(RDF.type,
+				model.createResource(ifc.getIfcProject()));
+		Resource assignment = model.createResource("urn:assignment");
+		Resource millimetre = siUnit(model, ifc, "urn:mm", "LENGTHUNIT", "MILLI", "METRE");
+		project.addProperty(ifc.getProperty("unitsInContext_IfcContext"), assignment);
+		assignment.addProperty(ifc.getUnits_IfcUnitAssignment(), millimetre);
+
+		UnitResolver.LengthConversion conversion = UnitResolver.fromProject(model, ifc)
+				.projectLengthConversion();
+
+		assertTrue(conversion.isResolved());
+		assertEquals(new BigDecimal("0.100"), conversion.toMetres(new BigDecimal("100")));
+	}
+
+	@Test
 	void unresolvedAndCompoundCodesArePreservedWithoutGuessing() {
 		UnitResolver.Resolution unknown = UnitResolver.empty().resolve(null,
 				ModelFactory.createDefaultModel().createResource(IFC + "IfcLengthMeasure"));

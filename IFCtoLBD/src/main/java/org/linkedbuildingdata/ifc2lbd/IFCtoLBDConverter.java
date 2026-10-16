@@ -79,6 +79,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	private boolean readInPhaseReusable = false;
 	private boolean exportIfcSpaceBoundaries = true;
 	private boolean exportIfcZones = false;
+	private boolean exportMaterialsBmo = false;
 
 	@Override
 	protected boolean exportsIfcSpaceBoundaries() {
@@ -347,13 +348,26 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 
 	@Override
 	protected void mapAdditionalIfcStructures(Model ifcModel) {
-		if (!exportIfcSpaceBoundaries && !exportIfcZones) return;
+		if (!exportIfcSpaceBoundaries && !exportIfcZones && !exportMaterialsBmo) return;
 		if (exportIfcSpaceBoundaries)
 			IfcSpaceBoundaryStage.map(ifcModel, this.ifcOWL, this.lbd_general_output_model,
 					this.lbdResourceByIfcResource, this::mapIfcResource, this::mapIfcMetadata);
 		if (exportIfcZones)
 			IfcZoneStage.map(ifcModel, this.ifcOWL, this.lbd_general_output_model,
 					this.lbdResourceByIfcResource, this::mapIfcResource, this::mapIfcMetadata);
+		if (exportMaterialsBmo) {
+			ConversionContext context = new ConversionContext(
+					new ConversionRequest("desktop-materials.ifc", ConversionProfiles.MATERIALS_BMO));
+			context.attachMappedData(ifcModel, this.ifcOWL, this.lbd_general_output_model,
+					this.lbd_product_output_model, this.lbd_property_output_model,
+					this.lbdResourceByIfcResource, this::mapIfcResource);
+			ConversionProfiles.MATERIALS_BMO_MODULE.map(context);
+		}
+	}
+
+	/** Enables BMO material mapping in the reusable legacy/desktop conversion phase. */
+	public void setMaterialsBmoEnabled(boolean enabled) {
+		this.exportMaterialsBmo = enabled;
 	}
 
 	/** Convert using a named, immutable module profile. */
@@ -401,7 +415,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		stagingDataset.begin(org.apache.jena.query.ReadWrite.READ);
 		try {
 			context.attachMappedData(stagingDataset.getDefaultModel(), this.ifcOWL, this.lbd_general_output_model,
-					this.lbd_product_output_model, this.lbd_property_output_model, this.lbdResourceByIfcResource);
+					this.lbd_product_output_model, this.lbd_property_output_model, this.lbdResourceByIfcResource,
+					this::mapIfcResource);
 			modules.forEach(module -> module.map(context));
 			modules.forEach(module -> module.enrich(context));
 			modules.forEach(module -> module.validate(context));
@@ -412,7 +427,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		phaseStarted = System.nanoTime();
 		ValidationStage.Result validation = ValidationStage.validate(request, context.validationResources(),
 				this.lbd_general_output_model,
-				this.lbd_product_output_model, this.lbd_property_output_model);
+				this.lbd_product_output_model, this.lbd_property_output_model, context.diagnosticsModel());
 		long validationMillis = elapsedMillis(phaseStarted);
 		phaseStarted = System.nanoTime();
 		SemanticOutputAudit.Result audit = SemanticOutputAudit.audit(this.lbd_general_output_model,
@@ -423,7 +438,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 				conversionSession.getGeometryProvider(), conversionSession.getGeometryArtifactStore(),
 				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies());
 		Model validationAndAudit = org.apache.jena.rdf.model.ModelFactory.createDefaultModel()
-				.add(validation.report()).add(audit.report());
+				.add(validation.report()).add(audit.report()).add(context.diagnosticsModel());
 		// Legacy output builds a materialized union in the general graph. Structured
 		// results keep each statement in exactly one physical graph.
 		this.lbd_general_output_model.remove(this.lbd_product_output_model);

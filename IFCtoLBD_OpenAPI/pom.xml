@@ -18,8 +18,7 @@
 	</developers>
 
 	<properties>
-		<maven.compiler.source>21</maven.compiler.source>
-		<maven.compiler.target>21</maven.compiler.target>
+		<maven.compiler.release>21</maven.compiler.release>
 		<tomcat.version>9.0.53</tomcat.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<swagger-ui-dist.version>5.17.14</swagger-ui-dist.version>
