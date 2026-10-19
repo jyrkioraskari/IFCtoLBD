@@ -1,0 +1,8 @@
+@prefix ex: <https://example.test/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix omg: <https://w3id.org/omg#> .
+@prefix fog: <https://w3id.org/fog#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix lbd: <https://lbd.org/#> .
+ex:wall a bot:Element ; rdfs:label "Example wall" ; omg:hasGeometry ex:wall_geometry .
+ex:wall_geometry fog:asObj_v3.0-obj "diAwIDAgMAp2IDQgMCAwCnYgNCAwIDMKdiAwIDAgMwpmIDEgMiAzIDQK" ; lbd:asMTL_kd "#cc6633" ; lbd:asMTL_alpha 0.7 .

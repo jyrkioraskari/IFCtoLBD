@@ -1,0 +1,4 @@
+@prefix ex: <https://example.test/> . @prefix bot: <https://w3id.org/bot#> . @prefix omg: <https://w3id.org/omg#> . @prefix fog: <https://w3id.org/fog#> .
+ex:wall a bot:Element ; omg:hasGeometry ex:g1, ex:g2 .
+ex:g1 fog:asObj_v3.0-obj "diAwIDAgMAp2IDEgMCAwCnYgMCAxIDAKZiAxIDIgMw==" .
+ex:g2 fog:asObj_v3.0-obj "diAxIDAgMAp2IDIgMCAwCnYgMSAxIDAKZiAxIDIgMw==" .

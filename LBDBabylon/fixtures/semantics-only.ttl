@@ -1,0 +1,2 @@
+@prefix ex: <https://example.test/> . @prefix bot: <https://w3id.org/bot#> . @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+ex:building a bot:Building ; rdfs:label "Semantic-only building" .

@@ -50,6 +50,7 @@ release 2.49.0; source-only 2.55.0 features are identified separately.
 | CLI | You want scripted conversion on Windows | `IFCtoLBDConverter_CLI.exe` in release 2.49.0 |
 | Java library | You are embedding conversion in a JVM application | `org.linkedbuildingdata:ifc-to-lbd:<version>` / `ifc-to-lbd-<version>.jar` |
 | MCP server | You want an AI tool to inspect or convert IFC | `IFCtoLBD_MCP`; build from source because release 2.49.0 has no prebuilt MCP server |
+| LBD Babylon viewer | You want to explore IFCtoLBD Turtle geometry in a web browser | `LBDBabylon`; a local Vite/Babylon.js application built from source |
 
 These are the exact names for release 2.49.0. New releases follow the
 [artifact naming policy](docs/development.md#artifact-names).
@@ -97,6 +98,32 @@ commands, output choices, and help if the application does not start.
 command-line converter. Use it from PowerShell or Command Prompt;
 [see the Windows CLI instructions](docs/quick-start.md#windows-alternative-ifctolbdconverter_cliexe).
 The same functionality is available as a Java app for Linux and macOS users.
+
+## View LBD geometry in a browser
+
+`LBDBabylon` is a browser-local viewer for Turtle created by IFCtoLBD. It can
+open an **LBD Turtle file**, render the embedded OBJ geometry emitted through
+`omg:hasGeometry` and `fog:asObj_v3.0-obj`, and provides orbit, walk, and fly
+navigation. If a Turtle file has no renderable geometry, the viewer clearly
+reports that result rather than inventing a model.
+
+<img src="B1.png" alt="LBD Babylon viewer showing an IFCtoLBD building model in orbit mode" width="800">
+
+<img src="B2.png" alt="LBD Babylon viewer showing the interior of a building in walk mode" width="800">
+
+Run it from the repository root:
+
+```sh
+npm --prefix LBDBabylon install
+npm --prefix LBDBabylon run dev
+```
+
+Open the Vite URL shown in the terminal, then choose **Upload LBD Turtle file**
+or drop a `.ttl` file into the viewport. Use an IFCtoLBD conversion with
+geometry enabled (`--hasGeometry`) to produce embedded renderable OBJ geometry.
+The viewer does not fetch RDF-linked resources, and currently reports external
+geometry artifacts as unavailable. See the [LBDBabylon README](LBDBabylon/README.md)
+for the exact RDF predicates, controls, supported material values, and limits.
 
 
 ## What would you like to do next?

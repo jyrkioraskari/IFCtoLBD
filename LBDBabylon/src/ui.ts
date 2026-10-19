@@ -1,0 +1,16 @@
+import { DataFactory } from "n3";
+import { displayTerm, findGlobalId, RDF, RDFS_LABEL } from "./rdf";
+import type { Entity, ModelData } from "./types";
+import { icon } from "./icons";
+
+const button = (id: string, label: string, symbol: Parameters<typeof icon>[0], attributes = "") => `<button ${id ? `id="${id}"` : ""} class="with-icon" title="${label}" aria-label="${label}" ${attributes}>${icon(symbol)}<span class="label">${label}</span></button>`;
+export function layout() { document.querySelector<HTMLDivElement>("#app")!.innerHTML = `<header><strong>LBD Babylon</strong>${button("upload", "Upload LBD Turtle file", "upload")}<input id="ttl" type="file" accept=".ttl,text/turtle" hidden><span id="status">Drop an LBD Turtle file to begin</span></header><main style="display:block"><div id="viewport" style="width:100%;height:100%"><canvas id="canvas"></canvas><div id="drop">Drop an LBD Turtle file here</div><nav>${button("", "Orbit", "orbit", 'data-mode="orbit"')}${button("", "Walk", "walk", 'data-mode="walk"')}${button("", "Fly", "fly", 'data-mode="fly"')}${button("fit", "Fit", "fit")}${button("hide", "Hide selected", "hide")}${button("isolate", "Isolate", "isolate")}${button("show", "Show all", "show")}</nav></div></main>`; }
+export function $<T extends HTMLElement>(selector: string): T;
+export function $(ctor: { new(): HTMLElement }, selector: string): HTMLElement;
+export function $<T extends HTMLElement>(_ctorOrSelector: string | { new(): HTMLElement }, selector?: string): T { return document.querySelector<T>(selector ?? _ctorOrSelector as string)!; }
+export function status(text: string, error = false) { const s = $("#status"); s.textContent = text; s.classList.toggle("error", error); }
+export function showSummary(text: string) { $("#summary").textContent = text; }
+export function renderEntities(data: ModelData, select: (id: string) => void) { const container = $("#entities"); const render = () => { const q = $<HTMLInputElement>("#search").value.toLowerCase(); container.replaceChildren(...data.entities.filter(e => searchable(data, e).includes(q)).sort((a,b) => a.label.localeCompare(b.label)).map(e => { const b = document.createElement("button"); b.className = "entity"; b.textContent = `${e.kind}: ${e.label}`; b.onclick = () => select(e.id); return b; })); }; $("#search").oninput = render; render(); }
+function searchable(data: ModelData, e: Entity) { return `${e.label} ${e.id} ${findGlobalId(data.store, e.id) ?? ""}`.toLowerCase(); }
+export function detail(data: ModelData, id: string) { const panel = $("#details"); panel.replaceChildren(); const title = document.createElement("h2"); title.textContent = data.entities.find(e => e.id === id)?.label ?? id; panel.append(title, line("URI", id)); const quads = data.store.getQuads(DataFactory.namedNode(id), null, null, null); for (const q of quads) panel.append(line(q.predicate.value === RDF ? "type" : q.predicate.value === RDFS_LABEL ? "label" : q.predicate.value, displayTerm(q.object))); }
+function line(k: string, v: string) { const p = document.createElement("p"), b = document.createElement("b"), span = document.createElement("span"); b.textContent = `${k}: `; span.textContent = v; p.append(b, span); return p; }

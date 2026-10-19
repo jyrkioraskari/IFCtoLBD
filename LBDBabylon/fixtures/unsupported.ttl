@@ -1,0 +1,2 @@
+@prefix ex: <https://example.test/> . @prefix omg: <https://w3id.org/omg#> .
+ex:wall omg:hasGeometry ex:g . ex:g <https://example.test/mesh> "not an OBJ" .
