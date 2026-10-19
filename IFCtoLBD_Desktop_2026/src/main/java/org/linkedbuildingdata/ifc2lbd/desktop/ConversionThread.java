@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
+import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
 import org.linkedbuildingdata.ifc2lbd.messages.WorkflowProgressEvent;
 
@@ -69,11 +70,12 @@ public class ConversionThread implements Callable<Integer> {
 	final boolean createTrig;
 	final boolean export_as_JSON_LD;
 	final boolean export_as_ICDD;
+	final JsonLdExport.Mode jsonLdMode;
     final boolean propertiesAsPropertySets;
     private final String target_file;
     private final String ifc_filename;
     
-	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, boolean hasElementWireframe, boolean propertiesAsPropertySets, boolean hasMaterialsBmo) {
+	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, JsonLdExport.Mode jsonLdMode, boolean hasElementWireframe, boolean propertiesAsPropertySets, boolean hasMaterialsBmo) {
 		super();
 		this.operationId = operationId;
 		this.converter=converter;
@@ -102,6 +104,7 @@ public class ConversionThread implements Callable<Integer> {
 		this.createTrig=createTrig;
 		this.export_as_JSON_LD=export_as_JSON_LD;
 		this.export_as_ICDD=export_as_ICDD;
+		this.jsonLdMode=jsonLdMode;
 		this.propertiesAsPropertySets=propertiesAsPropertySets;
 	}
 
@@ -114,6 +117,7 @@ public class ConversionThread implements Callable<Integer> {
 				converter.setSelected_psets(selected_psets);
 				converter.setHasNonLBDElement(hasIfc_based_elements);
 				converter.setPropertiesAsPropertySets(propertiesAsPropertySets);
+				converter.setJsonLdMode(jsonLdMode);
 				converter.setMaterialsBmoEnabled(hasMaterialsBmo);
 				if (export_as_ICDD) {
 					converter.setTargetFile(null);

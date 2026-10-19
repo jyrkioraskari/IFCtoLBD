@@ -97,13 +97,18 @@ public abstract class RDFUtils {
     
     
  public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus,RDFFormat rdf_serlialization_format) {
+        writeModelRDFStream(m, target_file, eventBus, rdf_serlialization_format, JsonLdExport.Mode.PLAIN);
+ }
+
+ public static void writeModelRDFStream(Model m, String target_file, EventBus eventBus, RDFFormat rdf_serlialization_format,
+         JsonLdExport.Mode jsonLdMode) {
         if(rdf_serlialization_format==null)
         	rdf_serlialization_format=RDFFormat.TURTLE_BLOCKS;
         System.out.println("Write RDF target file is: "+target_file);
         if(rdf_serlialization_format==RDFFormat.JSONLD)
         {
 		try (FileOutputStream fo = new FileOutputStream(prepareTargetFile(target_file))){
-        		  RDFDataMgr.write(fo, m, RDFFormat.JSONLD11_PRETTY);
+	        	  JsonLdExport.write(fo, m, jsonLdMode == null ? JsonLdExport.Mode.PLAIN : jsonLdMode);
               } catch (IOException e1) {
       			e1.printStackTrace();
       			eventBus.post(new IFCtoLBD_SystemStatusEvent("Error : " + e1.getMessage()));

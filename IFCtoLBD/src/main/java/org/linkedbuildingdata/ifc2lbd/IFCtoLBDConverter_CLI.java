@@ -23,6 +23,7 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.sys.JenaSystem;
+import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
 
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -168,6 +169,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = { "--JSON" }, arity = "0..1", fallbackValue = "true", description = "Export as JSON-LD.")
 	private Optional<Boolean> exportJSON;
 
+	@Option(names = "--jsonld-mode", defaultValue = "PLAIN", description = "JSON-LD layout when --JSON is used: ${COMPLETION-CANDIDATES}.")
+	private JsonLdExport.Mode jsonLdMode;
+
 	@Option(names = "--profile", description = "Named conversion profile (for example core, properties-opm, materials-bmo).")
 	private Optional<String> profile;
 
@@ -238,7 +242,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			try (ConversionResult result = converter.convert(createRequest(ifcFile));
 					OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
 				if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
-				else if (exportJSON.orElse(false)) RDFDataMgr.write(output, result.getModel(), RDFFormat.JSONLD);
+				else if (exportJSON.orElse(false)) JsonLdExport.write(output, result.getModel(), jsonLdMode);
 				else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
 				runSavedQuery(result.getModel());
 			}

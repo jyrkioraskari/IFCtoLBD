@@ -37,6 +37,8 @@ const MAX_INLINE_CHARS = 200000;
 const MAX_RESOURCE_CHARS = Number(process.env.IFCTOLBD_MCP_MAX_RESOURCE_CHARS || 5 * 1024 * 1024);
 const MAX_MODELS = Number(process.env.IFCTOLBD_MCP_MAX_MODELS || 8);
 const MAX_CURSOR_OFFSET = Number(process.env.IFCTOLBD_MCP_MAX_CURSOR_OFFSET || 100000);
+const JSONLD_CONTEXT_URI = "ifctolbd://context/ifctolbd-v2.jsonld";
+const JSONLD_CONTEXT_FILE = path.join(MCP_ROOT, "resources", "ifctolbd-v2.jsonld");
 const CURSOR_SECRET = crypto.randomBytes(32);
 const CONVERTER_JAR = path.resolve(
   process.env.IFCTOLBD_CONVERTER_JAR || DEFAULT_CONVERTER_JAR
@@ -166,6 +168,21 @@ const tools = [
     inputSchema: {
       type: "object", required: ["modelId", "entity"],
       properties: { modelId: { type: "string" }, entity: { type: "string" }, limit: { type: "integer", minimum: 1, maximum: 1000, default: 200 }, cursor: { type: "string" } },
+      additionalProperties: false
+    }
+  },
+  {
+    name: "describe_element",
+    description: "Return a bounded compact JSON-LD description of one loaded-model element. Related IRIs remain identifiers unless depth requests their outgoing descriptions.",
+    inputSchema: {
+      type: "object", required: ["modelId", "element"],
+      properties: {
+        modelId: { type: "string" },
+        element: { type: "string", description: "Full HTTP(S) element IRI returned by another MCP tool." },
+        predicates: { type: "array", items: { type: "string" }, description: "Optional exact predicate IRI allow-list." },
+        depth: { type: "integer", minimum: 0, maximum: 3, default: 0, description: "IRI-resource traversal depth; directly linked blank nodes are retained." },
+        limit: { type: "integer", minimum: 1, maximum: 1000, default: 200, description: "Maximum RDF statements in the JSON-LD subgraph." }
+      },
       additionalProperties: false
     }
   },
@@ -1291,6 +1308,39 @@ function callGetEntity(args) {
   return structuredContent({ modelId: entry.modelId, entity, ...addPage(data, scope, offset) });
 }
 
+function isHttpIri(value) {
+  return /^https?:\/\/[^\s<>"{}|^`\\]+$/.test(String(value || ""));
+}
+
+function callDescribeElement(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const element = String(args.element || "");
+  if (!isHttpIri(element)) {
+    throw new ToolError("INVALID_ARGUMENT", "element must be a full http(s) IRI");
+  }
+  const predicates = args.predicates === undefined ? [] : args.predicates;
+  if (!Array.isArray(predicates) || predicates.some((predicate) => !isHttpIri(predicate))) {
+    throw new ToolError("INVALID_ARGUMENT", "predicates must be an array of full http(s) IRIs");
+  }
+  const depth = asInteger(args.depth, 0, 0, 3);
+  const limit = asInteger(args.limit, 200, 1, 1000);
+  const description = entry.converter.converter.describeElementSync(entry.model, element, predicates, depth, limit);
+  const found = Boolean(description.isFoundSync());
+  const returnedStatementCount = Number(description.getReturnedStatementCountSync());
+  const truncated = Boolean(description.isTruncatedSync());
+  return structuredContent({
+    modelId: entry.modelId,
+    element,
+    status: found ? "found" : "not_found",
+    jsonLd: found ? JSON.parse(String(description.getJsonLdSync())) : null,
+    returnedStatementCount,
+    truncated,
+    continuation: null,
+    limits: { depth, statements: limit },
+    contextResource: JSONLD_CONTEXT_URI,
+  });
+}
+
 function callListClasses(args) {
   const entry = requireLoadedModel(args.modelId);
   const limit = asInteger(args.limit, 100, 1, 1000);
@@ -1950,6 +2000,8 @@ function handleToolCallDirect(name, args) {
       return callDescribeModel(input);
     case "get_entity":
       return callGetEntity(input);
+    case "describe_element":
+      return callDescribeElement(input);
     case "list_classes":
       return callListClasses(input);
     case "list_properties":
@@ -1985,7 +2037,7 @@ let worker = null;
 let nextWorkerRequestId = 1;
 const workerRequests = new Map();
 const SESSION_TOOLS = new Set([
-  "load_ifc", "get_property_evidence", "describe_model", "get_entity", "list_classes", "list_properties", "query_model", "close_model",
+  "load_ifc", "get_property_evidence", "describe_model", "get_entity", "describe_element", "list_classes", "list_properties", "query_model", "close_model",
   "validate_model", "explain_validation", "compare_revisions", "__read_model_resource"
 ]);
 
@@ -2087,7 +2139,12 @@ async function handle(message) {
         break;
       }
       case "resources/list":
-        result(id, { resources: [] });
+        result(id, { resources: [{
+          uri: JSONLD_CONTEXT_URI,
+          name: "IFCtoLBD JSON-LD v1 context",
+          description: "Offline bundled JSON-LD 1.1 context used by describe_element compact responses",
+          mimeType: "application/ld+json",
+        }] });
         break;
       case "resources/templates/list":
         result(id, { resourceTemplates: [{
@@ -2123,6 +2180,11 @@ async function handle(message) {
         }] });
         break;
       case "resources/read": {
+        if (message.params && message.params.uri === JSONLD_CONTEXT_URI) {
+          result(id, { contents: [{ uri: JSONLD_CONTEXT_URI, mimeType: "application/ld+json",
+            text: fs.readFileSync(JSONLD_CONTEXT_FILE, "utf8") }] });
+          break;
+        }
         const resource = await handleToolCall("__read_model_resource", { uri: message.params && message.params.uri });
         result(id, { contents: [resource] });
         break;

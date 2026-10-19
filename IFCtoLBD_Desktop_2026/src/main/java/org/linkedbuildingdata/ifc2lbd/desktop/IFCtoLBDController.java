@@ -89,6 +89,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_Syst
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemExit;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.IFCtoLBDConverterCore.IfcModelStatistics;
+import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
 import org.linkedbuildingdata.ifc2lbd.messages.WorkflowProgressEvent;
 
@@ -525,7 +526,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
 			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
 			boolean hasSimpleProperties, boolean propertiesAsPropertySets, boolean hasIfcBasedElements,
-			boolean createTrig, boolean exportAsJsonLd, boolean exportAsIcdd) {
+			boolean createTrig, boolean exportAsJsonLd, JsonLdExport.Mode jsonLdMode, boolean exportAsIcdd) {
 	}
 
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
@@ -1040,6 +1041,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return outputFormat != null && outputFormat.toLowerCase(Locale.ROOT).contains("json");
 	}
 
+	private JsonLdExport.Mode selectedJsonLdMode() {
+		return "JSON-LD compact".equals(this.outputJSONorTTL.getValue())
+				? JsonLdExport.Mode.COMPACT : JsonLdExport.Mode.PLAIN;
+	}
+
 	private boolean isIcddOutputSelected() {
 		String outputFormat = this.outputJSONorTTL.getValue();
 		return outputFormat != null && outputFormat.toUpperCase(Locale.ROOT).contains("ICDD");
@@ -1080,7 +1086,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.geometry_interfaces.isSelected(), this.hasElementWireframe.isSelected(), this.createUnits.isSelected(),
 				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
 				this.propertiesAsPropertySets.isSelected(), this.ifc_based_elements.isSelected(),
-				this.createTrig.isSelected(), isJsonLdOutputSelected(), isIcddOutputSelected());
+				this.createTrig.isSelected(), isJsonLdOutputSelected(), selectedJsonLdMode(), isIcddOutputSelected());
 	}
 
 	private void setupPresets() {
@@ -1318,6 +1324,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				|| previousSettings.hasIfcBasedElements() != currentSettings.hasIfcBasedElements()
 				|| previousSettings.createTrig() != currentSettings.createTrig()
 				|| previousSettings.exportAsJsonLd() != currentSettings.exportAsJsonLd()
+				|| previousSettings.jsonLdMode() != currentSettings.jsonLdMode()
 				|| previousSettings.exportAsIcdd() != currentSettings.exportAsIcdd()
 				|| !Objects.equals(previous.selectedTypes(), current.selectedTypes())
 				|| !Objects.equals(previous.selectedPsets(), current.selectedPsets());
@@ -1392,6 +1399,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		addBooleanOption(arguments, "--hasIfc_based_elements", settings.hasIfcBasedElements());
 		addBooleanOption(arguments, "--hasTriG", settings.createTrig());
 		addBooleanOption(arguments, "--JSON", settings.exportAsJsonLd());
+		if (settings.exportAsJsonLd() && settings.jsonLdMode() != JsonLdExport.Mode.PLAIN) {
+			arguments.add("--jsonld-mode");
+			arguments.add(settings.jsonLdMode().name());
+		}
 		for (String type : selectedElementTypes().stream().sorted().toList()) {
 			arguments.add("--selectedType");
 			arguments.add(shellQuote(type));
@@ -1691,8 +1702,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("ifc_based_elements", settings.hasIfcBasedElements());
 		this.prefs.putBoolean("createTrig", settings.createTrig());
 		this.prefs.putBoolean("export_as_jsonld", settings.exportAsJsonLd());
-		this.prefs.put("desktop_output_format",
-				settings.exportAsIcdd() ? "ICDD" : settings.exportAsJsonLd() ? "JSON-LD" : "Turtle TTL");
+		this.prefs.put("desktop_output_format", settings.exportAsIcdd() ? "ICDD package"
+				: settings.jsonLdMode() == JsonLdExport.Mode.COMPACT ? "JSON-LD compact"
+				: settings.exportAsJsonLd() ? "JSON-LD" : "Turtle TTL");
 		this.prefs.putInt("lbd_props_level", settings.propsLevel());
 	}
 
@@ -2577,11 +2589,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void setupOutputFormatChoices() {
 		String fallback = this.prefs.getBoolean("export_as_jsonld", false) ? "JSON-LD" : "Turtle TTL";
 		String initialValue = this.prefs.get("desktop_output_format", fallback);
-		if (!List.of("Turtle TTL", "JSON-LD", "ICDD package").contains(initialValue)) {
+		if (!List.of("Turtle TTL", "JSON-LD", "JSON-LD compact", "ICDD package").contains(initialValue)) {
 			initialValue = "ICDD".equals(initialValue) ? "ICDD package" : fallback;
 		}
-		this.outputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "ICDD package");
-		this.basicOutputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "ICDD package");
+		this.outputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "JSON-LD compact", "ICDD package");
+		this.basicOutputJSONorTTL.getItems().setAll("Turtle TTL", "JSON-LD", "JSON-LD compact", "ICDD package");
 		this.outputJSONorTTL.setValue(initialValue);
 		this.basicOutputJSONorTTL.setValue(initialValue);
 		this.outputJSONorTTL.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -4173,6 +4185,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				converter.setTargetFile(currentSettings.rdfTargetName());
 				converter.setHasSimplified_properties(currentSettings.hasSimpleProperties());
 				converter.setPropertiesAsPropertySets(currentSettings.propertiesAsPropertySets());
+				converter.setJsonLdMode(currentSettings.jsonLdMode());
 				ConversionRequest conversionRequest = new ConversionRequest(currentSettings, selected_types, selected_psets);
 				this.pendingConversionRequest = conversionRequest;
 				if (!currentSettings.hasSeparateBuildingElementsModel()
@@ -4207,7 +4220,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasBoundingBoxWkt(), currentSettings.hasHierarchicalNaming(),
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
 					currentSettings.exportAsJsonLd(), currentSettings.exportAsIcdd(),
-					currentSettings.hasElementWireframe(),
+					currentSettings.jsonLdMode(), currentSettings.hasElementWireframe(),
 					currentSettings.propertiesAsPropertySets(), currentSettings.hasMaterialsBmo()));
 		} catch (Exception e) {
 			long operationId = this.activeOperationId;

@@ -74,6 +74,7 @@ Example stdio configuration:
 - `get_property_evidence`: returns attributable property, quantity, or attribute claims for one element selected by IFC GUID or RDF identifier. Use the `evidence` profile to retain source locations, IFC datatypes, and unit-resolution metadata.
 - `compare_revisions`: compares two compatible `revision-ready` models and exposes the RDF change graph as a resource.
 - `describe_model`, `get_entity`, `list_classes`, and `list_properties`: inspect a loaded model without reconversion.
+- `describe_element`: returns a bounded, standalone compact JSON-LD 1.1 description for one element in a loaded model.
 - `query_model`: runs a parsed, row-limited SPARQL `SELECT` query against a loaded model. Federated `SERVICE` clauses are rejected.
 - `validate_model`: applies one or more versioned SHACL packs and retains the standard RDF validation report without changing the model.
 - `explain_validation`: returns the report's focus nodes, paths, values, severities, source shapes, and messages in structured form. It does not repair data.
@@ -94,6 +95,37 @@ Load once with `profile: "evidence"`, then call `get_property_evidence` with exa
 IFC-authored labels, names, descriptions, and string values are returned as data marked `untrusted_model_content`. Clients must never treat that content as instructions. Server-generated status, warning, and error fields are separate from model-authored text.
 
 `get_entity`, `list_classes`, `list_properties`, `query_model`, and `get_property_evidence` return opaque `nextCursor` values when another page is available. A cursor is scoped to its model, tool, and query and cannot be reused with different arguments.
+
+### Compact JSON-LD element descriptions
+
+`describe_element` is the targeted JSON-LD tool. It accepts `modelId`, a full
+HTTP(S) `element` IRI returned by another tool, optional exact `predicates`, a
+bounded `depth` (0–3, default 0), and a statement `limit` (default 200). It
+does not return the whole building. At depth 0, linked IRI resources remain
+`@id` references; directly linked blank nodes are included so their RDF
+relationships are not lost. Higher depths add outgoing descriptions for linked
+IRI resources. A predicate filter is an allow-list of exact full IRIs.
+
+The structured MCP result is an envelope: `modelId`, `element`, `status`,
+`jsonLd`, `returnedStatementCount`, `truncated`, `continuation`, `limits`, and
+`contextResource`. `status: "not_found"` means the element is not a subject in
+that loaded model and has `jsonLd: null`; an existing element with no matching
+statements is returned as `found`. `truncated: true` is explicit and no data is
+silently dropped. Descriptions are intentionally not cursor-paginated because
+a page must remain a self-contained RDF subgraph; narrow predicates or lower
+depth instead. JSON-LD values remain arrays when the processor requires them;
+missing optional values are omitted, while missing `jsonLd` is `null` only for
+an unknown element. Blank-node labels are serialization-local and are not
+stable across conversions.
+
+Every successful response embeds the offline v1 context. The same maintained
+context is available as the MCP resource
+`ifctolbd://context/ifctolbd-v2.jsonld` (`application/ld+json`). It maps only
+IFCtoLBD vocabulary IRIs and JSON-LD keywords; unknown predicates remain full
+IRIs. Terms such as `containsElement` are explicitly typed as resource links,
+so identifiers are preserved rather than converted to strings. JSON-LD is
+compacted with the converter's bundled JSON-LD 1.1 processor, with no remote
+context fetch or ontology inference.
 
 ## Security and resource limits
 

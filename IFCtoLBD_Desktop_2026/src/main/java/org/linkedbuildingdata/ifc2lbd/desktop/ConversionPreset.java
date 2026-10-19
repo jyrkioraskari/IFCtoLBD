@@ -36,7 +36,7 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 		for (String key : REQUIRED) {
 			if (!settings.containsKey(key)) throw new IllegalArgumentException("Missing preset setting: " + key);
 		}
-		if (!List.of("Turtle TTL", "JSON-LD", "ICDD package").contains(settings.get(FORMAT))) {
+		if (!List.of("Turtle TTL", "JSON-LD", "JSON-LD compact", "ICDD package").contains(settings.get(FORMAT))) {
 			throw new IllegalArgumentException("Unsupported preset output format.");
 		}
 		if (!List.of("1", "2", "3").contains(settings.get(LEVEL))) {

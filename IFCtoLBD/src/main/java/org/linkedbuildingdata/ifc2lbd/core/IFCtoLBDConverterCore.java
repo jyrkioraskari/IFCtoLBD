@@ -63,6 +63,7 @@ import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_Syst
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.ChangeableOptonal;
 import org.linkedbuildingdata.ifc2lbd.core.utils.IfcOWLUtils;
+import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
 import org.linkedbuildingdata.ifc2lbd.core.utils.LBD_RDF_Utils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.RDFUtils;
 import org.linkedbuildingdata.ifc2lbd.core.utils.rdfpath.RDFStep;
@@ -176,6 +177,7 @@ public abstract class IFCtoLBDConverterCore {
 	private Dataset lbd_dataset = null;
 	public RDFFormat default_serialization_format = RDFFormat.TURTLE_BLOCKS;
 	protected boolean export_as_JSON_LD = false;
+	protected JsonLdExport.Mode jsonLdMode = JsonLdExport.Mode.PLAIN;
 
 	protected boolean createTrig = false;
 	protected boolean hasPerformanceBoost = false;
@@ -903,6 +905,11 @@ public abstract class IFCtoLBDConverterCore {
 		writeExistingOutputFiles(target_file, hasSeparatePropertiesModel);
 	}
 
+	/** Selects the JSON-LD layout used when JSON-LD output is enabled. */
+	public void setJsonLdMode(JsonLdExport.Mode mode) {
+		this.jsonLdMode = mode == null ? JsonLdExport.Mode.PLAIN : mode;
+	}
+
 	private void setOutputSerialization(boolean exportAsJsonLd) {
 		this.default_serialization_format = exportAsJsonLd ? RDFFormat.JSONLD : RDFFormat.TURTLE_BLOCKS;
 	}
@@ -938,19 +945,20 @@ public abstract class IFCtoLBDConverterCore {
 					String productTarget = outputTarget.substring(0, outputTarget.lastIndexOf("."))
 							+ (this.export_as_JSON_LD ? "_building_elements.json" : "_building_elements.ttl");
 					RDFUtils.writeModelRDFStream(partition.products(), productTarget, this.eventBus,
-							this.default_serialization_format);
+							this.default_serialization_format, this.jsonLdMode);
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent("Building elements file is: " + productTarget));
 				}
 				if (hasBuildingProperties && hasSeparatePropertiesModel) {
 					String propertyTarget = outputTarget.substring(0, outputTarget.lastIndexOf("."))
 							+ (this.export_as_JSON_LD ? "_element_properties.json" : "_element_properties.ttl");
 					RDFUtils.writeModelRDFStream(partition.properties(), propertyTarget, this.eventBus,
-							this.default_serialization_format);
+							this.default_serialization_format, this.jsonLdMode);
 					this.eventBus.post(new IFCtoLBD_SystemStatusEvent(
 							"Building elements properties file is: " + propertyTarget));
 				}
 
-				RDFUtils.writeModelRDFStream(main, outputTarget, this.eventBus, this.default_serialization_format);
+				RDFUtils.writeModelRDFStream(main, outputTarget, this.eventBus, this.default_serialization_format,
+						this.jsonLdMode);
 				if (this.createTrig) {
 					String targetTrig = replaceOutputExtension(outputTarget, ".trig");
 					Dataset outputDataset = DatasetFactory.create();

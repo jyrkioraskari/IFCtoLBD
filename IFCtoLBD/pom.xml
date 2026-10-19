@@ -81,6 +81,8 @@
 		<slf4j.version>2.0.17</slf4j.version>
 		<picocli.version>4.7.7</picocli.version>
 		<junit.version>5.14.3</junit.version>
+		<!-- Kept aligned with Apache Jena 6.0.0's JSON-LD implementation. -->
+		<titanium.jsonld.version>1.7.0</titanium.jsonld.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -257,6 +259,12 @@
 			package. uava is a set of core Java libraries from Google that includes new
 			collection types 
 			(such as multimap and multiset), immutable collections, -->
+		</dependency>
+		<!-- JSON-LD 1.1 compaction and flattening for the web-oriented export modes. -->
+		<dependency>
+			<groupId>com.apicatalog</groupId>
+			<artifactId>titanium-json-ld</artifactId>
+			<version>${titanium.jsonld.version}</version>
 		</dependency>
 
 

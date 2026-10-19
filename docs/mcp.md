@@ -331,6 +331,7 @@ Use file-based tools for a single quick operation.
 | `load_ifc` | Convert once and return a reusable `modelId` |
 | `describe_model` | Return conversion metadata and sample subjects |
 | `get_entity` | List outgoing statements for one full HTTP(S) RDF identifier |
+| `describe_element` | Return a bounded compact JSON-LD 1.1 subgraph for one loaded-model element |
 | `list_classes` | List classes and instance counts |
 | `list_properties` | List predicates and usage counts |
 | `query_model` | Run guarded SPARQL `SELECT` against a loaded model |
@@ -348,6 +349,50 @@ Use file-based tools for a single quick operation.
 The last five conversion tools create a fresh conversion for each call. For an
 interactive investigation, `load_ifc` followed by loaded-model tools is usually
 faster and keeps all questions tied to the same conversion metadata.
+
+### Retrieve one compact JSON-LD element
+
+After finding an element IRI with `query_model`, `get_entity`, or an element
+listing, call `describe_element` rather than requesting the whole model. For
+example:
+
+```json
+{
+  "modelId": "ifc-…",
+  "element": "https://example.org/office/wall-42",
+  "depth": 1,
+  "predicates": [
+    "https://w3id.org/bot#containsElement",
+    "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+  ],
+  "limit": 100
+}
+```
+
+The structured result keeps operational metadata outside the JSON-LD document:
+
+```json
+{
+  "modelId": "ifc-…",
+  "element": "https://example.org/office/storey-1",
+  "status": "found",
+  "jsonLd": {
+    "@id": "https://example.org/office/storey-1",
+    "@type": "bot:Storey",
+    "containsElement": [{ "@id": "https://example.org/office/wall-42" }],
+    "@context": { "bot": "https://w3id.org/bot#" }
+  },
+  "returnedStatementCount": 2,
+  "truncated": false,
+  "continuation": null
+}
+```
+
+Use the returned `@id` in a follow-up `describe_element` request to inspect the
+wall. Linked IRI resources stay identifiers at depth 0; direct blank-node
+relationships are retained. `truncated` is always explicit. The response
+embeds the offline v1 context and it is also available at
+`ifctolbd://context/ifctolbd-v2.jsonld`; unknown predicates remain full IRIs.
 
 ## Read MCP resources
 

@@ -61,4 +61,12 @@ class ConversionPresetTest {
 		ConversionPreset imported = ConversionPreset.read(new StringReader(legacy));
 		assertFalse(Boolean.parseBoolean(imported.settings().get("materials")));
 	}
+
+	@Test
+	void acceptsCompactJsonLdOutputFormat() {
+		Map<String, String> settings = new LinkedHashMap<>(ConversionPreset.builtIns().getFirst().settings());
+		settings.put(ConversionPreset.FORMAT, "JSON-LD compact");
+		ConversionPreset preset = new ConversionPreset("Compact JSON", settings, false);
+		assertEquals("JSON-LD compact", preset.settings().get(ConversionPreset.FORMAT));
+	}
 }

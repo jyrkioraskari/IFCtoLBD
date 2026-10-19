@@ -13,6 +13,37 @@ separate files, or an ISO container.
   IFC/JSON, which is an IFC input format.
 - **TriG (`.trig`)** can store several named RDF graphs in one text file.
 
+## JSON-LD for web applications
+
+The default `--JSON` output is plain JSON-LD, retained for compatibility. For
+application-facing JSON, select a JSON-LD 1.1 layout explicitly:
+
+```sh
+java -cp IFCtoLBD_MCP/lib/ifctolbd-converter.jar \
+  org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI \
+  --JSON --jsonld-mode COMPACT --target_file building.jsonld model.ifc
+```
+
+`COMPACT` embeds the bundled IFCtoLBD v1 context, so common BOT relations such
+as `bot:containsElement` appear as the JSON name `containsElement` and IRI
+objects remain identifiers. `FLATTENED` gives the same graph a flattened,
+identifier-oriented node collection, useful when clients index resources by
+`@id`.
+`PLAIN` is the default serializer output.
+
+The context is versioned to make consumer mappings predictable: it is bundled
+with the converter and is also published at
+[`docs/context/ifctolbd-v2.jsonld`](context/ifctolbd-v2.jsonld). A context
+version will never be changed incompatibly; a future incompatible mapping gets
+a new filename. All JSON-LD layouts represent the same RDF graph, so consumers
+may expand, compact, flatten, or convert the document to RDF with a JSON-LD 1.1
+processor.
+
+In the desktop application, select **JSON-LD compact** in either workflow's
+output menu. The four desktop output choices are Turtle, JSON-LD, JSON-LD
+compact, and ICDD package. **JSON-LD** remains the plain compatibility layout;
+**JSON-LD compact** uses the bundled v1 context.
+
 ## Separate Turtle files
 
 When separate building-element and property files are enabled, the converter

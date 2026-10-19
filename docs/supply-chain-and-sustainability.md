@@ -48,6 +48,50 @@ option to perform a cache-only conversion. `--classification-cache-version` can 
 managed cache snapshots; otherwise it is derived from the ETIM dictionary edition. Use `--hasTriG`
 when the conversion manifest must be serialized as its own named graph.
 
+### CLI suggestions from a prepared cache
+
+Populate candidates in a deliberate, networked step, then request suggestions
+from the resulting local snapshot. For example, this command refreshes the
+dictionary metadata and candidates for doors, then converts the input using
+only the cache created in the same command:
+
+```sh
+java -cp IFCtoLBD_MCP/lib/ifctolbd-converter.jar \
+  org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI \
+  --profile supply-chain \
+  --etim-dictionary https://identifier.buildingsmart.org/uri/etim/etim/10.0 \
+  --classification-cache .ifctolbd/classification-cache \
+  --classification-cache-version bsdd-etim-10 \
+  --load-etim-metadata \
+  --load-etim-candidates IfcDoor \
+  --suggest-etim \
+  --target_file door-suggestions.ttl \
+  model.ifc
+```
+
+For a later offline conversion, omit the three `--load-etim*` options but keep
+the same dictionary URI, cache directory, and cache version:
+
+```sh
+java -cp IFCtoLBD_MCP/lib/ifctolbd-converter.jar \
+  org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI \
+  --profile supply-chain \
+  --etim-dictionary https://identifier.buildingsmart.org/uri/etim/etim/10.0 \
+  --classification-cache .ifctolbd/classification-cache \
+  --classification-cache-version bsdd-etim-10 \
+  --suggest-etim \
+  --target_file door-suggestions.ttl \
+  model.ifc
+```
+
+`--suggest-etim` never contacts bSDD. It can only rank candidates that were
+previously cached for the IFC entity in question. The CLI requires
+`--etim-dictionary` even for a cache-only suggestion so that it can derive and
+check the intended ETIM edition. A suggestion is not a classification: it is
+written with the `suggested` status and requires human review. Recording a
+reviewed acceptance, or configuring reviewed ETIM property mappings, currently
+uses the Java API shown below.
+
 ```java
 var registry = new EtimClassificationResolver(
     "https://identifier.buildingsmart.org/uri/.../etim/10");

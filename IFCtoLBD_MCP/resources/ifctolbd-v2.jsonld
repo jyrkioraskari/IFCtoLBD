@@ -1,0 +1,33 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "bot": "https://w3id.org/bot#",
+    "beo": "https://pi.pauwel.be/voc/buildingelement#",
+    "fog": "https://w3id.org/fog#",
+    "geo": "http://www.opengis.net/ont/geosparql#",
+    "lbd": "https://linkedbuildingdata.org/LBD#",
+    "lbdlegacy": "https://lbd.org/#",
+    "opm": "https://w3id.org/opm#",
+    "props": "http://lbd.arch.rwth-aachen.de/props#",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "prov": "http://www.w3.org/ns/prov#",
+    "schema": "https://schema.org/",
+    "containsElement": { "@id": "bot:containsElement", "@type": "@id" },
+    "containsZone": { "@id": "bot:containsZone", "@type": "@id" },
+    "hasBuilding": { "@id": "bot:hasBuilding", "@type": "@id" },
+    "hasStorey": { "@id": "bot:hasStorey", "@type": "@id" },
+    "hasSpace": { "@id": "bot:hasSpace", "@type": "@id" },
+    "hasElement": { "@id": "bot:hasElement", "@type": "@id" },
+    "adjacentElement": { "@id": "bot:adjacentElement", "@type": "@id" },
+    "interfaceOf": { "@id": "bot:interfaceOf", "@type": "@id" },
+    "asMTL": "lbdlegacy:asMTL",
+    "asMTL_alpha": "lbdlegacy:asMTL_alpha",
+    "asMTL_ka": "lbdlegacy:asMTL_ka",
+    "asMTL_kd": "lbdlegacy:asMTL_kd",
+    "asMTL_ks": "lbdlegacy:asMTL_ks"
+  }
+}
