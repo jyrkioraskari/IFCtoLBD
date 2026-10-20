@@ -2,6 +2,13 @@
 
 [Documentation home](README.md) · Background: [using triples](using-triples.md)
 
+## Native Python converter
+
+For a native Python implementation that does not require Java, the JVM, or
+JPype, use [IFCtoLBD Python](https://github.com/jyrkioraskari/IFCtoLBD_Python).
+
+[<img src="https://opengraph.githubassets.com/1/jyrkioraskari/IFCtoLBD_Python" alt="IFCtoLBD Python repository" width="600">](https://github.com/jyrkioraskari/IFCtoLBD_Python)
+
 ## First, query an exported file with RDFLib
 
 If you have already converted an IFC in the desktop, you can work entirely in
