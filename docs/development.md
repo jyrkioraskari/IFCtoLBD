@@ -166,6 +166,7 @@ Paths below are relative to the repository root. Browse the
 | `IFCProps2ExcelOnline` | Web application exporting IFC properties to Excel | Yes |
 | `IFCtoLBD_Desktop_2026` | JavaFX desktop interface, queries, validation, and preview | Yes |
 | `IFCtoLBD_Python` | JPype wrapper and Python examples | No; scripts |
+| `ProductExtractor` | Python tool and local web UI summarising building elements (materials, layers, property sets, IFC attributes) from LBD Turtle as JSON | No; separate pip setup |
 | `IFCtoLBD_NodeJS` | Node.js integration examples | No; separate npm setup |
 | `IFCtoLBD_OpenAPI` | Web API application | No; separate Maven project |
 | `IFCtoLBD_MCP` | MCP server and bundled converter distribution | No; receives a JAR from converter packaging |

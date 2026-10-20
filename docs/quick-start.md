@@ -143,6 +143,13 @@ To browse the generated Turtle as an interactive building graph, open it in
 focused views of spatial topology, geometry, and properties and processes the
 selected file locally in your web browser.
 
+To turn the same output into application-friendly JSON, use
+[ProductExtractor](../ProductExtractor/README.md). It creates one summary per
+building element with IFC attributes and property-set values. It can also show
+materials and ordered layers when you convert with the optional
+[`materials-bmo` profile](materials-bmo.md), and includes a local web interface
+for filtering and inspecting the summaries without writing code.
+
 The desktop offers a basic workflow and an advanced workflow. Numbered
 buttons describe the full workflow; the essential first actions are **Read IFC**
 and **Run**. In the advanced workflow, **Settings** controls export options,

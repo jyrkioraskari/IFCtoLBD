@@ -31,6 +31,9 @@ introduction below. **New to RDF or SPARQL?** Start with the
   for properties, units, and geometry.
 - **Explore your building:** query the data with SPARQL, validate it with SHACL,
   and preview exported geometry in the desktop app.
+- **Summarize building products as JSON:** use ProductExtractor to collect each
+  element's IFC attributes, property sets, and available material layers from
+  an exported Turtle or TriG file.
 - **Prepare building data for linking:** the generated LBD identifiers let you
   create links to asset records, products, sensors, and other datasets in your
   own applications. The converter does not create those external links for you.
@@ -50,6 +53,7 @@ release 2.49.0; source-only 2.55.0 features are identified separately.
 | CLI | You want scripted conversion on Windows | `IFCtoLBDConverter_CLI.exe` in release 2.49.0 |
 | Java library | You are embedding conversion in a JVM application | `org.linkedbuildingdata:ifc-to-lbd:<version>` / `ifc-to-lbd-<version>.jar` |
 | MCP server | You want an AI tool to inspect or convert IFC | `IFCtoLBD_MCP`; build from source because release 2.49.0 has no prebuilt MCP server |
+| ProductExtractor | You want element-oriented JSON or a local summary interface for LBD output | `ProductExtractor`; a standalone Python 3.10+ tool installed from source |
 | LBD Babylon viewer | You want to explore IFCtoLBD Turtle geometry in a web browser | `LBDBabylon`; a local Vite/Babylon.js application built from source |
 
 These are the exact names for release 2.49.0. New releases follow the
@@ -125,6 +129,32 @@ The viewer does not fetch RDF-linked resources, and currently reports external
 geometry artifacts as unavailable. See the [LBDBabylon README](LBDBabylon/README.md)
 for the exact RDF predicates, controls, supported material values, and limits.
 
+## Summarize building products as JSON
+
+`ProductExtractor` turns IFCtoLBD Turtle or TriG output into a JSON array with
+one summary per `bot:Element`. Each summary includes element identity and type,
+exported IFC attributes, and property sets. When the input was converted with
+the optional `materials-bmo` profile, it also includes direct materials and
+ordered material layers with their thicknesses.
+
+Install and run it from the repository root with Python 3.10 or newer:
+
+```sh
+python -m pip install -e ProductExtractor
+product-extractor --input model.ttl --output elements.json
+```
+
+Filter the result with `--types Wall,Slab`, inspect the available types with
+`--list-types`, or start the browser-local interface:
+
+```sh
+product-extractor --web --input model.ttl
+```
+
+Then open <http://127.0.0.1:8000/>. See the
+[ProductExtractor guide](ProductExtractor/README.md) for Windows setup, input
+formats, the JSON schema, library use, and the local HTTP API.
+
 
 ## What would you like to do next?
 
@@ -132,6 +162,7 @@ for the exact RDF predicates, controls, supported material values, and limits.
 | --- | --- |
 | Understand LBD and use the generated triples | [Conceptual overview](docs/overview.md), then [your first queries](docs/using-triples.md) |
 | Browse the generated LBD as an interactive graph | [LBD Browser](https://github.com/jyrkioraskari/LBD-browser) |
+| Turn elements, properties, and materials into JSON | [ProductExtractor guide](ProductExtractor/README.md) |
 | Read the output or automate conversion in Python | [Python guide](docs/python_examples.md) |
 | Embed the converter and query its output in Java | [Java guide](docs/java_examples.md) |
 | Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) — build from source; release 2.49.0 has no prebuilt MCP package |

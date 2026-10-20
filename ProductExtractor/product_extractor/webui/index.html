@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProductExtractor — IFCtoLBD element summaries</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    margin: 0; padding: 1.5rem; max-width: 1100px; margin-inline: auto;
+    line-height: 1.45;
+  }
+  header h1 { margin: 0 0 .25rem; font-size: 1.4rem; }
+  header p { margin: 0; opacity: .75; }
+  section { margin-top: 1.25rem; }
+  .panel {
+    border: 1px solid #8884; border-radius: 8px; padding: 1rem 1.25rem;
+  }
+  .row { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; }
+  button {
+    font: inherit; padding: .4rem .9rem; border-radius: 6px; cursor: pointer;
+    border: 1px solid #8888; background: #8882;
+  }
+  button.primary { background: #2563eb; border-color: #2563eb; color: #fff; }
+  button:disabled { opacity: .5; cursor: default; }
+  #types {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: .3rem .9rem; max-height: 260px; overflow-y: auto; margin-top: .75rem;
+  }
+  #types label { display: flex; gap: .45rem; align-items: baseline; cursor: pointer; }
+  #types .count { margin-left: auto; opacity: .6; font-size: .85em; }
+  #status { min-height: 1.4rem; font-size: .9rem; }
+  #status.error { color: #dc2626; }
+  #status.busy { opacity: .7; }
+  table { border-collapse: collapse; width: 100%; margin-top: .75rem; font-size: .92rem; }
+  th, td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid #8883; vertical-align: top; }
+  th { position: sticky; top: 0; background: #8881; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: #8882; }
+  tbody tr.selected { background: #2563eb22; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  td.iri { font-family: ui-monospace, monospace; font-size: .8rem; word-break: break-all; }
+  #detail {
+    display: none; margin-top: 1rem; padding: 1rem; border-radius: 8px;
+    border: 1px solid #8884; background: #8881;
+  }
+  #detail h2 { margin-top: 0; font-size: 1rem; }
+  #detail pre {
+    max-height: 420px; overflow: auto; font-size: .8rem;
+    font-family: ui-monospace, monospace; margin: 0; white-space: pre-wrap; word-break: break-word;
+  }
+  .hint { font-size: .85rem; opacity: .7; }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+<header>
+  <h1>ProductExtractor</h1>
+  <p>Building-element summaries (materials, material layers, property sets, IFC attributes)
+     from IFCtoLBD Linked Building Data Turtle, exported as JSON.</p>
+</header>
+
+<section class="panel">
+  <div class="row">
+    <input type="file" id="fileInput" accept=".ttl,.trig,.nq,.nquads">
+    <button id="loadBtn">Load file</button>
+    <span id="fileInfo" class="hint"></span>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="row">
+    <strong>Element types</strong>
+    <button id="selectAll">Select all</button>
+    <button id="selectNone">Select none</button>
+    <span class="hint">No selection = all building elements</span>
+    <span style="flex:1"></span>
+    <button id="extractBtn" class="primary">Extract</button>
+    <button id="downloadBtn" disabled>Download JSON</button>
+  </div>
+  <div id="types"></div>
+</section>
+
+<section>
+  <div id="status"></div>
+  <div id="results" class="hidden">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Label</th><th>IFC type</th><th>Element types</th>
+          <th style="text-align:right">Attributes</th>
+          <th style="text-align:right">Property sets</th>
+          <th style="text-align:right">Materials</th>
+        </tr>
+      </thead>
+      <tbody id="resultBody"></tbody>
+    </table>
+  </div>
+  <div id="detail">
+    <h2 id="detailTitle"></h2>
+    <pre id="detailJson"></pre>
+  </div>
+</section>
+
+<script>
+"use strict";
+
+const $ = (id) => document.getElementById(id);
+let currentData = [];
+let currentSource = null;
+
+function setStatus(text, kind) {
+  const el = $("status");
+  el.textContent = text || "";
+  el.className = kind || "";
+}
+
+function shortTypes(types) {
+  return types.map((t) => t.split("#").pop().split("/").pop()).join(", ");
+}
+
+function renderInfo(info) {
+  currentSource = info.source;
+  $("fileInfo").textContent = info.source
+    ? `${info.source} — ${info.elements} elements` +
+      (info.elementsWithMaterials
+        ? `, ${info.elementsWithMaterials} with materials`
+        : info.elements ? ", no materials (convert with --profile materials-bmo)" : "")
+    : "No file loaded.";
+  const container = $("types");
+  container.textContent = "";
+  const entries = Object.entries(info.types || {});
+  if (!entries.length) {
+    const p = document.createElement("p");
+    p.className = "hint";
+    p.textContent = info.source
+      ? "The loaded file contains no building elements (bot:Element)."
+      : "Load an IFCtoLBD Turtle file to begin.";
+    container.appendChild(p);
+    return;
+  }
+  for (const [name, count] of entries) {
+    const label = document.createElement("label");
+    const cb = document.createElement("input");
+    cb.type = "checkbox";
+    cb.className = "type-cb";
+    cb.value = name;
+    cb.checked = true;
+    const text = document.createElement("span");
+    text.textContent = name;
+    const badge = document.createElement("span");
+    badge.className = "count";
+    badge.textContent = count;
+    label.append(cb, text, badge);
+    container.appendChild(label);
+  }
+}
+
+function selectedTypes() {
+  return [...document.querySelectorAll(".type-cb:checked")].map((cb) => cb.value);
+}
+
+async function extract() {
+  setStatus("Extracting…", "busy");
+  $("extractBtn").disabled = true;
+  try {
+    const resp = await fetch("/api/extract", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ types: selectedTypes() }),
+    });
+    const data = await resp.json();
+    if (!resp.ok) throw new Error(data.error || `HTTP ${resp.status}`);
+    currentData = data;
+    renderResults(data);
+    $("downloadBtn").disabled = false;
+    const withMaterials = data.filter((s) => s.materials.length).length;
+    setStatus(`${data.length} element summaries extracted` +
+      (withMaterials ? `, ${withMaterials} with materials` : ""));
+  } catch (error) {
+    setStatus(`Extraction failed: ${error.message}`, "error");
+  } finally {
+    $("extractBtn").disabled = false;
+  }
+}
+
+function renderResults(data) {
+  $("results").classList.remove("hidden");
+  $("detail").style.display = "none";
+  const body = $("resultBody");
+  body.textContent = "";
+  data.forEach((summary, index) => {
+    const tr = document.createElement("tr");
+    const cells = [
+      String(index + 1),
+      summary.label || "",
+      summary.ifcType || "",
+      shortTypes(summary.types),
+    ];
+    cells.forEach((value, i) => {
+      const td = document.createElement("td");
+      td.textContent = value;
+      if (i === 0) td.className = "num";
+      tr.appendChild(td);
+    });
+    for (const count of [
+      Object.keys(summary.attributes).length,
+      summary.propertySets.length,
+      summary.materials.length,
+    ]) {
+      const td = document.createElement("td");
+      td.className = "num";
+      td.textContent = count;
+      tr.appendChild(td);
+    }
+    tr.addEventListener("click", () => showDetail(summary, tr));
+    body.appendChild(tr);
+  });
+}
+
+function showDetail(summary, tr) {
+  [...document.querySelectorAll("#resultBody tr.selected")]
+    .forEach((row) => row.classList.remove("selected"));
+  tr.classList.add("selected");
+  $("detail").style.display = "block";
+  $("detailTitle").textContent = summary.label || summary.iri;
+  $("detailJson").textContent = JSON.stringify(summary, null, 2);
+  $("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
+}
+
+function downloadJson() {
+  if (!currentData.length) return;
+  const stem = (currentSource || "elements").replace(/\.(ttl|trig|nq|nquads)$/i, "");
+  const blob = new Blob([JSON.stringify(currentData, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = `${stem}-elements.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+async function loadFile() {
+  const file = $("fileInput").files[0];
+  if (!file) { setStatus("Choose a file first.", "error"); return; }
+  setStatus(`Loading ${file.name}…`, "busy");
+  $("loadBtn").disabled = true;
+  try {
+    const text = await file.text();
+    const resp = await fetch("/api/load", {
+      method: "POST",
+      headers: { "Content-Type": "text/turtle", "X-Source-Name": file.name },
+      body: text,
+    });
+    const info = await resp.json();
+    if (!resp.ok) throw new Error(info.error || `HTTP ${resp.status}`);
+    renderInfo(info);
+    $("results").classList.add("hidden");
+    $("detail").style.display = "none";
+    $("downloadBtn").disabled = true;
+    currentData = [];
+    setStatus(`Loaded ${info.source}: ${info.elements} elements.`);
+  } catch (error) {
+    setStatus(`Load failed: ${error.message}`, "error");
+  } finally {
+    $("loadBtn").disabled = false;
+  }
+}
+
+$("loadBtn").addEventListener("click", loadFile);
+$("extractBtn").addEventListener("click", extract);
+$("downloadBtn").addEventListener("click", downloadJson);
+$("selectAll").addEventListener("click", () =>
+  document.querySelectorAll(".type-cb").forEach((cb) => (cb.checked = true)));
+$("selectNone").addEventListener("click", () =>
+  document.querySelectorAll(".type-cb").forEach((cb) => (cb.checked = false)));
+
+fetch("/api/info")
+  .then((resp) => resp.json())
+  .then(renderInfo)
+  .catch(() => setStatus("Could not reach the server API.", "error"));
+</script>
+</body>
+</html>

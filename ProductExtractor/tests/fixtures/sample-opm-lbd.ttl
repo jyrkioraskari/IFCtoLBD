@@ -1,0 +1,70 @@
+@prefix beo:      <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix bot:      <https://w3id.org/bot#> .
+@prefix bsddm:    <https://w3id.org/ifc2lbd/bsdd-meta#> .
+@prefix inst:     <https://example.com/building/> .
+@prefix opm:      <https://w3.org/opm#> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix props:    <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:   <http://schema.org/> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+
+# --- generated predicate definitions -----------------------------------------
+
+props:loadBearing
+        rdf:type      owl:ObjectProperty;
+        rdfs:comment  "IFC property set Pset_WallCommon property loadBearing" .
+
+props:span
+        rdf:type      owl:ObjectProperty;
+        rdfs:comment  "IFC property set Pset_BeamCommon property span" .
+
+# --- wall with OPM level 3 (value in a property state) -----------------------
+
+inst:wall-opm
+        rdf:type          bot:Element , beo:Wall;
+        rdfs:label        "OPM wall";
+        props:loadBearing  inst:wall-opm-loadBearing .
+
+inst:wall-opm-loadBearing
+        rdf:type                  opm:Property;
+        rdfs:label                "Pset_WallCommon:loadBearing";
+        opm:hasPropertyState      inst:wall-opm-loadBearing-state .
+
+inst:wall-opm-loadBearing-state
+        rdf:type      opm:CurrentPropertyState;
+        schema:value  true .
+
+# --- beam with OPM level 2 (value directly on the property resource) ---------
+
+inst:beam-opm
+        rdf:type      bot:Element , beo:Beam;
+        rdfs:label    "OPM beam";
+        props:span    inst:beam-opm-span .
+
+inst:beam-opm-span
+        rdf:type      opm:Property;
+        rdfs:label    "Pset_BeamCommon:span";
+        schema:value  "4.1"^^xsd:decimal .
+
+# --- door with bSDD-typed property sets (--propertiesAsPropertySets) ---------
+
+inst:door-1
+        rdf:type              bot:Element , beo:Door;
+        rdfs:label            "Door 1";
+        bsddm:hasPropertySet  inst:cps_door-1 .
+
+inst:cps_door-1
+        rdf:type              bsddm:PropertySet;
+        rdfs:label            "Pset_DoorCommon";
+        bsddm:containsProperty  inst:cp_door-1-fireRating .
+
+inst:cp_door-1-fireRating
+        rdf:type                  opm:Property;
+        rdfs:label                "Pset_DoorCommon:fireRating";
+        opm:hasPropertyState      inst:cs_door-1-fireRating .
+
+inst:cs_door-1-fireRating
+        rdf:type      opm:CurrentPropertyState;
+        schema:value  "REI 60" .

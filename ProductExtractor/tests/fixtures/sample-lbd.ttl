@@ -1,0 +1,177 @@
+@prefix beo:      <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix bmo:      <https://w3id.org/digitalconstruction/BuildingMaterials#> .
+@prefix bot:      <https://w3id.org/bot#> .
+@prefix dcterms:  <http://purl.org/dc/terms/> .
+@prefix ifc:      <https://standards.buildingsmart.org/IFC/DEV/IFC2x3/TC1/OWL#> .
+@prefix ifctolbd: <https://w3id.org/ifctolbd/mapping#> .
+@prefix inst:     <https://example.com/building/> .
+@prefix owl:      <http://www.w3.org/2002/07/owl#> .
+@prefix props:    <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix prov:     <http://www.w3.org/ns/prov#> .
+@prefix qudt:     <http://qudt.org/schema/qudt/> .
+@prefix rdf:      <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:     <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix unit:     <http://qudt.org/vocab/unit/> .
+@prefix unitmeta: <https://w3id.org/ifctolbd/unit#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+
+# --- generated predicate definitions (as written by IFCtoLBD) ---------------
+
+props:globalIdIfcRoot_attribute_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC standard attribute globalIdIfcRoot" .
+
+props:batid_attribute_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC standard attribute batid" .
+
+props:objectTypeIfcObject_attribute_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC standard attribute objectTypeIfcObject" .
+
+props:isExternal_property_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC property set Pset_WallCommon property isExternal" ,
+                      "IFC property set Pset_BeamCommon property isExternal" .
+
+props:loadBearing_property_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC property set Pset_WallCommon property loadBearing" .
+
+props:customProp_property_simple
+        rdf:type      owl:DatatypeProperty;
+        rdfs:comment  "IFC property set Pset_Custom property customProp" .
+
+# --- wall with a layered material assignment (materials-bmo profile) --------
+
+inst:wall-1
+        rdf:type                      bot:Element , beo:Wall;
+        rdfs:label                    "Basic Wall:Exterior:1";
+        props:globalIdIfcRoot_attribute_simple
+                "GUID-WALL-1";
+        props:batid_attribute_simple  "1";
+        props:objectTypeIfcObject_attribute_simple
+                "Basic Wall:Exterior";
+        props:isExternal_property_simple
+                true;
+        props:loadBearing_property_simple
+                false;
+        props:customProp_property_simple
+                "custom value";
+        ifctolbd:materialAssignment   inst:assignment-1;
+        owl:sameAs                    inst:IfcWallStandardCase_12429 .
+
+inst:assignment-1
+        rdf:type                      ifctolbd:MaterialAssignment;
+        ifctolbd:sourceIfcAssociation  inst:IfcRelAssociatesMaterial_3;
+        ifctolbd:materialAssignmentInherited  false;
+        ifctolbd:assignedMaterialDefinition  inst:layer-set-1;
+        ifctolbd:layerSetUsage        inst:usage-1 .
+
+inst:layer-set-1
+        rdf:type              bmo:LayerSet;
+        rdfs:label            "Ordered wall set";
+        dcterms:description   "Two ordered layers";
+        bmo:hasLayers         inst:layer-1 , inst:layer-2;
+        ifctolbd:layerMembership  inst:membership-1 , inst:membership-2 .
+
+inst:membership-1
+        rdf:type          ifctolbd:LayerMembership;
+        ifctolbd:position  "1"^^xsd:long;
+        ifctolbd:layer    inst:layer-1 .
+
+inst:membership-2
+        rdf:type          ifctolbd:LayerMembership;
+        ifctolbd:position  "2"^^xsd:long;
+        ifctolbd:layer    inst:layer-2 .
+
+inst:layer-1
+        rdf:type                  bmo:Layer;
+        bmo:hasMaterial           inst:material-brick;
+        bmo:hasThickness          0.1;
+        ifctolbd:thicknessQuantity  inst:thickness-1 .
+
+inst:layer-2
+        rdf:type                  bmo:Layer;
+        bmo:hasMaterial           inst:material-insulation;
+        bmo:hasThickness          0.05;
+        ifctolbd:thicknessQuantity  inst:thickness-2 .
+
+inst:material-brick
+        rdf:type              bmo:Material;
+        rdfs:label            "Brick";
+        dcterms:description   "Fired clay";
+        ifctolbd:materialCategory  "Masonry" .
+
+inst:material-insulation
+        rdf:type      bmo:Material;
+        rdfs:label    "Insulation" .
+
+inst:thickness-1
+        rdf:type              qudt:QuantityValue;
+        qudt:numericValue     0.1;
+        qudt:unit             unit:M;
+        unitmeta:originalValue  "100"^^xsd:decimal;
+        prov:wasDerivedFrom  inst:IfcMaterialLayer_22 .
+
+inst:thickness-2
+        rdf:type          qudt:QuantityValue;
+        qudt:numericValue  0.05;
+        qudt:unit         unit:M .
+
+inst:usage-1
+        rdf:type                          ifctolbd:LayerSetUsage;
+        ifctolbd:layerSetDirection        "AXIS2";
+        ifctolbd:directionSense           "POSITIVE";
+        ifctolbd:offsetFromReferenceLine  12.5 .
+
+# --- wall with a direct material inherited from its IFC type -----------------
+
+inst:wall-2
+        rdf:type                      bot:Element , beo:Wall;
+        rdfs:label                    "Basic Wall:Interior:2";
+        props:globalIdIfcRoot_attribute_simple
+                "GUID-WALL-2";
+        ifctolbd:materialAssignment   inst:assignment-2;
+        owl:sameAs                    inst:IfcWall_100 .
+
+inst:IfcWall_100  rdf:type  ifc:IfcWall .
+
+inst:assignment-2
+        rdf:type                      ifctolbd:MaterialAssignment;
+        ifctolbd:sourceIfcAssociation  inst:IfcRelAssociatesMaterial_44;
+        ifctolbd:materialAssignmentInherited  true;
+        ifctolbd:sourceIfcType        "IfcWallType";
+        ifctolbd:sourceIfcTypeResource  inst:IfcWallType_41;
+        ifctolbd:assignedMaterialDefinition  inst:definition-1 .
+
+inst:definition-1
+        rdf:type          bmo:MaterialDefinition;
+        bmo:hasMaterial   inst:material-concrete .
+
+inst:material-concrete
+        rdf:type                   bmo:Material;
+        rdfs:label                 "Concrete";
+        ifctolbd:materialCategory  "Structural" .
+
+# --- slab, used for type filtering -------------------------------------------
+
+inst:slab-1
+        rdf:type                      bot:Element , beo:Slab , beo:Slab-FLOOR;
+        rdfs:label                    "Floor:Finish Floor:3";
+        props:globalIdIfcRoot_attribute_simple
+                "GUID-SLAB-1";
+        props:isExternal_property_simple
+                false;
+        owl:sameAs                    inst:IfcSlab_23023 .
+
+# --- spatial resources: not building elements, must be excluded --------------
+
+inst:space-1
+        rdf:type          bot:Space;
+        rdfs:label        "Room 101";
+        props:batid_attribute_simple  "999" .
+
+inst:storey-1
+        rdf:type    bot:Storey;
+        rdfs:label  "Ground floor" .
