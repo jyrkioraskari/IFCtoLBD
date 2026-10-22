@@ -6,6 +6,13 @@
 
 Install **JDK 21 or newer**. The repository includes a Maven wrapper, so a
 separate Maven installation is optional.
+[CVE-2026-91403](https://www.oracle.com/security-alerts/alert-cve-2026-91403.html)
+affects Java TLS certificate validation in JDK 21.0.13 and earlier. Use a
+vendor build that explicitly includes the CVE-2026-91403 fix (for example,
+Azul Zulu 21.54.107 / OpenJDK 21.0.13+9 or Oracle JDK 21.0.13.0.2), not an
+unpatched base 21.0.13 build. The Maven wrapper enables CRL checking as an
+additional defense through `.mvn/jvm.config`; build environments must permit
+access to certificate revocation endpoints.
 [Follow the Java 21 installation guide](quick-start.md#install-java-21-for-the-jar-route)
 if you do not yet have a JDK. Point `JAVA_HOME` at the JDK, and check
 that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
@@ -383,6 +390,119 @@ ORDER BY ?element ?position
 ```
 
 ## Optional geometry setup
+
+### Coordinate spaces and georeferencing
+
+Geometry providers must declare their output coordinate space, length unit,
+unit-to-metre factor, and whether object placements or map conversion have
+already been applied. The IfcOpenShell 0.8.5 iterator and legacy fallback
+produce world-placement geometry in metres in the IFC local engineering frame;
+they do not apply `IfcCoordinateOperation`. OBJ payloads therefore remain in
+that local frame and are labelled with the model's `ifc-local` CRS. They are not
+labelled as projected geometry.
+
+For IFC4 and later, the converter follows each operation's inherited
+`SourceCRS_IfcCoordinateOperation` and `TargetCRS_IfcCoordinateOperation`
+links. `SourceCRS` associates the operation with its engineering representation
+context; `TargetCRS` supplies projected CRS metadata. A projected WKT literal
+is emitted only when one context/operation association is unambiguous, the
+operation is a complete and valid `IfcMapConversion` or
+`IfcMapConversionScaled`, provider and project units are known, and the target
+`Name` contains an explicit absolute CRS identifier or EPSG identifier. Unknown
+target names and all source operation values are retained as geometry metadata.
+Digits in a datum, map zone, or free-text name are never treated as an EPSG code.
+
+Map conversion consumes coordinates in the operation source unit. Provider
+metres are converted back to that source unit exactly once before IFC `Scale`
+and scaled-conversion factors are applied. Eastings, northings, and orthogonal
+height are translations in the target `MapUnit` and are never multiplied by a
+project-unit conversion. Direction ratios are normalized before rotation; no
+additional `TrueNorth` rotation is applied. Bounding boxes transform all eight
+corners before a new target-space axis-aligned envelope is calculated. WKT is
+parsed structurally rather than rewritten as text.
+
+Unsafe or incomplete transformations retain local geometry and carry warnings.
+This includes multiple coordinate-operation contexts, missing required values,
+zero directions, non-finite values, invalid scales, unresolved source units,
+`IfcRigidOperation`, and legacy IFC2X3 `ePSet_MapConversion`/
+`ePSet_ProjectedCRS` data whose representation-context association cannot be
+established. Site reference latitude/longitude remains site metadata and is not
+used as a substitute map conversion. The converter performs no datum shift or
+general-purpose reprojection. These operations preserve IFC-declared values;
+they are not a claim of survey-grade accuracy.
+
+### Java release test gate
+
+`ReleaseTests` is the comprehensive offline release gate for the Java
+converter. It discovers every test in `org.linkedbuildingdata.ifc2lbd`, so new
+unit, integration, SHACL, and property tests are included automatically. The
+gate uses the JUnit 6 Platform Suite Engine, so Maven and Eclipse expose its
+selected classes and individual checks in their normal test trees.
+The property-based converter check uses 100 deterministic release cases; the
+`full` profile retains its standalone 1,000-case stress run.
+The suite orders the legacy `ConverterRunsUnitTests` class first because its
+ontology-consistency checks depend on process-wide Jena compatibility state;
+the class and all of its methods remain visible in the JUnit result tree.
+
+```sh
+./mvnw -pl IFCtoLBD -am \
+  -Dtest=ReleaseTests \
+  -Dsurefire.failIfNoSpecifiedTests=false test
+```
+
+In Eclipse, first use **Maven > Update Project** after pulling dependency
+changes, then use **Run As > JUnit Test** on `ReleaseTests.java`. Eclipse does
+not need a Maven profile or VM argument, and the JUnit view lists the selected
+test classes and methods beneath the suite.
+
+#### Eclipse JUnit 6 classpath mismatch
+
+The Eclipse project must use the **JUnit 6** library container. An older
+workspace or imported project can retain the JUnit 5 container and place its
+JUnit Platform launcher ahead of the Maven-managed JUnit 6 launcher. The
+typical symptom is:
+
+```text
+java.lang.NoSuchMethodError:
+  void org.junit.platform.launcher.Launcher.execute(
+    org.junit.platform.launcher.LauncherExecutionRequest)
+```
+
+To repair the Eclipse workspace:
+
+1. Confirm that **Project Properties > Java Build Path > Libraries** contains
+   **JUnit 6**, not **JUnit 5**.
+2. Run **Maven > Update Project** with **Force Update of Snapshots/Releases**
+   selected.
+3. Run **Project > Clean**.
+4. Delete any saved `ReleaseTests` entry under
+   **Run > Run Configurations > JUnit**.
+5. Open `ReleaseTests.java` and create a new **Run As > JUnit Test** launch.
+
+The repository's `.classpath` entry must be
+`org.eclipse.jdt.junit.JUNIT_CONTAINER/6`. Do not add a second JUnit container
+manually. If the error remains, inspect the launch configuration's classpath
+for an older `junit-platform-launcher` and refresh or re-import the Maven
+project.
+
+For Maven, selecting `ReleaseTests` automatically activates the matching
+profile so the ordinary fast-build tag exclusions do not hide integration or
+SHACL children. Ordinary Maven test runs exclude the suite itself to avoid
+executing the same package tests twice; this exclusion does not apply to the
+command above or to Eclipse's JUnit launcher.
+
+The offline gate deliberately excludes the live bSDD compatibility test, the
+performance benchmark, and the structured-geometry checks that require the
+separately distributed ISO specification archive. Run those checks explicitly
+when their external service, input model, or archive is available; they are not
+silently treated as release-gate successes.
+
+The geometry namespace (`https://w3id.org/ifctolbd/geometry#`) distinguishes
+`local-engineering`, `projected`, and viewer-only `render-rebased` spaces and
+records source/target units, operation parameters, provider placement behavior,
+and warnings. Consumers should use the per-representation `wktCoordinateSpace`
+and `objCoordinateSpace` assertions when a geometry resource contains both WKT
+and OBJ.
 
 When geometry export is enabled, the geometry module first tries the Python
 IfcOpenShell iterator and falls back to the bundled legacy IfcGeomServer if it

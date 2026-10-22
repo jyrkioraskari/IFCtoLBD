@@ -56,11 +56,22 @@ import de.rwth_aachen.dc.OperatingSystemCopyOf_IfcGeomServer;
  */
 
 public class IFCGeometry {
+	/** Coordinate contract shared by the Python iterator and legacy IfcGeomServer fallback. */
+	public record CoordinateMetadata(String coordinateSpace, String lengthUnit, double unitToMetres,
+			boolean objectPlacementsApplied, boolean mapConversionApplied) { }
 
 	private IfcOpenShellModel renderEngineModel = null;
 	private IfcOpenShellGeometryIteratorModel geometryIteratorModel = null;
 	private final File ifcFile;
 	private Map<String, String> stepEntities = null;
+
+	/**
+	 * IfcOpenShell world coordinates apply the IFC placement tree and are returned
+	 * in SI metres. Coordinate operations such as IfcMapConversion remain unapplied.
+	 */
+	public CoordinateMetadata getCoordinateMetadata() {
+		return new CoordinateMetadata("local-engineering", "metre", 1.0, true, false);
+	}
 
 	public IFCGeometry(File ifcFile) {
 		this.ifcFile = ifcFile;

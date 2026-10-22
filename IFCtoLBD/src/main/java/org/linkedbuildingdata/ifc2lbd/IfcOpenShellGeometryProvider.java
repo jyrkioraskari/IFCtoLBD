@@ -23,7 +23,13 @@ public final class IfcOpenShellGeometryProvider implements GeometryProvider {
 				IfcSpfReader.materializeSpf(ifcFile, temporarySpf);
 				geometryInput = temporarySpf;
 			}
-			return GeometryResult.of(new IFCGeometry(geometryInput.toFile()), temporarySpf);
+			IFCGeometry geometry = new IFCGeometry(geometryInput.toFile());
+			IFCGeometry.CoordinateMetadata source = geometry.getCoordinateMetadata();
+			GeometryResult.Metadata metadata = new GeometryResult.Metadata(
+					coordinateSpace(source.coordinateSpace()), null, source.lengthUnit(),
+					source.unitToMetres(), source.objectPlacementsApplied(), source.mapConversionApplied(),
+					java.util.List.of());
+			return GeometryResult.of(geometry, temporarySpf, metadata);
 		} catch (IOException e) {
 			if (temporarySpf != null) try { Files.deleteIfExists(temporarySpf); } catch (IOException ignored) { }
 			throw new UncheckedIOException("Could not prepare IFC input for IfcOpenShell: " + ifcFile, e);
@@ -31,5 +37,13 @@ public final class IfcOpenShellGeometryProvider implements GeometryProvider {
 			if (temporarySpf != null) try { Files.deleteIfExists(temporarySpf); } catch (IOException ignored) { }
 			throw e;
 		}
+	}
+
+	private static GeometryResult.CoordinateSpace coordinateSpace(String value) {
+		return switch (value) {
+		case "projected" -> GeometryResult.CoordinateSpace.PROJECTED;
+		case "render-rebased" -> GeometryResult.CoordinateSpace.RENDER_REBASED;
+		default -> GeometryResult.CoordinateSpace.LOCAL_ENGINEERING;
+		};
 	}
 }

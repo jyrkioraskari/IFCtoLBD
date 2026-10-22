@@ -8,6 +8,7 @@ export const GEO_GEOMETRY = "http://www.opengis.net/ont/geosparql#hasGeometry";
 export const FOG_OBJ = "https://w3id.org/fog#asObj_v3.0-obj";
 export const ARTIFACT = "https://w3id.org/ifctolbd/geometry#artifact";
 export const ARTIFACT_MEDIA_TYPE = "https://w3id.org/ifctolbd/geometry#mediaType";
+const GEOMETRY_META = "https://w3id.org/ifctolbd/geometry#";
 const MTL_KD = "https://lbd.org/#asMTL_kd";
 const MTL_ALPHA = "https://lbd.org/#asMTL_alpha";
 export const BOT = "https://w3id.org/bot#";
@@ -29,10 +30,13 @@ export async function parseTurtle(text: string): Promise<ModelData> {
     const diffuseColor = store.getQuads(q.object, DataFactory.namedNode(MTL_KD), null, null)[0]?.object.value;
     const alphaValue = Number(store.getQuads(q.object, DataFactory.namedNode(MTL_ALPHA), null, null)[0]?.object.value);
     const material = { diffuseColor: /^#[0-9a-f]{6}$/i.test(diffuseColor ?? "") ? diffuseColor : undefined, alpha: Number.isFinite(alphaValue) ? Math.max(0, Math.min(1, alphaValue)) : undefined };
-    if (embedded?.object.termType === "Literal") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "embedded-obj", payload: embedded.object.value, ...material });
+    const textMeta = (name: string) => store.getQuads(q.object, DataFactory.namedNode(GEOMETRY_META + name), null, null)[0]?.object.value;
+    const unitToMetres = Number(textMeta("unitToMetres"));
+    const metadata = { coordinateSpace: textMeta("objCoordinateSpace") ?? textMeta("coordinateSpace"), coordinateReferenceSystem: textMeta("objCoordinateReferenceSystem") ?? textMeta("coordinateReferenceSystem"), lengthUnit: textMeta("lengthUnit"), unitToMetres: Number.isFinite(unitToMetres) ? unitToMetres : undefined };
+    if (embedded?.object.termType === "Literal") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "embedded-obj", payload: embedded.object.value, ...material, ...metadata });
     const artifact = store.getQuads(q.object, DataFactory.namedNode(ARTIFACT), null, null)[0];
     const mediaType = artifact && store.getQuads(artifact.object, DataFactory.namedNode(ARTIFACT_MEDIA_TYPE), null, null)[0]?.object.value;
-    if (artifact && mediaType === "model/obj") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "artifact-obj", asset: artifact.object.value, ...material });
+    if (artifact && mediaType === "model/obj") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "artifact-obj", asset: artifact.object.value, ...material, ...metadata });
     if (!embedded && (!artifact || mediaType !== "model/obj")) warnings.push(`Geometry for ${termId(q.subject)} is not an IFCtoLBD OBJ payload or model/obj artifact.`);
   }
   return { store, prefixes, entities, geometries, warnings: [...new Set(warnings)], quads: parsed };

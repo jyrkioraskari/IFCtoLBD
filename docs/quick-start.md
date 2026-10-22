@@ -52,22 +52,26 @@ First open a terminal (PowerShell or Command Prompt on Windows) and check:
 java -version
 ```
 
-If it reports Java 21 or newer, continue
-to launching the JAR. If Java is missing or too old:
+If it reports Java 21 or newer, verify that the vendor identifies the installed
+build as fixed for
+[CVE-2026-91403](https://www.oracle.com/security-alerts/alert-cve-2026-91403.html)
+before launching the JAR. Java 21.0.13 and earlier builds are not safe unless
+the vendor has backported the fix. If Java is missing, too old, or unpatched:
 
-1. Open [Eclipse Temurin downloads for Java 21](https://adoptium.net/temurin/releases/?version=21).
-   Select **version 21**, your operating system, and your processor architecture.
-   Choose the **JDK** package; it can both run the application and support the
-   developer guides later.
+1. Install a Java 21 build whose vendor explicitly lists the CVE fix. Known
+   fixed builds include Azul Zulu 21.54.107 (OpenJDK 21.0.13+9) and Oracle JDK
+   21.0.13.0.2. Do not install an unpatched base 21.0.13 build. Choose the
+   **JDK** package; it can both run the application and support the developer
+   guides later.
 2. Install the package. On Windows x64, download and run the `.msi` installer;
    keep **Add to PATH** and the `.jar` association enabled. Select **Set JAVA_HOME**
    if you also plan to compile the converter. See the
-   [official Windows installer guide](https://adoptium.net/installation/windows/).
-   On macOS, use the `.pkg` installer when available. For Linux, follow the
-   [official installation instructions](https://adoptium.net/installation/) for
-   your distribution.
+   installer documentation supplied by your selected JDK vendor. On macOS, use
+   the vendor's installer when available. On Linux, use the vendor package or
+   distribution package that explicitly contains the CVE fix.
 3. Open a **new terminal**, run `java -version` again, and confirm the selected
-   Java version is 21 or newer. Then run the desktop JAR using the command above.
+   Java version is 21 or newer and is a fixed vendor build. Then run the desktop
+   JAR using the command above.
 
 If the terminal still reports an older Java, check that its PATH selects the
 new installation. Java installation is needed for the JAR route and the Java

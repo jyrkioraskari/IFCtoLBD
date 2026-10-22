@@ -32,7 +32,23 @@ geometry ifctolbd-geometry:artifact <asset-uri> .
 
 When IFCtoLBD emits `https://lbd.org/#asMTL_kd` and `asMTL_alpha` on the geometry resource, the viewer uses them as the Babylon diffuse colour and opacity. Meshes without these converter-specific material values use the default blue material.
 
-IFCtoLBD currently writes OBJ coordinates in IFC's X/Y horizontal, Z-up frame. The viewer applies `(x, y, z) → (x, z, -y)` once when creating Babylon vertices; it assumes IFCtoLBD's geometry is already in metres. It does not render WKT bounding boxes, `lbd:hasBoundingBox`, arbitrary FOG formats, GLB, or glTF. GLB/glTF files can be selected for future artifact workflows, but no current IFCtoLBD RDF binding associates them with elements, so they are deliberately not imported.
+IFCtoLBD writes OBJ coordinates in IFC's X/Y horizontal, Z-up local-engineering
+frame and now publishes their source unit metadata. Before creating any GPU
+buffer, the viewer parses all loaded OBJ payloads, selects one shared model
+origin from their combined bounds, and subtracts it from every vertex. It then
+applies `(x, y, z) → (x, z, -y)` exactly once. This render rebasing preserves
+small detail at large map-like coordinates without changing distances or the
+relative placement of separate elements. It never centers meshes individually.
+The shared IFC origin and source coordinate-space/unit metadata are retained on
+each Babylon mesh under `metadata.ifcToLbd`; `Viewer.renderOriginIfc` exposes the
+same origin for navigation and downstream coordinate display.
+
+The viewer does not perform map conversion, datum shifts, reprojection, or a
+second unit conversion. It renders the numeric OBJ contract it receives. It
+does not render WKT bounding boxes, `lbd:hasBoundingBox`, arbitrary FOG formats,
+GLB, or glTF. GLB/glTF files can be selected for future artifact workflows, but
+no current IFCtoLBD RDF binding associates them with elements, so they are
+deliberately not imported.
 
 To generate candidate input, run the converter with geometry enabled (`--hasGeometry`) so it produces `fog:asObj_v3.0-obj`; enable the converter's geometry-artifact output when using a controlled companion OBJ directory. BOT topology alone does not create geometry.
 

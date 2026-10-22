@@ -1,14 +1,32 @@
 import { ArcRotateCamera, Color3, DirectionalLight, Engine, HighlightLayer, HemisphericLight, Mesh, Scene, StandardMaterial, Vector3 } from "@babylonjs/core";
-import { decodeBase64, objToMesh } from "./geometry";
+import { chooseModelOrigin, decodeBase64, objToMesh, parseObj, type IfcPoint, type ParsedObj } from "./geometry";
 import type { GeometrySource, ModelData } from "./types";
 
 export class Viewer {
   readonly engine: Engine; scene: Scene; camera: ArcRotateCamera; private highlight: HighlightLayer; readonly byElement = new Map<string, Mesh[]>(); readonly byMesh = new Map<Mesh, string>();
+  renderOriginIfc: IfcPoint = [0, 0, 0];
   constructor(private canvas: HTMLCanvasElement, private picked: (uri: string) => void) { this.engine = new Engine(canvas, true); this.scene = this.createScene(); this.camera = this.createCamera(); this.highlight = new HighlightLayer("selection", this.scene); this.engine.runRenderLoop(() => this.scene.render()); window.addEventListener("resize", () => this.engine.resize()); }
   private createScene() { const s = new Scene(this.engine); s.clearColor.set(0.05, 0.07, 0.1, 1); new HemisphericLight("sky", new Vector3(0, 1, 0), s).intensity = .8; const sun = new DirectionalLight("sun", new Vector3(-.4, -1, -.3), s); sun.position = new Vector3(20, 30, 10); return s; }
   private createCamera() { const c = new ArcRotateCamera("orbit", -.8, 1.1, 20, Vector3.Zero(), this.scene); c.attachControl(this.canvas, true); c.wheelDeltaPercentage = .01; c.lowerRadiusLimit = .4; return c; }
-  clear() { this.highlight.dispose(); this.scene.dispose(); this.byElement.clear(); this.byMesh.clear(); this.scene = this.createScene(); this.camera = this.createCamera(); this.highlight = new HighlightLayer("selection", this.scene); }
-  async render(data: ModelData, assets: Map<string, File>): Promise<{ meshes: number; unsupported: number }> { let meshes = 0, unsupported = 0; for (const source of data.geometries) { try { const payload = source.kind === "embedded-obj" ? decodeBase64(source.payload!) : await assetText(source, assets); if (!payload) { unsupported++; continue; } const mesh = objToMesh(source.geometry, payload, this.scene); this.register(mesh, source.element, source); meshes++; } catch (e) { console.warn("Geometry skipped", source, e); unsupported++; } } this.fit(); return { meshes, unsupported }; }
+  clear() { this.highlight.dispose(); this.scene.dispose(); this.byElement.clear(); this.byMesh.clear(); this.renderOriginIfc = [0, 0, 0]; this.scene = this.createScene(); this.camera = this.createCamera(); this.highlight = new HighlightLayer("selection", this.scene); }
+  async render(data: ModelData, assets: Map<string, File>): Promise<{ meshes: number; unsupported: number }> {
+    let meshes = 0, unsupported = 0;
+    const loaded: { source: GeometrySource; parsed: ParsedObj }[] = [];
+    for (const source of data.geometries) try {
+      const payload = source.kind === "embedded-obj" ? decodeBase64(source.payload!) : await assetText(source, assets);
+      if (!payload) { unsupported++; continue; }
+      loaded.push({ source, parsed: parseObj(payload) });
+    } catch (e) { console.warn("Geometry skipped", source, e); unsupported++; }
+    this.renderOriginIfc = chooseModelOrigin(loaded.map(item => item.parsed));
+    for (const { source, parsed } of loaded) try {
+      const sourceMetadata = { sourceCoordinateSpace: source.coordinateSpace ?? "local-engineering",
+        sourceCoordinateReferenceSystem: source.coordinateReferenceSystem, sourceLengthUnit: source.lengthUnit,
+        sourceUnitToMetres: source.unitToMetres };
+      const mesh = objToMesh(source.geometry, parsed, this.scene, this.renderOriginIfc, sourceMetadata);
+      this.register(mesh, source.element, source); meshes++;
+    } catch (e) { console.warn("Geometry skipped", source, e); unsupported++; }
+    this.fit(); return { meshes, unsupported };
+  }
   private register(mesh: Mesh, uri: string, source?: GeometrySource) { mesh.material = material(this.scene, source?.diffuseColor, source?.alpha); mesh.isPickable = true; mesh.checkCollisions = true; this.byMesh.set(mesh, uri); (this.byElement.get(uri) ?? this.byElement.set(uri, []).get(uri)!).push(mesh); mesh.actionManager = null; mesh.onDisposeObservable.add(() => this.byMesh.delete(mesh)); this.scene.onPointerObservable.add(info => { if (info.pickInfo?.hit && info.pickInfo.pickedMesh === mesh) this.picked(uri); }); }
   select(uri?: string) { this.highlight.removeAllMeshes(); if (uri) this.byElement.get(uri)?.forEach(m => this.highlight.addMesh(m, Color3.FromHexString("#ffbf47"))); }
   focus(uri: string) { const meshes = this.byElement.get(uri) ?? []; if (!meshes.length) return; const box = meshes[0].getHierarchyBoundingVectors(); this.camera.setTarget(box.min.add(box.max).scale(.5)); this.camera.radius = Math.max(Vector3.Distance(box.min, box.max) * 1.6, 2); }

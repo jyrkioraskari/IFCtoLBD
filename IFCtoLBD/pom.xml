@@ -73,6 +73,7 @@
 			enabled explicitly by the integration and full profiles below. -->
 		<skipTests>false</skipTests>
 		<test.excludedGroups>integration,shacl,slow</test.excludedGroups>
+		<test.excludedClasses>**/ReleaseTests.java</test.excludedClasses>
 		<assembly.finalName>${project.build.finalName}</assembly.finalName>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<log4j2.api.version>3.0.0-beta2</log4j2.api.version>
@@ -80,7 +81,7 @@
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
 		<slf4j.version>2.0.17</slf4j.version>
 		<picocli.version>4.7.7</picocli.version>
-		<junit.version>5.14.3</junit.version>
+		<junit.version>6.0.2</junit.version>
 		<!-- Kept aligned with Apache Jena 6.0.0's JSON-LD implementation. -->
 		<titanium.jsonld.version>1.7.0</titanium.jsonld.version>
 	</properties>
@@ -187,20 +188,17 @@
 		</dependency>
 
 
-		<!--
-		https://mvnrepository.com/artifact/org.junit.platform/junit-platform-launcher -->
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-launcher</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- Dependency for JUnit Jupiter API and engine libraries -->
+		<!-- JUnit 6 Jupiter API and engine libraries. -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<!-- Scope of the dependency, used only for testing -->
 			<scope>test</scope>
-			<!-- URL for the JUnit Jupiter project: https://junit.org/junit5/ -->
+		</dependency>
+		<!-- Native suite API and engine used by ReleaseTests and IDE launchers. -->
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-suite</artifactId>
+			<scope>test</scope>
 		</dependency>
 
 		<!-- Dependency for IFCtoRDF library -->
@@ -344,6 +342,20 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>release-tests</id>
+			<activation>
+				<!-- Make -Dtest=ReleaseTests include integration and SHACL children. -->
+				<property>
+					<name>test</name>
+					<value>ReleaseTests</value>
+				</property>
+			</activation>
+			<properties>
+				<test.excludedGroups>none</test.excludedGroups>
+				<test.excludedClasses>**/NoTestExcludedByReleaseProfile.java</test.excludedClasses>
+			</properties>
+		</profile>
+		<profile>
 			<id>release</id>
 			<build>
 				<plugins>
@@ -460,6 +472,9 @@
 				<version>${maven-surefire-plugin.version}</version>
 				<configuration>
 					<excludedGroups>${test.excludedGroups}</excludedGroups>
+					<excludes>
+						<exclude>${test.excludedClasses}</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
 			<plugin>

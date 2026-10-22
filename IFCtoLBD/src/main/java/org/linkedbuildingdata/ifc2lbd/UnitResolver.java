@@ -154,6 +154,13 @@ public final class UnitResolver {
 		return new LengthConversion(source, projectScalesToSi.get("length"));
 	}
 
+	/** Resolves a specific IFC length unit, including SI prefixes and linear conversion-based units. */
+	public static LengthConversion explicitLengthConversion(Resource unit, IfcOWL ifc) {
+		if (unit == null) return new LengthConversion(new Resolution(null, null, BigDecimal.ONE), null);
+		UnitDetails details = resolveIfcUnitDetails(unit, ifc, new HashSet<>());
+		return new LengthConversion(details.resolution(), details.scaleToSi());
+	}
+
 	public static Resolution fromText(String original) {
 		if (original == null || original.isBlank()) return new Resolution(null, original, BigDecimal.ONE);
 		Alias alias = ALIASES.get(normalize(original));

@@ -1,11 +1,11 @@
 /*
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,11 +14,14 @@
  */
 package be.ugent;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Assume;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assumptions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.riot.RDFDataMgr;
 
@@ -32,7 +35,7 @@ import java.util.List;
 
 /**
  * @author lewismc
- * 
+ *
  */
 public class TestIfcSpfReader {
 
@@ -46,7 +49,7 @@ public class TestIfcSpfReader {
     /**
      * @throws java.lang.Exception
      */
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         reader = new IfcSpfReader();
     }
@@ -54,7 +57,7 @@ public class TestIfcSpfReader {
     /**
      * @throws java.lang.Exception
      */
-    @After
+    @AfterEach
     public void tearDown() {
         reader = null;
     }
@@ -77,7 +80,7 @@ public class TestIfcSpfReader {
       sb.append(s);
       sb.append(", ");
     }
-    Assert.assertEquals(
+    assertEquals(
             "20160414office_model_CV2_fordesign.ifc, 20160414office_model_CV2_fordesign.ttl, Barcelona_Pavilion.ifc, Barcelona_Pavilion.ttl, ootest.txt, ",
             sb.toString());
   }
@@ -100,13 +103,13 @@ public class TestIfcSpfReader {
                       {"type":"IfcWall","globalId":"1hOSvn6df7F8_7GcBWlN4K","name":"JSON wall","predefinedType":"STANDARD"}
                     ]}
                     """, StandardCharsets.UTF_8);
-            Assert.assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(input.toString()));
+            assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(input.toString()));
             reader.setup(input.toString());
             reader.convert(input.toString(), output.toString(), "https://example.org/", false);
             String rdf = Files.readString(output, StandardCharsets.UTF_8);
-            Assert.assertTrue(rdf, rdf.contains("IfcWall_1"));
-            Assert.assertTrue(rdf, rdf.contains("JSON wall"));
-            Assert.assertTrue(rdf, rdf.contains("1hOSvn6df7F8_7GcBWlN4K"));
+            assertTrue(rdf.contains("IfcWall_1"), rdf);
+            assertTrue(rdf.contains("JSON wall"), rdf);
+            assertTrue(rdf.contains("1hOSvn6df7F8_7GcBWlN4K"), rdf);
         } finally {
             Files.deleteIfExists(input);
             Files.deleteIfExists(output);
@@ -123,13 +126,13 @@ public class TestIfcSpfReader {
                     <IfcWall xmlns="https://standards.buildingsmart.org/IFC/RELEASE/IFC4/ADD2/XML/IFC4_ADD2.xsd"
                         type="IfcWall" globalId="1hOSvn6df7F8_7GcBWlN4K" name="XML wall" predefinedType="STANDARD"/>
                     """, StandardCharsets.UTF_8);
-            Assert.assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(input.toString()));
+            assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(input.toString()));
             reader.setup(input.toString());
             reader.convert(input.toString(), output.toString(), "https://example.org/", false);
             String rdf = Files.readString(output, StandardCharsets.UTF_8);
-            Assert.assertTrue(rdf, rdf.contains("IfcWall_1"));
-            Assert.assertTrue(rdf, rdf.contains("XML wall"));
-            Assert.assertTrue(rdf, rdf.contains("1hOSvn6df7F8_7GcBWlN4K"));
+            assertTrue(rdf.contains("IfcWall_1"), rdf);
+            assertTrue(rdf.contains("XML wall"), rdf);
+            assertTrue(rdf.contains("1hOSvn6df7F8_7GcBWlN4K"), rdf);
         } finally {
             Files.deleteIfExists(input);
             Files.deleteIfExists(output);
@@ -149,8 +152,8 @@ public class TestIfcSpfReader {
             Files.writeString(xml, "<ifcXML schemaIdentifier=\"IFC4\"/>",
                     StandardCharsets.UTF_8, java.nio.file.StandardOpenOption.APPEND);
 
-            Assert.assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(json.toString()));
-            Assert.assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(xml.toString()));
+            assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(json.toString()));
+            assertEquals("IFC4_ADD2", IfcSpfReader.getExpressSchema(xml.toString()));
         } finally {
             Files.deleteIfExists(json);
             Files.deleteIfExists(xml);
@@ -174,8 +177,8 @@ public class TestIfcSpfReader {
 
             List<String> selected = IfcSpfReader.selectDirectoryInputs(IfcSpfReader.showFiles(directory.toString()));
 
-            Assert.assertEquals(1, selected.size());
-            Assert.assertEquals(json.toAbsolutePath().toString(), selected.get(0));
+            assertEquals(1, selected.size());
+            assertEquals(json.toAbsolutePath().toString(), selected.get(0));
         } finally {
             for (Path path : Files.list(directory).toList()) Files.deleteIfExists(path);
             Files.deleteIfExists(directory);
@@ -186,7 +189,7 @@ public class TestIfcSpfReader {
     public final void readsIsoSpecArchiveWallInXmlAndJson() throws IOException {
         Path archive = Path.of("ISO Spec archive");
         if (!Files.isDirectory(archive)) archive = Path.of("..", "ISO Spec archive");
-        Assume.assumeTrue("ISO Spec archive is not available", Files.isDirectory(archive));
+        Assumptions.assumeTrue(Files.isDirectory(archive), "ISO Spec archive is not available");
 
         for (String extension : new String[] { "xml", "json" }) {
             Path input = archive.resolve("wall-standard-case." + extension);
@@ -196,9 +199,9 @@ public class TestIfcSpfReader {
                 reader.convert(input.toString(), output.toString(), "https://example.org/", false);
                 String rdf = Files.readString(output, StandardCharsets.UTF_8);
                 // A namespace-only result is not a successful model conversion.
-                Assert.assertTrue(extension, rdf.contains("IfcProject"));
-                Assert.assertTrue(extension, rdf.contains("IfcWall"));
-                Assert.assertTrue(extension, Files.size(output) > 10_000);
+                assertTrue(rdf.contains("IfcProject"), extension);
+                assertTrue(rdf.contains("IfcWall"), extension);
+                assertTrue(Files.size(output) > 10_000, extension);
             } finally {
                 Files.deleteIfExists(output);
             }
@@ -209,19 +212,19 @@ public class TestIfcSpfReader {
     public final void isoSpecArchiveTurtleFilesArePopulatedRdfGraphs() throws IOException {
         Path archive = Path.of("ISO Spec archive");
         if (!Files.isDirectory(archive)) archive = Path.of("..", "ISO Spec archive");
-        Assume.assumeTrue("ISO Spec archive is not available", Files.isDirectory(archive));
+        Assumptions.assumeTrue(Files.isDirectory(archive), "ISO Spec archive is not available");
 
         List<Path> turtleFiles;
         try (var files = Files.list(archive)) {
             turtleFiles = files.filter(path -> path.getFileName().toString().endsWith(".ttl"))
                     .sorted().toList();
         }
-        Assert.assertEquals("Every ISO example should have Turtle output", 41, turtleFiles.size());
+        assertEquals(41, turtleFiles.size(), "Every ISO example should have Turtle output");
         for (Path turtle : turtleFiles) {
-            Assert.assertFalse(turtle.toString(), IfcInputReader.isGitLfsPointer(turtle));
+            assertFalse(IfcInputReader.isGitLfsPointer(turtle), turtle.toString());
             Model model = RDFDataMgr.loadModel(turtle.toString());
             try {
-                Assert.assertTrue(turtle.toString(), model.size() > 0);
+                assertTrue(model.size() > 0, turtle.toString());
             } finally {
                 model.close();
             }
@@ -232,17 +235,17 @@ public class TestIfcSpfReader {
     public final void materializesPixelTextureJsonAsIfcSpfGeometry() throws IOException {
         Path archive = Path.of("ISO Spec archive");
         if (!Files.isDirectory(archive)) archive = Path.of("..", "ISO Spec archive");
-        Assume.assumeTrue("ISO Spec archive is not available", Files.isDirectory(archive));
+        Assumptions.assumeTrue(Files.isDirectory(archive), "ISO Spec archive is not available");
 
         Path output = Files.createTempFile("pixel-texture-", ".ifc");
         try {
             IfcSpfReader.materializeSpf(archive.resolve("tessellation-with-pixel-texture.json"), output);
             String spf = Files.readString(output, StandardCharsets.UTF_8);
-            Assert.assertTrue(spf.contains("FILE_SCHEMA(('IFC4'))"));
-            Assert.assertTrue(spf.contains("IFCTRIANGULATEDFACESET("));
-            Assert.assertTrue(spf.contains("IFCCARTESIANPOINTLIST3D((("));
-            Assert.assertTrue(spf.contains("IFCUNITASSIGNMENT("));
-            Assert.assertFalse(spf.contains("IFCCARTESIANPOINTLIST3D((#"));
+            assertTrue(spf.contains("FILE_SCHEMA(('IFC4'))"));
+            assertTrue(spf.contains("IFCTRIANGULATEDFACESET("));
+            assertTrue(spf.contains("IFCCARTESIANPOINTLIST3D((("));
+            assertTrue(spf.contains("IFCUNITASSIGNMENT("));
+            assertFalse(spf.contains("IFCCARTESIANPOINTLIST3D((#"));
         } finally {
             Files.deleteIfExists(output);
         }
@@ -252,12 +255,12 @@ public class TestIfcSpfReader {
      * Test method for
      * {@link be.ugent.IfcSpfReader#convert(java.lang.String, java.lang.String, java.lang.String)}
      * .
-     * 
+     *
      * @throws IOException
      *             if there is an error executing
      *             {@link TestIfcSpfReader#compareFileContents(String, String)}
      */
-    
+
     //TODO The files need to be created once more.  They are missing  @base tags etc.
     //@Test
     public final void testConvertIFCFileToOutputTTL() throws IOException {
@@ -273,14 +276,14 @@ public class TestIfcSpfReader {
                 outputFileNew = "target" + outputFileBase.split("convertIFCFileToOutputTTL")[1];
                 reader.setup(inputFile);
                 reader.convert(inputFile, outputFileNew, "http://linkedbuildingdata.net/ifc/resources/",false);
-                Assert.assertTrue(compareFileContents(outputFileBase, outputFileNew));
+                assertTrue(compareFileContents(outputFileBase, outputFileNew));
             }
         }
     }
 
     /**
      * Method to read the string contents of two files and compare for equality.
-     * 
+     *
      * @param testInputTTL
      *            the expected input TTL
      * @param testOutputTTL
@@ -317,7 +320,7 @@ public class TestIfcSpfReader {
 
     /**
      * List all files in a particular directory.
-     * 
+     *
      * @param dir
      *            the input directory for which you wish to list file.
      * @return a {@link java.util.List} of Strings denoting files.

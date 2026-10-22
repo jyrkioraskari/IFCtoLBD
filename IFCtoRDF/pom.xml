@@ -335,7 +335,7 @@
 	<properties>
 		<!-- Dependencies -->
 		<commons-io.version>2.4</commons-io.version>
-		<junit.version>4.13.2</junit.version>
+		<junit.version>6.0.2</junit.version>
 		<jena.version>6.0.0</jena.version>
 		<log4j2.slf4j2.version>3.0.0-beta2</log4j2.slf4j2.version>
 		<slf4j.version>2.0.17</slf4j.version>
@@ -414,8 +414,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>

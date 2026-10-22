@@ -37,6 +37,7 @@
 		<native.maven.plugin.version>0.11.1</native.maven.plugin.version>
 		<commons-lang3.version>3.20.0</commons-lang3.version>
 		<slf4j.version>2.0.17</slf4j.version>
+		<junit.version>6.0.2</junit.version>
 		<ifc2lbd.desktop.mainClass>org.linkedbuildingdata.ifc2lbd.desktop.Main</ifc2lbd.desktop.mainClass>
 	</properties>
 	<dependencyManagement>
@@ -131,7 +132,7 @@
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>5.14.3</version>
+			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

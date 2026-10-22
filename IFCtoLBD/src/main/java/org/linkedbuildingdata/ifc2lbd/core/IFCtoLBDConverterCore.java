@@ -54,6 +54,7 @@ import org.linkedbuildingdata.ifc2lbd.ConversionSession;
 import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
 import org.linkedbuildingdata.ifc2lbd.GeometryResult;
 import org.linkedbuildingdata.ifc2lbd.GeometryArtifact;
+import org.linkedbuildingdata.ifc2lbd.GeometryResult.CoordinateSpace;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemExtractor;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemInfo;
 import org.linkedbuildingdata.ifc2lbd.UriPolicy;
@@ -606,17 +607,21 @@ public abstract class IFCtoLBDConverterCore {
 				Resource sp_geometry = null;
 				if (bb != null || (wireframeWKT != null && !wireframeWKT.isBlank())) {
 					sp_geometry = getOrCreateGeometryResource(lbd_resource);
+					addGeometryCoordinateMetadata(sp_geometry);
 				}
 				if (sp_geometry != null && wireframeWKT != null && !wireframeWKT.isBlank()) {
-					Literal wktLiteral = this.lbd_general_output_model
-							.createTypedLiteral(toLocalIfcCrsWkt(wireframeWKT), GEO.wktLiteral);
+					String encodedWkt = toLocalIfcCrsWkt(wireframeWKT);
+					Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(encodedWkt, GEO.wktLiteral);
 					sp_geometry.addLiteral(LBD.hasWireframe, wktLiteral);
+					addWktCoordinateMetadata(sp_geometry, encodedWkt);
 				}
 				if (bb != null) {
 					if (this.hasBoundingBoxWKT) {
-						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(toLocalIfcCrsWkt(bb),
+						String encodedWkt = toLocalIfcCrsWkt(bb);
+						Literal wktLiteral = this.lbd_general_output_model.createTypedLiteral(encodedWkt,
 								GEO.wktLiteral);
 						sp_geometry.addLiteral(GEO.asWKT, wktLiteral);
+						addWktCoordinateMetadata(sp_geometry, encodedWkt);
 					} else {
 						Resource sp_bb = this.lbd_general_output_model
 								.createResource(lbd_resource.getURI() + "_geometry_bb");
@@ -641,8 +646,10 @@ public abstract class IFCtoLBDConverterCore {
 					String objBase64 = obj != null ? obj.toString() : toBoundingBoxObjBase64(bb);
 					Optional<GeometryArtifact> artifact = Optional.empty();
 					if (geometryArtifactsEnabled) {
+						String artifactCrs = this.ifc_geometry.metadata().coordinateReferenceSystem() == null
+								? localCrsIdentifier() : this.ifc_geometry.metadata().coordinateReferenceSystem();
 						artifact = conversionSession.getGeometryArtifactStore().store(Base64.getDecoder().decode(objBase64),
-								"model/obj", "obj", "detailed", coordinateReferenceSystem.identifier());
+								"model/obj", "obj", "detailed", artifactCrs);
 						if (artifact.isPresent()) addGeometryArtifactMetadata(sp_geometry, artifact.get());
 					}
 					if (artifact.isEmpty()) {
@@ -745,7 +752,92 @@ public abstract class IFCtoLBDConverterCore {
 		geometry.addProperty(this.lbd_general_output_model.createProperty(ns + "artifact"), artifactResource);
 		coordinateReferenceSystem.parameters().forEach((key, value) -> artifactResource.addLiteral(
 				this.lbd_general_output_model.createProperty(ns + key), value));
+		artifactResource.addLiteral(this.lbd_general_output_model.createProperty(ns + "coordinateSpace"),
+				coordinateSpaceName(this.ifc_geometry.metadata().coordinateSpace()));
+		if (this.ifc_geometry.metadata().lengthUnit() != null)
+			artifactResource.addLiteral(this.lbd_general_output_model.createProperty(ns + "lengthUnit"),
+					this.ifc_geometry.metadata().lengthUnit());
+		if (Double.isFinite(this.ifc_geometry.metadata().unitToMetres()))
+			artifactResource.addLiteral(this.lbd_general_output_model.createProperty(ns + "unitToMetres"),
+					this.ifc_geometry.metadata().unitToMetres());
+		artifactResource.addLiteral(this.lbd_general_output_model.createProperty(ns + "objectPlacementsApplied"),
+				this.ifc_geometry.metadata().objectPlacementsApplied());
+		artifactResource.addLiteral(this.lbd_general_output_model.createProperty(ns + "mapConversionApplied"),
+				this.ifc_geometry.metadata().mapConversionApplied());
 		geometryArtifacts.add(artifact);
+	}
+
+	private void addGeometryCoordinateMetadata(Resource geometry) {
+		String ns = "https://w3id.org/ifctolbd/geometry#";
+		GeometryResult.Metadata metadata = this.ifc_geometry.metadata();
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "coordinateSpace"),
+				coordinateSpaceName(metadata.coordinateSpace()));
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "coordinateReferenceSystem"),
+				metadata.coordinateReferenceSystem() == null ? localCrsIdentifier() : metadata.coordinateReferenceSystem());
+		if (metadata.lengthUnit() != null)
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "lengthUnit"), metadata.lengthUnit());
+		if (Double.isFinite(metadata.unitToMetres()))
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "unitToMetres"), metadata.unitToMetres());
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "objectPlacementsApplied"),
+				metadata.objectPlacementsApplied());
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "mapConversionApplied"),
+				metadata.mapConversionApplied());
+		coordinateReferenceSystem.parameters().forEach((key, value) -> geometry.addLiteral(
+				this.lbd_general_output_model.createProperty(ns + key), value));
+		java.util.stream.Stream.concat(metadata.warnings().stream(), coordinateReferenceSystem.warnings().stream())
+				.distinct().forEach(warning -> geometry.addLiteral(
+						this.lbd_general_output_model.createProperty(ns + "warning"), warning));
+	}
+
+	private void addWktCoordinateMetadata(Resource geometry, String encodedWkt) {
+		String ns = "https://w3id.org/ifctolbd/geometry#";
+		GeometryResult.Metadata metadata = this.ifc_geometry.metadata();
+		boolean providerProjected = metadata.coordinateSpace() == CoordinateSpace.PROJECTED;
+		boolean transformed = !providerProjected
+				&& encodedWkt.startsWith("<" + coordinateReferenceSystem.identifier() + ">")
+				&& coordinateReferenceSystem.canTransform();
+		boolean projected = providerProjected
+				|| (encodedWkt.startsWith("<" + coordinateReferenceSystem.identifier() + ">")
+						&& coordinateReferenceSystem.canTransform());
+		String wktCrs = providerProjected
+				? localCrsIdentifier() : coordinateReferenceSystem.identifier();
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "wktCoordinateSpace"),
+				projected ? "projected" : "local-engineering");
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "wktCoordinateReferenceSystem"),
+				projected ? wktCrs : localCrsIdentifier());
+		String wktLengthUnit = transformed ? coordinateReferenceSystem.parameters().get("targetMapUnit")
+				: metadata.lengthUnit();
+		if (wktLengthUnit != null)
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "wktLengthUnit"), wktLengthUnit);
+		double wktUnitToMetres = transformed
+				? finiteDouble(coordinateReferenceSystem.parameters().get("targetMapUnitToMetres"))
+				: metadata.unitToMetres();
+		if (Double.isFinite(wktUnitToMetres))
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "wktUnitToMetres"), wktUnitToMetres);
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "objCoordinateSpace"),
+				coordinateSpaceName(metadata.coordinateSpace()));
+		geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "objCoordinateReferenceSystem"),
+				localCrsIdentifier());
+		if (metadata.lengthUnit() != null)
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "objLengthUnit"), metadata.lengthUnit());
+		if (Double.isFinite(metadata.unitToMetres()))
+			geometry.addLiteral(this.lbd_general_output_model.createProperty(ns + "objUnitToMetres"), metadata.unitToMetres());
+	}
+
+	private static double finiteDouble(String value) {
+		if (value == null) return Double.NaN;
+		try {
+			double parsed = Double.parseDouble(value);
+			return Double.isFinite(parsed) && parsed > 0 ? parsed : Double.NaN;
+		} catch (NumberFormatException ignored) { return Double.NaN; }
+	}
+
+	private static String coordinateSpaceName(CoordinateSpace space) {
+		return switch (space) {
+		case PROJECTED -> "projected";
+		case RENDER_REBASED -> "render-rebased";
+		case LOCAL_ENGINEERING -> "local-engineering";
+		};
 	}
 
 	private Resource getOrCreateGeometryResource(Resource lbd_resource) {
@@ -770,20 +862,32 @@ public abstract class IFCtoLBDConverterCore {
 	}
 
 	private String toLocalIfcCrsWkt(BoundingBox boundingBox) {
-		String value = !coordinateReferenceSystem.hasMapConversion() ? boundingBox.toLiteral()
-				: coordinateReferenceSystem.transform(boundingBox);
-		return "<" + localCrsIdentifier() + "> " + value;
+		if (canApplyMapConversion()) try {
+			return "<" + coordinateReferenceSystem.identifier() + "> "
+					+ coordinateReferenceSystem.transform(boundingBox, this.ifc_geometry.metadata().unitToMetres());
+		} catch (RuntimeException ignored) { /* Retain local geometry on any unsafe transform. */ }
+		return "<" + localCrsIdentifier() + "> " + boundingBox.toLiteral();
 	}
 
 	private String toLocalIfcCrsWkt(String wkt) {
-		String value = !coordinateReferenceSystem.hasMapConversion() ? wkt
-				: coordinateReferenceSystem.transformWkt(wkt);
-		return "<" + localCrsIdentifier() + "> " + value;
+		if (canApplyMapConversion()) try {
+			return "<" + coordinateReferenceSystem.identifier() + "> "
+					+ coordinateReferenceSystem.transformWkt(wkt, this.ifc_geometry.metadata().unitToMetres());
+		} catch (RuntimeException ignored) { /* Retain local geometry on malformed/unsafe input. */ }
+		return "<" + localCrsIdentifier() + "> " + wkt;
+	}
+
+	private boolean canApplyMapConversion() {
+		if (this.ifc_geometry == null || !coordinateReferenceSystem.canTransform()) return false;
+		GeometryResult.Metadata metadata = this.ifc_geometry.metadata();
+		return metadata.coordinateSpace() == CoordinateSpace.LOCAL_ENGINEERING && !metadata.mapConversionApplied()
+				&& Double.isFinite(metadata.unitToMetres()) && metadata.unitToMetres() > 0;
 	}
 
 	private String localCrsIdentifier() {
-		return !coordinateReferenceSystem.hasMapConversion()
-				? uriBase.get() + "ifc-local" : coordinateReferenceSystem.identifier();
+		if (this.ifc_geometry != null && this.ifc_geometry.metadata().coordinateReferenceSystem() != null)
+			return this.ifc_geometry.metadata().coordinateReferenceSystem();
+		return uriBase.orElse("urn:ifctolbd:") + "ifc-local";
 	}
 
 	private String toBoundingBoxObjBase64(BoundingBox boundingBox) {
