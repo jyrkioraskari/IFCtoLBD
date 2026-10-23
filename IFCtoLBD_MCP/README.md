@@ -71,6 +71,8 @@ Example stdio configuration:
 
 - `get_capabilities`: reports conversion profiles, evidence fields, supported selectors, limits, SHACL packs, trust handling, pagination, and stable error codes.
 - `load_ifc`: converts once and returns a reusable model ID, IFC checksum, schema, converter version, and conversion profile. Identical checksum/version/profile requests reuse the loaded model.
+- `inspect_link_coverage`, `list_unresolved_mappings`, and `explain_external_link`: inspect optional conversion-scoped CSV/JSON links and their supplied source, method, and confidence without inferring a match.
+- `report_identifier_policy`: reports whether historical or stable-project identity was selected and any explicit project namespace.
 - `get_property_evidence`: returns attributable property, quantity, or attribute claims for one element selected by IFC GUID or RDF identifier. Use the `evidence` profile to retain source locations, IFC datatypes, and unit-resolution metadata.
 - `compare_revisions`: compares two compatible `revision-ready` models and exposes the RDF change graph as a resource.
 - `describe_model`, `get_entity`, `list_classes`, and `list_properties`: inspect a loaded model without reconversion.
@@ -87,6 +89,13 @@ Example stdio configuration:
 - `ifctolbd_runtime_info`: returns runtime paths and Java bridge settings.
 
 File-conversion tools accept `ifcPath`; when omitted, the sample `IFCtoLBD/src/main/resources/Duplex_A.ifc` is used. Loaded-model tools accept the `modelId` returned by `load_ifc`.
+
+`load_ifc` keeps its existing required inputs and defaults. Optional `identifierPolicy: "STABLE_PROJECT"`
+requires `projectNamespace`; optional `mappingPaths` are resolved only against that loaded conversion and
+are never fetched. `EXISTING` remains the default. See the
+[optional integration guide](../docs/optional-integration.md).
+For the `geometry-external` profile, optional `geometryFormats` accepts `OBJ`, `GLB`, and `GLTF`.
+The default remains `["OBJ"]`; generated artifacts are content-addressed MCP resources.
 
 ### Evidence workflow
 
@@ -143,3 +152,17 @@ The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `d
 External geometry is available at the artifact URI recorded in the RDF manifest. Set
 `IFCTOLBD_CONVERTER_JAR` only to select another single shaded distribution; the reported
 converter version always comes from that JAR's `Implementation-Version` manifest entry.
+
+For example, an opt-in binary glTF conversion uses:
+
+```json
+{
+  "ifcPath": "/allowed/path/model.ifc",
+  "profile": "geometry-external",
+  "geometryFormats": ["GLB"]
+}
+```
+
+The RDF identifies these artifacts with `model/gltf-binary`; MCP geometry resources return that same
+media type. Multiple formats may be requested, but consumers should select one representation per RDF
+geometry rather than render all alternatives simultaneously.

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Optional;
@@ -184,6 +185,33 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = "--model-scope", description = "Stable model identity namespace required by revision-ready profiles.")
 	private Optional<String> modelScope;
 
+	@Option(names = "--identifier-policy", defaultValue = "EXISTING", description = "Element identity policy: ${COMPLETION-CANDIDATES}.")
+	private IdentifierPolicy identifierPolicy;
+
+	@Option(names = "--project-namespace", description = "Persistent absolute project namespace required by STABLE_PROJECT identity.")
+	private Optional<String> projectNamespace;
+
+	@Option(names = "--link-mapping", description = "Conversion-scoped external-link CSV or JSON file. May be repeated.")
+	private List<Path> linkMappings = new java.util.ArrayList<>();
+
+	@Option(names = "--link-output", description = "Write the separate resolved external-link graph as Turtle.")
+	private Optional<Path> linkOutput;
+
+	@Option(names = "--link-report", description = "Write the machine-readable external-link coverage report as Turtle.")
+	private Optional<Path> linkReportOutput;
+
+	@Option(names = "--provenance-output", description = "Write the optional conversion manifest as Turtle.")
+	private Optional<Path> provenanceOutput;
+
+	@Option(names = "--geometry-artifact-format", description = "External geometry format. May be repeated: ${COMPLETION-CANDIDATES}.")
+	private Set<GeometryArtifactFormat> geometryArtifactFormats = new HashSet<>();
+
+	@Option(names = "--geometry-artifact-directory", description = "Directory for optional content-addressed geometry artifacts.")
+	private Optional<Path> geometryArtifactDirectory;
+
+	@Option(names = "--geometry-artifact-base-uri", description = "Public base IRI corresponding to --geometry-artifact-directory.")
+	private Optional<URI> geometryArtifactBaseUri;
+
 	@Option(names = "--query", description = "Run a saved SELECT, ASK, CONSTRUCT, or DESCRIBE query against the result.")
 	private Optional<Path> queryFile;
 
@@ -236,7 +264,14 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		System.out.println("Target is: " + outputFile);
 		classificationResolver = prepareClassificationResolver();
 		if (previousIfc.isPresent()) return compareRevisions(ifcFile, Path.of(outputFile));
-		try (ConversionSession session = new ConversionSession(staging.orElse(ConversionSession.Storage.MEMORY));
+		if (geometryArtifactDirectory.isPresent() != geometryArtifactBaseUri.isPresent())
+			throw new IllegalArgumentException("--geometry-artifact-directory and --geometry-artifact-base-uri must be used together");
+		if (!geometryArtifactFormats.isEmpty() && geometryArtifactDirectory.isEmpty())
+			throw new IllegalArgumentException("--geometry-artifact-format requires --geometry-artifact-directory and --geometry-artifact-base-uri");
+		GeometryArtifactStore artifactStore = geometryArtifactDirectory.isPresent()
+				? new FileSystemGeometryArtifactStore(geometryArtifactDirectory.get(), geometryArtifactBaseUri.orElseThrow())
+				: NoGeometryArtifactStore.INSTANCE;
+		try (ConversionSession session = new ConversionSession(staging.orElse(ConversionSession.Storage.MEMORY), artifactStore);
 				IFCtoLBDConverter converter = new IFCtoLBDConverter(session, uriBase.orElse("https://lbd.example.com/"),
 						hasPropertiesBlankNodes.orElse(false), props_level.orElse(1))) {
 			try (ConversionResult result = converter.convert(createRequest(ifcFile));
@@ -244,6 +279,9 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
 				else if (exportJSON.orElse(false)) JsonLdExport.write(output, result.getModel(), jsonLdMode);
 				else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
+				writeOptionalModel(linkOutput, result.getExternalLinkModel());
+				writeOptionalModel(linkReportOutput, result.getExternalLinkReportModel());
+				writeOptionalModel(provenanceOutput, result.getManifestModel());
 				runSavedQuery(result.getModel());
 			}
 		}
@@ -257,6 +295,14 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		applyTopologyOptions(request.getProperties());
 		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
 		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
+		if (identifierPolicy == IdentifierPolicy.STABLE_PROJECT) request = request.withStableProjectIdentity(
+				projectNamespace.orElseThrow(() -> new IllegalArgumentException(
+						"--project-namespace is required with --identifier-policy=STABLE_PROJECT")));
+		else if (projectNamespace.isPresent()) throw new IllegalArgumentException(
+				"--project-namespace requires --identifier-policy=STABLE_PROJECT");
+		if (!linkMappings.isEmpty()) request = request.withExternalLinkMappings(linkMappings.toArray(Path[]::new));
+		if (!geometryArtifactFormats.isEmpty()) request = request.withGeometryArtifactFormats(
+				geometryArtifactFormats.toArray(GeometryArtifactFormat[]::new));
 		if (validate.orElse(false)) request = request.withStandardValidation();
 		else if (!validationPacks.isEmpty())
 			request = request.withValidation(validationPacks.toArray(ValidationShapePack[]::new));
@@ -264,6 +310,13 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			request = request.withClassificationResolver(classificationResolver);
 		if (suggestEtim.orElse(false)) request = request.withEtimClassificationSuggestions();
 		return request;
+	}
+
+	private static void writeOptionalModel(Optional<Path> destination, Model model) throws Exception {
+		if (destination.isEmpty()) return;
+		try (OutputStream output = Files.newOutputStream(destination.get())) {
+			RDFDataMgr.write(output, model, RDFFormat.TURTLE_PRETTY);
+		}
 	}
 
 	private ClassificationResolver prepareClassificationResolver() {
@@ -294,8 +347,11 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	}
 
 	private int compareRevisions(File currentIfc, Path outputFile) throws Exception {
-		if (profile.isEmpty() || !"revision-ready".equalsIgnoreCase(profile.get()) || modelScope.isEmpty()) {
-			throw new IllegalArgumentException("--compare-to requires --profile=revision-ready and --model-scope");
+		boolean stableProject = identifierPolicy == IdentifierPolicy.STABLE_PROJECT && projectNamespace.isPresent();
+		if (profile.isEmpty() || !"revision-ready".equalsIgnoreCase(profile.get())
+				|| (!stableProject && modelScope.isEmpty())) {
+			throw new IllegalArgumentException("--compare-to requires --profile=revision-ready and either "
+					+ "--model-scope or STABLE_PROJECT with --project-namespace");
 		}
 		File previous = previousIfc.orElseThrow().toFile();
 		if (!previous.isFile()) throw new IllegalArgumentException("Cannot read earlier IFC file: " + previous);
@@ -312,7 +368,10 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 			RDFDataMgr.write(output, diff.getChangeModel(), RDFFormat.TURTLE_PRETTY);
 			runSavedQuery(diff.getChangeModel());
 			System.out.println("Revision comparison: " + diff.getAddedCount() + " added and "
-					+ diff.getRemovedCount() + " removed statements.");
+					+ diff.getRemovedCount() + " removed statements; " + diff.getRetainedGlobalIdCount()
+					+ " retained, " + diff.getAddedGlobalIdCount() + " added, and "
+					+ diff.getRemovedGlobalIdCount() + " removed GlobalIds; "
+					+ diff.getOrphanedLinkCount() + " links target missing elements.");
 		}
 		return 0;
 	}

@@ -118,6 +118,30 @@ Sessions stage IFC triples in memory by default. For a model that does not fit
 comfortably in the JVM heap, construct the session with
 `new ConversionSession(ConversionSession.Storage.TDB2)` instead.
 
+## Optional GLB or glTF artifacts
+
+Embedded OBJ remains the default. To keep detailed meshes outside RDF, configure an artifact store and
+select one or more formats on the structured request:
+
+```java
+Path geometryDirectory = Path.of("geometry");
+var store = new FileSystemGeometryArtifactStore(
+        geometryDirectory, URI.create("https://example.org/models/a/geometry/"));
+try (var session = new ConversionSession(store);
+     var converter = new IFCtoLBDConverter(session, "https://example.org/models/a/")) {
+    var request = new ConversionRequest("/absolute/path/model.ifc", ConversionProfiles.GEOMETRY_EXTERNAL)
+            .withGeometryArtifactFormats(GeometryArtifactFormat.GLB, GeometryArtifactFormat.GLTF);
+    try (var result = converter.convert(request)) {
+        RDFDataMgr.write(System.out, result.getModel(), RDFFormat.TURTLE_PRETTY);
+    }
+}
+```
+
+Add imports for `URI`, `Path`, `FileSystemGeometryArtifactStore`, `ConversionSession`,
+`ConversionRequest`, `ConversionProfiles`, and `GeometryArtifactFormat`. Artifacts use SHA-256 filenames
+and RDF records their media type and checksum. GLTF is a single self-contained JSON file. Current output
+uses triangle meshes and basic material colour/alpha; textures, animation, and Draco compression are not emitted.
+
 Applications that use the two-phase `convert_read_in_phase` workflow can inspect
 the loaded model before exporting it. `getLoadedExpressSchema()` returns the
 detected IFC schema, while `getIfcModelStatistics()` returns immutable raw IFC

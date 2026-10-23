@@ -2,6 +2,8 @@ package org.linkedbuildingdata.ifc2lbd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.EnumSet;
+import java.util.Set;
 
 public class ConversionProperties {
 	public enum PropertyMode {
@@ -34,6 +36,7 @@ public class ConversionProperties {
 	private PropertyMode propertyMode = PropertyMode.DEFAULT;
 	private boolean stableIdentity;
 	private boolean geometryArtifacts;
+	private Set<GeometryArtifactFormat> geometryArtifactFormats = EnumSet.of(GeometryArtifactFormat.OBJ);
 	private NamingStrategy namingStrategy = NamingStrategy.LEGACY;
 	private List<PropertyMappingRule> propertyMappings = List.of();
 	
@@ -198,6 +201,15 @@ public class ConversionProperties {
 	public void setStableIdentity(boolean stableIdentity) { this.stableIdentity = stableIdentity; if (stableIdentity) this.namingStrategy = NamingStrategy.STABLE_GUID; }
 	public boolean hasGeometryArtifacts() { return geometryArtifacts; }
 	public void setGeometryArtifacts(boolean geometryArtifacts) { this.geometryArtifacts = geometryArtifacts; }
+	public Set<GeometryArtifactFormat> getGeometryArtifactFormats() {
+		return Set.copyOf(geometryArtifactFormats);
+	}
+	public void setGeometryArtifactFormats(Set<GeometryArtifactFormat> formats) {
+		if (formats == null || formats.isEmpty()) throw new IllegalArgumentException("At least one geometry format is required");
+		this.geometryArtifactFormats = EnumSet.copyOf(formats);
+		this.geometryArtifacts = true;
+		this.hasGeometry = true;
+	}
 	public List<PropertyMappingRule> getPropertyMappings() { return propertyMappings; }
 	public void setPropertyMappings(List<PropertyMappingRule> mappings) {
 		this.propertyMappings = List.copyOf(mappings == null ? List.of() : new ArrayList<>(mappings));
@@ -208,6 +220,4 @@ public class ConversionProperties {
 		this.hasHierarchicalNaming = strategy == NamingStrategy.HIERARCHICAL;
 		this.stableIdentity = strategy == NamingStrategy.STABLE_GUID;
 	}
-	
-	
 }

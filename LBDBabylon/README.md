@@ -12,6 +12,9 @@ npm test
 ```
 
 Open the local Vite URL, choose **Upload LBD Turtle file**, or drop a `.ttl` file on the viewport.
+For RDF that links external OBJ, GLB, or self-contained glTF artifacts, choose **Select local geometry package** and select the package
+directory. Relative paths and file names are resolved locally; `..` traversal and Windows-style separators
+are rejected. Selecting files is an explicit user action and preserves the RDF element-to-mesh association.
 
 ## Supported IFCtoLBD geometry
 
@@ -26,9 +29,10 @@ geometry <https://lbd.org/#asMTL_kd> "#rrggbb" ;
 # geometry-artifact mode
 geometry ifctolbd-geometry:artifact <asset-uri> .
 <asset-uri> ifctolbd-geometry:mediaType "model/obj" .
+# Also supported: "model/gltf-binary" and "model/gltf+json".
 ```
 
-`omg:hasGeometry` is `https://w3id.org/omg#hasGeometry`, `fog:asObj_v3.0-obj` is `https://w3id.org/fog#asObj_v3.0-obj`, and the artifact namespace is `https://w3id.org/ifctolbd/geometry#`. Embedded payloads are decoded locally; external artifact URLs are never fetched and are reported as unavailable.
+`omg:hasGeometry` is `https://w3id.org/omg#hasGeometry`, `fog:asObj_v3.0-obj` is `https://w3id.org/fog#asObj_v3.0-obj`, and the artifact namespace is `https://w3id.org/ifctolbd/geometry#`. Embedded payloads are decoded locally. External artifacts are loaded from explicitly selected local OBJ, GLB, or self-contained glTF files or packages. Automatic remote fetching is disabled. **Load linked remote geometry** performs an explicit HTTP(S) request without credentials and reports HTTP, CORS, and unsupported-content failures; no other URI scheme is fetched.
 
 When IFCtoLBD emits `https://lbd.org/#asMTL_kd` and `asMTL_alpha` on the geometry resource, the viewer uses them as the Babylon diffuse colour and opacity. Meshes without these converter-specific material values use the default blue material.
 
@@ -44,13 +48,11 @@ each Babylon mesh under `metadata.ifcToLbd`; `Viewer.renderOriginIfc` exposes th
 same origin for navigation and downstream coordinate display.
 
 The viewer does not perform map conversion, datum shifts, reprojection, or a
-second unit conversion. It renders the numeric OBJ contract it receives. It
-does not render WKT bounding boxes, `lbd:hasBoundingBox`, arbitrary FOG formats,
-GLB, or glTF. GLB/glTF files can be selected for future artifact workflows, but
-no current IFCtoLBD RDF binding associates them with elements, so they are
-deliberately not imported.
+second unit conversion. It renders the numeric geometry contract it receives.
+It does not render WKT bounding boxes, `lbd:hasBoundingBox`, or arbitrary FOG formats. External `.gltf`
+must be self-contained; sibling `.bin` buffers and texture files are not resolved from a selected package.
 
-To generate candidate input, run the converter with geometry enabled (`--hasGeometry`) so it produces `fog:asObj_v3.0-obj`; enable the converter's geometry-artifact output when using a controlled companion OBJ directory. BOT topology alone does not create geometry.
+To generate candidate input, run the converter with geometry enabled (`--hasGeometry`) so it produces `fog:asObj_v3.0-obj`; use the `geometry-external` profile and an artifact format when using a controlled companion OBJ/GLB/glTF directory. BOT topology alone does not create geometry.
 
 ## Controls
 

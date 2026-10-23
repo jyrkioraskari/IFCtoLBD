@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,6 +24,9 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.Resource;
+import org.apache.jena.riot.RDFDataMgr;
+import org.apache.jena.riot.RDFFormat;
 import org.apache.jena.sys.JenaSystem;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemErrorEvent;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
@@ -80,6 +86,26 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 	private boolean exportIfcSpaceBoundaries = true;
 	private boolean exportIfcZones = false;
 	private boolean exportMaterialsBmo = false;
+
+	/** Configures the optional identity wrapper for the next legacy/desktop conversion phase. */
+	public void setIdentifierPolicy(IdentifierPolicy policy, String projectNamespace) {
+		Objects.requireNonNull(policy, "policy");
+		setUriPolicy(policy == IdentifierPolicy.STABLE_PROJECT
+				? new StableProjectUriPolicy(projectNamespace) : LegacyUriPolicy.INSTANCE);
+	}
+
+	/** Resolves a mapping against the currently converted model and writes separate link/report graphs. */
+	public void exportExternalLinks(java.nio.file.Path mapping, java.nio.file.Path linkOutput,
+			java.nio.file.Path reportOutput) {
+		ExternalLinkProcessor.Result result = ExternalLinkProcessor.process(List.of(mapping), resourcesByGlobalId());
+		try (java.io.OutputStream links = java.nio.file.Files.newOutputStream(linkOutput);
+				java.io.OutputStream report = java.nio.file.Files.newOutputStream(reportOutput)) {
+			RDFDataMgr.write(links, result.links(), RDFFormat.TURTLE_PRETTY);
+			RDFDataMgr.write(report, result.report(), RDFFormat.TURTLE_PRETTY);
+		} catch (java.io.IOException e) {
+			throw new java.io.UncheckedIOException("Could not write external-link output", e);
+		}
+	}
 
 	@Override
 	protected boolean exportsIfcSpaceBoundaries() {
@@ -197,6 +223,13 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			Integer... props_level) {
 		super(session);
 		configure(uriBase, hasPropertiesBlankNodes, props_level);
+	}
+
+	/** Creates a converter that owns a session configured for external geometry artifacts. */
+	public IFCtoLBDConverter(GeometryArtifactStore artifactStore, String uriBase,
+			boolean hasPropertiesBlankNodes, Integer... propsLevel) {
+		super(new ConversionSession(Objects.requireNonNull(artifactStore, "artifactStore")), true);
+		configure(uriBase, hasPropertiesBlankNodes, propsLevel);
 	}
 
 	private void configure(String uriBase, boolean propertiesBlankNodes, Integer... propsLevel) {
@@ -317,6 +350,7 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		setHasSimplified_properties(props.getPropertyMode() == ConversionProperties.PropertyMode.SIMPLE);
 		setPropertiesAsPropertySets(props.getPropertyMode() == ConversionProperties.PropertyMode.OPM);
 		setGeometryArtifactsEnabled(props.hasGeometryArtifacts());
+		setGeometryArtifactFormats(props.getGeometryArtifactFormats());
 		this.exportIfcSpaceBoundaries = props.hasIfcSpaceBoundaries();
 		this.exportIfcZones = props.hasIfcZones();
 
@@ -397,7 +431,10 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		setProperty_replace_map(request.getPropertyReplacements());
 		setPropertyMappings(request.getProperties().getPropertyMappings());
 		UriPolicy uriPolicy;
-		if (request.getProperties().hasStableIdentity()) {
+		if (request.getIdentifierPolicy() == IdentifierPolicy.STABLE_PROJECT) {
+			uriPolicy = new StableProjectUriPolicy(request.getProjectNamespace().orElseThrow(() ->
+					new IllegalArgumentException("projectNamespace is required for STABLE_PROJECT identity")));
+		} else if (request.getProperties().hasStableIdentity()) {
 			String modelScope = request.getModelScope().orElseThrow(() -> new IllegalArgumentException(
 					"modelScope is required when stable identity is enabled"));
 			uriPolicy = new StableGuidUriPolicy(modelScope);
@@ -424,6 +461,8 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 			stagingDataset.end();
 		}
 		long modulesMillis = elapsedMillis(phaseStarted);
+		ExternalLinkProcessor.Result externalLinks = ExternalLinkProcessor.process(
+				request.getExternalLinkMappings(), resourcesByGlobalId());
 		phaseStarted = System.nanoTime();
 		ValidationStage.Result validation = ValidationStage.validate(request, context.validationResources(),
 				this.lbd_general_output_model,
@@ -443,11 +482,31 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		// results keep each statement in exactly one physical graph.
 		this.lbd_general_output_model.remove(this.lbd_product_output_model);
 		this.lbd_general_output_model.remove(this.lbd_property_output_model);
+		Model identityReport = getUriPolicy() instanceof StableProjectUriPolicy stable
+				? stable.report() : org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
 		ConversionResult result = ConversionResult.of(this.lbd_general_output_model, this.lbd_product_output_model,
-				this.lbd_property_output_model, manifest.model(), validationAndAudit, manifest.graphNames());
+				this.lbd_property_output_model, manifest.model(), validationAndAudit, externalLinks.links(),
+				externalLinks.report(), identityReport, manifest.graphNames());
 		lastTimings = new ConversionTimings(coreMillis, modulesMillis, validationMillis, auditMillis,
 				elapsedMillis(phaseStarted), elapsedMillis(totalStarted));
 		return result;
+	}
+
+	private Map<String, List<Resource>> resourcesByGlobalId() {
+		var stagingDataset = getStagingDataset();
+		boolean ownsTransaction = !stagingDataset.isInTransaction();
+		if (ownsTransaction) stagingDataset.begin(org.apache.jena.query.ReadWrite.READ);
+		try {
+			Map<String, List<Resource>> result = new LinkedHashMap<>();
+			for (Map.Entry<Resource, Resource> entry : this.lbdResourceByIfcResource.entrySet()) {
+				String globalId = IfcOWLUtils.getGUID(entry.getKey(), this.ifcOWL);
+				if (globalId != null && !globalId.isBlank())
+					result.computeIfAbsent(globalId, ignored -> new ArrayList<>()).add(entry.getValue());
+			}
+			return result;
+		} finally {
+			if (ownsTransaction) stagingDataset.end();
+		}
 	}
 
 	/** Timings for the last successfully completed structured conversion. */

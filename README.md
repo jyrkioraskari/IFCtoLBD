@@ -36,7 +36,8 @@ introduction below. **New to RDF or SPARQL?** Start with the
   an exported Turtle or TriG file.
 - **Prepare building data for linking:** the generated LBD identifiers let you
   create links to asset records, products, sensors, and other datasets in your
-  own applications. The converter does not create those external links for you.
+  own applications. Development source also has an [optional, offline external-link workflow](docs/optional-integration.md);
+  released/default conversion does not add those links.
 - **Automate your work** with the command-line converter, Python examples, or
   the Java library.
 - **Build your own tools and extensions** from the source: add mappings,
@@ -106,10 +107,15 @@ The same functionality is available as a Java app for Linux and macOS users.
 ## View LBD geometry in a browser
 
 `LBDBabylon` is a browser-local viewer for Turtle created by IFCtoLBD. It can
-open an **LBD Turtle file**, render the embedded OBJ geometry emitted through
-`omg:hasGeometry` and `fog:asObj_v3.0-obj`, and provides orbit, walk, and fly
+open an **LBD Turtle file**, render embedded OBJ geometry or explicitly linked OBJ/GLB/self-contained glTF
+artifacts while preserving `omg:hasGeometry` element associations, and provides orbit, walk, and fly
 navigation. If a Turtle file has no renderable geometry, the viewer clearly
 reports that result rather than inventing a model.
+
+The source-development desktop exposes **Embedded OBJ (existing)**, **External OBJ**, **External GLB**,
+and **External glTF** under **Settings → Geometry**. Released 2.49.0 desktop packages retain their documented
+OBJ workflow; see the [optional integration guide](docs/optional-integration.md#optional-geometry-artifact-formats)
+for development CLI, Java, MCP, and desktop usage.
 
 <img src="B1.png" alt="LBD Babylon viewer showing an IFCtoLBD building model in orbit mode" width="800">
 
@@ -124,10 +130,11 @@ npm --prefix LBDBabylon run dev
 
 Open the Vite URL shown in the terminal, then choose **Upload LBD Turtle file**
 or drop a `.ttl` file into the viewport. Use an IFCtoLBD conversion with
-geometry enabled (`--hasGeometry`) to produce embedded renderable OBJ geometry.
-The viewer does not fetch RDF-linked resources, and currently reports external
-geometry artifacts as unavailable. See the [LBDBabylon README](LBDBabylon/README.md)
-for the exact RDF predicates, controls, supported material values, and limits.
+geometry enabled (`--hasGeometry`) to produce embedded renderable OBJ geometry,
+or opt into external OBJ, GLB, or self-contained glTF artifacts. External files
+are loaded only after an explicit local-file/package selection; automatic remote
+fetching remains disabled. See the [LBDBabylon README](LBDBabylon/README.md) for
+the exact RDF predicates, controls, supported material values, and limits.
 
 ## Summarize building products as JSON
 
@@ -168,6 +175,7 @@ formats, the JSON schema, library use, and the local HTTP API.
 | Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) — build from source; release 2.49.0 has no prebuilt MCP package |
 | Compile the converter, understand the subprojects, or extend it | [Build and development guide](docs/development.md) |
 | Explore classification, product identity, GS1, or EPD output | [Supply-chain and sustainability](docs/supply-chain-and-sustainability.md) |
+| Preserve project identity and supply reviewed external links | [Optional integration workflows](docs/optional-integration.md) (development source) |
 
 Start with the output you have just created; programming and compiling can come
 later. LBD uses shared vocabularies such as the

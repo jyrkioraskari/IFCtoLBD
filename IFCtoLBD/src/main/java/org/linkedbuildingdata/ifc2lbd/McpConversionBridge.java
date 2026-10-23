@@ -41,8 +41,37 @@ public final class McpConversionBridge implements AutoCloseable {
 
 	public ConversionResult convert(String ifcFile, String profileId, String modelScope,
 			String[] validationPackIds) {
+		return convert(ifcFile, profileId, modelScope, validationPackIds, null, null, null);
+	}
+
+	/** Additive integration-aware conversion entry point; the historical overload remains unchanged. */
+	public ConversionResult convert(String ifcFile, String profileId, String modelScope,
+			String[] validationPackIds, String identifierPolicy, String projectNamespace, String[] mappingFiles) {
+		return convert(ifcFile, profileId, modelScope, validationPackIds, identifierPolicy, projectNamespace,
+				mappingFiles, null);
+	}
+
+	/** Additive geometry-format entry point; older MCP adapters retain OBJ defaults. */
+	public ConversionResult convert(String ifcFile, String profileId, String modelScope,
+			String[] validationPackIds, String identifierPolicy, String projectNamespace, String[] mappingFiles,
+			String[] geometryFormats) {
 		ConversionRequest request = new ConversionRequest(ifcFile, profile(profileId));
 		if (modelScope != null && !modelScope.isBlank()) request = request.withModelScope(modelScope);
+		if (identifierPolicy != null && IdentifierPolicy.STABLE_PROJECT.name().equalsIgnoreCase(identifierPolicy))
+			request = request.withStableProjectIdentity(projectNamespace);
+		else if (projectNamespace != null && !projectNamespace.isBlank())
+			throw new IllegalArgumentException("projectNamespace requires STABLE_PROJECT identifierPolicy");
+		if (mappingFiles != null && mappingFiles.length > 0) {
+			Path[] paths = new Path[mappingFiles.length];
+			for (int i = 0; i < mappingFiles.length; i++) paths[i] = Path.of(mappingFiles[i]);
+			request = request.withExternalLinkMappings(paths);
+		}
+		if (geometryFormats != null && geometryFormats.length > 0) {
+			GeometryArtifactFormat[] formats = new GeometryArtifactFormat[geometryFormats.length];
+			for (int i = 0; i < geometryFormats.length; i++)
+				formats[i] = GeometryArtifactFormat.valueOf(geometryFormats[i].toUpperCase(java.util.Locale.ROOT));
+			request = request.withGeometryArtifactFormats(formats);
+		}
 		if (validationPackIds != null && validationPackIds.length > 0) {
 			List<ValidationShapePack> packs = new ArrayList<>();
 			for (String id : validationPackIds) packs.add(validationPack(id));

@@ -19,6 +19,9 @@ public record ConversionGraphNames(String product, String property, String manif
 	}
 
 	public List<String> all() { return List.of(product, property, manifest, validation); }
+	public String externalLinks() { return manifest.replaceFirst("manifest$", "external-links"); }
+	public String externalLinkReport() { return manifest.replaceFirst("manifest$", "external-link-report"); }
+	public String identityReport() { return manifest.replaceFirst("manifest$", "identity-report"); }
 
 	private static String requireIri(String value, String role) {
 		if (value == null || value.isBlank()) throw new IllegalArgumentException(role + " graph IRI must not be blank");

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.jena.graph.Node;
 import org.apache.jena.graph.NodeFactory;
@@ -29,6 +31,15 @@ public final class RevisionComparator {
 		Set<Quad> newQuads = conversionQuads(current);
 		List<Quad> removed = difference(oldQuads, newQuads);
 		List<Quad> added = difference(newQuads, oldQuads);
+		Set<String> oldGlobalIds = stableGlobalIds(previous, oldMetadata);
+		Set<String> newGlobalIds = stableGlobalIds(current, newMetadata);
+		Set<String> retainedGlobalIds = intersection(oldGlobalIds, newGlobalIds);
+		Set<String> addedGlobalIds = stringDifference(newGlobalIds, oldGlobalIds);
+		Set<String> removedGlobalIds = stringDifference(oldGlobalIds, newGlobalIds);
+		long orphanedLinks = previous.getExternalLinkModel().listStatements().toList().stream()
+				.filter(statement -> statement.getSubject().isURIResource())
+				.filter(statement -> !current.getModel().containsResource(current.getModel().createResource(
+						statement.getSubject().getURI()))).count();
 
 		Dataset output = DatasetFactory.createTxnMem();
 		Model changes = output.getNamedModel(ConversionDiff.CHANGE_GRAPH);
@@ -39,7 +50,14 @@ public final class RevisionComparator {
 				.addLiteral(changes.createProperty(NS + "previousChecksum"), oldMetadata.sourceChecksum)
 				.addLiteral(changes.createProperty(NS + "currentChecksum"), newMetadata.sourceChecksum)
 				.addLiteral(changes.createProperty(NS + "addedCount"), added.size())
-				.addLiteral(changes.createProperty(NS + "removedCount"), removed.size());
+				.addLiteral(changes.createProperty(NS + "removedCount"), removed.size())
+				.addLiteral(changes.createProperty(NS + "retainedGlobalIdCount"), retainedGlobalIds.size())
+				.addLiteral(changes.createProperty(NS + "addedGlobalIdCount"), addedGlobalIds.size())
+				.addLiteral(changes.createProperty(NS + "removedGlobalIdCount"), removedGlobalIds.size())
+				.addLiteral(changes.createProperty(NS + "orphanedLinkCount"), orphanedLinks);
+		retainedGlobalIds.forEach(value -> comparison.addLiteral(changes.createProperty(NS + "retainedGlobalId"), value));
+		addedGlobalIds.forEach(value -> comparison.addLiteral(changes.createProperty(NS + "addedGlobalId"), value));
+		removedGlobalIds.forEach(value -> comparison.addLiteral(changes.createProperty(NS + "removedGlobalId"), value));
 		Resource oldRevision = changes.createResource("urn:ifctolbd:conversion:" + oldMetadata.cacheKey);
 		Resource newRevision = changes.createResource("urn:ifctolbd:conversion:" + newMetadata.cacheKey)
 				.addProperty(changes.createProperty(PROV + "wasRevisionOf"), oldRevision);
@@ -47,7 +65,8 @@ public final class RevisionComparator {
 				.addProperty(changes.createProperty(NS + "currentRevision"), newRevision);
 		addChanges(changes, comparison, removed, "RemovedStatement");
 		addChanges(changes, comparison, added, "AddedStatement");
-		return new ConversionDiff(output, added.size(), removed.size());
+		return new ConversionDiff(output, added.size(), removed.size(), retainedGlobalIds.size(),
+				addedGlobalIds.size(), removedGlobalIds.size(), orphanedLinks);
 	}
 
 	private static Set<Quad> conversionQuads(ConversionResult result) {
@@ -55,7 +74,8 @@ public final class RevisionComparator {
 		ConversionGraphNames names = result.getGraphNames();
 		result.getDataset().asDatasetGraph().find().forEachRemaining(quad -> {
 			String graph = quad.getGraph().isURI() ? quad.getGraph().getURI() : "";
-			if (!names.manifest().equals(graph) && !names.validation().equals(graph)) {
+			if (!names.manifest().equals(graph) && !names.validation().equals(graph)
+					&& !names.externalLinkReport().equals(graph) && !names.identityReport().equals(graph)) {
 				quads.add(normalizeGraphRole(quad, names));
 			}
 		});
@@ -66,7 +86,8 @@ public final class RevisionComparator {
 		if (!quad.getGraph().isURI()) return quad;
 		String graph = quad.getGraph().getURI();
 		String role = names.product().equals(graph) ? "product"
-				: names.property().equals(graph) ? "property" : null;
+				: names.property().equals(graph) ? "property"
+				: names.externalLinks().equals(graph) ? "external-links" : null;
 		return role == null ? quad : new Quad(NodeFactory.createURI("urn:ifctolbd:graph-role:" + role),
 				quad.getSubject(), quad.getPredicate(), quad.getObject());
 	}
@@ -98,7 +119,8 @@ public final class RevisionComparator {
 		Model manifest = result.getManifestModel();
 		return new Metadata(value(manifest, "cacheKey"), value(manifest, "sourceChecksum"),
 				value(manifest, "profile"), value(manifest, "uriPolicy"),
-				value(manifest, "uriPolicyConfiguration"), value(manifest, "modelScope"), moduleSignature(manifest));
+				value(manifest, "uriPolicyConfiguration"), optionalValue(manifest, "modelScope"), moduleSignature(manifest),
+				optionalValue(manifest, "projectNamespace"));
 	}
 
 	private static String value(Model manifest, String localName) {
@@ -114,18 +136,42 @@ public final class RevisionComparator {
 				(RDFNode) null).toList().stream().map(statement -> statement.getResource().getURI()).sorted()
 				.reduce("", (a, b) -> a + "|" + b);
 	}
+	private static String optionalValue(Model manifest, String localName) {
+		var statements = manifest.listStatements(null, manifest.createProperty(ConversionManifest.NS + localName),
+				(RDFNode) null).toList();
+		return statements.isEmpty() ? "" : statements.get(0).getString();
+	}
 
 	private static void requireCompatible(Metadata previous, Metadata current) {
-		if (!"stable-guid-v1".equals(previous.uriPolicy) || !previous.uriPolicy.equals(current.uriPolicy))
-			throw new IllegalArgumentException("Revision comparison requires matching stable-guid-v1 URI policies");
-		if (!previous.modelScope.equals(current.modelScope))
-			throw new IllegalArgumentException("Revision comparison requires matching model scopes");
+		if (!("stable-guid-v1".equals(previous.uriPolicy) || StableProjectUriPolicy.ID.equals(previous.uriPolicy))
+				|| !previous.uriPolicy.equals(current.uriPolicy))
+			throw new IllegalArgumentException("Revision comparison requires matching stable identifier policies");
+		if (!previous.modelScope.equals(current.modelScope) || !previous.projectNamespace.equals(current.projectNamespace))
+			throw new IllegalArgumentException("Revision comparison requires matching project namespaces/model scopes");
 		if (!previous.uriPolicyConfiguration.equals(current.uriPolicyConfiguration))
 			throw new IllegalArgumentException("Revision comparison requires matching URI policy configurations");
 		if (!previous.profile.equals(current.profile) || !previous.modules.equals(current.modules))
 			throw new IllegalArgumentException("Revision comparison requires matching profiles and module versions");
 	}
 
+	private static Set<String> stableGlobalIds(ConversionResult result, Metadata metadata) {
+		if (!StableProjectUriPolicy.ID.equals(metadata.uriPolicy)) return Set.of();
+		String prefix = metadata.projectNamespace + (metadata.projectNamespace.endsWith("/")
+				|| metadata.projectNamespace.endsWith("#") ? "" : "/") + "ifc-globalid/";
+		Set<String> ids = new HashSet<>();
+		result.getModel().listSubjects().forEachRemaining(resource -> {
+			if (resource.isURIResource() && resource.getURI().startsWith(prefix))
+				ids.add(URLDecoder.decode(resource.getURI().substring(prefix.length()), StandardCharsets.UTF_8));
+		});
+		return ids;
+	}
+	private static Set<String> intersection(Set<String> left, Set<String> right) {
+		Set<String> result = new HashSet<>(left); result.retainAll(right); return result;
+	}
+	private static Set<String> stringDifference(Set<String> left, Set<String> right) {
+		Set<String> result = new HashSet<>(left); result.removeAll(right); return result;
+	}
+
 	private record Metadata(String cacheKey, String sourceChecksum, String profile, String uriPolicy,
-			String uriPolicyConfiguration, String modelScope, String modules) { }
+			String uriPolicyConfiguration, String modelScope, String modules, String projectNamespace) { }
 }

@@ -49,6 +49,7 @@ import java.util.Deque;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.UUID;
+import org.linkedbuildingdata.ifc2lbd.GeometryArtifactFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -207,8 +208,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private ToggleSwitch building_elements;
-	@FXML
-	private Hyperlink elements_link;
 
 	@FXML
 	private ToggleSwitch building_elements_separate_file;
@@ -329,6 +328,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private Button copyCommandLineButton;
+	@FXML private ChoiceBox<String> identifierPolicyChoice;
+	@FXML private CustomTextField projectNamespaceField;
+	@FXML private TextField externalLinkMappingField;
+	@FXML private ChoiceBox<String> geometryArtifactFormatChoice;
+	@FXML private TextField geometryArtifactDirectoryField;
+	@FXML private TextField geometryArtifactBaseUriField;
 
 	@FXML
 	private Label generatedResultsStatusLabel;
@@ -439,10 +444,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private TitledPane geometryCard;
 
 	@FXML
-	private CustomTextField labelBaseURI;
-
-	@FXML
-	private Label baseUriLabel;
+	private Label projectNamespaceLabel;
 
 	@FXML
 	private Label propertyLevelLabel;
@@ -526,7 +528,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean hasGeometry, boolean exportIfcOwl, boolean hasPerformanceBoost, boolean hasBoundingBoxWkt,
 			boolean hasInterfaces, boolean hasElementWireframe, boolean hasUnits, boolean hasHierarchicalNaming,
 			boolean hasSimpleProperties, boolean propertiesAsPropertySets, boolean hasIfcBasedElements,
-			boolean createTrig, boolean exportAsJsonLd, JsonLdExport.Mode jsonLdMode, boolean exportAsIcdd) {
+			boolean createTrig, boolean exportAsJsonLd, JsonLdExport.Mode jsonLdMode, boolean exportAsIcdd,
+			GeometryArtifactFormat geometryArtifactFormat, String geometryArtifactDirectory,
+			String geometryArtifactBaseUri) {
 	}
 
 	private record ConversionRequest(ConversionSettings settings, Set<String> selectedTypes, Set<String> selectedPsets) {
@@ -853,18 +857,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	@FXML
-	public void hyperlink_product_handle(ActionEvent event) {
-		try {
-			URI u = new URI("https://github.com/w3c-lbd-cg/product");
-			java.awt.Desktop.getDesktop().browse(u);
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		}
-	}
-
-	@FXML
 	public void hyperlink_opm_handle(ActionEvent event) {
 		try {
 			URI u = new URI("https://github.com/w3c-lbd-cg/opm");
@@ -1023,6 +1015,37 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		refreshReactiveSettings();
 	}
 
+	@FXML
+	private void selectExternalLinkMapping() {
+		FileChooser chooser = new FileChooser();
+		chooser.setTitle("Select external-link mapping");
+		chooser.getExtensionFilters().addAll(
+				new FileChooser.ExtensionFilter("External-link mappings (*.json, *.csv)", "*.json", "*.csv"),
+				new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json"),
+				new FileChooser.ExtensionFilter("CSV files (*.csv)", "*.csv"));
+
+		File initialDirectory = null;
+		String currentPath = this.externalLinkMappingField.getText().trim();
+		if (!currentPath.isEmpty()) {
+			File current = new File(currentPath).getAbsoluteFile();
+			File candidate = current.isDirectory() ? current : current.getParentFile();
+			if (candidate != null && candidate.isDirectory()) initialDirectory = candidate;
+		}
+		if (initialDirectory == null) {
+			File candidate = new File(this.prefs.get("external_link_mapping_directory",
+					this.prefs.get("ifc_work_directory", ".")));
+			if (candidate.isDirectory()) initialDirectory = candidate;
+		}
+		if (initialDirectory != null) chooser.setInitialDirectory(initialDirectory);
+
+		File selected = chooser.showOpenDialog(this.myMenuBar.getScene().getWindow());
+		if (selected == null) return;
+		this.externalLinkMappingField.setText(selected.getAbsolutePath());
+		File parent = selected.getParentFile();
+		if (parent != null) this.prefs.put("external_link_mapping_directory", parent.getAbsolutePath());
+		refreshReactiveSettings();
+	}
+
 	Future<IFCtoLBDConverter> running_read_in;
 	Future<Integer> running_conversion;
 
@@ -1073,7 +1096,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private ConversionSettings currentSettings() {
-		String baseUri = this.labelBaseURI.getText().trim();
+		String baseUri = this.projectNamespaceField.getText().trim();
 		if (baseUri.isEmpty()) {
 			baseUri = IFCtoLBDConverter.DEFAULT_BASE_URI;
 		}
@@ -1086,7 +1109,21 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.geometry_interfaces.isSelected(), this.hasElementWireframe.isSelected(), this.createUnits.isSelected(),
 				this.hasHierarchicalNaming.isSelected(), this.hasSimpleProperties.isSelected(),
 				this.propertiesAsPropertySets.isSelected(), this.ifc_based_elements.isSelected(),
-				this.createTrig.isSelected(), isJsonLdOutputSelected(), selectedJsonLdMode(), isIcddOutputSelected());
+				this.createTrig.isSelected(), isJsonLdOutputSelected(), selectedJsonLdMode(), isIcddOutputSelected(),
+				selectedGeometryArtifactFormat(), this.geometryArtifactDirectoryField.getText().trim(),
+				this.geometryArtifactBaseUriField.getText().trim());
+	}
+
+	private GeometryArtifactFormat selectedGeometryArtifactFormat() {
+		String value = this.geometryArtifactFormatChoice.getValue();
+		if (value == null || value.startsWith("Embedded")) return null;
+		return GeometryArtifactFormat.valueOf(value.substring("External ".length()).toUpperCase(Locale.ROOT));
+	}
+
+	private void updateGeometryArtifactControls() {
+		boolean external = selectedGeometryArtifactFormat() != null;
+		this.geometryArtifactDirectoryField.setDisable(!external);
+		this.geometryArtifactBaseUriField.setDisable(!external);
 	}
 
 	private void setupPresets() {
@@ -1156,7 +1193,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		settings.put(ConversionPreset.LEVEL, Integer.toString(selectedPropertyLevel()));
 		settings.put(ConversionPreset.FORMAT, this.outputJSONorTTL.getValue());
-		settings.put(ConversionPreset.BASE_URI, this.labelBaseURI.getText().trim());
+		settings.put(ConversionPreset.IDENTIFIER_POLICY,
+				"Stable project identity".equals(this.identifierPolicyChoice.getValue()) ? "STABLE_PROJECT" : "EXISTING");
+		settings.put(ConversionPreset.PROJECT_NAMESPACE, this.projectNamespaceField.getText().trim());
+		settings.put(ConversionPreset.LINK_MAPPING, this.externalLinkMappingField.getText().trim());
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_FORMAT,
+				selectedGeometryArtifactFormat() == null ? "EMBEDDED" : selectedGeometryArtifactFormat().name());
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_DIRECTORY, this.geometryArtifactDirectoryField.getText().trim());
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_BASE_URI, this.geometryArtifactBaseUriField.getText().trim());
 		return new ConversionPreset(name, settings, false);
 	}
 
@@ -1168,9 +1212,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.level1.setSelected(level == 1);
 		this.level2.setSelected(level == 2);
 		this.level3.setSelected(level == 3);
-		if (preset.settings().containsKey(ConversionPreset.BASE_URI)) {
-			this.labelBaseURI.setText(preset.settings().get(ConversionPreset.BASE_URI));
-		}
+		this.identifierPolicyChoice.setValue("STABLE_PROJECT".equals(
+				preset.settings().getOrDefault(ConversionPreset.IDENTIFIER_POLICY, "EXISTING"))
+						? "Stable project identity" : "Standard behaviour");
+		this.projectNamespaceField.setText(preset.settings().getOrDefault(ConversionPreset.PROJECT_NAMESPACE,
+				preset.settings().getOrDefault(ConversionPreset.BASE_URI, IFCtoLBDConverter.DEFAULT_BASE_URI)));
+		this.externalLinkMappingField.setText(preset.settings().getOrDefault(ConversionPreset.LINK_MAPPING, ""));
+		String geometryFormat = preset.settings().getOrDefault(ConversionPreset.GEOMETRY_ARTIFACT_FORMAT, "EMBEDDED");
+		this.geometryArtifactFormatChoice.setValue("EMBEDDED".equals(geometryFormat)
+				? "Embedded OBJ (existing)" : "External " + ("GLTF".equals(geometryFormat) ? "glTF" : geometryFormat));
+		this.geometryArtifactDirectoryField.setText(preset.settings().getOrDefault(
+				ConversionPreset.GEOMETRY_ARTIFACT_DIRECTORY, ""));
+		this.geometryArtifactBaseUriField.setText(preset.settings().getOrDefault(
+				ConversionPreset.GEOMETRY_ARTIFACT_BASE_URI, ""));
 		this.outputJSONorTTL.setValue(preset.settings().get(ConversionPreset.FORMAT));
 		updatePerformanceModeDependency();
 		refreshReactiveSettings();
@@ -1304,7 +1358,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				|| previous.hasBoundingBoxWkt() != current.hasBoundingBoxWkt()
 				|| previous.hasInterfaces() != current.hasInterfaces()
 				|| previous.hasElementWireframe() != current.hasElementWireframe()
-				|| previous.hasUnits() != current.hasUnits();
+				|| previous.hasUnits() != current.hasUnits()
+				|| previous.geometryArtifactFormat() != current.geometryArtifactFormat()
+				|| !Objects.equals(previous.geometryArtifactDirectory(), current.geometryArtifactDirectory())
+				|| !Objects.equals(previous.geometryArtifactBaseUri(), current.geometryArtifactBaseUri());
 	}
 
 	private boolean hasConversionRequestChanged(ConversionRequest previous, ConversionRequest current) {
@@ -1402,6 +1459,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (settings.exportAsJsonLd() && settings.jsonLdMode() != JsonLdExport.Mode.PLAIN) {
 			arguments.add("--jsonld-mode");
 			arguments.add(settings.jsonLdMode().name());
+		}
+		if ("Stable project identity".equals(this.identifierPolicyChoice.getValue())) {
+			arguments.add("--identifier-policy"); arguments.add("STABLE_PROJECT");
+			arguments.add("--project-namespace"); arguments.add(shellQuote(settings.baseUri()));
+		}
+		if (!this.externalLinkMappingField.getText().isBlank()) {
+			arguments.add("--link-mapping"); arguments.add(shellQuote(this.externalLinkMappingField.getText().trim()));
+			arguments.add("--link-output"); arguments.add(shellQuote(settings.rdfTargetName() + ".links.ttl"));
+			arguments.add("--link-report"); arguments.add(shellQuote(settings.rdfTargetName() + ".links-report.ttl"));
+		}
+		if (settings.geometryArtifactFormat() != null) {
+			arguments.add("--geometry-artifact-directory"); arguments.add(shellQuote(settings.geometryArtifactDirectory()));
+			arguments.add("--geometry-artifact-base-uri"); arguments.add(shellQuote(settings.geometryArtifactBaseUri()));
+			arguments.add("--geometry-artifact-format"); arguments.add(settings.geometryArtifactFormat().name());
 		}
 		for (String type : selectedElementTypes().stream().sorted().toList()) {
 			arguments.add("--selectedType");
@@ -1514,7 +1585,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				updatePerformanceModeDependency());
 		this.level1.getToggleGroup().selectedToggleProperty().addListener((observable, oldValue, newValue) ->
 				refreshReactiveSettings());
-		this.labelBaseURI.textProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		this.projectNamespaceField.textProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		this.externalLinkMappingField.textProperty().addListener(
+				(observable, oldValue, newValue) -> refreshReactiveSettings());
 		this.element_types_checkbox.checkModelProperty().addListener((observable, oldModel, newModel) -> {
 			if (newModel != null) {
 				newModel.getCheckedItems().addListener(
@@ -1591,7 +1664,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		ConversionSettings previous = this.readInSettings;
 		ConversionSettings current = currentSettings();
 		boolean modelLoaded = isFiltersAvailable() && previous != null;
-		setRereadMarker(this.baseUriLabel, "Base URI", modelLoaded
+		setRereadMarker(this.projectNamespaceLabel, "Project URI", modelLoaded
 				&& !Objects.equals(previous.baseUri(), current.baseUri()));
 		setRereadMarker(this.propertyLevelLabel, "Level", modelLoaded
 				&& previous.propsLevel() != current.propsLevel());
@@ -1687,7 +1760,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.prefs.putBoolean("lbd_building_props", settings.hasBuildingProperties());
 		this.prefs.putBoolean("lbd_building_props_blank_nodes", settings.hasPropertiesBlankNodes());
 		this.prefs.putBoolean("lbd_building_props_separate_file", settings.hasSeparatePropertiesModel());
-		this.prefs.put("lbd_props_base_url", settings.baseUri());
+		this.prefs.put("lbd_project_namespace", settings.baseUri());
 		this.prefs.putBoolean("lbd_boundinbox_elements", settings.hasGeometry());
 		this.prefs.putBoolean("lbd_boundinbox_interfaces", settings.hasInterfaces());
 		this.prefs.putBoolean("lbd_boundinbox_wkt", settings.hasBoundingBoxWkt());
@@ -1706,6 +1779,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				: settings.jsonLdMode() == JsonLdExport.Mode.COMPACT ? "JSON-LD compact"
 				: settings.exportAsJsonLd() ? "JSON-LD" : "Turtle TTL");
 		this.prefs.putInt("lbd_props_level", settings.propsLevel());
+		this.prefs.put("desktop_geometry_artifact_format",
+				settings.geometryArtifactFormat() == null ? "EMBEDDED" : settings.geometryArtifactFormat().name());
+		this.prefs.put("desktop_geometry_artifact_directory", settings.geometryArtifactDirectory());
+		this.prefs.put("desktop_geometry_artifact_base_uri", settings.geometryArtifactBaseUri());
 	}
 
 	private void readInIFC() {
@@ -1730,6 +1807,11 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		clearGeometryPreview("Convert with geometry enabled to preview the model.");
 		long operationId = beginWorkflow("Starting IFC read-in", ProgressBar.INDETERMINATE_PROGRESS);
 		try {
+			if (settings.geometryArtifactFormat() != null
+					&& (settings.geometryArtifactDirectory().isBlank() || settings.geometryArtifactBaseUri().isBlank()))
+				throw new IllegalArgumentException("External geometry requires a directory and base IRI.");
+			if (settings.geometryArtifactFormat() != null && !settings.hasGeometry())
+				throw new IllegalArgumentException("External geometry requires geometry export to be enabled.");
 			this.running_read_in = this.executor
 					.submit(new ReadinInThread(operationId, settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
 							settings.propsLevel(), settings.hasBuildingElements(),
@@ -1737,7 +1819,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 							settings.hasSeparatePropertiesModel(), settings.hasPropertiesBlankNodes(),
 							settings.hasGeolocation(), settings.hasGeometry() || settings.hasElementWireframe(), settings.exportIfcOwl(),
 							settings.hasUnits(), settings.hasPerformanceBoost(), settings.hasBoundingBoxWkt(),
-							settings.hasInterfaces()));
+							settings.hasInterfaces(), settings.geometryArtifactFormat(), settings.geometryArtifactDirectory(),
+							settings.geometryArtifactBaseUri()));
 		} catch (Exception e) {
 			this.options_panel.setDisable(false);
 			finishWorkflow(operationId, "Read-in failed", false);
@@ -4221,7 +4304,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					currentSettings.hasIfcBasedElements(), currentSettings.hasInterfaces(), currentSettings.createTrig(),
 					currentSettings.exportAsJsonLd(), currentSettings.exportAsIcdd(),
 					currentSettings.jsonLdMode(), currentSettings.hasElementWireframe(),
-					currentSettings.propertiesAsPropertySets(), currentSettings.hasMaterialsBmo()));
+					currentSettings.propertiesAsPropertySets(), currentSettings.hasMaterialsBmo(),
+					"Stable project identity".equals(this.identifierPolicyChoice.getValue())
+							? org.linkedbuildingdata.ifc2lbd.IdentifierPolicy.STABLE_PROJECT
+							: org.linkedbuildingdata.ifc2lbd.IdentifierPolicy.EXISTING,
+					currentSettings.baseUri(), this.externalLinkMappingField.getText().trim(),
+					currentSettings.geometryArtifactFormat()));
 		} catch (Exception e) {
 			long operationId = this.activeOperationId;
 			if (isActiveOperation(operationId)) {
@@ -4238,6 +4326,24 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.border.widthProperty().bind(this.root.widthProperty());
 		this.border.heightProperty().bind(this.root.heightProperty());
 		setupCommandLinePreview();
+		this.identifierPolicyChoice.getItems().setAll("Standard behaviour", "Stable project identity");
+		this.identifierPolicyChoice.setValue("Standard behaviour");
+		this.geometryArtifactFormatChoice.getItems().setAll("Embedded OBJ (existing)", "External OBJ",
+				"External GLB", "External glTF");
+		String savedGeometryFormat = this.prefs.get("desktop_geometry_artifact_format", "EMBEDDED");
+		this.geometryArtifactFormatChoice.setValue(switch (savedGeometryFormat) {
+		case "OBJ" -> "External OBJ"; case "GLB" -> "External GLB"; case "GLTF" -> "External glTF";
+		default -> "Embedded OBJ (existing)";
+		});
+		this.geometryArtifactDirectoryField.setText(this.prefs.get("desktop_geometry_artifact_directory", ""));
+		this.geometryArtifactBaseUriField.setText(this.prefs.get("desktop_geometry_artifact_base_uri", ""));
+		this.geometryArtifactFormatChoice.valueProperty().addListener((observable, oldValue, newValue) -> {
+			if (selectedGeometryArtifactFormat() != null) this.geometry_elements.setSelected(true);
+			updateGeometryArtifactControls(); refreshReactiveSettings();
+		});
+		this.geometryArtifactDirectoryField.textProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		this.geometryArtifactBaseUriField.textProperty().addListener((observable, oldValue, newValue) -> refreshReactiveSettings());
+		updateGeometryArtifactControls();
 		setupGeometryPreview();
 		setupSparqlQueryWindow();
 		setupValidateWindow();
@@ -4322,8 +4428,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		setDropHandlers(this.basicLabelIFCFile, ad_conversion, dh_conversion);
 		setDropHandlers(this.conversionTxt, ad_conversion, dh_conversion);
 
-		this.labelBaseURI
-				.setText(this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#"));
+		this.projectNamespaceField.setText(this.prefs.get("lbd_project_namespace",
+				this.prefs.get("lbd_props_base_url", "https://www.ugent.be/myAwesomeFirstBIMProject#")));
 		this.building_elements.setSelected(this.prefs.getBoolean("lbd_building_elements", true));
 		this.materialsBmo.setSelected(this.prefs.getBoolean("lbd_materials_bmo", false));
 		this.building_elements_separate_file
@@ -4397,8 +4503,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.building_props_separate_file
 				.setTooltip(new Tooltip("Create the content in separate files (Only levels 2 or 3)."));
 
-		this.elements_link.setTooltip(new Tooltip("Opens a link that describes the Building Product Ontology."));
-
 		this.props_link.setTooltip(new Tooltip("Opens a link to the Towards a PROPS ontology presentation."));
 		this.opm_link.setTooltip(new Tooltip("Opens a link that describes the Ontology for Property Management."));
 
@@ -4419,8 +4523,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		this.labelTargetFile.setTooltip(new Tooltip("The selected target RDF file. "));
 
-		this.labelBaseURI
-				.setTooltip(new Tooltip("The base URL is the consistent part of your links generated in the output. "));
+		this.projectNamespaceField.setTooltip(new Tooltip(
+				"The persistent namespace used for project resources and stable IFC identities."));
 
 		this.hasPerformanceBoost.setTooltip(
 				new Tooltip("When used, the memory consumption is saved by removing the ifcOWL geometry. "));

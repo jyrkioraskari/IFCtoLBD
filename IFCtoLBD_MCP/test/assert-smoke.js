@@ -28,6 +28,10 @@ process.stdin.on("end", () => {
   assert(toolNames.includes("compare_revisions"));
   assert(toolNames.includes("get_capabilities"));
   assert(toolNames.includes("get_property_evidence"));
+  assert(toolNames.includes("inspect_link_coverage"));
+  assert(toolNames.includes("list_unresolved_mappings"));
+  assert(toolNames.includes("explain_external_link"));
+  assert(toolNames.includes("report_identifier_policy"));
   assert(byId.get(3).result.content[0].text.includes('"triples"'));
   const firstLoad = byId.get(4).result.structuredContent;
   const secondLoad = byId.get(5).result.structuredContent;

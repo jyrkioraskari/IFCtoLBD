@@ -167,8 +167,37 @@ the options after applying one. **Save** stores the current options under a
 name (or updates the selected saved preset); **Duplicate** copies the selected
 preset. **Import** and **Export** exchange `.properties` preset files. **Delete**
 removes a saved preset; built-in presets stay available. Presets include the
-output format and, for saved presets, the base URI. They do not include the IFC
-input path, output path, or model-specific element and property-set filters.
+output format and, for saved presets, the Project URI. They do not include
+the IFC input path, output path, or model-specific element and property-set filters.
+
+### Project URI and identity
+
+The source-development desktop has one **Project URI** field in
+**Settings**. Enter a persistent absolute HTTPS IRI that you control, for
+example `https://example.org/projects/campus-a/`. The desktop uses this one
+URI as the namespace for generated project-resource identifiers; there is no separate
+dataset Base URI field.
+
+Choose **Identity policy** under **Product / BOT**:
+
+- **Standard behaviour** retains the historical identifier layout within the
+  project namespace.
+- **Stable project identity** identifies mapped IFC objects from the project
+  namespace and their IFC GlobalId, for example
+  `https://example.org/projects/campus-a/ifc-globalid/3x...`. Keep the namespace
+  unchanged between revisions of the same project. Use different namespaces
+  for unrelated projects, even if their IFC files happen to contain equal
+  GlobalIds.
+
+Changing the Project URI after **Read IFC** marks the loaded model for a
+safe reread before conversion. New saved presets store `projectNamespace`.
+Older presets with a separate `baseUri` remain loadable and migrate that value
+into the single Project URI field.
+
+For an optional external-link mapping, open **Filters** and use **Browse** in
+the **External-link mapping** section at the bottom to select a `.json` or
+`.csv` file. The selected path is included in saved presets and in the
+command-line preview.
 
 Where available, **Query** opens SPARQL queries, **Validate** checks RDF against
 SHACL shapes, and **Geometry** previews exported geometry. Geometry must be
@@ -178,6 +207,24 @@ it does not certify the original IFC model. SHACL shape files added with
 **Restore defaults** updates that saved list. If a file has moved, load it again
 from its new location. **Copy command line** helps you
 repeat the desktop settings in automated conversions.
+
+### Development-only external geometry options
+
+The source-development desktop for 2.55.0 adds three optional controls at the
+bottom of **Settings → Geometry**: **Geometry output**, **Geometry directory**,
+and **Geometry base IRI**. These controls are not in the release-pinned 2.49.0
+packages described at the top of this page.
+
+- **Embedded OBJ (existing)** is the backward-compatible default and leaves the directory fields disabled.
+- **External OBJ**, **External GLB**, and **External glTF** write content-addressed mesh files separately
+  from RDF. Selecting one also enables geometry conversion.
+- **Geometry directory** is the local directory where artifacts are written.
+- **Geometry base IRI** is the public or package-relative IRI used in RDF; it is not inferred from the
+  local directory.
+
+Both external fields are required for an external format. These options are included in saved/imported
+desktop presets, while older presets automatically retain embedded OBJ. GLTF output is self-contained;
+the desktop does not create sibling `.bin` or texture files.
 
 ## If something stops you
 

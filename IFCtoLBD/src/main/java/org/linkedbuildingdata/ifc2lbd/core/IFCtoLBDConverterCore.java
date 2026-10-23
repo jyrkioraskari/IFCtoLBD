@@ -54,6 +54,7 @@ import org.linkedbuildingdata.ifc2lbd.ConversionSession;
 import org.linkedbuildingdata.ifc2lbd.LegacyUriPolicy;
 import org.linkedbuildingdata.ifc2lbd.GeometryResult;
 import org.linkedbuildingdata.ifc2lbd.GeometryArtifact;
+import org.linkedbuildingdata.ifc2lbd.GeometryArtifactFormat;
 import org.linkedbuildingdata.ifc2lbd.GeometryResult.CoordinateSpace;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemExtractor;
 import org.linkedbuildingdata.ifc2lbd.IfcCoordinateReferenceSystemInfo;
@@ -195,7 +196,7 @@ public abstract class IFCtoLBDConverterCore {
 		this(conversionSession, false);
 	}
 
-	private IFCtoLBDConverterCore(ConversionSession conversionSession, boolean ownsConversionSession) {
+	protected IFCtoLBDConverterCore(ConversionSession conversionSession, boolean ownsConversionSession) {
 		this.conversionSession = Objects.requireNonNull(conversionSession, "conversionSession");
 		this.eventBus = conversionSession.getEventBus();
 		this.uriPolicy = conversionSession.getUriPolicy();
@@ -579,11 +580,16 @@ public abstract class IFCtoLBDConverterCore {
 
 	private Property fogasObj = null;
 	private boolean geometryArtifactsEnabled;
+	private java.util.Set<GeometryArtifactFormat> geometryArtifactFormats = java.util.Set.of(GeometryArtifactFormat.OBJ);
 	private final List<GeometryArtifact> geometryArtifacts = new ArrayList<>();
 
-	protected final void setGeometryArtifactsEnabled(boolean enabled) {
+	public final void setGeometryArtifactsEnabled(boolean enabled) {
 		this.geometryArtifactsEnabled = enabled;
 		this.geometryArtifacts.clear();
+	}
+
+	public final void setGeometryArtifactFormats(java.util.Set<GeometryArtifactFormat> formats) {
+		this.geometryArtifactFormats = java.util.Set.copyOf(formats);
 	}
 
 	protected final List<GeometryArtifact> getGeometryArtifacts() {
@@ -644,15 +650,29 @@ public abstract class IFCtoLBDConverterCore {
 						this.fogasObj = this.lbd_general_output_model
 								.createProperty("https://w3id.org/fog#asObj_v3.0-obj");
 					String objBase64 = obj != null ? obj.toString() : toBoundingBoxObjBase64(bb);
-					Optional<GeometryArtifact> artifact = Optional.empty();
+					List<GeometryArtifact> artifacts = new ArrayList<>();
 					if (geometryArtifactsEnabled) {
 						String artifactCrs = this.ifc_geometry.metadata().coordinateReferenceSystem() == null
 								? localCrsIdentifier() : this.ifc_geometry.metadata().coordinateReferenceSystem();
-						artifact = conversionSession.getGeometryArtifactStore().store(Base64.getDecoder().decode(objBase64),
-								"model/obj", "obj", "detailed", artifactCrs);
-						if (artifact.isPresent()) addGeometryArtifactMetadata(sp_geometry, artifact.get());
+						de.rwth_aachen.dc.lbd.TessellatedMesh mesh = geometryArtifactFormats.stream()
+								.anyMatch(format -> format != GeometryArtifactFormat.OBJ)
+										? this.ifc_geometry.getTessellatedMesh(guid) : null;
+						for (GeometryArtifactFormat format : geometryArtifactFormats) {
+							byte[] content;
+							if (format == GeometryArtifactFormat.OBJ) content = Base64.getDecoder().decode(objBase64);
+							else {
+								if (mesh == null) continue;
+								content = org.linkedbuildingdata.ifc2lbd.GltfGeometryWriter.write(mesh, format);
+							}
+							Optional<GeometryArtifact> stored = conversionSession.getGeometryArtifactStore().store(content,
+									format.mediaType(), format.extension(), "detailed", artifactCrs);
+							if (stored.isPresent()) {
+								artifacts.add(stored.get());
+								addGeometryArtifactMetadata(sp_geometry, stored.get());
+							}
+						}
 					}
-					if (artifact.isEmpty()) {
+					if (artifacts.isEmpty()) {
 						Literal base64 = this.lbd_general_output_model.createTypedLiteral(objBase64,
 								"https://www.w3.org/2001/XMLSchema#base64Binary");
 						sp_geometry.addLiteral(this.fogasObj, base64);

@@ -89,6 +89,11 @@ public final class ConversionSession implements AutoCloseable {
 				IfcOpenShellGeometryProvider.INSTANCE, geometryArtifactStore, Storage.MEMORY);
 	}
 
+	public ConversionSession(Storage storage, GeometryArtifactStore geometryArtifactStore) {
+		this(createWorkingDirectory(), Clock.systemUTC(), LegacyUriPolicy.INSTANCE,
+				IfcOpenShellGeometryProvider.INSTANCE, geometryArtifactStore, storage);
+	}
+
 	public ConversionSession(Clock clock, UriPolicy uriPolicy, GeometryProvider geometryProvider) {
 		this(createWorkingDirectory(), clock, uriPolicy, geometryProvider, NoGeometryArtifactStore.INSTANCE, Storage.MEMORY);
 	}

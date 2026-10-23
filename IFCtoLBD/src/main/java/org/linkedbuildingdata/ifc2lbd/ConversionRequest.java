@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.Map;
+import java.nio.file.Path;
 
 /** Input values for a conversion. */
 public final class ConversionRequest {
@@ -22,21 +23,24 @@ public final class ConversionRequest {
 	private final List<EtimPropertyMapping> etimPropertyMappings;
 	private final boolean suggestEtimClassifications;
 	private final List<EtimClassificationAcceptance> acceptedEtimClassifications;
+	private final IdentifierPolicy identifierPolicy;
+	private final String projectNamespace;
+	private final List<Path> externalLinkMappings;
 
 	public ConversionRequest(String ifcFilename, ConversionProperties properties) {
-		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
+		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties) {
-		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
+		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, ConversionProfile profile) {
-		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
+		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProfile profile) {
-		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of());
+		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
 	}
 
 	private ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties,
@@ -44,7 +48,8 @@ public final class ConversionRequest {
 			ClassificationResolver classificationResolver, String modelScope, Set<String> selectedTypes,
 			Set<String> selectedPropertySets, Map<String, String> propertyReplacements,
 			List<EtimPropertyMapping> etimPropertyMappings, boolean suggestEtimClassifications,
-			List<EtimClassificationAcceptance> acceptedEtimClassifications) {
+			List<EtimClassificationAcceptance> acceptedEtimClassifications, IdentifierPolicy identifierPolicy,
+			String projectNamespace, List<Path> externalLinkMappings) {
 		this.ifcFilename = requireText(ifcFilename, "ifcFilename");
 		this.targetFile = targetFile;
 		this.properties = Objects.requireNonNull(properties, "properties");
@@ -58,6 +63,9 @@ public final class ConversionRequest {
 		this.etimPropertyMappings = List.copyOf(etimPropertyMappings);
 		this.suggestEtimClassifications = suggestEtimClassifications;
 		this.acceptedEtimClassifications = List.copyOf(acceptedEtimClassifications);
+		this.identifierPolicy = Objects.requireNonNull(identifierPolicy, "identifierPolicy");
+		this.projectNamespace = projectNamespace;
+		this.externalLinkMappings = List.copyOf(externalLinkMappings);
 	}
 
 	/** Returns a request that validates the converted dataset without modifying it. */
@@ -83,6 +91,36 @@ public final class ConversionRequest {
 	public ConversionRequest withModelScope(String modelScope) {
 		return copy(validationShapePacks, classificationResolver, requireText(modelScope, "modelScope"), selectedTypes,
 				selectedPropertySets, propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications);
+	}
+
+	/** Selects stable project identity. The namespace is validated immediately and never inferred from a file name. */
+	public ConversionRequest withStableProjectIdentity(String projectNamespace) {
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications,
+				IdentifierPolicy.STABLE_PROJECT, StableProjectUriPolicy.validateNamespace(projectNamespace), externalLinkMappings);
+	}
+
+	/** Explicitly restores historical identifier generation. */
+	public ConversionRequest withExistingIdentity() {
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications,
+				IdentifierPolicy.EXISTING, null, externalLinkMappings);
+	}
+
+	/** Adds conversion-scoped offline CSV/JSON external-link mappings. */
+	public ConversionRequest withExternalLinkMappings(Path... files) {
+		Objects.requireNonNull(files, "files");
+		return copy(validationShapePacks, classificationResolver, modelScope, selectedTypes, selectedPropertySets,
+				propertyReplacements, etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications,
+				identifierPolicy, projectNamespace, List.of(files));
+	}
+
+	/** Selects one or more optional external mesh artifact formats. OBJ remains the default. */
+	public ConversionRequest withGeometryArtifactFormats(GeometryArtifactFormat... formats) {
+		Objects.requireNonNull(formats, "formats");
+		if (formats.length == 0) throw new IllegalArgumentException("At least one geometry format is required");
+		properties.setGeometryArtifactFormats(java.util.EnumSet.copyOf(List.of(formats)));
+		return this;
 	}
 
 	public ConversionRequest withSelectedTypes(Set<String> values) {
@@ -113,8 +151,16 @@ public final class ConversionRequest {
 			Set<String> types, Set<String> psets, Map<String, String> replacements,
 			List<EtimPropertyMapping> etimMappings, boolean suggestions,
 			List<EtimClassificationAcceptance> acceptances) {
+		return copy(packs, resolver, scope, types, psets, replacements, etimMappings, suggestions, acceptances,
+				identifierPolicy, projectNamespace, externalLinkMappings);
+	}
+	private ConversionRequest copy(List<ValidationShapePack> packs, ClassificationResolver resolver, String scope,
+			Set<String> types, Set<String> psets, Map<String, String> replacements,
+			List<EtimPropertyMapping> etimMappings, boolean suggestions,
+			List<EtimClassificationAcceptance> acceptances, IdentifierPolicy policy, String namespace,
+			List<Path> mappings) {
 		return new ConversionRequest(ifcFilename, targetFile, properties, profile, packs, resolver, scope, types, psets,
-				replacements, etimMappings, suggestions, acceptances);
+				replacements, etimMappings, suggestions, acceptances, policy, namespace, mappings);
 	}
 
 	public String getIfcFilename() {
@@ -145,6 +191,9 @@ public final class ConversionRequest {
 
 	public List<ValidationShapePack> getValidationShapePacks() { return validationShapePacks; }
 	public ClassificationResolver getClassificationResolver() { return classificationResolver; }
+	public IdentifierPolicy getIdentifierPolicy() { return identifierPolicy; }
+	public Optional<String> getProjectNamespace() { return Optional.ofNullable(projectNamespace); }
+	public List<Path> getExternalLinkMappings() { return externalLinkMappings; }
 
 	private static String requireText(String value, String name) {
 		if (value == null || value.isBlank()) {

@@ -85,7 +85,7 @@
                   <items>
                     <VBox prefWidth="390.0" spacing="12.0" styleClass="left-rail">
                       <children>
-                        <TabPane fx:id="workflowTabs" styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
+                        <TabPane fx:id="workflowTabs" minHeight="320.0" prefHeight="320.0" styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
                           <tabs>
                             <Tab text="Basic workflow">
                               <content>
@@ -120,14 +120,14 @@
                                     <TextField fx:id="labelTargetFile" editable="true" maxWidth="Infinity" promptText="Output LBD file path" styleClass="target-label" text="Target path will be generated after input selection" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <Button fx:id="convert2RDFButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#convertIFCToRDF" styleClass="workflow-button" text="5  Run" GridPane.columnIndex="0" GridPane.rowIndex="4" />
                                     <ChoiceBox fx:id="outputJSONorTTL" maxWidth="Infinity" minWidth="130.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <Label maxWidth="Infinity" styleClass="workflow-step-label, workflow-explore-label" text="6  Explore" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-                                    <VBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                                    <Label maxWidth="Infinity" styleClass="workflow-step-label" text="6  Explore" GridPane.columnIndex="0" GridPane.rowIndex="5" />
+                                    <HBox spacing="6.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                                       <children>
-                                        <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#testGeometryWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Geometry" />
-                                        <Button fx:id="validateWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#validateWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Validate" />
-                                        <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" mnemonicParsing="false" onAction="#queryWorkflow" styleClass="workflow-mini-button, workflow-explore-button" text="Query" />
+                                        <Button fx:id="geometryWorkflowButton" disable="true" maxWidth="Infinity" minWidth="0.0" mnemonicParsing="false" onAction="#testGeometryWorkflow" prefWidth="1.0" styleClass="workflow-mini-button" text="Geometry" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="validateWorkflowButton" disable="true" maxWidth="Infinity" minWidth="0.0" mnemonicParsing="false" onAction="#validateWorkflow" prefWidth="1.0" styleClass="workflow-mini-button" text="Validate" HBox.hgrow="ALWAYS" />
+                                        <Button fx:id="queryWorkflowButton" disable="true" maxWidth="Infinity" minWidth="0.0" mnemonicParsing="false" onAction="#queryWorkflow" prefWidth="1.0" styleClass="workflow-mini-button" text="Query" HBox.hgrow="ALWAYS" />
                                       </children>
-                                    </VBox>
+                                    </HBox>
                                     <Button fx:id="copyCommandLineButton" maxWidth="Infinity" mnemonicParsing="false" onAction="#copyCommandLine" styleClass="workflow-button" text="7  Copy command line" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="6" />
                                   </children>
                                 </GridPane>
@@ -232,8 +232,8 @@
                                     <ColumnConstraints hgrow="ALWAYS" minWidth="340.0" />
                                   </columnConstraints>
                                   <children>
-                                    <Label fx:id="baseUriLabel" styleClass="field-label" text="Base URI" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                                    <CustomTextField fx:id="labelBaseURI" maxWidth="Infinity" promptText="https://example.org/building#" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                    <Label fx:id="projectNamespaceLabel" styleClass="field-label" text="Project URI" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                    <CustomTextField fx:id="projectNamespaceField" maxWidth="Infinity" promptText="https://example.org/projects/campus-a/" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                   </children>
                                 </GridPane>
 
@@ -250,7 +250,8 @@
                                         <ToggleSwitch fx:id="geolocation" maxWidth="Infinity" selected="true" text="Geolocation" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="hasHierarchicalNaming" maxWidth="Infinity" selected="true" text="Hierarchical URI names" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="materialsBmo" maxWidth="Infinity" text="IFC materials (BMO)" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="2" />
-                                        <Hyperlink fx:id="elements_link" onAction="#hyperlink_product_handle" text="Read more" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" />
+                                        <Label text="Identity policy" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <ChoiceBox fx:id="identifierPolicyChoice" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                       </children>
                                     </GridPane>
                                   </content>
@@ -305,6 +306,12 @@
                                         <ToggleSwitch fx:id="geometry_interfaces" maxWidth="Infinity" text="Interfaces" GridPane.columnIndex="1" GridPane.rowIndex="0" />
                                         <ToggleSwitch fx:id="hasBoundingBox_WKT" maxWidth="Infinity" text="Bounding boxes" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                                         <ToggleSwitch fx:id="hasElementWireframe" maxWidth="Infinity" text="Element wireframe" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                        <Label text="Geometry output" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                                        <ChoiceBox fx:id="geometryArtifactFormatChoice" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                        <Label text="Geometry directory" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                                        <TextField fx:id="geometryArtifactDirectoryField" maxWidth="Infinity" promptText="Required for external geometry" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                        <Label text="Geometry base IRI" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                                        <TextField fx:id="geometryArtifactBaseUriField" maxWidth="Infinity" promptText="Public or package-relative base IRI" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                                       </children>
                                     </GridPane>
                                   </content>
@@ -332,28 +339,43 @@
                           </content>
                         </TitledPane>
 
-                    <TitledPane fx:id="filtersCard" expanded="false" layoutX="14.0" layoutY="64.0" prefHeight="330.0" prefWidth="560.0" styleClass="floating-card" text="Filters">
+                    <TitledPane fx:id="filtersCard" expanded="false" layoutX="14.0" layoutY="64.0" prefHeight="405.0" prefWidth="560.0" styleClass="floating-card" text="Filters">
                       <content>
-                        <GridPane hgap="14.0" vgap="8.0">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-                            <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
-                          </columnConstraints>
+                        <VBox spacing="10.0">
                           <children>
-                            <VBox spacing="8.0" styleClass="filter-pane" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                            <GridPane hgap="14.0" vgap="8.0" VBox.vgrow="ALWAYS">
+                              <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                                <ColumnConstraints hgrow="ALWAYS" percentWidth="50.0" />
+                              </columnConstraints>
                               <children>
-                                <Label styleClass="section-title" text="Element Types" />
-                                <CheckTreeView fx:id="element_types_checkbox" prefHeight="260.0" VBox.vgrow="ALWAYS" />
+                                <VBox spacing="8.0" styleClass="filter-pane" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label styleClass="section-title" text="Element Types" />
+                                    <CheckTreeView fx:id="element_types_checkbox" prefHeight="260.0" VBox.vgrow="ALWAYS" />
+                                  </children>
+                                </VBox>
+                                <VBox spacing="8.0" styleClass="filter-pane" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                                  <children>
+                                    <Label styleClass="section-title" text="Property Sets" />
+                                    <CheckTreeView fx:id="propertysets_checkbox" prefHeight="260.0" VBox.vgrow="ALWAYS" />
+                                  </children>
+                                </VBox>
                               </children>
-                            </VBox>
-                            <VBox spacing="8.0" styleClass="filter-pane" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                            </GridPane>
+                            <VBox spacing="6.0" styleClass="filter-pane">
                               <children>
-                                <Label styleClass="section-title" text="Property Sets" />
-                                <CheckTreeView fx:id="propertysets_checkbox" prefHeight="260.0" VBox.vgrow="ALWAYS" />
+                                <Label styleClass="section-title" text="External-link mapping" />
+                                <HBox spacing="6.0">
+                                  <children>
+                                    <TextField fx:id="externalLinkMappingField" maxWidth="Infinity" promptText="Optional CSV or JSON path" HBox.hgrow="ALWAYS" />
+                                    <Button mnemonicParsing="false" onAction="#selectExternalLinkMapping" styleClass="secondary-button" text="Browse" />
+                                  </children>
+                                </HBox>
                               </children>
                             </VBox>
                           </children>
-                        </GridPane>
+                        </VBox>
                       </content>
 	                    </TitledPane>
 

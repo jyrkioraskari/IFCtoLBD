@@ -6,6 +6,8 @@ import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
+import org.linkedbuildingdata.ifc2lbd.IdentifierPolicy;
+import org.linkedbuildingdata.ifc2lbd.GeometryArtifactFormat;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
@@ -74,8 +76,12 @@ public class ConversionThread implements Callable<Integer> {
     final boolean propertiesAsPropertySets;
     private final String target_file;
     private final String ifc_filename;
+    private final IdentifierPolicy identifierPolicy;
+    private final String projectNamespace;
+    private final String externalLinkMapping;
+	private final GeometryArtifactFormat geometryArtifactFormat;
     
-	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, JsonLdExport.Mode jsonLdMode, boolean hasElementWireframe, boolean propertiesAsPropertySets, boolean hasMaterialsBmo) {
+	public ConversionThread(long operationId, IFCtoLBDConverter converter,Set<String> selected_types,Set<String> selected_psets, String ifc_filename, @SuppressWarnings("unused") String uriBase, @SuppressWarnings("unused") String target_file,int props_level,boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasHierarchicalNaming,boolean hasIfc_based_elements,boolean hasInterfaces, boolean createTrig,boolean export_as_JSON_LD, boolean export_as_ICDD, JsonLdExport.Mode jsonLdMode, boolean hasElementWireframe, boolean propertiesAsPropertySets, boolean hasMaterialsBmo, IdentifierPolicy identifierPolicy, String projectNamespace, String externalLinkMapping, GeometryArtifactFormat geometryArtifactFormat) {
 		super();
 		this.operationId = operationId;
 		this.converter=converter;
@@ -106,12 +112,20 @@ public class ConversionThread implements Callable<Integer> {
 		this.export_as_ICDD=export_as_ICDD;
 		this.jsonLdMode=jsonLdMode;
 		this.propertiesAsPropertySets=propertiesAsPropertySets;
+		this.identifierPolicy=identifierPolicy;
+		this.projectNamespace=projectNamespace;
+		this.externalLinkMapping=externalLinkMapping;
+		this.geometryArtifactFormat=geometryArtifactFormat;
 	}
 
 	@Override
 	public Integer call() throws Exception {
 		try {
 			try {
+				converter.setIdentifierPolicy(identifierPolicy, projectNamespace);
+				converter.setGeometryArtifactsEnabled(geometryArtifactFormat != null);
+				if (geometryArtifactFormat != null)
+					converter.setGeometryArtifactFormats(java.util.Set.of(geometryArtifactFormat));
 				eventBus.post(new WorkflowProgressEvent(operationId, "Preparing conversion", 0.08));
 				converter.setSelected_types(selected_types);
 				converter.setSelected_psets(selected_psets);
@@ -133,6 +147,12 @@ public class ConversionThread implements Callable<Integer> {
 					converter.exportExistingOutputAsIcdd(target_file, ifc_filename);
 				} else {
 					eventBus.post(new WorkflowProgressEvent(operationId, "Checking RDF output", 0.94));
+				}
+				if (externalLinkMapping != null && !externalLinkMapping.isBlank()) {
+					java.nio.file.Path target = java.nio.file.Path.of(target_file);
+					converter.exportExternalLinks(java.nio.file.Path.of(externalLinkMapping),
+							java.nio.file.Path.of(target + ".links.ttl"),
+							java.nio.file.Path.of(target + ".links-report.ttl"));
 				}
 				String outputPath = target_file;
 				if (export_as_JSON_LD && outputPath != null)

@@ -104,8 +104,14 @@ final class ConversionManifest {
 		request.getClassificationResolver().dictionaries().forEach(metadata -> conversion.addProperty(
 				property(model, "usesClassificationDictionary"),
 				SupplyChainStage.writeDictionaryMetadata(model, metadata)));
-		for (String graph : graphNames.all())
+		for (String graph : List.of(graphNames.product(), graphNames.property(), graphNames.manifest(),
+				graphNames.validation(), graphNames.externalLinks(), graphNames.externalLinkReport(), graphNames.identityReport()))
 			conversion.addProperty(property(model, "hasNamedGraph"), model.createResource(graph));
+		conversion.addLiteral(property(model, "identifierPolicy"), request.getIdentifierPolicy().name());
+		request.getProjectNamespace().ifPresent(namespace -> conversion.addLiteral(property(model, "projectNamespace"), namespace));
+		request.getExternalLinkMappings().forEach(mapping -> conversion.addLiteral(property(model, "mappingChecksum"), sha256(mapping)));
+		if (request.getProperties().hasGeometryArtifacts()) request.getProperties().getGeometryArtifactFormats().stream()
+				.map(Enum::name).sorted().forEach(format -> conversion.addLiteral(property(model, "geometryArtifactFormat"), format));
 		Resource sourceEntity = model.createResource("urn:sha256:" + sourceChecksum)
 				.addProperty(RDF.type, model.createResource(PROV + "Entity"));
 		conversion.addProperty(model.createProperty(PROV + "wasDerivedFrom"), sourceEntity);
@@ -136,6 +142,14 @@ final class ConversionManifest {
 		values.add("artifactStore=" + artifactStore.configurationId());
 		values.add("resolver=" + request.getClassificationResolver().configurationId());
 		values.add("ontologies=" + ontologies);
+		// Keep the legacy/default request fingerprint byte-for-byte compatible. The
+		// integration policy only participates in the key when it is explicitly used.
+		if (request.getIdentifierPolicy() != IdentifierPolicy.EXISTING) {
+			values.add("identifierPolicy=" + request.getIdentifierPolicy());
+			request.getProjectNamespace().ifPresent(v -> values.add("projectNamespace=" + v));
+		}
+		request.getExternalLinkMappings().stream().map(ConversionManifest::sha256).sorted()
+				.forEach(v -> values.add("mappingChecksum=" + v));
 		values.add("properties=" + String.join(",", Boolean.toString(p.isHasBuildingElements()),
 				Boolean.toString(p.isHasSeparateBuildingElementsModel()), Boolean.toString(p.isHasBuildingProperties()),
 				Boolean.toString(p.isHasSeparatePropertiesModel()), Boolean.toString(p.isHasGeolocation()),
@@ -145,6 +159,9 @@ final class ConversionManifest {
 				Boolean.toString(p.hasGeometryInferredInterfaces()), Boolean.toString(p.hasIfcSpaceBoundaries()),
 				Boolean.toString(p.hasIfcZones()), Boolean.toString(p.hasWireframe()), p.getPropertyMode().name(),
 				Boolean.toString(p.hasStableIdentity()), Boolean.toString(p.hasGeometryArtifacts())));
+		if (!p.getGeometryArtifactFormats().equals(java.util.Set.of(GeometryArtifactFormat.OBJ)))
+			values.add("geometryArtifactFormats=" + p.getGeometryArtifactFormats().stream().map(Enum::name).sorted()
+					.reduce((a, b) -> a + "," + b).orElse(""));
 		request.getSelectedTypes().stream().sorted().forEach(v -> values.add("type=" + v));
 		request.getSelectedPropertySets().stream().sorted().forEach(v -> values.add("pset=" + v));
 		request.getValidationShapePacks().stream().map(ValidationShapePack::resource).sorted().forEach(v -> values.add("validation=" + v));
@@ -169,7 +186,7 @@ final class ConversionManifest {
 		}
 	}
 
-	private static String sha256(String value) {
+	static String sha256(String value) {
 		try {
 			return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256")
 					.digest(value.getBytes(java.nio.charset.StandardCharsets.UTF_8)));

@@ -1,0 +1,4 @@
+{"type":"ifcJSON","schemaIdentifier":"IFC4","data":[
+  {"type":"IfcBuildingElementProxy","globalId":"0BTBFw6f90Nfh9rP1dlXrB","name":"Quiet-room HVAC terminal"},
+  {"type":"IfcBuildingElementProxy","globalId":"1hOSvn6df7F8_7GcBWlN4K","name":"Meeting-room HVAC terminal (refurbished)"}
+]}

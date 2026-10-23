@@ -1,0 +1,10 @@
+[
+  {
+    "globalId": "1hOSvn6df7F8_7GcBWlN4K",
+    "externalResourceIri": "https://example.org/sensors/temperature-101",
+    "predicateIri": "https://www.w3.org/ns/sosa/hosts",
+    "source": "commissioning-register-2026",
+    "method": "reviewed-room-sensor-assignment",
+    "confidence": 1.0
+  }
+]

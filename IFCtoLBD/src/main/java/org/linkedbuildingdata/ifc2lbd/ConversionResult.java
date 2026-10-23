@@ -30,11 +30,22 @@ public final class ConversionResult implements AutoCloseable {
 
 	static ConversionResult of(Model general, Model product, Model property, Model manifest, Model validation,
 			ConversionGraphNames graphNames) {
+		return of(general, product, property, manifest, validation,
+				org.apache.jena.rdf.model.ModelFactory.createDefaultModel(),
+				org.apache.jena.rdf.model.ModelFactory.createDefaultModel(),
+				org.apache.jena.rdf.model.ModelFactory.createDefaultModel(), graphNames);
+	}
+
+	static ConversionResult of(Model general, Model product, Model property, Model manifest, Model validation,
+			Model externalLinks, Model externalLinkReport, Model identityReport, ConversionGraphNames graphNames) {
 		DatasetGraphMapLink linked = new DatasetGraphMapLink(general.getGraph());
 		linked.addGraph(NodeFactory.createURI(graphNames.product()), product.getGraph());
 		linked.addGraph(NodeFactory.createURI(graphNames.property()), property.getGraph());
 		linked.addGraph(NodeFactory.createURI(graphNames.manifest()), manifest.getGraph());
 		linked.addGraph(NodeFactory.createURI(graphNames.validation()), validation.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.externalLinks()), externalLinks.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.externalLinkReport()), externalLinkReport.getGraph());
+		linked.addGraph(NodeFactory.createURI(graphNames.identityReport()), identityReport.getGraph());
 		Dataset result = DatasetFactory.wrap(linked);
 		return new ConversionResult(result, graphNames);
 	}
@@ -68,6 +79,9 @@ public final class ConversionResult implements AutoCloseable {
 	public Model getValidationModel() {
 		requireOpen(); return dataset.getNamedModel(graphNames.validation());
 	}
+	public Model getExternalLinkModel() { requireOpen(); return dataset.getNamedModel(graphNames.externalLinks()); }
+	public Model getExternalLinkReportModel() { requireOpen(); return dataset.getNamedModel(graphNames.externalLinkReport()); }
+	public Model getIdentityReportModel() { requireOpen(); return dataset.getNamedModel(graphNames.identityReport()); }
 
 	@Override
 	public void close() {

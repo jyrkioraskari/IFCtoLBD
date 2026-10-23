@@ -18,6 +18,13 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 	static final String FORMAT = "format";
 	static final String LEVEL = "propertyLevel";
 	static final String BASE_URI = "baseUri";
+	static final String IDENTIFIER_POLICY = "identifierPolicy";
+	static final String PROJECT_NAMESPACE = "projectNamespace";
+	static final String LINK_MAPPING = "externalLinkMapping";
+	static final String PROVENANCE_OUTPUT = "provenanceOutput";
+	static final String GEOMETRY_ARTIFACT_FORMAT = "geometryArtifactFormat";
+	static final String GEOMETRY_ARTIFACT_DIRECTORY = "geometryArtifactDirectory";
+	static final String GEOMETRY_ARTIFACT_BASE_URI = "geometryArtifactBaseUri";
 	static final List<String> SWITCHES = List.of("buildingElements", "separateElements", "properties",
 			"separateProperties", "blankNodes", "geolocation", "materials", "geometry", "ifcOwl", "performance",
 			"boundingBoxWkt", "interfaces", "wireframe", "units", "hierarchicalNames",
@@ -52,10 +59,25 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 			throw new IllegalArgumentException("ifcOWL/material export and performance mode cannot both be enabled.");
 		}
 		for (String key : settings.keySet()) {
-			if (!REQUIRED.contains(key) && !BASE_URI.equals(key)) {
+			if (!REQUIRED.contains(key) && !List.of(BASE_URI, IDENTIFIER_POLICY, PROJECT_NAMESPACE,
+					LINK_MAPPING, PROVENANCE_OUTPUT, GEOMETRY_ARTIFACT_FORMAT, GEOMETRY_ARTIFACT_DIRECTORY,
+					GEOMETRY_ARTIFACT_BASE_URI).contains(key)) {
 				throw new IllegalArgumentException("Unknown preset setting: " + key);
 			}
 		}
+		String policy = settings.getOrDefault(IDENTIFIER_POLICY, "EXISTING");
+		if (!List.of("EXISTING", "STABLE_PROJECT").contains(policy))
+			throw new IllegalArgumentException("Unsupported identifier policy.");
+		if ("STABLE_PROJECT".equals(policy)
+				&& settings.getOrDefault(PROJECT_NAMESPACE, "").isBlank())
+			throw new IllegalArgumentException("Stable project identity requires a project namespace.");
+		String geometryFormat = settings.getOrDefault(GEOMETRY_ARTIFACT_FORMAT, "EMBEDDED");
+		if (!List.of("EMBEDDED", "OBJ", "GLB", "GLTF").contains(geometryFormat))
+			throw new IllegalArgumentException("Unsupported geometry artifact format.");
+		if (!"EMBEDDED".equals(geometryFormat)
+				&& (settings.getOrDefault(GEOMETRY_ARTIFACT_DIRECTORY, "").isBlank()
+						|| settings.getOrDefault(GEOMETRY_ARTIFACT_BASE_URI, "").isBlank()))
+			throw new IllegalArgumentException("External geometry requires a directory and base IRI.");
 	}
 
 	ConversionPreset renamed(String newName) {
@@ -88,6 +110,7 @@ record ConversionPreset(String name, Map<String, String> settings, boolean built
 		}
 		// Presets created before material export was added remain valid.
 		settings.putIfAbsent("materials", "false");
+		// Version-1 presets predate integration settings; consumers use EXISTING when the key is absent.
 		return new ConversionPreset(properties.getProperty("name"), settings, false);
 	}
 

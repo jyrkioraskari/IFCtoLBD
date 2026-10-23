@@ -43,6 +43,7 @@ alternative programming routes; neither requires learning the other first.
 - [Property output levels 1–3](property-levels.md)
 - [Export formats, split files, and ICDD](export-formats.md)
 - [Supply-chain and sustainability output](supply-chain-and-sustainability.md)
+- [Optional identity, external links, provenance, and sensor integration](optional-integration.md) (development source)
 - [IFC materials with BMO](materials-bmo.md)
 - [ProductExtractor JSON summaries](../ProductExtractor/README.md)
 - [Compatible projects](compatible-projects.md)

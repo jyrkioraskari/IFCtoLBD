@@ -34,10 +34,14 @@ export async function parseTurtle(text: string): Promise<ModelData> {
     const unitToMetres = Number(textMeta("unitToMetres"));
     const metadata = { coordinateSpace: textMeta("objCoordinateSpace") ?? textMeta("coordinateSpace"), coordinateReferenceSystem: textMeta("objCoordinateReferenceSystem") ?? textMeta("coordinateReferenceSystem"), lengthUnit: textMeta("lengthUnit"), unitToMetres: Number.isFinite(unitToMetres) ? unitToMetres : undefined };
     if (embedded?.object.termType === "Literal") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "embedded-obj", payload: embedded.object.value, ...material, ...metadata });
-    const artifact = store.getQuads(q.object, DataFactory.namedNode(ARTIFACT), null, null)[0];
-    const mediaType = artifact && store.getQuads(artifact.object, DataFactory.namedNode(ARTIFACT_MEDIA_TYPE), null, null)[0]?.object.value;
-    if (artifact && mediaType === "model/obj") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "artifact-obj", asset: artifact.object.value, ...material, ...metadata });
-    if (!embedded && (!artifact || mediaType !== "model/obj")) warnings.push(`Geometry for ${termId(q.subject)} is not an IFCtoLBD OBJ payload or model/obj artifact.`);
+    const artifacts = store.getQuads(q.object, DataFactory.namedNode(ARTIFACT), null, null);
+    let supportedArtifact = false;
+    for (const artifact of artifacts) {
+      const mediaType = store.getQuads(artifact.object, DataFactory.namedNode(ARTIFACT_MEDIA_TYPE), null, null)[0]?.object.value;
+      const kind = mediaType === "model/obj" ? "artifact-obj" : mediaType === "model/gltf-binary" ? "artifact-glb" : mediaType === "model/gltf+json" ? "artifact-gltf" : undefined;
+      if (kind) { supportedArtifact = true; geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind, asset: artifact.object.value, ...material, ...metadata }); }
+    }
+    if (!embedded && !supportedArtifact) warnings.push(`Geometry for ${termId(q.subject)} is not a supported OBJ, GLB, or glTF artifact.`);
   }
   return { store, prefixes, entities, geometries, warnings: [...new Set(warnings)], quads: parsed };
 }

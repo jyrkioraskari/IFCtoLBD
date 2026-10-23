@@ -226,15 +226,17 @@ smallest relevant extension point:
 | Additional domain output | `ConversionModule`, `ConversionContext`, and `ConversionProfile` |
 | Classification or product enrichment | `ClassificationResolver`, `SupplyChainStage`, `SustainabilityStage` |
 | New geometry backend | `GeometryProvider` injected through `ConversionSession` |
-| Consistent element identity across revisions | `StableGuidUriPolicy` and a persistent model scope |
+| Consistent element identity across revisions | `StableProjectUriPolicy` and a persistent project namespace; `StableGuidUriPolicy` remains for model-scope compatibility |
 | RDF quality rules | `ValidationShapePack`, `ValidationStage`, and SHACL resources |
 | IFC relationship or property mapping fix | `IFCtoLBDConverterCore`, `IfcOWLUtils`, and `core/valuesets` |
 | Desktop workflow change | `IFCtoLBDController` and `src/main/resources/.../IFCtoLBD.fxml` in the desktop module |
 
-When stable identity is enabled, supply a model scope with
-`ConversionRequest.withModelScope(...)`. Keep the scope fixed for revisions of
-one model and distinct for unrelated models. A file path alone is not a
-persistent model identity.
+For new stable-identity integrations, call
+`ConversionRequest.withStableProjectIdentity(...)` with a persistent absolute,
+non-`file:` project namespace. Keep the namespace fixed for revisions of one
+project and distinct for unrelated projects. The older
+`ConversionRequest.withModelScope(...)` mechanism remains available for
+compatibility. A file path alone is not a persistent model identity.
 
 Use the existing modules and tests as examples. Tests in `IFCtoLBD/src/test/java`
 include `ConversionApiIntegrationTest`, `StableGuidUriPolicyTest`,
@@ -530,6 +532,18 @@ contains immutable positions, optional normals, triangle indices, materials,
 per-triangle material indices, and a local-to-world transform. The Python
 iterator currently emits world-space positions and therefore uses the identity
 transform; the legacy backend preserves its separate placement transform.
+
+`GeometryArtifactFormat` selects optional `OBJ`, `GLB`, or self-contained `GLTF` artifacts.
+`GltfGeometryWriter` converts `TessellatedMesh` data directly to glTF 2.0, so format selection does not
+change the geometry provider or require another native executable. `FileSystemGeometryArtifactStore`
+writes content-addressed files and publishes only its configured base IRI in RDF. Embedded OBJ remains the
+default, and the default request fingerprint is unchanged. GLB/glTF currently preserve positions, normals,
+indices, local-to-world transforms, and basic colour/alpha; they do not emit textures, animation, external
+buffers, or compression extensions.
+
+The desktop creates its artifact store during the read-in phase. Consequently, changing its geometry
+format, directory, or base IRI marks the loaded model stale and triggers a safe reread before conversion.
+Old desktop presets omit these fields and resolve to embedded OBJ.
 
 Every structured conversion also runs `SemanticOutputAudit`. Its RDF findings
 are included in the validation named graph, while status and warning/error

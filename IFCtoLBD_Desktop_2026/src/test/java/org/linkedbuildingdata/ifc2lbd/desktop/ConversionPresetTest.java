@@ -60,6 +60,9 @@ class ConversionPresetTest {
 		String legacy = writer.toString().replaceFirst("(?m)^materials=false\\R", "");
 		ConversionPreset imported = ConversionPreset.read(new StringReader(legacy));
 		assertFalse(Boolean.parseBoolean(imported.settings().get("materials")));
+		assertEquals("EXISTING", imported.settings().getOrDefault(ConversionPreset.IDENTIFIER_POLICY, "EXISTING"));
+		assertFalse(imported.settings().containsKey(ConversionPreset.PROJECT_NAMESPACE));
+		assertTrue(imported.settings().keySet().containsAll(ConversionPreset.REQUIRED));
 	}
 
 	@Test
@@ -68,5 +71,18 @@ class ConversionPresetTest {
 		settings.put(ConversionPreset.FORMAT, "JSON-LD compact");
 		ConversionPreset preset = new ConversionPreset("Compact JSON", settings, false);
 		assertEquals("JSON-LD compact", preset.settings().get(ConversionPreset.FORMAT));
+	}
+
+	@Test
+	void preservesOptionalExternalGeometrySettings() throws Exception {
+		Map<String, String> settings = new LinkedHashMap<>(ConversionPreset.builtIns().getFirst().settings());
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_FORMAT, "GLB");
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_DIRECTORY, "geometry");
+		settings.put(ConversionPreset.GEOMETRY_ARTIFACT_BASE_URI, "https://example.org/geometry/");
+		ConversionPreset preset = new ConversionPreset("GLB package", settings, false);
+		StringWriter writer = new StringWriter(); preset.write(writer);
+		ConversionPreset imported = ConversionPreset.read(new StringReader(writer.toString()));
+		assertEquals("GLB", imported.settings().get(ConversionPreset.GEOMETRY_ARTIFACT_FORMAT));
+		assertEquals("geometry", imported.settings().get(ConversionPreset.GEOMETRY_ARTIFACT_DIRECTORY));
 	}
 }

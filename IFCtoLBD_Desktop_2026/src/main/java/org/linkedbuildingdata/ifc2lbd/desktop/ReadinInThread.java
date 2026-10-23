@@ -4,6 +4,8 @@ import java.util.concurrent.Callable;
 import java.util.logging.Logger;
 
 import org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter;
+import org.linkedbuildingdata.ifc2lbd.FileSystemGeometryArtifactStore;
+import org.linkedbuildingdata.ifc2lbd.GeometryArtifactFormat;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.IFC2LBD_ApplicationEventBusService;
 import org.linkedbuildingdata.ifc2lbd.application_messaging.events.IFCtoLBD_SystemStatusEvent;
 import org.linkedbuildingdata.ifc2lbd.messages.ProcessReadyEvent;
@@ -58,9 +60,19 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
     final boolean hasPerformanceBoost;
     final boolean hasBoundingBoxWKT;
     final boolean hasInterfaces;
+	final GeometryArtifactFormat geometryArtifactFormat;
+	final String geometryArtifactDirectory;
+	final String geometryArtifactBaseUri;
 
     //TODO Check this
 	public ReadinInThread(long operationId, String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasInterfaces) {
+		this(operationId, ifc_filename, uriBase, target_file, props_level, hasBuildingElements,
+				hasSeparateBuildingElementsModel, hasBuildingProperties, hasSeparatePropertiesModel,
+				hasPropertiesBlankNodes, hasGeolocation, hasGeometry, exportIfcOWL, hasUnits,
+				hasPerformanceBoost, hasBoundingBoxWKT, hasInterfaces, null, "", "");
+	}
+
+	public ReadinInThread(long operationId, String ifc_filename, String uriBase, String target_file,int props_level,@SuppressWarnings("unused") boolean hasBuildingElements, boolean hasSeparateBuildingElementsModel, @SuppressWarnings("unused") boolean hasBuildingProperties,boolean hasSeparatePropertiesModel,boolean hasPropertiesBlankNodes, boolean hasGeolocation,boolean hasGeometry,boolean exportIfcOWL,boolean hasUnits,boolean hasPerformanceBoost,boolean hasBoundingBoxWKT,boolean hasInterfaces, GeometryArtifactFormat geometryArtifactFormat, String geometryArtifactDirectory, String geometryArtifactBaseUri) {
 		super();
 		this.operationId = operationId;
 		this.ifc_filename = ifc_filename;
@@ -80,6 +92,9 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 		this.hasPerformanceBoost=hasPerformanceBoost;
 		this.hasBoundingBoxWKT=hasBoundingBoxWKT;
 		this.hasInterfaces=hasInterfaces;
+		this.geometryArtifactFormat=geometryArtifactFormat;
+		this.geometryArtifactDirectory=geometryArtifactDirectory;
+		this.geometryArtifactBaseUri=geometryArtifactBaseUri;
 	}
 
 	@Override
@@ -89,7 +104,11 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 					WorkflowProgressEvent.INDETERMINATE));
 			IFCtoLBDConverter c1nb;
 			try {
-				c1nb = new IFCtoLBDConverter(this.uriBase, false, this.props_level);
+				c1nb = this.geometryArtifactFormat == null
+						? new IFCtoLBDConverter(this.uriBase, false, this.props_level)
+						: new IFCtoLBDConverter(new FileSystemGeometryArtifactStore(
+								java.nio.file.Path.of(this.geometryArtifactDirectory),
+								java.net.URI.create(this.geometryArtifactBaseUri)), this.uriBase, false, this.props_level);
 				boolean loaded = c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits,this.hasInterfaces);
 				if (!loaded) {
 					c1nb.close();

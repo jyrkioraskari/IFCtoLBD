@@ -117,10 +117,34 @@ const tools = [
         propsLevel: { type: "integer", minimum: 1, maximum: 3, default: 1 },
         profile: { type: "string", enum: CONVERSION_PROFILES, default: "properties-simple" },
         modelScope: { type: "string" },
+        identifierPolicy: { type: "string", enum: ["EXISTING", "STABLE_PROJECT"], default: "EXISTING" },
+        projectNamespace: { type: "string" },
+        mappingPaths: { type: "array", items: { type: "string" }, default: [] },
+        geometryFormats: { type: "array", items: { type: "string", enum: ["OBJ", "GLB", "GLTF"] }, default: ["OBJ"] },
         validationShapePacks: { type: "array", items: { type: "string", enum: Object.keys(SHAPE_PACKS) }, default: [] }
       },
       additionalProperties: false
     }
+  },
+  {
+    name: "inspect_link_coverage",
+    description: "Report matched, unmatched, ambiguous, invalid, and duplicate external-link mappings without inferring links.",
+    inputSchema: { type: "object", required: ["modelId"], properties: { modelId: { type: "string" } }, additionalProperties: false }
+  },
+  {
+    name: "list_unresolved_mappings",
+    description: "List unresolved or uncertain external-link mapping rows.",
+    inputSchema: { type: "object", required: ["modelId"], properties: { modelId: { type: "string" }, limit: { type: "integer", minimum: 1, maximum: 1000, default: 100 } }, additionalProperties: false }
+  },
+  {
+    name: "explain_external_link",
+    description: "Explain the supplied source, method, confidence, predicate, and target for an external link.",
+    inputSchema: { type: "object", required: ["modelId", "elementIri"], properties: { modelId: { type: "string" }, elementIri: { type: "string" }, limit: { type: "integer", minimum: 1, maximum: 100, default: 20 } }, additionalProperties: false }
+  },
+  {
+    name: "report_identifier_policy",
+    description: "Report the explicit identifier policy and namespace recorded for a conversion.",
+    inputSchema: { type: "object", required: ["modelId"], properties: { modelId: { type: "string" } }, additionalProperties: false }
   },
   {
     name: "get_property_evidence",
@@ -833,13 +857,18 @@ class IFCtoLBD {
     const resolvedIfcFile = path.resolve(ifcFile);
     const validationPacks = options.validationShapePacks || [];
     const result = this.converter.convertSync(
-      resolvedIfcFile, options.profile || "properties-simple", options.modelScope || null, validationPacks
+      resolvedIfcFile, options.profile || "properties-simple", options.modelScope || null, validationPacks,
+      options.identifierPolicy || "EXISTING", options.projectNamespace || null,
+      (options.mappingPaths || []).map((value) => path.resolve(value)), options.geometryFormats || ["OBJ"]
     );
     return {
       result,
       model: this.converter.dataModelSync(result),
       manifestModel: result.getManifestModelSync(),
       validationModel: result.getValidationModelSync(),
+      externalLinkModel: result.getExternalLinkModelSync(),
+      externalLinkReportModel: result.getExternalLinkReportModelSync(),
+      identityReportModel: result.getIdentityReportModelSync(),
     };
   }
 
@@ -921,6 +950,14 @@ function resolveOutputPath(outputPath) {
   return candidate;
 }
 
+function resolveMappingPath(mappingPath) {
+  const candidate = requireAllowedPath(mappingPath, READ_ROOTS, "Read");
+  if (!fs.existsSync(candidate) || !fs.statSync(candidate).isFile())
+    throw new Error(`Mapping path is not a file: ${candidate}`);
+  if (!/\.(csv|json)$/i.test(candidate)) throw new Error(`Mapping file must use .csv or .json: ${candidate}`);
+  return candidate;
+}
+
 function createConverter(args) {
   const baseUri = args.baseUri || DEFAULT_BASE_URI;
   const propsLevel = asInteger(args.propsLevel, 1, 1, 3);
@@ -959,6 +996,10 @@ function conversionProfile(args) {
     propsLevel: asInteger(args.propsLevel, profile === "evidence" ? 2 : 1, 1, 3),
     profile,
     modelScope: args.modelScope || null,
+    identifierPolicy: args.identifierPolicy || "EXISTING",
+    projectNamespace: args.projectNamespace || null,
+    mappingPaths: (args.mappingPaths || []).map(resolveMappingPath),
+    geometryFormats: args.geometryFormats || ["OBJ"],
     validationShapePacks: selectedShapePacks(args.validationShapePacks, true),
   };
 }
@@ -984,8 +1025,19 @@ function callLoadIfc(args) {
   const schema = readIfcSchema(ifcPath);
   const profile = conversionProfile(args);
   const actualConverterVersion = getConverterVersion();
+  const cacheProfile = { ...profile };
+  // Preserve model IDs produced by pre-integration/default requests. Optional
+  // integration settings affect the cache only when the caller enables them.
+  if (cacheProfile.identifierPolicy === "EXISTING" && cacheProfile.projectNamespace === null
+      && cacheProfile.mappingPaths.length === 0 && cacheProfile.geometryFormats.length === 1
+      && cacheProfile.geometryFormats[0] === "OBJ") {
+    delete cacheProfile.identifierPolicy;
+    delete cacheProfile.projectNamespace;
+    delete cacheProfile.mappingPaths;
+    delete cacheProfile.geometryFormats;
+  }
   const cacheKey = crypto.createHash("sha256")
-    .update(JSON.stringify({ checksum, converterVersion: actualConverterVersion, profile }))
+    .update(JSON.stringify({ checksum, converterVersion: actualConverterVersion, profile: cacheProfile }))
     .digest("hex");
   const cachedId = modelIdsByCacheKey.get(cacheKey);
   if (cachedId && loadedModels.has(cachedId)) {
@@ -1007,6 +1059,9 @@ function callLoadIfc(args) {
     result: converted.result,
     manifestModel: converted.manifestModel,
     validationModel: converted.validationModel,
+    externalLinkModel: converted.externalLinkModel,
+    externalLinkReportModel: converted.externalLinkReportModel,
+    identityReportModel: converted.identityReportModel,
     artifactDirectory,
     comparisons: new Map(),
     loadedAt: new Date().toISOString(),
@@ -1027,9 +1082,59 @@ function modelDescriptor(entry, cacheHit) {
     converterVersion: entry.converterVersion,
     profile: entry.profile,
     triples: modelSize(entry.model),
+    externalLinkTriples: modelSize(entry.externalLinkModel),
+    identifierPolicy: entry.profile.identifierPolicy || "EXISTING",
+    projectNamespace: entry.profile.projectNamespace || null,
     cacheHit,
     loadedAt: entry.loadedAt,
   };
+}
+
+function callInspectLinkCoverage(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const query = `PREFIX ext: <https://w3id.org/ifctolbd/external-link#>
+SELECT ?status (COUNT(?row) AS ?count) WHERE { ?row a ext:MappingResult ; ext:status ?status } GROUP BY ?status ORDER BY ?status`;
+  const rows = executeSelect(entry.externalLinkReportModel, query, 20).rows;
+  const counts = Object.fromEntries(rows.map((row) => [literalText(row.status), Number(literalText(row.count))]));
+  return structuredContent({ modelId: entry.modelId, counts, linkTriples: modelSize(entry.externalLinkModel),
+    uncertaintyExplicit: true, dataModified: false });
+}
+
+function callListUnresolvedMappings(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const limit = asInteger(args.limit, 100, 1, 1000);
+  const query = `PREFIX ext: <https://w3id.org/ifctolbd/external-link#>
+SELECT ?row ?status ?globalId ?message ?candidate WHERE {
+ ?row a ext:MappingResult ; ext:status ?status . FILTER(?status != "matched")
+ OPTIONAL { ?row ext:globalId ?globalId } OPTIONAL { ?row ext:message ?message }
+ OPTIONAL { ?row ext:candidate ?candidate }
+} ORDER BY ?status ?row`;
+  const data = executeSelect(entry.externalLinkReportModel, query, limit);
+  return structuredContent({ modelId: entry.modelId, unresolved: data.rows, truncated: data.truncated });
+}
+
+function callExplainExternalLink(args) {
+  const entry = requireLoadedModel(args.modelId);
+  let element;
+  try { element = new URL(String(args.elementIri)).toString(); } catch { throw new Error("elementIri must be an absolute IRI"); }
+  const limit = asInteger(args.limit, 20, 1, 100);
+  const query = `PREFIX ext: <https://w3id.org/ifctolbd/external-link#>
+SELECT ?row ?globalId ?predicate ?externalResource ?source ?method ?confidence ?status WHERE {
+ ?row a ext:MappingResult ; ext:resolvedElement <${element}> ; ext:status ?status ;
+      ext:globalId ?globalId ; ext:predicate ?predicate ; ext:externalResource ?externalResource .
+ OPTIONAL { ?row ext:source ?source } OPTIONAL { ?row ext:method ?method } OPTIONAL { ?row ext:confidence ?confidence }
+} ORDER BY ?row`;
+  const data = executeSelect(entry.externalLinkReportModel, query, limit);
+  return structuredContent({ modelId: entry.modelId, elementIri: element, explanations: data.rows,
+    found: data.rows.length > 0, truncated: data.truncated, inferred: false });
+}
+
+function callReportIdentifierPolicy(args) {
+  const entry = requireLoadedModel(args.modelId);
+  return structuredContent({ modelId: entry.modelId, identifierPolicy: entry.profile.identifierPolicy || "EXISTING",
+    projectNamespace: entry.profile.projectNamespace || null,
+    identityIssues: modelSize(entry.identityReportModel), continuityClaimed: false,
+    note: "Continuity is only assessed by revision comparison with compatible persistent namespaces." });
 }
 
 function callCapabilities() {
@@ -1385,6 +1490,11 @@ function callCompareRevisions(args) {
     currentModelId: current.modelId,
     added: Number(diff.getAddedCountSync()),
     removed: Number(diff.getRemovedCountSync()),
+    retainedGlobalIds: Number(diff.getRetainedGlobalIdCountSync()),
+    addedGlobalIds: Number(diff.getAddedGlobalIdCountSync()),
+    removedGlobalIds: Number(diff.getRemovedGlobalIdCountSync()),
+    orphanedLinks: Number(diff.getOrphanedLinkCountSync()),
+    identityContinuity: "verified-compatible-policy-and-namespace",
     changeResource: `ifctolbd://models/${current.modelId}/comparisons/${comparisonId}`,
   };
   current.comparisons.set(comparisonId, { diff, model, summary });
@@ -1490,7 +1600,9 @@ function callReadModelResource(args) {
     const data = fs.readFileSync(artifactPath);
     if (data.length > MAX_RESOURCE_CHARS) throw new Error(`Geometry resource exceeds the ${MAX_RESOURCE_CHARS} byte output quota`);
     const extension = path.extname(fileName).slice(1).toLowerCase();
-    const mimeType = extension === "obj" ? "model/obj" : "application/octet-stream";
+    const mimeType = extension === "obj" ? "model/obj"
+      : extension === "glb" ? "model/gltf-binary"
+      : extension === "gltf" ? "model/gltf+json" : "application/octet-stream";
     return { uri: args.uri, mimeType, blob: data.toString("base64") };
   }
   const serialized = entry.converter.serializeModel(resourceModel, format);
@@ -2010,6 +2122,14 @@ function handleToolCallDirect(name, args) {
       return callCloseModel(input);
     case "compare_revisions":
       return callCompareRevisions(input);
+    case "inspect_link_coverage":
+      return callInspectLinkCoverage(input);
+    case "list_unresolved_mappings":
+      return callListUnresolvedMappings(input);
+    case "explain_external_link":
+      return callExplainExternalLink(input);
+    case "report_identifier_policy":
+      return callReportIdentifierPolicy(input);
     case "query_model":
       return callQueryModel(input);
     case "validate_model":
@@ -2038,7 +2158,8 @@ let nextWorkerRequestId = 1;
 const workerRequests = new Map();
 const SESSION_TOOLS = new Set([
   "load_ifc", "get_property_evidence", "describe_model", "get_entity", "describe_element", "list_classes", "list_properties", "query_model", "close_model",
-  "validate_model", "explain_validation", "compare_revisions", "__read_model_resource"
+  "validate_model", "explain_validation", "compare_revisions", "inspect_link_coverage", "list_unresolved_mappings",
+  "explain_external_link", "report_identifier_policy", "__read_model_resource"
 ]);
 
 function getWorker() {
