@@ -1,3 +1,12 @@
+LEGACY IMPLEMENTATION
+
+This directory contains the Java/Tomcat WAR implementation. New deployments
+should normally use the modern Node.js service documented at:
+
+  ../IFCtoLBD_OpenAPI_Node_js/README.md
+
+The instructions below remain for maintainers of the legacy WAR.
+
 // Build and run this project with JDK 21 or newer, matching the repository baseline.
 // Set JAVA_HOME to that JDK and confirm it with: mvn -version
 

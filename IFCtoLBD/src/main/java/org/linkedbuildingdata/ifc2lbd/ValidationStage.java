@@ -37,7 +37,7 @@ final class ValidationStage {
 		return validateResources(resources, dataModels);
 	}
 
-	private static Result validateResources(List<String> resources, Model... dataModels) {
+	static Result validateResources(List<String> resources, Model... dataModels) {
 		if (resources.isEmpty()) {
 			return new Result("not-run", ModelFactory.createDefaultModel(), resources);
 		}

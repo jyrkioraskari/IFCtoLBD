@@ -1,12 +1,12 @@
 # IFCtoLBD
 
-Development version 2.55.0 · Stable release used by the beginner guide: [2.49.0](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0) · Free for all of us, forever.
+Development version 2.56.0 · Stable release used by the beginner guide: [2.49.0](https://github.com/jyrkioraskari/IFCtoLBD/releases/tag/2.49.0) · Free for all of us, forever.
 
 IFCtoLBD turns an IFC building model into **Linked Building Data (LBD)**: small
 subject–relationship–value facts, called RDF triples, that describe buildings,
 spaces, elements, and their properties. You can query these facts and use LBD in
 your own applications to link building
-information to other data. Development version 2.55.0 supports IFC STEP,
+information to other data. Development version 2.56.0 supports IFC STEP,
 IFC/XML, and IFC/JSON.
 
 **Audience and prerequisites.** The desktop quick start is for BIM practitioners,
@@ -20,7 +20,7 @@ introduction below. **New to RDF or SPARQL?** Start with the
 > [checked example bundle](examples/getting-started/README.md) includes small IFC
 > models, saved configurations, SPARQL questions, and expected answers for a
 > building inventory, a completeness check, and a revision comparison. The
-> bundle targets development version 2.55.0.
+> bundle targets development version 2.56.0.
 
 ## What can you do with IFCtoLBD?
 
@@ -38,13 +38,13 @@ introduction below. **New to RDF or SPARQL?** Start with the
   create links to asset records, products, sensors, and other datasets in your
   own applications. Development source also has an [optional, offline external-link workflow](docs/optional-integration.md);
   released/default conversion does not add those links.
-- **Automate your work** with the command-line converter, Python examples, or
-  the Java library.
+- **Automate your work** with the command-line converter, Python examples, the
+  Java library, or the modern Node.js HTTP API.
 - **Build your own tools and extensions** from the source: add mappings,
   vocabularies, validation rules, geometry backends, or domain-specific enrichment.
 
 The guides below show you where to start. The beginner workflow is pinned to
-release 2.49.0; source-only 2.55.0 features are identified separately.
+release 2.49.0; source-only 2.56.0 features are identified separately.
 
 ## The pieces of IFCtoLBD
 
@@ -53,12 +53,20 @@ release 2.49.0; source-only 2.55.0 features are identified separately.
 | Desktop app | You want the **Read IFC → Run** interface | `IFCtoLBD.zip` or `IFCtoLBD-Desktop_for_Windows.zip` in release 2.49.0 |
 | CLI | You want scripted conversion on Windows | `IFCtoLBDConverter_CLI.exe` in release 2.49.0 |
 | Java library | You are embedding conversion in a JVM application | `org.linkedbuildingdata:ifc-to-lbd:<version>` / `ifc-to-lbd-<version>.jar` |
+| HTTP/OpenAPI service | You want to upload IFC and receive RDF over HTTP | `IFCtoLBD_OpenAPI_Node_js`; Node.js 20+ and Java 21, built from source |
 | MCP server | You want an AI tool to inspect or convert IFC | `IFCtoLBD_MCP`; build from source because release 2.49.0 has no prebuilt MCP server |
+| OneClick | You want one selected Turtle export from the web app, a separate Node CLI, or an MCP tool | `OneClick/cli.mjs` and MCP `export_oneclick_lbd`; source checkout with Python, IfcOpenShell, and Shapely |
 | ProductExtractor | You want element-oriented JSON or a local summary interface for LBD output | `ProductExtractor`; a standalone Python 3.10+ tool installed from source |
 | LBD Babylon viewer | You want to explore IFCtoLBD Turtle geometry in a web browser | `LBDBabylon`; a local Vite/Babylon.js application built from source |
 
-These are the exact names for release 2.49.0. New releases follow the
+The desktop and CLI names above are the exact names from release 2.49.0;
+source-built entries describe the development tree. New releases follow the
 [artifact naming policy](docs/development.md#artifact-names).
+
+The [OneClick command line](OneClick/README.md#command-line-export) and
+[MCP tool](IFCtoLBD_MCP/README.md#oneclick-export) are separate opt-in paths.
+They use OneClick's Turtle format; the Java CLI and the existing MCP
+`convert_ifc_to_lbd` tool keep their conversion behavior.
 
 ## New to IFC? Start with the standard
 
@@ -84,12 +92,12 @@ You need an IFC model and the desktop application.
 2. Start the desktop application. For a result you can check, use the small
    [two-wall example model](examples/getting-started/building-inventory/model.ifc).
    Click **Read IFC**, choose the model, and
-   wait for it to finish reading. Development version 2.55.0 also shows a model
+   wait for it to finish reading. Development version 2.56.0 also shows a model
    summary with the detected schema, model contents, geometry availability, and
    warnings. The application proposes an output path.
 3. Check that output path, then click **Run**. For your first conversion, keep
    the existing settings and filters. Wait for the conversion log to report completion.
-4. In development version 2.55.0, open **Query**, paste the saved
+4. In development version 2.56.0, open **Query**, paste the saved
    [building inventory query](examples/getting-started/building-inventory/query.rq),
    and click **Run query**. The useful result is immediate: the storey contains
    two walls. Compare it with the
@@ -107,10 +115,16 @@ The same functionality is available as a Java app for Linux and macOS users.
 ## View LBD geometry in a browser
 
 `LBDBabylon` is a browser-local viewer for Turtle created by IFCtoLBD. It can
-open an **LBD Turtle file**, render embedded OBJ geometry or explicitly linked OBJ/GLB/self-contained glTF
-artifacts while preserving `omg:hasGeometry` element associations, and provides orbit, walk, and fly
-navigation. If a Turtle file has no renderable geometry, the viewer clearly
-reports that result rather than inventing a model.
+open an **LBD Turtle file**, render embedded OBJ geometry or explicitly linked
+OBJ/GLB/self-contained glTF artifacts while preserving `omg:hasGeometry`
+element associations, and provides orbit, grounded avatar walk,
+fly, and direct floor-assisted navigation. Walk uses metre-aware body dimensions, smooth
+acceleration and braking, gravity, ground snapping, safe-position recovery, and
+semantic collision roles. A grass-green ground plane around the model prevents
+the walker from falling while exploring the exterior. Spaces, openings, voids, zones, and unknown helper
+geometry remain visible and selectable but do not block movement. If a Turtle
+file has no renderable geometry or recognized walkable floor, the viewer reports
+that result rather than inventing a model.
 
 The source-development desktop exposes **Embedded OBJ (existing)**, **External OBJ**, **External GLB**,
 and **External glTF** under **Settings → Geometry**. Released 2.49.0 desktop packages retain their documented
@@ -124,7 +138,7 @@ for development CLI, Java, MCP, and desktop usage.
 Run it from the repository root:
 
 ```sh
-npm --prefix LBDBabylon install
+npm --prefix LBDBabylon ci
 npm --prefix LBDBabylon run dev
 ```
 
@@ -133,8 +147,11 @@ or drop a `.ttl` file into the viewport. Use an IFCtoLBD conversion with
 geometry enabled (`--hasGeometry`) to produce embedded renderable OBJ geometry,
 or opt into external OBJ, GLB, or self-contained glTF artifacts. External files
 are loaded only after an explicit local-file/package selection; automatic remote
-fetching remains disabled. See the [LBDBabylon README](LBDBabylon/README.md) for
-the exact RDF predicates, controls, supported material values, and limits.
+fetching remains disabled. See the
+[LBDBabylon walkthrough](docs/lbd-babylon.md) for controls, semantic collision
+rules, walking behaviour, troubleshooting, and limitations. The
+[component README](LBDBabylon/README.md) records the exact RDF predicates and
+implementation contract.
 
 ## Summarize building products as JSON
 
@@ -172,10 +189,12 @@ formats, the JSON schema, library use, and the local HTTP API.
 | Turn elements, properties, and materials into JSON | [ProductExtractor guide](ProductExtractor/README.md) |
 | Read the output or automate conversion in Python | [Python guide](docs/python_examples.md) |
 | Embed the converter and query its output in Java | [Java guide](docs/java_examples.md) |
+| Convert uploaded IFC models through an HTTP/OpenAPI service | [`IFCtoLBD_OpenAPI_Node_js` guide](IFCtoLBD_OpenAPI_Node_js/README.md) |
 | Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) — build from source; release 2.49.0 has no prebuilt MCP package |
 | Compile the converter, understand the subprojects, or extend it | [Build and development guide](docs/development.md) |
 | Explore classification, product identity, GS1, or EPD output | [Supply-chain and sustainability](docs/supply-chain-and-sustainability.md) |
 | Preserve project identity and supply reviewed external links | [Optional integration workflows](docs/optional-integration.md) (development source) |
+| Retrieve elements with supporting triples and optional evidence | [Traceable graph retrieval](docs/traceable-retrieval.md) (development source) |
 
 Start with the output you have just created; programming and compiling can come
 later. LBD uses shared vocabularies such as the
@@ -214,11 +233,11 @@ This project is released under the open source [Apache License, Version 2.0](htt
                   Simon Steyskaland and
                   Joel Lehtonen and
                   Maxime Lefrançois},
-  title        = {{IFCtoLBD v 2.55.0}},
+  title        = {{IFCtoLBD v 2.56.0}},
   month        = 07,
   year         = 2026,
   publisher    = {GitHub},
-  version      = {2.55.0},
+  version      = {2.56.0},
   url          = {https://github.com/jyrkioraskari/IFCtoLBD}
 }
 

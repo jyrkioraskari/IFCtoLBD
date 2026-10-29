@@ -18,9 +18,11 @@ if you do not yet have a JDK. Point `JAVA_HOME` at the JDK, and check
 that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
 
 Java 21 is the single baseline for the root reactor and the separate Java,
-Scala, OpenAPI, MCP, Python/JPype, and Maven example integrations. Their POMs
-use `maven.compiler.release=21`, so a newer JDK still emits Java 21-compatible
-bytecode. Packaged runtime images already include their own Java runtime.
+Scala, legacy OpenAPI, MCP, Python/JPype, and Maven example integrations. Their
+POMs use `maven.compiler.release=21`, so a newer JDK still emits Java
+21-compatible bytecode. The modern `IFCtoLBD_OpenAPI_Node_js` service also
+requires Node.js 20 or newer. Packaged runtime images include their documented
+Java runtime.
 
 GraalVM users should select a GraalVM distribution for JDK 21 when building the
 `native` profile. Production code must stay on non-preview Java 21 APIs: records,
@@ -56,6 +58,10 @@ npm --prefix IFCtoLBD_MCP ci
 npm --prefix IFCtoLBD_MCP run check
 npm --prefix IFCtoLBD_MCP run test:integration
 npm --prefix IFCtoLBD_MCP run smoke
+npm --prefix IFCtoLBD_OpenAPI_Node_js ci
+npm --prefix IFCtoLBD_OpenAPI_Node_js run check
+npm --prefix IFCtoLBD_OpenAPI_Node_js test
+npm --prefix IFCtoLBD_OpenAPI_Node_js run smoke
 ```
 
 The `release` profile builds the converter, source, and Javadoc artifacts for
@@ -100,6 +106,21 @@ writes it into the MCP distribution directory. Its manifest currently points to
 the legacy converter entry point, so use the explicit class above for the modern
 CLI. Replace the conversion arguments with `--help` to inspect current options.
 This is also a suitable bundled classpath for the [Python wrapper](python_examples.md).
+
+For product elements in a source-built CLI export, enable them explicitly:
+
+```sh
+java -cp IFCtoLBD_MCP/lib/ifctolbd-converter.jar \
+  org.linkedbuildingdata.ifc2lbd.IFCtoLBDConverter_CLI \
+  --hasBuildingElements=true --hasIfc_based_elements=false \
+  --target_file elements.ttl IFCtoLBD/src/main/resources/Duplex_A.ifc
+```
+
+`--hasBuildingElements=true` exports recognized building elements and their
+product types. `--hasIfc_based_elements` separately controls elements whose IFC
+class has no mapped LBD product type; setting it to `false` does not remove
+recognized building elements. Both options default to `false` in the Java CLI.
+For a filtered export, repeat `--selectedType` with the desired mapped type names.
 
 Package and start the desktop:
 
@@ -174,18 +195,64 @@ Paths below are relative to the repository root. Browse the
 | `IFCtoLBD_Desktop_2026` | JavaFX desktop interface, queries, validation, and preview | Yes |
 | `IFCtoLBD_Python` | JPype wrapper and Python examples | No; scripts |
 | `ProductExtractor` | Python tool and local web UI summarising building elements (materials, layers, property sets, IFC attributes) from LBD Turtle as JSON | No; separate pip setup |
+| `LBDBabylon` | Browser-local Babylon.js viewer with RDF-linked geometry, semantic collision roles, and grounded walkthrough controls | No; separate npm setup |
 | `IFCtoLBD_NodeJS` | Node.js integration examples | No; separate npm setup |
-| `IFCtoLBD_OpenAPI` | Web API application | No; separate Maven project |
+| `IFCtoLBD_OpenAPI_Node_js` | Modern Fastify/OpenAPI HTTP conversion service | No; separate npm setup using the shaded converter JAR |
+| `IFCtoLBD_OpenAPI` | Legacy Java/Tomcat Web API application | No; separate Maven project |
 | `IFCtoLBD_MCP` | MCP server and bundled converter distribution | No; receives a JAR from converter packaging |
+| `OneClick` | Separate web, Node CLI, and MCP selected-scope Turtle workflow using Python IfcOpenShell | No; separate npm and Python setup |
 | `ifc-to-lbd-scala` | Scala integration example | No; separate Maven project |
 | `maven_demo` | Historical Maven consumer example | No; update its versions and Java settings before reuse |
 
-See the [Node.js README](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_NodeJS/README.md),
+Run the standalone LBDBabylon viewer and its checks from the repository root:
+
+```sh
+npm --prefix LBDBabylon ci
+npm --prefix LBDBabylon run check
+npm --prefix LBDBabylon test
+npm --prefix LBDBabylon run build
+npm --prefix LBDBabylon run dev
+```
+
+Movement classification is allowlisted from RDF types. Physical products can
+block the walker; slabs, floors, ramps, stairs, landings, and coverings can be
+walkable. Spaces, openings, voids, spatial containers, annotations, and unknown
+helper geometry remain non-blocking. See the
+[LBDBabylon walkthrough](lbd-babylon.md) before changing navigation, geometry
+units, or collision roles.
+
+See the [modern OpenAPI service guide](../IFCtoLBD_OpenAPI_Node_js/README.md),
+[Node.js examples README](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_NodeJS/README.md),
 [MCP README](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCtoLBD_MCP/README.md),
 and [Excel deployment guide](https://github.com/jyrkioraskari/IFCtoLBD/blob/master/IFCProps2ExcelOnline/DEPLOYMENT.md)
 for those applications. The root reactor does not build every directory in the
 repository. Install the core modules before working on a separate Java consumer,
 and check that consumer’s POM for its own dependency and runtime requirements.
+
+OneClick's CLI is `node OneClick/cli.mjs --ifc model.ifc --selection floorplan`.
+The MCP tool `export_oneclick_lbd` invokes that CLI, while
+`convert_ifc_to_lbd` continues to use the shaded Java converter. OneClick's
+Python extractor requires IfcOpenShell and Shapely; see the
+[OneClick guide](../OneClick/README.md#command-line-export).
+
+### Run the modern HTTP/OpenAPI service
+
+The modern service is an npm project outside the root Maven reactor. It uses
+the shaded converter distribution written to
+`IFCtoLBD_MCP/lib/ifctolbd-converter.jar` by the `IFCtoLBD` package phase.
+
+```sh
+npm --prefix IFCtoLBD_OpenAPI_Node_js ci
+npm --prefix IFCtoLBD_OpenAPI_Node_js run build:converter
+npm --prefix IFCtoLBD_OpenAPI_Node_js test
+npm --prefix IFCtoLBD_OpenAPI_Node_js start
+```
+
+Open <http://127.0.0.1:8080/docs/> for the interactive OpenAPI documentation.
+Use `npm --prefix IFCtoLBD_OpenAPI_Node_js run smoke` for a real Turtle and
+TriG conversion after the converter JAR has been built. The service guide
+documents multipart fields, response formats, environment variables, health
+probes, reverse-proxy requirements, and the container build.
 
 ## Follow a conversion through the code
 

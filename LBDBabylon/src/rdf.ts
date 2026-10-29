@@ -3,12 +3,14 @@ import type { Entity, EntityKind, GeometrySource, ModelData } from "./types";
 
 export const RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type";
 export const RDFS_LABEL = "http://www.w3.org/2000/01/rdf-schema#label";
+export const OWL_SAME_AS = "http://www.w3.org/2002/07/owl#sameAs";
 export const OMG_GEOMETRY = "https://w3id.org/omg#hasGeometry";
 export const GEO_GEOMETRY = "http://www.opengis.net/ont/geosparql#hasGeometry";
 export const FOG_OBJ = "https://w3id.org/fog#asObj_v3.0-obj";
 export const ARTIFACT = "https://w3id.org/ifctolbd/geometry#artifact";
 export const ARTIFACT_MEDIA_TYPE = "https://w3id.org/ifctolbd/geometry#mediaType";
 const GEOMETRY_META = "https://w3id.org/ifctolbd/geometry#";
+const MTL = "https://lbd.org/#asMTL";
 const MTL_KD = "https://lbd.org/#asMTL_kd";
 const MTL_ALPHA = "https://lbd.org/#asMTL_alpha";
 export const BOT = "https://w3id.org/bot#";
@@ -29,10 +31,12 @@ export async function parseTurtle(text: string): Promise<ModelData> {
     const embedded = store.getQuads(q.object, DataFactory.namedNode(FOG_OBJ), null, null)[0];
     const diffuseColor = store.getQuads(q.object, DataFactory.namedNode(MTL_KD), null, null)[0]?.object.value;
     const alphaValue = Number(store.getQuads(q.object, DataFactory.namedNode(MTL_ALPHA), null, null)[0]?.object.value);
-    const material = { diffuseColor: /^#[0-9a-f]{6}$/i.test(diffuseColor ?? "") ? diffuseColor : undefined, alpha: Number.isFinite(alphaValue) ? Math.max(0, Math.min(1, alphaValue)) : undefined };
+    const mtl = store.getQuads(q.object, DataFactory.namedNode(MTL), null, null)[0]?.object.value;
+    const ifcMaterialClass = mtl?.match(/^\s*newmtl\s+(Ifc[A-Za-z0-9_]+)/im)?.[1];
+    const material = { diffuseColor: /^#[0-9a-f]{6}$/i.test(diffuseColor ?? "") ? diffuseColor : undefined, alpha: Number.isFinite(alphaValue) ? Math.max(0, Math.min(1, alphaValue)) : undefined, ifcMaterialClass };
     const textMeta = (name: string) => store.getQuads(q.object, DataFactory.namedNode(GEOMETRY_META + name), null, null)[0]?.object.value;
-    const unitToMetres = Number(textMeta("unitToMetres"));
-    const metadata = { coordinateSpace: textMeta("objCoordinateSpace") ?? textMeta("coordinateSpace"), coordinateReferenceSystem: textMeta("objCoordinateReferenceSystem") ?? textMeta("coordinateReferenceSystem"), lengthUnit: textMeta("lengthUnit"), unitToMetres: Number.isFinite(unitToMetres) ? unitToMetres : undefined };
+    const unitToMetres = Number(textMeta("objUnitToMetres") ?? textMeta("unitToMetres"));
+    const metadata = { coordinateSpace: textMeta("objCoordinateSpace") ?? textMeta("coordinateSpace"), coordinateReferenceSystem: textMeta("objCoordinateReferenceSystem") ?? textMeta("coordinateReferenceSystem"), lengthUnit: textMeta("objLengthUnit") ?? textMeta("lengthUnit"), unitToMetres: Number.isFinite(unitToMetres) && unitToMetres > 0 ? unitToMetres : undefined };
     if (embedded?.object.termType === "Literal") geometries.push({ element: termId(q.subject), geometry: termId(q.object), kind: "embedded-obj", payload: embedded.object.value, ...material, ...metadata });
     const artifacts = store.getQuads(q.object, DataFactory.namedNode(ARTIFACT), null, null);
     let supportedArtifact = false;
@@ -48,12 +52,21 @@ export async function parseTurtle(text: string): Promise<ModelData> {
 
 function entityFor(store: Store, subject: Term): Entity | undefined {
   if (subject.termType === "Literal") return undefined;
-  const types = store.getQuads(subject, DataFactory.namedNode(RDF), null, null).map(q => q.object.value);
+  const assertedTypes = store.getQuads(subject, DataFactory.namedNode(RDF), null, null).map(q => q.object.value);
+  const inferredIfcTypes = store.getQuads(subject, DataFactory.namedNode(OWL_SAME_AS), null, null)
+    .flatMap(q => ifcClassHint(q.object.value) ?? []);
+  const types = [...new Set([...assertedTypes, ...inferredIfcTypes])];
   const typeText = types.join(" ").toLowerCase();
   const kind: EntityKind = typeText.includes("buildingstorey") || types.includes(BOT + "Storey") ? "storey" : typeText.includes("building") || types.includes(BOT + "Building") ? "building" : typeText.includes("space") || types.includes(BOT + "Space") ? "space" : types.length ? "element" : "other";
   const label = store.getQuads(subject, DataFactory.namedNode(RDFS_LABEL), null, null)[0]?.object.value ?? subject.value.split(/[\/#]/).pop() ?? subject.value;
   const containedBy = store.getQuads(subject, DataFactory.namedNode(BOT + "containsElement"), null, null)[0];
   return { id: subject.value, kind, label, types, storey: containedBy?.subject.value };
+}
+
+/** IFCtoLBD may expose only bot:Element and retain the concrete class in an IFC instance URI. */
+function ifcClassHint(value: string) {
+  const tail = value.split(/[\/#]/).pop() ?? value;
+  return tail.match(/^(Ifc[A-Za-z][A-Za-z0-9]*?)(?:_\d+)?$/)?.[1];
 }
 
 export function displayTerm(term: Term): string { return term.termType === "Literal" ? `“${term.value}”${term.language ? "@" + term.language : term.datatype.value.endsWith("#string") ? "" : "^^" + term.datatype.value}` : term.value; }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { chooseModelOrigin, ifcToBabylonPosition, parseObj } from "./geometry";
+import { chooseModelOrigin, ifcToBabylonPosition, parseObj, scaleObj } from "./geometry";
 
 describe("shared rendering origin", () => {
   it("preserves centimetre detail and separation at million-unit coordinates", () => {
@@ -18,5 +18,11 @@ describe("shared rendering origin", () => {
     const a = parseObj("v 1000000 0 0\nv 1000001 0 0\nv 1000000 1 0\nf 1 2 3");
     const b = parseObj("v 1000100 0 0\nv 1000101 0 0\nv 1000100 1 0\nf 1 2 3");
     expect(chooseModelOrigin([a, b])).toEqual([1000050.5, 0.5, 0]);
+  });
+
+  it("normalizes millimetre OBJ vertices to metres before rebasing", () => {
+    const object = scaleObj(parseObj("v 0 0 0\nv 1000 0 0\nv 0 1000 0\nf 1 2 3"), .001);
+    expect(object.vertices[1]).toEqual([1, 0, 0]);
+    expect(chooseModelOrigin([object])).toEqual([.5, .5, 0]);
   });
 });

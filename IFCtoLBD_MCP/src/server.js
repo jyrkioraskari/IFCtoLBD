@@ -4,7 +4,7 @@
 
 const fs = require("fs");
 const crypto = require("crypto");
-const { fork } = require("child_process");
+const { fork, execFileSync } = require("child_process");
 const os = require("os");
 const path = require("path");
 const readline = require("readline");
@@ -54,6 +54,8 @@ const SHAPE_PACKS = Object.freeze({
   "fire-accessibility": "fire-accessibility-v1.0.0.ttl",
   "supply-chain-identifiers": "supply-chain-identifiers-v1.0.0.ttl",
   "sustainability-declarations": "sustainability-declarations-v1.0.0.ttl",
+  "materials-bmo": "materials-bmo-v1.0.0.ttl",
+  "traceability": "traceability-v1.0.0.ttl",
 });
 
 let javaBridge = null;
@@ -82,6 +84,10 @@ const CONVERSION_PROFILES = [
   "bim-gis", "compliance", "revision-ready", "geometry-external", "materials-bmo", "supply-chain", "sustainability",
   "evidence"
 ];
+const ONECLICK_SELECTIONS = [
+  "floorplan", "spaces", "products:building", "products:hvac", "products:electrical",
+  "products:plumbing", "products:furnishing", "products:services", "products:other"
+];
 
 const TOOL_ERROR_CODES = Object.freeze([
   "INVALID_ARGUMENT", "PATH_NOT_ALLOWED", "FILE_NOT_FOUND", "MODEL_NOT_FOUND",
@@ -100,6 +106,19 @@ class ToolError extends Error {
 }
 
 const tools = [
+  {
+    name: "get_storey_floorplans",
+    description: "Extract actual 2D section linework and WKT for each IFC building storey with local IfcOpenShell.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        ifcPath: { type: "string", description: "Allowed local IFC STEP file path." },
+        storeyGuid: { type: "string", description: "Optional IFC GUID to return one storey." },
+        includeLines: { type: "boolean", default: false, description: "Include coordinate arrays for drawing the line graph." }
+      },
+      additionalProperties: false
+    }
+  },
   {
     name: "get_capabilities",
     description: "Describe IFCtoLBD profiles, evidence fields, selectors, limits, trust boundaries, and stable error codes.",
@@ -206,6 +225,47 @@ const tools = [
         predicates: { type: "array", items: { type: "string" }, description: "Optional exact predicate IRI allow-list." },
         depth: { type: "integer", minimum: 0, maximum: 3, default: 0, description: "IRI-resource traversal depth; directly linked blank nodes are retained." },
         limit: { type: "integer", minimum: 1, maximum: 1000, default: 200, description: "Maximum RDF statements in the JSON-LD subgraph." }
+      },
+      additionalProperties: false
+    }
+  },
+  {
+    name: "find_elements",
+    description: "Find converted elements by identifier, RDF type, or spatial location using bounded deterministic graph retrieval.",
+    inputSchema: {
+      type: "object", required: ["modelId"],
+      properties: {
+        modelId: { type: "string" },
+        identifier: { type: "string", description: "Full RDF IRI or IFC GlobalId." },
+        type: { type: "string", description: "Full RDF type IRI or local type name, such as Wall." },
+        spatialLocation: { type: "string", description: "Full RDF IRI or IFC GlobalId of a site, building, storey, space, or zone." },
+        limit: { type: "integer", minimum: 1, maximum: 1000, default: 100 },
+        cursor: { type: "string" }
+      },
+      anyOf: [{ required: ["identifier"] }, { required: ["type"] }, { required: ["spatialLocation"] }],
+      additionalProperties: false
+    }
+  },
+  {
+    name: "inspect_element",
+    description: "Inspect one element's properties, materials, relationships, external records, supporting statements, and available provenance.",
+    inputSchema: {
+      type: "object", required: ["modelId", "identifier"],
+      properties: {
+        modelId: { type: "string" }, identifier: { type: "string" },
+        limit: { type: "integer", minimum: 1, maximum: 1000, default: 200 }
+      },
+      additionalProperties: false
+    }
+  },
+  {
+    name: "get_linked_records",
+    description: "Retrieve externally managed documents, observations, datasets, and maintenance records linked to one element without fetching them.",
+    inputSchema: {
+      type: "object", required: ["modelId", "identifier"],
+      properties: {
+        modelId: { type: "string" }, identifier: { type: "string" },
+        limit: { type: "integer", minimum: 1, maximum: 1000, default: 100 }, cursor: { type: "string" }
       },
       additionalProperties: false
     }
@@ -323,6 +383,20 @@ const tools = [
       },
       additionalProperties: false,
     },
+  },
+  {
+    name: "export_oneclick_lbd",
+    description: "Export one OneClick selection as Turtle using the separate IfcOpenShell workflow. The standard IFCtoLBD converter is unchanged.",
+    inputSchema: {
+      type: "object", required: ["ifcPath", "selection"],
+      properties: {
+        ifcPath: { type: "string", description: "Allowed local IFC STEP file path." },
+        selection: { type: "string", enum: ONECLICK_SELECTIONS },
+        outputPath: { type: "string", description: "Optional allowed Turtle output path. Parent directory must exist." },
+        maxInlineChars: { type: "integer", minimum: 1000, default: MAX_INLINE_CHARS }
+      },
+      additionalProperties: false
+    }
   },
   {
     name: "summarize_ifc_lbd",
@@ -938,6 +1012,49 @@ function resolveIfcPath(ifcPath) {
   return candidate;
 }
 
+function callStoreyFloorplans(args = {}) {
+  const ifcPath = resolveIfcPath(args.ifcPath);
+  const script = path.join(REPO_ROOT, "OneClick", "floorplans.py");
+  let data;
+  try {
+    data = JSON.parse(execFileSync(process.env.ONECLICK_PYTHON || "python3", [script, ifcPath, "--storeys-only"],
+      { encoding: "utf8", timeout: 120000, maxBuffer: 20 * 1024 * 1024 }));
+  } catch (error) {
+    throw new ToolError("INTERNAL_ERROR", `Floorplan extraction failed: ${String(error.stderr || error.message).trim()}`);
+  }
+  if (args.storeyGuid) data.storeys = data.storeys.filter((storey) => storey.guid === args.storeyGuid);
+  if (!args.includeLines) data.storeys.forEach((storey) => { delete storey.lines; });
+  return structuredContent({ ifcPath, coordinateSystem: "Local engineering coordinates, metres",
+    cutPlane: "Storey elevation + up to 1.2 m", contentTrust: "untrusted_model_content", ...data });
+}
+
+function callExportOneClick(args = {}) {
+  if (!ONECLICK_SELECTIONS.includes(args.selection)) {
+    throw new ToolError("INVALID_ARGUMENT", `Unsupported OneClick selection: ${args.selection}`);
+  }
+  const ifcPath = resolveIfcPath(args.ifcPath);
+  const outputPath = resolveOutputPath(args.outputPath);
+  const maxInlineChars = asInteger(args.maxInlineChars, MAX_INLINE_CHARS, 1000, 50 * 1024 * 1024);
+  const script = path.join(REPO_ROOT, "OneClick", "cli.mjs");
+  let turtle;
+  try {
+    turtle = execFileSync(process.execPath, [script, "--ifc", ifcPath, "--selection", args.selection, "--stdout"],
+      { encoding: "utf8", timeout: 150000, maxBuffer: 100 * 1024 * 1024 });
+  } catch (error) {
+    throw new ToolError("INTERNAL_ERROR", `OneClick export failed: ${String(error.stderr || error.message).trim()}`);
+  }
+  if (outputPath) {
+    fs.writeFileSync(outputPath, turtle, "utf8");
+    return structuredContent({ ifcPath, selection: args.selection, outputPath, format: "TURTLE",
+      contentTrust: "untrusted_model_content",
+      bytesWritten: Buffer.byteLength(turtle, "utf8") });
+  }
+  return structuredContent({ ifcPath, selection: args.selection, format: "TURTLE",
+    contentTrust: "untrusted_model_content",
+    truncated: turtle.length > maxInlineChars, length: turtle.length,
+    rdf: turtle.slice(0, maxInlineChars) });
+}
+
 function resolveOutputPath(outputPath) {
   if (!outputPath) {
     return undefined;
@@ -1119,10 +1236,11 @@ function callExplainExternalLink(args) {
   try { element = new URL(String(args.elementIri)).toString(); } catch { throw new Error("elementIri must be an absolute IRI"); }
   const limit = asInteger(args.limit, 20, 1, 100);
   const query = `PREFIX ext: <https://w3id.org/ifctolbd/external-link#>
-SELECT ?row ?globalId ?predicate ?externalResource ?source ?method ?confidence ?status WHERE {
+SELECT ?row ?globalId ?predicate ?externalResource ?source ?method ?confidence ?validFrom ?validTo ?recordedAt ?status WHERE {
  ?row a ext:MappingResult ; ext:resolvedElement <${element}> ; ext:status ?status ;
       ext:globalId ?globalId ; ext:predicate ?predicate ; ext:externalResource ?externalResource .
  OPTIONAL { ?row ext:source ?source } OPTIONAL { ?row ext:method ?method } OPTIONAL { ?row ext:confidence ?confidence }
+ OPTIONAL { ?row ext:validFrom ?validFrom } OPTIONAL { ?row ext:validTo ?validTo } OPTIONAL { ?row ext:recordedAt ?recordedAt }
 } ORDER BY ?row`;
   const data = executeSelect(entry.externalLinkReportModel, query, limit);
   return structuredContent({ modelId: entry.modelId, elementIri: element, explanations: data.rows,
@@ -1446,6 +1564,57 @@ function callDescribeElement(args) {
   });
 }
 
+function sharedRetrieval(entry, json) {
+  const result = JSON.parse(String(json));
+  result.status = String(result.status || "error").toLowerCase();
+  return {
+    modelId: entry.modelId,
+    ...result,
+    contentPolicy: { modelText: "untrusted_model_content", treatAsInstructions: false },
+  };
+}
+
+function callFindElements(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const limit = asInteger(args.limit, 100, 1, 1000);
+  const scope = cursorScope("find_elements", entry.modelId, args.identifier || "", args.type || "", args.spatialLocation || "");
+  const offset = decodeCursor(args.cursor, scope);
+  const result = sharedRetrieval(entry, entry.converter.converter.findElementsWithReportJsonSync(
+    entry.model, entry.externalLinkModel, entry.manifestModel, entry.externalLinkReportModel, args.identifier || null,
+    args.type || null, args.spatialLocation || null, offset, limit));
+  result.page = {
+    offset,
+    nextCursor: result.truncated ? encodeCursor(scope, offset + result.entities.length) : null,
+    truncated: Boolean(result.truncated),
+  };
+  return structuredContent(result);
+}
+
+function callInspectElement(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const limit = asInteger(args.limit, 200, 1, 1000);
+  if (!args.identifier || typeof args.identifier !== "string") throw new Error("identifier is required");
+  return structuredContent(sharedRetrieval(entry, entry.converter.converter.inspectElementWithReportJsonSync(
+    entry.model, entry.externalLinkModel, entry.manifestModel, entry.externalLinkReportModel, args.identifier, limit)));
+}
+
+function callLinkedRecords(args) {
+  const entry = requireLoadedModel(args.modelId);
+  const limit = asInteger(args.limit, 100, 1, 1000);
+  if (!args.identifier || typeof args.identifier !== "string") throw new Error("identifier is required");
+  const scope = cursorScope("get_linked_records", entry.modelId, args.identifier);
+  const offset = decodeCursor(args.cursor, scope);
+  const result = sharedRetrieval(entry, entry.converter.converter.linkedRecordsWithReportJsonSync(
+    entry.model, entry.externalLinkModel, entry.manifestModel, entry.externalLinkReportModel, args.identifier, offset, limit));
+  const returned = result.entities[0] ? result.entities[0].linkedRecords.length : 0;
+  result.page = {
+    offset,
+    nextCursor: result.truncated ? encodeCursor(scope, offset + returned) : null,
+    truncated: Boolean(result.truncated),
+  };
+  return structuredContent(result);
+}
+
 function callListClasses(args) {
   const entry = requireLoadedModel(args.modelId);
   const limit = asInteger(args.limit, 100, 1, 1000);
@@ -1470,7 +1639,7 @@ function callCloseModel(args) {
   const entry = requireLoadedModel(args.modelId);
   loadedModels.delete(entry.modelId);
   modelIdsByCacheKey.delete(entry.cacheKey);
-  for (const report of entry.validationReports.values()) closeJavaObject(report.model);
+  for (const report of entry.validationReports.values()) closeJavaObject(report.validation || report.model);
   for (const comparison of entry.comparisons.values()) closeJavaObject(comparison.diff);
   closeJavaObject(entry.result);
   closeJavaObject(entry.converter.converter);
@@ -1527,29 +1696,25 @@ function selectedShapePacks(value, allowEmpty = false) {
 function callValidateModel(args) {
   const entry = requireLoadedModel(args.modelId);
   const packs = selectedShapePacks(args.shapePacks);
-  const ModelFactory = importJavaClass("org.apache.jena.rdf.model.ModelFactory");
-  const RDFDataMgr = importJavaClass("org.apache.jena.riot.RDFDataMgr");
-  const Shapes = importJavaClass("org.apache.jena.shacl.Shapes");
-  const ShaclValidator = importJavaClass("org.apache.jena.shacl.ShaclValidator");
-  const shapesModel = ModelFactory.createDefaultModelSync();
-  for (const pack of packs) {
-    const shapePath = path.join(REPO_ROOT, "IFCtoLBD", "src", "main", "resources", "shacl", SHAPE_PACKS[pack]);
-    shapesModel.addSync(RDFDataMgr.loadModelSync(shapePath));
-  }
-  const report = ShaclValidator.getSync().validateSync(Shapes.parseSync(shapesModel.getGraphSync()), entry.model.getGraphSync());
-  const reportModel = report.getModelSync();
+  const validation = entry.converter.converter.validateGraphsSync(
+    entry.model, entry.manifestModel, entry.externalLinkReportModel, packs);
+  const reportModel = validation.reportModelSync();
   const reportKey = crypto.createHash("sha256").update(`${entry.checksum}|${packs.join("|")}`).digest("hex");
   const reportId = `shacl-${reportKey.slice(0, 16)}`;
   const summary = {
     modelId: entry.modelId,
     reportId,
-    conforms: Boolean(report.conformsSync()),
+    status: String(validation.statusSync()),
+    conforms: Boolean(validation.conformsSync()),
+    violationCount: Number(validation.violationCountSync()),
+    warningCount: Number(validation.warningCountSync()),
+    informationCount: Number(validation.informationCountSync()),
+    summary: String(validation.summarySync()),
     shapePacks: packs.map((id) => ({ id, version: "1.0.0" })),
     reportResource: `ifctolbd://models/${entry.modelId}/validation/${reportId}`,
     dataModified: false,
   };
-  entry.validationReports.set(reportId, { model: reportModel, summary });
-  closeJavaObject(shapesModel);
+  entry.validationReports.set(reportId, { model: reportModel, validation, summary });
   return structuredContent(summary);
 }
 
@@ -2114,6 +2279,12 @@ function handleToolCallDirect(name, args) {
       return callGetEntity(input);
     case "describe_element":
       return callDescribeElement(input);
+    case "find_elements":
+      return callFindElements(input);
+    case "inspect_element":
+      return callInspectElement(input);
+    case "get_linked_records":
+      return callLinkedRecords(input);
     case "list_classes":
       return callListClasses(input);
     case "list_properties":
@@ -2140,6 +2311,10 @@ function handleToolCallDirect(name, args) {
       return callReadModelResource(input);
     case "convert_ifc_to_lbd":
       return callConvert(input);
+    case "export_oneclick_lbd":
+      return callExportOneClick(input);
+    case "get_storey_floorplans":
+      return callStoreyFloorplans(input);
     case "summarize_ifc_lbd":
       return callSummary(input);
     case "query_ifc_lbd":
@@ -2157,7 +2332,8 @@ let worker = null;
 let nextWorkerRequestId = 1;
 const workerRequests = new Map();
 const SESSION_TOOLS = new Set([
-  "load_ifc", "get_property_evidence", "describe_model", "get_entity", "describe_element", "list_classes", "list_properties", "query_model", "close_model",
+  "load_ifc", "get_property_evidence", "describe_model", "get_entity", "describe_element", "find_elements", "inspect_element",
+  "get_linked_records", "list_classes", "list_properties", "query_model", "close_model",
   "validate_model", "explain_validation", "compare_revisions", "inspect_link_coverage", "list_unresolved_mappings",
   "explain_external_link", "report_identifier_policy", "__read_model_resource"
 ]);
@@ -2348,7 +2524,7 @@ if (process.argv.includes("--worker")) {
   });
   process.on("disconnect", () => {
     for (const entry of loadedModels.values()) {
-      for (const report of entry.validationReports.values()) closeJavaObject(report.model);
+      for (const report of entry.validationReports.values()) closeJavaObject(report.validation || report.model);
       for (const comparison of entry.comparisons.values()) closeJavaObject(comparison.diff);
       closeJavaObject(entry.result);
       closeJavaObject(entry.converter.converter);

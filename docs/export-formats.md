@@ -57,6 +57,10 @@ partitions the result without copying a triple into more than one output:
 
 Use this form when different systems own or load these parts separately. Keep
 the files together: their IRIs connect them into one logical graph.
+In the Java CLI, `--hasBuildingElements=true` enables the building-element
+graph. `--hasIfc_based_elements=false` only excludes IFC classes without an LBD
+product-type mapping; it does not make that graph empty. See the
+[source-built CLI example](development.md#run-what-you-built).
 
 ## ICDD package
 

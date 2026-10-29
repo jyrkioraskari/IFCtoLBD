@@ -5,6 +5,7 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -476,6 +477,15 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		ConversionManifest.Created manifest = ConversionManifest.create(request, conversionSession.now(), validation, audit, getUriPolicy(),
 				conversionSession.getGeometryProvider(), conversionSession.getGeometryArtifactStore(),
 				getGeometryArtifacts(), uriBase.orElse(""), context.usesProductOntologies());
+		if (request.getProfile().map(ConversionProfile::id).filter("evidence"::equals).isPresent()) {
+			Model traceability = EvidenceTraceabilityStage.create(Path.of(request.getIfcFilename()), this.ifcOWL,
+					this.lbdResourceByIfcResource);
+			try {
+				manifest.model().add(traceability);
+			} finally {
+				traceability.close();
+			}
+		}
 		Model validationAndAudit = org.apache.jena.rdf.model.ModelFactory.createDefaultModel()
 				.add(validation.report()).add(audit.report()).add(context.diagnosticsModel());
 		// Legacy output builds a materialized union in the general graph. Structured
@@ -484,6 +494,26 @@ public class IFCtoLBDConverter extends IFCtoLBDConverterCore implements AutoClos
 		this.lbd_general_output_model.remove(this.lbd_property_output_model);
 		Model identityReport = getUriPolicy() instanceof StableProjectUriPolicy stable
 				? stable.report() : org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
+		if (request.getValidationShapePacks().contains(ValidationShapePack.TRACEABILITY)) {
+			Model traceData = org.apache.jena.rdf.model.ModelFactory.createDefaultModel()
+					.add(this.lbd_general_output_model).add(this.lbd_product_output_model)
+					.add(this.lbd_property_output_model).add(manifest.model()).add(externalLinks.links())
+					.add(externalLinks.report()).add(identityReport);
+			try {
+				ValidationStage.Result traceValidation = ValidationStage.validateResources(
+						List.of(ValidationShapePack.TRACEABILITY.resource()), traceData);
+				validationAndAudit.add(traceValidation.report());
+				String finalStatus = "violations".equals(validation.status()) || "violations".equals(traceValidation.status())
+						? "violations" : "conforms";
+				manifest.model().listResourcesWithProperty(org.apache.jena.vocabulary.RDF.type,
+						manifest.model().createResource(ConversionManifest.NS + "Conversion")).forEachRemaining(conversion ->
+						conversion.removeAll(manifest.model().createProperty(ConversionManifest.NS + "validationStatus"))
+								.addLiteral(manifest.model().createProperty(ConversionManifest.NS + "validationStatus"), finalStatus));
+				traceValidation.report().close();
+			} finally {
+				traceData.close();
+			}
+		}
 		ConversionResult result = ConversionResult.of(this.lbd_general_output_model, this.lbd_product_output_model,
 				this.lbd_property_output_model, manifest.model(), validationAndAudit, externalLinks.links(),
 				externalLinks.report(), identityReport, manifest.graphNames());

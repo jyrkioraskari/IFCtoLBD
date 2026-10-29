@@ -1,0 +1,13 @@
+[
+  {
+    "uri": "https://example.org/documents/fire-inspection-2026",
+    "title": "2026 fire inspection",
+    "text": "The north wall on the ground floor was inspected. Its required rating is EI60."
+  },
+  {
+    "uri": "https://example.org/maintenance/repointing-2025",
+    "title": "Brickwork maintenance record",
+    "text": "Clay brick on the north wall was repointed in 2025."
+  }
+]
+

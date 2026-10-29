@@ -32,13 +32,19 @@ export function chooseModelOrigin(objects: readonly ParsedObj[]): IfcPoint {
   return [minX + (maxX - minX) / 2, minY + (maxY - minY) / 2, minZ + (maxZ - minZ) / 2];
 }
 
+/** Normalizes source coordinates before selecting the shared floating origin. */
+export function scaleObj(object: ParsedObj, factor: number): ParsedObj {
+  if (factor === 1) return object;
+  return { vertices: object.vertices.map(([x, y, z]) => [x * factor, y * factor, z * factor]), indices: object.indices };
+}
+
 /** Builds float GPU positions only after subtracting the shared double-precision IFC origin. */
 export function objToMesh(name: string, obj: string | ParsedObj, scene: import("@babylonjs/core").Scene,
-    origin: IfcPoint = [0, 0, 0], sourceMetadata?: object): Mesh {
+    origin: IfcPoint = [0, 0, 0], sourceMetadata?: object, unitToMetres = 1): Mesh {
   const parsed = typeof obj === "string" ? parseObj(obj) : obj;
   const positions: number[] = [];
   parsed.vertices.forEach(v => positions.push(...ifcToBabylonPosition([
-    v[0] - origin[0], v[1] - origin[1], v[2] - origin[2]
+    (v[0] - origin[0]) * unitToMetres, (v[1] - origin[1]) * unitToMetres, (v[2] - origin[2]) * unitToMetres
   ])));
   const mesh = new Mesh(name, scene);
   const data = new VertexData(); data.positions = positions; data.indices = parsed.indices; data.applyToMesh(mesh);

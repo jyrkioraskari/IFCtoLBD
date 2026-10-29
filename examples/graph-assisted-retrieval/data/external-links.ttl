@@ -1,0 +1,7 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix ext: <https://w3id.org/ifctolbd/external-links#> .
+
+<https://example.org/building/wall/north>
+  dcterms:references <https://example.org/documents/fire-inspection-2026> ;
+  ext:maintenanceRecord <https://example.org/maintenance/repointing-2025> .
+

@@ -1,0 +1,10 @@
+@prefix ext: <https://w3id.org/ifctolbd/external-link#> .
+
+<https://example.org/mapping/north-wall-inspection>
+  a ext:MappingResult ;
+  ext:status "matched" ;
+  ext:resolvedElement <https://example.org/building/wall/north> ;
+  ext:externalResource <https://example.org/documents/fire-inspection-2026> ;
+  ext:predicate <http://purl.org/dc/terms/references> ;
+  ext:source "facilities register" ;
+  ext:recordedAt "2026-04-15T10:00:00Z" .

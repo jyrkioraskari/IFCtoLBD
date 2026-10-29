@@ -1,0 +1,24 @@
+@prefix ex: <https://example.test/navigation/> .
+@prefix bot: <https://w3id.org/bot#> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix ifc: <https://standards.buildingsmart.org/IFC/DEV/IFC4_3/OWL#> .
+@prefix omg: <https://w3id.org/omg#> .
+@prefix fog: <https://w3id.org/fog#> .
+@prefix geom: <https://w3id.org/ifctolbd/geometry#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+ex:floor a bot:Element ; owl:sameAs ex:IfcSlab_1 ; omg:hasGeometry ex:floor-geometry .
+ex:floor-geometry fog:asObj_v3.0-obj "diAwIDAgMAp2IDYgMCAwCnYgNiA0IDAKdiAwIDQgMApmIDEgMiAzIDQK" ;
+  geom:objLengthUnit "millimetre" ; geom:objUnitToMetres 0.001 .
+
+ex:stair a bot:Element ; owl:sameAs ex:IfcStair_2 ; omg:hasGeometry ex:stair-geometry .
+ex:stair-geometry fog:asObj_v3.0-obj "diAyIDEgMAp2IDQgMSAwLjQKdiA0IDIgMC40CnYgMiAyIDAKZiAxIDIgMyA0Cg==" .
+
+ex:wall a bot:Element ; owl:sameAs ex:IfcWallStandardCase_3 ; omg:hasGeometry ex:wall-geometry .
+ex:wall-geometry fog:asObj_v3.0-obj "diAwIDAgMAp2IDYgMCAwCnYgNiAwIDMKdiAwIDAgMwpmIDEgMiAzIDQK" .
+
+ex:room a bot:Space ; owl:sameAs ex:IfcSpace_4 ; omg:hasGeometry ex:room-volume .
+ex:room-volume fog:asObj_v3.0-obj "diAwIDAgMAp2IDEgMCAwCnYgMCAxIDAKZiAxIDIgMw==" .
+
+ex:void a bot:Element ; owl:sameAs ex:IfcOpeningElement_5 ; omg:hasGeometry ex:void-volume .
+ex:void-volume fog:asObj_v3.0-obj "diAwIDAgMAp2IDEgMCAwCnYgMCAxIDAKZiAxIDIgMw==" .

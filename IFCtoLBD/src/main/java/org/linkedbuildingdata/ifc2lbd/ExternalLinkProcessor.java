@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -17,6 +18,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.vocabulary.RDF;
+import org.apache.jena.datatypes.xsd.XSDDatatype;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -27,7 +29,7 @@ final class ExternalLinkProcessor {
 	record Result(Model links, Model report, List<String> checksums) { }
 	private record Row(ExternalLinkMapping mapping, Path file, int number) { }
 	private record Exact(String globalId, String external, String predicate, String source, String method,
-			Double confidence) { }
+			Double confidence, String validFrom, String validTo, String recordedAt) { }
 
 	static Result process(List<Path> files, Map<String, List<Resource>> resourcesByGlobalId) {
 		Model links = ModelFactory.createDefaultModel();
@@ -60,10 +62,14 @@ final class ExternalLinkProcessor {
 		if (m.source() != null && !m.source().isBlank()) entry.addLiteral(report.createProperty(NS + "source"), m.source());
 		if (m.method() != null && !m.method().isBlank()) entry.addLiteral(report.createProperty(NS + "method"), m.method());
 		if (m.confidence() != null) entry.addLiteral(report.createProperty(NS + "confidence"), m.confidence());
+		addTime(entry, report, "validFrom", m.validFrom());
+		addTime(entry, report, "validTo", m.validTo());
+		addTime(entry, report, "recordedAt", m.recordedAt());
 		if (error != null) entry.addLiteral(report.createProperty(NS + "message"), error);
 		matches.forEach(resource -> entry.addProperty(report.createProperty(NS + "candidate"), report.createResource(resource.getURI())));
 		if (!"matched".equals(status)) return;
-		Exact exact = new Exact(m.globalId(), m.externalResourceIri(), m.predicateIri(), m.source(), m.method(), m.confidence());
+		Exact exact = new Exact(m.globalId(), m.externalResourceIri(), m.predicateIri(), m.source(), m.method(),
+				m.confidence(), m.validFrom(), m.validTo(), m.recordedAt());
 		if (!emitted.add(exact)) {
 			entry.removeAll(report.createProperty(NS + "status")).addLiteral(report.createProperty(NS + "status"), "duplicate");
 			return;
@@ -82,7 +88,23 @@ final class ExternalLinkProcessor {
 		if (!absoluteIri(m.predicateIri())) return "Relationship predicate IRI must be an absolute IRI";
 		if (m.confidence() != null && (!Double.isFinite(m.confidence()) || m.confidence() < 0 || m.confidence() > 1))
 			return "Confidence must be between 0 and 1";
+		Instant from = instant(m.validFrom()), to = instant(m.validTo());
+		if (m.validFrom() != null && !m.validFrom().isBlank() && from == null) return "validFrom must be an ISO-8601 instant";
+		if (m.validTo() != null && !m.validTo().isBlank() && to == null) return "validTo must be an ISO-8601 instant";
+		if (m.recordedAt() != null && !m.recordedAt().isBlank() && instant(m.recordedAt()) == null)
+			return "recordedAt must be an ISO-8601 instant";
+		if (from != null && to != null && from.isAfter(to)) return "validFrom must not be after validTo";
 		return null;
+	}
+
+	private static Instant instant(String value) {
+		if (value == null || value.isBlank()) return null;
+		try { return Instant.parse(value); } catch (java.time.format.DateTimeParseException e) { return null; }
+	}
+
+	private static void addTime(Resource entry, Model model, String property, String value) {
+		if (value != null && !value.isBlank()) entry.addLiteral(model.createProperty(NS + property),
+				model.createTypedLiteral(value, XSDDatatype.XSDdateTime));
 	}
 
 	private static boolean absoluteIri(String value) {
@@ -111,7 +133,8 @@ final class ExternalLinkProcessor {
 			number++;
 			rows.add(new Row(new ExternalLinkMapping(text(node, "globalId", "ifcGlobalId"),
 					text(node, "externalResourceIri", "externalIri"), text(node, "predicateIri", "relationshipPredicateIri"),
-					text(node, "source"), text(node, "method"), number(node, "confidence")), file, number));
+					text(node, "source"), text(node, "method"), number(node, "confidence"),
+					text(node, "validFrom"), text(node, "validTo"), text(node, "recordedAt")), file, number));
 		}
 		return rows;
 	}
@@ -140,7 +163,9 @@ final class ExternalLinkProcessor {
 			rows.add(new Row(new ExternalLinkMapping(first(values, columns, "globalId", "ifcGlobalId"),
 					first(values, columns, "externalResourceIri", "externalIri"),
 					first(values, columns, "predicateIri", "relationshipPredicateIri"),
-					value(values, columns, "source"), value(values, columns, "method"), parsed), file, i + 1));
+					value(values, columns, "source"), value(values, columns, "method"), parsed,
+					value(values, columns, "validFrom"), value(values, columns, "validTo"),
+					value(values, columns, "recordedAt")), file, i + 1));
 		}
 		return rows;
 	}

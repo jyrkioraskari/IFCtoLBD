@@ -1,0 +1,34 @@
+{
+  "name": "ifctolbd_openapi_node_js",
+  "version": "2.56.0",
+  "description": "Modern HTTP/OpenAPI service for IFCtoLBD",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "build:converter": "../mvnw -f ../pom.xml -pl IFCtoLBD -am -DskipTests package",
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "check": "node --check src/server.js && node --check src/app.js && node --check src/converter-service.js",
+    "test": "node --test test/*.test.js",
+    "smoke": "node test/smoke.js"
+  },
+  "keywords": [
+    "IFC",
+    "LBD",
+    "RDF",
+    "OpenAPI",
+    "Fastify"
+  ],
+  "author": "Jyrki Oraskari",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "@fastify/multipart": "10.1.6",
+    "@fastify/swagger": "9.9.1",
+    "@fastify/swagger-ui": "6.1.2",
+    "fastify": "5.12.7",
+    "java-bridge": "2.8.1"
+  }
+}

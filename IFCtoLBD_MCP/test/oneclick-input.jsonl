@@ -1,0 +1,4 @@
+{"jsonrpc":"2.0","id":1,"method":"tools/list","params":{}}
+{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"export_oneclick_lbd","arguments":{"ifcPath":"../IFCtoLBD/src/main/resources/Duplex_A.ifc","selection":"floorplan"}}}
+{"jsonrpc":"2.0","id":3,"method":"tools/call","params":{"name":"export_oneclick_lbd","arguments":{"ifcPath":"../Duplex.ifc","selection":"spaces","maxInlineChars":5000000}}}
+{"jsonrpc":"2.0","id":4,"method":"tools/call","params":{"name":"export_oneclick_lbd","arguments":{"ifcPath":"../IFCtoLBD/src/main/resources/Duplex_A.ifc","selection":"products:building","maxInlineChars":5000000}}}

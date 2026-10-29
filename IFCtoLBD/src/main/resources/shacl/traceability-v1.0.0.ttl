@@ -1,0 +1,40 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix manifest: <https://w3id.org/ifctolbd/manifest#> .
+@prefix extlink: <https://w3id.org/ifctolbd/external-link#> .
+@prefix evidence: <https://w3id.org/ifctolbd/evidence#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+manifest:ConversionTraceShape a sh:NodeShape ;
+    sh:targetClass manifest:Conversion ;
+    sh:property [ sh:path manifest:sourceChecksum ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{64}$" ; sh:message "A conversion must identify its source content fingerprint." ] ;
+    sh:property [ sh:path manifest:converterVersion ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path manifest:requestFingerprint ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{64}$" ] ;
+    sh:property [ sh:path manifest:identifierPolicy ; sh:minCount 1 ; sh:maxCount 1 ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:maxCount 1 ; sh:nodeKind sh:IRI ] .
+
+evidence:ElementEvidenceShape a sh:NodeShape ;
+    sh:targetSubjectsOf evidence:mappingKind ;
+    sh:property [ sh:path evidence:scope ; sh:hasValue "element" ;
+        sh:message "Element-level evidence must declare its scope explicitly." ] ;
+    sh:property [ sh:path evidence:mappingKind ; sh:in ( "DIRECT" "DETERMINISTIC_DERIVATION" "EXTERNAL_PROPOSAL" "AI_ANNOTATION" ) ] ;
+    sh:property [ sh:path prov:wasDerivedFrom ; sh:minCount 1 ; sh:nodeKind sh:IRI ] .
+
+extlink:MappingResultShape a sh:NodeShape ;
+    sh:targetClass extlink:MappingResult ;
+    sh:property [ sh:path extlink:status ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:in ( "matched" "unmatched" "ambiguous" "invalid" "duplicate" ) ] ;
+    sh:property [ sh:path extlink:mappingChecksum ; sh:minCount 1 ; sh:maxCount 1 ;
+        sh:pattern "^[0-9a-f]{64}$" ] ;
+    sh:sparql [
+        sh:message "A matched mapping must record the resolved element, target resource, and relationship predicate." ;
+        sh:select """
+            PREFIX extlink: <https://w3id.org/ifctolbd/external-link#>
+            SELECT $this WHERE {
+              $this extlink:status "matched" .
+              FILTER NOT EXISTS { $this extlink:resolvedElement ?element ; extlink:externalResource ?target ; extlink:predicate ?predicate . }
+            }
+        """
+    ] .

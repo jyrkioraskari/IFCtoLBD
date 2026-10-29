@@ -1,0 +1,31 @@
+[
+  {
+    "id": "spatial",
+    "question": "Which walls are on the ground floor?",
+    "graph": { "task": "find", "type": "Wall", "spatialLocation": "https://example.org/building/storey/ground" },
+    "expected": ["https://example.org/building/wall/north"],
+    "evidence": ["https://example.org/building/storey/ground"]
+  },
+  {
+    "id": "property-material",
+    "question": "What are the north wall fire rating and material?",
+    "graph": { "task": "inspect", "identifier": "2O2Fr$t4X7Zf8NOew3FLOH" },
+    "expected": ["EI60", "Clay brick"],
+    "evidence": ["https://example.org/building/property/fire-rating"]
+  },
+  {
+    "id": "documentary",
+    "question": "Which inspection and maintenance records support the north wall?",
+    "graph": { "task": "links", "identifier": "2O2Fr$t4X7Zf8NOew3FLOH" },
+    "expected": ["fire-inspection-2026", "repointing-2025"],
+    "evidence": ["https://example.org/documents/fire-inspection-2026", "https://example.org/maintenance/repointing-2025"]
+  },
+  {
+    "id": "unanswerable",
+    "question": "When does the roof warranty expire?",
+    "graph": { "task": "find", "type": "Roof" },
+    "expected": [],
+    "evidence": []
+  }
+]
+

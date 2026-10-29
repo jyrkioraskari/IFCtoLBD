@@ -68,7 +68,7 @@ public final class BsddClassificationResolver implements ClassificationResolver 
 		String query = "api/Dictionary/v1/Classes?Uri=" + encode(dictionaryUri) + "&SearchText="
 				+ encode(request.code()) + "&Limit=100";
 		HttpRequest httpRequest = HttpRequest.newBuilder(endpoint.resolve(query)).timeout(Duration.ofSeconds(30))
-				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.55.0").GET().build();
+				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.56.0").GET().build();
 		try {
 			RegistryResponse response = send(httpRequest);
 			if (response.statusCode() != 200) return Optional.empty();
@@ -192,7 +192,7 @@ public final class BsddClassificationResolver implements ClassificationResolver 
 
 	private Optional<JsonNode> get(String query) {
 		HttpRequest request = HttpRequest.newBuilder(endpoint.resolve(query)).timeout(Duration.ofSeconds(30))
-				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.55.0").GET().build();
+				.header("Accept", "application/json").header("User-Agent", "IFCtoLBD/2.56.0").GET().build();
 		try {
 			RegistryResponse response = send(request);
 			return response.statusCode() == 200 ? Optional.of(mapper.readTree(response.body())) : Optional.empty();

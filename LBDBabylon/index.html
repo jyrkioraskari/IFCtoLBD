@@ -1,1 +1,22 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><title>LBD Babylon Viewer</title></head><body><div id="app"></div><script type="module" src="/src/main.ts"></script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>LBD Babylon Viewer</title>
+</head>
+<body style="margin:0;background:#0d1117;color:#e9eef5;font:16px system-ui,sans-serif">
+  <div id="app"><p style="padding:16px">Loading LBD Babylon…</p></div>
+  <script>
+    window.addEventListener("error", event => {
+      if (document.querySelector("#upload")) return;
+      document.querySelector("#app").textContent = `LBD Babylon could not start: ${event.message || "module failed to load"}`;
+    });
+    window.addEventListener("unhandledrejection", event => {
+      if (document.querySelector("#upload")) return;
+      document.querySelector("#app").textContent = `LBD Babylon could not start: ${event.reason?.message || String(event.reason)}`;
+    });
+  </script>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>

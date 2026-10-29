@@ -2237,13 +2237,20 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			boolean typeMatches = this.isolatedElementType == null
 					|| details != null && details.typeNames().contains(this.isolatedElementType);
 			boolean selected = Objects.equals(entry.getKey(), this.selectedResourceUri);
+			boolean opening = this.currentPreviewMesh != null
+					&& this.currentPreviewMesh.openingResourceUris().contains(entry.getKey());
 			for (MeshView meshView : entry.getValue()) {
 				meshView.setVisible(typeMatches || selected);
-				meshView.setOpacity(this.sparqlSelectionHighlighted || this.selectedResourceUri == null || selected ? 1.0 : 0.16);
+				meshView.setOpacity(previewOpacity(opening,
+						!(this.sparqlSelectionHighlighted || this.selectedResourceUri == null || selected)));
 				PhongMaterial original = this.geometryMaterials.get(meshView);
 				meshView.setMaterial(selected ? createPreviewMaterial(this.sparqlSelectionHighlighted ? 0xff2020 : 0xf59e0b) : original);
 			}
 		}
+	}
+
+	static double previewOpacity(boolean opening, boolean dimmed) {
+		return (opening ? 0.02 : 1.0) * (dimmed ? 0.16 : 1.0);
 	}
 
 	private void focusSelectedGeometry() {
@@ -3689,13 +3696,15 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			while (geometries.hasNext() && !builder.clipped()) {
 				Statement geometry = geometries.next();
 				if (!geometry.getObject().isLiteral()) continue;
-				int color = geometryColor(geometry.getSubject(), materialColorProperty, materialProperty);
 				Resource element = geometryOwner(model, geometry.getSubject());
+				boolean opening = isOpeningPreviewGeometry(model, element)
+						|| isOpeningPreviewGeometry(model, geometry.getSubject());
+				int color = geometryColor(geometry.getSubject(), materialColorProperty, materialProperty);
 				ResourceDetails details = describeResource(model, element);
 				try {
 					String obj = new String(Base64.getDecoder().decode(
 							geometry.getString()), StandardCharsets.UTF_8);
-					builder.addObj(obj, color, details, geometry.getSubject().isURIResource()
+					builder.addObj(obj, color, details, opening, geometry.getSubject().isURIResource()
 							? geometry.getSubject().getURI() : geometry.getSubject().toString());
 				} catch (IllegalArgumentException ignored) {
 					// Ignore malformed geometry literals and continue with the remaining geometry.
@@ -3737,6 +3746,36 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		} finally {
 			owners.close();
 		}
+	}
+
+	/** Opening volumes describe voids in products and appear nearly transparent in the preview. */
+	static boolean isOpeningPreviewGeometry(Model model, Resource resource) {
+		if (isOpeningResourceName(resource)) return true;
+		var statements = model.listStatements(resource, null, (RDFNode) null);
+		try {
+			while (statements.hasNext()) {
+				Statement statement = statements.next();
+				if ((org.apache.jena.vocabulary.RDF.type.equals(statement.getPredicate())
+						|| org.apache.jena.vocabulary.OWL.sameAs.equals(statement.getPredicate()))
+						&& statement.getObject().isResource()
+						&& isOpeningResourceName(statement.getResource())) return true;
+			}
+			return false;
+		} finally {
+			statements.close();
+		}
+	}
+
+	private static boolean isOpeningResourceName(Resource resource) {
+		if (!resource.isURIResource()) return false;
+		String localName = resource.getLocalName();
+		if (localName == null) return false;
+		String name = localName.toLowerCase(Locale.ROOT);
+		if (name.startsWith("ifcowl_")) name = name.substring("ifcowl_".length());
+		for (String openingType : List.of("ifcopeningelement", "ifcopeningstandardcase", "openingelement")) {
+			if (name.equals(openingType) || name.startsWith(openingType + "_")) return true;
+		}
+		return false;
 	}
 
 	private static ResourceDetails describeResource(Model model, Resource resource) {
@@ -4042,7 +4081,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private record PreviewMesh(float[] points, int[] faces, int[] triangleColors, String[] triangleResourceUris,
-			Map<String, ResourceDetails> resources, Map<String, String> resourceAliases, int objectCount,
+			Map<String, ResourceDetails> resources, Map<String, String> resourceAliases, Set<String> openingResourceUris, int objectCount,
 			int triangleCount, boolean clipped) {
 		private String statusText() {
 			if (clipped) {
@@ -4061,6 +4100,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		private final List<String> triangleResourceUris = new ArrayList<>();
 		private final Map<String, ResourceDetails> resources = new LinkedHashMap<>();
 		private final Map<String, String> resourceAliases = new LinkedHashMap<>();
+		private final Set<String> openingResourceUris = new HashSet<>();
 		private int objectCount;
 		private boolean clipped;
 		private double minX = Double.POSITIVE_INFINITY;
@@ -4079,12 +4119,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return this.clipped;
 		}
 
-		private void addObj(String obj, int color, ResourceDetails details, String geometryUri) {
+		private void addObj(String obj, int color, ResourceDetails details, boolean opening, String geometryUri) {
 			if (this.clipped) {
 				return;
 			}
 			this.objectCount++;
 			this.resources.putIfAbsent(details.uri(), details);
+			if (opening) this.openingResourceUris.add(details.uri());
 			if (geometryUri != null) this.resourceAliases.put(geometryUri, details.uri());
 			List<double[]> localVertices = new ArrayList<>();
 			for (String rawLine : obj.split("\\R")) {
@@ -4150,7 +4191,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		private PreviewMesh toPreviewMesh() {
 			if (this.rawPoints.isEmpty() || this.triangles.isEmpty()) {
 				return new PreviewMesh(new float[0], new int[0], new int[0], new String[0], Map.copyOf(this.resources),
-						Map.copyOf(this.resourceAliases), this.objectCount, 0, this.clipped);
+						Map.copyOf(this.resourceAliases), Set.copyOf(this.openingResourceUris), this.objectCount, 0, this.clipped);
 			}
 			double centerX = (this.minX + this.maxX) / 2.0;
 			double centerY = (this.minY + this.maxY) / 2.0;
@@ -4179,7 +4220,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				colors[i] = this.triangleColors.get(i);
 			}
 			return new PreviewMesh(points, faces, colors, this.triangleResourceUris.toArray(String[]::new),
-					Map.copyOf(this.resources), Map.copyOf(this.resourceAliases), this.objectCount,
+					Map.copyOf(this.resources), Map.copyOf(this.resourceAliases), Set.copyOf(this.openingResourceUris), this.objectCount,
 					this.triangles.size(), this.clipped);
 		}
 

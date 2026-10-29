@@ -24,6 +24,8 @@ These projects are not part of the root reactor and must be handled separately:
 - `IFCtoLBD_MCP`: Node.js MCP server using the shaded converter JAR.
 - `IFCtoLBD_NodeJS`: Node.js integration examples.
 - `IFCtoLBD_Python`: JPype wrapper and Python examples.
+- `IFCtoLBD_OpenAPI_Node_js`: modern Node.js HTTP/OpenAPI service using the
+  shaded converter JAR.
 - `IFCtoLBD_OpenAPI`: separate Maven web API.
 - `ifc-to-lbd-scala`: Scala example.
 - `maven_demo`: historical consumer example.
@@ -116,6 +118,15 @@ For the older Node.js examples:
 
 ```sh
 npm --prefix IFCtoLBD_NodeJS test
+```
+
+For the modern HTTP/OpenAPI service:
+
+```sh
+npm --prefix IFCtoLBD_OpenAPI_Node_js ci
+npm --prefix IFCtoLBD_OpenAPI_Node_js run check
+npm --prefix IFCtoLBD_OpenAPI_Node_js test
+npm --prefix IFCtoLBD_OpenAPI_Node_js run smoke
 ```
 
 ## Implementation guidance

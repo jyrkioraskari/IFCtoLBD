@@ -22,12 +22,16 @@ process.stdin.on("end", () => {
   assert(toolNames.includes("convert_ifc_to_lbd"));
   assert(toolNames.includes("list_ifc_elements_with_properties"));
   assert(toolNames.includes("list_ifc_elements_with_geometry"));
+  assert(toolNames.includes("get_storey_floorplans"));
   assert(toolNames.includes("load_ifc"));
   assert(toolNames.includes("describe_model"));
   assert(toolNames.includes("close_model"));
   assert(toolNames.includes("compare_revisions"));
   assert(toolNames.includes("get_capabilities"));
   assert(toolNames.includes("get_property_evidence"));
+  assert(toolNames.includes("find_elements"));
+  assert(toolNames.includes("inspect_element"));
+  assert(toolNames.includes("get_linked_records"));
   assert(toolNames.includes("inspect_link_coverage"));
   assert(toolNames.includes("list_unresolved_mappings"));
   assert(toolNames.includes("explain_external_link"));
@@ -54,6 +58,9 @@ process.stdin.on("end", () => {
   assert(byId.get(12).result.contents[0].text.includes("ValidationReport"));
   assert(byId.get(13).result.contents[0].text.includes("Conversion"));
   assert.strictEqual(byId.get(14).result.contents[0].mimeType, "text/turtle");
+  assert(["found", "empty"].includes(byId.get(17).result.structuredContent.status));
+  assert.strictEqual(byId.get(18).result.structuredContent.dataModified, false);
+  assert.strictEqual(typeof byId.get(18).result.structuredContent.summary, "string");
   assert.strictEqual(byId.get(15).result.structuredContent.closed, true);
   assert.strictEqual(byId.get(16).result.structuredContent.evidence.recommendedProfile, "evidence");
   assert(byId.get(16).result.structuredContent.errors.includes("PROPERTY_NOT_FOUND"));

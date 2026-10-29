@@ -13,6 +13,7 @@
     "check": "node --check src/server.js",
     "smoke": "node src/server.js < test/smoke-input.jsonl | node test/assert-smoke.js",
     "test:integration": "node src/server.js < test/version-input.jsonl | node test/assert-version.js",
+    "test:oneclick": "node src/server.js < test/oneclick-input.jsonl | node test/assert-oneclick.js",
     "test:evidence": "node src/server.js < test/evidence-input.jsonl | node test/evidence-integration.js"
   },
   "keywords": [

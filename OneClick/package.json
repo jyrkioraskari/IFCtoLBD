@@ -1,0 +1,18 @@
+{
+  "name": "ifctolbd-oneclick",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A calm, one-click IFC selection and LBD export interface for architects.",
+  "scripts": {
+    "start": "node server.mjs",
+    "dev": "node server.mjs",
+    "cli": "node cli.mjs",
+    "build": "node build.mjs",
+    "check": "node --check server.mjs && node --check cli.mjs && node --check src/app.js && node --check src/ifc.js && node --check src/projection.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

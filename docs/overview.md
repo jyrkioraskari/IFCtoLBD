@@ -32,7 +32,7 @@ ordinary properties.
 ## Walk through the two-wall model
 
 The development-version [example IFC file](../examples/getting-started/building-inventory/model.ifc)
-contains one storey and two walls. Its checked 2.55.0 output has this shape:
+contains one storey and two walls. Its checked 2.56.0 output has this shape:
 
 ```text
 Building storey "Level 04 - T.O. Fnd. Wall"

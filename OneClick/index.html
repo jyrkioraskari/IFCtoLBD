@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Select an IFC model, choose the building information you need, and export clean Linked Building Data." />
+    <title>OneClick — IFC to LBD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="OneClick home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+          <span>OneClick</span>
+        </a>
+      </header>
+
+      <section class="workspace">
+        <div class="control-panel">
+          <div class="intro">
+            <p class="lede">Open an IFC model, export selected Linked Building Data.</p>
+          </div>
+
+          <button class="file-summary" id="fileSummary" type="button" title="Choose a new IFC model" hidden>
+            <span class="file-icon" aria-hidden="true">IFC</span>
+            <span class="file-summary-copy">
+              <strong id="fileName">Building.ifc</strong>
+              <span id="fileMeta">Ready to export</span>
+            </span>
+            <span class="read-state"><span></span> Change file</span>
+          </button>
+
+          <div class="selections" id="selections" role="radiogroup" aria-label="LBD export selection" hidden>
+            <div class="selection-copy">
+              <span>Choose one export</span>
+              <small id="selectionCount">Floorplan selected</small>
+            </div>
+
+            <label class="selection-card is-active" data-view="floorplan">
+              <input type="radio" name="scope" value="floorplan" checked />
+              <span class="selection-number">01</span>
+              <span class="selection-text"><strong>Floorplan</strong><small>2D WKT sections for each storey</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+
+            <label class="selection-card" data-view="spaces">
+              <input type="radio" name="scope" value="spaces" />
+              <span class="selection-number">02</span>
+              <span class="selection-text"><strong>Spaces & interfaces</strong><small>Rooms, zones & their connections</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+
+            <label class="selection-card" data-view="products:building">
+              <input type="radio" name="scope" value="products:building" />
+              <span class="selection-number">03</span>
+              <span class="selection-text"><strong>Building elements</strong><small>Walls, doors, windows & structure</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:hvac">
+              <input type="radio" name="scope" value="products:hvac" />
+              <span class="selection-number">04</span>
+              <span class="selection-text"><strong>HVAC elements</strong><small>Ventilation, heating & cooling</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:electrical">
+              <input type="radio" name="scope" value="products:electrical" />
+              <span class="selection-number">05</span>
+              <span class="selection-text"><strong>Electrical elements</strong><small>Lighting, cables & power</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:plumbing">
+              <input type="radio" name="scope" value="products:plumbing" />
+              <span class="selection-number">06</span>
+              <span class="selection-text"><strong>Plumbing & piping</strong><small>Pipes, valves & sanitary fixtures</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:furnishing">
+              <input type="radio" name="scope" value="products:furnishing" />
+              <span class="selection-number">07</span>
+              <span class="selection-text"><strong>Furnishings & equipment</strong><small>Furniture and related objects</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:services">
+              <input type="radio" name="scope" value="products:services" />
+              <span class="selection-number">08</span>
+              <span class="selection-text"><strong>Other building services</strong><small>Remaining distribution elements</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+            <label class="selection-card" data-view="products:other">
+              <input type="radio" name="scope" value="products:other" />
+              <span class="selection-number">09</span>
+              <span class="selection-text"><strong>Other products</strong><small>Openings and uncategorised objects</small></span>
+              <span class="checkmark" aria-hidden="true">✓</span>
+            </label>
+          </div>
+
+          <input id="fileInput" type="file" accept=".ifc" hidden />
+          <button class="primary-action" id="primaryAction" type="button">
+            <span class="action-label">Read an IFC model</span>
+            <span class="action-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M12 4v12m0 0 5-5m-5 5-5-5M5 20h14" /></svg>
+            </span>
+          </button>
+          <p class="support-copy" id="supportCopy" hidden></p>
+        </div>
+
+        <div class="viewer-panel" aria-live="polite">
+          <div class="viewer-topline">
+            <div>
+              <strong id="viewTitle">Waiting for a model</strong>
+            </div>
+          </div>
+
+          <div class="canvas-wrap" id="canvasWrap">
+            <div class="grid-plane" aria-hidden="true"></div>
+            <div class="plan-view" id="planView" hidden></div>
+            <div class="space-view" id="spaceView" hidden></div>
+            <div class="product-view" id="productView" hidden></div>
+            <svg class="building" id="buildingView" viewBox="0 0 680 590" role="img" aria-labelledby="modelTitle modelDesc">
+              <title id="modelTitle">Architectural floorplan preview</title>
+              <desc id="modelDesc">A stylized isometric building plan. Selected data layers illuminate after an IFC file is read.</desc>
+              <defs>
+                <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#0b3528" flood-opacity=".12"/>
+                </filter>
+                <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                  <line x1="0" y1="0" x2="0" y2="8" stroke="currentColor" stroke-width="2" opacity=".18" />
+                </pattern>
+              </defs>
+              <g class="model model-shell" filter="url(#shadow)">
+                <path class="slab" d="M111 385 359 241 586 372 337 517Z" />
+                <path class="outer-wall wall-left" d="M111 385 337 517 337 545 111 413Z" />
+                <path class="outer-wall wall-right" d="M337 517 586 372 586 400 337 545Z" />
+              </g>
+              <g class="model model-spaces">
+                <path class="room room-a" d="M138 379 259 309 354 363 232 434Z" />
+                <path class="room room-b" d="M271 302 359 251 451 304 363 355Z" />
+                <path class="room room-c" d="M244 441 362 372 449 423 333 491Z" />
+                <path class="room room-d" d="M374 364 463 312 559 368 469 420Z" />
+              </g>
+              <g class="model model-walls">
+                <path d="M128 374 355 505 355 518 128 387Z" />
+                <path d="M128 374 367 236 367 249 128 387Z" />
+                <path d="M367 236 575 356 575 369 367 249Z" />
+                <path d="M355 505 575 377 575 356 355 484Z" />
+                <path d="M257 306 269 299 363 353 351 360Z" />
+                <path d="M354 358 366 351 462 407 450 414Z" />
+                <path d="M449 299 461 306 364 362 352 355Z" />
+              </g>
+              <g class="model model-products">
+                <g class="desk"><path d="M286 346 329 321 359 338 316 363Z"/><path d="M291 348v18l25 14v-17m38-22v18l-38 21"/></g>
+                <g class="desk"><path d="M397 343 441 318 470 335 426 360Z"/><path d="M402 345v18l24 14v-17m39-22v18l-39 21"/></g>
+                <g class="table"><ellipse cx="319" cy="424" rx="44" ry="25"/><path d="M319 424v26m-15 9 15-9 16 9"/></g>
+                <g class="plant"><path d="M499 358c-11-18 1-32 11-37 5 17 0 29-11 37Zm0 0c14-12 28-7 34 0-12 10-23 12-34 0Zm0 0c-15-6-19-19-16-28 14 4 21 14 16 28Z"/><path d="M499 355v27m-13 0h26l-5 20h-16Z"/></g>
+              </g>
+              <g class="model model-nodes">
+                <path d="M201 357 319 425 419 367 503 374" />
+                <circle cx="201" cy="357" r="6"/><circle cx="319" cy="425" r="6"/><circle cx="419" cy="367" r="6"/><circle cx="503" cy="374" r="6"/>
+              </g>
+            </svg>
+            <div class="empty-state" id="emptyState">
+              <span class="orbit"><i></i><i></i><i></i></span>
+              <p>Your building will appear here</p>
+              <small>Drop nothing. One click is enough.</small>
+            </div>
+            <div class="orientation" aria-hidden="true"><span>N</span><i></i></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script type="module" src="src/app.js"></script>
+  </body>
+</html>

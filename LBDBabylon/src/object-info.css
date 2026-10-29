@@ -1,0 +1,17 @@
+#object-info{position:absolute;z-index:3;top:68px;right:12px;width:min(390px,calc(100% - 24px));max-height:calc(100% - 122px);overflow:auto;border:1px solid #40516a;border-radius:10px;background:#121923f2;box-shadow:0 16px 40px #0008;backdrop-filter:blur(10px);padding:14px;color:#e9eef5}
+#object-info[hidden]{display:none}
+.info-heading{display:flex;align-items:flex-start;gap:10px;border-bottom:1px solid #303b4c;padding-bottom:10px;margin-bottom:10px}
+.info-title{min-width:0;flex:1}
+.info-title h2{font-size:1.05rem;line-height:1.25;margin:0 0 4px;overflow-wrap:anywhere}
+.info-kind{display:inline-block;border-radius:999px;background:#26364a;color:#bcd0e7;padding:2px 7px;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}
+#info-close{border:0;background:transparent;font-size:1.35rem;line-height:1;padding:2px 5px;color:#aebdd0}
+#info-uri{margin:0 0 12px;color:#8fa6bf;font-size:.7rem;overflow-wrap:anywhere}
+.attribute-list{display:grid;grid-template-columns:minmax(92px,35%) 1fr;gap:0;margin:0;font-size:.78rem}
+.attribute-list dt,.attribute-list dd{margin:0;padding:7px 0;border-bottom:1px solid #263244;overflow-wrap:anywhere}
+.attribute-list dt{padding-right:10px;color:#91abc7;font-weight:600}
+.attribute-list dd{color:#e3eaf2}
+.attribute-value{display:block;margin-bottom:4px}
+.attribute-value:last-child{margin-bottom:0}
+.attribute-value a{color:#9dccff;text-decoration:none}
+.attribute-value a:hover{text-decoration:underline}
+@media(max-width:700px){#object-info{top:auto;right:8px;bottom:8px;width:calc(100% - 16px);max-height:55%;padding:12px}}

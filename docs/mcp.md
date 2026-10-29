@@ -8,7 +8,7 @@ assistant call the converter as a set of tools. You can ask the assistant to
 summarize an IFC model, inspect elements and properties, run SPARQL queries,
 validate data with SHACL, compare revisions, or write an RDF export.
 
-The model stays on the computer where the server runs. The server communicates
+The model is read on the computer where the server runs. The server communicates
 with the AI client over standard input and output; it does not expose an HTTP
 service. Your AI client may still send tool results to its model provider, so
 apply that client's privacy and data-handling rules to every IFC model you use.
@@ -102,6 +102,20 @@ with the absolute path to the Node executable. If your client uses a different
 configuration shape, enter the same three values in its stdio-server fields:
 the command, the server script as an argument, and the repository as the
 working directory.
+
+## OneClick Turtle as a separate MCP option
+
+The `export_oneclick_lbd` tool runs the [OneClick](../OneClick/README.md)
+extractor and serializer for one selection. Supply `ifcPath` and `selection`,
+such as `floorplan`, `spaces`, or `products:building`; `outputPath` optionally
+writes the complete Turtle to an allowed directory. This requires Python 3,
+IfcOpenShell 0.8.5, and Shapely 2 on the MCP server host. Set `ONECLICK_PYTHON`
+if the needed Python executable is not `python3`.
+
+The existing `convert_ifc_to_lbd` tool and Java conversion profiles continue
+to use the IFCtoLBD converter. The equivalent separate terminal command is
+`node OneClick/cli.mjs --ifc model.ifc --selection products:building`; see
+[OneClick command-line export](../OneClick/README.md#command-line-export).
 
 Restart the client after saving its configuration. The client should show a
 server named `ifctolbd` and tools including `get_capabilities`, `load_ifc`, and

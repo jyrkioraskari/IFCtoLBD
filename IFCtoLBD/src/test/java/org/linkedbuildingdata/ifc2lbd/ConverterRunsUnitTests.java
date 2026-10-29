@@ -65,6 +65,7 @@ import org.linkedbuildingdata.ifc2lbd.namespace.IFCtoLBDMapping;
 import org.linkedbuildingdata.ifc2lbd.namespace.BSDD;
 import org.linkedbuildingdata.ifc2lbd.namespace.IfcOWL;
 import org.linkedbuildingdata.ifc2lbd.namespace.OPM;
+import org.linkedbuildingdata.ifc2lbd.namespace.Product;
 import org.linkedbuildingdata.ifc2lbd.namespace.PROPS;
 
 import com.github.davidmoten.rtreemulti.Entry;
@@ -948,10 +949,10 @@ public class ConverterRunsUnitTests {
 						hasBuildingProperties, hasSeparatePropertiesModel, hasGeolocation, hasGeometry, exportIfcOWL,
 						hasUnits, hasBoundingBoxWKT, true, hasInterfaces);
 
-				ImmutableList<Resource> subjectList1 = ImmutableList.copyOf(m.listSubjects());
-				// Type filtering should still materially reduce the output while retaining
-				// the explicit source-boundary record that references the selected wall.
-				assertTrue(subjectList1.size() < 581);
+				// Boundary records are independent of element type selection, so check
+				// the selected product types rather than the total subject count.
+				assertTrue(m.contains(null, RDF.type, ResourceFactory.createResource(Product.beo_ns + "Wall")));
+				assertFalse(m.contains(null, RDF.type, ResourceFactory.createResource(Product.beo_ns + "Door")));
 				assertTrue(m.contains(null, IFCtoLBDMapping.interfaceOrigin,
 						IFCtoLBDMapping.ifcSpaceBoundaryOrigin));
 			}

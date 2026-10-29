@@ -38,7 +38,8 @@ older `revision-ready`/`modelScope` mechanism remains accepted for compatibility
 ## External-link mappings
 
 Pass one or more `--link-mapping` CSV or JSON files. Each row has `globalId`, `externalResourceIri`,
-`predicateIri`, and optional `source`, `method`, and `confidence` (0 through 1). CSV aliases
+`predicateIri`, and optional `source`, `method`, `confidence` (0 through 1), `validFrom`, `validTo`,
+and `recordedAt`. Temporal values use ISO-8601 instants. CSV aliases
 `ifcGlobalId`, `externalIri`, and `relationshipPredicateIri` are accepted. Rows are resolved only against
 the conversion receiving the mapping; no registry lookup or cross-model GlobalId search occurs.
 
@@ -53,6 +54,11 @@ targets and never substitutes `owl:sameAs`. Exact duplicate rows are emitted onc
 row a `matched`, `unmatched`, `ambiguous`, `invalid`, or `duplicate` status plus supplied evidence. External
 IRIs are validated but never fetched.
 
+Resolved links remain in a companion graph, so ordinary reconversion cannot silently delete the maintained
+mapping input. Reapply that reviewed input to the new conversion. Unmatched and ambiguous rows remain report
+findings and are never attached to another element. IFC GlobalId matching is project-scoped here; it is not a
+universal identity guarantee.
+
 Structured Java results expose `getExternalLinkModel()`, `getExternalLinkReportModel()`, and
 `getIdentityReportModel()`. MCP `load_ifc` accepts `identifierPolicy`, `projectNamespace`, and
 `mappingPaths`; additive tools inspect coverage, list unresolved rows, explain link evidence, and report the
@@ -64,6 +70,10 @@ The structured result retains an immutable manifest containing the source SHA-25
 profile/options fingerprint, policy and namespace, mapping checksums, bundled dictionary versions,
 generation time, validation/audit status, and graph references. Paths are not included. CLI export remains
 optional through `--provenance-output`.
+
+With the opt-in `evidence` profile, the companion manifest also contains explicit element-level source
+entities and mapping kind. See [traceable graph retrieval](traceable-retrieval.md) for retrieval contracts,
+validation, and interface examples.
 
 Stable-project revision comparison requires exactly matching persistent namespaces and policies. It reports
 retained, added, and removed GlobalIds and counts links whose former RDF subjects are absent. It refuses to
@@ -95,3 +105,9 @@ For CLI export, select both a content-addressed directory and its public IRI:
 
 The format option may be repeated. MCP `load_ifc` accepts `geometryFormats` with `OBJ`, `GLB`, or `GLTF`.
 Omitting it preserves existing OBJ artifact and cache-key behavior.
+
+To open embedded or external geometry and inspect it with orbit, grounded walk,
+fly, or assisted-walk controls, continue with the
+[LBDBabylon walkthrough](lbd-babylon.md). Its collision policy uses RDF types:
+physical elements can block movement, while spaces, openings, voids, spatial
+containers, and unknown helper geometry remain non-blocking.

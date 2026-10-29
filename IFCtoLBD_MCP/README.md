@@ -71,11 +71,12 @@ Example stdio configuration:
 
 - `get_capabilities`: reports conversion profiles, evidence fields, supported selectors, limits, SHACL packs, trust handling, pagination, and stable error codes.
 - `load_ifc`: converts once and returns a reusable model ID, IFC checksum, schema, converter version, and conversion profile. Identical checksum/version/profile requests reuse the loaded model.
-- `inspect_link_coverage`, `list_unresolved_mappings`, and `explain_external_link`: inspect optional conversion-scoped CSV/JSON links and their supplied source, method, and confidence without inferring a match.
+- `inspect_link_coverage`, `list_unresolved_mappings`, and `explain_external_link`: inspect optional conversion-scoped CSV/JSON links and their supplied source, method, confidence, and temporal metadata without inferring a match.
 - `report_identifier_policy`: reports whether historical or stable-project identity was selected and any explicit project namespace.
 - `get_property_evidence`: returns attributable property, quantity, or attribute claims for one element selected by IFC GUID or RDF identifier. Use the `evidence` profile to retain source locations, IFC datatypes, and unit-resolution metadata.
 - `compare_revisions`: compares two compatible `revision-ready` models and exposes the RDF change graph as a resource.
 - `describe_model`, `get_entity`, `list_classes`, and `list_properties`: inspect a loaded model without reconversion.
+- `find_elements`, `inspect_element`, and `get_linked_records`: perform bounded task-oriented retrieval with supporting statements, available evidence, and explicit missing/empty/ambiguous statuses.
 - `describe_element`: returns a bounded, standalone compact JSON-LD 1.1 description for one element in a loaded model.
 - `query_model`: runs a parsed, row-limited SPARQL `SELECT` query against a loaded model. Federated `SERVICE` clauses are rejected.
 - `validate_model`: applies one or more versioned SHACL packs and retains the standard RDF validation report without changing the model.
@@ -86,9 +87,34 @@ Example stdio configuration:
 - `query_ifc_lbd`: converts an IFC file and runs a SPARQL `SELECT` query against the in-memory Jena model.
 - `list_ifc_elements_with_properties`: lists elements of an RDF type, such as `bot:Element` or `beo:Wall`, with IFCtoLBD simple properties and attributes grouped per element.
 - `list_ifc_elements_with_geometry`: lists elements of an RDF type with generated geometry literals. WKT is included by default; OBJ can be included with `includeObj`.
+- `get_storey_floorplans`: uses the local OneClick IfcOpenShell extractor to return 2D section WKT for each storey. Set `storeyGuid` to select one storey and `includeLines: true` for line graph coordinates. Requires Python 3, IfcOpenShell 0.8.5, and Shapely 2; `ONECLICK_PYTHON` selects the Python executable.
+- `export_oneclick_lbd`: separately exports one OneClick selection as Turtle. It requires the source checkout's `OneClick` directory and its Python dependencies. The existing `convert_ifc_to_lbd` tool retains its behavior.
 - `ifctolbd_runtime_info`: returns runtime paths and Java bridge settings.
 
-File-conversion tools accept `ifcPath`; when omitted, the sample `IFCtoLBD/src/main/resources/Duplex_A.ifc` is used. Loaded-model tools accept the `modelId` returned by `load_ifc`.
+The standard converter tools accept `ifcPath`; when omitted, they use the sample
+`IFCtoLBD/src/main/resources/Duplex_A.ifc`. The separate OneClick export
+requires `ifcPath`. Loaded-model tools accept the `modelId` returned by `load_ifc`.
+
+### OneClick export
+
+Call `export_oneclick_lbd` with an allowed `ifcPath` and one `selection`:
+`floorplan`, `spaces`, `products:building`, `products:hvac`,
+`products:electrical`, `products:plumbing`, `products:furnishing`,
+`products:services`, or `products:other`. For example:
+
+```json
+{"ifcPath":"/absolute/path/to/model.ifc","selection":"products:building"}
+```
+
+The tool returns Turtle inline with `format`, `length`, and `truncated` fields.
+Set `outputPath` to write the complete Turtle to an allowed existing directory;
+`IFCTOLBD_MCP_WRITE_ROOTS` controls permitted destinations. `maxInlineChars`
+controls the inline limit. The tool invokes `OneClick/cli.mjs`, which uses
+`ONECLICK_PYTHON` or `python3` and needs IfcOpenShell 0.8.5 and Shapely 2.
+Run `npm --prefix IFCtoLBD_MCP run test:oneclick` from the repository root to
+compare MCP and OneClick CLI Turtle output for floorplans, spaces and interfaces,
+and building products. The check also verifies that both expose the same
+selection options.
 
 `load_ifc` keeps its existing required inputs and defaults. Optional `identifierPolicy: "STABLE_PROJECT"`
 requires `projectNamespace`; optional `mappingPaths` are resolved only against that loaded conversion and
@@ -144,7 +170,9 @@ SPARQL is parsed by Jena and limited to `SELECT`; `SERVICE` is disabled, queries
 
 Tool failures use MCP `isError` results with stable codes such as `INVALID_ARGUMENT`, `PATH_NOT_ALLOWED`, `MODEL_NOT_FOUND`, and `QUERY_REJECTED`. Internal stack traces are not returned to clients. Call `get_capabilities` for the complete code list and active quotas.
 
-The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `digital-twin-sensors`, `fire-accessibility`, `supply-chain-identifiers`, and `sustainability-declarations`, currently at version 1.0.0. Reports are available as `ifctolbd://models/{modelId}/validation/{reportId}` resources.
+The available SHACL packs are `core-bot`, `properties-units`, `geometry-crs`, `digital-twin-sensors`, `fire-accessibility`, `supply-chain-identifiers`, `sustainability-declarations`, `materials-bmo`, and `traceability`, currently at version 1.0.0. Reports are available as `ifctolbd://models/{modelId}/validation/{reportId}` resources. The traceability pack validates retained manifest/evidence and the external-link report alongside converted data.
+
+For the recommended conversion → inspection → validation → evidence explanation sequence, see the [traceable retrieval agent workflow](../docs/traceable-retrieval.md#agent-workflow).
 
 `load_ifc` accepts the named profiles, including `evidence`, `revision-ready`, `compliance`,
 `geometry-external`, and `materials-bmo`. The material profile maps direct materials and material layer sets into the product graph and material quantities into the property graph; unsupported IFC material structures are reported in the validation graph. The `evidence` profile uses OPM property resources, preserves IFC source links, and enables unit resolution. Its `ConversionResult` graphs are resources at

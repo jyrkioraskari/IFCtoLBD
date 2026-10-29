@@ -12,5 +12,7 @@
 {"jsonrpc":"2.0","id":12,"method":"resources/read","params":{"uri":"ifctolbd://models/ifc-4a5fdc3e65a7ccf8/validation/shacl-07bcc97d7907d8db?format=TURTLE"}}
 {"jsonrpc":"2.0","id":13,"method":"resources/read","params":{"uri":"ifctolbd://models/ifc-4a5fdc3e65a7ccf8/manifest?format=TURTLE"}}
 {"jsonrpc":"2.0","id":14,"method":"resources/read","params":{"uri":"ifctolbd://models/ifc-4a5fdc3e65a7ccf8/validation?format=TURTLE"}}
+{"jsonrpc":"2.0","id":17,"method":"tools/call","params":{"name":"find_elements","arguments":{"modelId":"ifc-4a5fdc3e65a7ccf8","type":"Wall","limit":2}}}
+{"jsonrpc":"2.0","id":18,"method":"tools/call","params":{"name":"validate_model","arguments":{"modelId":"ifc-4a5fdc3e65a7ccf8","shapePacks":["traceability"]}}}
 {"jsonrpc":"2.0","id":15,"method":"tools/call","params":{"name":"close_model","arguments":{"modelId":"ifc-4a5fdc3e65a7ccf8"}}}
 {"jsonrpc":"2.0","id":16,"method":"tools/call","params":{"name":"get_capabilities","arguments":{}}}

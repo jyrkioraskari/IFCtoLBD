@@ -82,7 +82,7 @@ programming integration; it is not needed just to read exported Turtle in Python
 Click **Read IFC** and select your IFC model. Reading prepares the model and
 collects its element types and property sets. Wait for the conversion log to
 finish reading and for **Run** to become available. In development version
-2.55.0, the **Model Summary** then shows the detected IFC schema, file size,
+2.56.0, the **Model Summary** then shows the detected IFC schema, file size,
 element and property-set totals, storeys, spaces, geometry availability, major
 element types, and any model warnings. This step does not yet produce the final
 LBD export.
@@ -98,7 +98,7 @@ files, it lists every path and the number of output files.
 For the first conversion, leave settings and filters as they are. Click **Run**
 and wait for completion in the conversion log. Locate the output at the displayed
 path. You now have RDF, but you can get a useful answer without reading Turtle.
-The following checked query step targets development version 2.55.0. Open
+The following checked query step targets development version 2.56.0. Open
 **Query**, paste the
 [building inventory query](../examples/getting-started/building-inventory/query.rq),
 and select **Run query**. For the bundled model the result groups two walls under
@@ -146,6 +146,12 @@ To browse the generated Turtle as an interactive building graph, open it in
 [LBD Browser](https://github.com/jyrkioraskari/LBD-browser). The browser provides
 focused views of spatial topology, geometry, and properties and processes the
 selected file locally in your web browser.
+
+To walk through exported geometry, use the source-development
+[LBDBabylon viewer](lbd-babylon.md). It supports grounded first-person walking,
+orbit and fly modes, and direct floor-assisted movement. Geometry must be
+enabled during conversion. Space volumes, openings, voids, zones, and unknown
+helper meshes remain selectable but do not block movement.
 
 To turn the same output into application-friendly JSON, use
 [ProductExtractor](../ProductExtractor/README.md). It creates one summary per
@@ -201,7 +207,9 @@ command-line preview.
 
 Where available, **Query** opens SPARQL queries, **Validate** checks RDF against
 SHACL shapes, and **Geometry** previews exported geometry. Geometry must be
-enabled for a geometry preview. Validation reports on the selected RDF rules;
+enabled for a geometry preview. The desktop preview shows IFC opening volumes at
+2% opacity so the surrounding building elements remain visible. Validation reports
+on the selected RDF rules;
 it does not certify the original IFC model. SHACL shape files added with
 **Load SHACL** reopen when you restart the app. Removing an added shape or choosing
 **Restore defaults** updates that saved list. If a file has moved, load it again
@@ -210,7 +218,7 @@ repeat the desktop settings in automated conversions.
 
 ### Development-only external geometry options
 
-The source-development desktop for 2.55.0 adds three optional controls at the
+The source-development desktop for 2.56.0 adds three optional controls at the
 bottom of **Settings → Geometry**: **Geometry output**, **Geometry directory**,
 and **Geometry base IRI**. These controls are not in the release-pinned 2.49.0
 packages described at the top of this page.

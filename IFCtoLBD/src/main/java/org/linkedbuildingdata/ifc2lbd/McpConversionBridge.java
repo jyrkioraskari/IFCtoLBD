@@ -17,8 +17,12 @@ import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
 import org.linkedbuildingdata.ifc2lbd.core.utils.JsonLdExport;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 /** Small, strongly typed boundary used by the Node MCP adapter. */
 public final class McpConversionBridge implements AutoCloseable {
+	private static final ObjectMapper JSON = new ObjectMapper();
 	private final ConversionSession session;
 	private final IFCtoLBDConverter converter;
 
@@ -87,6 +91,64 @@ public final class McpConversionBridge implements AutoCloseable {
 	/** Combined query view; provenance and validation remain separate resources. */
 	public Model dataModel(ConversionResult result) {
 		return result.getModel();
+	}
+
+	/** Shared deterministic retrieval used by thin MCP and HTTP adapters. */
+	public String findElementsJson(Model data, Model externalLinks, Model provenance, String identifier,
+			String type, String spatialLocation, int offset, int limit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance).findElements(
+				new GraphRetrievalService.ElementQuery(identifier, type, spatialLocation), offset, limit));
+	}
+
+	public String inspectElementJson(Model data, Model externalLinks, Model provenance, String identifier,
+			int statementLimit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance).inspectElement(identifier, statementLimit));
+	}
+
+	public String linkedRecordsJson(Model data, Model externalLinks, Model provenance, String identifier,
+			int offset, int limit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance).linkedRecords(identifier, offset, limit));
+	}
+
+	public String findElementsWithReportJson(Model data, Model externalLinks, Model provenance, Model linkReport,
+			String identifier, String type, String spatialLocation, int offset, int limit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance, linkReport).findElements(
+				new GraphRetrievalService.ElementQuery(identifier, type, spatialLocation), offset, limit));
+	}
+
+	public String inspectElementWithReportJson(Model data, Model externalLinks, Model provenance, Model linkReport,
+			String identifier, int statementLimit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance, linkReport)
+				.inspectElement(identifier, statementLimit));
+	}
+
+	public String linkedRecordsWithReportJson(Model data, Model externalLinks, Model provenance, Model linkReport,
+			String identifier, int offset, int limit) {
+		return json(new GraphRetrievalService(data, externalLinks, provenance, linkReport)
+				.linkedRecords(identifier, offset, limit));
+	}
+
+	public GraphValidationService.Report validateModel(Model data, String[] shapePackIds) {
+		return GraphValidationService.validate(data, shapePackIds == null ? new String[0] : shapePackIds);
+	}
+
+	/** Validate a non-mutating union of converted data and optional companion graphs. */
+	public GraphValidationService.Report validateGraphs(Model data, Model provenance, Model externalLinkReport,
+			String[] shapePackIds) {
+		Model union = ModelFactory.createDefaultModel();
+		try {
+			union.add(data);
+			if (provenance != null) union.add(provenance);
+			if (externalLinkReport != null) union.add(externalLinkReport);
+			return GraphValidationService.validate(union, shapePackIds == null ? new String[0] : shapePackIds);
+		} finally {
+			union.close();
+		}
+	}
+
+	private static String json(Object value) {
+		try { return JSON.writeValueAsString(value); }
+		catch (JsonProcessingException e) { throw new IllegalStateException("Could not serialize structured graph result", e); }
 	}
 
 	/** Builds a bounded outgoing description and serializes it with the bundled offline JSON-LD context. */

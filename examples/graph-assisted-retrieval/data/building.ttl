@@ -1,0 +1,24 @@
+@prefix bot: <https://w3id.org/bot#> .
+@prefix beo: <https://pi.pauwel.be/voc/buildingelement#> .
+@prefix bmo: <https://w3id.org/digitalconstruction/BuildingMaterials#> .
+@prefix map: <https://w3id.org/ifctolbd/mapping#> .
+@prefix props: <http://lbd.arch.rwth-aachen.de/props#> .
+@prefix schema: <http://schema.org/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<https://example.org/building/storey/ground> a bot:Storey ;
+  rdfs:label "Ground floor" ;
+  bot:containsElement <https://example.org/building/wall/north> .
+
+<https://example.org/building/wall/north> a bot:Element, beo:Wall ;
+  rdfs:label "North wall" ;
+  map:ifcGlobalId "2O2Fr$t4X7Zf8NOew3FLOH" ;
+  props:fireRating_property_simple <https://example.org/building/property/fire-rating> ;
+  map:assignedMaterial <https://example.org/building/material/brick> .
+
+<https://example.org/building/property/fire-rating>
+  schema:value "EI60" .
+
+<https://example.org/building/material/brick> a bmo:Material ;
+  rdfs:label "Clay brick" .
+

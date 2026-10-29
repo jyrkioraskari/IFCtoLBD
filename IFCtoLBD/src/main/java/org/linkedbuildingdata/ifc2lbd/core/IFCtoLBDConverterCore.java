@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.StringWriter;
 import java.math.BigDecimal;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.security.MessageDigest;
@@ -130,6 +131,7 @@ public abstract class IFCtoLBDConverterCore {
 	protected Model ontology_model = null;
 	protected Map<String, List<Resource>> ifcowl_product_map = new HashMap<>();
 	protected final Map<Resource, Resource> lbdResourceByIfcResource = new HashMap<>();
+	private final Map<String, Resource> ifcResourceByHierarchicalUri = new HashMap<>();
 	private final Map<Resource, Optional<Resource>> typeByIfcResource = new HashMap<>();
 	private final Map<Resource, Boolean> ifcElementType = new HashMap<>();
 	private final Map<Resource, List<RDFNode>> propertySetsByIfcResource = new HashMap<>();
@@ -223,7 +225,9 @@ public abstract class IFCtoLBDConverterCore {
 		Resource created;
 		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
 			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL,
-					uriBase.get(), exportIfcOWL_setting);
+					uriBase.get(), false);
+			created = uniqueHierarchicalResource(source, output, created);
+			if (exportIfcOWL_setting) created.addProperty(OWL.sameAs, source);
 		} else {
 			created = uriPolicy.createResource(source, output, productType, ifcOWL, uriBase.get(), exportIfcOWL_setting);
 		}
@@ -257,12 +261,27 @@ public abstract class IFCtoLBDConverterCore {
 		Resource created;
 		if (uriPolicy == LegacyUriPolicy.INSTANCE && hasHierarchicalNaming_setting) {
 			created = LBD_RDF_Utils.createformattedHierarchicalURIRecource(source, output, productType, ifcOWL, parent,
-					exportIfcOWL_setting);
+					false);
+			created = uniqueHierarchicalResource(source, output, created);
+			if (exportIfcOWL_setting) created.addProperty(OWL.sameAs, source);
 		} else {
 			created = uriPolicy.createResource(source, output, productType, ifcOWL, uriBase.get(), exportIfcOWL_setting);
 		}
 		lbdResourceByIfcResource.put(source, created);
 		return created;
+	}
+
+	private Resource uniqueHierarchicalResource(Resource source, Model output, Resource candidate) {
+		Resource owner = ifcResourceByHierarchicalUri.putIfAbsent(candidate.getURI(), source);
+		if (owner == null || owner.equals(source)) return candidate;
+		String guid = IfcOWLUtils.getGUID(source, ifcOWL);
+		String suffix = guid == null ? source.getLocalName() : GuidCompressor.uncompressGuidString(guid);
+		String base = candidate.getURI() + "_" + URLEncoder.encode(suffix, StandardCharsets.UTF_8).replace("+", "%20");
+		String uri = base;
+		int sequence = 2;
+		while ((owner = ifcResourceByHierarchicalUri.putIfAbsent(uri, source)) != null && !owner.equals(source))
+			uri = base + "_" + sequence++;
+		return output.createResource(uri);
 	}
 
 	protected final Dataset getStagingDataset() {
@@ -1486,14 +1505,11 @@ public abstract class IFCtoLBDConverterCore {
 		Optional<Resource> bot_type = Optional.empty();
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
-			if (this.selected_types != null && !this.selected_types.isEmpty() && bot_type.isPresent()) {
-
-				if (!this.selected_types.contains(bot_type.get().getLocalName()))
-					return null;
-			} else {
-				if (!this.hasNonLBDElement)
-					return null;
-			}
+			if (this.selected_types != null && !this.selected_types.isEmpty() && bot_type.isPresent()
+					&& !this.selected_types.contains(bot_type.get().getLocalName()))
+				return null;
+			if (bot_type.isEmpty() && !this.hasNonLBDElement)
+				return null;
 
 		}
 		if (bot_type.isPresent()) {
@@ -1540,15 +1556,11 @@ public abstract class IFCtoLBDConverterCore {
 		if (ifcowl_type.isPresent()) {
 			bot_type = getLBDProductType(ifcowl_type.get().getLocalName());
 
-			if (this.selected_types != null && !this.selected_types.isEmpty() && bot_type.isPresent()) {
-
-				if (!this.selected_types.contains(bot_type.get().getLocalName()))
-					return;
-
-			} else {
-				if (!this.hasNonLBDElement)
-					return;
-			}
+			if (this.selected_types != null && !this.selected_types.isEmpty() && bot_type.isPresent()
+					&& !this.selected_types.contains(bot_type.get().getLocalName()))
+				return;
+			if (bot_type.isEmpty() && !this.hasNonLBDElement)
+				return;
 
 		}
 
@@ -1635,14 +1647,11 @@ public abstract class IFCtoLBDConverterCore {
 		if (ifcowl_type.isPresent()) {
 			lbd_product_type = getLBDProductType(ifcowl_type.get().getLocalName());
 
-			if (this.selected_types != null && !this.selected_types.isEmpty() && lbd_product_type.isPresent()) {
-
-				if (!this.selected_types.contains(lbd_product_type.get().getLocalName()))
-					return null;
-			} else {
-				if (!this.hasNonLBDElement)
-					return null;
-			}
+			if (this.selected_types != null && !this.selected_types.isEmpty() && lbd_product_type.isPresent()
+					&& !this.selected_types.contains(lbd_product_type.get().getLocalName()))
+				return null;
+			if (lbd_product_type.isEmpty() && !this.hasNonLBDElement)
+				return null;
 		}
 
 		if (lbd_product_type.isPresent()) {
@@ -2184,6 +2193,7 @@ public abstract class IFCtoLBDConverterCore {
 		this.included_elements.clear();
 		this.handledAttributes4resource.clear();
 		this.lbdResourceByIfcResource.clear();
+		this.ifcResourceByHierarchicalUri.clear();
 		this.propertysets.values().forEach(PropertySet::resetConversionState);
 	}
 

@@ -1,0 +1,10 @@
+@prefix map: <https://w3id.org/ifctolbd/mapping#> .
+@prefix evidence: <https://w3id.org/ifctolbd/evidence#> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+
+<https://example.org/building/wall/north>
+  map:ifcGlobalId "2O2Fr$t4X7Zf8NOew3FLOH" ;
+  evidence:scope "element" ;
+  evidence:mappingKind "DIRECT" ;
+  prov:wasDerivedFrom <urn:sha256:example-building-fixture> .
+

@@ -218,6 +218,30 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = "--query-result", description = "Write the saved query result to this file instead of standard output.")
 	private Optional<Path> queryResultFile;
 
+	@Option(names = "--find-element", description = "Find an element by full RDF identifier or IFC GlobalId.")
+	private Optional<String> findElement;
+
+	@Option(names = "--find-type", description = "Filter focused element retrieval by full type IRI or local type name.")
+	private Optional<String> findType;
+
+	@Option(names = "--find-location", description = "Filter focused element retrieval by a spatial resource identifier.")
+	private Optional<String> findLocation;
+
+	@Option(names = "--inspect-element", description = "Inspect one element's properties, materials, relationships, links, and evidence.")
+	private Optional<String> inspectElement;
+
+	@Option(names = "--linked-records", description = "Retrieve external documents, observations, datasets, and maintenance records for one element.")
+	private Optional<String> linkedRecords;
+
+	@Option(names = "--retrieval-limit", defaultValue = "100", description = "Focused retrieval result/statement limit (1-1000).")
+	private int retrievalLimit;
+
+	@Option(names = "--retrieval-offset", defaultValue = "0", description = "Focused element or linked-record result offset.")
+	private int retrievalOffset;
+
+	@Option(names = "--retrieval-output", description = "Write focused retrieval JSON to this file instead of standard output.")
+	private Optional<Path> retrievalOutput;
+
 	@Option(names = "--compare-to", description = "Compare the input with this earlier IFC revision. Requires --profile=revision-ready and --model-scope.")
 	private Optional<Path> previousIfc;
 
@@ -278,14 +302,32 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 					OutputStream output = Files.newOutputStream(Path.of(outputFile))) {
 				if (namedGraphs.orElse(false)) RDFDataMgr.write(output, result.getDataset(), RDFFormat.TRIG_PRETTY);
 				else if (exportJSON.orElse(false)) JsonLdExport.write(output, result.getModel(), jsonLdMode);
-				else RDFDataMgr.write(output, result.getModel(), RDFFormat.TURTLE_PRETTY);
+				else writeTurtle(output, result);
 				writeOptionalModel(linkOutput, result.getExternalLinkModel());
 				writeOptionalModel(linkReportOutput, result.getExternalLinkReportModel());
 				writeOptionalModel(provenanceOutput, result.getManifestModel());
 				runSavedQuery(result.getModel());
+				runFocusedRetrieval(result);
 			}
 		}
 		return 0;
+	}
+
+	static void writeTurtle(OutputStream output, ConversionResult result) {
+		// RDFDataMgr does not reliably enumerate every member of Jena's nested lazy
+		// union used by ConversionResult. Materialize only at this serialization
+		// boundary so Turtle retains the general, product and property statements.
+		Model model = org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
+		try {
+			System.out.printf("Turtle graphs: general=%d, product=%d, property=%d%n",
+					result.getGeneralModel().size(), result.getProductModel().size(), result.getPropertyModel().size());
+			model.add(result.getGeneralModel());
+			model.add(result.getProductModel());
+			model.add(result.getPropertyModel());
+			RDFDataMgr.write(output, model, RDFFormat.TURTLE_PRETTY);
+		} finally {
+			model.close();
+		}
 	}
 
 	private ConversionRequest createRequest(File file) {
@@ -317,6 +359,25 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		try (OutputStream output = Files.newOutputStream(destination.get())) {
 			RDFDataMgr.write(output, model, RDFFormat.TURTLE_PRETTY);
 		}
+	}
+
+	private void runFocusedRetrieval(ConversionResult result) throws Exception {
+		boolean find = findElement.isPresent() || findType.isPresent() || findLocation.isPresent();
+		int tasks = (find ? 1 : 0) + (inspectElement.isPresent() ? 1 : 0) + (linkedRecords.isPresent() ? 1 : 0);
+		if (tasks == 0) return;
+		if (tasks > 1) throw new IllegalArgumentException(
+				"Use one focused retrieval task at a time: find criteria, --inspect-element, or --linked-records");
+		GraphRetrievalService service = new GraphRetrievalService(result.getModel(), result.getExternalLinkModel(),
+				result.getManifestModel(), result.getExternalLinkReportModel());
+		GraphRetrievalService.Result retrieval;
+		if (inspectElement.isPresent()) retrieval = service.inspectElement(inspectElement.get(), retrievalLimit);
+		else if (linkedRecords.isPresent()) retrieval = service.linkedRecords(linkedRecords.get(), retrievalOffset, retrievalLimit);
+		else retrieval = service.findElements(new GraphRetrievalService.ElementQuery(findElement.orElse(null),
+				findType.orElse(null), findLocation.orElse(null)), retrievalOffset, retrievalLimit);
+		String json = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(retrieval);
+		if (retrievalOutput.isPresent()) Files.writeString(retrievalOutput.get(), json + System.lineSeparator(),
+				StandardCharsets.UTF_8);
+		else System.out.println(json);
 	}
 
 	private ClassificationResolver prepareClassificationResolver() {
@@ -405,6 +466,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 	private ConversionProperties legacyProperties() {
 		ConversionProperties properties = new ConversionProperties();
+		System.out.println("CLI elements option: " + hasBuildingElements);
 		properties.setHasBuildingElements(hasBuildingElements.orElse(false));
 		properties.setHasSeparateBuildingElementsModel(hasSeparateBuildingElementsModel.orElse(false));
 		properties.setHasBuildingProperties(hasBuildingProperties.orElse(false));

@@ -59,6 +59,13 @@ Turtle file is parsed in your browser and is not uploaded by the application.
 Use this visual workflow to become familiar with a model, then use SPARQL when
 you need repeatable or more precise questions.
 
+For a geometry-first view, the source-development
+[LBDBabylon walkthrough](lbd-babylon.md) opens IFCtoLBD Turtle together with
+embedded or explicitly selected geometry artifacts. Its walking controls use
+RDF types to distinguish physical products and walkable floors from semantic
+volumes: a `bot:Space`, opening, or void can guide or describe navigation while
+remaining non-colliding.
+
 ## Ask your first question with SPARQL
 
 SPARQL matches patterns in the graph. Open the desktop’s **Query** tool after
