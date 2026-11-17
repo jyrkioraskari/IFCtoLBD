@@ -6,6 +6,22 @@ import { meshToIfcObj } from "./geometry-export";
 import { cutWallOpenings } from "./wall-cut";
 
 describe("imported wall openings", () => {
+  it("cuts through the full thickness when a moved IFC window drifts sideways", () => {
+    const engine = new NullEngine(), scene = new Scene(engine);
+    try {
+      const base = MeshBuilder.CreateBox("wall", { width: .417, height: 3, depth: 4 }, scene);
+      const wall = { id: "wall", kind: "Wall", label: "Wall", x: 0, y: 0, z: 0,
+        width: .417, height: 3, depth: 4, rotation: 0, imported: true } as const;
+      const opening = { id: "window-opening", kind: "Opening", label: "Opening", x: -.09, y: 0, z: 1,
+        width: .417, height: 1, depth: .75, rotation: 0, imported: true } as const;
+      const cut = cutWallOpenings(base, wall, [opening], scene,
+        [{ x: 0, y: 0, z: 0, width: .417, height: 1, depth: .75 }]);
+      const throughWindow = new Ray(new Vector3(-2, 0, 1), new Vector3(1, 0, 0), 4);
+      const besideWindow = new Ray(new Vector3(-2, 0, -1), new Vector3(1, 0, 0), 4);
+      expect(cut.intersects(throughWindow).hit).toBe(false);
+      expect(cut.intersects(besideWindow).hit).toBe(true);
+    } finally { scene.dispose(); engine.dispose(); }
+  });
   it("saves a cut OBJ while retaining the editable wall base", async () => {
     const engine = new NullEngine();
     try {

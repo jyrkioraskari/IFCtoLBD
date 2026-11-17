@@ -46,11 +46,21 @@ export function cutWallOpenings(base: Mesh, wall: Element, openings: readonly El
   }
   for (const opening of openings) {
     const dx = opening.x - wall.x, dz = opening.z - wall.z;
+    const alongZ = !!wall.imported && wall.depth > wall.width;
+    const relative = (opening.rotation - wall.rotation) * Math.PI / 180;
+    const thickness = alongZ ? wall.width : wall.depth;
+    const thicknessOnWidth = alongZ ? Math.abs(Math.cos(relative)) >= Math.abs(Math.sin(relative)) :
+      Math.abs(Math.sin(relative)) >= Math.abs(Math.cos(relative));
     const cutter = MeshBuilder.CreateBox("opening-cutter", {
-      width: opening.width, height: opening.height, depth: opening.depth }, scene);
-    cutter.position.set(dx * Math.cos(angle) - dz * Math.sin(angle), opening.y - wall.y,
-      dx * Math.sin(angle) + dz * Math.cos(angle));
-    cutter.rotation.y = (opening.rotation - wall.rotation) * Math.PI / 180;
+      width: thicknessOnWidth ? Math.max(opening.width, thickness + .1) : opening.width,
+      height: opening.height,
+      depth: thicknessOnWidth ? opening.depth : Math.max(opening.depth, thickness + .1) }, scene);
+    const localX = dx * Math.cos(angle) - dz * Math.sin(angle);
+    const localZ = dx * Math.sin(angle) + dz * Math.cos(angle);
+    // Keep the void centred through the wall even if an imported insert's
+    // stored box drifted into one side of the wall during an earlier edit.
+    cutter.position.set(alongZ ? 0 : localX, opening.y - wall.y, alongZ ? localZ : 0);
+    cutter.rotation.y = relative;
     try { solid = solid.subtract(CSG.FromMesh(cutter, true)); }
     finally { cutter.dispose(); }
   }

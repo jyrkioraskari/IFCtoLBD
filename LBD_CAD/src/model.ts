@@ -3,6 +3,7 @@ import { decodeObj, encodeObj, parseObj, rewriteObj, rewriteWireframe, type Poin
 import { defaultFinish, finishes, type Finish } from "./finishes";
 import { defaultTexture, defaultTile, texturePresets, type TexturePreset } from "./texture-presets";
 import { prepareObj, readMtl, readObjSurface, type ObjSurface, type ObjUnit, type ObjUpAxis } from "./obj-import";
+import { clampHostedPosition } from "./hosted-move";
 
 export const NS = {
   cad: "https://w3id.org/ifctolbd/cad#",
@@ -304,10 +305,20 @@ export class CadDocument {
     const sameAs = this.store.getQuads(candidate, nn("http://www.w3.org/2002/07/owl#sameAs"), null, null)[0]?.object.value;
     return sameAs && /IfcOpeningElement_\d+$/.test(sameAs) ? candidate.value : undefined;
   }
+  relatedInsert(openingId: string): Element | undefined {
+    return this.elements.find(element => (element.kind === "Door" || element.kind === "Window") &&
+      this.relatedOpening(element.id) === openingId);
+  }
   hostedOpenings(wallId: string, elements = this.elements): Element[] {
     const byId = new Map(elements.map(element => [element.id, element]));
-    return this.store.getQuads(nn(wallId), nn(NS.bot + "hasSubElement"), null, null)
-      .map(q => byId.get(q.object.value)).filter((element): element is Element => element?.kind === "Opening");
+    const children = this.store.getQuads(nn(wallId), nn(NS.bot + "hasSubElement"), null, null)
+      .map(q => byId.get(q.object.value)).filter((element): element is Element => !!element);
+    const ids = new Set(children.filter(element => element.kind === "Opening").map(element => element.id));
+    for (const child of children.filter(element => element.kind === "Door" || element.kind === "Window")) {
+      const openingId = this.relatedOpening(child.id);
+      if (openingId && byId.get(openingId)?.kind === "Opening") ids.add(openingId);
+    }
+    return [...ids].map(id => byId.get(id)!);
   }
   originalOpening(id: string): Pick<Element, Field> | undefined {
     const entries = fields.concat("rotation").map(field =>
@@ -348,10 +359,41 @@ export class CadDocument {
     const positions = parsed.vertices.flatMap(([x, y, z]) => [x - element.x, z - element.y, -y - element.z]);
     return { positions, indices: parsed.indices, uvs: [], runs: [] };
   }
-  setGeometry(id: string, changes: Partial<Pick<Element, Field>>, fromWall = false): void {
+  setGeometry(id: string, changes: Partial<Pick<Element, Field>>, fromWall = false, fromInsert = false): void {
     const current = this.elements.find(item => item.id === id);
     if (!current) throw new Error(`Unknown element: ${id}`);
+    if (current.kind === "Opening" && !fromWall && !fromInsert) {
+      const insert = this.relatedInsert(id);
+      if (insert) {
+        const requested = { ...current, ...changes };
+        this.setGeometry(insert.id, {
+          x: insert.x + requested.x - current.x,
+          y: insert.y + requested.y - current.y,
+          z: insert.z + requested.z - current.z,
+          width: insert.width * requested.width / current.width,
+          height: insert.height * requested.height / current.height,
+          depth: insert.depth * requested.depth / current.depth,
+          rotation: insert.rotation + requested.rotation - current.rotation
+        });
+        const moved = this.elements.find(item => item.id === id)!;
+        const wallId = this.hostWall(insert.id);
+        const wall = wallId ? this.elements.find(item => item.id === wallId && item.kind === "Wall") : undefined;
+        if (wall) this.setGeometry(id, clampHostedPosition(wall, moved, moved,
+          this.originalOpening(id) ?? current), false, true);
+        return;
+      }
+    }
     const target = { ...current, ...changes };
+    if (!fromWall && (current.kind === "Door" || current.kind === "Window")) {
+      const wallId = this.hostWall(id);
+      const wall = wallId ? this.elements.find(item => item.id === wallId && item.kind === "Wall") : undefined;
+      if (wall) {
+        const openingId = this.relatedOpening(id);
+        const anchor = current.imported ?
+          (openingId ? this.originalOpening(openingId) : undefined) ?? current : undefined;
+        Object.assign(target, clampHostedPosition(wall, target, target, anchor));
+      }
+    }
     for (const field of fields.concat("rotation")) {
       if (!Number.isFinite(target[field])) throw new Error(`${field} must be a number`);
       if (["width", "height", "depth"].includes(field) && target[field] <= 0) throw new Error(`${field} must be a positive number`);
@@ -376,7 +418,9 @@ export class CadDocument {
         this.store.addQuad(source.geometry, CAD_BASE_OBJ, source.encoded);
     }
     const finishLinked = () => {
-      for (const { child, changes: childChanges } of linked) this.setGeometry(child.id, childChanges, fromWall || current.kind === "Wall");
+      for (const { child, changes: childChanges } of linked)
+        this.setGeometry(child.id, childChanges, fromWall || current.kind === "Wall",
+          current.kind === "Door" || current.kind === "Window");
       for (const { openingId, origin } of previousOrigins)
         this.setOriginalOpening(openingId, linkedGeometryChange(current, target, origin));
     };
@@ -435,6 +479,24 @@ export class CadDocument {
         x: member.x + offset.x, y: member.y + offset.y, z: member.z + offset.z
       });
     }
+  }
+  repairHostedPlacements(): number {
+    let repaired = 0;
+    for (const insert of this.elements.filter(element => element.imported &&
+      (element.kind === "Door" || element.kind === "Window"))) {
+      const openingId = this.relatedOpening(insert.id);
+      const original = openingId ? this.originalOpening(openingId) : undefined;
+      const opening = openingId ? this.elements.find(element => element.id === openingId) : undefined;
+      const wallId = this.hostWall(insert.id);
+      const wall = wallId ? this.elements.find(element => element.id === wallId && element.kind === "Wall") : undefined;
+      if (!original || !opening || !wall ||
+          Math.hypot(opening.x - insert.x, opening.z - insert.z) < .05) continue;
+      const corrected = clampHostedPosition(wall, insert, opening, original);
+      this.setGeometry(insert.id, corrected);
+      this.setGeometry(opening.id, { x: corrected.x, y: opening.y, z: corrected.z }, false, true);
+      repaired++;
+    }
+    return repaired;
   }
   private importedSource(id: string) {
     const geometry = this.store.getQuads(nn(id), OMG_GEOMETRY, null, null)[0]?.object;

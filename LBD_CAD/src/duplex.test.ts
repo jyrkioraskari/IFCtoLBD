@@ -8,6 +8,29 @@ import { wallFeatureEdges } from "./wall-edges";
 import { applyProjectedUvs } from "./projected-uvs";
 
 describe("Duplex_LBD.ttl", () => {
+  it("moves an imported window with its opening and repairs older split edits", () => {
+    const turtle = readFileSync(new URL("../../Duplex_LBD.ttl", import.meta.url), "utf8");
+    const doc = CadDocument.parse(turtle);
+    const window = doc.elements.find(e => e.kind === "Window" && e.imported && doc.hostWall(e.id) &&
+      doc.relatedOpening(e.id) && doc.elements.some(item => item.id === doc.relatedOpening(e.id)))!;
+    const openingId = doc.relatedOpening(window.id)!;
+    const original = doc.elements.find(e => e.id === openingId)!;
+    const wall = doc.elements.find(e => e.id === doc.hostWall(window.id))!;
+    doc.setGeometry(openingId, { x: original.x + 3, z: original.z + 1 });
+    const movedWindow = doc.elements.find(e => e.id === window.id)!;
+    const movedOpening = doc.elements.find(e => e.id === openingId)!;
+    expect(movedWindow.x).toBeCloseTo(wall.x);
+    expect(movedWindow.z).toBeCloseTo(original.z + 1);
+    expect(movedOpening.x).toBeCloseTo(movedWindow.x);
+    expect(movedOpening.z).toBeCloseTo(movedWindow.z);
+
+    const older = CadDocument.parse(turtle);
+    older.setGeometry(openingId, { x: original.x + 3, z: original.z + 2 }, false, true);
+    expect(older.elements.find(e => e.id === window.id)?.z).toBeCloseTo(window.z);
+    expect(older.repairHostedPlacements()).toBe(1);
+    expect(older.elements.find(e => e.id === window.id)?.z).toBeCloseTo(original.z + 2);
+    expect(older.elements.find(e => e.id === openingId)?.x).toBeCloseTo(wall.x);
+  });
   it("opens the repository's IFCtoLBD fixture as editable building elements", () => {
     const turtle = readFileSync(new URL("../../Duplex_LBD.ttl", import.meta.url), "utf8");
     const doc = CadDocument.parse(turtle);
@@ -159,6 +182,49 @@ describe("Duplex_LBD.ttl", () => {
       expect(cut.intersects(ray).hit).toBe(false);
     } finally { scene.dispose(); engine.dispose(); }
   }, 30000);
+  it("keeps moved insert cuts inside imported wall bounds", () => {
+    const doc = CadDocument.parse(readFileSync(new URL("../../Duplex_LBD.ttl", import.meta.url), "utf8"));
+    const engine = new NullEngine(), scene = new Scene(engine);
+    const violations: string[] = [];
+    try {
+      for (const wall of doc.elements.filter(e => e.kind === "Wall")) {
+        const imported = doc.importedMesh(wall.id)!;
+        const base = new Mesh("base", scene);
+        const data = new VertexData(); data.positions = imported.positions; data.indices = imported.indices;
+        const normals: number[] = []; VertexData.ComputeNormals(data.positions, data.indices, normals);
+        data.normals = normals; data.applyToMesh(base);
+        const kind = wall.depth > wall.width ? "Door" : "Window";
+        const insert = doc.addHosted(kind, wall.id);
+        const target = wall.depth > wall.width ? { x: insert.x, y: insert.y, z: insert.z + wall.depth / 4 } :
+          { x: insert.x + wall.width / 4,
+            y: wall.y - Math.max(0, (wall.height - insert.height) / 2), z: insert.z };
+        doc.moveGroup(insert.id, target);
+        const hosted = doc.hostedOpenings(wall.id);
+        const active = hosted.filter(opening => !opening.imported || doc.originalOpening(opening.id));
+        const originalVoids = hosted.filter(opening => opening.imported).flatMap(opening => {
+          const original = doc.originalOpening(opening.id);
+          return original ? [original] : [];
+        });
+        const cut = cutWallOpenings(base, wall, active, scene, originalVoids);
+        const opening = doc.elements.find(e => e.id === doc.relatedOpening(insert.id))!;
+        const alongZ = wall.depth > wall.width;
+        const ray = new Ray(alongZ ? new Vector3(-10, opening.y - wall.y, opening.z - wall.z) :
+          new Vector3(opening.x - wall.x, opening.y - wall.y, -10),
+          alongZ ? new Vector3(1, 0, 0) : new Vector3(0, 0, 1), 20);
+        if (base.intersects(ray).hit && cut.intersects(ray).hit)
+          violations.push(`${wall.label}: moved ${kind.toLowerCase()} opening blocked`);
+        const originalBounds = base.getBoundingInfo().boundingBox;
+        const cutBounds = cut.getBoundingInfo().boundingBox;
+        for (const axis of ["x", "y", "z"] as const) {
+          if (cutBounds.minimum[axis] < originalBounds.minimum[axis] - .05 ||
+            cutBounds.maximum[axis] > originalBounds.maximum[axis] + .05)
+            violations.push(`${wall.label} ${axis}: ${cutBounds.minimum[axis]}..${cutBounds.maximum[axis]} vs ${originalBounds.minimum[axis]}..${originalBounds.maximum[axis]}`);
+        }
+        cut.dispose(); base.dispose();
+      }
+      expect(violations).toEqual([]);
+    } finally { scene.dispose(); engine.dispose(); }
+  }, 60000);
   it("retains an imported window's original void when its IFC mesh and opening move", async () => {
     const turtle = readFileSync(new URL("../../Duplex_LBD.ttl", import.meta.url), "utf8");
     const doc = CadDocument.parse(turtle);
@@ -168,9 +234,9 @@ describe("Duplex_LBD.ttl", () => {
     const wallId = doc.hostWall(window.id)!;
     const openingId = doc.relatedOpening(window.id)!;
     const original = doc.elements.find(e => e.id === openingId)!;
-    doc.moveGroup(window.id, { x: window.x + .2, y: window.y, z: window.z });
-    expect(doc.elements.find(e => e.id === openingId)?.x).toBeCloseTo(original.x + .2);
-    expect(doc.originalOpening(openingId)?.x).toBeCloseTo(original.x);
+    doc.moveGroup(window.id, { x: window.x, y: window.y, z: window.z + 1.2 });
+    expect(doc.elements.find(e => e.id === openingId)?.z).toBeCloseTo(original.z + 1.2);
+    expect(doc.originalOpening(openingId)?.z).toBeCloseTo(original.z);
     expect(doc.hasDerivedWall(wallId)).toBe(true);
     const wall = doc.elements.find(e => e.id === wallId)!;
     const imported = doc.importedMesh(wallId)!;
@@ -180,10 +246,62 @@ describe("Duplex_LBD.ttl", () => {
     const normals: number[] = []; VertexData.ComputeNormals(data.positions, data.indices, normals);
     data.normals = normals; data.applyToMesh(mesh);
     const moved = doc.elements.find(e => e.id === openingId)!;
-    const cut = cutWallOpenings(mesh, wall, [moved], scene, [doc.originalOpening(openingId)!]);
+    const hosted = doc.hostedOpenings(wall.id);
+    expect(hosted.some(opening => opening.id === openingId)).toBe(true);
+    const active = hosted.filter(opening => !opening.imported || doc.originalOpening(opening.id));
+    const originalVoids = hosted.filter(opening => opening.imported).flatMap(opening => {
+      const original = doc.originalOpening(opening.id);
+      return original ? [original] : [];
+    });
+    const cut = cutWallOpenings(mesh, wall, active, scene, originalVoids);
     expect(cut.getIndices()?.length).toBeGreaterThan(0);
+    const oldRay = new Ray(new Vector3(-10, original.y - wall.y, original.z - wall.z), new Vector3(1, 0, 0), 20);
+    const movedRay = new Ray(new Vector3(-10, moved.y - wall.y, moved.z - wall.z), new Vector3(1, 0, 0), 20);
+    expect(mesh.intersects(oldRay).hit).toBe(false);
+    expect(mesh.intersects(movedRay).hit).toBe(true);
+    expect(cut.intersects(oldRay).hit).toBe(true);
+    expect(cut.intersects(movedRay).hit).toBe(false);
     scene.dispose(); engine.dispose();
     const reopened = CadDocument.parse(await doc.serialize());
     expect(reopened.originalOpening(openingId)).toEqual(doc.originalOpening(openingId));
   });
+  it("keeps imported door and window edits inside their host wall", () => {
+    const doc = CadDocument.parse(readFileSync(new URL("../../Duplex_LBD.ttl", import.meta.url), "utf8"));
+    const engine = new NullEngine(), scene = new Scene(engine);
+    const failures: string[] = [];
+    try {
+      for (const insert of doc.elements.filter(e => e.imported && (e.kind === "Door" || e.kind === "Window"))) {
+        const wallId = doc.hostWall(insert.id), openingId = doc.relatedOpening(insert.id);
+        if (!wallId || !openingId) continue;
+        const wall = doc.elements.find(e => e.id === wallId);
+        const opening = doc.elements.find(e => e.id === openingId);
+        if (!wall || !opening) continue;
+        const alongZ = wall.depth > wall.width;
+        const target = { x: insert.x + (alongZ ? 0 : .9), y: insert.y, z: insert.z + (alongZ ? .9 : 0) };
+        doc.moveGroup(insert.id, target);
+        const moved = doc.elements.find(e => e.id === openingId)!;
+        const imported = doc.importedMesh(wall.id)!;
+        const base = new Mesh("base", scene);
+        const data = new VertexData(); data.positions = imported.positions; data.indices = imported.indices;
+        const normals: number[] = []; VertexData.ComputeNormals(data.positions, data.indices, normals);
+        data.normals = normals; data.applyToMesh(base);
+        const oldPosition = alongZ ? new Vector3(-10, opening.y - wall.y, opening.z - wall.z) :
+          new Vector3(opening.x - wall.x, opening.y - wall.y, -10);
+        const newPosition = alongZ ? new Vector3(-10, moved.y - wall.y, moved.z - wall.z) :
+          new Vector3(moved.x - wall.x, moved.y - wall.y, -10);
+        const direction = alongZ ? new Vector3(1, 0, 0) : new Vector3(0, 0, 1);
+        const oldRay = new Ray(oldPosition, direction, 20), newRay = new Ray(newPosition, direction, 20);
+        if (!base.intersects(newRay).hit) { base.dispose(); continue; }
+        const cut = cutWallOpenings(base, wall, [moved], scene, [doc.originalOpening(openingId)!]);
+        if (cut.intersects(newRay).hit) failures.push(`${insert.kind} ${insert.label}: new opening blocked`);
+        const originalBounds = base.getBoundingInfo().boundingBox, cutBounds = cut.getBoundingInfo().boundingBox;
+        for (const axis of ["x", "y", "z"] as const)
+          if (cutBounds.minimum[axis] < originalBounds.minimum[axis] - .05 ||
+              cutBounds.maximum[axis] > originalBounds.maximum[axis] + .05)
+            failures.push(`${insert.kind} ${insert.label}: ${axis} outside wall`);
+        cut.dispose(); base.dispose();
+      }
+      expect(failures).toEqual([]);
+    } finally { scene.dispose(); engine.dispose(); }
+  }, 60000);
 });

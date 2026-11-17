@@ -13,6 +13,7 @@ import { boxFaceFromNormal, pullBoxFace, type BoxFace } from "./solid-edit";
 import { materialBox } from "./material-box";
 import { hostedInsert } from "./hosted-insert";
 import { clampHostedPosition } from "./hosted-move";
+import { HostedCutPreview } from "./hosted-cut-preview";
 import { readMtl, type ObjUnit, type ObjUpAxis } from "./obj-import";
 import { createBuiltInTextures } from "./material-textures";
 import { defaultTile, initialElementTexture, textureLabels, texturePresets, type TexturePreset } from "./texture-presets";
@@ -148,7 +149,8 @@ let paintMaterialId: string | undefined;
 let placing: "Door" | "Window" | undefined;
 type Drag = { pointerId: number; id: string; startX: number; startY: number; start: Element; offset?: Vector3;
   preview: Mesh; temporary?: boolean; face?: BoxFace; screenAxis?: { x: number; y: number }; hostWall?: Element;
-  pending?: ReturnType<typeof pullBoxFace> };
+  hostAnchor?: { x: number; z: number };
+  cutPreview?: HostedCutPreview; pending?: ReturnType<typeof pullBoxFace> };
 let drag: Drag | undefined;
 let rectangleStart: GroundPoint | undefined;
 let rectanglePreview: Mesh | undefined;
@@ -482,6 +484,8 @@ function renderProperties() {
 }
 function numberInput(e: Element, field: Field) { return `<label class="field">${field.toUpperCase()}<input type="number" step="0.1" ${["width", "height", "depth"].includes(field) ? 'min="0.001"' : ""} data-field="${field}" value="${e[field]}"></label>`; }
 function select(id?: string, additive = false) {
+  if (id && doc.elements.find(element => element.id === id)?.kind === "Opening")
+    id = doc.relatedInsert(id)?.id ?? id;
   if (!additive) selectedIds.clear();
   if (id && additive && selectedIds.has(id)) selectedIds.delete(id);
   else if (id) selectedIds.add(id);
@@ -688,6 +692,7 @@ function projectedAxis(point: Vector3, direction: Vector3): { x: number; y: numb
 function cancelDrag() {
   if (!drag) return;
   if (canvas.hasPointerCapture(drag.pointerId)) canvas.releasePointerCapture(drag.pointerId);
+  drag.cutPreview?.dispose();
   if (drag.temporary) { drag.preview.material?.dispose(); drag.preview.dispose(); }
   drag = undefined;
   camera.attachControl(canvas, true);
@@ -783,9 +788,14 @@ canvas.addEventListener("pointerdown", event => {
   const preview = meshes.get(id)!;
   const hostWallId = start.kind === "Door" || start.kind === "Window" ? doc.hostWall(id) : undefined;
   const hostWall = hostWallId ? doc.elements.find(e => e.id === hostWallId && e.kind === "Wall") : undefined;
+  const openingId = hostWall && start.imported ? doc.relatedOpening(id) : undefined;
+  const hostAnchor = start.imported ? (openingId ? doc.originalOpening(openingId) : undefined) ?? start : undefined;
   const planePoint = hostWall ? pointOnHostWall(event, hostWall) : pointOnPlane(event, start.y);
+  const cutPreview = tool === "move" && hostWall ?
+    new HostedCutPreview(doc, hostWall, meshes.get(hostWall.id)!, id, scene) : undefined;
   drag = { pointerId: event.pointerId, id, startX: event.clientX, startY: event.clientY, start, preview,
-    hostWall, offset: planePoint ? new Vector3(start.x - planePoint.x, start.y - planePoint.y, start.z - planePoint.z) : undefined };
+    hostWall, hostAnchor, cutPreview,
+    offset: planePoint ? new Vector3(start.x - planePoint.x, start.y - planePoint.y, start.z - planePoint.z) : undefined };
   if (tool === "move" && hostWall) fadeHostWall(hostWall.id);
   camera.detachControl();
   canvas.setPointerCapture(event.pointerId);
@@ -814,8 +824,14 @@ canvas.addEventListener("pointermove", event => {
     if (drag.hostWall) {
       const point = pointOnHostWall(event, drag.hostWall);
       if (!point || !drag.offset) return;
-      const target = clampHostedPosition(drag.hostWall, drag.start, point.add(drag.offset));
+      const target = clampHostedPosition(drag.hostWall, drag.start, point.add(drag.offset), drag.hostAnchor);
       drag.preview.position.set(target.x, target.y, target.z);
+      try { drag.cutPreview?.update(drag.start, target); }
+      catch (error) {
+        drag.preview.position.set(drag.start.x, drag.start.y, drag.start.z);
+        status(`Could not preview wall opening: ${String(error)}`);
+        return;
+      }
       status(`Move · X ${target.x.toFixed(2)} m · Y ${target.y.toFixed(2)} m · Z ${target.z.toFixed(2)} m`);
       return;
     }
@@ -953,7 +969,15 @@ $("#obj-apply").onclick = async () => {
 $("#open").onclick = () => (document.querySelector<HTMLInputElement>("#file")!).click();
 document.querySelector<HTMLInputElement>("#file")!.onchange = async event => {
   const input = event.target as HTMLInputElement; const file = input.files?.[0]; if (!file) return;
-  try { cancelDrag(); clearPlacement(); doc = CadDocument.parse(await file.text()); selected = undefined; selectedIds.clear(); undo = []; redo = []; draw(); fit(); const elements = doc.elements; status(`Opened ${file.name} · ${elements.length} editable elements, including ${elements.filter(e => e.imported).length} IFC meshes`); }
+  try {
+    cancelDrag(); clearPlacement(); doc = CadDocument.parse(await file.text());
+    const beforeRepair = doc.snapshot();
+    const repaired = doc.repairHostedPlacements();
+    selected = undefined; selectedIds.clear(); undo = repaired ? [beforeRepair] : []; redo = [];
+    draw(); fit();
+    const elements = doc.elements;
+    status(`Opened ${file.name} · ${elements.length} editable elements, including ${elements.filter(e => e.imported).length} IFC meshes${repaired ? ` · repaired ${repaired} off-wall insert(s)` : ""}`);
+  }
   catch (error) { status(`Could not read Turtle: ${String(error)}`); }
   input.value = "";
 };
