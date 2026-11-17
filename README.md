@@ -208,7 +208,8 @@ or the [documentation index](docs/README.md). Earlier announcements are in [proj
 ## The Linked Building Design app
 
 <img src="LBD_CAD/S1.png" alt="LBD Babylon viewer showing the interior of a building in walk mode" width="800">
-[documentation ](LBD_CAD/README.md)
+
+[documentation](LBD_CAD/README.md)
 
 ## Contributors and citation authors
 
