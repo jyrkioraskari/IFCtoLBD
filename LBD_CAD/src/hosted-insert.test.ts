@@ -13,6 +13,7 @@ describe("hosted window and door inserts", () => {
       const mesh = hostedInsert(element, material, material, scene);
       expect(mesh.getIndices()!.length).toBeGreaterThan(36);
       expect(mesh.subMeshes.some(part => part.materialIndex === 1)).toBe(true);
+      expect(mesh.subMeshes.some(part => part.materialIndex === 2)).toBe(kind === "Door");
       mesh.dispose();
     }
     scene.dispose(); engine.dispose();

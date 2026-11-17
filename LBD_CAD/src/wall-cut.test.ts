@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { Mesh, MeshBuilder, NullEngine, Scene, VertexData } from "@babylonjs/core";
+import { Mesh, MeshBuilder, NullEngine, Ray, Scene, Vector3, VertexData } from "@babylonjs/core";
 import { CadDocument, NS } from "./model";
 import { decodeObj, encodeObj, parseObj } from "./ifc-geometry";
 import { meshToIfcObj } from "./geometry-export";
@@ -32,6 +32,10 @@ describe("imported wall openings", () => {
       VertexData.ComputeNormals(data.positions, data.indices, normals);
       data.normals = normals; data.applyToMesh(mesh);
       const cut = cutWallOpenings(mesh, wall, doc.hostedOpenings(wall.id), scene);
+      const opening = doc.hostedOpenings(wall.id)[0];
+      const throughDoor = new Ray(new Vector3(opening.x - wall.x, opening.y - wall.y, -2), new Vector3(0, 0, 1), 4);
+      expect(mesh.intersects(throughDoor).hit).toBe(true);
+      expect(cut.intersects(throughDoor).hit).toBe(false);
       cut.position.set(wall.x, wall.y, wall.z);
       const cutObj = meshToIfcObj(cut);
       expect(parseObj(cutObj).vertices.length).toBeGreaterThan(parseObj(originalObj).vertices.length);

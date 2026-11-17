@@ -2,7 +2,7 @@ import { Mesh, SubMesh, VertexBuffer, VertexData, type Scene } from "@babylonjs/
 import type { Element, MaterialDefinition } from "./model";
 import { materialBox } from "./material-box";
 
-/** A pane or leaf and visible jambs, instead of one box buried in the wall. */
+/** A pane or leaf, visible jambs, and door hardware inside the wall cut. */
 export function hostedInsert(element: Element, leaf: MaterialDefinition, frame: MaterialDefinition, scene: Scene): Mesh {
   const positions: number[] = [], indices: number[] = [], uvs: number[] = [];
   const ranges: { material: number; vertexStart: number; indexStart: number; vertexCount: number; indexCount: number }[] = [];
@@ -23,12 +23,22 @@ export function hostedInsert(element: Element, leaf: MaterialDefinition, frame: 
   const depth = Math.max(.025, element.depth);
   const clearWidth = Math.max(.01, element.width - rail * 2);
   const clearHeight = Math.max(.01, element.height - (element.kind === "Door" ? rail : rail * 2));
-  append(clearWidth, clearHeight, Math.min(.025, depth), 0,
+  const leafDepth = Math.min(.04, depth);
+  append(clearWidth, clearHeight, leafDepth, 0,
     element.kind === "Door" ? -rail / 2 : 0, 0, 0);
   append(rail, element.height, depth, -(element.width - rail) / 2, 0, 0, 1);
   append(rail, element.height, depth, (element.width - rail) / 2, 0, 0, 1);
   append(clearWidth, rail, depth, 0, (element.height - rail) / 2, 0, 1);
   if (element.kind === "Window") append(clearWidth, rail, depth, 0, -(element.height - rail) / 2, 0, 1);
+  if (element.kind === "Door") {
+    const handleX = element.width / 2 - rail - Math.min(.12, clearWidth * .18);
+    const handleY = -.08 * element.height;
+    for (const side of [-1, 1]) {
+      const faceZ = side * (leafDepth / 2 + .008);
+      append(.035, .14, .016, handleX, handleY, faceZ, 2);
+      append(.12, .023, .026, handleX - .04, handleY, side * (leafDepth / 2 + .026), 2);
+    }
+  }
   const normals: number[] = [];
   VertexData.ComputeNormals(positions, indices, normals);
   const mesh = new Mesh(element.id, scene);

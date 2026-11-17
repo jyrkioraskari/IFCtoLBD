@@ -545,6 +545,15 @@ export class CadDocument {
     this.setNumber(opening.id, "depth", thickness + .1);
     this.setNumber(opening.id, "rotation", wall.imported && alongZ ? 90 : wall.rotation);
     const element = this.add(kind, center);
+    if (kind === "Door") {
+      let doorPaint = this.materials.find(material => material.label === "Door paint" &&
+        material.finish === "paint" && material.color === "#f1ece4");
+      if (!doorPaint) {
+        doorPaint = this.addMaterial("Door paint", "paint", "#f1ece4");
+        this.updateMaterial(doorPaint.id, { texture: "none" });
+      }
+      this.assignMaterial(element.id, doorPaint.id);
+    }
     this.setNumber(element.id, "width", width);
     this.setNumber(element.id, "height", height);
     this.setNumber(element.id, "depth", Math.min(defaultDepth, thickness));

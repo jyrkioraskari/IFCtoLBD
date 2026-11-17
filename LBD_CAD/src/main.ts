@@ -6,11 +6,13 @@ import { analyzeMesh } from "./mesh-analysis";
 import { exportDxfPlan, exportObj, exportQuantitiesCsv, exportStl, type ExportPart, type QuantityRow } from "./exchange";
 import { meshToIfcObj } from "./geometry-export";
 import { cutWallOpenings } from "./wall-cut";
+import { wallFeatureEdges } from "./wall-edges";
 import { moveXZ, snapXZ } from "./snap";
 import { parseCoordinates, parseDegrees, parseLength, parseRectangleDimensions, rectangleFromCorners, type GroundPoint } from "./sketch";
 import { boxFaceFromNormal, pullBoxFace, type BoxFace } from "./solid-edit";
 import { materialBox } from "./material-box";
 import { hostedInsert } from "./hosted-insert";
+import { clampHostedPosition } from "./hosted-move";
 import { readMtl, type ObjUnit, type ObjUpAxis } from "./obj-import";
 import { createBuiltInTextures } from "./material-textures";
 import { defaultTile, initialElementTexture, textureLabels, texturePresets, type TexturePreset } from "./texture-presets";
@@ -145,7 +147,7 @@ let tool: Tool = "move";
 let paintMaterialId: string | undefined;
 let placing: "Door" | "Window" | undefined;
 type Drag = { pointerId: number; id: string; startX: number; startY: number; start: Element; offset?: Vector3;
-  preview: Mesh; temporary?: boolean; face?: BoxFace; screenAxis?: { x: number; y: number };
+  preview: Mesh; temporary?: boolean; face?: BoxFace; screenAxis?: { x: number; y: number }; hostWall?: Element;
   pending?: ReturnType<typeof pullBoxFace> };
 let drag: Drag | undefined;
 let rectangleStart: GroundPoint | undefined;
@@ -240,7 +242,9 @@ function draw() {
     const leafMaterial = doc.material(e.materialId ?? "") ?? fallbackMaterial(e);
     const frameMaterial: MaterialDefinition = { ...fallbackMaterial({ ...e, color: undefined,
       finish: e.kind === "Window" ? "paint" : "timber" }),
-      color: e.kind === "Window" ? "#e7e2d8" : "#8d6546", texture: "none", opacity: 1 };
+      color: e.kind === "Window" ? "#e7e2d8" : "#625951", texture: "none", opacity: 1 };
+    const hardwareMaterial: MaterialDefinition = { ...frameMaterial,
+      finish: "metal", color: "#465158" };
     let mesh = insert ? hostedInsert(e, leafMaterial, frameMaterial, scene) :
       simpleBox ? materialBox(e, faceMaterials, scene) : imported ? new Mesh(e.id, scene) : e.kind === "Face" ?
       MeshBuilder.CreateGround(e.id, { width: e.width, height: e.depth }, scene) :
@@ -324,7 +328,8 @@ function draw() {
       multi.subMaterials = e.kind === "Mesh" && imported ? imported.runs.map((run, index) =>
         surfaceMaterial(e, doc.objMaterials(e.id).get(run.name?.trim() || "Default OBJ") ?? leafMaterial, index)) :
         insert ? [surfaceMaterial(e, leafMaterial, 0),
-        surfaceMaterial({ ...e, color: undefined }, frameMaterial, 1)] :
+        surfaceMaterial({ ...e, color: undefined }, frameMaterial, 1),
+        ...(e.kind === "Door" ? [surfaceMaterial({ ...e, color: undefined }, hardwareMaterial, 2)] : [])] :
         faceMaterials.map((definition, index) => surfaceMaterial(e, definition, index));
       mesh.material = multi;
       if (e.kind === "Mesh" && imported) {
@@ -339,7 +344,7 @@ function draw() {
       const positions = mesh.getVerticesData(VertexBuffer.PositionKind);
       const indices = mesh.getIndices();
       if (positions?.length && indices?.length) {
-        const borders = featureEdges(positions, indices);
+        const borders = openings.length ? wallFeatureEdges(positions, indices, e, openings) : featureEdges(positions, indices);
         if (borders.length) {
           const lines = MeshBuilder.CreateLineSystem(`borders-${e.id}`, {
             lines: borders.map(([a, b]) => [new Vector3(...a), new Vector3(...b)])
@@ -653,6 +658,17 @@ function pointOnPlane(event: PointerEvent, y: number): Vector3 | undefined {
   const distance = (y - ray.origin.y) / ray.direction.y;
   return distance > 0 ? ray.origin.add(ray.direction.scale(distance)) : undefined;
 }
+function pointOnHostWall(event: PointerEvent, wall: Element): Vector3 | undefined {
+  const rect = canvas.getBoundingClientRect();
+  const ray = scene.createPickingRay(event.clientX - rect.left, event.clientY - rect.top, Matrix.Identity(), camera);
+  const angle = wall.rotation * Math.PI / 180;
+  const normal = wall.imported && wall.depth > wall.width ?
+    new Vector3(Math.cos(angle), 0, -Math.sin(angle)) : new Vector3(Math.sin(angle), 0, Math.cos(angle));
+  const denominator = Vector3.Dot(ray.direction, normal);
+  if (Math.abs(denominator) < 1e-5) return;
+  const distance = Vector3.Dot(new Vector3(wall.x, wall.y, wall.z).subtract(ray.origin), normal) / denominator;
+  return distance > 0 ? ray.origin.add(ray.direction.scale(distance)) : undefined;
+}
 function faceDirection(face: BoxFace, rotation: number): Vector3 {
   const angle = rotation * Math.PI / 180;
   if (face.axis === "x") return new Vector3(face.sign * Math.cos(angle), 0, -face.sign * Math.sin(angle));
@@ -676,6 +692,12 @@ function cancelDrag() {
   drag = undefined;
   camera.attachControl(canvas, true);
   draw();
+}
+function fadeHostWall(wallId: string) {
+  const wallMesh = meshes.get(wallId);
+  if (!wallMesh) return;
+  if (wallMesh.material instanceof StandardMaterial) wallMesh.material.alpha = .18;
+  for (const child of wallMesh.getChildMeshes()) child.isVisible = false;
 }
 canvas.addEventListener("pointerdown", event => {
   if (placing && event.button === 0) {
@@ -759,9 +781,12 @@ canvas.addEventListener("pointerdown", event => {
   if (selected !== id) select(id);
   const start = doc.elements.find(e => e.id === id)!;
   const preview = meshes.get(id)!;
-  const planePoint = pointOnPlane(event, start.y);
+  const hostWallId = start.kind === "Door" || start.kind === "Window" ? doc.hostWall(id) : undefined;
+  const hostWall = hostWallId ? doc.elements.find(e => e.id === hostWallId && e.kind === "Wall") : undefined;
+  const planePoint = hostWall ? pointOnHostWall(event, hostWall) : pointOnPlane(event, start.y);
   drag = { pointerId: event.pointerId, id, startX: event.clientX, startY: event.clientY, start, preview,
-    offset: planePoint ? new Vector3(start.x - planePoint.x, 0, start.z - planePoint.z) : undefined };
+    hostWall, offset: planePoint ? new Vector3(start.x - planePoint.x, start.y - planePoint.y, start.z - planePoint.z) : undefined };
+  if (tool === "move" && hostWall) fadeHostWall(hostWall.id);
   camera.detachControl();
   canvas.setPointerCapture(event.pointerId);
 }, true);
@@ -786,6 +811,14 @@ canvas.addEventListener("pointermove", event => {
     drag.preview.position.set(target.x ?? drag.start.x, target.y ?? drag.start.y, target.z ?? drag.start.z);
     status(`Push/Pull · ${face.axis.toUpperCase()} ${(dimension + distance).toFixed(2)} m · Shift snaps to 0.25 m`);
   } else if (tool === "move") {
+    if (drag.hostWall) {
+      const point = pointOnHostWall(event, drag.hostWall);
+      if (!point || !drag.offset) return;
+      const target = clampHostedPosition(drag.hostWall, drag.start, point.add(drag.offset));
+      drag.preview.position.set(target.x, target.y, target.z);
+      status(`Move · X ${target.x.toFixed(2)} m · Y ${target.y.toFixed(2)} m · Z ${target.z.toFixed(2)} m`);
+      return;
+    }
     if (event.shiftKey) {
       drag.preview.position.set(drag.start.x, drag.start.y - (event.clientY - drag.startY) * .02, drag.start.z);
       status(`Move · Y ${drag.preview.position.y.toFixed(2)} m`);
