@@ -205,7 +205,7 @@ provides further background and community resources.
 Browse the [documentation website](https://jyrkioraskari.github.io/IFCtoLBD/#/)
 or the [documentation index](docs/README.md). Earlier announcements are in [project history](docs/history.md).
 
-## The Linked Building Design app
+## The Linked Building Design App
 
 <img src="LBD_CAD/S1.png" alt="LBD Babylon viewer showing the interior of a building in walk mode" width="800">
 
