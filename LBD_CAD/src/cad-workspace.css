@@ -1,0 +1,95 @@
+/* Compact CAD workspace: commands, canvas, inspector. Original LBD CAD styling. */
+:root{color:#d4d8dc;background:#202124}
+body{background:#202124}
+header{height:42px;padding:0 12px;background:#292a2d;border-color:#414348;box-shadow:none}
+.brand{gap:8px}
+.mark{width:26px;height:26px;border-radius:4px;font-size:18px;background:#3d6773;color:#e9eff1;box-shadow:none}
+.brand strong{font-size:12px;letter-spacing:.01em;color:#eceeef}
+.brand small{display:none}
+.header-actions{gap:3px}
+.header-actions button{min-height:29px;padding:4px 9px;border:0;border-radius:3px;background:transparent;color:#d4d8dc;box-shadow:none;font-size:11px}
+.header-actions button:hover{background:#42464a;color:white}
+.header-actions .primary{background:#365962;border-color:#365962;color:#f5f8f9;box-shadow:none}
+.header-actions .primary:hover{background:#47727e}
+.header-actions svg{width:14px;height:14px}
+.shell{height:calc(100dvh - 68px);min-height:0;grid-template-columns:52px minmax(320px,1fr) 292px}
+aside{background:#292a2d;color:#d4d8dc}
+aside.left{border-right:1px solid #45474b;overflow-y:auto;overflow-x:hidden;align-items:center}
+aside.right{border-left:1px solid #45474b;background:#292a2d;overflow:auto}
+aside section{padding:12px;border-color:#414348}
+aside.left section{width:100%;padding:8px 5px;border:0}
+aside.left h2{font-size:8px;text-align:center;margin:3px 0 7px;letter-spacing:.04em;color:#aeb6ba}
+aside.left .tools,.workflow-actions{display:flex;flex-direction:column;align-items:center;gap:4px}
+aside.left .tools button,.workflow-actions button{display:grid;place-items:center;width:39px;min-width:39px;height:39px;min-height:39px;padding:0;border:1px solid transparent;border-radius:5px;background:#34363a;color:#d5dcdf;box-shadow:none}
+aside.left .tools button:hover,.workflow-actions button:hover{background:#4a5358;border-color:#67767d;color:white;transform:none}
+aside.left .tools svg,.workflow-actions svg{width:20px;height:20px;flex:none}
+aside.left .tools button span,.workflow-actions button span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+#create-hint,.workflow-step,.workflow strong,.workflow p{display:none}
+.workflow{background:transparent;padding-top:6px!important;border-top:1px solid #414348!important}
+.workflow-actions button.active{background:#577a83;color:white;border-color:#779da7}
+main{border:0;background:#b7b8b4}
+canvas{border-radius:0}
+.viewport-tools{top:7px;left:8px;max-width:calc(100% - 255px);gap:1px;padding:3px;border:1px solid #51565b;border-radius:4px;background:#2b2d30ee;box-shadow:0 2px 8px #0005}
+.toolbar-kicker{display:none}
+.viewport-tools button{min-width:34px;width:34px;height:32px;padding:4px;border-radius:3px;color:#c7ced2}
+.viewport-tools button:hover{background:#4a5358;border-color:#4a5358;color:white}
+.viewport-tools button.active{background:#5b7a83;border-color:#5b7a83;color:white;box-shadow:none}
+.viewport-tools button span{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.viewport-tools svg{width:17px;height:17px}
+.viewport-actions{top:7px;right:8px;gap:1px;padding:3px;border:1px solid #51565b;border-radius:4px;background:#2b2d30ee;box-shadow:0 2px 8px #0005}
+.viewport-actions button{min-height:32px;padding:5px 6px;color:#c7ced2}
+.viewport-actions button:hover{background:#4a5358;border-color:#4a5358;color:white}
+.viewport-actions button.active{background:#5b7a83;border-color:#5b7a83;color:white}
+.viewport-actions svg{width:16px;height:16px}
+.viewport-actions button span{display:none}
+.view-label{top:51px;left:10px;padding:3px 6px;background:#25292bcc;color:#e3e8e9;font-size:9px}
+.view-hint{left:9px;bottom:7px;max-width:calc(100% - 220px);padding:5px 8px;border:0;border-radius:3px;background:#27292dd9;color:#e0e4e6}
+.measure-control{right:8px;bottom:7px;padding:4px 6px;border:1px solid #566068;border-radius:3px;background:#2b2d30ee;color:#e0e4e6;box-shadow:none;font-size:10px}
+.measure-control input{background:#1f2225;color:white;border-color:#566068}
+.axis-compass{top:79px;left:10px}
+.axis-lock{top:52px;right:10px}
+aside.right section{padding:11px 13px;background:#292a2d;border-color:#414348}
+aside.right h2{margin:0 0 9px;color:#c6cccf;font-size:10px;letter-spacing:.05em}
+aside.right h2 span{color:#9fc3cd}
+aside.right .outline{min-height:0;flex:none}
+#list{max-height:22vh;overflow-y:auto}
+.item{padding:6px 7px;margin-bottom:2px;border-radius:3px}
+.item:hover{background:#393d40;box-shadow:none}
+.item.active{background:#38545c;box-shadow:inset 2px 0 #90bbc5}
+.item strong{color:#e2e6e8}
+.item small{color:#a7b4ba}
+.kind{color:#9fc3cd}
+.group-help{color:#9daeb6}
+.group-action input,.scene-actions input{background:#222528;border-color:#50565b;color:#e1e7e9}
+.group-action button,.scene-actions button{background:#383c40;border-color:#555b60;color:#dce4e6}
+.view-panel,.project-panel{background:#292a2d}
+.view-presets button,.export-actions button{background:#363a3d;border-color:#53595d;color:#d8e0e3}
+.view-presets button.active{background:#4d737c;border-color:#4d737c;color:white}
+.field,.visibility-field,.meta,.section-controls{color:#b7c3c8}
+.field input,.field select,.display-style-label select{background:#222528;color:#e1e7e9;border-color:#50565b}
+.material-editor{padding:8px 9px;margin:9px 0;border:1px solid #474d50;border-radius:4px;background:#303337}
+.material-editor h3{margin:3px 0 12px}
+.material-editor p{margin:2px 0 3px;color:#a7b3b9;font-size:10px;line-height:1.45}
+.material-editor .number-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.material-editor .number-grid input{min-width:0}
+.material-create{display:flex;gap:5px;margin:0 0 13px}
+.material-create input{min-width:0;flex:1;padding:7px;border:1px solid #50565b;border-radius:4px;background:#222528;color:#e1e7e9;font-size:11px}
+.material-create button{padding:5px 7px;border-color:#5d7379;background:#3c585f;color:#edf4f5;font-size:11px}
+#import-image{width:100%;margin:0 0 13px;padding:7px;border-color:#5d7379;background:#3c585f;color:#edf4f5;font-size:11px}
+.import-dialog{max-width:min(420px,calc(100vw - 28px));padding:18px;border:1px solid #647177;border-radius:7px;background:#292d30;color:#e6ecee;box-shadow:0 18px 48px #0009}
+.import-dialog::backdrop{background:#10181ebd}
+.import-dialog h2{margin:0 0 12px;font-size:16px;color:#edf3f4}
+.import-dialog p{font-size:12px;line-height:1.45;color:#b9c7cc}
+.import-dialog label{display:block;margin:12px 0;color:#d7e0e3;font-size:12px}
+.import-dialog select{display:block;width:100%;margin-top:5px;padding:8px;border:1px solid #59666b;border-radius:4px;background:#22272a;color:#edf3f4}
+.dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.section-controls{background:#353a3e;border-color:#535b60}
+.section-height output,.meta code,.triple code{color:#a7c9d1}
+.meta strong,.item strong,h3{color:#e2e6e8}
+.layer-row{color:#d4dcdf;border-color:#454a4e}
+.layer-row button{color:#a7c9d1}
+.quantity-summary,.export-note,.empty{color:#a7b3b9}
+#status{height:26px;padding:5px 9px;background:#252629;color:#c2cbcf;border-top:1px solid #414348}
+@media(max-width:1150px){.shell{grid-template-columns:46px minmax(320px,1fr) 252px}.viewport-tools{max-width:calc(100% - 190px)}.viewport-actions{top:7px}.view-label{top:51px}}
+@media(max-width:850px){.shell{grid-template-columns:43px minmax(280px,1fr) 215px}.viewport-tools button{min-width:29px;width:29px}.viewport-actions{top:45px}.view-label{top:51px}.axis-compass{top:81px}}
+@media(max-width:650px){header{height:42px;min-height:42px;flex-wrap:nowrap;padding:0 7px}.header-actions button span{display:none}.shell{height:auto;display:grid;grid-template-columns:43px minmax(0,1fr)}main{height:60vh;min-height:340px;order:0}aside.left{grid-column:1;grid-row:1;order:0}aside.right{grid-column:1/-1;grid-row:2;order:0;max-height:42vh}.viewport-tools{max-width:calc(100% - 12px)}.viewport-actions{top:45px;right:7px}.view-hint{max-width:calc(100% - 120px);bottom:55px}.measure-control{bottom:7px}.axis-compass{top:81px}}
