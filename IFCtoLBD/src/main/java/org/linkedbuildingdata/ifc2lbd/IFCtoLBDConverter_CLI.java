@@ -115,7 +115,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	private Optional<Boolean> exportIfcOWL;
 
 	
-	@Option(names = { "--hasIfc_based_elements" }, arity = "0..1", fallbackValue = "true", description = "An IFC  based elements.")
+	@Option(names = { "--hasIfc_based_elements" }, arity = "0..1", fallbackValue = "true", description = "Include IFC elements without a mapped LBD product type. Mapped building elements remain when this is false.")
 	private Optional<Boolean> hasIfc_based_elements;
 	
 	
@@ -319,8 +319,6 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		// boundary so Turtle retains the general, product and property statements.
 		Model model = org.apache.jena.rdf.model.ModelFactory.createDefaultModel();
 		try {
-			System.out.printf("Turtle graphs: general=%d, product=%d, property=%d%n",
-					result.getGeneralModel().size(), result.getProductModel().size(), result.getPropertyModel().size());
 			model.add(result.getGeneralModel());
 			model.add(result.getProductModel());
 			model.add(result.getPropertyModel());
@@ -466,7 +464,6 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 
 	private ConversionProperties legacyProperties() {
 		ConversionProperties properties = new ConversionProperties();
-		System.out.println("CLI elements option: " + hasBuildingElements);
 		properties.setHasBuildingElements(hasBuildingElements.orElse(false));
 		properties.setHasSeparateBuildingElementsModel(hasSeparateBuildingElementsModel.orElse(false));
 		properties.setHasBuildingProperties(hasBuildingProperties.orElse(false));

@@ -11,7 +11,7 @@ the API does not duplicate IFC or RDF mapping logic.
 
 ## Requirements
 
-- Node.js 20 or newer
+- Node.js 20 or Node.js 22 or newer
 - Java 21 or newer
 - Maven when building the converter from source
 
@@ -81,7 +81,7 @@ growth.
 | --- | --- | --- |
 | `HOST` | `127.0.0.1` | Listen address; use `0.0.0.0` in a container |
 | `PORT` | `8080` | Listen port |
-| `JAVA_HOME` | repository-local JDK when found | Java 21 installation |
+| `JAVA_HOME` | repository-local JDK when found | Java 21 installation containing current security fixes |
 | `IFCTOLBD_API_CONVERTER_JAR` | `../IFCtoLBD_MCP/lib/ifctolbd-converter.jar` | Shaded converter distribution |
 | `IFCTOLBD_API_MAX_UPLOAD_BYTES` | `268435456` | Maximum IFC upload size |
 | `IFCTOLBD_API_MAX_QUEUE` | `8` | Waiting conversions allowed in addition to the active conversion |
@@ -140,7 +140,9 @@ docker build -f IFCtoLBD_OpenAPI_Node_js/Dockerfile -t ifctolbd_openapi_node_js 
 docker run --rm -p 8080:8080 ifctolbd_openapi_node_js
 ```
 
-The image includes Node.js 22 and a Java 21 runtime. Dependency licences remain
+The image includes Node.js 22 and Azul Zulu Java 21 with the November 2026
+security fixes. Rebuild the image to pick up later Node.js and OS updates.
+Dependency licences remain
 in `node_modules`; direct dependency credits are summarized in
 [`THIRD_PARTY.md`](THIRD_PARTY.md), and the converter JAR carries its aggregated
 licence and notice resources.

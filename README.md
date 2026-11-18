@@ -53,7 +53,7 @@ release 2.49.0; source-only 2.56.0 features are identified separately.
 | Desktop app | You want the **Read IFC → Run** interface | `IFCtoLBD.zip` or `IFCtoLBD-Desktop_for_Windows.zip` in release 2.49.0 |
 | CLI | You want scripted conversion on Windows | `IFCtoLBDConverter_CLI.exe` in release 2.49.0 |
 | Java library | You are embedding conversion in a JVM application | `org.linkedbuildingdata:ifc-to-lbd:<version>` / `ifc-to-lbd-<version>.jar` |
-| HTTP/OpenAPI service | You want to upload IFC and receive RDF over HTTP | `IFCtoLBD_OpenAPI_Node_js`; Node.js 20+ and Java 21, built from source |
+| HTTP/OpenAPI service | You want to upload IFC and receive RDF over HTTP | `IFCtoLBD_OpenAPI_Node_js`; Node.js 20 or 22+ and Java 21, built from source |
 | MCP server | You want an AI tool to inspect or convert IFC | `IFCtoLBD_MCP`; build from source because release 2.49.0 has no prebuilt MCP server |
 | OneClick | You want one selected Turtle export from the web app, a separate Node CLI, or an MCP tool | `OneClick/cli.mjs` and MCP `export_oneclick_lbd`; source checkout with Python, IfcOpenShell, and Shapely |
 | ProductExtractor | You want element-oriented JSON or a local summary interface for LBD output | `ProductExtractor`; a standalone Python 3.10+ tool installed from source |
@@ -205,11 +205,10 @@ provides further background and community resources.
 Browse the [documentation website](https://jyrkioraskari.github.io/IFCtoLBD/#/)
 or the [documentation index](docs/README.md). Earlier announcements are in [project history](docs/history.md).
 
-## The Linked Building Design App
+## The Linked Building Design app
 
 <img src="LBD_CAD/S1.png" alt="LBD Babylon viewer showing the interior of a building in walk mode" width="800">
-
-[documentation](LBD_CAD/README.md)
+[documentation ](LBD_CAD/README.md)
 
 ## Contributors and citation authors
 

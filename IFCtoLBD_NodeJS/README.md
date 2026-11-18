@@ -4,7 +4,7 @@ This package shows how to call the IFCtoLBD Java converter from Node.js. The `IF
 
 ## Requirements
 
-- Node.js 18 or newer
+- Node.js 20.18.1 or newer
 - npm
 - Java runtime or JDK
 - IFCtoLBD JAR files in `java_libraries/`

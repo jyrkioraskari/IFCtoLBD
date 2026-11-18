@@ -4,6 +4,18 @@ This file records source material copied, extracted, or transformed into files
 distributed by this repository. Dependency licence reports remain in the
 module-specific `THIRD-PARTY` files.
 
+## Azul Zulu 21 container runtime
+
+- Upstream project: Azul Zulu Builds of OpenJDK,
+  <https://github.com/AzulSystems/azul-zulu-images>
+- Upstream release: Azul Zulu 21.54.201 (OpenJDK 21.0.13.1+2), November 2026
+- Source: `azul-zulu:21.54-21.0.13.1-jre-debian13`, `/usr/lib/jvm`
+- Destination: `IFCtoLBD_OpenAPI_Node_js` container image, `/opt/java`
+- Use: Java 21 runtime for the HTTP service; no Java source is modified
+- Licence and attribution: upstream runtime licence and notice files are
+  retained under `/opt/java/zulu21/legal` in the image. The image-specific
+  attribution is documented in `IFCtoLBD_OpenAPI_Node_js/THIRD_PARTY.md`.
+
 ## Digital Construction BuildingMaterials 0.1
 
 - Upstream project: Digital Construction BuildingMaterials,

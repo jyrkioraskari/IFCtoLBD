@@ -1,15 +1,16 @@
-FROM eclipse-temurin:21-jre-jammy AS java-runtime
+FROM azul-zulu:21.54-21.0.13.1-jre-debian13 AS java-runtime
 
-FROM node:22-bookworm-slim
+FROM node:22-trixie-slim
 
-ENV JAVA_HOME=/opt/java/openjdk \
-    PATH=/opt/java/openjdk/bin:$PATH \
+ENV JAVA_HOME=/opt/java/zulu21 \
+    PATH=/opt/java/zulu21/bin:$PATH \
     HOST=0.0.0.0 \
     PORT=8080 \
     NODE_ENV=production \
     IFCTOLBD_API_CONVERTER_JAR=/app/lib/ifctolbd-converter.jar
 
-COPY --from=java-runtime /opt/java/openjdk /opt/java/openjdk
+COPY --from=java-runtime /usr/lib/jvm /opt/java
+RUN java -version
 WORKDIR /app
 
 COPY IFCtoLBD_OpenAPI_Node_js/package.json IFCtoLBD_OpenAPI_Node_js/package-lock.json ./

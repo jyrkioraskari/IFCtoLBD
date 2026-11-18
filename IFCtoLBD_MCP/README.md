@@ -13,7 +13,10 @@ For an end-to-end guide covering setup, AI client configuration, prompts, conver
 - The MCP package dependencies installed on the target machine
 - Maven, when building the converter distribution from source
 
-The server defaults to `../.tools/jdk` when `JAVA_HOME` is not set, and falls back to `./.tools/jdk` inside this MCP package.
+The server defaults to `../.tools/jdk` when `JAVA_HOME` is not set, and falls
+back to `./.tools/jdk` inside this MCP package. Check that the selected JDK
+contains the [November 2026 Java security fixes](https://www.oracle.com/security-alerts/cspunov2026.html);
+an older repository-local JDK is not updated automatically.
 
 Install dependencies in this folder on the same operating system where the MCP server will run:
 

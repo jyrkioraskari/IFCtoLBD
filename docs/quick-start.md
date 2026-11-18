@@ -31,6 +31,8 @@ automatically generated “Source code” archives are not application packages.
 
 For the bundled Windows application, extract the ZIP and launch `IFCtoLBD.exe`.
 It carries its own Java runtime. Keep the whole application folder together.
+For a new deployment, use a package built with a Java runtime containing the
+[November 2026 security fixes](https://www.oracle.com/security-alerts/cspunov2026.html).
 
 ### Windows, macOS, or Linux: use the Java .jar
 
@@ -53,14 +55,14 @@ java -version
 ```
 
 If it reports Java 21 or newer, verify that the vendor identifies the installed
-build as fixed for
-[CVE-2026-91403](https://www.oracle.com/security-alerts/alert-cve-2026-91403.html)
-before launching the JAR. Java 21.0.13 and earlier builds are not safe unless
-the vendor has backported the fix. If Java is missing, too old, or unpatched:
+build as including the
+[November 2026 Java security fixes](https://www.oracle.com/security-alerts/cspunov2026.html)
+before launching the JAR. Earlier builds need a vendor backport. If Java is
+missing, too old, or unpatched:
 
-1. Install a Java 21 build whose vendor explicitly lists the CVE fix. Known
-   fixed builds include Azul Zulu 21.54.107 (OpenJDK 21.0.13+9) and Oracle JDK
-   21.0.13.0.2. Do not install an unpatched base 21.0.13 build. Choose the
+1. Install a Java 21 build whose vendor includes the November fixes. Examples
+   are Azul Zulu 21.54.201 (OpenJDK 21.0.13.1+2) and Oracle JDK 21.0.13.1+4.
+   Choose the
    **JDK** package; it can both run the application and support the developer
    guides later.
 2. Install the package. On Windows x64, download and run the `.msi` installer;

@@ -6,13 +6,14 @@
 
 Install **JDK 21 or newer**. The repository includes a Maven wrapper, so a
 separate Maven installation is optional.
-[CVE-2026-91403](https://www.oracle.com/security-alerts/alert-cve-2026-91403.html)
-affects Java TLS certificate validation in JDK 21.0.13 and earlier. Use a
-vendor build that explicitly includes the CVE-2026-91403 fix (for example,
-Azul Zulu 21.54.107 / OpenJDK 21.0.13+9 or Oracle JDK 21.0.13.0.2), not an
-unpatched base 21.0.13 build. The Maven wrapper enables CRL checking as an
-additional defense through `.mvn/jvm.config`; build environments must permit
-access to certificate revocation endpoints.
+[November 2026 Java security fixes](https://www.oracle.com/security-alerts/cspunov2026.html)
+supersede the October Java 21 builds, including those that fixed
+[CVE-2026-91403](https://www.oracle.com/security-alerts/alert-cve-2026-91403.html).
+Use a vendor build that includes the November fixes, such as Azul Zulu
+21.54.201 / OpenJDK 21.0.13.1+2 or Oracle JDK 21.0.13.1+4. Check the vendor's
+release notes when using another distribution. The Maven wrapper enables CRL
+checking as an additional defense through `.mvn/jvm.config`; build environments
+must permit access to certificate revocation endpoints.
 [Follow the Java 21 installation guide](quick-start.md#install-java-21-for-the-jar-route)
 if you do not yet have a JDK. Point `JAVA_HOME` at the JDK, and check
 that Maven uses it with `mvn -version`. A JRE alone cannot compile the project.
@@ -21,8 +22,8 @@ Java 21 is the single baseline for the root reactor and the separate Java,
 Scala, legacy OpenAPI, MCP, Python/JPype, and Maven example integrations. Their
 POMs use `maven.compiler.release=21`, so a newer JDK still emits Java
 21-compatible bytecode. The modern `IFCtoLBD_OpenAPI_Node_js` service also
-requires Node.js 20 or newer. Packaged runtime images include their documented
-Java runtime.
+requires Node.js 20 or Node.js 22 or newer. Packaged runtime images include
+their documented Java runtime.
 
 GraalVM users should select a GraalVM distribution for JDK 21 when building the
 `native` profile. Production code must stay on non-preview Java 21 APIs: records,
