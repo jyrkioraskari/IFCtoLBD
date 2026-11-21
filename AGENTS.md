@@ -15,20 +15,20 @@ Run `git status --short` before editing. Preserve user changes, including pre-ex
 Root Maven reactor modules in dependency order:
 
 1. `IFCtoRDF` — IFC parsing and IFC-oriented RDF generation.
-2. `IFCtoLBD\_Geometry` — geometry extraction and IfcOpenShell integration.
+2. `IFCtoLBD_Geometry` — geometry extraction and IfcOpenShell integration.
 3. `IFCtoLBD` — core conversion APIs, RDF mappings, validation, profiles, and CLI.
 4. `IFCProps2ExcelOnline` — Vaadin property export application.
-5. `IFCtoLBD\_Desktop\_2026` — JavaFX desktop application.
+5. `IFCtoLBD_Desktop_2026` — JavaFX desktop application.
 
 Build and check these projects separately:
 
-* `IFCtoLBD\_MCP` — Node.js MCP server using the shaded converter JAR.
-* `IFCtoLBD\_NodeJS` — Node.js integration examples.
-* `IFCtoLBD\_Python` — JPype wrapper and Python examples.
-* `IFCtoLBD\_OpenAPI\_Node\_js` — modern Node.js HTTP/OpenAPI service using the shaded JAR.
-* `IFCtoLBD\_OpenAPI` — separate Maven web API.
+* `IFCtoLBD_MCP` — Node.js MCP server using the shaded converter JAR.
+* `IFCtoLBD_NodeJS` — Node.js integration examples.
+* `IFCtoLBD_Python` — JPype wrapper and Python examples.
+* `IFCtoLBD_OpenAPI_Node_js` — modern Node.js HTTP/OpenAPI service using the shaded JAR.
+* `IFCtoLBD_OpenAPI` — separate Maven web API.
 * `ifc-to-lbd-scala` — Scala example.
-* `maven\_demo` — historical consumer example.
+* `maven_demo` — historical consumer example.
 
 ## Build requirements
 
@@ -49,7 +49,7 @@ Start core converter work in `IFCtoLBD/src/main/java/org/linkedbuildingdata/ifc2
 
 |Entry point|Responsibility|
 |-|-|
-|`IFCtoLBDConverter\_CLI`|Command-line interface|
+|`IFCtoLBDConverter_CLI`|Command-line interface|
 |`IFCtoLBDConverter`|Conversion orchestration|
 |`core/IFCtoLBDConverterCore`|Topology, element, attribute, and property mapping|
 |`core/utils/IfcOWLUtils`|IFC relationship traversal|
@@ -88,18 +88,18 @@ Validate inputs at trust boundaries and enforce permissions where actions execut
 When copying, adapting, translating, or extracting code:
 
 * Read applicable LICENSE, NOTICE, and source-file headers. Preserve relevant copyright, licence, and attribution notices. Refactoring, renaming, translation, or AI generation does not remove upstream obligations.
-* Record the upstream project URL, revision if known, source files, and destination files in `THIRD\_PARTY\_PROVENANCE.md`. Distinguish upstream authorship from your modifications.
+* Record the upstream project URL, revision if known, source files, and destination files in `THIRD_PARTY_PROVENANCE.md`. Distinguish upstream authorship from your modifications.
 * Carry required licence texts and notices into the distributed application or package. Flag unclear origin or licence compatibility for maintainer review.
 
-Before completion, check for removed or overwritten headers, inspect release packaging for required notices, and summarize reused components and where their credits appear. These instructions support compliance with the applicable licences and do not replace or expand them.
+For changes that copy, adapt, translate, or extract code, check for removed or overwritten headers, inspect release packaging for required notices, and summarize reused components and where their credits appear before completion. These instructions support compliance with the applicable licences and do not replace or expand them.
 
 ## Testing
 
 The default build excludes tests tagged `integration`, `shacl`, and `slow`. Start with the smallest relevant check:
 
 ```sh
-./mvnw -pl IFCtoLBD -am \\
-  -Dtest=TestClassName \\
+./mvnw -pl IFCtoLBD -am \
+  -Dtest=TestClassName \
   -Dsurefire.failIfNoSpecifiedTests=false test
 ```
 
@@ -118,33 +118,33 @@ Derive expectations independently from the changed implementation. For a complex
 **MCP**
 
 ```sh
-npm --prefix IFCtoLBD\_MCP ci
-npm --prefix IFCtoLBD\_MCP run check
-npm --prefix IFCtoLBD\_MCP run build:converter
-npm --prefix IFCtoLBD\_MCP run test:integration
-npm --prefix IFCtoLBD\_MCP run smoke
+npm --prefix IFCtoLBD_MCP ci
+npm --prefix IFCtoLBD_MCP run check
+npm --prefix IFCtoLBD_MCP run build:converter
+npm --prefix IFCtoLBD_MCP run test:integration
+npm --prefix IFCtoLBD_MCP run smoke
 ```
 
 **Older Node.js examples**
 
 ```sh
-npm --prefix IFCtoLBD\_NodeJS test
+npm --prefix IFCtoLBD_NodeJS test
 ```
 
 **Modern HTTP/OpenAPI service**
 
 ```sh
-npm --prefix IFCtoLBD\_OpenAPI\_Node\_js ci
-npm --prefix IFCtoLBD\_OpenAPI\_Node\_js run check
-npm --prefix IFCtoLBD\_OpenAPI\_Node\_js test
-npm --prefix IFCtoLBD\_OpenAPI\_Node\_js run smoke
+npm --prefix IFCtoLBD_OpenAPI_Node_js ci
+npm --prefix IFCtoLBD_OpenAPI_Node_js run check
+npm --prefix IFCtoLBD_OpenAPI_Node_js test
+npm --prefix IFCtoLBD_OpenAPI_Node_js run smoke
 ```
 
 ## Generated and bundled files
 
-Do not hand-edit build or generated output unless the task specifically concerns the artifact. This includes `target/` directories, `node\_modules/`, generated Enunciate output, generated Javadocs under `IFCtoLBD/docs`, generated Vaadin frontend files, and `IFCtoLBD\_MCP/lib/ifctolbd-converter.jar`.
+Do not hand-edit build or generated output unless the task specifically concerns the artifact. This includes `target/` directories, `node_modules/`, generated Enunciate output, generated Javadocs under `IFCtoLBD/docs`, generated Vaadin frontend files, and `IFCtoLBD_MCP/lib/ifctolbd-converter.jar`.
 
-Building `IFCtoLBD` intentionally replaces the MCP converter JAR with one shaded distribution. Verify that only the expected JAR remains in `IFCtoLBD\_MCP/lib`. Use small IFC, RDF, image, or binary fixtures when they demonstrate the behavior.
+Building `IFCtoLBD` intentionally replaces the MCP converter JAR with one shaded distribution. Verify that only the expected JAR remains in `IFCtoLBD_MCP/lib`. Use small IFC, RDF, image, or binary fixtures when they demonstrate the behavior.
 
 ## Documentation
 
@@ -153,19 +153,16 @@ Update documentation for changes to public APIs, CLI options, profiles, runtime 
 * `README.md` — project overview.
 * `docs/quick-start.md` — installation and first conversion.
 * `docs/development.md` — builds and architecture.
-* `docs/java\_examples.md` — Java API examples.
-* `docs/python\_examples.md` — Python usage.
+* `docs/java_examples.md` — Java API examples.
+* `docs/python_examples.md` — Python usage.
 * `docs/using-triples.md` — RDF and SPARQL guidance.
-* `IFCtoLBD\_MCP/README.md` — MCP operation and security limits.
+* `IFCtoLBD_MCP/README.md` — MCP operation and security limits.
 
 Keep commands synchronized with POMs and package scripts. For version changes, search CI, manifests, documentation, examples, and release assertions for hard-coded versions.
 
 ## Completion checklist
 
 1. Review `git diff` against the initial working tree. Remove accidental generated changes introduced by this task and preserve pre-existing changes.
-2. Run the narrowest relevant test, then the applicable reactor, integration, or service checks. Exercise the affected public entry point and a consequential boundary or failure case.
-3. Check affected documentation, examples, packaged artifacts, and attribution.
+2. Run the narrowest relevant test, then broader reactor, integration, or service checks when the change affects them. For behavior changes, exercise the affected public entry point and a consequential boundary or failure case.
+3. Check documentation, examples, packaged artifacts, and attribution affected by the change.
 4. Report the user-visible outcome, exactly which checks ran, which were skipped and why, and any remaining external-tool, network, or platform-specific verification.
-
-
-
