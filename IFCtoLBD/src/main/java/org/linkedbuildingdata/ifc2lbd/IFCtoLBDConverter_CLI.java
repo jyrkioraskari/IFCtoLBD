@@ -333,6 +333,7 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 				? new ConversionRequest(file.getAbsolutePath(), ConversionProfiles.named(profile.get()))
 				: new ConversionRequest(file.getAbsolutePath(), legacyProperties());
 		applyTopologyOptions(request.getProperties());
+		hasUnits.ifPresent(request.getProperties()::setHasUnits);
 		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
 		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
 		if (identifierPolicy == IdentifierPolicy.STABLE_PROJECT) request = request.withStableProjectIdentity(

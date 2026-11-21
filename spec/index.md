@@ -43,6 +43,11 @@ changes a proposed rule into an accepted one.
 6. [Decision records](decisions/0001-model-scoped-guid-identity.md)
 7. [Implementation evidence](evidence.yaml)
 
+The [portable RDF conformance cases](conformance/README.md) have their own
+version and exercise selected current conversion profiles. Passing them is
+candidate compatibility evidence; it does not promote the proposed rules in
+this specification to accepted status.
+
 ## Scope
 
 The current release specifies identity only for IFC resources with a valid IFC

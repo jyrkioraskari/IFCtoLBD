@@ -25,6 +25,12 @@ POMs use `maven.compiler.release=21`, so a newer JDK still emits Java
 requires Node.js 20 or Node.js 22 or newer. Packaged runtime images include
 their documented Java runtime.
 
+CI runs the offline `ReleaseTests` gate and the portable RDF conformance cases
+separately on JDK 21 and JDK 25. Both builds retain the effective Maven compiler
+release of 21. Java 21 remains the minimum build and runtime version; a JDK is
+listed as verified only when its CI job passes. The conformance suite is
+documented in [spec/conformance/README.md](../spec/conformance/README.md).
+
 GraalVM users should select a GraalVM distribution for JDK 21 when building the
 `native` profile. Production code must stay on non-preview Java 21 APIs: records,
 sealed types, pattern-matching `switch`, and sequenced collections are suitable,

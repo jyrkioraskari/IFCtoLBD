@@ -1,0 +1,38 @@
+{
+  "suite_version": "0.1.0",
+  "cases": {
+    "building-inventory": {
+      "question": "How many walls does Level 04 - T.O. Fnd. Wall contain?",
+      "outputs": [{"name": "model", "input": "examples/getting-started/building-inventory/model.ifc", "profile": "core", "options": ["--url=https://example.org/ifctolbd/tutorial/"]}],
+      "query": "examples/getting-started/building-inventory/query.rq",
+      "expected": {"answer_file": "examples/getting-started/building-inventory/expected.txt"}
+    },
+    "missing-vs-false": {
+      "question": "Is LoadBearing absent in the source model but explicitly false in its companion?",
+      "outputs": [
+        {"name": "missing", "input": "examples/getting-started/data-completeness/model.ifc", "profile": "properties-simple", "options": ["--url=https://example.org/ifctolbd/tutorial/"]},
+        {"name": "false", "input": "spec/conformance/fixtures/load-bearing-false.ifc", "profile": "properties-simple", "options": ["--url=https://example.org/ifctolbd/tutorial/"]}
+      ],
+      "query": "examples/getting-started/data-completeness/query.rq",
+      "expected": {"missing_answer_file": "examples/getting-started/data-completeness/expected.txt", "property": "https://identifier.buildingsmart.org/uri/buildingsmart/ifc/4.3/prop/LoadBearing", "missing_count": 0, "false_value": false}
+    },
+    "identity-across-revisions": {
+      "question": "Does a renamed wall retain its exact IRI under revision-ready's model-scoped GUID policy?",
+      "outputs": [
+        {"name": "before", "input": "examples/getting-started/revision-comparison/before.ifc", "profile": "revision-ready", "options": ["--url=https://example.org/ifctolbd/tutorial/", "--model-scope=training-building"]},
+        {"name": "after", "input": "examples/getting-started/revision-comparison/after.ifc", "profile": "revision-ready", "options": ["--url=https://example.org/ifctolbd/tutorial/", "--model-scope=training-building"]}
+      ],
+      "query": "examples/getting-started/revision-comparison/query.rq",
+      "expected": {"answer_file": "examples/getting-started/revision-comparison/expected.txt"}
+    },
+    "equivalent-lengths": {
+      "question": "Do 2500 mm and 2.5 m material layers yield 2.5 m, and does an explicit metre property unit override the millimetre project unit?",
+      "outputs": [
+        {"name": "millimetres", "input": "spec/conformance/fixtures/length-mm.ifc", "profile": "materials-bmo", "options": ["--url=https://example.org/ifctolbd/conformance/"]},
+        {"name": "metres", "input": "spec/conformance/fixtures/length-m.ifc", "profile": "materials-bmo", "options": ["--url=https://example.org/ifctolbd/conformance/"]},
+        {"name": "explicit-unit", "input": "spec/conformance/fixtures/length-mm.ifc", "profile": "properties-opm", "options": ["--url=https://example.org/ifctolbd/conformance/", "--level=3", "--hasUnits=true"]}
+      ],
+      "expected": {"value": 2.5, "unit": "http://qudt.org/vocab/unit/M", "explicit_property_label": "Pset_Conformance:testLength", "explicit_method": "IFC_EXPLICIT_UNIT"}
+    }
+  }
+}
