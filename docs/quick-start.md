@@ -100,6 +100,10 @@ files, it lists every path and the number of output files.
 For the first conversion, leave settings and filters as they are. Click **Run**
 and wait for completion in the conversion log. Locate the output at the displayed
 path. You now have RDF, but you can get a useful answer without reading Turtle.
+The status card stays visible after reading or conversion finishes. If you select
+**Cancel**, wait for **Stopped** before starting another read. An interrupted
+conversion may leave an incomplete output file at the proposed path; inspect or
+remove that file before retrying.
 The following checked query step targets development version 2.56.0. Open
 **Query**, paste the
 [building inventory query](../examples/getting-started/building-inventory/query.rq),

@@ -99,10 +99,11 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 
 	@Override
 	public IFCtoLBDConverter call() throws Exception {
+		IFCtoLBDConverter c1nb = null;
+		boolean transferred = false;
 		try {
 			this.eventBus.post(new WorkflowProgressEvent(this.operationId, "Reading IFC model",
 					WorkflowProgressEvent.INDETERMINATE));
-			IFCtoLBDConverter c1nb;
 			try {
 				c1nb = this.geometryArtifactFormat == null
 						? new IFCtoLBDConverter(this.uriBase, false, this.props_level)
@@ -111,7 +112,6 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 								java.net.URI.create(this.geometryArtifactBaseUri)), this.uriBase, false, this.props_level);
 				boolean loaded = c1nb.convert_read_in_phase(this.ifc_filename,this.target_file, this.hasGeometry,this.hasPerformanceBoost,this.exportIfcOWL,this.hasBuildingElements,this.hasBuildingProperties,this.hasBoundingBoxWKT,this.hasUnits,this.hasInterfaces);
 				if (!loaded) {
-					c1nb.close();
 					this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, this.operationId));
 					return null;
 				}
@@ -124,13 +124,16 @@ public class ReadinInThread implements Callable<IFCtoLBDConverter> {
 			}
 			this.eventBus.post(new WorkflowProgressEvent(this.operationId, "Discovering element types and property sets", 0.9));
 			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.READ_IN, this.operationId));
+			transferred = true;
 			return c1nb;
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.eventBus.post(new ProcessReadyEvent(ProcessReadyEvent.ERROR, this.operationId));
 			this.eventBus.post(new IFCtoLBD_SystemStatusEvent(e.getMessage()));
+			return null;
+		} finally {
+			if (!transferred && c1nb != null) c1nb.close();
 		}
-		return null;
 	}
 
 

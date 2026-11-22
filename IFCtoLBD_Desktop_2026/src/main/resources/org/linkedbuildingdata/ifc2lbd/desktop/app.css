@@ -412,6 +412,11 @@
     -fx-faint-focus-color: transparent;
 }
 
+.button:focused {
+    -fx-border-color: #1d4ed8;
+    -fx-border-width: 2px;
+}
+
 .primary-button {
     -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb);
     -fx-text-fill: #ffffff;
@@ -650,13 +655,11 @@
 }
 
 .shape-remove-button {
-    -fx-min-width: 20px;
-    -fx-pref-width: 20px;
-    -fx-max-width: 20px;
-    -fx-min-height: 20px;
-    -fx-pref-height: 20px;
-    -fx-max-height: 20px;
-    -fx-padding: 0;
+    -fx-min-width: 64px;
+    -fx-pref-width: 64px;
+    -fx-min-height: 28px;
+    -fx-pref-height: 28px;
+    -fx-padding: 2px 6px;
     -fx-background-color: rgba(255, 255, 255, 0.72);
     -fx-border-color: #cbd5e1;
     -fx-border-radius: 10px;
@@ -798,12 +801,12 @@
 }
 
 .floating-card-window-button {
-    -fx-min-width: 24px;
-    -fx-pref-width: 24px;
-    -fx-max-width: 24px;
-    -fx-min-height: 22px;
-    -fx-pref-height: 22px;
-    -fx-max-height: 22px;
+    -fx-min-width: 28px;
+    -fx-pref-width: 28px;
+    -fx-max-width: 28px;
+    -fx-min-height: 28px;
+    -fx-pref-height: 28px;
+    -fx-max-height: 28px;
     -fx-padding: 0;
     -fx-background-color: transparent;
     -fx-border-color: #aebed1;

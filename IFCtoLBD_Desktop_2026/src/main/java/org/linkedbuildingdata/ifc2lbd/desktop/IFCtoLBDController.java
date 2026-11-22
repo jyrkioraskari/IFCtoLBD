@@ -52,6 +52,8 @@ import java.util.UUID;
 import org.linkedbuildingdata.ifc2lbd.GeometryArtifactFormat;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Callable;
+import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -197,6 +199,9 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private final EventBus eventBus = IFC2LBD_ApplicationEventBusService.getDefaultEventBus();
 	private ExecutorService executor = Executors.newFixedThreadPool(1);
+	private volatile Thread activeTaskThread;
+	private volatile boolean cancellationRequested;
+	private volatile boolean shuttingDown;
 
 	@FXML
 	private AnchorPane root;
@@ -596,8 +601,8 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final int MAX_PREVIEW_POINTS = 220_000;
 	private static final int MAX_PREVIEW_TRIANGLES = 60_000;
 	private static final double FLOATING_CARD_HEADER_HEIGHT = 38.0;
-	private static final double FLOATING_CARD_WINDOW_BUTTON_WIDTH = 24.0;
-	private static final double FLOATING_CARD_WINDOW_BUTTON_HEIGHT = 22.0;
+	private static final double FLOATING_CARD_WINDOW_BUTTON_WIDTH = 28.0;
+	private static final double FLOATING_CARD_WINDOW_BUTTON_HEIGHT = 28.0;
 	private static final double FLOATING_CARD_INITIAL_X = 14.0;
 	private static final double FLOATING_CARD_INITIAL_Y = 14.0;
 	private static final double FLOATING_CARD_INITIAL_GAP = 12.0;
@@ -1792,11 +1797,16 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void readInIFCExecute(ConversionSettings settings) {
+		if (this.cancellationRequested || this.shuttingDown) {
+			this.conversionTxt.appendText("Wait for the current operation to stop before reading another model.\n");
+			return;
+		}
 		if ((this.running_read_in != null && !this.running_read_in.isDone())
 				|| (this.running_conversion != null && !this.running_conversion.isDone())) {
 			this.conversionTxt.appendText("The previous read-in or conversion is still running.\n");
 			return;
 		}
+		closeLoadedConverter();
 		persistSettings(settings);
 		this.readInSettings = settings;
 		setRunReady(false);
@@ -1812,15 +1822,14 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				throw new IllegalArgumentException("External geometry requires a directory and base IRI.");
 			if (settings.geometryArtifactFormat() != null && !settings.hasGeometry())
 				throw new IllegalArgumentException("External geometry requires geometry export to be enabled.");
-			this.running_read_in = this.executor
-					.submit(new ReadinInThread(operationId, settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
+			this.running_read_in = submitTracked(new ReadinInThread(operationId, settings.ifcFileName(), settings.baseUri(), settings.rdfTargetName(),
 							settings.propsLevel(), settings.hasBuildingElements(),
 							settings.hasSeparateBuildingElementsModel(), settings.hasBuildingProperties(),
 							settings.hasSeparatePropertiesModel(), settings.hasPropertiesBlankNodes(),
 							settings.hasGeolocation(), settings.hasGeometry() || settings.hasElementWireframe(), settings.exportIfcOwl(),
 							settings.hasUnits(), settings.hasPerformanceBoost(), settings.hasBoundingBoxWkt(),
 							settings.hasInterfaces(), settings.geometryArtifactFormat(), settings.geometryArtifactDirectory(),
-							settings.geometryArtifactBaseUri()));
+								settings.geometryArtifactBaseUri()));
 		} catch (Exception e) {
 			this.options_panel.setDisable(false);
 			finishWorkflow(operationId, "Read-in failed", false);
@@ -1896,7 +1905,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		this.geometryFitButton = new Button("Fit");
 		this.geometryFitButton.getStyleClass().add("geometry-tool-button");
-		this.geometryFitButton.setFocusTraversable(false);
+		this.geometryFitButton.setAccessibleText("Fit geometry preview to window");
 		this.geometryFitButton.setOnAction(event -> {
 			fitGeometryPreview();
 			event.consume();
@@ -1993,7 +2002,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			this.shaclShapesList.setItems(this.shapeValidationItems);
 			this.shaclShapesList.setCellFactory(list -> new ListCell<>() {
 				private final Label shapeLabel = new Label();
-				private final Button removeButton = new Button("x");
+					private final Button removeButton = new Button("Remove");
 				private final HBox row = new HBox(8.0, this.shapeLabel, this.removeButton);
 
 				{
@@ -2004,7 +2013,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					HBox.setHgrow(this.shapeLabel, Priority.ALWAYS);
 					this.removeButton.getStyleClass().add("shape-remove-button");
 					this.removeButton.setTooltip(new Tooltip("Remove rule"));
-					this.removeButton.setFocusTraversable(false);
 				}
 
 				@Override
@@ -2020,6 +2028,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					setText(null);
 					ValidationFindings.Counts counts = ValidationFindings.count(item.violations);
 					this.shapeLabel.setText(item.displayName + "\n" + item.sourceName + " · " + counts.summary());
+						this.removeButton.setAccessibleText("Remove " + item.displayName + " rule");
 					this.removeButton.setOnAction(event -> removeShapeItem(item));
 					setGraphic(this.row);
 					setTooltip(new Tooltip(item.message));
@@ -2513,12 +2522,71 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		return operationId;
 	}
 
+	private <T> Future<T> submitTracked(Callable<T> work) {
+		return this.executor.submit(() -> {
+			this.activeTaskThread = Thread.currentThread();
+			T result = null;
+			try {
+				if (!this.cancellationRequested && !this.shuttingDown) {
+					result = work.call();
+				}
+				return result;
+			} finally {
+				this.activeTaskThread = null;
+				if (this.shuttingDown) {
+					if (result instanceof IFCtoLBDConverter converter) converter.close();
+					closeLoadedConverter();
+				} else if (this.cancellationRequested) {
+					Platform.runLater(this::finishCancellationIfReady);
+				}
+			}
+		});
+	}
+
+	private void closeLoadedConverter() {
+		Future<IFCtoLBDConverter> readIn = this.running_read_in;
+		if (readIn == null || !readIn.isDone()) return;
+		this.running_read_in = null;
+		try {
+			IFCtoLBDConverter converter = readIn.get();
+			if (converter != null) converter.close();
+		} catch (InterruptedException e) {
+			Thread.currentThread().interrupt();
+		} catch (ExecutionException | CancellationException e) {
+			// The read-in did not transfer a converter to the controller.
+		}
+	}
+
+	private void finishCancellationIfReady() {
+		if (!this.cancellationRequested || this.activeTaskThread != null) return;
+		if ((this.running_read_in != null && !this.running_read_in.isDone())
+				|| (this.running_conversion != null && !this.running_conversion.isDone())
+				|| (this.running_validation != null && !this.running_validation.isDone())) {
+			Platform.runLater(this::finishCancellationIfReady);
+			return;
+		}
+		long operationId = this.activeOperationId;
+		closeLoadedConverter();
+		this.running_conversion = null;
+		this.running_validation = null;
+		this.runAfterReadIn = false;
+		this.element_types_checkbox.setRoot(null);
+		this.propertysets_checkbox.setRoot(null);
+		resetConversionOutput();
+		setRunReady(false);
+		this.options_panel.setDisable(false);
+		clearGeometryPreview("Conversion cancelled.");
+		this.conversionTxt.appendText("Operation stopped. Output may be incomplete; check the target file before retrying.\n");
+		this.cancellationRequested = false;
+		finishWorkflow(operationId, "Stopped — check output, then read IFC again", false);
+	}
+
 	private boolean isActiveOperation(long operationId) {
 		return operationId >= 0 && operationId == this.activeOperationId;
 	}
 
 	private void updateWorkflowStage(long operationId, String stage, double progress) {
-		if (!isActiveOperation(operationId)) {
+		if (this.cancellationRequested || !isActiveOperation(operationId)) {
 			return;
 		}
 		this.workflowStatusLabel.setText(stage);
@@ -2527,18 +2595,19 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	private void finishWorkflow(long operationId, String status, boolean successful) {
-		if (!isActiveOperation(operationId)) {
+		if (this.cancellationRequested || !isActiveOperation(operationId)) {
 			return;
 		}
 		updateWorkflowElapsed();
 		if (this.workflowElapsedTimeline != null) {
 			this.workflowElapsedTimeline.stop();
 		}
-		this.workflowStatusLabel.setText(status);
+		this.workflowStatusLabel.setText(!successful && !status.startsWith("Stopped")
+				? status + " — see Conversion Log, correct the issue, and retry" : status);
 		this.workflowProgressBar.setProgress(successful ? 1.0 : 0.0);
 		this.cancelWorkflowButton.setDisable(true);
 		this.activeOperationId = -1;
-		setWorkflowStatusVisible(false);
+		setWorkflowStatusVisible(true);
 	}
 
 	private void setWorkflowStatusVisible(boolean visible) {
@@ -2558,27 +2627,13 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (!isActiveOperation(operationId)) {
 			return;
 		}
-		if (this.running_read_in != null && !this.running_read_in.isDone()) {
-			this.running_read_in.cancel(true);
-		}
-		if (this.running_conversion != null && !this.running_conversion.isDone()) {
-			this.running_conversion.cancel(true);
-		}
-		if (this.running_validation != null && !this.running_validation.isDone()) {
-			this.running_validation.cancel(true);
-		}
-		finishWorkflow(operationId, "Cancelled — read IFC again to continue", false);
-		this.running_read_in = null;
-		this.running_conversion = null;
-		this.running_validation = null;
-		this.runAfterReadIn = false;
-		this.element_types_checkbox.setRoot(null);
-		this.propertysets_checkbox.setRoot(null);
-		resetConversionOutput();
-		setRunReady(false);
-		this.options_panel.setDisable(false);
-		clearGeometryPreview("Conversion cancelled.");
-		this.conversionTxt.appendText("Operation cancelled. Read the IFC model again before converting.\n");
+		updateWorkflowStage(operationId, "Stopping current operation…", ProgressBar.INDETERMINATE_PROGRESS);
+		this.cancellationRequested = true;
+		this.cancelWorkflowButton.setDisable(true);
+		this.conversionTxt.appendText("Stop requested. Waiting for the current step to finish.\n");
+		Thread worker = this.activeTaskThread;
+		if (worker != null) worker.interrupt();
+		Platform.runLater(this::finishCancellationIfReady);
 	}
 
 	private static void setUnavailableStyle(Node node, boolean unavailable) {
@@ -2733,6 +2788,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		Button minimizeButton = new Button("_");
 		configureFloatingCardWindowButton(minimizeButton);
+		minimizeButton.setAccessibleText("Minimize " + title);
 		setFloatingCardWindowButtonAction(card, minimizeButton, () -> {
 			card.toFront();
 			minimizeFloatingCard(card);
@@ -2740,6 +2796,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 		Button maximizeButton = new Button("□");
 		configureFloatingCardWindowButton(maximizeButton);
+		maximizeButton.setAccessibleText("Bring " + title + " to front");
 		setFloatingCardWindowButtonAction(card, maximizeButton, () -> bringFloatingCardToFront(card));
 
 		HBox header = new HBox(6, titleLabel, spacer, minimizeButton, maximizeButton);
@@ -2755,7 +2812,6 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	private static void configureFloatingCardWindowButton(Button button) {
 		button.getStyleClass().add("floating-card-window-button");
-		button.setFocusTraversable(false);
 		button.setPickOnBounds(false);
 		button.setMinSize(FLOATING_CARD_WINDOW_BUTTON_WIDTH, FLOATING_CARD_WINDOW_BUTTON_HEIGHT);
 		button.setPrefSize(FLOATING_CARD_WINDOW_BUTTON_WIDTH, FLOATING_CARD_WINDOW_BUTTON_HEIGHT);
@@ -2824,7 +2880,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private void setFloatingCardWindowButtonAction(TitledPane card, Button button, Runnable action) {
 		this.floatingWindowButtonActions.put(button, action);
 		this.floatingWindowButtonCards.put(button, card);
-		button.setOnAction(null);
+		button.setOnAction(event -> action.run());
 		button.addEventFilter(MouseEvent.MOUSE_PRESSED, event -> {
 			if (event.getButton() == MouseButton.PRIMARY && isInsideWindowButtonVisualBounds(button, event)) {
 				this.pressedFloatingWindowButton = button;
@@ -3281,7 +3337,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		this.shaclShapesList.refresh();
 		refreshValidationFindings();
 		this.validateStatusLabel.setText("Validating " + this.shapeValidationItems.size() + " shapes...");
-		this.running_validation = this.executor.submit(() -> {
+		this.running_validation = submitTracked(() -> {
 			Model dataModel = null;
 			try {
 				dataModel = readExplorationModel(outputFile);
@@ -3314,6 +3370,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			} finally {
 				if (dataModel != null) dataModel.close();
 			}
+			return null;
 		});
 	}
 
@@ -4256,6 +4313,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@FXML
 	private void convertIFCToRDF() {
+		if (this.cancellationRequested || this.shuttingDown) {
+			this.conversionTxt.appendText("Wait for the current operation to stop before converting.\n");
+			return;
+		}
 		ConversionSettings currentSettings = currentSettings();
 		if (currentSettings.ifcFileName() == null || currentSettings.rdfTargetName() == null) {
 			this.conversionTxt.appendText("Select IFC and target files before conversion.\n");
@@ -4314,7 +4375,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 				this.pendingConversionRequest = conversionRequest;
 				if (!currentSettings.hasSeparateBuildingElementsModel()
 						&& !hasConversionRequestChanged(this.lastSuccessfulConversionRequest, conversionRequest)) {
-					this.running_conversion = this.executor.submit(() -> {
+					this.running_conversion = submitTracked(() -> {
 						try {
 							this.eventBus.post(new WorkflowProgressEvent(operationId, "Writing RDF output", 0.82));
 							if (currentSettings.exportAsIcdd()) {
@@ -4334,7 +4395,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 					});
 					return;
 				}
-			this.running_conversion = this.executor.submit(new ConversionThread(operationId, converter, selected_types, selected_psets,
+			this.running_conversion = submitTracked(new ConversionThread(operationId, converter, selected_types, selected_psets,
 					currentSettings.ifcFileName(), currentSettings.baseUri(), currentSettings.rdfTargetName(),
 					currentSettings.propsLevel(), currentSettings.hasBuildingElements(),
 					currentSettings.hasSeparateBuildingElementsModel(), currentSettings.hasBuildingProperties(),
@@ -4588,19 +4649,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	}
 
 	public void shutdown() {
+		this.shuttingDown = true;
 		if (this.workflowElapsedTimeline != null) {
 			this.workflowElapsedTimeline.stop();
 		}
-		if (this.running_read_in != null && !this.running_read_in.isDone()) {
-			this.running_read_in.cancel(true);
-		}
-		if (this.running_conversion != null && !this.running_conversion.isDone()) {
-			this.running_conversion.cancel(true);
-		}
-		if (this.running_validation != null && !this.running_validation.isDone()) {
-			this.running_validation.cancel(true);
-		}
 		this.executor.shutdownNow();
+		if (this.activeTaskThread == null) closeLoadedConverter();
 		this.explorationModelCache.close();
 		try {
 			this.eventBus.unregister(this);
@@ -4624,7 +4678,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 
 	@Subscribe
 	public void handleEvent(final WorkflowProgressEvent event) {
-		if (!isActiveOperation(event.operationId())) {
+		if (this.cancellationRequested || !isActiveOperation(event.operationId())) {
 			return;
 		}
 		Platform.runLater(() -> updateWorkflowStage(event.operationId(), event.stage(), event.progress()));
@@ -4633,18 +4687,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	@Subscribe
 	public void handleEvent(final ProcessReadyEvent event) {
 		long operationId = event.getOperationId();
-		if (!isActiveOperation(operationId)) {
+		if (this.cancellationRequested || this.shuttingDown || !isActiveOperation(operationId)) {
 			return;
 		}
 		Platform.runLater(() -> {
-			if (isActiveOperation(operationId)) {
+			if (!this.cancellationRequested && isActiveOperation(operationId)) {
 				this.options_panel.setDisable(false);
 			}
 		});
 
 		if (event.getPhase() == ProcessReadyEvent.READ_IN) {
 			Platform.runLater(() -> {
-				if (!isActiveOperation(operationId)) {
+				if (this.cancellationRequested || !isActiveOperation(operationId)) {
 					return;
 				}
 				// prepare tree items
@@ -4724,7 +4778,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (event.getPhase() == ProcessReadyEvent.CONVERT) {
 			Platform.runLater(() -> {
-				if (!isActiveOperation(operationId)) {
+				if (this.cancellationRequested || !isActiveOperation(operationId)) {
 					return;
 				}
 				ConversionRequest successfulRequest = this.pendingConversionRequest;
@@ -4759,7 +4813,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		}
 		if (event.getPhase() == ProcessReadyEvent.ERROR) {
 			Platform.runLater(() -> {
-				if (!isActiveOperation(operationId)) {
+				if (this.cancellationRequested || !isActiveOperation(operationId)) {
 					return;
 				}
 				this.pendingConversionRequest = null;
