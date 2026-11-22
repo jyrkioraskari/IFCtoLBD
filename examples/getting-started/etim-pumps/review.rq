@@ -1,0 +1,34 @@
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX supply: <https://w3id.org/ifctolbd/supply-chain#>
+
+SELECT DISTINCT ?identifier ?candidate ?status ?propertySet ?property ?value ?datatype ?unit ?support ?conflict ?missing WHERE {
+  VALUES ?subtype { <https://identifier.buildingsmart.org/uri/etim/etim/10.0/class/EC010980> }
+  ?pump a bot:Element ; rdfs:label ?identifier .
+  FILTER NOT EXISTS {
+    ?pump supply:hasClassification ?assertion .
+    ?assertion supply:resolvedConcept ?subtype .
+  }
+  OPTIONAL {
+    ?pump supply:hasClassificationSuggestion ?suggestion .
+    ?suggestion supply:suggestedConcept ?suggestedCandidate .
+  }
+  OPTIONAL { ?pump supply:hasClassificationAssessment ?assessment .
+             ?assessment supply:classificationStatus ?assessmentStatus . }
+  OPTIONAL { ?assessment supply:consideredConcept ?assessmentCandidate }
+  BIND(COALESCE(?suggestedCandidate, ?assessmentCandidate) AS ?candidate)
+  BIND(COALESCE(?suggestion, ?assessment) AS ?review)
+  OPTIONAL {
+    ?review supply:hasObservation ?observation .
+    ?observation supply:sourcePropertySetName ?propertySet ;
+                 supply:sourcePropertyName ?property ;
+                 supply:sourceValue ?value .
+    BIND(DATATYPE(?value) AS ?datatype)
+    OPTIONAL { ?observation supply:sourceUnit ?unit }
+  }
+  OPTIONAL { ?review supply:evidence ?support }
+  OPTIONAL { ?review supply:contradiction ?conflict }
+  OPTIONAL { ?review supply:missingInformation ?missing }
+  BIND(IF(BOUND(?suggestedCandidate), "suggested", COALESCE(?assessmentStatus, "unresolved")) AS ?status)
+}
+ORDER BY ?identifier ?candidate ?property

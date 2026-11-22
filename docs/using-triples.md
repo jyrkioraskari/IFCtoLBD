@@ -155,6 +155,24 @@ SELECT ?interface ?origin ?thing ?physicalOrVirtual ?internalOrExternal WHERE {
 }
 ```
 
+For a reviewed interface across two model revisions, use the optional
+[`ReviewedInterfaceImporter` example](../examples/verified-interfaces/README.md).
+Its companion graph uses `ifctolbd:ReviewedPair` as the interface origin and
+records `ifctolbd:verificationMethod`, `ifctolbd:reviewEvidence`, and both
+`ifctolbd:sourceRevision` values. The
+[checked query](../examples/verified-interfaces/query.rq) retrieves the
+renovation insulation and existing wall linked by that verified interface.
+Geometric screening writes `ifctolbd:GeometryInterfaceCandidate` resources in
+a separate graph; it never promotes them to `bot:Interface`.
+
+The optional [surface-clearance example](../examples/clearance/README.md)
+writes `ifctolbd:ClearanceMeasurement` with `firstElement`, `secondElement`,
+their model scopes and revisions, `distanceMetres`, `distanceUnit`,
+`clearanceStatus`, `clearanceMethod`, `toleranceMetres`, and any `limitation`.
+The [SPARQL query](../examples/clearance/query.rq) returns duct-to-slab
+clearance with its method and source revisions. A missing measurement has no
+`distanceMetres` triple.
+
 When IFC zone export is selected, `IfcRelAssignsToGroup` becomes
 `bot:containsZone`. A space can therefore occur in several zones without one
 membership replacing another:

@@ -26,6 +26,8 @@ class EtimClassificationSuggestionStageTest {
 	void ranksCandidateWithIndependentEvidenceAndReportsContradictionsAndMissingInformation() {
 		Fixture fixture = fixture("Centrifugal circulation pump for heating water");
 		Resource flow = property(fixture.source(), fixture.ifc(), "urn:ifc:flow", "Flow rate", "20");
+		flow.addProperty(fixture.ifc().getUnit_IfcPropertySingleValue(),
+				fixture.source().createResource("urn:ifc:flow-unit"));
 		externalIdentifier(fixture.source(), fixture.ifc(), flow, "EF0001");
 		Resource voltage = stringProperty(fixture.source(), fixture.ifc(), "urn:ifc:voltage", "Voltage", "wrong");
 		propertySet(fixture.source(), fixture.ifc(), fixture.element(), flow, voltage);
@@ -43,6 +45,14 @@ class EtimClassificationSuggestionStageTest {
 		assertTrue(suggestion.hasProperty(fixture.output().createProperty(SUPPLY + "evidence")));
 		assertTrue(suggestion.hasProperty(fixture.output().createProperty(SUPPLY + "contradiction")));
 		assertTrue(suggestion.hasProperty(fixture.output().createProperty(SUPPLY + "missingInformation")));
+		Resource observation = suggestion.getPropertyResourceValue(
+				fixture.output().createProperty(SUPPLY + "hasObservation"));
+		assertTrue(observation.hasLiteral(fixture.output().createProperty(SUPPLY + "sourcePropertySetName"), "Pset_Test"));
+		assertTrue(observation.hasProperty(fixture.output().createProperty(SUPPLY + "sourceValue")));
+		assertTrue(suggestion.listProperties(fixture.output().createProperty(SUPPLY + "hasObservation"))
+				.toList().stream().map(value -> value.getResource()).anyMatch(value -> value.hasProperty(
+					fixture.output().createProperty(SUPPLY + "sourceUnitResource"),
+					fixture.output().createResource("urn:ifc:flow-unit"))));
 		assertFalse(fixture.target().hasProperty(fixture.output().createProperty(SUPPLY + "hasClassification")));
 		assertFalse(fixture.output().contains(fixture.target(), RDF.type,
 				fixture.output().createResource(CLASS_URI)));
@@ -62,6 +72,20 @@ class EtimClassificationSuggestionStageTest {
 				fixture.output().createProperty(SUPPLY + "hasClassificationAssessment"));
 		assertEquals("abstained",
 				assessment.getProperty(fixture.output().createProperty(SUPPLY + "classificationStatus")).getString());
+	}
+
+	@Test
+	void retainsReviewAssessmentWhenRegistryHasNoCandidate() {
+		Fixture fixture = fixture(null);
+		EtimClassificationSuggestionStage.suggest(fixture.source(), fixture.ifc(), fixture.output(),
+				fixture.properties(), Map.of(fixture.element(), fixture.target()), request -> java.util.Optional.empty(),
+				Set.of(), List.of(), List.of());
+		Resource assessment = fixture.target().getPropertyResourceValue(
+				fixture.output().createProperty(SUPPLY + "hasClassificationAssessment"));
+		assertTrue(assessment.hasLiteral(fixture.output().createProperty(SUPPLY + "classificationStatus"),
+				"abstained"));
+		assertFalse(assessment.hasProperty(fixture.output().createProperty(SUPPLY + "consideredConcept")));
+		assertTrue(assessment.hasProperty(fixture.output().createProperty(SUPPLY + "missingInformation")));
 	}
 
 	@Test

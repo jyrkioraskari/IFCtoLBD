@@ -12,7 +12,12 @@ Each summary collects:
 - **materials and material layers** — the material assignments produced by the
   opt-in [`materials-bmo`](../docs/materials-bmo.md) profile, including direct
   materials, layer sets with ordered layers, thicknesses and units, and
-  occurrence-specific layer-set usage.
+  occurrence-specific layer-set usage;
+- **optional classification review** — source assertions, ranked suggestions,
+  reviewed acceptances, abstentions, and their IFC observations remain separate
+  under `classifications` when the converter's ETIM enrichment is enabled.
+  The web detail shows the class and origin first; expand **Evidence and element
+  data** for source property sets, values, datatypes, units, and review links.
 
 The tool is a small standalone Python project (like `IFCtoLBD_Python`). It is
 not part of the Maven reactor.

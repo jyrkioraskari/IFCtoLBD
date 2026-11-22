@@ -1,0 +1,12 @@
+PREFIX bot: <https://w3id.org/bot#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX supply: <https://w3id.org/ifctolbd/supply-chain#>
+
+SELECT ?identifier ?pump ?origin WHERE {
+  VALUES ?subtype { <https://identifier.buildingsmart.org/uri/etim/etim/10.0/class/EC010980> }
+  ?pump a bot:Element ; rdfs:label ?identifier ; supply:hasClassification ?assertion .
+  ?assertion supply:resolvedConcept ?subtype ;
+             supply:classificationStatus ?origin .
+  FILTER (?origin IN ("supplied", "accepted"))
+}
+ORDER BY ?identifier ?origin

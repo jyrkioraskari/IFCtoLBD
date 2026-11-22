@@ -100,7 +100,8 @@
   </div>
   <div id="detail">
     <h2 id="detailTitle"></h2>
-    <pre id="detailJson"></pre>
+    <p id="detailClass"></p>
+    <details><summary>Evidence and element data</summary><pre id="detailJson"></pre></details>
   </div>
 </section>
 
@@ -226,6 +227,11 @@ function showDetail(summary, tr) {
   tr.classList.add("selected");
   $("detail").style.display = "block";
   $("detailTitle").textContent = summary.label || summary.iri;
+  const classifications = summary.classifications || {};
+  const primary = (classifications.assertions || [])[0] || (classifications.suggestions || [])[0];
+  $("detailClass").textContent = primary
+    ? `ETIM class: ${primary.class || "unresolved"} (${primary.origin})`
+    : "ETIM class: unresolved";
   $("detailJson").textContent = JSON.stringify(summary, null, 2);
   $("detail").scrollIntoView({ behavior: "smooth", block: "nearest" });
 }

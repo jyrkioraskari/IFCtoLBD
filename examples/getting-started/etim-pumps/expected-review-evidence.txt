@@ -1,0 +1,12 @@
+P-Ambiguous|missing|IFC property observations
+P-Ambiguous|missing|independent evidence sufficient to distinguish an ETIM subtype
+P-Contradictory|conflict|exact-name property Max. discharge flow has incompatible datatype, unit, or allowed value
+P-Contradictory|missing|independent evidence sufficient to distinguish an ETIM subtype
+P-Reviewed|missing|complete constraints for observed property Max. discharge flow
+P-Reviewed|support|exact-name property match: Max. discharge flow value=12.
+P-Reviewed|support|observed-description-overlap: built, circulation, pump
+P-Reviewed|support|published-ifc-relationship: IfcPump
+P-Suggested|missing|complete constraints for observed property Max. discharge flow
+P-Suggested|support|exact-name property match: Max. discharge flow value=12.
+P-Suggested|support|observed-description-overlap: built, circulation, pump
+P-Suggested|support|published-ifc-relationship: IfcPump

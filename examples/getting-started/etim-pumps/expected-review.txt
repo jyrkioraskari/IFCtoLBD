@@ -1,0 +1,4 @@
+P-Ambiguous|EC010980|abstained||||
+P-Contradictory|EC010980|abstained|Pset_PumpOccurrence|Max. discharge flow|unknown|http://www.w3.org/2001/XMLSchema#string
+P-Reviewed|EC010980|suggested|Pset_PumpOccurrence|Max. discharge flow|12.|http://www.w3.org/2001/XMLSchema#double
+P-Suggested|EC010980|suggested|Pset_PumpOccurrence|Max. discharge flow|12.|http://www.w3.org/2001/XMLSchema#double

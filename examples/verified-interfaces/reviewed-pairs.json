@@ -1,0 +1,16 @@
+[
+  {
+    "first": {
+      "modelScope": "existing",
+      "sourceRevision": "a4b85edef7ee4e25a35012d430df18c8ca1089d9465215ffe52977e30ca6f5c9",
+      "elementIri": "https://example.org/interface/model/existing/element/59796640-0000-0000-0000-000000000008"
+    },
+    "second": {
+      "modelScope": "renovation",
+      "sourceRevision": "70f3aba17e6259c63bb3674897f566336bd8f74a161d2d501f26fd93c9effdc2",
+      "elementIri": "https://example.org/interface/model/renovation/element/59796640-0000-0000-0000-000000000008"
+    },
+    "verificationMethod": "site-inspection",
+    "reviewEvidence": "review:contact-42"
+  }
+]

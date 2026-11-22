@@ -50,20 +50,32 @@ final class EtimClassificationSuggestionStage {
 			String description = observedDescription(ifc, source);
 			List<ClassificationResolver.Candidate> discovered = candidatesByEntity.computeIfAbsent(entity,
 					value -> resolver.candidates(new ClassificationResolver.CandidateRequest("ETIM", value)));
-			List<RankedCandidate> ranked = discovered.stream()
+			List<RankedCandidate> evaluated = discovered.stream()
 					.map(candidate -> rank(candidate, entity, description, observations, units, ifc))
-					.filter(candidate -> candidate.score() >= MIN_SCORE
-							&& candidate.independentEvidence() >= MIN_INDEPENDENT_EVIDENCE)
 					.sorted(Comparator.comparingInt(RankedCandidate::score).reversed()
 							.thenComparing(value -> value.candidate().resolution().conceptUri()))
+					.toList();
+			List<RankedCandidate> ranked = evaluated.stream()
+					.filter(candidate -> candidate.score() >= MIN_SCORE
+							&& candidate.independentEvidence() >= MIN_INDEPENDENT_EVIDENCE)
 					.limit(MAX_CANDIDATES).toList();
 			if (ranked.isEmpty()) {
-				writeAbstention(output, target, entity, description, observations.size());
+				Resource assessment = writeAbstention(output, target, entity, description, observations.size());
+				evaluated.stream().limit(MAX_CANDIDATES).forEach(candidate -> {
+					assessment.addProperty(output.createProperty(NS + "consideredConcept"),
+							output.createResource(candidate.candidate().resolution().conceptUri()));
+					candidate.contradictions().forEach(value -> assessment.addLiteral(
+							output.createProperty(NS + "contradiction"), value));
+					candidate.missing().forEach(value -> assessment.addLiteral(
+							output.createProperty(NS + "missingInformation"), value));
+				});
+				writeObservations(output, assessment, observations, units, ifc);
 				continue;
 			}
 			int rank = 1;
 			for (RankedCandidate candidate : ranked) {
 				Resource suggestion = writeSuggestion(output, target, candidate, rank++);
+				writeObservations(output, suggestion, observations, units, ifc);
 				acceptance(target, candidate, acceptances).ifPresent(acceptance -> {
 					writeAcceptance(output, target, suggestion, candidate, acceptance);
 					EtimPropertyAnnotationStage.annotate(ifcModel, ifc, propertyOutput, source, target,
@@ -192,7 +204,7 @@ final class EtimClassificationSuggestionStage {
 		return suggestion;
 	}
 
-	private static void writeAbstention(Model output, Resource target, String entity, String description,
+	private static Resource writeAbstention(Model output, Resource target, String entity, String description,
 			int propertyCount) {
 		Resource assessment = output.createResource("urn:ifctolbd:etim-assessment:"
 				+ shortHash(target.getURI() + "|abstained"))
@@ -200,11 +212,40 @@ final class EtimClassificationSuggestionStage {
 				.addLiteral(output.createProperty(NS + "classificationStatus"), "abstained")
 				.addLiteral(output.createProperty(NS + "classificationCorrectness"), "not-assessed")
 				.addLiteral(output.createProperty(NS + "reason"), "insufficient-independent-evidence")
+				.addLiteral(output.createProperty(NS + "missingInformation"),
+						"independent evidence sufficient to distinguish an ETIM subtype")
 				.addLiteral(output.createProperty(NS + "observedIfcEntity"), entity)
 				.addLiteral(output.createProperty(NS + "observedPropertyCount"), propertyCount);
 		if (blank(description)) assessment.addLiteral(output.createProperty(NS + "missingInformation"),
 				"IFC name or description");
 		target.addProperty(output.createProperty(NS + "hasClassificationAssessment"), assessment);
+		return assessment;
+	}
+
+	private static void writeObservations(Model output, Resource assessment, List<Observation> observations,
+			UnitResolver units, IfcOWL ifc) {
+		for (Observation observation : observations) {
+			Resource evidence = output.createResource("urn:ifctolbd:etim-observation:"
+					+ shortHash(assessment.getURI() + "|" + observation.sourceProperty() + "|"
+							+ observation.lexicalValue()))
+					.addProperty(RDF.type, output.createResource(NS + "IfcClassificationObservation"))
+					.addLiteral(output.createProperty(NS + "sourcePropertySetName"), observation.setName())
+					.addLiteral(output.createProperty(NS + "sourcePropertyName"), observation.name())
+					.addProperty(output.createProperty(NS + "sourceValue"), observation.value());
+			if (observation.sourceProperty() != null && observation.sourceProperty().isURIResource())
+				evidence.addProperty(output.createProperty(PROV + "wasDerivedFrom"), observation.sourceProperty());
+			UnitResolver.Resolution resolvedUnit = units.resolve(observation.explicitUnit(),
+					observation.sourceType(), ifc);
+			if (resolvedUnit.originalCode() != null)
+				evidence.addLiteral(output.createProperty(NS + "sourceUnit"), resolvedUnit.originalCode());
+			if (resolvedUnit.qudtUri() != null)
+				evidence.addProperty(output.createProperty(NS + "normalizedUnit"),
+						output.createResource(resolvedUnit.qudtUri()));
+			if (observation.explicitUnit() != null && observation.explicitUnit().isURIResource())
+				evidence.addProperty(output.createProperty(NS + "sourceUnitResource"),
+						observation.explicitUnit());
+			assessment.addProperty(output.createProperty(NS + "hasObservation"), evidence);
+		}
 	}
 
 	private static java.util.Optional<EtimClassificationAcceptance> acceptance(Resource target,
@@ -247,6 +288,7 @@ final class EtimClassificationSuggestionStage {
 
 	private static void collectSet(Model model, IfcOWL ifc, Resource set, List<Observation> result) {
 		if (set == null) return;
+		String setName = text(set, ifc, "name_IfcRoot");
 		IfcMappingSupport.objectResources(set, ifc, "hasProperties_IfcPropertySet").forEach(property -> {
 			String name = text(property, ifc, "name_IfcProperty");
 			RDFNode wrapped = object(property, ifc.getNominalValue_IfcPropertySingleValue());
@@ -254,7 +296,7 @@ final class EtimClassificationSuggestionStage {
 			if (name == null || value == null || !value.isLiteral()) return;
 			RDFNode sourceType = wrapped != null && wrapped.isResource()
 					? wrapped.asResource().getPropertyResourceValue(RDF.type) : null;
-			result.add(new Observation(name, value, sourceType,
+			result.add(new Observation(setName == null ? "(unnamed)" : setName, name, property, value, sourceType,
 					resource(property, ifc.getUnit_IfcPropertySingleValue()),
 					EtimPropertyAnnotationStage.explicitIdentifiers(model, ifc, property)));
 		});
@@ -328,7 +370,8 @@ final class EtimClassificationSuggestionStage {
 		private final String label;
 		MatchKind(String label) { this.label = label; }
 	}
-	private record Observation(String name, RDFNode value, RDFNode sourceType, Resource explicitUnit,
+	private record Observation(String setName, String name, Resource sourceProperty, RDFNode value,
+			RDFNode sourceType, Resource explicitUnit,
 			Set<String> identifiers) {
 		String lexicalValue() { return value.asLiteral().getLexicalForm(); }
 	}

@@ -4,7 +4,8 @@ import json
 from pathlib import Path
 
 import pytest
-from rdflib import URIRef
+from rdflib import Graph, Literal, URIRef
+from rdflib.namespace import RDF
 
 from product_extractor import (
     element_type_counts,
@@ -71,11 +72,47 @@ def test_summary_schema(summaries):
             "label",
             "types",
             "ifcType",
+            "classifications",
             "attributes",
             "propertySets",
             "materials",
         }
         json.dumps(summary)  # must be JSON-serialisable
+
+
+def test_classification_export_keeps_origin_and_review_history():
+    graph = Graph()
+    supply = "https://w3id.org/ifctolbd/supply-chain#"
+    element = URIRef("urn:test:pump")
+    concept = URIRef("https://identifier.buildingsmart.org/uri/etim/etim/9.0/class/EC010980")
+    source = URIRef("urn:test:source")
+    suggestion = URIRef("urn:test:suggestion")
+    acceptance = URIRef("urn:test:acceptance")
+    graph.add((element, RDF.type, URIRef("https://w3id.org/bot#Element")))
+    graph.add((element, URIRef(supply + "hasClassification"), source))
+    graph.add((source, URIRef(supply + "classificationStatus"), Literal("supplied")))
+    graph.add((source, URIRef(supply + "resolvedConcept"), concept))
+    graph.add((element, URIRef(supply + "hasClassificationSuggestion"), suggestion))
+    graph.add((suggestion, URIRef(supply + "suggestedConcept"), concept))
+    graph.add((suggestion, URIRef(supply + "evidence"), Literal("observed flow")))
+    observation = URIRef("urn:test:observation")
+    graph.add((suggestion, URIRef(supply + "hasObservation"), observation))
+    graph.add((observation, URIRef(supply + "sourcePropertySetName"), Literal("Pset_PumpOccurrence")))
+    graph.add((observation, URIRef(supply + "sourcePropertyName"), Literal("Max. discharge flow")))
+    graph.add((observation, URIRef(supply + "sourceValue"), Literal(12.0)))
+    graph.add((element, URIRef(supply + "hasClassification"), acceptance))
+    graph.add((acceptance, URIRef(supply + "classificationStatus"), Literal("accepted")))
+    graph.add((acceptance, URIRef(supply + "resolvedConcept"), concept))
+    graph.add((acceptance, URIRef(supply + "reviewReference"), Literal("review:42")))
+    graph.add((acceptance, URIRef("http://www.w3.org/ns/prov#wasDerivedFrom"), suggestion))
+
+    record = summarize_graph(graph)[0]["classifications"]
+    assert {item["origin"] for item in record["assertions"]} == {"supplied", "accepted"}
+    assert record["suggestions"][0]["evidence"]["evidence"] == ["observed flow"]
+    assert record["suggestions"][0]["observations"][0]["propertySet"] == "Pset_PumpOccurrence"
+    assert record["suggestions"][0]["observations"][0]["datatype"] == "http://www.w3.org/2001/XMLSchema#double"
+    assert record["assertions"][0]["evidence"]["reviewReference"] == ["review:42"]
+    assert record["assertions"][0]["derivedFrom"] == [str(suggestion)]
 
 
 # --- identity, types, IFC type ------------------------------------------------

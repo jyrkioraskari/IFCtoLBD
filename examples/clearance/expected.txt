@@ -1,0 +1,1 @@
+https://example.org/clearance/model/duct/element/59796640-0000-0000-0000-000000000009|https://example.org/clearance/model/slab/element/59796640-0000-0000-0000-000000000008|0.200|m|separated|triangle-surface-distance-and-closed-solid-test|0.001|20de0200ea1650d030af01b8b0d51fe00d37d33d05762ac427988e4b657318db|d8023a1be11fd5face4f4b4d89bc0b2ef4c1b64211a8f443f060e815e368a414

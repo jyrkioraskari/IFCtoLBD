@@ -1,0 +1,14 @@
+PREFIX ifctolbd: <https://w3id.org/ifctolbd/mapping#>
+
+SELECT ?first ?second ?distance ?unit ?status ?method ?tolerance ?firstRevision ?secondRevision WHERE {
+  ?measurement a ifctolbd:ClearanceMeasurement ;
+    ifctolbd:firstElement ?first ;
+    ifctolbd:secondElement ?second ;
+    ifctolbd:distanceMetres ?distance ;
+    ifctolbd:distanceUnit ?unit ;
+    ifctolbd:clearanceStatus ?status ;
+    ifctolbd:clearanceMethod ?method ;
+    ifctolbd:toleranceMetres ?tolerance ;
+    ifctolbd:firstRevision ?firstRevision ;
+    ifctolbd:secondRevision ?secondRevision .
+}

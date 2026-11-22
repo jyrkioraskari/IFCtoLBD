@@ -82,6 +82,28 @@
     -fx-pref-width: 390px;
 }
 
+.left-rail-scroll,
+.left-rail-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.left-rail-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.geometry-card-scroll,
+.geometry-card-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.geometry-card-scroll {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
 .content-region {
     -fx-min-width: 400px;
 }

@@ -459,6 +459,52 @@ def extract_materials(graph, element):
     ]
 
 
+_SUPPLY = "https://w3id.org/ifctolbd/supply-chain#"
+
+
+def _classification_records(graph, element, link, concept, status):
+    records = []
+    for record in sorted(graph.objects(element, URIRef(_SUPPLY + link)), key=str):
+        evidence = {}
+        for field in ("evidence", "contradiction", "missingInformation", "reviewReference"):
+            evidence[field] = sorted(str(value) for value in graph.objects(record, URIRef(_SUPPLY + field)))
+        observations = []
+        for observation in sorted(graph.objects(record, URIRef(_SUPPLY + "hasObservation")), key=str):
+            value = _first(graph, observation, URIRef(_SUPPLY + "sourceValue"))
+            observations.append({
+                "propertySet": _text(graph, observation, URIRef(_SUPPLY + "sourcePropertySetName")),
+                "property": _text(graph, observation, URIRef(_SUPPLY + "sourcePropertyName")),
+                "value": str(value) if value is not None else None,
+                "datatype": str(value.datatype) if isinstance(value, Literal) and value.datatype else None,
+                "language": value.language if isinstance(value, Literal) else None,
+                "unit": _text(graph, observation, URIRef(_SUPPLY + "sourceUnit")),
+                "sourceUnitResource": _text(graph, observation, URIRef(_SUPPLY + "sourceUnitResource")),
+                "normalizedUnit": _text(graph, observation, URIRef(_SUPPLY + "normalizedUnit")),
+                "source": sorted(str(source) for source in graph.objects(
+                    observation, URIRef("http://www.w3.org/ns/prov#wasDerivedFrom"))),
+            })
+        records.append({
+            "iri": str(record),
+            "class": _text(graph, record, URIRef(_SUPPLY + concept)),
+            "origin": _text(graph, record, URIRef(_SUPPLY + "classificationStatus")) or status,
+            "score": json_value(_first(graph, record, URIRef(_SUPPLY + "score")))
+            if _first(graph, record, URIRef(_SUPPLY + "score")) is not None else None,
+            "evidence": evidence,
+            "observations": observations,
+            "derivedFrom": sorted(str(value) for value in graph.objects(
+                record, URIRef("http://www.w3.org/ns/prov#wasDerivedFrom"))),
+        })
+    return records
+
+
+def extract_classifications(graph, element):
+    """Keep source assertions, suggestions, acceptances and abstentions distinct."""
+    assertions = _classification_records(graph, element, "hasClassification", "resolvedConcept", "supplied")
+    suggestions = _classification_records(graph, element, "hasClassificationSuggestion", "suggestedConcept", "suggested")
+    assessments = _classification_records(graph, element, "hasClassificationAssessment", "suggestedConcept", "abstained")
+    return {"assertions": assertions, "suggestions": suggestions, "assessments": assessments}
+
+
 def extract_element_summary(graph, element):
     """Full JSON-ready summary of one building element."""
     types = sorted(
@@ -469,6 +515,7 @@ def extract_element_summary(graph, element):
         "label": _text(graph, element, RDFS.label),
         "types": types,
         "ifcType": _ifc_type(graph, element),
+        "classifications": extract_classifications(graph, element),
         "attributes": extract_attributes(graph, element),
         "propertySets": extract_property_sets(graph, element),
         "materials": extract_materials(graph, element),

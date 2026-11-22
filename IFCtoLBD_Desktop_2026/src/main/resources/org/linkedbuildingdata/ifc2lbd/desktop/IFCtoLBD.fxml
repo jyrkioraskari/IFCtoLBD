@@ -11,6 +11,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.Tab?>
@@ -83,6 +84,8 @@
               <center>
                 <SplitPane dividerPositions="0.36" styleClass="main-split">
                   <items>
+                    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minWidth="400.0" pannable="true" prefWidth="410.0" styleClass="left-rail-scroll">
+                      <content>
                     <VBox prefWidth="390.0" spacing="12.0" styleClass="left-rail">
                       <children>
                         <TabPane fx:id="workflowTabs" minHeight="320.0" prefHeight="320.0" styleClass="workflow-tabs" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="NEVER">
@@ -207,6 +210,8 @@
                         <TextArea fx:id="conversionTxt" editable="false" minHeight="90.0" prefHeight="141.0" prefWidth="280.0" promptText="Read-in and conversion messages appear here." wrapText="true" VBox.vgrow="ALWAYS" />
                       </children>
                     </VBox>
+                      </content>
+                    </ScrollPane>
 
                     <AnchorPane fx:id="floatingWorkspace" styleClass="free-workspace">
                       <children>
@@ -381,6 +386,8 @@
 
                     <TitledPane fx:id="geometryCard" expanded="false" layoutX="14.0" layoutY="114.0" prefHeight="570.0" prefWidth="560.0" styleClass="floating-card" text="Geometry Preview">
 	                      <content>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0" styleClass="geometry-card-scroll">
+                          <content>
                           <VBox spacing="8.0">
                             <children>
 	                          <StackPane fx:id="geometryViewport" minHeight="220.0" prefHeight="300.0" prefWidth="540.0" styleClass="geometry-viewport" VBox.vgrow="ALWAYS" />
@@ -402,11 +409,15 @@
                               </VBox>
                             </children>
                           </VBox>
+                          </content>
+                        </ScrollPane>
 	                      </content>
 	                    </TitledPane>
 
                     <TitledPane fx:id="sparqlQueryCard" expanded="false" layoutX="14.0" layoutY="164.0" prefHeight="520.0" prefWidth="560.0" styleClass="floating-card" text="SPARQL Query">
                       <content>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
+                          <content>
                         <VBox spacing="9.0">
                           <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
@@ -434,11 +445,15 @@
                             <TextArea fx:id="sparqlResultsTxt" editable="false" managed="false" prefHeight="195.0" prefWidth="540.0" visible="false" wrapText="false" VBox.vgrow="ALWAYS" />
                           </children>
                         </VBox>
+                          </content>
+                        </ScrollPane>
                       </content>
                     </TitledPane>
 
                     <TitledPane fx:id="validateCard" expanded="false" layoutX="14.0" layoutY="214.0" prefHeight="540.0" prefWidth="560.0" styleClass="floating-card" text="Validate">
                       <content>
+                        <ScrollPane fitToWidth="true" hbarPolicy="NEVER" minHeight="0.0">
+                          <content>
                         <VBox spacing="7.0">
                           <children>
                             <HBox alignment="CENTER_LEFT" spacing="8.0">
@@ -491,6 +506,8 @@
                             </TabPane>
                           </children>
                         </VBox>
+                          </content>
+                        </ScrollPane>
                       </content>
                     </TitledPane>
 	                      </children>

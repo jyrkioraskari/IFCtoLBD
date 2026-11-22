@@ -108,6 +108,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Point2D;
 import javafx.geometry.Point3D;
@@ -606,6 +607,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 	private static final double FLOATING_CARD_INITIAL_X = 14.0;
 	private static final double FLOATING_CARD_INITIAL_Y = 14.0;
 	private static final double FLOATING_CARD_INITIAL_GAP = 12.0;
+	private static final double FLOATING_CARD_BOTTOM_GAP = 10.0;
 	private static final double GEOMETRY_CARD_WIDTH = 560.0;
 	private static final double GEOMETRY_VIEWPORT_WIDTH = 540.0;
 	private static final String GEOMETRY_OBJ_PROPERTY = "https://w3id.org/fog#asObj_v3.0-obj";
@@ -1911,6 +1913,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			event.consume();
 		});
 		StackPane.setAlignment(this.geometryFitButton, Pos.TOP_RIGHT);
+		StackPane.setMargin(this.geometryFitButton, new Insets(0, 16, 0, 0));
 
 		this.geometryViewport.getChildren().setAll(this.geometryScene, this.geometryEmptyStateLabel,
 				this.geometryFitButton);
@@ -2948,7 +2951,12 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			double nextX = this.floatingCardX + event.getSceneX() - this.floatingMouseX;
 			double nextY = this.floatingCardY + event.getSceneY() - this.floatingMouseY;
 			card.setLayoutX(clamp(nextX, 0, Math.max(0, this.floatingWorkspace.getWidth() - card.getWidth())));
-			card.setLayoutY(clamp(nextY, 0, Math.max(0, this.floatingWorkspace.getHeight() - FLOATING_CARD_HEADER_HEIGHT)));
+			double workspaceBottom = this.floatingWorkspace.getHeight()
+					- (isWorkspaceFittedCard(card) && card.isExpanded() ? FLOATING_CARD_BOTTOM_GAP : 0);
+			double visibleHeight = isWorkspaceFittedCard(card) && card.isExpanded()
+						? Math.min(card.getHeight() > 0 ? card.getHeight() : card.getPrefHeight(), workspaceBottom)
+					: FLOATING_CARD_HEADER_HEIGHT;
+			card.setLayoutY(clamp(nextY, 0, Math.max(0, workspaceBottom - visibleHeight)));
 			event.consume();
 		});
 		card.addEventFilter(MouseEvent.MOUSE_RELEASED, event -> {
@@ -2980,12 +2988,25 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (workspaceWidth <= 0 || workspaceHeight <= 0) {
 			return;
 		}
+		if (isWorkspaceFittedCard(card) && card.isExpanded() && !this.floatingCardAnimations.containsKey(card)) {
+			double normalHeight = this.floatingCardNormalHeights.getOrDefault(card, card.getPrefHeight());
+			card.setMinHeight(FLOATING_CARD_HEADER_HEIGHT);
+			card.setPrefHeight(Math.min(normalHeight,
+					Math.max(FLOATING_CARD_HEADER_HEIGHT, workspaceHeight - FLOATING_CARD_BOTTOM_GAP)));
+		}
 		double cardWidth = card.getWidth() > 0 ? card.getWidth() : card.getPrefWidth();
-		double cardHeight = card.getHeight() > 0 ? card.getHeight() : card.getPrefHeight();
+		double cardHeight = isWorkspaceFittedCard(card) && card.isExpanded() ? card.getPrefHeight()
+				: card.getHeight() > 0 ? card.getHeight() : card.getPrefHeight();
 		double maxX = Math.max(0, workspaceWidth - cardWidth);
-		double maxY = Math.max(0, workspaceHeight - Math.max(FLOATING_CARD_HEADER_HEIGHT, cardHeight));
+		double workspaceBottom = workspaceHeight
+				- (isWorkspaceFittedCard(card) && card.isExpanded() ? FLOATING_CARD_BOTTOM_GAP : 0);
+		double maxY = Math.max(0, workspaceBottom - Math.max(FLOATING_CARD_HEADER_HEIGHT, cardHeight));
 		card.setLayoutX(clamp(card.getLayoutX(), 0, maxX));
 		card.setLayoutY(clamp(card.getLayoutY(), 0, maxY));
+	}
+
+	private boolean isWorkspaceFittedCard(TitledPane card) {
+		return card == this.geometryCard || card == this.sparqlQueryCard || card == this.validateCard;
 	}
 
 	private boolean isCardHeaderEvent(TitledPane card, MouseEvent event) {
@@ -3059,6 +3080,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (!card.isExpanded() || card.getPrefHeight() <= FLOATING_CARD_HEADER_HEIGHT + 1) {
 			restoreFloatingCard(card, false);
 		}
+		clampFloatingCardToWorkspace(card);
 		card.toFront();
 	}
 
@@ -3074,7 +3096,7 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 			return;
 		}
 		stopFloatingCardAnimation(card);
-		if (card.isExpanded() && card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT) {
+		if (!isWorkspaceFittedCard(card) && card.isExpanded() && card.getPrefHeight() > FLOATING_CARD_HEADER_HEIGHT) {
 			this.floatingCardNormalHeights.put(card, card.getPrefHeight());
 		}
 		if (!animate) {
@@ -3122,12 +3144,18 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		if (targetHeight <= FLOATING_CARD_HEADER_HEIGHT) {
 			targetHeight = 320.0;
 		}
+		if (isWorkspaceFittedCard(card) && this.floatingWorkspace != null && this.floatingWorkspace.getHeight() > 0) {
+			targetHeight = Math.min(targetHeight,
+					Math.max(FLOATING_CARD_HEADER_HEIGHT,
+							this.floatingWorkspace.getHeight() - FLOATING_CARD_BOTTOM_GAP));
+		}
 		if (!animate) {
 			card.setPickOnBounds(true);
-			card.setMinHeight(Region.USE_COMPUTED_SIZE);
-			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
+			card.setMinHeight(isWorkspaceFittedCard(card) ? FLOATING_CARD_HEADER_HEIGHT : Region.USE_COMPUTED_SIZE);
+			card.setMaxHeight(isWorkspaceFittedCard(card) ? Double.MAX_VALUE : Region.USE_COMPUTED_SIZE);
 			card.setPrefHeight(targetHeight);
 			card.setExpanded(true);
+			clampFloatingCardToWorkspace(card);
 			renderGeometryScene();
 			return;
 		}
@@ -3139,9 +3167,10 @@ public class IFCtoLBDController implements Initializable, FxInterface {
 		card.setPrefHeight(Math.max(FLOATING_CARD_HEADER_HEIGHT, card.getHeight()));
 		double finalTargetHeight = targetHeight;
 		animateFloatingCardHeight(card, finalTargetHeight, () -> {
-			card.setMinHeight(Region.USE_COMPUTED_SIZE);
-			card.setMaxHeight(Region.USE_COMPUTED_SIZE);
+			card.setMinHeight(isWorkspaceFittedCard(card) ? FLOATING_CARD_HEADER_HEIGHT : Region.USE_COMPUTED_SIZE);
+			card.setMaxHeight(isWorkspaceFittedCard(card) ? Double.MAX_VALUE : Region.USE_COMPUTED_SIZE);
 			card.setPrefHeight(finalTargetHeight);
+			clampFloatingCardToWorkspace(card);
 			renderGeometryScene();
 		});
 	}

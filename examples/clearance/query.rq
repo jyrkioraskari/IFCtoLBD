@@ -1,0 +1,16 @@
+PREFIX ifctolbd: <https://w3id.org/ifctolbd/mapping#>
+
+SELECT ?duct ?slab ?distance ?unit ?status ?method ?tolerance ?ductRevision ?slabRevision WHERE {
+  ?measurement a ifctolbd:ClearanceMeasurement ;
+    ifctolbd:firstElement ?duct ;
+    ifctolbd:secondElement ?slab ;
+    ifctolbd:distanceMetres ?distance ;
+    ifctolbd:distanceUnit ?unit ;
+    ifctolbd:clearanceStatus ?status ;
+    ifctolbd:clearanceMethod ?method ;
+    ifctolbd:toleranceMetres ?tolerance ;
+    ifctolbd:firstRevision ?ductRevision ;
+    ifctolbd:secondRevision ?slabRevision .
+  FILTER (?duct = <https://example.org/clearance/model/duct/element/59796640-0000-0000-0000-000000000009>
+      && ?slab = <https://example.org/clearance/model/slab/element/59796640-0000-0000-0000-000000000008>)
+}

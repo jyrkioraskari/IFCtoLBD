@@ -39,6 +39,9 @@ diff -u examples/getting-started/building-inventory/expected.txt \
   examples/getting-started/building-inventory/result.txt
 ```
 
+For optional offline ETIM pump review, follow the
+[pump classification example](etim-pumps/README.md).
+
 ## What each example shows
 
 1. **Building inventory** groups the model's elements by storey and product
