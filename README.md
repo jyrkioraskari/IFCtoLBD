@@ -193,6 +193,7 @@ formats, the JSON schema, library use, and the local HTTP API.
 | Use AI to inspect, query, validate, and convert IFC models | [MCP tutorial](docs/mcp.md) — build from source; release 2.49.0 has no prebuilt MCP package |
 | Compile the converter, understand the subprojects, or extend it | [Build and development guide](docs/development.md) |
 | Explore classification, product identity, GS1, or EPD output | [Supply-chain and sustainability](docs/supply-chain-and-sustainability.md) |
+| Find exported elements by IFC model revision using SPOT | [SPOT export example](examples/getting-started/spot/README.md) |
 | Preserve project identity and supply reviewed external links | [Optional integration workflows](docs/optional-integration.md) (development source) |
 | Retrieve elements with supporting triples and optional evidence | [Traceable graph retrieval](docs/traceable-retrieval.md) (development source) |
 

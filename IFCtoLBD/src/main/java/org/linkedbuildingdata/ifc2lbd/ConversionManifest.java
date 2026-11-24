@@ -97,6 +97,8 @@ final class ConversionManifest {
 				.addLiteral(model.createProperty(PROV + "generatedAtTime"),
 						model.createTypedLiteral(convertedAt.toString(), XSDDatatype.XSDdateTime));
 		request.getModelScope().ifPresent(scope -> conversion.addLiteral(property(model, "modelScope"), scope));
+		request.getSpotModelRevisionIri().ifPresent(iri -> conversion.addProperty(property(model, "spotModelRevision"), model.createResource(iri)));
+		request.getSpotAssetIri().ifPresent(iri -> conversion.addProperty(property(model, "spotAsset"), model.createResource(iri)));
 		request.getSelectedTypes().stream().sorted().forEach(value -> conversion.addLiteral(property(model, "selectedType"), value));
 		request.getSelectedPropertySets().stream().sorted().forEach(value -> conversion.addLiteral(property(model, "selectedPropertySet"), value));
 		request.getPropertyReplacements().entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(entry ->
@@ -150,6 +152,8 @@ final class ConversionManifest {
 		}
 		request.getExternalLinkMappings().stream().map(ConversionManifest::sha256).sorted()
 				.forEach(v -> values.add("mappingChecksum=" + v));
+		request.getSpotModelRevisionIri().ifPresent(v -> values.add("spotModelRevision=" + v));
+		request.getSpotAssetIri().ifPresent(v -> values.add("spotAsset=" + v));
 		values.add("properties=" + String.join(",", Boolean.toString(p.isHasBuildingElements()),
 				Boolean.toString(p.isHasSeparateBuildingElementsModel()), Boolean.toString(p.isHasBuildingProperties()),
 				Boolean.toString(p.isHasSeparatePropertiesModel()), Boolean.toString(p.isHasGeolocation()),

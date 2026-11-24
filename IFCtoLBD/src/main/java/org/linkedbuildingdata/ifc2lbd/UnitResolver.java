@@ -57,6 +57,12 @@ public final class UnitResolver {
 	private static final Map<String, String> CONVERSION_UNIT_QUDT = Map.ofEntries(
 			Map.entry("FOOT", "FT"), Map.entry("FEET", "FT"), Map.entry("INCH", "IN"),
 			Map.entry("YARD", "YD"), Map.entry("MILE", "MI"));
+	private static final Map<String, BigDecimal> CONVERSION_UNIT_METRES = Map.ofEntries(
+			Map.entry("FOOT", new BigDecimal("0.3048")),
+			Map.entry("FEET", new BigDecimal("0.3048")),
+			Map.entry("INCH", new BigDecimal("0.0254")),
+			Map.entry("YARD", new BigDecimal("0.9144")),
+			Map.entry("MILE", new BigDecimal("1609.344")));
 	private static final Map<String, String> IFC_NAMES = Map.ofEntries(
 			Map.entry("METRE", "M"), Map.entry("SQUARE_METRE", "M2"), Map.entry("CUBIC_METRE", "M3"),
 			Map.entry("GRAM", "GM"), Map.entry("SECOND", "SEC"), Map.entry("AMPERE", "A"),
@@ -216,6 +222,8 @@ public final class UnitResolver {
 	private static UnitDetails resolveIfcUnitDetails(Resource unit, IfcOWL ifc, Set<Resource> visited) {
 		if (unit == null || !visited.add(unit))
 			return new UnitDetails(new Resolution(null, null, BigDecimal.ONE), null);
+		String unitType = ifc == null ? localObject(unit, "unitType_IfcNamedUnit")
+				: localObject(unit, ifc.getUnitType_IfcNamedUnit());
 		String name = ifc == null ? localObject(unit, "name_IfcSIUnit")
 				: localObject(unit, ifc.getName_IfcSIUnit());
 		String prefix = ifc == null ? localObject(unit, "prefix_IfcSIUnit")
@@ -227,7 +235,7 @@ public final class UnitResolver {
 			String local = prefix == null ? base : prefixed(base, prefix);
 			Resolution resolution = local == null ? new Resolution(null, original, BigDecimal.ONE)
 					: new Resolution(QUDT_UNIT + local, original, BigDecimal.ONE);
-			BigDecimal scale = "METRE".equalsIgnoreCase(name)
+			BigDecimal scale = "LENGTHUNIT".equalsIgnoreCase(unitType) && "METRE".equalsIgnoreCase(name)
 					? prefix == null ? BigDecimal.ONE : PREFIX_FACTORS.get(prefix.toUpperCase(Locale.ROOT))
 					: null;
 			return new UnitDetails(resolution, scale);
@@ -237,17 +245,22 @@ public final class UnitResolver {
 		Resource factor = objectResource(unit, "conversionFactor_IfcConversionBasedUnit");
 		if (conversionName != null || factor != null) {
 			String original = conversionName == null ? resourceCode(unit) : conversionName;
-			String qudtLocal = CONVERSION_UNIT_QUDT.get(normalizeConversionName(conversionName));
-			Resolution resolution = new Resolution(qudtLocal == null ? null : QUDT_UNIT + qudtLocal,
-					original, BigDecimal.ONE);
-			if (factor == null) return new UnitDetails(resolution, null);
+			if (factor == null) return new UnitDetails(new Resolution(null, original, BigDecimal.ONE), null);
 			BigDecimal value = decimalObject(factor, "valueComponent_IfcMeasureWithUnit");
 			Resource component = objectResource(factor, "unitComponent_IfcMeasureWithUnit");
 			UnitDetails componentDetails = resolveIfcUnitDetails(component, ifc, visited);
 			BigDecimal scale = value == null || componentDetails.scaleToSi() == null ? null
 					: value.multiply(componentDetails.scaleToSi());
 			BigDecimal offset = decimalObject(unit, "conversionOffset_IfcConversionBasedUnitWithOffset");
-			if (offset != null && offset.compareTo(BigDecimal.ZERO) != 0) scale = null;
+			if (!"LENGTHUNIT".equalsIgnoreCase(unitType) ||
+					offset != null && offset.compareTo(BigDecimal.ZERO) != 0 ||
+					scale != null && scale.signum() <= 0) scale = null;
+			String conversionCode = normalizeConversionName(conversionName);
+			BigDecimal expected = CONVERSION_UNIT_METRES.get(conversionCode);
+			String qudtLocal = scale != null && expected != null && scale.compareTo(expected) == 0
+					? CONVERSION_UNIT_QUDT.get(conversionCode) : null;
+			Resolution resolution = new Resolution(qudtLocal == null ? null : QUDT_UNIT + qudtLocal,
+					original, BigDecimal.ONE);
 			return new UnitDetails(resolution, scale);
 		}
 		String code = unit.isURIResource() ? unit.getURI() : unit.toString();

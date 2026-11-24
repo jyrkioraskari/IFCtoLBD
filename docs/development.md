@@ -420,6 +420,10 @@ to a `qudt:QuantityValue` whose `qudt:unit` is `unit:M`. The value node retains
 the IFC numeric lexical value as `unitmeta:originalValue`, its source unit as
 `unitmeta:sourceUnit` when that QUDT unit is known, the original IFC unit code,
 and mapping provenance.
+For conversion-based length units, the converter uses the IFC conversion factor
+for the numeric value. It labels the source as a standard foot, inch, yard, or
+mile only when that factor matches the standard unit; otherwise it retains the
+original unit name without claiming a standard QUDT source unit.
 
 If the project length unit or its conversion factor cannot be resolved, the
 converter retains the source numeric value on the linked provenance/quantity

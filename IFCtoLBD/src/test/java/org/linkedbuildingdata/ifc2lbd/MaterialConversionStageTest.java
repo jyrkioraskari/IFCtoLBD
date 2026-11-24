@@ -121,6 +121,26 @@ class MaterialConversionStageTest {
 	}
 
 	@Test
+	void keepsNonstandardFootFactorWithoutClaimingFootUnit() {
+		Fixture fixture = new Fixture();
+		Resource material = fixture.material("IfcMaterial_1", "Timber");
+		Resource layer = fixture.layer("IfcMaterialLayer_2", material, "2");
+		Resource layerSet = fixture.resource("IfcMaterialLayerSet_3", "IfcMaterialLayerSet")
+				.addProperty(fixture.ifc.getProperty("materialLayers_IfcMaterialLayerSet"), layer);
+		fixture.assignment(layerSet);
+		fixture.projectConversionBasedLengthUnit("FOOT", "0.3");
+
+		fixture.map();
+
+		Resource propertyLayer = fixture.propertyFor(fixture.mappedProduct(layer));
+		assertEquals("0.6", propertyLayer.getProperty(BMO.hasThickness).getLiteral().getLexicalForm());
+		Resource quantity = propertyLayer.getPropertyResourceValue(IFCtoLBDMapping.thicknessQuantity);
+		assertEquals("FOOT", quantity.getProperty(fixture.properties.createProperty(
+				UnitResolver.META + "originalUnitCode")).getString());
+		assertFalse(quantity.hasProperty(fixture.properties.createProperty(UnitResolver.META + "sourceUnit")));
+	}
+
+	@Test
 	void retainsSourceThicknessAndReportsAnUnresolvedProjectUnit() {
 		Fixture fixture = new Fixture();
 		Resource material = fixture.material("IfcMaterial_1", "Unknown-unit material");

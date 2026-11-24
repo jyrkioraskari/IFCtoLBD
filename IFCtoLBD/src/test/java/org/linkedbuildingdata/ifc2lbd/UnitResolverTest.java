@@ -84,6 +84,53 @@ class UnitResolverTest {
 	}
 
 	@Test
+	void conversionBasedUnitUsesItsFactorBeforeClaimingAStandardUnit() {
+		Model model = ModelFactory.createDefaultModel();
+		IfcOWL ifc = new IfcOWL(IFC);
+		Resource metre = siUnit(model, ifc, "urn:metre", "LENGTHUNIT", null, "METRE");
+		Resource factor = model.createResource("urn:factor")
+				.addLiteral(model.createProperty(IFC + "valueComponent_IfcMeasureWithUnit"), "0.3")
+				.addProperty(model.createProperty(IFC + "unitComponent_IfcMeasureWithUnit"), metre);
+		Resource unit = model.createResource("urn:short-foot")
+				.addProperty(ifc.getUnitType_IfcNamedUnit(), model.createResource(IFC + "LENGTHUNIT"))
+				.addLiteral(model.createProperty(IFC + "name_IfcConversionBasedUnit"), "FOOT")
+				.addProperty(model.createProperty(IFC + "conversionFactor_IfcConversionBasedUnit"), factor);
+
+		UnitResolver.LengthConversion conversion = UnitResolver.explicitLengthConversion(unit, ifc);
+		assertEquals(new BigDecimal("0.6"), conversion.toMetres(new BigDecimal("2")));
+		assertFalse(conversion.sourceUnit().isResolved());
+		assertEquals("FOOT", conversion.sourceUnit().originalCode());
+
+		factor.removeAll(model.createProperty(IFC + "valueComponent_IfcMeasureWithUnit"));
+		assertFalse(UnitResolver.explicitLengthConversion(unit, ifc).sourceUnit().isResolved());
+		assertFalse(UnitResolver.explicitLengthConversion(unit, ifc).isResolved());
+
+		factor.addLiteral(model.createProperty(IFC + "valueComponent_IfcMeasureWithUnit"), "0.3048");
+		unit.removeAll(ifc.getUnitType_IfcNamedUnit());
+		unit.addProperty(ifc.getUnitType_IfcNamedUnit(), model.createResource(IFC + "AREAUNIT"));
+		assertFalse(UnitResolver.explicitLengthConversion(unit, ifc).isResolved());
+		assertFalse(UnitResolver.explicitLengthConversion(unit, ifc).sourceUnit().isResolved());
+	}
+
+	@Test
+	void conversionBasedUnitRejectsNonPositiveScale() {
+		Model model = ModelFactory.createDefaultModel();
+		IfcOWL ifc = new IfcOWL(IFC);
+		Resource metre = siUnit(model, ifc, "urn:metre", "LENGTHUNIT", null, "METRE");
+		Resource factor = model.createResource("urn:factor")
+				.addLiteral(model.createProperty(IFC + "valueComponent_IfcMeasureWithUnit"), "-0.3048")
+				.addProperty(model.createProperty(IFC + "unitComponent_IfcMeasureWithUnit"), metre);
+		Resource unit = model.createResource("urn:negative-foot")
+				.addProperty(ifc.getUnitType_IfcNamedUnit(), model.createResource(IFC + "LENGTHUNIT"))
+				.addLiteral(model.createProperty(IFC + "name_IfcConversionBasedUnit"), "FOOT")
+				.addProperty(model.createProperty(IFC + "conversionFactor_IfcConversionBasedUnit"), factor);
+
+		UnitResolver.LengthConversion conversion = UnitResolver.explicitLengthConversion(unit, ifc);
+		assertFalse(conversion.isResolved());
+		assertFalse(conversion.sourceUnit().isResolved());
+	}
+
+	@Test
 	void unresolvedAndCompoundCodesArePreservedWithoutGuessing() {
 		UnitResolver.Resolution unknown = UnitResolver.empty().resolve(null,
 				ModelFactory.createDefaultModel().createResource(IFC + "IfcLengthMeasure"));

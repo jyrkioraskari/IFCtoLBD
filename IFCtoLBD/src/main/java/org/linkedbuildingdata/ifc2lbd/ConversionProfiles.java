@@ -22,6 +22,10 @@ public final class ConversionProfiles {
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, VALIDATION);
 	public static final ConversionProfile REVISION_READY = ConversionProfile.of("revision-ready",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, STABLE_IDENTITY);
+	public static final ConversionProfile SPOT = ConversionProfile.of("spot",
+			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, BuiltInConversionModule.SPOT);
+	public static final ConversionProfile SPOT_GEOMETRY = ConversionProfile.of("spot-geometry",
+			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, FULL_GEOMETRY, BuiltInConversionModule.SPOT);
 	public static final ConversionProfile GEOMETRY_EXTERNAL = ConversionProfile.of("geometry-external",
 			BOT_TOPOLOGY, PRODUCT_ONTOLOGY, GEOMETRY_ARTIFACTS);
 	public static final MaterialsBmoModule MATERIALS_BMO_MODULE = new MaterialsBmoModule();
@@ -45,6 +49,8 @@ public final class ConversionProfiles {
 		case "bim-gis" -> BIM_GIS;
 		case "compliance" -> COMPLIANCE;
 		case "revision-ready" -> REVISION_READY;
+		case "spot" -> SPOT;
+		case "spot-geometry" -> SPOT_GEOMETRY;
 		case "geometry-external" -> GEOMETRY_EXTERNAL;
 		case "materials-bmo" -> MATERIALS_BMO;
 		case "supply-chain" -> SUPPLY_CHAIN;

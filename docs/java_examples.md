@@ -114,6 +114,11 @@ profile and resolver examples, including the runnable `Example15` ETIM enrichmen
 and [development](development.md) for sessions
 and identity policies.
 
+For revision lookup, use `ConversionProfiles.SPOT` with
+`withSpotModelRevisionIri(...)` and optionally `withSpotAssetIri(...)`. The
+[runnable SPOT example](../examples/getting-started/spot/README.md) shows the
+equivalent CLI invocation and a query over the exported element URIs.
+
 Sessions stage IFC triples in memory by default. For a model that does not fit
 comfortably in the JVM heap, construct the session with
 `new ConversionSession(ConversionSession.Storage.TDB2)` instead.

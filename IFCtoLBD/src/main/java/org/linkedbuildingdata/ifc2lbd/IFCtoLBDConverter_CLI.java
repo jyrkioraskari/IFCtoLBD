@@ -185,6 +185,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 	@Option(names = "--model-scope", description = "Stable model identity namespace required by revision-ready profiles.")
 	private Optional<String> modelScope;
 
+	@Option(names = "--spot-revision", description = "Absolute IRI of the IFC model revision for a SPOT profile; defaults to the source SHA-256 IRI.")
+	private Optional<String> spotRevision;
+
+	@Option(names = "--spot-asset", description = "Absolute IRI of the physical asset for a SPOT profile.")
+	private Optional<String> spotAsset;
+
 	@Option(names = "--identifier-policy", defaultValue = "EXISTING", description = "Element identity policy: ${COMPLETION-CANDIDATES}.")
 	private IdentifierPolicy identifierPolicy;
 
@@ -336,6 +342,12 @@ public class IFCtoLBDConverter_CLI implements Callable<Integer> {
 		hasUnits.ifPresent(request.getProperties()::setHasUnits);
 		request = request.withSelectedTypes(selectedTypes).withSelectedPropertySets(selectedPropertySets);
 		if (modelScope.isPresent()) request = request.withModelScope(modelScope.get());
+		if (spotRevision.isPresent() || spotAsset.isPresent()) {
+			if (profile.isEmpty() || !ConversionProfiles.named(profile.get()).modules().contains(BuiltInConversionModule.SPOT))
+				throw new IllegalArgumentException("--spot-revision and --spot-asset require a SPOT profile");
+			if (spotRevision.isPresent()) request = request.withSpotModelRevisionIri(spotRevision.get());
+			if (spotAsset.isPresent()) request = request.withSpotAssetIri(spotAsset.get());
+		}
 		if (identifierPolicy == IdentifierPolicy.STABLE_PROJECT) request = request.withStableProjectIdentity(
 				projectNamespace.orElseThrow(() -> new IllegalArgumentException(
 						"--project-namespace is required with --identifier-policy=STABLE_PROJECT")));

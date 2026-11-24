@@ -1,23 +1,45 @@
 PREFIX bot: <https://w3id.org/bot#>
+PREFIX mep: <https://pi.pauwel.be/voc/distributionelement#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX supply: <https://w3id.org/ifctolbd/supply-chain#>
 
 SELECT DISTINCT ?identifier ?candidate ?status ?propertySet ?property ?value ?datatype ?unit ?support ?conflict ?missing WHERE {
   VALUES ?subtype { <https://identifier.buildingsmart.org/uri/etim/etim/10.0/class/EC010980> }
-  ?pump a bot:Element ; rdfs:label ?identifier .
+  ?pump a bot:Element, mep:Pump ; rdfs:label ?identifier .
   FILTER NOT EXISTS {
     ?pump supply:hasClassification ?assertion .
-    ?assertion supply:resolvedConcept ?subtype .
+    ?assertion supply:resolvedConcept ?subtype ;
+               supply:classificationStatus ?origin .
+    FILTER (?origin IN ("supplied", "accepted"))
   }
-  OPTIONAL {
-    ?pump supply:hasClassificationSuggestion ?suggestion .
-    ?suggestion supply:suggestedConcept ?suggestedCandidate .
+  {
+    ?pump supply:hasClassificationSuggestion ?selectedReview .
+    ?selectedReview supply:suggestedConcept ?subtype .
+    BIND(?subtype AS ?candidate)
+    BIND("suggested" AS ?status)
   }
-  OPTIONAL { ?pump supply:hasClassificationAssessment ?assessment .
-             ?assessment supply:classificationStatus ?assessmentStatus . }
-  OPTIONAL { ?assessment supply:consideredConcept ?assessmentCandidate }
-  BIND(COALESCE(?suggestedCandidate, ?assessmentCandidate) AS ?candidate)
-  BIND(COALESCE(?suggestion, ?assessment) AS ?review)
+  UNION {
+    ?pump supply:hasClassificationAssessment ?selectedReview .
+    ?selectedReview supply:consideredConcept ?subtype ;
+                    supply:classificationStatus ?status .
+    BIND(?subtype AS ?candidate)
+  }
+  UNION {
+    # Bind this pump before testing for other candidates.
+    ?pump a mep:Pump .
+    FILTER NOT EXISTS { ?pump supply:hasClassificationSuggestion ?otherSuggestion }
+    ?pump supply:hasClassificationAssessment ?selectedReview .
+    ?selectedReview supply:classificationStatus ?status .
+    FILTER NOT EXISTS { ?selectedReview supply:consideredConcept ?otherConcept }
+  }
+  UNION {
+    # Keep the no-assessment fallback scoped to this pump as well.
+    ?pump a mep:Pump .
+    FILTER NOT EXISTS { ?pump supply:hasClassificationSuggestion ?otherSuggestion }
+    FILTER NOT EXISTS { ?pump supply:hasClassificationAssessment ?otherAssessment }
+    BIND("unresolved" AS ?status)
+  }
+  BIND(COALESCE(?selectedReview, ?pump) AS ?review)
   OPTIONAL {
     ?review supply:hasObservation ?observation .
     ?observation supply:sourcePropertySetName ?propertySet ;
@@ -29,6 +51,5 @@ SELECT DISTINCT ?identifier ?candidate ?status ?propertySet ?property ?value ?da
   OPTIONAL { ?review supply:evidence ?support }
   OPTIONAL { ?review supply:contradiction ?conflict }
   OPTIONAL { ?review supply:missingInformation ?missing }
-  BIND(IF(BOUND(?suggestedCandidate), "suggested", COALESCE(?assessmentStatus, "unresolved")) AS ?status)
 }
 ORDER BY ?identifier ?candidate ?property

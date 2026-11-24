@@ -56,6 +56,9 @@ public enum BuiltInConversionModule implements ConversionModule {
 	STABLE_IDENTITY("stable-identity") {
 		@Override public void configure(ConversionProperties p) { p.setStableIdentity(true); }
 	},
+	SPOT("spot") {
+		@Override public void enrich(ConversionContext context) { SpotStage.enrich(context); }
+	},
 	GEOMETRY_ARTIFACTS("geometry-artifacts") {
 		@Override public void configure(ConversionProperties p) {
 			p.setHasGeometry(true);

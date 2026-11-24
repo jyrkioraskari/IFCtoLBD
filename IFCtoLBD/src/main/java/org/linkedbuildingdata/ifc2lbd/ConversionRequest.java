@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.Map;
 import java.nio.file.Path;
+import java.net.URI;
 
 /** Input values for a conversion. */
 public final class ConversionRequest {
@@ -26,21 +27,23 @@ public final class ConversionRequest {
 	private final IdentifierPolicy identifierPolicy;
 	private final String projectNamespace;
 	private final List<Path> externalLinkMappings;
+	private final String spotModelRevisionIri;
+	private final String spotAssetIri;
 
 	public ConversionRequest(String ifcFilename, ConversionProperties properties) {
-		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
+		this(ifcFilename, null, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of(), null, null);
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties) {
-		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
+		this(ifcFilename, targetFile, properties, null, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of(), null, null);
 	}
 
 	public ConversionRequest(String ifcFilename, ConversionProfile profile) {
-		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
+		this(ifcFilename, null, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of(), null, null);
 	}
 
 	public ConversionRequest(String ifcFilename, String targetFile, ConversionProfile profile) {
-		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of());
+		this(ifcFilename, targetFile, Objects.requireNonNull(profile, "profile").toConversionProperties(), profile, List.of(), ClassificationResolver.none(), null, Set.of(), Set.of(), Map.of(), List.of(), false, List.of(), IdentifierPolicy.EXISTING, null, List.of(), null, null);
 	}
 
 	private ConversionRequest(String ifcFilename, String targetFile, ConversionProperties properties,
@@ -49,7 +52,8 @@ public final class ConversionRequest {
 			Set<String> selectedPropertySets, Map<String, String> propertyReplacements,
 			List<EtimPropertyMapping> etimPropertyMappings, boolean suggestEtimClassifications,
 			List<EtimClassificationAcceptance> acceptedEtimClassifications, IdentifierPolicy identifierPolicy,
-			String projectNamespace, List<Path> externalLinkMappings) {
+			String projectNamespace, List<Path> externalLinkMappings, String spotModelRevisionIri,
+			String spotAssetIri) {
 		this.ifcFilename = requireText(ifcFilename, "ifcFilename");
 		this.targetFile = targetFile;
 		this.properties = Objects.requireNonNull(properties, "properties");
@@ -66,6 +70,8 @@ public final class ConversionRequest {
 		this.identifierPolicy = Objects.requireNonNull(identifierPolicy, "identifierPolicy");
 		this.projectNamespace = projectNamespace;
 		this.externalLinkMappings = List.copyOf(externalLinkMappings);
+		this.spotModelRevisionIri = spotModelRevisionIri;
+		this.spotAssetIri = spotAssetIri;
 	}
 
 	/** Returns a request that validates the converted dataset without modifying it. */
@@ -115,6 +121,25 @@ public final class ConversionRequest {
 				identifierPolicy, projectNamespace, List.of(files));
 	}
 
+	/** Identifies the IFC model revision represented by a SPOT export. */
+	public ConversionRequest withSpotModelRevisionIri(String revisionIri) {
+		return copySpot(absoluteIri(revisionIri, "spotModelRevisionIri"), spotAssetIri);
+	}
+
+	/** Identifies the physical asset represented by a SPOT model. */
+	public ConversionRequest withSpotAssetIri(String assetIri) {
+		return copySpot(spotModelRevisionIri, absoluteIri(assetIri, "spotAssetIri"));
+	}
+
+	private ConversionRequest copySpot(String revisionIri, String assetIri) {
+		if (profile == null || profile.modules().stream().noneMatch(module -> "spot".equals(module.id())))
+			throw new IllegalArgumentException("SPOT identity inputs require a profile with the spot module");
+		return new ConversionRequest(ifcFilename, targetFile, properties, profile, validationShapePacks,
+				classificationResolver, modelScope, selectedTypes, selectedPropertySets, propertyReplacements,
+				etimPropertyMappings, suggestEtimClassifications, acceptedEtimClassifications,
+				identifierPolicy, projectNamespace, externalLinkMappings, revisionIri, assetIri);
+	}
+
 	/** Selects one or more optional external mesh artifact formats. OBJ remains the default. */
 	public ConversionRequest withGeometryArtifactFormats(GeometryArtifactFormat... formats) {
 		Objects.requireNonNull(formats, "formats");
@@ -160,7 +185,8 @@ public final class ConversionRequest {
 			List<EtimClassificationAcceptance> acceptances, IdentifierPolicy policy, String namespace,
 			List<Path> mappings) {
 		return new ConversionRequest(ifcFilename, targetFile, properties, profile, packs, resolver, scope, types, psets,
-				replacements, etimMappings, suggestions, acceptances, policy, namespace, mappings);
+				replacements, etimMappings, suggestions, acceptances, policy, namespace, mappings,
+				spotModelRevisionIri, spotAssetIri);
 	}
 
 	public String getIfcFilename() {
@@ -194,6 +220,20 @@ public final class ConversionRequest {
 	public IdentifierPolicy getIdentifierPolicy() { return identifierPolicy; }
 	public Optional<String> getProjectNamespace() { return Optional.ofNullable(projectNamespace); }
 	public List<Path> getExternalLinkMappings() { return externalLinkMappings; }
+	public Optional<String> getSpotModelRevisionIri() { return Optional.ofNullable(spotModelRevisionIri); }
+	public Optional<String> getSpotAssetIri() { return Optional.ofNullable(spotAssetIri); }
+
+	private static String absoluteIri(String value, String name) {
+		requireText(value, name);
+		try {
+			URI iri = URI.create(value);
+			if (!iri.isAbsolute() || "file".equalsIgnoreCase(iri.getScheme()))
+				throw new IllegalArgumentException(name + " must be an absolute non-file IRI");
+			return value;
+		} catch (IllegalArgumentException error) {
+			throw new IllegalArgumentException(name + " must be a valid absolute non-file IRI", error);
+		}
+	}
 
 	private static String requireText(String value, String name) {
 		if (value == null || value.isBlank()) {

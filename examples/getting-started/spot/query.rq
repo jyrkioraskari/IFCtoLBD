@@ -1,0 +1,11 @@
+PREFIX spot: <https://w3id.org/spot#>
+
+SELECT DISTINCT ?element WHERE {
+  VALUES ?revision { <https://example.org/models/two-walls/revision-1> }
+  ?model a spot:VolumeSpace ; spot:represents ?revision .
+  ?space a spot:EntitySpace ;
+         spot:represents ?element ;
+         spot:hasAppearance ?appearance .
+  ?appearance a spot:EntityAppearance ; spot:appearsIn ?model .
+}
+ORDER BY ?element
